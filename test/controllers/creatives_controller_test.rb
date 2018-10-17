@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AudiencesControllerTest < ActionDispatch::IntegrationTest
+class CreativesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end

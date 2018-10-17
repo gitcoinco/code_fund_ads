@@ -1,27 +1,33 @@
 # == Schema Information
 #
-# Table name: audiences
+# Table name: creatives
 #
-#  id                    :uuid             not null, primary key
-#  name                  :string(255)      not null
-#  programming_languages :string(255)      default([]), is an Array
-#  inserted_at           :datetime         not null
-#  updated_at            :datetime         not null
-#  topic_categories      :string(255)      default([]), is an Array
-#  fallback_campaign_id  :uuid
+#  user_id              :uuid
+#  id                   :uuid             not null, primary key
+#  name                 :string(255)
+#  body                 :string(255)
+#  inserted_at          :datetime         not null
+#  updated_at           :datetime         not null
+#  headline             :string(255)
+#  small_image_asset_id :uuid
+#  large_image_asset_id :uuid
+#  wide_image_asset_id  :uuid
 #
 
-class Audience < ApplicationRecord
+class Creative < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
 
   # relationships .............................................................
-  belongs_to :fallback_campaign
+  belongs_to :large_image_asset, class_name: "Asset", foreign_key: "large_image_asset_id"
+  belongs_to :small_image_asset, class_name: "Asset", foreign_key: "small_image_asset_id"
+  belongs_to :user
+  belongs_to :wide_image_asset, class_name: "Asset", foreign_key: "wide_image_asset_id"
 
   # validations ...............................................................
+  validates :body, length: { maximum: 255, allow_blank: false }
+  validates :headline, length: { maximum: 255, allow_blank: false }
   validates :name, length: { maximum: 255, allow_blank: false }
-  validates :programming_languages, length: { maximum: 255, allow_blank: false }
-  validates :topic_categories, length: { maximum: 255, allow_blank: false }
 
   # callbacks .................................................................
   # scopes ....................................................................
@@ -39,3 +45,5 @@ class Audience < ApplicationRecord
   # private instance methods ..................................................
   private
 end
+
+

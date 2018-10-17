@@ -1,0 +1,2 @@
+class CreativesController < ApplicationController
+end

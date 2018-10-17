@@ -38,7 +38,6 @@ class Campaign < ApplicationRecord
   # includes ..................................................................
 
   # relationships .............................................................
-  belongs_to :audience
   belongs_to :creative
   belongs_to :user
 

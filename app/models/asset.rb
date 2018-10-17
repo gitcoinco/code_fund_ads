@@ -18,7 +18,10 @@ class Asset < ApplicationRecord
   # includes ..................................................................
 
   # relationships .............................................................
-  #belongs_to :user
+  belongs_to :user
+  has_many :creatives_as_large_asset, class_name: "Creative", foreign_key: "large_image_asset_id"
+  has_many :creatives_as_small_asset, class_name: "Creative", foreign_key: "small_image_asset_id"
+  has_many :creatives_as_wide_asset, class_name: "Creative", foreign_key: "wide_image_asset_id"
 
   # validations ...............................................................
   validates :image_bucket, length: { maximum: 255, allow_blank: false }

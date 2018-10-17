@@ -26,4 +26,3 @@
 #  excluded_topic_categories      :string(255)      default([]), is an Array
 #  fallback_campaign              :boolean          default(FALSE), not null
 #
-
