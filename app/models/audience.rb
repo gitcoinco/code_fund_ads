@@ -1,29 +1,27 @@
 # == Schema Information
 #
-# Table name: assets
+# Table name: audiences
 #
-#  user_id      :uuid
-#  id           :uuid             not null, primary key
-#  name         :string(255)      not null
-#  image_object :string(255)      not null
-#  image_bucket :string(255)      not null
-#  inserted_at  :datetime         not null
-#  updated_at   :datetime         not null
-#  height       :integer
-#  width        :integer
+#  id                    :uuid             not null, primary key
+#  name                  :string(255)      not null
+#  programming_languages :string(255)      default([]), is an Array
+#  inserted_at           :datetime         not null
+#  updated_at            :datetime         not null
+#  topic_categories      :string(255)      default([]), is an Array
+#  fallback_campaign_id  :uuid
 #
 
-class Asset < ApplicationRecord
+class Audience < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
 
   # relationships .............................................................
-  #belongs_to :user
+  belongs_to :fallback_campaign
 
   # validations ...............................................................
-  validates :image_bucket, length: { maximum: 255, allow_blank: false }
-  validates :image_object, length: { maximum: 255, allow_blank: false }
   validates :name, length: { maximum: 255, allow_blank: false }
+  validates :programming_languages, length: { maximum: 255, allow_blank: false }
+  validates :topic_categories, length: { maximum: 255, allow_blank: false }
 
   # callbacks .................................................................
   # scopes ....................................................................
