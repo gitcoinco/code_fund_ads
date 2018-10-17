@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :impressions
   resources :distributions
   resources :creatives
   resources :campaigns

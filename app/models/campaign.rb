@@ -40,6 +40,7 @@ class Campaign < ApplicationRecord
   # relationships .............................................................
   belongs_to :creative
   belongs_to :user
+  has_many :impressions
 
   # validations ...............................................................
   validates :budget_daily_amount, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
