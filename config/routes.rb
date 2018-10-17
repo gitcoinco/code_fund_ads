@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :themes
   resources :templates
   resources :properties
   resources :invitations
