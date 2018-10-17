@@ -1,0 +1,2 @@
+class TemplatesController < ApplicationController
+end
