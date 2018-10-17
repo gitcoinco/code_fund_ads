@@ -45,9 +45,9 @@ class Property < ApplicationRecord
   # includes ..................................................................
 
   # relationships .............................................................
-  belongs_to :audience
   belongs_to :template
   belongs_to :user
+  has_many :impressions
 
   # validations ...............................................................
   validates :language, length: { maximum: 255, allow_blank: false }

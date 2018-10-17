@@ -23,6 +23,7 @@ class Creative < ApplicationRecord
   belongs_to :small_image_asset, class_name: "Asset", foreign_key: "small_image_asset_id"
   belongs_to :user
   belongs_to :wide_image_asset, class_name: "Asset", foreign_key: "wide_image_asset_id"
+  has_many :campaigns
 
   # validations ...............................................................
   validates :body, length: { maximum: 255, allow_blank: false }
