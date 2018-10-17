@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :properties
   resources :invitations
   resources :impressions
   resources :distributions
