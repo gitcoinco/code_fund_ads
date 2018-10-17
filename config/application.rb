@@ -17,5 +17,8 @@ module CodeFundAds
     # the framework and any gems in your application.
 
     config.active_record.schema_format = :sql
+    config.generators do |g|
+      g.orm :active_record, primary_key_type: :uuid
+    end
   end
 end
