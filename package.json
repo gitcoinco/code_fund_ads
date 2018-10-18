@@ -2,6 +2,7 @@
   "name": "code_fund_ads",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.4.1",
     "@rails/webpacker": "3.5"
   },
   "devDependencies": {
