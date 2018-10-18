@@ -78,6 +78,7 @@ GEM
       railties (>= 4.1.0, < 6.0)
       responders
       warden (~> 1.2.3)
+    dotenv (2.5.0)
     erubi (1.7.1)
     execjs (2.7.0)
     ffi (1.9.25)
@@ -221,6 +222,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   chromedriver-helper
   devise
+  dotenv
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
   model_probe

@@ -18,6 +18,7 @@ gem 'webpacker',  '~> 3.5'
 group :development, :test do
   gem 'awesome_print'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'dotenv'
   gem 'pry'
   gem 'pry-byebug'
   gem 'pry-rails'

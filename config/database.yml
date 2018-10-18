@@ -22,8 +22,8 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
+  database: <%= ENV.fetch("PG_DATABASE_NAME") { "code_fund_ads_development" } %>
   <<: *default
-  database: code_fund_ads_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -80,6 +80,5 @@ test:
 #
 production:
   <<: *default
-  database: code_fund_ads_production
   username: code_fund_ads
-  password: <%= ENV['CODE_FUND_ADS_DATABASE_PASSWORD'] %>
+  password: <%= ENV['PG_PASSWORD'] %>
