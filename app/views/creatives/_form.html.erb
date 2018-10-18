@@ -1,0 +1,17 @@
+<%= form_with(model: creative, local: true) do |form| %>
+  <% if creative.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(creative.errors.count, "error") %> prohibited this creative from being saved:</h2>
+
+      <ul>
+      <% creative.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
