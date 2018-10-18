@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Impressions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @impressions.each do |impression| %>
+      <tr>
+        <td><%= link_to 'Show', impression %></td>
+        <td><%= link_to 'Edit', edit_impression_path(impression) %></td>
+        <td><%= link_to 'Destroy', impression, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Impression', new_impression_path %>

@@ -1,0 +1,17 @@
+<%= form_with(model: impression, local: true) do |form| %>
+  <% if impression.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(impression.errors.count, "error") %> prohibited this impression from being saved:</h2>
+
+      <ul>
+      <% impression.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
