@@ -1,0 +1,32 @@
+/*------------------------------------
+  Divider Sizes
+------------------------------------*/
+
+/* Extra Small */
+.u-divider {
+  &--xs {
+    @include px-to-rem(font-size, 12px);
+
+    &::before,
+    &::after {
+      @include px-to-rem(width, 32px);
+      @include px-to-rem(height, 1px);
+      transform: translateY(-50%);
+    }
+
+    &::before {
+      @include px-to-rem(margin-right, 10px);
+    }
+
+    &::after {
+      @include px-to-rem(margin-left, 10px);
+    }
+  }
+}
+
+.u-divider--xs {
+  &::before,
+  &::after {
+    @include px-to-rem(width, 32px);
+  }
+}

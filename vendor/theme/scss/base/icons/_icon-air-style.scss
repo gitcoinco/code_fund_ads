@@ -1,0 +1,19 @@
+/*------------------------------------
+  Icon Air Styles
+------------------------------------*/
+
+// Theme Colors
+@each $color, $value in $g-theme-colors {
+	/* #{$color} air */
+  .u-icon-#{$color}--air {
+    @include icon-air($value, $value, $value);
+  }
+}
+
+// Social Network Colors
+@each $color, $value in $g-social-network-colors {
+	/* #{$color} air */
+  .u-icon-#{$color}--air {
+    @include icon-air($value, $value, $value);
+  }
+}

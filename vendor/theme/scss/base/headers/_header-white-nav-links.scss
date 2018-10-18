@@ -1,0 +1,41 @@
+/*------------------------------------
+  Header White Nav Links
+------------------------------------*/
+
+.u-header--white-nav-links {
+	@each $hs-breakpoint in map-keys($g-breakpoints) {
+    $hs-infix: breakpoint-infix($hs-breakpoint, $g-breakpoints);
+
+    &#{$hs-infix} {
+			&:not(.bg-white):not(.js-header-fix-moment) {
+				@include media-breakpoint-up($hs-breakpoint) {
+					.u-header__nav-item {
+					  &:hover {
+					    .u-header__nav-link {
+								color: $g-white;
+					    }
+					  }
+					}
+
+					.u-header__nav-link {
+						color: rgba($g-white, .9);
+
+					  &:hover {
+							color: $g-white;
+					  }
+					}
+
+					.u-unfold-wrapper,
+					.u-header__topbar-nav-link,
+					.u-btn-text-secondary {
+						color: rgba($g-white, .7);
+
+						&:hover {
+							color: rgba($g-white, 1);
+						}
+					}
+				}
+			}
+		}
+	}
+}

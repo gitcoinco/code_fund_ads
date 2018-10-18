@@ -1,0 +1,23 @@
+/*------------------------------------
+  Toggle State
+------------------------------------*/
+
+.u-toggle {
+  &__default {
+    display: inline-block;
+  }
+
+  &__toggled {
+    display: none;
+  }
+
+  &.toggled {
+    .u-toggle__default {
+      display: none;
+    }
+
+    .u-toggle__toggled {
+      display: inline-block;
+    }
+  }
+}

@@ -1,0 +1,36 @@
+/*------------------------------------
+  Slick Pagination Testimonials v1
+------------------------------------*/
+
+.u-slick--pagination-testimonials-v1 {
+  &__text {
+    color: $g-light-color;
+  }
+
+  .slick-slide {
+    cursor: pointer;
+    color: $g-white;
+    background: rgba($g-white, .1);
+    transition: $g-transition-timing;
+
+    &:hover {
+      background: rgba($g-white, .15);
+
+      &.slick-center {
+        background: $g-white;
+      }
+    }
+  }
+
+  .slick-center {
+    background: $g-white;
+
+    .u-slick--pagination-testimonials-v1__title {
+      color: $g-primary;
+    }
+
+    .u-slick--pagination-testimonials-v1__text {
+      color: $g-secondary;
+    }
+  }
+}

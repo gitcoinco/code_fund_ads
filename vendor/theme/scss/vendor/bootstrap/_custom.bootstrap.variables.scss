@@ -1,0 +1,267 @@
+//
+// Custom Bootstrap SASS
+//
+
+
+// Type
+// ====================================================
+
+$headings-font-weight:																 $g-headings-font-weight !default;
+$headings-line-height:																 $g-headings-line-height !default;
+$display1-weight:             												 $g-headings-font-weight !default;
+$display2-weight:             												 $g-headings-font-weight !default;
+$display3-weight:             												 $g-headings-font-weight !default;
+$display4-weight:             												 $g-headings-font-weight !default;
+$display-line-height:																	 $g-display-lin-height !default;
+$hr-border-color:																			 $g-hr-color !default;
+
+
+
+// Links
+// ====================================================
+
+$link-hover-decoration:																 $g-link-hover-decoration !default;
+
+
+
+// Color System
+// ====================================================
+
+$gray-100:                                             $g-light-blue-50 !default;
+$gray-200:                                             $g-light-blue-100 !default;
+$gray-300:                                             $g-light-blue-125 !default;
+$gray-400:                                             $g-gray-100 !default;
+// $gray-500:
+$gray-600:                                             $g-light-blue-300 !default;
+$gray-700:                                             $g-gray-600 !default;
+// $gray-800:
+$gray-900:                                             $g-dark !default;
+
+$blue:		  																					 $g-primary !default;
+$secondary:		  																			 $g-secondary !default;
+$success:		     																			 $g-teal !default;
+$info:		     																				 $g-cyan !default;
+$warning:		  																				 $g-yellow !default;
+$danger:		      																		 $g-red !default;
+$light:		        																		 $g-light !default;
+$dark:		      																			 $g-dark !default;
+
+
+
+// Spacing
+// ====================================================
+
+// stylelint-disable
+$spacer: 1rem !default;
+$spacers: () !default;
+$spacers: map-merge((
+  0: 0,
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: $spacer,
+  4: ($spacer * 1.5),
+  5: ($spacer * 2),
+  6: ($spacer * 2.5),
+  7: ($spacer * 3),
+  8: ($spacer * 3.5),
+  9: ($spacer * 4)
+), $spacers);
+
+// This variable affects the `.h-*` and `.w-*` classes.
+$sizes: () !default;
+$sizes: map-merge((
+  15: 15%,
+  25: 25%,
+  30: 30%,
+  35: 35%,
+  40: 40%,
+  50: 50%,
+  60: 60%,
+  65: 65%,
+  75: 75%,
+  80: 80%,
+  100: 100%
+), $sizes);
+// stylelint-enable
+
+
+
+// Alert
+// ====================================================
+
+$box-shadow-sm:                                        $g-box-shadow-sm !default;
+$box-shadow:                                           $g-box-shadow !default;
+$box-shadow-lg:                                        $g-box-shadow-lg !default;
+
+
+
+// Alert
+// ====================================================
+
+$alert-border-width:		  														 $g-alert-border-width !default;
+
+
+
+// Input Group
+// ====================================================
+
+// Colors
+$input-color:		  																		 $g-input-color !default;
+$input-group-addon-color:		  												 $g-input-group-addon-color !default;
+
+// Background Colors
+$input-group-addon-bg:		  													 $g-input-group-addon-bg !default;
+
+// Colors
+$input-border-color:	 																 $g-form-border-color !default;
+$input-focus-border-color:		  											 $input-border-color !default;
+$input-group-addon-border-color:		  								 $input-focus-border-color !default;
+$input-focus-color:		  															 $g-dark !default;
+
+// Transitions
+$input-transition:		  															 all $g-input-btn-transition-timing $g-input-btn-transition-function !default;
+
+
+
+// Select
+// ====================================================
+
+// Colors
+$custom-select-color:                                  $g-custom-select-color !default;
+
+// Border Colors
+$custom-select-border-color:                           $g-custom-select-border-color !default;
+$custom-select-focus-border-color:                     $g-custom-select-focus-border-color !default;
+
+// Box Shadows
+$custom-select-focus-box-shadow:                       $g-custom-select-focus-box-shadow !default;
+
+// Paddings
+$custom-select-padding-y:                              $g-custom-select-padding-y !default;
+$custom-select-padding-x:                              $g-custom-select-padding-x !default;
+
+
+
+// Buttons
+// ====================================================
+
+// Typography
+$font-size-lg:																				 $g-btn-font-size-lg !default;
+$btn-font-weight:		  																 $g-btn-font-weight !default;
+
+// Vertical Spaces
+$input-btn-padding-y:		  														 $g-input-btn-paddingY !default;
+$input-btn-padding-y-sm:		  												 $g-input-btn-paddingY-sm !default;
+$input-btn-padding-y-lg:															 $g-input-btn-paddingY-lg !default;
+
+// Horizontal Spaces
+$input-btn-padding-x:		  														 $g-input-btn-paddingX !default;
+$input-btn-padding-x-sm:		  												 $g-input-btn-paddingX-sm !default;
+$input-btn-padding-x-lg:		  												 $g-input-btn-paddingX-lg !default;
+
+// Transitions
+$btn-transition:		  																 all $g-input-btn-transition-timing $g-input-btn-transition-function !default;
+
+
+
+// Drop Down
+// ====================================================
+
+// Background Colors
+$dropdown-divider-bg:                                  $g-dropdown-divider-bg !default;
+
+// Colors
+$dropdown-link-hover-bg:		  												 transparent !default;
+$dropdown-link-active-bg:		  												 transparent !default;
+
+// Width & Heights
+$dropdown-min-width:                                   $g-unfold-min-width !default;
+
+// Box Shadows
+$dropdown-box-shadow:                                  $g-unfold-box-shadow !default;
+
+// Borders
+$dropdown-border-width:                                $g-dropdown-border-width !default;
+
+// Paddings
+$dropdown-item-padding-y:                              $g-unfold-item-padding-y !default;
+$dropdown-item-padding-x:                              $g-unfold-item-padding-x !default;
+
+
+
+// Close
+// ====================================================
+
+// Colors
+$close-color:																					 $g-close-color !default;
+
+// Font Sizes
+$close-font-size:																			 $g-close-font-size !default;
+
+
+// Pagination
+// ====================================================
+
+// Colors
+$pagination-color:																		 $g-pagination-color !default;
+$pagination-hover-color:															 $g-pagination-hover-color !default;
+$pagination-hover-bg:																	 $g-pagination-hover-bg !default;
+$pagination-hover-border-color:												 $g-pagination-hover-border-color !default;
+
+// Borders
+$pagination-border-width:															 $g-pagination-border-width !default;
+
+
+
+// Tooltip
+// ====================================================
+
+// Background Color
+$tooltip-bg:																					 $g-tooltip-bg !default;
+
+// Z-indexes
+$zindex-tooltip:                                       $g-zindex-tooltip !default;
+
+// Others
+$tooltip-opacity:																			 $g-tooltip-opacity !default;
+
+
+
+// Card
+// ====================================================
+
+// Background Colors
+$card-cap-bg:                                          $g-card-cap-bg !default;
+
+// Border Colors
+$card-border-color:                                    $g-card-border-color !default;
+
+// Paddings
+$card-spacer-y:                                        $g-card-spacer-y !default;
+$card-spacer-x:                                        $g-card-spacer-y !default;
+
+
+
+// Table
+// ====================================================
+
+// Background Colors
+$table-accent-bg:                                      $g-table-accent-bg !default;
+$table-hover-bg:                                       $g-table-hover-bg !default;
+
+// Border Colors
+$table-border-color:                                   $g-table-border-color !default;
+
+
+
+// Breadcrumbs
+// ====================================================
+
+// Quote
+$breadcrumb-divider: quote(">");
+
+// Colors
+$breadcrumb-active-color:                              $g-breadcrumb-active-color !default;
+
+// Border Colors
+$breadcrumb-divider-color:                             $g-breadcrumb-divider-color !default;

@@ -1,0 +1,13 @@
+/*------------------------------------
+  Custombox
+------------------------------------*/
+
+// Enabled content scrolling in the open modal window to avoid shaking the main content when opening/closing the modal window.
+.custombox-lock {
+	overflow: auto;
+}
+
+.u-custombox-no-scroll.custombox-lock {
+  @include px-to-rem(margin-right, 17px); // To avoid page shaking issue
+  overflow: hidden;
+}

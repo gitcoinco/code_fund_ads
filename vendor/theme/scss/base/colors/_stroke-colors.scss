@@ -1,0 +1,51 @@
+/*------------------------------------
+  Stroke Colors
+------------------------------------*/
+
+.u-stroke {
+  &-white {
+    stroke: $g-white;
+  }
+
+  &-dark {
+    stroke: $g-dark;
+  }
+
+  &-primary {
+  	stroke: $g-primary;
+
+    &-darker {
+      stroke: $g-primary-darker;
+    }
+  }
+
+  &-success {
+  	stroke: $g-success;
+  }
+
+  &-danger {
+  	stroke: $g-danger;
+  }
+
+  &-warning {
+    stroke: $g-warning;
+  }
+
+  &-midnightblue {
+    stroke: $g-midnightblue;
+  }
+
+  &-gray-50 {
+    stroke: $g-gray-50;
+  }
+
+  &-light-blue {
+    &-125 {
+      stroke: $g-light-blue-125;
+    }
+
+    &-150 {
+      stroke: $g-light-blue-150;
+    }
+  }
+}

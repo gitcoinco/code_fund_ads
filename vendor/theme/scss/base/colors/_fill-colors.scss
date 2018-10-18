@@ -1,0 +1,89 @@
+/*------------------------------------
+  Fill Colors
+------------------------------------*/
+
+.u-fill {
+	&-none {
+  	fill: none;
+  }
+
+	&-white {
+  	fill: $g-white;
+  }
+
+  &-dark {
+    fill: $g-dark;
+  }
+
+  &-primary {
+    fill: $g-primary;
+
+    &-darker {
+      fill: $g-primary-darker;
+    }
+
+    &-lighter {
+  	 fill: $g-primary-lighter;
+    }
+  }
+
+  &-success {
+  	fill: $g-success;
+
+    &-lighter {
+      fill: $g-success-lighter;
+    }
+  }
+
+  &-info {
+    fill: $g-info;
+  }
+
+  &-danger {
+  	fill: $g-danger;
+
+    &-lighter {
+      fill: $g-danger-lighter;
+    }
+  }
+
+  &-warning {
+  	fill: $g-warning;
+
+  	&-lighter {
+      fill: $g-warning-lighter;
+    }
+
+    &-darker {
+  		fill: $g-warning-darker;
+  	}
+  }
+
+  &-midnightblue {
+    fill: $g-midnightblue;
+  }
+
+  &-gray {
+    &-50 {
+      fill: $g-gray-50;
+    }
+
+    &-75 {
+      fill: $g-gray-75;
+    }
+  }
+
+  &-light-blue {
+    &-50 {
+      fill: $g-light-blue-50;
+    }
+
+    &-100 {
+      fill: $g-light-blue-100;
+    }
+
+    &-125 {
+      fill: $g-light-blue-125;
+    }
+  }
+}

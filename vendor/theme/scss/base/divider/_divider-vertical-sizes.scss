@@ -1,0 +1,47 @@
+/*------------------------------------
+  Divider Sizes
+------------------------------------*/
+
+/* Extra Small */
+.u-ver-divider {
+  &--xs {
+    &::after {
+      top: 50%;
+      @include px-to-rem(height, 16px);
+      transform: translateY(-50%);
+    }
+  }
+}
+
+/* Small */
+.u-ver-divider {
+  &--sm {
+    &::after {
+      top: 50%;
+      @include px-to-rem(height, 32px);
+      transform: translateY(-50%);
+    }
+  }
+}
+
+/* Large */
+.u-ver-divider {
+  &--lg {
+    &::after {
+      top: 50%;
+      @include px-to-rem(height, 48px);
+      transform: translateY(-50%);
+    }
+  }
+}
+
+/* Extra Large */
+.u-ver-divider {
+  &--xl {
+    &::after {
+      top: 50%;
+      @include px-to-rem(height, 64px);
+      transform: translateY(-50%);
+    }
+  }
+}

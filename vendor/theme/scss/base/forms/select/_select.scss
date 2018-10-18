@@ -1,0 +1,52 @@
+/*------------------------------------
+  Select
+------------------------------------*/
+
+.u-select {
+  .dropdown-item {
+    &:hover,
+    &:focus,
+    &.active {
+      color: $g-primary;
+    }
+  }
+
+  &.bootstrap-select {
+    li {
+      .dropdown-item {
+        &.opt {
+          @include px-to-rem(padding-left, 6px);
+        }
+      }
+    }
+  }
+
+  &.bootstrap-select > {
+    .dropdown-toggle {
+      &.bs-placeholder {
+        &.u-btn-primary--air {
+          color: $g-primary;
+
+          &:hover,
+          &:focus,
+          &:active,
+          &.active {
+            color: $g-white;
+          }
+        }
+      }
+    }
+  }
+
+  .form-control {
+    @include px-to-rem(margin-bottom, 8px);
+  }
+}
+
+/* Positions */
+.u-select--right {
+  .dropdown-menu {
+    left: auto !important;
+    right: 0;
+  }
+}

@@ -1,0 +1,46 @@
+/*------------------------------------
+  Checkbox Switch
+------------------------------------*/
+
+.u-checkbox-switch {
+  @include relative;
+  display: inline-block;
+  @include px-to-rem(width, 40px);
+  @include px-to-rem(height, 24px);
+
+  &__input {
+    @include absolute;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  &__slider {
+    @include absolute(top 0 right 0 bottom 0 left 0);
+    background-color: $g-light-blue-125;
+    @include border-radius($g-border-radius-pill);
+    @include px-to-rem(padding, 4px);
+    transition: $g-transition-timing;
+
+    &::before {
+      @include content-centered(false, true);
+      display: block;
+      @include px-to-rem(width, 12px);
+      @include px-to-rem(height, 12px);
+      background-color: $g-white;
+      @include border-radius($g-border-radius-rounded);
+      pointer-events: none;
+      content: "";
+      user-select: none;
+      transition: $g-transition-timing-md;
+    }
+  }
+
+  &__input:checked + &__slider {
+    background-color: $g-primary;
+
+    &::before {
+      left: calc(100% - 20px);
+      transform: translate(4px, -50%);
+    }
+  }
+}

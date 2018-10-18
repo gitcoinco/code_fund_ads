@@ -1,0 +1,23 @@
+/*------------------------------------
+  Unfold (Drop Down) - Country
+------------------------------------*/
+
+.u-unfold--country {
+	box-shadow: 0 0 50px mix(rgba($g-primary, .15), rgba($g-dark, .25));
+	padding: 0;
+	@include px-to-rem(margin-bottom, 32px);
+
+	&__link {
+		display: block;
+		background-color: $g-light-blue-100;
+		@include border-bottom-radius($g-border-radius-md);
+	}
+
+	&__content {
+		@include border-radius($g-border-radius-md);
+	}
+
+	@include media-breakpoint-up(md) {
+		@include px-to-rem(min-width, 450px);
+	}
+}

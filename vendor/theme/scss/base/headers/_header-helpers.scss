@@ -1,0 +1,34 @@
+/*------------------------------------
+  Header Helpers
+------------------------------------*/
+
+.u-header {
+  &--invisible {
+    display: none;
+  }
+
+  &--moved-up {
+    transform: translate3d(0, -100%, 0);
+  }
+
+  &--faded {
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  &__section--hidden {
+    position: relative;
+  }
+
+  &[data-header-fix-effect] {
+    transition: $g-header-fix-effect-transition;
+  }
+
+  &.u-header--untransitioned {
+    transition: none;
+  }
+
+  &.js-header-fix-moment {
+    @include fixed(top 0 bottom auto);
+  }
+}

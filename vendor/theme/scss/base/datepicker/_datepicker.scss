@@ -1,0 +1,149 @@
+/*------------------------------------
+  DatePicker
+------------------------------------*/
+
+.u-datepicker {
+  @include relative;
+
+  .flatpickr-calendar {
+    @include px-to-rem(top, 60px !important);
+    left: 0 !important;
+    box-shadow: $g-box-shadow;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+
+  .flatpickr-months {
+    @include relative;
+    background-color: $g-primary;
+    @include border-top-radius($g-border-radius);
+    @include px-to-rem(padding, 12px);
+
+    .cur-month,
+    .cur-year {
+      color: $g-white;
+    }
+  }
+
+  .flatpickr-current-month,
+  .flatpickr-prev-month,
+  .flatpickr-next-month {
+    padding: 0;
+  }
+
+  .flatpickr-prev-month,
+  .flatpickr-next-month {
+    top: 50%;
+    transform: translate(0, -50%);
+
+    &.flatpickr-prev-month {
+      @include px-to-rem(left, 12px);
+    }
+
+    &.flatpickr-next-month {
+      @include px-to-rem(right, 12px);
+    }
+
+    svg {
+      fill: $g-light-color;
+    }
+
+    &:hover {
+      svg {
+        fill: $g-white;
+      }
+    }
+  }
+
+  .flatpickr-weekday {
+    color: $g-dark;
+    text-transform: uppercase;
+    font-weight: $g-font-weight-medium;
+  }
+
+  .flatpickr-day {
+    color: $g-dark;
+    border-color: transparent;
+
+    &:focus,
+    &:hover {
+      color: $g-primary;
+      background-color: rgba($g-primary, .1);
+    }
+
+    &.inRange {
+      background-color: $g-light-blue-125;
+      box-shadow: -5px 0 0 $g-light-blue-125, 5px 0 0 $g-light-blue-125;
+    }
+
+    &.today {
+      color: $g-white;
+      background-color: $g-primary;
+    }
+
+    &.prevMonthDay,
+    &.nextMonthDay {
+      color: $g-light-blue-125;
+
+      &:focus,
+      &:hover {
+        color: $g-light-blue-150;
+        background-color: $g-light-blue-125;
+      }
+    }
+
+    &.disabled {
+      color: $g-light-blue-125;
+
+      &:hover {
+        color: $g-light-blue-150;
+        background-color: $g-light-blue-125;
+      }
+    }
+
+    &.selected {
+      color: $g-primary;
+      background-color: transparent;
+      border-color: $g-primary;
+
+      &:focus,
+      &:hover {
+        &.prevMonthDay,
+        &.nextMonthDay {
+          color: $g-primary;
+          background-color: transparent;
+        }
+      }
+
+      &.startRange,
+      &.endRange {
+        color: $g-white;
+        background-color: $g-primary;
+      }
+    }
+  }
+
+  .numInputWrapper {
+    span.arrowUp,
+    span.arrowDown {
+      display: none;
+    }
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+/* Positions */
+.u-datepicker {
+  &--top {
+    .flatpickr-calendar {
+      top: auto !important;
+      @include px-to-rem(bottom, 56px !important);
+    }
+  }
+}

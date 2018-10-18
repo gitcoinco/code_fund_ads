@@ -1,0 +1,47 @@
+/*------------------------------------
+  Background Overlay Gradients
+------------------------------------*/
+
+[class*="u-gradient-overlay-half"] {
+	@include relative;
+	z-index: 1;
+
+	&::before {
+		@include absolute(top 0 right 0 bottom 0 right 0);
+		z-index: -1;
+		width: 100%;
+		height: 100%;
+		content: "";
+	}
+}
+
+.u-gradient-overlay-half-primary-video-v1 {
+	&::before {
+		z-index: 2;
+		@include gradient-x($hs-start-color: rgba($g-midnightblue, .9), $hs-end-color: rgba($g-primary-lighter, .85), $deg: 150deg);
+	}
+}
+
+.u-gradient-overlay-half-primary-v1 {
+	&::before {
+		@include gradient-x($hs-start-color: rgba($g-midnightblue, .9), $hs-end-color: rgba($g-primary-lighter, .85), $deg: 150deg);
+	}
+}
+
+.u-gradient-overlay-half-primary-v2 {
+	&::before {
+		@include gradient-x($hs-start-color: rgba($g-primary-lighter, .85), $hs-end-color: rgba($g-midnightblue, .9), $deg: 30deg);
+	}
+}
+
+.u-gradient-overlay-half-info-v1 {
+	&::before {
+		@include gradient-x($hs-start-color: rgba($g-primary, .92), $hs-end-color: rgba($g-info, .92), $deg: 0deg);
+	}
+}
+
+.u-gradient-overlay-half-dark-v1 {
+	&::before {
+		@include gradient-x($hs-start-color: $g-dark, $hs-end-color: transparent, $hs-end-percent: 75%, $deg: 0deg);
+	}
+}

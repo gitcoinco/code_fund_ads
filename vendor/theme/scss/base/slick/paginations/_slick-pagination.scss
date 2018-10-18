@@ -1,0 +1,87 @@
+/*------------------------------------
+  Slick Pagination
+------------------------------------*/
+
+.u-slick__pagination {
+  padding-left: 0;
+
+  &:not(.u-slick__pagination--block) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  li {
+    display: flex;
+    pointer-events: all;
+    @include px-to-rem(margin, 0 4px);
+    cursor: pointer;
+
+	  span {
+	  	display: inline-block;
+	  	@include px-to-rem(width, 15px);
+	  	@include px-to-rem(height, 15px);
+      box-sizing: border-box;
+	    background-color: $g-primary;
+	    border: 3px solid transparent;
+	    @include border-radius($g-border-radius-rounded);
+	    transform: scale(.6);
+	    transition: $g-transition-timing $g-transition-function;
+	  }
+
+    &.slick-active {
+      span {
+        background-color: transparent;
+		    border-color: $g-primary;
+	    	transform: scale(.9);
+      }
+    }
+  }
+}
+
+/* White Version */
+.u-slick__pagination--white {
+  li {
+    span {
+      background-color: $g-white;
+    }
+
+    &.slick-active {
+      span {
+        border-color: $g-white;
+      }
+    }
+  }
+}
+
+/* Block */
+.u-slick__pagination--block {
+  li {
+    display: block;
+  }
+}
+
+/* Vertical Center Alignment */
+.u-slick__pagination-centered--y {
+  @include content-centered(false, true);
+}
+
+// Large Devices
+@include media-breakpoint-up(lg) {
+  /* Vertical Option */
+  .u-slick__pagination--vertical-lg {
+    li {
+      display: block;
+      @include px-to-rem(margin, 4px 0);
+    }
+  }
+
+  /* Vertical Option Positions */
+  .u-slick__pagination--vertical-pos-v1-lg {
+  	@include absolute;
+  	top: 50%;
+  	left: -15.7%;
+  	transform: translateY(-50%);
+  }
+}

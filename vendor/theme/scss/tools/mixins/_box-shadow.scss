@@ -1,0 +1,9 @@
+//
+// Box Shadow
+//
+
+@mixin box-shadow($hs-shadow...) {
+  @if $g-enable-shadows {
+    box-shadow: $hs-shadow;
+  }
+}

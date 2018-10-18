@@ -1,0 +1,12 @@
+//
+// Staggered Transition Delay
+//
+
+@mixin staggered-transition-delay($hs-nth:1, $hs-items:2, $hs-initial:0, $hs-step:.1){
+	@for $i from $hs-nth through $hs-items{
+		&:nth-of-type(#{$i}) {
+			transition-delay: #{$hs-initial}s;
+		}
+		$hs-initial: $hs-initial + $hs-step;
+	}
+}

@@ -1,0 +1,134 @@
+/*------------------------------------
+  Form Sizes
+------------------------------------*/
+
+// Default Size
+.u-form {
+	.u-form__text {
+		@include px-to-rem(min-width, 48px);
+		@include px-to-rem(font-size, 13px);
+	}
+
+	&.u-form--pill {
+		> .u-form__input {
+			padding-left: 24px;
+			padding-right: 24px;
+		}
+
+		.u-form__prepend {
+			> .u-form__text,
+			> .btn {
+				padding-left: 20px;
+			}
+		}
+
+		.u-form__append {
+			> .u-form__text,
+			> .btn {
+				padding-right: 20px;
+			}
+		}
+
+		.u-form__text {
+			padding: 1rem 1rem;
+		}
+	}
+
+	&.u-form--position {
+		> .u-form__input {
+			@include px-to-rem(padding-left, 48px);
+		}
+	}
+}
+
+// Small Size
+.u-form--sm {
+	.u-form__text {
+		@include px-to-rem(min-width, 43px);
+	}
+
+	&.u-form--pill {
+		> .u-form__input {
+			padding-left: 22px;
+			padding-right: 22px;
+		}
+
+		.u-form__prepend {
+			> .u-form__text,
+			> .btn {
+				padding-left: 18px;
+			}
+		}
+
+		.u-form__append {
+			> .u-form__text,
+			> .btn {
+				padding-right: 18px;
+			}
+		}
+	}
+
+	&.u-form--position {
+		> .u-form__input {
+			@include px-to-rem(padding-left, 44px);
+		}
+
+		.u-form__text {
+			&-inner {
+				@include px-to-rem(font-size, 14px);
+			}
+		}
+	}
+}
+
+// Large Size
+.u-form--lg {
+	.u-form__text {
+		@include px-to-rem(font-size, 18px);
+		@include px-to-rem(min-width, 62px);
+	}
+
+	.u-form__append,
+	.u-form__prepend {
+		> .btn {
+			@include px-to-rem(font-size, 18px);
+		}
+	}
+
+	&.u-form--pill {
+		> .u-form__input {
+			padding-left: 30px;
+			padding-right: 30px;
+		}
+
+		.u-form__prepend {
+			> .u-form__text,
+			> .btn {
+				padding-left: 26px;
+			}
+		}
+
+		.u-form__append {
+			> .u-form__text,
+			> .btn {
+				padding-right: 26px;
+			}
+		}
+
+		.u-form__text {
+			padding: 1.125rem 1.125rem;
+		}
+	}
+
+	&.u-form--position {
+		> .u-form__input {
+			@include px-to-rem(padding-left, 64px);
+		}
+
+		.u-form__text {
+			&-inner {
+				@include px-to-rem(font-size, 18px);
+			}
+		}
+	}
+}

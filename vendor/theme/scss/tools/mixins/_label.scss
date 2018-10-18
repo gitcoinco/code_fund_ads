@@ -1,0 +1,26 @@
+//
+// Label
+//
+
+@mixin label {
+	display: inline-block;
+	@include px-to-rem(font-size, $g-label-font-size);
+	font-weight: 500;
+	line-height: 1.3;
+	@include px-to-rem(padding, $g-label-padding);
+	@include border-radius($g-border-radius-pill);
+	transition: $g-transition-timing-sm $g-transition-function;
+}
+
+@mixin label-colors($hs-color, $hs-bg-color, $hs-hover-background) {
+	color: $hs-color;
+	background-color: rgba($hs-bg-color, .1);
+
+	&[href] {
+		&:hover,
+		&:focus {
+			color: color-yiq($hs-hover-background);
+			background-color: ($hs-hover-background);
+		}
+	}
+}

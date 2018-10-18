@@ -1,0 +1,216 @@
+/*------------------------------------
+  Header Default
+------------------------------------*/
+
+.u-header {
+  @include relative(right 0 left 0);
+  width: 100%;
+  z-index: $g-header-z-index;
+
+  &__section {
+    position: relative;
+    z-index: 1;
+    background-color: $g-header-bg;
+    box-shadow: $g-header-box-shadow;
+
+    &-divider {
+      border-bottom: .0625rem solid rgba($g-white, .2);
+    }
+  }
+
+  &__shadow-on-show-hide {
+    box-shadow: none;
+
+    .js-header-fix-moment & {
+      box-shadow: $g-header-box-shadow;
+    }
+  }
+}
+
+/* Topbar Nav Link */
+.u-header__topbar-nav-link {
+  color: $g-header-topbar-nav-link-color;
+  font-weight: 300;
+  @include px-to-rem(font-size, $g-header-topbar-nav-link-font-size);
+  @include px-to-rem(padding-left, $g-header-topbar-nav-link-paddingX);
+  @include px-to-rem(padding-right, $g-header-topbar-nav-link-paddingX);
+
+  &:hover {
+    color: $g-header-topbar-nav-link-hover-color;
+  }
+}
+
+/* Navbar */
+.u-header {
+  &__navbar {
+    @include px-to-rem(padding-top, $g-header-navbar-paddingY);
+    @include px-to-rem(padding-bottom, $g-header-navbar-paddingY);
+    padding-left: 0;
+    padding-right: 0;
+
+    &-brand {
+      @include px-to-rem(width, $g-header-navbar-brand-width);
+      padding-top: 0;
+      padding-bottom: 0;
+
+      &-default {
+        .js-header-fix-moment & {
+          display: none;
+        }
+      }
+
+      &-on-scroll {
+        display: none;
+
+        .js-header-fix-moment & {
+          display: block;
+        }
+      }
+    }
+
+    &-nav {
+      @include px-to-rem(padding-top, $g-header-navbar-nav-paddingY);
+      @include px-to-rem(padding-bottom, $g-header-navbar-nav-paddingY);
+    }
+  }
+}
+
+/* Nav Item */
+.u-header__nav-item {
+  &:hover,
+  &:focus {
+    .u-header__nav-link {
+      color: $g-header-nav-link-hover-color;
+    }
+  }
+}
+
+/* Nav Link */
+.u-header {
+  .active > {
+    .u-header__nav-link {
+      color: $g-header-nav-link-active-color;
+    }
+  }
+}
+
+.u-header__nav-link {
+  color: $g-header-nav-link-color;
+
+  &-icon {
+    @include px-to-rem(font-size, $g-header-nav-link-icon-font-size);
+    @include px-to-rem(margin-left, $g-header-nav-link-icon-margin-left);
+    transition: all $g-header-nav-link-icon-transition;
+  }
+}
+
+/* Sub Menu */
+.u-header__sub-menu {
+  .active > {
+    .u-header__sub-menu-nav-link {
+      color: $g-header-nav-link-active-color;
+    }
+  }
+
+  &-menu-gutter--y {
+    .dropdown-item {
+      &:first-child {
+        @include px-to-rem(padding-top, 16px);
+      }
+
+      &:last-child {
+        @include px-to-rem(padding-bottom, 16px);
+      }
+    }
+  }
+
+  &-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &-icon {
+      @include px-to-rem(font-size, $g-header-nav-link-icon-font-size);
+      transition: all $g-header-nav-link-icon-transition;
+    }
+  }
+}
+
+/* Mega Menu */
+.u-header__mega-menu {
+  &-width-v1 {
+    width: 100%;
+
+    @include media-breakpoint-up(xl) {
+      width: $g-header-mega-menu-width-v1;
+    }
+  }
+
+  &-wrapper-v1 {
+    @include px-to-rem(padding, $g-header-mega-menu-padding);
+  }
+}
+
+/* Banner v1 */
+.u-header__banner-v1 {
+  height: 100%;
+  @include relative;
+  @include background-cover(cover, no-repeat, top, center);
+  @include border-bottom-left-radius($g-header-banner-v1-border-radius);
+
+  &::after {
+    @include absolute(top 0 right 0 bottom 0 left 0);
+    background-color: rgba($g-header-banner-v1-bg-overlay, .5);
+    @include border-bottom-left-radius($g-header-banner-v1-border-radius);
+    content: "";
+  }
+
+  &-content {
+    z-index: 1;
+
+    &:not(.u-content-centered-y) {
+      @include relative;
+    }
+  }
+
+  &-title {
+    color: $g-header-banner-v1-title-color;
+    @include px-to-rem(font-size, $g-header-banner-v1-title-font-size);
+  }
+
+  &-text {
+    display: block;
+    color: $g-header-banner-v1-text-color;
+  }
+}
+
+/* Banner v2 */
+.u-header__banner-v2 {
+  background-color: $g-header-banner-v2-bg;
+  @include border-bottom-radius($g-header-banner-v2-border-radius);
+
+  &-title {
+    color: $g-header-banner-v2-title-color;
+    @include px-to-rem(font-size, $g-header-banner-v2-title-font-size);
+  }
+}
+
+/* Shop */
+
+/* Hide Content */
+.u-header {
+  &.js-header-fix-moment {
+    .u-header__hide-content {
+      display: none;
+    }
+  }
+}
+
+/* Header Fix Top */
+.u-header--fix-top {
+  position: fixed;
+}
+
+.u-header.u-header--fix-top[data-effect-compensation] {
+  transition: none;
+}

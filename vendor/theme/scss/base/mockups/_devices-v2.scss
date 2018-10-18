@@ -1,0 +1,51 @@
+/*------------------------------------
+  Devices v2
+------------------------------------*/
+
+.u-devices-v2 {
+	@include relative;
+	overflow: hidden;
+
+	&__tablet {
+		@include absolute(left 0);
+		top: 0%;
+		z-index: 1;
+		@include px-to-rem(width, 550px);
+		@include px-to-rem(height, 814px);
+		transform: rotate(15deg);
+		transform-origin: 90% -20%;
+
+		@include media-breakpoint-down(md) {
+			transform-origin: 100% -40%;
+		}
+
+		&-svg {
+			@include border-radius(2rem);
+			box-shadow: 0 0 12px 8px rgba($g-dark, .1);
+		}
+	}
+
+	&__phone {
+		@include absolute(right 0);
+		bottom: -25%;
+		z-index: 1;
+		@include px-to-rem(width, 317px);
+		@include px-to-rem(height, 665px);
+		transform: rotate(-20deg);
+		transform-origin: 100% 0;
+
+		&--left-position {
+			@include absolute(right auto left 0);
+			transform-origin: 100% 40%;
+
+			@include media-breakpoint-down(lg) {
+				transform-origin: 100% 65%;
+			}
+		}
+
+		&-svg {
+			@include border-radius(3rem);
+			box-shadow: 0 0 12px 8px rgba($g-dark, .1);
+		}
+	}
+}

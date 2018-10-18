@@ -1,0 +1,8 @@
+/*------------------------------------
+  Buttons
+------------------------------------*/
+
+/* Pill Button */
+.u-btn-pill {
+  @include border-radius($g-border-radius-pill);
+}

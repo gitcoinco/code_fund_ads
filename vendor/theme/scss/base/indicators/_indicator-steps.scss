@@ -1,0 +1,44 @@
+/*------------------------------------
+  Indicator Steps
+------------------------------------*/
+
+.u-indicator-steps {
+  @include relative;
+  @include px-to-rem(padding-left, 40px);
+
+  &::before {
+    @include absolute(top 0 bottom 0 right 0 left -4px);
+    @include px-to-rem(width, $g-space-1);
+    @include px-to-rem(height, 1px);
+    border-top: 1px solid $g-light-blue-125;
+    margin: auto auto auto 0;
+    content: "";
+  }
+
+  &::after {
+    @include absolute(top 0 bottom 0 right 0 left -5px);
+    @include px-to-rem(width, 1px);
+    height: 100%;
+    border-right: 1px solid $g-light-blue-125;
+    margin: auto auto auto 0;
+    content: "";
+  }
+
+  &:first-child {
+    &::after {
+      height: 50%;
+      top: auto;
+    }
+  }
+
+  &:last-child {
+    &::after {
+      height: 50%;
+      bottom: auto;
+    }
+  }
+
+  &__inner {
+    @include px-to-rem(min-width, 48px);
+  }
+}

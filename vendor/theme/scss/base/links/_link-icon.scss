@@ -1,0 +1,31 @@
+/*------------------------------------
+  Links
+------------------------------------*/
+
+.u-link {
+	display: inline-block;
+
+	&__icon {
+		@include relative;
+		line-height: .7;
+		@include icon-elements;
+	  @include px-to-rem(width, 22px);
+	  @include px-to-rem(height, 22px);
+	  @include px-to-rem(font-size, 16px);
+	  color: $g-white;
+	  background-color: $g-primary;
+	  @include border-radius($g-border-radius-rounded);
+		transition: $g-transition-timing $g-transition-function;
+
+		&-inner {
+	  	@include content-centered;
+	  }
+  }
+
+  &:hover {
+  	.u-link__icon {
+  		background-color: $g-link-color-hover;
+  		transform: rotate(90deg);
+  	}
+  }
+}

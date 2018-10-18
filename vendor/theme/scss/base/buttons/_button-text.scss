@@ -1,0 +1,21 @@
+/*------------------------------------
+  Text Buttons Styles
+------------------------------------*/
+
+@each $color, $value in $g-theme-colors {
+	/* #{$color} text button */
+  .u-btn-text-#{$color} {
+    @if $color == "light" {
+      @include button-text($value, $g-gray-100);
+    } @else {
+      @include button-text($value, $g-dark);
+    }
+  }
+}
+
+@each $color, $value in $g-accent-colors {
+	/* #{$color} text button */
+  .u-btn-text-#{$color} {
+    @include button-text($value, $g-dark);
+  }
+}

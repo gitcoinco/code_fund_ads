@@ -1,0 +1,96 @@
+/*------------------------------------
+  Sticky Positions
+------------------------------------*/
+
+// Long list of links, can lead to a bug, since the header can not calculate the height when.
+// For this reason, max-height is given to avoid header disappearing issues on collapse.
+.u-header--sticky {
+  &-top {
+    .u-header--sticky-top__inner {
+      max-height: $g-header-sticky-top-height;
+    }
+  }
+
+  &-bottom {
+    .u-header--sticky-bottom__inner {
+      max-height: $g-header-sticky-bottom-height;
+    }
+  }
+}
+
+.u-header--sticky {
+  &-top,
+  &-bottom {
+    &.mCS_destroyed {
+      position: static !important;
+    }
+
+    .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+      margin: 0 24px;
+    }
+  }
+}
+
+.u-header--sticky {
+  @each $hs-breakpoint in map-keys($g-breakpoints) {
+    $hs-infix: breakpoint-infix($hs-breakpoint, $g-breakpoints);
+
+    @include media-breakpoint-up($hs-breakpoint, $g-breakpoints) {
+      &-top#{$hs-infix},
+      &-bottom#{$hs-infix} {
+        position: fixed;
+      }
+
+      &-top#{$hs-infix} {
+        bottom: auto;
+        top: 0;
+      }
+
+      &-bottom#{$hs-infix} {
+        top: auto;
+        bottom: 0;
+
+        .u-unfold,
+        .u-header__sub-menu {
+          top: auto;
+          bottom: 100%;
+        }
+
+        .u-unfold {
+          @include px-to-rem(margin-bottom, 7px);
+        }
+
+        .navbar-nav .u-header__sub-menu {
+          @include border-top-radius($g-header-sub-menu-top-border-radius);
+          @include border-bottom-radius(0);
+          box-shadow: $g-header-absolute-bottom-submenu-box-shadow;
+        }
+
+        .slideInUp {
+          animation-name: stickySlideInUp;
+        }
+      }
+    }
+  }
+}
+
+/* Disable box-shadow on mobile device */
+.u-header--sticky {
+  &-bottom {
+    &:not(.js-header-fix-moment) {
+      [class*="navbar-expand"] {
+        .navbar-nav {
+          .u-header__sub-menu {
+            box-shadow: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes stickySlideInUp {
+  from {
+    transform: translate3d(0, -10px, 0);
+  }
+}

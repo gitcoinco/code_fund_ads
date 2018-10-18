@@ -1,0 +1,49 @@
+/*------------------------------------
+  Google Map v1
+------------------------------------*/
+
+.u-gmap-v1 {
+	@include px-to-rem(height, 250px);
+	border: 4px solid $g-white;
+	@include border-radius($g-border-radius);
+	box-shadow: 0 0 45px rgba($g-light-blue-300, .125);
+
+	.gm-style {
+		// Disable Google Map style
+		> div:first-child > div + div > div:last-child > div > div:first-child > div:first-child {
+		  display: none;
+		}
+
+		&-iw {
+			@include px-to-rem(min-width, 177px);
+			background-color: $g-white;
+			text-align: center;
+			overflow: inherit;
+			box-shadow: 0 0 45px rgba($g-light-blue-300, .4);
+			@include border-radius($g-border-radius);
+			@include px-to-rem(padding-top, 24px);
+			@include px-to-rem(padding-bottom, 8px);
+
+			&::before {
+				@include absolute(bottom -12px);
+				left: 50%;
+				@include px-to-rem(width, 16px);
+				@include px-to-rem(height, 14px);
+				background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16.1 14.5'%3E %3Cpath fill='#{$g-white}' d='M9.8,13.5L15.9,3c0.8-1.3-0.2-3-1.7-3H2C0.5,0-0.5,1.7,0.3,3l6.1,10.5C7.1,14.8,9,14.8,9.8,13.5z' /%3E%3C/svg%3E");
+				background-repeat: no-repeat;
+				content: "";
+				transform: translateX(-50%);
+			}
+
+			img {
+				max-width: 100%;
+			}
+		}
+	}
+
+	&__info {
+		@include px-to-rem(padding-right, 8px);
+		@include px-to-rem(padding-bottom, 8px);
+		@include px-to-rem(padding-left, 8px);
+	}
+}

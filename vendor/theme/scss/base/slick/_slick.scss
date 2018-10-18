@@ -1,0 +1,14 @@
+/*------------------------------------
+  Slick
+------------------------------------*/
+
+.u-slick {
+	@include relative;
+}
+
+// Disable transform effect
+.u-slick--transform-off {
+	&.slick-transform-off .slick-track {
+		transform: none !important;
+	}
+}

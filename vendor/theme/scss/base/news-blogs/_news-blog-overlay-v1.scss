@@ -1,0 +1,23 @@
+/*------------------------------------
+  Blog Overlay v1
+------------------------------------*/
+
+.u-blog-overlay-v1 {
+	@include relative;
+	z-index: 1;
+	@include px-to-rem(min-height, 380px);
+	@include border-radius($g-border-radius);
+	@include background-cover(cover, no-repeat, top, center);
+	box-shadow: 0 0 50px rgba($g-light-blue-300, .4);
+	@include px-to-rem(padding, $g-space-1);
+
+	&::before {
+		@include absolute(top 0 right 0 bottom 0 right 0);
+		z-index: -1;
+		width: 100%;
+		height: 100%;
+		@include gradient-x($hs-start-color: mix(rgba($g-primary, .35), $g-dark), $hs-end-color: rgba($g-gray-600, .3), $deg: 150deg);
+		@include border-radius($g-border-radius);
+		content: "";
+	}
+}

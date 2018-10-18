@@ -1,0 +1,12 @@
+/*------------------------------------
+  Link White
+------------------------------------*/
+
+.u-link-white {
+	color: $g-white;
+	border-bottom: 1px dashed $g-white;
+
+	&:hover {
+		color: $g-white;
+	}
+}

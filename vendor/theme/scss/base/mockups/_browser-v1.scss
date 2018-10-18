@@ -1,0 +1,16 @@
+/*------------------------------------
+  Mockup Browser v1
+------------------------------------*/
+
+.u-browser-v1 {
+	@include relative;
+	@include px-to-rem(max-width, 850px);
+
+	&__svg {
+		@include content-centered;
+		width: 100%;
+		max-width: 85%;
+		@include border-radius($g-border-radius-md);
+		box-shadow: 0 10px 40px 10px rgba($g-light-blue-300, .175);
+	}
+}

@@ -1,0 +1,104 @@
+/*------------------------------------
+  Card
+------------------------------------*/
+
+.u-card {
+  &-header {
+    padding: 0;
+    transition: $g-transition-timing $g-transition-function;
+
+    &:hover {
+      background-color: $g-light-blue-50;
+    }
+  }
+
+  &-btn {
+    color: $g-dark;
+    text-align: left;
+    white-space: inherit;
+
+    &__arrow {
+      color: $g-primary;
+      @include px-to-rem(margin-left, 16px);
+      transition: $g-transition-timing $g-transition-function;
+
+      .collapsed & {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+
+  &-body {
+    color: $g-paragraph-color;
+  }
+}
+
+/* Card Collapse */
+.u-card-collapse {
+  &__heading {
+    cursor: pointer;
+    color: $g-dark;
+
+    &-icon {
+      transition: $g-transition-timing;
+    }
+
+    &:hover {
+      color: $g-primary;
+    }
+  }
+
+  .collapsed {
+    .u-card-collapse__heading-icon {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+// Medium Devices
+@include media-breakpoint-up(md) {
+  /* Gutters X */
+  .u-card--gutters-2-md {
+    @include px-to-rem(margin-right, -16px);
+    @include px-to-rem(margin-left, -16px);
+
+    > .card {
+      @include px-to-rem(margin-right, 16px);
+      @include px-to-rem(margin-left, 16px);
+    }
+  }
+
+  .u-card--gutters-4-md {
+    @include px-to-rem(margin-right, -32px);
+    @include px-to-rem(margin-left, -32px);
+
+    > .card {
+      @include px-to-rem(margin-right, 32px);
+      @include px-to-rem(margin-left, 32px);
+    }
+  }
+}
+
+// Large Devices
+@include media-breakpoint-up(lg) {
+  /* Gutters X */
+  .u-card--gutters-2-lg {
+    @include px-to-rem(margin-right, -16px);
+    @include px-to-rem(margin-left, -16px);
+
+    > .card {
+      @include px-to-rem(margin-right, 16px);
+      @include px-to-rem(margin-left, 16px);
+    }
+  }
+
+  .u-card--gutters-4-lg {
+    @include px-to-rem(margin-right, -32px);
+    @include px-to-rem(margin-left, -32px);
+
+    > .card {
+      @include px-to-rem(margin-right, 32px);
+      @include px-to-rem(margin-left, 32px);
+    }
+  }
+}

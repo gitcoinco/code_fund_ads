@@ -1,0 +1,14 @@
+/*------------------------------------
+  Info v2
+------------------------------------*/
+
+.u-info-v2 {
+  border: 1px solid $g-light-blue-125;
+  transition: $g-transition-timing;
+
+  &.active,
+  &:hover {
+    border-color: rgba($g-primary, .3);
+    box-shadow: 0 0 35px rgba($g-primary, .125);
+  }
+}

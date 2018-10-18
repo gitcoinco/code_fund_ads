@@ -1,0 +1,11 @@
+/*------------------------------------
+  Text Colors
+------------------------------------*/
+
+.u-text-light {
+	color: $g-light-color;
+
+	&[href]:hover {
+		color: $g-white-color-hover;
+	}
+}

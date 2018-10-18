@@ -1,0 +1,45 @@
+//
+// Functions
+//
+
+// Color contrast
+@function color-yiq($hs-color) {
+  $hs-r: red($hs-color);
+  $hs-g: green($hs-color);
+  $hs-b: blue($hs-color);
+
+  $hs-yiq: (($hs-r * 299) + ($hs-g * 587) + ($hs-b * 114)) / 1000;
+
+  @if ($hs-yiq >= 150) {
+    @return $g-dark;
+  } @else {
+    @return $g-white;
+  }
+}
+
+// Replace `$search` with `$replace` in `$string`
+// Used on our SVG icon backgrounds for custom forms.
+//
+// @author Hugo Giraudel
+// @param {String} $string - Initial string
+// @param {String} $search - Substring to replace
+// @param {String} $replace ('') - New value
+// @return {String} - Updated string
+@function str-replace($hs-string, $hs-search, $hs-replace: "") {
+  $hs-index: str-index($hs-string, $hs-search);
+
+  @if $hs-index {
+    @return str-slice($hs-string, 1, $hs-index - 1) + $hs-replace + str-replace(str-slice($hs-string, $hs-index + str-length($hs-search)), $hs-search, $hs-replace);
+  }
+
+  @return $hs-string;
+}
+
+// Retreive color Sass maps
+@function theme-color($hs-key: "primary") {
+  @return map-get($g-theme-colors, $hs-key);
+}
+
+@function accent-color($hs-key: "accent") {
+  @return map-get($g-accent-colors, $hs-key);
+}

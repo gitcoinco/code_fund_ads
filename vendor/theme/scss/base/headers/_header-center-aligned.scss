@@ -1,0 +1,40 @@
+/*------------------------------------
+  Header Center Aligned
+------------------------------------*/
+
+.u-header--center-aligned {
+  @each $hs-breakpoint in map-keys($g-breakpoints) {
+    $hs-infix: breakpoint-infix($hs-breakpoint, $g-breakpoints);
+
+    &#{$hs-infix} {
+      &__inner {
+        display: flex;
+        justify-content: space-between;
+        @include px-to-rem(padding-top, 16px);
+
+        @include media-breakpoint-up($hs-breakpoint) {
+          justify-content: center;
+          text-align: center;
+          @include px-to-rem(padding-top, 8px);
+        }
+      }
+    }
+  }
+
+  @each $hs-breakpoint in map-keys($g-breakpoints) {
+    $hs-next: breakpoint-next($hs-breakpoint, $g-breakpoints);
+    $hs-infix: breakpoint-infix($hs-next, $g-breakpoints);
+
+    .navbar-expand {
+      @include media-breakpoint-down($hs-breakpoint) {
+        $hs-infix: breakpoint-infix($hs-next, $g-breakpoints);
+
+        &#{$hs-infix} {
+          &.u-header__navbar {
+            @include px-to-rem(padding-top, 0);
+          }
+        }
+      }
+    }
+  }
+}

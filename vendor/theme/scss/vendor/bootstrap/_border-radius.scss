@@ -1,0 +1,52 @@
+/*------------------------------------
+  Border Radius Pill
+------------------------------------*/
+
+// Default options
+.rounded-pill {
+	@include border-radius($g-border-radius-pill);
+}
+
+.rounded-top-pill {
+	@include border-top-radius($g-border-radius-pill);
+}
+
+.rounded-right-pill {
+	@include border-right-radius($g-border-radius-pill);
+}
+
+.rounded-bottom-pill {
+	@include border-bottom-radius($g-border-radius-pill);
+}
+
+.rounded-left-pill {
+	@include border-left-radius($g-border-radius-pill);
+}
+
+// Custom options
+.rounded-top-left-pill {
+	@include border-top-left-radius($g-border-radius-pill);
+}
+
+.rounded-bottom-left-pill {
+	@include border-bottom-left-radius($g-border-radius-pill);
+}
+
+// Pseudo options
+.rounded-pseudo {
+	@include border-radius($g-border-radius);
+
+	&::before,
+	&::after {
+		@include border-radius($g-border-radius);
+	}
+}
+
+.rounded-top-pseudo {
+	@include border-top-radius($g-border-radius);
+
+	&::before,
+	&::after {
+		@include border-top-radius($g-border-radius);
+	}
+}

@@ -1,0 +1,137 @@
+/*------------------------------------
+  Sidebar Account
+------------------------------------*/
+
+.u-sidebar {
+  &--account__footer-offset {
+  	height: 100%;
+  	box-sizing: border-box;
+  	@include px-to-rem(padding-bottom, 165px);
+  }
+
+	&__content--account {
+    @include px-to-rem(padding, 24px 48px);
+  }
+}
+
+/* Holder */
+.u-sidebar--account__holder {
+	background-color: $g-light-blue-100;
+  @include px-to-rem(padding, 24px 48px);
+
+	&-img {
+		@include px-to-rem(width, 48px);
+		@include border-radius($g-border-radius);
+	}
+
+	&-text {
+		display: block;
+		@include px-to-rem(font-size, 12px);
+    color: $g-gray-200;
+	}
+}
+
+/* Toggle */
+.u-sidebar--account__toggle {
+  &-bg {
+  	@include relative(top 1px);
+	  @include px-to-rem(padding, 4px 4px 4px 12px);
+	  background-color: rgba($g-primary, .1);
+	  @include border-radius($g-border-radius-pill);
+
+	  // Small Devices
+		@include media-breakpoint-down(sm) {
+			@include px-to-rem(padding-left, 4px);
+		}
+
+	  &:hover {
+	  	.u-sidebar--account__toggle-text {
+				color: $g-primary;
+	  	}
+	  }
+	}
+
+	&-text {
+		color: $g-dark;
+	  @include px-to-rem(font-size, 12px);
+	  vertical-align: middle;
+	  @include px-to-rem(margin-right, 5px);
+
+	  // Small Devices
+		@include media-breakpoint-down(sm) {
+			display: none;
+		}
+	}
+
+	&-img {
+	  @include px-to-rem(width, 24px);
+	  @include px-to-rem(height, 24px);
+	  @include border-radius($g-border-radius-rounded);
+	}
+}
+
+/* List */
+.u-sidebar--account__list {
+	margin-bottom: 0;
+
+	&-item {
+		@include px-to-rem(padding-top, 4px);
+		@include px-to-rem(padding-bottom, 4px);
+	}
+
+	&-link {
+		display: block;
+		@include px-to-rem(font-size, 14px);
+		color: $g-gray-500;
+		@include border-radius($g-border-radius);
+		@include px-to-rem(padding, 10px);
+		transition: $g-transition-timing-sm $g-transition-function;
+
+		&.active,
+		&:hover {
+			color: $g-primary;
+			background-color: rgba($g-primary, .1);
+
+			.u-sidebar--account__list-icon {
+				color: $g-primary;
+			}
+		}
+	}
+
+	&-icon {
+		@include icon-elements;
+    vertical-align: inherit;
+    @include px-to-rem(width, 18px);
+		@include px-to-rem(font-size, 13px);
+    color: $g-gray-200;
+		transition: $g-transition-timing-sm $g-transition-function;
+	}
+
+	&-divider {
+		border-top: {
+			@include px-to-rem(width, 1px);
+			style: solid;
+			color: darken($g-light-blue-50, 5%);
+		}
+		@include px-to-rem(padding-left, 24px);
+		@include px-to-rem(padding-right, 24px);
+		@include px-to-rem(margin-top, 16px);
+		@include px-to-rem(margin-bottom, 16px);
+	}
+}
+
+/* Footer Links */
+.u-sidebar__footer--account {
+  @include px-to-rem(padding, 0 48px 24px);
+
+	&__text {
+		position: relative;
+		z-index: 1;
+		@include px-to-rem(font-size, 14px);
+		color: $g-light-color;
+
+		&:hover {
+			color: $g-white-color-hover;
+		}
+	}
+}

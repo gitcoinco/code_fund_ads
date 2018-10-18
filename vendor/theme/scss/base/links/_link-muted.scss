@@ -1,0 +1,13 @@
+/*------------------------------------
+  Link Muted
+------------------------------------*/
+
+.u-link-muted {
+	color: $g-light-blue-300;
+	border-bottom: 1px dashed $g-light-blue-150;
+
+	&:hover {
+		color: $g-link-color-hover;
+		border-color: $g-link-color-hover;
+	}
+}

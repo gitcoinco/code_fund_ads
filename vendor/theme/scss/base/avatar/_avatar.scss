@@ -1,0 +1,33 @@
+/*------------------------------------
+  Avatar
+------------------------------------*/
+
+.u-avatar {
+	@include px-to-rem(width, 44px);
+	@include px-to-rem(height, 44px);
+}
+
+.u-xs-avatar {
+  @include px-to-rem(width, 20px);
+  @include px-to-rem(height, 20px);
+}
+
+.u-sm-avatar {
+	@include px-to-rem(width, 32px);
+	@include px-to-rem(height, 32px);
+}
+
+.u-md-avatar {
+	@include px-to-rem(width, 64px);
+	@include px-to-rem(height, 64px);
+}
+
+.u-lg-avatar {
+  @include px-to-rem(width, 80px);
+  @include px-to-rem(height, 80px);
+}
+
+.u-xl-avatar {
+	@include px-to-rem(width, 160px);
+	@include px-to-rem(height, 160px);
+}

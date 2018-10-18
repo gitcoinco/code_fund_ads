@@ -1,0 +1,13 @@
+/*------------------------------------
+  Transitions
+------------------------------------*/
+
+/* 3D Hover */
+.transition-3d-hover {
+  transition: all $g-transition-timing-sm $g-transition-function;
+
+  &:hover,
+  &:focus {
+    transform: translateY(-3px);
+  }
+}

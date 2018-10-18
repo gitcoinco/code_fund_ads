@@ -1,0 +1,20 @@
+/*------------------------------------
+  Got to Section - Modern
+------------------------------------*/
+
+.u-go-to-modern {
+	@include relative;
+	z-index: 2;
+	@include icon-elements;
+  @include px-to-rem(width, 56px);
+  @include px-to-rem(height, 56px);
+  @include px-to-rem(font-size, 18px);
+	color: $g-primary;
+	background-color: $g-white;
+	@include border-radius($g-border-radius-rounded);
+	box-shadow: 0 0 20px rgba($g-light-blue-300, .2);
+
+	.u-go-to-modern__inner {
+		@include content-centered;
+	}
+}

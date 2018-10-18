@@ -1,0 +1,164 @@
+/*------------------------------------
+  Header Floating
+------------------------------------*/
+
+.u-header--floating {
+  &:not([class*="u-header--floating--"]) {
+    @include absolute(right 0 left 0);
+    @include px-to-rem(margin-top, $g-header-floating-margin-top);
+  }
+}
+
+[class*="u-header--floating"] {
+  &.js-header-fix-moment {
+    background-color: $g-white;
+    box-shadow: $g-header-box-shadow;
+    margin-top: 0;
+  }
+}
+
+.u-header--floating {
+  &.js-header-fix-moment {
+    @include fixed;
+
+    .u-header--floating__inner {
+      box-shadow: none;
+      @include border-radius(0);
+    }
+  }
+
+  &__inner {
+    @include border-radius($g-header-floating-border-radius);
+    @include px-to-rem(padding-left, $g-header-floating-inner-paddingX);
+    @include px-to-rem(padding-right, $g-header-floating-inner-paddingX);
+  }
+}
+
+// Floating for certain resolutions
+/* Small devices */
+@include media-breakpoint-up(sm) {
+  .u-header--floating-sm {
+    @include absolute(right 0 left 0);
+    @include px-to-rem(margin-top, $g-header-floating-margin-top);
+
+    &__inner {
+      @include border-radius($g-header-floating-border-radius);
+      @include px-to-rem(padding-left, $g-header-floating-inner-paddingX);
+      @include px-to-rem(padding-right, $g-header-floating-inner-paddingX);
+    }
+
+    &.js-header-fix-moment {
+      .u-header--floating-sm__inner {
+        box-shadow: none;
+        @include border-radius(0);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .u-header--floating-sm__inner {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+/* Medium devices */
+@include media-breakpoint-up(md) {
+  .u-header--floating-md {
+    @include absolute(right 0 left 0);
+    @include px-to-rem(margin-top, $g-header-floating-margin-top);
+
+    &__inner {
+      @include border-radius($g-header-floating-border-radius);
+      @include px-to-rem(padding-left, $g-header-floating-inner-paddingX);
+      @include px-to-rem(padding-right, $g-header-floating-inner-paddingX);
+    }
+
+    &.js-header-fix-moment {
+      .u-header--floating-md__inner {
+        box-shadow: none;
+        @include border-radius(0);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .u-header--floating-md__inner {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+/* Large devices */
+@include media-breakpoint-up(lg) {
+  .u-header--floating-lg {
+    @include absolute(right 0 left 0);
+    @include px-to-rem(margin-top, $g-header-floating-margin-top);
+
+    &__inner {
+      @include border-radius($g-header-floating-border-radius);
+      @include px-to-rem(padding-left, $g-header-floating-inner-paddingX);
+      @include px-to-rem(padding-right, $g-header-floating-inner-paddingX);
+    }
+
+    &.js-header-fix-moment {
+      .u-header--floating-lg__inner {
+        box-shadow: none;
+        @include border-radius(0);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .u-header--floating-lg__inner {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+/* Extra Large devices */
+@include media-breakpoint-up(xl) {
+  .u-header--floating-xl {
+    @include absolute(right 0 left 0);
+    @include px-to-rem(margin-top, $g-header-floating-margin-top);
+
+    &__inner {
+      @include border-radius($g-header-floating-border-radius);
+      @include px-to-rem(padding-left, $g-header-floating-inner-paddingX);
+      @include px-to-rem(padding-right, $g-header-floating-inner-paddingX);
+    }
+
+    &.js-header-fix-moment {
+      .u-header--floating-xl__inner {
+        box-shadow: none;
+        @include border-radius(0);
+      }
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .u-header--floating-xl__inner {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}
+
+// Long list of links, can lead to a bug, since the header can not calculate the height when.
+// For this reason, max-height is given to avoid header disappearing issues on collapse.
+.u-header--floating__scrollbar {
+  max-height: $g-header-floating-height;
+
+  &.mCS_destroyed {
+    position: static !important;
+  }
+}
+
+[class*="u-header--floating"] {
+  .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    margin: 0 24px;
+  }
+}

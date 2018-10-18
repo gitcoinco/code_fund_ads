@@ -1,0 +1,118 @@
+/*------------------------------------
+  Hamburgers
+------------------------------------*/
+
+.u-hamburger {
+  font-size: inherit;
+  line-height: 0;
+  @include px-to-rem(padding, $g-hamburger-padding);
+
+  &:hover {
+    .u-hamburger__inner {
+      &,
+      &::before,
+      &::after {
+        background-color: $g-hamburger-layer-hover-color;
+      }
+    }
+  }
+
+  &__box {
+    @include px-to-rem(width, $g-hamburger-layer-width);
+    @include px-to-rem(height, $g-hamburger-layer-height * 3 + $g-hamburger-layer-spacing * 2);
+    display: inline-block;
+    position: relative;
+  }
+
+  &__inner {
+    display: block;
+    @include px-to-rem(top, $g-hamburger-layer-height / 2);
+    @include px-to-rem(margin-top, $g-hamburger-layer-height / -2);
+
+    &,
+    &::before,
+    &::after {
+      @include px-to-rem(width, $g-hamburger-layer-width);
+      @include px-to-rem(height, $g-hamburger-layer-height);
+      background-color: $g-hamburger-layer-color;
+      @include absolute;
+      transition-property: transform;
+      transition-duration: $g-hamburger-transition-duration;
+      transition-timing-function: $g-hamburger-transition-timing-function;
+    }
+
+    &::before,
+    &::after {
+      content: "";
+      display: block;
+    }
+
+    &::before {
+      @include px-to-rem(top, $g-hamburger-layer-height + $g-hamburger-layer-spacing);
+      transition-property: transform, opacity;
+      transition-duration: $g-hamburger-transition-duration;
+      transition-timing-function: $g-hamburger-transition-timing-function;
+    }
+
+    &::after {
+      @include px-to-rem(top, ($g-hamburger-layer-height * 2) + ($g-hamburger-layer-spacing * 2));
+    }
+  }
+
+  &[aria-expanded="true"] .u-hamburger__inner,
+  & .is-active .u-hamburger__inner {
+    $y-offset: $g-hamburger-layer-spacing + $g-hamburger-layer-height;
+    transform: translate3d(0, $y-offset, 0) rotate(45deg);
+
+    &::before {
+      transform: rotate(-45deg) translate3d($g-hamburger-layer-width / -7, $g-hamburger-layer-spacing * -1, 0);
+      opacity: 0;
+    }
+
+    &::after {
+      transform: translate3d(0, $y-offset * -2, 0) rotate(-90deg);
+    }
+  }
+
+  &--white {
+    .u-hamburger__inner {
+      &,
+      &::before,
+      &::after {
+        background-color: $g-hamburger-layer-white-color;
+      }
+    }
+
+    &:hover {
+      .u-hamburger__inner {
+        &,
+        &::before,
+        &::after {
+          background-color: $g-hamburger-layer-white-hover-color;
+        }
+      }
+    }
+  }
+}
+
+.js-header-fix-moment {
+  .u-hamburger--white {
+    .u-hamburger__inner {
+      &,
+      &::before,
+      &::after {
+        background-color: $g-hamburger-layer-color;
+      }
+    }
+
+    &:hover {
+      .u-hamburger__inner {
+        &,
+        &::before,
+        &::after {
+          background-color: $g-hamburger-layer-hover-color;
+        }
+      }
+    }
+  }
+}

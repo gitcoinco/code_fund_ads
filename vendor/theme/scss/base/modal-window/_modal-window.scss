@@ -1,0 +1,17 @@
+/*------------------------------------
+  Modal Window
+------------------------------------*/
+
+.u-modal-window {
+  @include relative;
+  display: none;
+  max-height: $g-modal-window-max-height;
+  background-color: $g-modal-window-bg;
+  @include px-to-rem(margin-left, $g-modal-window-margin-offsetX);
+	@include px-to-rem(margin-right, $g-modal-window-margin-offsetX);
+
+  &__close {
+  	@include absolute(top 8px right 8px);
+  	z-index: 1;
+  }
+}

@@ -1,0 +1,43 @@
+/*------------------------------------
+  Icon Sizes
+------------------------------------*/
+
+/* Extra Small */
+.u-icon--xs {
+	@include px-to-rem(width, $g-icon-width-xs);
+	@include px-to-rem(height, $g-icon-height-xs);
+	@include px-to-rem(font-size, $g-icon-font-size-xs);
+	@include border-radius($g-icon-border-radius);
+}
+
+/* Small */
+.u-icon--sm {
+	@include px-to-rem(width, $g-icon-width-sm);
+	@include px-to-rem(height, $g-icon-height-sm);
+	@include px-to-rem(font-size, $g-icon-font-size-sm);
+	@include border-radius($g-icon-border-radius);
+}
+
+/* Medium */
+.u-icon--md {
+	@include px-to-rem(width, $g-icon-width-md);
+	@include px-to-rem(height, $g-icon-height-md);
+	@include px-to-rem(font-size, $g-icon-font-size-md);
+	@include border-radius($g-icon-border-radius);
+}
+
+/* Large */
+.u-icon--lg {
+	@include px-to-rem(width, $g-icon-width-lg);
+	@include px-to-rem(height, $g-icon-height-lg);
+	@include px-to-rem(font-size, $g-icon-font-size-lg);
+	@include border-radius($g-icon-border-radius);
+}
+
+/* Extra Large */
+.u-icon--xl {
+	@include px-to-rem(width, $g-icon-width-xl);
+	@include px-to-rem(height, $g-icon-height-xl);
+	@include px-to-rem(font-size, $g-icon-font-size-xl);
+	@include border-radius($g-icon-border-radius);
+}

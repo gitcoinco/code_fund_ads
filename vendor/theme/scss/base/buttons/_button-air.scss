@@ -1,0 +1,24 @@
+/*------------------------------------
+  Air Button Styles
+------------------------------------*/
+
+@each $color, $value in $g-theme-colors {
+  /* #{$color} air */
+  .u-btn-#{$color}--air {
+    @include button-air($value, $value, $value, $value);
+  }
+}
+
+@each $color, $value in $g-accent-colors {
+  /* #{$color} air */
+  .u-btn-#{$color}--air {
+    @include button-air($value, $value, $value, $value);
+  }
+}
+
+@each $color, $value in $g-social-network-colors {
+  /* #{$color} air */
+  .u-btn-#{$color}--air {
+    @include button-air($value, $value, $value, $value);
+  }
+}

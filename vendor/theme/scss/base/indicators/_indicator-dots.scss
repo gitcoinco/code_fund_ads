@@ -1,0 +1,20 @@
+/*------------------------------------
+  Indicator Dots
+------------------------------------*/
+
+.u-indicator-dots {
+	@include relative;
+
+	@include media-breakpoint-up(md) {
+		&::after {
+			@include absolute(right -35px);
+			top: 50%;
+			@include px-to-rem(width, 39px);
+			@include px-to-rem(height, 12px);
+			background-image: str-replace(url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 55 16'%3E %3Ccircle fill='#{$g-light-blue-125}' cx='27.7' cy='8.1' r='7.7'/%3E %3Ccircle fill='#{$g-light-blue-125}' cx='5' cy='8.1' r='5'/%3E %3Ccircle fill='#{$g-light-blue-125}' cx='50' cy='8.1' r='5'/%3E %3C/svg%3E"), "#", "%23");
+			background-repeat: no-repeat;
+			content: "";
+			@include px-to-rem(margin-top, -6px);
+		}
+	}
+}

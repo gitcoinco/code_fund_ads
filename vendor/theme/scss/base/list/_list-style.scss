@@ -1,0 +1,80 @@
+/*------------------------------------
+  List
+------------------------------------*/
+
+.u-list {
+	margin-bottom: 0;
+
+	&__item {
+		@include px-to-rem(padding-left, 8px);
+		@include px-to-rem(padding-right, 8px);
+	}
+
+	&__link {
+		display: block;
+		color: $g-gray-500;
+		@include px-to-rem(font-size, 14px);
+		@include px-to-rem(padding-top, 6px);
+		@include px-to-rem(padding-bottom, 6px);
+
+		&.active {
+			color: $g-primary;
+		}
+
+		&-icon {
+			@include icon-elements;
+	    vertical-align: inherit;
+	    @include px-to-rem(width, 16px);
+			@include px-to-rem(font-size, 12px);
+		}
+	}
+
+	.disabled,
+  &:disabled {
+  	color: $g-light-blue-300;
+  }
+
+	.active .u-list__link {
+		color: $g-primary;
+	}
+}
+
+/* Air Style */
+.u-list--air {
+	.disabled,
+  &:disabled {
+  	background-color: rgba($g-light-blue-300, .1);
+  }
+
+	.active .u-list__link,
+	.active.u-list__link {
+  	background-color: rgba($g-primary, .1);
+		color: $g-primary;
+	}
+}
+
+/* Light */
+.u-list--light {
+	.u-list__link {
+		color: $g-paragraph-color;
+
+		&:hover {
+			color: $g-primary;
+		}
+	}
+}
+
+/* White */
+.u-list--white {
+	.u-list__link {
+		color: $g-light-color;
+
+		&:hover {
+			color: $g-white-color-hover;
+		}
+	}
+
+	.active .u-list__link {
+		color: $g-white;
+	}
+}

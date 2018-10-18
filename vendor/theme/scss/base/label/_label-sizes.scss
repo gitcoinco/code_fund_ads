@@ -1,0 +1,17 @@
+/*------------------------------------
+  Label Sizes
+------------------------------------*/
+
+/* Extra Small */
+.u-label--xs {
+	font-weight: 300;
+	@include px-to-rem(font-size, $g-label-font-size-xs);
+	line-height: $g-label-line-height-xs;
+	@include px-to-rem(padding, $g-label-padding-xs);
+}
+
+/* Small */
+.u-label--sm {
+	@include px-to-rem(font-size, $g-label-font-size-sm);
+	@include px-to-rem(padding, $g-label-padding-sm);
+}

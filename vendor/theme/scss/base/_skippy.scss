@@ -1,0 +1,54 @@
+/*------------------------------------
+  Skippy
+------------------------------------*/
+
+@if $g-enable-accessibility {
+  .u-skippy {
+    display: block;
+    color: $g-white;
+    background-color: theme-color("primary");
+    padding: 1em;
+    outline: 0;
+    transition: all .2s ease-in;
+
+    &:hover {
+      color: $g-white;
+    }
+
+    // fix header absolute overlapping skippy content
+    &:focus {
+      + .u-header--abs-top {
+        &:not(.u-header--moved-up):not(.u-scrolled),
+        &-sm:not(.u-header--moved-up):not(.u-scrolled),
+        &-md:not(.u-header--moved-up):not(.u-scrolled),
+        &-lg:not(.u-header--moved-up):not(.u-scrolled),
+        &-xl:not(.u-header--moved-up):not(.u-scrolled) {
+          @include px-to-rem(margin-top, 56px);
+        }
+      }
+
+      + .u-header--sticky-top {
+        &:not(.u-header--moved-up):not(.u-scrolled),
+        &-sm:not(.u-header--moved-up):not(.u-scrolled),
+        &-md:not(.u-header--moved-up):not(.u-scrolled),
+        &-lg:not(.u-header--moved-up):not(.u-scrolled),
+        &-xl:not(.u-header--moved-up):not(.u-scrolled) {
+          @include px-to-rem(margin-top, 56px);
+        }
+      }
+    }
+
+    .u-skiplink-text {
+      padding: .5em;
+      outline: 1px dotted;
+
+      &:hover {
+        color: $g-white;
+      }
+    }
+  }
+} @else {
+  .u-skippy {
+    display: none;
+  }
+}

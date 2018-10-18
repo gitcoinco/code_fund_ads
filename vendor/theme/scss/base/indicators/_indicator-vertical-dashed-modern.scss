@@ -1,0 +1,16 @@
+/*------------------------------------
+  Indicator Vertical Dashed Modern
+------------------------------------*/
+
+.u-indicator-ver-dashed-modern {
+  @include relative;
+
+  &::after {
+    @include absolute;
+    top: 32px;
+    left: 11px;
+    height: 75%;
+    border-left: 2px dashed $g-light-blue-125;
+    content: "";
+  }
+}

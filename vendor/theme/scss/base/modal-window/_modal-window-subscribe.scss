@@ -1,0 +1,9 @@
+/*------------------------------------
+  Modal Window - Subscribe
+------------------------------------*/
+
+.u-modal-window {
+	&--subscribe {
+		@include px-to-rem(width, 600px);
+	}
+}

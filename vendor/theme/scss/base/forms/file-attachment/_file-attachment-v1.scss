@@ -1,0 +1,29 @@
+/*------------------------------------
+  File Attachment v1
+------------------------------------*/
+
+.u-file-attachment-v1 {
+	@include relative (top 7px);
+  overflow: hidden;
+
+  input[type="file"] {
+    @include absolute (top 0 left 0);
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  &__label {
+    color: $g-light-color;
+    border-bottom: 1px dashed $g-light-color;
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    .u-file-attachment-v1__label {
+      color: $g-white;
+      border-color: $g-light-color;
+    }
+  }
+}

@@ -1,0 +1,73 @@
+/*------------------------------------
+  Unfold (Drop Down)
+------------------------------------*/
+
+/* Disable content revealing on page load */
+.u-unfold {
+  &[aria-labelledby] {
+    opacity: 0;
+  }
+
+  &[aria-labelledby][role="tabpanel"] {
+    opacity: 1;
+  }
+
+  &[aria-labelledby].u-unfold--css-animation,
+  &[aria-labelledby].u-unfold--jquery-slide {
+    opacity: 1;
+  }
+
+  &.u-unfold--css-animation.u-unfold--hidden {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.u-unfold--css-animation.u-unfold--hidden {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.u-unfold {
+  position: absolute;
+  z-index: $g-unfold-z-index;
+  @include px-to-rem(min-width, $g-unfold-min-width);
+  background-color: $g-unfold-bg;
+  @include border-radius($g-unfold-border-radius);
+  box-shadow: $g-unfold-box-shadow;
+  @include px-to-rem(padding, $g-unfold-padding);
+  border: none;
+  margin-bottom: 0;
+
+  &-wrapper {
+    color: $g-unfold-wrapper-color;
+    font-weight: 300;
+    @include px-to-rem(font-size, $g-unfold-wrapper-font-size);
+
+    &:hover {
+      color: $g-unfold-wrapper-hover-color;
+    }
+
+    &--light {
+      color: $g-unfold-wrapper-light-color;
+
+      &:hover {
+        color: $g-white;
+      }
+    }
+  }
+
+  &__icon {
+    @include icon-elements;
+    @include px-to-rem(width, $g-unfold-icon-width);
+    @include px-to-rem(margin-right, 8px);
+
+    &-pointer {
+      @include px-to-rem(font-size, $g-unfold-icon-pointer-font-size);
+      vertical-align: middle;
+      @include px-to-rem(margin-left, 4px);
+    }
+  }
+}

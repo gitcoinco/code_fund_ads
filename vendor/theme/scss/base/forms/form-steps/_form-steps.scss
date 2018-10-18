@@ -1,0 +1,20 @@
+/*------------------------------------
+  Form Steps
+------------------------------------*/
+
+.u-form-steps {
+	&__icon {
+		transform: scale(.8);
+		transition: $g-transition-timing;
+	}
+
+	.active {
+		color: $g-primary;
+
+		.u-form-steps__icon {
+			color: $g-white;
+			background-color: $g-primary;
+			transform: scale(1);
+		}
+	}
+}

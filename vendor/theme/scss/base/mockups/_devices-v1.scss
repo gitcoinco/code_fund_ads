@@ -1,0 +1,30 @@
+/*------------------------------------
+  Mockup Devices v1
+------------------------------------*/
+
+.u-devices-v1 {
+	@include absolute(top 48px);
+	left: 50%;
+	@include px-to-rem(width, 650px);
+	transform: rotate(-17deg);
+	transform-origin: 100% 0;
+
+	&__tablet,
+	&__phone {
+		&-svg {
+			@include border-radius(34px);
+			box-shadow: 0 0 10px 6px rgba($g-dark, .05);
+		}
+	}
+
+	&__tablet {
+		@include px-to-rem(width, 430px);
+		@include px-to-rem(height, 549px);
+	}
+
+	&__phone {
+		@include px-to-rem(width, 220px);
+		@include px-to-rem(height, 440px);
+		@include px-to-rem(margin-right, 20px);
+	}
+}

@@ -1,0 +1,40 @@
+/*------------------------------------
+  Header Sidebar
+------------------------------------*/
+
+.u-header-sidebar {
+	&__footer-offset {
+		height: 100%;
+  	box-sizing: border-box;
+		@include px-to-rem(padding-bottom, 170px);
+	}
+
+	&__content {
+		@include px-to-rem(padding, 48px);
+	}
+
+	&__navbar-brand {
+		display: block;
+    @include px-to-rem(width, 100px);
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    @include px-to-rem(margin-bottom, 40px);
+  }
+
+  &__footer {
+		@include absolute(right 0 bottom 0 left 0);
+  	width: 100%;
+		@include px-to-rem(padding, 16px 48px);
+
+		&-link {
+			color: $g-light-color;
+			@include px-to-rem(font-size, 14px);
+
+			&:hover {
+				color: $g-white-color-hover;
+			}
+		}
+  }
+}

@@ -1,0 +1,21 @@
+/*------------------------------------
+  Slick Equal Height
+------------------------------------*/
+
+.u-slick--equal-height {
+	.slick {
+		&-list {
+			height: 100%;
+		}
+
+		&-track {
+		  display: flex;
+		  height: 100%;
+
+		  .slick-slide {
+		  	display: flex;
+  			height: auto;
+		  }
+		}
+	}
+}
