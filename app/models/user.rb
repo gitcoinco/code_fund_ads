@@ -42,7 +42,10 @@ class User < ApplicationRecord
   }.freeze
 
   # extends ...................................................................
+
   # includes ..................................................................
+  include TagColumns
+
   # relationships .............................................................
   has_many :assets
   has_many :campaigns
