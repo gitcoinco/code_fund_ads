@@ -8,6 +8,14 @@ class ApplicationRecord < ActiveRecord::Base
     connection.exec_query("select gen_random_uuid() as uuid").first["uuid"]
   end
 
+  def created_at
+    inserted_at
+  end
+
+  def created_at=(value)
+    self.inserted_at = value
+  end
+
   private
 
   def set_id
