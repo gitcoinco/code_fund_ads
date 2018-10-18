@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Assets</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @assets.each do |asset| %>
+      <tr>
+        <td><%= link_to 'Show', asset %></td>
+        <td><%= link_to 'Edit', edit_asset_path(asset) %></td>
+        <td><%= link_to 'Destroy', asset, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Asset', new_asset_path %>
