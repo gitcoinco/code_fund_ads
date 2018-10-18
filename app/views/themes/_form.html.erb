@@ -1,0 +1,17 @@
+<%= form_with(model: theme, local: true) do |form| %>
+  <% if theme.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(theme.errors.count, "error") %> prohibited this theme from being saved:</h2>
+
+      <ul>
+      <% theme.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
