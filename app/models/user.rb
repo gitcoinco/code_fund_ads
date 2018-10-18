@@ -72,8 +72,19 @@ class User < ApplicationRecord
   validates :unlock_token, length: { maximum: 255 }
 
   # callbacks .................................................................
+
   # scopes ....................................................................
+
+  # Scopes provied by tag_columns
+  # - with_roles
+  # - without_roles
+  # - with_any_roles
+  # - without_any_roles
+  # - with_all_roles
+  # - without_all_roles
+
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  tag_columns :roles
 
   # class methods .............................................................
   class << self
