@@ -1,0 +1,1855 @@
+// Constans
+$cb: custombox;
+$overlay: #{$cb}-overlay;
+$content: #{$cb}-content;
+$container: #{$cb}-container;
+$perspective: #{$cb}-perspective;
+$lock: #{$cb}-lock;
+$reference: #{$cb}-reference;
+$index: 9997;
+
+// Actions
+$open: #{$cb}-open;
+$close: #{$cb}-close;
+$t: #{$cb}-top;
+$b: #{$cb}-bottom;
+$l: #{$cb}-left;
+$r: #{$cb}-right;
+
+// Cartesian
+$x-left: #{$cb}-x-left;
+$x-center: #{$cb}-x-center;
+$x-right: #{$cb}-x-right;
+$y-top: #{$cb}-y-top;
+$y-center: #{$cb}-y-center;
+$y-bottom: #{$cb}-y-bottom;
+
+// Effects
+$effect1: #{$cb}-fadein;
+$effect2: #{$cb}-slide;
+$effect3: #{$cb}-newspaper;
+$effect4: #{$cb}-fall;
+$effect5: #{$cb}-sidefall;
+$effect6: #{$cb}-blur;
+$effect7: #{$cb}-flip;
+$effect8: #{$cb}-sign;
+$effect9: #{$cb}-superscaled;
+$effect10: #{$cb}-slit;
+$effect11: #{$cb}-rotate;
+$effect12: #{$cb}-letmein;
+$effect13: #{$cb}-makeway;
+$effect14: #{$cb}-slip;
+$effect15: #{$cb}-corner;
+$effect16: #{$cb}-slidetogether;
+$effect17: #{$cb}-scale;
+$effect18: #{$cb}-door;
+$effect19: #{$cb}-push;
+$effect20: #{$cb}-contentscale;
+$effect21: #{$cb}-swell;
+$effect22: #{$cb}-rotatedown;
+$effect23: #{$cb}-flash;
+
+@mixin animation($name, $timing: ease-out, $fill-mode: forwards) {
+  animation-name: $name;
+  animation-timing-function: $timing;
+  animation-fill-mode: $fill-mode;
+  backface-visibility: hidden;
+}
+
+/*
+ ----------------------------
+ Core
+ ----------------------------
+ */
+@mixin fixed() {
+  position: fixed;
+  overflow: hidden;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.#{$content},
+.#{$overlay} {
+  @include fixed();
+}
+.#{$overlay} {
+  z-index: $index;
+  opacity: 0;
+  transition-delay: 0s;
+  transition-timing-function: linear;
+  transition-property: opacity;
+}
+.#{$content} {
+  z-index: $index + 2;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  align-content: stretch;
+}
+.#{$lock} {
+  overflow: hidden;
+}
+.#{$reference} {
+  display: none;
+}
+.#{$content} {
+  overflow-y: auto;
+  > * {
+    max-width: 100%;
+    max-height: 95%;
+  }
+}
+.#{$cb}-fullscreen.#{$content} {
+  justify-content: flex-start;
+  align-items: stretch;
+  > * {
+    width: 100%;
+    max-height: 100%;
+  }
+}
+.#{$y-top} {
+  align-items: baseline;
+}
+.#{$x-left} {
+  align-items: flex-start;
+}
+.#{$y-center} {
+  align-items: center;
+}
+.#{$y-bottom} {
+  align-items: flex-end;
+}
+.#{$x-center} {
+  justify-content: center;
+}
+.#{$x-right} {
+  justify-content: flex-end;
+}
+.#{$perspective},
+.#{$perspective} body {
+  perspective: 600px;
+  height: 100%;
+  overflow: hidden;
+}
+.#{$perspective} {
+  .#{$container} {
+    overflow: hidden;
+    height: 100%;
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect1}
+ ----------------------------
+ */
+@mixin fadeOpen() {
+  transform: scale(.7);
+  transition-property: all;
+}
+@mixin fadeClose() {
+  transform: scale(1);
+  opacity: 1;
+}
+
+@keyframes fadeIn {
+  from {
+    @include fadeOpen();
+  }
+  to {
+    @include fadeClose();
+  }
+}
+@keyframes fadeOut {
+  from {
+    @include fadeClose();
+  }
+  to {
+    @include fadeOpen();
+  }
+}
+.#{$effect1} {
+  &.#{$content} {
+    opacity: 0;
+
+    &.#{$open} {
+      @include animation(fadeIn, ease-in);
+    }
+    &.#{$close} {
+      @include animation(fadeOut, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect2}
+ ----------------------------
+ */
+@mixin slide() {
+  transform: translateX(-100%);
+
+  &.#{$open} {
+    &.#{$t} {
+      @include animation(slideInTop, ease-out);
+    }
+    &.#{$b} {
+      @include animation(slideInBottom, ease-out);
+    }
+    &.#{$l} {
+      @include animation(slideInLeft, ease-out);
+    }
+    &.#{$r} {
+      @include animation(slideInRight, ease-out);
+    }
+  }
+
+  &.#{$close} {
+    &.#{$t} {
+      @include animation(slideOutTop, ease-in);
+    }
+    &.#{$b} {
+      @include animation(slideOutBottom, ease-in);
+    }
+    &.#{$l} {
+      @include animation(slideOutLeft, ease-in);
+    }
+    &.#{$r} {
+      @include animation(slideOutRight, ease-in);
+    }
+  }
+}
+@keyframes slideInTop {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes slideOutTop {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+@keyframes slideInBottom {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes slideOutBottom {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+.#{$effect2},
+.#{$effect12},
+.#{$effect13},
+.#{$effect14},
+.#{$effect19},
+.#{$effect20} {
+  &.#{$content} {
+    @include slide();
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect3}
+ ----------------------------
+ */
+@mixin newspaperOpen() {
+  transform: scale(0) rotate(720deg);
+  opacity: 0;
+}
+@mixin newspaperClose() {
+  transform: scale(1) rotate(0deg);
+  opacity: 1;
+}
+
+@keyframes newspaperIn {
+  from {
+    @include newspaperOpen();
+  }
+  to {
+    @include newspaperClose();
+  }
+}
+@keyframes newspaperOut {
+  from {
+    @include newspaperClose();
+  }
+  to {
+    @include newspaperOpen();
+  }
+}
+.#{$effect3} {
+  &.#{$content} {
+    opacity: 0;
+
+    &.#{$open} {
+      @include animation(newspaperIn, ease-in);
+    }
+    &.#{$close} {
+      @include animation(newspaperOut, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect4}
+ ----------------------------
+ */
+@mixin fallOpen() {
+  transform-style: preserve-3d;
+  transform: translateZ(600px) rotateX(20deg);
+  opacity: 0;
+}
+@mixin fallClose() {
+  transition-timing-function: ease-in;
+  transition-property: all;
+  transform: translateZ(0) rotateX(0deg);
+  opacity: 1;
+}
+
+@keyframes fallIn {
+  from {
+    @include fallOpen();
+  }
+  to {
+    @include fallClose();
+  }
+}
+@keyframes fallOut {
+  from {
+    @include fallClose();
+  }
+  to {
+    @include fallOpen();
+  }
+}
+.#{$effect4} {
+  &.#{$content} {
+    opacity: 0;
+
+    &.#{$open} {
+      @include animation(fallIn, ease-in);
+    }
+    &.#{$close} {
+      @include animation(fallOut, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect5}
+ ----------------------------
+ */
+@mixin sidefallOpen() {
+  transform-style: preserve-3d;
+  transform: translate(30%) translateZ(600px) rotate(10deg);
+  opacity: 0;
+}
+@mixin sidefallClose() {
+  transition-timing-function: ease-in;
+  transition-property: all;
+  transform: translate(0) translateZ(0) rotate(0deg);
+  opacity: 1;
+}
+
+@keyframes sidefallIn {
+  from {
+    @include sidefallOpen();
+  }
+  to {
+    @include sidefallClose();
+  }
+}
+@keyframes sidefallOut {
+  from {
+    @include sidefallClose();
+  }
+  to {
+    @include sidefallOpen();
+  }
+}
+.#{$effect5} {
+  &.#{$content} {
+    opacity: 0;
+
+    &.#{$open} {
+      @include animation(sidefallIn, ease-in);
+    }
+    &.#{$close} {
+      @include animation(sidefallOut, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect6}
+ ----------------------------
+ */
+@mixin blurOpen() {
+  transform: translateY(-5%);
+  opacity: 0;
+}
+@mixin blurOpenBottom() {
+  transform: translateY(5%);
+  opacity: 0;
+}
+@mixin blurOpenRight() {
+  transform: translateX(5%);
+  opacity: 0;
+}
+@mixin blurOpenLeft() {
+  transform: translateX(-5%);
+  opacity: 0;
+}
+@mixin blurClose() {
+  transform: translateY(0);
+  opacity: 1;
+}
+@mixin blurContainerOpen() {
+  filter: blur(0px);
+}
+@mixin blurContainerClose() {
+  filter: blur(3px);
+}
+
+@keyframes blurInTop {
+  from {
+    @include blurOpen();
+  }
+  to {
+    @include blurClose();
+  }
+}
+@keyframes blurOutTop {
+  from {
+    @include blurClose();
+  }
+  to {
+    @include blurOpen();
+  }
+}
+@keyframes blurInBottom {
+  from {
+    @include blurOpenBottom();
+  }
+  to {
+    @include blurClose();
+  }
+}
+@keyframes blurOutBottom {
+  from {
+    @include blurClose();
+  }
+  to {
+    @include blurOpenBottom();
+  }
+}
+@keyframes blurInRight {
+  from {
+    @include blurOpenRight();
+  }
+  to {
+    @include blurClose();
+  }
+}
+@keyframes blurOutRight {
+  from {
+    @include blurClose();
+  }
+  to {
+    @include blurOpenRight();
+  }
+}
+@keyframes blurInLeft {
+  from {
+    @include blurOpenLeft();
+  }
+  to {
+    @include blurClose();
+  }
+}
+@keyframes blurOutLeft {
+  from {
+    @include blurClose();
+  }
+  to {
+    @include blurOpenLeft();
+  }
+}
+@keyframes blurInContainer {
+  from {
+    @include blurContainerOpen();
+  }
+  to {
+    @include blurContainerClose();
+  }
+}
+@keyframes blurOutContainer {
+  from {
+    @include blurContainerClose();
+  }
+  to {
+    @include blurContainerOpen();
+  }
+}
+.#{$effect6} {
+  &.#{$content} {
+    opacity: 0;
+
+    &.#{$open} {
+      &.#{$t} {
+        @include animation(blurInTop, ease-in);
+      }
+      &.#{$b} {
+        @include animation(blurInBottom, ease-in);
+      }
+      &.#{$l} {
+        @include animation(blurInLeft, ease-in);
+      }
+      &.#{$r} {
+        @include animation(blurInRight, ease-in);
+      }
+    }
+    &.#{$close} {
+      &.#{$t} {
+        @include animation(blurOutTop, ease-out);
+      }
+      &.#{$b} {
+        @include animation(blurOutBottom, ease-out);
+      }
+      &.#{$r} {
+        @include animation(blurOutRight, ease-out);
+      }
+      &.#{$l} {
+        @include animation(blurOutLeft, ease-out);
+      }
+    }
+  }
+}
+.#{$effect6} {
+  &.#{$container} {
+    @include animation(blurOutContainer, ease-out);
+    &.#{$open} {
+      @include animation(blurInContainer, ease-in);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect7}
+ ----------------------------
+ */
+@mixin flipOpen() {
+  transform-style: preserve-3d;
+  transform: rotateX(-70deg);
+}
+@mixin flipOpenBottom() {
+  transform-style: preserve-3d;
+  transform: rotateX(70deg);
+}
+@mixin flipOpenRight() {
+  transform-style: preserve-3d;
+  transform: rotateY(70deg);
+}
+@mixin flipOpenLeft() {
+  transform-style: preserve-3d;
+  transform: rotateY(-70deg);
+}
+@mixin flipClose() {
+  transform: rotateY(0deg);
+  opacity: 1;
+}
+
+@keyframes flipInTop {
+  from {
+    @include flipOpen();
+  }
+  to {
+    @include flipClose();
+  }
+}
+@keyframes flipOutTop {
+  from {
+    @include flipClose();
+  }
+  to {
+    @include flipOpen();
+  }
+}
+@keyframes flipInBottom {
+  from {
+    @include flipOpenBottom();
+  }
+  to {
+    @include flipClose();
+  }
+}
+@keyframes flipOutBottom {
+  from {
+    @include flipClose();
+  }
+  to {
+    @include flipOpenBottom();
+  }
+}
+@keyframes flipInRight {
+  from {
+    @include flipOpenRight();
+  }
+  to {
+    @include flipClose();
+  }
+}
+@keyframes flipOutRight {
+  from {
+    @include flipClose();
+  }
+  to {
+    @include flipOpenRight();
+  }
+}
+@keyframes flipInLeft {
+  from {
+    @include flipOpenLeft();
+  }
+  to {
+    @include flipClose();
+  }
+}
+@keyframes flipOutLeft {
+  from {
+    @include flipClose();
+  }
+  to {
+    @include flipOpenLeft();
+  }
+}
+.#{$effect7} {
+  &.#{$content} {
+    opacity: 0;
+    &.#{$open} {
+      &.#{$t} {
+        @include animation(flipInTop, ease-in);
+      }
+      &.#{$b} {
+        @include animation(flipInBottom, ease-in);
+      }
+      &.#{$r} {
+        @include animation(flipInRight, ease-in);
+      }
+      &.#{$l} {
+        @include animation(flipInLeft, ease-in);
+      }
+    }
+
+    &.#{$close} {
+      &.#{$t} {
+        @include animation(flipOutTop, ease-out);
+      }
+      &.#{$b} {
+        @include animation(flipOutBottom, ease-out);
+      }
+      &.#{$r} {
+        @include animation(flipOutRight, ease-out);
+      }
+      &.#{$l} {
+        @include animation(flipOutLeft, ease-out);
+      }
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect8}
+ ----------------------------
+ */
+@mixin signOpen() {
+  transform-style: preserve-3d;
+  transform: rotateX(-60deg);
+  transform-origin: 50% 0;
+  transition-property: all;
+}
+@mixin signClose() {
+  transform: rotateX(0deg);
+  opacity: 1;
+}
+
+@keyframes signIn {
+  from {
+    @include signOpen();
+  }
+  to {
+    @include signClose();
+  }
+}
+@keyframes signOut {
+  from {
+    @include signClose();
+  }
+  to {
+    @include signOpen();
+  }
+}
+.#{$effect8} {
+  perspective: 1300px;
+  &.#{$content} {
+    opacity: 0;
+
+    &.#{$open} {
+      @include animation(signIn, ease-in);
+    }
+    &.#{$close} {
+      @include animation(signOut, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect9}
+ ----------------------------
+ */
+@mixin superscaledOpen() {
+  transform: scale(2);
+}
+@mixin superscaledClose() {
+  transform: scale(1);
+  opacity: 1;
+}
+
+@keyframes superscaledIn {
+  from {
+    @include superscaledOpen();
+  }
+  to {
+    @include superscaledClose();
+  }
+}
+@keyframes superscaledOut {
+  from {
+    @include superscaledClose();
+  }
+  to {
+    @include superscaledOpen();
+  }
+}
+.#{$effect9} {
+  &.#{$content} {
+    opacity: 0;
+
+    &.#{$open} {
+      @include animation(superscaledIn, ease-in);
+    }
+    &.#{$close} {
+      @include animation(superscaledOut, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect10}
+ ----------------------------
+ */
+@mixin slitIn-a() {
+  transform: translateZ(-3000px) rotateY(90deg);
+}
+@mixin slitIn-b() {
+  transform: translateZ(-250px) rotateY(89deg);
+  opacity: 1;
+  animation-timing-function: ease-out;
+}
+@mixin slitIn-c() {
+  transform: translateZ(0) rotateY(0deg);
+  opacity: 1;
+}
+@keyframes slitIn {
+  0% {
+    @include slitIn-a();
+  }
+  50% {
+    @include slitIn-b();
+  }
+  100% {
+    @include slitIn-c();
+  }
+}
+@keyframes slitOut {
+  0% {
+    @include slitIn-c();
+  }
+  50% {
+    @include slitIn-b();
+  }
+  100% {
+    @include slitIn-a();
+  }
+}
+.#{$effect10} {
+  &.#{$content} {
+    opacity: 0;
+    transform-style: preserve-3d;
+
+    &.#{$open} {
+      @include animation(slitIn, ease-in);
+    }
+    &.#{$close} {
+      @include animation(slitOut, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect11}
+ ----------------------------
+ */
+@mixin rotateOpen() {
+  transform-style: preserve-3d;
+  transform: translateY(0%) rotateX(90deg);
+  transform-origin: 0 100%;
+  opacity: 0;
+  transition-timing-function: ease-out;
+  transition-property: all;
+}
+@mixin rotateClose() {
+  transform: translateY(0) rotateX(0deg);
+  opacity: 1;
+}
+@keyframes rotateIn {
+  from {
+    @include rotateOpen();
+  }
+  to {
+    @include rotateClose();
+  }
+}
+@keyframes rotateOut {
+  from {
+    @include rotateClose();
+  }
+  to {
+    @include rotateOpen();
+  }
+}
+.#{$effect11} {
+  perspective: 2300px;
+  &.#{$content} {
+    transform: translateY(-100%);
+    &.#{$open} {
+      @include animation(rotateIn, ease-out);
+    }
+    &.#{$close} {
+      @include animation(rotateOut, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect12}
+ ----------------------------
+ */
+@mixin letmeinOpen() {
+  transform: scale(.7);
+  transition-property: all;
+}
+@mixin letmeinClose() {
+  transform: scale(1);
+  opacity: 1;
+}
+@mixin letmeinOverlayAction($transform, $origin: 50% 0) {
+  transform: $transform;
+  transform-origin: $origin;
+  transform-style: preserve-3d;
+}
+
+@keyframes letmeinBottomOverlay {
+  to {
+    @include letmeinOverlayAction(rotateX(-2deg));
+  }
+}
+@keyframes letmeinOutBottomOverlay {
+  from {
+    @include letmeinOverlayAction(rotateX(-2deg));
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes letmeinLeftOverlay {
+  to {
+    @include letmeinOverlayAction(rotateY(-2deg));
+  }
+}
+@keyframes letmeinOutLeftOverlay {
+  from {
+    @include letmeinOverlayAction(rotateY(-2deg));
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes letmeinRightOverlay {
+  to {
+    @include letmeinOverlayAction(rotateY(2deg));
+  }
+}
+@keyframes letmeinOutRightOverlay {
+  from {
+    @include letmeinOverlayAction(rotateY(2deg));
+  }
+  to {
+    opacity: 0;
+  }
+}
+@keyframes letmeinTopOverlay {
+  to {
+    @include letmeinOverlayAction(rotateX(2deg), 0 50%);
+  }
+}
+@keyframes letmeinOutTopOverlay {
+  from {
+    @include letmeinOverlayAction(rotateX(2deg));
+  }
+  to {
+    opacity: 0;
+  }
+}
+.#{$effect12} {
+  &.#{$overlay} {
+    &.#{$open} {
+      &.#{$t} {
+        @include animation(letmeinTopOverlay, ease-in);
+      }
+      &.#{$b} {
+        @include animation(letmeinBottomOverlay, ease-in);
+      }
+      &.#{$l} {
+        @include animation(letmeinLeftOverlay, ease-in);
+      }
+      &.#{$r} {
+        @include animation(letmeinRightOverlay, ease-in);
+      }
+    }
+    &.#{$close} {
+      &.#{$t} {
+        @include animation(letmeinOutTopOverlay, ease-out);
+      }
+      &.#{$b} {
+        @include animation(letmeinOutBottomOverlay, ease-out);
+      }
+      &.#{$l} {
+        @include animation(letmeinOutLeftOverlay, ease-out);
+      }
+      &.#{$r} {
+        @include animation(letmeinOutRightOverlay, ease-out);
+      }
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect13}
+ ----------------------------
+ */
+@mixin makewayContainerOpen() {
+  transform: translateZ(-50px) rotateY(5deg);
+  animation-timing-function: ease-out;
+}
+@mixin makewayOutContainerOpen() {
+  transform: translateZ(-200px);
+}
+@mixin makewayAction() {
+  transform-style: preserve-3d;
+  transform-origin: 0 50%;
+}
+
+@keyframes makewayInContainer {
+  50% {
+    @include makewayContainerOpen();
+  }
+  100% {
+    @include makewayOutContainerOpen();
+  }
+}
+@keyframes makewayOutContainer {
+  0% {
+    @include makewayOutContainerOpen();
+  }
+  50% {
+    @include makewayContainerOpen();
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes makewayInTop {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes makewayOutTop {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+@keyframes makewayInBottom {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes makewayOutBottom {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}
+@keyframes makewayInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes makewayOutLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+@keyframes makewayInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+@keyframes makewayOutRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+.#{$effect13} {
+  &.#{$overlay} {
+    @include makewayAction();
+
+    &.#{$open} {
+      @include animation(makewayInContainer, ease-in);
+    }
+    &.#{$close} {
+      @include animation(makewayOutContainer, ease-out);
+    }
+  }
+  &.#{$container} {
+    @include makewayAction();
+
+    &.#{$open} {
+      @include animation(makewayInContainer, ease-in);
+    }
+    &.#{$close} {
+      @include animation(makewayOutContainer, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect14}
+ ----------------------------
+ */
+@mixin slipOverlayAction($transform) {
+  transform: $transform;
+  transform-origin: 50% 100%;
+  transform-style: preserve-3d;
+}
+@keyframes slipTopOverlay {
+  50% {
+    @include slipOverlayAction(rotateX(10deg));
+  }
+}
+@keyframes slipOutTopOverlay {
+  50% {
+    @include slipOverlayAction(rotateX(10deg));
+  }
+}
+@keyframes slipRightOverlay {
+  50% {
+    @include slipOverlayAction(rotateY(10deg));
+  }
+}
+@keyframes slipOutRightOverlay {
+  50% {
+    @include slipOverlayAction(rotateY(10deg));
+  }
+}
+@keyframes slipBottomOverlay {
+  50% {
+    @include slipOverlayAction(rotateX(-10deg));
+  }
+}
+@keyframes slipOutBottomOverlay {
+  50% {
+    @include slipOverlayAction(rotateX(-10deg));
+  }
+}
+@keyframes slipLeftOverlay {
+  50% {
+    @include slipOverlayAction(rotateY(-10deg));
+  }
+}
+@keyframes slipOutLeftOverlay {
+  50% {
+    @include slipOverlayAction(rotateY(-10deg));
+  }
+}
+.#{$effect14} {
+  &.#{$overlay} {
+    &.#{$open} {
+      &.#{$t} {
+        @include animation(slipTopOverlay, ease-in-out);
+      }
+      &.#{$b} {
+        @include animation(slipBottomOverlay, ease-in-out);
+      }
+      &.#{$l} {
+        @include animation(slipLeftOverlay, ease-in-out);
+      }
+      &.#{$r} {
+        @include animation(slipRightOverlay, ease-in-out);
+      }
+    }
+    &.#{$close} {
+      &.#{$t} {
+        @include animation(slipOutTopOverlay, ease-in-out);
+      }
+      &.#{$b} {
+        @include animation(slipOutBottomOverlay, ease-in-out);
+      }
+      &.#{$l} {
+        @include animation(slipOutLeftOverlay, ease-in-out);
+      }
+      &.#{$r} {
+        @include animation(slipOutRightOverlay, ease-in-out);
+      }
+    }
+  }
+  &.#{$container} {
+    &.#{$open} {
+      &.#{$t} {
+        @include animation(slipTopOverlay, ease-in-out);
+      }
+      &.#{$b} {
+        @include animation(slipBottomOverlay, ease-in-out);
+      }
+      &.#{$l} {
+        @include animation(slipLeftOverlay, ease-in-out);
+      }
+      &.#{$r} {
+        @include animation(slipRightOverlay, ease-in-out);
+      }
+    }
+    &.#{$close} {
+      &.#{$t} {
+        @include animation(slipOutTopOverlay, ease-in-out);
+      }
+      &.#{$b} {
+        @include animation(slipOutBottomOverlay, ease-in-out);
+      }
+      &.#{$l} {
+        @include animation(slipOutLeftOverlay, ease-in-out);
+      }
+      &.#{$r} {
+        @include animation(slipOutRightOverlay, ease-in-out);
+      }
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect15}
+ ----------------------------
+ */
+@mixin cornerActionOpen() {
+  transform: translateY(150px) translateX(150px);
+  transition-property: opacity, transform, visibility;
+}
+@mixin cornerActionClose() {
+  transform: translateY(0);
+  transition-property: opacity, transform;
+}
+
+@keyframes cornerInOverlay {
+  from {
+    @include cornerActionOpen();
+  }
+  to {
+    @include cornerActionClose();
+  }
+}
+@keyframes cornerOutOverlay {
+  from {
+    @include cornerActionClose();
+  }
+  to {
+    @include cornerActionOpen();
+    opacity: 0;
+  }
+}
+@keyframes cornerInContent {
+  from {
+    @include cornerActionOpen();
+  }
+  to {
+    @include cornerActionClose();
+    opacity: 1;
+  }
+}
+@keyframes cornerOutContent {
+  from {
+    @include cornerActionClose();
+    opacity: 1;
+  }
+  to {
+    @include cornerActionOpen();
+    opacity: 0;
+  }
+}
+.#{$effect15} {
+  &.#{$overlay} {
+    &.#{$open} {
+      @include animation(cornerInOverlay, ease-in);
+    }
+    &.#{$close} {
+      @include animation(cornerOutOverlay, ease-out);
+    }
+  }
+  &.#{$content} {
+    &.#{$open} {
+      @include animation(cornerInContent, ease-in);
+    }
+    &.#{$close} {
+      @include animation(cornerOutContent, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect16}
+ ----------------------------
+ */
+.#{$effect16} {
+  &.#{$content}, &.#{$overlay} {
+    @include slide();
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect17}
+ ----------------------------
+ */
+@mixin scaleActionOpen() {
+  transform: scale(.9);
+  transition: transform;
+  opacity: 0;
+}
+@mixin scaleActionClose() {
+  transform: scale(1);
+  transition: transform;
+}
+
+@keyframes scaleInOverlay {
+  from {
+    @include scaleActionOpen();
+  }
+  to {
+    @include scaleActionClose();
+  }
+}
+@keyframes scaleOutOverlay {
+  from {
+    @include scaleActionClose();
+  }
+  to {
+    @include scaleActionOpen();
+    opacity: 0;
+  }
+}
+.#{$effect17} {
+  &.#{$overlay} {
+    &.#{$open} {
+      @include animation(scaleInOverlay, ease-in);
+    }
+    &.#{$close} {
+      @include animation(scaleOutOverlay, ease-out);
+    }
+  }
+  &.#{$content} {
+    &.#{$open} {
+      @include animation(scaleInOverlay, ease-in);
+    }
+    &.#{$close} {
+      @include animation(scaleOutOverlay, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect18}
+ ----------------------------
+ */
+@mixin doorActionOpen() {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  right: 50%;
+  width: 0;
+}
+@mixin doorActionClose() {
+  width: 100%;
+  left: 0;
+  right: 0;
+  transition-property: width;
+}
+@keyframes doorInOverlay {
+  from {
+    @include doorActionOpen()
+  }
+  to {
+    @include doorActionClose()
+  }
+}
+@keyframes doorOutOverlay {
+  from {
+    @include doorActionClose()
+  }
+  to {
+    @include doorActionOpen()
+  }
+}
+.#{$effect18} {
+  &.#{$overlay} {
+    &.#{$open} {
+      @include animation(doorInOverlay, ease-in);
+    }
+    &.#{$close} {
+      @include animation(doorOutOverlay, ease-out);
+    }
+  }
+  &.#{$content} {
+    &.#{$open} {
+      @include animation(doorInOverlay, ease-in);
+    }
+    &.#{$close} {
+      @include animation(doorOutOverlay, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect19}
+ ----------------------------
+ */
+@mixin pushContainerAction() {
+  overflow-x: hidden;
+  transition-property: transform;
+}
+@mixin pushOverlayAction() {
+  transform: translateX(0) translateY(0);
+}
+@mixin pushRight() {
+  transform: translateX(100%);
+}
+@mixin pushLeft() {
+  transform: translateX(-100%);
+}
+@mixin pushTop() {
+  transform: translateY(-100%);
+}
+@mixin pushBottom() {
+  transform: translateY(100%);
+}
+@keyframes pushInLeftOverlay {
+  from {
+    @include pushLeft();
+  }
+  to {
+    @include pushOverlayAction();
+  }
+}
+@keyframes pushOutLeftOverlay {
+  from {
+    @include pushOverlayAction();
+  }
+  to {
+    @include pushLeft();
+  }
+}
+@keyframes pushInRightOverlay {
+  from {
+    @include pushRight();
+  }
+  to {
+    @include pushOverlayAction();
+  }
+}
+@keyframes pushOutRightOverlay {
+  from {
+    @include pushOverlayAction();
+  }
+  to {
+    @include pushRight();
+  }
+}
+@keyframes pushInTopOverlay {
+  from {
+    @include pushTop();
+  }
+  to {
+    @include pushOverlayAction();
+  }
+}
+@keyframes pushOutTopOverlay {
+  from {
+    @include pushOverlayAction();
+  }
+  to {
+    @include pushTop();
+  }
+}
+@keyframes pushInBottomOverlay {
+  from {
+    @include pushBottom();
+  }
+  to {
+    @include pushOverlayAction();
+  }
+}
+@keyframes pushOutBottomOverlay {
+  from {
+    @include pushOverlayAction();
+  }
+  to {
+    @include pushBottom();
+  }
+}
+@keyframes pushOutTopOverlay {
+  from {
+    @include pushOverlayAction();
+  }
+  to {
+    @include pushTop();
+  }
+}
+@keyframes pushInLeftContainer {
+  from {
+    @include pushContainerAction();
+  }
+  to {
+    @include pushRight();
+  }
+}
+@keyframes pushOutLeftContainer {
+  from {
+    @include pushRight();
+  }
+  to {
+    @include pushContainerAction();
+  }
+}
+@keyframes pushInRightContainer {
+  from {
+    @include pushContainerAction();
+  }
+  to {
+    @include pushLeft();
+  }
+}
+@keyframes pushOutRightContainer {
+  from {
+    @include pushLeft();
+  }
+  to {
+    @include pushContainerAction();
+  }
+}
+@keyframes pushInTopContainer {
+  from {
+    @include pushContainerAction();
+  }
+  to {
+    @include pushBottom();
+  }
+}
+@keyframes pushOutTopContainer {
+  from {
+    @include pushBottom();
+  }
+  to {
+    @include pushContainerAction();
+  }
+}
+@keyframes pushInBottomContainer {
+  from {
+    @include pushContainerAction();
+  }
+  to {
+    @include pushTop();
+  }
+}
+@keyframes pushOutBottomContainer {
+  from {
+    @include pushTop();
+  }
+  to {
+    @include pushContainerAction();
+  }
+}
+.#{$effect19} {
+  &.#{$overlay} {
+    transition-property: transform;
+    &.#{$open} {
+      &.#{$t} {
+        @include animation(pushInTopOverlay, ease-in);
+      }
+      &.#{$b} {
+        @include animation(pushInBottomOverlay, ease-in);
+      }
+      &.#{$l} {
+        @include animation(pushInLeftOverlay, ease-in);
+      }
+      &.#{$r} {
+        @include animation(pushInRightOverlay, ease-in);
+      }
+    }
+    &.#{$close} {
+      &.#{$t} {
+        @include animation(pushOutTopOverlay, ease-out);
+      }
+      &.#{$b} {
+        @include animation(pushOutBottomOverlay, ease-out);
+      }
+      &.#{$l} {
+        @include animation(pushOutLeftOverlay, ease-out);
+      }
+      &.#{$r} {
+        @include animation(pushOutRightOverlay, ease-out);
+      }
+    }
+  }
+  &.#{$container} {
+    &.#{$open} {
+      &.#{$t} {
+        @include animation(pushInTopContainer, ease-in);
+      }
+      &.#{$b} {
+        @include animation(pushInBottomContainer, ease-in);
+      }
+      &.#{$l} {
+        @include animation(pushInLeftContainer, ease-in);
+      }
+      &.#{$r} {
+        @include animation(pushInRightContainer, ease-in);
+      }
+    }
+    &.#{$close} {
+      &.#{$t} {
+        @include animation(pushOutTopContainer, ease-out);
+      }
+      &.#{$b} {
+        @include animation(pushOutBottomContainer, ease-out);
+      }
+      &.#{$l} {
+        @include animation(pushOutLeftContainer, ease-out);
+      }
+      &.#{$r} {
+        @include animation(pushOutRightContainer, ease-out);
+      }
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect20}
+ ----------------------------
+ */
+@mixin contentscaleIn() {
+  transition: transform;
+}
+@mixin contentscaleOut() {
+  transform: scale(.8);
+}
+@keyframes contentscaleInContainer {
+  from {
+    @include contentscaleIn();
+  }
+  to {
+    @include contentscaleOut();
+  }
+}
+@keyframes contentscaleOutContainer {
+  from {
+    @include contentscaleOut();
+  }
+  to {
+    @include contentscaleIn();
+  }
+}
+.#{$effect20} {
+  &.#{$overlay} {
+    @include slide();
+  }
+  &.#{$container} {
+    &.#{$open} {
+      @include animation(contentscaleInContainer, ease-in);
+    }
+    &.#{$close} {
+      @include animation(contentscaleOutContainer, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect21}
+ ----------------------------
+ */
+@keyframes swellOpen {
+  0% {
+    opacity: 0;
+    transform: translate3d(calc(-100vw - 50%), 0, 0);
+  }
+  50% {
+    opacity: 1;
+    transform: translate3d(100px, 0, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes swellClose {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    opacity: 1;
+    transform: translate3d(-100px, 0, 0) scale3d(1.1, 1.1, 1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(calc(100vw + 50%), 0, 0)
+  }
+}
+.#{$effect21} {
+  &.#{$content} {
+    opacity: 0;
+
+    &.#{$open} {
+      @include animation(swellOpen, ease-in);
+    }
+    &.#{$close} {
+      @include animation(swellClose, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect22}
+ ----------------------------
+ */
+@keyframes rotatedownOpen {
+  0% {
+    opacity: 0;
+    transform: rotate3d(0, 0, 1, -45deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotate3d(0, 0, 1, 0deg);
+  }
+}
+@keyframes rotatedownClose {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate3d(0, 0, 1, 45deg);
+  }
+}
+@keyframes rotatedownElem {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -150px, 0) rotate3d(0, 0, 1, -20deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) rotate3d(0, 0, 1, 0deg);
+  }
+}
+.#{$effect22} {
+  &.#{$content} {
+    opacity: 0;
+    animation-timing-function: cubic-bezier(.7, 0, .3, 1);
+    transform-origin: -150% 50%;
+    &.#{$open} {
+      @include animation(rotatedownOpen, ease-in);
+    }
+    &.#{$close} {
+      @include animation(rotatedownClose, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ #{$effect23}
+ ----------------------------
+ */
+@keyframes flashOpen {
+  0% {
+    opacity: 0;
+    transform: translate3d(-400px, 0, 0)
+    scale3d(1.4, 0, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  }
+}
+@keyframes flashClose {
+  0% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  }
+  20% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(-400px, 0, 0) scale3d(1.4, 0, 1);
+  }
+}
+.#{$effect23} {
+  &.#{$content} {
+    opacity: 0;
+    animation-timing-function: cubic-bezier(.7, 0, .3, 1);
+    &.#{$open} {
+      @include animation(flashOpen, ease-in);
+    }
+    &.#{$close} {
+      @include animation(flashClose, ease-out);
+    }
+  }
+}
+
+/*
+ ----------------------------
+ Loader
+ ----------------------------
+ */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.#{$cb}-loader {
+  display: none;
+  border-style: solid;
+  border-width: 5px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation-name: spin;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin: -25px 0 0 -25px;
+  z-index: $index + 1;
+}

@@ -2,16 +2,83 @@
 <html>
   <head>
     <title>CodeFund Ads</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= stylesheet_pack_tag    'theme', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_pack_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag    'theme', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://codefund.io/favicon.ico">
+
+    <!-- Search Engine -->
+    <meta name="description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
+    <meta name="image" content="https://codefund.io/images/codefund-logo-square-512.png">
+    
+    <!-- Schema.org for Google -->
+    <meta itemprop="name" content="CodeFund">
+    <meta itemprop="description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
+    <meta itemprop="image" content="https://codefund.io/images/codefund-logo-square-512.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="CodeFund">
+    <meta name="twitter:description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
+    <meta name="twitter:site" content="@codefundio">
+    <meta name="twitter:creator" content="@coderberry">
+    <meta name="twitter:image:src" content="https://codefund.io/images/twitter-preview-image.png">
+
+    <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+    <meta name="og:title" content="CodeFund">
+    <meta name="og:description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
+    <meta name="og:image" content="https://codefund.io/images/preview-image.png">
+    <meta name="og:url" content="https://codefund.io">
+    <meta name="og:site_name" content="CodeFund">
+    <meta name="og:locale" content="en_US">
+    <meta name="fb:admins" content="801507563">
+    <meta name="og:type" content="website">
+
+    <!-- CDN Stylesheets -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600">
+    <link rel="stylesheet" href="//pro.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-POYwD7xcktv3gUeZO5s/9nUbRJG/WOmV6jfEGikMJu77LGYO8Rfs2X7URG822aum" crossorigin="anonymous">
+    <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <!-- Compressed Stylesheets -->
+    <%= stylesheet_pack_tag 'theme', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    
+    <!-- CDN JavaScripts -->
+    <script src="//stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+    <!-- Cookie / Privacy Policy -->
+    <script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+    
+    <!-- Compressed JavaScripts -->
+    <%= javascript_pack_tag 'theme', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag    'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
+    <%= skippy %>
+    <%= header %>
+
+    <div class="bg-primary">
+      <div class="container u-space-1">
+        <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
+          <div class="mb-3 mb-sm-0">
+            <ol class="breadcrumb breadcrumb-white breadcrumb-no-gutter mb-0">
+              <%= yield :breadcrumbs %>
+            </ol>
+          </div>
+
+          <%= yield :actions %>
+        </div>
+      </div>
+    </div>
+
     <%= yield %>
+    <%= footer %>
   </body>
 </html>

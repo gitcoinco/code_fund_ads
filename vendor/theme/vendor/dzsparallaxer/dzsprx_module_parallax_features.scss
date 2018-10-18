@@ -1,0 +1,161 @@
+
+/*
+ * Author: Digital Zoom Studio
+ * Website: http://digitalzoomstudio.net/
+ * Portfolio: http://codecanyon.net/user/ZoomIt/portfolio
+ *
+ * Version: 1.30
+ *
+ */
+
+@mixin apply_transition($transition-property, $transition-duration, $transition-timing) {
+  transition-property: $transition-property;transition-duration: $transition-duration;-moz-transition-property:$transition-property;-moz-transition-duration: $transition-duration;-webkit-transition-property:$transition-property;-webkit-transition-duration: $transition-duration;-o-transition-property:$transition-property;-o-transition-duration: $transition-duration;-ms-transition-property:$transition-property;
+  -ms-transition-duration: $transition-duration;-ms-transition-timing-function:$transition-timing;
+
+  @if $transition-timing == ease-out-quart {
+    -webkit-transition-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    -moz-transition-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    -o-transition-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+    transition-timing-function: cubic-bezier(0.165, 0.840, 0.440, 1.000);
+  } @else {
+    -webkit-transition-timing-function:$transition-timing;
+    -moz-transition-timing-function:$transition-timing;
+    -o-transition-timing-function:$transition-timing;
+    transition-timing-function: $transition-timing;
+  }
+}
+@mixin boxsizing() {
+  -moz-box-sizing:    border-box;   -webkit-box-sizing: border-box;    box-sizing:        border-box;
+}
+
+@-webkit-keyframes keyframes-rotate {
+  0% {transform: rotate(0deg);-webkit-transform: rotate(0deg);}
+  50% {transform: rotate(180deg);-webkit-transform: rotate(180deg);}
+  100% {transform: rotate(360deg);-webkit-transform: rotate(360deg);}
+}
+@keyframes keyframes-rotate {
+  0% {transform: rotate(0deg);-webkit-transform: rotate(0deg);}
+  50% {transform: rotate(180deg);-webkit-transform: rotate(180deg);}
+  100% {transform: rotate(360deg);-webkit-transform: rotate(360deg);}
+}
+
+.dzsparallaxer-features{
+  position: relative;
+
+  > .responsive-con{
+    padding: 15px 30px;
+    display: none;
+
+    .advancedscroller .imagediv {
+      background-size: contain;
+    }
+  }
+}
+.dzsparallaxer-features.responsive-mode{
+
+  >.dzsprx-features-container{
+    display: none;
+  }
+  > .responsive-con{
+    display: block;
+  }
+}
+
+.dzsprx-features-container{
+  width: 100%;
+  max-width: calc(100% - 140px);
+  margin: 0 auto;
+
+  .dzs-colcontainer{
+    position: relative;
+  }
+
+  .feat-img{
+    position: absolute;
+    left: 0px;
+    width: 50%;
+
+    opacity:0;
+    visibility: hidden;
+
+
+    $transition-property: opacity, visibility;
+    $transition-duration: 0.7s;
+    $transition-timing: ease-out-quart;
+
+
+    @include apply_transition($transition-property, $transition-duration, $transition-timing);
+  }
+
+
+  .feat-img.feat-img--active{
+    opacity:1;
+    visibility: visible;
+  }
+
+
+  .dzs-col-6{
+
+    .feat-img {
+      left: 0px;
+      width: 50%;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+  }
+}
+
+.dzs-colcontainer{
+  margin-left: -15px;
+  margin-right: -15px;
+  @include boxsizing();
+}
+.dzs-colcontainer:after{
+  display: block; content: ""; clear: both;
+}
+*[class*="dzs-col-"] {
+  float: left;
+  padding-left:15px;
+  padding-right:15px;
+  min-height: 1px;
+}
+.dzs-col-4{
+  width: 33.3%;
+  padding-left:15px;
+  padding-right:15px;
+}
+.dzs-col-8{
+  width: 66.6%;
+  padding-left:15px;
+  padding-right:15px;
+}
+.dzs-col-6{
+  width: 50%;
+
+  padding-left:15px;
+  padding-right:15px;
+}
+.dzs-col-12{
+  width: 100%;
+
+  padding-left:15px;
+  padding-right:15px;
+}
+
+
+
+.dzsparallaxer-features.feat-img-is-fixed{
+  .feat-img{
+    position: fixed;
+  }
+
+
+  .dzs-col-6{
+
+    .feat-img {
+      left: 70px;
+      width: calc(50% - 70px);
+      padding-left:0;
+    }
+  }
+}

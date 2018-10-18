@@ -1,0 +1,75 @@
+{
+  "_args": [
+    [
+      "typed.js@2.0.9",
+      "/Users/eberry/Code/front-theme"
+    ]
+  ],
+  "_from": "typed.js@2.0.9",
+  "_id": "typed.js@2.0.9",
+  "_inBundle": false,
+  "_integrity": "sha512-RTv7MvbsJ0ajz3PW/o325kXo0+gZAGW9xoZQ9eXrdvTg9prvH5JgAVeAITYuh7OoGStl1yuJgcR07IO10l3Q3g==",
+  "_location": "/typed.js",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "typed.js@2.0.9",
+    "name": "typed.js",
+    "escapedName": "typed.js",
+    "rawSpec": "2.0.9",
+    "saveSpec": null,
+    "fetchSpec": "2.0.9"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/typed.js/-/typed.js-2.0.9.tgz",
+  "_spec": "2.0.9",
+  "_where": "/Users/eberry/Code/front-theme",
+  "author": {
+    "name": "Matt Boldt",
+    "email": "me@mattboldt.com"
+  },
+  "bugs": {
+    "url": "https://github.com/mattboldt/typed.js/issues"
+  },
+  "description": "A JavaScript Typing Animation Library",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-core": "^5.8.24",
+    "babel-eslint": "^4.1.1",
+    "babel-loader": "^5.3.2",
+    "documentation": "^8.0.0",
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.6.0",
+    "eslint-plugin-node": "^5.1.0",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "express": "^4.15.3",
+    "gulp": "^3.9.0",
+    "gulp-documentation": "^3.2.0",
+    "gulp-eslint": "^4.0.0",
+    "gulp-express": "^0.3.5",
+    "gulp-livereload": "^3.8.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.4.1",
+    "webpack": "^1.12.1",
+    "webpack-stream": "^2.1.0"
+  },
+  "homepage": "https://github.com/mattboldt/typed.js",
+  "keywords": [
+    "typed",
+    "animation"
+  ],
+  "license": "MIT",
+  "main": "lib/typed.js",
+  "name": "typed.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattboldt/typed.js.git"
+  },
+  "version": "2.0.9"
+}

@@ -1,0 +1,64 @@
+{
+  "_args": [
+    [
+      "flag-icon-css@3.2.0",
+      "/Users/eberry/Code/front-theme"
+    ]
+  ],
+  "_from": "flag-icon-css@3.2.0",
+  "_id": "flag-icon-css@3.2.0",
+  "_inBundle": false,
+  "_integrity": "sha512-XwbQgswfJ19jVrYL92+MKK3HJfIG+6lC8oifaG6mOtahWaXHbDFXQ7UVbw1+I+zidM1azOD8aFC0DO+xZzK0Xg==",
+  "_location": "/flag-icon-css",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "flag-icon-css@3.2.0",
+    "name": "flag-icon-css",
+    "escapedName": "flag-icon-css",
+    "rawSpec": "3.2.0",
+    "saveSpec": null,
+    "fetchSpec": "3.2.0"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/flag-icon-css/-/flag-icon-css-3.2.0.tgz",
+  "_spec": "3.2.0",
+  "_where": "/Users/eberry/Code/front-theme",
+  "author": {
+    "name": "Panayiotis Lipiridis",
+    "email": "lipiridis@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/lipis/flag-icon-css/issues"
+  },
+  "description": "[![npm version](https://badge.fury.io/js/flag-icon-css.svg)](https://badge.fury.io/js/flag-icon-css)",
+  "devDependencies": {
+    "grunt": "1.0.3",
+    "grunt-contrib-connect": "2.0.0",
+    "grunt-contrib-cssmin": "3.0.0",
+    "grunt-contrib-less": "1.4.1",
+    "grunt-contrib-watch": "1.1.0",
+    "svgo": "1.1.0"
+  },
+  "homepage": "https://github.com/lipis/flag-icon-css#readme",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "name": "flag-icon-css",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/lipis/flag-icon-css.git"
+  },
+  "scripts": {
+    "svgo": "svgo --pretty --indent=2 --precision=1 --config=svgo.yaml",
+    "svgo:all": "find flags | grep '\\.svg$' | xargs -Iz -n 1 yarn svgo z",
+    "svgo:min": "find flags | grep '\\.svg$' | xargs -Iz -n 1 svgo --config=svgo.yaml z"
+  },
+  "version": "3.2.0"
+}
