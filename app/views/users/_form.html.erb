@@ -1,17 +1,14 @@
-<%= form_with(model: user, local: true) do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+<%= simple_form_for user do |f| %>
+  <%= f.input :first_name %>
+  <%= f.input :last_name %>
+  <%= f.input :email %>
+  <%= f.input :paypal_email %>
+  <%= f.input :address_1 %>
+  <%= f.input :address_2 %>
+  <%= f.input :city %>
+  <%= f.input :region %>
+  <%= f.input :country %>
+  <%= f.input :postal_code %>
+  <%= f.input :company %>
+  <%= f.button :submit, class: "btn-primary" %>
 <% end %>
