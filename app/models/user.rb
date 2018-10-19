@@ -78,13 +78,20 @@ class User < ApplicationRecord
 
   # scopes ....................................................................
 
-  # Scopes provied by tag_columns
+  # Scopes and helpers provied by tag_columns
+  # SEE: https://github.com/hopsoft/tag_columns
+  #
   # - with_roles
   # - without_roles
   # - with_any_roles
   # - without_any_roles
   # - with_all_roles
   # - without_all_roles
+  #
+  # Examples
+  #
+  #   irb>User.with_roles(:admin)
+  #   irb>User.without_any_roles(:sponsor, :developer)
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   tag_columns :roles

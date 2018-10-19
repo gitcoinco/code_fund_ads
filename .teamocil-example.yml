@@ -1,0 +1,35 @@
+# SEE: https://github.com/remiprev/teamocil
+name: code_fund_ads
+windows:
+  - name: vim
+    root: ~/gitcoinco/code_fund_ads
+    layout: main-vertical
+    panes:
+      - commands:
+        - asdf local ruby 2.5.1
+        - asdf local nodejs 9.11.2
+        - nvim
+
+  - name: console
+    root: ~/gitcoinco/code_fund_ads
+    layout: main-vertical
+    panes:
+      - commands:
+        - asdf local ruby 2.5.1
+        - asdf local nodejs 9.11.2
+        - bundle exec rails c
+
+  - name: rails
+    root: ~/gitcoinco/code_fund_ads
+    layout: even-horizontal
+    panes:
+      - commands:
+        - asdf local ruby 2.5.1
+        - asdf local nodejs 9.11.2
+        - lsof -t -i tcp:3000 | xargs kill
+        - bundle exec rails s
+      - commands:
+        - asdf local ruby 2.5.1
+        - asdf local nodejs 9.11.2
+        - lsof -t -i tcp:3035 | xargs kill
+        - bundle exec ./bin/webpack-dev-server

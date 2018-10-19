@@ -32,3 +32,4 @@ yarn-debug.log*
 .yarn-integrity
 
 .env
+.teamocil.yml
