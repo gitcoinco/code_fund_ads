@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: campaigns
@@ -31,7 +33,7 @@ class Campaign < ApplicationRecord
   STATUSES = {
     pending: 1,
     active: 2,
-    archived: 3
+    archived: 3,
   }.freeze
 
   # extends ...................................................................
@@ -44,14 +46,14 @@ class Campaign < ApplicationRecord
   has_many :impressions
 
   # validations ...............................................................
-  validates :budget_daily_amount, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
-  validates :ecpm, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
+  validates :budget_daily_amount, numericality: {greater_than_or_equal_to: 0, allow_nil: false}
+  validates :ecpm, numericality: {greater_than_or_equal_to: 0, allow_nil: false}
   validates :fallback_campaign, presence: true
-  validates :impression_count, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
-  validates :name, length: { maximum: 255, allow_blank: false }
+  validates :impression_count, numericality: {greater_than_or_equal_to: 0, allow_nil: false}
+  validates :name, length: {maximum: 255, allow_blank: false}
   validates :redirect_url, presence: true
-  validates :status, inclusion: { in: STATUSES.values }
-  validates :total_spend, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
+  validates :status, inclusion: {in: STATUSES.values}
+  validates :total_spend, numericality: {greater_than_or_equal_to: 0, allow_nil: false}
 
   # callbacks .................................................................
 

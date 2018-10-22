@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: impressions
@@ -29,7 +31,7 @@
 #  house_ad            :boolean          default(FALSE)
 #
 
-require 'test_helper'
+require "test_helper"
 
 class ImpressionTest < ActiveSupport::TestCase
   # test "the truth" do

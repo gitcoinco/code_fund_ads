@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ImpressionsController < ApplicationController
   before_action :set_impression, only: [:show, :edit, :update, :destroy]
 
@@ -28,7 +30,7 @@ class ImpressionsController < ApplicationController
 
     respond_to do |format|
       if @impression.save
-        format.html { redirect_to @impression, notice: 'Impression was successfully created.' }
+        format.html { redirect_to @impression, notice: "Impression was successfully created." }
         format.json { render :show, status: :created, location: @impression }
       else
         format.html { render :new }
@@ -42,7 +44,7 @@ class ImpressionsController < ApplicationController
   def update
     respond_to do |format|
       if @impression.update(impression_params)
-        format.html { redirect_to @impression, notice: 'Impression was successfully updated.' }
+        format.html { redirect_to @impression, notice: "Impression was successfully updated." }
         format.json { render :show, status: :ok, location: @impression }
       else
         format.html { render :edit }
@@ -56,19 +58,20 @@ class ImpressionsController < ApplicationController
   def destroy
     @impression.destroy
     respond_to do |format|
-      format.html { redirect_to impressions_url, notice: 'Impression was successfully destroyed.' }
+      format.html { redirect_to impressions_url, notice: "Impression was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_impression
-      @impression = Impression.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def impression_params
-      params.fetch(:impression, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_impression
+    @impression = Impression.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def impression_params
+    params.fetch(:impression, {})
+  end
 end

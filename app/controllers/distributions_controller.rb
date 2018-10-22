@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DistributionsController < ApplicationController
   before_action :set_distribution, only: [:show, :edit, :update, :destroy]
 
@@ -28,7 +30,7 @@ class DistributionsController < ApplicationController
 
     respond_to do |format|
       if @distribution.save
-        format.html { redirect_to @distribution, notice: 'Distribution was successfully created.' }
+        format.html { redirect_to @distribution, notice: "Distribution was successfully created." }
         format.json { render :show, status: :created, location: @distribution }
       else
         format.html { render :new }
@@ -42,7 +44,7 @@ class DistributionsController < ApplicationController
   def update
     respond_to do |format|
       if @distribution.update(distribution_params)
-        format.html { redirect_to @distribution, notice: 'Distribution was successfully updated.' }
+        format.html { redirect_to @distribution, notice: "Distribution was successfully updated." }
         format.json { render :show, status: :ok, location: @distribution }
       else
         format.html { render :edit }
@@ -56,19 +58,20 @@ class DistributionsController < ApplicationController
   def destroy
     @distribution.destroy
     respond_to do |format|
-      format.html { redirect_to distributions_url, notice: 'Distribution was successfully destroyed.' }
+      format.html { redirect_to distributions_url, notice: "Distribution was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_distribution
-      @distribution = Distribution.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def distribution_params
-      params.fetch(:distribution, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_distribution
+    @distribution = Distribution.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def distribution_params
+    params.fetch(:distribution, {})
+  end
 end

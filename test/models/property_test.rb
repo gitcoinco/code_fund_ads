@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: properties
@@ -26,7 +28,7 @@
 #  no_api_house_ads             :boolean          default(FALSE), not null
 #
 
-require 'test_helper'
+require "test_helper"
 
 class PropertyTest < ActiveSupport::TestCase
   # test "the truth" do

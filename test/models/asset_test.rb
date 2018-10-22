@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: assets
@@ -13,7 +15,7 @@
 #  width        :integer
 #
 
-require 'test_helper'
+require "test_helper"
 
 class AssetTest < ActiveSupport::TestCase
   # test "the truth" do

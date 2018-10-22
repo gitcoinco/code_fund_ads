@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: properties
@@ -30,7 +32,7 @@ class Property < ApplicationRecord
   PROPERTY_TYPES = {
     website: 1,
     repository: 2,
-    newsletter: 3
+    newsletter: 3,
   }.freeze
 
   STATUSES = {
@@ -38,7 +40,7 @@ class Property < ApplicationRecord
     active: 1,
     rejected: 2,
     archived: 3,
-    blacklisted: 4
+    blacklisted: 4,
   }.freeze
 
   # extends ...................................................................
@@ -50,15 +52,15 @@ class Property < ApplicationRecord
   has_many :impressions
 
   # validations ...............................................................
-  validates :language, length: { maximum: 255, allow_blank: false }
-  validates :legacy_id, length: { maximum: 255 }
-  validates :name, length: { maximum: 255, allow_blank: false }
+  validates :language, length: {maximum: 255, allow_blank: false}
+  validates :legacy_id, length: {maximum: 255}
+  validates :name, length: {maximum: 255, allow_blank: false}
   validates :no_api_house_ads, presence: true
-  validates :programming_languages, length: { maximum: 255, allow_blank: false }
-  validates :property_type, inclusion: { in: PROPERTY_TYPES.values }
-  validates :slug, length: { maximum: 255, allow_blank: false }
-  validates :status, inclusion: { in: STATUSES.values }
-  validates :topic_categories, length: { maximum: 255, allow_blank: false }
+  validates :programming_languages, length: {maximum: 255, allow_blank: false}
+  validates :property_type, inclusion: {in: PROPERTY_TYPES.values}
+  validates :slug, length: {maximum: 255, allow_blank: false}
+  validates :status, inclusion: {in: STATUSES.values}
+  validates :topic_categories, length: {maximum: 255, allow_blank: false}
   validates :url, presence: true
 
   # callbacks .................................................................

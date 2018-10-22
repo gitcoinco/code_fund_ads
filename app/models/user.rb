@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -38,7 +40,7 @@ class User < ApplicationRecord
   ROLES = {
     admin: "admin",
     developer: "developer",
-    sponsor: "sponsor"
+    sponsor: "sponsor",
   }.freeze
 
   # extends ...................................................................
@@ -53,26 +55,26 @@ class User < ApplicationRecord
   has_many :properties
 
   # validations ...............................................................
-  validates :address_1, length: { maximum: 255 }
-  validates :address_2, length: { maximum: 255 }
+  validates :address_1, length: {maximum: 255}
+  validates :address_2, length: {maximum: 255}
   validates :api_access, presence: true
-  validates :api_key, length: { maximum: 255 }
-  validates :city, length: { maximum: 255 }
-  validates :company, length: { maximum: 255 }
-  validates :country, length: { maximum: 255 }
-  validates :current_sign_in_ip, length: { maximum: 255 }
-  validates :email, length: { maximum: 255 }
-  validates :first_name, length: { maximum: 255 }
-  validates :last_name, length: { maximum: 255 }
-  validates :last_sign_in_ip, length: { maximum: 255 }
-  validates :password_hash, length: { maximum: 255 }
-  validates :paypal_email, length: { maximum: 255 }
-  validates :postal_code, length: { maximum: 255 }
-  validates :region, length: { maximum: 255 }
-  validates :reset_password_token, length: { maximum: 255 }
-  validates :revenue_rate, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
-  validates :roles, inclusion: { in: ROLES.values }
-  validates :unlock_token, length: { maximum: 255 }
+  validates :api_key, length: {maximum: 255}
+  validates :city, length: {maximum: 255}
+  validates :company, length: {maximum: 255}
+  validates :country, length: {maximum: 255}
+  validates :current_sign_in_ip, length: {maximum: 255}
+  validates :email, length: {maximum: 255}
+  validates :first_name, length: {maximum: 255}
+  validates :last_name, length: {maximum: 255}
+  validates :last_sign_in_ip, length: {maximum: 255}
+  validates :password_hash, length: {maximum: 255}
+  validates :paypal_email, length: {maximum: 255}
+  validates :postal_code, length: {maximum: 255}
+  validates :region, length: {maximum: 255}
+  validates :reset_password_token, length: {maximum: 255}
+  validates :revenue_rate, numericality: {greater_than_or_equal_to: 0, allow_nil: false}
+  validates :roles, inclusion: {in: ROLES.values}
+  validates :unlock_token, length: {maximum: 255}
 
   # callbacks .................................................................
 

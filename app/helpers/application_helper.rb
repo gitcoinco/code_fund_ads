@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def skippy(&block)
     render "/@shared/skippy", &block

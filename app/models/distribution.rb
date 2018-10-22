@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: distributions
@@ -19,8 +21,8 @@ class Distribution < ApplicationRecord
   has_many :impressions
 
   # validations ...............................................................
-  validates :amount, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
-  validates :currency, length: { maximum: 255, allow_blank: false }
+  validates :amount, numericality: {greater_than_or_equal_to: 0, allow_nil: false}
+  validates :currency, length: {maximum: 255, allow_blank: false}
   validates :range_end, presence: true
   validates :range_start, presence: true
 

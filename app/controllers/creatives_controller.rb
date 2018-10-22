@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreativesController < ApplicationController
   before_action :set_creative, only: [:show, :edit, :update, :destroy]
 
@@ -28,7 +30,7 @@ class CreativesController < ApplicationController
 
     respond_to do |format|
       if @creative.save
-        format.html { redirect_to @creative, notice: 'Creative was successfully created.' }
+        format.html { redirect_to @creative, notice: "Creative was successfully created." }
         format.json { render :show, status: :created, location: @creative }
       else
         format.html { render :new }
@@ -42,7 +44,7 @@ class CreativesController < ApplicationController
   def update
     respond_to do |format|
       if @creative.update(creative_params)
-        format.html { redirect_to @creative, notice: 'Creative was successfully updated.' }
+        format.html { redirect_to @creative, notice: "Creative was successfully updated." }
         format.json { render :show, status: :ok, location: @creative }
       else
         format.html { render :edit }
@@ -56,19 +58,20 @@ class CreativesController < ApplicationController
   def destroy
     @creative.destroy
     respond_to do |format|
-      format.html { redirect_to creatives_url, notice: 'Creative was successfully destroyed.' }
+      format.html { redirect_to creatives_url, notice: "Creative was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_creative
-      @creative = Creative.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def creative_params
-      params.fetch(:creative, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_creative
+    @creative = Creative.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def creative_params
+    params.fetch(:creative, {})
+  end
 end

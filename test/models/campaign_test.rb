@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: campaigns
@@ -27,7 +29,7 @@
 #  fallback_campaign              :boolean          default(FALSE), not null
 #
 
-require 'test_helper'
+require "test_helper"
 
 class CampaignTest < ActiveSupport::TestCase
   # test "the truth" do

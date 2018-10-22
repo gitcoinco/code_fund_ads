@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: invitations
@@ -11,7 +13,7 @@
 #  last_name   :string(255)
 #
 
-require 'test_helper'
+require "test_helper"
 
 class InvitationTest < ActiveSupport::TestCase
   # test "the truth" do
