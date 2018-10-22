@@ -1,0 +1,26 @@
+abbr[title=required] {
+  color: #de4437;
+  text-decoration: none;
+}
+
+label.form-control-label,
+.form-group legend {
+  opacity: 0.7;
+  font-size: 80%;
+  text-transform: uppercase;
+}
+
+.form-group legend {
+  position: relative;
+  top: 3px;
+}
+
+.check-inline {
+  .form-check {
+    margin-right: 1.5em;
+    display: inline-block;
+    &, & * {
+      cursor: pointer;
+    }
+  }
+}

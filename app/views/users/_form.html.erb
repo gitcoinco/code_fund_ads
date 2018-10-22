@@ -1,29 +1,35 @@
 <%= simple_form_for user do |f| %>
-  <div class="row">
-    <%= tag.div f.input(:company), class: "col-12" %>
-  </div>
-  <div class="row">
-    <%= tag.div f.input(:first_name), class: "col-6" %>
-    <%= tag.div f.input(:last_name), class: "col-6" %>
-  </div>
-  <div class="row">
-    <%= tag.div f.input(:email), class: "col-6" %>
-    <%= tag.div f.input(:paypal_email), class: "col-6" %>
-  </div>
-  <div class="row">
-    <%= tag.div f.input(:address_1), class: "col-6" %>
-    <%= tag.div f.input(:address_2), class: "col-6" %>
-  </div>
-  <div class="row">
-    <%= tag.div f.input(:city), class: "col-6" %>
-    <%= tag.div f.input(:region), class: "col-6" %>
-  </div>
-  <div class="row">
-    <%= tag.div f.input(:country), class: "col-6" %>
-    <%= tag.div f.input(:postal_code), class: "col-6" %>
-  </div>
+  <div class="row mt-5">
+    <%= tag.div f.input(:company), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:roles, collection: User::ROLES, as: :check_boxes), class: "col-12 col-md-6 check-inline" %>
 
-  <div class="row mt-3">
-    <%= tag.div f.button(:submit, class: "btn-lg btn-primary"), class: "col-auto" %>
+    <div class="w-100 d-none d-md-block"></div>
+
+    <%= tag.div f.input(:first_name), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:last_name), class: "col-12 col-md-6" %>
+
+    <div class="w-100 d-none d-md-block"></div>
+
+    <%= tag.div f.input(:email), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:paypal_email), class: "col-12 col-md-6" %>
+
+    <div class="w-100 d-none d-md-block"></div>
+
+    <%= tag.div f.input(:address_1), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:address_2), class: "col-12 col-md-6" %>
+
+    <div class="w-100 d-none d-md-block"></div>
+
+    <%= tag.div f.input(:city), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:region), class: "col-12 col-md-6" %>
+
+    <div class="w-100 d-none d-md-block"></div>
+
+    <%= tag.div f.input(:country), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:postal_code), class: "col-12 col-md-6" %>
+
+    <div class="w-100 d-none d-md-block"></div>
+
+    <%= tag.div f.button(:submit, class: "btn-lg btn-primary"), class: "col-auto mt-4" %>
   </div>
 <% end %>
