@@ -65,13 +65,13 @@ class InvitationsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_invitation
-    @invitation = Invitation.find(params[:id])
-  end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_invitation
+      @invitation = Invitation.find(params[:id])
+    end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def invitation_params
-    params.fetch(:invitation, {})
-  end
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def invitation_params
+      params.fetch(:invitation, {})
+    end
 end

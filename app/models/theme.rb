@@ -22,8 +22,8 @@ class Theme < ApplicationRecord
   belongs_to :template
 
   # validations ...............................................................
-  validates :name, length: {maximum: 255, allow_blank: false}
-  validates :slug, length: {maximum: 255, allow_blank: false}
+  validates :name, length: { maximum: 255, allow_blank: false }
+  validates :slug, length: { maximum: 255, allow_blank: false }
 
   # callbacks .................................................................
   # scopes ....................................................................

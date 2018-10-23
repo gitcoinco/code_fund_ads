@@ -41,17 +41,17 @@ class Impression < ApplicationRecord
   belongs_to :property
 
   # validations ...............................................................
-  validates :browser, length: {maximum: 255}
-  validates :city, length: {maximum: 255}
-  validates :country, length: {maximum: 255}
-  validates :device_type, length: {maximum: 255}
-  validates :distribution_amount, numericality: {greater_than_or_equal_to: 0, allow_nil: false}
-  validates :ip, length: {maximum: 255, allow_blank: false}
-  validates :os, length: {maximum: 255}
-  validates :postal_code, length: {maximum: 255}
-  validates :redirected_to_url, length: {maximum: 255}
-  validates :region, length: {maximum: 255}
-  validates :revenue_amount, numericality: {greater_than_or_equal_to: 0, allow_nil: false}
+  validates :browser, length: { maximum: 255 }
+  validates :city, length: { maximum: 255 }
+  validates :country, length: { maximum: 255 }
+  validates :device_type, length: { maximum: 255 }
+  validates :distribution_amount, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
+  validates :ip, length: { maximum: 255, allow_blank: false }
+  validates :os, length: { maximum: 255 }
+  validates :postal_code, length: { maximum: 255 }
+  validates :redirected_to_url, length: { maximum: 255 }
+  validates :region, length: { maximum: 255 }
+  validates :revenue_amount, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
 
   # callbacks .................................................................
   # scopes ....................................................................

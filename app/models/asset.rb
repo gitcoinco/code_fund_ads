@@ -26,9 +26,9 @@ class Asset < ApplicationRecord
   has_many :creatives_as_wide_asset, class_name: "Creative", foreign_key: "wide_image_asset_id"
 
   # validations ...............................................................
-  validates :image_bucket, length: {maximum: 255, allow_blank: false}
-  validates :image_object, length: {maximum: 255, allow_blank: false}
-  validates :name, length: {maximum: 255, allow_blank: false}
+  validates :image_bucket, length: { maximum: 255, allow_blank: false }
+  validates :image_object, length: { maximum: 255, allow_blank: false }
+  validates :name, length: { maximum: 255, allow_blank: false }
 
   # callbacks .................................................................
   # scopes ....................................................................

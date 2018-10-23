@@ -20,12 +20,12 @@ class ApplicationRecord < ActiveRecord::Base
 
   private
 
-  def set_id
-    self.id ||= ApplicationRecord.uuid
-  end
+    def set_id
+      self.id ||= ApplicationRecord.uuid
+    end
 
-  def set_inserted_at
-    return unless respond_to?(:inserted_at=)
-    self.inserted_at ||= Time.current
-  end
+    def set_inserted_at
+      return unless respond_to?(:inserted_at=)
+      self.inserted_at ||= Time.current
+    end
 end

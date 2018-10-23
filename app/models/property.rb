@@ -52,15 +52,15 @@ class Property < ApplicationRecord
   has_many :impressions
 
   # validations ...............................................................
-  validates :language, length: {maximum: 255, allow_blank: false}
-  validates :legacy_id, length: {maximum: 255}
-  validates :name, length: {maximum: 255, allow_blank: false}
+  validates :language, length: { maximum: 255, allow_blank: false }
+  validates :legacy_id, length: { maximum: 255 }
+  validates :name, length: { maximum: 255, allow_blank: false }
   validates :no_api_house_ads, presence: true
-  validates :programming_languages, length: {maximum: 255, allow_blank: false}
-  validates :property_type, inclusion: {in: PROPERTY_TYPES.values}
-  validates :slug, length: {maximum: 255, allow_blank: false}
-  validates :status, inclusion: {in: STATUSES.values}
-  validates :topic_categories, length: {maximum: 255, allow_blank: false}
+  validates :programming_languages, length: { maximum: 255, allow_blank: false }
+  validates :property_type, inclusion: { in: PROPERTY_TYPES.values }
+  validates :slug, length: { maximum: 255, allow_blank: false }
+  validates :status, inclusion: { in: STATUSES.values }
+  validates :topic_categories, length: { maximum: 255, allow_blank: false }
   validates :url, presence: true
 
   # callbacks .................................................................

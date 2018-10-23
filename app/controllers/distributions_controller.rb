@@ -65,13 +65,13 @@ class DistributionsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_distribution
-    @distribution = Distribution.find(params[:id])
-  end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_distribution
+      @distribution = Distribution.find(params[:id])
+    end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def distribution_params
-    params.fetch(:distribution, {})
-  end
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def distribution_params
+      params.fetch(:distribution, {})
+    end
 end

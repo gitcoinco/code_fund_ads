@@ -65,13 +65,13 @@ class ImpressionsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_impression
-    @impression = Impression.find(params[:id])
-  end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_impression
+      @impression = Impression.find(params[:id])
+    end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def impression_params
-    params.fetch(:impression, {})
-  end
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def impression_params
+      params.fetch(:impression, {})
+    end
 end

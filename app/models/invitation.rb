@@ -19,10 +19,10 @@ class Invitation < ApplicationRecord
   # relationships .............................................................
 
   # validations ...............................................................
-  validates :email, length: {maximum: 255, allow_blank: false}
-  validates :first_name, length: {maximum: 255, allow_blank: false}
-  validates :last_name, length: {maximum: 255, allow_blank: false}
-  validates :token, length: {maximum: 255, allow_blank: false}
+  validates :email, length: { maximum: 255, allow_blank: false }
+  validates :first_name, length: { maximum: 255, allow_blank: false }
+  validates :last_name, length: { maximum: 255, allow_blank: false }
+  validates :token, length: { maximum: 255, allow_blank: false }
 
   # callbacks .................................................................
   # scopes ....................................................................
