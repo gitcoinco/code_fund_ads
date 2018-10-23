@@ -30,6 +30,11 @@
 
     <div class="w-100 d-none d-md-block"></div>
 
+    <%= tag.div f.input(:api_access, label: "Enable API Access"), class: "col-12 col-md-6" %>
+    <%= tag.div class: "col-12 col-md-6" %>
+
+    <div class="w-100 d-none d-md-block"></div>
+
     <%= tag.div f.button(:submit, class: "btn-lg btn-primary"), class: "col-auto mt-4" %>
   </div>
 <% end %>

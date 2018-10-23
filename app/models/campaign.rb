@@ -122,6 +122,11 @@ class Campaign < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def date_range
+    return nil unless start_date && end_date
+    "#{start_date.to_s "mm/dd/yyyy"} #{end_date.to_s "mm/dd/yyyy"}"
+  end
+
   # protected instance methods ................................................
   protected
 

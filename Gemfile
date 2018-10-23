@@ -40,7 +40,6 @@ group :development do
   gem "magic_frozen_string_literal"
   gem "model_probe"
   gem "rubocop"
-  gem "rufo"
   gem "teamocil"
   gem "web-console", ">= 3.3.0"
 end

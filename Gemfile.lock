@@ -196,7 +196,6 @@ GEM
     ruby-progressbar (1.10.0)
     ruby_dep (1.5.0)
     rubyzip (1.2.2)
-    rufo (0.4.0)
     sass (3.6.0)
       sass-listen (~> 4.0.0)
     sass-listen (4.0.0)
@@ -289,7 +288,6 @@ DEPENDENCIES
   rails (~> 5.2.1)
   redis (~> 4.0)
   rubocop
-  rufo
   sass-rails (~> 5.0)
   selenium-webdriver
   simple_form (~> 4.0)

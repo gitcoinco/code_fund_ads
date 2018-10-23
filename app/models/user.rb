@@ -79,6 +79,8 @@ class User < ApplicationRecord
   # callbacks .................................................................
 
   # scopes ....................................................................
+  scope :sponsor, -> { with_all_roles "sponsor" }
+  scope :developer, -> { with_all_roles "developer" }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
@@ -103,6 +105,15 @@ class User < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  def detailed_name
+    return full_name if company.blank?
+    "#{company} ~ #{full_name}"
+  end
 
   # protected instance methods ................................................
   protected

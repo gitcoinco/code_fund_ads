@@ -1,17 +1,34 @@
-<%= form_with(model: campaign, local: true) do |form| %>
-  <% if campaign.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(campaign.errors.count, "error") %> prohibited this campaign from being saved:</h2>
-
-      <ul>
-      <% campaign.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= simple_form_for campaign do |f| %>
+  <div class="row mt-5">
+    <div class="col-12 col-md-6">
+      <%= f.association :user,
+        collection: User.sponsor.order(:company, :first_name, :last_name),
+        label_method: :detailed_name,
+        label: "Advertiser",
+        prompt: "Choose a user...",
+        input_html: { data: { controller: "select" }} %>
     </div>
-  <% end %>
+    <%= tag.div f.input(:name, required: true), class: "col-12 col-md-6" %>
 
-  <div class="actions">
-    <%= form.submit %>
+    <div class="w-100 d-none d-md-block"></div>
+
+    <%= tag.div f.input(:date_range, input_html: { data: { controller: "daterange" }}), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:status, collection: Campaign::STATUSES, as: :check_boxes), class: "col-12 col-md-6 check-inline" %>
+
+    <div class="w-100 d-none d-md-block"></div>
+
+    <div class="col-12 col-md-6">
+      <%= f.association :creative,
+        collection: @campaign.user&.creatives&.order(:name) || Creative.order(:name),
+        label_method: :name,
+        label: "Creative",
+        prompt: "Choose a creative...",
+        input_html: { data: { controller: "select" }} %>
+    </div>
+    <%= tag.div f.input(:redirect_url, as: :string), class: "col-12 col-md-6 check-inline" %>
+
+    <div class="w-100 d-none d-md-block"></div>
+
+    <%= tag.div f.button(:submit, class: "btn-lg btn-primary"), class: "col-auto mt-4" %>
   </div>
 <% end %>

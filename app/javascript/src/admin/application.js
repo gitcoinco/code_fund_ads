@@ -4,6 +4,7 @@
 // Compiling CSS with Webpack because CSS path resultion with SASS/SCSS doesn't work as well
 import 'bootstrap/dist/css/bootstrap.css';
 import 'select2/dist/css/select2.css';
+import 'bootstrap-daterangepicker/daterangepicker.css';
 import 'select2-bootstrap-theme/dist/select2-bootstrap.css';
 import 'theme/vendor/bootstrap/bootstrap.css';
 import 'theme/vendor/custombox/dist/custombox.min.css';
