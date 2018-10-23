@@ -3,6 +3,7 @@
 // It will compile a single stylesheet at: publc/packs/admin-FINGERPRINT.css
 // Compiling CSS with Webpack because CSS path resultion with SASS/SCSS doesn't work as well
 import 'bootstrap/dist/css/bootstrap.css';
+import 'select2/dist/css/select2.css';
 import 'select2-bootstrap-theme/dist/select2-bootstrap.css';
 import 'theme/vendor/bootstrap/bootstrap.css';
 import 'theme/vendor/custombox/dist/custombox.min.css';
@@ -21,5 +22,5 @@ import { Application } from 'stimulus';
 import { definitionsFromContext } from 'stimulus/webpack-helpers';
 
 const application = Application.start();
-const context = require.context('./controllers', true, /\.js$/)
-application.load(definitionsFromContext(context))
+const context = require.context('./controllers', true, /\.js$/);
+application.load(definitionsFromContext(context));

@@ -1,7 +1,10 @@
-import { Controller } from 'stimulus'
+import $ from 'jquery';
+import { Controller } from 'stimulus';
 
 export default class extends Controller {
   connect() {
-    console.log('select controller connected');
+    $(this.element).select2({
+      theme: 'bootstrap',
+    });
   }
 }
