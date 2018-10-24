@@ -1,3 +1,4 @@
+# SEE: https://dev.maxmind.com/geoip/legacy/codes/iso3166/
 countries:
   #A1: Anonymous Proxy
   #A2: Satellite Provider
@@ -13,8 +14,8 @@ countries:
   AQ: Antarctica
   AR: Argentina
   AS: American Samoa
-  AT: Austria
   AU: Australia
+  AT: Austria
   AW: Aruba
   AX: Aland Islands
   AZ: Azerbaijan
@@ -168,7 +169,7 @@ countries:
   NG: Nigeria
   NI: Nicaragua
   NL: Netherlands
-  NO: Norway
+  "NO": Norway
   NP: Nepal
   NR: Nauru
   NU: Niue
@@ -253,6 +254,32 @@ countries:
   ZA: South Africa
   ZM: Zambia
   ZW: Zimbabwe
+
+# SEE: https://www.msci.com/market-classification
+developed_markets:
+  AU: Australia
+  AT: Austria
+  BE: Belgium
+  CA: Canada
+  DK: Denmark
+  FI: Finland
+  FR: France
+  DE: Germany
+  HK: Hong Kong
+  IE: Ireland
+  IL: Israel
+  IT: Italy
+  JP: Japan
+  NL: Netherlands
+  NZ: New Zealand
+  "NO": Norway
+  PT: Portugal
+  SG: Singapore
+  ES: Spain
+  SE: Sweden
+  CH: Switzerland
+  GB: United Kingdom
+  US: United States
 
 languages:
   albanian: Albanian

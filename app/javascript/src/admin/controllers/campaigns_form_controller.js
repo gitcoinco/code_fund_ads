@@ -55,6 +55,15 @@ export default class extends Controller {
     );
   }
 
+  selectDevelopedMarketCountries(event) {
+    Rails.stopEverything(event);
+    this.includedCountriesSelectTarget.querySelectorAll('option').forEach(o => {
+      o.selected =
+        o.selected || this.developedMarketCountryCodes.indexOf(o.value) >= 0;
+    });
+    this.triggerChangeEvent(this.includedCountriesSelectTarget);
+  }
+
   selectAllIncludedCountries(event) {
     Rails.stopEverything(event);
     this.includedCountriesSelectTarget
@@ -192,6 +201,12 @@ export default class extends Controller {
     bOptions.forEach(o => b.appendChild(o));
     this.triggerChangeEvent(b);
     this.applyingExclusions = false;
+  }
+
+  get developedMarketCountryCodes() {
+    return this.includedCountriesSelectTarget.dataset.developedMarkets.split(
+      ','
+    );
   }
 
   get includedCountriesSelectOptions() {
