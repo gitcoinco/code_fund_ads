@@ -113,7 +113,6 @@ GEM
     loofah (2.2.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    magic_frozen_string_literal (1.0.2)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     marcel (0.3.3)
@@ -278,7 +277,6 @@ DEPENDENCIES
   dotenv
   jbuilder (~> 2.5)
   listen (>= 3.0.5, < 3.2)
-  magic_frozen_string_literal
   model_probe
   pg (>= 0.18, < 2.0)
   pry

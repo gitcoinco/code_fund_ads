@@ -7,6 +7,9 @@ import { Controller } from 'stimulus';
 
 export default class extends Controller {
   connect() {
-    jQuery(this.element).select2({ theme: 'bootstrap' });
+    jQuery(this.element).select2({
+      theme: 'bootstrap',
+      closeOnSelect: !this.element.multiple,
+    });
   }
 }

@@ -36,8 +36,7 @@ group :development do
   # gem 'spring'
   # gem 'spring-watcher-listen', '~> 2.0.0'
   gem "annotate"
-  gem "listen",      ">= 3.0.5", "< 3.2"
-  gem "magic_frozen_string_literal"
+  gem "listen", ">= 3.0.5", "< 3.2"
   gem "model_probe"
   gem "rubocop"
   gem "teamocil"

@@ -28,3 +28,9 @@ label.form-control-label,
 .select2 {
   width: auto !important;
 }
+
+.select2-container--bootstrap {
+  .select2-results__option[aria-selected=true] {
+    display: none;
+  }
+}

@@ -1,0 +1,136 @@
+languages:
+  - Albanian
+  - Armenian
+  - Azeri
+  - Belarusian
+  - Bosnian
+  - Bulgarian
+  - Chinese
+  - Croatian
+  - Czech
+  - Danish
+  - Divehi
+  - Dutch
+  - English
+  - Estonian
+  - FYRO Macedonian
+  - Faroese
+  - Farsi
+  - Finnish
+  - French
+  - Galician
+  - Georgian
+  - German
+  - Greek
+  - Hebrew
+  - Hindi
+  - Hungarian
+  - Icelandic
+  - Indonesian
+  - Italian
+  - Japanese
+  - Kazakh
+  - Korean
+  - Kyrgyz
+  - Latvian
+  - Lithuanian
+  - Malay
+  - Maltese
+  - Maori
+  - Mongolian
+  - Norwegian
+  - Pashto
+  - Polish
+  - Portuguese
+  - Romanian
+  - Russian
+  - Serbian
+  - Slovak
+  - Slovenian
+  - Spanish
+  - Swahili
+  - Swedish
+  - Syriac
+  - Tagalog
+  - Thai
+  - Turkish
+  - Ukrainian
+  - Urdu
+  - Uzbek
+  - Vietnamese
+  - Zulu
+
+programming_languages:
+  - ABAP
+  - Ada
+  - Alice
+  - Apex
+  - Assembly language
+  - Awk
+  - Bash
+  - C
+  - C#
+  - C++
+  - COBOL
+  - D
+  - Dart
+  - Delphi/Object Pascal
+  - Erlang
+  - F#
+  - Fortran
+  - Go
+  - Groovy
+  - Haskell
+  - Java
+  - JavaScript
+  - Julia
+  - LabVIEW
+  - Ladder Logic
+  - Lisp
+  - Logo
+  - Lua
+  - MATLAB
+  - MQL4
+  - Objective-C
+  - Other
+  - PHP
+  - PL/SQL
+  - Perl
+  - Prolog
+  - Python
+  - Q
+  - R
+  - RPG (OS/400)
+  - Ruby
+  - Rust
+  - SAS
+  - Scala
+  - Scheme
+  - Scratch
+  - Swift
+  - Transact-SQL
+  - VHDL
+  - Visual Basic
+  - Visual Basic .NET
+
+topic_categories:
+  - Android Development
+  - Backend Services
+  - Blockchain
+  - CSS & Design
+  - Computer Science
+  - Database
+  - Dev Ops
+  - Docker
+  - Frontend Concepts
+  - Frontend Frameworks & Tools
+  - Frontend Workflow & Tooling
+  - Game Development
+  - Git
+  - HTML5
+  - Hybrid & Mobile Web
+  - IOS Development
+  - Languages & Frameworks
+  - React
+  - Resources
+  - Shell

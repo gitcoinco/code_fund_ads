@@ -4,22 +4,82 @@
 import jQuery from 'jquery';
 import 'select2';
 import { Controller } from 'stimulus';
+import { toArray } from '../utils';
 
 export default class extends Controller {
-  static targets = ['userSelect', 'creativeSelect'];
+  static targets = [
+    'userSelect',
+    'creativeSelect',
+    'includedProgrammingLanguagesSelect',
+    'excludedProgrammingLanguagesSelect',
+  ];
 
   connect() {
-    this.userSelectOptions = this.userSelectTarget.querySelectorAll('option');
+    this.includedProgrammingLanguagesSelectOptions = this.includedProgrammingLanguagesSelectTarget.querySelectorAll(
+      'option'
+    );
+    this.excludedProgrammingLanguagesSelectOptions = this.excludedProgrammingLanguagesSelectTarget.querySelectorAll(
+      'option'
+    );
     this.creativeSelectOptions = this.creativeSelectTarget.querySelectorAll(
       'option'
     );
-    jQuery(this.userSelectTarget).on('change.select2', event => {
-      this.filterCreativeOptions(event.target.value);
-    });
-    jQuery(this.creativeSelectTarget).on('change.select2', event => {
+    $(this.userSelectTarget).on('change.select2', event =>
+      this.filterCreativeOptions(event.target.value)
+    );
+    $(this.creativeSelectTarget).on('change.select2', event => {
       let { userId } = event.target.options[event.target.selectedIndex].dataset;
       this.selectUser(userId);
     });
+    $(this.includedProgrammingLanguagesSelectTarget).on(
+      'change.select2',
+      this.applyProgrammingLanguageExclusions.bind(this)
+    );
+    $(this.excludedProgrammingLanguagesSelectTarget).on(
+      'change.select2',
+      this.applyProgrammingLanguageExclusions.bind(this)
+    );
+  }
+
+  selectAllIncludedProgrammingLanguages(event) {
+    Rails.stopEverything(event);
+    this.includedProgrammingLanguagesSelectTarget
+      .querySelectorAll('option')
+      .forEach(o => (o.selected = true));
+    this.triggerChangeEvent(this.includedProgrammingLanguagesSelectTarget);
+  }
+
+  deselectAllIncludedProgrammingLanguages(event) {
+    Rails.stopEverything(event);
+    this.includedProgrammingLanguagesSelectTarget.value = [];
+    this.triggerChangeEvent(this.includedProgrammingLanguagesSelectTarget);
+  }
+
+  selectAllExcludedProgrammingLanguages(event) {
+    Rails.stopEverything(event);
+    this.excludedProgrammingLanguagesSelectTarget
+      .querySelectorAll('option')
+      .forEach(o => (o.selected = true));
+    this.triggerChangeEvent(this.excludedProgrammingLanguagesSelectTarget);
+  }
+
+  deselectAllExcludedProgrammingLanguages(event) {
+    Rails.stopEverything(event);
+    this.excludedProgrammingLanguagesSelectTarget.value = [];
+    this.triggerChangeEvent(this.excludedProgrammingLanguagesSelectTarget);
+  }
+
+  applyProgrammingLanguageExclusions() {
+    this.applyExclusions(
+      this.includedProgrammingLanguagesSelectTarget,
+      this.excludedProgrammingLanguagesSelectTarget,
+      this.excludedProgrammingLanguagesSelectOptions
+    );
+    this.applyExclusions(
+      this.excludedProgrammingLanguagesSelectTarget,
+      this.includedProgrammingLanguagesSelectTarget,
+      this.includedProgrammingLanguagesSelectOptions
+    );
   }
 
   filterCreativeOptions(userId) {
@@ -35,5 +95,33 @@ export default class extends Controller {
     jQuery(this.userSelectTarget)
       .val(userId)
       .trigger('change');
+  }
+
+  triggerChangeEvent(target) {
+    target.dispatchEvent(new Event('change'));
+  }
+
+  applyExclusions(a, b, bOptions) {
+    if (this.applyingExclusions) return;
+    this.applyingExclusions = true;
+
+    a.querySelectorAll('option').forEach(aOption => {
+      let bOption = toArray(bOptions).find(o => o.value === aOption.value);
+      if (aOption.selected) {
+        if (bOption && bOption.parentNode === b) b.removeChild(bOption);
+      } else {
+        if (bOption && bOption.parentNode !== b) b.appendChild(bOption);
+      }
+    }, this);
+
+    bOptions = toArray(b.querySelectorAll('option')).sort((y, z) => {
+      if (y.value < z.value) return -1;
+      if (y.value > z.value) return 1;
+      return 0;
+    });
+    b.innerHTML = '';
+    bOptions.forEach(o => b.appendChild(o));
+    this.triggerChangeEvent(b);
+    this.applyingExclusions = false;
   }
 }
