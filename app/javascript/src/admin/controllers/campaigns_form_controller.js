@@ -10,11 +10,19 @@ export default class extends Controller {
   static targets = [
     'userSelect',
     'creativeSelect',
+    'includedTopicsSelect',
+    'excludedTopicsSelect',
     'includedProgrammingLanguagesSelect',
     'excludedProgrammingLanguagesSelect',
   ];
 
   connect() {
+    this.includedTopicsSelectOptions = this.includedTopicsSelectTarget.querySelectorAll(
+      'option'
+    );
+    this.excludedTopicsSelectOptions = this.excludedTopicsSelectTarget.querySelectorAll(
+      'option'
+    );
     this.includedProgrammingLanguagesSelectOptions = this.includedProgrammingLanguagesSelectTarget.querySelectorAll(
       'option'
     );
@@ -31,6 +39,14 @@ export default class extends Controller {
       let { userId } = event.target.options[event.target.selectedIndex].dataset;
       this.selectUser(userId);
     });
+    $(this.includedTopicsSelectTarget).on(
+      'change.select2',
+      this.applyTopicExclusions.bind(this)
+    );
+    $(this.excludedTopicsSelectTarget).on(
+      'change.select2',
+      this.applyTopicExclusions.bind(this)
+    );
     $(this.includedProgrammingLanguagesSelectTarget).on(
       'change.select2',
       this.applyProgrammingLanguageExclusions.bind(this)
@@ -39,6 +55,34 @@ export default class extends Controller {
       'change.select2',
       this.applyProgrammingLanguageExclusions.bind(this)
     );
+  }
+
+  selectAllIncludedTopics(event) {
+    Rails.stopEverything(event);
+    this.includedTopicsSelectTarget
+      .querySelectorAll('option')
+      .forEach(o => (o.selected = true));
+    this.triggerChangeEvent(this.includedTopicsSelectTarget);
+  }
+
+  deselectAllIncludedTopics(event) {
+    Rails.stopEverything(event);
+    this.includedTopicsSelectTarget.value = [];
+    this.triggerChangeEvent(this.includedTopicsSelectTarget);
+  }
+
+  selectAllExcludedTopics(event) {
+    Rails.stopEverything(event);
+    this.excludedTopicsSelectTarget
+      .querySelectorAll('option')
+      .forEach(o => (o.selected = true));
+    this.triggerChangeEvent(this.excludedTopicsSelectTarget);
+  }
+
+  deselectAllExcludedTopics(event) {
+    Rails.stopEverything(event);
+    this.excludedTopicsSelectTarget.value = [];
+    this.triggerChangeEvent(this.excludedTopicsSelectTarget);
   }
 
   selectAllIncludedProgrammingLanguages(event) {
@@ -67,6 +111,19 @@ export default class extends Controller {
     Rails.stopEverything(event);
     this.excludedProgrammingLanguagesSelectTarget.value = [];
     this.triggerChangeEvent(this.excludedProgrammingLanguagesSelectTarget);
+  }
+
+  applyTopicExclusions() {
+    this.applyExclusions(
+      this.includedTopicsSelectTarget,
+      this.excludedTopicsSelectTarget,
+      this.excludedTopicsSelectOptions
+    );
+    this.applyExclusions(
+      this.excludedTopicsSelectTarget,
+      this.includedTopicsSelectTarget,
+      this.includedTopicsSelectOptions
+    );
   }
 
   applyProgrammingLanguageExclusions() {
