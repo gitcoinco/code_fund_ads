@@ -1,29 +1,21 @@
-<%= simple_form_for campaign do |f| %>
+<%= simple_form_for campaign, html: { data: { controller: "campaigns-form" }} do |f| %>
   <div class="row mt-5">
     <div class="col-12 col-md-6">
-      <%= f.association :user,
-        collection: User.sponsor.order(:company, :first_name, :last_name),
-        label_method: :detailed_name,
-        label: "Advertiser",
-        prompt: "Choose a user...",
-        input_html: { data: { controller: "select" }} %>
+      <%= f.association :user, collection: users_for_select, label: "Advertiser", label_method: :detailed_name, prompt: "Choose...",
+        input_html: { data: { controller: "select", action: "change->campaigns-form#userSelected", target: "campaigns-form.userSelect" }} %>
     </div>
     <%= tag.div f.input(:name, required: true), class: "col-12 col-md-6" %>
 
     <div class="w-100 d-none d-md-block"></div>
 
-    <%= tag.div f.input(:date_range, input_html: { data: { controller: "daterange" }}), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:date_range, input_html: { data: { controller: "select-date-range" }}), class: "col-12 col-md-6" %>
     <%= tag.div f.input(:status, collection: Campaign::STATUSES, as: :check_boxes), class: "col-12 col-md-6 check-inline" %>
 
     <div class="w-100 d-none d-md-block"></div>
 
     <div class="col-12 col-md-6">
-      <%= f.association :creative,
-        collection: @campaign.user&.creatives&.order(:name) || Creative.order(:name),
-        label_method: :name,
-        label: "Creative",
-        prompt: "Choose a creative...",
-        input_html: { data: { controller: "select" }} %>
+      <%= f.association :creative, collection: creatives_for_select, label: "Creative", prompt: "Choose...",
+        input_html: { data: { controller: "select", target: "campaigns-form.creativeSelect" }} %>
     </div>
     <%= tag.div f.input(:redirect_url, as: :string), class: "col-12 col-md-6 check-inline" %>
 

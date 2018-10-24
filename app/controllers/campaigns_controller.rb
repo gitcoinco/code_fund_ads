@@ -21,6 +21,7 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns/1/edit
   def edit
+    @user ||= @campaign.user
   end
 
   # POST /campaigns
