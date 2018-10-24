@@ -10,6 +10,7 @@ export default class extends Controller {
   static targets = [
     'userSelect',
     'creativeSelect',
+    'includedCountriesSelect',
     'includedTopicsSelect',
     'excludedTopicsSelect',
     'includedProgrammingLanguagesSelect',
@@ -17,21 +18,18 @@ export default class extends Controller {
   ];
 
   connect() {
-    this.includedTopicsSelectOptions = this.includedTopicsSelectTarget.querySelectorAll(
-      'option'
-    );
-    this.excludedTopicsSelectOptions = this.excludedTopicsSelectTarget.querySelectorAll(
-      'option'
-    );
-    this.includedProgrammingLanguagesSelectOptions = this.includedProgrammingLanguagesSelectTarget.querySelectorAll(
-      'option'
-    );
-    this.excludedProgrammingLanguagesSelectOptions = this.excludedProgrammingLanguagesSelectTarget.querySelectorAll(
-      'option'
-    );
-    this.creativeSelectOptions = this.creativeSelectTarget.querySelectorAll(
-      'option'
-    );
+    this.originalIncludedTopicsSelectOptions = this.includedTopicsSelectOptions;
+    this.originalExcludedTopicsSelectOptions = this.excludedTopicsSelectOptions;
+    this.originalIncludedProgrammingLanguagesSelectOptions = this.includedProgrammingLanguagesSelectOptions;
+    this.originalExcludedProgrammingLanguagesSelectOptions = this.excludedProgrammingLanguagesSelectOptions;
+    this.originalCreativeSelectOptions = this.creativeSelectOptions;
+    this.initSelect2EventListeners();
+
+    if (this.userSelectTarget.value)
+      this.filterCreativeOptions(this.userSelectTarget.value);
+  }
+
+  initSelect2EventListeners() {
     $(this.userSelectTarget).on('change.select2', event =>
       this.filterCreativeOptions(event.target.value)
     );
@@ -55,6 +53,20 @@ export default class extends Controller {
       'change.select2',
       this.applyProgrammingLanguageExclusions.bind(this)
     );
+  }
+
+  selectAllIncludedCountries(event) {
+    Rails.stopEverything(event);
+    this.includedCountriesSelectTarget
+      .querySelectorAll('option')
+      .forEach(o => (o.selected = true));
+    this.triggerChangeEvent(this.includedCountriesSelectTarget);
+  }
+
+  deselectAllIncludedCountries(event) {
+    Rails.stopEverything(event);
+    this.includedCountriesSelectTarget.value = [];
+    this.triggerChangeEvent(this.includedCountriesSelectTarget);
   }
 
   selectAllIncludedTopics(event) {
@@ -117,12 +129,12 @@ export default class extends Controller {
     this.applyExclusions(
       this.includedTopicsSelectTarget,
       this.excludedTopicsSelectTarget,
-      this.excludedTopicsSelectOptions
+      this.originalExcludedTopicsSelectOptions
     );
     this.applyExclusions(
       this.excludedTopicsSelectTarget,
       this.includedTopicsSelectTarget,
-      this.includedTopicsSelectOptions
+      this.originalIncludedTopicsSelectOptions
     );
   }
 
@@ -130,18 +142,18 @@ export default class extends Controller {
     this.applyExclusions(
       this.includedProgrammingLanguagesSelectTarget,
       this.excludedProgrammingLanguagesSelectTarget,
-      this.excludedProgrammingLanguagesSelectOptions
+      this.originalExcludedProgrammingLanguagesSelectOptions
     );
     this.applyExclusions(
       this.excludedProgrammingLanguagesSelectTarget,
       this.includedProgrammingLanguagesSelectTarget,
-      this.includedProgrammingLanguagesSelectOptions
+      this.originalIncludedProgrammingLanguagesSelectOptions
     );
   }
 
   filterCreativeOptions(userId) {
     this.creativeSelectTarget.innerHTML = '';
-    this.creativeSelectOptions.forEach(option => {
+    this.originalCreativeSelectOptions.forEach(option => {
       if (!userId || !option.value || option.dataset.userId == userId) {
         this.creativeSelectTarget.appendChild(option);
       }
@@ -180,5 +192,33 @@ export default class extends Controller {
     bOptions.forEach(o => b.appendChild(o));
     this.triggerChangeEvent(b);
     this.applyingExclusions = false;
+  }
+
+  get includedCountriesSelectOptions() {
+    return this.includedSelectTarget.querySelectorAll('option');
+  }
+
+  get includedTopicsSelectOptions() {
+    return this.includedTopicsSelectTarget.querySelectorAll('option');
+  }
+
+  get excludedTopicsSelectOptions() {
+    return this.excludedTopicsSelectTarget.querySelectorAll('option');
+  }
+
+  get includedProgrammingLanguagesSelectOptions() {
+    return this.includedProgrammingLanguagesSelectTarget.querySelectorAll(
+      'option'
+    );
+  }
+
+  get excludedProgrammingLanguagesSelectOptions() {
+    return this.excludedProgrammingLanguagesSelectTarget.querySelectorAll(
+      'option'
+    );
+  }
+
+  get creativeSelectOptions() {
+    return this.creativeSelectTarget.querySelectorAll('option');
   }
 }

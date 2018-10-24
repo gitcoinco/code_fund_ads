@@ -21,14 +21,23 @@
 
     <div class="w-100 d-none d-md-block"></div>
 
+    <div class="col-12">
+      <%= f.input :included_countries, collection: countries_for_select, label: "Targeted Counties",
+        input_html: { multiple: true, data: { controller: "select", target: "campaigns-form.includedCountriesSelect" }} %>
+      <%= link_to "Select all", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#selectAllIncludedCountries" }  %>
+      <%= link_to "Clear selections", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#deselectAllIncludedCountries" }  %>
+    </div>
+
+    <div class="w-100 d-none d-md-block"></div>
+
     <div class="col-12 col-md-6">
-      <%= f.input :included_topic_categories, collection: MANAGED_VALUES[:topic_categories], label: "Included Topics",
+      <%= f.input :included_topic_categories, collection: ENUMS[:topic_categories].values, label: "Targeted Topics",
         input_html: { multiple: true, class: "mb-0", data: { controller: "select", target: "campaigns-form.includedTopicsSelect" }} %>
       <%= link_to "Select all", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#selectAllIncludedTopics" }  %>
       <%= link_to "Clear selections", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#deselectAllIncludedTopics" }  %>
     </div>
     <div class="col-12 col-md-6">
-      <%= f.input :excluded_topic_categories, collection: MANAGED_VALUES[:topic_categories], label: "Excluded Topics",
+      <%= f.input :excluded_topic_categories, collection: ENUMS[:topic_categories].values, label: "Excluded Topics",
         input_html: { multiple: true, data: { controller: "select", target: "campaigns-form.excludedTopicsSelect" }} %>
       <%= link_to "Select all", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#selectAllExcludedTopics" }  %>
       <%= link_to "Clear selections", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#deselectAllExcludedTopics" }  %>
@@ -37,13 +46,13 @@
     <div class="w-100 d-none d-md-block"></div>
 
     <div class="col-12 col-md-6">
-      <%= f.input :included_programming_languages, collection: MANAGED_VALUES[:programming_languages], label: "Included Programming Languages",
+      <%= f.input :included_programming_languages, collection: ENUMS[:programming_languages].values, label: "Targeted Programming Languages",
         input_html: { multiple: true, class: "mb-0", data: { controller: "select", target: "campaigns-form.includedProgrammingLanguagesSelect" }} %>
       <%= link_to "Select all", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#selectAllIncludedProgrammingLanguages" }  %>
       <%= link_to "Clear selections", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#deselectAllIncludedProgrammingLanguages" }  %>
     </div>
     <div class="col-12 col-md-6">
-      <%= f.input :excluded_programming_languages, collection: MANAGED_VALUES[:programming_languages], label: "Excluded Programming Languages",
+      <%= f.input :excluded_programming_languages, collection: ENUMS[:programming_languages].values, label: "Excluded Programming Languages",
         input_html: { multiple: true, data: { controller: "select", target: "campaigns-form.excludedProgrammingLanguagesSelect" }} %>
       <%= link_to "Select all", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#selectAllExcludedProgrammingLanguages" }  %>
       <%= link_to "Clear selections", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#deselectAllExcludedProgrammingLanguages" }  %>

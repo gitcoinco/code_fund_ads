@@ -10,4 +10,8 @@ module CampaignsHelper
       [creative.name, creative.id, data: { user_id: creative.user_id }]
     end
   end
+
+  def countries_for_select
+    ENUMS[:countries].map { |abbr, name| [name, abbr] }
+  end
 end
