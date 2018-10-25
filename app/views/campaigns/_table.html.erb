@@ -1,0 +1,18 @@
+<table class="table table-borderless mt-5">
+  <thead>
+    <tr class="table-primary ">
+      <th scope="col" class="rounded-left">Status</th>
+      <th scope="col">US Hours</th>
+      <th scope="col">Name</th>
+      <th scope="col">Creative</th>
+      <th scope="col">Dates</th>
+      <th scope="col">Budget</th>
+      <th scope="col">Spend</th>
+      <th scope="col">Impressions</th>
+      <th scope="col" class="rounded-right"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: "/campaigns/tr", collection: @campaigns, as: :campaign %>
+  </tbody>
+</table>
