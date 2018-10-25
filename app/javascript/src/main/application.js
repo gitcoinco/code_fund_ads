@@ -1,6 +1,6 @@
 // Stylesheets
 // Importing all CSS with webpack
-// It will compile a single stylesheet at: publc/packs/admin-FINGERPRINT.css
+// It will compile a single stylesheet at: publc/packs/main-FINGERPRINT.css
 // Compiling CSS with Webpack because CSS path resultion with SASS/SCSS doesn't work as well
 import 'bootstrap/dist/css/bootstrap.css';
 import 'select2/dist/css/select2.css';

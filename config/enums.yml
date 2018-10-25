@@ -281,6 +281,32 @@ developed_markets:
   GB: United Kingdom
   US: United States
 
+emerging_markets:
+  BR: Brazil
+  CL: Chile
+  CN: China
+  CO: Colombia
+  CZ: Czech Republic
+  EG: Egypt
+  GR: Greece
+  HU: Hungary
+  IN: India
+  ID: Indonesia
+  KR: Korea, Republic of
+  MY: Malaysia
+  MX: Mexico
+  PK: Pakistan
+  PE: Peru
+  PH: Philippines
+  PL: Poland
+  QA: Qatar
+  RU: Russian Federation
+  ZA: South Africa
+  TW: Taiwan
+  TH: Thailand
+  TR: Turkey
+  AE: United Arab Emirates
+
 languages:
   albanian: Albanian
   armenian: Armenian

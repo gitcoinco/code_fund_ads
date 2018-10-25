@@ -1,10 +1,13 @@
 // Boostrap requires jQuery
 // Our use of it here is simply because its already a dependency
 // The verbose use of the `jQuery` variable instead of `$` is intentional so its use is easier to identify
+// This controller includes hacks to ensure that jQuery based libs like Select2 work with Turbolinks
 import jQuery from 'jquery';
 import 'select2';
 import { Controller } from 'stimulus';
 import { toArray } from '../utils';
+
+const originals = {};
 
 export default class extends Controller {
   static targets = [
@@ -18,15 +21,29 @@ export default class extends Controller {
   ];
 
   connect() {
-    this.originalIncludedTopicsSelectOptions = this.includedTopicsSelectOptions;
-    this.originalExcludedTopicsSelectOptions = this.excludedTopicsSelectOptions;
-    this.originalIncludedProgrammingLanguagesSelectOptions = this.includedProgrammingLanguagesSelectOptions;
-    this.originalExcludedProgrammingLanguagesSelectOptions = this.excludedProgrammingLanguagesSelectOptions;
-    this.originalCreativeSelectOptions = this.creativeSelectOptions;
+    let options = [
+      'includedTopicsSelectOptions',
+      'excludedTopicsSelectOptions',
+      'includedProgrammingLanguagesSelectOptions',
+      'excludedProgrammingLanguagesSelectOptions',
+      'creativeSelectOptions',
+    ];
+    options.forEach(name => {
+      originals[name] = originals[name] || this[name];
+      this.setOptions(name);
+    });
+
     this.initSelect2EventListeners();
 
     if (this.userSelectTarget.value)
       this.filterCreativeOptions(this.userSelectTarget.value);
+
+    if (this.creativeSelectTarget.value)
+      this.selectUser(
+        this.creativeSelectTarget.options[
+          this.creativeSelectTarget.selectedIndex
+        ].dataset.userId
+      );
   }
 
   initSelect2EventListeners() {
@@ -60,6 +77,15 @@ export default class extends Controller {
     this.includedCountriesSelectTarget.querySelectorAll('option').forEach(o => {
       o.selected =
         o.selected || this.developedMarketCountryCodes.indexOf(o.value) >= 0;
+    });
+    this.triggerChangeEvent(this.includedCountriesSelectTarget);
+  }
+
+  selectEmergingMarketCountries(event) {
+    Rails.stopEverything(event);
+    this.includedCountriesSelectTarget.querySelectorAll('option').forEach(o => {
+      o.selected =
+        o.selected || this.emergingMarketCountryCodes.indexOf(o.value) >= 0;
     });
     this.triggerChangeEvent(this.includedCountriesSelectTarget);
   }
@@ -138,12 +164,12 @@ export default class extends Controller {
     this.applyExclusions(
       this.includedTopicsSelectTarget,
       this.excludedTopicsSelectTarget,
-      this.originalExcludedTopicsSelectOptions
+      originals['excludedTopicsSelectOptions']
     );
     this.applyExclusions(
       this.excludedTopicsSelectTarget,
       this.includedTopicsSelectTarget,
-      this.originalIncludedTopicsSelectOptions
+      originals['includedTopicsSelectOptions']
     );
   }
 
@@ -151,18 +177,18 @@ export default class extends Controller {
     this.applyExclusions(
       this.includedProgrammingLanguagesSelectTarget,
       this.excludedProgrammingLanguagesSelectTarget,
-      this.originalExcludedProgrammingLanguagesSelectOptions
+      originals['excludedProgrammingLanguagesSelectOptions']
     );
     this.applyExclusions(
       this.excludedProgrammingLanguagesSelectTarget,
       this.includedProgrammingLanguagesSelectTarget,
-      this.originalIncludedProgrammingLanguagesSelectOptions
+      originals['includedProgrammingLanguagesSelectOptions']
     );
   }
 
   filterCreativeOptions(userId) {
     this.creativeSelectTarget.innerHTML = '';
-    this.originalCreativeSelectOptions.forEach(option => {
+    originals['creativeSelectOptions'].forEach(option => {
       if (!userId || !option.value || option.dataset.userId == userId) {
         this.creativeSelectTarget.appendChild(option);
       }
@@ -203,14 +229,24 @@ export default class extends Controller {
     this.applyingExclusions = false;
   }
 
+  setOptions(name) {
+    let targetName = name.replace('Options', 'Target');
+    let target = this[targetName];
+    let originalOptions = originals[name];
+    target.innerHTML = '';
+    originalOptions.forEach(option => target.appendChild(option));
+  }
+
   get developedMarketCountryCodes() {
     return this.includedCountriesSelectTarget.dataset.developedMarkets.split(
       ','
     );
   }
 
-  get includedCountriesSelectOptions() {
-    return this.includedSelectTarget.querySelectorAll('option');
+  get emergingMarketCountryCodes() {
+    return this.includedCountriesSelectTarget.dataset.emergingMarkets.split(
+      ','
+    );
   }
 
   get includedTopicsSelectOptions() {
