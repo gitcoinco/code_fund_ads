@@ -34,3 +34,11 @@ fieldset.inline {
     display: none;
   }
 }
+
+.flatpickr-calendar {
+  .flatpickr-months {
+    .flatpickr-month {
+      min-height: 40px;
+    }
+  }
+}

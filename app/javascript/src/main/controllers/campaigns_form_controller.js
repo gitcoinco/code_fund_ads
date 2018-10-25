@@ -2,7 +2,6 @@
 // Our use of it here is simply because its already a dependency
 // The verbose use of the `jQuery` variable instead of `$` is intentional so its use is easier to identify
 // This controller includes hacks to ensure that jQuery based libs like Select2 work with Turbolinks
-import jQuery from 'jquery';
 import 'select2';
 import { Controller } from 'stimulus';
 import { toArray } from '../utils';
@@ -47,26 +46,26 @@ export default class extends Controller {
   }
 
   initSelect2EventListeners() {
-    $(this.userSelectTarget).on('change.select2', event =>
+    jQuery(this.userSelectTarget).on('change.select2', event =>
       this.filterCreativeOptions(event.target.value)
     );
-    $(this.creativeSelectTarget).on('change.select2', event => {
+    jQuery(this.creativeSelectTarget).on('change.select2', event => {
       let { userId } = event.target.options[event.target.selectedIndex].dataset;
       this.selectUser(userId);
     });
-    $(this.includedTopicsSelectTarget).on(
+    jQuery(this.includedTopicsSelectTarget).on(
       'change.select2',
       this.applyTopicExclusions.bind(this)
     );
-    $(this.excludedTopicsSelectTarget).on(
+    jQuery(this.excludedTopicsSelectTarget).on(
       'change.select2',
       this.applyTopicExclusions.bind(this)
     );
-    $(this.includedProgrammingLanguagesSelectTarget).on(
+    jQuery(this.includedProgrammingLanguagesSelectTarget).on(
       'change.select2',
       this.applyProgrammingLanguageExclusions.bind(this)
     );
-    $(this.excludedProgrammingLanguagesSelectTarget).on(
+    jQuery(this.excludedProgrammingLanguagesSelectTarget).on(
       'change.select2',
       this.applyProgrammingLanguageExclusions.bind(this)
     );

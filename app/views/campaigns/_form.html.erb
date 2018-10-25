@@ -8,7 +8,13 @@
     <%= pseudo_row_divider %>
 
     <%= tag.div f.input(:name, required: true), class: "col-12 col-md-6" %>
-    <%= tag.div f.input(:date_range, input_html: { data: { controller: "select-date-range" }}), class: "col-12 col-md-6" %>
+    <div class="col-12 col-md-6">
+      <%= f.input :date_range,
+        input_html: {
+          class: "js-range-datepicker bg-white w-100",
+          data: { controller: "select-date-range" }
+        } %>
+    </div>
 
     <%= pseudo_row_divider %>
 
