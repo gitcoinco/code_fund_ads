@@ -1,17 +1,16 @@
 <%= simple_form_for campaign, html: { data: { controller: "campaigns-form" }} do |f| %>
-  <div class="row mt-5">
-    <div class="col-12 mb-3">
-      <h2 class="h4 w-100 border-bottom">Info</h2>
-    </div>
+  <div class="row">
+    <% #################################################################################################### %>
+    <%= render "@shared/forms/section_heading", text: "Info" %>
 
     <%= tag.div f.input(:status, collection: Campaign::STATUSES, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 mb-3" %>
 
-    <div class="w-100 d-none d-md-block"></div>
+    <%= pseudo_row_divider %>
 
     <%= tag.div f.input(:name, required: true), class: "col-12 col-md-6" %>
     <%= tag.div f.input(:date_range, input_html: { data: { controller: "select-date-range" }}), class: "col-12 col-md-6" %>
 
-    <div class="w-100 d-none d-md-block"></div>
+    <%= pseudo_row_divider %>
 
     <div class="col-12 col-md-6">
       <%= f.association :user, collection: users_for_select, label: "Advertiser", label_method: :detailed_name, prompt: "Choose...", required: true,
@@ -23,13 +22,12 @@
       <%= link_to "New creative", new_creative_path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;" %>
     </div>
 
-    <div class="w-100 d-none d-md-block"></div>
+    <%= pseudo_row_divider %>
 
     <%= tag.div f.input(:redirect_url, as: :string), class: "col-12" %>
 
-    <div class="col-12 mt-5 mb-3">
-      <h2 class="h4 w-100 border-bottom">Targeting</h2>
-    </div>
+    <% #################################################################################################### %>
+    <%= render "@shared/forms/section_heading", text: "Targeting" %>
 
     <div class="col-12">
       <%= f.input :included_countries, collection: countries_for_select, label: "Targeted Counties",
@@ -48,7 +46,7 @@
       <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#deselectAllIncludedCountries" }  %>
     </div>
 
-    <div class="w-100 d-none d-md-block"></div>
+    <%= pseudo_row_divider %>
 
     <div class="col-12 col-md-6">
       <%= f.input :included_topic_categories, collection: ENUMS[:topic_categories].values, label: "Targeted Topics",
@@ -63,7 +61,7 @@
       <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#deselectAllExcludedTopics" }  %>
     </div>
 
-    <div class="w-100 d-none d-md-block"></div>
+    <%= pseudo_row_divider %>
 
     <div class="col-12 col-md-6">
       <%= f.input :included_programming_languages, collection: ENUMS[:programming_languages].values, label: "Targeted Programming Languages",
@@ -78,16 +76,17 @@
       <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#deselectAllExcludedProgrammingLanguages" }  %>
     </div>
 
-    <div class="col-12 mt-5 mb-3">
-      <h2 class="h4 w-100 border-bottom">Budget</h2>
-    </div>
+    <% #################################################################################################### %>
+    <%= render "@shared/forms/section_heading", text: "Budget" %>
 
     <%= tag.div f.input(:total_spend, label: "Total Budget", as: :decimal, required: true), class: "col-12 col-md-4" %>
     <%= tag.div f.input(:budget_daily_amount, label: "Daily Budget", as: :decimal, required: true), class: "col-12 col-md-4" %>
     <%= tag.div f.input(:ecpm, label: "eCPM", as: :decimal, required: true), class: "col-12 col-md-4" %>
 
-    <div class="w-100 d-none d-md-block"></div>
+    <%= pseudo_row_divider %>
 
-    <%= tag.div f.button(:submit, class: "btn-lg btn-primary"), class: "col-auto mt-5" %>
+    <%= render "@shared/forms/button_panel" do %>
+      <%= f.button(:submit, class: "btn-lg btn-primary") %>
+    <% end %>
   </div>
 <% end %>

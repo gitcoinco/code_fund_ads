@@ -20,4 +20,8 @@ module ApplicationHelper
   def breadcrumbs
     @breadcrumbs = yield
   end
+
+  def pseudo_row_divider
+    @pseudo_row_divider ||= render("@shared/forms/pseudo_row_divider")
+  end
 end

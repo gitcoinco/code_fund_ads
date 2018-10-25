@@ -3,16 +3,16 @@ abbr[title=required] {
   text-decoration: none;
 }
 
-label.form-control-label,
-.form-group legend {
-  opacity: 0.7;
-  font-size: 80%;
+.form-control-label,
+fieldset legend.col-form-label {
+  opacity: 0.6;
+  font-size: 0.75em;
   text-transform: uppercase;
 }
 
-.form-group legend {
+fieldset legend.col-form-label {
   position: relative;
-  top: 3px;
+  top: 4px;
 }
 
 fieldset.inline {
