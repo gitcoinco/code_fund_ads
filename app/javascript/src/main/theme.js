@@ -1,9 +1,5 @@
 import 'theme/vendor/bootstrap/bootstrap.css';
-import 'theme/vendor/custombox/dist/custombox.min.css';
 import 'theme/vendor/animate.css/animate.min.css';
-import 'theme/vendor/hs-megamenu/src/hs.megamenu.css';
-import 'theme/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css';
-import 'theme/vendor/bootstrap-select/dist/css/bootstrap-select.min.css';
 import 'theme/vendor/flatpickr/dist/flatpickr.css';
 import 'theme/scss/front.scss';
 
