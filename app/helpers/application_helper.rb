@@ -24,4 +24,10 @@ module ApplicationHelper
   def pseudo_row_divider
     @pseudo_row_divider ||= render("@shared/forms/pseudo_row_divider")
   end
+
+  def classes(options = {})
+    list = []
+    options.each { |k, v| list << k if v }
+    list.join " "
+  end
 end

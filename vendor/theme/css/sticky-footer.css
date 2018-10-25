@@ -1,0 +1,21 @@
+/*------------------------------------
+  Sticky Footer Styles
+------------------------------------*/
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  height: 100%;
+  margin-bottom: 72px;
+}
+
+.u-sticky-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 72px;
+}

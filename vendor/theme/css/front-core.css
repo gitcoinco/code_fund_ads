@@ -1,0 +1,77 @@
+/*------------------------------------
+  Default Styles
+------------------------------------*/
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Poppins", Helvetica, Arial, sans-serif;
+  color: #1e2022;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga", "kern";
+  text-rendering: optimizelegibility;
+}
+
+main {
+  position: relative;
+  overflow: hidden;
+}
+
+p {
+  color: #77838f;
+  line-height: 1.7;
+}
+
+h4, h5, h6,
+.h4, .h5, .h6 {
+  font-weight: 500;
+}
+
+h1 > a, h2 > a, h3 > a, h4 > a, h5 > a, h6 > a,
+.h1 > a, .h2 > a, .h3 > a, .h4 > a, .h5 > a, .h6 > a {
+  color: #1e2022;
+}
+
+h1 > a:hover, h2 > a:hover, h3 > a:hover, h4 > a:hover, h5 > a:hover, h6 > a:hover,
+.h1 > a:hover, .h2 > a:hover, .h3 > a:hover, .h4 > a:hover, .h5 > a:hover, .h6 > a:hover {
+  color: #1164ff;
+}
+
+h1.text-white > a, h2.text-white > a, h3.text-white > a, h4.text-white > a, h5.text-white > a, h6.text-white > a,
+.h1.text-white > a, .h2.text-white > a, .h3.text-white > a, .h4.text-white > a, .h5.text-white > a, .h6.text-white > a {
+  color: #fff;
+}
+
+figure {
+  margin-bottom: 0;
+}
+
+svg {
+  margin-bottom: -0.4375rem;
+  vertical-align: baseline;
+}
+
+/*------------------------------------
+  Highlight Color
+------------------------------------*/
+::-moz-selection {
+  color: #fff;
+  background-color: #377dff;
+}
+
+::selection {
+  color: #fff;
+  background-color: #377dff;
+}
+
+.bg-primary ::-moz-selection {
+  color: #377dff;
+  background-color: #fff;
+}
+
+.bg-primary ::selection {
+  color: #377dff;
+  background-color: #fff;
+}
