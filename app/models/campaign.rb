@@ -132,6 +132,10 @@ class Campaign < ApplicationRecord
     "#{start_date.to_s "mm/dd/yyyy"} #{end_date.to_s "mm/dd/yyyy"}"
   end
 
+  def scoped_name
+    [user.scoped_name, name, creative&.name].compact.join "・"
+  end
+
   # protected instance methods ................................................
   protected
 

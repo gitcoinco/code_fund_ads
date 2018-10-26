@@ -101,12 +101,11 @@ class User < ApplicationRecord
   # public instance methods ...................................................
 
   def full_name
-    "#{first_name} #{last_name}"
+    [first_name, last_name].compact.join " "
   end
 
-  def detailed_name
-    return full_name if company.blank?
-    "#{company} ~ #{full_name}"
+  def scoped_name
+    [company, full_name].compact.join  "・"
   end
 
   # protected instance methods ................................................

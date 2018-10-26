@@ -1,5 +1,5 @@
 <div class="container mt-3">
-  <h1>Editing User</h1>
+  <%= page_heading "Editing", "User", subtitle: @user.scoped_name %>
   <%= render 'form', user: @user %>
   <%= link_to 'Show', @user, class: "btn btn-link" %>
   <%= link_to 'Back', users_path, class: "btn btn-link" %>

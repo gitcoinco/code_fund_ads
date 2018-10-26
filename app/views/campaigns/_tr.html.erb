@@ -1,7 +1,7 @@
 <tr>
   <td><%= tag.span campaign.status, class: "badge #{classes("badge-warning": campaign.pending?, "badge-success": campaign.active?, "badge-light": campaign.archived? )}" %></span></td>
-  <td><%= campaign.user&.full_name %></td>
-  <td><%= campaign.name %></td>
+  <td><%= link_to campaign.user.full_name, user_path(campaign.user) %></td>
+  <td><%= link_to campaign.name, campaign_path(campaign) %></td>
   <td>US Hours</td>
   <td><%= campaign.creative&.name %></td>
   <td>Dates</td>

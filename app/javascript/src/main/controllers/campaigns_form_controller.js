@@ -29,20 +29,9 @@ export default class extends Controller {
     ];
     options.forEach(name => {
       originals[name] = originals[name] || this[name];
-      this.setOptions(name);
     });
 
     this.initSelect2EventListeners();
-
-    if (this.userSelectTarget.value)
-      this.filterCreativeOptions(this.userSelectTarget.value);
-
-    if (this.creativeSelectTarget.value)
-      this.selectUser(
-        this.creativeSelectTarget.options[
-          this.creativeSelectTarget.selectedIndex
-        ].dataset.userId
-      );
   }
 
   initSelect2EventListeners() {
@@ -226,14 +215,6 @@ export default class extends Controller {
     bOptions.forEach(o => b.appendChild(o));
     this.triggerChangeEvent(b);
     this.applyingExclusions = false;
-  }
-
-  setOptions(name) {
-    let targetName = name.replace('Options', 'Target');
-    let target = this[targetName];
-    let originalOptions = originals[name];
-    target.innerHTML = '';
-    originalOptions.forEach(option => target.appendChild(option));
   }
 
   get developedMarketCountryCodes() {

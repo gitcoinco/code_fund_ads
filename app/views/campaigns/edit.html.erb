@@ -1,6 +1,6 @@
 <div class="container mt-3">
-  <h1>Editing Campaign</h1>
-  <%= render 'form', campaign: @campaign %>
-  <%= link_to 'Show', @campaign, class: "btn btn-link" %>
-  <%= link_to 'Back', campaigns_path, class: "btn btn-link" %>
+  <%= page_heading "Editing", "Campaign", subtitle: @campaign.scoped_name %>
+  <%= render "/campaigns/form", campaign: @campaign %>
+  <%= link_to "Show", @campaign, class: "btn btn-link" %>
+  <%= link_to "Back", campaigns_path, class: "btn btn-link" %>
 </div>

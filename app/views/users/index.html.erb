@@ -1,6 +1,6 @@
 <div class="container mt-3">
   <p id="notice"><%= notice %></p>
-  <h1>Users</h1>
+  <%= page_heading "Viewing", "Users" %>
   <%= render "/users/table", users: @users %>
   <%= link_to 'New User', new_user_path %>
 </div>

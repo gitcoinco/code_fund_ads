@@ -1,6 +1,8 @@
-abbr[title=required] {
-  color: #de4437;
-  text-decoration: none;
+legend, label {
+  abbr[title=required] {
+    color: #de4437;
+    text-decoration: none;
+  }
 }
 
 .form-control-label,

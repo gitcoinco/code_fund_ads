@@ -4,7 +4,8 @@
 // Compiling CSS with Webpack because CSS path resultion with SASS/SCSS doesn't work as well
 import 'select2/dist/css/select2.css';
 import 'select2-bootstrap-theme/dist/select2-bootstrap.css';
-import './application.scss';
+import './stylesheets/utilities.scss';
+import './stylesheets/components.scss';
 
 // JavaScripts
 import 'theme/vendor/bootstrap/bootstrap.min';

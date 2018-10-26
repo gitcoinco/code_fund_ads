@@ -19,7 +19,7 @@
     <%= pseudo_row_divider %>
 
     <div class="col-12 col-md-6">
-      <%= f.association :user, collection: users_for_select, label: "Advertiser", label_method: :detailed_name, prompt: "Choose...", required: true,
+      <%= f.association :user, collection: users_for_select, label: "Advertiser", label_method: :scoped_name, prompt: "Choose...", required: true,
         input_html: { data: { controller: "select", action: "change->campaigns-form#userSelected", target: "campaigns-form.userSelect" }} %>
     </div>
     <div class="col-12 col-md-6">

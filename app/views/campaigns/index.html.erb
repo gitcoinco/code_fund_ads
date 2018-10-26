@@ -1,6 +1,6 @@
 <div class="container mt-3">
   <p id="notice"><%= notice %></p>
-  <h1>Campaigns</h1>
+  <%= page_heading "Viewing", "Campaigns" %>
   <%= render "/campaigns/table", campaigns: @campaigns %>
   <%= link_to 'New Campaign', new_campaign_path %>
 </div>
