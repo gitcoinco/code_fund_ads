@@ -29,6 +29,11 @@ enums.each do |key, dictionary|
   context = Module.new
   def context.keys; @keys ||= []; end
   def context.values; @values ||= []; end
+  def context.[](value)
+    return values[keys.index(value)] if keys.include?(value)
+    return keys[values.index(value)] if values.include?(value)
+    nil
+  end
   def context.method_missing(name, *args)
     key = name.to_s.parameterize(separator: "_").underscore.upcase.to_sym
     return super unless const_defined?(key)

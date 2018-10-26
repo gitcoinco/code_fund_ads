@@ -1,5 +1,5 @@
-<tr>
-  <td><%= tag.span campaign.status, class: "badge #{classes("badge-warning": campaign.pending?, "badge-success": campaign.active?, "badge-light": campaign.archived? )}" %></span></td>
+<%= tag.tr class: classes("even": campaign_counter.even?, "odd": campaign_counter.odd?) do %>
+  <td><%= tag.span ENUMS::CAMPAIGN_STATUSES[campaign.status], class: "badge #{classes("badge-warning": campaign.pending?, "badge-success": campaign.active?, "badge-light": campaign.archived? )}" %></span></td>
   <td><%= link_to campaign.user.full_name, user_path(campaign.user) %></td>
   <td><%= link_to campaign.name, campaign_path(campaign) %></td>
   <td>US Hours</td>
@@ -9,4 +9,4 @@
   <td>Spend</td>
   <td>Impressions</td>
   <td><%= link_to "Edit", edit_campaign_path(campaign), class: "btn btn-link btn-sm" %></td>
-</tr>
+<% end %>

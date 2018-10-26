@@ -27,6 +27,8 @@
 #   pry>ENUMS::RATINGS.values           # [happy, satisfied, sad]
 #   pry>ENUMS::RATINGS.happy? :gold     # true
 #   pry>ENUMS::RATINGS.happy? :bronze   # false
+#   pry>ENUMS::RATINGS["happy"]         # gold
+#   pry>ENUMS::RATINGS["gold"]          # happy
 #
 #   ----------------------------------------------------------------------------
 #
@@ -45,6 +47,7 @@
 #   pry>ENUMS::USER_ROLES.values              # [admin, developer, sponsor]
 #   pry>ENUMS::USER_ROLES.admin? :admin       # true
 #   pry>ENUMS::USER_ROLES.admin? :developer   # false
+#   pry>ENUMS::USER_ROLES["admin"]            # admin
 #
 #   ----------------------------------------------------------------------------
 #
@@ -63,6 +66,8 @@
 #   pry>ENUMS::CAMPAIGN_STATUSES.values      # [pending, active, archived]
 #   pry>ENUMS::CAMPAIGN_STATUSES.pending? 1  # true
 #   pry>ENUMS::CAMPAIGN_STATUSES.pending? 2  # false
+#   pry>ENUMS::CAMPAIGN_STATUSES["active"]   # 2
+#   pry>ENUMS::CAMPAIGN_STATUSES[2]          # active
 #
 
 USER_ROLES:
