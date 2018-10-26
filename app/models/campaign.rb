@@ -30,12 +30,6 @@
 #
 
 class Campaign < ApplicationRecord
-  STATUSES = {
-    pending: 1,
-    active: 2,
-    archived: 3,
-  }.freeze
-
   # extends ...................................................................
   # includes ..................................................................
   include TagColumns
@@ -52,7 +46,7 @@ class Campaign < ApplicationRecord
   validates :impression_count, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
   validates :name, length: { maximum: 255, allow_blank: false }
   validates :redirect_url, presence: true
-  validates :status, inclusion: { in: STATUSES.values }
+  validates :status, inclusion: { in: ENUMS::CAMPAIGN_STATUSES.keys }
   validates :total_spend, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
 
   # callbacks .................................................................
@@ -105,9 +99,9 @@ class Campaign < ApplicationRecord
   #   irb>Campaign.without_excluded_topic_categories("Database", "Docker", "React")
   #   irb>Campaign.with_any_excluded_programming_languages(:perl, :prolog)
 
-  scope :pending, -> { where status: STATUSES[:pending] }
-  scope :active, -> { where status: STATUSES[:active] }
-  scope :archived, -> { where status: STATUSES[:archived] }
+  scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
+  scope :active, -> { where status: ENUMS::CAMPAIGN_STATUSES::ACTIVE }
+  scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   tag_columns :included_countries
@@ -121,6 +115,17 @@ class Campaign < ApplicationRecord
   end
 
   # public instance methods ...................................................
+  def pending?
+    ENUMS::CAMPAIGN_STATUSES.pending? status
+  end
+
+  def active?
+    ENUMS::CAMPAIGN_STATUSES.active? status
+  end
+
+  def archived?
+    ENUMS::CAMPAIGN_STATUSES.archived? status
+  end
 
   def date_range
     return nil unless start_date && end_date

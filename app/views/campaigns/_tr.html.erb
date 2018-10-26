@@ -1,8 +1,9 @@
 <tr>
+  <td><%= tag.span campaign.status, class: "badge #{classes("badge-warning": campaign.pending?, "badge-success": campaign.active?, "badge-light": campaign.archived? )}" %></span></td>
+  <td><%= campaign.user&.full_name %></td>
   <td><%= campaign.name %></td>
   <td>US Hours</td>
-  <td>Name</td>
-  <td>Creative</td>
+  <td><%= campaign.creative&.name %></td>
   <td>Dates</td>
   <td>Budget</td>
   <td>Spend</td>

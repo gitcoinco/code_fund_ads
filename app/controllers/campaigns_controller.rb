@@ -6,7 +6,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns
   # GET /campaigns.json
   def index
-    @campaigns = Campaign.all
+    @campaigns = Campaign.all.includes(:user, :creative)
   end
 
   # GET /campaigns/1

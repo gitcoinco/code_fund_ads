@@ -1,5 +1,82 @@
+# IMPORTANT: All application enums should be defined in this file
+#
+# They will be made available to the application via: config/initializers/enums.rb
+# ...and will be exposed uner the ENUMS module
+#
+# NOTE: Entries in this file can be either key/value or a simple list
+#
+# Examples
+#
+#   RATINGS:
+#     gold: happy
+#     silver: satisfied
+#     bronze: sad
+#
+#   The YAML above will be converted to the following enums
+#
+#   pry>ENUMS::RATINGS::GOLD        # happy
+#   pry>ENUMS::RATINGS::HAPPY       # gold
+#   pry>ENUMS::RATINGS::SILVER      # satisfied
+#   pry>ENUMS::RATINGS::SATISFIED   # silver
+#   pry>ENUMS::RATINGS::BRONZE      # sad
+#   pry>ENUMS::RATINGS::SAD         # bronze
+#
+#   ENUMs also supports the following helper methods
+#
+#   pry>ENUMS::RATINGS.keys             # [gold, silver, bronze]
+#   pry>ENUMS::RATINGS.values           # [happy, satisfied, sad]
+#   pry>ENUMS::RATINGS.happy? :gold     # true
+#   pry>ENUMS::RATINGS.happy? :bronze   # false
+#
+#   ----------------------------------------------------------------------------
+#
+#   USER_ROLES:
+#     - admin
+#     - developer
+#     - sponsor
+#
+#   The YAML above will be converted to the following enums
+#
+#   pry>ENUMS::USER_ROLES::ADMIN      # admin
+#   pry>ENUMS::USER_ROLES::DEVELOPER  # developer
+#   pry>ENUMS::USER_ROLES::SPONSOR    # sponsor
+#
+#   pry>ENUMS::USER_ROLES.keys                # [admin, developer, sponsor]
+#   pry>ENUMS::USER_ROLES.values              # [admin, developer, sponsor]
+#   pry>ENUMS::USER_ROLES.admin? :admin       # true
+#   pry>ENUMS::USER_ROLES.admin? :developer   # false
+#
+#   ----------------------------------------------------------------------------
+#
+#   CAMPAIGN_STATUSES:
+#     1: pending
+#     2: active
+#     3: archived
+#
+#   The YAML above will be converted to the following enums
+#
+#   pry>ENUMS::CAMPAIGN_STATUSES::PENDING    # 1
+#   pry>ENUMS::CAMPAIGN_STATUSES::ACTIVE     # 2
+#   pry>ENUMS::CAMPAIGN_STATUSES::ARCHIVED   # 3
+#
+#   pry>ENUMS::CAMPAIGN_STATUSES.keys        # [1, 2, 3]
+#   pry>ENUMS::CAMPAIGN_STATUSES.values      # [pending, active, archived]
+#   pry>ENUMS::CAMPAIGN_STATUSES.pending? 1  # true
+#   pry>ENUMS::CAMPAIGN_STATUSES.pending? 2  # false
+#
+
+USER_ROLES:
+  - admin
+  - developer
+  - sponsor
+
+CAMPAIGN_STATUSES:
+  1: pending
+  2: active
+  3: archived
+
 # SEE: https://dev.maxmind.com/geoip/legacy/codes/iso3166/
-countries:
+COUNTRIES:
   #A1: Anonymous Proxy
   #A2: Satellite Provider
   #O1: Other Country
@@ -256,7 +333,7 @@ countries:
   ZW: Zimbabwe
 
 # SEE: https://www.msci.com/market-classification
-developed_markets:
+DEVELOPED_MARKETS:
   AU: Australia
   AT: Austria
   BE: Belgium
@@ -281,7 +358,7 @@ developed_markets:
   GB: United Kingdom
   US: United States
 
-emerging_markets:
+EMERGING_MARKETS:
   BR: Brazil
   CL: Chile
   CN: China
@@ -307,139 +384,139 @@ emerging_markets:
   TR: Turkey
   AE: United Arab Emirates
 
-languages:
-  albanian: Albanian
-  armenian: Armenian
-  azeri: Azeri
-  belarusian: Belarusian
-  bosnian: Bosnian
-  bulgarian: Bulgarian
-  chinese: Chinese
-  croatian: Croatian
-  czech: Czech
-  danish: Danish
-  divehi: Divehi
-  dutch: Dutch
-  english: English
-  estonian: Estonian
-  fyro macedonian: FYRO Macedonian
-  faroese: Faroese
-  farsi: Farsi
-  finnish: Finnish
-  french: French
-  galician: Galician
-  georgian: Georgian
-  german: German
-  greek: Greek
-  hebrew: Hebrew
-  hindi: Hindi
-  hungarian: Hungarian
-  icelandic: Icelandic
-  indonesian: Indonesian
-  italian: Italian
-  japanese: Japanese
-  kazakh: Kazakh
-  korean: Korean
-  kyrgyz: Kyrgyz
-  latvian: Latvian
-  lithuanian: Lithuanian
-  malay: Malay
-  maltese: Maltese
-  maori: Maori
-  mongolian: Mongolian
-  norwegian: Norwegian
-  pashto: Pashto
-  polish: Polish
-  portuguese: Portuguese
-  romanian: Romanian
-  russian: Russian
-  serbian: Serbian
-  slovak: Slovak
-  slovenian: Slovenian
-  spanish: Spanish
-  swahili: Swahili
-  swedish: Swedish
-  syriac: Syriac
-  tagalog: Tagalog
-  thai: Thai
-  turkish: Turkish
-  ukrainian: Ukrainian
-  urdu: Urdu
-  uzbek: Uzbek
-  vietnamese: Vietnamese
-  zulu: Zulu
+LANGUAGES:
+  - Albanian
+  - Armenian
+  - Azeri
+  - Belarusian
+  - Bosnian
+  - Bulgarian
+  - Chinese
+  - Croatian
+  - Czech
+  - Danish
+  - Divehi
+  - Dutch
+  - English
+  - Estonian
+  - FYRO Macedonian
+  - Faroese
+  - Farsi
+  - Finnish
+  - French
+  - Galician
+  - Georgian
+  - German
+  - Greek
+  - Hebrew
+  - Hindi
+  - Hungarian
+  - Icelandic
+  - Indonesian
+  - Italian
+  - Japanese
+  - Kazakh
+  - Korean
+  - Kyrgyz
+  - Latvian
+  - Lithuanian
+  - Malay
+  - Maltese
+  - Maori
+  - Mongolian
+  - Norwegian
+  - Pashto
+  - Polish
+  - Portuguese
+  - Romanian
+  - Russian
+  - Serbian
+  - Slovak
+  - Slovenian
+  - Spanish
+  - Swahili
+  - Swedish
+  - Syriac
+  - Tagalog
+  - Thai
+  - Turkish
+  - Ukrainian
+  - Urdu
+  - Uzbek
+  - Vietnamese
+  - Zulu
 
-programming_languages:
-  abap: ABAP
-  ada: Ada
-  alice: Alice
-  apex: Apex
-  assembly: Assembly language
-  awk: Awk
-  bash: Bash
-  c: C
-  c_sharp: C#
-  c++: C++
-  cobol: COBOL
-  d: D
-  dart: Dart
-  delphi: Delphi/Object Pascal
-  erlang: Erlang
-  f_sharp: F#
-  fortran: Fortran
-  go: Go
-  groovy: Groovy
-  haskell: Haskell
-  java: Java
-  javascript: JavaScript
-  julia: Julia
-  labview: LabVIEW
-  ladder_logic: Ladder Logic
-  lisp: Lisp
-  logo: Logo
-  lua: Lua
-  matlab: MATLAB
-  mql4: MQL4
-  objective_c: Objective-C
-  other: Other
-  php: PHP
-  pl_sql: PL/SQL
-  perl: Perl
-  prolog: Prolog
-  python: Python
-  q: Q
-  r: R
-  rpg_os_400: RPG (OS/400)
-  ruby: Ruby
-  rust: Rust
-  sas: SAS
-  scala: Scala
-  scheme: Scheme
-  scratch: Scratch
-  swift: Swift
-  transact_sql: Transact-SQL
-  vhdl: VHDL
-  visual_basic: Visual Basic
-  visual_basic_net: Visual Basic .NET
+PROGRAMMING_LANGUAGES:
+  - ABAP
+  - Ada
+  - Alice
+  - Apex
+  - Assembly language
+  - Awk
+  - Bash
+  - C
+  - C#
+  - C++
+  - COBOL
+  - D
+  - Dart
+  - Delphi/Object Pascal
+  - Erlang
+  - F#
+  - Fortran
+  - Go
+  - Groovy
+  - Haskell
+  - Java
+  - JavaScript
+  - Julia
+  - LabVIEW
+  - Ladder Logic
+  - Lisp
+  - Logo
+  - Lua
+  - MATLAB
+  - MQL4
+  - Objective-C
+  - Other
+  - PHP
+  - PL/SQL
+  - Perl
+  - Prolog
+  - Python
+  - Q
+  - R
+  - RPG (OS/400)
+  - Ruby
+  - Rust
+  - SAS
+  - Scala
+  - Scheme
+  - Scratch
+  - Swift
+  - Transact-SQL
+  - VHDL
+  - Visual Basic
+  - Visual Basic .NET
 
-topic_categories:
-  android_development: Android Development
-  backend_services: Backend Services
-  blockchain: Blockchain
-  css_design: CSS & Design
-  computer_science: Computer Science
-  database: Database
-  devops: Dev Ops
-  docker: Docker
-  frontend_concepts: Frontend Concepts
-  frontend_frameworks_tools: Frontend Frameworks & Tools
-  frontend_workflow_tooling: Frontend Workflow & Tooling
-  game_development: Game Development
-  git: Git
-  html5: HTML5
-  hybrid_mobile_web: Hybrid & Mobile Web
-  ios_development: IOS Development
-  languages_frameworks: Languages & Frameworks
-  react: React
-  resources: Resources
-  shell: Shell
+TOPIC_CATEGORIES:
+  - Android Development
+  - Backend Services
+  - Blockchain
+  - CSS & Design
+  - Computer Science
+  - Database
+  - Dev Ops
+  - Docker
+  - Frontend Concepts
+  - Frontend Frameworks & Tools
+  - Frontend Workflow & Tooling
+  - Game Development
+  - Git
+  - HTML5
+  - Hybrid & Mobile Web
+  - IOS Development
+  - Languages & Frameworks
+  - React
+  - Resources
+  - Shell

@@ -37,12 +37,6 @@
 #
 
 class User < ApplicationRecord
-  ROLES = {
-    admin: "admin",
-    developer: "developer",
-    sponsor: "sponsor",
-  }.freeze
-
   # extends ...................................................................
 
   # includes ..................................................................
@@ -73,14 +67,14 @@ class User < ApplicationRecord
   validates :region, length: { maximum: 255 }
   validates :reset_password_token, length: { maximum: 255 }
   validates :revenue_rate, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
-  validates :roles, inclusion: { in: ROLES.values }
+  validates :roles, inclusion: { in: ENUMS::USER_ROLES.values }
   validates :unlock_token, length: { maximum: 255 }
 
   # callbacks .................................................................
 
   # scopes ....................................................................
-  scope :sponsor, -> { with_all_roles "sponsor" }
-  scope :developer, -> { with_all_roles "developer" }
+  scope :sponsor, -> { with_all_roles ENUMS::USER_ROLES::SPONSOR }
+  scope :developer, -> { with_all_roles ENUMS::USER_ROLES::DEVELOPER }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns

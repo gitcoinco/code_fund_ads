@@ -12,6 +12,6 @@ module CampaignsHelper
   end
 
   def countries_for_select
-    ENUMS[:countries].map { |abbr, name| [name, abbr] }
+    ENUMS::COUNTRIES.values.zip ENUMS::COUNTRIES.keys
   end
 end
