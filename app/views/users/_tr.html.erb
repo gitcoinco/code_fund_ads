@@ -1,4 +1,4 @@
-<%= tag.tr class: classes(odd: user_counter.odd?) do %>
+<%= tag.tr class: classes("even": user_counter.even?, "odd": user_counter.odd?) do %>
   <td><%= user.scoped_name %></td>
   <td><%= link_to user.email, "mailto:#{user.email}" %></td>
   <td>

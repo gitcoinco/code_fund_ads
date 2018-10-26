@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  include Pagy::Frontend
+
   def page_heading(action, subject, subtitle: nil)
     render "/@shared/page_heading", action: action, subject: subject, subtitle: subtitle
   end

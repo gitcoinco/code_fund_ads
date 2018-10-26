@@ -6,7 +6,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @pagy, @users = pagy(User.all)
   end
 
   # GET /users/1

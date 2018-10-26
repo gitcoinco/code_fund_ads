@@ -1,13 +1,25 @@
-<table class="table table-borderless mt-5">
+<table class="table table-borderless u-datatable u-datatable__striped mt-5">
   <thead>
-    <tr class="table-primary ">
-      <th scope="col" class="rounded-left">Name</th>
+    <tr class="border-bottom">
+      <th scope="col">Name</th>
       <th scope="col">Email</th>
       <th scope="col">Roles</th>
-      <th scope="col" class="rounded-right"></th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
     <%= render partial: "/users/tr", collection: @users, as: :user %>
   </tbody>
+  <tfoot>
+    <tr class="border-top">
+      <td colspan="4">
+        <%= link_to 'New User', new_user_path, class: "btn btn-primary" %>
+
+        <div class="float-right">
+          <%= link_to "Previous", users_path(page: @pagy.prev), class: "btn btn-link" if @pagy.prev %>
+          <%= link_to "Next", users_path(page: @pagy.next), class: "btn btn-link" if @pagy.next %>
+        </div>
+      </td>
+    </tr>
+  </tfoot>
 </table>
