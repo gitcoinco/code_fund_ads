@@ -1,6 +1,6 @@
 <div class="container mt-3">
   <p id="notice"><%= notice %></p>
   <%= page_heading "Viewing", "Campaign", subtitle: @campaign.scoped_name %>
-  <%= link_to 'Edit', edit_campaign_path(@campaign) %> |
-  <%= link_to 'Back', campaigns_path %>
+  <%= link_to 'Edit', edit_campaign_path(@campaign), class: "btn btn-link" %>
+  <%= link_to 'Back', campaigns_path, class: "btn btn-link" %>
 </div>

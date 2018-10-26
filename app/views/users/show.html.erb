@@ -1,6 +1,6 @@
 <div class="container mt-3">
   <p id="notice"><%= notice %></p>
   <%= page_heading "Viewing", "User", subtitle: @user.scoped_name %>
-  <%= link_to 'Edit', edit_user_path(@user) %> |
-  <%= link_to 'Back', users_path %>
+  <%= link_to 'Edit', edit_user_path(@user), class: "btn btn-link" %>
+  <%= link_to 'Back', users_path, class: "btn btn-link" %>
 </div>
