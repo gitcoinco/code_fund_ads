@@ -7,16 +7,26 @@ import { Controller } from 'stimulus';
 
 export default class extends Controller {
   connect() {
-    let $element = jQuery(this.element);
-    $element.select2({
+    this.create();
+    document.addEventListener(
+      'turbolinks:before-cache',
+      this.destroy.bind(this)
+    );
+  }
+
+  create() {
+    if (this.created) return;
+    jQuery(this.element).select2({
       theme: 'bootstrap',
       closeOnSelect: !this.element.multiple,
     });
+  }
 
-    document.addEventListener('turbolinks:before-cache', () => {
-      if ($element.hasClass('select2-hidden-accessible')) {
-        $element.select2('destroy');
-      }
-    });
+  destroy() {
+    if (this.created) jQuery(element).select2('destroy');
+  }
+
+  get created() {
+    return this.element.classList.contains('select2-hidden-accessible');
   }
 }

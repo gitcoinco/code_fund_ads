@@ -1,4 +1,4 @@
-<%= simple_form_for campaign, html: { data: { controller: "campaigns-form" }} do |f| %>
+<%= simple_form_for campaign do |f| %>
   <div class="row">
     <% #################################################################################################### %>
     <%= render "@shared/forms/section_heading", text: "Info" %>
@@ -20,11 +20,11 @@
 
     <div class="col-12 col-md-6">
       <%= f.association :user, collection: users_for_select, label: "Advertiser", label_method: :scoped_name, prompt: "Choose...", required: true,
-        input_html: { data: { controller: "select", action: "change->campaigns-form#userSelected", target: "campaigns-form.userSelect" }} %>
+        input_html: { data: { controller: "select", action: "change->campaigns-form#userSelected" }} %>
     </div>
     <div class="col-12 col-md-6">
       <%= f.association :creative, collection: creatives_for_select, label: "Creative", prompt: "Choose...", required: true,
-        input_html: { data: { controller: "select", target: "campaigns-form.creativeSelect" }} %>
+        input_html: { data: { controller: "select" }} %>
       <%= link_to "New creative", new_creative_path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;" %>
     </div>
 
@@ -35,51 +35,42 @@
     <% #################################################################################################### %>
     <%= render "@shared/forms/section_heading", text: "Targeting" %>
 
-    <div class="col-12">
-      <%= f.input :included_countries, collection: countries_for_select, label: "Targeted Counties",
-        input_html: {
-          multiple: true,
-          data: {
-            controller: "select",
-            target: "campaigns-form.includedCountriesSelect",
-            developed_markets: ENUMS::DEVELOPED_MARKETS.keys.join(","),
-            emerging_markets: ENUMS::EMERGING_MARKETS.keys.join(",")
-          }
-      } %>
-      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#selectAllIncludedCountries" }  %>
-      <%= link_to "Developed markets", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#selectDevelopedMarketCountries" }  %>
-      <%= link_to "Emerging markets", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#selectEmergingMarketCountries" }  %>
-      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#deselectAllIncludedCountries" }  %>
+    <div class="col-12" data-controller="select-countries">
+      <%= f.input :included_countries, collection: countries_for_select, label: "Targeted Counties", input_html: { multiple: true, data: { controller: "select", target: "select-countries.select" }} %>
+      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#selectAll" }  %>
+      <%= link_to "Developed markets", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#selectDevelopedMarkets" }  %>
+      <%= link_to "Emerging markets", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#selectEmergingMarkets" }  %>
+      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#clearSelections" }  %>
     </div>
 
     <%= pseudo_row_divider %>
 
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6" data-controller="select-multiple">
       <%= f.input :included_topic_categories, collection: ENUMS::TOPIC_CATEGORIES.values, label: "Targeted Topics",
-        input_html: { multiple: true, class: "mb-0", data: { controller: "select", target: "campaigns-form.includedTopicsSelect" }} %>
-      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#selectAllIncludedTopics" }  %>
-      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#deselectAllIncludedTopics" }  %>
+        input_html: { multiple: true, class: "mb-0", data: { controller: "select", target: "select-multiple.select" }} %>
+      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
+      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
     </div>
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6" data-controller="select-multiple">
       <%= f.input :excluded_topic_categories, collection: ENUMS::TOPIC_CATEGORIES.values, label: "Excluded Topics",
-        input_html: { multiple: true, data: { controller: "select", target: "campaigns-form.excludedTopicsSelect" }} %>
-      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#selectAllExcludedTopics" }  %>
-      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#deselectAllExcludedTopics" }  %>
+        input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
+      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
+      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
     </div>
 
     <%= pseudo_row_divider %>
 
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6" data-controller="select-multiple">
       <%= f.input :included_programming_languages, collection: ENUMS::PROGRAMMING_LANGUAGES.values, label: "Targeted Programming Languages",
-        input_html: { multiple: true, class: "mb-0", data: { controller: "select", target: "campaigns-form.includedProgrammingLanguagesSelect" }} %>
-      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#selectAllIncludedProgrammingLanguages" }  %>
-      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#deselectAllIncludedProgrammingLanguages" }  %>
+        input_html: { multiple: true, class: "mb-0", data: { controller: "select", target: "select-multiple.select" }} %>
+      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
+      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
     </div>
-    <div class="col-12 col-md-6">
+    <div class="col-12 col-md-6" data-controller="select-multiple">
       <%= f.input :excluded_programming_languages, collection: ENUMS::PROGRAMMING_LANGUAGES.values, label: "Excluded Programming Languages",
-        input_html: { multiple: true, data: { controller: "select", target: "campaigns-form.excludedProgrammingLanguagesSelect" }} %>
-      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#selectAllExcludedProgrammingLanguages" }  %>
-      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->campaigns-form#deselectAllExcludedProgrammingLanguages" }  %>
+        input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
+      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
+      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
     </div>
 
     <% #################################################################################################### %>

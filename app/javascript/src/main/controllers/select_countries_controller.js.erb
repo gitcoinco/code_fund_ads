@@ -1,0 +1,43 @@
+import { Controller } from 'stimulus';
+import { toArray } from '../utils';
+
+const developedMarkets = <%= ENUMS::DEVELOPED_MARKETS.keys.to_json %>;
+const emergingMarkets = <%= ENUMS::EMERGING_MARKETS.keys.to_json %>;
+
+export default class extends Controller {
+  static targets = ['select'];
+
+  selectAll(event) {
+    Rails.stopEverything(event);
+    this.options.forEach(o => o.selected = true);
+    this.selectTarget.dispatchEvent(new Event('change'));
+  }
+
+  selectDevelopedMarkets(event) {
+    Rails.stopEverything(event);
+    developedMarkets.forEach(val => {
+      let option = this.options.find(o => o.value === val);
+      if (option) option.selected = true;
+    });
+    this.selectTarget.dispatchEvent(new Event('change'));
+  }
+
+  selectEmergingMarkets(event) {
+    Rails.stopEverything(event);
+    emergingMarkets.forEach(val => {
+      let option = this.options.find(o => o.value === val);
+      if (option) option.selected = true;
+    });
+    this.selectTarget.dispatchEvent(new Event('change'));
+  }
+
+  clearSelections(event) {
+    Rails.stopEverything(event);
+    this.options.forEach(o => o.selected = false);
+    this.selectTarget.dispatchEvent(new Event('change'));
+  }
+
+  get options() {
+    return toArray(this.selectTarget.querySelectorAll('option'));
+  }
+}
