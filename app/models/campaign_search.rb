@@ -22,7 +22,6 @@ class CampaignSearch < ApplicationSearchRecord
     self.included_programming_languages = (included_programming_languages || []).reject(&:blank?)
     self.included_topic_categories = (included_topic_categories || []).reject(&:blank?)
     self.statuses = (statuses || []).reject(&:blank?)
-    self.us_hours_only ||= false
   end
 
   def apply(relation)
