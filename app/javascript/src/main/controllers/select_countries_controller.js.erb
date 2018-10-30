@@ -1,18 +1,10 @@
-import { Controller } from 'stimulus';
+import SelectMultipleController from './select_multiple_controller';
 import { toArray } from '../utils';
 
 const developedMarkets = <%= ENUMS::DEVELOPED_MARKETS.keys.to_json %>;
 const emergingMarkets = <%= ENUMS::EMERGING_MARKETS.keys.to_json %>;
 
-export default class extends Controller {
-  static targets = ['select'];
-
-  selectAll(event) {
-    Rails.stopEverything(event);
-    this.options.forEach(o => o.selected = true);
-    this.selectTarget.dispatchEvent(new Event('change'));
-  }
-
+export default class extends SelectMultipleController {
   selectDevelopedMarkets(event) {
     Rails.stopEverything(event);
     developedMarkets.forEach(val => {
@@ -29,15 +21,5 @@ export default class extends Controller {
       if (option) option.selected = true;
     });
     this.selectTarget.dispatchEvent(new Event('change'));
-  }
-
-  clearSelections(event) {
-    Rails.stopEverything(event);
-    this.options.forEach(o => o.selected = false);
-    this.selectTarget.dispatchEvent(new Event('change'));
-  }
-
-  get options() {
-    return toArray(this.selectTarget.querySelectorAll('option'));
   }
 }

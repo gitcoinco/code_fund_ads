@@ -8,6 +8,8 @@ import { Controller } from 'stimulus';
 export default class extends Controller {
   connect() {
     this.create();
+    this.element.addEventListener('select:create', this.create.bind(this));
+    this.element.addEventListener('select:destroy', this.destroy.bind(this));
     document.addEventListener(
       'turbolinks:before-cache',
       this.destroy.bind(this)
@@ -20,10 +22,12 @@ export default class extends Controller {
       theme: 'bootstrap',
       closeOnSelect: !this.element.multiple,
     });
+    this.element.dispatchEvent(new Event('select:created'));
   }
 
   destroy() {
-    if (this.created) jQuery(element).select2('destroy');
+    if (this.created) jQuery(this.element).select2('destroy');
+    this.element.dispatchEvent(new Event('select:destroyed'));
   }
 
   get created() {

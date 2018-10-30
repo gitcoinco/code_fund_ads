@@ -7,7 +7,7 @@ module CampaignsHelper
 
   def creatives_for_select
     Creative.select(:id, :user_id, :name).order(:name).map do |creative|
-      [creative.name, creative.id, data: { user_id: creative.user_id }]
+      [creative.name, creative.id, data: { parent_id: creative.user_id }]
     end
   end
 
