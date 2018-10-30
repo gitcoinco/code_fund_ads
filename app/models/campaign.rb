@@ -52,9 +52,16 @@ class Campaign < ApplicationRecord
   # callbacks .................................................................
 
   # scopes ....................................................................
+  scope :search_excluded_programming_languages, -> (*values) { values.blank? ? all : with_any_excluded_programming_languages(*values) }
+  scope :search_excluded_topic_categories, -> (*values) { values.blank? ? all : with_any_excluded_topic_categories(*values) }
+  scope :search_included_countries, -> (*values) { values.blank? ? all : with_any_included_countries(*values) }
+  scope :search_included_programming_languages, -> (*values) { values.blank? ? all : with_any_included_programming_languages(*values) }
+  scope :search_included_topic_categories, -> (*values) { values.blank? ? all : with_any_included_topic_categories(*values) }
   scope :search_name, -> (value) { value.blank? ? all : search_column(:name, value) }
-  scope :search_user, -> (value) { value.blank? ? all : where(user_id: User.sponsor.search_name(value).or(User.sponsor.search_company(value))) }
   scope :search_status, -> (*values) { values.blank? ? all : where(status: values) }
+  scope :search_us_hours_only, -> (value) { value.nil? ? all : where(us_hours_only: value) }
+  scope :search_user, -> (value) { value.blank? ? all : where(user_id: User.sponsor.search_name(value).or(User.sponsor.search_company(value))) }
+  scope :search_weekdays_only, -> (value) { value.nil? ? all : where(weekdays_only: value) }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns

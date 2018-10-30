@@ -14,6 +14,17 @@ class CampaignSearchesController < ApplicationController
   private
 
     def campaign_search_params
-      params.require(:campaign_search).permit(:name, :user, statuses: [])
+      params.require(:campaign_search).permit(
+        :name,
+        :us_hours_only,
+        :user,
+        :weekdays_only,
+        excluded_programming_languages: [],
+        excluded_topic_categories: [],
+        included_countries: [],
+        included_programming_languages: [],
+        included_topic_categories: [],
+        statuses: [],
+      )
     end
 end

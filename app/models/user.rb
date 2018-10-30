@@ -73,11 +73,11 @@ class User < ApplicationRecord
   # callbacks .................................................................
 
   # scopes ....................................................................
-  scope :sponsor, -> { with_all_roles ENUMS::USER_ROLES::SPONSOR }
   scope :developer, -> { with_all_roles ENUMS::USER_ROLES::DEVELOPER }
-  scope :search_name, -> (value) { value.blank? ? all : search_column(:first_name, value).or(search_column(:last_name, value)) }
-  scope :search_email, -> (value) { value.blank? ? all : search_column(:email, value) }
+  scope :sponsor, -> { with_all_roles ENUMS::USER_ROLES::SPONSOR }
   scope :search_company, -> (value) { value.blank? ? all : search_column(:company, value) }
+  scope :search_email, -> (value) { value.blank? ? all : search_column(:email, value) }
+  scope :search_name, -> (value) { value.blank? ? all : search_column(:first_name, value).or(search_column(:last_name, value)) }
   scope :search_roles, -> (*values) { values.blank? ? all : with_any_roles(*values) }
 
   # Scopes and helpers provied by tag_columns

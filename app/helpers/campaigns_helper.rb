@@ -15,6 +15,10 @@ module CampaignsHelper
     ENUMS::COUNTRIES.values.zip ENUMS::COUNTRIES.keys
   end
 
+  def statuses_for_select
+    ENUMS::CAMPAIGN_STATUSES.values.zip ENUMS::CAMPAIGN_STATUSES.keys
+  end
+
   def campaign_status_html(status)
     case ENUMS::CAMPAIGN_STATUSES[status]
     when "active" then tag.span(class: "fas fa-circle text-success", title: "Active", data: tooltip_expando(placement: "left"))

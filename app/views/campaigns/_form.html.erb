@@ -3,7 +3,7 @@
     <% #################################################################################################### %>
     <%= render "@shared/forms/section_heading", text: "Info" %>
 
-    <%= tag.div f.input(:status, collection: ENUMS::CAMPAIGN_STATUSES.values.zip(ENUMS::CAMPAIGN_STATUSES.keys), as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 mb-3" %>
+    <%= tag.div f.input(:status, collection: statuses_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 mb-3" %>
 
     <%= pseudo_row_divider %>
 
