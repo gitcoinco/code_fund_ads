@@ -20,4 +20,8 @@ module ApplicationHelper
     options.each { |k, v| list << k if v }
     list.join " "
   end
+
+  def tooltip_expando(options = {})
+    { toggle: "tooltip", placement: "top" }.merge(options)
+  end
 end

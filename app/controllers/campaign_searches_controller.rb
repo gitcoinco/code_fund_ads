@@ -14,6 +14,6 @@ class CampaignSearchesController < ApplicationController
   private
 
     def campaign_search_params
-      params.require(:campaign_search).permit(:name, :user)
+      params.require(:campaign_search).permit(:name, :user, statuses: [])
     end
 end

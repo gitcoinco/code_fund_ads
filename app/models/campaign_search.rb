@@ -1,16 +1,15 @@
 # frozen_string_literal: true
 
 class CampaignSearch < ApplicationSearchRecord
+  FIELDS = %w[
+    name
+    statuses
+    user
+  ].freeze
+
   def initialize(attrs = {})
-    super %w[name user], attrs
-  end
-
-  def name
-    @attributes[:name]
-  end
-
-  def user
-    @attributes[:user]
+    super FIELDS, attrs
+    self.statuses = (statuses || []).reject(&:blank?)
   end
 
   def apply(relation)
@@ -18,5 +17,6 @@ class CampaignSearch < ApplicationSearchRecord
     relation
       .then { |result| result.search_name(name) }
       .then { |result| result.search_user(user) }
+      .then { |result| result.search_status(*statuses) }
   end
 end

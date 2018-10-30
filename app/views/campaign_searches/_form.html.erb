@@ -2,6 +2,7 @@
   <div class="row mt-5">
     <%= tag.div f.input(:name, required: false), class: "col-12 col-md-auto" %>
     <%= tag.div f.input(:user, required: false, label: "Advertiser"), class: "col-12 col-md-auto" %>
+    <%= tag.div f.input(:statuses, collection: ENUMS::CAMPAIGN_STATUSES.values.zip(ENUMS::CAMPAIGN_STATUSES.keys), required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
 
     <%= pseudo_row_divider %>
 

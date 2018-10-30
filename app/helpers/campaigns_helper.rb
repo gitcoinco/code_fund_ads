@@ -14,4 +14,12 @@ module CampaignsHelper
   def countries_for_select
     ENUMS::COUNTRIES.values.zip ENUMS::COUNTRIES.keys
   end
+
+  def campaign_status_html(status)
+    case ENUMS::CAMPAIGN_STATUSES[status]
+    when "active" then tag.span(class: "fas fa-circle text-success", title: "Active", data: tooltip_expando(placement: "left"))
+    when "pending" then  tag.span(class: "fas fa-circle text-warning", title: "Pending", data: tooltip_expando(placement: "left"))
+    when "archived" then  tag.span(class: "fas fa-circle text-muted", title: "Archived", data: tooltip_expando(placement: "left"))
+    end
+  end
 end

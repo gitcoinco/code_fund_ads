@@ -1,25 +1,16 @@
 # frozen_string_literal: true
 
 class UserSearch < ApplicationSearchRecord
+  FIELDS = %w[
+    company
+    email
+    name
+    roles
+  ].freeze
+
   def initialize(attrs = {})
-    super %w[name email company roles], attrs
-    roles.reject!(&:blank?)
-  end
-
-  def name
-    @attributes[:name]
-  end
-
-  def email
-    @attributes[:email]
-  end
-
-  def company
-    @attributes[:company]
-  end
-
-  def roles
-    @attributes[:roles] || []
+    super FIELDS, attrs
+    self.roles = (roles || []).reject(&:blank?)
   end
 
   def apply(relation)

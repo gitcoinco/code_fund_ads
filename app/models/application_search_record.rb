@@ -23,11 +23,11 @@ class ApplicationSearchRecord
     end
   end
 
-  def initialize(keys = [], attrs = {})
-    keys = keys.map(&:to_s)
-    @attributes = attrs.try(:to_unsafe_hash) || attrs || {}
+  def initialize(fields = [], attrs = {})
+    @fields = fields.map(&:to_s)
+    @attributes = HashWithIndifferentAccess.new(attrs.try(:to_unsafe_hash) || attrs || {})
     @attributes.keep_if do |key, value|
-      keys.include?(key.to_s) && value.present?
+      @fields.include?(key.to_s) && value.present?
     end
   end
 
@@ -57,4 +57,24 @@ class ApplicationSearchRecord
     message = "ApplicationSearchRecord#apply is abstract & must be implemented by subclasses"
     raise NotImplementedError.new(message)
   end
+
+  def method_missing(name, *args)
+    return super unless respond_to?(name)
+    if name.to_s.end_with? "="
+      @attributes[keyify(name)] = args.first
+    else
+      @attributes[keyify(name)]
+    end
+  end
+
+  def respond_to?(name)
+    return true if @fields.include?(keyify(name))
+    super
+  end
+
+  private
+
+    def keyify(name)
+      name.to_s.sub /\=\z/, ""
+    end
 end
