@@ -75,6 +75,10 @@ class User < ApplicationRecord
   # scopes ....................................................................
   scope :sponsor, -> { with_all_roles ENUMS::USER_ROLES::SPONSOR }
   scope :developer, -> { with_all_roles ENUMS::USER_ROLES::DEVELOPER }
+  scope :search_name, -> (value) { value.present? ? search_column(:first_name, value).or(search_column(:last_name, value)) : all }
+  scope :search_email, -> (value) { value.present? ? search_column(:email, value) : all }
+  scope :search_company, -> (value) { value.present? ? search_column(:company, value) : all }
+  scope :search_roles, -> (*values) { values.present? ? with_all_roles(*values) : all }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
@@ -105,7 +109,7 @@ class User < ApplicationRecord
   end
 
   def scoped_name
-    [company, full_name].compact.join  "・"
+    [company, full_name].compact.join "・"
   end
 
   # protected instance methods ................................................

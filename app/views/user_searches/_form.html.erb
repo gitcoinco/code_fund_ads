@@ -1,0 +1,15 @@
+<%= simple_form_for @user_search, html: { class: "" }, defaults: { input_html: { class: "form-control-sm" }}  do |f| %>
+  <div class="row mt-5">
+    <%= tag.div f.input(:name, required: false), class: "col-12 col-md-auto" %>
+    <%= tag.div f.input(:email, required: false), class: "col-12 col-md-auto" %>
+    <%= tag.div f.input(:company, required: false), class: "col-12 col-md-auto" %>
+    <%= tag.div f.input(:roles, collection: ENUMS::USER_ROLES.values, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
+
+    <%= pseudo_row_divider %>
+
+    <div class="col-12 mt-3 mt-md-1">
+      <%= f.button :submit, value: "Search", class: "btn-md btn-default mr-3" %>
+      <%= link_to "Clear", user_search_path(@user_search.to_gid_param), class: "btn-md btn-link text-danger", method: :delete if @user_search.present? %>
+    </div>
+  </div>
+<% end %>

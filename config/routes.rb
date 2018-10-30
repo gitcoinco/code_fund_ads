@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :user_searches, only: [:create, :destroy]
+
   resources :assets
   resources :campaigns
   resources :creatives
@@ -11,5 +13,6 @@ Rails.application.routes.draw do
   resources :templates
   resources :themes
   resources :users
+
   root "users#index"
 end

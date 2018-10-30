@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Pagy initializer file
 # Customize only what you really need but notice that Pagy works also without any of the following lines.
 

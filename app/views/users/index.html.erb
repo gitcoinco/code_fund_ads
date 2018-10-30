@@ -1,5 +1,6 @@
 <div class="container mt-3">
   <p id="notice"><%= notice %></p>
   <%= page_heading "Viewing", "Users" %>
+  <%= render "/user_searches/form" %>
   <%= render "/users/table", users: @users %>
 </div>

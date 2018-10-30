@@ -634,6 +634,41 @@ CREATE INDEX index_impressions_on_inserted_at_date ON public.impressions USING b
 
 
 --
+-- Name: index_users_on_company; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_company ON public.users USING btree (lower((company)::text));
+
+
+--
+-- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_email ON public.users USING btree (lower((email)::text));
+
+
+--
+-- Name: index_users_on_first_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_first_name ON public.users USING btree (lower((first_name)::text));
+
+
+--
+-- Name: index_users_on_last_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_last_name ON public.users USING btree (lower((last_name)::text));
+
+
+--
+-- Name: index_users_on_roles; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_roles ON public.users USING gin (roles);
+
+
+--
 -- Name: invitations_email_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -813,13 +848,6 @@ CREATE INDEX user_impressions_redirected_at_index ON public.user_impressions USI
 --
 
 CREATE INDEX user_impressions_revenue_amount_index ON public.user_impressions USING btree (revenue_amount);
-
-
---
--- Name: users_email_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX users_email_index ON public.users USING btree (email);
 
 
 --
@@ -1043,6 +1071,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 (20180927184409),
 (20181004211222),
 (20181017141813),
-(20181017152837);
+(20181017152837),
+(20181030152600);
 
 

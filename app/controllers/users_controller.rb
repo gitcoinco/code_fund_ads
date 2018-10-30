@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  before_action :set_user_search, only: [:index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
   # GET /users.json
   def index
-    @pagy, @users = pagy(User.all)
+    @pagy, @users = pagy(@user_search.apply(User.all))
   end
 
   # GET /users/1
@@ -64,6 +65,11 @@ class UsersController < ApplicationController
   end
 
   private
+
+    def set_user_search
+      @user_search = GlobalID.parse(session[:user_search]).find if session[:user_search].present?
+      @user_search ||= UserSearch.new
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user
