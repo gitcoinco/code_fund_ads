@@ -52,6 +52,8 @@ class Campaign < ApplicationRecord
   # callbacks .................................................................
 
   # scopes ....................................................................
+  scope :search_name, -> (value) { value.blank? ? all : search_column(:name, value) }
+  scope :search_user, -> (value) { value.blank? ? all : where(user_id: User.sponsor.search_name(value).or(User.sponsor.search_company(value))) }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns

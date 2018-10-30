@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
 class CampaignsController < ApplicationController
+  before_action :set_campaign_search, only: [:index]
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
   # GET /campaigns
   # GET /campaigns.json
   def index
-    @pagy, @campaigns = pagy(Campaign.all.includes(:user, :creative))
+    campaigns = Campaign.all.includes(:user, :creative)
+    campaigns = @campaign_search.apply(campaigns)
+    @pagy, @campaigns = pagy(campaigns)
   end
 
   # GET /campaigns/1
@@ -65,6 +68,11 @@ class CampaignsController < ApplicationController
   end
 
   private
+
+    def set_campaign_search
+      @campaign_search = GlobalID.parse(session[:campaign_search]).find if session[:campaign_search].present?
+      @campaign_search ||= CampaignSearch.new
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_campaign

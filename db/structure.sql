@@ -627,6 +627,90 @@ CREATE INDEX impressions_property_id_index ON public.impressions USING btree (pr
 
 
 --
+-- Name: index_campaigns_on_creative_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_creative_id ON public.campaigns USING btree (creative_id);
+
+
+--
+-- Name: index_campaigns_on_end_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_end_date ON public.campaigns USING btree (((end_date)::date));
+
+
+--
+-- Name: index_campaigns_on_excluded_programming_languages; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_excluded_programming_languages ON public.campaigns USING gin (excluded_programming_languages);
+
+
+--
+-- Name: index_campaigns_on_excluded_topic_categories; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_excluded_topic_categories ON public.campaigns USING gin (excluded_topic_categories);
+
+
+--
+-- Name: index_campaigns_on_included_countries; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_included_countries ON public.campaigns USING gin (included_countries);
+
+
+--
+-- Name: index_campaigns_on_included_programming_languages; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_included_programming_languages ON public.campaigns USING gin (included_programming_languages);
+
+
+--
+-- Name: index_campaigns_on_included_topic_categories; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_included_topic_categories ON public.campaigns USING gin (included_topic_categories);
+
+
+--
+-- Name: index_campaigns_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_name ON public.campaigns USING btree (lower((name)::text));
+
+
+--
+-- Name: index_campaigns_on_start_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_start_date ON public.campaigns USING btree (((start_date)::date));
+
+
+--
+-- Name: index_campaigns_on_status; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_status ON public.campaigns USING btree (status);
+
+
+--
+-- Name: index_campaigns_on_us_hours_only; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_us_hours_only ON public.campaigns USING btree (us_hours_only);
+
+
+--
+-- Name: index_campaigns_on_weekdays_only; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_weekdays_only ON public.campaigns USING btree (weekdays_only);
+
+
+--
 -- Name: index_impressions_on_inserted_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1072,6 +1156,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 (20181004211222),
 (20181017141813),
 (20181017152837),
-(20181030152600);
+(20181030152600),
+(20181030194255);
 
 

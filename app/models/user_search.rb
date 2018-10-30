@@ -1,16 +1,8 @@
 # frozen_string_literal: true
 
 class UserSearch < ApplicationSearchRecord
-  attr_reader :model
-  delegate :all, to: :model
-
   def initialize(attrs = {})
-    @model = User
-    @attributes = attrs.try(:to_unsafe_hash) || attrs || {}
-    @attributes.keep_if do |key, value|
-      %w[name email company roles].include?(key.to_s) && value.present?
-    end
-
+    super %w[name email company roles], attrs
     roles.reject!(&:blank?)
   end
 

@@ -1,4 +1,4 @@
-<%= simple_form_for @user_search, html: { class: "" }, defaults: { input_html: { class: "form-control-sm" }}  do |f| %>
+<%= simple_form_for @user_search, defaults: { input_html: { class: "form-control-sm" }}  do |f| %>
   <div class="row mt-5">
     <%= tag.div f.input(:name, required: false), class: "col-12 col-md-auto" %>
     <%= tag.div f.input(:email, required: false), class: "col-12 col-md-auto" %>

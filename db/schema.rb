@@ -12,7 +12,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_17_152837) do
+ActiveRecord::Schema.define(version: 2018_10_30_194255) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pgcrypto"
@@ -62,8 +62,19 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.string "included_topic_categories", limit: 255, default: [], array: true
     t.string "excluded_programming_languages", limit: 255, default: [], array: true
     t.string "excluded_topic_categories", limit: 255, default: [], array: true
-    t.boolean "fallback_campaign", default: false, null: false
+    t.index "((end_date)::date)", name: "index_campaigns_on_end_date"
+    t.index "((start_date)::date)", name: "index_campaigns_on_start_date"
+    t.index "lower((name)::text)", name: "index_campaigns_on_name"
+    t.index ["creative_id"], name: "index_campaigns_on_creative_id"
+    t.index ["excluded_programming_languages"], name: "index_campaigns_on_excluded_programming_languages", using: :gin
+    t.index ["excluded_topic_categories"], name: "index_campaigns_on_excluded_topic_categories", using: :gin
+    t.index ["included_countries"], name: "index_campaigns_on_included_countries", using: :gin
+    t.index ["included_programming_languages"], name: "index_campaigns_on_included_programming_languages", using: :gin
+    t.index ["included_topic_categories"], name: "index_campaigns_on_included_topic_categories", using: :gin
+    t.index ["status"], name: "index_campaigns_on_status"
+    t.index ["us_hours_only"], name: "index_campaigns_on_us_hours_only"
     t.index ["user_id"], name: "campaigns_user_id_index"
+    t.index ["weekdays_only"], name: "index_campaigns_on_weekdays_only"
   end
 
   create_table "creatives", id: :uuid, default: nil, force: :cascade do |t|
@@ -223,7 +234,11 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.string "company", limit: 255
     t.boolean "api_access", default: false, null: false
     t.string "api_key", limit: 255
-    t.index ["email"], name: "users_email_index", unique: true
+    t.index "lower((company)::text)", name: "index_users_on_company"
+    t.index "lower((email)::text)", name: "index_users_on_email"
+    t.index "lower((first_name)::text)", name: "index_users_on_first_name"
+    t.index "lower((last_name)::text)", name: "index_users_on_last_name"
+    t.index ["roles"], name: "index_users_on_roles", using: :gin
   end
 
   add_foreign_key "assets", "users", name: "assets_user_id_fkey"
