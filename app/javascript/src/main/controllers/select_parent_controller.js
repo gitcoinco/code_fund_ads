@@ -17,9 +17,10 @@ export default class extends Controller {
       this.beforeCacheHandler
     );
     jQuery(this.element).on('change.select2', this.changeHandler);
+    if (this.element.value) this.filterChildren();
   }
 
-  filterChildren(event) {
+  filterChildren() {
     this.childSelectTarget.dispatchEvent(new Event('select:destroy'));
     this.restoreOrigChildOptionsState();
     if (this.element.value) {
