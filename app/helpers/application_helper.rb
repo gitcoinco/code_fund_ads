@@ -31,8 +31,16 @@ module ApplicationHelper
     relation
   end
 
+  def companies_for_select
+    User.sponsor.where.not(company: nil).order(User.arel_table[:company].lower).pluck(:company).uniq
+  end
+
   def templates_for_select
     Template.select(:id, :name).order(:name)
+  end
+
+  def languages_for_select
+    ENUMS::LANGUAGES.values
   end
 
   def countries_for_select
