@@ -80,6 +80,18 @@ CAMPAIGN_STATUSES:
   2: active
   3: archived
 
+PROPERTY_TYPES:
+  1: website
+  2: repository
+  3: newsletter
+
+PROPERTY_STATUSES:
+  0: pending
+  1: active
+  2: rejected
+  3: archived
+  4: blacklisted
+
 # SEE: https://dev.maxmind.com/geoip/legacy/codes/iso3166/
 COUNTRIES:
   #A1: Anonymous Proxy

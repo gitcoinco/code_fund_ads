@@ -7,4 +7,9 @@
   <%= render "/@shared/actions/add_property" %>
 <% end %>
 
-<%= render "/properties/table" %>
+<div class="container mt-3">
+  <p id="notice"><%= notice %></p>
+  <%= page_heading "Viewing", "Properties" %>
+  <%# render "/property_searches/form" %>
+  <%= render "/properties/table", users: @users %>
+</div>

@@ -1,172 +1,23 @@
-<div class="u-bg-light-blue-50">
-  <div class="container u-space-2">
-    <div class="bg-white p-4">
-      <!-- Nav -->
-      <div class="row justify-content-between align-items-center mb-4">
-        <div class="col-md-5 order-md-2 text-md-right mb-3 mb-md-0">
-          <!-- Select -->
-          <select class="js-select u-select mr-2" data-width="fit" data-style="u-btn-primary--air btn-sm">
-            <option value="taskSelect1" title="View" selected>Completed tasks</option>
-            <option value="taskSelect2">Incomplete tasks</option>
-            <option value="taskSelect3">All tasks</option>
-          </select>
-          <!-- End Select -->
-
-          <!-- Select -->
-          <select class="js-select u-select" data-width="fit" data-style="u-btn-primary--air btn-sm">
-            <option value="sortSelect1" title="Sort" selected>None</option>
-            <option value="sortSelect2">Project</option>
-            <option value="sortSelect3">Due date</option>
-            <option value="sortSelect4">Likes</option>
-          </select>
-          <!-- End Select -->
-        </div>
-
-        <div class="col-md-7 order-md-1">
-          <!-- Nav Pills -->
-          <ul class="nav nav-pills" id="pills-tab" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" id="pills-one-tab" data-toggle="pill" href="#pills-one" role="tab" aria-controls="pills-one" aria-selected="true">Assigned</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="pills-two-tab" data-toggle="pill" href="#pills-two" role="tab" aria-controls="pills-two" aria-selected="false">Calendar</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="pills-three-tab" data-toggle="pill" href="#pills-three" role="tab" aria-controls="pills-three" aria-selected="false">Progress</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="pills-four-tab" data-toggle="pill" href="#pills-four" role="tab" aria-controls="pills-four" aria-selected="false">Files</a>
-            </li>
-          </ul>
-          <!-- End Nav Pills -->
-        </div>
-      </div>
-      <!-- End Nav -->
-
-      <!-- Nav Content -->
-      <div class="tab-content" id="pills-tabContent">
-        <!-- Content One -->
-        <div class="tab-pane fade show active" id="pills-one" role="tabpanel" aria-labelledby="pills-one-tab">
-          <!-- Transaction Table -->
-          <div class="table-responsive-md u-datatable">
-            <table class="js-datatable table table-borderless u-datatable__striped u-datatable__content"
-                    data-dt-info="#datatableInfo"
-                    data-dt-search="#datatableSearch"
-                    data-dt-entries="#datatableEntries"
-                    data-dt-page-length="12"
-                    data-dt-is-responsive="false"
-                    data-dt-is-show-paging="true"
-
-                    data-dt-pagination="datatablePagination"
-                    data-dt-pagination-classes="pagination mb-0"
-                    data-dt-pagination-items-classes="page-item"
-                    data-dt-pagination-links-classes="page-link"
-
-                    data-dt-pagination-next-classes="page-item"
-                    data-dt-pagination-next-link-classes="page-link"
-                    data-dt-pagination-next-link-markup='<span aria-hidden="true">&raquo;</span>'
-
-                    data-dt-pagination-prev-classes="page-item"
-                    data-dt-pagination-prev-link-classes="page-link"
-                    data-dt-pagination-prev-link-markup='<span aria-hidden="true">&laquo;</span>'>
-              <thead>
-                <tr class="text-uppercase font-size-14">
-                  <th scope="col" class="font-weight-medium">
-                    <div class="d-flex justify-content-between align-items-center">
-                      Task
-                      <div class="ml-2">
-                        <span class="fa fa-angle-up u-datatable__thead-icon"></span>
-                        <span class="fa fa-angle-down u-datatable__thead-icon"></span>
-                      </div>
-                    </div>
-                  </th>
-                  <th scope="col" class="font-weight-medium">
-                    <div class="d-flex justify-content-between align-items-center">
-                      Project
-                      <div class="ml-2">
-                        <span class="fa fa-angle-up u-datatable__thead-icon"></span>
-                        <span class="fa fa-angle-down u-datatable__thead-icon"></span>
-                      </div>
-                    </div>
-                  </th>
-                  <th scope="col" class="font-weight-medium">
-                    <div class="d-flex justify-content-between align-items-center">
-                      Priority
-                      <div class="ml-2">
-                        <span class="fa fa-angle-up u-datatable__thead-icon"></span>
-                        <span class="fa fa-angle-down u-datatable__thead-icon"></span>
-                      </div>
-                    </div>
-                  </th>
-                  <th scope="col" class="font-weight-medium">
-                    <div class="d-flex justify-content-between align-items-center">
-                      Due data
-                      <div class="ml-2">
-                        <span class="fa fa-angle-up u-datatable__thead-icon"></span>
-                        <span class="fa fa-angle-down u-datatable__thead-icon"></span>
-                      </div>
-                    </div>
-                  </th>
-                  <th scope="col" class="font-weight-medium">
-                    <div class="d-flex justify-content-between align-items-center">
-                      Status
-                      <div class="ml-2">
-                        <span class="fa fa-angle-up u-datatable__thead-icon"></span>
-                        <span class="fa fa-angle-down u-datatable__thead-icon"></span>
-                      </div>
-                    </div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="font-size-14">
-                <% if @properties.present? %>
-                  <%= render partial: "/properties/tr", collection: @properties, as: :property, cached: true %>
-                <% else %>
-                  <tr>
-                    <td colspan="5" class="text-secondary">No properties found...</td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-          <!-- End Transaction Table -->
-        </div>
-        <!-- End Content One -->
-
-        <!-- Content Two -->
-        <div class="tab-pane fade" id="pills-two" role="tabpanel" aria-labelledby="pills-two-tab">
-          <div class="text-center py-4">
-            <div class="w-md-80 w-lg-50 text-center mx-auto">
-              <img class="w-50 mb-7" src="../../assets/svg/flat-icons/events-flat-concept-illustration.svg" alt="SVG Illustration">
-              <h4 class="h5 font-weight-normal">All due dates to tasks &amp; other notes in this project will appear here.</h4>
-            </div>
-          </div>
-        </div>
-        <!-- End Content Two -->
-
-        <!-- Content Three -->
-        <div class="tab-pane fade" id="pills-three" role="tabpanel" aria-labelledby="pills-three-tab">
-          <div class="text-center py-4">
-            <div class="w-md-80 w-lg-50 text-center mx-auto">
-              <img class="w-50 mb-7" src="../../assets/svg/flat-icons/data-report-flat-concept-illustration.svg" alt="SVG Illustration">
-              <h4 class="h5 font-weight-normal">All progress, data analysis to tasks in this project will appear here.</h4>
-            </div>
-          </div>
-        </div>
-        <!-- End Content Three -->
-
-        <!-- Content Four -->
-        <div class="tab-pane fade" id="pills-four" role="tabpanel" aria-labelledby="pills-four-tab">
-          <div class="text-center py-4">
-            <div class="w-md-80 w-lg-50 text-center mx-auto">
-              <img class="w-50 mb-7" src="../../assets/svg/flat-icons/image-upload-flat-concept-illustration.svg" alt="SVG Illustration">
-              <h4 class="h5 font-weight-normal">All attachments to tasks &amp; conversations in this project will appear here.</h4>
-            </div>
-          </div>
-        </div>
-        <!-- End Content Four -->
-      </div>
-      <!-- End Nav Content -->
-    </div>
-  </div>
-</div>
+<table class="table table-borderless u-datatable u-datatable__striped mt-5">
+  <thead>
+    <tr class="border-bottom">
+      <th scope="col">Status</th>
+      <th scope="col">Developer</th>
+      <th scope="col">Name</th>
+      <th scope="col">Type</th>
+      <th scope="col">Template</th>
+      <th scope="col"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: "/properties/tr", collection: @properties, as: :property %>
+  </tbody>
+  <tfoot>
+    <tr class="border-top">
+      <td colspan="6" class="pt-3">
+        <%= link_to "Previous", properties_path(page: @pagy.prev), class: "btn btn-lg btn-link text-secondary" if @pagy.prev %>
+        <%= link_to "Next", properties_path(page: @pagy.next), class: "btn btn-lg btn-link text-secondary float-right" if @pagy.next %>
+      </td>
+    </tr>
+  </tfoot>
+</table>

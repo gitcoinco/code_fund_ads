@@ -84,21 +84,6 @@ CREATE TABLE public.assets (
 
 
 --
--- Name: audiences; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.audiences (
-    id uuid NOT NULL,
-    name character varying(255) NOT NULL,
-    programming_languages character varying(255)[] DEFAULT '{}'::character varying[],
-    inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    topic_categories character varying(255)[] DEFAULT '{}'::character varying[],
-    fallback_campaign_id uuid
-);
-
-
---
 -- Name: campaigns; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -113,7 +98,6 @@ CREATE TABLE public.campaigns (
     user_id uuid,
     inserted_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    audience_id uuid,
     creative_id uuid,
     included_countries character varying(255)[] DEFAULT '{}'::character varying[],
     impression_count integer DEFAULT 0 NOT NULL,
@@ -124,7 +108,8 @@ CREATE TABLE public.campaigns (
     included_programming_languages character varying(255)[] DEFAULT '{}'::character varying[],
     included_topic_categories character varying(255)[] DEFAULT '{}'::character varying[],
     excluded_programming_languages character varying(255)[] DEFAULT '{}'::character varying[],
-    excluded_topic_categories character varying(255)[] DEFAULT '{}'::character varying[]
+    excluded_topic_categories character varying(255)[] DEFAULT '{}'::character varying[],
+    fallback_campaign boolean DEFAULT false NOT NULL
 );
 
 
@@ -232,7 +217,6 @@ CREATE TABLE public.properties (
     topic_categories character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
     screenshot_url text,
     slug character varying(255) NOT NULL,
-    audience_id uuid,
     excluded_advertisers character varying(255)[] DEFAULT '{}'::character varying[],
     template_id uuid,
     no_api_house_ads boolean DEFAULT false NOT NULL
@@ -349,13 +333,11 @@ CREATE MATERIALIZED VIEW public.user_impressions AS
     impressions.house_ad,
     properties.name AS property_name,
     properties.user_id AS property_user_id,
-    audiences.name AS audience_name,
     campaigns.name AS campaign_name,
     users.company AS advertiser_company_name
-   FROM ((((public.impressions
+   FROM (((public.impressions
      JOIN public.campaigns ON ((impressions.campaign_id = campaigns.id)))
      JOIN public.properties ON ((impressions.property_id = properties.id)))
-     JOIN public.audiences ON ((campaigns.audience_id = audiences.id)))
      JOIN public.users ON ((campaigns.user_id = users.id)))
   WITH NO DATA;
 
@@ -385,16 +367,13 @@ CREATE MATERIALIZED VIEW public.budgeted_campaigns AS
             sum(user_impressions.distribution_amount) AS distribution_amount,
             count(user_impressions.id) AS total_impressions,
             users.company AS advertiser_company_name,
-            audiences.id AS audience_id,
-            audiences.name AS audience_name,
             creatives.id AS creative_id,
             creatives.name AS creative_name
-           FROM ((((public.campaigns
+           FROM (((public.campaigns
              JOIN public.user_impressions ON ((user_impressions.campaign_id = campaigns.id)))
              JOIN public.users ON ((campaigns.user_id = users.id)))
-             JOIN public.audiences ON ((campaigns.audience_id = audiences.id)))
              JOIN public.creatives ON ((campaigns.creative_id = creatives.id)))
-          GROUP BY campaigns.id, users.company, audiences.id, creatives.id, audiences.name, creatives.name
+          GROUP BY campaigns.id, users.company, creatives.id, creatives.name
         )
  SELECT data.campaign_id,
     data.user_id,
@@ -407,8 +386,6 @@ CREATE MATERIALIZED VIEW public.budgeted_campaigns AS
     data.distribution_amount,
     data.total_impressions,
     data.advertiser_company_name,
-    data.audience_id,
-    data.audience_name,
     data.creative_id,
     data.creative_name,
     (data.total_spend - data.revenue_amount) AS balance,
@@ -431,14 +408,6 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.assets
     ADD CONSTRAINT assets_pkey PRIMARY KEY (id);
-
-
---
--- Name: audiences audiences_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.audiences
-    ADD CONSTRAINT audiences_pkey PRIMARY KEY (id);
 
 
 --
@@ -529,31 +498,10 @@ CREATE INDEX assets_user_id_index ON public.assets USING btree (user_id);
 
 
 --
--- Name: audiences_programming_languages_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX audiences_programming_languages_index ON public.audiences USING btree (programming_languages);
-
-
---
 -- Name: budgeted_campaigns_advertiser_company_name_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX budgeted_campaigns_advertiser_company_name_index ON public.budgeted_campaigns USING btree (advertiser_company_name);
-
-
---
--- Name: budgeted_campaigns_audience_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX budgeted_campaigns_audience_id_index ON public.budgeted_campaigns USING btree (audience_id);
-
-
---
--- Name: budgeted_campaigns_audience_name_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX budgeted_campaigns_audience_name_index ON public.budgeted_campaigns USING btree (audience_name);
 
 
 --
@@ -718,6 +666,55 @@ CREATE INDEX index_impressions_on_inserted_at_date ON public.impressions USING b
 
 
 --
+-- Name: index_properties_on_excluded_advertisers; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_properties_on_excluded_advertisers ON public.properties USING gin (excluded_advertisers);
+
+
+--
+-- Name: index_properties_on_legacy_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_properties_on_legacy_id ON public.properties USING btree (legacy_id);
+
+
+--
+-- Name: index_properties_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_properties_on_name ON public.properties USING btree (lower((name)::text));
+
+
+--
+-- Name: index_properties_on_no_api_house_ads; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_properties_on_no_api_house_ads ON public.properties USING btree (no_api_house_ads);
+
+
+--
+-- Name: index_properties_on_programming_languages; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_properties_on_programming_languages ON public.properties USING gin (programming_languages);
+
+
+--
+-- Name: index_properties_on_property_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_properties_on_property_type ON public.properties USING btree (property_type);
+
+
+--
+-- Name: index_properties_on_topic_categories; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_properties_on_topic_categories ON public.properties USING gin (topic_categories);
+
+
+--
 -- Name: index_users_on_company; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -851,24 +848,10 @@ CREATE INDEX user_impressions_advertiser_company_name_index ON public.user_impre
 
 
 --
--- Name: user_impressions_audience_name_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX user_impressions_audience_name_index ON public.user_impressions USING btree (audience_name);
-
-
---
 -- Name: user_impressions_campaign_name_index; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX user_impressions_campaign_name_index ON public.user_impressions USING btree (campaign_name);
-
-
---
--- Name: user_impressions_campaign_user_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX user_impressions_campaign_user_id_index ON public.user_impressions USING btree (campaign_user_id);
 
 
 --
@@ -943,22 +926,6 @@ ALTER TABLE ONLY public.assets
 
 
 --
--- Name: audiences audiences_fallback_campaign_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.audiences
-    ADD CONSTRAINT audiences_fallback_campaign_id_fkey FOREIGN KEY (fallback_campaign_id) REFERENCES public.campaigns(id);
-
-
---
--- Name: campaigns campaigns_audience_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.campaigns
-    ADD CONSTRAINT campaigns_audience_id_fkey FOREIGN KEY (audience_id) REFERENCES public.audiences(id);
-
-
---
 -- Name: campaigns campaigns_creative_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1028,14 +995,6 @@ ALTER TABLE ONLY public.impressions
 
 ALTER TABLE ONLY public.impressions
     ADD CONSTRAINT impressions_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id);
-
-
---
--- Name: properties properties_audience_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.properties
-    ADD CONSTRAINT properties_audience_id_fkey FOREIGN KEY (audience_id) REFERENCES public.audiences(id);
 
 
 --
@@ -1154,9 +1113,14 @@ INSERT INTO "schema_migrations" (version) VALUES
 (20180926195523),
 (20180927184409),
 (20181004211222),
+(20181010203633),
+(20181011202739),
+(20181011202741),
+(20181011203443),
 (20181017141813),
 (20181017152837),
 (20181030152600),
-(20181030194255);
+(20181030194255),
+(20181031145136);
 
 

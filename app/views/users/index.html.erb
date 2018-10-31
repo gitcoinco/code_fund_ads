@@ -1,3 +1,12 @@
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/users", class: "active" %>
+<% end %>
+
+<% content_for :actions do %>
+  <%= render "/@shared/actions/add_user" %>
+<% end %>
+
 <div class="container mt-3">
   <p id="notice"><%= notice %></p>
   <%= page_heading "Viewing", "Users" %>

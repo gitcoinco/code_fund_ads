@@ -3,7 +3,7 @@
     <% #################################################################################################### %>
     <%= render "@shared/forms/section_heading", text: "Info" %>
 
-    <%= tag.div f.input(:status, collection: statuses_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 mb-3" %>
+    <%= tag.div f.input(:status, collection: campaign_statuses_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 mb-3" %>
 
     <%= pseudo_row_divider %>
 
@@ -19,7 +19,7 @@
     <%= pseudo_row_divider %>
 
     <div class="col-12 col-md-6">
-      <%= f.association :user, collection: users_for_select, label: "Advertiser", label_method: :scoped_name, prompt: "Choose...", required: true,
+      <%= f.association :user, collection: users_for_select(role: :sponsor), label: "Advertiser", label_method: :scoped_name, prompt: "Choose...", required: true,
         input_html: { id: "user-id", data: { controller: "select select-parent", child: "creative-id" }} %>
     </div>
     <div class="col-12 col-md-6">
@@ -46,13 +46,13 @@
     <%= pseudo_row_divider %>
 
     <div class="col-12 col-md-6" data-controller="select-multiple">
-      <%= f.input :included_topic_categories, collection: ENUMS::TOPIC_CATEGORIES.values, label: "Targeted Topics",
+      <%= f.input :included_topic_categories, collection: topic_categories_for_select, label: "Targeted Topics",
         input_html: { multiple: true, class: "mb-0", data: { controller: "select", target: "select-multiple.select" }} %>
       <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
       <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
     </div>
     <div class="col-12 col-md-6" data-controller="select-multiple">
-      <%= f.input :excluded_topic_categories, collection: ENUMS::TOPIC_CATEGORIES.values, label: "Excluded Topics",
+      <%= f.input :excluded_topic_categories, collection: topic_categories_for_select, label: "Excluded Topics",
         input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
       <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
       <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
@@ -61,13 +61,13 @@
     <%= pseudo_row_divider %>
 
     <div class="col-12 col-md-6" data-controller="select-multiple">
-      <%= f.input :included_programming_languages, collection: ENUMS::PROGRAMMING_LANGUAGES.values, label: "Targeted Programming Languages",
+      <%= f.input :included_programming_languages, collection: programming_languages_for_select, label: "Targeted Programming Languages",
         input_html: { multiple: true, class: "mb-0", data: { controller: "select", target: "select-multiple.select" }} %>
       <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
       <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
     </div>
     <div class="col-12 col-md-6" data-controller="select-multiple">
-      <%= f.input :excluded_programming_languages, collection: ENUMS::PROGRAMMING_LANGUAGES.values, label: "Excluded Programming Languages",
+      <%= f.input :excluded_programming_languages, collection: programming_languages_for_select, label: "Excluded Programming Languages",
         input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
       <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
       <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>

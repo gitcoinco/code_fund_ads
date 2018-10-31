@@ -1,17 +1,34 @@
-<%= form_with(model: property, local: true) do |form| %>
-  <% if property.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(property.errors.count, "error") %> prohibited this property from being saved:</h2>
+<%= simple_form_for property do |f| %>
+  <div class="row">
+    <% #################################################################################################### %>
+    <%= render "@shared/forms/section_heading", text: "Info" %>
 
-      <ul>
-      <% property.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <%= tag.div f.input(:property_type, collection: property_types_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 mb-3" %>
+
+    <%= pseudo_row_divider %>
+
+    <%= tag.div f.input(:status, collection: property_statuses_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 mb-3" %>
+
+    <%= pseudo_row_divider %>
+
+    <%= tag.div f.input(:name, required: true), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:description, required: true), class: "col-12 col-md-6" %>
+
+    <%= pseudo_row_divider %>
+
+    <div class="col-12 col-md-6">
+      <%= f.association :user, collection: users_for_select(role: :developer), label: "Developer", label_method: :scoped_name, prompt: "Choose...", required: true,
+        input_html: { id: "user-id", data: { controller: "select", child: "creative-id" }} %>
     </div>
-  <% end %>
+    <div class="col-12 col-md-6">
+      <%= f.association :template, collection: templates_for_select, label: "Template", label_method: :scoped_name, prompt: "Choose...", required: true,
+        input_html: { id: "user-id", data: { controller: "select", child: "creative-id" }} %>
+    </div>
 
-  <div class="actions">
-    <%= form.submit %>
+    <%= pseudo_row_divider %>
+
+    <%= render "@shared/forms/button_panel" do %>
+      <%= f.button(:submit, class: "btn-lg btn-primary") %>
+    <% end %>
   </div>
 <% end %>

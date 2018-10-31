@@ -1,3 +1,9 @@
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/campaigns" %>
+  <%= render "/@shared/breadcrumbs/campaign", class: "active" %>
+<% end %>
+
 <div class="container mt-3">
   <%= page_heading "Editing", "Campaign", subtitle: @campaign.scoped_name %>
   <%= render "/campaigns/form", campaign: @campaign %>

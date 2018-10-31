@@ -24,4 +24,26 @@ module ApplicationHelper
   def tooltip_expando(options = {})
     { toggle: "tooltip", placement: "top" }.merge(options)
   end
+
+  def users_for_select(role: nil)
+    relation = User.select(:id, :company, :first_name, :last_name).order(:company, :first_name, :last_name)
+    relation = relation.send(role) if role
+    relation
+  end
+
+  def templates_for_select
+    Template.select(:id, :name).order(:name)
+  end
+
+  def countries_for_select
+    ENUMS::COUNTRIES.values.zip ENUMS::COUNTRIES.keys
+  end
+
+  def topic_categories_for_select
+    ENUMS::TOPIC_CATEGORIES.values
+  end
+
+  def programming_languages_for_select
+    ENUMS::PROGRAMMING_LANGUAGES.values
+  end
 end

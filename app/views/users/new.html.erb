@@ -1,3 +1,9 @@
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/users" %>
+  <%= render "/@shared/breadcrumbs/user", class: "active" %>
+<% end %>
+
 <div class="container mt-3">
   <%= page_heading "Creating", "User" %>
   <%= render 'form', user: @user %>
