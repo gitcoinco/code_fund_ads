@@ -7,7 +7,7 @@ class PropertiesController < ApplicationController
   # GET /properties
   # GET /properties.json
   def index
-    properties = Property.all
+    properties = Property.order(:name).includes(:user, :template)
     properties = @property_search.apply(properties)
     @pagy, @properties = pagy(properties)
   end

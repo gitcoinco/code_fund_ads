@@ -1,11 +1,11 @@
 <%= tag.tr class: classes("even": user_counter.even?, "odd": user_counter.odd?) do %>
-  <td><%= link_to user.scoped_name, user_path(user) %></td>
-  <td><%= link_to user.email, "mailto:#{user.email}" %></td>
+  <td><%= link_to user.scoped_name, user_path(user), title: "View User", data: tooltip_expando %></td>
+  <td><%= link_to user.email, "mailto:#{user.email}", title: "Email User", data: tooltip_expando %></td>
   <td><%= user.company %></td>
   <td>
     <% user.roles.each do |role| %>
       <span class="badge badge-light"><%= role %></span>
     <% end %>
   </td>
-  <td><%= link_to "Edit", edit_user_path(user), class: "btn btn-link btn-sm" %></td>
+  <td><%= link_to "Edit", edit_user_path(user), class: "btn btn-link btn-sm", title: "Edit User", data: tooltip_expando %></td>
 <% end %>

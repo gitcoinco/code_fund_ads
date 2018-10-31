@@ -7,7 +7,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns
   # GET /campaigns.json
   def index
-    campaigns = Campaign.all.includes(:user, :creative)
+    campaigns = Campaign.order(:name).includes(:user, :creative)
     campaigns = @campaign_search.apply(campaigns)
     @pagy, @campaigns = pagy(campaigns)
   end
