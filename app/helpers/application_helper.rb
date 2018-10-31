@@ -54,4 +54,10 @@ module ApplicationHelper
   def programming_languages_for_select
     ENUMS::PROGRAMMING_LANGUAGES.values
   end
+
+  def badge_for_count(count)
+    return nil if count == 0
+    return tag.span(count, class: "badge badge-pill badge-success opacity-60") if count.between?(1, 2)
+    tag.span count, class: "badge badge-pill badge-success"
+  end
 end

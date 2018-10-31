@@ -1,4 +1,12 @@
-<p id="notice"><%= notice %></p>
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/creatives" %>
+  <%= render "/@shared/breadcrumbs/creative", class: "active" %>
+<% end %>
 
-<%= link_to 'Edit', edit_creative_path(@creative) %> |
-<%= link_to 'Back', creatives_path %>
+<div class="container mt-3">
+  <p id="notice"><%= notice %></p>
+  <%= page_heading "Viewing", "Creative", subtitle: @creative.name %>
+  <%= link_to 'Edit', edit_creative_path(@creative), class: "btn btn-link" %>
+  <%= link_to 'Back', creatives_path, class: "btn btn-link" %>
+</div>

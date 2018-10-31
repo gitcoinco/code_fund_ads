@@ -6,7 +6,8 @@ class CreativesController < ApplicationController
   # GET /creatives
   # GET /creatives.json
   def index
-    @creatives = Creative.all
+    creatives = Creative.order(:name).includes(:user)
+    @pagy, @creatives = pagy(creatives)
   end
 
   # GET /creatives/1
