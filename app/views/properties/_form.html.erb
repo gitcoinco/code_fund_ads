@@ -3,27 +3,60 @@
     <% #################################################################################################### %>
     <%= render "@shared/forms/section_heading", text: "Info" %>
 
-    <%= tag.div f.input(:property_type, collection: property_types_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 mb-3" %>
-
-    <%= pseudo_row_divider %>
-
     <%= tag.div f.input(:status, collection: property_statuses_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 mb-3" %>
 
     <%= pseudo_row_divider %>
 
+    <%= tag.div f.input(:property_type, collection: property_types_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 mb-3" %>
+
+    <%= pseudo_row_divider %>
+
     <%= tag.div f.input(:name, required: true), class: "col-12 col-md-6" %>
-    <%= tag.div f.input(:description, required: true), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:url, required: true, as: :string), class: "col-12 col-md-6" %>
+
+    <%= pseudo_row_divider %>
+
+    <%= tag.div f.input(:estimated_monthly_visitors, required: false), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:estimated_monthly_page_views, required: false, as: :string), class: "col-12 col-md-6" %>
 
     <%= pseudo_row_divider %>
 
     <div class="col-12 col-md-6">
       <%= f.association :user, collection: users_for_select(role: :developer), label: "Developer", label_method: :scoped_name, prompt: "Choose...", required: true,
-        input_html: { id: "user-id", data: { controller: "select", child: "creative-id" }} %>
+        input_html: { data: { controller: "select" }} %>
     </div>
     <div class="col-12 col-md-6">
-      <%= f.association :template, collection: templates_for_select, label: "Template", label_method: :scoped_name, prompt: "Choose...", required: true,
-        input_html: { id: "user-id", data: { controller: "select", child: "creative-id" }} %>
+      <%= f.association :template, collection: templates_for_select, label: "Template", label_method: :name, prompt: "Choose...", required: false,
+        input_html: { data: { controller: "select" }} %>
     </div>
+
+    <%= pseudo_row_divider %>
+
+    <%= tag.div f.input(:description, required: true), class: "col-12" %>
+
+    <%= pseudo_row_divider %>
+
+
+    <% #################################################################################################### %>
+    <%= render "@shared/forms/section_heading", text: "Targeting" %>
+
+    <%= tag.div f.input(:language, collection: languages_for_select, prompt: "Choose...", required: true, input_html: { data: { controller: "select" }}), class: "col-12 col-md-6" %>
+
+    <%= pseudo_row_divider %>
+
+    <%= tag.div f.input(:topic_categories, collection: topic_categories_for_select, label: "Topics", required: true, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:programming_languages, collection: programming_languages_for_select, required: true, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-6" %>
+
+    <%= pseudo_row_divider %>
+
+    <% #################################################################################################### %>
+    <%= render "@shared/forms/section_heading", text: "Behavior" %>
+
+    <%= tag.div f.input(:excluded_advertisers, collection: companies_for_select, label: "Prohibit Advertisers", required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-6" %>
+
+    <%= pseudo_row_divider %>
+
+    <%= tag.div f.input(:no_api_house_ads, label: "Disable API House Ads"), class: "col-12 col-md-6" %>
 
     <%= pseudo_row_divider %>
 

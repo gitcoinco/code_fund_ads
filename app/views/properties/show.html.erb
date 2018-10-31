@@ -1,4 +1,12 @@
-<p id="notice"><%= notice %></p>
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/properties" %>
+  <%= render "/@shared/breadcrumbs/property", class: "active" %>
+<% end %>
 
-<%= link_to 'Edit', edit_property_path(@property) %> |
-<%= link_to 'Back', properties_path %>
+<div class="container mt-3">
+  <p id="notice"><%= notice %></p>
+  <%= page_heading "Viewing", "Property", subtitle: @property.scoped_name %>
+  <%= link_to 'Edit', edit_property_path(@property), class: "btn btn-link" %>
+  <%= link_to 'Back', properties_path, class: "btn btn-link" %>
+</div>

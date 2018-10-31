@@ -1,5 +1,11 @@
-<h1>New Property</h1>
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/properties" %>
+  <%= render "/@shared/breadcrumbs/property", class: "active" %>
+<% end %>
 
-<%= render 'form', property: @property %>
-
-<%= link_to 'Back', properties_path %>
+<div class="container mt-3">
+  <%= page_heading "Creating", "Property" %>
+  <%= render '/properties/form', property: @property %>
+  <%= link_to 'Back', properties_path, class: "btn btn-link" %>
+</div>

@@ -1,6 +1,12 @@
-<h1>Editing Property</h1>
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/properties" %>
+  <%= render "/@shared/breadcrumbs/property", class: "active" %>
+<% end %>
 
-<%= render 'form', property: @property %>
-
-<%= link_to 'Show', @property %> |
-<%= link_to 'Back', properties_path %>
+<div class="container mt-3">
+  <%= page_heading "Editing", "Property", subtitle: @property.scoped_name %>
+  <%= render '/properties/form', property: @property %>
+  <%= link_to 'Show', @property, class: "btn btn-link" %>
+  <%= link_to 'Back', properties_path, class: "btn btn-link" %>
+</div>

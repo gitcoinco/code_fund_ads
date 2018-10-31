@@ -73,6 +73,10 @@ class Property < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def scoped_name
+    [user.scoped_name, name].compact.join "・"
+  end
+
   # protected instance methods ................................................
   protected
 
