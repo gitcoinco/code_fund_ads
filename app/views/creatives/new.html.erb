@@ -1,5 +1,11 @@
-<h1>New Creative</h1>
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/creatives" %>
+  <%= render "/@shared/breadcrumbs/creative", class: "active" %>
+<% end %>
 
-<%= render 'form', creative: @creative %>
-
-<%= link_to 'Back', creatives_path %>
+<div class="container mt-3">
+  <%= page_heading "Creating", "Creative", subtitle: @creative.name %>
+  <%= render "/creatives/form", creative: @creative %>
+  <%= link_to "Back", creatives_path, class: "btn btn-link" %>
+</div>
