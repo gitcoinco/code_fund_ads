@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   resources :campaign_searches, only: [:create, :destroy]
+  resources :property_searches, only: [:create, :destroy]
   resources :user_searches, only: [:create, :destroy]
 
   resources :assets

@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
 class PropertiesController < ApplicationController
+  before_action :set_property_search, only: [:index]
   before_action :set_property, only: [:show, :edit, :update, :destroy]
 
   # GET /properties
   # GET /properties.json
   def index
-    @pagy, @properties = pagy(Property.all)
+    properties = Property.all
+    properties = @property_search.apply(properties)
+    @pagy, @properties = pagy(properties)
   end
 
   # GET /properties/1
@@ -64,6 +67,11 @@ class PropertiesController < ApplicationController
   end
 
   private
+
+    def set_property_search
+      @property_search = GlobalID.parse(session[:property_search]).find if session[:property_search].present?
+      @property_search ||= PropertySearch.new
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_property

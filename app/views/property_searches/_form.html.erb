@@ -1,0 +1,12 @@
+<%= simple_form_for @property_search do |f| %>
+  <div class="row mt-5">
+    <%= tag.div f.input(:name, required: false), class: "col-12 col-md-auto" %>
+
+    <%= pseudo_row_divider %>
+
+    <div class="col-12 mt-3">
+      <%= f.button :submit, value: "Search", class: "btn btn-default mr-3" %>
+      <%= link_to "Clear", property_search_path(@property_search.to_gid_param), class: "btn-md btn-link text-danger", method: :delete if @property_search.present? %>
+    </div>
+  </div>
+<% end %>
