@@ -18,5 +18,5 @@ import 'theme/js/hs.core';
 
 // theme initialization
 document.addEventListener('turbolinks:load', () => {
-  // init goes here...
+  jQuery('[data-toggle="tooltip"]').tooltip();
 });

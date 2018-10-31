@@ -10,7 +10,7 @@ module PropertiesHelper
   end
 
   def property_status_html(status)
-    case ENUMS::CAMPAIGN_STATUSES[status]
+    case ENUMS::PROPERTY_STATUSES[status]
     when "pending" then  tag.span(class: "fas fa-circle text-warning", title: "Pending", data: tooltip_expando(placement: "left"))
     when "active" then tag.span(class: "fas fa-circle text-success", title: "Active", data: tooltip_expando(placement: "left"))
     when "rejected" then  tag.span(class: "fas fa-circle text-warning", title: "Rejected", data: tooltip_expando(placement: "left"))
