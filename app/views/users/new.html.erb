@@ -6,6 +6,6 @@
 
 <div class="container mt-3">
   <%= page_heading "Creating", "User" %>
-  <%= render 'form', user: @user %>
-  <%= link_to 'Back', users_path, class: 'btn btn-link' %>
+  <%= render '/users/form' %>
+  <%= link_to 'Back', :back, class: 'btn btn-link' %>
 </div>

@@ -22,7 +22,6 @@
 #  topic_categories             :string(255)      default([]), not null, is an Array
 #  screenshot_url               :text
 #  slug                         :string(255)      not null
-#  audience_id                  :uuid
 #  excluded_advertisers         :string(255)      default([]), is an Array
 #  template_id                  :uuid
 #  no_api_house_ads             :boolean          default(FALSE), not null

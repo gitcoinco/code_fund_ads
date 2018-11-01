@@ -1,0 +1,11 @@
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/images" %>
+  <%= render "/@shared/breadcrumbs/image", class: "active" %>
+<% end %>
+
+<div class="container mt-3">
+  <%= page_heading "Creating", "#{@imageable.class.name} Image" %>
+  <%= render '/images/form' %>
+  <%= link_to 'Back', :back, class: 'btn btn-link' %>
+</div>

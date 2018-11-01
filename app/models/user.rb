@@ -40,7 +40,8 @@ class User < ApplicationRecord
   # extends ...................................................................
 
   # includes ..................................................................
-  include TagColumns
+  include Imageable
+  include Taggable
 
   # relationships .............................................................
   has_many :assets
@@ -110,6 +111,18 @@ class User < ApplicationRecord
 
   def scoped_name
     [company, full_name].compact.join "・"
+  end
+
+  def admin?
+    roles.include? ENUMS::USER_ROLES["admin"]
+  end
+
+  def sponsor?
+    roles.include? ENUMS::USER_ROLES["sponsor"]
+  end
+
+  def developer?
+    roles.include? ENUMS::USER_ROLES["developer"]
   end
 
   # protected instance methods ................................................

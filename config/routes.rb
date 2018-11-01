@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   resources :property_searches, only: [:create, :destroy]
   resources :user_searches, only: [:create, :destroy]
 
-  resources :assets
+  # polymorphic based on: app/models/concerns/imageable.rb
+  scope "/imageables/:imageable_gid/" do
+    resources :images, except: [:edit, :update]
+  end
+
   resources :campaigns
   resources :creatives
   resources :distributions

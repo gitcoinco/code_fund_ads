@@ -55,6 +55,74 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: active_storage_attachments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.active_storage_attachments (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    record_type character varying NOT NULL,
+    record_id bigint NOT NULL,
+    blob_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.active_storage_attachments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: active_storage_attachments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.active_storage_attachments_id_seq OWNED BY public.active_storage_attachments.id;
+
+
+--
+-- Name: active_storage_blobs; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.active_storage_blobs (
+    id bigint NOT NULL,
+    key character varying NOT NULL,
+    filename character varying NOT NULL,
+    content_type character varying,
+    metadata text,
+    byte_size bigint NOT NULL,
+    checksum character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.active_storage_blobs_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: active_storage_blobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage_blobs.id;
+
+
+--
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -63,23 +131,6 @@ CREATE TABLE public.ar_internal_metadata (
     value character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: assets; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.assets (
-    user_id uuid,
-    id uuid NOT NULL,
-    name character varying(255) NOT NULL,
-    image_object character varying(255) NOT NULL,
-    image_bucket character varying(255) NOT NULL,
-    inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    height integer,
-    width integer
 );
 
 
@@ -124,10 +175,7 @@ CREATE TABLE public.creatives (
     body character varying(255),
     inserted_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    headline character varying(255),
-    small_image_asset_id uuid,
-    large_image_asset_id uuid,
-    wide_image_asset_id uuid
+    headline character varying(255)
 );
 
 
@@ -343,6 +391,20 @@ CREATE MATERIALIZED VIEW public.user_impressions AS
 
 
 --
+-- Name: active_storage_attachments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_attachments ALTER COLUMN id SET DEFAULT nextval('public.active_storage_attachments_id_seq'::regclass);
+
+
+--
+-- Name: active_storage_blobs id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval('public.active_storage_blobs_id_seq'::regclass);
+
+
+--
 -- Name: campaigns campaigns_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -395,19 +457,27 @@ CREATE MATERIALIZED VIEW public.budgeted_campaigns AS
 
 
 --
+-- Name: active_storage_attachments active_storage_attachments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_attachments
+    ADD CONSTRAINT active_storage_attachments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: active_storage_blobs active_storage_blobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.active_storage_blobs
+    ADD CONSTRAINT active_storage_blobs_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
-
-
---
--- Name: assets assets_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.assets
-    ADD CONSTRAINT assets_pkey PRIMARY KEY (id);
 
 
 --
@@ -491,13 +561,6 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: assets_user_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX assets_user_id_index ON public.assets USING btree (user_id);
-
-
---
 -- Name: budgeted_campaigns_advertiser_company_name_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -572,6 +635,27 @@ CREATE INDEX impressions_ip_index ON public.impressions USING btree (ip);
 --
 
 CREATE INDEX impressions_property_id_index ON public.impressions USING btree (property_id);
+
+
+--
+-- Name: index_active_storage_attachments_on_blob_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_active_storage_attachments_on_blob_id ON public.active_storage_attachments USING btree (blob_id);
+
+
+--
+-- Name: index_active_storage_attachments_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON public.active_storage_attachments USING btree (record_type, record_id, name, blob_id);
+
+
+--
+-- Name: index_active_storage_blobs_on_key; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_blobs USING btree (key);
 
 
 --
@@ -918,14 +1002,6 @@ CREATE INDEX user_impressions_revenue_amount_index ON public.user_impressions US
 
 
 --
--- Name: assets assets_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.assets
-    ADD CONSTRAINT assets_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
 -- Name: campaigns campaigns_creative_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -942,35 +1018,11 @@ ALTER TABLE ONLY public.campaigns
 
 
 --
--- Name: creatives creatives_large_image_asset_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.creatives
-    ADD CONSTRAINT creatives_large_image_asset_id_fkey FOREIGN KEY (large_image_asset_id) REFERENCES public.assets(id);
-
-
---
--- Name: creatives creatives_small_image_asset_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.creatives
-    ADD CONSTRAINT creatives_small_image_asset_id_fkey FOREIGN KEY (small_image_asset_id) REFERENCES public.assets(id);
-
-
---
 -- Name: creatives creatives_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.creatives
     ADD CONSTRAINT creatives_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
--- Name: creatives creatives_wide_image_asset_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.creatives
-    ADD CONSTRAINT creatives_wide_image_asset_id_fkey FOREIGN KEY (wide_image_asset_id) REFERENCES public.assets(id);
 
 
 --
@@ -1121,6 +1173,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 (20181017152837),
 (20181030152600),
 (20181030194255),
-(20181031145136);
+(20181031145136),
+(20181101203755),
+(20181101211332);
 
 

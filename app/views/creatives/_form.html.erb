@@ -3,6 +3,23 @@
     <% #################################################################################################### %>
     <%= render "@shared/forms/section_heading", text: "Info" %>
 
+    <div class="col-12 col-md-6">
+      <%= f.association :user, collection: users_for_select(role: :sponsor), label: "Advertiser", label_method: :scoped_name, prompt: "Choose...", required: true,
+        input_html: { id: "user-id", data: { controller: "select select-parent", child: "creative-id" }} %>
+    </div>
+    <%= tag.div f.input(:name, required: true), class: "col-12 col-md-6" %>
+
+    <% #################################################################################################### %>
+    <%= render "@shared/forms/section_heading", text: "Copy" %>
+
+    <%= tag.div f.input(:headline, required: true), class: "col-12" %>
+    <%= tag.div f.input(:body, required: true), class: "col-12" %>
+
+    <% #################################################################################################### %>
+    <%= render "@shared/forms/section_heading", text: "Images" %>
+
+    <%= tag.div link_to("Add Image", "", class: "btn btn-link btn-sm"), class: "col-12" %>
+
     <%= pseudo_row_divider %>
 
     <%= render "@shared/forms/button_panel" do %>

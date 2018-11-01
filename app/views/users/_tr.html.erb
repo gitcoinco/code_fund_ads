@@ -7,5 +7,8 @@
       <span class="badge badge-light"><%= role %></span>
     <% end %>
   </td>
-  <td><%= link_to "Edit", edit_user_path(user), class: "btn btn-link btn-sm", title: "Edit User", data: tooltip_expando %></td>
+  <td>
+    <%= link_to "Edit", edit_user_path(user), class: "btn btn-link btn-sm", title: "Edit User", data: tooltip_expando %>
+    <%= link_to "#{user.images.count} Images", images_path(user.to_gid_param), class: "btn btn-link btn-sm", title: "Manage Images", data: tooltip_expando if user.sponsor? %>
+  </td>
 <% end %>

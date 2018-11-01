@@ -1,0 +1,14 @@
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/images", class: "active" %>
+<% end %>
+
+<% content_for :actions do %>
+  <%= render "/@shared/actions/add_image" %>
+<% end %>
+
+<div class="container mt-3">
+  <p id="notice"><%= notice %></p>
+  <%= page_heading "Viewing", "#{@imageable.class.name} Images" %>
+  <%= render "/images/table" %>
+</div>

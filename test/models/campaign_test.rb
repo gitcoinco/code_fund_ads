@@ -14,7 +14,6 @@
 #  user_id                        :uuid
 #  inserted_at                    :datetime         not null
 #  updated_at                     :datetime         not null
-#  audience_id                    :uuid
 #  creative_id                    :uuid
 #  included_countries             :string(255)      default([]), is an Array
 #  impression_count               :integer          default(0), not null

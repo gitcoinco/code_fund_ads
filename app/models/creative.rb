@@ -4,16 +4,13 @@
 #
 # Table name: creatives
 #
-#  user_id              :uuid
-#  id                   :uuid             not null, primary key
-#  name                 :string(255)
-#  body                 :string(255)
-#  inserted_at          :datetime         not null
-#  updated_at           :datetime         not null
-#  headline             :string(255)
-#  small_image_asset_id :uuid
-#  large_image_asset_id :uuid
-#  wide_image_asset_id  :uuid
+#  user_id     :uuid
+#  id          :uuid             not null, primary key
+#  name        :string(255)
+#  body        :string(255)
+#  inserted_at :datetime         not null
+#  updated_at  :datetime         not null
+#  headline    :string(255)
 #
 
 class Creative < ApplicationRecord
@@ -21,10 +18,7 @@ class Creative < ApplicationRecord
   # includes ..................................................................
 
   # relationships .............................................................
-  belongs_to :large_image_asset, class_name: "Asset", foreign_key: "large_image_asset_id"
-  belongs_to :small_image_asset, class_name: "Asset", foreign_key: "small_image_asset_id"
   belongs_to :user
-  belongs_to :wide_image_asset, class_name: "Asset", foreign_key: "wide_image_asset_id"
   has_many :campaigns
 
   # validations ...............................................................
