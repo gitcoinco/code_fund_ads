@@ -52,7 +52,6 @@ class User < ApplicationRecord
   # validations ...............................................................
   validates :address_1, length: { maximum: 255 }
   validates :address_2, length: { maximum: 255 }
-  validates :api_access, presence: true
   validates :api_key, length: { maximum: 255 }
   validates :city, length: { maximum: 255 }
   validates :company, length: { maximum: 255 }
@@ -68,10 +67,10 @@ class User < ApplicationRecord
   validates :region, length: { maximum: 255 }
   validates :reset_password_token, length: { maximum: 255 }
   validates :revenue_rate, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
-  validates :roles, inclusion: { in: ENUMS::USER_ROLES.values }
   validates :unlock_token, length: { maximum: 255 }
 
   # callbacks .................................................................
+  before_save :ensure_roles
 
   # scopes ....................................................................
   scope :developer, -> { with_all_roles ENUMS::USER_ROLES::DEVELOPER }
@@ -125,9 +124,23 @@ class User < ApplicationRecord
     roles.include? ENUMS::USER_ROLES["developer"]
   end
 
+  def gravatar_url
+    require 'digest/md5'
+    hash = Digest::MD5.hexdigest(email)
+    "https://www.gravatar.com/avatar/#{hash}"
+  end
+
+  def total_distributions
+    250.00
+  end
+
   # protected instance methods ................................................
   protected
 
   # private instance methods ..................................................
   private
+
+    def ensure_roles
+      self.roles = roles & ENUMS::USER_ROLES.values
+    end
 end

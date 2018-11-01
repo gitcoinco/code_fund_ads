@@ -41,3 +41,7 @@ fieldset.inline {
     }
   }
 }
+
+.breadcrumb-item + .breadcrumb-item::before {
+  content: ">";
+}
