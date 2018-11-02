@@ -16,7 +16,7 @@
     <tfoot>
       <tr class="border-top">
         <td colspan="6" class="pt-3">
-          <%== pagy_nav_bootstrap(@pagy) %>
+          <%== pagy_nav_bootstrap(@pagy) if @pagy.pages > 1 %>
         </td>
       </tr>
     </tfoot>

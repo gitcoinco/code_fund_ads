@@ -92,6 +92,11 @@ PROPERTY_STATUSES:
   3: archived
   4: blacklisted
 
+IMAGE_FORMATS:
+  - small
+  - large
+  - wide
+
 # SEE: https://dev.maxmind.com/geoip/legacy/codes/iso3166/
 COUNTRIES:
   #A1: Anonymous Proxy

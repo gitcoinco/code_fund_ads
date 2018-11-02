@@ -6,14 +6,21 @@ class ImagesController < ApplicationController
   # GET /imageable/:imageable_gid/images/
   # GET /imageable/:imageable_gid/images.json
   def index
-    @images = @imageable.images
-    redirect_to new_image_path if @images.count == 0
+    images = @imageable.images
+    return redirect_to(new_image_path) if images.count == 0
+    @pagy, @images = pagy(images)
   end
 
-  # GET /imageable/:imageable_gid/images/1
-  # GET /imageable/:imageable_gid/images/1.json
-  def show
-    @image = @imageable.images.find(params[:id])
+  # GET /imageable/:imageable_gid/images/1/edit
+  def edit
+    image = @imageable.images.find(params[:id])
+    @image = Image.new(image)
+  end
+
+  # PATCH/PUT /imageable/:imageable_gid/images/1/edit
+  # PATCH/PUT /imageable/:imageable_gid/images/1/edit.json
+  def update
+    binding.pry
   end
 
   # GET /imageable/:imageable_gid/images/new

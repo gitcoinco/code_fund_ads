@@ -1,5 +1,5 @@
 <%= tag.tr class: classes("even": image_counter.even?, "odd": image_counter.odd?) do %>
-  <td><%= link_to truncate(image.blob.filename.to_s, length: 20), image_path(@imageable.to_gid_param, image), title: "Manage Image", data: tooltip_expando %></td>
+  <td><%= link_to truncate(image.blob.filename.to_s, length: 20), edit_image_path(@imageable.to_gid_param, image), title: "Edit Image Metadata", data: tooltip_expando %></td>
   <td><%= image.blob.content_type %></td>
   <td><%= number_to_human_size image.blob.byte_size %></td>
   <td><%= link_to image_tag(image.variant(thumbnail: "x50"), style: "height:50px", class: "img-thumbnail", title: "View Original", data: tooltip_expando), image %></td>
