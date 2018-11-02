@@ -62,9 +62,9 @@ CREATE TABLE public.active_storage_attachments (
     id bigint NOT NULL,
     name character varying NOT NULL,
     record_type character varying NOT NULL,
-    record_id bigint NOT NULL,
     blob_id bigint NOT NULL,
-    created_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    record_id uuid NOT NULL
 );
 
 
@@ -1175,6 +1175,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 (20181030194255),
 (20181031145136),
 (20181101203755),
-(20181101211332);
+(20181101211332),
+(20181102210752);
 
 
