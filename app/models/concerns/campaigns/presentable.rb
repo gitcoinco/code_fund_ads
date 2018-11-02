@@ -13,5 +13,9 @@ module Campaigns
       # TODO: Use roll-up data
       [[10, 8, 5, 7, 6, 6, 10, 10, 8, 5, 7, 6, 6, 10, 6, 6, 10, 10, 8, 5, 7, 6, 6, 10, 6, 6, 10, 10, 8]]
     end
+
+    def expired?
+      active? && end_date < Time.current
+    end
   end
 end

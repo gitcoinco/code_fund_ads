@@ -1,17 +1,83 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/dashboard" %>
-  <%= render "/@shared/breadcrumbs/campaigns" %>
-  <%= render "/@shared/breadcrumbs/campaign", class: "active" %>
+<%= render layout: "/campaigns/show_layout", locals: { campaign: @campaign } do %>
+  <table class="table">
+    <tbody>
+      <tr>
+        <th style="width: 200px;">ID</th>
+        <td><%= @campaign.id %></td>
+      </tr>
+      <tr>
+        <th>User</th>
+        <td><%= link_to @campaign.user.full_name, @campaign.user %></td>
+      </tr>
+      <tr>
+        <th>Name</th>
+        <td><%= @campaign.name %></td>
+      </tr>
+      <tr>
+        <th>Redirect URL</th>
+        <td><%= @campaign.redirect_url %></td>
+      </tr>
+      <tr>
+        <th>Status</th>
+        <td><%= ENUMS::CAMPAIGN_STATUSES[@campaign.status].humanize %></td>
+      </tr>
+      <tr>
+        <th>eCPM</th>
+        <td><%= number_to_currency @campaign.ecpm %> <small>(<%= number_with_delimiter @campaign.impression_count %> est. impressions)</small></td>
+      </tr>
+      <tr>
+        <th>Budget</th>
+        <td><strong><%= number_to_currency @campaign.budget_daily_amount %></strong> daily with a total spend of <strong><%= number_to_currency @campaign.total_spend %></strong></td>
+      </tr>
+      <tr>
+        <th>
+          <% if @campaign.expired? %>
+            <i class="fas fa-exclamation-square text-danger"></i>
+          <% end %>
+          Dates
+        </th>
+        <td>
+          <%= @campaign.start_date.strftime("%m/%d/%Y") %> to <%= @campaign.end_date.strftime("%m/%d/%Y") %>
+        </td>
+      </tr>
+      <tr>
+        <th>US Hours?</th>
+        <td><%= @campaign.us_hours_only? ? "Yes" : "No" %></td>
+      </tr>
+      <tr>
+        <th>Weekdays Only?</th>
+        <td><%= @campaign.weekdays_only? ? "Yes" : "No" %></td>
+      </tr>
+      <tr>
+        <th>Countries</th>
+        <td>
+          <% @campaign.included_countries.each do |label| %>
+            <span class="u-label u-label--secondary u-label--xs u-label--success mb-1"><%= label %></span>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th>Programming Languages</th>
+        <td>
+          <% @campaign.included_programming_languages.each do |label| %>
+            <span class="u-label u-label--sm u-label--success mb-1"><%= label %></span>
+          <% end %>
+          <% @campaign.excluded_programming_languages.each do |label| %>
+            <span class="u-label u-label--sm u-label--dark mb-1"><%= label %></span>
+          <% end %>
+        </td>
+      </tr>
+      <tr>
+        <th>Topics</th>
+        <td>
+          <% @campaign.included_topic_categories.each do |label| %>
+            <span class="u-label u-label--sm u-label--success mb-1"><%= label %></span>
+          <% end %>
+          <% @campaign.excluded_topic_categories.each do |label| %>
+            <span class="u-label u-label--sm u-label--dark mb-1"><%= label %></span>
+          <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 <% end %>
-
-<% content_for :actions do %>
-  <%= render "/@shared/actions/edit_campaign", campaign: @campaign %>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Viewing", "Campaign", subtitle: @campaign.name, icon: "ad" %>
-<% end %>
-
-<div class="container mt-3">
-  <p id="notice"><%= notice %></p>
-</div>

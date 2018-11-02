@@ -4,8 +4,17 @@
   <%= render "/@shared/breadcrumbs/property", class: "active" %>
 <% end %>
 
-<div class="container mt-3">
-  <%= page_heading "Creating", "Property" %>
-  <%= render '/properties/form', property: @property %>
-  <%= link_to 'Back', properties_path, class: "btn btn-link" %>
-</div>
+<% content_for :page_heading do %>
+  <%= page_heading "Creating", "Property",
+    subtitle: "Fill out the form below",
+    icon: "browser" %>
+<% end %>
+
+<main id="content" role="main">
+  <div class="u-bg-light-blue-50">
+    <div class="container u-space-1">
+      <p id="notice"><%= notice %></p>
+      <%= render "/properties/form", property: @property %>
+    </div>
+  </div>
+</main>

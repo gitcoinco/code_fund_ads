@@ -18,4 +18,17 @@ module CampaignsHelper
     when "archived" then  tag.span(class: "fas fa-circle text-muted", title: "Archived", data: tooltip_expando(placement: "left"))
     end
   end
+
+  def campaign_status_badge_html(status)
+    style = {
+      "active"   => { icon: "check", color: "success" },
+      "pending"  => { icon: "pause", color: "info" },
+      "archived" => { icon: "archive", color: "dark" }
+    }[ENUMS::CAMPAIGN_STATUSES[status]]
+
+    tag.span(class: "u-badge u-badge-border-#{style[:color]} u-badge--md u-badge-pos--bottom-right-0 rounded-circle") do
+      tag.span(class: "fa fa-#{style[:icon]}")
+    end
+  end
+  
 end

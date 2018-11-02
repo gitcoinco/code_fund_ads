@@ -1,0 +1,44 @@
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/campaigns" %>
+  <%= render "/@shared/breadcrumbs/campaign", class: "active" %>
+<% end %>
+
+<% content_for :actions do %>
+  <%= render "/@shared/actions/edit_campaign", campaign: campaign %>
+<% end %>
+
+<% content_for :page_heading do %>
+  <div class="media d-block d-sm-flex align-items-sm-center">
+    <div class="u-lg-avatar position-relative mb-3 mb-sm-0 mr-3">
+      <%= image_tag "https://cdn.codefund.io/843b77c1-0e02-4ae9-a198-02257f8b7b63_digitalocean-200x200.png", class: "u-lg-avatar rounded-circle", alt: campaign.name %>
+      <%= campaign_status_badge_html campaign.status %>
+    </div>
+    <div class="media-body">
+      <h1 class="h3 text-white font-weight-medium mb-1"><%= campaign.name %></h1>
+      <span class="d-block text-white"><%= campaign.user.full_name %></span>
+    </div>
+  </div>
+<% end %>
+
+<main id="content" role="main">
+  <div class="u-bg-light-blue-50">
+    <div class="container u-space-2">
+      <div class="bg-white p-4">
+        <div class="mb-4">
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <%= active_link_to "Overview", campaign_path(campaign), active: :exact, class: "nav-link" %>
+            </li>
+          </ul>
+        </div>
+
+        <div class="tab-content">
+          <div class="tab-pane active">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

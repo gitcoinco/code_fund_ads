@@ -1,49 +1,43 @@
 <%= simple_form_for @user do |f| %>
-  <div class="row">
-    <% #################################################################################################### %>
-    <%= render "@shared/forms/section_heading", text: "Personal" %>
+  <div class="form-row">
+    <%= tag.div f.input(:first_name, input_html: { class: "form-control-lg" }, required: true), class: "col-sm-6 mb-6" %>
+    <%= tag.div f.input(:last_name, input_html: { class: "form-control-lg" }, required: true), class: "col-sm-6 mb-6" %>
+  </div>
+  <div class="form-row">
+    <%= tag.div f.input(:email, type: :email, input_html: { class: "form-control-lg" }, required: true), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:company, label: "Organization", input_html: { class: "form-control-lg" }), class: "col-12 col-md-6" %>
+  </div>
+  <div class="form-row">
+    <%= tag.div f.input(:address_1, label: "Street Address", input_html: { class: "form-control-lg" }), class: "col-12" %>
+  </div>
+  <div class="form-row">
+    <%= tag.div f.input(:city, input_html: { class: "form-control-lg" }), class: "col-12 col-md-3" %>
+    <%= tag.div f.input(:region, label: "State / Region", input_html: { class: "form-control-lg" }), class: "col-12 col-md-3" %>
+    <%= tag.div f.input(:postal_code, input_html: { class: "form-control-lg" }), class: "col-12 col-md-3" %>
+    <%= tag.div f.input(:country, input_html: { class: "form-control-lg" }), class: "col-12 col-md-3" %>
+  </div>
 
-    <%= tag.div f.input(:first_name), class: "col-12 col-md-6" %>
-    <%= tag.div f.input(:last_name), class: "col-12 col-md-6" %>
-
-    <%= pseudo_row_divider %>
-
-    <%= tag.div f.input(:email), class: "col-12 col-md-6" %>
-    <%= tag.div class: "col-12 col-md-6" %>
-
-    <% #################################################################################################### %>
-    <%= render "@shared/forms/section_heading", text: "Business" %>
-
-    <%= tag.div f.input(:company), class: "col-12 col-md-6" %>
-    <%= tag.div f.input(:paypal_email), class: "col-12 col-md-6" %>
-
-    <%= pseudo_row_divider %>
-
-    <%= tag.div f.input(:address_1), class: "col-12 col-md-6" %>
-    <%= tag.div f.input(:address_2), class: "col-12 col-md-6" %>
-
-    <%= pseudo_row_divider %>
-
-    <%= tag.div f.input(:city), class: "col-12 col-md-6" %>
-    <%= tag.div f.input(:region, label: "State / Region"), class: "col-12 col-md-6" %>
-
-    <%= pseudo_row_divider %>
-
-    <%= tag.div f.input(:postal_code), class: "col-12 col-md-6" %>
-    <%= tag.div f.input(:country, input_html: { data: { controller: "select" }}), class: "col-12 col-md-6" %>
-
-    <% #################################################################################################### %>
-    <%= render "@shared/forms/section_heading", text: "Security" %>
-
+  <div class="form-row">
     <div class="col-12 col-md-6">
       <%= f.input :roles, collection: user_roles_for_select, as: :check_boxes, wrapper_class: "inline"  %>
-      <%= tag.div f.input(:api_access, label: "Enable API Access", required: false), class: "mt-3" %>
     </div>
-
-    <%= pseudo_row_divider %>
-
-    <%= render "@shared/forms/button_panel" do %>
-      <%= f.button(:submit, class: "btn-lg btn-primary") %>
-    <% end %>
+    <div class="col-12 col-md-6">
+      <div class="media align-items-center">
+        <label class="u-checkbox-switch mr-3">
+          <%= f.check_box :api_access, class: "u-checkbox-switch__input" %>
+          <span class="u-checkbox-switch__slider"></span>
+        </label>
+        <label class="media-body text-muted mb-0" for="checkboxSwitch1">
+          <span class="d-block text-dark">API Access</span>
+          <small class="d-block">If enabled, this user will have access to the CodeFund API</small>
+        </label>
+      </div>
+    </div>
   </div>
+
+
+  <%= render "@shared/forms/button_panel" do %>
+    <button type="submit" class="btn btn-primary u-btn-primary transition-3d-hover">Save Changes</button>
+    <%= link_to "Cancel", users_path, class: "btn u-btn-secondary--air transition-3d-hover" %>
+  <% end %>
 <% end %>

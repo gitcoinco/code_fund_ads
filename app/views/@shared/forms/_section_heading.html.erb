@@ -1,3 +1,10 @@
-<div class="col-12 mt-5 mb-3">
-  <h4 class="w-100 border-bottom"><%= text %></h4>
+<% unless local_assigns[:skip_hr] %>
+  <hr style="margin-top: 3em; margin-bottom: 3em;"></hr>
+<% end %>
+
+<div class="mb-3">
+  <h2 class="h5 mb-0"><%= title %></h2>
+  <% if local_assigns[:subtitle] %>
+    <p><%= subtitle %></p>
+  <% end %>
 </div>

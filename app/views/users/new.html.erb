@@ -4,8 +4,17 @@
   <%= render "/@shared/breadcrumbs/user", class: "active" %>
 <% end %>
 
-<div class="container mt-3">
-  <%= page_heading "Creating", "User" %>
-  <%= render '/users/form' %>
-  <%= link_to 'Back', :back, class: 'btn btn-link' %>
-</div>
+<% content_for :page_heading do %>
+  <%= page_heading "Creating", "Users",
+    subtitle: "Fill out the form below",
+    icon: "user-circle" %>
+<% end %>
+
+<main id="content" role="main">
+  <div class="u-bg-light-blue-50">
+    <div class="container u-space-1">
+      <p id="notice"><%= notice %></p>
+      <%= render "/users/form" %>
+    </div>
+  </div>
+</main>

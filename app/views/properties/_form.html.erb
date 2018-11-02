@@ -1,7 +1,7 @@
 <%= simple_form_for property do |f| %>
   <div class="row">
     <% #################################################################################################### %>
-    <%= render "@shared/forms/section_heading", text: "Info" %>
+    <%= render "@shared/forms/section_heading", title: "Info" %>
 
     <%= tag.div f.input(:status, collection: property_statuses_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 mb-3" %>
 
@@ -11,23 +11,23 @@
 
     <%= pseudo_row_divider %>
 
-    <%= tag.div f.input(:name, required: true), class: "col-12 col-md-6" %>
-    <%= tag.div f.input(:url, required: true, as: :string), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:name, input_html: { class: "form-control-lg" }, required: true), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:url, input_html: { class: "form-control-lg" }, required: true, as: :string), class: "col-12 col-md-6" %>
 
     <%= pseudo_row_divider %>
 
-    <%= tag.div f.input(:estimated_monthly_visitors, required: false), class: "col-12 col-md-6" %>
-    <%= tag.div f.input(:estimated_monthly_page_views, required: false, as: :string), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:estimated_monthly_visitors, input_html: { class: "form-control-lg" }, required: false), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:estimated_monthly_page_views, input_html: { class: "form-control-lg" }, required: false), class: "col-12 col-md-6" %>
 
     <%= pseudo_row_divider %>
 
     <div class="col-12 col-md-6">
       <%= f.association :user, collection: users_for_select(role: :developer), label: "Developer", label_method: :scoped_name, prompt: "Choose...", required: true,
-        input_html: { data: { controller: "select" }} %>
+        input_html: { data: { controller: "select" }, class: "form-control-lg" } %>
     </div>
     <div class="col-12 col-md-6">
       <%= f.association :template, collection: templates_for_select, label: "Template", label_method: :name, prompt: "Choose...", required: false,
-        input_html: { data: { controller: "select" }} %>
+        input_html: { data: { controller: "select" }, class: "form-control-lg" } %>
     </div>
 
     <%= pseudo_row_divider %>
@@ -38,7 +38,7 @@
 
 
     <% #################################################################################################### %>
-    <%= render "@shared/forms/section_heading", text: "Targeting" %>
+    <%= render "@shared/forms/section_heading", title: "Targeting" %>
 
     <%= tag.div f.input(:language, collection: languages_for_select, prompt: "Choose...", required: true, input_html: { data: { controller: "select" }}), class: "col-12 col-md-6" %>
 
@@ -50,7 +50,7 @@
     <%= pseudo_row_divider %>
 
     <% #################################################################################################### %>
-    <%= render "@shared/forms/section_heading", text: "Behavior" %>
+    <%= render "@shared/forms/section_heading", title: "Behavior" %>
 
     <%= tag.div f.input(:excluded_advertisers, collection: companies_for_select, label: "Prohibit Advertisers", required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-6" %>
 

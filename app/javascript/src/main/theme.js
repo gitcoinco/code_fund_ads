@@ -4,6 +4,7 @@ import 'theme/vendor/animate.css/animate.min.css';
 import 'theme/vendor/flatpickr/dist/flatpickr.css';
 import 'theme/vendor/bootstrap-select/dist/css/bootstrap-select.css';
 import "theme/vendor/chartist/dist/chartist.min.css";
+import "theme/vendor/bootstrap-tagsinput/css/bootstrap-tagsinput.css";
 import "theme/vendor/chartist-js-tooltip/chartist-plugin-tooltip.css";
 import 'theme/css/front.css';
 

@@ -1,7 +1,7 @@
 <%= simple_form_for campaign do |f| %>
   <div class="row">
     <% #################################################################################################### %>
-    <%= render "@shared/forms/section_heading", text: "Info" %>
+    <%= render "@shared/forms/section_heading", title: "Info" %>
 
     <%= tag.div f.input(:status, collection: campaign_statuses_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 mb-3" %>
 
@@ -33,7 +33,7 @@
     <%= tag.div f.input(:redirect_url, as: :string), class: "col-12" %>
 
     <% #################################################################################################### %>
-    <%= render "@shared/forms/section_heading", text: "Targeting" %>
+    <%= render "@shared/forms/section_heading", title: "Targeting" %>
 
     <div class="col-12" data-controller="select-countries">
       <%= f.input :included_countries, collection: countries_for_select, label: "Targeted Counties", input_html: { multiple: true, data: { controller: "select", target: "select-countries.select" }} %>
@@ -74,7 +74,7 @@
     </div>
 
     <% #################################################################################################### %>
-    <%= render "@shared/forms/section_heading", text: "Budget" %>
+    <%= render "@shared/forms/section_heading", title: "Budget" %>
 
     <%= tag.div f.input(:total_spend, label: "Total Budget", as: :decimal, required: true), class: "col-12 col-md-4" %>
     <%= tag.div f.input(:budget_daily_amount, label: "Daily Budget", as: :decimal, required: true), class: "col-12 col-md-4" %>
