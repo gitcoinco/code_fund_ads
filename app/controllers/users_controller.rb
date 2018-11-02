@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    users = User.with_attached_images.order(:company, :first_name, :last_name)
+    users = User.order(:company, :first_name, :last_name)
     users = @user_search.apply(users)
     @pagy, @users = pagy(users)
   end

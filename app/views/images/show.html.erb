@@ -1,0 +1,44 @@
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/images" %>
+  <%= render "/@shared/breadcrumbs/image", class: "active" %>
+<% end %>
+
+<div class="container mt-3">
+  <p id="notice"><%= notice %></p>
+  <%= page_heading "Viewing", "#{@imageable.class.name} Image" %>
+
+
+  <div class="row">
+    <div class="col-12">
+      <%= image_tag @image.variant(geometry: "600x600"), class: "img-thumbnail d-block mt-5" %>
+    </div>
+
+    <% #################################################################################################### %>
+    <%= render "@shared/forms/section_heading", text: "Info" %>
+
+    <div class="col-12">
+      <b>Filename</b>
+      <%= @image.blob.filename %>
+    </div>
+    <div class="col-12">
+      <b>Type</b>
+      <%= @image.blob.content_type %>
+    </div>
+    <div class="col-12">
+      <b>Size</b>
+      <%= number_to_human_size @image.blob.byte_size %>
+    </div>
+    <div class="col-12">
+      <b>Linked Campaigns</b>
+      ???
+    </div>
+
+    <%= render "@shared/forms/button_panel" do %>
+      <%= link_to 'Delete', image_path(@imageable, @image), class: "btn btn-danger btn-lg", method: :delete,
+        data: { confirm: "Are you sure you want to delete this image?" } %>
+    <% end %>
+  </div>
+
+  <%= link_to 'Back', :back, class: "btn btn-link" %>
+</div>

@@ -1,0 +1,6 @@
+<%= tag.tr class: classes("even": image_counter.even?, "odd": image_counter.odd?) do %>
+  <td><%= link_to image.blob.filename, image_path(@imageable.to_gid_param, image) %></td>
+  <td><%= image.blob.content_type %></td>
+  <td><%= number_to_human_size image.blob.byte_size %></td>
+  <td><%= link_to image_tag(image.variant(thumbnail: "100x50"), class: "img-thumbnail"), image %></td>
+<% end %>

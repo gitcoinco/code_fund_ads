@@ -1,5 +1,39 @@
-<div class="row">
-  <% #################################################################################################### %>
-  <%= render "@shared/forms/section_heading", text: "Image" %>
+<%= form_tag images_path, method: :post, multipart: true,
+  data: {
+  remote: true,
+  success_url: images_path(@imageable.to_gid_param),
+  controller: "image-uploader",
+  action: [
+    "ajax:success@document->image-uploader#redirect",
+    "direct-uploads:start@document->image-uploader#showUploadsStarted",
+    "direct-upload:progress@document->image-uploader#showUploadProgress",
+  ].join(" ")
+} do %>
 
-</div>
+  <%= file_field_tag "imageable[images][]", hidden: true, accept: ".jpg,.gif,.png", multiple: true, direct_upload: true,
+    data: { target: "image-uploader.input", action: "change->image-uploader#upload" } %>
+  <%= submit_tag "Submit", hidden: true, data: { target: "image-uploader.submitButton" } %>
+
+  <div class="row">
+    <% #################################################################################################### %>
+    <%= render "@shared/forms/section_heading", text: "Uploader" %>
+
+    <div hidden class="col-12 mb-3" data-target="image-uploader.progressBarTemplate">
+      <div style="height:24px;" class="progress bg-muted">
+        <div style="width:0;white-space:nowrap;" role="progressbar" class="progress-bar">
+          filename.jpg 34%
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12 mt-4">
+      <%= link_to "Choose Images", "#",
+        class: "btn btn-pill btn-primary btn-lg text-white mb-4",
+        data: {
+          target: "image-uploader.chooseButton",
+          action: "click->image-uploader#choose",
+          disable_with: "Uploading Images..."
+        } %>
+    </div>
+  </div>
+<% end %>
