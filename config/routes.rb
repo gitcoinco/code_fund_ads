@@ -20,5 +20,11 @@ Rails.application.routes.draw do
   resources :themes
   resources :users
 
+  scope "/users/:user_id" do
+    resources :campaigns, only: [:index], as: :user_campaigns
+    resources :properties, only: [:index], as: :user_properties
+    resources :creatives, only: [:index], as: :user_creatives
+  end
+
   root "users#index"
 end

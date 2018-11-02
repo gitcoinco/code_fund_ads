@@ -1,243 +1,77 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/dashboard" %>
-  <%= render "/@shared/breadcrumbs/users" %>
-  <%= render "/@shared/breadcrumbs/user", class: "active" %>
-<% end %>
-
-<% content_for :actions do %>
-  <%= render "/@shared/actions/edit_user", user: @user %>
-<% end %>
-
-<div class="u-bg-light-blue-50">
-  <div class="container u-space-2">
-    <div class="row">
-      <div class="col-lg-3 mb-7 mb-lg-0">
-        <div class="card p-1 mb-4">
-          <div class="card-body text-center">
-            <div class="mb-3">
-              <%= image_tag @user.gravatar_url, class: "u-xl-avatar rounded-circle", alt: @user.full_name %>
-            </div>
-
-            <div class="mb-3">
-              <span class="d-block font-weight-medium"><%= @user.full_name %></span>
-              <small class="d-block text-muted"><%= @user.company || @user.email %></small>
-            </div>
-
-            <div class="mb-2">
-              <a class="btn btn-sm u-btn-primary--air transition-3d-hover" href="mailto:<%= @user.email %>">
-                <span class="far fa-envelope mr-2"></span>
-                Send a Message
-              </a>
-            </div>
-
-          </div>
-        </div>
-
-        <div class="card p-1 mb-4">
-          <div class="card-body">
-            <h4 class="h6 mb-0">Campaigns</h4>
-            <hr>
-            <% @user.campaigns.each do |campaign| %>
-              <div class="d-flex align-items-start mb-4">
-                <div class="position-relative">
-                  <%#= image_tag campaign.creative.small_image_asset.url, style: "width: 16px; height: 16px;" %>
-                </div>
-
-                <div class="ml-2">
-                  <span class="d-block text-dark"><%= campaign.name %></span>
-                  <small class="d-block text-secondary">...</small>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-9">
-        <!-- User Details -->
-        <div class="mb-4">
-          <h2 class="h4"><%= @user.full_name %>
-            <%= tag.span("Advertiser", class: "badge badge-success ml-1") if @user.roles.include?("sponsor") %>
-            <%= tag.span("Publisher", class: "badge badge-info ml-1") if @user.roles.include?("developer") %>
-            <%= tag.span("Admin", class: "badge badge-dark ml-1") if @user.roles.include?("admin") %>
-          </h2>
-          <h4 class="h6 text-secondary mb-0"><small>Joined in <%= @user.created_at.strftime("%B %Y") %></small></h4>
-        </div>
-        <!-- End User Details -->
-
-        <!-- Collections -->
-        <div class="d-sm-flex">
-          <div class="js-go-to media d-flex align-items-center mb-3 mb-sm-0 mr-5">
-            <span class="bg-success text-white font-weight-medium rounded py-2 px-3 mr-2"><%= number_to_currency @user.total_distributions %></span>
-            <div class="media-body text-secondary">
-              Total Earnings
+<%= render layout: "/users/show_layout", locals: { user: @user } do %>
+  <div class="row">
+    <div class="col-md-6 col-lg-4">
+      <ul class="list-unstyled mb-0">
+        <li class="mb-4">
+          <div class="media">
+            <span class="fa fa-envelope min-width-6 text-center text-secondary mr-2"></span>
+            <div class="media-body text-lh-sm">
+              <span class="d-block font-size-14">Email:</span>
+              <%= mail_to @user.email, @user.email, class: "small" %>
             </div>
           </div>
-          <div class="media align-items-center mb-3 mb-sm-0 mr-5">
-            <img class="mr-2" src="../../assets/svg/flat-icons/referral-flat-concept-illustration.svg" alt="Image Description" style="width: 40px;">
-            <div class="media-body text-secondary">
-              +3 Referrals
+        </li>
+        <li class="mb-4">
+          <div class="media">
+            <span class="fa fa-percent min-width-6 text-center text-secondary mr-2"></span>
+            <div class="media-body text-lh-sm">
+              <span class="d-block font-size-14">Revenue Rate</span>
+              <span class="small"><%= number_to_percentage(@user.revenue_rate * 100) %></span>
             </div>
           </div>
-          <div class="media align-items-center mb-3 mb-sm-0 mr-5">
-            <img class="mr-2" src="../../assets/svg/flat-icons/verified-user-flat-concept-illustration.svg" alt="Image Description" style="width: 40px;">
-            <div class="media-body text-secondary">
-              Verified
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-md-6 col-lg-4">
+      <ul class="list-unstyled mb-0">
+        <li class="mb-4">
+          <div class="media">
+            <span class="fa fa-birthday-cake min-width-6 text-center text-secondary mr-2"></span>
+            <div class="media-body">
+              <span class="d-block font-size-14">Date Joined:</span>
+              <small class="d-block text-muted"><%= @user.created_at.strftime("%b %d, %Y") %></small>
             </div>
           </div>
-        </div>
-        <!-- End Collections -->
-
-        <hr class="my-7">
-
-        <!-- Icon Blocks -->
-        <div class="row">
-          <div class="col-md-6 col-lg-4">
-            <!-- List -->
-            <ul class="list-unstyled mb-0">
-              <li class="mb-4">
-                <div class="media">
-                  <span class="fa fa-envelope min-width-6 text-center text-secondary mr-2"></span>
-                  <div class="media-body text-lh-sm">
-                    <span class="d-block font-size-14">Email:</span>
-                    <%= mail_to @user.email, @user.email, class: "small" %>
-                  </div>
-                </div>
-              </li>
-              <li class="mb-4">
-                <div class="media">
-                  <span class="fa fa-percent min-width-6 text-center text-secondary mr-2"></span>
-                  <div class="media-body text-lh-sm">
-                    <span class="d-block font-size-14">Revenue Rate</span>
-                    <span class="small"><%= number_to_percentage(@user.revenue_rate * 100) %></span>
-                  </div>
-                </div>
-              </li>
-            </ul>
+        </li>
+        <li class="mb-4">
+          <div class="media">
+            <span class="fa fa-building min-width-6 text-center text-secondary mr-2"></span>
+            <div class="media-body text-lh-sm">
+              <span class="d-block font-size-14">Company:</span>
+              <a class="small mr-1" href="#"><%= @user.company %></a>
+            </div>
           </div>
+        </li>
+      </ul>
+    </div>
 
-          <div class="col-md-6 col-lg-4">
-            <ul class="list-unstyled mb-0">
-              <li class="mb-4">
-                <div class="media">
-                  <span class="fa fa-birthday-cake min-width-6 text-center text-secondary mr-2"></span>
-                  <div class="media-body">
-                    <span class="d-block font-size-14">Date Joined:</span>
-                    <small class="d-block text-muted"><%= @user.created_at.strftime("%b %d, %Y") %></small>
-                  </div>
-                </div>
-              </li>
-              <li class="mb-4">
-                <div class="media">
-                  <span class="fa fa-building min-width-6 text-center text-secondary mr-2"></span>
-                  <div class="media-body text-lh-sm">
-                    <span class="d-block font-size-14">Company:</span>
-                    <a class="small mr-1" href="#"><%= @user.company %></a>
-                  </div>
-                </div>
-              </li>
-            </ul>
+    <div class="col-md-6 col-lg-4">
+      <ul class="list-unstyled mb-0">
+        <li class="mb-4">
+          <div class="media">
+            <span class="fa fa-globe min-width-6 text-center text-secondary mr-2"></span>
+            <div class="media-body">
+              <span class="d-block font-size-14">Languages:</span>
+              <small class="d-block text-muted">English, French</small>
+            </div>
           </div>
+        </li>
 
-          <div class="col-md-6 col-lg-4">
-            <ul class="list-unstyled mb-0">
-              <li class="mb-4">
-                <div class="media">
-                  <span class="fa fa-globe min-width-6 text-center text-secondary mr-2"></span>
-                  <div class="media-body">
-                    <span class="d-block font-size-14">Languages:</span>
-                    <small class="d-block text-muted">English, French</small>
-                  </div>
-                </div>
-              </li>
-
-              <li class="mb-4">
-                <div class="media">
-                  <span class="fa fa-map-marker-alt min-width-6 text-center text-secondary mr-2"></span>
-                  <div class="media-body text-lh-sm">
-                    <span class="d-block font-size-14">Location:</span>
-                    <span class="small mr-1">
-                      <%= "#{@user.city}, " if @user.city %>
-                      <%= "#{@user.region}, " if @user.region %>
-                      <%= @user.country %>
-                    </span>
-                  </div>
-                </div>
-              </li>
-            </ul>
-            <!-- End List -->
+        <li class="mb-4">
+          <div class="media">
+            <span class="fa fa-map-marker-alt min-width-6 text-center text-secondary mr-2"></span>
+            <div class="media-body text-lh-sm">
+              <span class="d-block font-size-14">Location:</span>
+              <span class="small mr-1">
+                <%= "#{@user.city}, " if @user.city %>
+                <%= "#{@user.region}, " if @user.region %>
+                <%= @user.country %>
+              </span>
+            </div>
           </div>
-        </div>
-        <!-- End Icon Blocks -->
-
-        <% if @user.properties.present? %>
-
-          <hr class="my-7">
-
-          <div class="mb-3">
-            <h2 class="h5 mb-0">Properties</h2>
-          </div>
-
-          <div class="row">
-            <% @user.properties.each do |property| %>
-              <div class="col-md-6 mb-3 mb-md-0">
-                <div class="card u-info-v2 mb-3">
-                  <div class="card-body p-4" href="#">
-                    <div class="media align-items-center">
-                      <div class="mr-3">
-                        <%= property_status_html property.status %>
-                      </div>
-                      <div class="media-body">
-                        <span class="text-dark"><%= property.name %></span>
-                        <small class="d-block text-secondary"><%= link_to property.pretty_url, property.url, target: "_blank" %></small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          </div>
-
-        <% end %>
-
-        <% if @user.campaigns.present? %>
-
-          <hr class="my-7">
-
-          <div class="mb-3">
-            <h2 class="h5 mb-0">Campaigns</h2>
-          </div>
-
-          <div class="row">
-            <% @user.campaigns.each do |campaign| %>
-              <div class="col-md-6 mb-3 mb-md-0">
-                <div class="card u-info-v2 mb-3">
-                  <div class="card-body p-4">
-                    <div class="media align-items-center">
-                      <div class="mr-3">
-                        <%= campaign_status_html campaign.status %>
-                      </div>
-                      <div class="media-body">
-                        <span class="text-dark"><%= campaign.name %></span>
-                        <small class="d-block text-secondary">...</small>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          </div>
-        
-        <% end %>
-
-        <hr class="my-7">
-
-        <!-- Title -->
-        <div class="mb-3">
-          <h3 class="h5 mb-0">Notes</h3>
-        </div>
-        <!-- End Title -->
-      </div>
+        </li>
+      </ul>
     </div>
   </div>
-</div>
+<% end %>

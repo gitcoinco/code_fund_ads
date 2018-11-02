@@ -7,9 +7,20 @@
   <%= render "/@shared/actions/add_property" %>
 <% end %>
 
-<div class="container mt-3">
-  <p id="notice"><%= notice %></p>
-  <%= page_heading "Viewing", "Properties" %>
-  <%= render "/property_searches/form" %>
-  <%= render "/properties/table", users: @users %>
-</div>
+<% content_for :page_heading do %>
+  <%= page_heading "Viewing", "Properties",
+    subtitle: "#{pluralize(@pagy.count, "record")} found",
+    icon: "browser" %>
+<% end %>
+
+<main id="content" role="main">
+  <div class="u-bg-light-blue-50">
+    <div class="container u-space-1">
+      <p id="notice"><%= notice %></p>
+      <%= render "/property_searches/form" %>
+      <div class="bg-white p-4">
+        <%= render "/properties/table", properties: @properties %>
+      </div>
+    </div>
+  </div>
+</main>

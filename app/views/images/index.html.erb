@@ -8,8 +8,17 @@
   <%= render "/@shared/actions/add_images" %>
 <% end %>
 
-<div class="container mt-3">
-  <p id="notice"><%= notice %></p>
-  <%= page_heading "Viewing", "#{@imageable.class.name} Images" %>
-  <%= render "/images/table" %>
+<% content_for :page_heading do %>
+  <%= page_heading "Viewing", "Images",
+    subtitle: "for #{@imageable.imageable_name}",
+    icon: "images" %>
+<% end %>
+
+<main id="content" role="main">
+  <div class="u-bg-light-blue-50">
+    <div class="container u-space-1">
+      <p id="notice"><%= notice %></p>
+      <%= render "/images/table" %>
+    </div>
+  </div>
 </div>

@@ -3,8 +3,8 @@
 module ApplicationHelper
   include Pagy::Frontend
 
-  def page_heading(action, subject, subtitle: nil)
-    render "/@shared/page_heading", action: action, subject: subject, subtitle: subtitle
+  def page_heading(action, subject, subtitle: nil, icon: nil)
+    render "/@shared/page_heading", action: action, subject: subject, subtitle: subtitle, icon: icon
   end
 
   def breadcrumbs
