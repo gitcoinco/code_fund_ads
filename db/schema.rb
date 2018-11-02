@@ -12,32 +12,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_30_194255) do
+ActiveRecord::Schema.define(version: 2018_11_02_210752) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
-  create_table "assets", id: :uuid, default: nil, force: :cascade do |t|
-    t.uuid "user_id"
-    t.string "name", limit: 255, null: false
-    t.string "image_object", limit: 255, null: false
-    t.string "image_bucket", limit: 255, null: false
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "height"
-    t.integer "width"
-    t.index ["user_id"], name: "assets_user_id_index"
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.uuid "record_id", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "audiences", id: :uuid, default: nil, force: :cascade do |t|
-    t.string "name", limit: 255, null: false
-    t.string "programming_languages", limit: 255, default: [], array: true
-    t.datetime "inserted_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "topic_categories", limit: 255, default: [], array: true
-    t.uuid "fallback_campaign_id"
-    t.index ["programming_languages"], name: "audiences_programming_languages_index"
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
   create_table "campaigns", id: :uuid, default: nil, force: :cascade do |t|
@@ -50,7 +49,6 @@ ActiveRecord::Schema.define(version: 2018_10_30_194255) do
     t.uuid "user_id"
     t.datetime "inserted_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "audience_id"
     t.uuid "creative_id"
     t.string "included_countries", limit: 255, default: [], array: true
     t.integer "impression_count", default: 0, null: false
@@ -62,6 +60,7 @@ ActiveRecord::Schema.define(version: 2018_10_30_194255) do
     t.string "included_topic_categories", limit: 255, default: [], array: true
     t.string "excluded_programming_languages", limit: 255, default: [], array: true
     t.string "excluded_topic_categories", limit: 255, default: [], array: true
+    t.boolean "fallback_campaign", default: false, null: false
     t.index "((end_date)::date)", name: "index_campaigns_on_end_date"
     t.index "((start_date)::date)", name: "index_campaigns_on_start_date"
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
@@ -84,9 +83,6 @@ ActiveRecord::Schema.define(version: 2018_10_30_194255) do
     t.datetime "inserted_at", null: false
     t.datetime "updated_at", null: false
     t.string "headline", limit: 255
-    t.uuid "small_image_asset_id"
-    t.uuid "large_image_asset_id"
-    t.uuid "wide_image_asset_id"
     t.index ["user_id"], name: "creatives_user_id_index"
   end
 
@@ -159,13 +155,19 @@ ActiveRecord::Schema.define(version: 2018_10_30_194255) do
     t.string "topic_categories", limit: 255, default: [], null: false, array: true
     t.text "screenshot_url"
     t.string "slug", limit: 255, null: false
-    t.uuid "audience_id"
     t.string "excluded_advertisers", limit: 255, default: [], array: true
     t.uuid "template_id"
     t.boolean "no_api_house_ads", default: false, null: false
+    t.index "lower((name)::text)", name: "index_properties_on_name"
+    t.index ["excluded_advertisers"], name: "index_properties_on_excluded_advertisers", using: :gin
+    t.index ["legacy_id"], name: "index_properties_on_legacy_id"
+    t.index ["no_api_house_ads"], name: "index_properties_on_no_api_house_ads"
+    t.index ["programming_languages"], name: "index_properties_on_programming_languages", using: :gin
+    t.index ["property_type"], name: "index_properties_on_property_type"
     t.index ["slug"], name: "properties_slug_index", unique: true
     t.index ["status"], name: "properties_status_index"
     t.index ["template_id"], name: "properties_template_id_index"
+    t.index ["topic_categories"], name: "index_properties_on_topic_categories", using: :gin
     t.index ["user_id"], name: "properties_user_id_index"
   end
 
@@ -241,19 +243,12 @@ ActiveRecord::Schema.define(version: 2018_10_30_194255) do
     t.index ["roles"], name: "index_users_on_roles", using: :gin
   end
 
-  add_foreign_key "assets", "users", name: "assets_user_id_fkey"
-  add_foreign_key "audiences", "campaigns", column: "fallback_campaign_id", name: "audiences_fallback_campaign_id_fkey"
-  add_foreign_key "campaigns", "audiences", name: "campaigns_audience_id_fkey"
   add_foreign_key "campaigns", "creatives", name: "campaigns_creative_id_fkey"
   add_foreign_key "campaigns", "users", name: "campaigns_user_id_fkey"
-  add_foreign_key "creatives", "assets", column: "large_image_asset_id", name: "creatives_large_image_asset_id_fkey"
-  add_foreign_key "creatives", "assets", column: "small_image_asset_id", name: "creatives_small_image_asset_id_fkey"
-  add_foreign_key "creatives", "assets", column: "wide_image_asset_id", name: "creatives_wide_image_asset_id_fkey"
   add_foreign_key "creatives", "users", name: "creatives_user_id_fkey"
   add_foreign_key "impressions", "campaigns", name: "impressions_campaign_id_fkey"
   add_foreign_key "impressions", "distributions", name: "impressions_distribution_id_fkey"
   add_foreign_key "impressions", "properties", name: "impressions_property_id_fkey"
-  add_foreign_key "properties", "audiences", name: "properties_audience_id_fkey"
   add_foreign_key "properties", "templates", name: "properties_template_id_fkey"
   add_foreign_key "properties", "users", name: "properties_user_id_fkey"
   add_foreign_key "rememberables", "users", name: "rememberables_user_id_fkey", on_delete: :cascade
