@@ -18,7 +18,12 @@ Rails.application.routes.draw do
   resources :properties
   resources :templates
   resources :themes
-  resources :users
+  resources :users do
+    resources :user_notes, only: [:index], path: "notes"
+    resources :user_payments, only: [:index], path: "payments"
+    resources :user_properties, only: [:index], path: "properties"
+    resources :user_campaigns, only: [:index], path: "campaigns"
+  end
 
   root "users#index"
 end

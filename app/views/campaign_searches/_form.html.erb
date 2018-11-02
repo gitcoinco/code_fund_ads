@@ -1,53 +1,69 @@
-<%= simple_form_for @campaign_search do |f| %>
-  <div class="row mt-5">
-    <%= tag.div f.input(:name, required: false), class: "col-12 col-md-auto" %>
-    <%= tag.div f.input(:user, required: false, label: "Advertiser"), class: "col-12 col-md-auto" %>
-    <%= tag.div f.input(:statuses, collection: campaign_statuses_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
-
-    <div class="col-12 col-md-auto" data-controller="select-countries">
-      <%= f.input :included_countries, collection: countries_for_select, required: false, input_html: { multiple: true, data: { controller: "select", target: "select-countries.select" }} %>
-      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#selectAll" }  %>
-      <%= link_to "Developed markets", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#selectDevelopedMarkets" }  %>
-      <%= link_to "Emerging markets", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#selectEmergingMarkets" }  %>
-      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#clearSelections" }  %>
+<div class="accordion mb-4">
+  <div class="card u-card-collapse border-0">
+    <div class="card-header px-4 bg-white border-0" id="filters-heading">
+      <div class="collapsed" data-toggle="collapse" data-target="#filters" aria-expanded="false" aria-controls="filters" role="button">
+        <h3 class="h6 d-flex justify-content-between align-items-center font-weight-normal u-card-collapse__heading mb-0">
+          <span><i class="fas fa-search"></i></span>
+          <span class="fa fa-angle-up u-card-collapse__heading-icon"></span>
+        </h3>
+      </div>
     </div>
+    <div id="filters" class="collapse" aria-labelledby="filters-heading" data-parent="#filters-heading">
+      <div class="card-body px-4">
+        <%= simple_form_for @campaign_search do |f| %>
+          <div class="row mt-5">
+            <%= tag.div f.input(:name, required: false), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:user, required: false, label: "Advertiser"), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:statuses, collection: campaign_statuses_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
 
-    <div class="col-12 col-md-auto" data-controller="select-multiple">
-      <%= f.input :included_topic_categories, collection: topic_categories_for_select, label: "Targeted Topics",
-        input_html: { multiple: true, class: "mb-0", data: { controller: "select", target: "select-multiple.select" }} %>
-      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
-      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
-    </div>
-    <div class="col-12 col-md-auto" data-controller="select-multiple">
-      <%= f.input :excluded_topic_categories, collection: topic_categories_for_select, label: "Excluded Topics",
-        input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
-      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
-      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
-    </div>
+            <div class="col-12 col-md-auto" data-controller="select-countries">
+              <%= f.input :included_countries, collection: countries_for_select, required: false, input_html: { multiple: true, data: { controller: "select", target: "select-countries.select" }} %>
+              <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#selectAll" }  %>
+              <%= link_to "Developed markets", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#selectDevelopedMarkets" }  %>
+              <%= link_to "Emerging markets", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#selectEmergingMarkets" }  %>
+              <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#clearSelections" }  %>
+            </div>
 
-    <div class="col-12 col-md-auto" data-controller="select-multiple">
-      <%= f.input :included_programming_languages, collection: programming_languages_for_select, label: "Targeted Programming Languages",
-        input_html: { multiple: true, class: "mb-0", data: { controller: "select", target: "select-multiple.select" }} %>
-      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
-      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
-    </div>
-    <div class="col-12 col-md-auto" data-controller="select-multiple">
-      <%= f.input :excluded_programming_languages, collection: programming_languages_for_select, label: "Excluded Programming Languages",
-        input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
-      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
-      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
-    </div>
+            <div class="col-12 col-md-auto" data-controller="select-multiple">
+              <%= f.input :included_topic_categories, collection: topic_categories_for_select, label: "Targeted Topics",
+                input_html: { multiple: true, class: "mb-0", data: { controller: "select", target: "select-multiple.select" }} %>
+              <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
+              <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
+            </div>
+            <div class="col-12 col-md-auto" data-controller="select-multiple">
+              <%= f.input :excluded_topic_categories, collection: topic_categories_for_select, label: "Excluded Topics",
+                input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
+              <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
+              <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
+            </div>
 
-    <%= pseudo_row_divider %>
+            <div class="col-12 col-md-auto" data-controller="select-multiple">
+              <%= f.input :included_programming_languages, collection: programming_languages_for_select, label: "Targeted Programming Languages",
+                input_html: { multiple: true, class: "mb-0", data: { controller: "select", target: "select-multiple.select" }} %>
+              <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
+              <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
+            </div>
+            <div class="col-12 col-md-auto" data-controller="select-multiple">
+              <%= f.input :excluded_programming_languages, collection: programming_languages_for_select, label: "Excluded Programming Languages",
+                input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
+              <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
+              <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
+            </div>
 
-    <%= tag.div f.input(:us_hours_only, required: false, as: "boolean", inline_label: "US Hours Only"), class: "col-12 col-md-auto" %>
-    <%= tag.div f.input(:weekdays_only, required: false, as: "boolean", inline_label: "Weekdays Only"), class: "col-12 col-md-auto" %>
+            <%= pseudo_row_divider %>
 
-    <%= pseudo_row_divider %>
+            <%= tag.div f.input(:us_hours_only, required: false, as: "boolean", inline_label: "US Hours Only"), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:weekdays_only, required: false, as: "boolean", inline_label: "Weekdays Only"), class: "col-12 col-md-auto" %>
 
-    <div class="col-12 mt-3">
-      <%= f.button :submit, value: "Search", class: "btn btn-default mr-3" %>
-      <%= link_to "Clear", campaign_search_path(@campaign_search.to_gid_param), class: "btn-md btn-link text-danger", method: :delete if @campaign_search.present? %>
+            <%= pseudo_row_divider %>
+
+            <div class="col-12 mt-3">
+              <%= f.button :submit, value: "Search", class: "btn btn-default mr-3" %>
+              <%= link_to "Clear", campaign_search_path(@campaign_search.to_gid_param), class: "btn-md btn-link text-danger", method: :delete if @campaign_search.present? %>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-<% end %>
+</div>

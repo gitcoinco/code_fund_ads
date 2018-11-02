@@ -1,19 +1,35 @@
-<%= simple_form_for @property_search do |f| %>
-  <div class="row mt-5">
-    <%= tag.div f.input(:name, required: false), class: "col-12 col-md-auto" %>
-    <%= tag.div f.input(:user, label: "Developer", required: false), class: "col-12 col-md-auto" %>
-    <%= tag.div f.input(:property_types, collection: property_types_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
-    <%= tag.div f.input(:statuses, collection: property_statuses_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
-    <%= tag.div f.input(:templates, collection: templates_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
-    <%= tag.div f.input(:languages, collection: languages_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
-    <%= tag.div f.input(:topic_categories, collection: topic_categories_for_select, label: "Topics", required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
-    <%= tag.div f.input(:programming_languages, collection: programming_languages_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
+<div class="accordion mb-4">
+  <div class="card u-card-collapse border-0">
+    <div class="card-header px-4 bg-white border-0" id="filters-heading">
+      <div class="collapsed" data-toggle="collapse" data-target="#filters" aria-expanded="false" aria-controls="filters" role="button">
+        <h3 class="h6 d-flex justify-content-between align-items-center font-weight-normal u-card-collapse__heading mb-0">
+          <span><i class="fas fa-search"></i></span>
+          <span class="fa fa-angle-up u-card-collapse__heading-icon"></span>
+        </h3>
+      </div>
+    </div>
+    <div id="filters" class="collapse" aria-labelledby="filters-heading" data-parent="#filters-heading">
+      <div class="card-body px-4">
+        <%= simple_form_for @property_search do |f| %>
+          <div class="row mt-5">
+            <%= tag.div f.input(:name, required: false), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:user, label: "Developer", required: false), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:property_types, collection: property_types_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:statuses, collection: property_statuses_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:templates, collection: templates_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:languages, collection: languages_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:topic_categories, collection: topic_categories_for_select, label: "Topics", required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:programming_languages, collection: programming_languages_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
 
-    <%= pseudo_row_divider %>
+            <%= pseudo_row_divider %>
 
-    <div class="col-12 mt-3">
-      <%= f.button :submit, value: "Search", class: "btn btn-default mr-3" %>
-      <%= link_to "Clear", property_search_path(@property_search.to_gid_param), class: "btn-md btn-link text-danger", method: :delete if @property_search.present? %>
+            <div class="col-12 mt-3">
+              <%= f.button :submit, value: "Search", class: "btn btn-default mr-3" %>
+              <%= link_to "Clear", property_search_path(@property_search.to_gid_param), class: "btn-md btn-link text-danger", method: :delete if @property_search.present? %>
+            </div>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
-<% end %>
+</div>

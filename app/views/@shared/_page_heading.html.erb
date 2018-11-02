@@ -1,7 +1,18 @@
-<h1>
-  <%= action %>
-  <span class="text-success opacity-50 font-weight-light"><%= subject.upcase %></span>
-</h1>
-<% if local_assigns[:subtitle] %>
-  <h5 class="opacity-50"><%= subtitle %></h5>
-<% end %>
+<div class="media d-block d-sm-flex align-items-sm-center">
+  <% if local_assigns[:icon] %>
+    <div class="u-lg-avatar position-relative mb-3 mb-sm-0 mr-3">
+      <i class="fas fa-<%= icon %> fa-5x opacity-20"></i>
+    </div>
+  <% else %>
+    <div class="u-lg-avatar position-relative mb-3 mb-sm-0 mr-0" style="width: 0px;"></div>
+  <% end %>
+  <div class="media-body">
+    <h1 class="h3 text-white font-weight-medium mb-1">
+      <span class="opacity-50 font-weight-light"><%= action %></span>
+      <%= subject.upcase %>
+    </h1>
+    <% if local_assigns[:subtitle] %>
+      <span class="d-block text-white"><%= subtitle %></span>
+    <% end %>
+  </div>
+</div>

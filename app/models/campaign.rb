@@ -32,6 +32,7 @@ class Campaign < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
   include Taggable
+  include Campaigns::Presentable
 
   # relationships .............................................................
   belongs_to :creative
@@ -139,10 +140,6 @@ class Campaign < ApplicationRecord
   def date_range
     return nil unless start_date && end_date
     "#{start_date.to_s "mm/dd/yyyy"} #{end_date.to_s "mm/dd/yyyy"}"
-  end
-
-  def scoped_name
-    [user.scoped_name, name, creative&.name].compact.join "・"
   end
 
   # protected instance methods ................................................
