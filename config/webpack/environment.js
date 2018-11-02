@@ -5,10 +5,11 @@ const webpack = require('webpack');
 environment.config.merge({
   resolve: {
     alias: {
-      jquery: 'theme/vendor/jquery/dist/jquery',
-      'popper.js': 'theme/vendor/popper.js/dist/popper',
-    },
-  },
+      jquery: "theme/vendor/jquery/dist/jquery",
+      "popper.js": "theme/vendor/popper.js/dist/popper",
+      Chartist: "theme/vendor/chartist/dist/chartist.min"
+    }
+  }
 });
 
 environment.plugins.prepend(
@@ -17,6 +18,7 @@ environment.plugins.prepend(
     jQuery: 'jquery',
     'window.jQuery': 'jquery',
     Popper: 'popper.js',
+    Chartist: 'Chartist',
   })
 );
 

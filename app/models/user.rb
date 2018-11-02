@@ -125,7 +125,7 @@ class User < ApplicationRecord
   end
 
   def gravatar_url
-    require 'digest/md5'
+    require "digest/md5"
     hash = Digest::MD5.hexdigest(email)
     "https://www.gravatar.com/avatar/#{hash}"
   end

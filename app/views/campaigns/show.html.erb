@@ -4,9 +4,14 @@
   <%= render "/@shared/breadcrumbs/campaign", class: "active" %>
 <% end %>
 
+<% content_for :actions do %>
+  <%= render "/@shared/actions/edit_campaign", campaign: @campaign %>
+<% end %>
+
+<% content_for :page_heading do %>
+  <%= page_heading "Viewing", "Campaign", subtitle: @campaign.name, icon: "ad" %>
+<% end %>
+
 <div class="container mt-3">
   <p id="notice"><%= notice %></p>
-  <%= page_heading "Viewing", "Campaign", subtitle: @campaign.scoped_name %>
-  <%= link_to 'Edit', edit_campaign_path(@campaign), class: "btn btn-link" %>
-  <%= link_to 'Back', campaigns_path, class: "btn btn-link" %>
 </div>

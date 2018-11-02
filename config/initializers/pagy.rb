@@ -33,7 +33,7 @@
 
 # Bootstrap: Nav, responsive and compact helpers and templates for Bootstrap pagination
 # See https://ddnexus.github.io/pagy/extras/bootstrap
-# require 'pagy/extras/bootstrap'
+require "pagy/extras/bootstrap"
 
 # Bulma: Nav, responsive and compact helpers and templates for Bulma pagination
 # See https://ddnexus.github.io/pagy/extras/bulma
@@ -100,7 +100,7 @@ Pagy::VARS[:items] = 15
 
 # Rails: extras assets path required by the compact and responsive navs, and the items extra
 # See https://ddnexus.github.io/pagy/extras#javascript
-# Rails.application.config.assets.paths << Pagy.root.join('javascripts')
+Rails.application.config.assets.paths << Pagy.root.join("javascripts")
 
 
 # I18n

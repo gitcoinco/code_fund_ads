@@ -39,7 +39,11 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "roles can be set" do
+    subject = User.new
+    subject.roles = ["admin"]
+    assert_not subject.valid?
+    puts subject.errors[:roles]
+    # assert subject.errors[:roles].empty?
+  end
 end

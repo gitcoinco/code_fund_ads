@@ -7,9 +7,20 @@
   <%= render "/@shared/actions/add_user" %>
 <% end %>
 
-<div class="container mt-3">
-  <p id="notice"><%= notice %></p>
-  <%= page_heading "Viewing", "Users" %>
-  <%= render "/user_searches/form" %>
-  <%= render "/users/table" %>
-</div>
+<% content_for :page_heading do %>
+  <%= page_heading "Viewing", "Users",
+    subtitle: "#{pluralize(@pagy.count, "record")} found",
+    icon: "user-circle" %>
+<% end %>
+
+<main id="content" role="main">
+  <div class="u-bg-light-blue-50">
+    <div class="container u-space-1">
+      <p id="notice"><%= notice %></p>
+      <%= render "/user_searches/form" %>
+      <div class="bg-white p-4">
+        <%= render "/users/table" %>
+      </div>
+    </div>
+  </div>
+</main>
