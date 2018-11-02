@@ -3,14 +3,17 @@
     <thead>
       <tr class="border-bottom">
         <th scope="col">Name</th>
+        <th scope="col">Type</th>
+        <th scope="col">Size</th>
+        <th scope="col">Preview</th>
       </tr>
     </thead>
     <tbody>
-      <%# render partial: "/images/tr", collection: @imageable.images, as: :image %>
+      <%= render partial: "/images/tr", collection: @imageable.images, as: :image %>
     </tbody>
     <tfoot>
       <tr class="border-top">
-        <td colspan="5" class="pt-3">
+        <td colspan="4" class="pt-3">
           <%#== pagy_nav_bootstrap(@pagy) %>
         </td>
       </tr>

@@ -8,5 +8,5 @@
   <%= page_heading "Editing", "User", subtitle: @user.scoped_name %>
   <%= render '/users/form' %>
   <%= link_to 'View', @user, class: "btn btn-link" %>
-  <%= link_to 'Back', users_path, class: "btn btn-link" %>
+  <%= link_to 'Back', :back, class: "btn btn-link" %>
 </div>

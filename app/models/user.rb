@@ -40,6 +40,7 @@ class User < ApplicationRecord
   # extends ...................................................................
 
   # includes ..................................................................
+  include Users::Presentable
   include Imageable
   include Taggable
 
@@ -104,14 +105,6 @@ class User < ApplicationRecord
 
   # public instance methods ...................................................
 
-  def full_name
-    [first_name, last_name].compact.join " "
-  end
-
-  def scoped_name
-    [company, full_name].compact.join "・"
-  end
-
   def admin?
     roles.include? ENUMS::USER_ROLES["admin"]
   end
@@ -122,12 +115,6 @@ class User < ApplicationRecord
 
   def developer?
     roles.include? ENUMS::USER_ROLES["developer"]
-  end
-
-  def gravatar_url
-    require "digest/md5"
-    hash = Digest::MD5.hexdigest(email)
-    "https://www.gravatar.com/avatar/#{hash}"
   end
 
   def total_distributions
