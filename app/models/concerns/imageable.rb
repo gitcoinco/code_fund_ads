@@ -8,6 +8,6 @@ module Imageable
   end
 
   def imageable_name
-    attributes["name"] || "#{self.class.name}: #{id}"
+    try(:name) || "#{self.class.name}: #{id}"
   end
 end

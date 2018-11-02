@@ -2,5 +2,5 @@
   <td><%= link_to truncate(image.blob.filename.to_s, length: 20), image_path(@imageable.to_gid_param, image), title: "Manage Image", data: tooltip_expando %></td>
   <td><%= image.blob.content_type %></td>
   <td><%= number_to_human_size image.blob.byte_size %></td>
-  <td><%= link_to image_tag(image.variant(thumbnail: "100x50"), class: "img-thumbnail", title: "View Original", data: tooltip_expando), image %></td>
+  <td><%= link_to image_tag(image.variant(thumbnail: "x50"), style: "height:50px", class: "img-thumbnail", title: "View Original", data: tooltip_expando), image %></td>
 <% end %>

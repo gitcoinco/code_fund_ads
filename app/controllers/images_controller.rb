@@ -7,6 +7,7 @@ class ImagesController < ApplicationController
   # GET /imageable/:imageable_gid/images.json
   def index
     @images = @imageable.images
+    redirect_to new_image_path if @images.count == 0
   end
 
   # GET /imageable/:imageable_gid/images/1
@@ -31,7 +32,7 @@ class ImagesController < ApplicationController
   def destroy
     image = ActiveStorage::Attachment.find(params[:id])
     image.purge
-    redirect_back fallback_location: root_path
+    redirect_to images_path(@imageable.to_gid_param)
   end
 
   private

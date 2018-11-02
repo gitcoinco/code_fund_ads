@@ -1,12 +1,23 @@
 <% content_for :breadcrumbs do %>
   <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/imageables" %>
   <%= render "/@shared/breadcrumbs/imageable" %>
   <%= render "/@shared/breadcrumbs/images" %>
   <%= render "/@shared/breadcrumbs/image", class: "active" %>
 <% end %>
 
-<div class="container mt-3">
-  <%= page_heading "Creating", "#{@imageable.class.name} Images" %>
-  <%= render '/images/form' %>
-  <%= link_to 'Back', :back, class: 'btn btn-link' %>
+<% content_for :page_heading do %>
+  <%= page_heading "Adding", "Images",
+    subtitle: "for #{@imageable.imageable_name}",
+    icon: "images" %>
+<% end %>
+
+<main id="content" role="main">
+  <div class="u-bg-light-blue-50">
+    <div class="container u-space-1">
+      <p id="notice"><%= notice %></p>
+      <%= render '/images/form' %>
+      <%= link_to 'Back', :back, class: 'btn btn-link' %>
+    </div>
+  </div>
 </div>
