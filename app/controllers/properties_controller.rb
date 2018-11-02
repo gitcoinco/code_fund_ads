@@ -3,13 +3,17 @@
 class PropertiesController < ApplicationController
   before_action :set_property_search, only: [:index]
   before_action :set_property, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
 
   # GET /properties
   # GET /properties.json
   def index
     properties = Property.order(:name).includes(:user, :template)
+    properties = properties.where(user: @user) if @user
     properties = @property_search.apply(properties)
     @pagy, @properties = pagy(properties)
+
+    render "/properties/for_user/index" if @user
   end
 
   # GET /properties/1
@@ -76,6 +80,10 @@ class PropertiesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_property
       @property = Property.find(params[:id])
+    end
+
+    def set_user
+      @user = User.find(params[:user_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

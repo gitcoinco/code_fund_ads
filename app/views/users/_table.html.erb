@@ -1,22 +1,23 @@
-<table class="table table-borderless u-datatable u-datatable__striped">
-  <thead>
-    <tr class="border-bottom">
-      <th scope="col">Name</th>
-      <th scope="col">Email</th>
-      <th scope="col">Company</th>
-      <th scope="col">Roles</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render partial: "/users/tr", collection: @users, as: :user %>
-  </tbody>
-  <tfoot>
-    <tr class="border-top">
-      <td colspan="5" class="pt-3">
-        <%= link_to "Previous", users_path(page: @pagy.prev), class: "btn btn-lg btn-link text-secondary" if @pagy.prev %>
-        <%= link_to "Next", users_path(page: @pagy.next), class: "btn btn-lg btn-link text-secondary float-right" if @pagy.next %>
-      </td>
-    </tr>
-  </tfoot>
-</table>
+<div class="table-responsive">
+  <table class="table table-borderless u-datatable u-datatable__striped">
+    <thead>
+      <tr class="border-bottom">
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Company</th>
+        <th scope="col">Roles</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "/users/tr", collection: @users, as: :user %>
+    </tbody>
+    <tfoot>
+      <tr class="border-top">
+        <td colspan="5" class="pt-3">
+          <%== pagy_nav_bootstrap(@pagy) %>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

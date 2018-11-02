@@ -1,22 +1,23 @@
-<table class="table table-borderless u-datatable u-datatable__striped mt-5">
-  <thead>
-    <tr class="border-bottom">
-      <th scope="col" style="width: 30px;">&nbsp;</th>
-      <th scope="col">Name</th>
-      <th scope="col">Developer</th>
-      <th scope="col">URL</th>
-      <th scope="col"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <%= render partial: "/properties/tr", collection: @properties, as: :property %>
-  </tbody>
-  <tfoot>
-    <tr class="border-top">
-      <td colspan="5" class="pt-3">
-        <%= link_to "Previous", properties_path(page: @pagy.prev), class: "btn btn-lg btn-link text-secondary" if @pagy.prev %>
-        <%= link_to "Next", properties_path(page: @pagy.next), class: "btn btn-lg btn-link text-secondary float-right" if @pagy.next %>
-      </td>
-    </tr>
-  </tfoot>
+<div class="table-responsive">
+  <table class="table table-borderless u-datatable u-datatable__striped">
+    <thead>
+      <tr class="border-bottom">
+        <th scope="col" style="width: 30px;">&nbsp;</th>
+        <th scope="col">Name</th>
+        <th scope="col">Developer</th>
+        <th scope="col">URL</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "/properties/tr", collection: @properties, as: :property %>
+    </tbody>
+    <tfoot>
+      <tr class="border-top">
+        <td colspan="5" class="pt-3">
+          <%== pagy_nav_bootstrap(@pagy) %>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
 </table>

@@ -1,0 +1,55 @@
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/users" %>
+  <%= render "/@shared/breadcrumbs/user", class: "active" %>
+<% end %>
+
+<% content_for :actions do %>
+  <%= render "/@shared/actions/edit_user", user: user %>
+<% end %>
+
+<% content_for :page_heading do %>
+  <div class="media d-block d-sm-flex align-items-sm-center">
+    <div class="u-lg-avatar position-relative mb-3 mb-sm-0 mr-3">
+      <%= image_tag user.gravatar_url, class: "u-lg-avatar rounded-circle", alt: user.full_name %>
+      <span class="u-badge u-badge-border-success u-badge--md u-badge-pos--bottom-right-0 rounded-circle">
+        <span class="fa fa-check"></span>
+      </span>
+    </div>
+    <div class="media-body">
+      <h1 class="h3 text-white font-weight-medium mb-1"><%= user.full_name %></h1>
+      <span class="d-block text-white"><%= user.email %></span>
+    </div>
+  </div>
+<% end %>
+
+<main id="content" role="main">
+  <div class="u-bg-light-blue-50">
+    <div class="container u-space-2">
+      <div class="bg-white p-4">
+        <div class="mb-4">
+          <ul class="nav nav-pills">
+            <li class="nav-item">
+              <%= active_link_to "Overview", user_path(user), active: :exact, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= active_link_to "Campaigns", user_campaigns_path(user), class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= active_link_to "Properties", user_properties_path(user), class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= active_link_to "Creatives", user_creatives_path(user), class: "nav-link" %>
+            </li>
+          </ul>
+        </div>
+
+        <div class="tab-content">
+          <div class="tab-pane active">
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

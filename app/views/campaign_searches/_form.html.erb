@@ -58,7 +58,7 @@
             <%= pseudo_row_divider %>
 
             <div class="col-12 mt-3">
-              <%= f.button :submit, value: "Search", class: "btn btn-default mr-3" %>
+              <%= f.button :submit, value: "Search", class: "btn btn-primary mr-3" %>
               <%= link_to "Clear", campaign_search_path(@campaign_search.to_gid_param), class: "btn-md btn-link text-danger", method: :delete if @campaign_search.present? %>
             </div>
           </div>

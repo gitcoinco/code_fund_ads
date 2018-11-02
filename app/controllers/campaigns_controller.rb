@@ -3,13 +3,17 @@
 class CampaignsController < ApplicationController
   before_action :set_campaign_search, only: [:index]
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
 
   # GET /campaigns
   # GET /campaigns.json
   def index
     campaigns = Campaign.order(:name).includes(:user, :creative)
+    campaigns = campaigns.where(user: @user) if @user
     campaigns = @campaign_search.apply(campaigns)
     @pagy, @campaigns = pagy(campaigns)
+
+    render "/campaigns/for_user/index" if @user
   end
 
   # GET /campaigns/1
@@ -77,6 +81,10 @@ class CampaignsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_campaign
       @campaign = Campaign.find(params[:id])
+    end
+
+    def set_user
+      @user = User.find(params[:user_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
