@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  devise_for :users
   resources :campaign_searches, only: [:create, :destroy]
   resources :property_searches, only: [:create, :destroy]
   resources :user_searches, only: [:create, :destroy]
@@ -12,9 +13,7 @@ Rails.application.routes.draw do
 
   resources :campaigns
   resources :creatives
-  resources :distributions
   resources :impressions
-  resources :invitations
   resources :properties
   resources :templates
   resources :themes

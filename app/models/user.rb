@@ -4,36 +4,39 @@
 #
 # Table name: users
 #
-#  id                     :uuid             not null, primary key
-#  email                  :string(255)
-#  first_name             :string(255)
-#  last_name              :string(255)
-#  address_1              :string(255)
-#  address_2              :string(255)
-#  city                   :string(255)
-#  region                 :string(255)
-#  postal_code            :string(255)
-#  country                :string(255)
-#  roles                  :string(255)      is an Array
-#  revenue_rate           :decimal(3, 3)    default(0.5), not null
-#  password_hash          :string(255)
-#  reset_password_token   :string(255)
+#  id                     :bigint(8)        not null, primary key
+#  roles                  :string           default([]), is an Array
+#  first_name             :string           not null
+#  last_name              :string           not null
+#  company_name           :string
+#  address_1              :string
+#  address_2              :string
+#  city                   :string
+#  region                 :string
+#  postal_code            :string
+#  country                :string
+#  api_access             :boolean          default(FALSE), not null
+#  api_key                :string
+#  paypal_email           :string
+#  email                  :string           not null
+#  encrypted_password     :string           not null
+#  reset_password_token   :string
 #  reset_password_sent_at :datetime
-#  failed_attempts        :integer          default(0)
-#  locked_at              :datetime
-#  sign_in_count          :integer          default(0)
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default(0), not null
 #  current_sign_in_at     :datetime
 #  last_sign_in_at        :datetime
-#  current_sign_in_ip     :string(255)
-#  last_sign_in_ip        :string(255)
-#  unlock_token           :string(255)
-#  remember_created_at    :datetime
-#  inserted_at            :datetime         not null
+#  current_sign_in_ip     :inet
+#  last_sign_in_ip        :inet
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string
+#  failed_attempts        :integer          default(0), not null
+#  unlock_token           :string
+#  locked_at              :datetime
+#  created_at             :datetime         not null
 #  updated_at             :datetime         not null
-#  paypal_email           :string(255)
-#  company                :string(255)
-#  api_access             :boolean          default(FALSE), not null
-#  api_key                :string(255)
 #
 
 class User < ApplicationRecord
@@ -51,31 +54,16 @@ class User < ApplicationRecord
   has_many :properties
 
   # validations ...............................................................
-  validates :address_1, length: { maximum: 255 }
-  validates :address_2, length: { maximum: 255 }
-  validates :api_key, length: { maximum: 255 }
-  validates :city, length: { maximum: 255 }
-  validates :company, length: { maximum: 255 }
-  validates :country, length: { maximum: 255 }
-  validates :current_sign_in_ip, length: { maximum: 255 }
-  validates :email, length: { maximum: 255 }
-  validates :first_name, length: { maximum: 255 }
-  validates :last_name, length: { maximum: 255 }
-  validates :last_sign_in_ip, length: { maximum: 255 }
-  validates :password_hash, length: { maximum: 255 }
-  validates :paypal_email, length: { maximum: 255 }
-  validates :postal_code, length: { maximum: 255 }
-  validates :region, length: { maximum: 255 }
-  validates :reset_password_token, length: { maximum: 255 }
-  validates :revenue_rate, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
-  validates :unlock_token, length: { maximum: 255 }
+  validates :first_name, presence: true
+  validates :last_name, presence: true
 
   # callbacks .................................................................
   before_save :ensure_roles
 
   # scopes ....................................................................
-  scope :developer, -> { with_all_roles ENUMS::USER_ROLES::DEVELOPER }
-  scope :sponsor, -> { with_all_roles ENUMS::USER_ROLES::SPONSOR }
+  scope :administrator, -> { with_all_roles ENUMS::USER_ROLES::ADMINISTRATOR }
+  scope :advertiser, -> { with_all_roles ENUMS::USER_ROLES::ADVERTISER }
+  scope :publisher, -> { with_all_roles ENUMS::USER_ROLES::PUBLISHER }
   scope :search_company, -> (value) { value.blank? ? all : search_column(:company, value) }
   scope :search_email, -> (value) { value.blank? ? all : search_column(:email, value) }
   scope :search_name, -> (value) { value.blank? ? all : search_column(:first_name, value).or(search_column(:last_name, value)) }
@@ -97,7 +85,18 @@ class User < ApplicationRecord
   #   irb>User.without_any_roles(:sponsor, :developer)
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  tag_columns :roles
+  tag_columns :roles rescue ActiveRecord::NoDatabaseError # rescue required for initial migration due to devise
+  devise(
+    :confirmable,
+    :database_authenticatable,
+    :lockable,
+    :recoverable,
+    :registerable,
+    :rememberable,
+    :timeoutable,
+    :trackable,
+    :validatable,
+  )
 
   # class methods .............................................................
   class << self

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ImagesController < ApplicationController
-  before_action :set_imageable
+  before_action :set_imageable, except: [:update, :destroy]
 
   # GET /imageable/:imageable_gid/images/
   # GET /imageable/:imageable_gid/images.json

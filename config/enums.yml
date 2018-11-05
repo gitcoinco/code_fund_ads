@@ -33,21 +33,21 @@
 #   ----------------------------------------------------------------------------
 #
 #   USER_ROLES:
-#     - admin
-#     - developer
-#     - sponsor
+#     - administrator
+#     - advertiser
+#     - publisher
 #
 #   The YAML above will be converted to the following enums
 #
-#   pry>ENUMS::USER_ROLES::ADMIN      # admin
-#   pry>ENUMS::USER_ROLES::DEVELOPER  # developer
-#   pry>ENUMS::USER_ROLES::SPONSOR    # sponsor
+#   pry>ENUMS::USER_ROLES::ADMINISTRATOR # administrator
+#   pry>ENUMS::USER_ROLES::ADVERTISER    # advertiser
+#   pry>ENUMS::USER_ROLES::PUBLISHER     # publisher
 #
-#   pry>ENUMS::USER_ROLES.keys                # [admin, developer, sponsor]
-#   pry>ENUMS::USER_ROLES.values              # [admin, developer, sponsor]
-#   pry>ENUMS::USER_ROLES.admin? :admin       # true
-#   pry>ENUMS::USER_ROLES.admin? :developer   # false
-#   pry>ENUMS::USER_ROLES["admin"]            # admin
+#   pry>ENUMS::USER_ROLES.keys                          # [administrator, advertiser, publisher]
+#   pry>ENUMS::USER_ROLES.values                        # [administrator, advertiser, publisher]
+#   pry>ENUMS::USER_ROLES.administrator? :administrator # true
+#   pry>ENUMS::USER_ROLES.administrator? :developer     # false
+#   pry>ENUMS::USER_ROLES["administrator"]              # admin
 #
 #   ----------------------------------------------------------------------------
 #
@@ -71,9 +71,9 @@
 #
 
 USER_ROLES:
-  - admin
-  - developer
-  - sponsor
+  - administrator
+  - advertiser
+  - publisher
 
 CAMPAIGN_STATUSES:
   1: pending
@@ -96,6 +96,12 @@ IMAGE_FORMATS:
   - small
   - large
   - wide
+
+IMPRESSION_CODES:
+  - ok
+  - property_inactive
+  - impression_count_exceeded
+  - no_possible_ads
 
 # SEE: https://dev.maxmind.com/geoip/legacy/codes/iso3166/
 COUNTRIES:

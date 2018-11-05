@@ -18,9 +18,7 @@ module CodeFundAds
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
+    config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
     config.active_record.schema_format = :sql
-    config.generators do |g|
-      g.orm :active_record, primary_key_type: :uuid
-    end
   end
 end

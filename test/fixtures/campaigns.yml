@@ -3,26 +3,23 @@
 #
 # Table name: campaigns
 #
-#  id                             :uuid             not null, primary key
-#  name                           :string(255)      not null
-#  redirect_url                   :text             not null
-#  status                         :integer          default(0), not null
-#  ecpm                           :decimal(10, 2)   not null
-#  budget_daily_amount            :decimal(10, 2)   not null
-#  total_spend                    :decimal(10, 2)   not null
-#  user_id                        :uuid
-#  inserted_at                    :datetime         not null
-#  updated_at                     :datetime         not null
-#  creative_id                    :uuid
-#  included_countries             :string(255)      default([]), is an Array
-#  impression_count               :integer          default(0), not null
-#  start_date                     :datetime
-#  end_date                       :datetime
-#  us_hours_only                  :boolean          default(FALSE)
-#  weekdays_only                  :boolean          default(FALSE)
-#  included_programming_languages :string(255)      default([]), is an Array
-#  included_topic_categories      :string(255)      default([]), is an Array
-#  excluded_programming_languages :string(255)      default([]), is an Array
-#  excluded_topic_categories      :string(255)      default([]), is an Array
-#  fallback_campaign              :boolean          default(FALSE), not null
+#  id                :bigint(8)        not null, primary key
+#  user_id           :bigint(8)
+#  creative_id       :bigint(8)
+#  status            :string           not null
+#  fallback          :boolean          default(FALSE), not null
+#  name              :string           not null
+#  url               :text             not null
+#  start_date        :date
+#  end_date          :date
+#  us_hours_only     :boolean          default(FALSE)
+#  weekdays_only     :boolean          default(FALSE)
+#  ecpm              :decimal(, )      not null
+#  daily_budget      :decimal(, )      not null
+#  total_budget      :decimal(, )      not null
+#  countries         :string           default([]), is an Array
+#  keywords          :string           default([]), is an Array
+#  negative_keywords :string           default([]), is an Array
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
