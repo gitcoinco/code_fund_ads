@@ -228,7 +228,7 @@ CREATE TABLE public.impressions (
     postal_code character varying,
     latitude numeric,
     longitude numeric,
-    valid boolean DEFAULT false NOT NULL,
+    payable boolean DEFAULT false NOT NULL,
     reason character varying,
     displayed_at_date date,
     clicked_at_date date,
@@ -746,17 +746,17 @@ CREATE INDEX index_impressions_on_ip ON public.impressions USING btree (ip);
 
 
 --
+-- Name: index_impressions_on_payable; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_payable ON public.impressions USING btree (payable);
+
+
+--
 -- Name: index_impressions_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_on_property_id ON public.impressions USING btree (property_id);
-
-
---
--- Name: index_impressions_on_valid; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_impressions_on_valid ON public.impressions USING btree (valid);
 
 
 --

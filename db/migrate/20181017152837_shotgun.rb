@@ -80,7 +80,7 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.string :postal_code
       t.decimal :latitude
       t.decimal :longitude
-      t.boolean :valid, default: false, null: false
+      t.boolean :payable, default: false, null: false
       t.string :reason
       t.date :displayed_at_date
       t.date :clicked_at_date
@@ -90,7 +90,7 @@ class Shotgun < ActiveRecord::Migration[5.2]
 
       t.index :campaign_id
       t.index :property_id
-      t.index :valid
+      t.index :payable
       t.index :displayed_at_date
       t.index :clicked_at_date
       t.index :ip

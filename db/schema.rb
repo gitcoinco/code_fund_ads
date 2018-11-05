@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
-    t.boolean "valid", default: false, null: false
+    t.boolean "payable", default: false, null: false
     t.string "reason"
     t.date "displayed_at_date"
     t.date "clicked_at_date"
@@ -101,8 +101,8 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.index ["clicked_at_date"], name: "index_impressions_on_clicked_at_date"
     t.index ["displayed_at_date"], name: "index_impressions_on_displayed_at_date"
     t.index ["ip"], name: "index_impressions_on_ip"
+    t.index ["payable"], name: "index_impressions_on_payable"
     t.index ["property_id"], name: "index_impressions_on_property_id"
-    t.index ["valid"], name: "index_impressions_on_valid"
   end
 
   create_table "properties", force: :cascade do |t|

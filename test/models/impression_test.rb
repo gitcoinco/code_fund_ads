@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: impressions
@@ -13,7 +12,7 @@
 #  postal_code       :string
 #  latitude          :decimal(, )
 #  longitude         :decimal(, )
-#  valid             :boolean          default(FALSE), not null
+#  payable           :boolean          default(FALSE), not null
 #  reason            :string
 #  displayed_at_date :date
 #  clicked_at_date   :date
