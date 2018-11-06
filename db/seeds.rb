@@ -41,3 +41,31 @@ advertiser.assign_attributes(
     last_name: "Cochran",
   ))
 advertiser.save!
+
+if advertiser.images.metadata_name("CodeFund Small").metadata_format(ENUMS::IMAGE_FORMATS::SMALL).count == 0
+  advertiser.images.attach io: File.open(Rails.root.join("db/seeds/code-fund-100x100.png")),
+    filename: "code-fund-100x100.png",
+    content_type: "image/png",
+    metadata: {
+      identified: true,
+      width: 100,
+      height: 100,
+      analyzed: true,
+      name: "CodeFund Small",
+      format: ENUMS::IMAGE_FORMATS::SMALL,
+    }
+end
+
+if advertiser.images.metadata_name("CodeFund Large").metadata_format(ENUMS::IMAGE_FORMATS::LARGE).count == 0
+  advertiser.images.attach io: File.open(Rails.root.join("db/seeds/code-fund-260x200.png")),
+    filename: "code-fund-100x100.png",
+    content_type: "image/png",
+    metadata: {
+      identified: true,
+      width: 260,
+      height: 200,
+      analyzed: true,
+      name: "CodeFund Large",
+      format: ENUMS::IMAGE_FORMATS::LARGE,
+    }
+end

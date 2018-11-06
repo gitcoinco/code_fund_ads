@@ -22,11 +22,15 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.string :filename, null: false
       t.string :content_type
       t.text :metadata
+      t.jsonb :indexed_metadata, default: {}
       t.bigint :byte_size, null: false
       t.string :checksum, null: false
       t.datetime :created_at, null: false
 
       t.index :key, name: "index_active_storage_blobs_on_key", unique: true
+      t.index :filename
+      t.index :content_type
+      t.index :indexed_metadata, using: :gin
     end
 
     create_table :campaigns do |t|

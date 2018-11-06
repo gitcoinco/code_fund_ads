@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Extensions
+module CodeFundAds::Extensions
   module KernelThen
     extend ActiveSupport::Concern
 

@@ -97,6 +97,7 @@ CREATE TABLE public.active_storage_blobs (
     filename character varying NOT NULL,
     content_type character varying,
     metadata text,
+    indexed_metadata jsonb DEFAULT '{}'::jsonb,
     byte_size bigint NOT NULL,
     checksum character varying NOT NULL,
     created_at timestamp without time zone NOT NULL
@@ -624,6 +625,27 @@ CREATE INDEX index_active_storage_attachments_on_blob_id ON public.active_storag
 --
 
 CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON public.active_storage_attachments USING btree (record_type, record_id, name, blob_id);
+
+
+--
+-- Name: index_active_storage_blobs_on_content_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_active_storage_blobs_on_content_type ON public.active_storage_blobs USING btree (content_type);
+
+
+--
+-- Name: index_active_storage_blobs_on_filename; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_active_storage_blobs_on_filename ON public.active_storage_blobs USING btree (filename);
+
+
+--
+-- Name: index_active_storage_blobs_on_indexed_metadata; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_active_storage_blobs_on_indexed_metadata ON public.active_storage_blobs USING gin (indexed_metadata);
 
 
 --
