@@ -4,13 +4,13 @@
 #
 # Table name: creatives
 #
-#  user_id     :uuid
-#  id          :uuid             not null, primary key
-#  name        :string(255)
-#  body        :string(255)
-#  inserted_at :datetime         not null
-#  updated_at  :datetime         not null
-#  headline    :string(255)
+#  id         :bigint(8)        not null, primary key
+#  user_id    :bigint(8)        not null
+#  name       :string           not null
+#  headline   :string           not null
+#  body       :text
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
 
 class Creative < ApplicationRecord
@@ -20,6 +20,7 @@ class Creative < ApplicationRecord
   # relationships .............................................................
   belongs_to :user
   has_many :campaigns
+  has_many :creative_images
 
   # validations ...............................................................
   validates :body, length: { maximum: 255, allow_blank: false }
@@ -35,6 +36,22 @@ class Creative < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def images
+    user.images.where(id: creative_images.select(:active_storage_attachment_id))
+  end
+
+  def small_images
+    images.metadata_format ENUMS::IMAGE_FORMATS::SMALL
+  end
+
+  def large_images
+    images.metadata_format ENUMS::IMAGE_FORMATS::LARGE
+  end
+
+  def wide_images
+    images.metadata_format ENUMS::IMAGE_FORMATS::WIDE
+  end
 
   # protected instance methods ................................................
   protected

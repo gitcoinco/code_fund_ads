@@ -33,21 +33,21 @@
 #   ----------------------------------------------------------------------------
 #
 #   USER_ROLES:
-#     - admin
-#     - developer
-#     - sponsor
+#     - administrator
+#     - advertiser
+#     - publisher
 #
 #   The YAML above will be converted to the following enums
 #
-#   pry>ENUMS::USER_ROLES::ADMIN      # admin
-#   pry>ENUMS::USER_ROLES::DEVELOPER  # developer
-#   pry>ENUMS::USER_ROLES::SPONSOR    # sponsor
+#   pry>ENUMS::USER_ROLES::ADMINISTRATOR # administrator
+#   pry>ENUMS::USER_ROLES::ADVERTISER    # advertiser
+#   pry>ENUMS::USER_ROLES::PUBLISHER     # publisher
 #
-#   pry>ENUMS::USER_ROLES.keys                # [admin, developer, sponsor]
-#   pry>ENUMS::USER_ROLES.values              # [admin, developer, sponsor]
-#   pry>ENUMS::USER_ROLES.admin? :admin       # true
-#   pry>ENUMS::USER_ROLES.admin? :developer   # false
-#   pry>ENUMS::USER_ROLES["admin"]            # admin
+#   pry>ENUMS::USER_ROLES.keys                          # [administrator, advertiser, publisher]
+#   pry>ENUMS::USER_ROLES.values                        # [administrator, advertiser, publisher]
+#   pry>ENUMS::USER_ROLES.administrator? :administrator # true
+#   pry>ENUMS::USER_ROLES.administrator? :developer     # false
+#   pry>ENUMS::USER_ROLES["administrator"]              # admin
 #
 #   ----------------------------------------------------------------------------
 #
@@ -71,26 +71,37 @@
 #
 
 USER_ROLES:
-  - admin
-  - developer
-  - sponsor
+  - administrator
+  - advertiser
+  - publisher
 
 CAMPAIGN_STATUSES:
-  1: pending
-  2: active
-  3: archived
+  - pending
+  - active
+  - archived
 
 PROPERTY_TYPES:
-  1: website
-  2: repository
-  3: newsletter
+  - website
+  - repository
+  - newsletter
 
 PROPERTY_STATUSES:
-  0: pending
-  1: active
-  2: rejected
-  3: archived
-  4: blacklisted
+  - pending
+  - active
+  - rejected
+  - archived
+  - blacklisted
+
+IMAGE_FORMATS:
+  - small
+  - large
+  - wide
+
+IMPRESSION_CODES:
+  - ok
+  - property_inactive
+  - impression_count_exceeded
+  - no_possible_ads
 
 # SEE: https://dev.maxmind.com/geoip/legacy/codes/iso3166/
 COUNTRIES:
@@ -350,7 +361,7 @@ COUNTRIES:
   ZW: Zimbabwe
 
 # SEE: https://www.msci.com/market-classification
-DEVELOPED_MARKETS:
+DEVELOPED_MARKET_COUNTRIES:
   AU: Australia
   AT: Austria
   BE: Belgium
@@ -375,7 +386,7 @@ DEVELOPED_MARKETS:
   GB: United Kingdom
   US: United States
 
-EMERGING_MARKETS:
+EMERGING_MARKET_COUNTRIES:
   BR: Brazil
   CL: Chile
   CN: China
@@ -463,7 +474,30 @@ LANGUAGES:
   - Vietnamese
   - Zulu
 
-PROGRAMMING_LANGUAGES:
+KEYWORDS:
+  # topics
+  - Android Development
+  - Backend Services
+  - Blockchain
+  - CSS & Design
+  - Computer Science
+  - Database
+  - Dev Ops
+  - Docker
+  - Frontend Concepts
+  - Frontend Frameworks & Tools
+  - Frontend Workflow & Tooling
+  - Game Development
+  - Git
+  - HTML5
+  - Hybrid & Mobile Web
+  - IOS Development
+  - Languages & Frameworks
+  - React
+  - Resources
+  - Shell
+
+  # programming languages
   - ABAP
   - Ada
   - Alice
@@ -515,25 +549,3 @@ PROGRAMMING_LANGUAGES:
   - VHDL
   - Visual Basic
   - Visual Basic .NET
-
-TOPIC_CATEGORIES:
-  - Android Development
-  - Backend Services
-  - Blockchain
-  - CSS & Design
-  - Computer Science
-  - Database
-  - Dev Ops
-  - Docker
-  - Frontend Concepts
-  - Frontend Frameworks & Tools
-  - Frontend Workflow & Tooling
-  - Game Development
-  - Git
-  - HTML5
-  - Hybrid & Mobile Web
-  - IOS Development
-  - Languages & Frameworks
-  - React
-  - Resources
-  - Shell

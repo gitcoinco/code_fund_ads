@@ -2,30 +2,30 @@
 
 # == Schema Information
 #
-# Table name: invitations
+# Table name: creative_images
 #
-#  id          :uuid             not null, primary key
-#  email       :string(255)
-#  token       :string(255)
-#  inserted_at :datetime         not null
-#  updated_at  :datetime         not null
-#  first_name  :string(255)
-#  last_name   :string(255)
+#  id                           :bigint(8)        not null, primary key
+#  creative_id                  :bigint(8)        not null
+#  active_storage_attachment_id :bigint(8)        not null
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
 #
 
-class Invitation < ApplicationRecord
+class CreativeImage < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
+
   # relationships .............................................................
+  belongs_to :creative
+  belongs_to :image, class_name: "ActiveStorage::Attachment", foreign_key: "active_storage_attachment_id"
 
   # validations ...............................................................
-  validates :email, length: { maximum: 255, allow_blank: false }
-  validates :first_name, length: { maximum: 255, allow_blank: false }
-  validates :last_name, length: { maximum: 255, allow_blank: false }
-  validates :token, length: { maximum: 255, allow_blank: false }
-
   # callbacks .................................................................
   # scopes ....................................................................
+  scope :small, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::SMALL) }
+  scope :large, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::LARGE) }
+  scope :wide, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::WIDE) }
+
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
 
   # class methods .............................................................

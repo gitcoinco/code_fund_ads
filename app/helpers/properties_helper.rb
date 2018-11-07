@@ -2,11 +2,11 @@
 
 module PropertiesHelper
   def property_types_for_select
-    ENUMS::PROPERTY_TYPES.values.zip ENUMS::PROPERTY_TYPES.keys
+    ENUMS::PROPERTY_TYPES.values
   end
 
   def property_statuses_for_select
-    ENUMS::PROPERTY_STATUSES.values.zip ENUMS::PROPERTY_STATUSES.keys
+    ENUMS::PROPERTY_STATUSES.values
   end
 
   def property_status_html(status)

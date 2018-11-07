@@ -4,13 +4,12 @@
 #
 # Table name: themes
 #
-#  template_id :uuid
-#  id          :uuid             not null, primary key
-#  name        :string(255)
-#  slug        :string(255)
-#  description :text
-#  body        :text
-#  inserted_at :datetime         not null
+#  id          :bigint(8)        not null, primary key
+#  template_id :bigint(8)        not null
+#  name        :string           not null
+#  description :text             not null
+#  css         :text             not null
+#  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 

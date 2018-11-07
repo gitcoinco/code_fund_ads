@@ -7,11 +7,6 @@ def enumify(key)
 end
 
 def init_constant(context, key, value, inverted: false)
-  if key.is_a? Numeric
-    context.keys << key unless inverted
-    context.values << value unless inverted
-    return
-  end
   return if context.const_defined?(enumify(key))
   context.const_set enumify(key), value.freeze
   context.keys << key unless inverted

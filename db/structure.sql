@@ -60,11 +60,11 @@ SET default_with_oids = false;
 
 CREATE TABLE public.active_storage_attachments (
     id bigint NOT NULL,
-    name character varying NOT NULL,
-    record_type character varying NOT NULL,
     blob_id bigint NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    record_id uuid NOT NULL
+    record_id bigint NOT NULL,
+    record_type character varying NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL
 );
 
 
@@ -97,6 +97,7 @@ CREATE TABLE public.active_storage_blobs (
     filename character varying NOT NULL,
     content_type character varying,
     metadata text,
+    indexed_metadata jsonb DEFAULT '{}'::jsonb,
     byte_size bigint NOT NULL,
     checksum character varying NOT NULL,
     created_at timestamp without time zone NOT NULL
@@ -139,29 +140,80 @@ CREATE TABLE public.ar_internal_metadata (
 --
 
 CREATE TABLE public.campaigns (
-    id uuid NOT NULL,
-    name character varying(255) NOT NULL,
-    redirect_url text NOT NULL,
-    status integer DEFAULT 0 NOT NULL,
-    ecpm numeric(10,2) NOT NULL,
-    budget_daily_amount numeric(10,2) NOT NULL,
-    total_spend numeric(10,2) NOT NULL,
-    user_id uuid,
-    inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    creative_id uuid,
-    included_countries character varying(255)[] DEFAULT '{}'::character varying[],
-    impression_count integer DEFAULT 0 NOT NULL,
-    start_date timestamp without time zone,
-    end_date timestamp without time zone,
+    id bigint NOT NULL,
+    user_id bigint,
+    creative_id bigint,
+    status character varying NOT NULL,
+    fallback boolean DEFAULT false NOT NULL,
+    name character varying NOT NULL,
+    url text NOT NULL,
+    start_date date,
+    end_date date,
     us_hours_only boolean DEFAULT false,
     weekdays_only boolean DEFAULT false,
-    included_programming_languages character varying(255)[] DEFAULT '{}'::character varying[],
-    included_topic_categories character varying(255)[] DEFAULT '{}'::character varying[],
-    excluded_programming_languages character varying(255)[] DEFAULT '{}'::character varying[],
-    excluded_topic_categories character varying(255)[] DEFAULT '{}'::character varying[],
-    fallback_campaign boolean DEFAULT false NOT NULL
+    total_budget_cents integer DEFAULT 0 NOT NULL,
+    total_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    daily_budget_cents integer DEFAULT 0 NOT NULL,
+    daily_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    ecpm_cents integer DEFAULT 0 NOT NULL,
+    ecpm_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    countries character varying[] DEFAULT '{}'::character varying[],
+    keywords character varying[] DEFAULT '{}'::character varying[],
+    negative_keywords character varying[] DEFAULT '{}'::character varying[],
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
+
+
+--
+-- Name: campaigns_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.campaigns_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: campaigns_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.campaigns_id_seq OWNED BY public.campaigns.id;
+
+
+--
+-- Name: creative_images; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.creative_images (
+    id bigint NOT NULL,
+    creative_id bigint NOT NULL,
+    active_storage_attachment_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: creative_images_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.creative_images_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: creative_images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.creative_images_id_seq OWNED BY public.creative_images.id;
 
 
 --
@@ -169,29 +221,33 @@ CREATE TABLE public.campaigns (
 --
 
 CREATE TABLE public.creatives (
-    user_id uuid,
-    id uuid NOT NULL,
-    name character varying(255),
-    body character varying(255),
-    inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    headline character varying(255)
-);
-
-
---
--- Name: distributions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.distributions (
-    id uuid NOT NULL,
-    amount numeric(10,2) NOT NULL,
-    currency character varying(255) NOT NULL,
-    range_start timestamp without time zone NOT NULL,
-    range_end timestamp without time zone NOT NULL,
-    inserted_at timestamp without time zone NOT NULL,
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    name character varying NOT NULL,
+    headline character varying NOT NULL,
+    body text,
+    created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
+
+
+--
+-- Name: creatives_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.creatives_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: creatives_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.creatives_id_seq OWNED BY public.creatives.id;
 
 
 --
@@ -199,46 +255,23 @@ CREATE TABLE public.distributions (
 --
 
 CREATE TABLE public.impressions (
-    id uuid NOT NULL,
-    ip character varying(255) NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    campaign_id bigint,
+    property_id bigint,
+    ip character varying,
     user_agent text,
-    browser character varying(255),
-    os character varying(255),
-    device_type character varying(255),
-    country character varying(255),
-    region character varying(255),
-    city character varying(255),
-    postal_code character varying(255),
+    country character varying,
+    postal_code character varying,
     latitude numeric,
     longitude numeric,
-    property_id uuid,
-    campaign_id uuid,
-    inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    redirected_at timestamp without time zone,
-    redirected_to_url character varying(255),
-    revenue_amount numeric(13,12) DEFAULT 0.0 NOT NULL,
-    distribution_amount numeric(13,12) DEFAULT 0.0 NOT NULL,
-    distribution_id uuid,
-    browser_height integer,
-    browser_width integer,
-    error_code integer,
-    house_ad boolean DEFAULT false
-);
-
-
---
--- Name: invitations; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.invitations (
-    id uuid NOT NULL,
-    email character varying(255),
-    token character varying(255),
-    inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    first_name character varying(255),
-    last_name character varying(255)
+    payable boolean DEFAULT false NOT NULL,
+    reason character varying,
+    displayed_at_date date,
+    clicked_at_date date,
+    clicked_at timestamp without time zone,
+    fallback_campaign boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -247,43 +280,77 @@ CREATE TABLE public.invitations (
 --
 
 CREATE TABLE public.properties (
-    id uuid NOT NULL,
-    legacy_id character varying(255),
-    name character varying(255) NOT NULL,
-    url text NOT NULL,
-    description text,
-    property_type integer NOT NULL,
-    user_id uuid,
-    inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    status integer DEFAULT 0,
-    estimated_monthly_page_views integer,
-    estimated_monthly_visitors integer,
-    alexa_site_rank integer,
-    language character varying(255) NOT NULL,
-    programming_languages character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
-    topic_categories character varying(255)[] DEFAULT '{}'::character varying[] NOT NULL,
-    screenshot_url text,
-    slug character varying(255) NOT NULL,
-    excluded_advertisers character varying(255)[] DEFAULT '{}'::character varying[],
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
     template_id uuid,
-    no_api_house_ads boolean DEFAULT false NOT NULL
-);
-
-
---
--- Name: rememberables; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.rememberables (
-    id uuid NOT NULL,
-    series_hash character varying(255),
-    token_hash character varying(255),
-    token_created_at timestamp without time zone,
-    user_id uuid,
-    inserted_at timestamp without time zone NOT NULL,
+    type character varying NOT NULL,
+    status character varying NOT NULL,
+    name character varying NOT NULL,
+    description text,
+    url text NOT NULL,
+    language character varying NOT NULL,
+    keywords character varying[] DEFAULT '{}'::character varying[] NOT NULL,
+    prohibited_advertisers bigint[] DEFAULT '{}'::bigint[],
+    prohibit_fallback_campaigns boolean DEFAULT false NOT NULL,
+    created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
+
+
+--
+-- Name: properties_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.properties_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: properties_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.properties_id_seq OWNED BY public.properties.id;
+
+
+--
+-- Name: publisher_invoices; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.publisher_invoices (
+    id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    amount money NOT NULL,
+    currency character varying NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    sent_at date,
+    paid_at date,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: publisher_invoices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.publisher_invoices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: publisher_invoices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.publisher_invoices_id_seq OWNED BY public.publisher_invoices.id;
 
 
 --
@@ -291,8 +358,7 @@ CREATE TABLE public.rememberables (
 --
 
 CREATE TABLE public.schema_migrations (
-    version bigint NOT NULL,
-    inserted_at timestamp without time zone
+    version character varying NOT NULL
 );
 
 
@@ -301,14 +367,32 @@ CREATE TABLE public.schema_migrations (
 --
 
 CREATE TABLE public.templates (
-    id uuid NOT NULL,
-    name character varying(255),
-    slug character varying(255),
-    description text,
-    body text,
-    inserted_at timestamp without time zone NOT NULL,
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    description text NOT NULL,
+    html text NOT NULL,
+    created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
+
+
+--
+-- Name: templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.templates_id_seq OWNED BY public.templates.id;
 
 
 --
@@ -316,15 +400,33 @@ CREATE TABLE public.templates (
 --
 
 CREATE TABLE public.themes (
-    template_id uuid,
-    id uuid NOT NULL,
-    name character varying(255),
-    slug character varying(255),
-    description text,
-    body text,
-    inserted_at timestamp without time zone NOT NULL,
+    id bigint NOT NULL,
+    template_id bigint NOT NULL,
+    name character varying NOT NULL,
+    description text NOT NULL,
+    css text NOT NULL,
+    created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
+
+
+--
+-- Name: themes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.themes_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: themes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.themes_id_seq OWNED BY public.themes.id;
 
 
 --
@@ -332,62 +434,59 @@ CREATE TABLE public.themes (
 --
 
 CREATE TABLE public.users (
-    id uuid NOT NULL,
-    email character varying(255),
-    first_name character varying(255),
-    last_name character varying(255),
-    address_1 character varying(255),
-    address_2 character varying(255),
-    city character varying(255),
-    region character varying(255),
-    postal_code character varying(255),
-    country character varying(255),
-    roles character varying(255)[] DEFAULT ARRAY['developer'::text],
-    revenue_rate numeric(3,3) DEFAULT 0.5 NOT NULL,
-    password_hash character varying(255),
-    reset_password_token character varying(255),
+    id bigint NOT NULL,
+    roles character varying[] DEFAULT '{}'::character varying[],
+    first_name character varying NOT NULL,
+    last_name character varying NOT NULL,
+    company_name character varying,
+    address_1 character varying,
+    address_2 character varying,
+    city character varying,
+    region character varying,
+    postal_code character varying,
+    country character varying,
+    api_access boolean DEFAULT false NOT NULL,
+    api_key character varying,
+    paypal_email character varying,
+    email character varying NOT NULL,
+    encrypted_password character varying NOT NULL,
+    reset_password_token character varying,
     reset_password_sent_at timestamp without time zone,
-    failed_attempts integer DEFAULT 0,
-    locked_at timestamp without time zone,
-    sign_in_count integer DEFAULT 0,
+    remember_created_at timestamp without time zone,
+    sign_in_count integer DEFAULT 0 NOT NULL,
     current_sign_in_at timestamp without time zone,
     last_sign_in_at timestamp without time zone,
-    current_sign_in_ip character varying(255),
-    last_sign_in_ip character varying(255),
-    unlock_token character varying(255),
-    remember_created_at timestamp without time zone,
-    inserted_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    paypal_email character varying(255),
-    company character varying(255),
-    api_access boolean DEFAULT false NOT NULL,
-    api_key character varying(255)
+    current_sign_in_ip inet,
+    last_sign_in_ip inet,
+    confirmation_token character varying,
+    confirmed_at timestamp without time zone,
+    confirmation_sent_at timestamp without time zone,
+    unconfirmed_email character varying,
+    failed_attempts integer DEFAULT 0 NOT NULL,
+    unlock_token character varying,
+    locked_at timestamp without time zone,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
 --
--- Name: user_impressions; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE MATERIALIZED VIEW public.user_impressions AS
- SELECT campaigns.user_id AS campaign_user_id,
-    impressions.id,
-    impressions.campaign_id,
-    impressions.revenue_amount,
-    impressions.distribution_amount,
-    impressions.inserted_at,
-    impressions.redirected_at,
-    impressions.country,
-    impressions.house_ad,
-    properties.name AS property_name,
-    properties.user_id AS property_user_id,
-    campaigns.name AS campaign_name,
-    users.company AS advertiser_company_name
-   FROM (((public.impressions
-     JOIN public.campaigns ON ((impressions.campaign_id = campaigns.id)))
-     JOIN public.properties ON ((impressions.property_id = properties.id)))
-     JOIN public.users ON ((campaigns.user_id = users.id)))
-  WITH NO DATA;
+CREATE SEQUENCE public.users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
@@ -405,55 +504,59 @@ ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval
 
 
 --
--- Name: campaigns campaigns_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: campaigns id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.campaigns
-    ADD CONSTRAINT campaigns_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.campaigns ALTER COLUMN id SET DEFAULT nextval('public.campaigns_id_seq'::regclass);
 
 
 --
--- Name: budgeted_campaigns; Type: MATERIALIZED VIEW; Schema: public; Owner: -
+-- Name: creative_images id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-CREATE MATERIALIZED VIEW public.budgeted_campaigns AS
- WITH data AS (
-         SELECT campaigns.id AS campaign_id,
-            campaigns.user_id,
-            campaigns.total_spend,
-            campaigns.status,
-            campaigns.name AS campaign_name,
-            campaigns.ecpm AS target_ecpm,
-            campaigns.impression_count AS estimated_impressions,
-            sum(user_impressions.revenue_amount) AS revenue_amount,
-            sum(user_impressions.distribution_amount) AS distribution_amount,
-            count(user_impressions.id) AS total_impressions,
-            users.company AS advertiser_company_name,
-            creatives.id AS creative_id,
-            creatives.name AS creative_name
-           FROM (((public.campaigns
-             JOIN public.user_impressions ON ((user_impressions.campaign_id = campaigns.id)))
-             JOIN public.users ON ((campaigns.user_id = users.id)))
-             JOIN public.creatives ON ((campaigns.creative_id = creatives.id)))
-          GROUP BY campaigns.id, users.company, creatives.id, creatives.name
-        )
- SELECT data.campaign_id,
-    data.user_id,
-    data.total_spend,
-    data.status,
-    data.campaign_name,
-    data.target_ecpm,
-    data.estimated_impressions,
-    data.revenue_amount,
-    data.distribution_amount,
-    data.total_impressions,
-    data.advertiser_company_name,
-    data.creative_id,
-    data.creative_name,
-    (data.total_spend - data.revenue_amount) AS balance,
-    ((data.revenue_amount / (data.total_impressions)::numeric) * (1000)::numeric) AS actual_ecpm
-   FROM data
-  WITH NO DATA;
+ALTER TABLE ONLY public.creative_images ALTER COLUMN id SET DEFAULT nextval('public.creative_images_id_seq'::regclass);
+
+
+--
+-- Name: creatives id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.creatives ALTER COLUMN id SET DEFAULT nextval('public.creatives_id_seq'::regclass);
+
+
+--
+-- Name: properties id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.properties ALTER COLUMN id SET DEFAULT nextval('public.properties_id_seq'::regclass);
+
+
+--
+-- Name: publisher_invoices id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.publisher_invoices ALTER COLUMN id SET DEFAULT nextval('public.publisher_invoices_id_seq'::regclass);
+
+
+--
+-- Name: templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.templates ALTER COLUMN id SET DEFAULT nextval('public.templates_id_seq'::regclass);
+
+
+--
+-- Name: themes id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.themes ALTER COLUMN id SET DEFAULT nextval('public.themes_id_seq'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
 
 
 --
@@ -481,19 +584,27 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: campaigns campaigns_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.campaigns
+    ADD CONSTRAINT campaigns_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: creative_images creative_images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.creative_images
+    ADD CONSTRAINT creative_images_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: creatives creatives_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.creatives
     ADD CONSTRAINT creatives_pkey PRIMARY KEY (id);
-
-
---
--- Name: distributions distributions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.distributions
-    ADD CONSTRAINT distributions_pkey PRIMARY KEY (id);
 
 
 --
@@ -505,14 +616,6 @@ ALTER TABLE ONLY public.impressions
 
 
 --
--- Name: invitations invitations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.invitations
-    ADD CONSTRAINT invitations_pkey PRIMARY KEY (id);
-
-
---
 -- Name: properties properties_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -521,11 +624,11 @@ ALTER TABLE ONLY public.properties
 
 
 --
--- Name: rememberables rememberables_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: publisher_invoices publisher_invoices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.rememberables
-    ADD CONSTRAINT rememberables_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.publisher_invoices
+    ADD CONSTRAINT publisher_invoices_pkey PRIMARY KEY (id);
 
 
 --
@@ -561,83 +664,6 @@ ALTER TABLE ONLY public.users
 
 
 --
--- Name: budgeted_campaigns_advertiser_company_name_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX budgeted_campaigns_advertiser_company_name_index ON public.budgeted_campaigns USING btree (advertiser_company_name);
-
-
---
--- Name: budgeted_campaigns_campaign_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX budgeted_campaigns_campaign_id_index ON public.budgeted_campaigns USING btree (campaign_id);
-
-
---
--- Name: budgeted_campaigns_campaign_name_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX budgeted_campaigns_campaign_name_index ON public.budgeted_campaigns USING btree (campaign_name);
-
-
---
--- Name: budgeted_campaigns_creative_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX budgeted_campaigns_creative_id_index ON public.budgeted_campaigns USING btree (creative_id);
-
-
---
--- Name: budgeted_campaigns_creative_name_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX budgeted_campaigns_creative_name_index ON public.budgeted_campaigns USING btree (creative_name);
-
-
---
--- Name: budgeted_campaigns_user_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX budgeted_campaigns_user_id_index ON public.budgeted_campaigns USING btree (user_id);
-
-
---
--- Name: campaigns_user_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX campaigns_user_id_index ON public.campaigns USING btree (user_id);
-
-
---
--- Name: creatives_user_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX creatives_user_id_index ON public.creatives USING btree (user_id);
-
-
---
--- Name: impressions_campaign_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX impressions_campaign_id_index ON public.impressions USING btree (campaign_id);
-
-
---
--- Name: impressions_ip_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX impressions_ip_index ON public.impressions USING btree (ip);
-
-
---
--- Name: impressions_property_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX impressions_property_id_index ON public.impressions USING btree (property_id);
-
-
---
 -- Name: index_active_storage_attachments_on_blob_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -652,10 +678,38 @@ CREATE UNIQUE INDEX index_active_storage_attachments_uniqueness ON public.active
 
 
 --
+-- Name: index_active_storage_blobs_on_content_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_active_storage_blobs_on_content_type ON public.active_storage_blobs USING btree (content_type);
+
+
+--
+-- Name: index_active_storage_blobs_on_filename; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_active_storage_blobs_on_filename ON public.active_storage_blobs USING btree (filename);
+
+
+--
+-- Name: index_active_storage_blobs_on_indexed_metadata; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_active_storage_blobs_on_indexed_metadata ON public.active_storage_blobs USING gin (indexed_metadata);
+
+
+--
 -- Name: index_active_storage_blobs_on_key; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_blobs USING btree (key);
+
+
+--
+-- Name: index_campaigns_on_countries; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_countries ON public.campaigns USING gin (countries);
 
 
 --
@@ -669,42 +723,14 @@ CREATE INDEX index_campaigns_on_creative_id ON public.campaigns USING btree (cre
 -- Name: index_campaigns_on_end_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_campaigns_on_end_date ON public.campaigns USING btree (((end_date)::date));
+CREATE INDEX index_campaigns_on_end_date ON public.campaigns USING btree (end_date);
 
 
 --
--- Name: index_campaigns_on_excluded_programming_languages; Type: INDEX; Schema: public; Owner: -
+-- Name: index_campaigns_on_keywords; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_campaigns_on_excluded_programming_languages ON public.campaigns USING gin (excluded_programming_languages);
-
-
---
--- Name: index_campaigns_on_excluded_topic_categories; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_campaigns_on_excluded_topic_categories ON public.campaigns USING gin (excluded_topic_categories);
-
-
---
--- Name: index_campaigns_on_included_countries; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_campaigns_on_included_countries ON public.campaigns USING gin (included_countries);
-
-
---
--- Name: index_campaigns_on_included_programming_languages; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_campaigns_on_included_programming_languages ON public.campaigns USING gin (included_programming_languages);
-
-
---
--- Name: index_campaigns_on_included_topic_categories; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_campaigns_on_included_topic_categories ON public.campaigns USING gin (included_topic_categories);
+CREATE INDEX index_campaigns_on_keywords ON public.campaigns USING gin (keywords);
 
 
 --
@@ -715,10 +741,17 @@ CREATE INDEX index_campaigns_on_name ON public.campaigns USING btree (lower((nam
 
 
 --
+-- Name: index_campaigns_on_negative_keywords; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_negative_keywords ON public.campaigns USING gin (negative_keywords);
+
+
+--
 -- Name: index_campaigns_on_start_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_campaigns_on_start_date ON public.campaigns USING btree (((start_date)::date));
+CREATE INDEX index_campaigns_on_start_date ON public.campaigns USING btree (start_date);
 
 
 --
@@ -736,6 +769,13 @@ CREATE INDEX index_campaigns_on_us_hours_only ON public.campaigns USING btree (u
 
 
 --
+-- Name: index_campaigns_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_user_id ON public.campaigns USING btree (user_id);
+
+
+--
 -- Name: index_campaigns_on_weekdays_only; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -743,24 +783,73 @@ CREATE INDEX index_campaigns_on_weekdays_only ON public.campaigns USING btree (w
 
 
 --
--- Name: index_impressions_on_inserted_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_creative_images_on_active_storage_attachment_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_impressions_on_inserted_at_date ON public.impressions USING btree (((inserted_at)::date));
-
-
---
--- Name: index_properties_on_excluded_advertisers; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_properties_on_excluded_advertisers ON public.properties USING gin (excluded_advertisers);
+CREATE INDEX index_creative_images_on_active_storage_attachment_id ON public.creative_images USING btree (active_storage_attachment_id);
 
 
 --
--- Name: index_properties_on_legacy_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_creative_images_on_creative_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_properties_on_legacy_id ON public.properties USING btree (legacy_id);
+CREATE INDEX index_creative_images_on_creative_id ON public.creative_images USING btree (creative_id);
+
+
+--
+-- Name: index_creatives_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_creatives_on_user_id ON public.creatives USING btree (user_id);
+
+
+--
+-- Name: index_impressions_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_campaign_id ON public.impressions USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_on_clicked_at_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_clicked_at_date ON public.impressions USING btree (clicked_at_date);
+
+
+--
+-- Name: index_impressions_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_displayed_at_date ON public.impressions USING btree (displayed_at_date);
+
+
+--
+-- Name: index_impressions_on_ip; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_ip ON public.impressions USING btree (ip);
+
+
+--
+-- Name: index_impressions_on_payable; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_payable ON public.impressions USING btree (payable);
+
+
+--
+-- Name: index_impressions_on_property_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_property_id ON public.impressions USING btree (property_id);
+
+
+--
+-- Name: index_properties_on_keywords; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_properties_on_keywords ON public.properties USING gin (keywords);
 
 
 --
@@ -771,314 +860,108 @@ CREATE INDEX index_properties_on_name ON public.properties USING btree (lower((n
 
 
 --
--- Name: index_properties_on_no_api_house_ads; Type: INDEX; Schema: public; Owner: -
+-- Name: index_properties_on_prohibited_advertisers; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_properties_on_no_api_house_ads ON public.properties USING btree (no_api_house_ads);
-
-
---
--- Name: index_properties_on_programming_languages; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_properties_on_programming_languages ON public.properties USING gin (programming_languages);
+CREATE INDEX index_properties_on_prohibited_advertisers ON public.properties USING gin (prohibited_advertisers);
 
 
 --
--- Name: index_properties_on_property_type; Type: INDEX; Schema: public; Owner: -
+-- Name: index_properties_on_status; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_properties_on_property_type ON public.properties USING btree (property_type);
-
-
---
--- Name: index_properties_on_topic_categories; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_properties_on_topic_categories ON public.properties USING gin (topic_categories);
+CREATE INDEX index_properties_on_status ON public.properties USING btree (status);
 
 
 --
--- Name: index_users_on_company; Type: INDEX; Schema: public; Owner: -
+-- Name: index_properties_on_template_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_company ON public.users USING btree (lower((company)::text));
+CREATE INDEX index_properties_on_template_id ON public.properties USING btree (template_id);
+
+
+--
+-- Name: index_properties_on_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_properties_on_type ON public.properties USING btree (type);
+
+
+--
+-- Name: index_properties_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_properties_on_user_id ON public.properties USING btree (user_id);
+
+
+--
+-- Name: index_publisher_invoices_on_end_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_publisher_invoices_on_end_date ON public.publisher_invoices USING btree (end_date);
+
+
+--
+-- Name: index_publisher_invoices_on_start_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_publisher_invoices_on_start_date ON public.publisher_invoices USING btree (start_date);
+
+
+--
+-- Name: index_publisher_invoices_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_publisher_invoices_on_user_id ON public.publisher_invoices USING btree (user_id);
+
+
+--
+-- Name: index_templates_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_templates_on_name ON public.templates USING btree (lower((name)::text));
+
+
+--
+-- Name: index_themes_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_themes_on_name ON public.themes USING btree (lower((name)::text));
+
+
+--
+-- Name: index_themes_on_template_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_themes_on_template_id ON public.themes USING btree (template_id);
+
+
+--
+-- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_on_confirmation_token ON public.users USING btree (confirmation_token);
 
 
 --
 -- Name: index_users_on_email; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_email ON public.users USING btree (lower((email)::text));
+CREATE UNIQUE INDEX index_users_on_email ON public.users USING btree (lower((email)::text));
 
 
 --
--- Name: index_users_on_first_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_first_name ON public.users USING btree (lower((first_name)::text));
+CREATE UNIQUE INDEX index_users_on_reset_password_token ON public.users USING btree (reset_password_token);
 
 
 --
--- Name: index_users_on_last_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_users_on_unlock_token; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_users_on_last_name ON public.users USING btree (lower((last_name)::text));
-
-
---
--- Name: index_users_on_roles; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_users_on_roles ON public.users USING gin (roles);
-
-
---
--- Name: invitations_email_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX invitations_email_index ON public.invitations USING btree (email);
-
-
---
--- Name: invitations_token_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX invitations_token_index ON public.invitations USING btree (token);
-
-
---
--- Name: properties_slug_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX properties_slug_index ON public.properties USING btree (slug);
-
-
---
--- Name: properties_status_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX properties_status_index ON public.properties USING btree (status);
-
-
---
--- Name: properties_template_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX properties_template_id_index ON public.properties USING btree (template_id);
-
-
---
--- Name: properties_user_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX properties_user_id_index ON public.properties USING btree (user_id);
-
-
---
--- Name: rememberables_series_hash_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX rememberables_series_hash_index ON public.rememberables USING btree (series_hash);
-
-
---
--- Name: rememberables_token_hash_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX rememberables_token_hash_index ON public.rememberables USING btree (token_hash);
-
-
---
--- Name: rememberables_user_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX rememberables_user_id_index ON public.rememberables USING btree (user_id);
-
-
---
--- Name: rememberables_user_id_series_hash_token_hash_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX rememberables_user_id_series_hash_token_hash_index ON public.rememberables USING btree (user_id, series_hash, token_hash);
-
-
---
--- Name: templates_slug_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX templates_slug_index ON public.templates USING btree (slug);
-
-
---
--- Name: themes_template_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX themes_template_id_index ON public.themes USING btree (template_id);
-
-
---
--- Name: themes_template_id_slug_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX themes_template_id_slug_index ON public.themes USING btree (template_id, slug);
-
-
---
--- Name: user_impressions_advertiser_company_name_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX user_impressions_advertiser_company_name_index ON public.user_impressions USING btree (advertiser_company_name);
-
-
---
--- Name: user_impressions_campaign_name_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX user_impressions_campaign_name_index ON public.user_impressions USING btree (campaign_name);
-
-
---
--- Name: user_impressions_country_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX user_impressions_country_index ON public.user_impressions USING btree (country);
-
-
---
--- Name: user_impressions_distribution_amount_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX user_impressions_distribution_amount_index ON public.user_impressions USING btree (distribution_amount);
-
-
---
--- Name: user_impressions_house_ad_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX user_impressions_house_ad_index ON public.user_impressions USING btree (house_ad);
-
-
---
--- Name: user_impressions_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX user_impressions_id_index ON public.user_impressions USING btree (id);
-
-
---
--- Name: user_impressions_inserted_at_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX user_impressions_inserted_at_index ON public.user_impressions USING btree (date(inserted_at));
-
-
---
--- Name: user_impressions_property_name_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX user_impressions_property_name_index ON public.user_impressions USING btree (property_name);
-
-
---
--- Name: user_impressions_property_user_id_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX user_impressions_property_user_id_index ON public.user_impressions USING btree (property_user_id);
-
-
---
--- Name: user_impressions_redirected_at_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX user_impressions_redirected_at_index ON public.user_impressions USING btree (date(redirected_at));
-
-
---
--- Name: user_impressions_revenue_amount_index; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX user_impressions_revenue_amount_index ON public.user_impressions USING btree (revenue_amount);
-
-
---
--- Name: campaigns campaigns_creative_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.campaigns
-    ADD CONSTRAINT campaigns_creative_id_fkey FOREIGN KEY (creative_id) REFERENCES public.creatives(id);
-
-
---
--- Name: campaigns campaigns_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.campaigns
-    ADD CONSTRAINT campaigns_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
--- Name: creatives creatives_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.creatives
-    ADD CONSTRAINT creatives_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
--- Name: impressions impressions_campaign_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.impressions
-    ADD CONSTRAINT impressions_campaign_id_fkey FOREIGN KEY (campaign_id) REFERENCES public.campaigns(id);
-
-
---
--- Name: impressions impressions_distribution_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.impressions
-    ADD CONSTRAINT impressions_distribution_id_fkey FOREIGN KEY (distribution_id) REFERENCES public.distributions(id);
-
-
---
--- Name: impressions impressions_property_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.impressions
-    ADD CONSTRAINT impressions_property_id_fkey FOREIGN KEY (property_id) REFERENCES public.properties(id);
-
-
---
--- Name: properties properties_template_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.properties
-    ADD CONSTRAINT properties_template_id_fkey FOREIGN KEY (template_id) REFERENCES public.templates(id);
-
-
---
--- Name: properties properties_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.properties
-    ADD CONSTRAINT properties_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id);
-
-
---
--- Name: rememberables rememberables_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.rememberables
-    ADD CONSTRAINT rememberables_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
-
-
---
--- Name: themes themes_template_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.themes
-    ADD CONSTRAINT themes_template_id_fkey FOREIGN KEY (template_id) REFERENCES public.templates(id);
+CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unlock_token);
 
 
 --
@@ -1088,94 +971,6 @@ ALTER TABLE ONLY public.themes
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-(20180227162339),
-(20180227162340),
-(20180227162341),
-(20180227173201),
-(20180227173904),
-(20180227174404),
-(20180227174916),
-(20180227175354),
-(20180227231702),
-(20180311174947),
-(20180316153402),
-(20180316185258),
-(20180316193932),
-(20180320221007),
-(20180320221033),
-(20180321200402),
-(20180321200949),
-(20180327220454),
-(20180331182329),
-(20180331231110),
-(20180411203407),
-(20180412170218),
-(20180412174654),
-(20180423233000),
-(20180501210416),
-(20180507192423),
-(20180507200747),
-(20180508163946),
-(20180508205443),
-(20180511162610),
-(20180516162348),
-(20180516201739),
-(20180516211807),
-(20180522170026),
-(20180522221152),
-(20180524201216),
-(20180530214033),
-(20180530214649),
-(20180531193409),
-(20180531201738),
-(20180531213205),
-(20180531213206),
-(20180531214557),
-(20180606223528),
-(20180611195738),
-(20180612195634),
-(20180618211647),
-(20180619184510),
-(20180621191356),
-(20180628171631),
-(20180628173015),
-(20180628174611),
-(20180628175114),
-(20180702160920),
-(20180703203356),
-(20180711195213),
-(20180719195104),
-(20180723211744),
-(20180728134215),
-(20180731185659),
-(20180807193747),
-(20180821211023),
-(20180821213321),
-(20180821220337),
-(20180823165758),
-(20180823195109),
-(20180823201049),
-(20180825023302),
-(20180829193923),
-(20180829194324),
-(20180904170836),
-(20180913190816),
-(20180925203551),
-(20180925203852),
-(20180926195523),
-(20180927184409),
-(20181004211222),
-(20181010203633),
-(20181011202739),
-(20181011202741),
-(20181011203443),
-(20181017141813),
-(20181017152837),
-(20181030152600),
-(20181030194255),
-(20181031145136),
-(20181101203755),
-(20181101211332),
-(20181102210752);
+('20181017152837');
 
 

@@ -7,7 +7,7 @@
 <% end %>
 
 <% content_for :page_heading do %>
-  <%= page_heading "Adding", "Images",
+  <%= page_heading "Edit", "Image",
     subtitle: "for #{@imageable.imageable_name}",
     icon: "images" %>
 <% end %>
@@ -16,7 +16,7 @@
   <div class="u-bg-light-blue-50">
     <div class="container u-space-1">
       <p id="notice"><%= notice %></p>
-      <%= render '/images/form_upload' %>
+      <%= render '/images/form_metadata' %>
       <%= link_to 'Back', :back, class: 'btn btn-link' %>
     </div>
   </div>

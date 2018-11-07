@@ -4,31 +4,23 @@
 #
 # Table name: impressions
 #
-#  id                  :uuid             not null, primary key
-#  ip                  :string(255)      not null
-#  user_agent          :text
-#  browser             :string(255)
-#  os                  :string(255)
-#  device_type         :string(255)
-#  country             :string(255)
-#  region              :string(255)
-#  city                :string(255)
-#  postal_code         :string(255)
-#  latitude            :decimal(, )
-#  longitude           :decimal(, )
-#  property_id         :uuid
-#  campaign_id         :uuid
-#  inserted_at         :datetime         not null
-#  updated_at          :datetime         not null
-#  redirected_at       :datetime
-#  redirected_to_url   :string(255)
-#  revenue_amount      :decimal(13, 12)  default(0.0), not null
-#  distribution_amount :decimal(13, 12)  default(0.0), not null
-#  distribution_id     :uuid
-#  browser_height      :integer
-#  browser_width       :integer
-#  error_code          :integer
-#  house_ad            :boolean          default(FALSE)
+#  id                :uuid             not null, primary key
+#  campaign_id       :bigint(8)
+#  property_id       :bigint(8)
+#  ip                :string
+#  user_agent        :text
+#  country           :string
+#  postal_code       :string
+#  latitude          :decimal(, )
+#  longitude         :decimal(, )
+#  payable           :boolean          default(FALSE), not null
+#  reason            :string
+#  displayed_at_date :date
+#  clicked_at_date   :date
+#  clicked_at        :datetime
+#  fallback_campaign :boolean          default(FALSE), not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 
 require "test_helper"

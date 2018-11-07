@@ -1,31 +1,30 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: campaigns
 #
-#  id                             :uuid             not null, primary key
-#  name                           :string(255)      not null
-#  redirect_url                   :text             not null
-#  status                         :integer          default(0), not null
-#  ecpm                           :decimal(10, 2)   not null
-#  budget_daily_amount            :decimal(10, 2)   not null
-#  total_spend                    :decimal(10, 2)   not null
-#  user_id                        :uuid
-#  inserted_at                    :datetime         not null
-#  updated_at                     :datetime         not null
-#  creative_id                    :uuid
-#  included_countries             :string(255)      default([]), is an Array
-#  impression_count               :integer          default(0), not null
-#  start_date                     :datetime
-#  end_date                       :datetime
-#  us_hours_only                  :boolean          default(FALSE)
-#  weekdays_only                  :boolean          default(FALSE)
-#  included_programming_languages :string(255)      default([]), is an Array
-#  included_topic_categories      :string(255)      default([]), is an Array
-#  excluded_programming_languages :string(255)      default([]), is an Array
-#  excluded_topic_categories      :string(255)      default([]), is an Array
-#  fallback_campaign              :boolean          default(FALSE), not null
+#  id                    :bigint(8)        not null, primary key
+#  user_id               :bigint(8)
+#  creative_id           :bigint(8)
+#  status                :string           not null
+#  fallback              :boolean          default(FALSE), not null
+#  name                  :string           not null
+#  url                   :text             not null
+#  start_date            :date
+#  end_date              :date
+#  us_hours_only         :boolean          default(FALSE)
+#  weekdays_only         :boolean          default(FALSE)
+#  total_budget_cents    :integer          default(0), not null
+#  total_budget_currency :string           default("USD"), not null
+#  daily_budget_cents    :integer          default(0), not null
+#  daily_budget_currency :string           default("USD"), not null
+#  ecpm_cents            :integer          default(0), not null
+#  ecpm_currency         :string           default("USD"), not null
+#  countries             :string           default([]), is an Array
+#  keywords              :string           default([]), is an Array
+#  negative_keywords     :string           default([]), is an Array
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
 #
 
 class Campaign < ApplicationRecord
@@ -40,24 +39,16 @@ class Campaign < ApplicationRecord
   has_many :impressions
 
   # validations ...............................................................
-  validates :budget_daily_amount, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
-  validates :ecpm, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
-  validates :fallback_campaign, presence: true
-  validates :impression_count, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
   validates :name, length: { maximum: 255, allow_blank: false }
-  validates :redirect_url, presence: true
-  validates :status, inclusion: { in: ENUMS::CAMPAIGN_STATUSES.keys }
-  validates :total_spend, numericality: { greater_than_or_equal_to: 0, allow_nil: false }
+  validates :url, presence: true
+  validates :status, inclusion: { in: ENUMS::CAMPAIGN_STATUSES.values }
 
   # callbacks .................................................................
 
   # scopes ....................................................................
-  scope :search_excluded_programming_languages, -> (*values) { values.blank? ? all : with_any_excluded_programming_languages(*values) }
-  scope :search_excluded_topic_categories, -> (*values) { values.blank? ? all : with_any_excluded_topic_categories(*values) }
-  scope :search_included_countries, -> (*values) { values.blank? ? all : with_any_included_countries(*values) }
-  scope :search_included_programming_languages, -> (*values) { values.blank? ? all : with_any_included_programming_languages(*values) }
-  scope :search_included_topic_categories, -> (*values) { values.blank? ? all : with_any_included_topic_categories(*values) }
+  scope :search_keywords, -> (*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :search_name, -> (value) { value.blank? ? all : search_column(:name, value) }
+  scope :search_negative_keywords, -> (*values) { values.blank? ? all : with_any_negative(*values) }
   scope :search_status, -> (*values) { values.blank? ? all : where(status: values) }
   scope :search_us_hours_only, -> (value) { value.nil? ? all : where(us_hours_only: value) }
   scope :search_user, -> (value) { value.blank? ? all : where(user_id: User.sponsor.search_name(value).or(User.sponsor.search_company(value))) }
@@ -66,59 +57,44 @@ class Campaign < ApplicationRecord
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
   #
-  # - with_included_countries
-  # - without_included_countries
-  # - with_any_included_countries
-  # - without_any_included_countries
-  # - with_all_included_countries
-  # - without_all_included_countries
+  # - with_countries
+  # - without_countries
+  # - with_any_countries
+  # - without_any_countries
+  # - with_all_countries
+  # - without_all_countries
   #
-  # - with_included_topic_categories
-  # - without_included_topic_categories
-  # - with_any_included_topic_categories
-  # - without_any_included_topic_categories
-  # - with_all_included_topic_categories
-  # - without_all_included_topic_categories
+  # - with_keywords
+  # - without_keywords
+  # - with_any_keywords
+  # - without_any_keywords
+  # - with_all_keywords
+  # - without_all_keywords
   #
-  # - with_included_programming_languages
-  # - without_included_programming_languages
-  # - with_any_included_programming_languages
-  # - without_any_included_programming_languages
-  # - with_all_included_programming_languages
-  # - without_all_included_programming_languages
-  #
-  # - with_excluded_topic_categories
-  # - without_excluded_topic_categories
-  # - with_any_excluded_topic_categories
-  # - without_any_excluded_topic_categories
-  # - with_all_excluded_topic_categories
-  # - without_all_excluded_topic_categories
-  #
-  # - with_excluded_programming_languages
-  # - without_excluded_programming_languages
-  # - with_any_excluded_programming_languages
-  # - without_any_excluded_programming_languages
-  # - with_all_excluded_programming_languages
-  # - without_all_excluded_programming_languages
+  # - with_negative_keywords
+  # - without_negative_keywords
+  # - with_any_negative_keywords
+  # - without_any_negative_keywords
+  # - with_all_negative_keywords
+  # - without_all_negative_keywords
   #
   # Examples
   #
-  #   irb>Campaign.with_included_countries(:US, :GB)
-  #   irb>Campaign.without_included_topic_categories("Frontend Frameworks & Tools")
-  #   irb>Campaign.with_included_programming_languages(:ruby, :javascript)
-  #   irb>Campaign.without_excluded_topic_categories("Database", "Docker", "React")
-  #   irb>Campaign.with_any_excluded_programming_languages(:perl, :prolog)
+  #   irb>Campaign.with_countries("US", "GB")
+  #   irb>Campaign.with_keywords("Frontend Frameworks & Tools", "Ruby")
+  #   irb>Campaign.without_negative_keywords("Database", "Docker", "React")
 
   scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
   scope :active, -> { where status: ENUMS::CAMPAIGN_STATUSES::ACTIVE }
   scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  tag_columns :included_countries
-  tag_columns :included_topic_categories
-  tag_columns :included_programming_languages
-  tag_columns :excluded_topic_categories
-  tag_columns :excluded_programming_languages
+  monetize :total_budget_cents, numericality: { greater_than_or_equal_to: 0 }
+  monetize :daily_budget_cents, numericality: { greater_than_or_equal_to: 0 }
+  monetize :ecpm_cents, numericality: { greater_than_or_equal_to: 0 }
+  tag_columns :countries
+  tag_columns :keywords
+  tag_columns :negative_keywords
 
   # class methods .............................................................
   class << self
