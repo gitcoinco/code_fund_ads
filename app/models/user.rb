@@ -64,7 +64,7 @@ class User < ApplicationRecord
   scope :administrator, -> { with_all_roles ENUMS::USER_ROLES::ADMINISTRATOR }
   scope :advertiser, -> { with_all_roles ENUMS::USER_ROLES::ADVERTISER }
   scope :publisher, -> { with_all_roles ENUMS::USER_ROLES::PUBLISHER }
-  scope :search_company, -> (value) { value.blank? ? all : search_column(:company, value) }
+  scope :search_company, -> (value) { value.blank? ? all : search_column(:company_name, value) }
   scope :search_email, -> (value) { value.blank? ? all : search_column(:email, value) }
   scope :search_name, -> (value) { value.blank? ? all : search_column(:first_name, value).or(search_column(:last_name, value)) }
   scope :search_roles, -> (*values) { values.blank? ? all : with_any_roles(*values) }

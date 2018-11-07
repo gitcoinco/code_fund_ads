@@ -18,10 +18,23 @@
     <!-- Navigation -->
     <div id="navBar" class="collapse navbar-collapse py-0">
       <ul class="navbar-nav u-header__navbar-nav ml-lg-auto">
-        <%= active_link_to "Users", users_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-        <%= active_link_to "Campaigns", campaigns_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-        <%= active_link_to "Properties", properties_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-        <%= active_link_to "Creatives", creatives_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+        <% if controller_name == "home" %>
+          <%= active_link_to "Home", root_path, active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Advertisers", home_advertisers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Publishers", home_publishers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Blog", "#", class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "FAQ", home_faq_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <% if current_user %>
+            <%= active_link_to "Dashboard", "/", active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <% else %>
+            <%= active_link_to "Login", "/", active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <% end %>
+        <% else %>
+          <%= active_link_to "Users", users_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" if current_user %>
+          <%= active_link_to "Campaigns", campaigns_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" if current_user %>
+          <%= active_link_to "Properties", properties_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" if current_user %>
+          <%= active_link_to "Creatives", creatives_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" if current_user %>
+        <% end %>
       </ul>
     </div>
     <!-- End Navigation -->

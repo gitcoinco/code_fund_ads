@@ -13,12 +13,12 @@
 
     <!-- Search Engine -->
     <meta name="description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
-    <meta name="image" content="https://codefund.io/images/codefund-logo-square-512.png">
+    <meta name="image" content="<%= asset_url "codefund-logo-square-512.png" %>"/>"
 
     <!-- Schema.org for Google -->
     <meta itemprop="name" content="CodeFund">
     <meta itemprop="description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
-    <meta itemprop="image" content="https://codefund.io/images/codefund-logo-square-512.png">
+    <meta itemprop="image" content="<%= asset_url "codefund-logo-square-512.png" %>">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary">
@@ -26,13 +26,13 @@
     <meta name="twitter:description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
     <meta name="twitter:site" content="@codefundio">
     <meta name="twitter:creator" content="@coderberry">
-    <meta name="twitter:image:src" content="https://codefund.io/images/twitter-preview-image.png">
+    <meta name="twitter:image:src" content="<%= asset_url "twitter-preview-image.png" %>">
 
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
     <meta name="og:title" content="CodeFund">
     <meta name="og:description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
-    <meta name="og:image" content="https://codefund.io/images/preview-image.png">
-    <meta name="og:url" content="https://codefund.io">
+    <meta name="og:image" content="<%= asset_url "preview-image.png" %>">
+    <meta name="og:url" content="<%= root_url %>">
     <meta name="og:site_name" content="CodeFund">
     <meta name="og:locale" content="en_US">
     <meta name="fb:admins" content="801507563">
@@ -84,5 +84,8 @@
 
     <%= yield %>
     <%= render "/@shared/footer" %>
+
+    <%= support_widget_tag %>
+    <%= ga_tag %>
   </body>
 </html>

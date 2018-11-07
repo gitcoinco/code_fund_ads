@@ -2,11 +2,9 @@
 
 class CampaignSearch < ApplicationSearchRecord
   FIELDS = %w[
-    excluded_programming_languages
-    excluded_topic_categories
-    included_countries
-    included_programming_languages
-    included_topic_categories
+    keywords
+    negative_keywords
+    countries
     name
     statuses
     us_hours_only
@@ -16,22 +14,19 @@ class CampaignSearch < ApplicationSearchRecord
 
   def initialize(attrs = {})
     super FIELDS, attrs
-    self.excluded_programming_languages = (excluded_programming_languages || []).reject(&:blank?)
-    self.excluded_topic_categories = (excluded_topic_categories || []).reject(&:blank?)
-    self.included_countries = (included_countries || []).reject(&:blank?)
-    self.included_programming_languages = (included_programming_languages || []).reject(&:blank?)
-    self.included_topic_categories = (included_topic_categories || []).reject(&:blank?)
+    self.keywords = (keywords || []).reject(&:blank?)
+    self.negative_keywords = (negative_keywords || []).reject(&:blank?)
+    self.countries = (countries || []).reject(&:blank?)
     self.statuses = (statuses || []).reject(&:blank?)
   end
 
   def apply(relation)
     return relation unless present?
+
     relation
-      .then { |result| result.search_excluded_programming_languages(*excluded_programming_languages) }
-      .then { |result| result.search_excluded_topic_categories(*excluded_topic_categories) }
-      .then { |result| result.search_included_countries(*included_countries) }
-      .then { |result| result.search_included_programming_languages(*included_programming_languages) }
-      .then { |result| result.search_included_topic_categories(*included_topic_categories) }
+      .then { |result| result.search_keywords(*keywords) }
+      .then { |result| result.search_negative_keywords(*negative_keywords) }
+      .then { |result| result.search_countries(*countries) }
       .then { |result| result.search_name(name) }
       .then { |result| result.search_status(*statuses) }
       .then { |result| result.search_us_hours_only(us_hours_only) }

@@ -7,7 +7,8 @@ environment.config.merge({
     alias: {
       jquery: "theme/vendor/jquery/dist/jquery",
       "popper.js": "theme/vendor/popper.js/dist/popper",
-      Chartist: "theme/vendor/chartist/dist/chartist.min"
+      Chartist: "theme/vendor/chartist/dist/chartist.min",
+      Typed: "theme/vendor/typed.js/lib/typed.min",
     }
   }
 });
@@ -19,6 +20,7 @@ environment.plugins.prepend(
     'window.jQuery': 'jquery',
     Popper: 'popper.js',
     Chartist: 'Chartist',
+    Typed: 'Typed',
   })
 );
 

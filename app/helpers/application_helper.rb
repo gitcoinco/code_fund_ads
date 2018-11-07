@@ -26,13 +26,13 @@ module ApplicationHelper
   end
 
   def users_for_select(role: nil)
-    relation = User.select(:id, :company, :first_name, :last_name).order(:company, :first_name, :last_name)
+    relation = User.select(:id, :company_name, :first_name, :last_name).order(:company_name, :first_name, :last_name)
     relation = relation.send(role) if role
     relation
   end
 
   def companies_for_select
-    User.sponsor.where.not(company: nil).order(User.arel_table[:company].lower).pluck(:company).uniq
+    User.sponsor.where.not(company_name: nil).order(User.arel_table[:company_name].lower).pluck(:company_name).uniq
   end
 
   def templates_for_select
@@ -55,5 +55,15 @@ module ApplicationHelper
     return nil if count == 0
     return tag.span(count, class: "badge badge-pill badge-success opacity-60") if count.between?(1, 2)
     tag.span count, class: "badge badge-pill badge-success"
+  end
+
+  def ga_tag
+    return nil unless ENV["GA_TRACKING_ID"].present?
+    render("/@shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"])
+  end
+
+  def support_widget_tag
+    return nil unless ENV["GROOVE_WIDGET_ID"].present?
+    render("/@shared/scripts/groove", id: ENV["GROOVE_WIDGET_ID"])
   end
 end

@@ -11,6 +11,10 @@ Rails.application.routes.draw do
     resources :images, except: [:show]
   end
 
+  get "/publishers", to: "home#publishers", as: :home_publishers
+  get "/advertisers", to: "home#advertisers", as: :home_advertisers
+  get "/faq", to: "home#faq", as: :home_faq
+
   resources :campaigns
   resources :creatives
   resources :impressions
@@ -25,5 +29,5 @@ Rails.application.routes.draw do
     resources :creatives, only: [:index], as: :user_creatives
   end
 
-  root "users#index"
+  root "home#index"
 end

@@ -46,13 +46,13 @@
     <%= pseudo_row_divider %>
 
     <div class="col-12 col-md-6" data-controller="select-multiple">
-      <%= f.input :included_topic_categories, collection: topic_categories_for_select, label: "Targeted Topics",
+      <%= f.input :included_keywords, collection: keywords_for_select, label: "Targeted Topics",
         input_html: { multiple: true, class: "mb-0", data: { controller: "select", target: "select-multiple.select" }} %>
       <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
       <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
     </div>
     <div class="col-12 col-md-6" data-controller="select-multiple">
-      <%= f.input :excluded_topic_categories, collection: topic_categories_for_select, label: "Excluded Topics",
+      <%= f.input :excluded_keywords, collection: keywords_for_select, label: "Excluded Topics",
         input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
       <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
       <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>

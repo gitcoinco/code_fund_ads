@@ -47,6 +47,7 @@ class Campaign < ApplicationRecord
 
   # scopes ....................................................................
   scope :search_keywords, -> (*values) { values.blank? ? all : with_any_keywords(*values) }
+  scope :search_countries, -> (*values) { values.blank? ? all : with_any_countries(*values) }
   scope :search_name, -> (value) { value.blank? ? all : search_column(:name, value) }
   scope :search_negative_keywords, -> (*values) { values.blank? ? all : with_any_negative(*values) }
   scope :search_status, -> (*values) { values.blank? ? all : where(status: values) }

@@ -44,7 +44,7 @@
 
     <%= pseudo_row_divider %>
 
-    <%= tag.div f.input(:topic_categories, collection: topic_categories_for_select, label: "Topics", required: true, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:topic_categories, collection: keywords_for_select, label: "Topics", required: true, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-6" %>
     <%= tag.div f.input(:programming_languages, collection: programming_languages_for_select, required: true, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-6" %>
 
     <%= pseudo_row_divider %>

@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    users = User.include_image_count.order(:company, :first_name, :last_name)
+    users = User.include_image_count.order(:company_name, :first_name, :last_name)
     users = @user_search.apply(users)
     @pagy, @users = pagy(users)
   end
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(
-        :first_name, :last_name, :email, :company, :paypal_email, :address_1,
+        :first_name, :last_name, :email, :company_name, :paypal_email, :address_1,
         :address_2, :city, :region, :postal_code, :country, :api_access, roles: []
       )
     end
