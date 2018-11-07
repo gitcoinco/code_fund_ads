@@ -47,12 +47,8 @@ module ApplicationHelper
     ENUMS::COUNTRIES.values.zip ENUMS::COUNTRIES.keys
   end
 
-  def topic_categories_for_select
-    ENUMS::TOPIC_CATEGORIES.values
-  end
-
-  def programming_languages_for_select
-    ENUMS::PROGRAMMING_LANGUAGES.values
+  def keywords_for_select
+    ENUMS::KEYWORDS.keys
   end
 
   def badge_for_count(count)

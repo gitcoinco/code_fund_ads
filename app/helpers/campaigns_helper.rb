@@ -8,7 +8,7 @@ module CampaignsHelper
   end
 
   def campaign_statuses_for_select
-    ENUMS::CAMPAIGN_STATUSES.values.zip ENUMS::CAMPAIGN_STATUSES.keys
+    ENUMS::CAMPAIGN_STATUSES.values
   end
 
   def campaign_status_html(status)

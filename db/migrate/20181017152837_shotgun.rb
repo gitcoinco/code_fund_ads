@@ -44,9 +44,9 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.date :end_date
       t.boolean :us_hours_only, default: false
       t.boolean :weekdays_only, default: false
-      t.decimal :ecpm, null: false
-      t.decimal :daily_budget, null: false
-      t.decimal :total_budget, null: false
+      t.monetize :total_budget, null: false
+      t.monetize :daily_budget, null: false
+      t.monetize :ecpm, null: false
       t.string :countries, default: [], array: true
       t.string :keywords, default: [], array: true
       t.string :negative_keywords, default: [], array: true

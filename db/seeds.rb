@@ -83,3 +83,34 @@ if advertiser.creatives.count == 0
     end
   end
 end
+
+if advertiser.campaigns.count == 0
+  15.times do
+    start_date = rand(3).months.from_now.to_date
+    end_date = start_date.advance(months: 6)
+    days = (end_date - start_date).to_i
+    total_budget = ([*500..5000].sample / 100) * 100
+    daily_budget = total_budget / (end_date - start_date).to_i
+    countries = ENUMS::DEVELOPED_MARKET_COUNTRIES.keys
+    countries = countries + ENUMS::EMERGING_MARKET_COUNTRIES.keys if rand(3).zero?
+    countries = countries + ENUMS::COUNTRIES.keys.sample(5) if rand(5).zero?
+    keywords = ENUMS::KEYWORDS.values.sample(25)
+    Campaign.create(
+      user: advertiser,
+      creative: advertiser.creatives.sample,
+      status: ENUMS::CAMPAIGN_STATUSES.values.sample,
+      name: Faker::SiliconValley.invention,
+      url: Faker::SiliconValley.url,
+      start_date: start_date,
+      end_date: end_date,
+      us_hours_only: rand(2).zero?,
+      weekdays_only: rand(2).zero?,
+      total_budget: total_budget,
+      daily_budget: daily_budget,
+      ecpm: 3,
+      countries: countries,
+      keywords: keywords,
+      negative_keywords: ENUMS::KEYWORDS.values.sample(5) - keywords,
+    )
+  end
+end
