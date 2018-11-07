@@ -1,0 +1,65 @@
+#cf_ad {
+  background-color: hsl(0, 0%, 98%);
+  border-radius: 4px;
+  box-shadow: 0 0 0 1px hsla(0, 0%, 0%, .1);
+  display: block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: var(--font-size);
+  line-height: 1.5;
+  margin-bottom: 20px;
+  max-width: var(--width);
+  overflow: hidden;
+  text-align: center;
+}
+
+#cf_ad .cf-wrapper {
+  display: block;
+  padding: 0px;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+  font-family: "Helvetica Neue", Helvetica, Arial;
+  font-weight: 350;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#cf_ad .cf-image-wrapper {
+  display: block;
+  line-height: 1;
+  margin-bottom: 8px;
+  max-width: var(--width);
+}
+
+#cf_ad .cf-image-wrapper img {
+  vertical-align: middle;
+  border-style: none;
+  width: 100%;
+}
+
+#cf_ad .cf-text {
+  display: block;
+  padding: 0 1em 8px;
+  text-decoration: none;
+  color: hsla(0, 0%, 0%, .8);
+}
+
+#cf_ad .cf-powered-by {
+  background: hsla(0, 0%, 0%, .05);
+  text-align: center;
+  display: block;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: .5px;
+  line-height: 2.2;
+  padding: 10px var(--font-size);
+  text-transform: uppercase;
+  color: hsla(0, 0%, 0%, .8);
+  text-decoration: none;
+}
+
+#cf_ad .cf-powered-by img {
+  position: fixed;
+  left: -1000px;
+  top: -1000px;
+}
