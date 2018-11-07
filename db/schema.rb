@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -13,6 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2018_10_17_152837) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pgcrypto"
@@ -33,9 +32,13 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.string "filename", null: false
     t.string "content_type"
     t.text "metadata"
+    t.jsonb "indexed_metadata", default: {}
     t.bigint "byte_size", null: false
     t.string "checksum", null: false
     t.datetime "created_at", null: false
+    t.index ["content_type"], name: "index_active_storage_blobs_on_content_type"
+    t.index ["filename"], name: "index_active_storage_blobs_on_filename"
+    t.index ["indexed_metadata"], name: "index_active_storage_blobs_on_indexed_metadata", using: :gin
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
@@ -69,6 +72,15 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.index ["us_hours_only"], name: "index_campaigns_on_us_hours_only"
     t.index ["user_id"], name: "index_campaigns_on_user_id"
     t.index ["weekdays_only"], name: "index_campaigns_on_weekdays_only"
+  end
+
+  create_table "creative_images", force: :cascade do |t|
+    t.bigint "creative_id", null: false
+    t.bigint "active_storage_attachment_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active_storage_attachment_id"], name: "index_creative_images_on_active_storage_attachment_id"
+    t.index ["creative_id"], name: "index_creative_images_on_creative_id"
   end
 
   create_table "creatives", force: :cascade do |t|
@@ -202,4 +214,5 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
+
 end
