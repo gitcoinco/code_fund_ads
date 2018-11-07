@@ -2,33 +2,30 @@
 
 # == Schema Information
 #
-# Table name: creatives
+# Table name: creative_images
 #
-#  id         :bigint(8)        not null, primary key
-#  user_id    :bigint(8)        not null
-#  name       :string           not null
-#  headline   :string           not null
-#  body       :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id                           :bigint(8)        not null, primary key
+#  creative_id                  :bigint(8)        not null
+#  active_storage_attachment_id :bigint(8)        not null
+#  created_at                   :datetime         not null
+#  updated_at                   :datetime         not null
 #
 
-class Creative < ApplicationRecord
+class CreativeImage < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
 
   # relationships .............................................................
-  belongs_to :user
-  has_many :campaigns
-  has_many :creative_images
+  belongs_to :creative
+  belongs_to :image, class_name: "ActiveStorage::Attachment", foreign_key: "active_storage_attachment_id"
 
   # validations ...............................................................
-  validates :body, length: { maximum: 255, allow_blank: false }
-  validates :headline, length: { maximum: 255, allow_blank: false }
-  validates :name, length: { maximum: 255, allow_blank: false }
-
   # callbacks .................................................................
   # scopes ....................................................................
+  scope :small, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::SMALL) }
+  scope :large, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::LARGE) }
+  scope :wide, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::WIDE) }
+
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
 
   # class methods .............................................................
@@ -36,22 +33,6 @@ class Creative < ApplicationRecord
   end
 
   # public instance methods ...................................................
-
-  def images
-    user.images.where(id: creative_images.select(:active_storage_attachment_id))
-  end
-
-  def small_images
-    images.metadata_format ENUMS::IMAGE_FORMATS::SMALL
-  end
-
-  def large_images
-    images.metadata_format ENUMS::IMAGE_FORMATS::LARGE
-  end
-
-  def wide_images
-    images.metadata_format ENUMS::IMAGE_FORMATS::WIDE
-  end
 
   # protected instance methods ................................................
   protected

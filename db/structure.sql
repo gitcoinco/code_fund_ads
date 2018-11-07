@@ -182,6 +182,38 @@ ALTER SEQUENCE public.campaigns_id_seq OWNED BY public.campaigns.id;
 
 
 --
+-- Name: creative_images; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.creative_images (
+    id bigint NOT NULL,
+    creative_id bigint NOT NULL,
+    active_storage_attachment_id bigint NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: creative_images_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.creative_images_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: creative_images_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.creative_images_id_seq OWNED BY public.creative_images.id;
+
+
+--
 -- Name: creatives; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -476,6 +508,13 @@ ALTER TABLE ONLY public.campaigns ALTER COLUMN id SET DEFAULT nextval('public.ca
 
 
 --
+-- Name: creative_images id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.creative_images ALTER COLUMN id SET DEFAULT nextval('public.creative_images_id_seq'::regclass);
+
+
+--
 -- Name: creatives id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -547,6 +586,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.campaigns
     ADD CONSTRAINT campaigns_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: creative_images creative_images_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.creative_images
+    ADD CONSTRAINT creative_images_pkey PRIMARY KEY (id);
 
 
 --
@@ -730,6 +777,20 @@ CREATE INDEX index_campaigns_on_user_id ON public.campaigns USING btree (user_id
 --
 
 CREATE INDEX index_campaigns_on_weekdays_only ON public.campaigns USING btree (weekdays_only);
+
+
+--
+-- Name: index_creative_images_on_active_storage_attachment_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_creative_images_on_active_storage_attachment_id ON public.creative_images USING btree (active_storage_attachment_id);
+
+
+--
+-- Name: index_creative_images_on_creative_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_creative_images_on_creative_id ON public.creative_images USING btree (creative_id);
 
 
 --

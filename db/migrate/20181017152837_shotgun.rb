@@ -75,6 +75,15 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.index :user_id
     end
 
+    create_table :creative_images, force: :cascade do |t|
+      t.bigint :creative_id, null: false
+      t.bigint :active_storage_attachment_id, null: false
+      t.timestamps
+
+      t.index :creative_id
+      t.index :active_storage_attachment_id
+    end
+
     create_table :impressions, id: :uuid, default: -> { "gen_random_uuid()" } do |t|
       t.bigint :campaign_id
       t.bigint :property_id
@@ -100,22 +109,6 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.index :ip
     end
 
-    create_table :publisher_invoices do |t|
-      t.bigint :user_id, null: false
-      t.money :amount, null: false
-      t.string :currency, null: false
-      t.date :start_date, null: false
-      t.date :end_date, null: false
-      t.date :sent_at
-      t.date :paid_at
-      t.timestamps
-
-      t.index :user_id
-      t.index :start_date
-      t.index :end_date
-      t.date :paid_at
-    end
-
     create_table :properties do |t|
       t.bigint :user_id, null: false
       t.uuid :template_id
@@ -137,6 +130,22 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.index "lower(name)", name: "index_properties_on_name"
       t.index :keywords, using: :gin
       t.index :prohibited_advertisers, using: :gin
+    end
+
+    create_table :publisher_invoices do |t|
+      t.bigint :user_id, null: false
+      t.money :amount, null: false
+      t.string :currency, null: false
+      t.date :start_date, null: false
+      t.date :end_date, null: false
+      t.date :sent_at
+      t.date :paid_at
+      t.timestamps
+
+      t.index :user_id
+      t.index :start_date
+      t.index :end_date
+      t.date :paid_at
     end
 
     create_table :templates do |t|

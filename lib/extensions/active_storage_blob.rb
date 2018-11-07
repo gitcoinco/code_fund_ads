@@ -5,7 +5,7 @@ module CodeFundAds::Extensions
     extend ActiveSupport::Concern
 
     module ClassMethods
-      def quoted_column(name)
+      def quote_column(name)
         [
           quoted_table_name,
           connection.quote_column_name(name)
@@ -18,8 +18,8 @@ module CodeFundAds::Extensions
         self.indexed_metadata = metadata || {}
       end
 
-      scope :metadata_name, -> (value) { where "#{quoted_column :indexed_metadata} ->> 'name' = ?", value }
-      scope :metadata_format, -> (value) { where "#{quoted_column :indexed_metadata} ->> 'format' = ?", value }
+      scope :metadata_name, -> (value) { where "#{quote_column :indexed_metadata} ->> 'name' = ?", value }
+      scope :metadata_format, -> (value) { where "#{quote_column :indexed_metadata} ->> 'format' = ?", value }
     end
   end
 end
