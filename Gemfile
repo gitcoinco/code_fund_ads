@@ -43,6 +43,7 @@ group :development do
   gem "annotate"
   gem "faker", ">= 1.9.1"
   gem "listen", ">= 3.0.5", "< 3.2"
+  gem "meta_request" # RailsPanel Chrome extension
   gem "model_probe"
   gem "rubocop"
   gem "teamocil"

@@ -2,6 +2,7 @@
 
 Rails.application.routes.draw do
   devise_for :users
+  
   resources :campaign_searches, only: [:create, :destroy]
   resources :property_searches, only: [:create, :destroy]
   resources :user_searches, only: [:create, :destroy]
@@ -10,10 +11,6 @@ Rails.application.routes.draw do
   scope "/imageables/:imageable_gid/" do
     resources :images, except: [:show]
   end
-
-  get "/publishers", to: "home#publishers", as: :home_publishers
-  get "/advertisers", to: "home#advertisers", as: :home_advertisers
-  get "/help", to: "home#help", as: :home_help
 
   resources :campaigns
   resources :creatives
@@ -28,6 +25,10 @@ Rails.application.routes.draw do
     resources :properties, only: [:index], as: :user_properties
     resources :creatives, only: [:index], as: :user_creatives
   end
+
+  get "/publishers", to: "home#publishers", as: :home_publishers
+  get "/advertisers", to: "home#advertisers", as: :home_advertisers
+  get "/help", to: "home#help", as: :home_help
 
   root "home#index"
 end

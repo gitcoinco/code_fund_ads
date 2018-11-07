@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-8 col-lg-7 col-xl-6 offset-md-2 offset-lg-2 offset-xl-3 u-space-3 u-space-0--lg">
+      <!-- Form -->
+      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), class: "js-validate mt-5") do |f| %>
+        <!-- Title -->
+        <div class="mb-7">
+          <h2 class="h3 text-codefund-purple font-weight-normal mb-0">Welcome <span class="font-weight-bold text-codefund-green">back</span></h2>
+          <p>Login to manage your account.</p>
+        </div>
+        <!-- End Title -->
+
+        <!-- Input -->
+        <div class="js-form-message mb-4">
+          <label class="h6 small d-block text-uppercase">Email address</label>
+
+          <div class="js-focus-state input-group u-form">
+            <%= f.input :email,
+                required: true,
+                autofocus: true,
+                placeholder: "Email",
+                input_html: {
+                  class: "form-control u-form__input",
+                  autocomplete: "email"
+                },
+                data: {
+                  msg: "Please enter a valid email address.",
+                  errorClass: "u-has-error",
+                  successCass: "u-has-success"
+                } %>
+          </div>
+        </div>
+        <!-- End Input -->
+
+        <!-- Input -->
+        <div class="js-form-message mb-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <label class="h6 small d-block text-uppercase">Password</label>
+
+            <div class="mb-2">
+              <%#= link "Forgot Password?", to: password_path(@conn, :new), class: "small u-link-muted" %>
+            </div>
+          </div>
+
+          <div class="js-focus-state input-group u-form">
+            <%= f.input :password,
+                required: true,
+                input_html: {
+                  class: "form-control u-form__input",
+                  autocomplete: "current-password"
+                },
+                data: {
+                  msg: "Your password is invalid. Please try again.",
+                  errorClass: "u-has-error",
+                  successCass: "u-has-success"  
+                } %>
+          </div>
+        </div>
+        <!-- End Input -->
+
+        <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+
+        <!-- Button -->
+        <div class="row align-items-center mb-5">
+          <div class="ml-3 text-right">
+            <%= f.button :submit, "Login", class: "btn btn-primary u-btn-primary transition-3d-hover" %>
+          </div>
+        </div>
+        <!-- End Button -->
+
+      <% end %>
+      <!-- End Form -->
+    </div>
+  </div>
+</div>
+
+

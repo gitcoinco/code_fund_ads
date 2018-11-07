@@ -13,16 +13,16 @@
     <!-- Navigation -->
     <div id="navBar" class="collapse navbar-collapse py-0">
       <ul class="navbar-nav u-header__navbar-nav ml-lg-auto">
-        <% if controller_name == "home" %>
+        <% if devise_controller? || controller_name == "home" %>
           <%= active_link_to "Home", root_path, active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <%= active_link_to "Advertisers", home_advertisers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <%= active_link_to "Publishers", home_publishers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <%= active_link_to "Blog", "https://medium.com/codefund", target: "_blank", class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <%= active_link_to "FAQ", home_help_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <% if current_user %>
-            <%= active_link_to "Dashboard", "/", active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+            <%= active_link_to "Dashboard", properties_path, active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <% else %>
-            <%= active_link_to "Login", "/", active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+            <%= active_link_to "Login", new_user_session_path, active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <% end %>
         <% else %>
           <%= active_link_to "Users", users_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" if current_user %>

@@ -49,13 +49,13 @@
       <!-- Account Login -->
       <li class="list-inline-item">
         <!-- Account Sidebar Toggle Button -->
-        <a id="sidebarNavToggler" class="btn btn-xs u-btn-text-secondary u-sidebar--account__toggle-bg ml-1 target-of-invoker-has-unfolds" href="javascript:;" role="button" aria-controls="sidebarContent" aria-haspopup="true" aria-expanded="false" data-unfold-event="click" data-unfold-hide-on-scroll="false" data-unfold-target="#sidebarContent" data-unfold-type="css-animation" data-unfold-animation-in="fadeInRight" data-unfold-animation-out="fadeOutRight" data-unfold-duration="500">
+        <span class="btn btn-xs u-btn-text-secondary u-sidebar--account__toggle-bg ml-1 target-of-invoker-has-unfolds">
           <span class="position-relative">
-            <span class="u-sidebar--account__toggle-text">Natalie Curtis</span>
-            <img class="u-sidebar--account__toggle-img" src="https://htmlstream.com/preview/front-v1.3/assets/img/100x100/img1.jpg" alt="Image Description">
+            <span class="u-sidebar--account__toggle-text"><%= current_user.name %></span>
+            <%= image_tag current_user.gravatar_url, class: "u-sidebar--account__toggle-img" %>
             <span class="u-badge u-badge-success u-badge-pos rounded-circle">3</span>
           </span>
-        </a>
+        </span>
         <!-- End Account Sidebar Toggle Button -->
       </li>
       <!-- End Account Login -->

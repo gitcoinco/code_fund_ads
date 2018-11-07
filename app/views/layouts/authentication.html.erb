@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CodeFund Ads</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="https://codefund.io/favicon.ico">
+
+    <!-- Search Engine -->
+    <meta name="description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
+    <meta name="image" content="<%= asset_url "codefund-logo-square-512.png" %>"/>
+
+    <!-- Schema.org for Google -->
+    <meta itemprop="name" content="CodeFund">
+    <meta itemprop="description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
+    <meta itemprop="image" content="<%= asset_url "codefund-logo-square-512.png" %>">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="CodeFund">
+    <meta name="twitter:description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
+    <meta name="twitter:site" content="@codefundio">
+    <meta name="twitter:creator" content="@coderberry">
+    <meta name="twitter:image:src" content="<%= asset_url "twitter-preview-image.png" %>">
+
+    <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+    <meta name="og:title" content="CodeFund">
+    <meta name="og:description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
+    <meta name="og:image" content="<%= asset_url "preview-image.png" %>">
+    <meta name="og:url" content="<%= root_url %>">
+    <meta name="og:site_name" content="CodeFund">
+    <meta name="og:locale" content="en_US">
+    <meta name="fb:admins" content="801507563">
+    <meta name="og:type" content="website">
+
+    <!-- CDN Stylesheets -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-POYwD7xcktv3gUeZO5s/9nUbRJG/WOmV6jfEGikMJu77LGYO8Rfs2X7URG822aum" crossorigin="anonymous">
+
+    <!-- Compressed Stylesheets -->
+    <%= stylesheet_pack_tag 'main', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Compressed JavaScripts -->
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'main', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Cookie / Privacy Policy -->
+    <script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+  </head>
+  <body>
+    <%= render "/@shared/skippy" %>
+
+    <main id="content" role="main">
+      <div class="d-flex align-items-center position-relative min-height-100vh--lg">
+        <header class="position-absolute-top-0 z-index-2">
+          <nav class="d-flex justify-content-between align-items-center">
+            <div class="col-lg-5 col-xl-4 text-lg-center px-0">
+              <a class="d-inline-block p-3 p-sm-5" href="/" aria-label="CodeFund">
+                <%= image_tag "codefund-wg-512.svg", class: "d-none d-lg-inline-block", alt: "Logo", style: "width: 100px;" %>
+                <%= image_tag "codefund-w.svg", class: "d-inline-block d-lg-none", alt: "Logo", style: "width: 140px;" %>
+              </a>
+            </div>
+
+            <div class="p-3 p-sm-5">
+              <a class="btn btn-sm btn-primary u-btn-primary transition-3d-hover" href="/">Home</a>
+            </div>
+          </nav>
+        </header>
+
+        <div class="col-lg-5 col-xl-4 d-none d-lg-flex align-items-center u-gradient-half-primary-v1 min-height-100vh--lg px-0">
+          <div class="w-100 p-5">
+            <figure class="mb-5 mx-auto" style="width: 45px;">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                viewBox="0 0 8 8" style="enable-background:new 0 0 8 8;" xml:space="preserve">f
+                <path class="u-fill-white" d="M3,1.3C2,1.7,1.2,2.7,1.2,3.6c0,0.2,0,0.4,0.1,0.5c0.2-0.2,0.5-0.3,0.9-0.3c0.8,0,1.5,0.6,1.5,1.5c0,0.9-0.7,1.5-1.5,1.5
+                  C1.4,6.9,1,6.6,0.7,6.1C0.4,5.6,0.3,4.9,0.3,4.5c0-1.6,0.8-2.9,2.5-3.7L3,1.3z M7.1,1.3c-1,0.4-1.8,1.4-1.8,2.3
+                  c0,0.2,0,0.4,0.1,0.5c0.2-0.2,0.5-0.3,0.9-0.3c0.8,0,1.5,0.6,1.5,1.5c0,0.9-0.7,1.5-1.5,1.5c-0.7,0-1.1-0.3-1.4-0.8
+                  C4.4,5.6,4.4,4.9,4.4,4.5c0-1.6,0.8-2.9,2.5-3.7L7.1,1.3z"/>
+              </svg>
+            </figure>
+
+            <div id="testimonialsNavMain" class="js-slick-carousel u-slick mb-4"
+                data-infinite="true"
+                data-autoplay="true"
+                data-speed="5000"
+                data-fade="true"
+                data-nav-for="#testimonialsNavPagination">
+              <div class="js-slide">
+                <div class="w-md-80 w-lg-60 text-center mx-auto">
+                  <blockquote class="h5 text-white font-weight-normal mb-4">CodeFund helps me get in front of with the right audience and helps support valuable Open Source creators, maintainers and sustainers!</blockquote>
+                  <h1 class="h6 u-text-light">Ian Kelly, CodePilot.ai</h1>
+                </div>
+              </div>
+
+              <div class="js-slide">
+                <div class="w-md-80 w-lg-60 text-center mx-auto">
+                  <blockquote class="h5 text-white font-weight-normal mb-4">Supporting OS sustainability while generating awareness for Rollbar, was a total no-brainer decision...</blockquote>
+                  <h2 class="h6 u-text-light">Mike Smith, GitPrime</h2>
+                </div>
+              </div>
+
+              <div class="js-slide">
+                <div class="w-md-80 w-lg-60 text-center mx-auto">
+                  <blockquote class="h5 text-white font-weight-normal mb-4">CodeFund is a very straightforward and ethical way to fund OSS!</blockquote>
+                  <h3 class="h6 u-text-light">@discourse</h3>
+                </div>
+              </div>
+            </div>
+
+            <div id="testimonialsNavPagination" class="js-slick-carousel u-slick u-slick--transform-off u-slick--pagination-modern mx-auto"
+                data-controller="slick-carousel"
+                data-infinite="true"
+                data-autoplay="true"
+                data-speed="5000"
+                data-center-mode="true"
+                data-slides-show="3"
+                data-is-thumbs="true"
+                data-focus-on-select="true"
+                data-nav-for="#testimonialsNavMain">
+              <div class="js-slide">
+                <img class="u-avatar rounded-circle mx-auto" src="https://pbs.twimg.com/profile_images/2163405584/h4nMVB4Q_400x400" alt="Ian Kelly">
+              </div>
+
+              <div class="js-slide">
+                <img class="u-avatar rounded-circle mx-auto" src="https://pbs.twimg.com/profile_images/870708848402735105/C6nPDVSP_400x400.jpg" alt="Mike Smith">
+              </div>
+
+              <div class="js-slide">
+                <img class="u-avatar rounded-circle mx-auto" src="https://pbs.twimg.com/profile_images/1006736538686967820/oIC5fRth_400x400.jpg" alt="Discourse">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <%= yield %>
+      </div>
+    </main>
+
+    <%= support_widget_tag %>
+    <%= ga_tag %>
+  </body>
+</html>
