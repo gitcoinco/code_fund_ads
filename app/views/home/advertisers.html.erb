@@ -43,7 +43,7 @@
 
 				<div class="col-lg-7">
 					<!-- SVG Icon -->
-					<%= image_tag "/svg/undraw_product_tour_foyt.svg", style: "width: 100%;" %>
+					<%= image_tag "svg/undraw_product_tour_foyt.svg", style: "width: 100%;" %>
 					<!-- End SVG Icon -->
 				</div>
 			</div>
@@ -181,6 +181,7 @@
 
 			<!-- Slick Carousel -->
 			<div class="js-slick-carousel u-slick u-slick--equal-height u-slick--gutters-3"
+            data-controller="slick-carousel"
 						data-slides-show="3"
 						data-autoplay="true"
 						data-speed="5000"
@@ -208,7 +209,7 @@
 						<!-- Author & Review -->
 						<div class="media">
 							<div class="d-flex mr-3">
-								<img class="img-fluid u-avatar rounded-circle" src="<%= static_path(@conn, "/images/avatars/dean-ramadan.jpg") %>" alt="Dean Ramadan">
+                <%= image_tag "avatars/dean-ramadan.jpg", class: "img-fluid u-avatar rounded-circle", alt: "Dean Ramadan" %>
 							</div>
 							<div class="media-body">
 								<h4 class="h6 mb-1">
@@ -233,7 +234,7 @@
 						<!-- Author & Review -->
 						<div class="media">
 							<div class="d-flex mr-3">
-								<img class="img-fluid u-avatar rounded-circle" src="<%= static_path(@conn, "/images/avatars/mike-smith.jpg") %>" alt="Michael Smith">
+                <%= image_tag "avatars/mike-smith.jpg", class: "img-fluid u-avatar rounded-circle", alt: "Michael Smith" %>
 							</div>
 							<div class="media-body">
 								<h4 class="h6 mb-1">
@@ -258,7 +259,7 @@
 						<!-- Author & Review -->
 						<div class="media">
 							<div class="d-flex mr-3">
-								<img class="img-fluid u-avatar rounded-circle" src="<%= static_path(@conn, "/images/avatars/ian-kelly.jpg") %>" alt="Ian Kelly">
+                <%= image_tag "avatars/ian-kelly.jpg", class: "img-fluid u-avatar rounded-circle", alt: "Ian Kelly" %>
 							</div>
 							<div class="media-body">
 								<h4 class="h6 mb-1">
@@ -346,7 +347,7 @@
 			</div>
 
 			<div class="col-lg-7 order-lg-1">
-				<img src="<%= static_path(@conn, "/images/svg/undraw_target_kriv.svg") %>" alt="SVG Illustration" style="max-width: 100%;">
+        <%= image_tag "svg/undraw_target_kriv.svg", style: "max-width: 100%;" %>
 			</div>
 		</div>
 	</div>
@@ -386,7 +387,7 @@
 
 			<div class="col-lg-7 mb-7 mb-lg-0">
 				<!-- SVG Icon -->
-				<img src="<%= static_path(@conn, "/images/svg/undraw_setup_wizard_r6mr.svg") %>" alt="SVG Illustration" style="width: 100%;">
+        <%= image_tag "svg/undraw_setup_wizard_r6mr.svg", style: "width: 100%;" %>
 				<!-- End SVG Icon -->
 			</div>
 		</div>
@@ -414,7 +415,7 @@
 
 		<div class="container u-space-4-top u-space-2-bottom">
 			<div class="w-lg-80 mx-auto">
-				<%= form_tag page_path(@conn, :deliver_form, :advertiser), [method: :post, class: "js-validate", data: [
+				<%#= form_tag page_path(@conn, :deliver_form, :advertiser), [method: :post, class: "js-validate", data: [
 						controller: "event_track",
 						action: "submit->event_track#logEvent",
 						ga_event_category: "website",
@@ -535,7 +536,7 @@
 							<button type="submit" class="btn text-primary u-btn-white transition-3d-hover">Submit</button>
 						</div>
 					</div>
-				<% end %>
+				<%# end %>
 			</div>
 		</div>
 	</div>

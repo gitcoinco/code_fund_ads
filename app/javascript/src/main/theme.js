@@ -45,7 +45,6 @@ document.addEventListener('turbolinks:load', () => {
   jQuery('[data-toggle="tooltip"]').tooltip();
   jQuery.HSCore.components.HSHeader.init(jQuery('#header'));
   jQuery.HSCore.components.HSUnfold.init(jQuery('[data-unfold-target]'));
-  jQuery.HSCore.components.HSGoTo.init('.js-go-to');
   jQuery.HSCore.components.HSMalihuScrollBar.init(jQuery('.js-scrollbar'));
   jQuery.HSCore.helpers.HSFocusState.init();
 });

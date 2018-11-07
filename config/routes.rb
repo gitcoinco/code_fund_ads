@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   get "/publishers", to: "home#publishers", as: :home_publishers
   get "/advertisers", to: "home#advertisers", as: :home_advertisers
-  get "/faq", to: "home#faq", as: :home_faq
+  get "/help", to: "home#help", as: :home_help
 
   resources :campaigns
   resources :creatives

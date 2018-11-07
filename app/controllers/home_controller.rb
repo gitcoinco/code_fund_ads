@@ -9,6 +9,6 @@ class HomeController < ApplicationController
   def advertisers
   end
 
-  def faq
+  def help
   end
 end

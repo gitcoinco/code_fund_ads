@@ -1,11 +1,6 @@
 <div id="logoAndNav" class="container">
-  <!-- Nav -->
   <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar hs-menu-initialized hs-menu-horizontal">
-    <!-- Logo -->
-    <a class="navbar-brand u-header__navbar-brand u-header__navbar-brand-top-space" href="/" aria-label="CodeFund">
-      <%= image_tag "codefund-w.svg", alt: "CodeFund" %>
-    </a>
-    <!-- End Logo -->
+    <%= link_to image_tag("codefund-w.svg", alt: "CodeFund"), root_path, class: "navbar-brand u-header__navbar-brand u-header__navbar-brand-top-space" %>
 
     <!-- Responsive Toggle Button -->
     <button type="button" class="navbar-toggler btn u-hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar" data-toggle="collapse" data-target="#navBar">
@@ -22,8 +17,8 @@
           <%= active_link_to "Home", root_path, active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <%= active_link_to "Advertisers", home_advertisers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <%= active_link_to "Publishers", home_publishers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-          <%= active_link_to "Blog", "#", class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-          <%= active_link_to "FAQ", home_faq_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Blog", "https://medium.com/codefund", target: "_blank", class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "FAQ", home_help_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <% if current_user %>
             <%= active_link_to "Dashboard", "/", active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <% else %>
@@ -39,5 +34,4 @@
     </div>
     <!-- End Navigation -->
   </nav>
-  <!-- End Nav -->
 </div>
