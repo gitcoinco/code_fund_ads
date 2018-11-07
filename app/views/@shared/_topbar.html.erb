@@ -1,3 +1,5 @@
+
+
 <!-- Topbar -->
 <div class="container u-header__hide-content pt-2">
   <div class="d-flex align-items-center mb-0">
@@ -26,8 +28,8 @@
         </a>
 
         <div id="jumpToDropdown" class="u-unfold mt-2 u-unfold--css-animation u-unfold--hidden fadeOut" aria-labelledby="jumpToDropdownInvoker" style="animation-duration: 300ms;">
-          <a class="u-list__link" href="help.html">Help</a>
-          <a class="u-list__link" href="contacts-agency.html">Contacts</a>
+          <%= link_to "Help", home_help_path, class: "u-list__link" %>
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "u-list__link" if current_user %>
         </div>
       </div>
       <!-- End Jump To -->
@@ -36,30 +38,36 @@
       <div class="d-none d-sm-inline-block ml-sm-auto">
         <ul class="list-inline mb-0">
           <li class="list-inline-item mr-0">
-            <a class="u-header__topbar-nav-link" href="help.html">Help</a>
+            <%= link_to "Help", home_help_path, class: "u-header__topbar-nav-link" %>
           </li>
           <li class="list-inline-item mr-0">
-            <a class="u-header__topbar-nav-link" href="contacts-agency.html">Contacts</a>
+            <% if current_user %>
+              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "u-header__topbar-nav-link" %>
+            <% else %>
+              <%= link_to "Login", new_user_session_path, class: "u-header__topbar-nav-link" %>
+            <% end %>
           </li>
         </ul>
       </div>
       <!-- End Links -->
     </div>
 
-      <!-- Account Login -->
-      <li class="list-inline-item">
-        <!-- Account Sidebar Toggle Button -->
-        <span class="btn btn-xs u-btn-text-secondary u-sidebar--account__toggle-bg ml-1 target-of-invoker-has-unfolds">
-          <span class="position-relative">
-            <span class="u-sidebar--account__toggle-text"><%= current_user.name %></span>
-            <%= image_tag current_user.gravatar_url, class: "u-sidebar--account__toggle-img" %>
-            <span class="u-badge u-badge-success u-badge-pos rounded-circle">3</span>
-          </span>
-        </span>
-        <!-- End Account Sidebar Toggle Button -->
-      </li>
-      <!-- End Account Login -->
-    </ul>
+    <% if current_user %>
+      <ul class="list-inline ml-2 mb-0">
+        <!-- Account Login -->
+        <li class="list-inline-item">
+          <!-- Account Sidebar Toggle Button -->
+          <%= link_to "#profile_page", class: "btn btn-xs u-btn-text-secondary u-sidebar--account__toggle-bg ml-1 target-of-invoker-has-unfolds" do %>
+            <span class="position-relative">
+              <span class="u-sidebar--account__toggle-text"><%= current_user.name %></span>
+              <%= image_tag current_user.gravatar_url, class: "u-sidebar--account__toggle-img" %>
+            </span>
+          <% end %>
+          <!-- End Account Sidebar Toggle Button -->
+        </li>
+        <!-- End Account Login -->
+      </ul>
+    <% end %>
   </div>
 </div>
 <!-- End Topbar -->

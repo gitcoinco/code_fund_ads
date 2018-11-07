@@ -9,6 +9,6 @@ export default class extends Controller {
       backSpeed = parseInt(this.element.dataset.backSpeed),
       backDelay = parseInt(this.element.dataset.backDelay);
 
-      new Typed(this.element, { strings, typeSpeed, loop, backSpeed, backDelay });
+    new Typed(this.element, { strings, typeSpeed, loop, backSpeed, backDelay });
   }
 }
