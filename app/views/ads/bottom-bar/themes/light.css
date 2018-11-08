@@ -1,0 +1,39 @@
+#cf_ad {
+  font-family: system, 'Helvetica Neue', Helvetica, Arial;
+  font-size: 13px;
+}
+
+#cf_ad .cf-wrapper {
+  box-sizing: border-box;
+  position: fixed;
+  bottom: 0;
+  z-index: 5;
+  padding: 0.5em 1em;
+  width: 100%;
+  border-top: solid 1px #bfbfbf;
+  background-color: #eeeeee;
+  text-align: center;
+  line-height: 1.5;
+}
+
+#cf_ad .cf-text {
+  color: inherit;
+  text-decoration: none;
+  box-shadow: none;
+}
+
+#cf_ad .cf-text:before {
+  margin-right: 4px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background-color: #4caf50;
+  color: #fff;
+  content: 'Supporter';
+}
+
+#cf_ad .cf-powered-by {
+  font-size: 12px;
+  text-decoration: none;
+  color: #999;
+  box-shadow: none;
+}

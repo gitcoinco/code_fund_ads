@@ -111,12 +111,13 @@ class Shotgun < ActiveRecord::Migration[5.2]
 
     create_table :properties do |t|
       t.bigint :user_id, null: false
-      t.uuid :template_id
       t.string :type, null: false
       t.string :status, null: false
       t.string :name, null: false
       t.text :description
       t.text :url, null: false
+      t.string :template, null: false
+      t.string :theme, null: false
       t.string :language, null: false
       t.string :keywords, default: [], null: false, array: true
       t.bigint :prohibited_advertisers, default: [], array: true
@@ -124,7 +125,6 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.timestamps
 
       t.index :user_id
-      t.index :template_id
       t.index :type
       t.index :status
       t.index "lower(name)", name: "index_properties_on_name"
@@ -146,26 +146,6 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.index :start_date
       t.index :end_date
       t.date :paid_at
-    end
-
-    create_table :templates do |t|
-      t.string :name, null: false
-      t.text :description, null: false
-      t.text :html, null: false
-      t.timestamps
-
-      t.index "lower(name)", name: "index_templates_on_name"
-    end
-
-    create_table :themes do |t|
-      t.bigint :template_id, null: false
-      t.string :name, null: false
-      t.text :description, null: false
-      t.text :css, null: false
-      t.timestamps
-
-      t.index :template_id
-      t.index "lower(name)", name: "index_themes_on_name"
     end
 
     create_table :users do |t|

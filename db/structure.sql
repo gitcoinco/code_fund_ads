@@ -282,12 +282,13 @@ CREATE TABLE public.impressions (
 CREATE TABLE public.properties (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
-    template_id uuid,
     type character varying NOT NULL,
     status character varying NOT NULL,
     name character varying NOT NULL,
     description text,
     url text NOT NULL,
+    template character varying NOT NULL,
+    theme character varying NOT NULL,
     language character varying NOT NULL,
     keywords character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     prohibited_advertisers bigint[] DEFAULT '{}'::bigint[],
@@ -360,73 +361,6 @@ ALTER SEQUENCE public.publisher_invoices_id_seq OWNED BY public.publisher_invoic
 CREATE TABLE public.schema_migrations (
     version character varying NOT NULL
 );
-
-
---
--- Name: templates; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.templates (
-    id bigint NOT NULL,
-    name character varying NOT NULL,
-    description text NOT NULL,
-    html text NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.templates_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.templates_id_seq OWNED BY public.templates.id;
-
-
---
--- Name: themes; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.themes (
-    id bigint NOT NULL,
-    template_id bigint NOT NULL,
-    name character varying NOT NULL,
-    description text NOT NULL,
-    css text NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: themes_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.themes_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: themes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.themes_id_seq OWNED BY public.themes.id;
 
 
 --
@@ -539,20 +473,6 @@ ALTER TABLE ONLY public.publisher_invoices ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
--- Name: templates id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.templates ALTER COLUMN id SET DEFAULT nextval('public.templates_id_seq'::regclass);
-
-
---
--- Name: themes id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.themes ALTER COLUMN id SET DEFAULT nextval('public.themes_id_seq'::regclass);
-
-
---
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -637,22 +557,6 @@ ALTER TABLE ONLY public.publisher_invoices
 
 ALTER TABLE ONLY public.schema_migrations
     ADD CONSTRAINT schema_migrations_pkey PRIMARY KEY (version);
-
-
---
--- Name: templates templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.templates
-    ADD CONSTRAINT templates_pkey PRIMARY KEY (id);
-
-
---
--- Name: themes themes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.themes
-    ADD CONSTRAINT themes_pkey PRIMARY KEY (id);
 
 
 --
@@ -874,13 +778,6 @@ CREATE INDEX index_properties_on_status ON public.properties USING btree (status
 
 
 --
--- Name: index_properties_on_template_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_properties_on_template_id ON public.properties USING btree (template_id);
-
-
---
 -- Name: index_properties_on_type; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -913,27 +810,6 @@ CREATE INDEX index_publisher_invoices_on_start_date ON public.publisher_invoices
 --
 
 CREATE INDEX index_publisher_invoices_on_user_id ON public.publisher_invoices USING btree (user_id);
-
-
---
--- Name: index_templates_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_templates_on_name ON public.templates USING btree (lower((name)::text));
-
-
---
--- Name: index_themes_on_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_themes_on_name ON public.themes USING btree (lower((name)::text));
-
-
---
--- Name: index_themes_on_template_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_themes_on_template_id ON public.themes USING btree (template_id);
 
 
 --

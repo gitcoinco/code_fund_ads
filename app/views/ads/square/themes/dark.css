@@ -1,0 +1,53 @@
+#cf_ad .cf-header {
+  font-size: 12px;
+  color: #aaa;
+  display: block;
+  margin-bottom: 8px;
+  text-align: center;
+}
+#cf_ad .cf-header:before {
+  content: '—';
+  margin: 0 0.5em;
+  opacity: 0.5;
+}
+#cf_ad .cf-header:after {
+  content: '—';
+  margin: 0 0.5em;
+  opacity: 0.5;
+}
+#cf_ad .cf-wrapper {
+  max-width: 330px;
+  display: block;
+  padding: 15px;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+  font-family: Helvetica;
+}
+#cf_ad .cf-text {
+  display: block;
+  color: #ffffff;
+  text-decoration: none;
+  text-align: center;
+  font-size: 14px;
+  border-bottom: none !important;
+}
+#cf_ad .cf-powered-by {
+  margin-top: 5px;
+  font-size: 11px;
+  display: block;
+  color: #aaa;
+  text-decoration: none;
+  text-align: center;
+  border-bottom: none !important;
+}
+#cf_ad .cf-text:hover,
+#cf_ad .cf-powered-by {
+  background-image: none;
+}
+#cf_ad .cf-powered-by img {
+  position: fixed;
+  left: -1000px;
+  top: -1000px;
+}
