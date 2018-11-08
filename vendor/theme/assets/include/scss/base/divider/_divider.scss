@@ -1,0 +1,25 @@
+/*------------------------------------
+  Divider
+------------------------------------*/
+
+.u-divider {
+  position: relative;
+  display: inline-block;
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 50%;
+    content: "";
+  }
+
+  &::before {
+    right: 100%;
+    @include gradient-x($hs-start-color: transparent, $hs-end-color: rgba($g-gray-150, 1), $deg: 45deg);
+  }
+
+  &::after {
+    left: 100%;
+    @include gradient-x($hs-start-color: rgba($g-gray-150, 1), $hs-end-color: transparent, $deg: 45deg);
+  }
+}

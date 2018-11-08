@@ -1,0 +1,63 @@
+//
+// Icons
+//
+
+// Icon Elements
+@mixin icon-elements {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+}
+
+@mixin icon($hs-background, $hs-border, $hs-hover-background: darken($hs-background, 7.5%), $hs-hover-border: darken($hs-border, 10%), $hs-active-background: darken($hs-background, 10%), $g-active-border: darken($hs-border, 12.5%)) {
+  color: color-yiq($hs-background);
+  background-color: ($hs-background);
+  border-color: $hs-border;
+
+  &[href] {
+    &:hover {
+      color: color-yiq($hs-hover-background);
+      background-color: ($hs-hover-background);
+      border-color: $hs-hover-border;
+    }
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    background-color: $hs-background;
+    border-color: $hs-border;
+  }
+}
+
+// Icon Air Styles
+@mixin icon-air($hs-color, $hs-background, $hs-hover-background) {
+  color: ($hs-color);
+  background: rgba($hs-background, .1);
+
+  &[href] {
+    &:hover,
+    &:focus,
+    &:active {
+      color: color-yiq($hs-hover-background);
+      background: ($hs-hover-background);
+    }
+  }
+}
+
+// Icon Border Styles
+@mixin icon-bordered($hs-color, $hs-hover-background, $hs-brd-color, $hs-brd-hover-color) {
+  color: ($hs-color);
+  background: transparent;
+  border-color: $hs-brd-color;
+
+  &[href] {
+    &:hover,
+    &:focus,
+    &:active {
+      color: color-yiq($hs-hover-background);
+      background: ($hs-hover-background);
+      border-color: $hs-brd-color;
+    }
+  }
+}

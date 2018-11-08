@@ -1,0 +1,36 @@
+/*------------------------------------
+  Slick Paging v1
+------------------------------------*/
+
+.u-slick__paging-v1 {
+	@include absolute(bottom 32px right 0);
+	@include px-to-rem(padding-left, 15px);
+	@include px-to-rem(padding-right, 15px);
+
+	.u-paging {
+		&__current {
+			color: $g-white;
+			@include px-to-rem(font-size, 62px);
+			font-weight: 300;
+			line-height: 1;
+		}
+
+		&__divider {
+			@include relative;
+			@include px-to-rem(margin-right, 8px);
+			@include px-to-rem(margin-left, 4px);
+
+			&::before {
+				@include absolute(top 0 left 0);
+				color: $g-light-color;
+				@include px-to-rem(font-size, 14px);
+				content: "\002f";
+			}
+		}
+
+		&__total {
+			@include px-to-rem(font-size, 24px);
+			color: $g-light-color;
+		}
+	}
+}

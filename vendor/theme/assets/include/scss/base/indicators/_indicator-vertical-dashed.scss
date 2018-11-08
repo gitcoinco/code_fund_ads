@@ -1,0 +1,16 @@
+/*------------------------------------
+  Indicator Vertical Dashed
+------------------------------------*/
+
+.u-indicator-ver-dashed {
+	@include relative;
+
+	&::after {
+		@include absolute;
+		top: 32px;
+		left: 11px;
+		height: 100%;
+		border-left: 2px dashed $g-primary;
+		content: "";
+	}
+}

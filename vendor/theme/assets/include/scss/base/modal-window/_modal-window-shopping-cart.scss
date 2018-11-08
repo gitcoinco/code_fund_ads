@@ -1,0 +1,9 @@
+/*------------------------------------
+  Modal Window - Shopping Cart
+------------------------------------*/
+
+.u-modal-window {
+	&--shopping-cart {
+		@include px-to-rem(width, 370px);
+	}
+}

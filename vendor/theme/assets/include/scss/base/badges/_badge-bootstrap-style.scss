@@ -1,0 +1,10 @@
+/*------------------------------------
+  Badge Bootstrap Styles
+------------------------------------*/
+
+// Accent Colors
+@each $color, $value in $g-accent-colors {
+  .u-badge-#{$color} {
+    @include badge-variant($value);
+  }
+}

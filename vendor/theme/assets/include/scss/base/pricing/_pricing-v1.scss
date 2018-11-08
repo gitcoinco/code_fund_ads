@@ -1,0 +1,56 @@
+/*------------------------------------
+  Pricing v1
+------------------------------------*/
+
+.u-pricing-v1 {
+	box-shadow: 0 0 35px rgba($g-light-blue-300, .125);
+
+	&-toggler {
+		&:hover {
+			color: $g-primary;
+			background-color: transparent;
+			border-color: $g-primary;
+		}
+
+		&:not(:disabled):not(.disabled),
+		&:not(:disabled):not(.disabled) {
+			&:active,
+			&.active {
+				color: $g-white;
+				background-color: $g-primary;
+				border-color: $g-primary;
+			}
+		}
+
+		&-pos.u-badge-pos {
+			@include absolute;
+		}
+	}
+
+	&__header {
+		@include relative;
+		color: $g-white;
+		background-color: $g-primary;
+		@include border-top-radius($g-border-radius);
+		@include px-to-rem(padding, $g-space-1 $g-space-1 80px);
+	}
+
+	&__content {
+		background-color: $g-white;
+		@include border-bottom-radius($g-border-radius);
+		@include px-to-rem(padding, 0 $g-space-1 $g-space-1);
+
+		.disabled .u-icon {
+			color: $g-light-blue-200;
+			background-color: rgba($g-light-blue-200, .1);
+		}
+	}
+
+	&__list-item {
+		@include px-to-rem(font-size, 14px);
+	}
+
+	.disabled {
+		color: $g-light-blue-200;
+	}
+}

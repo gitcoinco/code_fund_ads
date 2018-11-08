@@ -1,0 +1,49 @@
+/*------------------------------------
+  Stop Colors
+------------------------------------*/
+
+.u-stop-color {
+	&-white {
+  	stop-color: $g-white;
+  }
+
+  &-primary {
+    stop-color: $g-primary;
+
+    &-darker {
+      stop-color: $g-primary-darker;
+    }
+
+    &-lighter {
+  		stop-color: $g-primary-lighter;
+  	}
+  }
+
+  &-warning {
+    stop-color: $g-warning;
+
+    &-darker {
+      stop-color: $g-warning-darker;
+    }
+  }
+
+  &-danger {
+    stop-color: $g-danger;
+
+    &-lighter {
+      stop-color: $g-danger-lighter;
+    }
+  }
+
+  &-info {
+    stop-color: $g-info;
+
+    &-lighter {
+      stop-color: $g-info-lighter;
+    }
+  }
+
+  &-midnightblue {
+    stop-color: $g-midnightblue;
+  }
+}

@@ -1,0 +1,17 @@
+/*------------------------------------
+  Label Colors
+------------------------------------*/
+
+@each $color, $value in $g-theme-colors {
+	/* label #{$color} */
+  .u-label--#{$color} {
+    @include label-colors($value, $value, $value);
+  }
+}
+
+@each $color, $value in $g-accent-colors {
+	/* label #{$color} */
+  .u-label--#{$color} {
+    @include label-colors($value, $value, $value);
+  }
+}

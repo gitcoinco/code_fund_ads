@@ -1,0 +1,13 @@
+//
+// Settings
+//
+
+// Custom _variable.scss file to override the core _variable.scss values
+@import "custom/variables";
+
+@import "tools/functions";
+@import "variables";
+@import "tools/mixins";
+
+// Core
+@import "core/style";

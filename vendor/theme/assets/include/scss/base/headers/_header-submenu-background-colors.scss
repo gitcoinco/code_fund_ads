@@ -1,0 +1,37 @@
+/*------------------------------------
+  Header Submenu Background Colors
+------------------------------------*/
+
+.u-header--sub-menu-dark-bg {
+	@each $hs-breakpoint in map-keys($g-breakpoints) {
+    $hs-infix: breakpoint-infix($hs-breakpoint, $g-breakpoints);
+
+    &#{$hs-infix} {
+    	@include media-breakpoint-up($hs-breakpoint) {
+				.u-header__sub-menu {
+					background-color: $g-dark;
+
+					&-nav-title {
+			    	color: rgba($g-white, .8);
+				  }
+				}
+
+				.u-list__link {
+		    	color: $g-light-blue-300;
+
+			    &:hover {
+						color: $g-primary;
+				  }
+			  }
+
+				.u-header__banner-v2 {
+					background-color: darken($g-dark, 1%);
+
+					&-text {
+				    color: $g-light-blue-300;
+			    }
+				}
+			}
+		}
+	}
+}

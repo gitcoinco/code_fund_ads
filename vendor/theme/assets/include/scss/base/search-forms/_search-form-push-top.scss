@@ -1,0 +1,54 @@
+/*------------------------------------
+  Search Form - Push Top
+------------------------------------*/
+
+.u-search-push-top {
+	display: none;
+	background-color: $g-search-push-top-bg;
+	@include px-to-rem(padding-top, $g-search-push-top-padding-paddingY);
+	@include px-to-rem(padding-bottom, $g-search-push-top-padding-paddingY);
+	box-shadow: $g-search-push-top-box-shadow;
+
+	&__content {
+		@include px-to-rem(max-width, $g-search-push-top-inner-max-width);
+	}
+
+	&__close-btn {
+		@include absolute(top -25px right 7px);
+	}
+
+	// Small Devices
+	@include media-breakpoint-down(xs) {
+		@include px-to-rem(padding-top, $g-search-push-top-padding-paddingY-sm);
+		@include px-to-rem(padding-bottom, $g-search-push-top-padding-paddingY-sm);
+	}
+}
+
+/* Banner */
+.u-search-push-top__banner {
+	background-color: $g-search-push-top-banner-bg;
+	box-shadow: $g-search-push-top-banner-box-shadow;
+	@include px-to-rem(padding-right, $g-search-push-top-banner-padding-right);
+	@include px-to-rem(padding-top, $g-search-push-top-banner-padding-top);
+	overflow: hidden;
+
+	&-container {
+		@include relative;
+		width: 75%;
+		@include px-to-rem(min-height, 185px);
+	}
+
+	&-img {
+		@include absolute(bottom -10px left -10px);
+		transition: all .3s ease-in-out;
+	}
+
+	&:hover {
+		.u-search-push-top__banner-img {
+			&:first-child {
+				bottom: 0;
+				left: 0;
+			}
+		}
+	}
+}

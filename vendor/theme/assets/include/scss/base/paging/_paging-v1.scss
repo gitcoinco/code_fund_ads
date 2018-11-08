@@ -1,0 +1,53 @@
+/*------------------------------------
+  Paging v1
+------------------------------------*/
+
+.u-paging-v1 {
+  .u-paging-v1__arrow-icon {
+    &-prev,
+    &-next {
+      transition: $g-transition-timing;
+    }
+
+    &-prev {
+      @include px-to-rem(margin-right, 16px);
+    }
+
+    &-next {
+      @include px-to-rem(margin-left, 16px);
+    }
+  }
+
+  &:hover {
+    .u-paging-v1__arrow-icon {
+      &-prev {
+        transform: translateX(-8px);
+      }
+
+      &-next {
+        transform: translateX(8px);
+      }
+    }
+  }
+
+  &-view-all {
+    color: $g-white;
+    text-align: center;
+    background-color: $g-warning;
+
+    &__icon {
+      display: block;
+      @include px-to-rem(font-size, 32px);
+      @include px-to-rem(margin-bottom, 8px);
+      transition: $g-transition-timing;
+    }
+
+    &:hover {
+      color: $g-white;
+
+      .u-paging-v1-view-all__icon {
+        transform: translateY(-8px);
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+/*------------------------------------
+  Slick Arrows Classic
+------------------------------------*/
+
+.u-slick__arrow-classic {
+	z-index: 1;
+	line-height: 0;
+	display: inline-block;
+	color: $g-white;
+	background-color: rgba($g-white, .1);
+	@include px-to-rem(width, 40px);
+	@include px-to-rem(height, 40px);
+	@include px-to-rem(font-size, 14px);
+	cursor: pointer;
+	transition: $g-transition-timing $g-transition-function;
+
+	&:hover {
+		color: $g-white;
+		background-color: rgba($g-primary, 1);
+	}
+
+	&-inner {
+		&:before {
+			@include content-centered;
+		}
+
+		&--left {
+			left: 0;
+		}
+
+		&--right {
+			right: 0;
+		}
+	}
+}

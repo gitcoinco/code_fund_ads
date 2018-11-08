@@ -1,0 +1,79 @@
+/*------------------------------------
+  Default Styles
+------------------------------------*/
+
+html {
+  font-size: $g-font-size-base;
+}
+
+body {
+  font-family: $g-font-family-base;
+  color: $g-dark;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -moz-font-feature-settings: "liga", "kern";
+  text-rendering: optimizelegibility;
+}
+
+main {
+  @include relative;
+  overflow: hidden;
+}
+
+p {
+  color: $g-paragraph-color;
+  line-height: $g-paragraph-line-height;
+}
+
+h4, h5, h6,
+.h4, .h5, .h6 {
+  font-weight: $g-font-weight-medium;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  > a {
+    color: $g-headings-link-color;
+
+    &:hover {
+      color: $g-link-color-hover;
+    }
+  }
+
+  &.text-white > a {
+    color: $g-headings-white-link-color;
+  }
+}
+
+figure {
+  margin-bottom: 0;
+}
+
+svg {
+  @include px-to-rem(margin-bottom, -7px);
+  vertical-align: baseline;
+}
+
+/*------------------------------------
+  Highlight Color
+------------------------------------*/
+
+::-moz-selection {
+  color: $g-white;
+  background-color: $g-primary;
+}
+
+::selection {
+  color: $g-white;
+  background-color: $g-primary;
+}
+
+.bg-primary ::-moz-selection {
+  color: $g-primary;
+  background-color: $g-white;
+}
+
+.bg-primary ::selection {
+  color: $g-primary;
+  background-color: $g-white;
+}

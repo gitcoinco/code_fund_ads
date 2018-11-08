@@ -1,0 +1,34 @@
+/*------------------------------------
+  Slick Gutters
+------------------------------------*/
+
+/* Gutters X */
+.u-slick--gutters-1 {
+	@include px-to-rem(margin-left, -4px);
+	@include px-to-rem(margin-right, -4px);
+
+	.slick-slide {
+		@include px-to-rem(margin-left, 4px);
+		@include px-to-rem(margin-right, 4px);
+	}
+}
+
+.u-slick--gutters-2 {
+	@include px-to-rem(margin-left, -8px);
+	@include px-to-rem(margin-right, -8px);
+
+	.slick-slide {
+		@include px-to-rem(margin-left, 8px);
+		@include px-to-rem(margin-right, 8px);
+	}
+}
+
+.u-slick--gutters-3 {
+	@include px-to-rem(margin-left, -16px);
+	@include px-to-rem(margin-right, -16px);
+
+	.slick-slide {
+		@include px-to-rem(margin-left, 16px);
+		@include px-to-rem(margin-right, 16px);
+	}
+}

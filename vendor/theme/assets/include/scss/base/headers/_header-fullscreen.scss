@@ -1,0 +1,55 @@
+/*------------------------------------
+  Fullscreen
+------------------------------------*/
+
+.u-fullscreen {
+	@include fixed(top 0 right 0 bottom 0 left 0);
+	visibility: hidden;
+
+	&--toggler {
+		z-index: $g-fullscreen-toggler-z-index;
+	}
+
+	&__container,
+	&__overlay {
+		transition: opacity $g-fullscreen-transition, visibility $g-fullscreen-transition;
+	}
+
+	&__container {
+		@include relative;
+  	z-index: $g-fullscreen-container-z-index;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		visibility: hidden;
+	}
+
+	&__overlay {
+		@include absolute(top 0 right 0 bottom 0 left 0);
+		z-index: $g-fullscreen-z-index;
+		opacity: 0;
+		visibility: hidden;
+		@include gradient-x($hs-start-color: rgba($g-midnightblue, .95), $hs-end-color: rgba($g-primary-lighter, .95), $deg: 150deg);
+		transition-delay: $g-fullscreen-overlay-transition-delay;
+	}
+
+	&.u-fullscreen--showed {
+		visibility: visible;
+
+		.u-fullscreen__container,
+		.u-fullscreen__overlay {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.u-fullscreen__overlay {
+			transition-delay: 0s;
+		}
+
+		.u-fullscreen__container {
+			transition-delay: $g-fullscreen-container-transition-delay;
+		}
+	}
+}

@@ -1,0 +1,44 @@
+/*------------------------------------
+  Badge Styles
+------------------------------------*/
+
+// Theme Colors
+@each $color, $value in $g-theme-colors {
+	/* #{$color} badge */
+  .u-badge-#{$color} {
+    @include badge($value, $value);
+  }
+}
+
+// Accent Colors
+@each $color, $value in $g-accent-colors {
+	/* #{$color} badge */
+  .u-badge-#{$color} {
+    @include badge($value, $value);
+  }
+}
+
+// Theme Colors
+@each $color, $value in $g-theme-colors {
+	/* #{$color} badge */
+  .u-badge-border-#{$color} {
+    @if $color == "warning" {
+      @include badge-bordered($value, $value, $g-dark);
+    } @else {
+      @include badge-bordered($value, $value, $g-dark);
+    }
+  }
+}
+
+// Accent Colors
+@each $color, $value in $g-accent-colors {
+	/* #{$color} badge */
+  .u-badge-border-#{$color} {
+    @include badge-bordered($value, $value, $value);
+  }
+}
+
+// Overwriting Badge Border White border color
+.u-badge-border-white {
+  border-color: $g-white;
+}

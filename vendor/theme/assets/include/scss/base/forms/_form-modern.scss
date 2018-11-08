@@ -1,0 +1,69 @@
+/*------------------------------------
+  Form Modern
+------------------------------------*/
+
+.u-form--modern {
+	&::before {
+		right: 0;
+	}
+
+	.u-form__input,
+	.u-form__text {
+		background-color: transparent;
+		border-top: none;
+		border-right: none;
+		border-left: none;
+		@include border-radius(0);
+	}
+
+	> .u-form__input {
+		padding-left: 0;
+
+		&:focus {
+			background-color: transparent;
+		}
+	}
+
+	&,
+	&.u-form--sm,
+	&.u-form--lg {
+		.u-form__text {
+			@include border-radius(0);
+		}
+	}
+}
+
+/* Focus State */
+.u-form--modern {
+	&.u-focus-state {
+    box-shadow: $g-form-modern-focus-box-shadow;
+  }
+
+  &:focus,
+  &.u-focus-state .u-form__append > .btn,
+  &.u-focus-state .u-form__prepend > .btn,
+  &.u-focus-state .u-form__text,
+  &.u-focus-state .u-form__input,
+  &.u-focus-state *:focus {
+    box-shadow: $g-form-modern-focus-box-shadow;
+  }
+}
+
+/* States */
+.u-has-error,
+.u-has-success {
+	.u-form--modern {
+		&.u-focus-state {
+	    box-shadow: $g-form-modern-focus-box-shadow;
+	  }
+
+	  &:focus,
+	  &.u-focus-state .u-form__append > .btn,
+	  &.u-focus-state .u-form__prepend > .btn,
+	  &.u-focus-state .u-form__text,
+	  &.u-focus-state .u-form__input,
+	  &.u-focus-state *:focus {
+	    box-shadow: $g-form-modern-focus-box-shadow;
+	  }
+	}
+}

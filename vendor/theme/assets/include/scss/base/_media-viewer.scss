@@ -1,0 +1,43 @@
+/*------------------------------------
+  Media Viewer
+------------------------------------*/
+
+.u-media-viewer {
+	@include relative;
+	display: block;
+
+	&:hover {
+		.u-media-viewer {
+			&__icon {
+				opacity: 1;
+				transform: scale(1);
+			}
+		}
+	}
+
+	&__container {
+		@include content-centered;
+	}
+
+	&__icon {
+		@include icon-elements;
+	  @include px-to-rem(width, 36px);
+	  @include px-to-rem(height, 36px);
+	  @include px-to-rem(font-size, 12px);
+	  color: $g-white;
+	  background-color: $g-primary;
+	  @include border-radius($g-border-radius-rounded);
+		opacity: 0;
+		transform: scale(.7);
+		transition: $g-transition-timing $g-transition-function;
+
+	  &:hover,
+	  &:focus {
+	  	color: $g-white;
+	  }
+
+		&-inner {
+  		@include content-centered;
+  	}
+	}
+}

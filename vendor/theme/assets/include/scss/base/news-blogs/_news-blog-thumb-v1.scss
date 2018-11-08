@@ -1,0 +1,21 @@
+/*------------------------------------
+  Blog Thumb v1
+------------------------------------*/
+
+.u-blog-thumb-v1 {
+	@include px-to-rem(padding, 8px);
+	transition: $g-transition-timing $g-transition-function;
+
+	&,
+	&__img {
+		@include border-radius($g-border-radius);
+	}
+
+	&:hover {
+		background-color: $g-primary-darker;
+	}
+
+	&__img-wrapper {
+		@include px-to-rem(width, 80px);
+	}
+}

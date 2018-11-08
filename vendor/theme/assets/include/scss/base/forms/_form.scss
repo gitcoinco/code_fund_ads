@@ -1,0 +1,102 @@
+/*------------------------------------
+  Form
+------------------------------------*/
+
+.u-form {
+	@include border-radius($g-input-border-radius);
+
+	&__input {
+		z-index: $g-form-z-index;
+	}
+
+	&__append,
+	&__prepend,
+	&__prepend > .btn,
+	&__append > .btn,
+	&__text {
+		background-clip: padding-box;
+	  transition: all $g-input-btn-transition-timing $g-input-btn-transition-function;
+	}
+
+	// Fix - borders blinking on :focus
+	&__prepend {
+		> .u-btn-white {
+			border-right: none;
+		}
+	}
+
+	&__append {
+		.btn {
+			margin-left: 1px;
+		}
+
+		> .u-btn-white {
+			border-left: none;
+			border-color: transparent;
+		}
+	}
+
+	&__text {
+		@include relative;
+
+		&-inner {
+			@include content-centered;
+		}
+	}
+
+	// Changing the style of the 'white' button according to the input style
+	.u-btn-white {
+		&:hover,
+	  &:focus,
+	  &:active {
+			box-shadow: none;
+	  }
+	}
+
+	&--no-brd {
+		.u-form__input,
+		.u-form__text {
+			border-color: transparent;
+		}
+	}
+
+	&--white-brd {
+		.u-form__input,
+		.u-form__text {
+			border-color: $g-white;
+		}
+	}
+
+	&--no-addon-brd {
+		.u-form__input {
+			&:not(:first-child) {
+				border-left: none;
+			}
+
+			&:not(:last-child) {
+				border-right: none;
+			}
+		}
+	}
+}
+
+/* Position */
+.u-form {
+	&--position {
+		@include relative;
+
+		.u-form__input {
+			&:not(:first-child) {
+				@include border-radius($g-input-border-radius);
+			}
+		}
+
+		.u-form__text {
+			@include absolute(left 0);
+			top: 50%;
+			z-index: ($g-form-z-index + 2);
+			transform: translateY(-50%);
+			border: none;
+		}
+	}
+}

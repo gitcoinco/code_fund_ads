@@ -1,0 +1,11 @@
+/*------------------------------------
+  Label
+------------------------------------*/
+
+.u-label {
+	@include label;
+}
+
+.u-label--rounded {
+	@include border-radius($g-border-radius);
+}

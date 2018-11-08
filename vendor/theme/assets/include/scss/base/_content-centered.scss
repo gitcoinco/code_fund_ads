@@ -1,0 +1,26 @@
+/*------------------------------------
+  Content Centered
+------------------------------------*/
+
+.u-content-centered {
+  @include content-centered;
+}
+
+/* Vertical */
+.u-content-centered-y {
+  @include content-centered(false, true);
+}
+
+// Large Devices
+@include media-breakpoint-up(md) {
+	.u-content-centered-y--md {
+	  @include content-centered(false, true);
+	}
+}
+
+// Large Devices
+@include media-breakpoint-up(lg) {
+	.u-content-centered-y--lg {
+	  @include content-centered(false, true);
+	}
+}

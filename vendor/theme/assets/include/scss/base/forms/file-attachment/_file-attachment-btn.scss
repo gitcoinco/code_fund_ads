@@ -1,0 +1,18 @@
+/*------------------------------------
+  File Attachment Button
+------------------------------------*/
+
+.u-file-attachment-btn {
+	@include relative;
+  overflow: hidden;
+  margin-bottom: 0;
+
+  &__label {
+    @include absolute(top 0 right 0);
+    display: block;
+    min-width: 100%;
+    min-height: 100%;
+    cursor: inherit;
+    opacity: 0;
+  }
+}

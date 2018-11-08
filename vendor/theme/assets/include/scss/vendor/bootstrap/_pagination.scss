@@ -1,0 +1,21 @@
+/*------------------------------------
+  Pagination
+------------------------------------*/
+
+.page-link {
+	text-align: center;
+	@include px-to-rem(min-width, $g-pagination-min-width);
+}
+
+.page-item {
+	@include px-to-rem(margin-left, $g-pagination-marginX);
+	@include px-to-rem(margin-right, $g-pagination-marginX);
+
+  .page-link {
+    @include border-left-radius($g-border-radius);
+  }
+
+  .page-link {
+    @include border-right-radius($g-border-radius);
+  }
+}

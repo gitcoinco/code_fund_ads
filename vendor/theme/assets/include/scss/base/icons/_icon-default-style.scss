@@ -1,0 +1,27 @@
+/*------------------------------------
+  Icon Default Styles
+------------------------------------*/
+
+// Theme Colors
+@each $color, $value in $g-theme-colors {
+	/* #{$color} */
+  .u-icon-#{$color} {
+    @include icon($value, $value);
+  }
+}
+
+// Accent Colors
+@each $color, $value in $g-accent-colors {
+	/* #{$color} */
+  .u-icon-#{$color} {
+    @include icon($value, $value);
+  }
+}
+
+// Social Network Colors
+@each $color, $value in $g-social-network-colors {
+	/* #{$color} */
+  .u-icon-#{$color} {
+    @include icon($value, $value);
+  }
+}

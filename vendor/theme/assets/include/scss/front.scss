@@ -1,0 +1,22 @@
+//
+// Front Template
+//
+
+$version: "1.2";
+/*----------------------------------------------------------------------
+	* Front - Responsive Website Template version #{$version}.
+	* Copyright 2018 Htmlstream
+	* Licensed under Bootstrap Themes (https://themes.getbootstrap.com/licenses/)
+------------------------------------------------------------------------*/
+
+// Core
+@import "front-core";
+
+// Components
+@import "front-components";
+
+// Accessibility
+@import "core/accessibility";
+
+// Accessibility
+@import "custom-front";

@@ -1,0 +1,43 @@
+/*------------------------------------
+  Pricing v2
+------------------------------------*/
+
+.u-pricing-v2 {
+	@include border-radius($g-border-radius);
+	border: thin solid $g-light-blue-125; // Chrome bug fix, see: https://productforums.google.com/forum/#!topic/chrome/r1neUxqo5Gc
+	@include px-to-rem(margin-top, 4px);
+
+	&-wrapper {
+		@include px-to-rem(margin-top, -160px);
+	}
+
+	&-toggler {
+		&:not(:disabled):not(.disabled) {
+			&.active {
+				color: $g-primary;
+			}
+		}
+
+		&-pos.u-badge-pos {
+			@include absolute;
+		}
+	}
+
+	&__header {
+		text-align: center;
+		background-color: $g-white;
+		border-bottom: 1px solid $g-light-blue-125;
+		@include border-top-radius($g-border-radius);
+		@include px-to-rem(padding, $g-space-1);
+	}
+
+	&__content {
+		background-color: $g-white;
+		@include border-bottom-radius($g-border-radius);
+		@include px-to-rem(padding, $g-space-1);
+	}
+
+	&__list-item {
+		@include px-to-rem(font-size, 14px);
+	}
+}

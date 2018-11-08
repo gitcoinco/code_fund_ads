@@ -1,0 +1,27 @@
+/*------------------------------------
+  Go To
+------------------------------------*/
+
+.u-go-to {
+  display: none;
+  @include relative;
+  z-index: $g-go-to-z-index;
+  @include px-to-rem(width, $g-go-to-width);
+  @include px-to-rem(height, $g-go-to-height);
+  background-color: $g-go-to-bg;
+  color: $g-go-to-color;
+  @include px-to-rem(font-size, 12px);
+  @include border-radius($g-go-to-border-radius);
+  opacity: $g-go-to-opacity;
+  transition: $g-go-to-transition;
+
+  &__inner {
+    @include content-centered;
+  }
+
+  &:hover,
+  &:focus:hover {
+    color: $g-go-to-hover-color;
+  	opacity: $g-go-to-opacity-on-hover;
+  }
+}

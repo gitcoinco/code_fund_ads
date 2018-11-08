@@ -1,0 +1,31 @@
+/*------------------------------------
+  Quantity
+------------------------------------*/
+
+.u-quantity {
+  @include px-to-rem(width, 64px);
+
+  > .u-quantity__input {
+    padding-right: 30px;
+
+    &:not(:last-child) {
+      @include border-radius($g-input-border-radius);
+    }
+  }
+
+  &__arrows {
+    @include content-centered(false, true);
+    @include px-to-rem(right, 12px);
+    z-index: 3;
+
+    &-inner {
+      display: block;
+      color: $g-secondary;
+      cursor: pointer;
+
+      &:hover {
+        color: $g-primary;
+      }
+    }
+  }
+}

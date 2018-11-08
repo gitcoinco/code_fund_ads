@@ -1,0 +1,7 @@
+/*------------------------------------
+  Caret
+------------------------------------*/
+
+.dropdown-toggle::after {
+  @include px-to-rem(margin-left, 8px);
+}

@@ -1,0 +1,86 @@
+//
+// Buttons
+//
+
+// Default Buttons
+@mixin buttons($hs-background, $hs-border, $hs-hover-background: darken($hs-background, 7.5%), $hs-hover-border: darken($hs-border, 10%), $hs-active-background: darken($hs-background, 10%), $g-active-border: darken($hs-border, 12.5%)) {
+  color: color-yiq($hs-background);
+  background-color: ($hs-background);
+  border-color: $hs-border;
+  @include box-shadow($g-bs-btn-box-shadow);
+
+  &:hover {
+    color: color-yiq($hs-hover-background);
+    background-color: ($hs-hover-background);
+    border-color: $hs-hover-border;
+  }
+
+  &:focus,
+  &.focus {
+    // Avoid using mixin so we can pass custom focus shadow properly
+    @if $g-enable-shadows {
+      box-shadow: $g-bs-btn-box-shadow, 0 0 0 $g-bs-input-btn-focus-width rgba($hs-border, .5);
+    } @else {
+      box-shadow: 0 0 0 $g-bs-input-btn-focus-width rgba($hs-border, .5);
+    }
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    background-color: $hs-background;
+    border-color: $hs-border;
+  }
+
+  &:not([disabled]):not(.disabled):active,
+  &:not([disabled]):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    color: color-yiq($hs-active-background);
+    background-color: $hs-active-background;
+    border-color: $g-active-border;
+
+    // Avoid using mixin so we can pass custom focus shadow properly
+    @if $g-enable-shadows {
+      box-shadow: $g-bs-btn-active-box-shadow, 0 0 0 $g-bs-input-btn-focus-width rgba($hs-border, .5);
+    } @else {
+      box-shadow: 0 0 0 $g-bs-input-btn-focus-width rgba($hs-border, .5);
+    }
+  }
+}
+
+// Default Button :hover, :focus, :active effects
+@mixin button-custom($hs-box-shadow) {
+  &:hover,
+  &:focus,
+  &:active {
+    box-shadow: $g-btn-box-shadow-value rgba($hs-box-shadow, 0.35);
+  }
+}
+
+// Air Buttons
+@mixin button-air($hs-color, $hs-background, $hs-hover-background, $hs-box-shadow) {
+  color: ($hs-color);
+  background: rgba($hs-background, .1);
+  border-color: transparent;
+
+  &:hover,
+  &:focus,
+  &:active,
+  &.active {
+    color: color-yiq($hs-hover-background);
+    background: ($hs-hover-background);
+    box-shadow: $g-btn-box-shadow-value rgba($hs-background, 0.35);
+  }
+}
+
+// Icon Buttons
+@mixin button-text($hs-color, $hs-hover-color) {
+  color: ($hs-color);
+  background: transparent;
+
+  &:hover,
+  &:focus,
+  &:active {
+    color: ($hs-hover-color);
+  }
+}

@@ -1,0 +1,24 @@
+/*------------------------------------
+  Checkbox Button
+------------------------------------*/
+
+.u-checkbox-btn {
+  color: $g-input-group-addon-color;
+  font-weight: normal;
+  border-color: $g-form-border-color;
+
+  &:hover {
+    color: $g-primary;
+    background-color: transparent;
+    border-color: $g-primary;
+  }
+
+  &:not(:disabled):not(.disabled) {
+    &:active,
+    &.active {
+      color: $g-white;
+      background-color: $g-primary;
+      border-color: $g-primary;
+    }
+  }
+}

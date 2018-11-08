@@ -1,0 +1,30 @@
+/*------------------------------------
+  Focus States
+------------------------------------*/
+
+.u-form {
+  transition: all $g-input-btn-transition-timing $g-input-btn-transition-function;
+
+  &.u-focus-state {
+    box-shadow: $g-form-focus-box-shadow;
+  }
+
+  &:focus,
+  &.u-focus-state .u-form__append > .u-btn-white,
+  &.u-focus-state .u-form__prepend > .u-btn-white,
+  &.u-focus-state .u-form__text,
+  &.u-focus-state .u-form__input,
+  &.u-focus-state *:focus {
+    border-color: $g-form-focus-border-color;
+  }
+
+  &.u-focus-state .u-form__text {
+    color: $g-form-focus-addon-color;
+  }
+}
+
+.u-form--white-brd {
+  &.u-focus-state .u-form__input {
+    border-color: $g-white;
+  }
+}

@@ -1,0 +1,58 @@
+/*------------------------------------
+  Transparent Header
+------------------------------------*/
+
+.u-header--bg-transparent {
+  @each $hs-breakpoint in map-keys($g-breakpoints) {
+    $hs-infix: breakpoint-infix($hs-breakpoint, $g-breakpoints);
+
+    &#{$hs-infix} {
+			&:not(.js-header-fix-moment) {
+	      @include media-breakpoint-up($hs-breakpoint) {
+	        .u-search-push-top[style*="display: block"] {
+	        	+ .u-header__section {
+	        		background-color: $g-header-bg;
+	        	}
+	        }
+
+	        .u-header__section {
+						background-color: transparent;
+						box-shadow: none;
+	        }
+
+	        .u-header__navbar-brand-collapsed {
+	        	display: none;
+	        }
+	      }
+      }
+    }
+  }
+}
+
+.u-header--bg-transparent {
+  @each $hs-breakpoint in map-keys($g-breakpoints) {
+    $hs-next: breakpoint-next($hs-breakpoint, $g-breakpoints);
+    $hs-infix: breakpoint-infix($hs-next, $g-breakpoints);
+
+    &#{$hs-infix} {
+      @include media-breakpoint-down($hs-breakpoint) {
+      	.u-header__navbar-brand-collapse {
+        	display: none;
+        }
+      }
+    }
+  }
+}
+
+.u-header--bg-transparent {
+  @include media-breakpoint-down(sm) {
+	  .u-header__navbar-nav {
+			background-color: $g-header-bg;
+		}
+
+  	.u-header__navbar-nav {
+	  	@include px-to-rem(padding, $g-header-transparent-navbar-nav-padding);
+	  	@include px-to-rem(margin-top, 16px);
+	  }
+  }
+}

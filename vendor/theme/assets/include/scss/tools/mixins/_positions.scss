@@ -1,0 +1,43 @@
+//
+// Positions
+//
+
+@mixin position($hs-position, $hs-args: ()) {
+  $hs-offsets: top right bottom left;
+  position: $hs-position;
+
+  @each $hs-offset in $hs-offsets {
+    $hs-index: index($hs-args, $hs-offset);
+
+    @if $hs-index {
+      @if $hs-index == length($hs-args) {
+        #{$hs-offset}: 0;
+      }
+      @else {
+        $hs-next: nth($hs-args, $hs-index + 1);
+        @if is-valid-length($hs-next) {
+          @include px-to-rem(#{$hs-offset}, $hs-next);
+        }
+        @else if index($hs-offsets, $hs-next) {
+          #{$hs-offset}: 0;
+        }
+        @else {
+          @warn "Invalid value '#{$hs-next}'' for offset '#{$hs-offset}'.";
+        }
+      }
+    }
+  }
+}
+@function is-valid-length($hs-value) {
+  @return (type-of($hs-value) == "number" and not unitless($hs-value))
+    or (index(auto initial inherit 0, $hs-value) != false);
+}
+@mixin absolute($hs-args: ()) {
+  @include position(absolute, $hs-args);
+}
+@mixin fixed($hs-args: ()) {
+  @include position(fixed, $hs-args);
+}
+@mixin relative($hs-args: ()) {
+  @include position(relative, $hs-args);
+}

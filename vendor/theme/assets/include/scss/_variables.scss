@@ -1,0 +1,775 @@
+//
+// Front Variables
+// =========================================================
+
+// Retreive color Sass maps
+@function theme-color($hs-key: "primary") {
+  @return map-get($g-theme-colors, $hs-key);
+}
+
+@function accent-color($hs-key: "accent") {
+  @return map-get($g-accent-colors, $hs-key);
+}
+
+$root-path:          																			  "../";
+
+
+// Typography
+// =========================================================
+
+// Font Families
+$g-font-family-base:       																	"Poppins", Helvetica, Arial, sans-serif !default;
+
+// Font Sizes
+$g-font-size-base:            														  16px !default;
+
+
+
+// Breakpoints
+// =========================================================
+
+$g-breakpoints: (
+  xs:                                                       0,
+  sm:                                                       576px,
+  md:                                                       768px,
+  lg:                                                       992px,
+  xl:                                                       1200px
+) !default;
+
+
+
+// Color System
+// =========================================================
+
+// stylelint-disable
+$g-white:                                                   #fff !default;
+$g-dark:                                                    #1e2022 !default;
+$g-darker:                                                  #1b1d1f !default;
+
+// Grays
+$g-gray-50:                                                 #f0f4f7 !default;
+$g-gray-75:          																			  #f7f7f7 !default;
+$g-gray-100:                                                #d4d7dd !default;
+$g-gray-150:                                                #bfc3ca !default;
+$g-gray-200:                                                #8f95a0 !default;
+$g-gray-300:                                                #7e8697 !default;
+$g-gray-500:           																			#828286 !default;
+$g-gray-600:           																			#5a5f69 !default;
+
+// Light Blues
+$g-light-blue-50:                                           #f8fafd !default;
+$g-light-blue-100:                                          #f6f9fc !default;
+$g-light-blue-125:                                          #e7eaf3 !default;
+$g-light-blue-150:          																#97a4af !default;
+$g-light-blue-200:          																#77838f !default;
+$g-light-blue-300:          																#8c98a4 !default;
+
+// Colors
+$g-blue:                                                    #377dff !default;
+$g-blue-darker:                                             #196eff !default;
+$g-blue-lighter:   																					#19a0ff !default;
+
+$g-teal:                                                    #00c9a7 !default;
+$g-teal-darker:                                             #10c7a8 !default;
+$g-teal-lighter:                                            #13d7b6 !default;
+
+$g-cyan:                                                    #00dffc !default;
+$g-cyan-darker:                                             #08ddf8 !default;
+$g-cyan-lighter:                                            #55eafe !default;
+
+$g-yellow:                                                  #ffc107 !default;
+$g-yellow-darker:                                           #efa02e !default;
+$g-yellow-lighter:                                          #fdd14e !default;
+
+$g-red:                                                     #de4437 !default;
+$g-red-darker:                                              #db3f32 !default;
+$g-red-lighter:                                             #ec5245 !default;
+
+$g-midnightblue:                                            #2d1582 !default;
+$g-facebook:           																			#3b5998 !default;
+$g-google:                                                  #d14130 !default;
+$g-twitter:                                                 #1da1f2 !default;
+$g-instagram:                                               #3f729b !default;
+$g-github:           																				#24292e !default;
+
+// Theme Colors
+$g-primary:                                                 $g-blue !default;
+$g-primary-darker:                                          $g-blue-darker !default;
+$g-primary-lighter:          																$g-blue-lighter !default;
+$g-secondary:                                               $g-light-blue-200 !default;
+$g-success:                                                 $g-teal !default;
+$g-success-darker:                                          $g-teal-darker !default;
+$g-success-lighter:          																$g-teal-lighter !default;
+$g-info:                                                    $g-cyan !default;
+$g-info-darker:                                             $g-cyan-darker !default;
+$g-info-lighter:           																	$g-cyan-lighter !default;
+$g-warning:                  																$g-yellow !default;
+$g-warning-darker:                                          $g-yellow-darker !default;
+$g-warning-lighter:                                         $g-yellow-lighter !default;
+$g-danger:                                                  $g-red !default;
+$g-danger-darker:                                           $g-red-darker !default;
+$g-danger-lighter:           																$g-red-lighter !default;
+$g-light:                  																	$g-light-blue-100 !default;
+
+// Accent Colors
+$g-accent-colors: () !default;
+$g-accent-colors: map-merge((
+  "white":                                                  $g-white
+), $g-accent-colors);
+
+// Social Network Colors
+$g-social-network-colors: () !default;
+$g-social-network-colors: map-merge((
+  "facebook":                                               $g-facebook,
+  "google":                                                 $g-google,
+  "twitter":                                                $g-twitter,
+  "instagram":                                              $g-instagram,
+  "github":                                                 $g-github
+), $g-social-network-colors);
+
+// Theme Colors
+$g-theme-colors: () !default;
+$g-theme-colors: map-merge((
+  "primary":    																	          $g-primary,
+  "secondary":  																	          $g-secondary,
+  "success":  																		          $g-success,
+  "info":  																				          $g-info,
+  "warning":  																		          $g-warning,
+  "danger":  																			          $g-danger,
+  "light":  																			          $g-light,
+  "dark":  																				          $g-dark
+), $g-theme-colors);
+// stylelint-enable
+
+
+
+// Links
+//
+// Style anchor elements.
+$g-headings-link-color:                                     $g-dark !default;
+$g-headings-white-link-color:                               $g-white !default;
+$g-link-color:                          										theme-color("primary") !default;
+$g-link-color-hover:                                        darken($g-link-color, 7.5%) !default;
+$g-light-color:                                             rgba($g-white, .7) !default;
+$g-white-color-hover:                          							$g-white !default;
+$g-link-hover-decoration:                                   none !default;
+
+
+
+// Paragraphs
+//
+// Style p element.
+$g-paragraph-color:            														  $g-light-blue-200 !default;
+
+
+
+// Type
+//
+// Font, line-height, and color for body text, headings, and more.
+
+$g-font-weight-light:                                       300 !default;
+$g-font-weight-normal:                                      400 !default;
+$g-font-weight-medium:                                      500 !default;
+$g-font-weight-semi-bold:                                   600 !default;
+
+$g-headings-font-weight:                                    $g-font-weight-light !default;
+$g-headings-line-height:                                    1.5 !default;
+$g-display-lin-height:                                      1.2 !default;
+$g-paragraph-line-height:                                   1.7 !default;
+$g-outline:                                                 5px auto -webkit-focus-ring-color !default;
+$g-display-1:                                               72px !default;
+$g-display-2:                                               56px !default;
+$g-display-3:                                               48px !default;
+$g-hr-color:                                                $g-light-blue-125 !default;
+
+
+
+// Options
+//
+// Quickly modify global styling by enabling or disabling optional features.
+
+$g-enable-accessibility:                                    false !default; // enable accessibility by changing '$g-enable-accessibility' from false to true.
+$g-enable-shadows:                                          false !default;
+$g-enable-rounded:                                          true !default;
+
+
+
+// Content Space
+//
+// padding top and padding bottom size of a content
+
+$g-space-1:                                                 32px !default;
+$g-space-2:                                                 65px !default;
+$g-space-3:                                                 130px !default; // Default style
+$g-space-4:                                                 200px !default;
+$g-space-5:                                                 240px !default;
+
+
+
+// Transitions
+
+$g-transition-timing:                                       .3s !default;
+$g-transition-timing-sm:                                    .2s !default;
+$g-transition-timing-md:                                    .4s !default;
+$g-transition-function:                                     ease-in-out !default;
+
+
+
+// Borders
+// =========================================================
+
+$g-border-radius:                                           .25rem !default;
+$g-border-radius-sm:                                        .125rem !default;
+$g-border-radius-md:                                        .5rem !default;
+$g-border-radius-pill:                                      6.1875rem !default;
+$g-border-radius-rounded:                                   50% !default;
+
+
+
+// Box Shadows
+// =========================================================
+
+$g-box-shadow-sm:                                           0 0 35px rgba($g-light-blue-300, .125) !default;
+$g-box-shadow:                                              0 .15rem 1rem .05rem rgba($g-light-blue-300, .135) !default;
+$g-box-shadow-lg:                                           0 10px 40px 10px rgba($g-light-blue-300, .175) !default;
+$g-box-shadow-primary-sm:                                   0 0 50px rgba($g-primary, .4) !default;
+
+
+
+// Forms
+// =========================================================
+
+// Text Colors
+$g-form-focus-addon-color:                                  theme-color("primary") !default;
+
+// Z-indexes
+$g-form-z-index:                                            2 !default;
+
+// States
+$g-form-focus-border-color:                                 rgba(theme-color("primary"), .5) !default;
+$g-input-error-color:                                       theme-color("danger") !default;
+$g-input-success-color:                                     theme-color("success") !default;
+$g-form-error-focus-box-shadow:                             0 0 25px rgba(theme-color("danger"), .1) !default;
+$g-form-success-focus-box-shadow:                           0 0 25px rgba(theme-color("success"), .1) !default;
+
+// Box Shadow
+$g-form-focus-box-shadow:                                   0 0 25px rgba(theme-color("primary"), .1) !default;
+$g-form-pill-box-shadow:                                    0 0 25px rgba($g-light-blue-200, .1) !default;
+$g-form-modern-focus-box-shadow:                            0 0 0 rgba($g-light-blue-200, 0) !default;
+
+// Borders
+$g-input-border-radius:                                     $g-border-radius !default;
+$g-form-pill-border-radius:                                 $g-border-radius-pill !default;
+
+
+
+// Bootstrap SCSS _variables customization
+// =========================================================
+
+// Colors
+$g-pagination-color:                                        $g-secondary !default;
+$g-pagination-hover-color:                                  theme-color("primary") !default;
+$g-pagination-border-color:                                 $g-secondary !default;
+$g-pagination-hover-bg:                                     rgba(theme-color("primary"), .1) !default;
+$g-pagination-hover-border-color:                           rgba(theme-color("primary"), .1) !default;
+$g-close-color:                                             $g-dark !default;
+$g-breadcrumb-active-color:                                 $g-paragraph-color !default;
+
+// Z-indexes
+$g-zindex-tooltip:                                          9999 !default;
+
+// Background Colors
+$g-dropdown-divider-bg:                                     $g-light-blue-125 !default;
+$g-tooltip-bg:                                              theme-color("primary") !default;
+$g-card-cap-bg:                                             $g-white !default;
+$g-breadcrumb-bg:                                           transparent !default;
+
+// Border Colors
+$g-form-border-color:                                       $g-gray-100 !default;
+$g-custom-select-border-color:                              $g-form-border-color !default;
+$g-custom-select-focus-border-color:                        $g-form-focus-border-color !default;
+$g-card-border-color:                                       $g-light-blue-125 !default;
+
+// Other Colors
+$g-input-color:                                             $g-dark !default;
+$g-input-group-addon-color:                                 $g-gray-200 !default;
+$g-input-group-addon-bg:                                    $g-white !default;
+$g-custom-select-color:                                     $g-input-group-addon-color !default;
+$g-breadcrumb-divider-color:                                $g-light-blue-150 !default;
+
+// Typography
+$g-btn-font-weight:                                         $g-font-weight-semi-bold !default;
+
+// Font Sizes
+$g-btn-font-size-xs:                                        11px !default;
+$g-btn-font-size-sm:                                        14px !default;
+$g-btn-font-size-lg:                                        1rem !default;
+$g-btn-icon-font-size:                                      16px !default;
+$g-btn-icon-font-size-xs:                                   12px !default;
+$g-btn-icon-font-size-sm:                                   15px !default;
+$g-btn-icon-font-size-lg:                                   18px !default;
+$g-close-font-size:                                         1.25rem !default;
+
+// Width & Heights
+$g-btn-width:                                               50px !default;
+$g-btn-width-xs:                                            24px !default;
+$g-btn-width-sm:                                            43px !default;
+$g-btn-width-lg:                                            67px !default;
+$g-btn-height:                                              $g-btn-width !default;
+$g-btn-height-xs:                                           $g-btn-width-xs !default;
+$g-btn-height-sm:                                           $g-btn-width-sm !default;
+$g-btn-height-lg:                                           $g-btn-width-lg !default;
+$g-input-btn-min-width:                                     155px !default;
+$g-input-btn-min-width-sm:                                  135px !default;
+
+// Padding Spaces
+$g-input-btn-paddingY:                                      .75rem !default;
+$g-input-btn-paddingY-xs:                                   7px !default;
+$g-input-btn-paddingY-sm:                                   .625rem !default;
+$g-input-btn-paddingY-lg:                                   1.125rem !default;
+$g-input-btn-paddingX:                                      1rem !default;
+$g-input-btn-paddingX-xs:                                   15px !default;
+$g-input-btn-paddingX-sm:                                   1.125rem !default;
+$g-input-btn-paddingX-lg:                                   1.125rem !default;
+$g-custom-select-padding-y:                                 $g-input-btn-paddingY !default;
+$g-custom-select-padding-x:                                 $g-input-btn-paddingX !default;
+$g-card-spacer-y:                                           1rem !default;
+$g-breadcrumb-padding-y:                                    0 !default;
+$g-breadcrumb-padding-x:                                    0 !default;
+
+// Margin Spaces
+$g-pagination-marginX:                                      4px !default;
+
+// Box Shadows
+$g-btn-box-shadow-value:                                    0 4px 17px !default;
+$g-input-btn-focus-box-shadow-disabled:                     0 0 0 0 transparent !default;
+$g-custom-select-focus-box-shadow:                          $g-form-focus-box-shadow !default;
+
+// Borders
+$g-dropdown-border-width:                                   0 !default;
+$g-pagination-min-width:                                    36px !default;
+$g-pagination-border-width:                                 0 !default;
+
+// Others
+$g-tooltip-opacity:                                         1 !default;
+
+// Transitions
+$g-input-btn-transition-timing:                             $g-transition-timing-sm !default;
+$g-input-btn-transition-function:                           $g-transition-function !default;
+
+// Custom Bootstrap elements
+$g-bs-input-btn-focus-width:                                .2rem !default;
+$g-bs-input-btn-focus-color:                                rgba(theme-color("primary"), .25) !default;
+$g-bs-input-btn-focus-box-shadow:                           0 0 0 $g-bs-input-btn-focus-width $g-bs-input-btn-focus-color !default;
+$g-bs-btn-box-shadow:                                       inset 0 1px 0 rgba($g-white, .15), 0 1px 1px rgba($g-dark, .075) !default;
+$g-bs-btn-active-box-shadow:                                inset 0 3px 5px rgba($g-dark, .125) !default;
+
+
+
+// Icons
+// =========================================================
+
+// Font Sizes
+$g-icon-font-size:                                          15px !default;
+$g-icon-font-size-xs:                                       10px !default;
+$g-icon-font-size-sm:                                       13px !default;
+$g-icon-font-size-md:                                       16px !default;
+$g-icon-font-size-lg:                                       28px !default;
+$g-icon-font-size-xl:                                       48px !default;
+
+// Typography
+$g-icon-line-height:                                        .7 !default;
+
+// Z-indexes
+$g-icon-z-index:                                            1 !default;
+
+// Width & Heights
+$g-icon-width:                                              34px !default;
+$g-icon-width-xs:                                           24px !default;
+$g-icon-width-sm:                                           30px !default;
+$g-icon-width-md:                                           44px !default;
+$g-icon-width-lg:                                           56px !default;
+$g-icon-width-xl:                                           80px !default;
+$g-icon-height:                                             $g-icon-width !default;
+$g-icon-height-xs:                                          $g-icon-width-xs !default;
+$g-icon-height-sm:                                          $g-icon-width-sm !default;
+$g-icon-height-md:                                          $g-icon-width-md !default;
+$g-icon-height-lg:                                          $g-icon-width-lg !default;
+$g-icon-height-xl:                                          $g-icon-width-xl !default;
+
+// Borders
+$g-icon-border-radius:                                      $g-border-radius !default;
+
+// Transitions
+$g-icon-transition:                                         $g-transition-timing $g-transition-function !default;
+
+
+
+// Text Muted
+// =========================================================
+
+// Text Colors
+$g-text:           					       													$g-light-blue-200 !default;
+
+
+
+// Header
+// =========================================================
+
+// Text Colors
+$g-header-nav-link-color:                                   $g-gray-600 !default;
+$g-header-nav-link-active-color:     										    theme-color("primary") !default;
+$g-header-nav-link-hover-color:            							    theme-color("primary") !default;
+$g-header-submenu-nav-link-color:            						    $g-gray-500 !default;
+$g-header-topbar-nav-link-color:                            $g-light-blue-200 !default;
+$g-header-topbar-nav-link-hover-color:                      $g-dark !default;
+$g-header-banner-v1-title-color:                            $g-white !default;
+$g-header-banner-v1-text-color:                             $g-white !default;
+$g-header-banner-v2-title-color:                            theme-color("primary") !default;
+
+// Background Colors
+$g-header-bg:                                               $g-white !default;
+$g-header-banner-v1-bg-overlay:                             $g-dark !default;
+$g-header-banner-v2-bg:                                     $g-light-blue-100 !default;
+
+// Other Colors
+$g-header-sub-menu-border-color:                  				  theme-color("primary") !default;
+
+// Z-indexes
+$g-header-z-index:             													    101 !default;
+
+// Width & Heights
+$g-header-navbar-brand-width:                               150px !default;
+$g-header-mega-menu-width-v1:                               900px !default;
+$g-header-absolute-top-height:                              50vh !default;
+$g-header-sticky-top-height:                                50vh !default;
+$g-header-sticky-bottom-height:                             50vh !default;
+$g-header-floating-height:                                  50vh !default;
+
+// Font Sizes
+$g-header-nav-link-icon-font-size:             					    10px !default;
+$g-header-banner-v1-title-font-size:            					  25px !default;
+$g-header-banner-v2-title-font-size:            					  25px !default;
+
+// Topbar
+$g-header-topbar-nav-link-font-size:             				    14px !default;
+
+// Sub Menu
+$g-header-sub-menu-border-top-width:                        3px !default;
+$g-header-sub-menu-border-left-width:            				    3px !default;
+$g-header-sub-menu-nav-link-font-size:             			    14px !default;
+$g-header-sub-menu-nav-link-icon-size:             			    11px !default;
+
+// Padding Spaces
+$g-header-navbar-paddingY:                                  16px !default;
+$g-header-navbar-brand-padding-top:                         16px !default;
+$g-header-navbar-nav-paddingY:                              10px !default;
+$g-header-navbar-nav-paddingY-responsive:                   0 !default;
+$g-header-nav-link-paddingY:                                24px !default;
+$g-header-nav-link-paddingX:                                14px !default;
+$g-header-sub-menu-nav-link-paddingX:                       28px !default;
+$g-header-sub-menu-paddingX:                                24px !default;
+$g-header-mega-menu-padding:                                24px 24px 24px 24px + $g-header-sub-menu-border-left-width !default;
+$g-header-mega-menu-wrapper-paddingX-v1:                    40px !default;
+$g-header-mega-menu-wrapper-paddingY-v1:                    35px !default;
+$g-header-mega-menu-wrapper-paddingX-v2:                    40px !default;
+$g-header-mega-menu-wrapper-paddingX-v3:                    0 !default;
+$g-header-topbar-nav-link-paddingX:                         8px !default;
+$g-header-floating-inner-paddingX:                          16px !default;
+$g-header-transparent-navbar-nav-padding:                   24px !default;
+
+// Margin Spaces
+$g-header-nav-link-icon-margin-left:                        4px !default;
+$g-header-sub-menu-offset:                                  -19px !default;
+$g-header-floating-margin-top:                              32px !default;
+
+// Borders
+$g-header-border-radius:                                    $g-border-radius !default;
+$g-header-sub-menu-top-border-radius:                       $g-header-border-radius !default;
+$g-header-sub-menu-bottom-border-radius:                    $g-header-border-radius !default;
+$g-header-banner-v1-border-radius:            						  $g-header-border-radius !default;
+$g-header-banner-v2-border-radius:                          $g-header-border-radius !default;
+$g-header-floating-border-radius:             						  $g-header-border-radius !default;
+
+// Box Shadow
+$g-header-box-shadow:                                       0 1px 10px rgba($g-gray-500, .1) !default;
+$g-header-submenu-box-shadow:                               0 8px 20px rgba(theme-color("primary"), .075) !default;
+$g-header-absolute-bottom-submenu-box-shadow:               0 -8px 20px rgba($g-gray-500, .1) !default;
+
+// Transitions
+$g-header-fix-effect-transition:                            $g-transition-timing ease !default;
+$g-header-nav-link-icon-transition:                         $g-transition-timing ease !default;
+
+
+
+// Fullscreen
+// =========================================================
+
+// Z-Index
+$g-fullscreen-z-index:                                      999 !default;
+$g-fullscreen-container-z-index:                            ($g-fullscreen-z-index + 1) !default;
+$g-fullscreen-toggler-z-index:                              ($g-fullscreen-container-z-index + 1) !default;
+
+// Transitions
+$g-fullscreen-transition:                                  .4s $g-transition-function !default;
+$g-fullscreen-overlay-transition-delay:                    .5s !default;
+$g-fullscreen-container-transition-delay:                  .5s !default;
+
+
+
+// Hamburgers
+// =========================================================
+
+// Colors
+$g-hamburger-layer-color:             											$g-light-blue-300 !default;
+$g-hamburger-layer-hover-color:             								theme-color("primary") !default;
+$g-hamburger-layer-white-color:                             rgba($g-white, .8) !default;
+$g-hamburger-layer-white-hover-color:                       $g-white !default;
+
+// Width & Heights
+$g-hamburger-layer-width:             											25px !default;
+$g-hamburger-layer-height:            											2.5px !default;
+
+// Spacing
+$g-hamburger-padding:                                       4px !default;
+$g-hamburger-layer-spacing:                                 4px !default;
+
+// Transitions
+$g-hamburger-transition-duration:             							$g-transition-timing !default;
+$g-hamburger-transition-timing-function:            				ease !default;
+
+
+
+// Go To
+// =========================================================
+
+// Color
+$g-go-to-color:                                              $g-white !default;
+$g-go-to-hover-color:                                        $g-go-to-color !default;
+
+// Background Color
+$g-go-to-bg:                                                 theme-color("primary") !default;
+
+// Width & Heights
+$g-go-to-width:                                              40px !default;
+$g-go-to-height:                                             $g-go-to-width !default;
+
+// Z-Index
+$g-go-to-z-index:                                            100 !default;
+
+// Opacity
+$g-go-to-opacity:                                            .5 !default;
+$g-go-to-opacity-on-hover:                                   1 !default;
+
+// Borders
+$g-go-to-border-radius:                                      $g-border-radius !default;
+
+// Transitions
+$g-go-to-transition:                                         $g-transition-timing ease-out !default;
+
+
+
+// Search Form - Push Top
+// =========================================================
+
+// Background Color
+$g-search-push-top-bg:                                       $g-light-blue-100 !default;
+$g-search-push-top-input-bg:                                 $g-white !default;
+$g-search-push-top-banner-bg:                                $g-white !default;
+
+// Other Colors
+$g-search-push-top-input-color:                              $g-dark !default;
+
+// Width & Heights
+$g-search-push-top-inner-max-width:                          800px !default;
+
+// Font Sizes
+$g-search-push-top-input-font-size:                          14px !default;
+
+// Spaces
+$g-search-push-top-padding-paddingY-sm:                      24px !default;
+$g-search-push-top-padding-paddingY:                         48px !default;
+$g-search-push-top-banner-padding-right:                     25px !default;
+$g-search-push-top-banner-padding-top:                       30px !default;
+$g-search-push-top-addon-padding:                            0 !default;
+
+// Box Shadow
+$g-search-push-top-box-shadow:                               inset 0 -10px 20px -10px rgba($g-gray-500, .05) !default;
+$g-search-push-top-input-box-shadow:                         0 8px 25px rgba($g-gray-500, .05) !default;
+$g-search-push-top-banner-box-shadow:                        0 10px 25px rgba($g-gray-500, .05) !default;
+
+
+
+// Search Form - Classic
+// =========================================================
+
+// Background Colors
+$g-search-classic-bg:                                        $g-white !default;
+
+// Z-index
+$g-search-classic-z-index:                                   102 !default;
+
+// Width
+$g-search-classic-width:                                     370px !default;
+
+// Padding Spaces
+$g-search-classic-input-padding:                             16px !default;
+
+// Border Radius
+$g-search-classic-border-radius:                             $g-border-radius !default;
+
+// Box Shadow
+$g-search-classic-box-shadow:                                0 1px 20px rgba($g-gray-500, .15) !default;
+
+
+
+// Default Sidebar Elements
+// =========================================================
+
+// Background Color
+$g-sidebar-bg-color:                                        $g-white !default;
+
+// Width & Heights
+$g-sidebar-width:             															375px !default;
+
+// Z-Index
+$g-sidebar-z-index:                                         102 !default;
+
+// Offset
+$g-sidebar-open-close-left-offset:                          $g-sidebar-width !default;
+$g-sidebar-open-close-left-offset-negative:                 $g-sidebar-width + 25px !default;
+
+$g-sidebar-open-close-right-offset:            			 				$g-sidebar-width !default;
+$g-sidebar-open-close-right-offset-negative:           			$g-sidebar-width + 25px !default;
+
+// Box Shadow
+$g-sidebar-right-box-shadow:                                -13px 0 20px rgba($g-light-blue-200, .08) !default;
+$g-sidebar-left-box-shadow:                                 13px 0 20px rgba($g-light-blue-200, .08) !default;
+
+
+
+// Alert
+// =========================================================
+
+// Font Sizes
+$g-alert-font-size-xs: 														          12px !default;
+$g-alert-close-font-size-xs: 											          17px !default;
+
+// Spacing
+$g-alert-paddingY-xs: 														          10px !default;
+$g-alert-close-paddingY-xs: 											          18px !default;
+
+// Border
+$g-alert-border-width: 														          0 !default;
+
+
+
+// Label
+// =========================================================
+
+// Font Sizes
+$g-label-font-size:                                         16px !default;
+$g-label-font-size-xs:                                      10px !default;
+$g-label-font-size-sm:                                      12px !default;
+
+// Padding Sizes
+$g-label-padding:                                           10px 18px !default;
+$g-label-padding-xs:                                        4px 16px !default;
+$g-label-padding-sm:                                        8px 16px !default;
+
+// Line Height
+$g-label-line-height-xs:                                    1.7 !default;
+
+
+
+// Unfold
+// =========================================================
+
+// Text Colors
+$g-unfold-link-color:                                     $g-gray-500 !default;
+$g-unfold-wrapper-color:                                  $g-light-blue-200 !default;
+$g-unfold-wrapper-light-color:                            $g-gray-200 !default;
+$g-unfold-wrapper-hover-color:                            $g-dark !default;
+
+// Background Colors
+$g-unfold-bg:                                             $g-white !default;
+
+// Z-indexes
+$g-unfold-z-index:                                        99 !default;
+
+// Width & Heights
+$g-unfold-min-width:                                      135px !default;
+$g-unfold-icon-width: 												            17px !default;
+
+// Font Sizes
+$g-unfold-wrapper-font-size: 								              14px !default;
+$g-unfold-icon-pointer-font-size: 						            10px !default;
+
+// Padding Spaces
+$g-unfold-padding:                                        16px 24px !default;
+$g-unfold-item-padding-y:                                 .375rem !default;
+$g-unfold-item-padding-x:                                 .375rem !default;
+
+// Borders
+$g-unfold-border-radius:											            $g-border-radius !default;
+
+// Box Shadow
+$g-unfold-box-shadow:                                     0 5px 15px rgba(theme-color("primary"), .075), 0 5px 15px rgba($g-light-blue-200, .075) !default;
+
+
+
+// Badge
+// =========================================================
+
+// Font Sizes
+$g-badge-font-size:                                         10px !default;
+$g-badge-font-size-xs:                                      8px !default;
+$g-badge-font-size-md:                                      11px !default;
+
+$g-badge-line-height:                                       1.7 !default;
+
+// Z-Index
+$g-badge-z-index:                                           3 !default;
+
+// Width & Heights
+$g-badge-width:                                             18px !default;
+$g-badge-width-xs:                                          14px !default;
+$g-badge-width-md:                                          22px !default;
+$g-badge-height:                                            $g-badge-width !default;
+$g-badge-height-xs:                                         $g-badge-width-xs !default;
+$g-badge-height-md:                                         $g-badge-width-md !default;
+
+// Padding Spaces
+$g-badge-bigger-paddingX:                                   8px 10px !default;
+$g-badge-bigger-paddingX-sm:                                5px 8px !default;
+
+// Borders
+$g-badge-border-width:                                      2px !default;
+$g-badge-border-style:                                      solid !default;
+$g-badge-pill:                                              $g-border-radius-pill !default;
+
+
+
+// Modal Window
+// =========================================================
+
+// Background Color
+$g-modal-window-bg:                                         $g-white !default;
+
+// Width & Heights
+$g-modal-window-max-height:                                 85vh !default;
+
+// Margin Spaces
+$g-modal-window-margin-offsetX:                             20px !default;
+
+
+
+// Table
+// =========================================================
+
+// Background Color
+$g-table-accent-bg:                                         $g-light-blue-100 !default;
+$g-table-hover-bg:                                          rgba($g-light-blue-125, .4) !default;
+
+// Border Colors
+$g-table-border-color:                                      $g-light-blue-125 !default;

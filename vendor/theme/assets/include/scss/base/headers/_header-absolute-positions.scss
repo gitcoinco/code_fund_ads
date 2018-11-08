@@ -1,0 +1,105 @@
+/*------------------------------------
+  Absolute Positions
+------------------------------------*/
+
+.u-header--abs {
+  @each $hs-breakpoint in map-keys($g-breakpoints) {
+    $hs-infix: breakpoint-infix($hs-breakpoint, $g-breakpoints);
+
+    @include media-breakpoint-up($hs-breakpoint, $g-breakpoints) {
+      &-top,
+      &-bottom,
+      &-top-2nd-screen {
+        &#{$hs-infix} {
+          position: absolute;
+        }
+      }
+
+      &-top#{$hs-infix} {
+        top: 0;
+        bottom: auto;
+      }
+
+      &-top-2nd-screen#{$hs-infix} {
+        &:not(.js-header-fix-moment) {
+          top: 100%;
+          bottom: auto;
+        }
+
+        &[data-header-fix-effect] {
+          transition: none;
+        }
+      }
+
+      &-bottom#{$hs-infix}:not(.js-header-fix-moment) {
+        top: auto;
+        bottom: 0;
+      }
+
+      &-top-2nd-screen,
+      &-bottom {
+        &#{$hs-infix}:not(.js-header-fix-moment) {
+          .u-unfold,
+          .u-header__sub-menu {
+            top: auto;
+            bottom: 100%;
+          }
+
+          .u-unfold {
+            @include px-to-rem(margin-bottom, 7px);
+          }
+
+          [class*="navbar-expand"] .navbar-nav .u-header__sub-menu {
+            @include border-top-radius($g-header-sub-menu-top-border-radius);
+            @include border-bottom-radius(0);
+            box-shadow: $g-header-absolute-bottom-submenu-box-shadow;
+          }
+
+          .slideInUp {
+            animation-name: absoluteSlideInUp;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Long list of links, can lead to a bug, since the header can not calculate the height when.
+// For this reason, max-height is given to avoid header disappearing issues on collapse.
+.u-header--abs-top__inner,
+.u-header--abs-bottom__inner,
+.u-header--abs-top-2nd-screen__inner {
+  max-height: $g-header-absolute-top-height;
+
+  &.mCS_destroyed {
+    position: static !important;
+  }
+}
+
+[class*="u-header--abs"] {
+  .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    margin: 0 24px;
+  }
+}
+
+/* Disable box-shadow on mobile device */
+.u-header--abs {
+  &-top-2nd-screen,
+  &-bottom {
+    &:not(.js-header-fix-moment) {
+      [class*="navbar-expand"] {
+        .navbar-nav {
+          .u-header__sub-menu {
+            box-shadow: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes absoluteSlideInUp {
+  from {
+    transform: translate3d(0, -10px, 0);
+  }
+}

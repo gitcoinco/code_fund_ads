@@ -1,0 +1,17 @@
+/*------------------------------------
+  Checkbox Bordered
+------------------------------------*/
+
+.u-checkbox-brd {
+  padding-left: 0;
+  margin-right: 0;
+
+  &__label {
+    border: 1px solid $g-light-blue-125;
+    cursor: pointer;
+  }
+
+  &__input:checked ~ &__label {
+    border-color: $g-primary;
+  }
+}

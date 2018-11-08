@@ -1,0 +1,29 @@
+/*------------------------------------
+  File Attachment Input
+------------------------------------*/
+
+.u-file-attachment-input {
+  @include relative;
+  display: block;
+  background-color: $g-light-blue-50;
+  border: 2px dashed $g-light-blue-125;
+  text-align: center;
+  overflow: hidden;
+  cursor: pointer;
+  @include border-radius($g-border-radius);
+  @include px-to-rem(padding, $g-space-2);
+  margin-bottom: 0;
+
+  &__label {
+    @include absolute(top 0 right 0);
+    display: block;
+    min-width: 100%;
+    min-height: 100%;
+    cursor: inherit;
+    opacity: 0;
+  }
+
+  &:hover {
+    background-color: darken($g-light-blue-100, .75%);
+  }
+}

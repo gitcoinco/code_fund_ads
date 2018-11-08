@@ -1,0 +1,13 @@
+/*------------------------------------
+  Link Light
+------------------------------------*/
+
+.u-link-light {
+	color: $g-light-color;
+	border-bottom: 1px dashed $g-light-color;
+
+	&:hover {
+		color: $g-white;
+		border-color: $g-light-color;
+	}
+}

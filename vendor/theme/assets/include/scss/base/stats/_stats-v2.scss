@@ -1,0 +1,37 @@
+/*------------------------------------
+  Stats v2
+------------------------------------*/
+
+.u-stats-v2 {
+	@include relative;
+	line-height: 0;
+
+	.ct-point {
+    @include px-to-rem(stroke-width, 6px);
+  }
+
+	&__tooltip {
+		color: $g-light-blue-200;
+		background-color: $g-white;
+		@include border-radius($g-border-radius);
+		box-shadow: 0 6px 15px 1px rgba($g-light-blue-300, .2);
+		@include px-to-rem(padding, 16px);
+		font: {
+			@include px-to-rem(size, 12px);
+			weight: 400;
+			family: $g-font-family-base;
+		}
+
+		&::before {
+			border: {
+				@include px-to-rem(width, 8px);
+				top-color: $g-white;
+			}
+			@include px-to-rem(margin-left, -8px);
+		}
+
+		.chartist-tooltip-value {
+			font-weight: 600;
+		}
+	}
+}

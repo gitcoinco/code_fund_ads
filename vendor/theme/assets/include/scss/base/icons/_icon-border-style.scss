@@ -1,0 +1,34 @@
+/*------------------------------------
+  Icon Border Styles
+------------------------------------*/
+
+[class*="u-icon-brd"] {
+  border: {
+    @include px-to-rem(width, 1px);
+    style: solid;
+  }
+}
+
+// Theme Colors
+@each $color, $value in $g-theme-colors {
+  /* #{$color} */
+  .u-icon-brd-#{$color} {
+    @include icon-bordered($value, $value, $value, $value);
+  }
+}
+
+// Accent Colors
+@each $color, $value in $g-accent-colors {
+  /* #{$color} */
+  .u-icon-brd-#{$color} {
+    @include icon-bordered($value, $value, $value, $value);
+  }
+}
+
+// Social Network Colors
+@each $color, $value in $g-social-network-colors {
+  /* #{$color} */
+  .u-icon-brd-#{$color} {
+    @include icon-bordered($value, $value, $value, $value);
+  }
+}

@@ -1,0 +1,9 @@
+/*------------------------------------
+  Modal Window - Account
+------------------------------------*/
+
+.u-modal-window {
+	&--account {
+		@include px-to-rem(width, 400px);
+	}
+}

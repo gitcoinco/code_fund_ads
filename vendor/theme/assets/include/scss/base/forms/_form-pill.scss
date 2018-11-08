@@ -1,0 +1,35 @@
+// /*------------------------------------
+//   Form Pill
+// ------------------------------------*/
+
+.u-form--pill {
+	@include border-radius($g-form-pill-border-radius);
+
+	&.u-form--no-brd {
+		box-shadow: $g-form-pill-box-shadow;
+	}
+
+	> .u-form__input {
+		&:first-child {
+			@include border-left-radius($g-form-pill-border-radius);
+		}
+
+		&:last-child {
+			@include border-right-radius($g-form-pill-border-radius);
+		}
+	}
+
+	.u-form__prepend {
+		> .u-form__text,
+		> .btn {
+			@include border-left-radius($g-form-pill-border-radius);
+		}
+	}
+
+	.u-form__append {
+		> .u-form__text,
+		> .btn {
+			@include border-right-radius($g-form-pill-border-radius);
+		}
+	}
+}

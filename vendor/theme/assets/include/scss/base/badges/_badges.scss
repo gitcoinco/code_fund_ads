@@ -1,0 +1,57 @@
+/*------------------------------------
+  Badges
+------------------------------------*/
+
+.u-badge {
+  z-index: $g-badge-z-index;
+  @include icon-elements;
+  @include px-to-rem(width, $g-badge-width);
+  @include px-to-rem(height, $g-badge-height);
+  line-height: $g-badge-line-height;
+  @include px-to-rem(font-size, $g-badge-font-size);
+
+  &-pos {
+    @include absolute;
+  }
+}
+
+[class*="u-badge-border"] {
+  border-style: $g-badge-border-style;
+  border-width: $g-badge-border-width;
+  line-height: ($g-badge-line-height - .3);
+}
+
+/* Positions */
+.u-badge-pos:not([class*="--top-left"]):not([class*="--bottom-left"]):not([class*="--bottom-right"]) {
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+.u-badge-pos {
+  &--top-left {
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+  }
+
+  &--bottom-left {
+    bottom: 0;
+    left: 0;
+    transform: translate(-50%, 50%);
+  }
+
+  &--bottom-right {
+    bottom: 0;
+    right: 0;
+    transform: translate(50%, 50%);
+  }
+
+  &--bottom-right-0 {
+    @include absolute(bottom 0 right 0);
+  }
+
+  &--bottom-left-1 {
+    @include absolute(bottom 4px left 4px);
+  }
+}

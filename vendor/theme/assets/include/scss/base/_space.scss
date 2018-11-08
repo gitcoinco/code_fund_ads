@@ -1,0 +1,157 @@
+/*------------------------------------
+  Space
+------------------------------------*/
+
+.u-space-1 {
+	@include px-to-rem(padding-top, $g-space-1);
+	@include px-to-rem(padding-bottom, $g-space-1);
+
+	&-top {
+		@include px-to-rem(padding-top, $g-space-1);
+	}
+
+	&-bottom {
+		@include px-to-rem(padding-bottom, $g-space-1);
+	}
+}
+
+.u-space-2 {
+	@include px-to-rem(padding-top, $g-space-2);
+	@include px-to-rem(padding-bottom, $g-space-2);
+
+	&-top {
+		@include px-to-rem(padding-top, $g-space-2);
+	}
+
+	&-bottom {
+		@include px-to-rem(padding-bottom, $g-space-2);
+	}
+}
+
+.u-space-3 {
+	@include px-to-rem(padding-top, $g-space-3);
+	@include px-to-rem(padding-bottom, $g-space-3);
+
+	&-top {
+		@include px-to-rem(padding-top, $g-space-3);
+	}
+
+	&-bottom {
+		@include px-to-rem(padding-bottom, $g-space-3);
+	}
+}
+
+.u-space-4 {
+	@include px-to-rem(padding-top, $g-space-4);
+	@include px-to-rem(padding-bottom, $g-space-4);
+
+	&-top {
+		@include px-to-rem(padding-top, $g-space-4);
+	}
+
+	&-bottom {
+		@include px-to-rem(padding-bottom, $g-space-4);
+	}
+}
+
+.u-space-5 {
+	@include px-to-rem(padding-top, $g-space-5);
+	@include px-to-rem(padding-bottom, $g-space-5);
+
+	&-top {
+		@include px-to-rem(padding-top, $g-space-5);
+	}
+
+	&-bottom {
+		@include px-to-rem(padding-bottom, $g-space-5);
+	}
+}
+
+.u-space-0 {
+	@include px-to-rem(padding-top, 0);
+	@include px-to-rem(padding-bottom, 0);
+
+	&-top {
+		@include px-to-rem(padding-top, 0);
+	}
+
+	&-bottom {
+		@include px-to-rem(padding-bottom, 0);
+	}
+}
+
+// Small Devices
+@include media-breakpoint-up(sm) {
+	.u-space-3--sm {
+		@include px-to-rem(padding-top, $g-space-3);
+		@include px-to-rem(padding-bottom, $g-space-3);
+	}
+
+	.u-space-5-top--sm {
+		@include px-to-rem(padding-top, $g-space-5);
+	}
+}
+
+// Medium Devices
+@include media-breakpoint-up(md) {
+	.u-space-1-top--md {
+		@include px-to-rem(padding-top, $g-space-1);
+	}
+
+	.u-space-2-top--md {
+		@include px-to-rem(padding-top, $g-space-2);
+	}
+
+	.u-space-5-top--md {
+		@include px-to-rem(padding-top, $g-space-5);
+	}
+}
+
+// Large Devices
+@include media-breakpoint-up(lg) {
+	.u-space-3--lg {
+		@include px-to-rem(padding-top, $g-space-3);
+		@include px-to-rem(padding-bottom, $g-space-3);
+	}
+
+	.u-space-3-top--lg {
+		@include px-to-rem(padding-top, $g-space-3);
+	}
+
+	.u-space-4--lg {
+		@include px-to-rem(padding-top, $g-space-4);
+		@include px-to-rem(padding-bottom, $g-space-4);
+	}
+
+	.u-space-4-top--lg {
+		@include px-to-rem(padding-top, $g-space-4);
+	}
+
+	.u-space-5-top--lg {
+		@include px-to-rem(padding-top, $g-space-5);
+	}
+
+	.u-space-5-bottom--lg {
+		@include px-to-rem(padding-bottom, $g-space-5);
+	}
+
+	.u-space-0--lg {
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+
+	.u-space-bottom-0--lg {
+		padding-bottom: 0;
+	}
+}
+
+// Extra Large Devices
+@include media-breakpoint-up(xl) {
+	.u-space-4-top--xl {
+		@include px-to-rem(padding-top, $g-space-4);
+	}
+
+	.u-space-5-top--xl {
+		@include px-to-rem(padding-top, $g-space-5);
+	}
+}

@@ -1,0 +1,22 @@
+/*------------------------------------
+  Search Form - Classic
+------------------------------------*/
+
+.u-search-classic {
+	@include absolute;
+	z-index: $g-search-classic-z-index;
+	@include px-to-rem(width, $g-search-classic-width);
+	background-color: $g-search-classic-bg;
+	box-shadow: $g-search-classic-box-shadow;
+	@include border-radius($g-search-classic-border-radius);
+	@include px-to-rem(padding, $g-search-classic-input-padding);
+	transition: none;
+
+	&__addon {
+		border: none;
+
+		&-btn {
+	    @include border-left-radius(0);
+	  }
+	}
+}

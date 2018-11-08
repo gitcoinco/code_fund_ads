@@ -1,0 +1,22 @@
+/*------------------------------------
+  Slick Pagination Modern
+------------------------------------*/
+
+.u-slick--pagination-modern {
+	@include px-to-rem(max-width, 200px);
+
+	.slick {
+		&-slide {
+			cursor: pointer;
+			opacity: 0.7;
+			transform: scale(.7);
+			backface-visibility: hidden; // CSS transitions shaking bug fix on Chrome and IE
+			transition: $g-transition-timing $g-transition-function;
+		}
+
+		&-current {
+			opacity: 1;
+			transform: scale(1);
+		}
+	}
+}

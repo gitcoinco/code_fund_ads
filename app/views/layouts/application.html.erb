@@ -13,7 +13,11 @@
 
     <!-- Search Engine -->
     <meta name="description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
-    <meta name="image" content="<%= asset_url "codefund-logo-square-512.png" %>"/>
+    <meta name="image" content="<%= asset_url "codefund-logo-square-512.png" %>">
+
+    <!-- CDN Stylesheets -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-POYwD7xcktv3gUeZO5s/9nUbRJG/WOmV6jfEGikMJu77LGYO8Rfs2X7URG822aum" crossorigin="anonymous">
 
     <!-- Schema.org for Google -->
     <meta itemprop="name" content="CodeFund">
@@ -38,19 +42,12 @@
     <meta name="fb:admins" content="801507563">
     <meta name="og:type" content="website">
 
-    <!-- CDN Stylesheets -->
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-POYwD7xcktv3gUeZO5s/9nUbRJG/WOmV6jfEGikMJu77LGYO8Rfs2X7URG822aum" crossorigin="anonymous">
-
     <!-- Compressed Stylesheets -->
-    <%= stylesheet_pack_tag 'main', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'code_fund', media: 'all', 'data-turbolinks-track': 'reload' %>
 
     <!-- Compressed JavaScripts -->
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'main', 'data-turbolinks-track': 'reload' %>
-
-    <!-- Cookie / Privacy Policy -->
-    <script type="text/javascript">(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);</script>
+    <%= javascript_pack_tag 'code_fund', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
     <%= render "/@shared/skippy" %>

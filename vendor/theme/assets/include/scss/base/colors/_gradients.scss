@@ -1,0 +1,44 @@
+/*------------------------------------
+  Background Gradients
+------------------------------------*/
+
+.u-gradient-half-primary-body-v1 {
+	@include gradient-x($hs-start-color: $g-midnightblue, $hs-end-color: $g-primary-lighter, $deg: 150deg);
+  background-attachment: fixed;
+}
+
+.u-gradient-half-primary-v1 {
+	@include gradient-x($hs-start-color: $g-midnightblue, $hs-end-color: $g-primary-lighter, $deg: 150deg);
+}
+
+.u-gradient-half-primary-v2 {
+	@include gradient-y($hs-start-color: rgba($g-primary, .05), $hs-end-color: transparent);
+}
+
+.u-gradient-half-primary-v3 {
+	@include gradient-y($hs-start-color: rgba($g-primary, .1), $hs-end-color: transparent);
+}
+
+.u-gradient-half-primary-v4 {
+	@include gradient-x($hs-start-color: $g-midnightblue, $hs-end-color: $g-primary-lighter, $hs-end-percent: 85%, $deg: 150deg);
+}
+
+.u-gradient-half-primary-v5 {
+	@include gradient-x($hs-start-color: $g-primary, $hs-end-color: $g-midnightblue, $deg: 150deg);
+}
+
+.u-gradient-half-info-v1 {
+	@include gradient-x($hs-start-color: $g-primary, $hs-end-color: $g-info, $deg: 0deg);
+}
+
+.u-gradient-half-warning-v1 {
+	@include gradient-x($hs-start-color: $g-warning, $hs-end-color: $g-danger, $hs-start-percent: 30%, $deg: 25deg);
+}
+
+.u-gradient-half-warning-v2 {
+	@include gradient-x($hs-start-color: $g-warning, $hs-end-color: $g-warning-darker, $deg: 150deg);
+}
+
+.u-gradient-half-warning-v3 {
+	@include gradient-x($hs-start-color: $g-warning, $hs-end-color: $g-danger, $deg: 150deg);
+}

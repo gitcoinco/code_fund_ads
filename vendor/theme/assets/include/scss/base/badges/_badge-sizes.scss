@@ -1,0 +1,27 @@
+/*------------------------------------
+  Badge Sizes
+------------------------------------*/
+
+/* Extra Small */
+.u-badge--xs {
+  @include px-to-rem(width, $g-badge-width-xs);
+  @include px-to-rem(height, $g-badge-height-xs);
+  line-height: $g-badge-line-height;
+  @include px-to-rem(font-size, $g-badge-font-size-xs);
+}
+
+.u-badge--md {
+  @include px-to-rem(width, $g-badge-width-md);
+  @include px-to-rem(height, $g-badge-height-md);
+  line-height: $g-badge-line-height;
+  @include px-to-rem(font-size, $g-badge-font-size-md);
+}
+
+.u-badge-bigger {
+  @include px-to-rem(padding, $g-badge-bigger-paddingX);
+}
+
+/* Small */
+.u-badge-bigger--sm {
+  @include px-to-rem(padding, $g-badge-bigger-paddingX-sm);
+}

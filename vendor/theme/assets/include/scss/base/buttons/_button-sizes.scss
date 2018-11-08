@@ -1,0 +1,44 @@
+/*------------------------------------
+  Button Sizes
+------------------------------------*/
+
+/* Wide */
+.u-btn-wide {
+  @include px-to-rem(min-width, $g-input-btn-min-width);
+
+  &--sm {
+    @include px-to-rem(min-width, $g-input-btn-min-width-sm);
+  }
+}
+
+/* Extra Small */
+.btn-xs {
+  @include px-to-rem(font-size, $g-btn-font-size-xs);
+  font-weight: $g-font-weight-normal;
+  @include px-to-rem(padding, $g-input-btn-paddingY-xs $g-input-btn-paddingX-xs);
+}
+
+.btn-sm {
+  @include px-to-rem(font-size, $g-btn-font-size-sm);
+}
+
+/* Icons */
+.u-btn--icon {
+	position: relative;
+	line-height: 0;
+  @include px-to-rem(font-size, $g-btn-icon-font-size);
+  @include px-to-rem(width, $g-btn-width);
+  @include px-to-rem(height, $g-btn-height);
+  padding: 0;
+
+  &__inner {
+  	@include content-centered;
+  }
+
+	&.btn-xs {
+  	@include px-to-rem(font-size, $g-btn-icon-font-size-xs);
+		@include px-to-rem(width, $g-btn-width-xs);
+		@include px-to-rem(height, $g-btn-height-xs);
+  	padding: 0;
+	}
+}

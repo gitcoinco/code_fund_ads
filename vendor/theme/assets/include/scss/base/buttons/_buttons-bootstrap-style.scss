@@ -1,0 +1,32 @@
+/*------------------------------------
+  Buttons Bootstrap Style
+------------------------------------*/
+
+// Accent Colors
+@each $color, $value in $g-accent-colors {
+	/* #{$color} */
+  .u-btn-#{$color} {
+    @if $color == "white" {
+      @include buttons($value, $value, $value, $value, $value, $value);
+    } @else {
+      @include buttons($value, $value);
+    }
+  }
+
+  .u-btn-white {
+  	&:hover,
+    &:not([disabled]):not(.disabled):active,
+    &:not([disabled]):not(.disabled).active,
+    .show > &.dropdown-toggle {
+  		color: $g-primary;
+  	}
+  }
+}
+
+// Social Network Colors
+@each $color, $value in $g-social-network-colors {
+	/* #{$color} */
+  .u-btn-#{$color} {
+    @include buttons($value, $value);
+  }
+}

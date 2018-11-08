@@ -1,0 +1,9 @@
+/*------------------------------------
+  Clients
+------------------------------------*/
+
+.u-clients {
+  @include px-to-rem(width, 96px);
+  @include px-to-rem(margin-left, auto);
+  @include px-to-rem(margin-right, auto);
+}

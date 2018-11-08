@@ -1,0 +1,19 @@
+/*------------------------------------
+  Sidebar Shopping Cart
+------------------------------------*/
+
+.u-sidebar {
+	&--cart {
+		background-color: $g-white;
+	}
+
+	&--cart__footer-offset {
+  	height: 100%;
+  	box-sizing: border-box;
+  	@include px-to-rem(padding-bottom, 215px);
+  }
+
+	&__content--cart {
+  	@include px-to-rem(padding, 40px);
+  }
+}

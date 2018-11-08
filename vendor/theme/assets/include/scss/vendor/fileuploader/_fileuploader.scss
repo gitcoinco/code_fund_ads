@@ -1,0 +1,48 @@
+/*------------------------------------
+  Fileuploader
+------------------------------------*/
+
+/* Default Style */
+.fileuploader {
+  margin-top: 0;
+}
+
+/* Front Style */
+.u-fileuploader-input {
+  display: block;
+  cursor: pointer;
+  background: $g-white;
+  border: 2px dashed $g-light-blue-125;
+  @include border-radius($g-border-radius);
+  @include px-to-rem(padding, $g-space-1 0);
+  text-align: center;
+
+  &__icon {
+    display: block;
+    color: $g-primary;
+    @include px-to-rem(font-size, 40px);
+  }
+}
+
+/* Dragging State */
+.u-fileuploader-input {
+  &__inner,
+  &.fileuploader-dragging .u-fileuploader-input__icon {
+    transition: all $g-transition-timing $g-transition-function;
+  }
+
+  &.fileuploader-dragging {
+    .u-fileuploader-input__inner {
+      opacity: .6;
+    }
+
+    .u-fileuploader-input__icon {
+      transform: translateY(18px);
+    }
+
+    .u-fileuploader-input__btn {
+      transform: none;
+      opacity: 1;
+    }
+  }
+}

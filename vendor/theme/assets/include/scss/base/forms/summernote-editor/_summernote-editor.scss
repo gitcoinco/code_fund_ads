@@ -1,0 +1,41 @@
+/*------------------------------------
+  Summernote Editor
+------------------------------------*/
+
+.u-summernote-editor {
+  .note-editor.note-frame {
+    border-color: $g-light-blue-125;
+
+    .note-statusbar {
+      background-color: $g-light-blue-50;
+      border-top-color: $g-light-blue-125;
+    }
+  }
+
+  .note-toolbar {
+    background-color: $g-light-blue-50;
+
+    > .note-btn-group {
+      border: 1px solid $g-light-blue-125;
+      @include border-radius($g-border-radius);
+      @include px-to-rem(margin, 8px 4px);
+    }
+  }
+
+  .note-btn,
+  .note-frame * {
+    color: $g-dark;
+  }
+
+  .note-btn {
+    &:focus,
+    &:hover {
+      color: $g-primary;
+      background-color: transparent;
+    }
+  }
+}
+
+.note-popover.popover {
+  display: none;
+}

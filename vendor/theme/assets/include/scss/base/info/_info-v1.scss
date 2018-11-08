@@ -1,0 +1,16 @@
+/*------------------------------------
+  Info v1
+------------------------------------*/
+
+.u-info-v1 {
+	display: block;
+	background-color: $g-white;
+	color: $g-dark;
+	border: 1px solid $g-light-blue-125;
+	@include border-radius($g-border-radius);
+	transition: $g-transition-timing $g-transition-function;
+
+	&:hover {
+		background-color: $g-light-blue-50;
+	}
+}

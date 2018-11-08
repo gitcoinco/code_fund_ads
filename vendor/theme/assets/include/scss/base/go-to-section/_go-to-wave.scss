@@ -1,0 +1,15 @@
+/*------------------------------------
+  Got to Section - Wave
+------------------------------------*/
+
+.u-go-to-wave {
+	@include relative;
+	@include px-to-rem(width, 210px);
+	transform: translateX(-50%);
+	margin-left: auto;
+	margin-right: auto;
+
+	&__icon {
+		transform: translateY(-175%);
+	}
+}

@@ -1,0 +1,24 @@
+/*------------------------------------
+  Success State
+------------------------------------*/
+
+.u-has-success {
+  .u-form {
+    &.u-focus-state {
+      box-shadow: $g-form-success-focus-box-shadow;
+    }
+
+    &:focus,
+    &.u-focus-state .u-form__append > .u-btn-white,
+    &.u-focus-state .u-form__prepend > .u-btn-white,
+    &.u-focus-state .u-form__text,
+    &.u-focus-state .u-form__input,
+    &.u-focus-state *:focus {
+      border-color: $g-input-success-color;
+    }
+
+    &.u-focus-state .u-form__text {
+      color: $g-input-success-color;
+    }
+  }
+}

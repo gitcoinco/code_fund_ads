@@ -1,0 +1,24 @@
+/*------------------------------------
+  Custom Buttons
+------------------------------------*/
+
+@each $color, $value in $g-theme-colors {
+	/* #{$color} button :hover, :focus, :active effects */
+  .u-btn-#{$color} {
+    @include button-custom($value);
+  }
+}
+
+@each $color, $value in $g-accent-colors {
+	/* #{$color} button :hover, :focus, :active effects */
+  .u-btn-#{$color} {
+    @include button-custom($value);
+  }
+}
+
+@each $color, $value in $g-social-network-colors {
+	/* #{$color} button :hover, :focus, :active effects */
+  .u-btn-#{$color} {
+    @include button-custom($value);
+  }
+}

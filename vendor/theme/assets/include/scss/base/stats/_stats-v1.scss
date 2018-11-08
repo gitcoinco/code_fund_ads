@@ -1,0 +1,26 @@
+/*------------------------------------
+  Stats v1
+------------------------------------*/
+
+.u-stats-v1 {
+	@include relative;
+	@include px-to-rem(min-height, 160px);
+
+	&__content {
+		@include relative;
+		@include px-to-rem(width, 220px);
+		@include px-to-rem(height, 220px);
+		@include border-radius($g-border-radius-rounded);
+		box-shadow: 0 6px 24px 0 rgba($g-light-blue-300, .125);
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	&__info {
+		@include content-centered(false, true);
+		left: 0;
+		right: 0;
+		@include px-to-rem(padding, 32px);
+		text-align: center;
+	}
+}

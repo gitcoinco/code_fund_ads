@@ -1,0 +1,11 @@
+/*------------------------------------
+  Devices v3
+------------------------------------*/
+
+.u-devices-v3 {
+	@include content-centered(false, true);
+	right: 0;
+	width: 40%;
+	@include border-radius(4.0625rem);
+	box-shadow: 10px 15px 55px 15px rgba($g-light-blue-300, .1);
+}

@@ -1,0 +1,15 @@
+/*------------------------------------
+  Background Image Style
+------------------------------------*/
+
+.u-bg-img-hero {
+  @include background-cover(cover, no-repeat, top, center);
+}
+
+.u-bg-img-hero-bottom {
+  @include background-cover(cover, no-repeat, bottom, center);
+}
+
+.u-bg-img-hero-center {
+  @include background-cover(cover, no-repeat, center, center);
+}

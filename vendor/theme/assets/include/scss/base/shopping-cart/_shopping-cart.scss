@@ -1,0 +1,92 @@
+/*------------------------------------
+  Shopping Cart
+------------------------------------*/
+
+/* Title */
+.u-shopping-cart {
+  &-title-wrapper {
+    text-align: center;
+    border-bottom: 1px solid darken($g-light-blue-50, 5%);
+    @include px-to-rem(padding, 24px);
+  }
+}
+
+/* Item */
+.u-shopping-cart-item {
+  &s-wrapper {
+    @include px-to-rem(padding, 24px);
+  }
+
+  &-divider {
+    border-bottom: {
+      @include px-to-rem(width, 1px);
+      style: solid;
+      color: darken($g-light-blue-50, 5%);
+    }
+    @include px-to-rem(padding-bottom, 24px);
+    @include px-to-rem(margin-bottom, 24px);
+  }
+
+  &-img-wrapper {
+    width: 25%;
+  }
+
+  &-info-wrapper {
+    width: 75%;
+  }
+
+  &-remover {
+    cursor: pointer;
+    color: $g-gray-150;
+
+    &:hover {
+      color: $g-dark;
+    }
+  }
+
+  &-description {
+    @include px-to-rem(font-size, 14px);
+  }
+
+  &-price {
+    color: $g-primary;
+  }
+
+  &-other-info {
+    color: $g-gray-500;
+    @include px-to-rem(font-size, 12px);
+  }
+}
+
+/* Subtotal */
+.u-shopping-cart-subtotal {
+  &-bg {
+    text-align: center;
+    background-color: $g-light-blue-100;
+    @include px-to-rem(padding, 24px);
+    @include border-bottom-radius($g-border-radius);
+  }
+
+  &-link {
+    color: $g-light-blue-300;
+    @include px-to-rem(font-size, 12px);
+  }
+}
+
+/* Icon */
+.u-shopping-cart {
+  &-icon {
+    @include relative;
+    @include icon-elements;
+    @include px-to-rem(width, 70px);
+    @include px-to-rem(height, 70px);
+    @include px-to-rem(font-size, 20px);
+    @include border-radius($g-border-radius-rounded);
+    color: $g-primary;
+    background-color: rgba($g-primary, .1);
+
+    &__inner {
+      @include content-centered;
+    }
+  }
+}

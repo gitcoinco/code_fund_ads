@@ -1,0 +1,54 @@
+/*------------------------------------
+  Tagsinput
+------------------------------------*/
+
+.u-tagsinput {
+  .bootstrap-tagsinput {
+    width: 100%;
+    border-color: $g-light-blue-125;
+    @include border-radius($g-border-radius);
+    box-shadow: none;
+    @include px-to-rem(padding, 4px);
+    padding-bottom: 0;
+
+    &::before {
+      content: "|";
+      display: inline-block;
+      @include px-to-rem(width, 1px);
+      line-height: 1;
+      @include px-to-rem(font-size, 10px);
+      opacity: 0;
+      @include px-to-rem(padding, 12px 0);
+    }
+
+    .tag {
+      @include relative;
+      display: inline-block;
+      @include px-to-rem(font-size, 14px);
+      color: $g-secondary;
+      background-color: rgba($g-secondary, .1);
+      @include border-radius($g-border-radius);
+      @include px-to-rem(padding, 4px 30px 4px 12px);
+      @include px-to-rem(margin-bottom, 4px);
+      margin-right: 0;
+
+      [data-role="remove"] {
+        @include absolute(right 8px);
+        top: 50%;
+        color: $g-secondary;
+        @include px-to-rem(font-size, 20px);
+        outline: none;
+        transform: translateY(-50%);
+
+        &::after {
+          content: "\00d7";
+        }
+
+        &:hover {
+          color: $g-dark;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+}

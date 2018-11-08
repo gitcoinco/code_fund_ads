@@ -1,0 +1,9 @@
+/*------------------------------------
+  Dropwodn
+------------------------------------*/
+
+.dropdown-menu {
+	@include px-to-rem(font-size, 14px);
+	@include px-to-rem(padding, $g-unfold-padding);
+	box-shadow: $g-unfold-box-shadow;
+}

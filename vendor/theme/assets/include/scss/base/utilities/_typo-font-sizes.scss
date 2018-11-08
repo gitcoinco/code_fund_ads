@@ -1,0 +1,30 @@
+/*------------------------------------
+  Typography Font Size
+------------------------------------*/
+
+.font-size-13 {
+  @include px-to-rem(font-size, 13px);
+}
+
+.font-size-14 {
+  @include px-to-rem(font-size, 14px);
+}
+
+.font-size-20 {
+  @include px-to-rem(font-size, 20px);
+}
+
+.font-size-26 {
+  @include px-to-rem(font-size, 26px);
+}
+
+.font-size-32 {
+  @include px-to-rem(font-size, 32px);
+}
+
+// Medium Devices
+@include media-breakpoint-down(md) {
+  .font-size-48--md-down {
+    @include px-to-rem(font-size, 48px);
+  }
+}

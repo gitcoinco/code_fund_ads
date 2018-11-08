@@ -1,0 +1,23 @@
+/*------------------------------------
+  Icon
+------------------------------------*/
+
+.u-icon {
+	@include relative;
+  z-index: $g-icon-z-index;
+	line-height: $g-icon-line-height;
+  @include icon-elements;
+  @include px-to-rem(width, $g-icon-width);
+  @include px-to-rem(height, $g-icon-height);
+  @include px-to-rem(font-size, $g-icon-font-size);
+  @include border-radius($g-icon-border-radius);
+	transition: $g-icon-transition;
+
+	&__inner {
+  	@include content-centered;
+
+  	&-bottom-minus {
+  		top: 90%;
+  	}
+  }
+}

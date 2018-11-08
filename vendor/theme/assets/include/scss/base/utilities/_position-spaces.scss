@@ -1,0 +1,85 @@
+/*------------------------------------
+  Position Spaces
+------------------------------------*/
+
+.position-absolute-top-0 {
+	@include absolute(top 0 right 0 left 0);
+}
+
+.position-absolute-top-right-0 {
+	@include absolute(top 0 right 0);
+}
+
+.position-absolute-top-left-0 {
+  @include absolute(top 0 left 0);
+}
+
+.position-absolute-top-bottom-0 {
+  @include absolute(top 0 bottom 0);
+}
+
+.position-absolute-bottom-0 {
+	@include absolute(right 0 bottom 0 left 0);
+}
+
+.position-absolute-bottom-right-0 {
+	@include absolute(right 0 bottom 0);
+}
+
+.position-absolute-bottom-left-0 {
+  @include absolute(bottom 0 left 0);
+}
+
+.bottom-0 {
+  bottom: 0;
+}
+
+.bottom-50 {
+  @include px-to-rem(bottom, 50px);
+}
+
+.right-0 {
+  right: 0;
+}
+
+.left-0 {
+  left: 0;
+}
+
+.left-15x {
+  left: 15%;
+}
+
+.left-50x {
+  left: 50%;
+}
+
+// Medium Devices
+@include media-breakpoint-up(md) {
+	.position-absolute-top-left-0--md {
+		@include absolute(top 0 left 0);
+	}
+
+  .position-absolute-top-right-0--md {
+    @include absolute(top 0 right 0);
+  }
+
+  .position-absolute-bottom-right-0--md {
+    @include absolute(right 0 bottom 0);
+  }
+}
+
+// Large Devices
+@include media-breakpoint-up(lg) {
+	.position-absolute-top-left-0--lg {
+		@include absolute(top 0 left 0);
+	}
+
+	.position-absolute-bottom-0--lg {
+		@include absolute(right 0 bottom 0 left 0);
+	}
+
+	.position-absolute-top-right-0--lg {
+		@include absolute(top 0 right 0);
+	}
+}
