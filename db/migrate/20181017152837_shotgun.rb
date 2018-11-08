@@ -84,7 +84,7 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.index :active_storage_attachment_id
     end
 
-    create_table :impressions, id: :uuid, default: -> { "gen_random_uuid()" } do |t|
+    create_range_partition :impressions, id: :uuid, default: -> { "gen_random_uuid()" }, partition_key: "displayed_at_date" do |t|
       t.bigint :campaign_id
       t.bigint :property_id
       t.string :ip
@@ -95,18 +95,24 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.decimal :longitude
       t.boolean :payable, default: false, null: false
       t.string :reason
+      t.datetime :displayed_at
       t.date :displayed_at_date
-      t.date :clicked_at_date
       t.datetime :clicked_at
       t.boolean :fallback_campaign, default: false, null: false
       t.timestamps
+    end
 
-      t.index :campaign_id
-      t.index :property_id
-      t.index :payable
-      t.index :displayed_at_date
-      t.index :clicked_at_date
-      t.index :ip
+    start_date = Date.parse("2018-11-01")
+    current_date = start_date
+    while current_date < start_date.advance(years: 10)
+      next_date = current_date.advance(months: 1)
+      partitioned_table_name = create_range_partition_of :impressions, partition_key: "displayed_at_date", start_range: current_date, end_range: next_date
+      # NOTE: displayed_at::date is indexed by default since it's the partition key
+      add_index partitioned_table_name, "date_trunc('hour', displayed_at)", name: "index_#{partitioned_table_name}_on_displayed_at_hour"
+      add_index partitioned_table_name, :campaign_id
+      add_index partitioned_table_name, :property_id
+      add_index partitioned_table_name, :payable
+      current_date = next_date
     end
 
     create_table :properties do |t|
