@@ -1,0 +1,43 @@
+/*------------------------------------
+  Header Sidebar
+------------------------------------*/
+
+.u-header-sidebar {
+	&__footer-offset {
+		height: 100%;
+  	box-sizing: border-box;
+		padding-bottom: 10.625rem;
+	}
+
+	&__content {
+		padding: 1.5rem 3rem 3rem;
+	}
+
+	&__navbar-brand {
+		display: block;
+    width: 6.25rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 2.5rem;
+  }
+
+  &__footer {
+		position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  	width: 100%;
+		padding: 1rem 3rem;
+
+		&-link {
+			color: $white-color-70;
+			font-size: ($font-size-base * .75);
+
+			&:hover {
+				color: $white-color-hover;
+			}
+		}
+  }
+}

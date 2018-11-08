@@ -1,9 +1,15 @@
 <div id="logoAndNav" class="container">
-  <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar hs-menu-initialized hs-menu-horizontal">
-    <%= link_to image_tag("codefund-w.svg", alt: "CodeFund"), root_path, class: "navbar-brand u-header__navbar-brand u-header__navbar-brand-top-space" %>
+  <!-- Nav -->
+  <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar u-header__navbar--no-space" data-controller="mega-menu">
+    <%= link_to image_tag("codefund-w.svg", alt: "CodeFund"), root_path, class: "navbar-brand u-header__navbar-brand u-header__navbar-brand-center" %>
 
     <!-- Responsive Toggle Button -->
-    <button type="button" class="navbar-toggler btn u-hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar" data-toggle="collapse" data-target="#navBar">
+    <button type="button" class="navbar-toggler btn u-hamburger"
+            aria-label="Toggle navigation"
+            aria-expanded="false"
+            aria-controls="navBar"
+            data-toggle="collapse"
+            data-target="#navBar">
       <span id="hamburgerTrigger" class="u-hamburger__box">
         <span class="u-hamburger__inner"></span>
       </span>
@@ -11,8 +17,8 @@
     <!-- End Responsive Toggle Button -->
 
     <!-- Navigation -->
-    <div id="navBar" class="collapse navbar-collapse py-0">
-      <ul class="navbar-nav u-header__navbar-nav ml-lg-auto">
+    <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse">
+      <ul class="navbar-nav u-header__navbar-nav">
         <% if controller_name == "home" %>
           <%= active_link_to "Home", root_path, active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <%= active_link_to "Advertisers", home_advertisers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
@@ -25,8 +31,17 @@
           <%= active_link_to "Properties", properties_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" if current_user %>
           <%= active_link_to "Creatives", creatives_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" if current_user %>
         <% end %>
+
+        <!-- Button -->
+        <li class="nav-item u-header__nav-last-item">
+          <a class="btn btn-sm btn-primary transition-3d-hover" href="https://themes.getbootstrap.com/product/front-multipurpose-responsive-template/" target="_blank">
+            Login
+          </a>
+        </li>
+        <!-- End Button -->
       </ul>
     </div>
     <!-- End Navigation -->
   </nav>
+  <!-- End Nav -->
 </div>

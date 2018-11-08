@@ -1,0 +1,64 @@
+/*------------------------------------
+  Buttons
+------------------------------------*/
+
+.btn {
+  &[href] {
+    cursor: pointer;
+  }
+
+  &:not([href]):not([type]):not(:disabled):not(.disabled) {
+    cursor: default;
+  }
+}
+
+/* Pill */
+.btn-pill {
+  @include border-radius($border-radius-pill);
+}
+
+/* Icon */
+.btn-icon {
+  position: relative;
+  line-height: 0;
+  font-size: $btn-icon-font-size;
+  width: $btn-width;
+  height: $btn-height;
+  padding: 0;
+
+  &__inner {
+    @include content-centered;
+
+    &-bottom-minus {
+      top: 80%;
+    }
+  }
+}
+
+/* Background Transparent */
+[class*="btn-soft-"].btn-bg-transparent {
+  background-color: transparent;
+}
+
+/* Toggle */
+.btn {
+  &__toggle {
+    &-default {
+      display: inline-block;
+    }
+
+    &-toggled {
+      display: none;
+    }
+  }
+
+  &.toggled {
+    .btn__toggle-default {
+      display: none;
+    }
+
+    .btn__toggle-toggled {
+      display: inline-block;
+    }
+  }
+}

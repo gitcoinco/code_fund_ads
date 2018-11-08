@@ -1,0 +1,144 @@
+/*------------------------------------
+  Width
+------------------------------------*/
+
+.min-width-3 {
+  min-width: 1rem !important;
+}
+
+.max-width-6 {
+  max-width: 2.5rem !important;
+}
+
+.max-width-8 {
+  max-width: 3.5rem;
+}
+
+.max-width-9 {
+  max-width: 4rem;
+}
+
+.max-width-10 {
+  max-width: 4.5rem;
+}
+
+.max-width-15 {
+  max-width: 7rem;
+}
+
+.max-width-27 {
+  max-width: 13rem;
+}
+
+.max-width-35 {
+  max-width: 17rem;
+}
+
+.max-width-40 {
+  max-width: 19.5rem;
+}
+
+
+/*------------------------------------
+  Height
+------------------------------------*/
+
+.height-40vh {
+  height: 40vh;
+}
+
+.height-60vh {
+  height: 60vh;
+}
+
+.height-100vh {
+  height: 100vh;
+}
+
+.height-380 {
+  height: 23.75rem;
+}
+
+.height-400 {
+  height: 25rem;
+}
+
+.height-450 {
+  height: 28.125rem;
+}
+
+.min-height-100vh {
+  min-height: 100vh;
+}
+
+.min-height-155 {
+  min-height: 9.6875rem;
+}
+
+.min-height-300 {
+  min-height: 18.75rem;
+}
+
+.min-height-380 {
+  min-height: 23.75rem;
+}
+
+.min-height-450 {
+  min-height: 28.125rem;
+}
+
+.min-height-550 {
+  min-height: 34.375rem;
+}
+
+.min-height-600 {
+  min-height: 37.5rem;
+}
+
+.min-height-620 {
+  min-height: 38.75rem;
+}
+
+// Small Devices
+@include media-breakpoint-up(sm) {
+  .height-sm-100vh {
+    height: 100vh;
+  }
+}
+
+// Medium Devices
+@include media-breakpoint-up(md) {
+  .height-md-60vh {
+    height: 60vh;
+  }
+
+  .height-md-100vh {
+    height: 100vh;
+  }
+
+  .min-height-md-100vh {
+    min-height: 100vh;
+  }
+}
+
+// Large Devices
+@include media-breakpoint-up(lg) {
+  .height-lg-100vh {
+    height: 100vh;
+  }
+
+  .min-height-lg-auto {
+    min-height: auto;
+  }
+
+  .min-height-lg-100vh {
+    min-height: 100vh;
+  }
+}
+
+// Extra Large Devices
+@include media-breakpoint-up(xl) {
+  .min-height-xl-100vh {
+    min-height: 100vh;
+  }
+}

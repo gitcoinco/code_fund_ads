@@ -1,0 +1,50 @@
+/*------------------------------------
+  Checkbox Switch
+------------------------------------*/
+
+.checkbox-switch {
+  position: relative;
+  display: inline-block;
+  width: $chechbox-switch-width;
+  height: $chechbox-switch-height;
+
+  &__input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+  }
+
+  &__slider {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: $chechbox-switch-slider;
+    @include border-radius($chechbox-switch-border-radius);
+    padding: .25rem;
+    transition: $transition-timing;
+
+    &::before {
+      @include content-centered(false, true);
+      display: block;
+      width: $chechbox-switch-pseudo-width;
+      height: $chechbox-switch-pseudo-height;
+      background-color: $chechbox-switch-input-pseuod-bg-color;
+      @include border-radius($border-radius-rounded);
+      pointer-events: none;
+      content: "";
+      user-select: none;
+      transition: $transition-timing-md;
+    }
+  }
+
+  &__input:checked + &__slider {
+    background-color: $chechbox-switch-input-checked-bg-color;
+
+    &::before {
+      left: $chechbox-switch-input-checked-pseudo-left-offset;
+      transform: $chechbox-switch-input-checked-pseudo-translate;
+    }
+  }
+}

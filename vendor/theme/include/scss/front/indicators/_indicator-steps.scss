@@ -1,0 +1,52 @@
+/*------------------------------------
+  Indicator Steps
+------------------------------------*/
+
+.u-indicator-steps {
+  position: relative;
+  padding-left: 2.5rem;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: -.25rem;
+    width: 2rem;
+    height: .0625rem;
+    border-top: $indicator-steps-border-width solid $indicator-steps-border-color;
+    margin: auto auto auto 0;
+    content: "";
+  }
+
+  &::after {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: -.3125rem;
+    width: .0625rem;
+    height: 100%;
+    border-right: $indicator-steps-border-width solid $indicator-steps-border-color;
+    margin: auto auto auto 0;
+    content: "";
+  }
+
+  &:first-child {
+    &::after {
+      height: 50%;
+      top: auto;
+    }
+  }
+
+  &:last-child {
+    &::after {
+      height: 50%;
+      bottom: auto;
+    }
+  }
+
+  &__inner {
+    min-width: $indicator-steps-inner-width;
+  }
+}

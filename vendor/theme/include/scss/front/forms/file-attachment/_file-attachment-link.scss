@@ -1,0 +1,32 @@
+/*------------------------------------
+  File Attachment Link
+------------------------------------*/
+
+.file-attachment-link {
+	position: relative;
+  top: .4375rem;
+  overflow: hidden;
+
+  input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+  }
+
+  &__label {
+    color: $white-color-70;
+    border-bottom: 1px dashed $white-color-70;
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    .u-file-attachment-link__label {
+      color: $white;
+      border-color: $white-color-70;
+    }
+  }
+}

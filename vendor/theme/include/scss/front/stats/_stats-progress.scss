@@ -1,0 +1,21 @@
+/*------------------------------------
+  Stats Progress
+------------------------------------*/
+
+.u-stats-progress {
+  position: relative;
+  width: $stats-progress-width;
+  height: $stats-progress-height;
+  @include border-radius($border-radius-rounded);
+  box-shadow: $box-shadow;
+  margin-left: auto;
+  margin-right: auto;
+
+  &__info {
+    @include content-centered(false, true);
+    left: 0;
+    right: 0;
+    padding: 2rem;
+    text-align: center;
+  }
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 1920.5 318.5" style="margin-top: -8px; enable-background:new 0 0 1920.5 318.5;" xml:space="preserve">
+<style type="text/css">
+	.wave-5-top-0{fill:#FFFFFF;}
+</style>
+<linearGradient id="wave5Top_1_" gradientUnits="userSpaceOnUse" x1="319.6719" y1="208.4502" x2="231.1918" y2="-34.6469">
+	<stop class="stop-color-white" offset="2.250243e-07" style="stop-color:#FFFFFF;stop-opacity:0"/>
+	<stop class="stop-color-primary" offset="1" style="stop-color:#377DFF;stop-opacity:0.3"/>
+</linearGradient>
+<path fill="url(#wave5Top_1_)" d="M0.5,297.1c0,0,225.5-202.6,629.5-201.6L0,49.5L0.5,297.1z"/>
+<linearGradient id="wave5Top_2_" gradientUnits="userSpaceOnUse" x1="1497.9215" y1="44.6831" x2="1635.3568" y2="422.2836">
+	<stop class="stop-color-white" offset="2.250243e-07" style="stop-color:#FFFFFF;stop-opacity:0"/>
+	<stop class="stop-color-primary" offset="1" style="stop-color:#377DFF;stop-opacity:0.3"/>
+</linearGradient>
+<path fill="url(#wave5Top_2_)" d="M1144,173.5c0,0,94,48,410,67s366.5,78,366.5,78v-214L1144,173.5z"/>
+<path class="wave-5-top-0 fill-white" d="M0.5,138c0,0,395-113,984,7s936,21,936,21V0H0.5V138z"/>
+</svg>

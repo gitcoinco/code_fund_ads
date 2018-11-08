@@ -1,0 +1,17 @@
+/*------------------------------------
+  SVG
+------------------------------------*/
+
+.svg-preloader {
+  z-index: -1;
+  background: $white url(#{$root-path}svg/preloaders/circle-preloader.svg) center no-repeat !important;
+  overflow: hidden;
+  transition: all $transition-timing-md ease-in;
+}
+
+.svg-preloader * {
+  &:not(.u-icon):not(.btn):not(.u-media-player):not(.u-media-player__icon):not(.u-label) {
+    opacity: 0;
+    transition: opacity $transition-timing-md ease-in;
+  }
+}

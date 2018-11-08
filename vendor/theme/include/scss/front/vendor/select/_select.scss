@@ -1,0 +1,37 @@
+/*------------------------------------
+  Select
+------------------------------------*/
+
+.dropdown-select {
+  &.bootstrap-select {
+    li {
+      .dropdown-item {
+        &.opt {
+          padding-left: $dropdown-item-padding-x;
+        }
+      }
+    }
+  }
+
+  &.bootstrap-select {
+    .bs-searchbox {
+      padding-right: $dropdown-item-padding-x;
+      padding-left: $dropdown-item-padding-x;
+    }
+  }
+
+  &.bootstrap-select {
+    .dropdown-header {
+      .text {
+        font-size: 80%;
+        font-weight: $font-weight-medium;
+        color: $dark;
+        text-transform: uppercase;
+      }
+    }
+  }
+
+  .form-control {
+    margin-bottom: .5rem;
+  }
+}

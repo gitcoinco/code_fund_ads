@@ -1,0 +1,124 @@
+/*------------------------------------
+  Dropdown
+------------------------------------*/
+
+/* Disable content revealing on page load */
+.dropdown-unfold {
+  &[aria-labelledby] {
+    opacity: 0;
+  }
+
+  &[aria-labelledby][role="tabpanel"] {
+    display: block;
+    opacity: 1;
+  }
+
+  &[aria-labelledby].u-unfold--css-animation,
+  &[aria-labelledby].u-unfold--jquery-slide {
+    display: block;
+    opacity: 1;
+  }
+
+  &.u-unfold--css-animation.u-unfold--hidden {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+.u-unfold--css-animation.u-unfold--hidden {
+  display: none;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.dropdown-unfold.show {
+  display: block;
+  opacity: 1;
+}
+
+/* Menu */
+.dropdown-menu {
+  margin-top: .5rem;
+  font-size: ($font-size-base * .875);
+  padding-top: $dropdown-padding-y;
+  padding-bottom: $dropdown-padding-y;
+  box-shadow: $dropdown-box-shadow;
+}
+
+/* Nav Link */
+.dropdown-nav-link {
+  color: $dropdown-link-color;
+  font-weight: $dropdown-link-font-weight;
+  font-size: $dropdown-link-font-size;
+
+  &:hover {
+    color: $dropdown-link-hover-color;
+  }
+}
+
+/* Item */
+.dropdown-item {
+	font-size: $dropdown-item-font-size;
+
+  &:hover {
+    color: $dropdown-item-states;
+  }
+
+  &.active {
+    color: $dropdown-item-states;
+  }
+
+  &-icon {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    font-size: $dropdown-icon-font-size;
+    min-width: $dropdown-icon-width;
+    max-width: $dropdown-icon-width;
+    margin-right: .5rem;
+  }
+}
+
+/* Toggle */
+.dropdown-toggle::after {
+  display: inline-block;
+  font-family: $font-family-font-awesome-icon;
+  font-size: 80%;
+  font-weight: 900;
+  content: "\f107";
+  margin-left: .5rem;
+}
+
+/* Positions */
+.dropdown-menu {
+  &-right {
+    right: 0;
+    left: auto !important;
+  }
+
+  &-bottom {
+    top: auto;
+    bottom: 0;
+  }
+}
+
+// Small Devices
+@include media-breakpoint-up(sm) {
+  .dropdown-menu {
+    &-sm-right {
+      right: 0;
+      left: auto !important;
+    }
+  }
+}
+
+// Medium Devices
+@include media-breakpoint-up(md) {
+  .dropdown-menu {
+    &-md-right {
+      right: 0;
+      left: auto !important;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+/*------------------------------------
+  Custom Buttons
+------------------------------------*/
+
+@each $color, $value in $theme-colors {
+	/* #{$color} button :hover, :focus, :active effects */
+  .btn-#{$color} {
+    &[href],
+    &[type] {
+      &:hover,
+      &:focus,
+      &:active {
+        box-shadow: $btn-box-shadow-value rgba($value, 0.35);
+      }
+    }
+
+    &:not([href]) {
+      &,
+      &:not([href]):not(:disabled):not(.disabled) {
+        background-color: $value;
+        border-color: $value;
+      }
+    }
+  }
+}
+
+@each $color, $value in $secondary-colors {
+	/* #{$color} button :hover, :focus, :active effects */
+  .btn-#{$color} {
+    &[href],
+    &[type] {
+      &:hover,
+      &:focus,
+      &:active {
+        box-shadow: $btn-box-shadow-value rgba($value, 0.35);
+      }
+    }
+
+    &:not([href]) {
+      &,
+      &:not([href]):not(:disabled):not(.disabled) {
+        background-color: $value;
+        border-color: $value;
+      }
+    }
+  }
+}

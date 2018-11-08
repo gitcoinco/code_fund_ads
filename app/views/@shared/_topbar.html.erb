@@ -1,20 +1,29 @@
-
-
 <!-- Topbar -->
 <div class="container u-header__hide-content pt-2">
-  <div class="d-flex align-items-center mb-0">
-    <!-- Language -->
+  <div class="d-flex align-items-center">
+    <!-- Grow Open Source Network -->
     <div class="position-relative">
-      <a id="languageDropdownInvoker" class="d-flex align-items-center u-unfold-wrapper" href="javascript:;" role="button" aria-controls="languageDropdown" aria-haspopup="true" aria-expanded="false" data-unfold-event="hover" data-unfold-target="#languageDropdown" data-unfold-type="css-animation" data-unfold-duration="300" data-unfold-delay="300" data-unfold-hide-on-scroll="true" data-unfold-animation-in="slideInUp" data-unfold-animation-out="fadeOut">
-        <span class="d-inline-block d-sm-none">Funding Network</span>
-        <span class="d-none d-sm-inline-block">Funding Network</span>
-        <span class="fa fa-angle-down u-unfold__icon-pointer"></span>
+      <a id="growOpenSourceDropdownInvoker" class="dropdown-nav-link dropdown-toggle d-flex align-items-center" href="javascript:;" role="button"
+          aria-controls="growOpenSourceDropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          data-unfold-event="hover"
+          data-unfold-target="#growOpenSourceDropdown"
+          data-unfold-type="css-animation"
+          data-unfold-duration="300"
+          data-unfold-delay="300"
+          data-unfold-hide-on-scroll="true"
+          data-unfold-animation-in="slideInUp"
+          data-unfold-animation-out="fadeOut">
+        <span class="d-inline-block d-sm-none">Network</span>
+        <span class="d-none d-sm-inline-block">Grow Open Source</span>
       </a>
 
-      <div id="languageDropdown" class="u-unfold mt-2" aria-labelledby="languageDropdownInvoker">
-        <a class="u-list__link" href="https://gitcoin.co">Gitcoin</a>
-        <a class="u-list__link" href="https://opencollective.com">Open Collective</a>
-        <a class="u-list__link" href="mailto:team@codefund.io?subject=I want to join the funding network">Join the Network</a>
+      <div id="growOpenSourceDropdown" class="dropdown-menu dropdown-unfold" aria-labelledby="growOpenSourceDropdownInvoker">
+        <a class="dropdown-item active" href="https://codefund.io">CodeFund</a>
+        <a class="dropdown-item" href="https://gitcoin.co">Gitcoin</a>
+        <a class="dropdown-item" href="https://gitcoin.co/kudos">Kudos</a>
+        <a class="dropdown-item" href="https://gitcoin.co/grants">Grants</a>
       </div>
     </div>
     <!-- End Language -->
@@ -22,14 +31,24 @@
     <div class="ml-auto">
       <!-- Jump To -->
       <div class="d-inline-block d-sm-none position-relative mr-2">
-        <a id="jumpToDropdownInvoker" class="d-flex align-items-center u-unfold-wrapper" href="javascript:;" role="button" aria-controls="jumpToDropdown" aria-haspopup="true" aria-expanded="false" data-unfold-event="hover" data-unfold-target="#jumpToDropdown" data-unfold-type="css-animation" data-unfold-duration="300" data-unfold-delay="300" data-unfold-hide-on-scroll="true" data-unfold-animation-in="slideInUp" data-unfold-animation-out="fadeOut">
+        <a id="jumpToDropdownInvoker" class="dropdown-nav-link dropdown-toggle d-flex align-items-center" href="javascript:;" role="button"
+            aria-controls="jumpToDropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+            data-unfold-event="hover"
+            data-unfold-target="#jumpToDropdown"
+            data-unfold-type="css-animation"
+            data-unfold-duration="300"
+            data-unfold-delay="300"
+            data-unfold-hide-on-scroll="true"
+            data-unfold-animation-in="slideInUp"
+            data-unfold-animation-out="fadeOut">
           Jump to
-          <span class="fa fa-angle-down u-unfold__icon-pointer"></span>
         </a>
 
-        <div id="jumpToDropdown" class="u-unfold mt-2 u-unfold--css-animation u-unfold--hidden fadeOut" aria-labelledby="jumpToDropdownInvoker" style="animation-duration: 300ms;">
-          <%= link_to "Help", home_help_path, class: "u-list__link" %>
-          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "u-list__link" if current_user %>
+        <div id="jumpToDropdown" class="dropdown-menu dropdown-unfold" aria-labelledby="jumpToDropdownInvoker">
+          <%= link_to "Help", home_help_path, class: "dropdown-item" %>
+          <a class="dropdown-item" href="../../html/pages/contacts-agency.html">Contacts</a>
         </div>
       </div>
       <!-- End Jump To -->
@@ -38,36 +57,21 @@
       <div class="d-none d-sm-inline-block ml-sm-auto">
         <ul class="list-inline mb-0">
           <li class="list-inline-item mr-0">
-            <%= link_to "Help", home_help_path, class: "u-header__topbar-nav-link" %>
+            <a class="u-header__navbar-link" href="https://twitter.com/codefundio">Twitter</a>
           </li>
           <li class="list-inline-item mr-0">
-            <% if current_user %>
-              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "u-header__topbar-nav-link" %>
-            <% else %>
-              <%= link_to "Login", new_user_session_path, class: "u-header__topbar-nav-link" %>
-            <% end %>
+            <%= link_to "Help", home_help_path, class: "u-header__navbar-link" %>
+          </li>
+          <li class="list-inline-item mr-0">
+            <a class="u-header__navbar-link" href="https://github.com/gitcoinco/code_fund_ads">Code</a>
           </li>
         </ul>
       </div>
       <!-- End Links -->
     </div>
-
-    <% if current_user %>
-      <ul class="list-inline ml-2 mb-0">
-        <!-- Account Login -->
-        <li class="list-inline-item">
-          <!-- Account Sidebar Toggle Button -->
-          <%= link_to "#profile_page", class: "btn btn-xs u-btn-text-secondary u-sidebar--account__toggle-bg ml-1 target-of-invoker-has-unfolds" do %>
-            <span class="position-relative">
-              <span class="u-sidebar--account__toggle-text"><%= current_user.name %></span>
-              <%= image_tag current_user.gravatar_url, class: "u-sidebar--account__toggle-img" %>
-            </span>
-          <% end %>
-          <!-- End Account Sidebar Toggle Button -->
-        </li>
-        <!-- End Account Login -->
-      </ul>
-    <% end %>
   </div>
 </div>
 <!-- End Topbar -->
+
+
+

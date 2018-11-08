@@ -1,0 +1,49 @@
+/*------------------------------------
+  Header Center Aligned
+------------------------------------*/
+
+.u-header--center-aligned {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @include media-breakpoint-up($breakpoint) {
+      &#{$infix} {
+        .u-hamburger {
+          display: none;
+        }
+
+        .u-header--center-aligned__inner {
+          justify-content: center;
+          text-align: center;
+          padding-top: .5rem;
+        }
+
+        .u-header__navbar-brand {
+          margin-right: auto;
+          margin-left: auto;
+        }
+      }
+    }
+  }
+}
+
+.u-header--center-aligned {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($next, $grid-breakpoints);
+
+    &#{$infix} {
+      @include media-breakpoint-down($breakpoint) {
+        .u-header--center-aligned__inner {
+          display: flex;
+          justify-content: space-between;
+          padding-top: $header-navbar-paddingY;
+        }
+
+        .u-header__navbar {
+          padding-top: 0;
+        }
+      }
+    }
+  }
+}

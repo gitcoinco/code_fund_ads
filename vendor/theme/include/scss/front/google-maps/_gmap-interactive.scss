@@ -1,0 +1,50 @@
+/*------------------------------------
+  Google Map Interactive
+------------------------------------*/
+
+.u-gmap-interactive {
+	height: 15.625rem;
+	border: 4px solid $white;
+	@include border-radius($border-radius);
+	box-shadow: 0 0 45px rgba($gray-600, .125);
+
+	.gm-style {
+		// Disable Google Map style
+		> div:first-child > div + div > div:last-child > div > div:first-child > div:first-child {
+		  display: none;
+		}
+
+		&-iw {
+			min-width: 11.0625rem;
+			background-color: $white;
+			text-align: center;
+			overflow: inherit;
+			box-shadow: 0 0 45px rgba($gray-600, .4);
+			@include border-radius($border-radius);
+			padding-top: 1.5rem;
+			padding-bottom: .5rem;
+
+			&::before {
+				position: absolute;
+				bottom: -.75rem;
+				left: 50%;
+				width: 1rem;
+				height: .875rem;
+				background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16.1 14.5'%3E %3Cpath fill='#{$white}' d='M9.8,13.5L15.9,3c0.8-1.3-0.2-3-1.7-3H2C0.5,0-0.5,1.7,0.3,3l6.1,10.5C7.1,14.8,9,14.8,9.8,13.5z' /%3E%3C/svg%3E");
+				background-repeat: no-repeat;
+				content: "";
+				transform: translateX(-50%);
+			}
+
+			img {
+				max-width: 100%;
+			}
+		}
+	}
+
+	&__info {
+		padding-right: .5rem;
+		padding-bottom: .5rem;
+		padding-left: .5rem;
+	}
+}

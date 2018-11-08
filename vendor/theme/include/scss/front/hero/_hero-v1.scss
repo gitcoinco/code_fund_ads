@@ -1,0 +1,58 @@
+/*------------------------------------
+  Hero v1
+------------------------------------*/
+
+.u-hero-v1 {
+	position: relative;
+
+	&__main {
+		position: relative;
+		z-index: 1;
+		@include background-cover(cover, no-repeat, center, center);
+
+		@include media-breakpoint-up(lg) {
+			height: 70vh;
+		}
+
+		&::after {
+			position: absolute;
+	    top: 0;
+	    right: 0;
+	    bottom: 0;
+	    left: 0;
+			z-index: -1;
+			background-color: mix(rgba($dark, .5), rgba($primary, .1));
+			content: "";
+		}
+	}
+
+	&__secondary {
+		position: relative;
+
+		// Large Devices
+		@include media-breakpoint-up(lg) {
+			height: 30vh;
+		}
+	}
+
+	&__last {
+		position: absolute;
+		bottom: 0;
+		left: 58.333333%;
+
+		&-inner {
+			@include content-centered(false, true);
+			width: 30%;
+			padding-left: 3rem;
+			padding-right: 3rem;
+		}
+
+		&-next {
+			color: darken($primary, 20%);
+		}
+
+		&-prev {
+			color: darken($danger, 20%);
+		}
+	}
+}

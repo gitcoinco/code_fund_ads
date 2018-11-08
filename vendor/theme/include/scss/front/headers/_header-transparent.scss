@@ -1,0 +1,86 @@
+/*------------------------------------
+  Transparent Header
+------------------------------------*/
+
+.u-header--bg-transparent {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+      &#{$infix} {
+  			&:not(.js-header-fix-moment) {
+  	      @include media-breakpoint-up($breakpoint) {
+  	        .u-search-push-top[style*="display: block"] {
+  	        	+ .u-header__section {
+  	        		background-color: $header-bg;
+  	        	}
+  	        }
+
+  	        .u-header__section {
+  						background-color: transparent;
+  						box-shadow: none;
+  	        }
+          }
+        }
+
+        .u-header__navbar-brand-collapsed,
+        .u-header__navbar-brand-on-scroll {
+          &,
+          .u-header__navbar-brand-text {
+            display: none;
+          }
+        }
+
+        &.js-header-fix-moment {
+          .u-header__navbar-brand-default {
+            &,
+            .u-header__navbar-brand-text {
+              display: none;
+            }
+          }
+
+          .u-header__navbar-brand-on-scroll {
+            display: flex;
+
+            .u-header__navbar-brand-text {
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.u-header--bg-transparent {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($next, $grid-breakpoints);
+
+    &#{$infix} {
+      @include media-breakpoint-down($breakpoint) {
+        .u-header__navbar-brand-default,
+        .u-header__navbar-brand-on-scroll {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.u-header--bg-transparent {
+  .u-header__navbar-brand-default {
+    display: flex;
+  }
+
+  @include media-breakpoint-down(sm) {
+	  .u-header__navbar-nav {
+			background-color: $header-bg;
+		}
+
+  	.u-header__navbar-nav {
+	  	padding: $header-transparent-navbar-nav-padding;
+	  	padding-top: 1rem;
+	  }
+  }
+}

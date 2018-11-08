@@ -1,0 +1,53 @@
+/*------------------------------------
+  Paging Modern
+------------------------------------*/
+
+.u-paging-modern {
+  .u-paging-modern__arrow-icon {
+    &-prev,
+    &-next {
+      transition: $transition-timing;
+    }
+
+    &-prev {
+      margin-right: 1rem;
+    }
+
+    &-next {
+      margin-left: 1rem;
+    }
+  }
+
+  &:hover {
+    .u-paging-modern__arrow-icon {
+      &-prev {
+        transform: translateX(-8px);
+      }
+
+      &-next {
+        transform: translateX(8px);
+      }
+    }
+  }
+
+  &-view-all {
+    color: $white;
+    text-align: center;
+    background-color: $warning;
+
+    &__icon {
+      display: block;
+      font-size: ($font-size-base * 2);
+      margin-bottom: .5rem;
+      transition: $transition-timing;
+    }
+
+    &:hover {
+      color: $white;
+
+      .u-paging-modern-view-all__icon {
+        transform: translateY(-8px);
+      }
+    }
+  }
+}

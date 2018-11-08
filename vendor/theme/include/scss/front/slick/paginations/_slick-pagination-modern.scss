@@ -1,0 +1,23 @@
+/*------------------------------------
+  Slick Pagination Modern
+------------------------------------*/
+
+.u-slick--pagination-modern {
+	width: 100%;
+	max-width: $slick-pagination-modern-max-width;
+
+	.slick {
+		&-slide {
+			cursor: pointer;
+			opacity: $slick-pagination-modern-opacity;
+			transform: $slick-pagination-modern-scale;
+			backface-visibility: hidden; // CSS transitions shaking bug fix on Chrome and IE
+			transition: $slick-pagination-modern-transition;
+		}
+
+		&-current {
+			opacity: $slick-pagination-modern-opacity-hover;
+			transform: $slick-pagination-modern-scale-hover;
+		}
+	}
+}

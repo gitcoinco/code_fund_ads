@@ -1,38 +1,36 @@
-import 'theme/assets/svg/preloaders/slick-carousel-preloader-primary.svg';
-
 // theme vendored scripts
-import 'theme/assets/vendor/bootstrap/bootstrap.min';
-import 'theme/assets/vendor/appear';
-import 'theme/assets/vendor/flatpickr/dist/flatpickr';
-import 'theme/assets/vendor/bootstrap-select/dist/js/bootstrap-select';
-import 'theme/assets/vendor/hs-megamenu/src/hs.megamenu';
-import 'theme/assets/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min';
-import 'theme/assets/vendor/jquery-validation/dist/jquery.validate.min';
-import 'theme/assets/vendor/fancybox/jquery.fancybox.min';
-import 'theme/assets/vendor/typed.js/lib/typed.min';
-import 'theme/assets/vendor/slick-carousel/slick/slick';
-import 'theme/assets/vendor/chartist/dist/chartist.min';
-import 'theme/assets/vendor/chartist-js-tooltip/chartist-plugin-tooltip';
+import 'theme/vendor/bootstrap/bootstrap.min';
+import 'theme/vendor/appear';
+import 'theme/vendor/flatpickr/dist/flatpickr';
+import 'theme/vendor/bootstrap-select/dist/js/bootstrap-select';
+import 'theme/vendor/hs-megamenu/src/hs.megamenu';
+import 'theme/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min';
+import 'theme/vendor/jquery-validation/dist/jquery.validate.min';
+import 'theme/vendor/fancybox/jquery.fancybox.min';
+import 'theme/vendor/typed.js/lib/typed.min';
+import 'theme/vendor/svg-injector/dist/svg-injector.min';
+import 'theme/vendor/slick-carousel/slick/slick';
+import 'theme/vendor/chartist/dist/chartist.min';
+import 'theme/vendor/chartist-js-tooltip/chartist-plugin-tooltip';
 
 // theme scripts
-import 'theme/assets/js/hs.core';
+import 'theme/js/hs.core';
 
 // theme components
-import 'theme/assets/js/components/hs.header';
-import 'theme/assets/js/components/hs.unfold';
-import 'theme/assets/js/components/hs.malihu-scrollbar';
-import 'theme/assets/js/components/hs.validation';
-import 'theme/assets/js/components/hs.fancybox';
-import 'theme/assets/js/components/hs.slick-carousel';
-import 'theme/assets/js/components/hs.show-animation';
-import 'theme/assets/js/components/hs.go-to';
-import 'theme/assets/js/components/hs.sticky-block';
-import 'theme/assets/js/components/hs.scroll-nav';
-import 'theme/assets/js/components/hs.chartist-area-chart';
-import 'theme/assets/js/components/hs.chartist-bar-chart';
-
-// theme helpers
-import 'theme/assets/js/helpers/hs.focus-state';
+import 'theme/js/components/hs.header';
+import 'theme/js/components/hs.unfold';
+import 'theme/js/components/hs.malihu-scrollbar';
+import 'theme/js/components/hs.validation';
+import 'theme/js/components/hs.fancybox';
+import 'theme/js/components/hs.slick-carousel';
+import 'theme/js/components/hs.svg-injector';
+import 'theme/js/components/hs.show-animation';
+import 'theme/js/components/hs.go-to';
+import 'theme/js/components/hs.sticky-block';
+import 'theme/js/components/hs.scroll-nav';
+import 'theme/js/components/hs.chartist-area-chart';
+import 'theme/js/components/hs.chartist-bar-chart';
+import "theme/js/components/hs.focus-state";
 
 // theme initialization
 document.addEventListener('turbolinks:load', () => {
@@ -41,5 +39,9 @@ document.addEventListener('turbolinks:load', () => {
   jQuery.HSCore.components.HSUnfold.init(jQuery('[data-unfold-target]'));
   jQuery.HSCore.components.HSGoTo.init('.js-go-to');
   jQuery.HSCore.components.HSMalihuScrollBar.init(jQuery('.js-scrollbar'));
-  jQuery.HSCore.helpers.HSFocusState.init();
+  jQuery.HSCore.components.HSSVGIngector.init(".js-svg-injector");
+  jQuery.HSCore.components.HSShowAnimation.init(".js-animation-link");
+  jQuery.HSCore.components.HSFancyBox.init(".js-fancybox");
+  jQuery.HSCore.components.HSSlickCarousel.init(".js-slick-carousel");
+  jQuery.HSCore.components.HSFocusState.init();
 });

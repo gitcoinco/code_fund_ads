@@ -1,0 +1,9 @@
+//
+// Badges
+//
+
+@mixin badge-outline($hs-color, $hs-background, $hs-border) {
+  color: color-yiq($hs-color);
+  background: $hs-background;
+  border-color: color-yiq($hs-border);
+}

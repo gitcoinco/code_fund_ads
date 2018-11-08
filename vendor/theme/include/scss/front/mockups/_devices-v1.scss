@@ -1,0 +1,31 @@
+/*------------------------------------
+  Mockup Devices v1
+------------------------------------*/
+
+.u-devices-v1 {
+	position: absolute;
+	top: 3rem;
+	left: 50%;
+	width: 40.625rem;
+	transform: rotate(-17deg);
+	transform-origin: 100% 0;
+
+	&__tablet,
+	&__phone {
+		&-svg {
+			@include border-radius(2.125rem);
+			box-shadow: 0 0 10px 6px rgba($dark, .05);
+		}
+	}
+
+	&__tablet {
+		width: 26.875rem;
+		height: 34.3125rem;
+	}
+
+	&__phone {
+		width: 13.75rem;
+		height: 27.5rem;
+		margin-right: 1.25rem;
+	}
+}
