@@ -27,7 +27,9 @@ Rails.application.routes.draw do
   end
 
   get "/publishers", to: "home#publishers", as: :home_publishers
+  post "/publishers", to: "home#create_publisher"
   get "/advertisers", to: "home#advertisers", as: :home_advertisers
+  post "/advertisers", to: "home#create_advertiser"
   get "/help", to: "home#help", as: :home_help
   get "/team", to: "home#team", as: :home_team
 

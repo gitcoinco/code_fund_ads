@@ -45,3 +45,7 @@ fieldset.inline {
 .breadcrumb-item + .breadcrumb-item::before {
   content: ">";
 }
+
+.inverted-feedback .invalid-feedback {
+  color: #ffc655 !important;
+}

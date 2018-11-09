@@ -1,275 +1,271 @@
 <!-- ========== MAIN ========== -->
 <main id="content" role="main">
-  <div class="position-relative">
-    <div class="u-bg-light-blue-50">
-      <div class="container u-space-3">
-        <div class="w-md-80 w-lg-50 text-center mx-auto">
-          <div class="mb-4">
-            <span class="u-icon u-icon-white u-icon--xl shadow-sm text-primary rounded-circle">
-              <span class="u-icon__inner">
-                <%= image_tag "codefund-512.svg", alt: "CodeFund", style: "width: 35px;" %>
-              </span>
-            </span>
-          </div>
-
-          <div class="mb-4">
-            <h2 class="text-codefund-purple">
-              We Fund
-              <span class="font-weight-bold text-codefund-green">
-                <strong class="u-text-animation u-text-animation--typing"></strong>
-              </span>
-            </h2>
-            <p>Generate passive income without sacrificing<br/>your coding time or community trust</p>
-          </div>
-
-          <a class="js-go-to mt-3 btn btn-primary u-btn-primary u-btn-wide u-btn-pill transition-3d-hover mr-1 mb-2" href="javascript:;"
-						data-target="#applyForPublisher"
-						data-type="static">
-						Become a Publisher
-					</a>
+  <!-- Career Title Section -->
+  <div class="container space-top-2 space-top-md-4 space-bottom-3">
+    <div class="position-relative">
+      <!-- Title -->
+      <div class="w-md-80 w-lg-50 text-center mx-md-auto">
+        <div class="mb-4">
+          <h2 class="h1">We <span class="font-weight-semi-bold text-success">fund</span> open source</h2>
+          <p>We help you generate passive income without sacrificing your coding time or community trust.</p>
         </div>
+        <a class="js-go-to btn btn-primary transition-3d-hover" href="javascript:;"
+          data-target="#applyForPublisher"
+          data-type="static">
+          Become a Publisher
+        </a>
       </div>
-    </div>
+      <!-- End Title -->
 
-    <figure class="position-absolute-bottom-0">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-          viewBox="0 0 1920 140" style="margin-bottom: -8px; enable-background:new 0 0 1920 140;" xml:space="preserve">
-        <path class="u-fill-white" d="M960,92.9C811.4,93.3,662.8,89.4,515.3,79c-138.6-9.8-277.1-26.2-409-53.3C97.8,24,0,6.5,0,0c0,0,0,140,0,140
-          l960-1.2l960,1.2c0,0,0-140,0-140c0,2.7-42.1,11.3-45.8,12.2c-45.1,11-91.5,20.1-138.4,28.1c-176.2,30.1-359.9,43.8-542.9,48.9
-          C1115.4,91.4,1037.7,92.7,960,92.9z"/>
-      </svg>
-    </figure>
+      <!-- SVG Shapes - Top Left -->
+      <figure class="d-none d-sm-block position-absolute bottom-0 left-0" style="width: 70px;">
+        <%= image_tag "/assets/svg/icons/icon-44.svg" %>
+      </figure>
+      <!-- End SVG Shapes - Top Left -->
+
+      <!-- SVG Shapes - Bottom Right -->
+      <figure class="d-none d-sm-block position-absolute top-0 right-0" style="width: 80px;">
+        <%= image_tag "/assets/svg/icons/icon-31.svg" %>
+      </figure>
+      <!-- End SVG Shapes - Bottom Right -->
+    </div>
   </div>
+  <!-- End Career Title Section -->
+
 
   <!-- TESTIMONIALS -->
-  <div class="container u-space-1">
-    <div class="js-slick-carousel u-slick u-slick--equal-height u-slick--gutters-3"
-        data-controller="slick-carousel"
-        data-slides-show="3"
-        data-autoplay="true"
-        data-speed="5000"
-        data-infinite="true"
-        data-center-mode="true"
-        data-pagi-classes="text-center u-slick__pagination mt-7 mb-0"
-        data-responsive='[{
-          "breakpoint": 992,
-          "settings": {
-            "slidesToShow": 2
-          }
-        }, {
-          "breakpoint": 768,
-          "settings": {
-            "slidesToShow": 1
-          }
-        }]'>
-      <div class="js-slide mb-1">
-        <!-- Testimonial -->
-        <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
-          <div class="mb-auto">
-            <p>CodeFund has hands-down beaten all my previous attempts to bring funding to a project via advertising. I'm a big fan and I love their dedication to open source projects.</p>
-          </div>
+  <div class="bg-light space-2">
+    <div class="container">
+      <div class="js-slick-carousel u-slick u-slick--equal-height u-slick--gutters-3"
+          data-controller="slick-carousel"
+          data-slides-show="3"
+          data-autoplay="true"
+          data-speed="5000"
+          data-infinite="true"
+          data-center-mode="true"
+          data-pagi-classes="text-center u-slick__pagination mt-7 mb-0"
+          data-responsive='[{
+            "breakpoint": 992,
+            "settings": {
+              "slidesToShow": 2
+            }
+          }, {
+            "breakpoint": 768,
+            "settings": {
+              "slidesToShow": 1
+            }
+          }]'>
+        <div class="js-slide mb-1">
+          <!-- Testimonial -->
+          <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
+            <div class="mb-auto">
+              <p>CodeFund has hands-down beaten all my previous attempts to bring funding to a project via advertising. I'm a big fan and I love their dedication to open source projects.</p>
+            </div>
 
-          <!-- Author & Review -->
-          <div class="media">
-            <div class="d-flex mr-3">
-              <%= image_tag "avatars/remy-sharp.jpg", alt: "Remy Sharp", class: "img-fluid u-avatar rounded-circle" %>
+            <!-- Author & Review -->
+            <div class="media">
+              <div class="d-flex mr-3">
+                <%= image_tag "avatars/remy-sharp.jpg", alt: "Remy Sharp", class: "img-fluid u-avatar rounded-circle" %>
+              </div>
+              <div class="media-body">
+                <h4 class="h6 mb-1">
+                  Remy Sharp<br/>
+                  <a class="small" style="color: #1464ff;" href="https://jsbin.com" target="_blank">jsbin.com</a>
+                </h4>
+              </div>
             </div>
-            <div class="media-body">
-              <h4 class="h6 mb-1">
-                Remy Sharp<br/>
-                <a class="small" style="color: #1464ff;" href="https://jsbin.com" target="_blank">jsbin.com</a>
-              </h4>
-            </div>
+            <!-- End Author & Review -->
           </div>
-          <!-- End Author & Review -->
+          <!-- End Testimonial -->
         </div>
-        <!-- End Testimonial -->
-      </div>
 
-      <div class="js-slide mb-1">
-        <!-- Testimonial -->
-        <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
-          <div class="mb-auto">
-            <p>CodeFund has been an absolute pleasure to work with. They have been hands on through every process and very attentive towards my questions and concerns.</p>
-          </div>
+        <div class="js-slide mb-1">
+          <!-- Testimonial -->
+          <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
+            <div class="mb-auto">
+              <p>CodeFund has been an absolute pleasure to work with. They have been hands on through every process and very attentive towards my questions and concerns.</p>
+            </div>
 
-          <!-- Author & Review -->
-          <div class="media">
-            <div class="d-flex mr-3">
-              <%= image_tag "avatars/john-leider.jpg", alt: "John Leider", class: "img-fluid u-avatar rounded-circle" %>
+            <!-- Author & Review -->
+            <div class="media">
+              <div class="d-flex mr-3">
+                <%= image_tag "avatars/john-leider.jpg", alt: "John Leider", class: "img-fluid u-avatar rounded-circle" %>
+              </div>
+              <div class="media-body">
+                <h4 class="h6 mb-1">
+                  John Leider<br/>
+                  <a class="small" style="color: #1464ff;" href="https://vuetifyjs.com" target="_blank">vuetifyjs.com</a>
+                </h4>
+              </div>
             </div>
-            <div class="media-body">
-              <h4 class="h6 mb-1">
-                John Leider<br/>
-                <a class="small" style="color: #1464ff;" href="https://vuetifyjs.com" target="_blank">vuetifyjs.com</a>
-              </h4>
-            </div>
+            <!-- End Author & Review -->
           </div>
-          <!-- End Author & Review -->
+          <!-- End Testimonial -->
         </div>
-        <!-- End Testimonial -->
-      </div>
 
-      <div class="js-slide mb-1">
-        <!-- Testimonial -->
-        <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
-          <div class="mb-auto">
-            <p>
-              ✨ CodeFund is an awesome initiative! No tracking, your privacy is safe. Help connecting OSS users to solutions for their problems. Help funding OSS projects development.
-            </p>
-          </div>
+        <div class="js-slide mb-1">
+          <!-- Testimonial -->
+          <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
+            <div class="mb-auto">
+              <p>
+                ✨ CodeFund is an awesome initiative! No tracking, your privacy is safe. Help connecting OSS users to solutions for their problems. Help funding OSS projects development.
+              </p>
+            </div>
 
-          <!-- Author & Review -->
-          <div class="media">
-            <div class="d-flex mr-3">
-              <%= image_tag "avatars/olivier-tassinari.jpg", alt: "Olivier Tassinari", class: "img-fluid u-avatar rounded-circle" %>
+            <!-- Author & Review -->
+            <div class="media">
+              <div class="d-flex mr-3">
+                <%= image_tag "avatars/olivier-tassinari.jpg", alt: "Olivier Tassinari", class: "img-fluid u-avatar rounded-circle" %>
+              </div>
+              <div class="media-body">
+                <h4 class="h6 mb-1">
+                  Olivier Tassinari<br/>
+                  <a class="small" style="color: #1464ff;" href="https://material-ui.com" target="_blank">material-ui.com</a>
+                </h4>
+              </div>
             </div>
-            <div class="media-body">
-              <h4 class="h6 mb-1">
-                Olivier Tassinari<br/>
-                <a class="small" style="color: #1464ff;" href="https://material-ui.com" target="_blank">material-ui.com</a>
-              </h4>
-            </div>
+            <!-- End Author & Review -->
           </div>
-          <!-- End Author & Review -->
+          <!-- End Testimonial -->
         </div>
-        <!-- End Testimonial -->
-      </div>
 
-      <div class="js-slide mb-1">
-        <!-- Testimonial -->
-        <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
-          <div class="mb-auto">
-            <p>
-              CodeFund is providing an awesome service for developers. Keep up the good work!
-            </p>
-          </div>
+        <div class="js-slide mb-1">
+          <!-- Testimonial -->
+          <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
+            <div class="mb-auto">
+              <p>
+                CodeFund is providing an awesome service for developers. Keep up the good work!
+              </p>
+            </div>
 
-          <!-- Author & Review -->
-          <div class="media">
-            <div class="d-flex mr-3">
-              <%= image_tag "avatars/kenan-yusuf.jpg", alt: "Kenan Yusuf", class: "img-fluid u-avatar rounded-circle" %>
+            <!-- Author & Review -->
+            <div class="media">
+              <div class="d-flex mr-3">
+                <%= image_tag "avatars/kenan-yusuf.jpg", alt: "Kenan Yusuf", class: "img-fluid u-avatar rounded-circle" %>
+              </div>
+              <div class="media-body">
+                <h4 class="h6 mb-1">
+                  Kenan Yusuf<br/>
+                  <a class="small" style="color: #1464ff;" href="https://codier.io" target="_blank">codier.io</a>
+                </h4>
+              </div>
             </div>
-            <div class="media-body">
-              <h4 class="h6 mb-1">
-                Kenan Yusuf<br/>
-                <a class="small" style="color: #1464ff;" href="https://codier.io" target="_blank">codier.io</a>
-              </h4>
-            </div>
+            <!-- End Author & Review -->
           </div>
-          <!-- End Author & Review -->
+          <!-- End Testimonial -->
         </div>
-        <!-- End Testimonial -->
-      </div>
 
-      <div class="js-slide mb-1">
-        <!-- Testimonial -->
-        <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
-          <div class="mb-auto">
-            <p>
-              CodeFund helps us making a sustainable community while keeping our high standard UX.
-            </p>
-          </div>
+        <div class="js-slide mb-1">
+          <!-- Testimonial -->
+          <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
+            <div class="mb-auto">
+              <p>
+                CodeFund helps us making a sustainable community while keeping our high standard UX.
+              </p>
+            </div>
 
-          <!-- Author & Review -->
-          <div class="media">
-            <div class="d-flex mr-3">
-              <%= image_tag "avatars/ido-shamun.jpg", alt: "Ido Shamun", class: "img-fluid u-avatar rounded-circle" %>
+            <!-- Author & Review -->
+            <div class="media">
+              <div class="d-flex mr-3">
+                <%= image_tag "avatars/ido-shamun.jpg", alt: "Ido Shamun", class: "img-fluid u-avatar rounded-circle" %>
+              </div>
+              <div class="media-body">
+                <h4 class="h6 mb-1">
+                  Ido Shamun<br/>
+                  <a class="small" style="color: #1464ff;" href="https://www.dailynow.co/" target="_blank">dailynow.co</a>
+                </h4>
+              </div>
             </div>
-            <div class="media-body">
-              <h4 class="h6 mb-1">
-                Ido Shamun<br/>
-                <a class="small" style="color: #1464ff;" href="https://www.dailynow.co/" target="_blank">dailynow.co</a>
-              </h4>
-            </div>
+            <!-- End Author & Review -->
           </div>
-          <!-- End Author & Review -->
+          <!-- End Testimonial -->
         </div>
-        <!-- End Testimonial -->
       </div>
     </div>
   </div>
   <!-- END TESTIMONIALS -->
 
-  <!-- HOW IT WORKS -->
-  <div class="container u-space-1">
-    <div class="row justify-content-md-between align-items-center">
-			<div class="col-md-6 col-lg-7">
-        <%= image_tag "svg/undraw_choose_80qg.svg", style: "width: 100%;" %>
-			</div>
+  <!-- How It Works Section -->
+  <div class="container space-top-2">
+    <div class="row align-items-lg-center">
+      <div class="col-lg-6 order-lg-2 mb-7 mb-lg-0">
+        <ul class="list-unstyled">
+          <!-- Info Block -->
+          <li class="u-indicator-steps py-3">
+            <div class="media align-items-center border rounded p-5">
+              <div class="d-flex u-indicator-steps__inner mr-3">
+                <span class="display-4 text-primary font-weight-medium">1.</span>
+              </div>
+              <div class="media-body">
+                <h3 class="h5 text-primary">We find the advertisers</h3>
+                <p>
+                  We find companies that provide products or services that are ideal for software engineers and
+                  sell them ad space on multiple websites, including yours.
+                </p>
+              </div>
+            </div>
+          </li>
+          <!-- End Info Block -->
 
-      <div class="col-md-6 col-lg-5 mb-7 mb-md-0">
-        <span class="u-label u-label--sm u-label--success mb-2">Flow</span>
-        <h2 class="h2 mb-4 text-codefund-purple">How it <span class="font-weight-bold text-codefund-green">Works</span></h3>
-        <div class="pr-md-4">
-          <div class="media u-indicator-ver-dashed mb-3">
-            <div class="d-flex mt-1 mr-3">
-              <span class="u-icon u-icon-primary u-icon--xs rounded-circle">
-                <span class="fa fa-check u-icon__inner"></span>
-              </span>
+          <!-- Info Block -->
+          <li class="u-indicator-steps py-3">
+            <div class="media align-items-center border rounded p-5">
+              <div class="d-flex u-indicator-steps__inner mr-3">
+                <span class="display-4 text-primary font-weight-medium">2.</span>
+              </div>
+              <div class="media-body">
+                <h3 class="h5 text-primary">You display the ad</h3>
+                <p>
+                  Using either our in-house script or the API, you display the ethical advertisement on your website.
+                  Each time the ad is seen, your distribution amount increases.
+                </p>
+              </div>
             </div>
-            <div class="media-body">
-              <h3 class="h5 text-primary">We find the advertisers</h3>
-              <p>
-                We find companies that provide products or services that are ideal for software engineers and
-                sell them ad space on multiple websites, including yours.
-              </p>
-            </div>
-          </div>
+          </li>
+          <!-- End Info Block -->
 
-          <div class="media u-indicator-ver-dashed mb-3">
-            <div class="d-flex mt-1 mr-3">
-              <span class="u-icon u-icon-primary u-icon--xs rounded-circle">
-                <span class="fa fa-check u-icon__inner"></span>
-              </span>
+          <!-- Info Block -->
+          <li class="u-indicator-steps py-3">
+            <div class="media align-items-center border rounded p-5">
+              <div class="d-flex u-indicator-steps__inner mr-3">
+                <span class="display-4 text-primary font-weight-medium">3.</span>
+              </div>
+              <div class="media-body">
+                <h3 class="h5 text-primary">We pay you monthly</h3>
+                <p>
+                  Every month, we pay out distributions to our publishers for the prior month's earnings.
+                  We have a minimum payout of $25 unless you want to be paid via cryptocurrency (ETH or DAI).
+                </p>
+              </div>
             </div>
-            <div class="media-body">
-              <h3 class="h5 text-primary">You display the ad</h3>
-              <p>
-                Using either our in-house script or the API, you display the ethical advertisement on your website.
-                Each time the ad is seen, your distribution amount increases.
-              </p>
-            </div>
-          </div>
+          </li>
+          <!-- End Info Block -->
+        </ul>
+      </div>
 
-          <div class="media">
-            <div class="d-flex mt-1 mr-3">
-              <span class="u-icon u-icon-primary u-icon--xs rounded-circle">
-                <span class="fa fa-check u-icon__inner"></span>
-              </span>
-            </div>
-            <div class="media-body">
-              <h3 class="h5 text-primary">We pay you monthly</h3>
-              <p>
-                Every month, we pay out distributions to our publishers for the prior month's earnings.
-                We have a minimum payout of $25 unless you want to be paid via cryptocurrency (ETH or DAI).
-              </p>
-            </div>
-          </div>
-
-          <!-- Link -->
-          <a class="js-go-to mt-3 btn u-btn-primary--air u-btn-primary u-btn-wide u-btn-pill transition-3d-hover mr-1 mb-2" href="javascript:;"
-						data-target="#applyForPublisher"
-						data-type="static">
-						Become a Publisher
-					</a>
-					<!-- End Link -->
+      <div id="SVGhouseAgency" class="col-lg-6 order-lg-1 svg-preloader">
+        <div class="pr-lg-7">
+          <!-- SVG Icon -->
+          <figure class="ie-house-agency">
+            <%= image_tag "svg/undraw_choose_80qg.svg", class: "js-svg-injector", style: "width: 100%;", data: { parent: "#SVGhouseAgency" } %>
+          </figure>
+          <!-- End SVG Icon -->
         </div>
       </div>
     </div>
   </div>
-  <!-- END HOW IT WORKS -->
+  <!-- End How It Works Section -->
+
+
 
   <!-- CORE VALUES -->
 	<div class="position-relative">
-    <div class="container u-space-3">
+    <div class="container space-3">
       <div class="row align-items-center">
         <div class="col-lg-5 mb-9 mb-lg-0">
           <div class="pr-lg-4 mb-3">
             <span class="u-label u-label--sm u-label--success mb-2">Ethics</span>
-            <h2 class="text-primary text-codefund-purple">Our Core
-              <span class="font-weight-bold text-codefund-green">Values</span>
-            </h2>
+            <h2>Our Core <span class="font-weight-bold text-success">Values</span></h2>
           </div>
 
           <div class="row">
@@ -319,9 +315,9 @@
                 <li class="py-2">
                   <div class="media">
                     <div class="d-flex mr-3">
-                    <span class="u-icon u-icon-danger--air u-icon--sm rounded-circle">
-                      <span class="fab fa-steam-symbol u-icon__inner"></span>
-                    </span>
+                      <span class="u-icon u-icon-danger--air u-icon--sm rounded-circle">
+                        <span class="fab fa-steam-symbol u-icon__inner"></span>
+                      </span>
                     </div>
                     <div class="media-body">
                       Respect
@@ -331,9 +327,9 @@
                 <li class="py-2">
                   <div class="media">
                     <div class="d-flex mr-3">
-                    <span class="u-icon u-icon-primary--air u-icon--sm rounded-circle">
-                      <span class="fa fa-table-tennis u-icon__inner"></span>
-                    </span>
+                      <span class="u-icon u-icon-primary--air u-icon--sm rounded-circle">
+                        <span class="fa fa-table-tennis u-icon__inner"></span>
+                      </span>
                     </div>
                     <div class="media-body">
                       Collaboration
@@ -362,14 +358,6 @@
             </p>
             <p>We do not track, profile, or sell information. We do not use cookies. We only show ads that are relevant and meaningful to the users.</p>
           </div>
-
-          <!-- Link -->
-					<a class="js-go-to mt-3 btn u-btn-primary--air u-btn-primary u-btn-wide u-btn-pill transition-3d-hover mr-1 mb-2" href="javascript:;"
-						data-target="#applyForPublisher"
-						data-type="static">
-						Become a Publisher
-					</a>
-					<!-- End Link -->
         </div>
 
         <div class="col-lg-7 position-relative">
@@ -383,114 +371,154 @@
   <!-- END CORE VALUES -->
 
   <!-- FAQ -->
-  <div class="container u-space-1 mb-9">
-    <div class="row">
-      <div class="col-md-4">
-        <%= image_tag "svg/undraw_active_support_6rwo.svg", style: "width: 100%;" %>
-      </div>
-      <div class="col-md-8">
-        <span class="u-label u-label--sm u-label--primary mb-2">FAQ</span>
-        <h2 class="text-codefund-purple">Common 
-          <span class="font-weight-bold text-codefund-green">Questions</span>
-        </h2>
+  <div class="space-2">
+    <div class="container u-space-1 mb-9">
+      <div class="row">
+        <div class="col-md-4">
+          <%= image_tag "svg/undraw_active_support_6rwo.svg", style: "width: 100%;" %>
+        </div>
+        <div class="col-md-8">
+          <span class="u-label u-label--sm u-label--primary mb-2">FAQ</span>
+          <h2>Common 
+            <span class="font-weight-bold text-success">Questions</span>
+          </h2>
 
-        <div id="FAQCollapse" class="accordion">
-          <!-- Card -->
-          <div class="card u-card-collapse">
-            <div class="card-header px-4" id="FAQHeadingOne">
-              <div class="collapsed" data-toggle="collapse" data-target="#FAQOne" aria-expanded="false" aria-controls="FAQOne" role="button">
-                <h3 class="h6 d-flex justify-content-between align-items-center font-weight-normal u-card-collapse__heading mb-0">
-                  Does my website qualify?
-                  <span class="fa fa-angle-up u-card-collapse__heading-icon"></span>
-                </h3>
-              </div>
-            </div>
-            <div id="FAQOne" class="collapse" aria-labelledby="FAQHeadingOne" data-parent="#FAQCollapse">
-              <div class="card-body px-4">
-                <p>
-                  We are very selective when it comes to websites that can participate with CodeFund. The website:
-                  <ul class="list-unstyled" style="color: #77838f;">
-                    <li><i class="fal fa-check text-codefund-green"></i> Must be serving the developer community, whether as API docs, blogs, applications or other.</li>
-                    <li><i class="fal fa-check text-codefund-green"></i> Must not be a pay-to-use application.</li>
-                    <li><i class="fal fa-check text-codefund-green"></i> Must receive at least 5,000 unique visitors per month.</li>
-                  </ul>
-                </p>
-              </div>
-            </div>
-          </div>
-          <!-- End Card -->
+          <!-- Basics Accordion -->
+          <div id="basicsAccordion">
+            <!-- Card -->
+            <div class="card mb-3">
+              <div class="card-header card-collapse" id="basicsHeadingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-link btn-block d-flex justify-content-between card-btn p-3"
+                          data-toggle="collapse"
+                          data-target="#basicsCollapseOne"
+                          aria-expanded="true"
+                          aria-controls="basicsCollapseOne">
+                    Does my website qualify?
 
-          <!-- Card -->
-          <div class="card u-card-collapse">
-            <div class="card-header px-4" id="FAQHeadingTwo">
-              <div class="collapsed" data-toggle="collapse" data-target="#FAQTwo" aria-expanded="false" aria-controls="FAQTwo" role="button">
-                <h3 class="h6 d-flex justify-content-between align-items-center font-weight-normal u-card-collapse__heading mb-0">
-                  How much money can I make?
-                  <span class="fa fa-angle-up u-card-collapse__heading-icon"></span>
-                </h3>
+                    <span class="card-btn-arrow">
+                      <span class="fas fa-arrow-down small"></span>
+                    </span>
+                  </button>
+                </h5>
+              </div>
+              <div id="basicsCollapseOne" class="collapse show"
+                  aria-labelledby="basicsHeadingOne"
+                  data-parent="#basicsAccordion">
+                <div class="card-body">
+                  <p>
+                    We are very selective when it comes to websites that can participate with CodeFund. The website:
+                    <ul style="color: #77838f;">
+                      <li>Must be serving the developer community, whether as API docs, blogs, applications or other.</li>
+                      <li>Must not be a pay-to-use application.</li>
+                      <li>Must receive at least 5,000 unique visitors per month.</li>
+                    </ul>
+                  </p>
+                </div>
               </div>
             </div>
-            <div id="FAQTwo" class="collapse" aria-labelledby="FAQHeadingTwo" data-parent="#FAQCollapse">
-              <div class="card-body px-4">
-                <p>The earnings vary based on the website and advertisers willing to spend money on it. Typically we see around a $3.50 CPM (cost per 1,000 impressions). Average earnings per 1,000 impressions is around $1.75 but can fluctuate based on advertiser demand.</p>
-                <p>For example, a moderately popular website with 500,000 ad impressions per month at a $3.50 CPM would generate anywhere between $875 and $1,200/month.</p>
-                <p>We typically start publishers at a 50% split on gross revenue. We do pay out higher percentage rates based on the quantity and quality of traffic the website generates.</p>
-              </div>
-            </div>
-          </div>
-          <!-- End Card -->
+            <!-- End Card -->
 
-          <!-- Card -->
-          <div class="card u-card-collapse">
-            <div class="card-header px-4" id="FAQHeadingThree">
-              <div class="collapsed" data-toggle="collapse" data-target="#FAQThree" aria-expanded="false" aria-controls="FAQThree" role="button">
-                <h3 class="h6 d-flex justify-content-between align-items-center font-weight-normal u-card-collapse__heading mb-0">
-                  Why should I use you over Carbon Ads?
-                  <span class="fa fa-angle-up u-card-collapse__heading-icon"></span>
-                </h3>
-              </div>
-            </div>
-            <div id="FAQThree" class="collapse" aria-labelledby="FAQHeadingThree" data-parent="#FAQCollapse">
-              <div class="card-body px-4">
-                <p>
-                  Here are some differences between them and us:
-                  <ul class="list-unstyled" style="color: #77838f;">
-                    <li><i class="fal fa-check text-codefund-green"></i> We follow the ethical advertisement method of advertising.</li>
-                    <li><i class="fal fa-check text-codefund-green"></i> We are an <a href="https://github.com/gitcoinco/codefund">open source platform</a>. You can see exactly how it all works.</li>
-                    <li><i class="fal fa-check text-codefund-green"></i> We pay up to 70% of all gross revenue back to the publisher.</li>
-                    <li><i class="fal fa-check text-codefund-green"></i> We are not owned and run by BuySellAds.com</li>
-                  </ul>
-                </p>
-                <p>
-                  We think <a href="https://carbonads.net" target="_blank">Carbon Ads</a> is a wonderful company. They have helped so many projects generate revenue through advertising.
-                  We just approach funding the developer community a little differently.
-                </p>
-                <p>
-                  We do have some publishers using both CodeFund and Carbon Ads. Let us know if that's something you are interested in doing.
-                </p>
-              </div>
-            </div>
-          </div>
-          <!-- End Card -->
+            <!-- Card -->
+            <div class="card mb-3">
+              <div class="card-header card-collapse" id="basicsHeadingTwo">
+                <h5 class="mb-0">
+                  <button class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed p-3"
+                          data-toggle="collapse"
+                          data-target="#basicsCollapseTwo"
+                          aria-expanded="false"
+                          aria-controls="basicsCollapseTwo">
+                    How much money can I make?
 
-          <!-- Card -->
-          <div class="card u-card-collapse">
-            <div class="card-header px-4" id="FAQHeadingFour">
-              <div class="collapsed" data-toggle="collapse" data-target="#FAQFour" aria-expanded="false" aria-controls="FAQFour" role="button">
-                <h3 class="h6 d-flex justify-content-between align-items-center font-weight-normal u-card-collapse__heading mb-0">
-                  Can I have the distributions deposited to Open Collective?
-                  <span class="fa fa-angle-up u-card-collapse__heading-icon"></span>
-                </h3>
+                    <span class="card-btn-arrow">
+                      <span class="fas fa-arrow-down small"></span>
+                    </span>
+                  </button>
+                </h5>
+              </div>
+              <div id="basicsCollapseTwo" class="collapse"
+                  aria-labelledby="basicsHeadingTwo"
+                  data-parent="#basicsAccordion">
+                <div class="card-body">
+                  <p>The earnings vary based on the website and advertisers willing to spend money on it. Typically we see an average of $2 CPM (cost per 1,000 impressions). Average earnings per 1,000 impressions is around $1 to $1.50 but can fluctuate based on advertiser demand.</p>
+                  <p>For example, a moderately popular website with 500,000 ad impressions per month at a $2 CPM would generate anywhere between $500 and $1,000/month.</p>
+                  <p>We typically start publishers at a 50% split on gross revenue. We do pay out higher percentage rates based on the quantity and quality of traffic the website generates.</p>
+                </div>
               </div>
             </div>
-            <div id="FAQFour" class="collapse" aria-labelledby="FAQHeadingFour" data-parent="#FAQCollapse">
-              <div class="card-body px-4">
-                <p>Absolutely. We work closely with the team at <a href="https://opencollective.com" target="_blank">Open Collective</a>
-                and are happy to send any earnings directly into your collective.</p>
+            <!-- End Card -->
+
+            <!-- Card -->
+            <div class="card mb-3">
+              <div class="card-header card-collapse" id="basicsHeadingThree">
+                <h5 class="mb-0">
+                  <button class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed p-3"
+                          data-toggle="collapse"
+                          data-target="#basicsCollapseThree"
+                          aria-expanded="false"
+                          aria-controls="basicsCollapseThree">
+                    Why should I use you over Carbon Ads?
+
+                    <span class="card-btn-arrow">
+                      <span class="fas fa-arrow-down small"></span>
+                    </span>
+                  </button>
+                </h5>
+              </div>
+              <div id="basicsCollapseThree" class="collapse"
+                  aria-labelledby="basicsHeadingThree"
+                  data-parent="#basicsAccordion">
+                <div class="card-body">
+                  <p>
+                    Here are some differences between them and us:
+                    <ul class="list-unstyled" style="color: #77838f;">
+                      <li><i class="fal fa-check text-codefund-green"></i> We follow the ethical advertisement method of advertising.</li>
+                      <li><i class="fal fa-check text-codefund-green"></i> We are an <a href="https://github.com/gitcoinco/codefund">open source platform</a>. You can see exactly how it all works.</li>
+                      <li><i class="fal fa-check text-codefund-green"></i> We pay up to 70% of all gross revenue back to the publisher.</li>
+                      <li><i class="fal fa-check text-codefund-green"></i> We are not owned and run by BuySellAds.com</li>
+                    </ul>
+                  </p>
+                  <p>
+                    We think <a href="https://carbonads.net" target="_blank">Carbon Ads</a> is a wonderful company. They have helped so many projects generate revenue through advertising.
+                    We just approach funding the developer community a little differently.
+                  </p>
+                  <p>
+                    We do have some publishers using both CodeFund and Carbon Ads. Let us know if that's something you are interested in doing.
+                  </p>
+                </div>
               </div>
             </div>
+            <!-- End Card -->
+
+            <!-- Card -->
+            <div class="card mb-3">
+              <div class="card-header card-collapse" id="basicsHeadingFour">
+                <h5 class="mb-0">
+                  <button class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed p-3"
+                          data-toggle="collapse"
+                          data-target="#basicsCollapseFour"
+                          aria-expanded="false"
+                          aria-controls="basicsCollapseFour">
+                    Can I have the distributions deposited to Open Collective?
+
+                    <span class="card-btn-arrow">
+                      <span class="fas fa-arrow-down small"></span>
+                    </span>
+                  </button>
+                </h5>
+              </div>
+              <div id="basicsCollapseFour" class="collapse"
+                  aria-labelledby="basicsHeadingFour"
+                  data-parent="#basicsAccordion">
+                <div class="card-body">
+                  <p>Absolutely. We work closely with the team at <a href="https://opencollective.com" target="_blank">Open Collective</a>
+                  and are happy to send any earnings directly into your collective.</p>
+                </div>
+              </div>
+            </div>
+            <!-- End Card -->
           </div>
-          <!-- End Card -->
+          <!-- End Basics Accordion -->
         </div>
       </div>
     </div>
@@ -498,139 +526,141 @@
   <!-- END FAQ -->
 
   <!-- Publisher Form Section -->
-	<div id="applyForPublisher" class="position-relative u-gradient-half-primary-v1">
-		<figure class="position-absolute-top-0 z-index-2">
-			<svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-					viewBox="0 0 1920.5 318.5" style="margin-top: -8px; margin-bottom: 0; enable-background:new 0 0 1920.5 318.5;" xml:space="preserve">
-				<linearGradient id="pricingTopLeftShapeID1" gradientUnits="userSpaceOnUse" x1="319.6719" y1="208.4502" x2="231.1918" y2="-34.6469">
-					<stop class="u-stop-color-white" stop-opacity="0" offset="2.250243e-07"/>
-					<stop class="u-stop-color-primary" stop-opacity=".4" offset="1"/>
-				</linearGradient>
-				<path fill="url(#pricingTopLeftShapeID1)" d="M0.5,304.1c0,0,225.5-202.6,629.5-201.6L0,56.5L0.5,304.1z"/>
-				<linearGradient id="pricingTopLeftShapeID2" gradientUnits="userSpaceOnUse" x1="1497.9215" y1="44.6831" x2="1635.3568" y2="422.2836">
-					<stop class="u-stop-color-white" stop-opacity="0" offset="2.250243e-07"/>
-					<stop class="u-stop-color-primary" stop-opacity=".4" offset="1"/>
-				</linearGradient>
-				<path fill="url(#pricingTopLeftShapeID2)" d="M1144,173.5c0,0,94,48,410,67s366.5,78,366.5,78v-214L1144,173.5z"/>
-				<path class="u-fill-white" d="M0.5,138c0,0,395-113,984,7s936,21,936,21V0H0.5V138z"/>
-			</svg>
-		</figure>
-
-		<div class="container u-space-4-top u-space-2-bottom">
+	<div id="SVGwave5Top" class="svg-preloader position-relative gradient-half-primary-v1">
+		<div class="container space-top-3 space-top-md-4 space-bottom-2">
 			<div class="w-lg-80 mx-auto">
-				<%#= form_tag page_path(@conn, :deliver_form, :publisher), [method: :post, class: "js-validate", data: [
-            controller: "event_track",
-            action: "submit->event_track#logEvent",
-            ga_event_category: "website",
-            ga_event_action: "apply",
-            ga_event_label: "publisher",
-            ga_event_value: ""
-            ]] do %>
-					<div class="row">
-						<div class="col-sm-6 mb-5">
-							<label class="h6 small d-block text-uppercase text-light">
-								Your first name
-								<span class="text-danger">*</span>
-							</label>
-							<div class="js-form-message">
-								<div class="js-focus-state input-group u-form u-form--no-brd">
-									<input class="form-control u-form__input" type="text" required
-												name="form[first_name]"
-												placeholder="First Name"
-												aria-label="First Name"
-												data-msg="Please enter your first name."
-												data-error-class="u-has-error"
-												data-success-class="u-has-success">
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-6 mb-5">
-							<label class="h6 small d-block text-uppercase text-light">
-								Your last name
-								<span class="text-danger">*</span>
-							</label>
-							<div class="js-form-message">
-								<div class="js-focus-state input-group u-form u-form--no-brd">
-									<input class="form-control u-form__input" type="text" required
-												name="form[last_name]"
-												placeholder="Last Name"
-												aria-label="Last Name"
-												data-msg="Please enter your last name."
-												data-error-class="u-has-error"
-												data-success-class="u-has-success">
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-6 mb-5">
-							<label class="h6 small d-block text-uppercase text-light">
-								Email Address
-								<span class="text-danger">*</span>
-							</label>
-							<div class="js-form-message">
-								<div class="js-focus-state input-group u-form u-form--no-brd">
-									<input class="form-control u-form__input" type="email" required
-												name="form[email]"
-												placeholder="Email Address"
-												aria-label="Email Address"
-												data-msg="Please enter your company name"
-												data-error-class="u-has-error"
-												data-success-class="u-has-success">
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-6 mb-5">
-							<label class="h6 small d-block text-uppercase text-light">
-								What's your website URL?
-								<span class="text-danger">*</span>
-							</label>
-							<div class="js-form-message">
-								<div class="js-focus-state input-group u-form u-form--no-brd">
-									<input class="form-control u-form__input" type="text" required
-												name="form[website_url]"
-												placeholder="https://"
-												aria-label="Company Website"
-												data-msg="Please enter your company website"
-												data-error-class="u-has-error"
-												data-success-class="u-has-success">
-								</div>
-							</div>
-						</div>
-
-						<div class="col-sm-6 mb-5">
-							<label class="h6 small d-block text-uppercase text-light">
-								How many visitors to your website?
-								<span class="text-danger">*</span>
-							</label>
-							<div class="js-form-message">
-								<div class="js-focus-state input-group u-form u-form--no-brd">
-									<select class="custom-select" name="form[total_impressions]" required>
-										<option>How many visitors to your website?</option>
-										<option value="Less than 5,000">Less than 5,000 per month</option>
-                    <option value="5,000 - 10,000">Between 5,000 and 10,000 per month</option>
-                    <option value="10,000 - 50,000">Between 10,000 and 50,000 per month</option>
-                    <option value="50,000 - 250,000">Between 50,000 and 250,000 per month</option>
-										<option value="250,000+">More than 250,000 per month</option>
-									</select>
-								</div>
-							</div>
-              <p class="small mb-0 mt-1 text-light">We require a minimum of 5,000 visitors per month</p>
-						</div>
-
-						<div class="col-sm-6 align-self-start text-sm-left mb-5">
-							<label class="h6 small d-block text-uppercase text-light">
-								&nbsp;
-							</label>
-							<button type="submit" class="btn text-primary u-btn-white transition-3d-hover">Submit</button>
-						</div>
+				<div id="applyForPublisher" class="inverted-feedback">
+					<!-- Title -->
+					<div class="text-center mb-7">
+						<span class="u-label u-label--sm u-label--white mb-2">Join CodeFund</span>
+						<h2 class="h3 text-white font-weight-normal">Become a Publisher</h2>
+            <p class="text-white">Your website must have at least 5,000 visitors per month and provide value to the open source community</p>
 					</div>
-				<%# end %>
+					<!-- End Title -->
+
+					<!-- Apply Form -->
+					<%= form_tag publishers_path, method: :post, class: "js-validate", data: {
+						controller: "event_track",
+						action: "submit->event_track#logEvent",
+						ga_event_category: "website",
+						ga_event_action: "apply",
+						ga_event_label: "publisher",
+						ga_event_value: ""
+					} do %>
+						<div class="row">
+							<div class="col-sm-6 mb-5">
+                <label class="h6 small d-block text-uppercase text-light">
+                  Your first name
+                  <span class="text-warning">*</span>
+                </label>
+                <div class="js-form-message">
+                  <div class="js-focus-state input-group u-form u-form--no-brd">
+                    <input class="form-control u-form__input" type="text" required
+                          name="form[first_name]"
+                          placeholder="First Name"
+                          aria-label="First Name"
+                          data-msg="Please enter your first name."
+                          data-error-class="u-has-error"
+                          data-success-class="u-has-success">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-5">
+                <label class="h6 small d-block text-uppercase text-light">
+                  Your last name
+                  <span class="text-warning">*</span>
+                </label>
+                <div class="js-form-message">
+                  <div class="js-focus-state input-group u-form u-form--no-brd">
+                    <input class="form-control u-form__input" type="text" required
+                          name="form[last_name]"
+                          placeholder="Last Name"
+                          aria-label="Last Name"
+                          data-msg="Please enter your last name."
+                          data-error-class="u-has-error"
+                          data-success-class="u-has-success">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-5">
+                <label class="h6 small d-block text-uppercase text-light">
+                  What's your website URL?
+                  <span class="text-warning">*</span>
+                </label>
+                <div class="js-form-message">
+                  <div class="js-focus-state input-group u-form u-form--no-brd">
+                    <input class="form-control u-form__input" type="text" required
+                          name="form[website_url]"
+                          placeholder="https://"
+                          aria-label="Website"
+                          data-msg="Please enter the website you would like to place ads on"
+                          data-error-class="u-has-error"
+                          data-success-class="u-has-success"
+													data-rule-url="true">
+                  </div>
+                  <p class="small mb-0 mt-1 text-light">This is the URL we would place the ethical ad script on</p>
+                </div>
+              </div>
+
+              <div class="col-sm-6 mb-5">
+                <label class="h6 small d-block text-uppercase text-light">
+                  How many visitors to your website?
+                  <span class="text-warning">*</span>
+                </label>
+                <div class="js-form-message">
+                  <div class="js-focus-state input-group u-form u-form--no-brd">
+                    <select class="custom-select" name="form[total_impressions]" required>
+                      <option value="Less than 5,000">Less than 5,000 per month</option>
+                      <option value="5,000 - 10,000">Between 5,000 and 10,000 per month</option>
+                      <option value="10,000 - 50,000">Between 10,000 and 50,000 per month</option>
+                      <option value="50,000 - 250,000">Between 50,000 and 250,000 per month</option>
+                      <option value="250,000+">More than 250,000 per month</option>
+                    </select>
+                  </div>
+                </div>
+                <p class="small mb-0 mt-1 text-light">We require a minimum of 5,000 visitors per month</p>
+              </div>
+
+              <div class="col-sm-6 mb-5">
+                <label class="h6 small d-block text-uppercase text-light">
+                  Email Address
+                  <span class="text-warning">*</span>
+                </label>
+                <div class="js-form-message">
+                  <div class="js-focus-state input-group u-form u-form--no-brd">
+                    <input class="form-control u-form__input" type="email" required
+                          name="form[email]"
+                          placeholder="Email Address"
+                          aria-label="Email Address"
+                          data-msg="Please enter your email address"
+                          data-error-class="u-has-error"
+                          data-success-class="u-has-success">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-6 align-self-start text-sm-left mb-5">
+                <label class="h6 small d-block text-uppercase text-light">
+                  &nbsp;
+                </label>
+                <button type="submit" class="btn text-primary u-btn-white transition-3d-hover">Submit</button>
+              </div>
+						</div>
+					<% end %>
+					<!-- End Apply Form -->
+				</div>
 			</div>
 		</div>
+
+		<!-- SVG Top Shape -->
+		<figure class="position-absolute top-0 right-0 left-0 z-index-2">
+      <%= image_tag "/assets/svg/components/wave-5-top.svg", class: "js-svg-injector", data: { parent: "#SVGwave5Top" } %>
+		</figure>
+		<!-- End SVG Top Shape -->
 	</div>
-	<!-- END Publisher Form Section -->
+	<!-- End Publisher Form Section -->
 
 </main>
 <!-- ========== END MAIN ========== -->

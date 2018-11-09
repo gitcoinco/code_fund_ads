@@ -17,7 +17,15 @@ class HomeController < ApplicationController
   def publishers
   end
 
+  def create_publisher
+  end
+
   def advertisers
+  end
+
+  def create_advertiser
+    ApplicantMailer.with(form: advertiser_application_params.to_h).advertiser_application_email.deliver_later
+    redirect_to home_advertisers_path, notice: "Your request was sent successfully. We will be in touch."
   end
 
   def help
@@ -25,4 +33,14 @@ class HomeController < ApplicationController
 
   def team
   end
+
+  private
+
+    def advertiser_application_params
+      params.require(:form).permit(:first_name, :last_name, :company_name, :company_url, :email, :monthly_budget)
+    end
+
+    def publisher_application_params
+      params.require(:form).permit(:first_name, :last_name)
+    end
 end

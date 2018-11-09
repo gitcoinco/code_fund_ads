@@ -43,5 +43,6 @@ document.addEventListener('turbolinks:load', () => {
   jQuery.HSCore.components.HSShowAnimation.init(".js-animation-link");
   jQuery.HSCore.components.HSFancyBox.init(".js-fancybox");
   jQuery.HSCore.components.HSSlickCarousel.init(".js-slick-carousel");
+  jQuery.HSCore.components.HSValidation.init(".js-validate");
   jQuery.HSCore.components.HSFocusState.init();
 });

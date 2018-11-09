@@ -1,30 +1,13 @@
 <!-- ========== MAIN ========== -->
 <main id="content" role="main">
 	<!-- Hero Section -->
-	<div class="position-relative u-gradient-half-primary-v3">
-		<!-- SVG Background -->
-		<figure class="position-absolute-bottom-0">
-			<svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-						width="100%" height="140px" viewBox="20 -20 300 100" style="margin-bottom: -8px;" xml:space="preserve">
-				<path class="u-fill-white" opacity="0.4" d="M30.913,43.944c0,0,42.911-34.464,87.51-14.191c77.31,35.14,113.304-1.952,146.638-4.729
-		c48.654-4.056,69.94,16.218,69.94,16.218v54.396H30.913V43.944z" />
-				<path class="u-fill-white" opacity="0.4" d="M-35.667,44.628c0,0,42.91-34.463,87.51-14.191c77.31,35.141,113.304-1.952,146.639-4.729
-		c48.653-4.055,69.939,16.218,69.939,16.218v54.396H-35.667V44.628z" />
-				<path class="u-fill-white" opacity="0" d="M43.415,98.342c0,0,48.283-68.927,109.133-68.927c65.886,0,97.983,67.914,97.983,67.914v3.716
-		H42.401L43.415,98.342z" />
-				<path class="u-fill-white" d="M-34.667,62.998c0,0,56-45.667,120.316-27.839C167.484,57.842,197,41.332,232.286,30.428
-		c53.07-16.399,104.047,36.903,104.047,36.903l1.333,36.667l-372-2.954L-34.667,62.998z" />
-			</svg>
-		</figure>
-		<!-- End SVG Background Section -->
-
-		<div class="container u-space-4-top u-space-5-top--md u-space-4-top--lg u-space-2-bottom">
+	<div id="SVGheroSectionBg" class="svg-preloader position-relative gradient-half-primary-v3">
+		<div class="container space-2">
 			<div class="row align-items-lg-center">
 				<div class="col-lg-5 mb-7 mb-lg-0">
 					<!-- Info -->
-					<h1 class="mb-4 text-codefund-purple">Your ads will reach the <span class="text-codefund-green font-weight-bold">right</span> audience.</h1>
+					<h1 class="mb-4">Your ads will reach the <span class="text-primary font-weight-semi-bold">right</span> developers.</h1>
 					<p>CodeFund provides a turn-key advertising solution to place your ad in front of software developers of many programming languages.</p>
-					<!-- End Info -->
 
 					<a class="js-go-to mt-3 btn btn-primary u-btn-primary--air u-btn-wide u-btn-pill transition-3d-hover" href="javascript:;"
 						data-target="#applyForAdvertiser"
@@ -37,17 +20,26 @@
 						data-ga-event-action="download"
 						data-ga-event-label="prospectus"
 						data-ga-event-value: ""
-						href="<%#= static_path(@conn, "/docs/codefund-prospectus-q4-2018.pdf") %>"
+						href="#"
 						target="_blank"><i class="fas fa-download"></i> 2018 Q4 Prospectus</a>
+					<!-- End Info -->
 				</div>
 
 				<div class="col-lg-7">
 					<!-- SVG Icon -->
-					<%= image_tag "svg/undraw_product_tour_foyt.svg", style: "width: 100%;" %>
+					<figure class="ie-we-have-an-idea">
+						<%= image_tag "svg/undraw_product_tour_foyt.svg", style: "width: 100%;", class: "js-svg-injector", data: { parent: "#SVGheroSectionBg" } %>
+					</figure>
 					<!-- End SVG Icon -->
 				</div>
 			</div>
 		</div>
+
+		<!-- SVG Background -->
+		<figure class="position-absolute right-0 bottom-0 left-0">
+			<%= image_tag "/assets/svg/components/wave-1-bottom-sm.svg", class: "js-svg-injector", data: { parent: "#SVGheroSectionBg" } %>
+		</figure>
+		<!-- End SVG Background Section -->
 	</div>
 	<!-- End Hero Section -->
 
@@ -55,32 +47,25 @@
 	<div class="container u-space-2">
 		<div class="w-md-80 w-lg-50 text-center mx-auto mb-9">
 			<span class="u-label u-label--sm u-label--success mb-2">CodeFund</span>
-			<h2 class="text-codefund-purple font-weight-normal">Who is <span class="font-weight-bold text-codefund-green">CodeFund</span> for?</h2>
+			<h2 class="text-codefund-purple font-weight-normal">Who is <span class="font-weight-bold text-success">CodeFund</span> for?</h2>
 			<p>Basically anyone who wants to get their message in front of software developers</p>
 		</div>
 		<div class="row">
 			<div class="col-md-4 mb-7 mb-md-0">
 				<div class="text-center">
 					<div class="position-relative">
-						<div class="u-indicator-dots min-height-155 mb-2">
-							<span class="text-success u-icon u-icon--xl mt-7">
-								<span class="fas fa-badge-dollar u-icon__inner u-icon__inner-bottom-minus"></span>
+						<div id="SVGcircleProcess1" class="svg-preloader u-indicator-dots min-height-155 mb-2">
+							<!-- Icon -->
+							<span class="text-success btn btn-lg btn-icon mt-7">
+								<span class="fas fa-badge-dollar font-size-5 btn-icon__inner btn-icon__inner-bottom-minus"></span>
 							</span>
+							<!-- End Icon -->
 
-							<figure class="w-100 position-absolute-top-0 z-index-minus-1">
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="180px" height="161px" x="0px" y="0px"
-										viewBox="0 0 180 161.2" style="enable-background:new 0 0 180 161.2;" xml:space="preserve">
-									<path class="u-fill-none u-stroke-success" opacity=".1" stroke-width="2" d="M35.5,160.4C14.5,144.1,1,118.6,1,90C1,40.8,40.8,1,90,1s89,39.8,89,89c0,28.1-13,53.1-33.3,69.4"/>
-									<g>
-										<path class="u-fill-white" d="M5.8,64.1c-1.7,0-3-1.3-3-3s1.3-3,3-3s3,1.3,3,3S7.5,64.1,5.8,64.1z"/>
-										<path class="u-fill-success" d="M5.8,59.2c1.1,0,2,0.9,2,2s-0.9,2-2,2s-2-0.9-2-2S4.7,59.2,5.8,59.2 M5.8,57.2c-2.2,0-4,1.8-4,4
-											c0,2.2,1.8,4,4,4c2.2,0,4-1.8,4-4C9.8,58.9,8,57.2,5.8,57.2L5.8,57.2z"/>
-									</g>
-									<circle class="u-fill-white" opacity=".1" cx="90.4" cy="89.6" r="28.6"/>
-									<path class="u-fill-success" opacity=".1" d="M90.4,76c7.5,0,13.6,6.1,13.6,13.6s-6.1,13.6-13.6,13.6s-13.6-6.1-13.6-13.6S82.9,76,90.4,76 M90.4,46
-											c-24.1,0-43.6,19.5-43.6,43.6s19.5,43.6,43.6,43.6S134,113.7,134,89.6S114.4,46,90.4,46L90.4,46z"/>
-								</svg>
+							<!-- SVG Shape -->
+							<figure class="w-100 position-absolute top-0 right-0 left-0 z-index-n1">
+								<%= image_tag "/assets/svg/components/circle-process-1.svg", class: "js-svg-injector", data: { parent: "#SVGcircleProcess1" }%>
 							</figure>
+							<!-- End SVG Shape -->
 						</div>
 					</div>
 
@@ -92,28 +77,20 @@
 			<div class="col-md-4 mb-7 mb-md-0">
 				<div class="text-center">
 					<div class="position-relative">
-						<div class="u-indicator-dots min-height-155 mb-2">
-							<span class="text-primary u-icon u-icon--xl mt-7">
-								<span class="fas fa-graduation-cap u-icon__inner u-icon__inner-bottom-minus"></span>
+						<div id="SVGcircleProcess2" class="svg-preloader u-indicator-dots min-height-155 mb-2">
+							<!-- Icon -->
+							<span class="text-primary btn btn-lg btn-icon mt-7">
+								<span class="fas fa-graduation-cap font-size-5 btn-icon__inner btn-icon__inner-bottom-minus"></span>
 							</span>
+							<!-- End Icon -->
 
-							<figure class="w-100 position-absolute-top-0 z-index-minus-1">
-								<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="180px" height="161px" x="0px" y="0px"
-										viewBox="0 0 180 161.2" style="enable-background:new 0 0 180 161.2;" xml:space="preserve">
-									<path class="u-fill-none u-stroke-primary" opacity=".1" stroke-width="2" d="M35.5,160.4C14.5,144.1,1,118.6,1,90C1,40.8,40.8,1,90,1s89,39.8,89,89c0,28.1-13,53.1-33.3,69.4"/>
-									<g>
-										<path class="u-fill-white" d="M163.8,43.1c-1.7,0-3-1.3-3-3s1.3-3,3-3s3,1.3,3,3S165.5,43.1,163.8,43.1z"/>
-										<path class="u-fill-primary" d="M163.8,38.2c1.1,0,2,0.9,2,2s-0.9,2-2,2s-2-0.9-2-2S162.7,38.2,163.8,38.2 M163.8,36.2c-2.2,0-4,1.8-4,4
-											c0,2.2,1.8,4,4,4c2.2,0,4-1.8,4-4C167.8,37.9,166,36.2,163.8,36.2L163.8,36.2z"/>
-									</g>
-									<circle class="u-fill-white" opacity=".1" cx="90.4" cy="89.6" r="28.6"/>
-									<path class="u-fill-primary" opacity=".1" d="M90.4,76c7.5,0,13.6,6.1,13.6,13.6s-6.1,13.6-13.6,13.6s-13.6-6.1-13.6-13.6S82.9,76,90.4,76 M90.4,46
-										c-24.1,0-43.6,19.5-43.6,43.6s19.5,43.6,43.6,43.6S134,113.7,134,89.6S114.4,46,90.4,46L90.4,46z"/>
-								</svg>
+							<!-- SVG Shape -->
+							<figure class="w-100 position-absolute top-0 right-0 left-0 z-index-n1">
+								<%= image_tag "/assets/svg/components/circle-process-2.svg", class: "js-svg-injector", data: { parent: "#SVGcircleProcess2" }%>
 							</figure>
+							<!-- End SVG Shape -->
 						</div>
 					</div>
-
 					<h3 class="h5">Training Services</h3>
 					<p class="mb-md-0">Find new students for your online or on-campus software training courses.</p>
 				</div>
@@ -121,179 +98,62 @@
 
 			<div class="col-md-4 mb-7 mb-md-0">
 				<div class="text-center">
-					<div class="min-height-155 mb-2">
-						<span class="text-danger u-icon u-icon--xl mt-7">
-							<span class="fas fa-bullhorn u-icon__inner u-icon__inner-bottom-minus"></span>
+					<div id="SVGcircleProcess3" class="svg-preloader min-height-155 mb-2">
+						<!-- Icon -->
+						<span class="text-danger btn btn-lg btn-icon mt-7">
+							<span class="fas fa-bullhorn font-size-5 btn-icon__inner btn-icon__inner-bottom-minus"></span>
 						</span>
+						<!-- End Icon -->
 
-						<figure class="w-100 position-absolute-top-0 z-index-minus-1">
-							<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="180px" height="161px" x="0px" y="0px"
-									viewBox="0 0 180 161.2" style="enable-background:new 0 0 180 161.2;" xml:space="preserve">
-								<path class="u-fill-none u-stroke-danger" opacity=".1" stroke-width="2" d="M35.5,160.4C14.5,144.1,1,118.6,1,90C1,40.8,40.8,1,90,1s89,39.8,89,89c0,28.1-13,53.1-33.3,69.4"/>
-								<g>
-									<path class="u-fill-white" d="M167.8,136.1c-1.7,0-3-1.3-3-3c0-1.7,1.3-3,3-3s3,1.3,3,3C170.8,134.8,169.5,136.1,167.8,136.1z"/>
-									<path class="u-fill-danger" d="M167.8,131.2c1.1,0,2,0.9,2,2s-0.9,2-2,2s-2-0.9-2-2S166.7,131.2,167.8,131.2 M167.8,129.2c-2.2,0-4,1.8-4,4
-										c0,2.2,1.8,4,4,4c2.2,0,4-1.8,4-4C171.8,130.9,170,129.2,167.8,129.2L167.8,129.2z"/>
-								</g>
-								<circle class="u-fill-white" opacity=".1" cx="90.4" cy="89.6" r="28.6"/>
-								<path class="u-fill-danger" opacity=".1" d="M90.4,76c7.5,0,13.6,6.1,13.6,13.6s-6.1,13.6-13.6,13.6s-13.6-6.1-13.6-13.6S82.9,76,90.4,76 M90.4,46
-									c-24.1,0-43.6,19.5-43.6,43.6s19.5,43.6,43.6,43.6S134,113.7,134,89.6S114.4,46,90.4,46L90.4,46z"/>
-							</svg>
+						<!-- SVG Shape -->
+						<figure class="w-100 position-absolute top-0 right-0 left-0 z-index-n1">
+							<%= image_tag "/assets/svg/components/circle-process-3.svg", class: "js-svg-injector", data: { parent: "#SVGcircleProcess3" }%>
 						</figure>
+						<!-- End SVG Shape -->
 					</div>
-
 					<h3 class="h5">Real-Time Announcements</h3>
 					<p class="mb-md-0">Upcoming conference? New feature? Get the message out today!</p>
 				</div>
 			</div>
 		</div>
-		<div class="d-flex justify-content-center mt-8">
-			<div class="d-inline-block">
-				<div class="media align-items-center shadow rounded-pill p-2 pr-3">
-					<div class="d-flex mr-2">
-						<span class="u-label u-label--sm u-label--primary mr-1">Get Started</span>
-					</div>
-					<div class="media-body">
-						CodeFund is the best way reach developers.
-						<a class="js-go-to" href="javascript:;"
-							data-target="#applyForAdvertiser"
-								data-type="static">Advertise with CodeFund</a>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 	<!-- END CODEFUND FOR -->
+		
+	<!-- Testimonials Section -->
+	<div class="container space-3">
+		<!-- SVG Quote -->
+		<figure class="mx-auto text-center mb-3">
+			<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="48px" height="48px"
+				viewBox="0 0 8 8" style="enable-background:new 0 0 8 8;" xml:space="preserve">
+				<path class="fill-gray-400" d="M3,1.3C2,1.7,1.2,2.7,1.2,3.6c0,0.2,0,0.4,0.1,0.5c0.2-0.2,0.5-0.3,0.9-0.3c0.8,0,1.5,0.6,1.5,1.5c0,0.9-0.7,1.5-1.5,1.5
+					C1.4,6.9,1,6.6,0.7,6.1C0.4,5.6,0.3,4.9,0.3,4.5c0-1.6,0.8-2.9,2.5-3.7L3,1.3z M7.1,1.3c-1,0.4-1.8,1.4-1.8,2.3
+					c0,0.2,0,0.4,0.1,0.5c0.2-0.2,0.5-0.3,0.9-0.3c0.8,0,1.5,0.6,1.5,1.5c0,0.9-0.7,1.5-1.5,1.5c-0.7,0-1.1-0.3-1.4-0.8
+					C4.4,5.6,4.4,4.9,4.4,4.5c0-1.6,0.8-2.9,2.5-3.7L7.1,1.3z"/>
+			</svg>
+		</figure>
+		<!-- End SVG Quote -->
 
+		<!-- Blockquote -->
+		<div class="w-md-80 w-lg-50 text-center mx-md-auto mb-6">
+			<blockquote class="lead text-secondary font-weight-normal">CodeFund is an amazing resource for the Open Source community. Supporting OS sustainability while generating awareness for Rollbar was a total no-brainer decision!</blockquote>
+		</div>
+		<!-- End Blockquote -->
 
-
-	<!-- Testimonials -->
-	<div class="u-bg-light-blue-50">
-		<div class="container u-space-3">
-			<!-- Title -->
-			<div class="w-md-80 w-lg-50 text-center mx-auto mb-9">
-				<span class="u-icon u-icon-primary--air u-icon--xl rounded-circle mb-4">
-					<span class="far fa-thumbs-up u-icon__inner"></span>
-				</span>
-				<h2 class="font-weight-medium">Reviews from our advertisers</h2>
+		<!-- Reviewer -->
+		<div class="d-flex justify-content-center align-items-center w-lg-50 mx-auto">
+			<div class="u-avatar">
+				<%= image_tag "avatars/mike-smith.jpg", class: "img-fluid rounded-circle", alt: "Michael Smith" %>
 			</div>
-			<!-- End Title -->
-
-			<!-- Slick Carousel -->
-			<div class="js-slick-carousel u-slick u-slick--equal-height u-slick--gutters-3"
-            data-controller="slick-carousel"
-						data-slides-show="3"
-						data-autoplay="true"
-						data-speed="5000"
-						data-infinite="true"
-						data-center-mode="true"
-						data-pagi-classes="d-lg-none text-center u-slick__pagination mt-7 mb-0"
-						data-responsive='[{
-							"breakpoint": 992,
-							"settings": {
-								"slidesToShow": 2
-							}
-						}, {
-							"breakpoint": 768,
-							"settings": {
-								"slidesToShow": 1
-							}
-						}]'>
-				<div class="js-slide mb-1">
-					<!-- Testimonial -->
-					<div class="d-flex align-items-start flex-column bg-white border rounded p-5">
-						<div class="mb-auto">
-							<p>If you're looking to find developers, there's no better ad channel than CodeFund. You can easily find developers at significantly lower cost.</p>
-						</div>
-
-						<!-- Author & Review -->
-						<div class="media">
-							<div class="d-flex mr-3">
-                <%= image_tag "avatars/dean-ramadan.jpg", class: "img-fluid u-avatar rounded-circle", alt: "Dean Ramadan" %>
-							</div>
-							<div class="media-body">
-								<h4 class="h6 mb-1">
-									Dean Ramadan
-									<br>
-									<small class="text-codefund-green">Growth Marketing, ConsenSys</small>
-								</h4>
-							</div>
-						</div>
-						<!-- End Author & Review -->
-					</div>
-					<!-- End Testimonial -->
-				</div>
-
-				<div class="js-slide mb-1">
-					<!-- Testimonial -->
-					<div class="d-flex align-items-start flex-column bg-white border rounded p-5">
-						<div class="mb-auto">
-							<p>CodeFund is an amazing resource for the Open Source community. Supporting OS sustainability while generating awareness for Rollbar was a total no-brainer decision!</p>
-						</div>
-
-						<!-- Author & Review -->
-						<div class="media">
-							<div class="d-flex mr-3">
-                <%= image_tag "avatars/mike-smith.jpg", class: "img-fluid u-avatar rounded-circle", alt: "Michael Smith" %>
-							</div>
-							<div class="media-body">
-								<h4 class="h6 mb-1">
-									Michael Smith
-									<br>
-									<small class="text-codefund-green">Head of Growth, Rollbar</small>
-								</h4>
-							</div>
-						</div>
-						<!-- End Author & Review -->
-					</div>
-					<!-- End Testimonial -->
-				</div>
-
-				<div class="js-slide mb-1">
-					<!-- Testimonial -->
-					<div class="d-flex align-items-start flex-column bg-white border rounded p-5">
-						<div class="mb-auto">
-							<p>CodeFund helps me get in front of the right audience of engaged developers and helps support valuable Open Source creators, maintainers and sustainers.</p>
-						</div>
-
-						<!-- Author & Review -->
-						<div class="media">
-							<div class="d-flex mr-3">
-                <%= image_tag "avatars/ian-kelly.jpg", class: "img-fluid u-avatar rounded-circle", alt: "Ian Kelly" %>
-							</div>
-							<div class="media-body">
-								<h4 class="h6 mb-1">
-									Ian Kelly
-									<br>
-									<small class="text-codefund-green">Founder, CodePilot.ai</small>
-								</h4>
-							</div>
-						</div>
-						<!-- End Author & Review -->
-					</div>
-					<!-- End Testimonial -->
-				</div>
-			</div>
-			<!-- End Slick Carousel -->
-
-			<div class="d-flex justify-content-center mt-6">
-				<div class="d-inline-block">
-					<div class="media align-items-center shadow rounded-pill p-2 pr-3">
-						<div class="d-flex mr-2">
-							<span class="u-label u-label--sm u-label--primary mr-1">Get Started</span>
-						</div>
-						<div class="media-body">
-							Are you ready to be our next success story?
-							<a class="js-go-to" href="javascript:;"
-								data-target="#applyForAdvertiser"
-								data-type="static">Advertise with CodeFund</a>
-						</div>
-					</div>
-				</div>
+			<div class="ml-3">
+				<h4 class="h6 mb-0">Michael Smith</h4>
+				<small class="text-muted">Head of Growth</small>
 			</div>
 		</div>
+		<!-- End Reviewer -->
 	</div>
-	<!-- End Testimonials -->
+	<!-- End Testimonials Section -->
+
+
 
 	<!-- TARGETING Section -->
 	<div class="container u-space-2">
@@ -334,16 +194,6 @@
 					</li>
 				</ul>
 				<!-- End List -->
-
-				<a class="js-go-to media align-items-center shadow-sm p-4" href="javascript:;"
-					data-target="#applyForAdvertiser"
-					data-type="static">
-					<span class="media-body">
-						<span class="d-flex justify-content-between align-items-center font-weight-bold">
-							Advertise with CodeFund&nbsp;&nbsp;<span class="fa fa-angle-right"></span>
-						</span>
-					</span>
-				</a>
 			</div>
 
 			<div class="col-lg-7 order-lg-1">
@@ -353,193 +203,158 @@
 	</div>
 	<!-- End TARGETING Section -->
 
-	<!-- About Section -->
-	<div class="container u-space-3">
-		<div class="row align-items-lg-center">
-			<div class="col-lg-5 mb-7 mb-lg-0">
-				<!-- Info -->
-				<div class="pr-lg-7">
-					<div class="mb-4">
-						<h3 class="h5">CodeFund Process</h3>
-						<p>
-							Once you have an account, we will walk you through the campaign setup process. We will
-							also help you create the best messages and banner images for your target audience.
-						</p>
-						<p>
-							Your ad could be up and running the same day if that's your goal.
-						</p>
-					</div>
-
-					<!-- Link -->
-					<a class="js-go-to media align-items-center shadow-sm p-4" href="javascript:;"
-						data-target="#applyForAdvertiser"
-						data-type="static">
-						<span class="media-body">
-							<span class="d-flex justify-content-between align-items-center font-weight-bold">
-								Advertise with CodeFund&nbsp;&nbsp;<span class="fa fa-angle-right"></span>
-							</span>
-						</span>
-					</a>
-					<!-- End Link -->
-				</div>
-				<!-- End Info -->
-			</div>
-
-			<div class="col-lg-7 mb-7 mb-lg-0">
-				<!-- SVG Icon -->
-        <%= image_tag "svg/undraw_setup_wizard_r6mr.svg", style: "width: 100%;" %>
-				<!-- End SVG Icon -->
-			</div>
-		</div>
-	</div>
-	<!-- End About Section -->
-
 	<!-- Advertiser Form Section -->
-	<div id="applyForAdvertiser" class="position-relative u-gradient-half-primary-v1">
-		<figure class="position-absolute-top-0 z-index-2">
-			<svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-					viewBox="0 0 1920.5 318.5" style="margin-top: -8px; margin-bottom: 0; enable-background:new 0 0 1920.5 318.5;" xml:space="preserve">
-				<linearGradient id="pricingTopLeftShapeID1" gradientUnits="userSpaceOnUse" x1="319.6719" y1="208.4502" x2="231.1918" y2="-34.6469">
-					<stop class="u-stop-color-white" stop-opacity="0" offset="2.250243e-07"/>
-					<stop class="u-stop-color-primary" stop-opacity=".4" offset="1"/>
-				</linearGradient>
-				<path fill="url(#pricingTopLeftShapeID1)" d="M0.5,304.1c0,0,225.5-202.6,629.5-201.6L0,56.5L0.5,304.1z"/>
-				<linearGradient id="pricingTopLeftShapeID2" gradientUnits="userSpaceOnUse" x1="1497.9215" y1="44.6831" x2="1635.3568" y2="422.2836">
-					<stop class="u-stop-color-white" stop-opacity="0" offset="2.250243e-07"/>
-					<stop class="u-stop-color-primary" stop-opacity=".4" offset="1"/>
-				</linearGradient>
-				<path fill="url(#pricingTopLeftShapeID2)" d="M1144,173.5c0,0,94,48,410,67s366.5,78,366.5,78v-214L1144,173.5z"/>
-				<path class="u-fill-white" d="M0.5,138c0,0,395-113,984,7s936,21,936,21V0H0.5V138z"/>
-			</svg>
-		</figure>
-
-		<div class="container u-space-4-top u-space-2-bottom">
+	<div id="SVGwave5Top" class="svg-preloader position-relative gradient-half-primary-v1">
+		<div class="container space-top-3 space-top-md-4 space-bottom-2">
 			<div class="w-lg-80 mx-auto">
-				<%#= form_tag page_path(@conn, :deliver_form, :advertiser), [method: :post, class: "js-validate", data: [
+				<div id="applyForAdvertiser" class="inverted-feedback">
+					<!-- Title -->
+					<div class="text-center mb-7">
+						<span class="u-label u-label--sm u-label--white mb-2">Join CodeFund</span>
+						<h2 class="h3 text-white font-weight-normal">Become an Advertiser</h2>
+					</div>
+					<!-- End Title -->
+
+					<!-- Apply Form -->
+					<%= form_tag advertisers_path, method: :post, class: "js-validate", data: {
 						controller: "event_track",
 						action: "submit->event_track#logEvent",
 						ga_event_category: "website",
 						ga_event_action: "apply",
 						ga_event_label: "advertiser",
 						ga_event_value: ""
-					]] do %>
-					<div class="row">
-						<div class="col-sm-6 mb-5">
-							<label class="h6 small d-block text-uppercase text-light">
-								Your first name
-								<span class="text-danger">*</span>
-							</label>
-							<div class="js-form-message">
-								<div class="js-focus-state input-group u-form u-form--no-brd">
-									<input class="form-control u-form__input" type="text" required
-												name="form[first_name]"
-												placeholder="First Name"
-												aria-label="First Name"
-												data-msg="Please enter your first name."
-												data-error-class="u-has-error"
-												data-success-class="u-has-success">
+					} do %>
+						<div class="row">
+							<div class="col-sm-6 mb-5">
+								<label class="h6 small d-block text-uppercase text-light">
+									Your first name
+									<span class="text-warning">*</span>
+								</label>
+								<div class="js-form-message">
+									<div class="js-focus-state input-group u-form u-form--no-brd">
+										<input class="form-control u-form__input" type="text" required
+													id="first_name"
+													name="form[first_name]"
+													placeholder="First Name"
+													aria-label="First Name"
+													data-msg="Please enter your first name."
+													data-error-class="u-has-error"
+													data-success-class="u-has-success">
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class="col-sm-6 mb-5">
-							<label class="h6 small d-block text-uppercase text-light">
-								Your last name
-								<span class="text-danger">*</span>
-							</label>
-							<div class="js-form-message">
-								<div class="js-focus-state input-group u-form u-form--no-brd">
-									<input class="form-control u-form__input" type="text" required
-												name="form[last_name]"
-												placeholder="Last Name"
-												aria-label="Last Name"
-												data-msg="Please enter your last name."
-												data-error-class="u-has-error"
-												data-success-class="u-has-success">
+							<div class="col-sm-6 mb-5">
+								<label class="h6 small d-block text-uppercase text-light">
+									Your last name
+									<span class="text-warning">*</span>
+								</label>
+								<div class="js-form-message">
+									<div class="js-focus-state input-group u-form u-form--no-brd">
+										<input class="form-control u-form__input" type="text" required
+													id="last_name"
+													name="form[last_name]"
+													placeholder="Last Name"
+													aria-label="Last Name"
+													data-msg="Please enter your last name."
+													data-error-class="u-has-error"
+													data-success-class="u-has-success">
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class="col-sm-6 mb-5">
-							<label class="h6 small d-block text-uppercase text-light">
-								Company Name
-								<span class="text-danger">*</span>
-							</label>
-							<div class="js-form-message">
-								<div class="js-focus-state input-group u-form u-form--no-brd">
-									<input class="form-control u-form__input" type="text" required
-												name="form[company]"
-												placeholder="Company Name"
-												aria-label="Company Name"
-												data-msg="Please enter your company name"
-												data-error-class="u-has-error"
-												data-success-class="u-has-success">
+							<div class="col-sm-6 mb-5">
+								<label class="h6 small d-block text-uppercase text-light">
+									Company Name
+									<span class="text-warning">*</span>
+								</label>
+								<div class="js-form-message">
+									<div class="js-focus-state input-group u-form u-form--no-brd">
+										<input class="form-control u-form__input" type="text" required
+													id="company_name"
+													name="form[company_name]"
+													placeholder="Company Name"
+													aria-label="Company Name"
+													data-msg="Please enter your company name"
+													data-error-class="u-has-error"
+													data-success-class="u-has-success">
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class="col-sm-6 mb-5">
-							<label class="h6 small d-block text-uppercase text-light">
-								Company Website
-								<span class="text-danger">*</span>
-							</label>
-							<div class="js-form-message">
-								<div class="js-focus-state input-group u-form u-form--no-brd">
-									<input class="form-control u-form__input" type="text" required
-												name="form[company_url]"
-												placeholder="https://"
-												aria-label="Company Website"
-												data-msg="Please enter your company website"
-												data-error-class="u-has-error"
-												data-success-class="u-has-success">
+							<div class="col-sm-6 mb-5">
+								<label class="h6 small d-block text-uppercase text-light">
+									Company Website
+									<span class="text-warning">*</span>
+								</label>
+								<div class="js-form-message">
+									<div class="js-focus-state input-group u-form u-form--no-brd">
+										<input class="form-control u-form__input" type="text" required
+													id="company_url"
+													name="form[company_url]"
+													placeholder="https://example.com"
+													aria-label="Company Website"
+													aria-describedby="company_url_prepend"
+													data-msg="Please enter your company website"
+													data-error-class="u-has-error"
+													data-success-class="u-has-success"
+													data-rule-url="true">
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class="col-sm-6 mb-5">
-							<label class="h6 small d-block text-uppercase text-light">
-								Email Address
-								<span class="text-danger">*</span>
-							</label>
-							<div class="js-form-message">
-								<div class="js-focus-state input-group u-form u-form--no-brd">
-									<input class="form-control u-form__input" type="email" required
-												name="form[email]"
-												placeholder="Email Address"
-												aria-label="Email Address"
-												data-msg="Please enter your company name"
-												data-error-class="u-has-error"
-												data-success-class="u-has-success">
+							<div class="col-sm-6 mb-5">
+								<label class="h6 small d-block text-uppercase text-light">
+									Email Address
+									<span class="text-warning">*</span>
+								</label>
+								<div class="js-form-message">
+									<div class="js-focus-state input-group u-form u-form--no-brd">
+										<input class="form-control u-form__input" type="email" required
+													id="email"
+													name="form[email]"
+													placeholder="Email Address"
+													aria-label="Email Address"
+													data-msg="Please enter your company name"
+													data-error-class="u-has-error"
+													data-success-class="u-has-success"
+													data-rule-email="true">
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class="col-sm-6 mb-5">
-							<label class="h6 small d-block text-uppercase text-light">
-								Tell us about your budget
-								<span class="text-danger">*</span>
-							</label>
-							<div class="js-form-message">
-								<div class="js-focus-state input-group u-form u-form--no-brd">
-									<select class="custom-select" name="form[monthly_budget]">
-										<option>How much do you want to spend per month?</option>
-										<option value="<999">Less than $999</option>
-										<option value="1000-2499">$1000 - $2499</option>
-										<option value="2500-4999">$2500 - $4999</option>
-										<option value="5000+">$5000 +</option>
-									</select>
+							<div class="col-sm-6 mb-5">
+								<label class="h6 small d-block text-uppercase text-light">
+									Tell us about your budget
+									<span class="text-warning">*</span>
+								</label>
+								<div class="js-form-message">
+									<div class="js-focus-state input-group u-form u-form--no-brd">
+										<select class="custom-select" name="form[monthly_budget]" id="monthly_budget">
+											<option value="<999">Less than $999</option>
+											<option value="1000-2499">$1000 - $2499</option>
+											<option value="2500-4999">$2500 - $4999</option>
+											<option value="5000+">$5000 +</option>
+										</select>
+									</div>
 								</div>
 							</div>
+							<div class="col-sm-6 align-self-end text-sm-left mb-5">
+								<button type="submit" class="btn text-primary u-btn-white transition-3d-hover">Submit</button>
+							</div>
 						</div>
-
-						<div class="col-sm-6 align-self-end text-sm-left mb-5">
-							<button type="submit" class="btn text-primary u-btn-white transition-3d-hover">Submit</button>
-						</div>
-					</div>
-				<%# end %>
+					<% end %>
+					<!-- End Apply Form -->
+				</div>
 			</div>
 		</div>
+
+		<!-- SVG Top Shape -->
+		<figure class="position-absolute top-0 right-0 left-0 z-index-2">
+      <%= image_tag "/assets/svg/components/wave-5-top.svg", class: "js-svg-injector", data: { parent: "#SVGwave5Top" } %>
+		</figure>
+		<!-- End SVG Top Shape -->
 	</div>
-	<!-- END Advertiser Form Section -->
+	<!-- End Advertiser Form Section -->
 </main>
 <!-- ========== END MAIN ========== -->
