@@ -1,17 +1,17 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: properties
 #
 #  id                          :bigint(8)        not null, primary key
 #  user_id                     :bigint(8)        not null
-#  template_id                 :uuid
-#  type                        :string           not null
+#  property_type               :string           not null
 #  status                      :string           not null
 #  name                        :string           not null
 #  description                 :text
 #  url                         :text             not null
+#  ad_template                 :string           not null
+#  ad_theme                    :string           not null
 #  language                    :string           not null
 #  keywords                    :string           default([]), not null, is an Array
 #  prohibited_advertisers      :bigint(8)        default([]), is an Array
@@ -27,62 +27,50 @@ class Property < ApplicationRecord
   # includes ..................................................................
 
   # relationships .............................................................
-  belongs_to :template
   belongs_to :user
   has_many :impressions
 
   # validations ...............................................................
   validates :language, length: { maximum: 255, allow_blank: false }
-  validates :legacy_id, length: { maximum: 255 }
   validates :name, length: { maximum: 255, allow_blank: false }
-  validates :no_api_house_ads, presence: true
-  validates :programming_languages, length: { maximum: 255, allow_blank: false }
+  validates :ad_template, presence: true
+  validates :ad_theme, presence: true
   validates :property_type, inclusion: { in: ENUMS::PROPERTY_TYPES.keys }
-  validates :slug, length: { maximum: 255, allow_blank: false }
   validates :status, inclusion: { in: ENUMS::PROPERTY_STATUSES.keys }
-  validates :topic_categories, length: { maximum: 255, allow_blank: false }
   validates :url, presence: true
 
   # callbacks .................................................................
 
   # scopes ....................................................................
+  scope :search_keywords, -> (*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :search_languages, -> (*values) { values.blank? ? all : where(language: values) }
   scope :search_name, -> (value) { value.blank? ? all : search_column(:name, value) }
   scope :search_programming_languages, -> (*values) { values.blank? ? all : with_any_programming_languages(*values) }
   scope :search_property_type, -> (*values) { values.blank? ? all : where(property_type: values) }
   scope :search_status, -> (*values) { values.blank? ? all : where(status: values) }
-  scope :search_template, -> (*values) { values.blank? ? all : where(template_id: values) }
-  scope :search_topic_categories, -> (*values) { values.blank? ? all : with_any_topic_categories(*values) }
+  scope :search_ad_template, -> (*values) { values.blank? ? all : where(ad_template: values) }
   scope :search_user, -> (value) { value.blank? ? all : where(user_id: User.developer.search_name(value)) }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
   #
-  # - with_all_included_excluded_advertisers
-  # - with_any_included_excluded_advertisers
-  # - with_included_excluded_advertisers
-  # - without_all_included_excluded_advertisers
-  # - without_any_included_excluded_advertisers
-  # - without_included_excluded_advertisers
+  # - with_all_included_prohibited_advertisers
+  # - with_any_included_prohibited_advertisers
+  # - with_included_prohibited_advertisers
+  # - without_all_included_prohibited_advertisers
+  # - without_any_included_prohibited_advertisers
+  # - without_included_prohibited_advertisers
   #
-  # - with_all_included_programming_languages
-  # - with_any_included_programming_languages
-  # - with_included_programming_languages
-  # - without_all_included_programming_languages
-  # - without_any_included_programming_languages
-  # - without_included_programming_languages
-  #
-  # - with_all_included_topic_categories
-  # - with_any_included_topic_categories
-  # - with_included_topic_categories
-  # - without_all_included_topic_categories
-  # - without_any_included_topic_categories
-  # - without_included_topic_categories
+  # - with_all_included_keywords
+  # - with_any_included_keywords
+  # - with_included_keywords
+  # - without_all_included_keywords
+  # - without_any_included_keywords
+  # - without_included_keywords
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  tag_columns :excluded_advertisers
-  tag_columns :programming_languages
-  tag_columns :topic_categories
+  tag_columns :prohibited_advertisers
+  tag_columns :keywords
 
   # class methods .............................................................
   class << self

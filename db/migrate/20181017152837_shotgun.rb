@@ -107,7 +107,7 @@ class Shotgun < ActiveRecord::Migration[5.2]
     while current_date < start_date.advance(years: 10)
       next_date = current_date.advance(months: 1)
       partitioned_table_name = create_range_partition_of :impressions, partition_key: "displayed_at_date", start_range: current_date, end_range: next_date
-      # NOTE: displayed_at::date is indexed by default since it's the partition key
+      # NOTE: displayed_at_date is indexed by default since it's the partition key
       add_index partitioned_table_name, "date_trunc('hour', displayed_at)", name: "index_#{partitioned_table_name}_on_displayed_at_hour"
       add_index partitioned_table_name, :campaign_id
       add_index partitioned_table_name, :property_id
@@ -117,13 +117,13 @@ class Shotgun < ActiveRecord::Migration[5.2]
 
     create_table :properties do |t|
       t.bigint :user_id, null: false
-      t.string :type, null: false
+      t.string :property_type, null: false
       t.string :status, null: false
       t.string :name, null: false
       t.text :description
       t.text :url, null: false
-      t.string :template, null: false
-      t.string :theme, null: false
+      t.string :ad_template, null: false
+      t.string :ad_theme, null: false
       t.string :language, null: false
       t.string :keywords, default: [], null: false, array: true
       t.bigint :prohibited_advertisers, default: [], array: true
@@ -131,7 +131,7 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.timestamps
 
       t.index :user_id
-      t.index :type
+      t.index :property_type
       t.index :status
       t.index "lower(name)", name: "index_properties_on_name"
       t.index :keywords, using: :gin

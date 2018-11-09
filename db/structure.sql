@@ -1243,13 +1243,13 @@ FOR VALUES FROM ('2026-09-01') TO ('2026-10-01');
 CREATE TABLE public.properties (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
-    type character varying NOT NULL,
+    property_type character varying NOT NULL,
     status character varying NOT NULL,
     name character varying NOT NULL,
     description text,
     url text NOT NULL,
-    template character varying NOT NULL,
-    theme character varying NOT NULL,
+    ad_template character varying NOT NULL,
+    ad_theme character varying NOT NULL,
     language character varying NOT NULL,
     keywords character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     prohibited_advertisers bigint[] DEFAULT '{}'::bigint[],
@@ -9362,17 +9362,17 @@ CREATE INDEX index_properties_on_prohibited_advertisers ON public.properties USI
 
 
 --
+-- Name: index_properties_on_property_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_properties_on_property_type ON public.properties USING btree (property_type);
+
+
+--
 -- Name: index_properties_on_status; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_properties_on_status ON public.properties USING btree (status);
-
-
---
--- Name: index_properties_on_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_properties_on_type ON public.properties USING btree (type);
 
 
 --

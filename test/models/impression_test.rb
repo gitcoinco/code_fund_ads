@@ -1,10 +1,9 @@
 # frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: impressions
 #
-#  id                :uuid             not null, primary key
+#  id                :uuid             not null
 #  campaign_id       :bigint(8)
 #  property_id       :bigint(8)
 #  ip                :string
@@ -15,8 +14,8 @@
 #  longitude         :decimal(, )
 #  payable           :boolean          default(FALSE), not null
 #  reason            :string
+#  displayed_at      :datetime
 #  displayed_at_date :date
-#  clicked_at_date   :date
 #  clicked_at        :datetime
 #  fallback_campaign :boolean          default(FALSE), not null
 #  created_at        :datetime         not null
