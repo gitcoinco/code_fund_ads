@@ -21,3 +21,22 @@
 
 $root-path: "../../../../../vendor/theme/";
 $font-family-font-awesome-icon: "Font Awesome 5 Pro" !default;
+
+$cf-purple: #15003E;
+$cf-green: #0FCE7C;
+
+.bg-cf-purple {
+  background-color: $cf-purple;
+}
+.text-cf-purple {
+  color: $cf-purple;
+}
+.bg-cf-green {
+  background-color: $cf-green;
+}
+.text-cf-green {
+  color: $cf-green;
+}
+
+$success: $cf-green;
+$primary-darker: $cf-purple;

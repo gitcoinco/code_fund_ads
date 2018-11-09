@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   post "/publishers", to: "home#create_publisher"
   get "/advertisers", to: "home#advertisers", as: :home_advertisers
   post "/advertisers", to: "home#create_advertiser"
+  post "/newsletter_subscription", to: "home#create_newsletter_subscription", as: :newsletter_subscription
   get "/help", to: "home#help", as: :home_help
   get "/team", to: "home#team", as: :home_team
 

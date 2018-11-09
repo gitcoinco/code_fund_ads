@@ -48,7 +48,7 @@
           </div>
 
           <!-- Form -->
-          <%= form_tag "#", method: :post, class: "js-validate js-form-message", data: {
+          <%= form_tag newsletter_subscription_path, method: :post, class: "js-validate js-form-message", data: {
             controller: "event_track",
             action: "submit->event_track#logEvent",
             ga_event_category: "website",
@@ -59,7 +59,11 @@
             <div class="js-focus-state input-group u-form">
               <input type="email" class="form-control u-form__input" name="email" required
                     placeholder="Enter your email address"
-                    aria-label="Enter your email address">
+                    aria-label="Enter your email address"
+                    data-msg="Please enter your email address"
+                    data-error-class="u-has-error"
+                    data-success-class="u-has-success"
+                    data-rule-email="true">
               <span class="input-group-append u-form__append">
                 <button type="submit" class="btn btn-primary u-btn-primary">Subscribe</button>
               </span>
