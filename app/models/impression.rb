@@ -3,7 +3,7 @@
 #
 # Table name: impressions
 #
-#  id                :uuid             not null
+#  id                :uuid             not null, primary key
 #  campaign_id       :bigint(8)
 #  property_id       :bigint(8)
 #  ip                :string
@@ -47,6 +47,7 @@ class Impression < ApplicationRecord
   # callbacks .................................................................
   # scopes ....................................................................
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  range_partition_by :displayed_at_date
 
   # class methods .............................................................
   class << self

@@ -3,7 +3,7 @@
 #
 # Table name: impressions
 #
-#  id                :uuid             not null
+#  id                :uuid             not null, primary key
 #  campaign_id       :bigint(8)
 #  property_id       :bigint(8)
 #  ip                :string
