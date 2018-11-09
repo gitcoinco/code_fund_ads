@@ -49,3 +49,28 @@ fieldset.inline {
 .inverted-feedback .invalid-feedback {
   color: #ffc655 !important;
 }
+
+#tophat {
+  .list-label {
+    transition: opacity 0.5s ease;
+    opacity: 0.6;
+  }
+
+  .list-item {
+    transition: opacity 0.5s ease;
+    opacity: 0.6;
+    filter: grayscale(1);
+
+    &.active,
+    &:hover {
+      opacity: 1;
+      filter: grayscale(0);
+    }
+  }
+
+  &:hover {
+    .list-label {
+      opacity: 1;
+    }
+  }
+}

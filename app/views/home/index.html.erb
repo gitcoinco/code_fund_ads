@@ -2,7 +2,7 @@
 <main id="content" role="main">
   <!-- Hero Section -->
   <div class="d-lg-flex position-relative">
-    <div class="container d-lg-flex align-items-lg-center space-top-2 space-top-md-5 space-lg-0 min-height-lg-70vh">
+    <div class="container d-lg-flex align-items-lg-center space-top-2 space-top-md-5 space-lg-0 min-height-lg-100vh">
       <!-- Content -->
       <div class="row w-100">
         <div class="col-lg-5">
@@ -29,15 +29,15 @@
           </p>
 
           <div class="d-flex align-items-center flex-wrap">
-            <%= link_to "I'm a developer", home_publishers_path, class: "btn btn-soft-success btn-wide transition-3d-hover mr-2" %>
-            <%= link_to "I'm an advertiser", home_advertisers_path, class: "btn btn-soft-primary btn-wide transition-3d-hover" %>
+            <%= link_to "I'm a developer", home_publishers_path, class: "btn btn-soft-success btn-wide transition-3d-hover mr-2 mb-1" %>
+            <%= link_to "I'm an advertiser", home_advertisers_path, class: "btn btn-soft-primary btn-wide transition-3d-hover mb-1" %>
           </div>
         </div>
       </div>
       <!-- End Content -->
 
       <!-- SVG Background -->
-      <div id="SVGMainHero" class="col-lg-9 col-xl-7 svg-preloader d-none d-lg-block position-absolute top-0 right-0 pr-0" style="margin-top: 105.6px;">
+      <div id="SVGMainHero" class="col-lg-9 col-xl-7 svg-preloader d-none d-lg-block position-absolute top-0 right-0 pr-0" style="margin-top: 130px;">
         <figure class="ie-main-hero">
           <%= image_tag("/assets/svg/illustrations/main-hero.svg", class: "js-svg-injector", data: {
               img_paths: [
@@ -53,7 +53,7 @@
   <!-- End Hero Section -->
 
   <!-- Icon Blocks Section -->
-  <div class="container space-top-1 space-bottom-md-3 space-bottom-2">
+  <div class="container space-top-3 space-top-md-0 space-bottom-md-3 space-bottom-2">
     <!-- Title -->
     <div class="w-md-80 w-lg-50 text-center mx-md-auto mb-9">
       <span class="u-label u-label--sm u-label--success mb-2">What we do?</span>

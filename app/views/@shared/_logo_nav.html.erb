@@ -1,6 +1,6 @@
 <div id="logoAndNav" class="container">
   <!-- Nav -->
-  <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar u-header__navbar--no-space" data-controller="mega-menu">
+  <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar u-header__navbar--no-space space-1 space-md-0" data-controller="mega-menu">
     <%= link_to image_tag("codefund-w.svg", alt: "CodeFund"), root_path, class: "navbar-brand u-header__navbar-brand u-header__navbar-brand-center" %>
 
     <!-- Responsive Toggle Button -->
@@ -24,7 +24,6 @@
           <%= active_link_to "Advertisers", home_advertisers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <%= active_link_to "Publishers", home_publishers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <%= active_link_to "Blog", "https://medium.com/codefund", target: "_blank", class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-          <%= active_link_to "FAQ", home_help_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
         <% else %>
           <%= active_link_to "Users", users_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" if current_user %>
           <%= active_link_to "Campaigns", campaigns_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" if current_user %>
@@ -34,9 +33,7 @@
 
         <!-- Button -->
         <li class="nav-item u-header__nav-last-item">
-          <a class="btn btn-sm btn-primary transition-3d-hover" href="https://themes.getbootstrap.com/product/front-multipurpose-responsive-template/" target="_blank">
-            Login
-          </a>
+          <%= link_to "Login", new_user_session_path, class: "btn btn-sm btn-primary transition-3d-hover" %>
         </li>
         <!-- End Button -->
       </ul>
