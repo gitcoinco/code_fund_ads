@@ -31,12 +31,12 @@ class Property < ApplicationRecord
   has_many :impressions
 
   # validations ...............................................................
-  validates :language, length: { maximum: 255, allow_blank: false }
-  validates :name, length: { maximum: 255, allow_blank: false }
   validates :ad_template, presence: true
   validates :ad_theme, presence: true
-  validates :property_type, inclusion: { in: ENUMS::PROPERTY_TYPES.keys }
-  validates :status, inclusion: { in: ENUMS::PROPERTY_STATUSES.keys }
+  validates :language, length: { maximum: 255, allow_blank: false }
+  validates :name, length: { maximum: 255, allow_blank: false }
+  validates :property_type, inclusion: { in: ENUMS::PROPERTY_TYPES.values }
+  validates :status, inclusion: { in: ENUMS::PROPERTY_STATUSES.values }
   validates :url, presence: true
 
   # callbacks .................................................................
