@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  resources :dashboard, only: [:index]
   resources :campaign_searches, only: [:create, :destroy]
   resources :property_searches, only: [:create, :destroy]
   resources :user_searches, only: [:create, :destroy]
