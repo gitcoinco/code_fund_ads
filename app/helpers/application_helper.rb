@@ -66,4 +66,19 @@ module ApplicationHelper
     return nil unless ENV["GROOVE_WIDGET_ID"].present?
     render("/@shared/scripts/groove", id: ENV["GROOVE_WIDGET_ID"])
   end
+
+  def noty_flash
+    flash_messages = []
+    flash.each do |type, message|
+      type = 'success' if type == 'notice'
+      type = 'error'   if type == 'alert'
+      body = {
+        type: type,
+        text: message
+      }
+      text = "<script>new Noty(#{body.to_json}).show();</script>"
+      flash_messages << text.html_safe if message
+    end
+    flash_messages.join("\n").html_safe
+  end
 end

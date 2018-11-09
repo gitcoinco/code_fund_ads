@@ -13,7 +13,7 @@
   <spacer size="16"></spacer>
   <row>
     <columns>
-      <h3>Advertiser Submission</h3>
+      <h3>Publisher Submission</h3>
       <spacer size="16"></spacer>
       <row>
         <columns large="6">
@@ -28,12 +28,12 @@
         </columns>
         <columns large="6">
           <p>
-            <strong>Company</strong><br/>
-            <%= link_to @form[:company_name], @form[:company_url] %>
+            <strong>Website</strong><br/>
+            <%= link_to @form[:website_url], @form[:website_url] %>
           </p>
           <p>
-            <strong>Monthly Budget</strong><br/>
-            <%= @form[:monthly_budget] %>
+            <strong>Monthly Visitors</strong><br/>
+            <%= @form[:monthly_visitors] %>
           </p>
         </columns>
       </row>

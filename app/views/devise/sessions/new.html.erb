@@ -1,26 +1,25 @@
-<div class="container">
-  <div class="row no-gutters">
-    <div class="col-md-8 col-lg-7 col-xl-6 offset-md-2 offset-lg-2 offset-xl-3 u-space-3 u-space-0--lg">
-      <!-- Form -->
-      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), class: "js-validate mt-5") do |f| %>
-        <!-- Title -->
-        <div class="mb-7">
-          <h2 class="h3 text-codefund-purple font-weight-normal mb-0">Welcome <span class="font-weight-bold text-codefund-green">back</span></h2>
-          <p>Login to manage your account.</p>
-        </div>
-        <!-- End Title -->
+<!-- ========== MAIN ========== -->
+<main id="content" role="main" class="border-bottom">
+  <!-- Login Form -->
+  <div class="container space-top-2 space-top-md-4 space-bottom-2">
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "js-validate w-md-75 w-lg-50 mx-md-auto" }) do |f| %>
+      <!-- Title -->
+      <div class="mb-7">
+        <h2 class="h3 font-weight-normal mb-0">Welcome <span class="font-weight-semi-bold text-success">back</span></h2>
+        <p>Login to manage your account.</p>
+      </div>
+      <!-- End Title -->
 
-        <!-- Input -->
-        <div class="js-form-message mb-4">
-          <label class="h6 small d-block text-uppercase">Email address</label>
-
-          <div class="js-focus-state input-group u-form">
-            <%= f.input :email,
+      <!-- Form Group -->
+      <div class="js-form-message form-group">
+        <label class="form-label" for="signinSrEmail">Email address</label>
+        <%= f.input :email,
+                label: false,
                 required: true,
                 autofocus: true,
                 placeholder: "Email",
                 input_html: {
-                  class: "form-control u-form__input",
+                  class: "form-control",
                   autocomplete: "email"
                 },
                 data: {
@@ -28,25 +27,22 @@
                   errorClass: "u-has-error",
                   successCass: "u-has-success"
                 } %>
-          </div>
-        </div>
-        <!-- End Input -->
+      </div>
+      <!-- End Form Group -->
 
-        <!-- Input -->
-        <div class="js-form-message mb-4">
-          <div class="d-flex justify-content-between align-items-center">
-            <label class="h6 small d-block text-uppercase">Password</label>
-
-            <div class="mb-2">
-              <%#= link "Forgot Password?", to: password_path(@conn, :new), class: "small u-link-muted" %>
-            </div>
-          </div>
-
-          <div class="js-focus-state input-group u-form">
-            <%= f.input :password,
+      <!-- Form Group -->
+      <div class="js-form-message form-group">
+        <label class="form-label" for="signinSrPassword">
+          <span class="d-flex justify-content-between align-items-center">
+            Password
+            <%= link_to "Forgot Password?", new_password_path(resource_name), class: "link-muted text-capitalize font-weight-normal" %>
+          </span>
+        </label>
+        <%= f.input :password,
+                label: false,
                 required: true,
                 input_html: {
-                  class: "form-control u-form__input",
+                  class: "form-control",
                   autocomplete: "current-password"
                 },
                 data: {
@@ -54,24 +50,22 @@
                   errorClass: "u-has-error",
                   successCass: "u-has-success"  
                 } %>
-          </div>
+      </div>
+      <!-- End Form Group -->
+
+      <!-- Button -->
+      <div class="row align-items-center mb-5">
+        <div class="col-6">
+          <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
         </div>
-        <!-- End Input -->
 
-        <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-
-        <!-- Button -->
-        <div class="row align-items-center mb-5">
-          <div class="ml-3 text-right">
-            <%= f.button :submit, "Login", class: "btn btn-primary u-btn-primary transition-3d-hover" %>
-          </div>
+        <div class="col-6 text-right">
+          <button type="submit" class="btn btn-primary transition-3d-hover">Sign in</button>
         </div>
-        <!-- End Button -->
-
-      <% end %>
-      <!-- End Form -->
-    </div>
+      </div>
+      <!-- End Button -->
+    <% end %>
   </div>
-</div>
-
-
+  <!-- End Login Form -->
+</main>
+<!-- ========== END MAIN ========== -->

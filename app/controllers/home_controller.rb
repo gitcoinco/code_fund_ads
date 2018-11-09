@@ -18,12 +18,29 @@ class HomeController < ApplicationController
   end
 
   def create_publisher
+    CreateSlackNotificationJob.perform_later text: "<!channel> *Publisher Form Submission*", message: <<~MESSAGE
+      *First Name:* #{publisher_application_params[:first_name]}
+      *Last Name:*  #{publisher_application_params[:last_name]}
+      *Email:*  #{publisher_application_params[:email]}
+      *Monthly Visitors:*  #{publisher_application_params[:monthly_visitors]}
+      *Website:*  #{publisher_application_params[:website_url]}
+    MESSAGE
+    ApplicantMailer.with(form: publisher_application_params.to_h).publisher_application_email.deliver_later
+    redirect_to home_publishers_path, notice: "Your request was sent successfully. We will be in touch."
   end
 
   def advertisers
   end
 
   def create_advertiser
+    CreateSlackNotificationJob.perform_later text: "<!channel> *Advertiser Form Submission*", message: <<~MESSAGE
+      *First Name:* #{advertiser_application_params[:first_name]}
+      *Last Name:*  #{advertiser_application_params[:last_name]}
+      *Email:*  #{advertiser_application_params[:email]}
+      *Company:*  #{advertiser_application_params[:company_name]}
+      *Monthly Budget:*  #{advertiser_application_params[:monthly_budget]}
+      *Website:*  #{advertiser_application_params[:company_url]}
+    MESSAGE
     ApplicantMailer.with(form: advertiser_application_params.to_h).advertiser_application_email.deliver_later
     redirect_to home_advertisers_path, notice: "Your request was sent successfully. We will be in touch."
   end
@@ -46,6 +63,6 @@ class HomeController < ApplicationController
     end
 
     def publisher_application_params
-      params.require(:form).permit(:first_name, :last_name)
+      params.require(:form).permit(:first_name, :last_name, :email, :monthly_visitors, :website_url)
     end
 end

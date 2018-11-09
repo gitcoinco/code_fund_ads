@@ -10,6 +10,7 @@ environment.config.merge({
       Chartist: "theme/vendor/chartist/dist/chartist.min",
       Typed: "theme/vendor/typed.js/lib/typed.min",
       SVGInjector: "theme/vendor/svg-injector/dist/svg-injector.min",
+      Noty: "node_modules/noty/lib/noty.min",
     }
   }
 });
@@ -23,6 +24,7 @@ environment.plugins.prepend(
     Chartist: "Chartist",
     Typed: "Typed",
     SVGInjector: "SVGInjector",
+    Noty: "Noty",
   })
 );
 
