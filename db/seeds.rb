@@ -85,7 +85,7 @@ if advertiser.creatives.count == 0
 end
 
 if advertiser.campaigns.count == 0
-  15.times do
+  10.times do
     start_date = rand(3).months.from_now.to_date
     end_date = start_date.advance(months: 6)
     days = (end_date - start_date).to_i
@@ -111,6 +111,22 @@ if advertiser.campaigns.count == 0
       countries: countries,
       keywords: keywords,
       negative_keywords: ENUMS::KEYWORDS.values.sample(5) - keywords,
+    )
+  end
+end
+
+if publisher.properties.count == 0
+  10.times do
+    Property.create(
+      user: publisher,
+      property_type: ENUMS::PROPERTY_TYPES.values.sample,
+      status: ENUMS::PROPERTY_STATUSES.values.sample,
+      name: Faker::SiliconValley.invention,
+      url: Faker::SiliconValley.url,
+      ad_template: ENUMS::AD_TEMPLATES.values.sample,
+      ad_theme: ENUMS::AD_THEMES.values.sample,
+      language: ENUMS::LANGUAGES::ENGLISH,
+      keywords: ENUMS::KEYWORDS.values.sample(25),
     )
   end
 end

@@ -5,12 +5,13 @@
 #
 #  id                          :bigint(8)        not null, primary key
 #  user_id                     :bigint(8)        not null
-#  template_id                 :uuid
-#  type                        :string           not null
+#  property_type               :string           not null
 #  status                      :string           not null
 #  name                        :string           not null
 #  description                 :text
 #  url                         :text             not null
+#  ad_template                 :string           not null
+#  ad_theme                    :string           not null
 #  language                    :string           not null
 #  keywords                    :string           default([]), not null, is an Array
 #  prohibited_advertisers      :bigint(8)        default([]), is an Array
