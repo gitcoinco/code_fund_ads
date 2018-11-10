@@ -30,15 +30,17 @@ def build_impression(displayed_at)
   }
 end
 
-def build_impressions_for_second(displayed_at, impressions_per_second: 100)
-  impressions_per_second.times.map { build_impression(displayed_at) }
+def build_impressions(displayed_at, count: 100)
+  count.times.map do
+    build_impression displayed_at
+  end.compact
 end
 
 def build_impressions_for_minute(time)
   displayed_at = Time.new(time.year, time.month, time.day, time.hour, 0, 0)
   impressions = []
   while displayed_at.min == time.min && displayed_at.sec <= 59
-    impressions.concat build_impressions_for_second(displayed_at)
+    impressions.concat build_impressions(displayed_at)
     displayed_at = displayed_at.advance(seconds: 1)
   end
   impressions
@@ -73,7 +75,7 @@ def create_impressions_for_month(date_string)
   while current_date <= start_date.end_of_month
     csv_path = "/tmp/impressions-#{current_date.iso8601}.csv"
     puts "Creating #{csv_path}"
-    list = build_impressions_for_day(current_date.to_time).compact
+    list = build_impressions_for_day(current_date.to_time)
     CSV.open(csv_path, "wb") do |csv|
       list.each do |record|
         csv << record.values
