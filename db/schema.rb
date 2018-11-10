@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_10_17_152837) do
+ActiveRecord::Schema.define(version: 2018_11_10_133743) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -3324,6 +3324,29 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.index ["displayed_at_date"], name: "index_impressions_2030_12_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2030_12_on_payable"
     t.index ["property_id"], name: "index_impressions_2030_12_on_property_id"
+  end
+
+  create_table "impressions_default", id: false, force: :cascade do |t|
+    t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
+    t.bigint "campaign_id"
+    t.bigint "property_id"
+    t.string "ip"
+    t.text "user_agent"
+    t.string "country"
+    t.string "postal_code"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.boolean "payable", default: false, null: false
+    t.string "reason"
+    t.datetime "displayed_at"
+    t.date "displayed_at_date"
+    t.datetime "clicked_at"
+    t.boolean "fallback_campaign", default: false, null: false
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_default_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_default_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_default_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_default_on_payable"
+    t.index ["property_id"], name: "index_impressions_default_on_property_id"
   end
 
   create_table "properties", force: :cascade do |t|

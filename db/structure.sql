@@ -1429,6 +1429,14 @@ FOR VALUES FROM ('2030-12-01') TO ('2031-01-01');
 
 
 --
+-- Name: impressions_default; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_default PARTITION OF public.impressions
+DEFAULT;
+
+
+--
 -- Name: properties; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -4675,6 +4683,27 @@ ALTER TABLE ONLY public.impressions_2030_12 ALTER COLUMN payable SET DEFAULT fal
 --
 
 ALTER TABLE ONLY public.impressions_2030_12 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_default id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_default ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_default payable; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_default ALTER COLUMN payable SET DEFAULT false;
+
+
+--
+-- Name: impressions_default fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_default ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
@@ -11197,6 +11226,41 @@ CREATE INDEX index_impressions_2030_12_on_property_id ON public.impressions_2030
 
 
 --
+-- Name: index_impressions_default_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_default_on_campaign_id ON public.impressions_default USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_default_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_default_on_displayed_at_date ON public.impressions_default USING btree (displayed_at_date);
+
+
+--
+-- Name: index_impressions_default_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_default_on_displayed_at_hour ON public.impressions_default USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: index_impressions_default_on_payable; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_default_on_payable ON public.impressions_default USING btree (payable);
+
+
+--
+-- Name: index_impressions_default_on_property_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_default_on_property_id ON public.impressions_default USING btree (property_id);
+
+
+--
 -- Name: index_properties_on_keywords; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11294,6 +11358,7 @@ CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unl
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20181017152837');
+('20181017152837'),
+('20181110133743');
 
 
