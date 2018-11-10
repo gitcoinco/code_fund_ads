@@ -2,7 +2,7 @@
 
 date_formats = {
   "mm/dd/yyyy" => "%m/%d/%Y",
-  "yyyy-mm" => "%Y-%m",
+  "yyyy_mm" => "%Y_%m",
 }
 
 Date::DATE_FORMATS.merge! date_formats

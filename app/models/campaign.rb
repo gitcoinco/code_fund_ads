@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: campaigns
@@ -53,6 +54,11 @@ class Campaign < ApplicationRecord
   scope :search_us_hours_only, -> (value) { value.nil? ? all : where(us_hours_only: value) }
   scope :search_user, -> (value) { value.blank? ? all : where(user_id: User.sponsor.search_name(value).or(User.sponsor.search_company(value))) }
   scope :search_weekdays_only, -> (value) { value.nil? ? all : where(weekdays_only: value) }
+  scope :property, -> (property) do
+    relation = with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
+    relation = relation.where(fallback: false) if property.prohibit_fallback_campaigns
+    relation
+  end
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns

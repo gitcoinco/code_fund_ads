@@ -99,14 +99,13 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.date :displayed_at_date
       t.datetime :clicked_at
       t.boolean :fallback_campaign, default: false, null: false
-      t.timestamps
     end
 
     start_date = Date.parse("2018-11-01")
     current_date = start_date
     while current_date < Date.parse("2031-01-01")
       next_date = current_date.advance(months: 1)
-      partitioned_table_name = "impressions-#{current_date.to_s "yyyy-mm"}"
+      partitioned_table_name = "impressions_#{current_date.to_s "yyyy_mm"}"
       create_range_partition_of :impressions, name: partitioned_table_name, partition_key: "displayed_at_date", start_range: current_date, end_range: next_date
       # NOTE: displayed_at_date is indexed by default since it's the partition key
       add_index partitioned_table_name, "date_trunc('hour', displayed_at)", name: "index_#{partitioned_table_name}_on_displayed_at_hour"

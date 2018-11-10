@@ -130,3 +130,5 @@ if publisher.properties.count == 0
     )
   end
 end
+
+require_relative "./seeds_impressions" if ENV["IMPRESSIONS"]

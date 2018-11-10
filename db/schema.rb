@@ -112,11 +112,9 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
-  create_table "impressions-2018-11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2018_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -131,16 +129,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2018-11_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2018-11_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2018-11_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2018-11_on_payable"
-    t.index ["property_id"], name: "index_impressions-2018-11_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2018_11_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2018_11_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2018_11_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2018_11_on_payable"
+    t.index ["property_id"], name: "index_impressions_2018_11_on_property_id"
   end
 
-  create_table "impressions-2018-12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2018_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -155,16 +151,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2018-12_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2018-12_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2018-12_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2018-12_on_payable"
-    t.index ["property_id"], name: "index_impressions-2018-12_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2018_12_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2018_12_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2018_12_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2018_12_on_payable"
+    t.index ["property_id"], name: "index_impressions_2018_12_on_property_id"
   end
 
-  create_table "impressions-2019-01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2019_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -179,16 +173,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2019-01_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2019-01_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2019-01_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2019-01_on_payable"
-    t.index ["property_id"], name: "index_impressions-2019-01_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_01_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2019_01_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2019_01_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2019_01_on_payable"
+    t.index ["property_id"], name: "index_impressions_2019_01_on_property_id"
   end
 
-  create_table "impressions-2019-02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2019_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -203,16 +195,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2019-02_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2019-02_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2019-02_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2019-02_on_payable"
-    t.index ["property_id"], name: "index_impressions-2019-02_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_02_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2019_02_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2019_02_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2019_02_on_payable"
+    t.index ["property_id"], name: "index_impressions_2019_02_on_property_id"
   end
 
-  create_table "impressions-2019-03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2019_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -227,16 +217,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2019-03_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2019-03_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2019-03_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2019-03_on_payable"
-    t.index ["property_id"], name: "index_impressions-2019-03_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_03_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2019_03_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2019_03_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2019_03_on_payable"
+    t.index ["property_id"], name: "index_impressions_2019_03_on_property_id"
   end
 
-  create_table "impressions-2019-04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2019_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -251,16 +239,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2019-04_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2019-04_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2019-04_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2019-04_on_payable"
-    t.index ["property_id"], name: "index_impressions-2019-04_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_04_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2019_04_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2019_04_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2019_04_on_payable"
+    t.index ["property_id"], name: "index_impressions_2019_04_on_property_id"
   end
 
-  create_table "impressions-2019-05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2019_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -275,16 +261,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2019-05_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2019-05_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2019-05_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2019-05_on_payable"
-    t.index ["property_id"], name: "index_impressions-2019-05_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_05_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2019_05_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2019_05_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2019_05_on_payable"
+    t.index ["property_id"], name: "index_impressions_2019_05_on_property_id"
   end
 
-  create_table "impressions-2019-06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2019_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -299,16 +283,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2019-06_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2019-06_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2019-06_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2019-06_on_payable"
-    t.index ["property_id"], name: "index_impressions-2019-06_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_06_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2019_06_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2019_06_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2019_06_on_payable"
+    t.index ["property_id"], name: "index_impressions_2019_06_on_property_id"
   end
 
-  create_table "impressions-2019-07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2019_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -323,16 +305,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2019-07_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2019-07_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2019-07_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2019-07_on_payable"
-    t.index ["property_id"], name: "index_impressions-2019-07_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_07_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2019_07_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2019_07_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2019_07_on_payable"
+    t.index ["property_id"], name: "index_impressions_2019_07_on_property_id"
   end
 
-  create_table "impressions-2019-08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2019_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -347,16 +327,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2019-08_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2019-08_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2019-08_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2019-08_on_payable"
-    t.index ["property_id"], name: "index_impressions-2019-08_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_08_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2019_08_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2019_08_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2019_08_on_payable"
+    t.index ["property_id"], name: "index_impressions_2019_08_on_property_id"
   end
 
-  create_table "impressions-2019-09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2019_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -371,16 +349,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2019-09_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2019-09_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2019-09_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2019-09_on_payable"
-    t.index ["property_id"], name: "index_impressions-2019-09_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_09_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2019_09_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2019_09_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2019_09_on_payable"
+    t.index ["property_id"], name: "index_impressions_2019_09_on_property_id"
   end
 
-  create_table "impressions-2019-10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2019_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -395,16 +371,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2019-10_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2019-10_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2019-10_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2019-10_on_payable"
-    t.index ["property_id"], name: "index_impressions-2019-10_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_10_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2019_10_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2019_10_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2019_10_on_payable"
+    t.index ["property_id"], name: "index_impressions_2019_10_on_property_id"
   end
 
-  create_table "impressions-2019-11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2019_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -419,16 +393,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2019-11_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2019-11_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2019-11_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2019-11_on_payable"
-    t.index ["property_id"], name: "index_impressions-2019-11_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_11_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2019_11_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2019_11_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2019_11_on_payable"
+    t.index ["property_id"], name: "index_impressions_2019_11_on_property_id"
   end
 
-  create_table "impressions-2019-12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2019_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -443,16 +415,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2019-12_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2019-12_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2019-12_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2019-12_on_payable"
-    t.index ["property_id"], name: "index_impressions-2019-12_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_12_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2019_12_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2019_12_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2019_12_on_payable"
+    t.index ["property_id"], name: "index_impressions_2019_12_on_property_id"
   end
 
-  create_table "impressions-2020-01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2020_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -467,16 +437,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2020-01_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2020-01_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2020-01_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2020-01_on_payable"
-    t.index ["property_id"], name: "index_impressions-2020-01_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_01_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2020_01_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2020_01_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2020_01_on_payable"
+    t.index ["property_id"], name: "index_impressions_2020_01_on_property_id"
   end
 
-  create_table "impressions-2020-02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2020_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -491,16 +459,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2020-02_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2020-02_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2020-02_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2020-02_on_payable"
-    t.index ["property_id"], name: "index_impressions-2020-02_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_02_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2020_02_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2020_02_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2020_02_on_payable"
+    t.index ["property_id"], name: "index_impressions_2020_02_on_property_id"
   end
 
-  create_table "impressions-2020-03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2020_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -515,16 +481,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2020-03_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2020-03_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2020-03_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2020-03_on_payable"
-    t.index ["property_id"], name: "index_impressions-2020-03_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_03_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2020_03_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2020_03_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2020_03_on_payable"
+    t.index ["property_id"], name: "index_impressions_2020_03_on_property_id"
   end
 
-  create_table "impressions-2020-04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2020_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -539,16 +503,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2020-04_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2020-04_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2020-04_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2020-04_on_payable"
-    t.index ["property_id"], name: "index_impressions-2020-04_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_04_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2020_04_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2020_04_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2020_04_on_payable"
+    t.index ["property_id"], name: "index_impressions_2020_04_on_property_id"
   end
 
-  create_table "impressions-2020-05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2020_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -563,16 +525,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2020-05_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2020-05_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2020-05_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2020-05_on_payable"
-    t.index ["property_id"], name: "index_impressions-2020-05_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_05_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2020_05_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2020_05_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2020_05_on_payable"
+    t.index ["property_id"], name: "index_impressions_2020_05_on_property_id"
   end
 
-  create_table "impressions-2020-06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2020_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -587,16 +547,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2020-06_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2020-06_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2020-06_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2020-06_on_payable"
-    t.index ["property_id"], name: "index_impressions-2020-06_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_06_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2020_06_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2020_06_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2020_06_on_payable"
+    t.index ["property_id"], name: "index_impressions_2020_06_on_property_id"
   end
 
-  create_table "impressions-2020-07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2020_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -611,16 +569,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2020-07_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2020-07_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2020-07_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2020-07_on_payable"
-    t.index ["property_id"], name: "index_impressions-2020-07_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_07_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2020_07_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2020_07_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2020_07_on_payable"
+    t.index ["property_id"], name: "index_impressions_2020_07_on_property_id"
   end
 
-  create_table "impressions-2020-08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2020_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -635,16 +591,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2020-08_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2020-08_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2020-08_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2020-08_on_payable"
-    t.index ["property_id"], name: "index_impressions-2020-08_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_08_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2020_08_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2020_08_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2020_08_on_payable"
+    t.index ["property_id"], name: "index_impressions_2020_08_on_property_id"
   end
 
-  create_table "impressions-2020-09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2020_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -659,16 +613,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2020-09_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2020-09_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2020-09_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2020-09_on_payable"
-    t.index ["property_id"], name: "index_impressions-2020-09_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_09_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2020_09_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2020_09_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2020_09_on_payable"
+    t.index ["property_id"], name: "index_impressions_2020_09_on_property_id"
   end
 
-  create_table "impressions-2020-10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2020_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -683,16 +635,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2020-10_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2020-10_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2020-10_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2020-10_on_payable"
-    t.index ["property_id"], name: "index_impressions-2020-10_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_10_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2020_10_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2020_10_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2020_10_on_payable"
+    t.index ["property_id"], name: "index_impressions_2020_10_on_property_id"
   end
 
-  create_table "impressions-2020-11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2020_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -707,16 +657,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2020-11_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2020-11_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2020-11_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2020-11_on_payable"
-    t.index ["property_id"], name: "index_impressions-2020-11_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_11_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2020_11_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2020_11_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2020_11_on_payable"
+    t.index ["property_id"], name: "index_impressions_2020_11_on_property_id"
   end
 
-  create_table "impressions-2020-12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2020_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -731,16 +679,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2020-12_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2020-12_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2020-12_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2020-12_on_payable"
-    t.index ["property_id"], name: "index_impressions-2020-12_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_12_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2020_12_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2020_12_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2020_12_on_payable"
+    t.index ["property_id"], name: "index_impressions_2020_12_on_property_id"
   end
 
-  create_table "impressions-2021-01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2021_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -755,16 +701,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2021-01_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2021-01_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2021-01_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2021-01_on_payable"
-    t.index ["property_id"], name: "index_impressions-2021-01_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_01_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2021_01_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2021_01_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2021_01_on_payable"
+    t.index ["property_id"], name: "index_impressions_2021_01_on_property_id"
   end
 
-  create_table "impressions-2021-02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2021_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -779,16 +723,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2021-02_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2021-02_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2021-02_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2021-02_on_payable"
-    t.index ["property_id"], name: "index_impressions-2021-02_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_02_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2021_02_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2021_02_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2021_02_on_payable"
+    t.index ["property_id"], name: "index_impressions_2021_02_on_property_id"
   end
 
-  create_table "impressions-2021-03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2021_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -803,16 +745,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2021-03_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2021-03_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2021-03_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2021-03_on_payable"
-    t.index ["property_id"], name: "index_impressions-2021-03_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_03_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2021_03_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2021_03_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2021_03_on_payable"
+    t.index ["property_id"], name: "index_impressions_2021_03_on_property_id"
   end
 
-  create_table "impressions-2021-04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2021_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -827,16 +767,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2021-04_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2021-04_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2021-04_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2021-04_on_payable"
-    t.index ["property_id"], name: "index_impressions-2021-04_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_04_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2021_04_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2021_04_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2021_04_on_payable"
+    t.index ["property_id"], name: "index_impressions_2021_04_on_property_id"
   end
 
-  create_table "impressions-2021-05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2021_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -851,16 +789,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2021-05_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2021-05_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2021-05_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2021-05_on_payable"
-    t.index ["property_id"], name: "index_impressions-2021-05_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_05_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2021_05_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2021_05_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2021_05_on_payable"
+    t.index ["property_id"], name: "index_impressions_2021_05_on_property_id"
   end
 
-  create_table "impressions-2021-06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2021_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -875,16 +811,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2021-06_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2021-06_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2021-06_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2021-06_on_payable"
-    t.index ["property_id"], name: "index_impressions-2021-06_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_06_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2021_06_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2021_06_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2021_06_on_payable"
+    t.index ["property_id"], name: "index_impressions_2021_06_on_property_id"
   end
 
-  create_table "impressions-2021-07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2021_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -899,16 +833,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2021-07_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2021-07_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2021-07_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2021-07_on_payable"
-    t.index ["property_id"], name: "index_impressions-2021-07_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_07_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2021_07_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2021_07_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2021_07_on_payable"
+    t.index ["property_id"], name: "index_impressions_2021_07_on_property_id"
   end
 
-  create_table "impressions-2021-08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2021_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -923,16 +855,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2021-08_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2021-08_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2021-08_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2021-08_on_payable"
-    t.index ["property_id"], name: "index_impressions-2021-08_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_08_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2021_08_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2021_08_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2021_08_on_payable"
+    t.index ["property_id"], name: "index_impressions_2021_08_on_property_id"
   end
 
-  create_table "impressions-2021-09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2021_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -947,16 +877,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2021-09_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2021-09_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2021-09_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2021-09_on_payable"
-    t.index ["property_id"], name: "index_impressions-2021-09_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_09_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2021_09_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2021_09_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2021_09_on_payable"
+    t.index ["property_id"], name: "index_impressions_2021_09_on_property_id"
   end
 
-  create_table "impressions-2021-10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2021_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -971,16 +899,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2021-10_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2021-10_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2021-10_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2021-10_on_payable"
-    t.index ["property_id"], name: "index_impressions-2021-10_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_10_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2021_10_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2021_10_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2021_10_on_payable"
+    t.index ["property_id"], name: "index_impressions_2021_10_on_property_id"
   end
 
-  create_table "impressions-2021-11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2021_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -995,16 +921,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2021-11_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2021-11_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2021-11_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2021-11_on_payable"
-    t.index ["property_id"], name: "index_impressions-2021-11_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_11_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2021_11_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2021_11_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2021_11_on_payable"
+    t.index ["property_id"], name: "index_impressions_2021_11_on_property_id"
   end
 
-  create_table "impressions-2021-12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2021_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1019,16 +943,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2021-12_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2021-12_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2021-12_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2021-12_on_payable"
-    t.index ["property_id"], name: "index_impressions-2021-12_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_12_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2021_12_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2021_12_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2021_12_on_payable"
+    t.index ["property_id"], name: "index_impressions_2021_12_on_property_id"
   end
 
-  create_table "impressions-2022-01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2022_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1043,16 +965,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2022-01_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2022-01_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2022-01_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2022-01_on_payable"
-    t.index ["property_id"], name: "index_impressions-2022-01_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_01_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2022_01_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2022_01_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2022_01_on_payable"
+    t.index ["property_id"], name: "index_impressions_2022_01_on_property_id"
   end
 
-  create_table "impressions-2022-02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2022_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1067,16 +987,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2022-02_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2022-02_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2022-02_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2022-02_on_payable"
-    t.index ["property_id"], name: "index_impressions-2022-02_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_02_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2022_02_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2022_02_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2022_02_on_payable"
+    t.index ["property_id"], name: "index_impressions_2022_02_on_property_id"
   end
 
-  create_table "impressions-2022-03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2022_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1091,16 +1009,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2022-03_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2022-03_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2022-03_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2022-03_on_payable"
-    t.index ["property_id"], name: "index_impressions-2022-03_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_03_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2022_03_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2022_03_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2022_03_on_payable"
+    t.index ["property_id"], name: "index_impressions_2022_03_on_property_id"
   end
 
-  create_table "impressions-2022-04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2022_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1115,16 +1031,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2022-04_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2022-04_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2022-04_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2022-04_on_payable"
-    t.index ["property_id"], name: "index_impressions-2022-04_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_04_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2022_04_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2022_04_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2022_04_on_payable"
+    t.index ["property_id"], name: "index_impressions_2022_04_on_property_id"
   end
 
-  create_table "impressions-2022-05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2022_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1139,16 +1053,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2022-05_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2022-05_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2022-05_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2022-05_on_payable"
-    t.index ["property_id"], name: "index_impressions-2022-05_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_05_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2022_05_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2022_05_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2022_05_on_payable"
+    t.index ["property_id"], name: "index_impressions_2022_05_on_property_id"
   end
 
-  create_table "impressions-2022-06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2022_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1163,16 +1075,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2022-06_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2022-06_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2022-06_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2022-06_on_payable"
-    t.index ["property_id"], name: "index_impressions-2022-06_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_06_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2022_06_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2022_06_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2022_06_on_payable"
+    t.index ["property_id"], name: "index_impressions_2022_06_on_property_id"
   end
 
-  create_table "impressions-2022-07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2022_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1187,16 +1097,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2022-07_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2022-07_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2022-07_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2022-07_on_payable"
-    t.index ["property_id"], name: "index_impressions-2022-07_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_07_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2022_07_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2022_07_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2022_07_on_payable"
+    t.index ["property_id"], name: "index_impressions_2022_07_on_property_id"
   end
 
-  create_table "impressions-2022-08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2022_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1211,16 +1119,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2022-08_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2022-08_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2022-08_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2022-08_on_payable"
-    t.index ["property_id"], name: "index_impressions-2022-08_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_08_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2022_08_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2022_08_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2022_08_on_payable"
+    t.index ["property_id"], name: "index_impressions_2022_08_on_property_id"
   end
 
-  create_table "impressions-2022-09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2022_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1235,16 +1141,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2022-09_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2022-09_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2022-09_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2022-09_on_payable"
-    t.index ["property_id"], name: "index_impressions-2022-09_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_09_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2022_09_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2022_09_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2022_09_on_payable"
+    t.index ["property_id"], name: "index_impressions_2022_09_on_property_id"
   end
 
-  create_table "impressions-2022-10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2022_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1259,16 +1163,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2022-10_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2022-10_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2022-10_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2022-10_on_payable"
-    t.index ["property_id"], name: "index_impressions-2022-10_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_10_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2022_10_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2022_10_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2022_10_on_payable"
+    t.index ["property_id"], name: "index_impressions_2022_10_on_property_id"
   end
 
-  create_table "impressions-2022-11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2022_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1283,16 +1185,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2022-11_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2022-11_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2022-11_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2022-11_on_payable"
-    t.index ["property_id"], name: "index_impressions-2022-11_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_11_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2022_11_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2022_11_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2022_11_on_payable"
+    t.index ["property_id"], name: "index_impressions_2022_11_on_property_id"
   end
 
-  create_table "impressions-2022-12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2022_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1307,16 +1207,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2022-12_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2022-12_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2022-12_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2022-12_on_payable"
-    t.index ["property_id"], name: "index_impressions-2022-12_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_12_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2022_12_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2022_12_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2022_12_on_payable"
+    t.index ["property_id"], name: "index_impressions_2022_12_on_property_id"
   end
 
-  create_table "impressions-2023-01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2023_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1331,16 +1229,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2023-01_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2023-01_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2023-01_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2023-01_on_payable"
-    t.index ["property_id"], name: "index_impressions-2023-01_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_01_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2023_01_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2023_01_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2023_01_on_payable"
+    t.index ["property_id"], name: "index_impressions_2023_01_on_property_id"
   end
 
-  create_table "impressions-2023-02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2023_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1355,16 +1251,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2023-02_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2023-02_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2023-02_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2023-02_on_payable"
-    t.index ["property_id"], name: "index_impressions-2023-02_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_02_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2023_02_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2023_02_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2023_02_on_payable"
+    t.index ["property_id"], name: "index_impressions_2023_02_on_property_id"
   end
 
-  create_table "impressions-2023-03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2023_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1379,16 +1273,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2023-03_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2023-03_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2023-03_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2023-03_on_payable"
-    t.index ["property_id"], name: "index_impressions-2023-03_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_03_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2023_03_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2023_03_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2023_03_on_payable"
+    t.index ["property_id"], name: "index_impressions_2023_03_on_property_id"
   end
 
-  create_table "impressions-2023-04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2023_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1403,16 +1295,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2023-04_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2023-04_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2023-04_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2023-04_on_payable"
-    t.index ["property_id"], name: "index_impressions-2023-04_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_04_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2023_04_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2023_04_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2023_04_on_payable"
+    t.index ["property_id"], name: "index_impressions_2023_04_on_property_id"
   end
 
-  create_table "impressions-2023-05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2023_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1427,16 +1317,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2023-05_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2023-05_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2023-05_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2023-05_on_payable"
-    t.index ["property_id"], name: "index_impressions-2023-05_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_05_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2023_05_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2023_05_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2023_05_on_payable"
+    t.index ["property_id"], name: "index_impressions_2023_05_on_property_id"
   end
 
-  create_table "impressions-2023-06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2023_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1451,16 +1339,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2023-06_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2023-06_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2023-06_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2023-06_on_payable"
-    t.index ["property_id"], name: "index_impressions-2023-06_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_06_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2023_06_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2023_06_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2023_06_on_payable"
+    t.index ["property_id"], name: "index_impressions_2023_06_on_property_id"
   end
 
-  create_table "impressions-2023-07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2023_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1475,16 +1361,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2023-07_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2023-07_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2023-07_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2023-07_on_payable"
-    t.index ["property_id"], name: "index_impressions-2023-07_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_07_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2023_07_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2023_07_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2023_07_on_payable"
+    t.index ["property_id"], name: "index_impressions_2023_07_on_property_id"
   end
 
-  create_table "impressions-2023-08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2023_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1499,16 +1383,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2023-08_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2023-08_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2023-08_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2023-08_on_payable"
-    t.index ["property_id"], name: "index_impressions-2023-08_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_08_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2023_08_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2023_08_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2023_08_on_payable"
+    t.index ["property_id"], name: "index_impressions_2023_08_on_property_id"
   end
 
-  create_table "impressions-2023-09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2023_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1523,16 +1405,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2023-09_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2023-09_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2023-09_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2023-09_on_payable"
-    t.index ["property_id"], name: "index_impressions-2023-09_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_09_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2023_09_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2023_09_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2023_09_on_payable"
+    t.index ["property_id"], name: "index_impressions_2023_09_on_property_id"
   end
 
-  create_table "impressions-2023-10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2023_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1547,16 +1427,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2023-10_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2023-10_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2023-10_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2023-10_on_payable"
-    t.index ["property_id"], name: "index_impressions-2023-10_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_10_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2023_10_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2023_10_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2023_10_on_payable"
+    t.index ["property_id"], name: "index_impressions_2023_10_on_property_id"
   end
 
-  create_table "impressions-2023-11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2023_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1571,16 +1449,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2023-11_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2023-11_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2023-11_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2023-11_on_payable"
-    t.index ["property_id"], name: "index_impressions-2023-11_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_11_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2023_11_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2023_11_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2023_11_on_payable"
+    t.index ["property_id"], name: "index_impressions_2023_11_on_property_id"
   end
 
-  create_table "impressions-2023-12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2023_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1595,16 +1471,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2023-12_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2023-12_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2023-12_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2023-12_on_payable"
-    t.index ["property_id"], name: "index_impressions-2023-12_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_12_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2023_12_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2023_12_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2023_12_on_payable"
+    t.index ["property_id"], name: "index_impressions_2023_12_on_property_id"
   end
 
-  create_table "impressions-2024-01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2024_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1619,16 +1493,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2024-01_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2024-01_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2024-01_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2024-01_on_payable"
-    t.index ["property_id"], name: "index_impressions-2024-01_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_01_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2024_01_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2024_01_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2024_01_on_payable"
+    t.index ["property_id"], name: "index_impressions_2024_01_on_property_id"
   end
 
-  create_table "impressions-2024-02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2024_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1643,16 +1515,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2024-02_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2024-02_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2024-02_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2024-02_on_payable"
-    t.index ["property_id"], name: "index_impressions-2024-02_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_02_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2024_02_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2024_02_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2024_02_on_payable"
+    t.index ["property_id"], name: "index_impressions_2024_02_on_property_id"
   end
 
-  create_table "impressions-2024-03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2024_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1667,16 +1537,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2024-03_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2024-03_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2024-03_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2024-03_on_payable"
-    t.index ["property_id"], name: "index_impressions-2024-03_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_03_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2024_03_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2024_03_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2024_03_on_payable"
+    t.index ["property_id"], name: "index_impressions_2024_03_on_property_id"
   end
 
-  create_table "impressions-2024-04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2024_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1691,16 +1559,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2024-04_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2024-04_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2024-04_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2024-04_on_payable"
-    t.index ["property_id"], name: "index_impressions-2024-04_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_04_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2024_04_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2024_04_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2024_04_on_payable"
+    t.index ["property_id"], name: "index_impressions_2024_04_on_property_id"
   end
 
-  create_table "impressions-2024-05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2024_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1715,16 +1581,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2024-05_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2024-05_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2024-05_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2024-05_on_payable"
-    t.index ["property_id"], name: "index_impressions-2024-05_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_05_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2024_05_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2024_05_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2024_05_on_payable"
+    t.index ["property_id"], name: "index_impressions_2024_05_on_property_id"
   end
 
-  create_table "impressions-2024-06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2024_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1739,16 +1603,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2024-06_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2024-06_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2024-06_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2024-06_on_payable"
-    t.index ["property_id"], name: "index_impressions-2024-06_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_06_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2024_06_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2024_06_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2024_06_on_payable"
+    t.index ["property_id"], name: "index_impressions_2024_06_on_property_id"
   end
 
-  create_table "impressions-2024-07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2024_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1763,16 +1625,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2024-07_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2024-07_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2024-07_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2024-07_on_payable"
-    t.index ["property_id"], name: "index_impressions-2024-07_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_07_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2024_07_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2024_07_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2024_07_on_payable"
+    t.index ["property_id"], name: "index_impressions_2024_07_on_property_id"
   end
 
-  create_table "impressions-2024-08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2024_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1787,16 +1647,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2024-08_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2024-08_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2024-08_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2024-08_on_payable"
-    t.index ["property_id"], name: "index_impressions-2024-08_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_08_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2024_08_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2024_08_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2024_08_on_payable"
+    t.index ["property_id"], name: "index_impressions_2024_08_on_property_id"
   end
 
-  create_table "impressions-2024-09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2024_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1811,16 +1669,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2024-09_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2024-09_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2024-09_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2024-09_on_payable"
-    t.index ["property_id"], name: "index_impressions-2024-09_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_09_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2024_09_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2024_09_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2024_09_on_payable"
+    t.index ["property_id"], name: "index_impressions_2024_09_on_property_id"
   end
 
-  create_table "impressions-2024-10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2024_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1835,16 +1691,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2024-10_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2024-10_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2024-10_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2024-10_on_payable"
-    t.index ["property_id"], name: "index_impressions-2024-10_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_10_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2024_10_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2024_10_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2024_10_on_payable"
+    t.index ["property_id"], name: "index_impressions_2024_10_on_property_id"
   end
 
-  create_table "impressions-2024-11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2024_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1859,16 +1713,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2024-11_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2024-11_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2024-11_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2024-11_on_payable"
-    t.index ["property_id"], name: "index_impressions-2024-11_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_11_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2024_11_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2024_11_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2024_11_on_payable"
+    t.index ["property_id"], name: "index_impressions_2024_11_on_property_id"
   end
 
-  create_table "impressions-2024-12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2024_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1883,16 +1735,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2024-12_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2024-12_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2024-12_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2024-12_on_payable"
-    t.index ["property_id"], name: "index_impressions-2024-12_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_12_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2024_12_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2024_12_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2024_12_on_payable"
+    t.index ["property_id"], name: "index_impressions_2024_12_on_property_id"
   end
 
-  create_table "impressions-2025-01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2025_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1907,16 +1757,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2025-01_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2025-01_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2025-01_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2025-01_on_payable"
-    t.index ["property_id"], name: "index_impressions-2025-01_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_01_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2025_01_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2025_01_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2025_01_on_payable"
+    t.index ["property_id"], name: "index_impressions_2025_01_on_property_id"
   end
 
-  create_table "impressions-2025-02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2025_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1931,16 +1779,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2025-02_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2025-02_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2025-02_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2025-02_on_payable"
-    t.index ["property_id"], name: "index_impressions-2025-02_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_02_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2025_02_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2025_02_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2025_02_on_payable"
+    t.index ["property_id"], name: "index_impressions_2025_02_on_property_id"
   end
 
-  create_table "impressions-2025-03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2025_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1955,16 +1801,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2025-03_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2025-03_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2025-03_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2025-03_on_payable"
-    t.index ["property_id"], name: "index_impressions-2025-03_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_03_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2025_03_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2025_03_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2025_03_on_payable"
+    t.index ["property_id"], name: "index_impressions_2025_03_on_property_id"
   end
 
-  create_table "impressions-2025-04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2025_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -1979,16 +1823,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2025-04_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2025-04_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2025-04_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2025-04_on_payable"
-    t.index ["property_id"], name: "index_impressions-2025-04_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_04_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2025_04_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2025_04_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2025_04_on_payable"
+    t.index ["property_id"], name: "index_impressions_2025_04_on_property_id"
   end
 
-  create_table "impressions-2025-05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2025_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2003,16 +1845,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2025-05_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2025-05_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2025-05_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2025-05_on_payable"
-    t.index ["property_id"], name: "index_impressions-2025-05_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_05_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2025_05_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2025_05_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2025_05_on_payable"
+    t.index ["property_id"], name: "index_impressions_2025_05_on_property_id"
   end
 
-  create_table "impressions-2025-06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2025_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2027,16 +1867,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2025-06_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2025-06_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2025-06_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2025-06_on_payable"
-    t.index ["property_id"], name: "index_impressions-2025-06_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_06_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2025_06_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2025_06_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2025_06_on_payable"
+    t.index ["property_id"], name: "index_impressions_2025_06_on_property_id"
   end
 
-  create_table "impressions-2025-07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2025_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2051,16 +1889,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2025-07_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2025-07_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2025-07_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2025-07_on_payable"
-    t.index ["property_id"], name: "index_impressions-2025-07_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_07_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2025_07_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2025_07_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2025_07_on_payable"
+    t.index ["property_id"], name: "index_impressions_2025_07_on_property_id"
   end
 
-  create_table "impressions-2025-08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2025_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2075,16 +1911,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2025-08_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2025-08_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2025-08_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2025-08_on_payable"
-    t.index ["property_id"], name: "index_impressions-2025-08_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_08_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2025_08_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2025_08_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2025_08_on_payable"
+    t.index ["property_id"], name: "index_impressions_2025_08_on_property_id"
   end
 
-  create_table "impressions-2025-09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2025_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2099,16 +1933,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2025-09_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2025-09_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2025-09_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2025-09_on_payable"
-    t.index ["property_id"], name: "index_impressions-2025-09_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_09_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2025_09_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2025_09_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2025_09_on_payable"
+    t.index ["property_id"], name: "index_impressions_2025_09_on_property_id"
   end
 
-  create_table "impressions-2025-10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2025_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2123,16 +1955,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2025-10_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2025-10_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2025-10_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2025-10_on_payable"
-    t.index ["property_id"], name: "index_impressions-2025-10_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_10_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2025_10_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2025_10_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2025_10_on_payable"
+    t.index ["property_id"], name: "index_impressions_2025_10_on_property_id"
   end
 
-  create_table "impressions-2025-11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2025_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2147,16 +1977,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2025-11_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2025-11_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2025-11_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2025-11_on_payable"
-    t.index ["property_id"], name: "index_impressions-2025-11_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_11_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2025_11_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2025_11_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2025_11_on_payable"
+    t.index ["property_id"], name: "index_impressions_2025_11_on_property_id"
   end
 
-  create_table "impressions-2025-12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2025_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2171,16 +1999,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2025-12_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2025-12_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2025-12_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2025-12_on_payable"
-    t.index ["property_id"], name: "index_impressions-2025-12_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_12_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2025_12_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2025_12_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2025_12_on_payable"
+    t.index ["property_id"], name: "index_impressions_2025_12_on_property_id"
   end
 
-  create_table "impressions-2026-01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2026_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2195,16 +2021,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2026-01_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2026-01_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2026-01_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2026-01_on_payable"
-    t.index ["property_id"], name: "index_impressions-2026-01_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_01_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2026_01_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2026_01_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2026_01_on_payable"
+    t.index ["property_id"], name: "index_impressions_2026_01_on_property_id"
   end
 
-  create_table "impressions-2026-02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2026_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2219,16 +2043,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2026-02_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2026-02_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2026-02_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2026-02_on_payable"
-    t.index ["property_id"], name: "index_impressions-2026-02_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_02_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2026_02_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2026_02_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2026_02_on_payable"
+    t.index ["property_id"], name: "index_impressions_2026_02_on_property_id"
   end
 
-  create_table "impressions-2026-03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2026_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2243,16 +2065,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2026-03_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2026-03_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2026-03_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2026-03_on_payable"
-    t.index ["property_id"], name: "index_impressions-2026-03_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_03_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2026_03_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2026_03_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2026_03_on_payable"
+    t.index ["property_id"], name: "index_impressions_2026_03_on_property_id"
   end
 
-  create_table "impressions-2026-04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2026_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2267,16 +2087,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2026-04_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2026-04_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2026-04_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2026-04_on_payable"
-    t.index ["property_id"], name: "index_impressions-2026-04_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_04_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2026_04_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2026_04_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2026_04_on_payable"
+    t.index ["property_id"], name: "index_impressions_2026_04_on_property_id"
   end
 
-  create_table "impressions-2026-05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2026_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2291,16 +2109,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2026-05_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2026-05_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2026-05_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2026-05_on_payable"
-    t.index ["property_id"], name: "index_impressions-2026-05_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_05_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2026_05_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2026_05_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2026_05_on_payable"
+    t.index ["property_id"], name: "index_impressions_2026_05_on_property_id"
   end
 
-  create_table "impressions-2026-06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2026_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2315,16 +2131,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2026-06_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2026-06_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2026-06_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2026-06_on_payable"
-    t.index ["property_id"], name: "index_impressions-2026-06_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_06_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2026_06_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2026_06_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2026_06_on_payable"
+    t.index ["property_id"], name: "index_impressions_2026_06_on_property_id"
   end
 
-  create_table "impressions-2026-07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2026_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2339,16 +2153,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2026-07_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2026-07_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2026-07_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2026-07_on_payable"
-    t.index ["property_id"], name: "index_impressions-2026-07_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_07_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2026_07_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2026_07_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2026_07_on_payable"
+    t.index ["property_id"], name: "index_impressions_2026_07_on_property_id"
   end
 
-  create_table "impressions-2026-08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2026_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2363,16 +2175,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2026-08_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2026-08_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2026-08_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2026-08_on_payable"
-    t.index ["property_id"], name: "index_impressions-2026-08_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_08_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2026_08_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2026_08_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2026_08_on_payable"
+    t.index ["property_id"], name: "index_impressions_2026_08_on_property_id"
   end
 
-  create_table "impressions-2026-09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2026_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2387,16 +2197,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2026-09_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2026-09_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2026-09_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2026-09_on_payable"
-    t.index ["property_id"], name: "index_impressions-2026-09_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_09_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2026_09_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2026_09_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2026_09_on_payable"
+    t.index ["property_id"], name: "index_impressions_2026_09_on_property_id"
   end
 
-  create_table "impressions-2026-10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2026_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2411,16 +2219,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2026-10_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2026-10_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2026-10_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2026-10_on_payable"
-    t.index ["property_id"], name: "index_impressions-2026-10_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_10_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2026_10_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2026_10_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2026_10_on_payable"
+    t.index ["property_id"], name: "index_impressions_2026_10_on_property_id"
   end
 
-  create_table "impressions-2026-11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2026_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2435,16 +2241,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2026-11_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2026-11_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2026-11_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2026-11_on_payable"
-    t.index ["property_id"], name: "index_impressions-2026-11_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_11_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2026_11_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2026_11_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2026_11_on_payable"
+    t.index ["property_id"], name: "index_impressions_2026_11_on_property_id"
   end
 
-  create_table "impressions-2026-12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2026_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2459,16 +2263,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2026-12_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2026-12_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2026-12_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2026-12_on_payable"
-    t.index ["property_id"], name: "index_impressions-2026-12_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_12_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2026_12_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2026_12_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2026_12_on_payable"
+    t.index ["property_id"], name: "index_impressions_2026_12_on_property_id"
   end
 
-  create_table "impressions-2027-01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2027_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2483,16 +2285,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2027-01_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2027-01_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2027-01_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2027-01_on_payable"
-    t.index ["property_id"], name: "index_impressions-2027-01_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_01_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2027_01_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2027_01_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2027_01_on_payable"
+    t.index ["property_id"], name: "index_impressions_2027_01_on_property_id"
   end
 
-  create_table "impressions-2027-02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2027_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2507,16 +2307,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2027-02_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2027-02_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2027-02_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2027-02_on_payable"
-    t.index ["property_id"], name: "index_impressions-2027-02_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_02_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2027_02_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2027_02_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2027_02_on_payable"
+    t.index ["property_id"], name: "index_impressions_2027_02_on_property_id"
   end
 
-  create_table "impressions-2027-03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2027_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2531,16 +2329,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2027-03_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2027-03_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2027-03_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2027-03_on_payable"
-    t.index ["property_id"], name: "index_impressions-2027-03_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_03_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2027_03_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2027_03_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2027_03_on_payable"
+    t.index ["property_id"], name: "index_impressions_2027_03_on_property_id"
   end
 
-  create_table "impressions-2027-04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2027_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2555,16 +2351,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2027-04_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2027-04_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2027-04_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2027-04_on_payable"
-    t.index ["property_id"], name: "index_impressions-2027-04_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_04_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2027_04_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2027_04_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2027_04_on_payable"
+    t.index ["property_id"], name: "index_impressions_2027_04_on_property_id"
   end
 
-  create_table "impressions-2027-05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2027_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2579,16 +2373,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2027-05_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2027-05_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2027-05_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2027-05_on_payable"
-    t.index ["property_id"], name: "index_impressions-2027-05_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_05_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2027_05_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2027_05_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2027_05_on_payable"
+    t.index ["property_id"], name: "index_impressions_2027_05_on_property_id"
   end
 
-  create_table "impressions-2027-06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2027_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2603,16 +2395,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2027-06_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2027-06_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2027-06_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2027-06_on_payable"
-    t.index ["property_id"], name: "index_impressions-2027-06_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_06_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2027_06_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2027_06_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2027_06_on_payable"
+    t.index ["property_id"], name: "index_impressions_2027_06_on_property_id"
   end
 
-  create_table "impressions-2027-07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2027_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2627,16 +2417,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2027-07_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2027-07_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2027-07_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2027-07_on_payable"
-    t.index ["property_id"], name: "index_impressions-2027-07_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_07_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2027_07_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2027_07_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2027_07_on_payable"
+    t.index ["property_id"], name: "index_impressions_2027_07_on_property_id"
   end
 
-  create_table "impressions-2027-08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2027_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2651,16 +2439,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2027-08_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2027-08_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2027-08_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2027-08_on_payable"
-    t.index ["property_id"], name: "index_impressions-2027-08_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_08_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2027_08_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2027_08_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2027_08_on_payable"
+    t.index ["property_id"], name: "index_impressions_2027_08_on_property_id"
   end
 
-  create_table "impressions-2027-09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2027_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2675,16 +2461,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2027-09_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2027-09_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2027-09_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2027-09_on_payable"
-    t.index ["property_id"], name: "index_impressions-2027-09_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_09_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2027_09_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2027_09_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2027_09_on_payable"
+    t.index ["property_id"], name: "index_impressions_2027_09_on_property_id"
   end
 
-  create_table "impressions-2027-10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2027_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2699,16 +2483,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2027-10_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2027-10_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2027-10_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2027-10_on_payable"
-    t.index ["property_id"], name: "index_impressions-2027-10_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_10_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2027_10_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2027_10_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2027_10_on_payable"
+    t.index ["property_id"], name: "index_impressions_2027_10_on_property_id"
   end
 
-  create_table "impressions-2027-11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2027_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2723,16 +2505,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2027-11_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2027-11_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2027-11_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2027-11_on_payable"
-    t.index ["property_id"], name: "index_impressions-2027-11_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_11_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2027_11_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2027_11_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2027_11_on_payable"
+    t.index ["property_id"], name: "index_impressions_2027_11_on_property_id"
   end
 
-  create_table "impressions-2027-12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2027_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2747,16 +2527,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2027-12_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2027-12_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2027-12_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2027-12_on_payable"
-    t.index ["property_id"], name: "index_impressions-2027-12_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_12_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2027_12_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2027_12_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2027_12_on_payable"
+    t.index ["property_id"], name: "index_impressions_2027_12_on_property_id"
   end
 
-  create_table "impressions-2028-01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2028_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2771,16 +2549,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2028-01_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2028-01_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2028-01_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2028-01_on_payable"
-    t.index ["property_id"], name: "index_impressions-2028-01_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_01_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2028_01_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2028_01_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2028_01_on_payable"
+    t.index ["property_id"], name: "index_impressions_2028_01_on_property_id"
   end
 
-  create_table "impressions-2028-02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2028_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2795,16 +2571,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2028-02_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2028-02_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2028-02_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2028-02_on_payable"
-    t.index ["property_id"], name: "index_impressions-2028-02_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_02_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2028_02_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2028_02_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2028_02_on_payable"
+    t.index ["property_id"], name: "index_impressions_2028_02_on_property_id"
   end
 
-  create_table "impressions-2028-03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2028_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2819,16 +2593,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2028-03_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2028-03_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2028-03_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2028-03_on_payable"
-    t.index ["property_id"], name: "index_impressions-2028-03_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_03_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2028_03_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2028_03_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2028_03_on_payable"
+    t.index ["property_id"], name: "index_impressions_2028_03_on_property_id"
   end
 
-  create_table "impressions-2028-04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2028_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2843,16 +2615,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2028-04_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2028-04_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2028-04_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2028-04_on_payable"
-    t.index ["property_id"], name: "index_impressions-2028-04_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_04_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2028_04_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2028_04_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2028_04_on_payable"
+    t.index ["property_id"], name: "index_impressions_2028_04_on_property_id"
   end
 
-  create_table "impressions-2028-05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2028_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2867,16 +2637,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2028-05_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2028-05_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2028-05_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2028-05_on_payable"
-    t.index ["property_id"], name: "index_impressions-2028-05_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_05_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2028_05_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2028_05_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2028_05_on_payable"
+    t.index ["property_id"], name: "index_impressions_2028_05_on_property_id"
   end
 
-  create_table "impressions-2028-06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2028_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2891,16 +2659,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2028-06_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2028-06_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2028-06_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2028-06_on_payable"
-    t.index ["property_id"], name: "index_impressions-2028-06_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_06_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2028_06_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2028_06_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2028_06_on_payable"
+    t.index ["property_id"], name: "index_impressions_2028_06_on_property_id"
   end
 
-  create_table "impressions-2028-07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2028_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2915,16 +2681,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2028-07_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2028-07_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2028-07_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2028-07_on_payable"
-    t.index ["property_id"], name: "index_impressions-2028-07_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_07_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2028_07_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2028_07_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2028_07_on_payable"
+    t.index ["property_id"], name: "index_impressions_2028_07_on_property_id"
   end
 
-  create_table "impressions-2028-08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2028_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2939,16 +2703,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2028-08_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2028-08_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2028-08_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2028-08_on_payable"
-    t.index ["property_id"], name: "index_impressions-2028-08_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_08_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2028_08_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2028_08_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2028_08_on_payable"
+    t.index ["property_id"], name: "index_impressions_2028_08_on_property_id"
   end
 
-  create_table "impressions-2028-09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2028_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2963,16 +2725,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2028-09_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2028-09_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2028-09_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2028-09_on_payable"
-    t.index ["property_id"], name: "index_impressions-2028-09_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_09_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2028_09_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2028_09_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2028_09_on_payable"
+    t.index ["property_id"], name: "index_impressions_2028_09_on_property_id"
   end
 
-  create_table "impressions-2028-10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2028_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -2987,16 +2747,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2028-10_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2028-10_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2028-10_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2028-10_on_payable"
-    t.index ["property_id"], name: "index_impressions-2028-10_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_10_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2028_10_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2028_10_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2028_10_on_payable"
+    t.index ["property_id"], name: "index_impressions_2028_10_on_property_id"
   end
 
-  create_table "impressions-2028-11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2028_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3011,16 +2769,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2028-11_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2028-11_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2028-11_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2028-11_on_payable"
-    t.index ["property_id"], name: "index_impressions-2028-11_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_11_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2028_11_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2028_11_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2028_11_on_payable"
+    t.index ["property_id"], name: "index_impressions_2028_11_on_property_id"
   end
 
-  create_table "impressions-2028-12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2028_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3035,16 +2791,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2028-12_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2028-12_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2028-12_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2028-12_on_payable"
-    t.index ["property_id"], name: "index_impressions-2028-12_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_12_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2028_12_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2028_12_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2028_12_on_payable"
+    t.index ["property_id"], name: "index_impressions_2028_12_on_property_id"
   end
 
-  create_table "impressions-2029-01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2029_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3059,16 +2813,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2029-01_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2029-01_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2029-01_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2029-01_on_payable"
-    t.index ["property_id"], name: "index_impressions-2029-01_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_01_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2029_01_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2029_01_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2029_01_on_payable"
+    t.index ["property_id"], name: "index_impressions_2029_01_on_property_id"
   end
 
-  create_table "impressions-2029-02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2029_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3083,16 +2835,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2029-02_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2029-02_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2029-02_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2029-02_on_payable"
-    t.index ["property_id"], name: "index_impressions-2029-02_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_02_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2029_02_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2029_02_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2029_02_on_payable"
+    t.index ["property_id"], name: "index_impressions_2029_02_on_property_id"
   end
 
-  create_table "impressions-2029-03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2029_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3107,16 +2857,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2029-03_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2029-03_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2029-03_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2029-03_on_payable"
-    t.index ["property_id"], name: "index_impressions-2029-03_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_03_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2029_03_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2029_03_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2029_03_on_payable"
+    t.index ["property_id"], name: "index_impressions_2029_03_on_property_id"
   end
 
-  create_table "impressions-2029-04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2029_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3131,16 +2879,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2029-04_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2029-04_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2029-04_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2029-04_on_payable"
-    t.index ["property_id"], name: "index_impressions-2029-04_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_04_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2029_04_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2029_04_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2029_04_on_payable"
+    t.index ["property_id"], name: "index_impressions_2029_04_on_property_id"
   end
 
-  create_table "impressions-2029-05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2029_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3155,16 +2901,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2029-05_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2029-05_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2029-05_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2029-05_on_payable"
-    t.index ["property_id"], name: "index_impressions-2029-05_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_05_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2029_05_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2029_05_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2029_05_on_payable"
+    t.index ["property_id"], name: "index_impressions_2029_05_on_property_id"
   end
 
-  create_table "impressions-2029-06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2029_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3179,16 +2923,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2029-06_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2029-06_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2029-06_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2029-06_on_payable"
-    t.index ["property_id"], name: "index_impressions-2029-06_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_06_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2029_06_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2029_06_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2029_06_on_payable"
+    t.index ["property_id"], name: "index_impressions_2029_06_on_property_id"
   end
 
-  create_table "impressions-2029-07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2029_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3203,16 +2945,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2029-07_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2029-07_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2029-07_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2029-07_on_payable"
-    t.index ["property_id"], name: "index_impressions-2029-07_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_07_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2029_07_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2029_07_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2029_07_on_payable"
+    t.index ["property_id"], name: "index_impressions_2029_07_on_property_id"
   end
 
-  create_table "impressions-2029-08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2029_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3227,16 +2967,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2029-08_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2029-08_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2029-08_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2029-08_on_payable"
-    t.index ["property_id"], name: "index_impressions-2029-08_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_08_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2029_08_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2029_08_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2029_08_on_payable"
+    t.index ["property_id"], name: "index_impressions_2029_08_on_property_id"
   end
 
-  create_table "impressions-2029-09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2029_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3251,16 +2989,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2029-09_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2029-09_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2029-09_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2029-09_on_payable"
-    t.index ["property_id"], name: "index_impressions-2029-09_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_09_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2029_09_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2029_09_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2029_09_on_payable"
+    t.index ["property_id"], name: "index_impressions_2029_09_on_property_id"
   end
 
-  create_table "impressions-2029-10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2029_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3275,16 +3011,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2029-10_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2029-10_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2029-10_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2029-10_on_payable"
-    t.index ["property_id"], name: "index_impressions-2029-10_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_10_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2029_10_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2029_10_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2029_10_on_payable"
+    t.index ["property_id"], name: "index_impressions_2029_10_on_property_id"
   end
 
-  create_table "impressions-2029-11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2029_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3299,16 +3033,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2029-11_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2029-11_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2029-11_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2029-11_on_payable"
-    t.index ["property_id"], name: "index_impressions-2029-11_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_11_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2029_11_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2029_11_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2029_11_on_payable"
+    t.index ["property_id"], name: "index_impressions_2029_11_on_property_id"
   end
 
-  create_table "impressions-2029-12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2029_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3323,16 +3055,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2029-12_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2029-12_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2029-12_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2029-12_on_payable"
-    t.index ["property_id"], name: "index_impressions-2029-12_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_12_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2029_12_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2029_12_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2029_12_on_payable"
+    t.index ["property_id"], name: "index_impressions_2029_12_on_property_id"
   end
 
-  create_table "impressions-2030-01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2030_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3347,16 +3077,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2030-01_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2030-01_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2030-01_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2030-01_on_payable"
-    t.index ["property_id"], name: "index_impressions-2030-01_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_01_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2030_01_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2030_01_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2030_01_on_payable"
+    t.index ["property_id"], name: "index_impressions_2030_01_on_property_id"
   end
 
-  create_table "impressions-2030-02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2030_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3371,16 +3099,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2030-02_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2030-02_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2030-02_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2030-02_on_payable"
-    t.index ["property_id"], name: "index_impressions-2030-02_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_02_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2030_02_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2030_02_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2030_02_on_payable"
+    t.index ["property_id"], name: "index_impressions_2030_02_on_property_id"
   end
 
-  create_table "impressions-2030-03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2030_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3395,16 +3121,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2030-03_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2030-03_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2030-03_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2030-03_on_payable"
-    t.index ["property_id"], name: "index_impressions-2030-03_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_03_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2030_03_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2030_03_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2030_03_on_payable"
+    t.index ["property_id"], name: "index_impressions_2030_03_on_property_id"
   end
 
-  create_table "impressions-2030-04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2030_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3419,16 +3143,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2030-04_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2030-04_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2030-04_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2030-04_on_payable"
-    t.index ["property_id"], name: "index_impressions-2030-04_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_04_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2030_04_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2030_04_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2030_04_on_payable"
+    t.index ["property_id"], name: "index_impressions_2030_04_on_property_id"
   end
 
-  create_table "impressions-2030-05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2030_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3443,16 +3165,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2030-05_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2030-05_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2030-05_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2030-05_on_payable"
-    t.index ["property_id"], name: "index_impressions-2030-05_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_05_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2030_05_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2030_05_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2030_05_on_payable"
+    t.index ["property_id"], name: "index_impressions_2030_05_on_property_id"
   end
 
-  create_table "impressions-2030-06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2030_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3467,16 +3187,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2030-06_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2030-06_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2030-06_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2030-06_on_payable"
-    t.index ["property_id"], name: "index_impressions-2030-06_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_06_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2030_06_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2030_06_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2030_06_on_payable"
+    t.index ["property_id"], name: "index_impressions_2030_06_on_property_id"
   end
 
-  create_table "impressions-2030-07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2030_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3491,16 +3209,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2030-07_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2030-07_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2030-07_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2030-07_on_payable"
-    t.index ["property_id"], name: "index_impressions-2030-07_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_07_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2030_07_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2030_07_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2030_07_on_payable"
+    t.index ["property_id"], name: "index_impressions_2030_07_on_property_id"
   end
 
-  create_table "impressions-2030-08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2030_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3515,16 +3231,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2030-08_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2030-08_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2030-08_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2030-08_on_payable"
-    t.index ["property_id"], name: "index_impressions-2030-08_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_08_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2030_08_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2030_08_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2030_08_on_payable"
+    t.index ["property_id"], name: "index_impressions_2030_08_on_property_id"
   end
 
-  create_table "impressions-2030-09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2030_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3539,16 +3253,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2030-09_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2030-09_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2030-09_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2030-09_on_payable"
-    t.index ["property_id"], name: "index_impressions-2030-09_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_09_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2030_09_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2030_09_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2030_09_on_payable"
+    t.index ["property_id"], name: "index_impressions_2030_09_on_property_id"
   end
 
-  create_table "impressions-2030-10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2030_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3563,16 +3275,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2030-10_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2030-10_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2030-10_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2030-10_on_payable"
-    t.index ["property_id"], name: "index_impressions-2030-10_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_10_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2030_10_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2030_10_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2030_10_on_payable"
+    t.index ["property_id"], name: "index_impressions_2030_10_on_property_id"
   end
 
-  create_table "impressions-2030-11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2030_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3587,16 +3297,14 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2030-11_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2030-11_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2030-11_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2030-11_on_payable"
-    t.index ["property_id"], name: "index_impressions-2030-11_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_11_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2030_11_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2030_11_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2030_11_on_payable"
+    t.index ["property_id"], name: "index_impressions_2030_11_on_property_id"
   end
 
-  create_table "impressions-2030-12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+  create_table "impressions_2030_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
     t.bigint "property_id"
     t.string "ip"
@@ -3611,13 +3319,11 @@ ActiveRecord::Schema.define(version: 2018_10_17_152837) do
     t.date "displayed_at_date"
     t.datetime "clicked_at"
     t.boolean "fallback_campaign", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions-2030-12_on_displayed_at_hour"
-    t.index ["campaign_id"], name: "index_impressions-2030-12_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impressions-2030-12_on_displayed_at_date"
-    t.index ["payable"], name: "index_impressions-2030-12_on_payable"
-    t.index ["property_id"], name: "index_impressions-2030-12_on_property_id"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_12_on_displayed_at_hour"
+    t.index ["campaign_id"], name: "index_impressions_2030_12_on_campaign_id"
+    t.index ["displayed_at_date"], name: "index_impressions_2030_12_on_displayed_at_date"
+    t.index ["payable"], name: "index_impressions_2030_12_on_payable"
+    t.index ["property_id"], name: "index_impressions_2030_12_on_property_id"
   end
 
   create_table "properties", force: :cascade do |t|

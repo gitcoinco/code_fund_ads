@@ -9,20 +9,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
-
---
 -- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -269,1178 +255,1176 @@ CREATE TABLE public.impressions (
     displayed_at timestamp without time zone,
     displayed_at_date date,
     clicked_at timestamp without time zone,
-    fallback_campaign boolean DEFAULT false NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    fallback_campaign boolean DEFAULT false NOT NULL
 )
 PARTITION BY RANGE (displayed_at_date);
 
 
 --
--- Name: impressions-2018-11; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2018_11; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2018-11" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2018_11 PARTITION OF public.impressions
 FOR VALUES FROM ('2018-11-01') TO ('2018-12-01');
 
 
 --
--- Name: impressions-2018-12; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2018_12; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2018-12" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2018_12 PARTITION OF public.impressions
 FOR VALUES FROM ('2018-12-01') TO ('2019-01-01');
 
 
 --
--- Name: impressions-2019-01; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2019_01; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2019-01" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2019_01 PARTITION OF public.impressions
 FOR VALUES FROM ('2019-01-01') TO ('2019-02-01');
 
 
 --
--- Name: impressions-2019-02; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2019_02; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2019-02" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2019_02 PARTITION OF public.impressions
 FOR VALUES FROM ('2019-02-01') TO ('2019-03-01');
 
 
 --
--- Name: impressions-2019-03; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2019_03; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2019-03" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2019_03 PARTITION OF public.impressions
 FOR VALUES FROM ('2019-03-01') TO ('2019-04-01');
 
 
 --
--- Name: impressions-2019-04; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2019_04; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2019-04" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2019_04 PARTITION OF public.impressions
 FOR VALUES FROM ('2019-04-01') TO ('2019-05-01');
 
 
 --
--- Name: impressions-2019-05; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2019_05; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2019-05" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2019_05 PARTITION OF public.impressions
 FOR VALUES FROM ('2019-05-01') TO ('2019-06-01');
 
 
 --
--- Name: impressions-2019-06; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2019_06; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2019-06" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2019_06 PARTITION OF public.impressions
 FOR VALUES FROM ('2019-06-01') TO ('2019-07-01');
 
 
 --
--- Name: impressions-2019-07; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2019_07; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2019-07" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2019_07 PARTITION OF public.impressions
 FOR VALUES FROM ('2019-07-01') TO ('2019-08-01');
 
 
 --
--- Name: impressions-2019-08; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2019_08; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2019-08" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2019_08 PARTITION OF public.impressions
 FOR VALUES FROM ('2019-08-01') TO ('2019-09-01');
 
 
 --
--- Name: impressions-2019-09; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2019_09; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2019-09" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2019_09 PARTITION OF public.impressions
 FOR VALUES FROM ('2019-09-01') TO ('2019-10-01');
 
 
 --
--- Name: impressions-2019-10; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2019_10; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2019-10" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2019_10 PARTITION OF public.impressions
 FOR VALUES FROM ('2019-10-01') TO ('2019-11-01');
 
 
 --
--- Name: impressions-2019-11; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2019_11; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2019-11" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2019_11 PARTITION OF public.impressions
 FOR VALUES FROM ('2019-11-01') TO ('2019-12-01');
 
 
 --
--- Name: impressions-2019-12; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2019_12; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2019-12" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2019_12 PARTITION OF public.impressions
 FOR VALUES FROM ('2019-12-01') TO ('2020-01-01');
 
 
 --
--- Name: impressions-2020-01; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2020_01; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2020-01" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2020_01 PARTITION OF public.impressions
 FOR VALUES FROM ('2020-01-01') TO ('2020-02-01');
 
 
 --
--- Name: impressions-2020-02; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2020_02; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2020-02" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2020_02 PARTITION OF public.impressions
 FOR VALUES FROM ('2020-02-01') TO ('2020-03-01');
 
 
 --
--- Name: impressions-2020-03; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2020_03; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2020-03" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2020_03 PARTITION OF public.impressions
 FOR VALUES FROM ('2020-03-01') TO ('2020-04-01');
 
 
 --
--- Name: impressions-2020-04; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2020_04; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2020-04" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2020_04 PARTITION OF public.impressions
 FOR VALUES FROM ('2020-04-01') TO ('2020-05-01');
 
 
 --
--- Name: impressions-2020-05; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2020_05; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2020-05" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2020_05 PARTITION OF public.impressions
 FOR VALUES FROM ('2020-05-01') TO ('2020-06-01');
 
 
 --
--- Name: impressions-2020-06; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2020_06; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2020-06" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2020_06 PARTITION OF public.impressions
 FOR VALUES FROM ('2020-06-01') TO ('2020-07-01');
 
 
 --
--- Name: impressions-2020-07; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2020_07; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2020-07" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2020_07 PARTITION OF public.impressions
 FOR VALUES FROM ('2020-07-01') TO ('2020-08-01');
 
 
 --
--- Name: impressions-2020-08; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2020_08; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2020-08" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2020_08 PARTITION OF public.impressions
 FOR VALUES FROM ('2020-08-01') TO ('2020-09-01');
 
 
 --
--- Name: impressions-2020-09; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2020_09; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2020-09" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2020_09 PARTITION OF public.impressions
 FOR VALUES FROM ('2020-09-01') TO ('2020-10-01');
 
 
 --
--- Name: impressions-2020-10; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2020_10; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2020-10" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2020_10 PARTITION OF public.impressions
 FOR VALUES FROM ('2020-10-01') TO ('2020-11-01');
 
 
 --
--- Name: impressions-2020-11; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2020_11; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2020-11" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2020_11 PARTITION OF public.impressions
 FOR VALUES FROM ('2020-11-01') TO ('2020-12-01');
 
 
 --
--- Name: impressions-2020-12; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2020_12; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2020-12" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2020_12 PARTITION OF public.impressions
 FOR VALUES FROM ('2020-12-01') TO ('2021-01-01');
 
 
 --
--- Name: impressions-2021-01; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2021_01; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2021-01" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2021_01 PARTITION OF public.impressions
 FOR VALUES FROM ('2021-01-01') TO ('2021-02-01');
 
 
 --
--- Name: impressions-2021-02; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2021_02; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2021-02" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2021_02 PARTITION OF public.impressions
 FOR VALUES FROM ('2021-02-01') TO ('2021-03-01');
 
 
 --
--- Name: impressions-2021-03; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2021_03; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2021-03" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2021_03 PARTITION OF public.impressions
 FOR VALUES FROM ('2021-03-01') TO ('2021-04-01');
 
 
 --
--- Name: impressions-2021-04; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2021_04; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2021-04" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2021_04 PARTITION OF public.impressions
 FOR VALUES FROM ('2021-04-01') TO ('2021-05-01');
 
 
 --
--- Name: impressions-2021-05; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2021_05; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2021-05" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2021_05 PARTITION OF public.impressions
 FOR VALUES FROM ('2021-05-01') TO ('2021-06-01');
 
 
 --
--- Name: impressions-2021-06; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2021_06; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2021-06" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2021_06 PARTITION OF public.impressions
 FOR VALUES FROM ('2021-06-01') TO ('2021-07-01');
 
 
 --
--- Name: impressions-2021-07; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2021_07; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2021-07" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2021_07 PARTITION OF public.impressions
 FOR VALUES FROM ('2021-07-01') TO ('2021-08-01');
 
 
 --
--- Name: impressions-2021-08; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2021_08; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2021-08" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2021_08 PARTITION OF public.impressions
 FOR VALUES FROM ('2021-08-01') TO ('2021-09-01');
 
 
 --
--- Name: impressions-2021-09; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2021_09; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2021-09" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2021_09 PARTITION OF public.impressions
 FOR VALUES FROM ('2021-09-01') TO ('2021-10-01');
 
 
 --
--- Name: impressions-2021-10; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2021_10; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2021-10" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2021_10 PARTITION OF public.impressions
 FOR VALUES FROM ('2021-10-01') TO ('2021-11-01');
 
 
 --
--- Name: impressions-2021-11; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2021_11; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2021-11" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2021_11 PARTITION OF public.impressions
 FOR VALUES FROM ('2021-11-01') TO ('2021-12-01');
 
 
 --
--- Name: impressions-2021-12; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2021_12; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2021-12" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2021_12 PARTITION OF public.impressions
 FOR VALUES FROM ('2021-12-01') TO ('2022-01-01');
 
 
 --
--- Name: impressions-2022-01; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2022_01; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2022-01" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2022_01 PARTITION OF public.impressions
 FOR VALUES FROM ('2022-01-01') TO ('2022-02-01');
 
 
 --
--- Name: impressions-2022-02; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2022_02; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2022-02" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2022_02 PARTITION OF public.impressions
 FOR VALUES FROM ('2022-02-01') TO ('2022-03-01');
 
 
 --
--- Name: impressions-2022-03; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2022_03; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2022-03" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2022_03 PARTITION OF public.impressions
 FOR VALUES FROM ('2022-03-01') TO ('2022-04-01');
 
 
 --
--- Name: impressions-2022-04; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2022_04; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2022-04" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2022_04 PARTITION OF public.impressions
 FOR VALUES FROM ('2022-04-01') TO ('2022-05-01');
 
 
 --
--- Name: impressions-2022-05; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2022_05; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2022-05" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2022_05 PARTITION OF public.impressions
 FOR VALUES FROM ('2022-05-01') TO ('2022-06-01');
 
 
 --
--- Name: impressions-2022-06; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2022_06; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2022-06" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2022_06 PARTITION OF public.impressions
 FOR VALUES FROM ('2022-06-01') TO ('2022-07-01');
 
 
 --
--- Name: impressions-2022-07; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2022_07; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2022-07" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2022_07 PARTITION OF public.impressions
 FOR VALUES FROM ('2022-07-01') TO ('2022-08-01');
 
 
 --
--- Name: impressions-2022-08; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2022_08; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2022-08" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2022_08 PARTITION OF public.impressions
 FOR VALUES FROM ('2022-08-01') TO ('2022-09-01');
 
 
 --
--- Name: impressions-2022-09; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2022_09; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2022-09" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2022_09 PARTITION OF public.impressions
 FOR VALUES FROM ('2022-09-01') TO ('2022-10-01');
 
 
 --
--- Name: impressions-2022-10; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2022_10; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2022-10" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2022_10 PARTITION OF public.impressions
 FOR VALUES FROM ('2022-10-01') TO ('2022-11-01');
 
 
 --
--- Name: impressions-2022-11; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2022_11; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2022-11" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2022_11 PARTITION OF public.impressions
 FOR VALUES FROM ('2022-11-01') TO ('2022-12-01');
 
 
 --
--- Name: impressions-2022-12; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2022_12; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2022-12" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2022_12 PARTITION OF public.impressions
 FOR VALUES FROM ('2022-12-01') TO ('2023-01-01');
 
 
 --
--- Name: impressions-2023-01; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2023_01; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2023-01" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2023_01 PARTITION OF public.impressions
 FOR VALUES FROM ('2023-01-01') TO ('2023-02-01');
 
 
 --
--- Name: impressions-2023-02; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2023_02; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2023-02" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2023_02 PARTITION OF public.impressions
 FOR VALUES FROM ('2023-02-01') TO ('2023-03-01');
 
 
 --
--- Name: impressions-2023-03; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2023_03; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2023-03" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2023_03 PARTITION OF public.impressions
 FOR VALUES FROM ('2023-03-01') TO ('2023-04-01');
 
 
 --
--- Name: impressions-2023-04; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2023_04; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2023-04" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2023_04 PARTITION OF public.impressions
 FOR VALUES FROM ('2023-04-01') TO ('2023-05-01');
 
 
 --
--- Name: impressions-2023-05; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2023_05; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2023-05" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2023_05 PARTITION OF public.impressions
 FOR VALUES FROM ('2023-05-01') TO ('2023-06-01');
 
 
 --
--- Name: impressions-2023-06; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2023_06; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2023-06" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2023_06 PARTITION OF public.impressions
 FOR VALUES FROM ('2023-06-01') TO ('2023-07-01');
 
 
 --
--- Name: impressions-2023-07; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2023_07; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2023-07" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2023_07 PARTITION OF public.impressions
 FOR VALUES FROM ('2023-07-01') TO ('2023-08-01');
 
 
 --
--- Name: impressions-2023-08; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2023_08; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2023-08" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2023_08 PARTITION OF public.impressions
 FOR VALUES FROM ('2023-08-01') TO ('2023-09-01');
 
 
 --
--- Name: impressions-2023-09; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2023_09; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2023-09" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2023_09 PARTITION OF public.impressions
 FOR VALUES FROM ('2023-09-01') TO ('2023-10-01');
 
 
 --
--- Name: impressions-2023-10; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2023_10; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2023-10" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2023_10 PARTITION OF public.impressions
 FOR VALUES FROM ('2023-10-01') TO ('2023-11-01');
 
 
 --
--- Name: impressions-2023-11; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2023_11; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2023-11" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2023_11 PARTITION OF public.impressions
 FOR VALUES FROM ('2023-11-01') TO ('2023-12-01');
 
 
 --
--- Name: impressions-2023-12; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2023_12; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2023-12" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2023_12 PARTITION OF public.impressions
 FOR VALUES FROM ('2023-12-01') TO ('2024-01-01');
 
 
 --
--- Name: impressions-2024-01; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2024_01; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2024-01" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2024_01 PARTITION OF public.impressions
 FOR VALUES FROM ('2024-01-01') TO ('2024-02-01');
 
 
 --
--- Name: impressions-2024-02; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2024_02; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2024-02" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2024_02 PARTITION OF public.impressions
 FOR VALUES FROM ('2024-02-01') TO ('2024-03-01');
 
 
 --
--- Name: impressions-2024-03; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2024_03; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2024-03" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2024_03 PARTITION OF public.impressions
 FOR VALUES FROM ('2024-03-01') TO ('2024-04-01');
 
 
 --
--- Name: impressions-2024-04; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2024_04; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2024-04" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2024_04 PARTITION OF public.impressions
 FOR VALUES FROM ('2024-04-01') TO ('2024-05-01');
 
 
 --
--- Name: impressions-2024-05; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2024_05; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2024-05" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2024_05 PARTITION OF public.impressions
 FOR VALUES FROM ('2024-05-01') TO ('2024-06-01');
 
 
 --
--- Name: impressions-2024-06; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2024_06; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2024-06" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2024_06 PARTITION OF public.impressions
 FOR VALUES FROM ('2024-06-01') TO ('2024-07-01');
 
 
 --
--- Name: impressions-2024-07; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2024_07; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2024-07" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2024_07 PARTITION OF public.impressions
 FOR VALUES FROM ('2024-07-01') TO ('2024-08-01');
 
 
 --
--- Name: impressions-2024-08; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2024_08; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2024-08" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2024_08 PARTITION OF public.impressions
 FOR VALUES FROM ('2024-08-01') TO ('2024-09-01');
 
 
 --
--- Name: impressions-2024-09; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2024_09; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2024-09" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2024_09 PARTITION OF public.impressions
 FOR VALUES FROM ('2024-09-01') TO ('2024-10-01');
 
 
 --
--- Name: impressions-2024-10; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2024_10; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2024-10" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2024_10 PARTITION OF public.impressions
 FOR VALUES FROM ('2024-10-01') TO ('2024-11-01');
 
 
 --
--- Name: impressions-2024-11; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2024_11; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2024-11" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2024_11 PARTITION OF public.impressions
 FOR VALUES FROM ('2024-11-01') TO ('2024-12-01');
 
 
 --
--- Name: impressions-2024-12; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2024_12; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2024-12" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2024_12 PARTITION OF public.impressions
 FOR VALUES FROM ('2024-12-01') TO ('2025-01-01');
 
 
 --
--- Name: impressions-2025-01; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2025_01; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2025-01" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2025_01 PARTITION OF public.impressions
 FOR VALUES FROM ('2025-01-01') TO ('2025-02-01');
 
 
 --
--- Name: impressions-2025-02; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2025_02; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2025-02" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2025_02 PARTITION OF public.impressions
 FOR VALUES FROM ('2025-02-01') TO ('2025-03-01');
 
 
 --
--- Name: impressions-2025-03; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2025_03; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2025-03" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2025_03 PARTITION OF public.impressions
 FOR VALUES FROM ('2025-03-01') TO ('2025-04-01');
 
 
 --
--- Name: impressions-2025-04; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2025_04; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2025-04" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2025_04 PARTITION OF public.impressions
 FOR VALUES FROM ('2025-04-01') TO ('2025-05-01');
 
 
 --
--- Name: impressions-2025-05; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2025_05; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2025-05" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2025_05 PARTITION OF public.impressions
 FOR VALUES FROM ('2025-05-01') TO ('2025-06-01');
 
 
 --
--- Name: impressions-2025-06; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2025_06; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2025-06" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2025_06 PARTITION OF public.impressions
 FOR VALUES FROM ('2025-06-01') TO ('2025-07-01');
 
 
 --
--- Name: impressions-2025-07; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2025_07; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2025-07" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2025_07 PARTITION OF public.impressions
 FOR VALUES FROM ('2025-07-01') TO ('2025-08-01');
 
 
 --
--- Name: impressions-2025-08; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2025_08; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2025-08" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2025_08 PARTITION OF public.impressions
 FOR VALUES FROM ('2025-08-01') TO ('2025-09-01');
 
 
 --
--- Name: impressions-2025-09; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2025_09; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2025-09" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2025_09 PARTITION OF public.impressions
 FOR VALUES FROM ('2025-09-01') TO ('2025-10-01');
 
 
 --
--- Name: impressions-2025-10; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2025_10; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2025-10" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2025_10 PARTITION OF public.impressions
 FOR VALUES FROM ('2025-10-01') TO ('2025-11-01');
 
 
 --
--- Name: impressions-2025-11; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2025_11; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2025-11" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2025_11 PARTITION OF public.impressions
 FOR VALUES FROM ('2025-11-01') TO ('2025-12-01');
 
 
 --
--- Name: impressions-2025-12; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2025_12; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2025-12" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2025_12 PARTITION OF public.impressions
 FOR VALUES FROM ('2025-12-01') TO ('2026-01-01');
 
 
 --
--- Name: impressions-2026-01; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2026_01; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2026-01" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2026_01 PARTITION OF public.impressions
 FOR VALUES FROM ('2026-01-01') TO ('2026-02-01');
 
 
 --
--- Name: impressions-2026-02; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2026_02; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2026-02" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2026_02 PARTITION OF public.impressions
 FOR VALUES FROM ('2026-02-01') TO ('2026-03-01');
 
 
 --
--- Name: impressions-2026-03; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2026_03; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2026-03" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2026_03 PARTITION OF public.impressions
 FOR VALUES FROM ('2026-03-01') TO ('2026-04-01');
 
 
 --
--- Name: impressions-2026-04; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2026_04; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2026-04" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2026_04 PARTITION OF public.impressions
 FOR VALUES FROM ('2026-04-01') TO ('2026-05-01');
 
 
 --
--- Name: impressions-2026-05; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2026_05; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2026-05" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2026_05 PARTITION OF public.impressions
 FOR VALUES FROM ('2026-05-01') TO ('2026-06-01');
 
 
 --
--- Name: impressions-2026-06; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2026_06; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2026-06" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2026_06 PARTITION OF public.impressions
 FOR VALUES FROM ('2026-06-01') TO ('2026-07-01');
 
 
 --
--- Name: impressions-2026-07; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2026_07; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2026-07" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2026_07 PARTITION OF public.impressions
 FOR VALUES FROM ('2026-07-01') TO ('2026-08-01');
 
 
 --
--- Name: impressions-2026-08; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2026_08; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2026-08" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2026_08 PARTITION OF public.impressions
 FOR VALUES FROM ('2026-08-01') TO ('2026-09-01');
 
 
 --
--- Name: impressions-2026-09; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2026_09; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2026-09" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2026_09 PARTITION OF public.impressions
 FOR VALUES FROM ('2026-09-01') TO ('2026-10-01');
 
 
 --
--- Name: impressions-2026-10; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2026_10; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2026-10" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2026_10 PARTITION OF public.impressions
 FOR VALUES FROM ('2026-10-01') TO ('2026-11-01');
 
 
 --
--- Name: impressions-2026-11; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2026_11; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2026-11" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2026_11 PARTITION OF public.impressions
 FOR VALUES FROM ('2026-11-01') TO ('2026-12-01');
 
 
 --
--- Name: impressions-2026-12; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2026_12; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2026-12" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2026_12 PARTITION OF public.impressions
 FOR VALUES FROM ('2026-12-01') TO ('2027-01-01');
 
 
 --
--- Name: impressions-2027-01; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2027_01; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2027-01" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2027_01 PARTITION OF public.impressions
 FOR VALUES FROM ('2027-01-01') TO ('2027-02-01');
 
 
 --
--- Name: impressions-2027-02; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2027_02; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2027-02" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2027_02 PARTITION OF public.impressions
 FOR VALUES FROM ('2027-02-01') TO ('2027-03-01');
 
 
 --
--- Name: impressions-2027-03; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2027_03; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2027-03" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2027_03 PARTITION OF public.impressions
 FOR VALUES FROM ('2027-03-01') TO ('2027-04-01');
 
 
 --
--- Name: impressions-2027-04; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2027_04; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2027-04" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2027_04 PARTITION OF public.impressions
 FOR VALUES FROM ('2027-04-01') TO ('2027-05-01');
 
 
 --
--- Name: impressions-2027-05; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2027_05; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2027-05" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2027_05 PARTITION OF public.impressions
 FOR VALUES FROM ('2027-05-01') TO ('2027-06-01');
 
 
 --
--- Name: impressions-2027-06; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2027_06; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2027-06" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2027_06 PARTITION OF public.impressions
 FOR VALUES FROM ('2027-06-01') TO ('2027-07-01');
 
 
 --
--- Name: impressions-2027-07; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2027_07; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2027-07" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2027_07 PARTITION OF public.impressions
 FOR VALUES FROM ('2027-07-01') TO ('2027-08-01');
 
 
 --
--- Name: impressions-2027-08; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2027_08; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2027-08" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2027_08 PARTITION OF public.impressions
 FOR VALUES FROM ('2027-08-01') TO ('2027-09-01');
 
 
 --
--- Name: impressions-2027-09; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2027_09; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2027-09" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2027_09 PARTITION OF public.impressions
 FOR VALUES FROM ('2027-09-01') TO ('2027-10-01');
 
 
 --
--- Name: impressions-2027-10; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2027_10; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2027-10" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2027_10 PARTITION OF public.impressions
 FOR VALUES FROM ('2027-10-01') TO ('2027-11-01');
 
 
 --
--- Name: impressions-2027-11; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2027_11; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2027-11" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2027_11 PARTITION OF public.impressions
 FOR VALUES FROM ('2027-11-01') TO ('2027-12-01');
 
 
 --
--- Name: impressions-2027-12; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2027_12; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2027-12" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2027_12 PARTITION OF public.impressions
 FOR VALUES FROM ('2027-12-01') TO ('2028-01-01');
 
 
 --
--- Name: impressions-2028-01; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2028_01; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2028-01" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2028_01 PARTITION OF public.impressions
 FOR VALUES FROM ('2028-01-01') TO ('2028-02-01');
 
 
 --
--- Name: impressions-2028-02; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2028_02; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2028-02" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2028_02 PARTITION OF public.impressions
 FOR VALUES FROM ('2028-02-01') TO ('2028-03-01');
 
 
 --
--- Name: impressions-2028-03; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2028_03; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2028-03" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2028_03 PARTITION OF public.impressions
 FOR VALUES FROM ('2028-03-01') TO ('2028-04-01');
 
 
 --
--- Name: impressions-2028-04; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2028_04; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2028-04" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2028_04 PARTITION OF public.impressions
 FOR VALUES FROM ('2028-04-01') TO ('2028-05-01');
 
 
 --
--- Name: impressions-2028-05; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2028_05; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2028-05" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2028_05 PARTITION OF public.impressions
 FOR VALUES FROM ('2028-05-01') TO ('2028-06-01');
 
 
 --
--- Name: impressions-2028-06; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2028_06; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2028-06" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2028_06 PARTITION OF public.impressions
 FOR VALUES FROM ('2028-06-01') TO ('2028-07-01');
 
 
 --
--- Name: impressions-2028-07; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2028_07; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2028-07" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2028_07 PARTITION OF public.impressions
 FOR VALUES FROM ('2028-07-01') TO ('2028-08-01');
 
 
 --
--- Name: impressions-2028-08; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2028_08; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2028-08" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2028_08 PARTITION OF public.impressions
 FOR VALUES FROM ('2028-08-01') TO ('2028-09-01');
 
 
 --
--- Name: impressions-2028-09; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2028_09; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2028-09" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2028_09 PARTITION OF public.impressions
 FOR VALUES FROM ('2028-09-01') TO ('2028-10-01');
 
 
 --
--- Name: impressions-2028-10; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2028_10; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2028-10" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2028_10 PARTITION OF public.impressions
 FOR VALUES FROM ('2028-10-01') TO ('2028-11-01');
 
 
 --
--- Name: impressions-2028-11; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2028_11; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2028-11" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2028_11 PARTITION OF public.impressions
 FOR VALUES FROM ('2028-11-01') TO ('2028-12-01');
 
 
 --
--- Name: impressions-2028-12; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2028_12; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2028-12" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2028_12 PARTITION OF public.impressions
 FOR VALUES FROM ('2028-12-01') TO ('2029-01-01');
 
 
 --
--- Name: impressions-2029-01; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2029_01; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2029-01" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2029_01 PARTITION OF public.impressions
 FOR VALUES FROM ('2029-01-01') TO ('2029-02-01');
 
 
 --
--- Name: impressions-2029-02; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2029_02; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2029-02" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2029_02 PARTITION OF public.impressions
 FOR VALUES FROM ('2029-02-01') TO ('2029-03-01');
 
 
 --
--- Name: impressions-2029-03; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2029_03; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2029-03" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2029_03 PARTITION OF public.impressions
 FOR VALUES FROM ('2029-03-01') TO ('2029-04-01');
 
 
 --
--- Name: impressions-2029-04; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2029_04; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2029-04" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2029_04 PARTITION OF public.impressions
 FOR VALUES FROM ('2029-04-01') TO ('2029-05-01');
 
 
 --
--- Name: impressions-2029-05; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2029_05; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2029-05" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2029_05 PARTITION OF public.impressions
 FOR VALUES FROM ('2029-05-01') TO ('2029-06-01');
 
 
 --
--- Name: impressions-2029-06; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2029_06; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2029-06" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2029_06 PARTITION OF public.impressions
 FOR VALUES FROM ('2029-06-01') TO ('2029-07-01');
 
 
 --
--- Name: impressions-2029-07; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2029_07; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2029-07" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2029_07 PARTITION OF public.impressions
 FOR VALUES FROM ('2029-07-01') TO ('2029-08-01');
 
 
 --
--- Name: impressions-2029-08; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2029_08; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2029-08" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2029_08 PARTITION OF public.impressions
 FOR VALUES FROM ('2029-08-01') TO ('2029-09-01');
 
 
 --
--- Name: impressions-2029-09; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2029_09; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2029-09" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2029_09 PARTITION OF public.impressions
 FOR VALUES FROM ('2029-09-01') TO ('2029-10-01');
 
 
 --
--- Name: impressions-2029-10; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2029_10; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2029-10" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2029_10 PARTITION OF public.impressions
 FOR VALUES FROM ('2029-10-01') TO ('2029-11-01');
 
 
 --
--- Name: impressions-2029-11; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2029_11; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2029-11" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2029_11 PARTITION OF public.impressions
 FOR VALUES FROM ('2029-11-01') TO ('2029-12-01');
 
 
 --
--- Name: impressions-2029-12; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2029_12; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2029-12" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2029_12 PARTITION OF public.impressions
 FOR VALUES FROM ('2029-12-01') TO ('2030-01-01');
 
 
 --
--- Name: impressions-2030-01; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2030_01; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2030-01" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2030_01 PARTITION OF public.impressions
 FOR VALUES FROM ('2030-01-01') TO ('2030-02-01');
 
 
 --
--- Name: impressions-2030-02; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2030_02; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2030-02" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2030_02 PARTITION OF public.impressions
 FOR VALUES FROM ('2030-02-01') TO ('2030-03-01');
 
 
 --
--- Name: impressions-2030-03; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2030_03; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2030-03" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2030_03 PARTITION OF public.impressions
 FOR VALUES FROM ('2030-03-01') TO ('2030-04-01');
 
 
 --
--- Name: impressions-2030-04; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2030_04; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2030-04" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2030_04 PARTITION OF public.impressions
 FOR VALUES FROM ('2030-04-01') TO ('2030-05-01');
 
 
 --
--- Name: impressions-2030-05; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2030_05; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2030-05" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2030_05 PARTITION OF public.impressions
 FOR VALUES FROM ('2030-05-01') TO ('2030-06-01');
 
 
 --
--- Name: impressions-2030-06; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2030_06; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2030-06" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2030_06 PARTITION OF public.impressions
 FOR VALUES FROM ('2030-06-01') TO ('2030-07-01');
 
 
 --
--- Name: impressions-2030-07; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2030_07; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2030-07" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2030_07 PARTITION OF public.impressions
 FOR VALUES FROM ('2030-07-01') TO ('2030-08-01');
 
 
 --
--- Name: impressions-2030-08; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2030_08; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2030-08" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2030_08 PARTITION OF public.impressions
 FOR VALUES FROM ('2030-08-01') TO ('2030-09-01');
 
 
 --
--- Name: impressions-2030-09; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2030_09; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2030-09" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2030_09 PARTITION OF public.impressions
 FOR VALUES FROM ('2030-09-01') TO ('2030-10-01');
 
 
 --
--- Name: impressions-2030-10; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2030_10; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2030-10" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2030_10 PARTITION OF public.impressions
 FOR VALUES FROM ('2030-10-01') TO ('2030-11-01');
 
 
 --
--- Name: impressions-2030-11; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2030_11; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2030-11" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2030_11 PARTITION OF public.impressions
 FOR VALUES FROM ('2030-11-01') TO ('2030-12-01');
 
 
 --
--- Name: impressions-2030-12; Type: TABLE; Schema: public; Owner: -
+-- Name: impressions_2030_12; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public."impressions-2030-12" PARTITION OF public.impressions
+CREATE TABLE public.impressions_2030_12 PARTITION OF public.impressions
 FOR VALUES FROM ('2030-12-01') TO ('2031-01-01');
 
 
@@ -1628,3069 +1612,3069 @@ ALTER TABLE ONLY public.creatives ALTER COLUMN id SET DEFAULT nextval('public.cr
 
 
 --
--- Name: impressions-2018-11 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2018_11 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2018-11" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2018_11 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2018-11 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2018_11 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2018-11" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2018_11 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2018-11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2018_11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2018-11" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2018_11 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2018-12 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2018_12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2018-12" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2018_12 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2018-12 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2018_12 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2018-12" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2018_12 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2018-12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2018_12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2018-12" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2018_12 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-01 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_01 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-01" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2019_01 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2019-01 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_01 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-01" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_01 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-01" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_01 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-02 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_02 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-02" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2019_02 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2019-02 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_02 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-02" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_02 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-02" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_02 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-03 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_03 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-03" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2019_03 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2019-03 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_03 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-03" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_03 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-03" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_03 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-04 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_04 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-04" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2019_04 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2019-04 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_04 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-04" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_04 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-04" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_04 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-05 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_05 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-05" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2019_05 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2019-05 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_05 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-05" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_05 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-05" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_05 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-06 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_06 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-06" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2019_06 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2019-06 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_06 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-06" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_06 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-06" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_06 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-07 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_07 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-07" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2019_07 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2019-07 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_07 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-07" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_07 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-07" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_07 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-08 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_08 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-08" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2019_08 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2019-08 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_08 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-08" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_08 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-08" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_08 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-09 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_09 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-09" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2019_09 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2019-09 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_09 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-09" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_09 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-09" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_09 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-10 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_10 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-10" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2019_10 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2019-10 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_10 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-10" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_10 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-10" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_10 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-11 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_11 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-11" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2019_11 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2019-11 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_11 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-11" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_11 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-11" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_11 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-12 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-12" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2019_12 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2019-12 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_12 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-12" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_12 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2019-12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2019_12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-12" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2019_12 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-01 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_01 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-01" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2020_01 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2020-01 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_01 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-01" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_01 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-01" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_01 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-02 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_02 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-02" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2020_02 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2020-02 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_02 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-02" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_02 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-02" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_02 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-03 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_03 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-03" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2020_03 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2020-03 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_03 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-03" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_03 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-03" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_03 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-04 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_04 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-04" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2020_04 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2020-04 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_04 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-04" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_04 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-04" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_04 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-05 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_05 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-05" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2020_05 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2020-05 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_05 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-05" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_05 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-05" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_05 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-06 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_06 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-06" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2020_06 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2020-06 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_06 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-06" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_06 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-06" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_06 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-07 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_07 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-07" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2020_07 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2020-07 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_07 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-07" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_07 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-07" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_07 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-08 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_08 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-08" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2020_08 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2020-08 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_08 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-08" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_08 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-08" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_08 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-09 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_09 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-09" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2020_09 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2020-09 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_09 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-09" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_09 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-09" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_09 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-10 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_10 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-10" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2020_10 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2020-10 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_10 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-10" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_10 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-10" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_10 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-11 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_11 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-11" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2020_11 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2020-11 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_11 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-11" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_11 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-11" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_11 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-12 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-12" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2020_12 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2020-12 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_12 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-12" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_12 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2020-12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2020_12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-12" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2020_12 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-01 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_01 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-01" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2021_01 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2021-01 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_01 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-01" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_01 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-01" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_01 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-02 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_02 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-02" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2021_02 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2021-02 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_02 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-02" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_02 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-02" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_02 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-03 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_03 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-03" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2021_03 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2021-03 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_03 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-03" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_03 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-03" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_03 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-04 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_04 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-04" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2021_04 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2021-04 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_04 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-04" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_04 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-04" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_04 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-05 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_05 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-05" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2021_05 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2021-05 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_05 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-05" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_05 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-05" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_05 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-06 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_06 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-06" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2021_06 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2021-06 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_06 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-06" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_06 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-06" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_06 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-07 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_07 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-07" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2021_07 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2021-07 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_07 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-07" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_07 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-07" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_07 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-08 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_08 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-08" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2021_08 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2021-08 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_08 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-08" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_08 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-08" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_08 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-09 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_09 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-09" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2021_09 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2021-09 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_09 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-09" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_09 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-09" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_09 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-10 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_10 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-10" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2021_10 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2021-10 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_10 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-10" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_10 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-10" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_10 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-11 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_11 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-11" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2021_11 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2021-11 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_11 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-11" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_11 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-11" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_11 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-12 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-12" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2021_12 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2021-12 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_12 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-12" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_12 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2021-12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2021_12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-12" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2021_12 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-01 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_01 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-01" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2022_01 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2022-01 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_01 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-01" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_01 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-01" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_01 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-02 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_02 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-02" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2022_02 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2022-02 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_02 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-02" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_02 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-02" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_02 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-03 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_03 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-03" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2022_03 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2022-03 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_03 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-03" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_03 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-03" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_03 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-04 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_04 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-04" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2022_04 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2022-04 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_04 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-04" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_04 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-04" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_04 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-05 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_05 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-05" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2022_05 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2022-05 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_05 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-05" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_05 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-05" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_05 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-06 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_06 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-06" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2022_06 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2022-06 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_06 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-06" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_06 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-06" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_06 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-07 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_07 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-07" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2022_07 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2022-07 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_07 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-07" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_07 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-07" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_07 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-08 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_08 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-08" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2022_08 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2022-08 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_08 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-08" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_08 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-08" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_08 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-09 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_09 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-09" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2022_09 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2022-09 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_09 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-09" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_09 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-09" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_09 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-10 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_10 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-10" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2022_10 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2022-10 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_10 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-10" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_10 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-10" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_10 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-11 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_11 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-11" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2022_11 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2022-11 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_11 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-11" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_11 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-11" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_11 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-12 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-12" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2022_12 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2022-12 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_12 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-12" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_12 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2022-12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2022_12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-12" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2022_12 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-01 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_01 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-01" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2023_01 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2023-01 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_01 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-01" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_01 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-01" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_01 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-02 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_02 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-02" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2023_02 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2023-02 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_02 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-02" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_02 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-02" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_02 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-03 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_03 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-03" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2023_03 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2023-03 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_03 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-03" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_03 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-03" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_03 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-04 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_04 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-04" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2023_04 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2023-04 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_04 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-04" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_04 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-04" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_04 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-05 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_05 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-05" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2023_05 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2023-05 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_05 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-05" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_05 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-05" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_05 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-06 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_06 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-06" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2023_06 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2023-06 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_06 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-06" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_06 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-06" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_06 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-07 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_07 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-07" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2023_07 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2023-07 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_07 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-07" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_07 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-07" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_07 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-08 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_08 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-08" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2023_08 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2023-08 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_08 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-08" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_08 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-08" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_08 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-09 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_09 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-09" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2023_09 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2023-09 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_09 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-09" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_09 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-09" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_09 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-10 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_10 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-10" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2023_10 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2023-10 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_10 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-10" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_10 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-10" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_10 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-11 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_11 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-11" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2023_11 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2023-11 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_11 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-11" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_11 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-11" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_11 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-12 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-12" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2023_12 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2023-12 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_12 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-12" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_12 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2023-12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2023_12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-12" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2023_12 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-01 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_01 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-01" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2024_01 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2024-01 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_01 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-01" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_01 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-01" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_01 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-02 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_02 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-02" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2024_02 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2024-02 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_02 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-02" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_02 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-02" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_02 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-03 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_03 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-03" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2024_03 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2024-03 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_03 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-03" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_03 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-03" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_03 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-04 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_04 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-04" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2024_04 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2024-04 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_04 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-04" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_04 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-04" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_04 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-05 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_05 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-05" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2024_05 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2024-05 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_05 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-05" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_05 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-05" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_05 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-06 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_06 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-06" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2024_06 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2024-06 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_06 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-06" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_06 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-06" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_06 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-07 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_07 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-07" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2024_07 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2024-07 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_07 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-07" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_07 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-07" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_07 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-08 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_08 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-08" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2024_08 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2024-08 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_08 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-08" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_08 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-08" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_08 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-09 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_09 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-09" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2024_09 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2024-09 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_09 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-09" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_09 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-09" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_09 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-10 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_10 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-10" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2024_10 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2024-10 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_10 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-10" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_10 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-10" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_10 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-11 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_11 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-11" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2024_11 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2024-11 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_11 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-11" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_11 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-11" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_11 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-12 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-12" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2024_12 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2024-12 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_12 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-12" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_12 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2024-12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2024_12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-12" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2024_12 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-01 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_01 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-01" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2025_01 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2025-01 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_01 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-01" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_01 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-01" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_01 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-02 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_02 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-02" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2025_02 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2025-02 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_02 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-02" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_02 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-02" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_02 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-03 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_03 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-03" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2025_03 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2025-03 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_03 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-03" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_03 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-03" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_03 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-04 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_04 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-04" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2025_04 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2025-04 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_04 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-04" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_04 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-04" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_04 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-05 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_05 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-05" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2025_05 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2025-05 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_05 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-05" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_05 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-05" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_05 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-06 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_06 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-06" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2025_06 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2025-06 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_06 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-06" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_06 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-06" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_06 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-07 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_07 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-07" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2025_07 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2025-07 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_07 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-07" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_07 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-07" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_07 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-08 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_08 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-08" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2025_08 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2025-08 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_08 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-08" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_08 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-08" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_08 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-09 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_09 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-09" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2025_09 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2025-09 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_09 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-09" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_09 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-09" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_09 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-10 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_10 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-10" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2025_10 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2025-10 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_10 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-10" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_10 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-10" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_10 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-11 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_11 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-11" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2025_11 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2025-11 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_11 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-11" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_11 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-11" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_11 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-12 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-12" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2025_12 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2025-12 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_12 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-12" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_12 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2025-12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2025_12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-12" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2025_12 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-01 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_01 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-01" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2026_01 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2026-01 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_01 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-01" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_01 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-01" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_01 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-02 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_02 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-02" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2026_02 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2026-02 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_02 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-02" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_02 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-02" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_02 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-03 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_03 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-03" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2026_03 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2026-03 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_03 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-03" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_03 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-03" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_03 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-04 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_04 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-04" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2026_04 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2026-04 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_04 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-04" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_04 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-04" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_04 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-05 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_05 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-05" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2026_05 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2026-05 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_05 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-05" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_05 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-05" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_05 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-06 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_06 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-06" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2026_06 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2026-06 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_06 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-06" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_06 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-06" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_06 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-07 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_07 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-07" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2026_07 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2026-07 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_07 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-07" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_07 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-07" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_07 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-08 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_08 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-08" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2026_08 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2026-08 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_08 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-08" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_08 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-08" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_08 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-09 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_09 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-09" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2026_09 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2026-09 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_09 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-09" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_09 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-09" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_09 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-10 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_10 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-10" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2026_10 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2026-10 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_10 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-10" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_10 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-10" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_10 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-11 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_11 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-11" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2026_11 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2026-11 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_11 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-11" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_11 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-11" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_11 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-12 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-12" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2026_12 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2026-12 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_12 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-12" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_12 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2026-12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2026_12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-12" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2026_12 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-01 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_01 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-01" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2027_01 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2027-01 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_01 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-01" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_01 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-01" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_01 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-02 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_02 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-02" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2027_02 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2027-02 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_02 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-02" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_02 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-02" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_02 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-03 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_03 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-03" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2027_03 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2027-03 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_03 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-03" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_03 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-03" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_03 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-04 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_04 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-04" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2027_04 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2027-04 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_04 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-04" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_04 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-04" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_04 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-05 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_05 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-05" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2027_05 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2027-05 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_05 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-05" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_05 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-05" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_05 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-06 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_06 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-06" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2027_06 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2027-06 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_06 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-06" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_06 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-06" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_06 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-07 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_07 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-07" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2027_07 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2027-07 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_07 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-07" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_07 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-07" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_07 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-08 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_08 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-08" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2027_08 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2027-08 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_08 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-08" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_08 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-08" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_08 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-09 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_09 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-09" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2027_09 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2027-09 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_09 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-09" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_09 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-09" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_09 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-10 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_10 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-10" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2027_10 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2027-10 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_10 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-10" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_10 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-10" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_10 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-11 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_11 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-11" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2027_11 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2027-11 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_11 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-11" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_11 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-11" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_11 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-12 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-12" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2027_12 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2027-12 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_12 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-12" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_12 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2027-12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2027_12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-12" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2027_12 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-01 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_01 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-01" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2028_01 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2028-01 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_01 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-01" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_01 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-01" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_01 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-02 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_02 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-02" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2028_02 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2028-02 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_02 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-02" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_02 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-02" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_02 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-03 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_03 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-03" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2028_03 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2028-03 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_03 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-03" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_03 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-03" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_03 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-04 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_04 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-04" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2028_04 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2028-04 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_04 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-04" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_04 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-04" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_04 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-05 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_05 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-05" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2028_05 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2028-05 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_05 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-05" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_05 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-05" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_05 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-06 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_06 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-06" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2028_06 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2028-06 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_06 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-06" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_06 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-06" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_06 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-07 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_07 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-07" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2028_07 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2028-07 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_07 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-07" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_07 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-07" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_07 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-08 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_08 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-08" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2028_08 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2028-08 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_08 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-08" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_08 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-08" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_08 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-09 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_09 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-09" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2028_09 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2028-09 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_09 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-09" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_09 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-09" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_09 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-10 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_10 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-10" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2028_10 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2028-10 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_10 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-10" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_10 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-10" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_10 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-11 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_11 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-11" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2028_11 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2028-11 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_11 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-11" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_11 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-11" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_11 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-12 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-12" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2028_12 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2028-12 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_12 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-12" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_12 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2028-12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2028_12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-12" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2028_12 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-01 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_01 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-01" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2029_01 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2029-01 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_01 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-01" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_01 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-01" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_01 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-02 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_02 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-02" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2029_02 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2029-02 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_02 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-02" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_02 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-02" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_02 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-03 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_03 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-03" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2029_03 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2029-03 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_03 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-03" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_03 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-03" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_03 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-04 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_04 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-04" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2029_04 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2029-04 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_04 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-04" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_04 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-04" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_04 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-05 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_05 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-05" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2029_05 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2029-05 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_05 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-05" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_05 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-05" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_05 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-06 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_06 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-06" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2029_06 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2029-06 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_06 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-06" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_06 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-06" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_06 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-07 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_07 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-07" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2029_07 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2029-07 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_07 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-07" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_07 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-07" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_07 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-08 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_08 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-08" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2029_08 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2029-08 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_08 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-08" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_08 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-08" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_08 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-09 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_09 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-09" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2029_09 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2029-09 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_09 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-09" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_09 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-09" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_09 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-10 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_10 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-10" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2029_10 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2029-10 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_10 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-10" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_10 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-10" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_10 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-11 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_11 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-11" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2029_11 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2029-11 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_11 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-11" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_11 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-11" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_11 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-12 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-12" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2029_12 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2029-12 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_12 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-12" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_12 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2029-12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2029_12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-12" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2029_12 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-01 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_01 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-01" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2030_01 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2030-01 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_01 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-01" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_01 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_01 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-01" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_01 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-02 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_02 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-02" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2030_02 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2030-02 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_02 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-02" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_02 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_02 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-02" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_02 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-03 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_03 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-03" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2030_03 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2030-03 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_03 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-03" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_03 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_03 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-03" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_03 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-04 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_04 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-04" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2030_04 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2030-04 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_04 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-04" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_04 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_04 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-04" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_04 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-05 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_05 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-05" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2030_05 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2030-05 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_05 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-05" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_05 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_05 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-05" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_05 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-06 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_06 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-06" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2030_06 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2030-06 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_06 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-06" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_06 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_06 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-06" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_06 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-07 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_07 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-07" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2030_07 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2030-07 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_07 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-07" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_07 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_07 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-07" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_07 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-08 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_08 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-08" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2030_08 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2030-08 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_08 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-08" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_08 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_08 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-08" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_08 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-09 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_09 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-09" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2030_09 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2030-09 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_09 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-09" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_09 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_09 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-09" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_09 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-10 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_10 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-10" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2030_10 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2030-10 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_10 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-10" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_10 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_10 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-10" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_10 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-11 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_11 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-11" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2030_11 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2030-11 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_11 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-11" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_11 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_11 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-11" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_11 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-12 id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-12" ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+ALTER TABLE ONLY public.impressions_2030_12 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
 
 
 --
--- Name: impressions-2030-12 payable; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_12 payable; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-12" ALTER COLUMN payable SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_12 ALTER COLUMN payable SET DEFAULT false;
 
 
 --
--- Name: impressions-2030-12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+-- Name: impressions_2030_12 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-12" ALTER COLUMN fallback_campaign SET DEFAULT false;
+ALTER TABLE ONLY public.impressions_2030_12 ALTER COLUMN fallback_campaign SET DEFAULT false;
 
 
 --
@@ -4763,1171 +4747,1171 @@ ALTER TABLE ONLY public.creatives
 
 
 --
--- Name: impressions-2018-11 impressions-2018-11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2018_11 impressions_2018_11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2018-11"
-    ADD CONSTRAINT "impressions-2018-11_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2018_11
+    ADD CONSTRAINT impressions_2018_11_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2018-12 impressions-2018-12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2018_12 impressions_2018_12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2018-12"
-    ADD CONSTRAINT "impressions-2018-12_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2018_12
+    ADD CONSTRAINT impressions_2018_12_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2019-01 impressions-2019-01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2019_01 impressions_2019_01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-01"
-    ADD CONSTRAINT "impressions-2019-01_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2019_01
+    ADD CONSTRAINT impressions_2019_01_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2019-02 impressions-2019-02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2019_02 impressions_2019_02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-02"
-    ADD CONSTRAINT "impressions-2019-02_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2019_02
+    ADD CONSTRAINT impressions_2019_02_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2019-03 impressions-2019-03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2019_03 impressions_2019_03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-03"
-    ADD CONSTRAINT "impressions-2019-03_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2019_03
+    ADD CONSTRAINT impressions_2019_03_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2019-04 impressions-2019-04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2019_04 impressions_2019_04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-04"
-    ADD CONSTRAINT "impressions-2019-04_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2019_04
+    ADD CONSTRAINT impressions_2019_04_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2019-05 impressions-2019-05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2019_05 impressions_2019_05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-05"
-    ADD CONSTRAINT "impressions-2019-05_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2019_05
+    ADD CONSTRAINT impressions_2019_05_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2019-06 impressions-2019-06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2019_06 impressions_2019_06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-06"
-    ADD CONSTRAINT "impressions-2019-06_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2019_06
+    ADD CONSTRAINT impressions_2019_06_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2019-07 impressions-2019-07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2019_07 impressions_2019_07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-07"
-    ADD CONSTRAINT "impressions-2019-07_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2019_07
+    ADD CONSTRAINT impressions_2019_07_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2019-08 impressions-2019-08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2019_08 impressions_2019_08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-08"
-    ADD CONSTRAINT "impressions-2019-08_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2019_08
+    ADD CONSTRAINT impressions_2019_08_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2019-09 impressions-2019-09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2019_09 impressions_2019_09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-09"
-    ADD CONSTRAINT "impressions-2019-09_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2019_09
+    ADD CONSTRAINT impressions_2019_09_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2019-10 impressions-2019-10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2019_10 impressions_2019_10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-10"
-    ADD CONSTRAINT "impressions-2019-10_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2019_10
+    ADD CONSTRAINT impressions_2019_10_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2019-11 impressions-2019-11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2019_11 impressions_2019_11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-11"
-    ADD CONSTRAINT "impressions-2019-11_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2019_11
+    ADD CONSTRAINT impressions_2019_11_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2019-12 impressions-2019-12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2019_12 impressions_2019_12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2019-12"
-    ADD CONSTRAINT "impressions-2019-12_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2019_12
+    ADD CONSTRAINT impressions_2019_12_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2020-01 impressions-2020-01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2020_01 impressions_2020_01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-01"
-    ADD CONSTRAINT "impressions-2020-01_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2020_01
+    ADD CONSTRAINT impressions_2020_01_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2020-02 impressions-2020-02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2020_02 impressions_2020_02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-02"
-    ADD CONSTRAINT "impressions-2020-02_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2020_02
+    ADD CONSTRAINT impressions_2020_02_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2020-03 impressions-2020-03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2020_03 impressions_2020_03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-03"
-    ADD CONSTRAINT "impressions-2020-03_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2020_03
+    ADD CONSTRAINT impressions_2020_03_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2020-04 impressions-2020-04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2020_04 impressions_2020_04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-04"
-    ADD CONSTRAINT "impressions-2020-04_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2020_04
+    ADD CONSTRAINT impressions_2020_04_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2020-05 impressions-2020-05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2020_05 impressions_2020_05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-05"
-    ADD CONSTRAINT "impressions-2020-05_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2020_05
+    ADD CONSTRAINT impressions_2020_05_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2020-06 impressions-2020-06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2020_06 impressions_2020_06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-06"
-    ADD CONSTRAINT "impressions-2020-06_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2020_06
+    ADD CONSTRAINT impressions_2020_06_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2020-07 impressions-2020-07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2020_07 impressions_2020_07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-07"
-    ADD CONSTRAINT "impressions-2020-07_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2020_07
+    ADD CONSTRAINT impressions_2020_07_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2020-08 impressions-2020-08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2020_08 impressions_2020_08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-08"
-    ADD CONSTRAINT "impressions-2020-08_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2020_08
+    ADD CONSTRAINT impressions_2020_08_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2020-09 impressions-2020-09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2020_09 impressions_2020_09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-09"
-    ADD CONSTRAINT "impressions-2020-09_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2020_09
+    ADD CONSTRAINT impressions_2020_09_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2020-10 impressions-2020-10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2020_10 impressions_2020_10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-10"
-    ADD CONSTRAINT "impressions-2020-10_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2020_10
+    ADD CONSTRAINT impressions_2020_10_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2020-11 impressions-2020-11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2020_11 impressions_2020_11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-11"
-    ADD CONSTRAINT "impressions-2020-11_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2020_11
+    ADD CONSTRAINT impressions_2020_11_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2020-12 impressions-2020-12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2020_12 impressions_2020_12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2020-12"
-    ADD CONSTRAINT "impressions-2020-12_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2020_12
+    ADD CONSTRAINT impressions_2020_12_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2021-01 impressions-2021-01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2021_01 impressions_2021_01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-01"
-    ADD CONSTRAINT "impressions-2021-01_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2021_01
+    ADD CONSTRAINT impressions_2021_01_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2021-02 impressions-2021-02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2021_02 impressions_2021_02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-02"
-    ADD CONSTRAINT "impressions-2021-02_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2021_02
+    ADD CONSTRAINT impressions_2021_02_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2021-03 impressions-2021-03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2021_03 impressions_2021_03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-03"
-    ADD CONSTRAINT "impressions-2021-03_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2021_03
+    ADD CONSTRAINT impressions_2021_03_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2021-04 impressions-2021-04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2021_04 impressions_2021_04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-04"
-    ADD CONSTRAINT "impressions-2021-04_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2021_04
+    ADD CONSTRAINT impressions_2021_04_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2021-05 impressions-2021-05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2021_05 impressions_2021_05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-05"
-    ADD CONSTRAINT "impressions-2021-05_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2021_05
+    ADD CONSTRAINT impressions_2021_05_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2021-06 impressions-2021-06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2021_06 impressions_2021_06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-06"
-    ADD CONSTRAINT "impressions-2021-06_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2021_06
+    ADD CONSTRAINT impressions_2021_06_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2021-07 impressions-2021-07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2021_07 impressions_2021_07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-07"
-    ADD CONSTRAINT "impressions-2021-07_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2021_07
+    ADD CONSTRAINT impressions_2021_07_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2021-08 impressions-2021-08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2021_08 impressions_2021_08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-08"
-    ADD CONSTRAINT "impressions-2021-08_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2021_08
+    ADD CONSTRAINT impressions_2021_08_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2021-09 impressions-2021-09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2021_09 impressions_2021_09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-09"
-    ADD CONSTRAINT "impressions-2021-09_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2021_09
+    ADD CONSTRAINT impressions_2021_09_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2021-10 impressions-2021-10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2021_10 impressions_2021_10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-10"
-    ADD CONSTRAINT "impressions-2021-10_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2021_10
+    ADD CONSTRAINT impressions_2021_10_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2021-11 impressions-2021-11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2021_11 impressions_2021_11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-11"
-    ADD CONSTRAINT "impressions-2021-11_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2021_11
+    ADD CONSTRAINT impressions_2021_11_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2021-12 impressions-2021-12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2021_12 impressions_2021_12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2021-12"
-    ADD CONSTRAINT "impressions-2021-12_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2021_12
+    ADD CONSTRAINT impressions_2021_12_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2022-01 impressions-2022-01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2022_01 impressions_2022_01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-01"
-    ADD CONSTRAINT "impressions-2022-01_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2022_01
+    ADD CONSTRAINT impressions_2022_01_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2022-02 impressions-2022-02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2022_02 impressions_2022_02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-02"
-    ADD CONSTRAINT "impressions-2022-02_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2022_02
+    ADD CONSTRAINT impressions_2022_02_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2022-03 impressions-2022-03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2022_03 impressions_2022_03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-03"
-    ADD CONSTRAINT "impressions-2022-03_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2022_03
+    ADD CONSTRAINT impressions_2022_03_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2022-04 impressions-2022-04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2022_04 impressions_2022_04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-04"
-    ADD CONSTRAINT "impressions-2022-04_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2022_04
+    ADD CONSTRAINT impressions_2022_04_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2022-05 impressions-2022-05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2022_05 impressions_2022_05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-05"
-    ADD CONSTRAINT "impressions-2022-05_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2022_05
+    ADD CONSTRAINT impressions_2022_05_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2022-06 impressions-2022-06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2022_06 impressions_2022_06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-06"
-    ADD CONSTRAINT "impressions-2022-06_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2022_06
+    ADD CONSTRAINT impressions_2022_06_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2022-07 impressions-2022-07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2022_07 impressions_2022_07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-07"
-    ADD CONSTRAINT "impressions-2022-07_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2022_07
+    ADD CONSTRAINT impressions_2022_07_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2022-08 impressions-2022-08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2022_08 impressions_2022_08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-08"
-    ADD CONSTRAINT "impressions-2022-08_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2022_08
+    ADD CONSTRAINT impressions_2022_08_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2022-09 impressions-2022-09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2022_09 impressions_2022_09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-09"
-    ADD CONSTRAINT "impressions-2022-09_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2022_09
+    ADD CONSTRAINT impressions_2022_09_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2022-10 impressions-2022-10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2022_10 impressions_2022_10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-10"
-    ADD CONSTRAINT "impressions-2022-10_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2022_10
+    ADD CONSTRAINT impressions_2022_10_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2022-11 impressions-2022-11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2022_11 impressions_2022_11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-11"
-    ADD CONSTRAINT "impressions-2022-11_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2022_11
+    ADD CONSTRAINT impressions_2022_11_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2022-12 impressions-2022-12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2022_12 impressions_2022_12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2022-12"
-    ADD CONSTRAINT "impressions-2022-12_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2022_12
+    ADD CONSTRAINT impressions_2022_12_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2023-01 impressions-2023-01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2023_01 impressions_2023_01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-01"
-    ADD CONSTRAINT "impressions-2023-01_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2023_01
+    ADD CONSTRAINT impressions_2023_01_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2023-02 impressions-2023-02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2023_02 impressions_2023_02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-02"
-    ADD CONSTRAINT "impressions-2023-02_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2023_02
+    ADD CONSTRAINT impressions_2023_02_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2023-03 impressions-2023-03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2023_03 impressions_2023_03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-03"
-    ADD CONSTRAINT "impressions-2023-03_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2023_03
+    ADD CONSTRAINT impressions_2023_03_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2023-04 impressions-2023-04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2023_04 impressions_2023_04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-04"
-    ADD CONSTRAINT "impressions-2023-04_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2023_04
+    ADD CONSTRAINT impressions_2023_04_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2023-05 impressions-2023-05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2023_05 impressions_2023_05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-05"
-    ADD CONSTRAINT "impressions-2023-05_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2023_05
+    ADD CONSTRAINT impressions_2023_05_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2023-06 impressions-2023-06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2023_06 impressions_2023_06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-06"
-    ADD CONSTRAINT "impressions-2023-06_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2023_06
+    ADD CONSTRAINT impressions_2023_06_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2023-07 impressions-2023-07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2023_07 impressions_2023_07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-07"
-    ADD CONSTRAINT "impressions-2023-07_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2023_07
+    ADD CONSTRAINT impressions_2023_07_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2023-08 impressions-2023-08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2023_08 impressions_2023_08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-08"
-    ADD CONSTRAINT "impressions-2023-08_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2023_08
+    ADD CONSTRAINT impressions_2023_08_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2023-09 impressions-2023-09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2023_09 impressions_2023_09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-09"
-    ADD CONSTRAINT "impressions-2023-09_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2023_09
+    ADD CONSTRAINT impressions_2023_09_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2023-10 impressions-2023-10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2023_10 impressions_2023_10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-10"
-    ADD CONSTRAINT "impressions-2023-10_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2023_10
+    ADD CONSTRAINT impressions_2023_10_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2023-11 impressions-2023-11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2023_11 impressions_2023_11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-11"
-    ADD CONSTRAINT "impressions-2023-11_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2023_11
+    ADD CONSTRAINT impressions_2023_11_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2023-12 impressions-2023-12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2023_12 impressions_2023_12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2023-12"
-    ADD CONSTRAINT "impressions-2023-12_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2023_12
+    ADD CONSTRAINT impressions_2023_12_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2024-01 impressions-2024-01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2024_01 impressions_2024_01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-01"
-    ADD CONSTRAINT "impressions-2024-01_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2024_01
+    ADD CONSTRAINT impressions_2024_01_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2024-02 impressions-2024-02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2024_02 impressions_2024_02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-02"
-    ADD CONSTRAINT "impressions-2024-02_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2024_02
+    ADD CONSTRAINT impressions_2024_02_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2024-03 impressions-2024-03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2024_03 impressions_2024_03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-03"
-    ADD CONSTRAINT "impressions-2024-03_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2024_03
+    ADD CONSTRAINT impressions_2024_03_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2024-04 impressions-2024-04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2024_04 impressions_2024_04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-04"
-    ADD CONSTRAINT "impressions-2024-04_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2024_04
+    ADD CONSTRAINT impressions_2024_04_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2024-05 impressions-2024-05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2024_05 impressions_2024_05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-05"
-    ADD CONSTRAINT "impressions-2024-05_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2024_05
+    ADD CONSTRAINT impressions_2024_05_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2024-06 impressions-2024-06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2024_06 impressions_2024_06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-06"
-    ADD CONSTRAINT "impressions-2024-06_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2024_06
+    ADD CONSTRAINT impressions_2024_06_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2024-07 impressions-2024-07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2024_07 impressions_2024_07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-07"
-    ADD CONSTRAINT "impressions-2024-07_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2024_07
+    ADD CONSTRAINT impressions_2024_07_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2024-08 impressions-2024-08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2024_08 impressions_2024_08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-08"
-    ADD CONSTRAINT "impressions-2024-08_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2024_08
+    ADD CONSTRAINT impressions_2024_08_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2024-09 impressions-2024-09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2024_09 impressions_2024_09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-09"
-    ADD CONSTRAINT "impressions-2024-09_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2024_09
+    ADD CONSTRAINT impressions_2024_09_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2024-10 impressions-2024-10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2024_10 impressions_2024_10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-10"
-    ADD CONSTRAINT "impressions-2024-10_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2024_10
+    ADD CONSTRAINT impressions_2024_10_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2024-11 impressions-2024-11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2024_11 impressions_2024_11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-11"
-    ADD CONSTRAINT "impressions-2024-11_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2024_11
+    ADD CONSTRAINT impressions_2024_11_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2024-12 impressions-2024-12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2024_12 impressions_2024_12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2024-12"
-    ADD CONSTRAINT "impressions-2024-12_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2024_12
+    ADD CONSTRAINT impressions_2024_12_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2025-01 impressions-2025-01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2025_01 impressions_2025_01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-01"
-    ADD CONSTRAINT "impressions-2025-01_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2025_01
+    ADD CONSTRAINT impressions_2025_01_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2025-02 impressions-2025-02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2025_02 impressions_2025_02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-02"
-    ADD CONSTRAINT "impressions-2025-02_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2025_02
+    ADD CONSTRAINT impressions_2025_02_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2025-03 impressions-2025-03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2025_03 impressions_2025_03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-03"
-    ADD CONSTRAINT "impressions-2025-03_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2025_03
+    ADD CONSTRAINT impressions_2025_03_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2025-04 impressions-2025-04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2025_04 impressions_2025_04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-04"
-    ADD CONSTRAINT "impressions-2025-04_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2025_04
+    ADD CONSTRAINT impressions_2025_04_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2025-05 impressions-2025-05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2025_05 impressions_2025_05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-05"
-    ADD CONSTRAINT "impressions-2025-05_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2025_05
+    ADD CONSTRAINT impressions_2025_05_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2025-06 impressions-2025-06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2025_06 impressions_2025_06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-06"
-    ADD CONSTRAINT "impressions-2025-06_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2025_06
+    ADD CONSTRAINT impressions_2025_06_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2025-07 impressions-2025-07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2025_07 impressions_2025_07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-07"
-    ADD CONSTRAINT "impressions-2025-07_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2025_07
+    ADD CONSTRAINT impressions_2025_07_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2025-08 impressions-2025-08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2025_08 impressions_2025_08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-08"
-    ADD CONSTRAINT "impressions-2025-08_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2025_08
+    ADD CONSTRAINT impressions_2025_08_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2025-09 impressions-2025-09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2025_09 impressions_2025_09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-09"
-    ADD CONSTRAINT "impressions-2025-09_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2025_09
+    ADD CONSTRAINT impressions_2025_09_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2025-10 impressions-2025-10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2025_10 impressions_2025_10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-10"
-    ADD CONSTRAINT "impressions-2025-10_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2025_10
+    ADD CONSTRAINT impressions_2025_10_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2025-11 impressions-2025-11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2025_11 impressions_2025_11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-11"
-    ADD CONSTRAINT "impressions-2025-11_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2025_11
+    ADD CONSTRAINT impressions_2025_11_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2025-12 impressions-2025-12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2025_12 impressions_2025_12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2025-12"
-    ADD CONSTRAINT "impressions-2025-12_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2025_12
+    ADD CONSTRAINT impressions_2025_12_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2026-01 impressions-2026-01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2026_01 impressions_2026_01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-01"
-    ADD CONSTRAINT "impressions-2026-01_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2026_01
+    ADD CONSTRAINT impressions_2026_01_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2026-02 impressions-2026-02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2026_02 impressions_2026_02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-02"
-    ADD CONSTRAINT "impressions-2026-02_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2026_02
+    ADD CONSTRAINT impressions_2026_02_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2026-03 impressions-2026-03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2026_03 impressions_2026_03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-03"
-    ADD CONSTRAINT "impressions-2026-03_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2026_03
+    ADD CONSTRAINT impressions_2026_03_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2026-04 impressions-2026-04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2026_04 impressions_2026_04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-04"
-    ADD CONSTRAINT "impressions-2026-04_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2026_04
+    ADD CONSTRAINT impressions_2026_04_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2026-05 impressions-2026-05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2026_05 impressions_2026_05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-05"
-    ADD CONSTRAINT "impressions-2026-05_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2026_05
+    ADD CONSTRAINT impressions_2026_05_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2026-06 impressions-2026-06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2026_06 impressions_2026_06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-06"
-    ADD CONSTRAINT "impressions-2026-06_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2026_06
+    ADD CONSTRAINT impressions_2026_06_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2026-07 impressions-2026-07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2026_07 impressions_2026_07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-07"
-    ADD CONSTRAINT "impressions-2026-07_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2026_07
+    ADD CONSTRAINT impressions_2026_07_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2026-08 impressions-2026-08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2026_08 impressions_2026_08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-08"
-    ADD CONSTRAINT "impressions-2026-08_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2026_08
+    ADD CONSTRAINT impressions_2026_08_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2026-09 impressions-2026-09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2026_09 impressions_2026_09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-09"
-    ADD CONSTRAINT "impressions-2026-09_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2026_09
+    ADD CONSTRAINT impressions_2026_09_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2026-10 impressions-2026-10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2026_10 impressions_2026_10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-10"
-    ADD CONSTRAINT "impressions-2026-10_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2026_10
+    ADD CONSTRAINT impressions_2026_10_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2026-11 impressions-2026-11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2026_11 impressions_2026_11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-11"
-    ADD CONSTRAINT "impressions-2026-11_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2026_11
+    ADD CONSTRAINT impressions_2026_11_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2026-12 impressions-2026-12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2026_12 impressions_2026_12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2026-12"
-    ADD CONSTRAINT "impressions-2026-12_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2026_12
+    ADD CONSTRAINT impressions_2026_12_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2027-01 impressions-2027-01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2027_01 impressions_2027_01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-01"
-    ADD CONSTRAINT "impressions-2027-01_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2027_01
+    ADD CONSTRAINT impressions_2027_01_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2027-02 impressions-2027-02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2027_02 impressions_2027_02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-02"
-    ADD CONSTRAINT "impressions-2027-02_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2027_02
+    ADD CONSTRAINT impressions_2027_02_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2027-03 impressions-2027-03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2027_03 impressions_2027_03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-03"
-    ADD CONSTRAINT "impressions-2027-03_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2027_03
+    ADD CONSTRAINT impressions_2027_03_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2027-04 impressions-2027-04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2027_04 impressions_2027_04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-04"
-    ADD CONSTRAINT "impressions-2027-04_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2027_04
+    ADD CONSTRAINT impressions_2027_04_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2027-05 impressions-2027-05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2027_05 impressions_2027_05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-05"
-    ADD CONSTRAINT "impressions-2027-05_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2027_05
+    ADD CONSTRAINT impressions_2027_05_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2027-06 impressions-2027-06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2027_06 impressions_2027_06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-06"
-    ADD CONSTRAINT "impressions-2027-06_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2027_06
+    ADD CONSTRAINT impressions_2027_06_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2027-07 impressions-2027-07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2027_07 impressions_2027_07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-07"
-    ADD CONSTRAINT "impressions-2027-07_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2027_07
+    ADD CONSTRAINT impressions_2027_07_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2027-08 impressions-2027-08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2027_08 impressions_2027_08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-08"
-    ADD CONSTRAINT "impressions-2027-08_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2027_08
+    ADD CONSTRAINT impressions_2027_08_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2027-09 impressions-2027-09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2027_09 impressions_2027_09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-09"
-    ADD CONSTRAINT "impressions-2027-09_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2027_09
+    ADD CONSTRAINT impressions_2027_09_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2027-10 impressions-2027-10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2027_10 impressions_2027_10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-10"
-    ADD CONSTRAINT "impressions-2027-10_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2027_10
+    ADD CONSTRAINT impressions_2027_10_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2027-11 impressions-2027-11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2027_11 impressions_2027_11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-11"
-    ADD CONSTRAINT "impressions-2027-11_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2027_11
+    ADD CONSTRAINT impressions_2027_11_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2027-12 impressions-2027-12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2027_12 impressions_2027_12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2027-12"
-    ADD CONSTRAINT "impressions-2027-12_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2027_12
+    ADD CONSTRAINT impressions_2027_12_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2028-01 impressions-2028-01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2028_01 impressions_2028_01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-01"
-    ADD CONSTRAINT "impressions-2028-01_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2028_01
+    ADD CONSTRAINT impressions_2028_01_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2028-02 impressions-2028-02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2028_02 impressions_2028_02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-02"
-    ADD CONSTRAINT "impressions-2028-02_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2028_02
+    ADD CONSTRAINT impressions_2028_02_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2028-03 impressions-2028-03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2028_03 impressions_2028_03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-03"
-    ADD CONSTRAINT "impressions-2028-03_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2028_03
+    ADD CONSTRAINT impressions_2028_03_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2028-04 impressions-2028-04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2028_04 impressions_2028_04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-04"
-    ADD CONSTRAINT "impressions-2028-04_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2028_04
+    ADD CONSTRAINT impressions_2028_04_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2028-05 impressions-2028-05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2028_05 impressions_2028_05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-05"
-    ADD CONSTRAINT "impressions-2028-05_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2028_05
+    ADD CONSTRAINT impressions_2028_05_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2028-06 impressions-2028-06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2028_06 impressions_2028_06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-06"
-    ADD CONSTRAINT "impressions-2028-06_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2028_06
+    ADD CONSTRAINT impressions_2028_06_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2028-07 impressions-2028-07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2028_07 impressions_2028_07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-07"
-    ADD CONSTRAINT "impressions-2028-07_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2028_07
+    ADD CONSTRAINT impressions_2028_07_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2028-08 impressions-2028-08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2028_08 impressions_2028_08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-08"
-    ADD CONSTRAINT "impressions-2028-08_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2028_08
+    ADD CONSTRAINT impressions_2028_08_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2028-09 impressions-2028-09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2028_09 impressions_2028_09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-09"
-    ADD CONSTRAINT "impressions-2028-09_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2028_09
+    ADD CONSTRAINT impressions_2028_09_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2028-10 impressions-2028-10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2028_10 impressions_2028_10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-10"
-    ADD CONSTRAINT "impressions-2028-10_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2028_10
+    ADD CONSTRAINT impressions_2028_10_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2028-11 impressions-2028-11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2028_11 impressions_2028_11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-11"
-    ADD CONSTRAINT "impressions-2028-11_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2028_11
+    ADD CONSTRAINT impressions_2028_11_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2028-12 impressions-2028-12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2028_12 impressions_2028_12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2028-12"
-    ADD CONSTRAINT "impressions-2028-12_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2028_12
+    ADD CONSTRAINT impressions_2028_12_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2029-01 impressions-2029-01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2029_01 impressions_2029_01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-01"
-    ADD CONSTRAINT "impressions-2029-01_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2029_01
+    ADD CONSTRAINT impressions_2029_01_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2029-02 impressions-2029-02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2029_02 impressions_2029_02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-02"
-    ADD CONSTRAINT "impressions-2029-02_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2029_02
+    ADD CONSTRAINT impressions_2029_02_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2029-03 impressions-2029-03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2029_03 impressions_2029_03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-03"
-    ADD CONSTRAINT "impressions-2029-03_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2029_03
+    ADD CONSTRAINT impressions_2029_03_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2029-04 impressions-2029-04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2029_04 impressions_2029_04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-04"
-    ADD CONSTRAINT "impressions-2029-04_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2029_04
+    ADD CONSTRAINT impressions_2029_04_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2029-05 impressions-2029-05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2029_05 impressions_2029_05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-05"
-    ADD CONSTRAINT "impressions-2029-05_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2029_05
+    ADD CONSTRAINT impressions_2029_05_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2029-06 impressions-2029-06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2029_06 impressions_2029_06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-06"
-    ADD CONSTRAINT "impressions-2029-06_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2029_06
+    ADD CONSTRAINT impressions_2029_06_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2029-07 impressions-2029-07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2029_07 impressions_2029_07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-07"
-    ADD CONSTRAINT "impressions-2029-07_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2029_07
+    ADD CONSTRAINT impressions_2029_07_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2029-08 impressions-2029-08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2029_08 impressions_2029_08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-08"
-    ADD CONSTRAINT "impressions-2029-08_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2029_08
+    ADD CONSTRAINT impressions_2029_08_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2029-09 impressions-2029-09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2029_09 impressions_2029_09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-09"
-    ADD CONSTRAINT "impressions-2029-09_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2029_09
+    ADD CONSTRAINT impressions_2029_09_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2029-10 impressions-2029-10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2029_10 impressions_2029_10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-10"
-    ADD CONSTRAINT "impressions-2029-10_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2029_10
+    ADD CONSTRAINT impressions_2029_10_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2029-11 impressions-2029-11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2029_11 impressions_2029_11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-11"
-    ADD CONSTRAINT "impressions-2029-11_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2029_11
+    ADD CONSTRAINT impressions_2029_11_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2029-12 impressions-2029-12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2029_12 impressions_2029_12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2029-12"
-    ADD CONSTRAINT "impressions-2029-12_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2029_12
+    ADD CONSTRAINT impressions_2029_12_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2030-01 impressions-2030-01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2030_01 impressions_2030_01_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-01"
-    ADD CONSTRAINT "impressions-2030-01_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2030_01
+    ADD CONSTRAINT impressions_2030_01_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2030-02 impressions-2030-02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2030_02 impressions_2030_02_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-02"
-    ADD CONSTRAINT "impressions-2030-02_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2030_02
+    ADD CONSTRAINT impressions_2030_02_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2030-03 impressions-2030-03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2030_03 impressions_2030_03_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-03"
-    ADD CONSTRAINT "impressions-2030-03_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2030_03
+    ADD CONSTRAINT impressions_2030_03_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2030-04 impressions-2030-04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2030_04 impressions_2030_04_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-04"
-    ADD CONSTRAINT "impressions-2030-04_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2030_04
+    ADD CONSTRAINT impressions_2030_04_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2030-05 impressions-2030-05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2030_05 impressions_2030_05_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-05"
-    ADD CONSTRAINT "impressions-2030-05_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2030_05
+    ADD CONSTRAINT impressions_2030_05_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2030-06 impressions-2030-06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2030_06 impressions_2030_06_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-06"
-    ADD CONSTRAINT "impressions-2030-06_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2030_06
+    ADD CONSTRAINT impressions_2030_06_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2030-07 impressions-2030-07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2030_07 impressions_2030_07_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-07"
-    ADD CONSTRAINT "impressions-2030-07_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2030_07
+    ADD CONSTRAINT impressions_2030_07_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2030-08 impressions-2030-08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2030_08 impressions_2030_08_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-08"
-    ADD CONSTRAINT "impressions-2030-08_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2030_08
+    ADD CONSTRAINT impressions_2030_08_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2030-09 impressions-2030-09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2030_09 impressions_2030_09_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-09"
-    ADD CONSTRAINT "impressions-2030-09_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2030_09
+    ADD CONSTRAINT impressions_2030_09_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2030-10 impressions-2030-10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2030_10 impressions_2030_10_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-10"
-    ADD CONSTRAINT "impressions-2030-10_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2030_10
+    ADD CONSTRAINT impressions_2030_10_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2030-11 impressions-2030-11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2030_11 impressions_2030_11_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-11"
-    ADD CONSTRAINT "impressions-2030-11_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2030_11
+    ADD CONSTRAINT impressions_2030_11_pkey PRIMARY KEY (id);
 
 
 --
--- Name: impressions-2030-12 impressions-2030-12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: impressions_2030_12 impressions_2030_12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public."impressions-2030-12"
-    ADD CONSTRAINT "impressions-2030-12_pkey" PRIMARY KEY (id);
+ALTER TABLE ONLY public.impressions_2030_12
+    ADD CONSTRAINT impressions_2030_12_pkey PRIMARY KEY (id);
 
 
 --
@@ -6103,5113 +6087,5113 @@ CREATE INDEX index_creatives_on_user_id ON public.creatives USING btree (user_id
 
 
 --
--- Name: index_impressions-2018-11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2018_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2018-11_on_campaign_id" ON public."impressions-2018-11" USING btree (campaign_id);
+CREATE INDEX index_impressions_2018_11_on_campaign_id ON public.impressions_2018_11 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2018-11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2018_11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2018-11_on_displayed_at_date" ON public."impressions-2018-11" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2018_11_on_displayed_at_date ON public.impressions_2018_11 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2018-11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2018_11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2018-11_on_displayed_at_hour" ON public."impressions-2018-11" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2018_11_on_displayed_at_hour ON public.impressions_2018_11 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2018-11_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2018_11_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2018-11_on_payable" ON public."impressions-2018-11" USING btree (payable);
+CREATE INDEX index_impressions_2018_11_on_payable ON public.impressions_2018_11 USING btree (payable);
 
 
 --
--- Name: index_impressions-2018-11_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2018_11_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2018-11_on_property_id" ON public."impressions-2018-11" USING btree (property_id);
+CREATE INDEX index_impressions_2018_11_on_property_id ON public.impressions_2018_11 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2018-12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2018_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2018-12_on_campaign_id" ON public."impressions-2018-12" USING btree (campaign_id);
+CREATE INDEX index_impressions_2018_12_on_campaign_id ON public.impressions_2018_12 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2018-12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2018_12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2018-12_on_displayed_at_date" ON public."impressions-2018-12" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2018_12_on_displayed_at_date ON public.impressions_2018_12 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2018-12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2018_12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2018-12_on_displayed_at_hour" ON public."impressions-2018-12" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2018_12_on_displayed_at_hour ON public.impressions_2018_12 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2018-12_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2018_12_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2018-12_on_payable" ON public."impressions-2018-12" USING btree (payable);
+CREATE INDEX index_impressions_2018_12_on_payable ON public.impressions_2018_12 USING btree (payable);
 
 
 --
--- Name: index_impressions-2018-12_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2018_12_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2018-12_on_property_id" ON public."impressions-2018-12" USING btree (property_id);
+CREATE INDEX index_impressions_2018_12_on_property_id ON public.impressions_2018_12 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2019-01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-01_on_campaign_id" ON public."impressions-2019-01" USING btree (campaign_id);
+CREATE INDEX index_impressions_2019_01_on_campaign_id ON public.impressions_2019_01 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2019-01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-01_on_displayed_at_date" ON public."impressions-2019-01" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2019_01_on_displayed_at_date ON public.impressions_2019_01 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2019-01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-01_on_displayed_at_hour" ON public."impressions-2019-01" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2019_01_on_displayed_at_hour ON public.impressions_2019_01 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2019-01_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_01_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-01_on_payable" ON public."impressions-2019-01" USING btree (payable);
+CREATE INDEX index_impressions_2019_01_on_payable ON public.impressions_2019_01 USING btree (payable);
 
 
 --
--- Name: index_impressions-2019-01_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_01_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-01_on_property_id" ON public."impressions-2019-01" USING btree (property_id);
+CREATE INDEX index_impressions_2019_01_on_property_id ON public.impressions_2019_01 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2019-02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-02_on_campaign_id" ON public."impressions-2019-02" USING btree (campaign_id);
+CREATE INDEX index_impressions_2019_02_on_campaign_id ON public.impressions_2019_02 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2019-02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-02_on_displayed_at_date" ON public."impressions-2019-02" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2019_02_on_displayed_at_date ON public.impressions_2019_02 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2019-02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-02_on_displayed_at_hour" ON public."impressions-2019-02" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2019_02_on_displayed_at_hour ON public.impressions_2019_02 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2019-02_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_02_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-02_on_payable" ON public."impressions-2019-02" USING btree (payable);
+CREATE INDEX index_impressions_2019_02_on_payable ON public.impressions_2019_02 USING btree (payable);
 
 
 --
--- Name: index_impressions-2019-02_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_02_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-02_on_property_id" ON public."impressions-2019-02" USING btree (property_id);
+CREATE INDEX index_impressions_2019_02_on_property_id ON public.impressions_2019_02 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2019-03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-03_on_campaign_id" ON public."impressions-2019-03" USING btree (campaign_id);
+CREATE INDEX index_impressions_2019_03_on_campaign_id ON public.impressions_2019_03 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2019-03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-03_on_displayed_at_date" ON public."impressions-2019-03" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2019_03_on_displayed_at_date ON public.impressions_2019_03 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2019-03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-03_on_displayed_at_hour" ON public."impressions-2019-03" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2019_03_on_displayed_at_hour ON public.impressions_2019_03 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2019-03_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_03_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-03_on_payable" ON public."impressions-2019-03" USING btree (payable);
+CREATE INDEX index_impressions_2019_03_on_payable ON public.impressions_2019_03 USING btree (payable);
 
 
 --
--- Name: index_impressions-2019-03_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_03_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-03_on_property_id" ON public."impressions-2019-03" USING btree (property_id);
+CREATE INDEX index_impressions_2019_03_on_property_id ON public.impressions_2019_03 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2019-04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-04_on_campaign_id" ON public."impressions-2019-04" USING btree (campaign_id);
+CREATE INDEX index_impressions_2019_04_on_campaign_id ON public.impressions_2019_04 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2019-04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-04_on_displayed_at_date" ON public."impressions-2019-04" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2019_04_on_displayed_at_date ON public.impressions_2019_04 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2019-04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-04_on_displayed_at_hour" ON public."impressions-2019-04" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2019_04_on_displayed_at_hour ON public.impressions_2019_04 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2019-04_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_04_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-04_on_payable" ON public."impressions-2019-04" USING btree (payable);
+CREATE INDEX index_impressions_2019_04_on_payable ON public.impressions_2019_04 USING btree (payable);
 
 
 --
--- Name: index_impressions-2019-04_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_04_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-04_on_property_id" ON public."impressions-2019-04" USING btree (property_id);
+CREATE INDEX index_impressions_2019_04_on_property_id ON public.impressions_2019_04 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2019-05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-05_on_campaign_id" ON public."impressions-2019-05" USING btree (campaign_id);
+CREATE INDEX index_impressions_2019_05_on_campaign_id ON public.impressions_2019_05 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2019-05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-05_on_displayed_at_date" ON public."impressions-2019-05" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2019_05_on_displayed_at_date ON public.impressions_2019_05 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2019-05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-05_on_displayed_at_hour" ON public."impressions-2019-05" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2019_05_on_displayed_at_hour ON public.impressions_2019_05 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2019-05_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_05_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-05_on_payable" ON public."impressions-2019-05" USING btree (payable);
+CREATE INDEX index_impressions_2019_05_on_payable ON public.impressions_2019_05 USING btree (payable);
 
 
 --
--- Name: index_impressions-2019-05_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_05_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-05_on_property_id" ON public."impressions-2019-05" USING btree (property_id);
+CREATE INDEX index_impressions_2019_05_on_property_id ON public.impressions_2019_05 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2019-06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-06_on_campaign_id" ON public."impressions-2019-06" USING btree (campaign_id);
+CREATE INDEX index_impressions_2019_06_on_campaign_id ON public.impressions_2019_06 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2019-06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-06_on_displayed_at_date" ON public."impressions-2019-06" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2019_06_on_displayed_at_date ON public.impressions_2019_06 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2019-06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-06_on_displayed_at_hour" ON public."impressions-2019-06" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2019_06_on_displayed_at_hour ON public.impressions_2019_06 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2019-06_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_06_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-06_on_payable" ON public."impressions-2019-06" USING btree (payable);
+CREATE INDEX index_impressions_2019_06_on_payable ON public.impressions_2019_06 USING btree (payable);
 
 
 --
--- Name: index_impressions-2019-06_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_06_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-06_on_property_id" ON public."impressions-2019-06" USING btree (property_id);
+CREATE INDEX index_impressions_2019_06_on_property_id ON public.impressions_2019_06 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2019-07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-07_on_campaign_id" ON public."impressions-2019-07" USING btree (campaign_id);
+CREATE INDEX index_impressions_2019_07_on_campaign_id ON public.impressions_2019_07 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2019-07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-07_on_displayed_at_date" ON public."impressions-2019-07" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2019_07_on_displayed_at_date ON public.impressions_2019_07 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2019-07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-07_on_displayed_at_hour" ON public."impressions-2019-07" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2019_07_on_displayed_at_hour ON public.impressions_2019_07 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2019-07_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_07_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-07_on_payable" ON public."impressions-2019-07" USING btree (payable);
+CREATE INDEX index_impressions_2019_07_on_payable ON public.impressions_2019_07 USING btree (payable);
 
 
 --
--- Name: index_impressions-2019-07_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_07_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-07_on_property_id" ON public."impressions-2019-07" USING btree (property_id);
+CREATE INDEX index_impressions_2019_07_on_property_id ON public.impressions_2019_07 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2019-08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-08_on_campaign_id" ON public."impressions-2019-08" USING btree (campaign_id);
+CREATE INDEX index_impressions_2019_08_on_campaign_id ON public.impressions_2019_08 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2019-08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-08_on_displayed_at_date" ON public."impressions-2019-08" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2019_08_on_displayed_at_date ON public.impressions_2019_08 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2019-08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-08_on_displayed_at_hour" ON public."impressions-2019-08" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2019_08_on_displayed_at_hour ON public.impressions_2019_08 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2019-08_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_08_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-08_on_payable" ON public."impressions-2019-08" USING btree (payable);
+CREATE INDEX index_impressions_2019_08_on_payable ON public.impressions_2019_08 USING btree (payable);
 
 
 --
--- Name: index_impressions-2019-08_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_08_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-08_on_property_id" ON public."impressions-2019-08" USING btree (property_id);
+CREATE INDEX index_impressions_2019_08_on_property_id ON public.impressions_2019_08 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2019-09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-09_on_campaign_id" ON public."impressions-2019-09" USING btree (campaign_id);
+CREATE INDEX index_impressions_2019_09_on_campaign_id ON public.impressions_2019_09 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2019-09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-09_on_displayed_at_date" ON public."impressions-2019-09" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2019_09_on_displayed_at_date ON public.impressions_2019_09 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2019-09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-09_on_displayed_at_hour" ON public."impressions-2019-09" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2019_09_on_displayed_at_hour ON public.impressions_2019_09 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2019-09_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_09_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-09_on_payable" ON public."impressions-2019-09" USING btree (payable);
+CREATE INDEX index_impressions_2019_09_on_payable ON public.impressions_2019_09 USING btree (payable);
 
 
 --
--- Name: index_impressions-2019-09_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_09_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-09_on_property_id" ON public."impressions-2019-09" USING btree (property_id);
+CREATE INDEX index_impressions_2019_09_on_property_id ON public.impressions_2019_09 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2019-10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-10_on_campaign_id" ON public."impressions-2019-10" USING btree (campaign_id);
+CREATE INDEX index_impressions_2019_10_on_campaign_id ON public.impressions_2019_10 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2019-10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-10_on_displayed_at_date" ON public."impressions-2019-10" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2019_10_on_displayed_at_date ON public.impressions_2019_10 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2019-10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-10_on_displayed_at_hour" ON public."impressions-2019-10" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2019_10_on_displayed_at_hour ON public.impressions_2019_10 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2019-10_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_10_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-10_on_payable" ON public."impressions-2019-10" USING btree (payable);
+CREATE INDEX index_impressions_2019_10_on_payable ON public.impressions_2019_10 USING btree (payable);
 
 
 --
--- Name: index_impressions-2019-10_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_10_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-10_on_property_id" ON public."impressions-2019-10" USING btree (property_id);
+CREATE INDEX index_impressions_2019_10_on_property_id ON public.impressions_2019_10 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2019-11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-11_on_campaign_id" ON public."impressions-2019-11" USING btree (campaign_id);
+CREATE INDEX index_impressions_2019_11_on_campaign_id ON public.impressions_2019_11 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2019-11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-11_on_displayed_at_date" ON public."impressions-2019-11" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2019_11_on_displayed_at_date ON public.impressions_2019_11 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2019-11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-11_on_displayed_at_hour" ON public."impressions-2019-11" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2019_11_on_displayed_at_hour ON public.impressions_2019_11 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2019-11_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_11_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-11_on_payable" ON public."impressions-2019-11" USING btree (payable);
+CREATE INDEX index_impressions_2019_11_on_payable ON public.impressions_2019_11 USING btree (payable);
 
 
 --
--- Name: index_impressions-2019-11_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_11_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-11_on_property_id" ON public."impressions-2019-11" USING btree (property_id);
+CREATE INDEX index_impressions_2019_11_on_property_id ON public.impressions_2019_11 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2019-12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-12_on_campaign_id" ON public."impressions-2019-12" USING btree (campaign_id);
+CREATE INDEX index_impressions_2019_12_on_campaign_id ON public.impressions_2019_12 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2019-12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-12_on_displayed_at_date" ON public."impressions-2019-12" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2019_12_on_displayed_at_date ON public.impressions_2019_12 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2019-12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-12_on_displayed_at_hour" ON public."impressions-2019-12" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2019_12_on_displayed_at_hour ON public.impressions_2019_12 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2019-12_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_12_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-12_on_payable" ON public."impressions-2019-12" USING btree (payable);
+CREATE INDEX index_impressions_2019_12_on_payable ON public.impressions_2019_12 USING btree (payable);
 
 
 --
--- Name: index_impressions-2019-12_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2019_12_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2019-12_on_property_id" ON public."impressions-2019-12" USING btree (property_id);
+CREATE INDEX index_impressions_2019_12_on_property_id ON public.impressions_2019_12 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2020-01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-01_on_campaign_id" ON public."impressions-2020-01" USING btree (campaign_id);
+CREATE INDEX index_impressions_2020_01_on_campaign_id ON public.impressions_2020_01 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2020-01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-01_on_displayed_at_date" ON public."impressions-2020-01" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2020_01_on_displayed_at_date ON public.impressions_2020_01 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2020-01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-01_on_displayed_at_hour" ON public."impressions-2020-01" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2020_01_on_displayed_at_hour ON public.impressions_2020_01 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2020-01_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_01_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-01_on_payable" ON public."impressions-2020-01" USING btree (payable);
+CREATE INDEX index_impressions_2020_01_on_payable ON public.impressions_2020_01 USING btree (payable);
 
 
 --
--- Name: index_impressions-2020-01_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_01_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-01_on_property_id" ON public."impressions-2020-01" USING btree (property_id);
+CREATE INDEX index_impressions_2020_01_on_property_id ON public.impressions_2020_01 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2020-02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-02_on_campaign_id" ON public."impressions-2020-02" USING btree (campaign_id);
+CREATE INDEX index_impressions_2020_02_on_campaign_id ON public.impressions_2020_02 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2020-02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-02_on_displayed_at_date" ON public."impressions-2020-02" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2020_02_on_displayed_at_date ON public.impressions_2020_02 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2020-02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-02_on_displayed_at_hour" ON public."impressions-2020-02" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2020_02_on_displayed_at_hour ON public.impressions_2020_02 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2020-02_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_02_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-02_on_payable" ON public."impressions-2020-02" USING btree (payable);
+CREATE INDEX index_impressions_2020_02_on_payable ON public.impressions_2020_02 USING btree (payable);
 
 
 --
--- Name: index_impressions-2020-02_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_02_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-02_on_property_id" ON public."impressions-2020-02" USING btree (property_id);
+CREATE INDEX index_impressions_2020_02_on_property_id ON public.impressions_2020_02 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2020-03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-03_on_campaign_id" ON public."impressions-2020-03" USING btree (campaign_id);
+CREATE INDEX index_impressions_2020_03_on_campaign_id ON public.impressions_2020_03 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2020-03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-03_on_displayed_at_date" ON public."impressions-2020-03" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2020_03_on_displayed_at_date ON public.impressions_2020_03 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2020-03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-03_on_displayed_at_hour" ON public."impressions-2020-03" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2020_03_on_displayed_at_hour ON public.impressions_2020_03 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2020-03_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_03_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-03_on_payable" ON public."impressions-2020-03" USING btree (payable);
+CREATE INDEX index_impressions_2020_03_on_payable ON public.impressions_2020_03 USING btree (payable);
 
 
 --
--- Name: index_impressions-2020-03_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_03_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-03_on_property_id" ON public."impressions-2020-03" USING btree (property_id);
+CREATE INDEX index_impressions_2020_03_on_property_id ON public.impressions_2020_03 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2020-04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-04_on_campaign_id" ON public."impressions-2020-04" USING btree (campaign_id);
+CREATE INDEX index_impressions_2020_04_on_campaign_id ON public.impressions_2020_04 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2020-04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-04_on_displayed_at_date" ON public."impressions-2020-04" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2020_04_on_displayed_at_date ON public.impressions_2020_04 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2020-04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-04_on_displayed_at_hour" ON public."impressions-2020-04" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2020_04_on_displayed_at_hour ON public.impressions_2020_04 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2020-04_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_04_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-04_on_payable" ON public."impressions-2020-04" USING btree (payable);
+CREATE INDEX index_impressions_2020_04_on_payable ON public.impressions_2020_04 USING btree (payable);
 
 
 --
--- Name: index_impressions-2020-04_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_04_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-04_on_property_id" ON public."impressions-2020-04" USING btree (property_id);
+CREATE INDEX index_impressions_2020_04_on_property_id ON public.impressions_2020_04 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2020-05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-05_on_campaign_id" ON public."impressions-2020-05" USING btree (campaign_id);
+CREATE INDEX index_impressions_2020_05_on_campaign_id ON public.impressions_2020_05 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2020-05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-05_on_displayed_at_date" ON public."impressions-2020-05" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2020_05_on_displayed_at_date ON public.impressions_2020_05 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2020-05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-05_on_displayed_at_hour" ON public."impressions-2020-05" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2020_05_on_displayed_at_hour ON public.impressions_2020_05 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2020-05_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_05_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-05_on_payable" ON public."impressions-2020-05" USING btree (payable);
+CREATE INDEX index_impressions_2020_05_on_payable ON public.impressions_2020_05 USING btree (payable);
 
 
 --
--- Name: index_impressions-2020-05_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_05_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-05_on_property_id" ON public."impressions-2020-05" USING btree (property_id);
+CREATE INDEX index_impressions_2020_05_on_property_id ON public.impressions_2020_05 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2020-06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-06_on_campaign_id" ON public."impressions-2020-06" USING btree (campaign_id);
+CREATE INDEX index_impressions_2020_06_on_campaign_id ON public.impressions_2020_06 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2020-06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-06_on_displayed_at_date" ON public."impressions-2020-06" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2020_06_on_displayed_at_date ON public.impressions_2020_06 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2020-06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-06_on_displayed_at_hour" ON public."impressions-2020-06" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2020_06_on_displayed_at_hour ON public.impressions_2020_06 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2020-06_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_06_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-06_on_payable" ON public."impressions-2020-06" USING btree (payable);
+CREATE INDEX index_impressions_2020_06_on_payable ON public.impressions_2020_06 USING btree (payable);
 
 
 --
--- Name: index_impressions-2020-06_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_06_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-06_on_property_id" ON public."impressions-2020-06" USING btree (property_id);
+CREATE INDEX index_impressions_2020_06_on_property_id ON public.impressions_2020_06 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2020-07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-07_on_campaign_id" ON public."impressions-2020-07" USING btree (campaign_id);
+CREATE INDEX index_impressions_2020_07_on_campaign_id ON public.impressions_2020_07 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2020-07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-07_on_displayed_at_date" ON public."impressions-2020-07" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2020_07_on_displayed_at_date ON public.impressions_2020_07 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2020-07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-07_on_displayed_at_hour" ON public."impressions-2020-07" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2020_07_on_displayed_at_hour ON public.impressions_2020_07 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2020-07_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_07_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-07_on_payable" ON public."impressions-2020-07" USING btree (payable);
+CREATE INDEX index_impressions_2020_07_on_payable ON public.impressions_2020_07 USING btree (payable);
 
 
 --
--- Name: index_impressions-2020-07_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_07_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-07_on_property_id" ON public."impressions-2020-07" USING btree (property_id);
+CREATE INDEX index_impressions_2020_07_on_property_id ON public.impressions_2020_07 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2020-08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-08_on_campaign_id" ON public."impressions-2020-08" USING btree (campaign_id);
+CREATE INDEX index_impressions_2020_08_on_campaign_id ON public.impressions_2020_08 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2020-08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-08_on_displayed_at_date" ON public."impressions-2020-08" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2020_08_on_displayed_at_date ON public.impressions_2020_08 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2020-08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-08_on_displayed_at_hour" ON public."impressions-2020-08" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2020_08_on_displayed_at_hour ON public.impressions_2020_08 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2020-08_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_08_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-08_on_payable" ON public."impressions-2020-08" USING btree (payable);
+CREATE INDEX index_impressions_2020_08_on_payable ON public.impressions_2020_08 USING btree (payable);
 
 
 --
--- Name: index_impressions-2020-08_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_08_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-08_on_property_id" ON public."impressions-2020-08" USING btree (property_id);
+CREATE INDEX index_impressions_2020_08_on_property_id ON public.impressions_2020_08 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2020-09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-09_on_campaign_id" ON public."impressions-2020-09" USING btree (campaign_id);
+CREATE INDEX index_impressions_2020_09_on_campaign_id ON public.impressions_2020_09 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2020-09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-09_on_displayed_at_date" ON public."impressions-2020-09" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2020_09_on_displayed_at_date ON public.impressions_2020_09 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2020-09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-09_on_displayed_at_hour" ON public."impressions-2020-09" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2020_09_on_displayed_at_hour ON public.impressions_2020_09 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2020-09_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_09_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-09_on_payable" ON public."impressions-2020-09" USING btree (payable);
+CREATE INDEX index_impressions_2020_09_on_payable ON public.impressions_2020_09 USING btree (payable);
 
 
 --
--- Name: index_impressions-2020-09_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_09_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-09_on_property_id" ON public."impressions-2020-09" USING btree (property_id);
+CREATE INDEX index_impressions_2020_09_on_property_id ON public.impressions_2020_09 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2020-10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-10_on_campaign_id" ON public."impressions-2020-10" USING btree (campaign_id);
+CREATE INDEX index_impressions_2020_10_on_campaign_id ON public.impressions_2020_10 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2020-10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-10_on_displayed_at_date" ON public."impressions-2020-10" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2020_10_on_displayed_at_date ON public.impressions_2020_10 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2020-10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-10_on_displayed_at_hour" ON public."impressions-2020-10" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2020_10_on_displayed_at_hour ON public.impressions_2020_10 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2020-10_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_10_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-10_on_payable" ON public."impressions-2020-10" USING btree (payable);
+CREATE INDEX index_impressions_2020_10_on_payable ON public.impressions_2020_10 USING btree (payable);
 
 
 --
--- Name: index_impressions-2020-10_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_10_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-10_on_property_id" ON public."impressions-2020-10" USING btree (property_id);
+CREATE INDEX index_impressions_2020_10_on_property_id ON public.impressions_2020_10 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2020-11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-11_on_campaign_id" ON public."impressions-2020-11" USING btree (campaign_id);
+CREATE INDEX index_impressions_2020_11_on_campaign_id ON public.impressions_2020_11 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2020-11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-11_on_displayed_at_date" ON public."impressions-2020-11" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2020_11_on_displayed_at_date ON public.impressions_2020_11 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2020-11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-11_on_displayed_at_hour" ON public."impressions-2020-11" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2020_11_on_displayed_at_hour ON public.impressions_2020_11 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2020-11_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_11_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-11_on_payable" ON public."impressions-2020-11" USING btree (payable);
+CREATE INDEX index_impressions_2020_11_on_payable ON public.impressions_2020_11 USING btree (payable);
 
 
 --
--- Name: index_impressions-2020-11_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_11_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-11_on_property_id" ON public."impressions-2020-11" USING btree (property_id);
+CREATE INDEX index_impressions_2020_11_on_property_id ON public.impressions_2020_11 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2020-12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-12_on_campaign_id" ON public."impressions-2020-12" USING btree (campaign_id);
+CREATE INDEX index_impressions_2020_12_on_campaign_id ON public.impressions_2020_12 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2020-12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-12_on_displayed_at_date" ON public."impressions-2020-12" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2020_12_on_displayed_at_date ON public.impressions_2020_12 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2020-12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-12_on_displayed_at_hour" ON public."impressions-2020-12" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2020_12_on_displayed_at_hour ON public.impressions_2020_12 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2020-12_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_12_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-12_on_payable" ON public."impressions-2020-12" USING btree (payable);
+CREATE INDEX index_impressions_2020_12_on_payable ON public.impressions_2020_12 USING btree (payable);
 
 
 --
--- Name: index_impressions-2020-12_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2020_12_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2020-12_on_property_id" ON public."impressions-2020-12" USING btree (property_id);
+CREATE INDEX index_impressions_2020_12_on_property_id ON public.impressions_2020_12 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2021-01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-01_on_campaign_id" ON public."impressions-2021-01" USING btree (campaign_id);
+CREATE INDEX index_impressions_2021_01_on_campaign_id ON public.impressions_2021_01 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2021-01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-01_on_displayed_at_date" ON public."impressions-2021-01" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2021_01_on_displayed_at_date ON public.impressions_2021_01 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2021-01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-01_on_displayed_at_hour" ON public."impressions-2021-01" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2021_01_on_displayed_at_hour ON public.impressions_2021_01 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2021-01_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_01_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-01_on_payable" ON public."impressions-2021-01" USING btree (payable);
+CREATE INDEX index_impressions_2021_01_on_payable ON public.impressions_2021_01 USING btree (payable);
 
 
 --
--- Name: index_impressions-2021-01_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_01_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-01_on_property_id" ON public."impressions-2021-01" USING btree (property_id);
+CREATE INDEX index_impressions_2021_01_on_property_id ON public.impressions_2021_01 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2021-02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-02_on_campaign_id" ON public."impressions-2021-02" USING btree (campaign_id);
+CREATE INDEX index_impressions_2021_02_on_campaign_id ON public.impressions_2021_02 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2021-02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-02_on_displayed_at_date" ON public."impressions-2021-02" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2021_02_on_displayed_at_date ON public.impressions_2021_02 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2021-02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-02_on_displayed_at_hour" ON public."impressions-2021-02" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2021_02_on_displayed_at_hour ON public.impressions_2021_02 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2021-02_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_02_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-02_on_payable" ON public."impressions-2021-02" USING btree (payable);
+CREATE INDEX index_impressions_2021_02_on_payable ON public.impressions_2021_02 USING btree (payable);
 
 
 --
--- Name: index_impressions-2021-02_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_02_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-02_on_property_id" ON public."impressions-2021-02" USING btree (property_id);
+CREATE INDEX index_impressions_2021_02_on_property_id ON public.impressions_2021_02 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2021-03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-03_on_campaign_id" ON public."impressions-2021-03" USING btree (campaign_id);
+CREATE INDEX index_impressions_2021_03_on_campaign_id ON public.impressions_2021_03 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2021-03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-03_on_displayed_at_date" ON public."impressions-2021-03" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2021_03_on_displayed_at_date ON public.impressions_2021_03 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2021-03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-03_on_displayed_at_hour" ON public."impressions-2021-03" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2021_03_on_displayed_at_hour ON public.impressions_2021_03 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2021-03_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_03_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-03_on_payable" ON public."impressions-2021-03" USING btree (payable);
+CREATE INDEX index_impressions_2021_03_on_payable ON public.impressions_2021_03 USING btree (payable);
 
 
 --
--- Name: index_impressions-2021-03_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_03_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-03_on_property_id" ON public."impressions-2021-03" USING btree (property_id);
+CREATE INDEX index_impressions_2021_03_on_property_id ON public.impressions_2021_03 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2021-04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-04_on_campaign_id" ON public."impressions-2021-04" USING btree (campaign_id);
+CREATE INDEX index_impressions_2021_04_on_campaign_id ON public.impressions_2021_04 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2021-04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-04_on_displayed_at_date" ON public."impressions-2021-04" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2021_04_on_displayed_at_date ON public.impressions_2021_04 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2021-04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-04_on_displayed_at_hour" ON public."impressions-2021-04" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2021_04_on_displayed_at_hour ON public.impressions_2021_04 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2021-04_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_04_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-04_on_payable" ON public."impressions-2021-04" USING btree (payable);
+CREATE INDEX index_impressions_2021_04_on_payable ON public.impressions_2021_04 USING btree (payable);
 
 
 --
--- Name: index_impressions-2021-04_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_04_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-04_on_property_id" ON public."impressions-2021-04" USING btree (property_id);
+CREATE INDEX index_impressions_2021_04_on_property_id ON public.impressions_2021_04 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2021-05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-05_on_campaign_id" ON public."impressions-2021-05" USING btree (campaign_id);
+CREATE INDEX index_impressions_2021_05_on_campaign_id ON public.impressions_2021_05 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2021-05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-05_on_displayed_at_date" ON public."impressions-2021-05" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2021_05_on_displayed_at_date ON public.impressions_2021_05 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2021-05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-05_on_displayed_at_hour" ON public."impressions-2021-05" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2021_05_on_displayed_at_hour ON public.impressions_2021_05 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2021-05_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_05_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-05_on_payable" ON public."impressions-2021-05" USING btree (payable);
+CREATE INDEX index_impressions_2021_05_on_payable ON public.impressions_2021_05 USING btree (payable);
 
 
 --
--- Name: index_impressions-2021-05_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_05_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-05_on_property_id" ON public."impressions-2021-05" USING btree (property_id);
+CREATE INDEX index_impressions_2021_05_on_property_id ON public.impressions_2021_05 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2021-06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-06_on_campaign_id" ON public."impressions-2021-06" USING btree (campaign_id);
+CREATE INDEX index_impressions_2021_06_on_campaign_id ON public.impressions_2021_06 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2021-06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-06_on_displayed_at_date" ON public."impressions-2021-06" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2021_06_on_displayed_at_date ON public.impressions_2021_06 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2021-06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-06_on_displayed_at_hour" ON public."impressions-2021-06" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2021_06_on_displayed_at_hour ON public.impressions_2021_06 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2021-06_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_06_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-06_on_payable" ON public."impressions-2021-06" USING btree (payable);
+CREATE INDEX index_impressions_2021_06_on_payable ON public.impressions_2021_06 USING btree (payable);
 
 
 --
--- Name: index_impressions-2021-06_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_06_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-06_on_property_id" ON public."impressions-2021-06" USING btree (property_id);
+CREATE INDEX index_impressions_2021_06_on_property_id ON public.impressions_2021_06 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2021-07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-07_on_campaign_id" ON public."impressions-2021-07" USING btree (campaign_id);
+CREATE INDEX index_impressions_2021_07_on_campaign_id ON public.impressions_2021_07 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2021-07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-07_on_displayed_at_date" ON public."impressions-2021-07" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2021_07_on_displayed_at_date ON public.impressions_2021_07 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2021-07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-07_on_displayed_at_hour" ON public."impressions-2021-07" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2021_07_on_displayed_at_hour ON public.impressions_2021_07 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2021-07_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_07_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-07_on_payable" ON public."impressions-2021-07" USING btree (payable);
+CREATE INDEX index_impressions_2021_07_on_payable ON public.impressions_2021_07 USING btree (payable);
 
 
 --
--- Name: index_impressions-2021-07_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_07_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-07_on_property_id" ON public."impressions-2021-07" USING btree (property_id);
+CREATE INDEX index_impressions_2021_07_on_property_id ON public.impressions_2021_07 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2021-08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-08_on_campaign_id" ON public."impressions-2021-08" USING btree (campaign_id);
+CREATE INDEX index_impressions_2021_08_on_campaign_id ON public.impressions_2021_08 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2021-08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-08_on_displayed_at_date" ON public."impressions-2021-08" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2021_08_on_displayed_at_date ON public.impressions_2021_08 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2021-08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-08_on_displayed_at_hour" ON public."impressions-2021-08" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2021_08_on_displayed_at_hour ON public.impressions_2021_08 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2021-08_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_08_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-08_on_payable" ON public."impressions-2021-08" USING btree (payable);
+CREATE INDEX index_impressions_2021_08_on_payable ON public.impressions_2021_08 USING btree (payable);
 
 
 --
--- Name: index_impressions-2021-08_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_08_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-08_on_property_id" ON public."impressions-2021-08" USING btree (property_id);
+CREATE INDEX index_impressions_2021_08_on_property_id ON public.impressions_2021_08 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2021-09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-09_on_campaign_id" ON public."impressions-2021-09" USING btree (campaign_id);
+CREATE INDEX index_impressions_2021_09_on_campaign_id ON public.impressions_2021_09 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2021-09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-09_on_displayed_at_date" ON public."impressions-2021-09" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2021_09_on_displayed_at_date ON public.impressions_2021_09 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2021-09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-09_on_displayed_at_hour" ON public."impressions-2021-09" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2021_09_on_displayed_at_hour ON public.impressions_2021_09 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2021-09_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_09_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-09_on_payable" ON public."impressions-2021-09" USING btree (payable);
+CREATE INDEX index_impressions_2021_09_on_payable ON public.impressions_2021_09 USING btree (payable);
 
 
 --
--- Name: index_impressions-2021-09_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_09_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-09_on_property_id" ON public."impressions-2021-09" USING btree (property_id);
+CREATE INDEX index_impressions_2021_09_on_property_id ON public.impressions_2021_09 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2021-10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-10_on_campaign_id" ON public."impressions-2021-10" USING btree (campaign_id);
+CREATE INDEX index_impressions_2021_10_on_campaign_id ON public.impressions_2021_10 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2021-10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-10_on_displayed_at_date" ON public."impressions-2021-10" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2021_10_on_displayed_at_date ON public.impressions_2021_10 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2021-10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-10_on_displayed_at_hour" ON public."impressions-2021-10" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2021_10_on_displayed_at_hour ON public.impressions_2021_10 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2021-10_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_10_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-10_on_payable" ON public."impressions-2021-10" USING btree (payable);
+CREATE INDEX index_impressions_2021_10_on_payable ON public.impressions_2021_10 USING btree (payable);
 
 
 --
--- Name: index_impressions-2021-10_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_10_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-10_on_property_id" ON public."impressions-2021-10" USING btree (property_id);
+CREATE INDEX index_impressions_2021_10_on_property_id ON public.impressions_2021_10 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2021-11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-11_on_campaign_id" ON public."impressions-2021-11" USING btree (campaign_id);
+CREATE INDEX index_impressions_2021_11_on_campaign_id ON public.impressions_2021_11 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2021-11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-11_on_displayed_at_date" ON public."impressions-2021-11" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2021_11_on_displayed_at_date ON public.impressions_2021_11 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2021-11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-11_on_displayed_at_hour" ON public."impressions-2021-11" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2021_11_on_displayed_at_hour ON public.impressions_2021_11 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2021-11_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_11_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-11_on_payable" ON public."impressions-2021-11" USING btree (payable);
+CREATE INDEX index_impressions_2021_11_on_payable ON public.impressions_2021_11 USING btree (payable);
 
 
 --
--- Name: index_impressions-2021-11_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_11_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-11_on_property_id" ON public."impressions-2021-11" USING btree (property_id);
+CREATE INDEX index_impressions_2021_11_on_property_id ON public.impressions_2021_11 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2021-12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-12_on_campaign_id" ON public."impressions-2021-12" USING btree (campaign_id);
+CREATE INDEX index_impressions_2021_12_on_campaign_id ON public.impressions_2021_12 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2021-12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-12_on_displayed_at_date" ON public."impressions-2021-12" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2021_12_on_displayed_at_date ON public.impressions_2021_12 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2021-12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-12_on_displayed_at_hour" ON public."impressions-2021-12" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2021_12_on_displayed_at_hour ON public.impressions_2021_12 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2021-12_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_12_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-12_on_payable" ON public."impressions-2021-12" USING btree (payable);
+CREATE INDEX index_impressions_2021_12_on_payable ON public.impressions_2021_12 USING btree (payable);
 
 
 --
--- Name: index_impressions-2021-12_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2021_12_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2021-12_on_property_id" ON public."impressions-2021-12" USING btree (property_id);
+CREATE INDEX index_impressions_2021_12_on_property_id ON public.impressions_2021_12 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2022-01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-01_on_campaign_id" ON public."impressions-2022-01" USING btree (campaign_id);
+CREATE INDEX index_impressions_2022_01_on_campaign_id ON public.impressions_2022_01 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2022-01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-01_on_displayed_at_date" ON public."impressions-2022-01" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2022_01_on_displayed_at_date ON public.impressions_2022_01 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2022-01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-01_on_displayed_at_hour" ON public."impressions-2022-01" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2022_01_on_displayed_at_hour ON public.impressions_2022_01 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2022-01_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_01_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-01_on_payable" ON public."impressions-2022-01" USING btree (payable);
+CREATE INDEX index_impressions_2022_01_on_payable ON public.impressions_2022_01 USING btree (payable);
 
 
 --
--- Name: index_impressions-2022-01_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_01_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-01_on_property_id" ON public."impressions-2022-01" USING btree (property_id);
+CREATE INDEX index_impressions_2022_01_on_property_id ON public.impressions_2022_01 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2022-02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-02_on_campaign_id" ON public."impressions-2022-02" USING btree (campaign_id);
+CREATE INDEX index_impressions_2022_02_on_campaign_id ON public.impressions_2022_02 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2022-02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-02_on_displayed_at_date" ON public."impressions-2022-02" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2022_02_on_displayed_at_date ON public.impressions_2022_02 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2022-02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-02_on_displayed_at_hour" ON public."impressions-2022-02" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2022_02_on_displayed_at_hour ON public.impressions_2022_02 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2022-02_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_02_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-02_on_payable" ON public."impressions-2022-02" USING btree (payable);
+CREATE INDEX index_impressions_2022_02_on_payable ON public.impressions_2022_02 USING btree (payable);
 
 
 --
--- Name: index_impressions-2022-02_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_02_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-02_on_property_id" ON public."impressions-2022-02" USING btree (property_id);
+CREATE INDEX index_impressions_2022_02_on_property_id ON public.impressions_2022_02 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2022-03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-03_on_campaign_id" ON public."impressions-2022-03" USING btree (campaign_id);
+CREATE INDEX index_impressions_2022_03_on_campaign_id ON public.impressions_2022_03 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2022-03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-03_on_displayed_at_date" ON public."impressions-2022-03" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2022_03_on_displayed_at_date ON public.impressions_2022_03 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2022-03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-03_on_displayed_at_hour" ON public."impressions-2022-03" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2022_03_on_displayed_at_hour ON public.impressions_2022_03 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2022-03_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_03_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-03_on_payable" ON public."impressions-2022-03" USING btree (payable);
+CREATE INDEX index_impressions_2022_03_on_payable ON public.impressions_2022_03 USING btree (payable);
 
 
 --
--- Name: index_impressions-2022-03_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_03_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-03_on_property_id" ON public."impressions-2022-03" USING btree (property_id);
+CREATE INDEX index_impressions_2022_03_on_property_id ON public.impressions_2022_03 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2022-04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-04_on_campaign_id" ON public."impressions-2022-04" USING btree (campaign_id);
+CREATE INDEX index_impressions_2022_04_on_campaign_id ON public.impressions_2022_04 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2022-04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-04_on_displayed_at_date" ON public."impressions-2022-04" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2022_04_on_displayed_at_date ON public.impressions_2022_04 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2022-04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-04_on_displayed_at_hour" ON public."impressions-2022-04" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2022_04_on_displayed_at_hour ON public.impressions_2022_04 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2022-04_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_04_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-04_on_payable" ON public."impressions-2022-04" USING btree (payable);
+CREATE INDEX index_impressions_2022_04_on_payable ON public.impressions_2022_04 USING btree (payable);
 
 
 --
--- Name: index_impressions-2022-04_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_04_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-04_on_property_id" ON public."impressions-2022-04" USING btree (property_id);
+CREATE INDEX index_impressions_2022_04_on_property_id ON public.impressions_2022_04 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2022-05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-05_on_campaign_id" ON public."impressions-2022-05" USING btree (campaign_id);
+CREATE INDEX index_impressions_2022_05_on_campaign_id ON public.impressions_2022_05 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2022-05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-05_on_displayed_at_date" ON public."impressions-2022-05" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2022_05_on_displayed_at_date ON public.impressions_2022_05 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2022-05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-05_on_displayed_at_hour" ON public."impressions-2022-05" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2022_05_on_displayed_at_hour ON public.impressions_2022_05 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2022-05_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_05_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-05_on_payable" ON public."impressions-2022-05" USING btree (payable);
+CREATE INDEX index_impressions_2022_05_on_payable ON public.impressions_2022_05 USING btree (payable);
 
 
 --
--- Name: index_impressions-2022-05_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_05_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-05_on_property_id" ON public."impressions-2022-05" USING btree (property_id);
+CREATE INDEX index_impressions_2022_05_on_property_id ON public.impressions_2022_05 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2022-06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-06_on_campaign_id" ON public."impressions-2022-06" USING btree (campaign_id);
+CREATE INDEX index_impressions_2022_06_on_campaign_id ON public.impressions_2022_06 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2022-06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-06_on_displayed_at_date" ON public."impressions-2022-06" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2022_06_on_displayed_at_date ON public.impressions_2022_06 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2022-06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-06_on_displayed_at_hour" ON public."impressions-2022-06" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2022_06_on_displayed_at_hour ON public.impressions_2022_06 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2022-06_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_06_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-06_on_payable" ON public."impressions-2022-06" USING btree (payable);
+CREATE INDEX index_impressions_2022_06_on_payable ON public.impressions_2022_06 USING btree (payable);
 
 
 --
--- Name: index_impressions-2022-06_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_06_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-06_on_property_id" ON public."impressions-2022-06" USING btree (property_id);
+CREATE INDEX index_impressions_2022_06_on_property_id ON public.impressions_2022_06 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2022-07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-07_on_campaign_id" ON public."impressions-2022-07" USING btree (campaign_id);
+CREATE INDEX index_impressions_2022_07_on_campaign_id ON public.impressions_2022_07 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2022-07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-07_on_displayed_at_date" ON public."impressions-2022-07" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2022_07_on_displayed_at_date ON public.impressions_2022_07 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2022-07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-07_on_displayed_at_hour" ON public."impressions-2022-07" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2022_07_on_displayed_at_hour ON public.impressions_2022_07 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2022-07_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_07_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-07_on_payable" ON public."impressions-2022-07" USING btree (payable);
+CREATE INDEX index_impressions_2022_07_on_payable ON public.impressions_2022_07 USING btree (payable);
 
 
 --
--- Name: index_impressions-2022-07_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_07_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-07_on_property_id" ON public."impressions-2022-07" USING btree (property_id);
+CREATE INDEX index_impressions_2022_07_on_property_id ON public.impressions_2022_07 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2022-08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-08_on_campaign_id" ON public."impressions-2022-08" USING btree (campaign_id);
+CREATE INDEX index_impressions_2022_08_on_campaign_id ON public.impressions_2022_08 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2022-08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-08_on_displayed_at_date" ON public."impressions-2022-08" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2022_08_on_displayed_at_date ON public.impressions_2022_08 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2022-08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-08_on_displayed_at_hour" ON public."impressions-2022-08" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2022_08_on_displayed_at_hour ON public.impressions_2022_08 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2022-08_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_08_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-08_on_payable" ON public."impressions-2022-08" USING btree (payable);
+CREATE INDEX index_impressions_2022_08_on_payable ON public.impressions_2022_08 USING btree (payable);
 
 
 --
--- Name: index_impressions-2022-08_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_08_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-08_on_property_id" ON public."impressions-2022-08" USING btree (property_id);
+CREATE INDEX index_impressions_2022_08_on_property_id ON public.impressions_2022_08 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2022-09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-09_on_campaign_id" ON public."impressions-2022-09" USING btree (campaign_id);
+CREATE INDEX index_impressions_2022_09_on_campaign_id ON public.impressions_2022_09 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2022-09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-09_on_displayed_at_date" ON public."impressions-2022-09" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2022_09_on_displayed_at_date ON public.impressions_2022_09 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2022-09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-09_on_displayed_at_hour" ON public."impressions-2022-09" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2022_09_on_displayed_at_hour ON public.impressions_2022_09 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2022-09_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_09_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-09_on_payable" ON public."impressions-2022-09" USING btree (payable);
+CREATE INDEX index_impressions_2022_09_on_payable ON public.impressions_2022_09 USING btree (payable);
 
 
 --
--- Name: index_impressions-2022-09_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_09_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-09_on_property_id" ON public."impressions-2022-09" USING btree (property_id);
+CREATE INDEX index_impressions_2022_09_on_property_id ON public.impressions_2022_09 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2022-10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-10_on_campaign_id" ON public."impressions-2022-10" USING btree (campaign_id);
+CREATE INDEX index_impressions_2022_10_on_campaign_id ON public.impressions_2022_10 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2022-10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-10_on_displayed_at_date" ON public."impressions-2022-10" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2022_10_on_displayed_at_date ON public.impressions_2022_10 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2022-10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-10_on_displayed_at_hour" ON public."impressions-2022-10" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2022_10_on_displayed_at_hour ON public.impressions_2022_10 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2022-10_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_10_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-10_on_payable" ON public."impressions-2022-10" USING btree (payable);
+CREATE INDEX index_impressions_2022_10_on_payable ON public.impressions_2022_10 USING btree (payable);
 
 
 --
--- Name: index_impressions-2022-10_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_10_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-10_on_property_id" ON public."impressions-2022-10" USING btree (property_id);
+CREATE INDEX index_impressions_2022_10_on_property_id ON public.impressions_2022_10 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2022-11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-11_on_campaign_id" ON public."impressions-2022-11" USING btree (campaign_id);
+CREATE INDEX index_impressions_2022_11_on_campaign_id ON public.impressions_2022_11 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2022-11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-11_on_displayed_at_date" ON public."impressions-2022-11" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2022_11_on_displayed_at_date ON public.impressions_2022_11 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2022-11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-11_on_displayed_at_hour" ON public."impressions-2022-11" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2022_11_on_displayed_at_hour ON public.impressions_2022_11 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2022-11_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_11_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-11_on_payable" ON public."impressions-2022-11" USING btree (payable);
+CREATE INDEX index_impressions_2022_11_on_payable ON public.impressions_2022_11 USING btree (payable);
 
 
 --
--- Name: index_impressions-2022-11_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_11_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-11_on_property_id" ON public."impressions-2022-11" USING btree (property_id);
+CREATE INDEX index_impressions_2022_11_on_property_id ON public.impressions_2022_11 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2022-12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-12_on_campaign_id" ON public."impressions-2022-12" USING btree (campaign_id);
+CREATE INDEX index_impressions_2022_12_on_campaign_id ON public.impressions_2022_12 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2022-12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-12_on_displayed_at_date" ON public."impressions-2022-12" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2022_12_on_displayed_at_date ON public.impressions_2022_12 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2022-12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-12_on_displayed_at_hour" ON public."impressions-2022-12" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2022_12_on_displayed_at_hour ON public.impressions_2022_12 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2022-12_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_12_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-12_on_payable" ON public."impressions-2022-12" USING btree (payable);
+CREATE INDEX index_impressions_2022_12_on_payable ON public.impressions_2022_12 USING btree (payable);
 
 
 --
--- Name: index_impressions-2022-12_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2022_12_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2022-12_on_property_id" ON public."impressions-2022-12" USING btree (property_id);
+CREATE INDEX index_impressions_2022_12_on_property_id ON public.impressions_2022_12 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2023-01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-01_on_campaign_id" ON public."impressions-2023-01" USING btree (campaign_id);
+CREATE INDEX index_impressions_2023_01_on_campaign_id ON public.impressions_2023_01 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2023-01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-01_on_displayed_at_date" ON public."impressions-2023-01" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2023_01_on_displayed_at_date ON public.impressions_2023_01 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2023-01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-01_on_displayed_at_hour" ON public."impressions-2023-01" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2023_01_on_displayed_at_hour ON public.impressions_2023_01 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2023-01_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_01_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-01_on_payable" ON public."impressions-2023-01" USING btree (payable);
+CREATE INDEX index_impressions_2023_01_on_payable ON public.impressions_2023_01 USING btree (payable);
 
 
 --
--- Name: index_impressions-2023-01_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_01_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-01_on_property_id" ON public."impressions-2023-01" USING btree (property_id);
+CREATE INDEX index_impressions_2023_01_on_property_id ON public.impressions_2023_01 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2023-02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-02_on_campaign_id" ON public."impressions-2023-02" USING btree (campaign_id);
+CREATE INDEX index_impressions_2023_02_on_campaign_id ON public.impressions_2023_02 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2023-02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-02_on_displayed_at_date" ON public."impressions-2023-02" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2023_02_on_displayed_at_date ON public.impressions_2023_02 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2023-02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-02_on_displayed_at_hour" ON public."impressions-2023-02" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2023_02_on_displayed_at_hour ON public.impressions_2023_02 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2023-02_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_02_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-02_on_payable" ON public."impressions-2023-02" USING btree (payable);
+CREATE INDEX index_impressions_2023_02_on_payable ON public.impressions_2023_02 USING btree (payable);
 
 
 --
--- Name: index_impressions-2023-02_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_02_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-02_on_property_id" ON public."impressions-2023-02" USING btree (property_id);
+CREATE INDEX index_impressions_2023_02_on_property_id ON public.impressions_2023_02 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2023-03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-03_on_campaign_id" ON public."impressions-2023-03" USING btree (campaign_id);
+CREATE INDEX index_impressions_2023_03_on_campaign_id ON public.impressions_2023_03 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2023-03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-03_on_displayed_at_date" ON public."impressions-2023-03" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2023_03_on_displayed_at_date ON public.impressions_2023_03 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2023-03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-03_on_displayed_at_hour" ON public."impressions-2023-03" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2023_03_on_displayed_at_hour ON public.impressions_2023_03 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2023-03_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_03_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-03_on_payable" ON public."impressions-2023-03" USING btree (payable);
+CREATE INDEX index_impressions_2023_03_on_payable ON public.impressions_2023_03 USING btree (payable);
 
 
 --
--- Name: index_impressions-2023-03_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_03_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-03_on_property_id" ON public."impressions-2023-03" USING btree (property_id);
+CREATE INDEX index_impressions_2023_03_on_property_id ON public.impressions_2023_03 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2023-04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-04_on_campaign_id" ON public."impressions-2023-04" USING btree (campaign_id);
+CREATE INDEX index_impressions_2023_04_on_campaign_id ON public.impressions_2023_04 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2023-04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-04_on_displayed_at_date" ON public."impressions-2023-04" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2023_04_on_displayed_at_date ON public.impressions_2023_04 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2023-04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-04_on_displayed_at_hour" ON public."impressions-2023-04" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2023_04_on_displayed_at_hour ON public.impressions_2023_04 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2023-04_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_04_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-04_on_payable" ON public."impressions-2023-04" USING btree (payable);
+CREATE INDEX index_impressions_2023_04_on_payable ON public.impressions_2023_04 USING btree (payable);
 
 
 --
--- Name: index_impressions-2023-04_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_04_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-04_on_property_id" ON public."impressions-2023-04" USING btree (property_id);
+CREATE INDEX index_impressions_2023_04_on_property_id ON public.impressions_2023_04 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2023-05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-05_on_campaign_id" ON public."impressions-2023-05" USING btree (campaign_id);
+CREATE INDEX index_impressions_2023_05_on_campaign_id ON public.impressions_2023_05 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2023-05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-05_on_displayed_at_date" ON public."impressions-2023-05" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2023_05_on_displayed_at_date ON public.impressions_2023_05 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2023-05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-05_on_displayed_at_hour" ON public."impressions-2023-05" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2023_05_on_displayed_at_hour ON public.impressions_2023_05 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2023-05_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_05_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-05_on_payable" ON public."impressions-2023-05" USING btree (payable);
+CREATE INDEX index_impressions_2023_05_on_payable ON public.impressions_2023_05 USING btree (payable);
 
 
 --
--- Name: index_impressions-2023-05_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_05_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-05_on_property_id" ON public."impressions-2023-05" USING btree (property_id);
+CREATE INDEX index_impressions_2023_05_on_property_id ON public.impressions_2023_05 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2023-06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-06_on_campaign_id" ON public."impressions-2023-06" USING btree (campaign_id);
+CREATE INDEX index_impressions_2023_06_on_campaign_id ON public.impressions_2023_06 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2023-06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-06_on_displayed_at_date" ON public."impressions-2023-06" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2023_06_on_displayed_at_date ON public.impressions_2023_06 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2023-06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-06_on_displayed_at_hour" ON public."impressions-2023-06" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2023_06_on_displayed_at_hour ON public.impressions_2023_06 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2023-06_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_06_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-06_on_payable" ON public."impressions-2023-06" USING btree (payable);
+CREATE INDEX index_impressions_2023_06_on_payable ON public.impressions_2023_06 USING btree (payable);
 
 
 --
--- Name: index_impressions-2023-06_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_06_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-06_on_property_id" ON public."impressions-2023-06" USING btree (property_id);
+CREATE INDEX index_impressions_2023_06_on_property_id ON public.impressions_2023_06 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2023-07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-07_on_campaign_id" ON public."impressions-2023-07" USING btree (campaign_id);
+CREATE INDEX index_impressions_2023_07_on_campaign_id ON public.impressions_2023_07 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2023-07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-07_on_displayed_at_date" ON public."impressions-2023-07" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2023_07_on_displayed_at_date ON public.impressions_2023_07 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2023-07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-07_on_displayed_at_hour" ON public."impressions-2023-07" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2023_07_on_displayed_at_hour ON public.impressions_2023_07 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2023-07_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_07_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-07_on_payable" ON public."impressions-2023-07" USING btree (payable);
+CREATE INDEX index_impressions_2023_07_on_payable ON public.impressions_2023_07 USING btree (payable);
 
 
 --
--- Name: index_impressions-2023-07_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_07_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-07_on_property_id" ON public."impressions-2023-07" USING btree (property_id);
+CREATE INDEX index_impressions_2023_07_on_property_id ON public.impressions_2023_07 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2023-08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-08_on_campaign_id" ON public."impressions-2023-08" USING btree (campaign_id);
+CREATE INDEX index_impressions_2023_08_on_campaign_id ON public.impressions_2023_08 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2023-08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-08_on_displayed_at_date" ON public."impressions-2023-08" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2023_08_on_displayed_at_date ON public.impressions_2023_08 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2023-08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-08_on_displayed_at_hour" ON public."impressions-2023-08" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2023_08_on_displayed_at_hour ON public.impressions_2023_08 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2023-08_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_08_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-08_on_payable" ON public."impressions-2023-08" USING btree (payable);
+CREATE INDEX index_impressions_2023_08_on_payable ON public.impressions_2023_08 USING btree (payable);
 
 
 --
--- Name: index_impressions-2023-08_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_08_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-08_on_property_id" ON public."impressions-2023-08" USING btree (property_id);
+CREATE INDEX index_impressions_2023_08_on_property_id ON public.impressions_2023_08 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2023-09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-09_on_campaign_id" ON public."impressions-2023-09" USING btree (campaign_id);
+CREATE INDEX index_impressions_2023_09_on_campaign_id ON public.impressions_2023_09 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2023-09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-09_on_displayed_at_date" ON public."impressions-2023-09" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2023_09_on_displayed_at_date ON public.impressions_2023_09 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2023-09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-09_on_displayed_at_hour" ON public."impressions-2023-09" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2023_09_on_displayed_at_hour ON public.impressions_2023_09 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2023-09_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_09_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-09_on_payable" ON public."impressions-2023-09" USING btree (payable);
+CREATE INDEX index_impressions_2023_09_on_payable ON public.impressions_2023_09 USING btree (payable);
 
 
 --
--- Name: index_impressions-2023-09_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_09_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-09_on_property_id" ON public."impressions-2023-09" USING btree (property_id);
+CREATE INDEX index_impressions_2023_09_on_property_id ON public.impressions_2023_09 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2023-10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-10_on_campaign_id" ON public."impressions-2023-10" USING btree (campaign_id);
+CREATE INDEX index_impressions_2023_10_on_campaign_id ON public.impressions_2023_10 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2023-10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-10_on_displayed_at_date" ON public."impressions-2023-10" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2023_10_on_displayed_at_date ON public.impressions_2023_10 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2023-10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-10_on_displayed_at_hour" ON public."impressions-2023-10" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2023_10_on_displayed_at_hour ON public.impressions_2023_10 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2023-10_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_10_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-10_on_payable" ON public."impressions-2023-10" USING btree (payable);
+CREATE INDEX index_impressions_2023_10_on_payable ON public.impressions_2023_10 USING btree (payable);
 
 
 --
--- Name: index_impressions-2023-10_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_10_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-10_on_property_id" ON public."impressions-2023-10" USING btree (property_id);
+CREATE INDEX index_impressions_2023_10_on_property_id ON public.impressions_2023_10 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2023-11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-11_on_campaign_id" ON public."impressions-2023-11" USING btree (campaign_id);
+CREATE INDEX index_impressions_2023_11_on_campaign_id ON public.impressions_2023_11 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2023-11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-11_on_displayed_at_date" ON public."impressions-2023-11" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2023_11_on_displayed_at_date ON public.impressions_2023_11 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2023-11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-11_on_displayed_at_hour" ON public."impressions-2023-11" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2023_11_on_displayed_at_hour ON public.impressions_2023_11 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2023-11_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_11_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-11_on_payable" ON public."impressions-2023-11" USING btree (payable);
+CREATE INDEX index_impressions_2023_11_on_payable ON public.impressions_2023_11 USING btree (payable);
 
 
 --
--- Name: index_impressions-2023-11_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_11_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-11_on_property_id" ON public."impressions-2023-11" USING btree (property_id);
+CREATE INDEX index_impressions_2023_11_on_property_id ON public.impressions_2023_11 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2023-12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-12_on_campaign_id" ON public."impressions-2023-12" USING btree (campaign_id);
+CREATE INDEX index_impressions_2023_12_on_campaign_id ON public.impressions_2023_12 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2023-12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-12_on_displayed_at_date" ON public."impressions-2023-12" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2023_12_on_displayed_at_date ON public.impressions_2023_12 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2023-12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-12_on_displayed_at_hour" ON public."impressions-2023-12" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2023_12_on_displayed_at_hour ON public.impressions_2023_12 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2023-12_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_12_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-12_on_payable" ON public."impressions-2023-12" USING btree (payable);
+CREATE INDEX index_impressions_2023_12_on_payable ON public.impressions_2023_12 USING btree (payable);
 
 
 --
--- Name: index_impressions-2023-12_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2023_12_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2023-12_on_property_id" ON public."impressions-2023-12" USING btree (property_id);
+CREATE INDEX index_impressions_2023_12_on_property_id ON public.impressions_2023_12 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2024-01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-01_on_campaign_id" ON public."impressions-2024-01" USING btree (campaign_id);
+CREATE INDEX index_impressions_2024_01_on_campaign_id ON public.impressions_2024_01 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2024-01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-01_on_displayed_at_date" ON public."impressions-2024-01" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2024_01_on_displayed_at_date ON public.impressions_2024_01 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2024-01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-01_on_displayed_at_hour" ON public."impressions-2024-01" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2024_01_on_displayed_at_hour ON public.impressions_2024_01 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2024-01_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_01_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-01_on_payable" ON public."impressions-2024-01" USING btree (payable);
+CREATE INDEX index_impressions_2024_01_on_payable ON public.impressions_2024_01 USING btree (payable);
 
 
 --
--- Name: index_impressions-2024-01_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_01_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-01_on_property_id" ON public."impressions-2024-01" USING btree (property_id);
+CREATE INDEX index_impressions_2024_01_on_property_id ON public.impressions_2024_01 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2024-02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-02_on_campaign_id" ON public."impressions-2024-02" USING btree (campaign_id);
+CREATE INDEX index_impressions_2024_02_on_campaign_id ON public.impressions_2024_02 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2024-02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-02_on_displayed_at_date" ON public."impressions-2024-02" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2024_02_on_displayed_at_date ON public.impressions_2024_02 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2024-02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-02_on_displayed_at_hour" ON public."impressions-2024-02" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2024_02_on_displayed_at_hour ON public.impressions_2024_02 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2024-02_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_02_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-02_on_payable" ON public."impressions-2024-02" USING btree (payable);
+CREATE INDEX index_impressions_2024_02_on_payable ON public.impressions_2024_02 USING btree (payable);
 
 
 --
--- Name: index_impressions-2024-02_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_02_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-02_on_property_id" ON public."impressions-2024-02" USING btree (property_id);
+CREATE INDEX index_impressions_2024_02_on_property_id ON public.impressions_2024_02 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2024-03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-03_on_campaign_id" ON public."impressions-2024-03" USING btree (campaign_id);
+CREATE INDEX index_impressions_2024_03_on_campaign_id ON public.impressions_2024_03 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2024-03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-03_on_displayed_at_date" ON public."impressions-2024-03" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2024_03_on_displayed_at_date ON public.impressions_2024_03 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2024-03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-03_on_displayed_at_hour" ON public."impressions-2024-03" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2024_03_on_displayed_at_hour ON public.impressions_2024_03 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2024-03_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_03_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-03_on_payable" ON public."impressions-2024-03" USING btree (payable);
+CREATE INDEX index_impressions_2024_03_on_payable ON public.impressions_2024_03 USING btree (payable);
 
 
 --
--- Name: index_impressions-2024-03_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_03_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-03_on_property_id" ON public."impressions-2024-03" USING btree (property_id);
+CREATE INDEX index_impressions_2024_03_on_property_id ON public.impressions_2024_03 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2024-04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-04_on_campaign_id" ON public."impressions-2024-04" USING btree (campaign_id);
+CREATE INDEX index_impressions_2024_04_on_campaign_id ON public.impressions_2024_04 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2024-04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-04_on_displayed_at_date" ON public."impressions-2024-04" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2024_04_on_displayed_at_date ON public.impressions_2024_04 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2024-04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-04_on_displayed_at_hour" ON public."impressions-2024-04" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2024_04_on_displayed_at_hour ON public.impressions_2024_04 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2024-04_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_04_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-04_on_payable" ON public."impressions-2024-04" USING btree (payable);
+CREATE INDEX index_impressions_2024_04_on_payable ON public.impressions_2024_04 USING btree (payable);
 
 
 --
--- Name: index_impressions-2024-04_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_04_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-04_on_property_id" ON public."impressions-2024-04" USING btree (property_id);
+CREATE INDEX index_impressions_2024_04_on_property_id ON public.impressions_2024_04 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2024-05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-05_on_campaign_id" ON public."impressions-2024-05" USING btree (campaign_id);
+CREATE INDEX index_impressions_2024_05_on_campaign_id ON public.impressions_2024_05 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2024-05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-05_on_displayed_at_date" ON public."impressions-2024-05" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2024_05_on_displayed_at_date ON public.impressions_2024_05 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2024-05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-05_on_displayed_at_hour" ON public."impressions-2024-05" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2024_05_on_displayed_at_hour ON public.impressions_2024_05 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2024-05_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_05_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-05_on_payable" ON public."impressions-2024-05" USING btree (payable);
+CREATE INDEX index_impressions_2024_05_on_payable ON public.impressions_2024_05 USING btree (payable);
 
 
 --
--- Name: index_impressions-2024-05_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_05_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-05_on_property_id" ON public."impressions-2024-05" USING btree (property_id);
+CREATE INDEX index_impressions_2024_05_on_property_id ON public.impressions_2024_05 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2024-06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-06_on_campaign_id" ON public."impressions-2024-06" USING btree (campaign_id);
+CREATE INDEX index_impressions_2024_06_on_campaign_id ON public.impressions_2024_06 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2024-06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-06_on_displayed_at_date" ON public."impressions-2024-06" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2024_06_on_displayed_at_date ON public.impressions_2024_06 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2024-06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-06_on_displayed_at_hour" ON public."impressions-2024-06" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2024_06_on_displayed_at_hour ON public.impressions_2024_06 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2024-06_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_06_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-06_on_payable" ON public."impressions-2024-06" USING btree (payable);
+CREATE INDEX index_impressions_2024_06_on_payable ON public.impressions_2024_06 USING btree (payable);
 
 
 --
--- Name: index_impressions-2024-06_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_06_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-06_on_property_id" ON public."impressions-2024-06" USING btree (property_id);
+CREATE INDEX index_impressions_2024_06_on_property_id ON public.impressions_2024_06 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2024-07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-07_on_campaign_id" ON public."impressions-2024-07" USING btree (campaign_id);
+CREATE INDEX index_impressions_2024_07_on_campaign_id ON public.impressions_2024_07 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2024-07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-07_on_displayed_at_date" ON public."impressions-2024-07" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2024_07_on_displayed_at_date ON public.impressions_2024_07 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2024-07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-07_on_displayed_at_hour" ON public."impressions-2024-07" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2024_07_on_displayed_at_hour ON public.impressions_2024_07 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2024-07_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_07_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-07_on_payable" ON public."impressions-2024-07" USING btree (payable);
+CREATE INDEX index_impressions_2024_07_on_payable ON public.impressions_2024_07 USING btree (payable);
 
 
 --
--- Name: index_impressions-2024-07_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_07_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-07_on_property_id" ON public."impressions-2024-07" USING btree (property_id);
+CREATE INDEX index_impressions_2024_07_on_property_id ON public.impressions_2024_07 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2024-08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-08_on_campaign_id" ON public."impressions-2024-08" USING btree (campaign_id);
+CREATE INDEX index_impressions_2024_08_on_campaign_id ON public.impressions_2024_08 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2024-08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-08_on_displayed_at_date" ON public."impressions-2024-08" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2024_08_on_displayed_at_date ON public.impressions_2024_08 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2024-08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-08_on_displayed_at_hour" ON public."impressions-2024-08" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2024_08_on_displayed_at_hour ON public.impressions_2024_08 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2024-08_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_08_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-08_on_payable" ON public."impressions-2024-08" USING btree (payable);
+CREATE INDEX index_impressions_2024_08_on_payable ON public.impressions_2024_08 USING btree (payable);
 
 
 --
--- Name: index_impressions-2024-08_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_08_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-08_on_property_id" ON public."impressions-2024-08" USING btree (property_id);
+CREATE INDEX index_impressions_2024_08_on_property_id ON public.impressions_2024_08 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2024-09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-09_on_campaign_id" ON public."impressions-2024-09" USING btree (campaign_id);
+CREATE INDEX index_impressions_2024_09_on_campaign_id ON public.impressions_2024_09 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2024-09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-09_on_displayed_at_date" ON public."impressions-2024-09" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2024_09_on_displayed_at_date ON public.impressions_2024_09 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2024-09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-09_on_displayed_at_hour" ON public."impressions-2024-09" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2024_09_on_displayed_at_hour ON public.impressions_2024_09 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2024-09_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_09_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-09_on_payable" ON public."impressions-2024-09" USING btree (payable);
+CREATE INDEX index_impressions_2024_09_on_payable ON public.impressions_2024_09 USING btree (payable);
 
 
 --
--- Name: index_impressions-2024-09_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_09_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-09_on_property_id" ON public."impressions-2024-09" USING btree (property_id);
+CREATE INDEX index_impressions_2024_09_on_property_id ON public.impressions_2024_09 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2024-10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-10_on_campaign_id" ON public."impressions-2024-10" USING btree (campaign_id);
+CREATE INDEX index_impressions_2024_10_on_campaign_id ON public.impressions_2024_10 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2024-10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-10_on_displayed_at_date" ON public."impressions-2024-10" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2024_10_on_displayed_at_date ON public.impressions_2024_10 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2024-10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-10_on_displayed_at_hour" ON public."impressions-2024-10" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2024_10_on_displayed_at_hour ON public.impressions_2024_10 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2024-10_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_10_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-10_on_payable" ON public."impressions-2024-10" USING btree (payable);
+CREATE INDEX index_impressions_2024_10_on_payable ON public.impressions_2024_10 USING btree (payable);
 
 
 --
--- Name: index_impressions-2024-10_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_10_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-10_on_property_id" ON public."impressions-2024-10" USING btree (property_id);
+CREATE INDEX index_impressions_2024_10_on_property_id ON public.impressions_2024_10 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2024-11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-11_on_campaign_id" ON public."impressions-2024-11" USING btree (campaign_id);
+CREATE INDEX index_impressions_2024_11_on_campaign_id ON public.impressions_2024_11 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2024-11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-11_on_displayed_at_date" ON public."impressions-2024-11" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2024_11_on_displayed_at_date ON public.impressions_2024_11 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2024-11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-11_on_displayed_at_hour" ON public."impressions-2024-11" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2024_11_on_displayed_at_hour ON public.impressions_2024_11 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2024-11_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_11_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-11_on_payable" ON public."impressions-2024-11" USING btree (payable);
+CREATE INDEX index_impressions_2024_11_on_payable ON public.impressions_2024_11 USING btree (payable);
 
 
 --
--- Name: index_impressions-2024-11_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_11_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-11_on_property_id" ON public."impressions-2024-11" USING btree (property_id);
+CREATE INDEX index_impressions_2024_11_on_property_id ON public.impressions_2024_11 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2024-12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-12_on_campaign_id" ON public."impressions-2024-12" USING btree (campaign_id);
+CREATE INDEX index_impressions_2024_12_on_campaign_id ON public.impressions_2024_12 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2024-12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-12_on_displayed_at_date" ON public."impressions-2024-12" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2024_12_on_displayed_at_date ON public.impressions_2024_12 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2024-12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-12_on_displayed_at_hour" ON public."impressions-2024-12" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2024_12_on_displayed_at_hour ON public.impressions_2024_12 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2024-12_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_12_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-12_on_payable" ON public."impressions-2024-12" USING btree (payable);
+CREATE INDEX index_impressions_2024_12_on_payable ON public.impressions_2024_12 USING btree (payable);
 
 
 --
--- Name: index_impressions-2024-12_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2024_12_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2024-12_on_property_id" ON public."impressions-2024-12" USING btree (property_id);
+CREATE INDEX index_impressions_2024_12_on_property_id ON public.impressions_2024_12 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2025-01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-01_on_campaign_id" ON public."impressions-2025-01" USING btree (campaign_id);
+CREATE INDEX index_impressions_2025_01_on_campaign_id ON public.impressions_2025_01 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2025-01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-01_on_displayed_at_date" ON public."impressions-2025-01" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2025_01_on_displayed_at_date ON public.impressions_2025_01 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2025-01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-01_on_displayed_at_hour" ON public."impressions-2025-01" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2025_01_on_displayed_at_hour ON public.impressions_2025_01 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2025-01_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_01_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-01_on_payable" ON public."impressions-2025-01" USING btree (payable);
+CREATE INDEX index_impressions_2025_01_on_payable ON public.impressions_2025_01 USING btree (payable);
 
 
 --
--- Name: index_impressions-2025-01_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_01_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-01_on_property_id" ON public."impressions-2025-01" USING btree (property_id);
+CREATE INDEX index_impressions_2025_01_on_property_id ON public.impressions_2025_01 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2025-02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-02_on_campaign_id" ON public."impressions-2025-02" USING btree (campaign_id);
+CREATE INDEX index_impressions_2025_02_on_campaign_id ON public.impressions_2025_02 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2025-02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-02_on_displayed_at_date" ON public."impressions-2025-02" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2025_02_on_displayed_at_date ON public.impressions_2025_02 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2025-02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-02_on_displayed_at_hour" ON public."impressions-2025-02" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2025_02_on_displayed_at_hour ON public.impressions_2025_02 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2025-02_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_02_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-02_on_payable" ON public."impressions-2025-02" USING btree (payable);
+CREATE INDEX index_impressions_2025_02_on_payable ON public.impressions_2025_02 USING btree (payable);
 
 
 --
--- Name: index_impressions-2025-02_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_02_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-02_on_property_id" ON public."impressions-2025-02" USING btree (property_id);
+CREATE INDEX index_impressions_2025_02_on_property_id ON public.impressions_2025_02 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2025-03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-03_on_campaign_id" ON public."impressions-2025-03" USING btree (campaign_id);
+CREATE INDEX index_impressions_2025_03_on_campaign_id ON public.impressions_2025_03 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2025-03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-03_on_displayed_at_date" ON public."impressions-2025-03" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2025_03_on_displayed_at_date ON public.impressions_2025_03 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2025-03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-03_on_displayed_at_hour" ON public."impressions-2025-03" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2025_03_on_displayed_at_hour ON public.impressions_2025_03 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2025-03_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_03_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-03_on_payable" ON public."impressions-2025-03" USING btree (payable);
+CREATE INDEX index_impressions_2025_03_on_payable ON public.impressions_2025_03 USING btree (payable);
 
 
 --
--- Name: index_impressions-2025-03_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_03_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-03_on_property_id" ON public."impressions-2025-03" USING btree (property_id);
+CREATE INDEX index_impressions_2025_03_on_property_id ON public.impressions_2025_03 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2025-04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-04_on_campaign_id" ON public."impressions-2025-04" USING btree (campaign_id);
+CREATE INDEX index_impressions_2025_04_on_campaign_id ON public.impressions_2025_04 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2025-04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-04_on_displayed_at_date" ON public."impressions-2025-04" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2025_04_on_displayed_at_date ON public.impressions_2025_04 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2025-04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-04_on_displayed_at_hour" ON public."impressions-2025-04" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2025_04_on_displayed_at_hour ON public.impressions_2025_04 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2025-04_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_04_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-04_on_payable" ON public."impressions-2025-04" USING btree (payable);
+CREATE INDEX index_impressions_2025_04_on_payable ON public.impressions_2025_04 USING btree (payable);
 
 
 --
--- Name: index_impressions-2025-04_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_04_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-04_on_property_id" ON public."impressions-2025-04" USING btree (property_id);
+CREATE INDEX index_impressions_2025_04_on_property_id ON public.impressions_2025_04 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2025-05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-05_on_campaign_id" ON public."impressions-2025-05" USING btree (campaign_id);
+CREATE INDEX index_impressions_2025_05_on_campaign_id ON public.impressions_2025_05 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2025-05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-05_on_displayed_at_date" ON public."impressions-2025-05" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2025_05_on_displayed_at_date ON public.impressions_2025_05 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2025-05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-05_on_displayed_at_hour" ON public."impressions-2025-05" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2025_05_on_displayed_at_hour ON public.impressions_2025_05 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2025-05_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_05_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-05_on_payable" ON public."impressions-2025-05" USING btree (payable);
+CREATE INDEX index_impressions_2025_05_on_payable ON public.impressions_2025_05 USING btree (payable);
 
 
 --
--- Name: index_impressions-2025-05_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_05_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-05_on_property_id" ON public."impressions-2025-05" USING btree (property_id);
+CREATE INDEX index_impressions_2025_05_on_property_id ON public.impressions_2025_05 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2025-06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-06_on_campaign_id" ON public."impressions-2025-06" USING btree (campaign_id);
+CREATE INDEX index_impressions_2025_06_on_campaign_id ON public.impressions_2025_06 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2025-06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-06_on_displayed_at_date" ON public."impressions-2025-06" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2025_06_on_displayed_at_date ON public.impressions_2025_06 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2025-06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-06_on_displayed_at_hour" ON public."impressions-2025-06" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2025_06_on_displayed_at_hour ON public.impressions_2025_06 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2025-06_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_06_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-06_on_payable" ON public."impressions-2025-06" USING btree (payable);
+CREATE INDEX index_impressions_2025_06_on_payable ON public.impressions_2025_06 USING btree (payable);
 
 
 --
--- Name: index_impressions-2025-06_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_06_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-06_on_property_id" ON public."impressions-2025-06" USING btree (property_id);
+CREATE INDEX index_impressions_2025_06_on_property_id ON public.impressions_2025_06 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2025-07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-07_on_campaign_id" ON public."impressions-2025-07" USING btree (campaign_id);
+CREATE INDEX index_impressions_2025_07_on_campaign_id ON public.impressions_2025_07 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2025-07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-07_on_displayed_at_date" ON public."impressions-2025-07" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2025_07_on_displayed_at_date ON public.impressions_2025_07 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2025-07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-07_on_displayed_at_hour" ON public."impressions-2025-07" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2025_07_on_displayed_at_hour ON public.impressions_2025_07 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2025-07_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_07_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-07_on_payable" ON public."impressions-2025-07" USING btree (payable);
+CREATE INDEX index_impressions_2025_07_on_payable ON public.impressions_2025_07 USING btree (payable);
 
 
 --
--- Name: index_impressions-2025-07_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_07_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-07_on_property_id" ON public."impressions-2025-07" USING btree (property_id);
+CREATE INDEX index_impressions_2025_07_on_property_id ON public.impressions_2025_07 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2025-08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-08_on_campaign_id" ON public."impressions-2025-08" USING btree (campaign_id);
+CREATE INDEX index_impressions_2025_08_on_campaign_id ON public.impressions_2025_08 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2025-08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-08_on_displayed_at_date" ON public."impressions-2025-08" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2025_08_on_displayed_at_date ON public.impressions_2025_08 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2025-08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-08_on_displayed_at_hour" ON public."impressions-2025-08" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2025_08_on_displayed_at_hour ON public.impressions_2025_08 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2025-08_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_08_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-08_on_payable" ON public."impressions-2025-08" USING btree (payable);
+CREATE INDEX index_impressions_2025_08_on_payable ON public.impressions_2025_08 USING btree (payable);
 
 
 --
--- Name: index_impressions-2025-08_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_08_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-08_on_property_id" ON public."impressions-2025-08" USING btree (property_id);
+CREATE INDEX index_impressions_2025_08_on_property_id ON public.impressions_2025_08 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2025-09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-09_on_campaign_id" ON public."impressions-2025-09" USING btree (campaign_id);
+CREATE INDEX index_impressions_2025_09_on_campaign_id ON public.impressions_2025_09 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2025-09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-09_on_displayed_at_date" ON public."impressions-2025-09" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2025_09_on_displayed_at_date ON public.impressions_2025_09 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2025-09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-09_on_displayed_at_hour" ON public."impressions-2025-09" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2025_09_on_displayed_at_hour ON public.impressions_2025_09 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2025-09_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_09_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-09_on_payable" ON public."impressions-2025-09" USING btree (payable);
+CREATE INDEX index_impressions_2025_09_on_payable ON public.impressions_2025_09 USING btree (payable);
 
 
 --
--- Name: index_impressions-2025-09_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_09_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-09_on_property_id" ON public."impressions-2025-09" USING btree (property_id);
+CREATE INDEX index_impressions_2025_09_on_property_id ON public.impressions_2025_09 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2025-10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-10_on_campaign_id" ON public."impressions-2025-10" USING btree (campaign_id);
+CREATE INDEX index_impressions_2025_10_on_campaign_id ON public.impressions_2025_10 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2025-10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-10_on_displayed_at_date" ON public."impressions-2025-10" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2025_10_on_displayed_at_date ON public.impressions_2025_10 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2025-10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-10_on_displayed_at_hour" ON public."impressions-2025-10" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2025_10_on_displayed_at_hour ON public.impressions_2025_10 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2025-10_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_10_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-10_on_payable" ON public."impressions-2025-10" USING btree (payable);
+CREATE INDEX index_impressions_2025_10_on_payable ON public.impressions_2025_10 USING btree (payable);
 
 
 --
--- Name: index_impressions-2025-10_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_10_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-10_on_property_id" ON public."impressions-2025-10" USING btree (property_id);
+CREATE INDEX index_impressions_2025_10_on_property_id ON public.impressions_2025_10 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2025-11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-11_on_campaign_id" ON public."impressions-2025-11" USING btree (campaign_id);
+CREATE INDEX index_impressions_2025_11_on_campaign_id ON public.impressions_2025_11 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2025-11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-11_on_displayed_at_date" ON public."impressions-2025-11" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2025_11_on_displayed_at_date ON public.impressions_2025_11 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2025-11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-11_on_displayed_at_hour" ON public."impressions-2025-11" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2025_11_on_displayed_at_hour ON public.impressions_2025_11 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2025-11_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_11_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-11_on_payable" ON public."impressions-2025-11" USING btree (payable);
+CREATE INDEX index_impressions_2025_11_on_payable ON public.impressions_2025_11 USING btree (payable);
 
 
 --
--- Name: index_impressions-2025-11_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_11_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-11_on_property_id" ON public."impressions-2025-11" USING btree (property_id);
+CREATE INDEX index_impressions_2025_11_on_property_id ON public.impressions_2025_11 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2025-12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-12_on_campaign_id" ON public."impressions-2025-12" USING btree (campaign_id);
+CREATE INDEX index_impressions_2025_12_on_campaign_id ON public.impressions_2025_12 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2025-12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-12_on_displayed_at_date" ON public."impressions-2025-12" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2025_12_on_displayed_at_date ON public.impressions_2025_12 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2025-12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-12_on_displayed_at_hour" ON public."impressions-2025-12" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2025_12_on_displayed_at_hour ON public.impressions_2025_12 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2025-12_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_12_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-12_on_payable" ON public."impressions-2025-12" USING btree (payable);
+CREATE INDEX index_impressions_2025_12_on_payable ON public.impressions_2025_12 USING btree (payable);
 
 
 --
--- Name: index_impressions-2025-12_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2025_12_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2025-12_on_property_id" ON public."impressions-2025-12" USING btree (property_id);
+CREATE INDEX index_impressions_2025_12_on_property_id ON public.impressions_2025_12 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2026-01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-01_on_campaign_id" ON public."impressions-2026-01" USING btree (campaign_id);
+CREATE INDEX index_impressions_2026_01_on_campaign_id ON public.impressions_2026_01 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2026-01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-01_on_displayed_at_date" ON public."impressions-2026-01" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2026_01_on_displayed_at_date ON public.impressions_2026_01 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2026-01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-01_on_displayed_at_hour" ON public."impressions-2026-01" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2026_01_on_displayed_at_hour ON public.impressions_2026_01 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2026-01_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_01_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-01_on_payable" ON public."impressions-2026-01" USING btree (payable);
+CREATE INDEX index_impressions_2026_01_on_payable ON public.impressions_2026_01 USING btree (payable);
 
 
 --
--- Name: index_impressions-2026-01_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_01_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-01_on_property_id" ON public."impressions-2026-01" USING btree (property_id);
+CREATE INDEX index_impressions_2026_01_on_property_id ON public.impressions_2026_01 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2026-02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-02_on_campaign_id" ON public."impressions-2026-02" USING btree (campaign_id);
+CREATE INDEX index_impressions_2026_02_on_campaign_id ON public.impressions_2026_02 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2026-02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-02_on_displayed_at_date" ON public."impressions-2026-02" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2026_02_on_displayed_at_date ON public.impressions_2026_02 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2026-02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-02_on_displayed_at_hour" ON public."impressions-2026-02" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2026_02_on_displayed_at_hour ON public.impressions_2026_02 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2026-02_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_02_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-02_on_payable" ON public."impressions-2026-02" USING btree (payable);
+CREATE INDEX index_impressions_2026_02_on_payable ON public.impressions_2026_02 USING btree (payable);
 
 
 --
--- Name: index_impressions-2026-02_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_02_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-02_on_property_id" ON public."impressions-2026-02" USING btree (property_id);
+CREATE INDEX index_impressions_2026_02_on_property_id ON public.impressions_2026_02 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2026-03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-03_on_campaign_id" ON public."impressions-2026-03" USING btree (campaign_id);
+CREATE INDEX index_impressions_2026_03_on_campaign_id ON public.impressions_2026_03 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2026-03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-03_on_displayed_at_date" ON public."impressions-2026-03" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2026_03_on_displayed_at_date ON public.impressions_2026_03 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2026-03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-03_on_displayed_at_hour" ON public."impressions-2026-03" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2026_03_on_displayed_at_hour ON public.impressions_2026_03 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2026-03_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_03_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-03_on_payable" ON public."impressions-2026-03" USING btree (payable);
+CREATE INDEX index_impressions_2026_03_on_payable ON public.impressions_2026_03 USING btree (payable);
 
 
 --
--- Name: index_impressions-2026-03_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_03_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-03_on_property_id" ON public."impressions-2026-03" USING btree (property_id);
+CREATE INDEX index_impressions_2026_03_on_property_id ON public.impressions_2026_03 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2026-04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-04_on_campaign_id" ON public."impressions-2026-04" USING btree (campaign_id);
+CREATE INDEX index_impressions_2026_04_on_campaign_id ON public.impressions_2026_04 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2026-04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-04_on_displayed_at_date" ON public."impressions-2026-04" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2026_04_on_displayed_at_date ON public.impressions_2026_04 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2026-04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-04_on_displayed_at_hour" ON public."impressions-2026-04" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2026_04_on_displayed_at_hour ON public.impressions_2026_04 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2026-04_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_04_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-04_on_payable" ON public."impressions-2026-04" USING btree (payable);
+CREATE INDEX index_impressions_2026_04_on_payable ON public.impressions_2026_04 USING btree (payable);
 
 
 --
--- Name: index_impressions-2026-04_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_04_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-04_on_property_id" ON public."impressions-2026-04" USING btree (property_id);
+CREATE INDEX index_impressions_2026_04_on_property_id ON public.impressions_2026_04 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2026-05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-05_on_campaign_id" ON public."impressions-2026-05" USING btree (campaign_id);
+CREATE INDEX index_impressions_2026_05_on_campaign_id ON public.impressions_2026_05 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2026-05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-05_on_displayed_at_date" ON public."impressions-2026-05" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2026_05_on_displayed_at_date ON public.impressions_2026_05 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2026-05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-05_on_displayed_at_hour" ON public."impressions-2026-05" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2026_05_on_displayed_at_hour ON public.impressions_2026_05 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2026-05_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_05_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-05_on_payable" ON public."impressions-2026-05" USING btree (payable);
+CREATE INDEX index_impressions_2026_05_on_payable ON public.impressions_2026_05 USING btree (payable);
 
 
 --
--- Name: index_impressions-2026-05_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_05_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-05_on_property_id" ON public."impressions-2026-05" USING btree (property_id);
+CREATE INDEX index_impressions_2026_05_on_property_id ON public.impressions_2026_05 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2026-06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-06_on_campaign_id" ON public."impressions-2026-06" USING btree (campaign_id);
+CREATE INDEX index_impressions_2026_06_on_campaign_id ON public.impressions_2026_06 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2026-06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-06_on_displayed_at_date" ON public."impressions-2026-06" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2026_06_on_displayed_at_date ON public.impressions_2026_06 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2026-06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-06_on_displayed_at_hour" ON public."impressions-2026-06" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2026_06_on_displayed_at_hour ON public.impressions_2026_06 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2026-06_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_06_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-06_on_payable" ON public."impressions-2026-06" USING btree (payable);
+CREATE INDEX index_impressions_2026_06_on_payable ON public.impressions_2026_06 USING btree (payable);
 
 
 --
--- Name: index_impressions-2026-06_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_06_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-06_on_property_id" ON public."impressions-2026-06" USING btree (property_id);
+CREATE INDEX index_impressions_2026_06_on_property_id ON public.impressions_2026_06 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2026-07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-07_on_campaign_id" ON public."impressions-2026-07" USING btree (campaign_id);
+CREATE INDEX index_impressions_2026_07_on_campaign_id ON public.impressions_2026_07 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2026-07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-07_on_displayed_at_date" ON public."impressions-2026-07" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2026_07_on_displayed_at_date ON public.impressions_2026_07 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2026-07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-07_on_displayed_at_hour" ON public."impressions-2026-07" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2026_07_on_displayed_at_hour ON public.impressions_2026_07 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2026-07_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_07_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-07_on_payable" ON public."impressions-2026-07" USING btree (payable);
+CREATE INDEX index_impressions_2026_07_on_payable ON public.impressions_2026_07 USING btree (payable);
 
 
 --
--- Name: index_impressions-2026-07_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_07_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-07_on_property_id" ON public."impressions-2026-07" USING btree (property_id);
+CREATE INDEX index_impressions_2026_07_on_property_id ON public.impressions_2026_07 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2026-08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-08_on_campaign_id" ON public."impressions-2026-08" USING btree (campaign_id);
+CREATE INDEX index_impressions_2026_08_on_campaign_id ON public.impressions_2026_08 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2026-08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-08_on_displayed_at_date" ON public."impressions-2026-08" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2026_08_on_displayed_at_date ON public.impressions_2026_08 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2026-08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-08_on_displayed_at_hour" ON public."impressions-2026-08" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2026_08_on_displayed_at_hour ON public.impressions_2026_08 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2026-08_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_08_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-08_on_payable" ON public."impressions-2026-08" USING btree (payable);
+CREATE INDEX index_impressions_2026_08_on_payable ON public.impressions_2026_08 USING btree (payable);
 
 
 --
--- Name: index_impressions-2026-08_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_08_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-08_on_property_id" ON public."impressions-2026-08" USING btree (property_id);
+CREATE INDEX index_impressions_2026_08_on_property_id ON public.impressions_2026_08 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2026-09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-09_on_campaign_id" ON public."impressions-2026-09" USING btree (campaign_id);
+CREATE INDEX index_impressions_2026_09_on_campaign_id ON public.impressions_2026_09 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2026-09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-09_on_displayed_at_date" ON public."impressions-2026-09" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2026_09_on_displayed_at_date ON public.impressions_2026_09 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2026-09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-09_on_displayed_at_hour" ON public."impressions-2026-09" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2026_09_on_displayed_at_hour ON public.impressions_2026_09 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2026-09_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_09_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-09_on_payable" ON public."impressions-2026-09" USING btree (payable);
+CREATE INDEX index_impressions_2026_09_on_payable ON public.impressions_2026_09 USING btree (payable);
 
 
 --
--- Name: index_impressions-2026-09_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_09_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-09_on_property_id" ON public."impressions-2026-09" USING btree (property_id);
+CREATE INDEX index_impressions_2026_09_on_property_id ON public.impressions_2026_09 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2026-10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-10_on_campaign_id" ON public."impressions-2026-10" USING btree (campaign_id);
+CREATE INDEX index_impressions_2026_10_on_campaign_id ON public.impressions_2026_10 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2026-10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-10_on_displayed_at_date" ON public."impressions-2026-10" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2026_10_on_displayed_at_date ON public.impressions_2026_10 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2026-10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-10_on_displayed_at_hour" ON public."impressions-2026-10" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2026_10_on_displayed_at_hour ON public.impressions_2026_10 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2026-10_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_10_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-10_on_payable" ON public."impressions-2026-10" USING btree (payable);
+CREATE INDEX index_impressions_2026_10_on_payable ON public.impressions_2026_10 USING btree (payable);
 
 
 --
--- Name: index_impressions-2026-10_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_10_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-10_on_property_id" ON public."impressions-2026-10" USING btree (property_id);
+CREATE INDEX index_impressions_2026_10_on_property_id ON public.impressions_2026_10 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2026-11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-11_on_campaign_id" ON public."impressions-2026-11" USING btree (campaign_id);
+CREATE INDEX index_impressions_2026_11_on_campaign_id ON public.impressions_2026_11 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2026-11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-11_on_displayed_at_date" ON public."impressions-2026-11" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2026_11_on_displayed_at_date ON public.impressions_2026_11 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2026-11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-11_on_displayed_at_hour" ON public."impressions-2026-11" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2026_11_on_displayed_at_hour ON public.impressions_2026_11 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2026-11_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_11_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-11_on_payable" ON public."impressions-2026-11" USING btree (payable);
+CREATE INDEX index_impressions_2026_11_on_payable ON public.impressions_2026_11 USING btree (payable);
 
 
 --
--- Name: index_impressions-2026-11_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_11_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-11_on_property_id" ON public."impressions-2026-11" USING btree (property_id);
+CREATE INDEX index_impressions_2026_11_on_property_id ON public.impressions_2026_11 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2026-12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-12_on_campaign_id" ON public."impressions-2026-12" USING btree (campaign_id);
+CREATE INDEX index_impressions_2026_12_on_campaign_id ON public.impressions_2026_12 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2026-12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-12_on_displayed_at_date" ON public."impressions-2026-12" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2026_12_on_displayed_at_date ON public.impressions_2026_12 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2026-12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-12_on_displayed_at_hour" ON public."impressions-2026-12" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2026_12_on_displayed_at_hour ON public.impressions_2026_12 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2026-12_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_12_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-12_on_payable" ON public."impressions-2026-12" USING btree (payable);
+CREATE INDEX index_impressions_2026_12_on_payable ON public.impressions_2026_12 USING btree (payable);
 
 
 --
--- Name: index_impressions-2026-12_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2026_12_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2026-12_on_property_id" ON public."impressions-2026-12" USING btree (property_id);
+CREATE INDEX index_impressions_2026_12_on_property_id ON public.impressions_2026_12 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2027-01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-01_on_campaign_id" ON public."impressions-2027-01" USING btree (campaign_id);
+CREATE INDEX index_impressions_2027_01_on_campaign_id ON public.impressions_2027_01 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2027-01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-01_on_displayed_at_date" ON public."impressions-2027-01" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2027_01_on_displayed_at_date ON public.impressions_2027_01 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2027-01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-01_on_displayed_at_hour" ON public."impressions-2027-01" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2027_01_on_displayed_at_hour ON public.impressions_2027_01 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2027-01_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_01_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-01_on_payable" ON public."impressions-2027-01" USING btree (payable);
+CREATE INDEX index_impressions_2027_01_on_payable ON public.impressions_2027_01 USING btree (payable);
 
 
 --
--- Name: index_impressions-2027-01_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_01_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-01_on_property_id" ON public."impressions-2027-01" USING btree (property_id);
+CREATE INDEX index_impressions_2027_01_on_property_id ON public.impressions_2027_01 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2027-02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-02_on_campaign_id" ON public."impressions-2027-02" USING btree (campaign_id);
+CREATE INDEX index_impressions_2027_02_on_campaign_id ON public.impressions_2027_02 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2027-02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-02_on_displayed_at_date" ON public."impressions-2027-02" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2027_02_on_displayed_at_date ON public.impressions_2027_02 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2027-02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-02_on_displayed_at_hour" ON public."impressions-2027-02" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2027_02_on_displayed_at_hour ON public.impressions_2027_02 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2027-02_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_02_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-02_on_payable" ON public."impressions-2027-02" USING btree (payable);
+CREATE INDEX index_impressions_2027_02_on_payable ON public.impressions_2027_02 USING btree (payable);
 
 
 --
--- Name: index_impressions-2027-02_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_02_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-02_on_property_id" ON public."impressions-2027-02" USING btree (property_id);
+CREATE INDEX index_impressions_2027_02_on_property_id ON public.impressions_2027_02 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2027-03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-03_on_campaign_id" ON public."impressions-2027-03" USING btree (campaign_id);
+CREATE INDEX index_impressions_2027_03_on_campaign_id ON public.impressions_2027_03 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2027-03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-03_on_displayed_at_date" ON public."impressions-2027-03" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2027_03_on_displayed_at_date ON public.impressions_2027_03 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2027-03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-03_on_displayed_at_hour" ON public."impressions-2027-03" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2027_03_on_displayed_at_hour ON public.impressions_2027_03 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2027-03_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_03_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-03_on_payable" ON public."impressions-2027-03" USING btree (payable);
+CREATE INDEX index_impressions_2027_03_on_payable ON public.impressions_2027_03 USING btree (payable);
 
 
 --
--- Name: index_impressions-2027-03_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_03_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-03_on_property_id" ON public."impressions-2027-03" USING btree (property_id);
+CREATE INDEX index_impressions_2027_03_on_property_id ON public.impressions_2027_03 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2027-04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-04_on_campaign_id" ON public."impressions-2027-04" USING btree (campaign_id);
+CREATE INDEX index_impressions_2027_04_on_campaign_id ON public.impressions_2027_04 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2027-04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-04_on_displayed_at_date" ON public."impressions-2027-04" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2027_04_on_displayed_at_date ON public.impressions_2027_04 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2027-04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-04_on_displayed_at_hour" ON public."impressions-2027-04" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2027_04_on_displayed_at_hour ON public.impressions_2027_04 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2027-04_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_04_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-04_on_payable" ON public."impressions-2027-04" USING btree (payable);
+CREATE INDEX index_impressions_2027_04_on_payable ON public.impressions_2027_04 USING btree (payable);
 
 
 --
--- Name: index_impressions-2027-04_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_04_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-04_on_property_id" ON public."impressions-2027-04" USING btree (property_id);
+CREATE INDEX index_impressions_2027_04_on_property_id ON public.impressions_2027_04 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2027-05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-05_on_campaign_id" ON public."impressions-2027-05" USING btree (campaign_id);
+CREATE INDEX index_impressions_2027_05_on_campaign_id ON public.impressions_2027_05 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2027-05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-05_on_displayed_at_date" ON public."impressions-2027-05" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2027_05_on_displayed_at_date ON public.impressions_2027_05 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2027-05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-05_on_displayed_at_hour" ON public."impressions-2027-05" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2027_05_on_displayed_at_hour ON public.impressions_2027_05 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2027-05_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_05_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-05_on_payable" ON public."impressions-2027-05" USING btree (payable);
+CREATE INDEX index_impressions_2027_05_on_payable ON public.impressions_2027_05 USING btree (payable);
 
 
 --
--- Name: index_impressions-2027-05_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_05_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-05_on_property_id" ON public."impressions-2027-05" USING btree (property_id);
+CREATE INDEX index_impressions_2027_05_on_property_id ON public.impressions_2027_05 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2027-06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-06_on_campaign_id" ON public."impressions-2027-06" USING btree (campaign_id);
+CREATE INDEX index_impressions_2027_06_on_campaign_id ON public.impressions_2027_06 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2027-06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-06_on_displayed_at_date" ON public."impressions-2027-06" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2027_06_on_displayed_at_date ON public.impressions_2027_06 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2027-06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-06_on_displayed_at_hour" ON public."impressions-2027-06" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2027_06_on_displayed_at_hour ON public.impressions_2027_06 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2027-06_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_06_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-06_on_payable" ON public."impressions-2027-06" USING btree (payable);
+CREATE INDEX index_impressions_2027_06_on_payable ON public.impressions_2027_06 USING btree (payable);
 
 
 --
--- Name: index_impressions-2027-06_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_06_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-06_on_property_id" ON public."impressions-2027-06" USING btree (property_id);
+CREATE INDEX index_impressions_2027_06_on_property_id ON public.impressions_2027_06 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2027-07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-07_on_campaign_id" ON public."impressions-2027-07" USING btree (campaign_id);
+CREATE INDEX index_impressions_2027_07_on_campaign_id ON public.impressions_2027_07 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2027-07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-07_on_displayed_at_date" ON public."impressions-2027-07" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2027_07_on_displayed_at_date ON public.impressions_2027_07 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2027-07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-07_on_displayed_at_hour" ON public."impressions-2027-07" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2027_07_on_displayed_at_hour ON public.impressions_2027_07 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2027-07_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_07_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-07_on_payable" ON public."impressions-2027-07" USING btree (payable);
+CREATE INDEX index_impressions_2027_07_on_payable ON public.impressions_2027_07 USING btree (payable);
 
 
 --
--- Name: index_impressions-2027-07_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_07_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-07_on_property_id" ON public."impressions-2027-07" USING btree (property_id);
+CREATE INDEX index_impressions_2027_07_on_property_id ON public.impressions_2027_07 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2027-08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-08_on_campaign_id" ON public."impressions-2027-08" USING btree (campaign_id);
+CREATE INDEX index_impressions_2027_08_on_campaign_id ON public.impressions_2027_08 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2027-08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-08_on_displayed_at_date" ON public."impressions-2027-08" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2027_08_on_displayed_at_date ON public.impressions_2027_08 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2027-08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-08_on_displayed_at_hour" ON public."impressions-2027-08" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2027_08_on_displayed_at_hour ON public.impressions_2027_08 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2027-08_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_08_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-08_on_payable" ON public."impressions-2027-08" USING btree (payable);
+CREATE INDEX index_impressions_2027_08_on_payable ON public.impressions_2027_08 USING btree (payable);
 
 
 --
--- Name: index_impressions-2027-08_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_08_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-08_on_property_id" ON public."impressions-2027-08" USING btree (property_id);
+CREATE INDEX index_impressions_2027_08_on_property_id ON public.impressions_2027_08 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2027-09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-09_on_campaign_id" ON public."impressions-2027-09" USING btree (campaign_id);
+CREATE INDEX index_impressions_2027_09_on_campaign_id ON public.impressions_2027_09 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2027-09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-09_on_displayed_at_date" ON public."impressions-2027-09" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2027_09_on_displayed_at_date ON public.impressions_2027_09 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2027-09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-09_on_displayed_at_hour" ON public."impressions-2027-09" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2027_09_on_displayed_at_hour ON public.impressions_2027_09 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2027-09_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_09_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-09_on_payable" ON public."impressions-2027-09" USING btree (payable);
+CREATE INDEX index_impressions_2027_09_on_payable ON public.impressions_2027_09 USING btree (payable);
 
 
 --
--- Name: index_impressions-2027-09_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_09_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-09_on_property_id" ON public."impressions-2027-09" USING btree (property_id);
+CREATE INDEX index_impressions_2027_09_on_property_id ON public.impressions_2027_09 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2027-10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-10_on_campaign_id" ON public."impressions-2027-10" USING btree (campaign_id);
+CREATE INDEX index_impressions_2027_10_on_campaign_id ON public.impressions_2027_10 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2027-10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-10_on_displayed_at_date" ON public."impressions-2027-10" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2027_10_on_displayed_at_date ON public.impressions_2027_10 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2027-10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-10_on_displayed_at_hour" ON public."impressions-2027-10" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2027_10_on_displayed_at_hour ON public.impressions_2027_10 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2027-10_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_10_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-10_on_payable" ON public."impressions-2027-10" USING btree (payable);
+CREATE INDEX index_impressions_2027_10_on_payable ON public.impressions_2027_10 USING btree (payable);
 
 
 --
--- Name: index_impressions-2027-10_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_10_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-10_on_property_id" ON public."impressions-2027-10" USING btree (property_id);
+CREATE INDEX index_impressions_2027_10_on_property_id ON public.impressions_2027_10 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2027-11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-11_on_campaign_id" ON public."impressions-2027-11" USING btree (campaign_id);
+CREATE INDEX index_impressions_2027_11_on_campaign_id ON public.impressions_2027_11 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2027-11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-11_on_displayed_at_date" ON public."impressions-2027-11" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2027_11_on_displayed_at_date ON public.impressions_2027_11 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2027-11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-11_on_displayed_at_hour" ON public."impressions-2027-11" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2027_11_on_displayed_at_hour ON public.impressions_2027_11 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2027-11_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_11_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-11_on_payable" ON public."impressions-2027-11" USING btree (payable);
+CREATE INDEX index_impressions_2027_11_on_payable ON public.impressions_2027_11 USING btree (payable);
 
 
 --
--- Name: index_impressions-2027-11_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_11_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-11_on_property_id" ON public."impressions-2027-11" USING btree (property_id);
+CREATE INDEX index_impressions_2027_11_on_property_id ON public.impressions_2027_11 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2027-12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-12_on_campaign_id" ON public."impressions-2027-12" USING btree (campaign_id);
+CREATE INDEX index_impressions_2027_12_on_campaign_id ON public.impressions_2027_12 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2027-12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-12_on_displayed_at_date" ON public."impressions-2027-12" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2027_12_on_displayed_at_date ON public.impressions_2027_12 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2027-12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-12_on_displayed_at_hour" ON public."impressions-2027-12" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2027_12_on_displayed_at_hour ON public.impressions_2027_12 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2027-12_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_12_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-12_on_payable" ON public."impressions-2027-12" USING btree (payable);
+CREATE INDEX index_impressions_2027_12_on_payable ON public.impressions_2027_12 USING btree (payable);
 
 
 --
--- Name: index_impressions-2027-12_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2027_12_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2027-12_on_property_id" ON public."impressions-2027-12" USING btree (property_id);
+CREATE INDEX index_impressions_2027_12_on_property_id ON public.impressions_2027_12 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2028-01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-01_on_campaign_id" ON public."impressions-2028-01" USING btree (campaign_id);
+CREATE INDEX index_impressions_2028_01_on_campaign_id ON public.impressions_2028_01 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2028-01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-01_on_displayed_at_date" ON public."impressions-2028-01" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2028_01_on_displayed_at_date ON public.impressions_2028_01 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2028-01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-01_on_displayed_at_hour" ON public."impressions-2028-01" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2028_01_on_displayed_at_hour ON public.impressions_2028_01 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2028-01_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_01_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-01_on_payable" ON public."impressions-2028-01" USING btree (payable);
+CREATE INDEX index_impressions_2028_01_on_payable ON public.impressions_2028_01 USING btree (payable);
 
 
 --
--- Name: index_impressions-2028-01_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_01_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-01_on_property_id" ON public."impressions-2028-01" USING btree (property_id);
+CREATE INDEX index_impressions_2028_01_on_property_id ON public.impressions_2028_01 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2028-02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-02_on_campaign_id" ON public."impressions-2028-02" USING btree (campaign_id);
+CREATE INDEX index_impressions_2028_02_on_campaign_id ON public.impressions_2028_02 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2028-02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-02_on_displayed_at_date" ON public."impressions-2028-02" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2028_02_on_displayed_at_date ON public.impressions_2028_02 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2028-02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-02_on_displayed_at_hour" ON public."impressions-2028-02" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2028_02_on_displayed_at_hour ON public.impressions_2028_02 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2028-02_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_02_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-02_on_payable" ON public."impressions-2028-02" USING btree (payable);
+CREATE INDEX index_impressions_2028_02_on_payable ON public.impressions_2028_02 USING btree (payable);
 
 
 --
--- Name: index_impressions-2028-02_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_02_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-02_on_property_id" ON public."impressions-2028-02" USING btree (property_id);
+CREATE INDEX index_impressions_2028_02_on_property_id ON public.impressions_2028_02 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2028-03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-03_on_campaign_id" ON public."impressions-2028-03" USING btree (campaign_id);
+CREATE INDEX index_impressions_2028_03_on_campaign_id ON public.impressions_2028_03 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2028-03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-03_on_displayed_at_date" ON public."impressions-2028-03" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2028_03_on_displayed_at_date ON public.impressions_2028_03 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2028-03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-03_on_displayed_at_hour" ON public."impressions-2028-03" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2028_03_on_displayed_at_hour ON public.impressions_2028_03 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2028-03_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_03_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-03_on_payable" ON public."impressions-2028-03" USING btree (payable);
+CREATE INDEX index_impressions_2028_03_on_payable ON public.impressions_2028_03 USING btree (payable);
 
 
 --
--- Name: index_impressions-2028-03_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_03_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-03_on_property_id" ON public."impressions-2028-03" USING btree (property_id);
+CREATE INDEX index_impressions_2028_03_on_property_id ON public.impressions_2028_03 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2028-04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-04_on_campaign_id" ON public."impressions-2028-04" USING btree (campaign_id);
+CREATE INDEX index_impressions_2028_04_on_campaign_id ON public.impressions_2028_04 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2028-04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-04_on_displayed_at_date" ON public."impressions-2028-04" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2028_04_on_displayed_at_date ON public.impressions_2028_04 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2028-04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-04_on_displayed_at_hour" ON public."impressions-2028-04" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2028_04_on_displayed_at_hour ON public.impressions_2028_04 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2028-04_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_04_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-04_on_payable" ON public."impressions-2028-04" USING btree (payable);
+CREATE INDEX index_impressions_2028_04_on_payable ON public.impressions_2028_04 USING btree (payable);
 
 
 --
--- Name: index_impressions-2028-04_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_04_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-04_on_property_id" ON public."impressions-2028-04" USING btree (property_id);
+CREATE INDEX index_impressions_2028_04_on_property_id ON public.impressions_2028_04 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2028-05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-05_on_campaign_id" ON public."impressions-2028-05" USING btree (campaign_id);
+CREATE INDEX index_impressions_2028_05_on_campaign_id ON public.impressions_2028_05 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2028-05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-05_on_displayed_at_date" ON public."impressions-2028-05" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2028_05_on_displayed_at_date ON public.impressions_2028_05 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2028-05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-05_on_displayed_at_hour" ON public."impressions-2028-05" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2028_05_on_displayed_at_hour ON public.impressions_2028_05 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2028-05_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_05_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-05_on_payable" ON public."impressions-2028-05" USING btree (payable);
+CREATE INDEX index_impressions_2028_05_on_payable ON public.impressions_2028_05 USING btree (payable);
 
 
 --
--- Name: index_impressions-2028-05_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_05_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-05_on_property_id" ON public."impressions-2028-05" USING btree (property_id);
+CREATE INDEX index_impressions_2028_05_on_property_id ON public.impressions_2028_05 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2028-06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-06_on_campaign_id" ON public."impressions-2028-06" USING btree (campaign_id);
+CREATE INDEX index_impressions_2028_06_on_campaign_id ON public.impressions_2028_06 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2028-06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-06_on_displayed_at_date" ON public."impressions-2028-06" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2028_06_on_displayed_at_date ON public.impressions_2028_06 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2028-06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-06_on_displayed_at_hour" ON public."impressions-2028-06" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2028_06_on_displayed_at_hour ON public.impressions_2028_06 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2028-06_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_06_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-06_on_payable" ON public."impressions-2028-06" USING btree (payable);
+CREATE INDEX index_impressions_2028_06_on_payable ON public.impressions_2028_06 USING btree (payable);
 
 
 --
--- Name: index_impressions-2028-06_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_06_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-06_on_property_id" ON public."impressions-2028-06" USING btree (property_id);
+CREATE INDEX index_impressions_2028_06_on_property_id ON public.impressions_2028_06 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2028-07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-07_on_campaign_id" ON public."impressions-2028-07" USING btree (campaign_id);
+CREATE INDEX index_impressions_2028_07_on_campaign_id ON public.impressions_2028_07 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2028-07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-07_on_displayed_at_date" ON public."impressions-2028-07" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2028_07_on_displayed_at_date ON public.impressions_2028_07 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2028-07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-07_on_displayed_at_hour" ON public."impressions-2028-07" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2028_07_on_displayed_at_hour ON public.impressions_2028_07 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2028-07_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_07_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-07_on_payable" ON public."impressions-2028-07" USING btree (payable);
+CREATE INDEX index_impressions_2028_07_on_payable ON public.impressions_2028_07 USING btree (payable);
 
 
 --
--- Name: index_impressions-2028-07_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_07_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-07_on_property_id" ON public."impressions-2028-07" USING btree (property_id);
+CREATE INDEX index_impressions_2028_07_on_property_id ON public.impressions_2028_07 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2028-08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-08_on_campaign_id" ON public."impressions-2028-08" USING btree (campaign_id);
+CREATE INDEX index_impressions_2028_08_on_campaign_id ON public.impressions_2028_08 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2028-08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-08_on_displayed_at_date" ON public."impressions-2028-08" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2028_08_on_displayed_at_date ON public.impressions_2028_08 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2028-08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-08_on_displayed_at_hour" ON public."impressions-2028-08" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2028_08_on_displayed_at_hour ON public.impressions_2028_08 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2028-08_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_08_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-08_on_payable" ON public."impressions-2028-08" USING btree (payable);
+CREATE INDEX index_impressions_2028_08_on_payable ON public.impressions_2028_08 USING btree (payable);
 
 
 --
--- Name: index_impressions-2028-08_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_08_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-08_on_property_id" ON public."impressions-2028-08" USING btree (property_id);
+CREATE INDEX index_impressions_2028_08_on_property_id ON public.impressions_2028_08 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2028-09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-09_on_campaign_id" ON public."impressions-2028-09" USING btree (campaign_id);
+CREATE INDEX index_impressions_2028_09_on_campaign_id ON public.impressions_2028_09 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2028-09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-09_on_displayed_at_date" ON public."impressions-2028-09" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2028_09_on_displayed_at_date ON public.impressions_2028_09 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2028-09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-09_on_displayed_at_hour" ON public."impressions-2028-09" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2028_09_on_displayed_at_hour ON public.impressions_2028_09 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2028-09_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_09_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-09_on_payable" ON public."impressions-2028-09" USING btree (payable);
+CREATE INDEX index_impressions_2028_09_on_payable ON public.impressions_2028_09 USING btree (payable);
 
 
 --
--- Name: index_impressions-2028-09_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_09_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-09_on_property_id" ON public."impressions-2028-09" USING btree (property_id);
+CREATE INDEX index_impressions_2028_09_on_property_id ON public.impressions_2028_09 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2028-10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-10_on_campaign_id" ON public."impressions-2028-10" USING btree (campaign_id);
+CREATE INDEX index_impressions_2028_10_on_campaign_id ON public.impressions_2028_10 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2028-10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-10_on_displayed_at_date" ON public."impressions-2028-10" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2028_10_on_displayed_at_date ON public.impressions_2028_10 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2028-10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-10_on_displayed_at_hour" ON public."impressions-2028-10" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2028_10_on_displayed_at_hour ON public.impressions_2028_10 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2028-10_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_10_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-10_on_payable" ON public."impressions-2028-10" USING btree (payable);
+CREATE INDEX index_impressions_2028_10_on_payable ON public.impressions_2028_10 USING btree (payable);
 
 
 --
--- Name: index_impressions-2028-10_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_10_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-10_on_property_id" ON public."impressions-2028-10" USING btree (property_id);
+CREATE INDEX index_impressions_2028_10_on_property_id ON public.impressions_2028_10 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2028-11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-11_on_campaign_id" ON public."impressions-2028-11" USING btree (campaign_id);
+CREATE INDEX index_impressions_2028_11_on_campaign_id ON public.impressions_2028_11 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2028-11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-11_on_displayed_at_date" ON public."impressions-2028-11" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2028_11_on_displayed_at_date ON public.impressions_2028_11 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2028-11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-11_on_displayed_at_hour" ON public."impressions-2028-11" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2028_11_on_displayed_at_hour ON public.impressions_2028_11 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2028-11_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_11_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-11_on_payable" ON public."impressions-2028-11" USING btree (payable);
+CREATE INDEX index_impressions_2028_11_on_payable ON public.impressions_2028_11 USING btree (payable);
 
 
 --
--- Name: index_impressions-2028-11_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_11_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-11_on_property_id" ON public."impressions-2028-11" USING btree (property_id);
+CREATE INDEX index_impressions_2028_11_on_property_id ON public.impressions_2028_11 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2028-12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-12_on_campaign_id" ON public."impressions-2028-12" USING btree (campaign_id);
+CREATE INDEX index_impressions_2028_12_on_campaign_id ON public.impressions_2028_12 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2028-12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-12_on_displayed_at_date" ON public."impressions-2028-12" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2028_12_on_displayed_at_date ON public.impressions_2028_12 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2028-12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-12_on_displayed_at_hour" ON public."impressions-2028-12" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2028_12_on_displayed_at_hour ON public.impressions_2028_12 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2028-12_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_12_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-12_on_payable" ON public."impressions-2028-12" USING btree (payable);
+CREATE INDEX index_impressions_2028_12_on_payable ON public.impressions_2028_12 USING btree (payable);
 
 
 --
--- Name: index_impressions-2028-12_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2028_12_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2028-12_on_property_id" ON public."impressions-2028-12" USING btree (property_id);
+CREATE INDEX index_impressions_2028_12_on_property_id ON public.impressions_2028_12 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2029-01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-01_on_campaign_id" ON public."impressions-2029-01" USING btree (campaign_id);
+CREATE INDEX index_impressions_2029_01_on_campaign_id ON public.impressions_2029_01 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2029-01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-01_on_displayed_at_date" ON public."impressions-2029-01" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2029_01_on_displayed_at_date ON public.impressions_2029_01 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2029-01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-01_on_displayed_at_hour" ON public."impressions-2029-01" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2029_01_on_displayed_at_hour ON public.impressions_2029_01 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2029-01_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_01_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-01_on_payable" ON public."impressions-2029-01" USING btree (payable);
+CREATE INDEX index_impressions_2029_01_on_payable ON public.impressions_2029_01 USING btree (payable);
 
 
 --
--- Name: index_impressions-2029-01_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_01_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-01_on_property_id" ON public."impressions-2029-01" USING btree (property_id);
+CREATE INDEX index_impressions_2029_01_on_property_id ON public.impressions_2029_01 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2029-02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-02_on_campaign_id" ON public."impressions-2029-02" USING btree (campaign_id);
+CREATE INDEX index_impressions_2029_02_on_campaign_id ON public.impressions_2029_02 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2029-02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-02_on_displayed_at_date" ON public."impressions-2029-02" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2029_02_on_displayed_at_date ON public.impressions_2029_02 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2029-02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-02_on_displayed_at_hour" ON public."impressions-2029-02" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2029_02_on_displayed_at_hour ON public.impressions_2029_02 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2029-02_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_02_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-02_on_payable" ON public."impressions-2029-02" USING btree (payable);
+CREATE INDEX index_impressions_2029_02_on_payable ON public.impressions_2029_02 USING btree (payable);
 
 
 --
--- Name: index_impressions-2029-02_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_02_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-02_on_property_id" ON public."impressions-2029-02" USING btree (property_id);
+CREATE INDEX index_impressions_2029_02_on_property_id ON public.impressions_2029_02 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2029-03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-03_on_campaign_id" ON public."impressions-2029-03" USING btree (campaign_id);
+CREATE INDEX index_impressions_2029_03_on_campaign_id ON public.impressions_2029_03 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2029-03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-03_on_displayed_at_date" ON public."impressions-2029-03" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2029_03_on_displayed_at_date ON public.impressions_2029_03 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2029-03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-03_on_displayed_at_hour" ON public."impressions-2029-03" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2029_03_on_displayed_at_hour ON public.impressions_2029_03 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2029-03_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_03_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-03_on_payable" ON public."impressions-2029-03" USING btree (payable);
+CREATE INDEX index_impressions_2029_03_on_payable ON public.impressions_2029_03 USING btree (payable);
 
 
 --
--- Name: index_impressions-2029-03_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_03_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-03_on_property_id" ON public."impressions-2029-03" USING btree (property_id);
+CREATE INDEX index_impressions_2029_03_on_property_id ON public.impressions_2029_03 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2029-04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-04_on_campaign_id" ON public."impressions-2029-04" USING btree (campaign_id);
+CREATE INDEX index_impressions_2029_04_on_campaign_id ON public.impressions_2029_04 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2029-04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-04_on_displayed_at_date" ON public."impressions-2029-04" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2029_04_on_displayed_at_date ON public.impressions_2029_04 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2029-04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-04_on_displayed_at_hour" ON public."impressions-2029-04" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2029_04_on_displayed_at_hour ON public.impressions_2029_04 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2029-04_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_04_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-04_on_payable" ON public."impressions-2029-04" USING btree (payable);
+CREATE INDEX index_impressions_2029_04_on_payable ON public.impressions_2029_04 USING btree (payable);
 
 
 --
--- Name: index_impressions-2029-04_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_04_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-04_on_property_id" ON public."impressions-2029-04" USING btree (property_id);
+CREATE INDEX index_impressions_2029_04_on_property_id ON public.impressions_2029_04 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2029-05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-05_on_campaign_id" ON public."impressions-2029-05" USING btree (campaign_id);
+CREATE INDEX index_impressions_2029_05_on_campaign_id ON public.impressions_2029_05 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2029-05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-05_on_displayed_at_date" ON public."impressions-2029-05" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2029_05_on_displayed_at_date ON public.impressions_2029_05 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2029-05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-05_on_displayed_at_hour" ON public."impressions-2029-05" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2029_05_on_displayed_at_hour ON public.impressions_2029_05 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2029-05_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_05_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-05_on_payable" ON public."impressions-2029-05" USING btree (payable);
+CREATE INDEX index_impressions_2029_05_on_payable ON public.impressions_2029_05 USING btree (payable);
 
 
 --
--- Name: index_impressions-2029-05_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_05_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-05_on_property_id" ON public."impressions-2029-05" USING btree (property_id);
+CREATE INDEX index_impressions_2029_05_on_property_id ON public.impressions_2029_05 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2029-06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-06_on_campaign_id" ON public."impressions-2029-06" USING btree (campaign_id);
+CREATE INDEX index_impressions_2029_06_on_campaign_id ON public.impressions_2029_06 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2029-06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-06_on_displayed_at_date" ON public."impressions-2029-06" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2029_06_on_displayed_at_date ON public.impressions_2029_06 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2029-06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-06_on_displayed_at_hour" ON public."impressions-2029-06" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2029_06_on_displayed_at_hour ON public.impressions_2029_06 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2029-06_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_06_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-06_on_payable" ON public."impressions-2029-06" USING btree (payable);
+CREATE INDEX index_impressions_2029_06_on_payable ON public.impressions_2029_06 USING btree (payable);
 
 
 --
--- Name: index_impressions-2029-06_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_06_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-06_on_property_id" ON public."impressions-2029-06" USING btree (property_id);
+CREATE INDEX index_impressions_2029_06_on_property_id ON public.impressions_2029_06 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2029-07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-07_on_campaign_id" ON public."impressions-2029-07" USING btree (campaign_id);
+CREATE INDEX index_impressions_2029_07_on_campaign_id ON public.impressions_2029_07 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2029-07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-07_on_displayed_at_date" ON public."impressions-2029-07" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2029_07_on_displayed_at_date ON public.impressions_2029_07 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2029-07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-07_on_displayed_at_hour" ON public."impressions-2029-07" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2029_07_on_displayed_at_hour ON public.impressions_2029_07 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2029-07_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_07_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-07_on_payable" ON public."impressions-2029-07" USING btree (payable);
+CREATE INDEX index_impressions_2029_07_on_payable ON public.impressions_2029_07 USING btree (payable);
 
 
 --
--- Name: index_impressions-2029-07_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_07_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-07_on_property_id" ON public."impressions-2029-07" USING btree (property_id);
+CREATE INDEX index_impressions_2029_07_on_property_id ON public.impressions_2029_07 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2029-08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-08_on_campaign_id" ON public."impressions-2029-08" USING btree (campaign_id);
+CREATE INDEX index_impressions_2029_08_on_campaign_id ON public.impressions_2029_08 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2029-08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-08_on_displayed_at_date" ON public."impressions-2029-08" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2029_08_on_displayed_at_date ON public.impressions_2029_08 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2029-08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-08_on_displayed_at_hour" ON public."impressions-2029-08" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2029_08_on_displayed_at_hour ON public.impressions_2029_08 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2029-08_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_08_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-08_on_payable" ON public."impressions-2029-08" USING btree (payable);
+CREATE INDEX index_impressions_2029_08_on_payable ON public.impressions_2029_08 USING btree (payable);
 
 
 --
--- Name: index_impressions-2029-08_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_08_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-08_on_property_id" ON public."impressions-2029-08" USING btree (property_id);
+CREATE INDEX index_impressions_2029_08_on_property_id ON public.impressions_2029_08 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2029-09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-09_on_campaign_id" ON public."impressions-2029-09" USING btree (campaign_id);
+CREATE INDEX index_impressions_2029_09_on_campaign_id ON public.impressions_2029_09 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2029-09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-09_on_displayed_at_date" ON public."impressions-2029-09" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2029_09_on_displayed_at_date ON public.impressions_2029_09 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2029-09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-09_on_displayed_at_hour" ON public."impressions-2029-09" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2029_09_on_displayed_at_hour ON public.impressions_2029_09 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2029-09_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_09_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-09_on_payable" ON public."impressions-2029-09" USING btree (payable);
+CREATE INDEX index_impressions_2029_09_on_payable ON public.impressions_2029_09 USING btree (payable);
 
 
 --
--- Name: index_impressions-2029-09_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_09_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-09_on_property_id" ON public."impressions-2029-09" USING btree (property_id);
+CREATE INDEX index_impressions_2029_09_on_property_id ON public.impressions_2029_09 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2029-10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-10_on_campaign_id" ON public."impressions-2029-10" USING btree (campaign_id);
+CREATE INDEX index_impressions_2029_10_on_campaign_id ON public.impressions_2029_10 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2029-10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-10_on_displayed_at_date" ON public."impressions-2029-10" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2029_10_on_displayed_at_date ON public.impressions_2029_10 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2029-10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-10_on_displayed_at_hour" ON public."impressions-2029-10" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2029_10_on_displayed_at_hour ON public.impressions_2029_10 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2029-10_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_10_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-10_on_payable" ON public."impressions-2029-10" USING btree (payable);
+CREATE INDEX index_impressions_2029_10_on_payable ON public.impressions_2029_10 USING btree (payable);
 
 
 --
--- Name: index_impressions-2029-10_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_10_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-10_on_property_id" ON public."impressions-2029-10" USING btree (property_id);
+CREATE INDEX index_impressions_2029_10_on_property_id ON public.impressions_2029_10 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2029-11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-11_on_campaign_id" ON public."impressions-2029-11" USING btree (campaign_id);
+CREATE INDEX index_impressions_2029_11_on_campaign_id ON public.impressions_2029_11 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2029-11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-11_on_displayed_at_date" ON public."impressions-2029-11" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2029_11_on_displayed_at_date ON public.impressions_2029_11 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2029-11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-11_on_displayed_at_hour" ON public."impressions-2029-11" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2029_11_on_displayed_at_hour ON public.impressions_2029_11 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2029-11_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_11_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-11_on_payable" ON public."impressions-2029-11" USING btree (payable);
+CREATE INDEX index_impressions_2029_11_on_payable ON public.impressions_2029_11 USING btree (payable);
 
 
 --
--- Name: index_impressions-2029-11_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_11_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-11_on_property_id" ON public."impressions-2029-11" USING btree (property_id);
+CREATE INDEX index_impressions_2029_11_on_property_id ON public.impressions_2029_11 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2029-12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-12_on_campaign_id" ON public."impressions-2029-12" USING btree (campaign_id);
+CREATE INDEX index_impressions_2029_12_on_campaign_id ON public.impressions_2029_12 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2029-12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-12_on_displayed_at_date" ON public."impressions-2029-12" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2029_12_on_displayed_at_date ON public.impressions_2029_12 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2029-12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-12_on_displayed_at_hour" ON public."impressions-2029-12" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2029_12_on_displayed_at_hour ON public.impressions_2029_12 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2029-12_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_12_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-12_on_payable" ON public."impressions-2029-12" USING btree (payable);
+CREATE INDEX index_impressions_2029_12_on_payable ON public.impressions_2029_12 USING btree (payable);
 
 
 --
--- Name: index_impressions-2029-12_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2029_12_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2029-12_on_property_id" ON public."impressions-2029-12" USING btree (property_id);
+CREATE INDEX index_impressions_2029_12_on_property_id ON public.impressions_2029_12 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2030-01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-01_on_campaign_id" ON public."impressions-2030-01" USING btree (campaign_id);
+CREATE INDEX index_impressions_2030_01_on_campaign_id ON public.impressions_2030_01 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2030-01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_01_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-01_on_displayed_at_date" ON public."impressions-2030-01" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2030_01_on_displayed_at_date ON public.impressions_2030_01 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2030-01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_01_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-01_on_displayed_at_hour" ON public."impressions-2030-01" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2030_01_on_displayed_at_hour ON public.impressions_2030_01 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2030-01_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_01_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-01_on_payable" ON public."impressions-2030-01" USING btree (payable);
+CREATE INDEX index_impressions_2030_01_on_payable ON public.impressions_2030_01 USING btree (payable);
 
 
 --
--- Name: index_impressions-2030-01_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_01_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-01_on_property_id" ON public."impressions-2030-01" USING btree (property_id);
+CREATE INDEX index_impressions_2030_01_on_property_id ON public.impressions_2030_01 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2030-02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-02_on_campaign_id" ON public."impressions-2030-02" USING btree (campaign_id);
+CREATE INDEX index_impressions_2030_02_on_campaign_id ON public.impressions_2030_02 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2030-02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_02_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-02_on_displayed_at_date" ON public."impressions-2030-02" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2030_02_on_displayed_at_date ON public.impressions_2030_02 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2030-02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_02_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-02_on_displayed_at_hour" ON public."impressions-2030-02" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2030_02_on_displayed_at_hour ON public.impressions_2030_02 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2030-02_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_02_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-02_on_payable" ON public."impressions-2030-02" USING btree (payable);
+CREATE INDEX index_impressions_2030_02_on_payable ON public.impressions_2030_02 USING btree (payable);
 
 
 --
--- Name: index_impressions-2030-02_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_02_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-02_on_property_id" ON public."impressions-2030-02" USING btree (property_id);
+CREATE INDEX index_impressions_2030_02_on_property_id ON public.impressions_2030_02 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2030-03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-03_on_campaign_id" ON public."impressions-2030-03" USING btree (campaign_id);
+CREATE INDEX index_impressions_2030_03_on_campaign_id ON public.impressions_2030_03 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2030-03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_03_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-03_on_displayed_at_date" ON public."impressions-2030-03" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2030_03_on_displayed_at_date ON public.impressions_2030_03 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2030-03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_03_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-03_on_displayed_at_hour" ON public."impressions-2030-03" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2030_03_on_displayed_at_hour ON public.impressions_2030_03 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2030-03_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_03_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-03_on_payable" ON public."impressions-2030-03" USING btree (payable);
+CREATE INDEX index_impressions_2030_03_on_payable ON public.impressions_2030_03 USING btree (payable);
 
 
 --
--- Name: index_impressions-2030-03_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_03_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-03_on_property_id" ON public."impressions-2030-03" USING btree (property_id);
+CREATE INDEX index_impressions_2030_03_on_property_id ON public.impressions_2030_03 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2030-04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-04_on_campaign_id" ON public."impressions-2030-04" USING btree (campaign_id);
+CREATE INDEX index_impressions_2030_04_on_campaign_id ON public.impressions_2030_04 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2030-04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_04_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-04_on_displayed_at_date" ON public."impressions-2030-04" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2030_04_on_displayed_at_date ON public.impressions_2030_04 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2030-04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_04_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-04_on_displayed_at_hour" ON public."impressions-2030-04" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2030_04_on_displayed_at_hour ON public.impressions_2030_04 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2030-04_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_04_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-04_on_payable" ON public."impressions-2030-04" USING btree (payable);
+CREATE INDEX index_impressions_2030_04_on_payable ON public.impressions_2030_04 USING btree (payable);
 
 
 --
--- Name: index_impressions-2030-04_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_04_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-04_on_property_id" ON public."impressions-2030-04" USING btree (property_id);
+CREATE INDEX index_impressions_2030_04_on_property_id ON public.impressions_2030_04 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2030-05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-05_on_campaign_id" ON public."impressions-2030-05" USING btree (campaign_id);
+CREATE INDEX index_impressions_2030_05_on_campaign_id ON public.impressions_2030_05 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2030-05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_05_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-05_on_displayed_at_date" ON public."impressions-2030-05" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2030_05_on_displayed_at_date ON public.impressions_2030_05 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2030-05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_05_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-05_on_displayed_at_hour" ON public."impressions-2030-05" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2030_05_on_displayed_at_hour ON public.impressions_2030_05 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2030-05_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_05_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-05_on_payable" ON public."impressions-2030-05" USING btree (payable);
+CREATE INDEX index_impressions_2030_05_on_payable ON public.impressions_2030_05 USING btree (payable);
 
 
 --
--- Name: index_impressions-2030-05_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_05_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-05_on_property_id" ON public."impressions-2030-05" USING btree (property_id);
+CREATE INDEX index_impressions_2030_05_on_property_id ON public.impressions_2030_05 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2030-06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-06_on_campaign_id" ON public."impressions-2030-06" USING btree (campaign_id);
+CREATE INDEX index_impressions_2030_06_on_campaign_id ON public.impressions_2030_06 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2030-06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_06_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-06_on_displayed_at_date" ON public."impressions-2030-06" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2030_06_on_displayed_at_date ON public.impressions_2030_06 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2030-06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_06_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-06_on_displayed_at_hour" ON public."impressions-2030-06" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2030_06_on_displayed_at_hour ON public.impressions_2030_06 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2030-06_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_06_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-06_on_payable" ON public."impressions-2030-06" USING btree (payable);
+CREATE INDEX index_impressions_2030_06_on_payable ON public.impressions_2030_06 USING btree (payable);
 
 
 --
--- Name: index_impressions-2030-06_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_06_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-06_on_property_id" ON public."impressions-2030-06" USING btree (property_id);
+CREATE INDEX index_impressions_2030_06_on_property_id ON public.impressions_2030_06 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2030-07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-07_on_campaign_id" ON public."impressions-2030-07" USING btree (campaign_id);
+CREATE INDEX index_impressions_2030_07_on_campaign_id ON public.impressions_2030_07 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2030-07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_07_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-07_on_displayed_at_date" ON public."impressions-2030-07" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2030_07_on_displayed_at_date ON public.impressions_2030_07 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2030-07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_07_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-07_on_displayed_at_hour" ON public."impressions-2030-07" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2030_07_on_displayed_at_hour ON public.impressions_2030_07 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2030-07_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_07_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-07_on_payable" ON public."impressions-2030-07" USING btree (payable);
+CREATE INDEX index_impressions_2030_07_on_payable ON public.impressions_2030_07 USING btree (payable);
 
 
 --
--- Name: index_impressions-2030-07_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_07_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-07_on_property_id" ON public."impressions-2030-07" USING btree (property_id);
+CREATE INDEX index_impressions_2030_07_on_property_id ON public.impressions_2030_07 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2030-08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-08_on_campaign_id" ON public."impressions-2030-08" USING btree (campaign_id);
+CREATE INDEX index_impressions_2030_08_on_campaign_id ON public.impressions_2030_08 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2030-08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_08_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-08_on_displayed_at_date" ON public."impressions-2030-08" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2030_08_on_displayed_at_date ON public.impressions_2030_08 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2030-08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_08_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-08_on_displayed_at_hour" ON public."impressions-2030-08" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2030_08_on_displayed_at_hour ON public.impressions_2030_08 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2030-08_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_08_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-08_on_payable" ON public."impressions-2030-08" USING btree (payable);
+CREATE INDEX index_impressions_2030_08_on_payable ON public.impressions_2030_08 USING btree (payable);
 
 
 --
--- Name: index_impressions-2030-08_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_08_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-08_on_property_id" ON public."impressions-2030-08" USING btree (property_id);
+CREATE INDEX index_impressions_2030_08_on_property_id ON public.impressions_2030_08 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2030-09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-09_on_campaign_id" ON public."impressions-2030-09" USING btree (campaign_id);
+CREATE INDEX index_impressions_2030_09_on_campaign_id ON public.impressions_2030_09 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2030-09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_09_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-09_on_displayed_at_date" ON public."impressions-2030-09" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2030_09_on_displayed_at_date ON public.impressions_2030_09 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2030-09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_09_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-09_on_displayed_at_hour" ON public."impressions-2030-09" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2030_09_on_displayed_at_hour ON public.impressions_2030_09 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2030-09_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_09_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-09_on_payable" ON public."impressions-2030-09" USING btree (payable);
+CREATE INDEX index_impressions_2030_09_on_payable ON public.impressions_2030_09 USING btree (payable);
 
 
 --
--- Name: index_impressions-2030-09_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_09_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-09_on_property_id" ON public."impressions-2030-09" USING btree (property_id);
+CREATE INDEX index_impressions_2030_09_on_property_id ON public.impressions_2030_09 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2030-10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-10_on_campaign_id" ON public."impressions-2030-10" USING btree (campaign_id);
+CREATE INDEX index_impressions_2030_10_on_campaign_id ON public.impressions_2030_10 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2030-10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_10_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-10_on_displayed_at_date" ON public."impressions-2030-10" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2030_10_on_displayed_at_date ON public.impressions_2030_10 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2030-10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_10_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-10_on_displayed_at_hour" ON public."impressions-2030-10" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2030_10_on_displayed_at_hour ON public.impressions_2030_10 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2030-10_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_10_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-10_on_payable" ON public."impressions-2030-10" USING btree (payable);
+CREATE INDEX index_impressions_2030_10_on_payable ON public.impressions_2030_10 USING btree (payable);
 
 
 --
--- Name: index_impressions-2030-10_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_10_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-10_on_property_id" ON public."impressions-2030-10" USING btree (property_id);
+CREATE INDEX index_impressions_2030_10_on_property_id ON public.impressions_2030_10 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2030-11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-11_on_campaign_id" ON public."impressions-2030-11" USING btree (campaign_id);
+CREATE INDEX index_impressions_2030_11_on_campaign_id ON public.impressions_2030_11 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2030-11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-11_on_displayed_at_date" ON public."impressions-2030-11" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2030_11_on_displayed_at_date ON public.impressions_2030_11 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2030-11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_11_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-11_on_displayed_at_hour" ON public."impressions-2030-11" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2030_11_on_displayed_at_hour ON public.impressions_2030_11 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2030-11_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_11_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-11_on_payable" ON public."impressions-2030-11" USING btree (payable);
+CREATE INDEX index_impressions_2030_11_on_payable ON public.impressions_2030_11 USING btree (payable);
 
 
 --
--- Name: index_impressions-2030-11_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_11_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-11_on_property_id" ON public."impressions-2030-11" USING btree (property_id);
+CREATE INDEX index_impressions_2030_11_on_property_id ON public.impressions_2030_11 USING btree (property_id);
 
 
 --
--- Name: index_impressions-2030-12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-12_on_campaign_id" ON public."impressions-2030-12" USING btree (campaign_id);
+CREATE INDEX index_impressions_2030_12_on_campaign_id ON public.impressions_2030_12 USING btree (campaign_id);
 
 
 --
--- Name: index_impressions-2030-12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_12_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-12_on_displayed_at_date" ON public."impressions-2030-12" USING btree (displayed_at_date);
+CREATE INDEX index_impressions_2030_12_on_displayed_at_date ON public.impressions_2030_12 USING btree (displayed_at_date);
 
 
 --
--- Name: index_impressions-2030-12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_12_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-12_on_displayed_at_hour" ON public."impressions-2030-12" USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX index_impressions_2030_12_on_displayed_at_hour ON public.impressions_2030_12 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
--- Name: index_impressions-2030-12_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_12_on_payable; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-12_on_payable" ON public."impressions-2030-12" USING btree (payable);
+CREATE INDEX index_impressions_2030_12_on_payable ON public.impressions_2030_12 USING btree (payable);
 
 
 --
--- Name: index_impressions-2030-12_on_property_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_2030_12_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX "index_impressions-2030-12_on_property_id" ON public."impressions-2030-12" USING btree (property_id);
+CREATE INDEX index_impressions_2030_12_on_property_id ON public.impressions_2030_12 USING btree (property_id);
 
 
 --

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: impressions
@@ -18,8 +19,6 @@
 #  displayed_at_date :date
 #  clicked_at        :datetime
 #  fallback_campaign :boolean          default(FALSE), not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
 #
 
 require "test_helper"
