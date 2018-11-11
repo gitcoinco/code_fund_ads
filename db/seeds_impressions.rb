@@ -30,34 +30,34 @@ def build_impression(displayed_at)
   }
 end
 
-def build_impressions(displayed_at, count: 100)
-  count.times.map do
+def build_impressions(displayed_at, max_impressions_per_second: 25)
+  rand(max_impressions_per_second + 1).times.map do
     build_impression displayed_at
   end.compact
 end
 
 def build_impressions_for_minute(time)
-  displayed_at = Time.new(time.year, time.month, time.day, time.hour, 0, 0)
+  displayed_at = Time.new(time.year, time.month, time.day, time.hour, time.min, 0, 0)
   impressions = []
   while displayed_at.min == time.min && displayed_at.sec <= 59
     impressions.concat build_impressions(displayed_at)
-    displayed_at = displayed_at.advance(seconds: 1)
+    displayed_at = displayed_at.advance(seconds: rand(11))
   end
   impressions
 end
 
 def build_impressions_for_hour(time)
-  displayed_at = Time.new(time.year, time.month, time.day, time.hour, 0, 0)
+  displayed_at = Time.new(time.year, time.month, time.day, time.hour, 0, 0, 0)
   impressions = []
   while displayed_at.hour == time.hour && displayed_at.min <= 59
     impressions.concat build_impressions_for_minute(displayed_at)
-    displayed_at = displayed_at.advance(minutes: 1)
+    displayed_at = displayed_at.advance(minutes: rand(3))
   end
   impressions
 end
 
 def build_impressions_for_day(date)
-  displayed_at = Time.new(date.year, date.month, date.day, 0, 0, 0)
+  displayed_at = Time.new(date.year, date.month, date.day, 0, 0, 0, 0)
   impressions = []
   while displayed_at.day == date.day && displayed_at.hour <= 23
     impressions.concat build_impressions_for_hour(displayed_at)
@@ -90,14 +90,18 @@ def create_impressions_for_month(date_string)
     ensure
       FileUtils.rm_f csv_path, verbose: true
     end
+
     current_date = current_date.advance(days: 1)
   end
 end
 
+# This will create 30M impressions (give or take) when max_impressions_per_second is set to 6
+# Currently configured to use 4 CPU cores... customize for the number of cores on your machine
+# NOTE: this will peg your hardware for a while
 pids = [
-  Process.fork { create_impressions_for_month "2019-01-01" },
-  Process.fork { create_impressions_for_month "2019-02-01" },
-  Process.fork { create_impressions_for_month "2019-03-01" },
+  Process.fork { sleep 0; create_impressions_for_month "2019-01-01" },
+  Process.fork { sleep 30; create_impressions_for_month "2019-02-01" },
+  Process.fork { sleep 60; create_impressions_for_month "2019-03-01" },
+  Process.fork { sleep 90; create_impressions_for_month "2019-04-01" },
 ]
-
 pids.each { |pid| Process.waitpid pid }
