@@ -11,7 +11,7 @@ module Users
     alias_method :name, :full_name
 
     def scoped_name
-      [company, full_name].compact.join "・"
+      [company_name, full_name].compact.join "・"
     end
 
     def gravatar_url

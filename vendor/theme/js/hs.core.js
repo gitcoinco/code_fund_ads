@@ -25,23 +25,13 @@
         $('[data-toggle="tooltip"]').tooltip();
 
         // Bootstrap Popovers
-        $('[data-toggle="popover"]').popover()
-
-        // Set Background Image Dynamically
-        if ($('[data-bg-img-src]').length) $.HSCore.helpers.bgImage($('[data-bg-img-src]'));
-
-        // Extends jQuery
-        $.HSCore.helpers.extendjQuery();
+        $('[data-toggle="popover"]').popover();
 
         // Detect Internet Explorer (IE)
         $.HSCore.helpers.detectIE();
 
         // Bootstrap Navigation Options
         $.HSCore.helpers.bootstrapNavOptions.init();
-
-      });
-
-      $(window).on('load', function (e) {
 
       });
 
@@ -72,73 +62,6 @@
             return fixedInner ? (Math.random() * (endPoint - startPoint) + startPoint) : (Math.floor(Math.random() * (endPoint - startPoint + 1)) + startPoint);
 
           }
-
-      },
-
-      /**
-       * Sets background-image dynamically.
-       *
-       * @param jQuery collection
-       *
-       * @return jQuery|undefined
-       */
-      bgImage: function (collection) {
-
-        if (!collection || !collection.length) return;
-
-        return collection.each(function (i, el) {
-
-          var $el = $(el),
-            bgImageSrc = $el.data('bg-img-src');
-
-          if (bgImageSrc) $el.css('background-image', 'url(' + bgImageSrc + ')');
-
-        });
-
-      },
-
-      /**
-       * Extends basic jQuery functionality
-       *
-       * @return undefined
-       */
-      extendjQuery: function () {
-
-        $.fn.extend({
-
-          /**
-           * Runs specified function after loading of all images.
-           *
-           * @return Deferred
-           */
-          afterImagesLoaded: function () {
-
-            var $imgs = this.find('img[src!=""]');
-
-            if (!$imgs.length) {
-              return $.Deferred().resolve().promise();
-            }
-
-            var dfds = [];
-
-            $imgs.each(function () {
-              var dfd = $.Deferred();
-              dfds.push(dfd);
-              var img = new Image();
-              img.onload = function () {
-                dfd.resolve();
-              };
-              img.onerror = function () {
-                dfd.resolve();
-              };
-              img.src = this.src;
-            });
-
-            return $.when.apply($, dfds);
-
-          }
-
-        });
 
       },
 

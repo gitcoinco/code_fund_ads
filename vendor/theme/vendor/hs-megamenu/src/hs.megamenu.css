@@ -29,19 +29,23 @@
 	left: 0;
 	top: 100%;
 	z-index: 2;
-	margin-top: 0;
+	margin-top: -.002rem;
 	visibility: hidden;
 	background-color: #fff;
   opacity: 1 !important;
 }
 
 .hs-menu-initialized:not(.hs-mobile-state) .hs-has-sub-menu:hover .hs-sub-menu,
-.hs-menu-initialized:not(.hs-mobile-state) .hs-has-mega-menu:hover .hs-mega-menu {
+.hs-menu-initialized:not(.hs-mobile-state) .hs-has-mega-menu:hover .hs-mega-menu,
+.hs-menu-initialized:not(.hs-mobile-state) .hs-has-sub-menu.hs-sub-menu-opened[data-event="click"] .hs-sub-menu,
+.hs-menu-initialized:not(.hs-mobile-state) .hs-has-mega-menu.hs-mega-menu-opened[data-event="click"] .hs-mega-menu {
   display: block !important;
 }
 
 .hs-menu-initialized:not(.hs-mobile-state) .hs-has-sub-menu:hover,
-.hs-menu-initialized:not(.hs-mobile-state) .hs-has-mega-menu:hover {
+.hs-menu-initialized:not(.hs-mobile-state) .hs-has-mega-menu:hover,
+.hs-menu-initialized:not(.hs-mobile-state) .hs-has-sub-menu.hs-sub-menu-opened[data-event="click"],
+.hs-menu-initialized:not(.hs-mobile-state) .hs-has-mega-menu.hs-mega-menu-opened[data-event="click"] {
   overflow: visible;
 }
 

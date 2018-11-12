@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 120 120" style="enable-background:new 0 0 120 120;" xml:space="preserve">
+<style type="text/css">
+	.icon-white-50-0{fill:#FFFFFF;}
+	.icon-white-50-1{fill:#377DFF;}
+	.icon-white-50-2{fill:none;stroke:#FFFFFF;}
+	.icon-white-50-3{fill:#377DFF;stroke:#FFFFFF;}
+</style>
+<path class="icon-white-50-0 fill-white" opacity=".15" d="M4,80.7c-0.7-16,13-29,29-29c2.2,0,4.3,0.3,6.3,0.7c2.4-13.6,14.2-23.9,28.5-23.9c14,0,25.7,10,28.4,23.2
+	c0.2,0,0.4-0.1,0.6-0.1c12.8,0,23.2,10.4,23.2,23.2S109.6,98,96.8,98H79.2H44.1C31.3,98.1,4.9,100.4,4,80.7z"/>
+<path class="icon-white-50-1 fill-primary" d="M2,60.6c-0.7-16,13-29,29-29c2.2,0,4.3,0.3,6.3,0.7C39.7,18.7,51.5,8.4,65.8,8.4c14,0,25.7,10,28.4,23.2
+	c0.2,0,0.4-0.1,0.6-0.1c12.8,0,23.2,10.4,23.2,23.2s-10.4,23.2-23.2,23.2H77.1H42C29.3,77.9,2.8,80.2,2,60.6z"/>
+<path class="icon-white-50-2 fill-none stroke-white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M2,60.6c0-16,13-29,29-29c2.2,0,4.3,0.3,6.3,0.7C39.7,18.7,51.5,8.4,65.8,8.4c14,0,25.7,10,28.4,23.2
+	c0.2,0,0.4-0.1,0.6-0.1c12.8,0,23.2,10.4,23.2,23.2s-10.4,23.2-23.2,23.2H77.1"/>
+<circle class="icon-white-50-0 fill-white" opacity=".15" cx="71" cy="49.2" r="20.3"/>
+<circle class="icon-white-50-0 fill-white" cx="64.6" cy="45.4" r="20.3"/>
+<path class="icon-white-50-1 fill-primary" d="M71,42.5c0-1.8-1.1-3.3-2.7-3.9c0,0,0,0,0,0c0-0.3,0-2.6,0-2.9c0,0,0,0,0,0h-2.6c0,0,0,0,0,0v2.6c0,0,0,0,0,0
+	l-1.8,0c0,0,0,0,0,0v-2.6c0,0,0,0,0,0h-2.6c0,0,0,0,0,0v2.6c0,0,0,0,0,0l-2.8,0c0,0,0,0,0,0v2.6c0,0,0,0,0,0l1.9,0c0,0,0,0,0,0v8.8
+	c0,0,0,0,0,0h-1.9c0,0,0,0,0,0v2.6c0,0,0,0,0,0H61c0,0,0,0,0,0v2.5c0,0,0,0,0,0h2.6c0,0,0,0,0,0v-2.5c0,0,0,0,0,0h1.8c0,0,0,0,0,0
+	v2.5c0,0,0,0,0,0h2.6c0,0,0,0,0,0l0-2.8c0,0,0,0,0,0c1.6-0.6,2.7-2.1,2.7-3.9c0-1.1-0.4-2.1-1.1-2.9c0,0,0,0,0-0.1
+	C70.5,44.7,71,43.6,71,42.5z M66.7,41c1,0,1.7,0.9,1.5,1.8c-0.1,0.8-0.9,1.3-1.6,1.3l-3.6,0c-0.1,0-0.1,0-0.1,0v-3c0,0,0,0,0,0
+	L66.7,41z M66.6,49.9l-3.6,0c-0.1,0-0.1,0-0.1,0v-3c0,0,0,0,0,0h3.8c1,0,1.7,0.9,1.5,1.8C68.1,49.4,67.4,49.9,66.6,49.9z"/>
+<path class="icon-white-50-2 fill-none stroke-white" stroke-width="3" stroke-miterlimit="10" d="M11.3,77.3v-5.4c0-5.8,4.7-10.6,10.6-10.6l0,0c5.8,0,10.6,4.7,10.6,10.6v5.4"/>
+<path class="icon-white-50-3 fill-primary stroke-white" stroke-width="3" stroke-miterlimit="10" d="M37.8,111.6H6c-2.2,0-4-1.8-4-4v-26c0-2.2,1.8-4,4-4h31.8c2.2,0,4,1.8,4,4v26C41.7,109.8,40,111.6,37.8,111.6z"
+	/>
+<circle class="icon-white-50-2 fill-none stroke-white" stroke-width="3" stroke-miterlimit="10" cx="20.9" cy="95.5" r="7.2"/>
+</svg>

@@ -1,0 +1,31 @@
+/*------------------------------------
+  Form Pill
+------------------------------------*/
+
+.input-group-pill {
+	@include border-radius($form-pill-border-radius);
+
+	> .form-control {
+		&:first-child {
+			@include border-left-radius($form-pill-border-radius);
+		}
+
+		&:last-child {
+			@include border-right-radius($form-pill-border-radius);
+		}
+	}
+
+	.input-group-prepend {
+		> .input-group-text,
+		> .btn {
+			@include border-left-radius($form-pill-border-radius);
+		}
+	}
+
+	.input-group-append {
+		> .input-group-text,
+		> .btn {
+			@include border-right-radius($form-pill-border-radius);
+		}
+	}
+}

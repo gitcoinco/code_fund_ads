@@ -1,0 +1,77 @@
+/*------------------------------------
+  Default Styles
+------------------------------------*/
+
+main {
+  position: relative;
+}
+
+p {
+  color: $paragraph-color;
+  line-height: $paragraph-line-height;
+}
+
+h4, h5, h6,
+.h4, .h5, .h6 {
+  font-weight: $font-weight-medium;
+}
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  > a {
+    color: $headings-link-color;
+
+    &:hover {
+      color: $link-hover-color;
+    }
+  }
+
+  &.text-white > a {
+    color: $headings-white-link-color;
+  }
+}
+
+figure {
+  margin-bottom: 0;
+}
+
+strong {
+  font-weight: $strong-font-weight-semi-bold;
+}
+
+svg {
+  margin-bottom: $svg-negative-margin-bottom;
+  vertical-align: baseline;
+}
+
+table th {
+  font-weight: $table-th-font-weight;
+}
+
+.fa, .fas {
+  font-weight: 900;
+}
+
+/*------------------------------------
+  Highlight Color
+------------------------------------*/
+
+::-moz-selection {
+  color: $white;
+  background-color: $primary;
+}
+
+::selection {
+  color: $white;
+  background-color: $primary;
+}
+
+.bg-primary ::-moz-selection {
+  color: $primary;
+  background-color: $white;
+}
+
+.bg-primary ::selection {
+  color: $primary;
+  background-color: $white;
+}

@@ -59,7 +59,11 @@
         var $this = $(this),
           contentTarget = $this.data('content-target');
 
-        shortcodeArr[contentTarget] = $(contentTarget).val();
+        if($(contentTarget).is('input, textarea, select')) {
+          shortcodeArr[contentTarget] = $(contentTarget).val()
+        } else {
+          shortcodeArr[contentTarget] = $(contentTarget).html();
+        }
       });
 
       //Actions

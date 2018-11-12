@@ -87,7 +87,7 @@
         }
 
         $this.on('click', function (e) {
-          if(!isReferencedToPage) {
+          if (!isReferencedToPage) {
             e.preventDefault();
 
             $('html, body').stop().animate({
@@ -110,6 +110,8 @@
 
         if (type !== 'static') {
           $(window).on('scroll', function () {
+            clearTimeout($.data(this, 'scrollTimer'));
+
             if ($this.data('offset-top')) {
               if ($(window).scrollTop() >= offsetTop && !$this.hasClass('js-animation-was-fired')) {
                 $this.show();
@@ -120,17 +122,21 @@
                   });
                 });
               } else if ($(window).scrollTop() <= offsetTop && $this.hasClass('js-animation-was-fired')) {
-                $this.removeClass('js-animation-was-fired ' + showEffect);
+                $.data(this, 'scrollTimer', setTimeout(function () {
 
-                setTimeout(function () {
-                  $this.addClass(hideEffect).css({
-                    'opacity': 0
-                  });
-                }, 100);
+                  $this.removeClass('js-animation-was-fired ' + showEffect);
 
-                setTimeout(function () {
-                  $this.removeClass(hideEffect).hide();
-                }, 400);
+                  setTimeout(function () {
+                    $this.addClass(hideEffect).css({
+                      'opacity': 0
+                    });
+                  }, 100);
+
+                  setTimeout(function () {
+                    $this.removeClass(hideEffect).hide();
+                  }, 400);
+
+                }, 500));
               }
             } else {
               var thisOffsetTop = $this.offset().top;

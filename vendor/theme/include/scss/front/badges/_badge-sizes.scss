@@ -1,0 +1,40 @@
+/*------------------------------------
+  Badge Sizes
+------------------------------------*/
+
+/* Extra Small */
+.badge-xs {
+  width: $badge-width-xs;
+  height: $badge-height-xs;
+  line-height: $badge-line-height;
+  font-size: $badge-font-size-xs;
+}
+
+/* Small */
+.badge-sm {
+  width: $badge-width-sm;
+  height: $badge-height-sm;
+  line-height: $badge-line-height;
+  font-size: $badge-font-size-sm;
+
+  &[class*="badge-outline"] {
+    line-height: $badge-border-line-height-sm;
+  }
+}
+
+/* Medium */
+.badge-md {
+  width: $badge-width-md;
+  height: $badge-height-md;
+  line-height: 1.7;
+  font-size: $badge-font-size-md;
+
+  &[class*="badge-outline"] {
+    line-height: $badge-border-line-height-md;
+  }
+}
+
+/* Bigger */
+.badge-bigger {
+  padding: $badge-bigger-paddingX;
+}

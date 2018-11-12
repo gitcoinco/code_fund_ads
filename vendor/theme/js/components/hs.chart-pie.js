@@ -108,13 +108,25 @@
             if ($this.data('circles-type') == 'iconic') {
               return $this.data('circles-icon');
             } else {
-              return value + ($this.data('circles-additional-text') || '');
+              if ($this.data('circles-additional-text-type') === 'prefix') {
+                if ($this.data('circles-secondary-text')) {
+                  return ($this.data('circles-additional-text') || '') + ($this.data('circles-is-hide-value') ? '' : value) + '<div style="margin-top: ' + ($this.data('circles-divider-space') / 2 + 'px' || '0') + '; margin-bottom: ' + ($this.data('circles-divider-space') / 2 + 'px' || '0') + ';"></div>' + '<div style="font-weight: ' + $this.data('circles-secondary-font-weight') + '; font-size: ' + $this.data('circles-secondary-font-size') + 'px; color: ' + $this.data('circles-secondary-color') + ';">' + $this.data('circles-secondary-text') + '</div>';
+                } else {
+                  return ($this.data('circles-additional-text') || '') + ($this.data('circles-is-hide-value') ? '' : value);
+                }
+              } else {
+                if ($this.data('circles-secondary-text')) {
+                  return ($this.data('circles-is-hide-value') ? '' : value) + ($this.data('circles-additional-text') || '') + '<div style="margin-top: ' + ($this.data('circles-divider-space') / 2 + 'px' || '0') + '; margin-bottom: ' + ($this.data('circles-divider-space') / 2 + 'px' || '0') + ';"></div>' + '<div style="font-weight: ' + $this.data('circles-secondary-font-weight') + '; font-size: ' + $this.data('circles-secondary-font-size') + 'px; color: ' + $this.data('circles-secondary-color') + ';">' + $this.data('circles-secondary-text') + '</div>';
+                } else {
+                  return ($this.data('circles-is-hide-value') ? '' : value) + ($this.data('circles-additional-text') || '');
+                }
+              }
             }
           },
           colors: [$this.data('circles-bg-color') || '#377dff', $this.data('circles-fg-color') || '#e7eaf3'],
           duration: $this.data('circles-duration') || 1000,
-          wrpClass: self.config['wrpClass'],
-          textClass: self.config['textClass'],
+          wrpClass: $this.data('circles-wrp-class') || self.config['wrpClass'],
+          textClass: $this.data('circles-text-class') || self.config['textClass'],
           valueStrokeClass: self.config['valueStrokeClass'],
           maxValueStrokeClass: self.config['maxValueStrokeClass'],
           styleWrapper: self.config['styleWrapper'],
@@ -123,15 +135,27 @@
 
         $this.data('circle', circle);
 
-        $this.find('.' + self.config['textClass']).css({
+        $this.find('[class="' + ($this.data('circles-text-class') || self.config['textClass']) + '"]').css({
           'font-size': $this.data('circles-font-size'),
           'font-weight': $this.data('circles-font-weight'),
-          'color': $this.data('circles-color')
+          'color': $this.data('circles-color'),
+          'line-height': 'normal',
+          'height': 'auto',
+          'top': '',
+          'left': ''
         });
 
 
         if (self.config['rtl']) {
           $this.find('svg').css('transform', 'matrix(-1, 0, 0, 1, 0, 0)');
+        }
+
+        if ($this.data('circles-fg-stroke-linecap')) {
+          $this.find('[class="' + self.config['valueStrokeClass'] + '"]').attr('stroke-linecap', $this.data('circles-fg-stroke-linecap'));
+        }
+
+        if ($this.data('circles-fg-stroke-miterlimit')) {
+          $this.find('[class="' + self.config['valueStrokeClass'] + '"]').attr('stroke-miterlimit', $this.data('circles-fg-stroke-miterlimit'));
         }
 
         self.pageCollection = self.pageCollection.add($this);

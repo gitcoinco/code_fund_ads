@@ -18,8 +18,7 @@
             <%= tag.div f.input(:statuses, collection: property_statuses_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
             <%= tag.div f.input(:templates, collection: templates_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
             <%= tag.div f.input(:languages, collection: languages_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
-            <%= tag.div f.input(:topic_categories, collection: topic_categories_for_select, label: "Topics", required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
-            <%= tag.div f.input(:programming_languages, collection: programming_languages_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:keywords, collection: keywords_for_select, label: "Topics", required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
 
             <%= pseudo_row_divider %>
 

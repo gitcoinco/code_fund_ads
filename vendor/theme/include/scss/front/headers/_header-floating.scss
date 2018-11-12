@@ -1,0 +1,68 @@
+/*------------------------------------
+  Header Floating
+------------------------------------*/
+
+.u-header--floating {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+      &#{$infix} {
+        position: absolute;
+        right: 0;
+        left: 0;
+        margin-top: $header-floating-margin-top;
+
+        &.js-header-fix-moment {
+          position: fixed;
+          background-color: $white;
+          box-shadow: $header-box-shadow;
+          margin-top: 0;
+
+          .u-header--floating__inner {
+            box-shadow: none;
+          }
+        }
+
+        // Long list of links, can lead to a bug, since the header can not calculate the height when.
+        // For this reason, max-height is given to avoid header disappearing issues on collapse.
+        .u-header--floating__scrollbar {
+          max-height: $header-floating-height;
+
+          &.mCS_destroyed {
+            position: static !important;
+          }
+        }
+
+        .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+          margin: 0 24px;
+        }
+      }
+
+      &__inner {
+        @include border-radius($header-floating-border-radius);
+        padding-left: $header-floating-inner-paddingX;
+        padding-right: $header-floating-inner-paddingX;
+      }
+    }
+  }
+}
+
+.u-header--floating {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($next, $grid-breakpoints);
+
+    &#{$infix} {
+      @include media-breakpoint-down($breakpoint) {
+        .u-header__section {
+          box-shadow: none;
+        }
+
+        .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+          display: none;
+        }
+      }
+    }
+  }
+}

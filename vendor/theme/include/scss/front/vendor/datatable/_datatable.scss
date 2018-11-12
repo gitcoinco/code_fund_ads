@@ -1,0 +1,59 @@
+/*------------------------------------
+  Datatable
+------------------------------------*/
+
+.u-datatable {
+  .dataTables_length,
+  .dataTables_filter,
+  .dataTables_info,
+  .dataTables_paginate {
+    display: none;
+  }
+
+  &__striped {
+    .odd {
+      background-color: $gray-200;
+    }
+  }
+
+  .u-datatable__trigger {
+    cursor: pointer;
+
+    &-icon {
+      &::before {
+        display: inline-block;
+        font-family: $font-family-font-awesome-icon;
+        font-weight: 900;
+        content: "\f107";
+        margin-right: .75rem;
+        transform: rotate(-180deg);
+      }
+    }
+  }
+
+  &__content {
+    td[colspan] {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .opened {
+    .u-datatable__trigger-icon {
+      &::before {
+        content: "\f106";
+      }
+    }
+  }
+
+  &__thead-icon {
+    display: block;
+    line-height: .7;
+    cursor: pointer;
+    color: $gray-400;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}

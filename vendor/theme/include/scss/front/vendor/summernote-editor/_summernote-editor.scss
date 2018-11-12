@@ -1,0 +1,59 @@
+/*------------------------------------
+  Summernote Editor
+------------------------------------*/
+
+.note-modal-footer {
+  height: auto;
+  display: flex;
+  justify-content: flex-end;
+  padding: 20px 30px;
+
+  .note-btn {
+    float: inherit;
+  }
+}
+
+.u-summernote-editor {
+  .note-editor.note-frame {
+    border-color: $gray-300;
+
+    .note-statusbar {
+      background-color: $gray-200;
+      border-top-color: $gray-300;
+    }
+  }
+
+  .note-toolbar {
+    background-color: $gray-200;
+
+    > .note-btn-group {
+      border: 1px solid $gray-300;
+      @include border-radius($border-radius);
+    }
+
+    .note-dropdown-menu {
+      min-width: 12.5rem;
+      border-color: $gray-300;
+      box-shadow: $box-shadow-sm;
+      padding: .5rem;
+    }
+
+    .note-color .note-dropdown-menu {
+      min-width: 21.5rem;
+    }
+  }
+
+  .note-btn {
+    &:focus,
+    &:hover {
+      color: $primary;
+      background-color: transparent;
+    }
+  }
+
+  .note-dropdown-item {
+    &:hover {
+      background-color: $gray-200;
+    }
+  }
+}

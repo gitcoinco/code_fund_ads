@@ -1,0 +1,67 @@
+/*------------------------------------
+  Header Navbar Background Colors
+------------------------------------*/
+
+.u-header--navbar-bg {
+	.u-header__navbar-brand-text {
+		color: $white;
+	}
+
+	.u-header__nav-item {
+	  &:hover {
+	    .u-header__nav-link {
+				color: $white;
+	    }
+	  }
+	}
+
+  .active > {
+  	.u-header__nav-link {
+			color: $white;
+  	}
+  }
+
+	.u-header__nav-link {
+		color: rgba($white, .7);
+
+	  &:hover {
+			color: $white;
+	  }
+	}
+
+	.u-header__navbar-link,
+	.dropdown-nav-link,
+	.btn-text-secondary {
+		color: rgba($white, .6);
+
+		&:hover {
+			color: $white;
+		}
+	}
+
+  .btn-text-secondary {
+    &[href]:hover {
+      color: $white;
+    }
+  }
+
+	.u-hamburger {
+    &__inner {
+	    &,
+	    &::before,
+	    &::after {
+	      background-color: rgba($white, .5);
+	    }
+	  }
+
+		&:hover {
+  		.u-hamburger__inner {
+	      &,
+	      &::before,
+	      &::after {
+	        background-color: $white;
+    		}
+    	}
+    }
+	}
+}

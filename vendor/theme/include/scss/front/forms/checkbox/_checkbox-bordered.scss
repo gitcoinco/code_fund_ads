@@ -1,0 +1,17 @@
+/*------------------------------------
+  Checkbox Bordered
+------------------------------------*/
+
+.checkbox-outline {
+  padding-left: 0;
+  margin-right: 0;
+
+  &__label {
+    border: 1px solid $gray-300;
+    cursor: pointer;
+  }
+
+  &__input:checked ~ &__label {
+    border-color: $primary;
+  }
+}

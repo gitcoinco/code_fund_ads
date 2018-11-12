@@ -1,0 +1,28 @@
+/*------------------------------------
+  Badges
+------------------------------------*/
+
+[class*="badge-"] {
+  z-index: $badge-z-index;
+}
+
+.badge {
+  &:empty {
+    display: inherit;
+  }
+
+  &.badge-pos {
+    position: absolute;
+  }
+}
+
+// Quick fix for badges in buttons
+.btn .badge-pos {
+  top: auto;
+}
+
+[class*="badge-outline"] {
+  border-style: $badge-border-style;
+  border-width: $badge-border-width;
+  box-shadow: $badge-box-shadow;
+}

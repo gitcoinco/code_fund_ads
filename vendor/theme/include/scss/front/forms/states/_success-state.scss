@@ -1,0 +1,23 @@
+/*------------------------------------
+  Success State
+------------------------------------*/
+
+.u-has-success {
+  .form-label + .form-control,
+  .custom-select,
+  .input-group,
+  .form-control:first-child:last-child {
+    box-shadow: $form-success-box-shadow;
+  }
+
+  .input-group-text {
+    color: $form-success-addon-color;
+  }
+
+  &:focus,
+  *:focus,
+  .input-group-text,
+  .form-control {
+    border-color: $form-success-border-color;
+  }
+}

@@ -1,0 +1,34 @@
+/*------------------------------------
+  Animate.css
+------------------------------------*/
+
+@keyframes fadeInUp {
+  from {
+  	opacity: 0;
+    transform: translate3d(0, 25%, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.fadeInUp {
+  animation-name: fadeInUp;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translate3d(0, 10px, 0);
+    visibility: visible;
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.slideInUp {
+  animation-name: slideInUp;
+}

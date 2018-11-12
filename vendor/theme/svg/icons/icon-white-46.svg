@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 120 120" style="enable-background:new 0 0 120 120;" xml:space="preserve">
+<style type="text/css">
+	.icon-white-46-0{fill:#FFFFFF;}
+	.icon-white-46-1{fill:#377DFF;}
+	.icon-white-46-2{fill:#FFFFFF;stroke:#FFFFFF;}
+</style>
+<path class="icon-white-46-0 fill-white" opacity=".15" d="M101.2,102.4c-7.4,7.8-16.6,13.9-26.9,17.6c-26.6-9.4-45.8-34.9-45.8-64.6V30l45.8-15.2L120.1,30v25.3
+	c0,9.2-1.8,18-5.2,26C114.9,81.3,109,95.3,101.2,102.4z"/>
+<path class="icon-white-46-2 fill-primary stroke-white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M82.4,98.9c-8.3,8.7-18.5,15.5-30,19.6c-29.6-10.5-51-38.8-51-71.9V18.3l51-16.9l51,16.9v28.2
+	c0,10.2-2.1,20-5.8,29C97.7,75.5,91.2,91,82.4,98.9z"/>
+<path class="icon-white-46-2 fill-white stroke-white" opacity=".1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M52.4,1.5L52.4,1.5v117c11.5-4.1,21.8-10.9,30-19.6c8.7-7.9,15.3-23.4,15.3-23.4c3.7-8.9,5.8-18.7,5.8-29V18.3
+	L52.4,1.5z"/>
+<g>
+	<defs>
+		<circle id="iconWhite46ID_1_" cx="50.8" cy="57.5" r="28.8"/>
+	</defs>
+	<use xlink:href="#iconWhite46ID_1_" style="overflow:visible;fill:#FFFFFF;"/>
+	<clipPath id="iconWhite46ID_2_">
+		<use xlink:href="#iconWhite46ID_1_" style="overflow:visible;"/>
+	</clipPath>
+	<circle clip-path="url(#icon46ID_2)" class="icon-white-46-1 fill-primary" cx="50.5" cy="86.2" r="21.7"/>
+	<use xlink:href="#iconWhite46ID_1_" style="overflow:visible;fill:none;stroke:#FFFFFF;stroke-width:3;"/>
+</g>
+<circle class="icon-white-46-2 fill-primary stroke-white" cx="50.8" cy="46.7" r="8.3"/>
+</svg>

@@ -1,0 +1,44 @@
+/*------------------------------------
+  Cubeportfolio
+------------------------------------*/
+
+.u-cubeportfolio {
+	.u-cubeportfolio__item {
+		font-size: .875rem;
+		text-transform: capitalize;
+		background-color: transparent;
+		border: none;
+		margin: 0;
+		padding-left: .75rem;
+		padding-right: .75rem;
+
+		&:first-child {
+			padding-left: 0;
+		}
+
+		&:last-child {
+			padding-right: 0;
+		}
+
+		&:hover {
+			color: $dark;
+		}
+
+		&.cbp-filter-item-active {
+			color: $primary;
+			background-color: transparent;
+			border: transparent;
+		}
+	}
+
+	// Load more disabled class
+	.cbp-l-loadMore-stop {
+		pointer-events: none;
+		color: $secondary;
+	}
+
+	// Zoom overlay effect
+	.cbp-caption-zoom .cbp-caption-activeWrap {
+		background-color: rgba($primary, .9);
+	}
+}

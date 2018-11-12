@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 120 120" style="enable-background:new 0 0 120 120;" xml:space="preserve">
+<style type="text/css">
+	.icon-white-60-0{fill:none;stroke:#FFFFFF;}
+	.icon-white-60-1{fill:#BDC5D1;}
+	.icon-white-60-2{fill:#377DFF;stroke:#FFFFFF;}
+	.icon-white-60-3{fill:#FFFFFF;}
+	.icon-white-60-4{fill:#377DFF;}
+</style>
+<path class="icon-white-60-0 fill-none stroke-white" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M46.7,35.4V24.9c0-11.3,9.1-20.6,20.6-20.6l0,0c11.3,0,20.6,9.1,20.6,20.6v10.5"/>
+<path class="icon-white-60-1 fill-gray-400" opacity=".3" d="M91.2,119.5h-75c-5.2,0-9.4-3.7-9.4-8.1v-53c0-4.5,4.3-8.1,9.4-8.1h75c5.2,0,9.4,3.7,9.4,8.1v53
+	C100.4,115.8,96.4,119.5,91.2,119.5z"/>
+<path class="icon-white-60-2 fill-primary stroke-white" stroke-width="3" stroke-miterlimit="10" d="M102.7,106.1H31.9c-4.9,0-8.9-3.7-8.9-8.1v-53c0-4.5,4-8.1,8.9-8.1h70.8c4.9,0,8.9,3.7,8.9,8.1v53
+	C111.4,102.4,107.6,106.1,102.7,106.1z"/>
+<path class="icon-white-60-3 fill-white" opacity=".5" d="M42.9,80.3h-6.8c-0.8,0-1.4-0.6-1.4-1.4l0,0c0-0.8,0.6-1.4,1.4-1.4h4.1c0.8,0,1.4-0.6,1.4-1.4v-2.6
+	c0-0.8,0.6-1.4,1.4-1.4h5.7c0.8,0,1.4,0.6,1.4,1.4l0,0c0,0.8-0.6,1.4-1.4,1.4h-3c-0.8,0-1.4,0.6-1.4,1.4v2.6
+	C44.3,79.6,43.6,80.3,42.9,80.3z"/>
+<ellipse class="icon-white-60-2 fill-primary stroke-white" stroke-width="2" stroke-miterlimit="10" cx="32.9" cy="78.9" rx="2.8" ry="2.8"/>
+<path class="icon-white-60-3 fill-white" opacity=".5" d="M48.6,61.9h-5.7c-0.8,0-1.4-0.6-1.4-1.4v-2.6c0-0.8-0.6-1.4-1.4-1.4H36c-0.8,0-1.4-0.6-1.4-1.4l0,0
+	c0-0.8,0.6-1.4,1.4-1.4h6.9c0.8,0,1.4,0.6,1.4,1.4v2.6c0,0.8,0.6,1.4,1.4,1.4h3c0.8,0,1.4,0.6,1.4,1.4l0,0
+	C49.9,61.3,49.4,61.9,48.6,61.9z"/>
+<ellipse class="icon-white-60-2 fill-primary stroke-white" stroke-width="2" stroke-miterlimit="10" cx="32.9" cy="55.2" rx="2.8" ry="2.8"/>
+<path class="icon-white-60-3 fill-white" opacity=".5" d="M90.7,61.9h-5.7c-0.8,0-1.4-0.6-1.4-1.4l0,0c0-0.8,0.6-1.4,1.4-1.4h3c0.8,0,1.4-0.6,1.4-1.4v-2.6
+	c0-0.8,0.6-1.4,1.4-1.4h6.8c0.8,0,1.4,0.6,1.4,1.4l0,0c0,0.8-0.6,1.4-1.4,1.4h-4.1c-0.8,0-1.4,0.6-1.4,1.4v2.6
+	C92,61.3,91.4,61.9,90.7,61.9z"/>
+<ellipse class="icon-white-60-2 fill-primary stroke-white" stroke-width="2" stroke-miterlimit="10" cx="100.7" cy="55.2" rx="2.8" ry="2.8"/>
+<path class="icon-white-60-3 fill-white" opacity=".5" d="M97.4,80.3h-6.8c-0.8,0-1.4-0.6-1.4-1.4v-2.6c0-0.8-0.6-1.4-1.4-1.4h-3c-0.8,0-1.4-0.6-1.4-1.4l0,0
+	c0-0.8,0.6-1.4,1.4-1.4h5.7c0.8,0,1.4,0.6,1.4,1.4v2.6c0,0.8,0.6,1.4,1.4,1.4h4.1c0.8,0,1.4,0.6,1.4,1.4l0,0
+	C98.8,79.6,98.2,80.3,97.4,80.3z"/>
+<ellipse class="icon-white-60-2 fill-primary stroke-white" stroke-width="2" stroke-miterlimit="10" cx="100.7" cy="78.9" rx="2.8" ry="2.8"/>
+<path class="icon-white-60-3 fill-white" opacity=".15" d="M83,91.3H61.8c-4.5,0-8.1-3.6-8.1-8.1V62c0-4.5,3.6-8.1,8.1-8.1H83c4.5,0,8.1,3.6,8.1,8.1v21.2
+	C91.1,87.6,87.5,91.3,83,91.3z"/>
+<path class="icon-white-60-3 fill-white" d="M77.4,85.7H56.2c-4.5,0-8.1-3.6-8.1-8.1V56.4c0-4.5,3.6-8.1,8.1-8.1h21.2c4.5,0,8.1,3.6,8.1,8.1v21.2
+	C85.5,82.1,81.9,85.7,77.4,85.7z"/>
+<path class="icon-white-60-4 fill-primary" d="M77.7,82.6H56c-2.6,0-4.7-2.1-4.7-4.7V56.2c0-2.6,2.1-4.7,4.7-4.7h21.7c2.6,0,4.7,2.1,4.7,4.7v21.7
+	C82.4,80.5,80.3,82.6,77.7,82.6z M56,54.2c-1.1,0-1.9,0.9-1.9,1.9v21.7c0,1.1,0.9,1.9,1.9,1.9h21.7c1.1,0,1.9-0.9,1.9-1.9V56.2
+	c0-1.1-0.9-1.9-1.9-1.9L56,54.2L56,54.2z"/>
+<path class="icon-white-60-4 fill-primary" d="M72.3,64.5c0-1.6-1-2.9-2.4-3.5v-2.6h-2.3v2.3H66v-2.3h-2.3v2.3h-2.5v2.3h1.8v7.8h-1.8v2.3h2.5v2.3H66v-2.3h1.6
+	v2.3h2.3V73c1.4-0.5,2.4-1.9,2.4-3.5c0-1-0.4-1.9-1-2.5C71.9,66.3,72.3,65.5,72.3,64.5z M68.6,63.1c0.8,0,1.4,0.6,1.4,1.4
+	c0,0.7-0.5,1.2-1.1,1.3c-0.1,0-0.2,0-0.3,0h-3.4v-2.7H68.6z M68.6,70.9h-3.4v-2.7h3.4c0.1,0,0.2,0,0.3,0c0.6,0.1,1.1,0.7,1.1,1.3
+	C70,70.3,69.4,70.9,68.6,70.9z"/>
+</svg>

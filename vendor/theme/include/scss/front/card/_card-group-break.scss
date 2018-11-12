@@ -1,0 +1,138 @@
+/*------------------------------------
+  Card Group - Break
+------------------------------------*/
+
+// Below Small Devices
+@include media-breakpoint-down(sm) {
+  .card-group-sm-break {
+    display: block;
+
+    > .card {
+      &:not(:last-child) {
+        margin-bottom: -1px;
+      }
+
+      + .card {
+        border-left: $card-border-width solid $card-border-color;
+      }
+
+      &:first-child {
+        @include border-top-radius($card-border-radius);
+        @include border-bottom-radius(0);
+
+        .card-img-top,
+        .card-header {
+          @include border-top-radius($card-border-radius);
+        }
+        .card-img-bottom,
+        .card-footer {
+          @include border-bottom-radius(0);
+        }
+      }
+
+      &:last-child {
+        @include border-bottom-radius($card-border-radius);
+        @include border-top-radius(0);
+
+        .card-img-top,
+        .card-header {
+          @include border-top-radius(0);
+        }
+        .card-img-bottom,
+        .card-footer {
+          @include border-bottom-radius($card-border-radius);
+        }
+      }
+    }
+  }
+}
+
+// Below Medium Devices
+@include media-breakpoint-down(md) {
+  .card-group-md-break {
+    display: block;
+
+    > .card {
+      &:not(:last-child) {
+        margin-bottom: -1px;
+      }
+
+      + .card {
+        border-left: $card-border-width solid $card-border-color;
+      }
+
+      &:first-child {
+        @include border-top-radius($card-border-radius);
+        @include border-bottom-radius(0);
+
+        .card-img-top,
+        .card-header {
+          @include border-top-radius($card-border-radius);
+        }
+        .card-img-bottom,
+        .card-footer {
+          @include border-bottom-radius(0);
+        }
+      }
+
+      &:last-child {
+        @include border-bottom-radius($card-border-radius);
+        @include border-top-radius(0);
+
+        .card-img-top,
+        .card-header {
+          @include border-top-radius(0);
+        }
+        .card-img-bottom,
+        .card-footer {
+          @include border-bottom-radius($card-border-radius);
+        }
+      }
+    }
+  }
+}
+
+// Below Large Devices
+@include media-breakpoint-down(lg) {
+  .card-group-lg-break {
+    display: block;
+
+    > .card {
+      &:not(:last-child) {
+        margin-bottom: -1px;
+      }
+
+      + .card {
+        border-left: $card-border-width solid $card-border-color;
+      }
+
+      &:first-child {
+        @include border-top-radius($card-border-radius);
+        @include border-bottom-radius(0);
+
+        .card-img-top,
+        .card-header {
+          @include border-top-radius($card-border-radius);
+        }
+        .card-img-bottom,
+        .card-footer {
+          @include border-bottom-radius(0);
+        }
+      }
+
+      &:last-child {
+        @include border-bottom-radius($card-border-radius);
+        @include border-top-radius(0);
+
+        .card-img-top,
+        .card-header {
+          @include border-top-radius(0);
+        }
+        .card-img-bottom,
+        .card-footer {
+          @include border-bottom-radius($card-border-radius);
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+/*------------------------------------
+  Buttons Bootstrap Style
+------------------------------------*/
+
+// Social Network Colors
+@each $color, $value in $secondary-colors {
+	/* #{$color} */
+  .btn-#{$color} {
+    @include button-variant($value, $value);
+  }
+}

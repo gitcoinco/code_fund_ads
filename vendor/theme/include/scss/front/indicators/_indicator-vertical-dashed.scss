@@ -1,0 +1,19 @@
+/*------------------------------------
+  Indicator - Vertical Dashed
+------------------------------------*/
+
+.u-indicator-vertical-dashed {
+  &-item:not(:last-child) {
+    position: relative;
+    margin-bottom: 1rem;
+
+    &::after {
+      position: absolute;
+      top: 1.625rem;
+      bottom: -.8125rem;
+      left: .625rem;
+      border-left: 2px dashed $gray-300;
+      content: "";
+    }
+  }
+}

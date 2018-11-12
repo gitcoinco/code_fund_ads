@@ -1,0 +1,11 @@
+/*------------------------------------
+  Text Colors
+------------------------------------*/
+
+.text-white-70 {
+	color: $white-color-70;
+
+	&[href]:hover {
+		color: $white-color-hover;
+	}
+}

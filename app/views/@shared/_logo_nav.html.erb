@@ -1,14 +1,15 @@
 <div id="logoAndNav" class="container">
   <!-- Nav -->
-  <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar hs-menu-initialized hs-menu-horizontal">
-    <!-- Logo -->
-    <a class="navbar-brand u-header__navbar-brand u-header__navbar-brand-top-space" href="/" aria-label="CodeFund">
-      <%= image_tag "codefund-w.svg", alt: "CodeFund" %>
-    </a>
-    <!-- End Logo -->
+  <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar u-header__navbar--no-space space-1 space-md-0" data-controller="mega-menu">
+    <%= link_to image_tag("codefund-w.svg", alt: "CodeFund"), root_path, class: "navbar-brand u-header__navbar-brand u-header__navbar-brand-center" %>
 
     <!-- Responsive Toggle Button -->
-    <button type="button" class="navbar-toggler btn u-hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar" data-toggle="collapse" data-target="#navBar">
+    <button type="button" class="navbar-toggler btn u-hamburger"
+            aria-label="Toggle navigation"
+            aria-expanded="false"
+            aria-controls="navBar"
+            data-toggle="collapse"
+            data-target="#navBar">
       <span id="hamburgerTrigger" class="u-hamburger__box">
         <span class="u-hamburger__inner"></span>
       </span>
@@ -16,12 +17,23 @@
     <!-- End Responsive Toggle Button -->
 
     <!-- Navigation -->
-    <div id="navBar" class="collapse navbar-collapse py-0">
-      <ul class="navbar-nav u-header__navbar-nav ml-lg-auto">
-        <%= active_link_to "Users", users_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-        <%= active_link_to "Campaigns", campaigns_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-        <%= active_link_to "Properties", properties_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-        <%= active_link_to "Creatives", creatives_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+    <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse">
+      <ul class="navbar-nav u-header__navbar-nav">
+        <% if current_user %>
+          <%= active_link_to "Dashboard", dashboard_index_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Users", users_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Campaigns", campaigns_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Properties", properties_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Creatives", creatives_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+        <% else %>
+          <%= active_link_to "Home", root_path, active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Advertisers", home_advertisers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Publishers", home_publishers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Blog", "https://medium.com/codefund", target: "_blank", class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <li class="nav-item u-header__nav-last-item">
+            <%= link_to "Login", new_user_session_path, class: "btn btn-sm btn-primary transition-3d-hover" %>
+          </li>
+        <% end %>
       </ul>
     </div>
     <!-- End Navigation -->

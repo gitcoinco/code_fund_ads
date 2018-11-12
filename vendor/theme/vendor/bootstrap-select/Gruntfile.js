@@ -51,10 +51,6 @@ module.exports = function (grunt) {
         src: '<%= jshint.main.src %>',
         dest: 'dist/js/<%= pkg.name %>.js'
       },
-      bundle: {
-        src: ['node_modules/popper.js/dist/umd/popper.min.js', 'node_modules/bootstrap/js/dist/util.js', 'node_modules/bootstrap/js/dist/dropdown.js', '<%= jshint.main.src %>'],
-        dest: 'dist/js/<%= pkg.name %>.bundle.js'
-      },
       i18n: {
         expand: true,
         src: '<%= jshint.i18n.src %>',
@@ -100,14 +96,6 @@ module.exports = function (grunt) {
         options: {
           sourceMap: true,
           sourceMapName: 'dist/js/<%= pkg.name %>.js.map'
-        }
-      },
-      bundle: {
-        src: '<%= concat.bundle.dest %>',
-        dest: 'dist/js/<%= pkg.name %>.bundle.min.js',
-        options: {
-          sourceMap: true,
-          sourceMapName: 'dist/js/<%= pkg.name %>.bundle.js.map'
         }
       },
       i18n: {
@@ -208,6 +196,16 @@ module.exports = function (grunt) {
           'js/<%= pkg.name %>.js'
         ],
       },
+      docs: {
+        options: {
+          prefix: '<%= pkg.name %>/archive/v',
+          replace: '[0-9a-zA-Z\\-_\\+\\.]+)([^\/]+(?=\.zip+)'
+        },
+        src: [
+          'README.md',
+          'docs/docs/index.md'
+        ],
+      },
       cdn: {
         options: {
           prefix: 'ajax/libs/<%= pkg.name %>/'
@@ -305,7 +303,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build-css', ['clean:css', 'less', 'autoprefixer', 'usebanner:css', 'cssmin']);
 
   // JS distribution
-  grunt.registerTask('build-js', ['clean:js', 'concat', 'umd', 'usebanner:js', 'uglify']);
+  grunt.registerTask('build-js', ['clean:js', 'concat', 'umd', 'uglify', 'usebanner:js']);
 
   // Copy dist to docs
   grunt.registerTask('docs', ['clean:docs', 'copy:docs']);
@@ -315,8 +313,6 @@ module.exports = function (grunt) {
 
   // Full distribution
   grunt.registerTask('dist', ['build-css', 'build-js', 'compress']);
-
-  grunt.registerTask('bundle', ['concat:bundle', 'uglify:bundle']);
 
   // Default task.
   grunt.registerTask('default', ['build-css', 'build-js']);

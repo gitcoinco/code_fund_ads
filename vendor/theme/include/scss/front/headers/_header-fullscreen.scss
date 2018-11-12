@@ -1,0 +1,63 @@
+/*------------------------------------
+  Fullscreen
+------------------------------------*/
+
+.u-fullscreen {
+	position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+	visibility: hidden;
+
+	&--toggler {
+		z-index: $fullscreen-toggler-z-index;
+	}
+
+	&__container,
+	&__overlay {
+		transition: opacity $fullscreen-transition, visibility $fullscreen-transition;
+	}
+
+	&__container {
+		position: relative;
+  	z-index: $fullscreen-container-z-index;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		opacity: 0;
+		visibility: hidden;
+	}
+
+	&__overlay {
+		position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+		z-index: $fullscreen-z-index;
+		opacity: 0;
+		visibility: hidden;
+		@include gradient-x($hs-start-color: rgba($indigo, .95), $hs-end-color: rgba($primary-lighter, .95), $deg: 150deg);
+		transition-delay: $fullscreen-overlay-transition-delay;
+	}
+
+	&.u-fullscreen--showed {
+		visibility: visible;
+
+		.u-fullscreen__container,
+		.u-fullscreen__overlay {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.u-fullscreen__overlay {
+			transition-delay: 0s;
+		}
+
+		.u-fullscreen__container {
+			transition-delay: $fullscreen-container-transition-delay;
+		}
+	}
+}

@@ -17,115 +17,15 @@
   </style>
 </head>
 <body>
-<nav class="navbar navbar-light bg-light fixed-top navbar-expand-lg" role="navigation">
+<nav class="navbar navbar-light bg-light fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Bootstrap-select usability tests</a>
     </div>
   </div>
-
-  <ul class="navbar-nav mr-auto">
-    <li class="nav-item active">
-      <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-    </li>
-
-    <li class="nav-item active">
-      <select id="basic" class="selectpicker show-tick form-control" data-live-search="true" data-width="fit">
-        <option>cow</option>
-        <option data-subtext="option subtext">bull</option>
-        <option class="get-class" disabled>ox</option>
-        <optgroup label="test" data-subtext="optgroup subtext">
-          <option>ASD</option>
-          <option selected>Dropdown button</option>
-          <option>Ble</option>
-        </optgroup>
-      </select>
-    </li>
-  </ul>
 </nav>
-<select class="selectpicker" data-live-search="true">
-    <option data-subtext="ST">Some text</option>
-    <option data-subtext="123">Some other text</option>
-</select>
-<div class="btn-group">
-  <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Right-aligned menu
-  </button>
-  <div class="dropdown-menu">
-    <form class="px-4 py-3">
-      <div class="form-group">
-        <label for="exampleDropdownFormEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-      </div>
-      <div class="form-group">
-        <label for="exampleDropdownFormPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
-      </div>
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="dropdownCheck">
-        <label class="form-check-label" for="dropdownCheck">
-          Remember me
-        </label>
-      </div>
-      <button type="submit" class="btn btn-primary">Sign in</button>
-
-      <select class="selectpicker form-control" data-live-search="true" title="Select a number" data-hide-disabled="true">
-        <option>Woo</option>
-        <option>Foo</option>
-      </select>
-
-    </form>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#">New around here? Sign up</a>
-    <a class="dropdown-item" href="#">Forgot password?</a>
-  </div>
-</div>
-
-<select class="form-control selectpicker m-0" data-show-subtext="true" data-selected-text-format="count" data-live-search="true" multiple="multiple">
-  <option value="" data-subtext="123" data-tokens="123"> 123 </option>
-  <option value="" data-subtext="123" data-tokens="123"> 123 </option>
-  <option value="" data-subtext="123" data-tokens="123"> 123 </option>
-  <option value="" data-subtext="123" data-tokens="123"> 123 </option>
-</select>
 
 <div class="container">
-  <form role="form">
-    <div class="form-group row">
-      <div class="offset-md-3 col-md-5">
-        <select class="selectpicker form-control" data-live-search="true" xxtitle="Select services" data-hide-disabled="true" data-style="" data-style-base="form-control" data-width="auto" multiple data-none-selected-text="Cheese">
-          <optgroup label="Belts and Hoses">
-            <option title="<script>alert('xss');</script>">Timing Belt</option>
-            <option>Serpentine Belt</option>
-            <option>Coolant Hoses</option>
-          </optgroup>
-          <optgroup label="Steering, Suspension and Alignment">
-            <option>Steering Repair</option>
-            <option>Car Suspension</option>
-            <option>Wheel Alignment</option>
-          </optgroup>
-        </select>
-      </div>
-    </div>
-  </form>
-</div>
-
-<div class="container">
-  <form role="form">
-    <div class="form-group row">
-      <div class="col-sm-6">
-        <select id="basic" class="selectpicker show-tick form-control" data-live-search="true" data-width="fit">
-          <option>cow</option>
-          <option data-subtext="option subtext">bull</option>
-          <option class="get-class" disabled>ox</option>
-          <optgroup label="test" data-subtext="optgroup subtext">
-            <option>ASD</option>
-            <option selected>Dropdown button</option>
-            <option>Ble</option>
-          </optgroup>
-        </select>
-      </div>
-    </div>
-  </form>
   <form role="form">
     <div class="form-group row">
       <label for="basic" class="col-lg-2 control-label">Large Select (liveSearch enabled, container: 'body')</label>
@@ -347,10 +247,8 @@
 
   <hr>
   <div class="input-group">
-    <div class="input-group-prepend">
-      <span class="input-group-text">@</span>
-    </div>
-    <select class="form-control selectpicker" data-style="btn-outline-secondary">
+    <span class="input-group-addon">@</span>
+    <select class="form-control selectpicker">
       <option>One</option>
       <option>Two</option>
       <option>Three</option>
@@ -359,25 +257,19 @@
 
   <hr>
   <div class="input-group">
-    <select class="form-control selectpicker" data-mobile="true" data-style="btn-outline-secondary">
+    <span class="input-group-addon">@</span>
+    <select class="form-control selectpicker" data-mobile="true">
       <option>One</option>
       <option>Two</option>
       <option>Three</option>
     </select>
-    <div class="input-group-append">
-      <span class="input-group-text">@</span>
-    </div>
   </div>
   <p>With <code>data-mobile="true"</code> option.</p>
 
   <hr>
-  <select id="done" class="selectpicker" multiple data-done-button="true" data-show-subtext="true" data-selected-text-format="count > 0">
-    <option selected>
-      Apple
-    </option>
-    <option selected data-subtext="Wooo">
-      Banana
-      </option>
+  <select id="done" class="selectpicker" multiple data-done-button="true">
+    <option>Apple</option>
+    <option>Banana</option>
     <option>Orange</option>
     <option>Pineapple</option>
     <option>Apple2</option>
@@ -420,12 +312,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.bundle.min.js"></script>
-<script src="../js/bootstrap-select.js"></script>
+<script src="../dist/js/bootstrap-select.js"></script>
 
 <script>
-
-$.fn.selectpicker.Constructor.DEFAULTS.style = 'btn-outline-dark';
-
 function createOptions(number) {
   var options = [], _options;
 
@@ -437,9 +326,9 @@ function createOptions(number) {
   _options = options.join('');
   
   $('#number')[0].innerHTML = _options;
-  //$('#number-multiple')[0].innerHTML = _options;
+  $('#number-multiple')[0].innerHTML = _options;
 
-  //$('#number2')[0].innerHTML = _options;
+  $('#number2')[0].innerHTML = _options;
   $('#number2-multiple')[0].innerHTML = _options;
 }
 
@@ -460,18 +349,6 @@ $('#special2').on('click', function () {
 $('#basic2').selectpicker({
   liveSearch: true,
   maxOptions: 1
-});
-
-$('.selectpicker').on('changed.bs.select', function(e, clickedIndex, isSelected, oldValue) {
-  //console.log(clickedIndex);
-  //console.log(isSelected);
-  //console.log(oldValue);
-});
-
-$('.btn-group').children('.dropdown-menu').on('click', function(e) {
-  e.stopImmediatePropagation();
-
-  console.log(e)
 });
 </script>
 </body>

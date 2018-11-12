@@ -1,0 +1,9 @@
+/*------------------------------------
+  Print styles
+------------------------------------*/
+
+@media print {
+  header, footer, .btn {
+    display: none;
+  }
+}
