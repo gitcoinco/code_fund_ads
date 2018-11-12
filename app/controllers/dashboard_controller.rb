@@ -1,4 +1,6 @@
+# frozen_string_literal: true
+
 class DashboardController < ApplicationController
-  def index
+  def show
   end
 end

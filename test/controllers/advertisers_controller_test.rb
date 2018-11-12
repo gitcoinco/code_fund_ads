@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class ApplicantMailerTest < ActionMailer::TestCase
+class AdvertisersControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
