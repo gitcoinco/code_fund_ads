@@ -19,6 +19,6 @@ class PagesController < ApplicationController
   private
 
     def verify_page
-      head :not_found unless %w[help team].include?(params[:id])
+      render file: Rails.public_path.join("404.html"), status: :not_found, layout: false
     end
 end

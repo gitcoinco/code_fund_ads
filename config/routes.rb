@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  root "pages#index"
   devise_for :users
 
   resource :dashboard, only: [:show]
@@ -30,7 +31,7 @@ Rails.application.routes.draw do
   resource :newsletter_subscription, only: [:create]
   resources :advertisers, only: [:index, :create]
   resources :publishers, only: [:index, :create]
-  resources :pages, only: [:show]
 
-  root "pages#index"
+  # IMPORTANT: leave as last route so it doesn't override others
+  resources :pages, only: [:show], path: "/"
 end
