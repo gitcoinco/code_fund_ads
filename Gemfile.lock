@@ -349,8 +349,8 @@ DEPENDENCIES
   money-rails (~> 1.13.0)
   pagy (~> 0.21.0)
   pg (>= 0.18, < 2.0)
-  premailer-rails (~> 1.10.2)
   pg_party (~> 0.7.3)
+  premailer-rails (~> 1.10.2)
   pry
   pry-byebug
   pry-rails
