@@ -20,7 +20,7 @@
     <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse">
       <ul class="navbar-nav u-header__navbar-nav">
         <% if current_user %>
-          <%= active_link_to "Dashboard", dashboard_index_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Dashboard", dashboard_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <%= active_link_to "Users", users_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <%= active_link_to "Campaigns", campaigns_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <%= active_link_to "Properties", properties_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
