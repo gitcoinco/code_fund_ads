@@ -18,6 +18,18 @@ raw = File.read(path)
 hash = YAML.safe_load(raw)
 enums = HashWithIndifferentAccess.new(hash)
 
+# Exposes ad temlates and themes as enums for files living under: app/views/ads
+#
+# Examples:
+#
+#   ENUMS::AD_TEMPLATES::DEFAULT
+#   ENUMS::AD_THEMES::LIGHT
+#
+enums[:ad_templates] = Dir.children(Rails.root.join("app/views/ads")).sort
+enums[:ad_themes] = Dir.glob(Rails.root.join("app/views/ads/**/themes/*.css")).map do |path|
+  File.basename(path).sub(".css", "")
+end.uniq.sort
+
 enums.each do |key, dictionary|
   dictionary = dictionary.zip(dictionary).to_h if dictionary.is_a?(Array)
 

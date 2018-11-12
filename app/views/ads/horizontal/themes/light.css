@@ -1,0 +1,73 @@
+.cf-wrapper {
+  z-index: 1;
+  font-family: system, 'Helvetica Neue', Helvetica, Arial;
+  font-size: 13px;
+  box-sizing: border-box;
+  width: 100%;
+  line-height: 1.5;
+  display: block;
+  background-color: #f8f8f8;
+  padding: 12px 11px;
+  text-align: left;
+  margin: 12px 0;
+}
+
+.cf-wrapper .cf-text:before {
+  margin-right: 4px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background-color: #4caf50;
+  color: #fff;
+  content: 'Supporter';
+}
+
+.cf-wrapper .cf-text {
+  color: #777777;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.cf-wrapper .cf-text:hover {
+  text-decoration: underline;
+}
+
+.cf-wrapper .cf-text strong {
+  color: #212121;
+}
+
+.cf-wrapper .cf-label {
+  margin-right: 4px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background-color: #08c;
+  color: #fafafa;
+}
+
+.cf-wrapper .cf-label:hover {
+  text-decoration: none !important;
+}
+
+.cf-wrapper .cf-powered-by {
+  text-decoration: none;
+  color: #909090;
+  float: right;
+  font-size: 12px;
+}
+
+.cf-wrapper .cf-powered-by:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.cf-wrapper.cf-post-bottom {
+  width: 757px;
+  text-align: center;
+}
+
+@media screen and (max-width: 576px) {
+  .cf-wrapper .cf-powered-by {
+    display: block;
+    float: none;
+    text-align: right;
+  }
+}

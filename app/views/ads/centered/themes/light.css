@@ -1,0 +1,50 @@
+#cf_ad .cf-wrapper {
+  max-width: 330px;
+  display: block;
+  padding: 15px;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: center;
+  font-family: system, 'Helvetica Neue', Helvetica, Arial;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#cf_ad .cf-header {
+  font-size: 12px;
+  color: #678;
+  display: block;
+  margin-bottom: 8px;
+}
+
+#cf_ad .cf-header:before {
+  content: '—';
+  margin: 0 0.5em;
+  opacity: 0.5;
+}
+
+#cf_ad .cf-header:after {
+  content: '—';
+  margin: 0 0.5em;
+  opacity: 0.5;
+}
+
+#cf_ad .cf-text {
+  color: #333;
+  text-decoration: none;
+}
+
+#cf_ad .cf-powered-by {
+  margin-top: 5px;
+  font-size: 11px;
+  display: block;
+  color: #678;
+  text-decoration: none;
+  text-align: center;
+}
+
+#cf_ad .cf-powered-by img {
+  position: fixed;
+  left: -1000px;
+  top: -1000px;
+}

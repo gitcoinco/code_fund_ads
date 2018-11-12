@@ -1,0 +1,36 @@
+#cf_ad {
+  margin: 0 auto;
+  max-width: 330px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+#cf_ad .cf-wrapper {
+  border-radius: 4px;
+  display: block;
+  padding: 15px;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+  font-family: Helvetica;
+}
+#cf_ad .cf-img-wrapper {
+  float: left;
+  margin-right: 15px;
+}
+#cf_ad .cf-img {
+  vertical-align: middle;
+  border-style: none;
+  max-width: 130px;
+}
+#cf_ad .cf-text {
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+}
+#cf_ad .cf-powered-by {
+  margin-top: 5px;
+  font-size: 12px;
+  display: block;
+  color: #777;
+  text-decoration: none;
+}
