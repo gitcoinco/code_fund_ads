@@ -1,0 +1,14 @@
+/*------------------------------------
+  Close
+------------------------------------*/
+
+.close-light {
+  color: $white-color-70;
+
+  &:not(:disabled):not(.disabled) {
+    &:hover,
+    &:focus {
+      color: $white;
+    }
+  }
+}

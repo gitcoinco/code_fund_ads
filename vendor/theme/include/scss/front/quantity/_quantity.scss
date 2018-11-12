@@ -1,0 +1,31 @@
+/*------------------------------------
+  Quantity
+------------------------------------*/
+
+.u-quantity {
+  width: $quantity-width;
+
+  > .u-quantity__input {
+    padding-right: $quantity-right-offset;
+
+    &:not(:last-child) {
+      @include border-radius($quantity-input-border-radius);
+    }
+  }
+
+  &__arrows {
+    @include content-centered(false, true);
+    right: .75rem;
+    z-index: 3;
+
+    &-inner {
+      display: block;
+      color: $secondary;
+      cursor: pointer;
+
+      &:hover {
+        color: $primary;
+      }
+    }
+  }
+}

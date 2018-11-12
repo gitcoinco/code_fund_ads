@@ -1,0 +1,28 @@
+/*------------------------------------
+  Form
+------------------------------------*/
+
+.custom-select:focus,
+.form-control:focus {
+  box-shadow: $form-focus-box-shadow;
+  border-color: $form-focus-border-color;
+}
+
+.form-label {
+  display: block;
+  text-transform: uppercase;
+  font-size: 80%;
+  font-weight: 500;
+}
+
+/* Form Borderless */
+.input-group-borderless {
+  .form-control,
+  .input-group-text {
+    border: none;
+
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}

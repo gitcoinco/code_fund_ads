@@ -102,7 +102,7 @@ var isEmpty = function isEmpty(f) {
 
     errorPlacement: function (error, element) {
       var $this = $(element),
-        errorMsgClasses = $this.data('msg-classes');
+        errorMsgClasses = $this.data('error-msg-classes');
 
       error.addClass(errorMsgClasses);
       error.appendTo(element.parents('.js-form-message'));

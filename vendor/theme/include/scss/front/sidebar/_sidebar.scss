@@ -1,0 +1,68 @@
+/*------------------------------------
+  Sidebar Navigation
+------------------------------------*/
+
+/* Disable content revealing on page load */
+.u-sidebar {
+  &[aria-labelledby] {
+    opacity: 0;
+  }
+
+  &[aria-labelledby][role="tabpanel"] {
+    opacity: 1;
+  }
+
+  &[aria-labelledby].u-unfold--css-animation,
+  &[aria-labelledby].u-unfold--jquery-slide {
+    opacity: 1;
+  }
+
+  &.u-unfold--css-animation.u-unfold--hidden {
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+// Common styles of Sidebar Navigation
+.u-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: $sidebar-z-index;
+  width: $sidebar-width;
+  height: 100%;
+  background-color: $sidebar-bg-color;
+  box-shadow: $sidebar-right-box-shadow;
+
+  &__body,
+  &__content {
+    height: 100%;
+  }
+
+  &--left {
+    right: auto;
+    left: 0;
+    box-shadow: $sidebar-left-box-shadow;
+  }
+
+  &__scroller {
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+  }
+
+  &__container {
+    position: relative;
+    height: 100%;
+    min-height: 100%;
+  }
+
+  &__footer {
+    width: 100%;
+  	position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}

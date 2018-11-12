@@ -1,0 +1,39 @@
+//
+// Icons
+//
+
+@mixin icon($hs-background, $hs-border, $hs-hover-background: darken($hs-background, 7.5%), $hs-hover-border: darken($hs-border, 10%), $hs-active-background: darken($hs-background, 10%), $active-border: darken($hs-border, 12.5%)) {
+  color: color-yiq($hs-background);
+  background-color: ($hs-background);
+  border-color: $hs-border;
+
+  &[href] {
+    &:hover {
+      color: color-yiq($hs-hover-background);
+      background-color: ($hs-hover-background);
+      border-color: $hs-hover-border;
+    }
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    background-color: $hs-background;
+    border-color: $hs-border;
+  }
+}
+
+// Icon Air Styles
+@mixin icon-soft($hs-color, $hs-background, $hs-hover-background) {
+  color: ($hs-color);
+  background: rgba($hs-background, .1);
+
+  &[href] {
+    &:hover,
+    &:focus,
+    &:active {
+      color: color-yiq($hs-hover-background);
+      background: ($hs-hover-background);
+    }
+  }
+}

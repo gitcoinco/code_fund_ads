@@ -1,0 +1,87 @@
+/*------------------------------------
+  Slick Pagination
+------------------------------------*/
+
+.u-slick__pagination {
+  padding-left: 0;
+
+  &:not(.u-slick__pagination--block) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  li {
+    display: flex;
+    pointer-events: all;
+    margin: 0 .25rem;
+    cursor: pointer;
+
+	  span {
+	  	display: inline-block;
+	  	width: .9375rem;
+	  	height: .9375rem;
+      box-sizing: border-box;
+	    background-color: $primary;
+	    border: 3px solid transparent;
+	    @include border-radius($border-radius-rounded);
+	    transform: scale(.6);
+	    transition: $transition-timing $transition-function;
+	  }
+
+    &.slick-active {
+      span {
+        background-color: transparent;
+		    border-color: $primary;
+	    	transform: scale(.9);
+      }
+    }
+  }
+}
+
+/* White Version */
+.u-slick__pagination--white {
+  li {
+    span {
+      background-color: $white;
+    }
+
+    &.slick-active {
+      span {
+        border-color: $white;
+      }
+    }
+  }
+}
+
+/* Block */
+.u-slick__pagination--block {
+  li {
+    display: block;
+  }
+}
+
+/* Vertical Center Alignment */
+.u-slick__pagination-centered--y {
+  @include content-centered(false, true);
+}
+
+// Large Devices
+@include media-breakpoint-up(lg) {
+  /* Vertical Option */
+  .u-slick__pagination--vertical-lg {
+    li {
+      display: block;
+      margin: .25rem 0;
+    }
+  }
+
+  /* Vertical Option Positions */
+  .u-slick__pagination--vertical-pos-v1-lg {
+  	position: absolute;
+  	top: 50%;
+  	left: -15.7%;
+  	transform: translateY(-50%);
+  }
+}

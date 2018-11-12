@@ -1,0 +1,90 @@
+/*------------------------------------
+  Card
+------------------------------------*/
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @each $prop, $abbrev in (column-count: cc) {
+      @each $card-count, $length in $card-count {
+        .card#{$infix}-#{$card-count}-count { #{$prop}: $length; }
+      }
+    }
+
+    .card#{$infix}-columns {
+      column-gap: 1rem;
+      orphans: 1;
+      widows: 1;
+
+      .card {
+        display: inline-block; // Don't let them vertically span multiple columns
+        width: 100%; // Don't let their width change
+      }
+    }
+  }
+}
+
+/* Background Color */
+.card-bg-light {
+  background-color: $gray-200;
+
+  &:hover {
+    background-color: darken($gray-200, 1%);
+  }
+}
+
+/* Frame */
+.card {
+  &-frame {
+    border: 1px solid $gray-300;
+    transition: $transition-timing;
+
+    &-highlighted,
+    &:hover {
+      border-color: rgba($primary, .3);
+      box-shadow: 0 0 35px rgba($primary, .125);
+    }
+  }
+
+  &-text-dark {
+    color: $dark;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}
+
+/* Collapse */
+.card {
+  &-collapse {
+    padding: 0;
+    transition: $transition-timing $transition-function;
+
+    &:hover {
+      background-color: $gray-200;
+    }
+
+    .card-body {
+      color: $paragraph-color;
+    }
+  }
+
+  &-btn {
+    color: $dark;
+    text-align: left;
+    white-space: inherit;
+
+    &-arrow {
+      display: inline-block;
+      color: $primary;
+      margin-left: 1rem;
+      transition: $transition-timing $transition-function;
+
+      .collapsed & {
+        transform: rotate(-90deg);
+      }
+    }
+  }
+}

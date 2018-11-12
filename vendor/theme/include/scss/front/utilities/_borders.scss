@@ -1,0 +1,52 @@
+/*------------------------------------
+  Borders
+------------------------------------*/
+
+// Default options
+.rounded-pill {
+	@include border-radius($border-radius-pill);
+}
+
+.rounded-top-pill {
+	@include border-top-radius($border-radius-pill);
+}
+
+.rounded-right-pill {
+	@include border-right-radius($border-radius-pill);
+}
+
+.rounded-bottom-pill {
+	@include border-bottom-radius($border-radius-pill);
+}
+
+.rounded-left-pill {
+	@include border-left-radius($border-radius-pill);
+}
+
+// Custom options
+.rounded-top-left-pill {
+	@include border-top-left-radius($border-radius-pill);
+}
+
+.rounded-bottom-left-pill {
+	@include border-bottom-left-radius($border-radius-pill);
+}
+
+// Pseudo options
+.rounded-pseudo {
+	@include border-radius($border-radius);
+
+	&::before,
+	&::after {
+		@include border-radius($border-radius);
+	}
+}
+
+.rounded-top-pseudo {
+	@include border-top-radius($border-radius);
+
+	&::before,
+	&::after {
+		@include border-top-radius($border-radius);
+	}
+}

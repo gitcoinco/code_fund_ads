@@ -1,0 +1,269 @@
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main">
+  <!-- Hero Section -->
+  <div class="d-lg-flex position-relative">
+    <div class="container d-lg-flex align-items-lg-center space-top-2 space-top-md-5 space-lg-0 min-height-lg-100vh">
+      <!-- Content -->
+      <div class="row w-100">
+        <div class="col-lg-5">
+          <h1 class="display-4 font-size-md-down-5 mb-3">Advertising for
+            <strong class="text-success">Developers</strong>
+          </h1>
+          <p>
+            CodeFund is
+            <span class="text-primary">
+              <strong
+                class="u-text-animation u-text-animation--typing"
+                data-controller="animated-type"
+                data-type-speed="50"
+                data-loop="true"
+                data-back-speed="25"
+                data-back-delay="1500"
+                data-strings="<%= ["an open source", "an ethical", "a developer-driven"].to_json %>"
+              ></strong>
+            </span>
+            <br>
+            ad platform that funds contributors
+            <br>
+            of the open source ecosystem
+          </p>
+
+          <div class="d-flex align-items-center flex-wrap">
+            <%= link_to "I'm a developer", home_publishers_path, class: "btn btn-soft-success btn-wide transition-3d-hover mr-2 mb-1" %>
+            <%= link_to "I'm an advertiser", home_advertisers_path, class: "btn btn-soft-primary btn-wide transition-3d-hover mb-1" %>
+          </div>
+        </div>
+      </div>
+      <!-- End Content -->
+
+      <!-- SVG Background -->
+      <div id="SVGMainHero" class="col-lg-9 col-xl-7 svg-preloader d-none d-lg-block position-absolute top-0 right-0 pr-0" style="margin-top: 130px;">
+        <figure class="ie-main-hero">
+          <%= image_tag("/assets/svg/illustrations/main-hero.svg", class: "js-svg-injector", data: {
+              img_paths: [
+                { targetId: "#SVGMainHeroImg1", newPath: asset_path("home/developer_at_desk.jpg") }
+              ],
+              parent: "#SVGMainHero"
+            }) %>
+        </figure>
+      </div>
+      <!-- End SVG Background -->
+    </div>
+  </div>
+  <!-- End Hero Section -->
+
+  <!-- Icon Blocks Section -->
+  <div class="container space-top-3 space-top-md-0 space-bottom-md-3 space-bottom-2">
+    <!-- Title -->
+    <div class="w-md-80 w-lg-50 text-center mx-md-auto mb-9">
+      <span class="u-label u-label--sm u-label--success mb-2">What we do?</span>
+      <h2>We display <em>ethical ads</em> on developer websites</h2>
+    </div>
+    <!-- End Title -->
+
+    <div class="row">
+      <div class="col-md-4 mb-7">
+        <div class="text-center px-lg-3">
+          <span class="btn btn-icon btn-lg btn-soft-danger rounded-circle mb-5">
+            <span class="fas fa-user-secret fa-2x btn-icon__inner btn-icon__inner-bottom-minus"></span>
+          </span>
+          <h3 class="h5">No User Tracking</h3>
+          <p class="mb-md-0">We do not track, profile, or sell information. That means no cookies.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-7">
+        <div class="text-center px-lg-3">
+          <span class="btn btn-icon btn-lg btn-soft-primary rounded-circle mb-5">
+            <span class="fa fa-lightbulb-on fa-2x btn-icon__inner btn-icon__inner-bottom-minus"></span>
+          </span>
+          <h3 class="h5">Relevant Ads</h3>
+          <p class="mb-md-0">We only show ads that are relevant and meaningful to the users.</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-7">
+        <div class="text-center px-lg-3">
+          <span class="btn btn-icon btn-lg btn-soft-dark rounded-circle mb-5">
+            <span class="fab fa-github fa-2x btn-icon__inner btn-icon__inner-bottom-minus"></span>
+          </span>
+          <h3 class="h5">Open Source</h3>
+          <p class="mb-md-0">Our platform is <a href="https://github.com/gitcoinco/code_fund_ads">100% open source</a> because trust is essential in advertising.</p>
+        </div>
+      </div>
+    </div>
+
+    <%= image_tag "svg-pointer1.svg", class: "img-fluid d-none d-md-block w-75 mx-auto mb-7" %>
+
+    <!-- Title -->
+    <div class="w-md-60 w-lg-50 text-center mx-auto mb-7">
+      <h4 class="h5">
+        Ethical advertising <span class="font-weight-normal">enables us to maintain the <strong>trust</strong> and <strong>loyalty</strong> of the developer community.</span>
+      </h4>
+    </div>
+    <!-- End Title -->
+
+    <!-- Example Carousel -->
+    <div class="container pb-3">
+      <div class="js-slick-carousel u-slick u-slick--gutters-1"
+        data-infinite="true"
+        data-autoplay="true"
+        data-speed="5000"
+        data-slides-show="1"
+        data-slides-scroll="1"
+        data-center-mode="true"
+        data-center-padding="250px"
+        data-pagi-classes="text-center u-slick__pagination mt-5 mb-0"
+        data-arrows-classes="d-none d-lg-inline-block u-slick__arrow-classic u-slick__arrow-centered--y rounded-circle"
+        data-arrow-left-classes="fas fa-arrow-left u-slick__arrow-classic-inner u-slick__arrow-classic-inner--left ml-lg-2 ml-xl-4"
+        data-arrow-right-classes="fas fa-arrow-right u-slick__arrow-classic-inner u-slick__arrow-classic-inner--right mr-lg-2 mr-xl-4"
+        data-responsive='[{
+          "breakpoint": 992,
+          "settings": {
+            "centerPadding": "120px"
+          }
+        }, {
+          "breakpoint": 768,
+          "settings": {
+            "centerPadding": "80px"
+          }
+        }, {
+          "breakpoint": 554,
+          "settings": {
+            "centerPadding": "50px"
+          }
+        }]'>
+      <% @showcase_publishers.each do |pub| -%>
+        <%= link_to pub[:url],
+            target: "_blank",
+            class: "js-slide bg-img-hero-center",
+            style: "background-size: contain;
+                    background-image: url(#{asset_path("home/browser-#{pub[:short_name]}.png")});" do %>
+          <div class="text-center space-3" style="height: 400px;">
+          </div>
+        <% end %>
+      <% end -%>
+      </div>
+    </div>
+    <!-- End Example Carousel -->
+
+    <div class="w-50 w-md-40 w-lg-30 text-center mx-auto mt-3">
+      <p class="small">Our publishers include amazing projects such as <a href="https://codesandbox.io" target="_blank">codesandbox.io</a>,
+      <a href="http://rubular.com">rubular.com</a>, <a href="https://material-ui.com" target="_blank">material-ui.com</a>, and
+      <a href="https://jsbin.com" target="_blank">jsbin.com</a>, and many more.</p>
+    </div>
+  </div>
+  <!-- End Icon Blocks Section -->
+
+  <!-- Blog News Section -->
+  <div class="gradient-half-primary-v2">
+    <div class="container space-2 space-md-3 px-lg-7">
+      <!-- Title -->
+      <div class="w-md-80 w-lg-50 text-center mx-md-auto mb-9">
+        <span class="u-label u-label--sm u-label--success mb-2">News &amp; Blog</span>
+        <h2>Read our latest news</h2>
+        <p>We love to share our successes, failures and lessons learned.</p>
+      </div>
+      <!-- End Title -->
+
+      <!-- News Carousel -->
+      <div class="js-slick-carousel u-slick u-slick--equal-height u-slick--gutters-3"
+        data-slides-show="3"
+        data-infinite="true"
+        data-slides-scroll="1"
+        data-arrows-classes="d-none d-lg-inline-block u-slick__arrow u-slick__arrow--offset u-slick__arrow-centered--y rounded-circle"
+        data-arrow-left-classes="fas fa-arrow-left u-slick__arrow-inner u-slick__arrow-inner--left"
+        data-arrow-right-classes="fas fa-arrow-right u-slick__arrow-inner u-slick__arrow-inner--right"
+        data-pagi-classes="text-center u-slick__pagination mt-7 mb-0"
+        data-responsive='[{
+          "breakpoint": 992,
+          "settings": {
+            "slidesToShow": 2
+          }
+        }, {
+          "breakpoint": 768,
+          "settings": {
+            "slidesToShow": 1
+          }
+        }, {
+          "breakpoint": 554,
+          "settings": {
+            "slidesToShow": 1
+          }
+        }]'>
+        <!-- Blog News -->
+        <a class="js-slide u-bg-img-hero gradient-overlay-half-dark-v1 transition-3d-hover rounded-pseudo my-4"
+            href="https://medium.com/codefund/what-keeps-me-up-at-night-b210b180fe41"
+            style="background-size: cover;
+    background-position-x: center; background-image: url(https://media.giphy.com/media/UWJUxFHWT7xy8/giphy.gif);">
+          <article class="align-self-end w-100 text-center p-6">
+            <h3 class="h4 text-white">What Keeps Me Up At Night</h3>
+            <div class="mt-4">
+              <strong class="d-block u-text-light mb-2">Eric Berry</strong>
+              <img class="img-fluid u-sm-avatar rounded-circle mx-auto" src="https://avatars3.githubusercontent.com/u/12481?s=460&v=4" alt="Image Description">
+            </div>
+          </article>
+        </a>
+        <!-- End Blog News -->
+
+        <!-- Blog News -->
+        <div class="js-slide position-relative bg-white shadow-sm transition-3d-hover rounded my-4">
+          <article class="align-self-end w-100 text-center p-6">
+            <h3 class="h6 font-weight-normal">" Hey developer startup folks, CodeFund helps me get in front of the right audience of engaged developers and helps support valuable Open Source creators, maintainers and sustainers. Check them out! "</h3>
+            <div class="my-4">
+              <strong class="d-block mb-2">Ian Kelly</strong>
+              <img class="img-fluid u-sm-avatar rounded-circle mx-auto" src="https://pbs.twimg.com/profile_images/2163405584/h4nMVB4Q_400x400" alt="Image Description">
+            </div>
+            <a class="btn btn-sm u-btn-primary--air u-btn-wide transition-3d-hover" href="https://twitter.com/ianakelly/status/1022145428266074112?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1022145428266074112&ref_url=https%3A%2F%2Fcodefund.io%2F">View Tweet</a>
+          </article>
+        </div>
+        <!-- End Blog News -->
+
+        <!-- Blog News -->
+        <a class="js-slide u-bg-img-hero gradient-overlay-half-dark-v1 transition-3d-hover rounded-pseudo my-4"
+            href="https://medium.com/codefund/what-ive-learned-over-the-past-year-funding-open-source-b55433587818"
+            style="background-size: cover;
+    background-position-x: center; background-image: url(https://cdn-images-1.medium.com/max/1600/1*8D7C_F9xKzRPWzXWRBQCNg.gif);">
+          <article class="align-self-end w-100 text-center p-6">
+            <h3 class="h4 text-white">What I've learned over the past year funding Open Source</h3>
+            <div class="mt-4">
+              <strong class="d-block u-text-light mb-2">Eric Berry</strong>
+              <img class="img-fluid u-sm-avatar rounded-circle mx-auto" src="https://avatars3.githubusercontent.com/u/12481?s=460&v=4" alt="Image Description">
+            </div>
+          </article>
+        </a>
+        <!-- End Blog News -->
+
+        <!-- Blog News -->
+        <div class="js-slide position-relative bg-white shadow-sm transition-3d-hover rounded my-4">
+          <article class="align-self-end w-100 text-center p-6">
+            <h3 class="h6 font-weight-normal">" 📣 PSA friends. CodeFund is an amazing resource for the Open Source community. Supporting OS sustainability while generating awareness for <a href="https://rollbar.com">Rollbar</a>, was a total no-brainer decision... "</h3>
+            <div class="my-4">
+              <strong class="d-block mb-2">Mike Smith</strong>
+              <img class="img-fluid u-sm-avatar rounded-circle mx-auto" src="https://pbs.twimg.com/profile_images/870708848402735105/C6nPDVSP_400x400.jpg" alt="Image Description">
+            </div>
+            <a class="btn btn-sm u-btn-primary--air u-btn-wide transition-3d-hover" href="https://twitter.com/themlsmith/status/925843391832903680?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E925843391832903680&ref_url=https%3A%2F%2Fcodefund.io%2F">View Tweet</a>
+          </article>
+        </div>
+        <!-- End Blog News -->
+
+        <!-- Blog News -->
+        <a class="js-slide u-bg-img-hero gradient-overlay-half-dark-v1 transition-3d-hover rounded-pseudo my-4" href="https://medium.com/codefund/codefund-integrates-with-discourse-1cc0727c2143"
+           style="background-size: cover;
+    background-position-x: center; background-image: url(https://cdn-images-1.medium.com/max/1600/1*iGUByEBhlKAowNNgkFqRsQ.jpeg);">
+          <article class="align-self-end w-100 text-center p-6">
+            <h3 class="h4 text-white">CodeFund integrates with Discourse</h3>
+            <div class="mt-4">
+              <strong class="d-block u-text-light mb-2">Eric Berry</strong>
+              <img class="img-fluid u-sm-avatar rounded-circle mx-auto" src="https://avatars3.githubusercontent.com/u/12481?s=460&v=4" alt="Image Description">
+            </div>
+          </article>
+        </a>
+        <!-- End Blog News -->
+      </div>
+      <!-- End News Carousel -->
+    </div>
+  </div>
+  <!-- End Blog News Section -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->

@@ -207,7 +207,7 @@
       });
 
       $('#' + target + 'Next').on('click', function () {
-        var $currentPage = $('#' + target + ' [data-dt-page-to]').parent();
+        var $currentPage = $('#' + target + '').find('.active [data-dt-page-to]').parent();
 
         table.page('next').draw('page');
 
@@ -220,7 +220,7 @@
       });
 
       $('#' + target + 'Prev').on('click', function () {
-        var $currentPage = $('#' + target + ' [data-dt-page-to]').parent();
+        var $currentPage = $('#' + target + '').find('.active [data-dt-page-to]').parent();
 
         table.page('previous').draw('page');
 

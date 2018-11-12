@@ -1,0 +1,39 @@
+/*------------------------------------
+  Custom Button Toggle
+------------------------------------*/
+
+.btn-custom-toggle-primary {
+  color: $input-group-addon-color;
+  border-color: $form-border-color;
+
+  &:hover {
+    color: $primary;
+    background-color: transparent;
+    border-color: $primary;
+  }
+
+  &:not(:disabled):not(.disabled),
+  &:not(:disabled):not(.disabled) {
+    &:active,
+    &.active {
+      color: $white;
+      background-color: $primary;
+      border-color: $primary;
+    }
+  }
+}
+
+.btn-custom-toggle-white {
+  &:hover {
+    color: $white;
+    background-color: rgba($white, .2);
+  }
+
+  &:not(:disabled):not(.disabled),
+  &:not(:disabled):not(.disabled) {
+    &:active,
+    &.active {
+      color: $primary;
+    }
+  }
+}

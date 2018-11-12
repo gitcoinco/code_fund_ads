@@ -1,0 +1,121 @@
+/*------------------------------------
+  List Group
+------------------------------------*/
+
+.list-group {
+	list-style: none;
+
+	.list-group {
+		margin-left: 1rem;
+	}
+
+	.list-group-item {
+		font-size: $list-group-item-font-size;
+	}
+
+	.list-group-icon {
+		min-width: $list-group-icon-min-width;
+		max-width: $list-group-icon-max-width;
+		color: $list-group-icon-color;
+		text-align: center;
+		margin-right: .5rem;
+	}
+
+	.active {
+		> .list-group-item {
+			color: $primary;
+		}
+
+		> .list-group-text {
+			color: $white;
+		}
+	}
+
+	.disabled {
+		.u-icon {
+			color: $gray-700;
+			background-color: rgba($gray-700, .1);
+		}
+	}
+}
+
+/* Border Radius */
+.list-group-rounded-0 {
+	.list-group-item {
+		&:first-child {
+	    @include border-top-radius(0);
+	  }
+
+	  &:last-child {
+	    @include border-bottom-radius(0);
+	  }
+	}
+}
+
+/* Transparent */
+.list-group-transparent {
+	.list-group-item {
+		border-color: transparent;
+		background-color: transparent;
+	}
+}
+
+/* White */
+.list-group-white {
+	.list-group-item,
+	.list-group-item-action {
+		color: $white;
+
+		&[href] {
+			color: $white-color-70;
+		}
+
+		&[href]:hover {
+			color: $white-color-hover;
+		}
+	}
+
+	&.list-group-striped {
+		.list-group-item {
+			&:nth-child(even) {
+				background-color: rgba($white, .1);
+			}
+		}
+	}
+
+	.active {
+		> .list-group-item {
+			color: $white;
+		}
+	}
+}
+
+/* Flush */
+.list-group-flush {
+	.list-group-item {
+		padding-left: 0;
+		padding-right: 0;
+
+		&.active {
+			color: $primary;
+			background-color: transparent;
+			border-color: transparent;
+		}
+	}
+}
+
+/* Borderless */
+.list-group-borderless {
+	.list-group-item {
+		border: none;
+	}
+}
+
+/* Striped */
+.list-group-striped {
+	.list-group-item {
+		&:nth-child(even) {
+			background-color: $gray-200;
+		}
+	}
+}

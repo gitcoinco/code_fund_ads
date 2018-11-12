@@ -1,0 +1,22 @@
+/*------------------------------------
+  Got to Section - Modern
+------------------------------------*/
+
+.u-go-to-modern {
+	position: relative;
+	z-index: 2;
+	display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  width: $go-to-modern-width;
+  height: $go-to-modern-height;
+  font-size: $go-to-modern-font-size;
+  color: $go-to-modern-color;
+	background-color: $go-to-modern-bg-color;
+	@include border-radius($border-radius-rounded);
+	box-shadow: $go-to-modern-box-shadow;
+
+	.u-go-to-modern__inner {
+		@include content-centered;
+	}
+}

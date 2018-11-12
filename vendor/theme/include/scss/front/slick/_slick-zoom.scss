@@ -1,0 +1,18 @@
+/*------------------------------------
+  Slick Zoom
+------------------------------------*/
+
+.u-slick-zoom {
+	.slick-slide {
+		.u-slick-zoom__slide {
+			transform: scale(.9);
+			transition: all .5s $transition-function;
+		}
+	}
+
+	.slick-center {
+		.u-slick-zoom__slide {
+			transform: scale(1);
+		}
+	}
+}

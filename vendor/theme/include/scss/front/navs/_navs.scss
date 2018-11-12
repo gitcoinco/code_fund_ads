@@ -1,0 +1,104 @@
+/*------------------------------------
+  Navs
+------------------------------------*/
+
+.nav {
+	&-classic {
+		border-bottom: $nav-classic-border-width solid $nav-classic-border-color;
+
+		.nav-link {
+			color: $nav-classic-nav-link-color;
+			border-bottom: 3px solid transparent;
+			@include border-radius(0);
+			padding: 1rem 1.5rem;
+			margin-bottom: -.125rem;
+			transition: $transition-timing;
+
+			&:hover {
+				color: $nav-classic-nav-link-state-color;
+			}
+
+			&.active {
+				color: $nav-classic-nav-link-state-color;
+				border-bottom-color: $nav-classic-nav-link-state-color;
+			}
+		}
+	}
+
+	&-borderless {
+		border-color: transparent;
+	}
+
+	&-rounded {
+		@include border-radius($nav-rounded-border-radius);
+
+		.nav-item {
+			&:first-child {
+				.nav-link {
+					@include border-bottom-left-radius($nav-rounded-border-radius);
+				}
+			}
+
+			&:last-child {
+				.nav-link {
+					@include border-bottom-right-radius($nav-rounded-border-radius);
+				}
+			}
+		}
+	}
+
+	&-shadow {
+		box-shadow: $nav-shadow;
+	}
+
+	.nav-item {
+		&:not(:first-child) {
+			margin-left: .25rem;
+		}
+
+		&:not(:last-child) {
+			margin-right: .25rem;
+		}
+	}
+}
+
+/* Nav Steps */
+.nav-icon {
+	.nav-item {
+		color: $paragraph-color;
+
+		&.active {
+			color: $primary;
+
+			.nav-icon-action {
+				color: $white;
+				background-color: $primary;
+				transform: scale(1);
+			}
+		}
+	}
+
+	&-action {
+		position: relative;
+	  display: block;
+	  vertical-align: middle;
+	  text-align: center;
+	  z-index: $nav-icon-z-index;
+	  line-height: $nav-icon-line-height;
+	  width: $nav-icon-width;
+	  height: $nav-icon-height;
+	  font-size: $nav-icon-font-size;
+	  color: $secondary;
+	  background-color: rgba($secondary, .1);
+	  @include border-radius($border-radius-rounded);
+	  margin-right: auto;
+	  margin-left: auto;
+	  margin-bottom: .5rem;
+		transition: $nav-transition;
+		transform: scale(.8);
+
+		&-inner {
+	  	@include content-centered;
+	  }
+	}
+}

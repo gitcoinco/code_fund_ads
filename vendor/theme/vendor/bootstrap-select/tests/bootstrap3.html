@@ -7,7 +7,7 @@
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="../dist/css/bootstrap-select.css">
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.css"> -->
+
   <style>
     body {
       padding-top: 70px;
@@ -22,122 +22,6 @@
     </div>
   </div>
 </nav>
-
-<div class="btn-group">
-  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Right-aligned menu
-  </button>
-  <div class="dropdown-menu">
-    <form class="px-4 py-3">
-      <div class="form-group">
-        <label for="exampleDropdownFormEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="email@example.com">
-      </div>
-      <div class="form-group">
-        <label for="exampleDropdownFormPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="Password">
-      </div>
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="dropdownCheck">
-        <label class="form-check-label" for="dropdownCheck">
-          Remember me
-        </label>
-      </div>
-      <button type="submit" class="btn btn-primary">Sign in</button>
-
-      <select class="selectpicker form-control" data-live-search="true" title="Select a number" data-hide-disabled="true">
-        <option>Woo</option>
-        <option>Foo</option>
-      </select>
-
-    </form>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="#">New around here? Sign up</a>
-    <a class="dropdown-item" href="#">Forgot password?</a>
-  </div>
-</div>
-
-<select id="noneTest" class="form-control selectpicker m-0" data-show-subtext="true" data-live-search="true" multiple="multiple">
-  <option value="" data-subtext="123" data-tokens="123"> 123 </option>
-  <option value="" data-subtext="123" data-tokens="123"> 123 </option>
-  <option value="" data-subtext="123" data-tokens="123"> 123 </option>
-  <option value="" data-subtext="123" data-tokens="123"> 123 </option>
-</select>
-
-<div class="container-fluid">
-  <form role="form">
-    <div class="form-group row">
-      <div class="col-sm-6">
-        <select id="basic" class="selectpicker show-tick form-control" data-live-search="true" data-width="fit">
-          <option>cow</option>
-          <option data-subtext="option subtext">bull</option>
-          <option class="get-class" disabled>ox</option>
-          <optgroup label="test" data-subtext="optgroup subtext">
-            <option>ASD</option>
-            <option selected>Dropdown button</option>
-            <option>Ble</option>
-          </optgroup>
-        </select>
-      </div>
-    </div>
-  </form>
-    <div class="row">
-        <div class="col-md-12" style="width: 300px; border:1px dotted #f00;">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">@</span>
-                <select class="form-control">
-                    <option>Very loooooooooooooooooooong option</option>
-                    <option>Ketchup</option>
-                    <option>Relish</option>
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12"
-             style="width: 300px; border:1px dotted #f00; margin-top: 10px; margin-bottom: 10px;">
-            <select class="selectpicker" data-width="100%">
-                <option>Very loooooooooooooooooooong option</option>
-                <option>Ketchup</option>
-                <option>Relish</option>
-            </select>
-        </div>
-    </div>
-</div>
-
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12" style="width: 300px; border:1px dotted #f00; ">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">@</span>
-                <select class="selectpicker form-control">
-                    <option>Very loooooooooooooooooooong option</option>
-                    <option>Ketchup</option>
-                    <option>Relish</option>
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12" style="width: 300px; border:1px dotted #f00; ">
-            <div class="input-group">
-                <span class="input-group-addon" id="basic-addon1">@</span>
-                <select class="selectpicker form-control" data-width="fit">
-                    <option>Very loooooooooooooooooooong option</option>
-                    <option>Ketchup</option>
-                    <option>Relish</option>
-                </select>
-            </div>
-        </div>
-    </div>
-</div>
 
 <div class="container">
   <form class="form-horizontal" role="form">
@@ -374,12 +258,12 @@
 
   <hr>
   <div class="input-group">
+    <span class="input-group-addon">@</span>
     <select class="form-control selectpicker" data-mobile="true">
       <option>One</option>
       <option>Two</option>
       <option>Three</option>
     </select>
-    <span class="input-group-addon">@</span>
   </div>
   <p>With <code>data-mobile="true"</code> option.</p>
 
@@ -427,17 +311,16 @@
   </form>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="../js/bootstrap-select.js"></script>
-<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.js"></script> -->
+<script src="../dist/js/bootstrap-select.js"></script>
 
 <script>
 function createOptions(number) {
   var options = [], _options;
 
   for (var i = 0; i < number; i++) {
-    var option = '<option value="' + i + '" data-content="&lt;span&gt;Bar ' + i + '</span>">Option ' + i + '</option>';
+    var option = '<option value="' + i + '">Option ' + i + '</option>';
     options.push(option);
   }
 

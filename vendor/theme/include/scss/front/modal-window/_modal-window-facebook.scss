@@ -1,0 +1,49 @@
+/*------------------------------------
+  Modal Window - Facebook
+------------------------------------*/
+
+.u-modal--facebook {
+  width: 31.25rem;
+  @include border-radius($border-radius);
+
+  &__body {
+    position: relative;
+    background-color: $facebook;
+    @include border-top-radius($border-radius);
+
+    &::after {
+      position: absolute;
+      left: 5rem;
+      top: 100%;
+      display: block;
+      border-style: solid;
+      border-width: 1.125rem 1.375rem 0 0;
+      border-color: $facebook transparent transparent transparent;
+      content: "";
+    }
+  }
+
+  &__space {
+    padding: 2rem;
+  }
+
+  &__content {
+    background-color: $white;
+    padding: 2rem;
+  }
+
+  &__navbar {
+    display: block;
+    border-bottom: 1px solid rgba($white, .1);
+
+    &-logo {
+      width: 7.5rem;
+    }
+  }
+
+  &__text {
+    font-weight: 300;
+    color: $white;
+    margin-bottom: 0;
+  }
+}

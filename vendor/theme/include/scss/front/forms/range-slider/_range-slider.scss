@@ -1,0 +1,149 @@
+/*------------------------------------
+  Range Slider
+------------------------------------*/
+
+.u-range-slider {
+  height: $range-slider-height;
+
+  .irs {
+    height: $range-slider-height;
+  }
+
+  .irs-line {
+    top: .5rem;
+    height: $range-slider-inner-elements-height;
+  }
+
+  .irs-line-left {
+    left: 0;
+    height: $range-slider-inner-elements-height;
+    background-color: $range-slider-inner-elements-bg;
+    @include border-left-radius($range-slider-inner-elements-border-radius);
+  }
+
+  .irs-line-mid {
+    height: $range-slider-inner-elements-height;
+    background-color: $range-slider-inner-elements-bg;
+  }
+
+  .irs-line-right {
+    right: 0;
+    height: $range-slider-inner-elements-height;
+    background-color: $range-slider-inner-elements-bg;
+    @include border-right-radius($range-slider-inner-elements-border-radius);
+  }
+
+  .irs-bar {
+    top: .5rem;
+    height: $range-slider-inner-elements-height;
+    background-color: $primary;
+  }
+
+  .irs-bar-edge {
+    top: .5rem;
+    left: .0625rem;
+    height: $range-slider-inner-elements-height;
+    width: .6875rem;
+    @include border-left-radius($range-slider-inner-elements-border-radius);
+    background-color: $primary;
+  }
+
+  .irs-slider {
+    top: -.1875rem;
+    width: $range-slider-stats-pointer-width;
+    height: $range-slider-stats-pointer-height;
+    background-color: $white;
+    cursor: pointer;
+    @include border-radius($border-radius-rounded);
+    box-shadow: $range-slider-stats-pointer-box-shadow;
+
+    &.state_hover {
+      transform: scale(1.3);
+    }
+  }
+
+  .irs-from,
+  .irs-to,
+  .irs-single {
+    display: inline-block;
+    min-width: $range-slider-inner-elements-width;
+    background-color: $white;
+    color: $dark;
+    font-size: $range-slider-inner-elements-text-size;
+    text-shadow: none;
+    text-align: center;
+    @include border-radius($border-radius);
+    box-shadow: $box-shadow-sm;
+    padding: .5rem;
+  }
+}
+
+/* Indicator */
+.u-range-slider-indicator {
+  height: $range-slider-indicator-height;
+
+  .irs {
+    height: $range-slider-indicator-height;
+  }
+
+  &.u-range-slider-grid {
+    height: $range-slider-indicator-grid-height;
+
+    .irs {
+      height: $range-slider-indicator-grid-height;
+    }
+  }
+
+  .irs-line {
+    top: 3.875rem;
+  }
+
+  .irs-bar {
+    top: 3.875rem;
+  }
+
+  .irs-bar-edge {
+    top: 3.875rem;
+  }
+
+  .irs-slider {
+    top: 3.1875rem;
+  }
+}
+
+/* Grid */
+.u-range-slider-grid {
+  height: $range-slider-grid-height;
+
+  .irs {
+    height: $range-slider-grid-height;
+  }
+
+  .irs-grid {
+    height: $range-slider-grid-inner-height;
+  }
+
+  .irs-grid-text {
+    display: inline-block;
+    min-width: $range-slider-inner-elements-width;
+    line-height: 1;
+    font-size: $range-slider-inner-elements-text-size;
+    color: $paragraph-color;
+    @include border-radius($range-slider-inner-elements-border-radius);
+    padding: $range-slider-inner-elements-height;
+
+    &.current {
+      background: rgba($primary, .1);
+      color: $primary;
+    }
+  }
+
+  .irs-grid-pol {
+    height: .75rem;
+    background-color: $range-slider-inner-elements-bg;
+
+    &.small {
+      display: none;
+    }
+  }
+}

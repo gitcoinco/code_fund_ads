@@ -1,0 +1,42 @@
+<style type="text/css">
+  body,
+  html, 
+  .body {
+    background: #f3f3f3 !important;
+  }
+</style>
+<!-- move the above styles into your custom stylesheet -->
+
+<spacer size="16"></spacer>
+
+<container>
+  <spacer size="16"></spacer>
+  <row>
+    <columns>
+      <h3>Advertiser Submission</h3>
+      <spacer size="16"></spacer>
+      <row>
+        <columns large="6">
+          <p>
+            <strong>Name</strong><br/>
+            <%= @name %>
+          </p>
+          <p>
+            <strong>Email Address</strong><br/>
+            <%= mail_to @form[:email] %>
+          </p>
+        </columns>
+        <columns large="6">
+          <p>
+            <strong>Company</strong><br/>
+            <%= link_to @form[:company_name], @form[:company_url] %>
+          </p>
+          <p>
+            <strong>Monthly Budget</strong><br/>
+            <%= @form[:monthly_budget] %>
+          </p>
+        </columns>
+      </row>
+    </columns>
+  </row>
+</container>

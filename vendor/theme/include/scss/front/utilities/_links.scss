@@ -1,0 +1,84 @@
+/*------------------------------------
+  Links
+------------------------------------*/
+
+.link {
+  display: inline-block;
+
+  &__icon {
+    position: relative;
+    line-height: .7;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    width: $link-icon-width;
+    height: $link-icon-height;
+    font-size: $link-icon-font-size;
+    color: $link-icon-color;
+    background-color: $link-icon-bg-color;
+    @include border-radius($link-icon-border-radius);
+    transition: $link-icon-transition;
+
+    &-inner {
+      @include content-centered;
+    }
+  }
+
+  &:hover {
+    .link__icon {
+      background-color: $link-hover-color;
+      transform: rotate(90deg);
+    }
+  }
+}
+
+/* Link Light */
+.link-light {
+	color: $link-light-color;
+  border-bottom: $link-light-border-width dashed $link-light-border-color;
+
+  &:hover {
+    color: $link-light-hover-color;
+    border-color: $link-light-hover-border-color;
+  }
+}
+
+/* Link Muted */
+.link-muted {
+  color: $link-muted-color;
+	border-bottom: $link-muted-border-width dashed $link-muted-border-color;
+
+  &:hover {
+    border-color: $link-hover-color;
+  }
+
+  &__toggle {
+    &-default {
+      display: inline-block;
+    }
+
+    &-toggled {
+      display: none;
+    }
+  }
+
+  &.toggled {
+    .link-muted__toggle-default {
+      display: none;
+    }
+
+    .link-muted__toggle-toggled {
+      display: inline-block;
+    }
+  }
+}
+
+/* Link White */
+.link-white {
+  color: $link-white-color;
+  border-bottom: $link-white-border-width dashed $link-white-border-color;
+
+  &:hover {
+    color: $link-white-hover-color;
+  }
+}

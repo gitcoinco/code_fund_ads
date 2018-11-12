@@ -16,7 +16,8 @@
      * @var Object _baseConfig
      */
     _baseConfig: {
-      oneClick: function() {}
+      oneClick: function () {
+      }
     },
 
     /**
@@ -61,25 +62,62 @@
       this.collection.each(function (i, el) {
         //Variables
         var $this = $(el),
-          $target = $($this.data('target')),
-          classes = $this.data('classes'),
-          i2 = 0;
+          parent = $this.data('parent'),
+          target = $this.data('target'),
+          SRC = $('#' + target).attr('src'),
+          videoType = $this.data('video-type'),
+          classes = $this.data('classes');
 
-        $this.on('click', function(e) {
-          $target.toggleClass(classes);
+        if (videoType !== 'vimeo') {
+          $('#' + target).attr('src', SRC + '?enablejsapi=1');
 
-          if(i2 < 1) {
-            config.oneClick();
+          $self.youTubeAPIReady();
+        }
 
-            i2++;
-          }
-
+        $this.on('click', function (e) {
           e.preventDefault();
+
+          $('#' + parent).toggleClass(classes);
+
+          if (videoType === 'vimeo') {
+            $self.vimeoPlayer(target);
+          } else {
+            $self.youTubePlayer(target);
+          }
         });
 
         //Actions
         collection = collection.add($this);
       });
+    },
+
+    youTubeAPIReady: function () {
+      var YTScriptTag = document.createElement('script');
+      YTScriptTag.src = '//www.youtube.com/player_api';
+
+      var DOMfirstScriptTag = document.getElementsByTagName('script')[0];
+      DOMfirstScriptTag
+        .parentNode
+        .insertBefore(YTScriptTag, DOMfirstScriptTag);
+    },
+
+    youTubePlayer: function (target) {
+      var YTPlayer = new YT.Player(target, {
+        events: {
+          onReady: onPlayerReady
+        }
+      });
+
+      function onPlayerReady(event) {
+        YTPlayer.playVideo();
+      }
+    },
+
+    vimeoPlayer: function (target) {
+      var vimeoIframe = document.getElementById(target),
+        vimeoPlayer = new Vimeo.Player(vimeoIframe);
+
+      vimeoPlayer.play();
     }
   }
 

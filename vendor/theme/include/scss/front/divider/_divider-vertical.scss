@@ -1,0 +1,43 @@
+/*------------------------------------
+  Vertical Divider
+------------------------------------*/
+
+.u-ver-divider {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    border-right: 1px solid $gray-300;
+    content: "";
+  }
+}
+
+/* Breakpoint */
+.u-ver-divider {
+  @include media-breakpoint-down(xs) {
+    &--none-sm {
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(sm) {
+    &--none-md {
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  @include media-breakpoint-down(md) {
+    &--none-lg {
+      &::after {
+        display: none;
+      }
+    }
+  }
+}

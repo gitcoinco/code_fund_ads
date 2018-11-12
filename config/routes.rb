@@ -2,6 +2,8 @@
 
 Rails.application.routes.draw do
   devise_for :users
+
+  resources :dashboard, only: [:index]
   resources :campaign_searches, only: [:create, :destroy]
   resources :property_searches, only: [:create, :destroy]
   resources :user_searches, only: [:create, :destroy]
@@ -25,5 +27,13 @@ Rails.application.routes.draw do
     resources :creatives, only: [:index], as: :user_creatives
   end
 
-  root "users#index"
+  get "/publishers", to: "home#publishers", as: :home_publishers
+  post "/publishers", to: "home#create_publisher"
+  get "/advertisers", to: "home#advertisers", as: :home_advertisers
+  post "/advertisers", to: "home#create_advertiser"
+  post "/newsletter_subscription", to: "home#create_newsletter_subscription", as: :newsletter_subscription
+  get "/help", to: "home#help", as: :home_help
+  get "/team", to: "home#team", as: :home_team
+
+  root "home#index"
 end

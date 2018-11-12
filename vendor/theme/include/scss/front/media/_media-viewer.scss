@@ -1,0 +1,45 @@
+/*------------------------------------
+  Media Viewer
+------------------------------------*/
+
+.u-media-viewer {
+	position: relative;
+	display: block;
+
+	&:hover {
+		.u-media-viewer {
+			&__icon {
+				opacity: 1;
+				transform: scale(1);
+			}
+		}
+	}
+
+	&__container {
+		@include content-centered;
+	}
+
+	&__icon {
+		display: inline-block;
+	  vertical-align: middle;
+	  text-align: center;
+	  width: $media-viewer-icon-width;
+	  height: $media-viewer-icon-height;
+	  font-size: $media-viewer-icon-font-size;
+	  color: $media-viewer-icon-color;
+	  background-color: $media-viewer-icon-bg-color;
+	  @include border-radius($media-viewer-border-radius);
+		opacity: 0;
+		transform: scale(.7);
+		transition: $media-viewer-icon-transition;
+
+	  &:hover,
+	  &:focus {
+	  	color: $white;
+	  }
+
+		&-inner {
+  		@include content-centered;
+  	}
+	}
+}

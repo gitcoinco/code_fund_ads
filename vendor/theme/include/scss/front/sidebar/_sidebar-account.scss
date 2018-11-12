@@ -1,0 +1,134 @@
+/*------------------------------------
+  Sidebar Account
+------------------------------------*/
+
+.u-sidebar {
+  &--account__footer-offset {
+  	height: 100%;
+  	box-sizing: border-box;
+  	padding-bottom: 10.3125rem;
+  }
+
+	&__content--account {
+    padding: 1.5rem 3rem;
+  }
+}
+
+/* Holder */
+.u-sidebar--account__holder {
+	background-color: $gray-200;
+  padding: 1.5rem 3rem;
+
+	&-img {
+		width: 3rem;
+		@include border-radius($border-radius);
+	}
+
+	&-text {
+		display: block;
+		font-size: .75rem;
+    color: $gray-600;
+	}
+}
+
+/* Toggle */
+.u-sidebar--account__toggle {
+  &-bg {
+  	position: relative;
+  	top: 1px;
+	  padding: .25rem .25rem .25rem .75rem;
+	  background-color: rgba($primary, .1);
+	  @include border-radius($border-radius-pill);
+
+	  // Small Devices
+		@include media-breakpoint-down(sm) {
+			padding-left: .25rem;
+		}
+
+	  &:hover {
+	  	.u-sidebar--account__toggle-text {
+				color: $primary;
+	  	}
+	  }
+	}
+
+	&-text {
+		color: $dark;
+	  font-size: .75rem;
+	  vertical-align: middle;
+	  margin-right: .3125rem;
+
+	  // Small Devices
+		@include media-breakpoint-down(sm) {
+			display: none;
+		}
+	}
+
+	&-img {
+	  width: 1.5rem;
+	  height: 1.5rem;
+	  @include border-radius($border-radius-rounded);
+	}
+}
+
+/* List */
+.u-sidebar--account__list {
+	margin-bottom: 0;
+
+	&-item {
+		padding-top: .25rem;
+		padding-bottom: .25rem;
+	}
+
+	&-link {
+		display: block;
+		font-size: .875rem;
+		color: $gray-500;
+		@include border-radius($border-radius);
+		padding: .625rem;
+		transition: $transition-timing-sm $transition-function;
+
+		&.active,
+		&:hover {
+			color: $primary;
+			background-color: rgba($primary, .1);
+
+			.u-sidebar--account__list-icon {
+				color: $primary;
+			}
+		}
+	}
+
+	&-icon {
+		display: inline-block;
+  	text-align: center;
+    width: 1.125rem;
+		font-size: .8125rem;
+    color: $gray-600;
+		transition: $transition-timing-sm $transition-function;
+	}
+
+	&-divider {
+		border-top: 1px solid darken($gray-200, 5%);
+		padding-left: 1.5rem;
+		padding-right: 1.5rem;
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+	}
+}
+
+/* Footer Links */
+.u-sidebar__footer--account {
+  padding: 0 3rem 1.5rem;
+
+	&__text {
+		position: relative;
+		z-index: 1;
+		font-size: .875rem;
+		color: $white-color-70;
+
+		&:hover {
+			color: $white-color-hover;
+		}
+	}
+}

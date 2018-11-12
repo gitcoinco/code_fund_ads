@@ -1,0 +1,142 @@
+/*------------------------------------
+  Form Sizes
+------------------------------------*/
+
+/* Default Size */
+.input-group {
+	&.input-group-pill {
+		> .form-control {
+			&:first-child {
+				padding-left: 1.5rem;
+			}
+		}
+
+		.input-group-prepend {
+			> .input-group-text,
+			> .btn {
+				padding-left: 1.25rem;
+			}
+		}
+
+		.input-group-append {
+			> .input-group-text,
+			> .btn {
+				padding-right: 1.25rem;
+			}
+		}
+	}
+
+	.input-group-prepend,
+	.input-group-append {
+		> .input-group-text {
+			font-size: ($font-size-base * .875);
+		}
+	}
+}
+
+/* Extra Small Size */
+.input-group-xs {
+	&.input-group-pill {
+		> .form-control {
+			&:first-child {
+				padding-left: 1.375rem;
+			}
+		}
+
+		.input-group-prepend {
+			> .input-group-text,
+			> .btn {
+				padding-left: 1.25rem;
+			}
+		}
+
+		.input-group-append {
+			> .input-group-text,
+			> .btn {
+				padding-right: 1.25rem;
+			}
+		}
+	}
+
+	.input-group-prepend,
+	.input-group-append {
+		> .input-group-text {
+			font-size: ($font-size-base * .625);
+		}
+	}
+}
+
+.form-control-xs {
+  height: $input-height-xs;
+  padding: $input-btn-paddingY-xs $input-btn-paddingX-xs;
+  font-size: $font-size-xs;
+  line-height: $input-line-height-xs;
+}
+
+/* Small Size */
+.input-group-sm {
+	&.input-group-pill {
+		> .form-control {
+			&:first-child {
+				padding-left: 1rem;
+			}
+		}
+
+		.input-group-prepend {
+			> .input-group-text,
+			> .btn {
+				padding-left: 1rem;
+			}
+		}
+
+		.input-group-append {
+			> .input-group-text,
+			> .btn {
+				padding-right: 1rem;
+			}
+		}
+	}
+
+	.input-group-prepend,
+	.input-group-append {
+		> .input-group-text {
+			font-size: ($font-size-base * .75);
+		}
+	}
+}
+
+/* Large Size */
+.input-group-lg {
+	&.input-group-pill {
+		> .form-control {
+			&:first-child {
+				padding-left: 2rem;
+			}
+		}
+
+		.input-group-prepend {
+			> .input-group-text,
+			> .btn {
+				padding-left: 1.375rem;
+			}
+		}
+
+		.input-group-append {
+			> .input-group-text,
+			> .btn {
+				padding-right: 1.5rem;
+			}
+		}
+	}
+
+	.input-group-prepend,
+	.input-group-append {
+		> .input-group-text {
+			font-size: ($font-size-base * 1);
+		}
+	}
+
+	.form-control {
+		font-size: ($font-size-base * 1.125);
+	}
+}

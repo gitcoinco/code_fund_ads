@@ -1,0 +1,55 @@
+/*------------------------------------
+  Slick Arrows
+------------------------------------*/
+
+.u-slick__arrow {
+	z-index: 1;
+	line-height: 0;
+	display: inline-block;
+	color: $slick-arrow-color;
+	background-color: $slick-arrow-bg-color;
+	width: $slick-arrow-width;
+	height: $slick-arrow-width;
+	font-size: $slick-arrow-font-size;
+	cursor: pointer;
+	transition: $slick-arrow-transition;
+
+	&:hover {
+		color: $slick-arrow-hover-color;
+		background-color: $slick-arrow-hover-bg-color;
+	}
+
+	&-inner {
+		&:before {
+			@include content-centered;
+		}
+
+		&--left {
+			left: 0;
+		}
+
+		&--right {
+			right: 0;
+		}
+	}
+}
+
+/* Offset */
+.u-slick__arrow--offset {
+	@include media-breakpoint-up(lg) {
+		&.u-slick__arrow-inner {
+			&--left {
+				left: -2.5rem;
+			}
+
+			&--right {
+				right: -2.5rem;
+			}
+		}
+	}
+}
+
+/* Vertical Center Alignment */
+.u-slick__arrow-centered--y {
+	@include content-centered(false, true);
+}

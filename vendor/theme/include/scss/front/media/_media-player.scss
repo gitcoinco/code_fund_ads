@@ -1,0 +1,104 @@
+/*------------------------------------
+  Media Player
+------------------------------------*/
+
+.u-media-player {
+  color: $media-player-color;
+  transition: $media-player-transition;
+
+  &__icon {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    width: $media-player-icon-width;
+    height: $media-player-icon-height;
+    font-size: $media-player-icon-font-size;
+    @include border-radius($media-player-border-radius);
+    color: $media-player-icon-color;
+    background-color: $media-player-icon-bg-color;
+    transition: $media-player-icon-transition;
+
+    &-inner {
+      @include content-centered;
+      margin-left: .125rem;
+    }
+
+    &--box-shadow {
+      box-shadow: $media-player-icon-box-shadow;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    .u-media-player__icon {
+      color: $primary;
+      transform: scale(1.1);
+    }
+
+    .u-media-player__icon--primary {
+      background-color: rgba($primary, 1);
+    }
+
+    .u-media-player__icon--success {
+      background-color: rgba($success, 1);
+    }
+  }
+}
+
+/* Colors */
+.u-media-player {
+  &:hover,
+  &:focus {
+    .u-media-player__icon {
+      &--primary,
+      &--success {
+        color: $white;
+      }
+    }
+  }
+}
+
+.u-media-player__icon {
+  &--primary {
+    color: $primary;
+    background-color: rgba($primary, .1);
+  }
+
+  &--success {
+    color: $success;
+    background-color: rgba($success, .1);
+  }
+}
+
+/* Large Size */
+.u-media-player__icon--lg {
+  width: $media-player-icon-lg-width;
+  height: $media-player-icon-lg-height;
+  font-size: $media-player-icon-lg-font-size;
+}
+
+/* Extra Large Size */
+.u-media-player__icon--xl {
+  width: $media-player-icon-xl-width;
+  height: $media-player-icon-xl-height;
+  font-size: $media-player-icon-xl-font-size;
+}
+
+/* Positions */
+.u-media-player {
+  &--centered {
+    @include content-centered;
+  }
+
+  &--left-minus-50x-top-50x {
+    // Large Devices
+    @include media-breakpoint-up(lg) {
+      &-lg {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+  }
+}

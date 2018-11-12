@@ -1,0 +1,28 @@
+/*------------------------------------
+  Focus States
+------------------------------------*/
+
+.u-focus-state {
+  .form-label + .form-control,
+  .custom-select,
+  .input-group,
+  .form-control:first-child:last-child {
+    box-shadow: $form-focus-box-shadow;
+  }
+
+
+  .input-group-text {
+    color: $form-focus-addon-color;
+  }
+
+  &:focus,
+  *:focus,
+  .input-group-text,
+  .form-control {
+    border-color: $form-focus-border-color;
+  }
+
+  .form-control {
+    box-shadow: none;
+  }
+}

@@ -2,7 +2,7 @@
 
 class UserSearch < ApplicationSearchRecord
   FIELDS = %w[
-    company
+    company_name
     email
     name
     roles
@@ -16,7 +16,7 @@ class UserSearch < ApplicationSearchRecord
   def apply(relation)
     return relation unless present?
     relation
-      .then { |result| result.search_company(company) }
+      .then { |result| result.search_company(company_name) }
       .then { |result| result.search_email(email) }
       .then { |result| result.search_name(name) }
       .then { |result| result.search_roles(*roles) }

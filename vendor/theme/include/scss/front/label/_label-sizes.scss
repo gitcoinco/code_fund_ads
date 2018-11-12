@@ -1,0 +1,17 @@
+/*------------------------------------
+  Label Sizes
+------------------------------------*/
+
+/* Extra Small */
+.u-label--xs {
+	font-weight: 300;
+	font-size: $label-font-size-xs;
+	line-height: $label-line-height-xs;
+	padding: $label-padding-xs;
+}
+
+/* Small */
+.u-label--sm {
+	font-size: $label-font-size-sm;
+	padding: $label-padding-sm;
+}

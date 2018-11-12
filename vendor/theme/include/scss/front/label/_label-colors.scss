@@ -1,0 +1,10 @@
+/*------------------------------------
+  Label Colors
+------------------------------------*/
+
+@each $color, $value in $theme-colors {
+	/* label #{$color} */
+  .u-label--#{$color} {
+    @include label-colors($value, $value, $value);
+  }
+}

@@ -1,0 +1,79 @@
+/*------------------------------------
+  Fill Colors
+------------------------------------*/
+
+.fill {
+	&-none {
+  	fill: none !important;
+  }
+
+	&-white {
+  	fill: $white !important;
+  }
+
+  &-dark {
+    fill: $dark !important;
+  }
+
+  &-primary {
+    fill: $primary !important;
+
+    &-lighter {
+  	 fill: $primary-lighter !important;
+    }
+
+    &-darker {
+     fill: $primary-darker !important;
+    }
+  }
+
+  &-success {
+  	fill: $success !important;
+
+    &-lighter {
+      fill: $success-lighter !important;
+    }
+  }
+
+  &-info {
+    fill: $info !important;
+  }
+
+  &-danger {
+  	fill: $danger !important;
+
+    &-lighter {
+      fill: $danger-lighter !important;
+    }
+  }
+
+  &-warning {
+  	fill: $warning !important;
+
+  	&-lighter {
+      fill: $warning-lighter !important;
+    }
+
+    &-darker {
+  		fill: $warning-darker !important;
+  	}
+  }
+
+  &-gray {
+    &-200 {
+      fill: $gray-200 !important;
+    }
+
+    &-300 {
+      fill: $gray-300 !important;
+    }
+
+    &-400 {
+      fill: $gray-400 !important;
+    }
+
+    &-500 {
+      fill: $gray-500 !important;
+    }
+  }
+}

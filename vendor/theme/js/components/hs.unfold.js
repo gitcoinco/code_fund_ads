@@ -25,9 +25,12 @@
       unfoldHideOnScroll: true,
       unfoldHideOnBlur: false,
       unfoldDelay: 350,
-      afterOpen: function (invoker) {},
-      beforeClose: function (invoker) {},
-      afterClose: function (invoker) {}
+      afterOpen: function (invoker) {
+      },
+      beforeClose: function (invoker) {
+      },
+      afterClose: function (invoker) {
+      }
     },
 
     /**
@@ -98,68 +101,6 @@
 
         }
 
-      });
-
-
-      var items,
-        index = 0;
-
-      $(document).on('keydown.HSUnfold', function (e) {
-
-        if (e.keyCode && e.keyCode === 27) {
-
-          self._pageCollection.each(function (i, el) {
-
-            var windW = window.innerWidth,
-              optIsMobileOnly = Boolean($(el).data('is-mobile-only'));
-
-            items = $($($(el).data('unfold-target')).children());
-
-            if (!optIsMobileOnly) {
-
-              $(el).data('HSUnfold').hide();
-
-            } else if (optIsMobileOnly && windW < 769) {
-
-              $(el).data('HSUnfold').hide();
-
-            }
-
-            $(el).data('HSUnfold').config.beforeClose.call(self.target, self.element);
-
-          });
-
-        }
-
-        self._pageCollection.each(function (i, el) {
-          if (!$($(el).data('unfold-target')).hasClass('u-unfold--hidden')) {
-
-            items = $($($(el).data('unfold-target')).children());
-
-          }
-        });
-
-        if (e.keyCode && e.keyCode === 38 || e.keyCode && e.keyCode === 40) {
-          e.preventDefault();
-        }
-
-        if (e.keyCode && e.keyCode === 38 && index > 0) {
-          // up
-          index--;
-        }
-
-        if (e.keyCode && e.keyCode === 40 && index < items.length - 1) {
-          // down
-          index++;
-        }
-
-        if (index < 0) {
-          index = 0;
-        }
-
-        if (e.keyCode && e.keyCode === 38 || e.keyCode && e.keyCode === 40) {
-          $(items[index]).focus();
-        }
       });
 
       $(window).on('click', function () {
@@ -235,6 +176,20 @@
 
       });
 
+      $(document).on('keydown.HSUnfold', function (e) {
+
+        if ($('body').hasClass('u-unfold-opened')) {
+
+          if (e.keyCode && e.keyCode === 38 || e.keyCode && e.keyCode === 40) {
+
+            e.preventDefault();
+
+          }
+
+        }
+
+      });
+
       return collection;
 
     },
@@ -262,6 +217,7 @@
 
           if (HSUnfold.unfoldTimeOut) clearTimeout(HSUnfold.unfoldTimeOut);
           HSUnfold.show();
+          $('body').addClass('u-unfold-opened');
 
         })
           .on('mouseleave.HSUnfold', function () {
@@ -274,6 +230,7 @@
             HSUnfold.unfoldTimeOut = setTimeout(function () {
 
               HSUnfold.hide();
+              $('body').removeClass('u-unfold-opened');
 
             }, delay);
 
@@ -331,9 +288,8 @@
 
           $curInvoker.data('HSUnfold').toggle();
 
-          $($($curInvoker.data('unfold-target')).children()[0]).trigger('focus');
-
           e.stopPropagation();
+
           e.preventDefault();
 
         });
