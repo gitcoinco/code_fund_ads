@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PublishersController < ApplicationController
   def create
     CreateSlackNotificationJob.perform_later text: "<!channel> *Publisher Form Submission*", message: <<~MESSAGE

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class NewsletterSubscriptionsController < ApplicationController
   def create
     CreateNewsletterSubscriptionJob.perform_later params[:email]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSlackNotificationJob < ApplicationJob
   queue_as :default
 
@@ -10,6 +12,5 @@ class CreateSlackNotificationJob < ApplicationJob
     else
       notifier.post text: args[:text], format: :markdown
     end
-    
   end
 end

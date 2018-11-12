@@ -70,8 +70,8 @@ module ApplicationHelper
   def noty_flash
     flash_messages = []
     flash.each do |type, message|
-      type = 'success' if type == 'notice'
-      type = 'error'   if type == 'alert'
+      type = "success" if type == "notice"
+      type = "error"   if type == "alert"
       body = {
         type: type,
         text: message

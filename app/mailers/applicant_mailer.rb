@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ApplicantMailer < ApplicationMailer
   def advertiser_application_email
     @form = params[:form]
