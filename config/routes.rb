@@ -30,9 +30,7 @@ Rails.application.routes.draw do
   resource :newsletter_subscription, only: [:create]
   resources :advertisers, only: [:index, :create]
   resources :publishers, only: [:index, :create]
+  resources :pages, only: [:show]
 
-  # get "/help", to: "home#help", as: :home_help
-  # get "/team", to: "home#team", as: :home_team
-
-  root "home#index"
+  root "pages#index"
 end

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class HomeController < ApplicationController
+class PagesController < ApplicationController
+  before_action :verify_page, only: [:show]
+
   def index
     # To be a showcase publisher, an image must exist at app/assets/images/home/browser-#{short_name}.png
     @showcase_publishers = [
@@ -14,10 +16,9 @@ class HomeController < ApplicationController
     ]
   end
 
-  def help
-  end
+  private
 
-  def team
-  end
-
+    def verify_page
+      head :not_found unless %w[help team].include?(params[:id])
+    end
 end

@@ -27,8 +27,8 @@
           <%= active_link_to "Creatives", creatives_path, active: :inclusive, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
         <% else %>
           <%= active_link_to "Home", root_path, active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-          <%= active_link_to "Advertisers", home_advertisers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-          <%= active_link_to "Publishers", home_publishers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Advertisers", advertisers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Publishers", publishers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <%= active_link_to "Blog", "https://medium.com/codefund", target: "_blank", class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
           <li class="nav-item u-header__nav-last-item">
             <%= link_to "Login", new_user_session_path, class: "btn btn-sm btn-primary transition-3d-hover" %>
