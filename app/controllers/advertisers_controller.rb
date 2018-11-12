@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class AdvertisersController < ApplicationController
+  # Creates an Advertiser application, does not create a User record
   def create
     CreateSlackNotificationJob.perform_later text: "<!channel> *Advertiser Form Submission*", message: <<~MESSAGE
       *First Name:* #{advertiser_params[:first_name]}

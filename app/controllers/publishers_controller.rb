@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PublishersController < ApplicationController
+  # Creates a Publisher application, does not create a User record
   def create
     CreateSlackNotificationJob.perform_later text: "<!channel> *Publisher Form Submission*", message: <<~MESSAGE
       *First Name:* #{publisher_params[:first_name]}
