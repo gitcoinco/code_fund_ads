@@ -1,18 +1,156 @@
-<div class="media d-block d-sm-flex align-items-sm-center">
-  <% if local_assigns[:icon] %>
-    <div class="u-lg-avatar position-relative mb-3 mb-sm-0 mr-3">
-      <i class="fas fa-<%= icon %> fa-5x opacity-20"></i>
+<% if content_for?(:breadcrumbs) %>
+  <!-- Breadcrumb Section -->
+  <div class="bg-primary" style="margin-top: 154px;">
+    <div class="container space-top-1 pb-3">
+      <div class="row">
+        <div class="col-lg-5 order-lg-2 text-lg-right mb-4 mb-lg-0">
+          <div class="d-flex d-lg-inline-block justify-content-between justify-content-lg-end align-items-center align-items-lg-start">
+            <!-- Breadcrumb -->
+            <ol class="breadcrumb breadcrumb-white breadcrumb-no-gutter mb-0">
+              <%= yield :breadcrumbs %>
+            </ol>
+            <!-- End Breadcrumb -->
+
+            <!-- Breadcrumb Nav Toggle Button -->
+            <div class="d-lg-none">
+              <button type="button" class="navbar-toggler btn u-hamburger u-hamburger--white"
+                      aria-label="Toggle navigation"
+                      aria-expanded="false"
+                      aria-controls="breadcrumbNavBar"
+                      data-toggle="collapse"
+                      data-target="#breadcrumbNavBar">
+                <span id="breadcrumbHamburgerTrigger" class="u-hamburger__box">
+                  <span class="u-hamburger__inner"></span>
+                </span>
+              </button>
+            </div>
+            <!-- End Breadcrumb Nav Toggle Button -->
+          </div>
+        </div>
+
+        <div class="col-lg-7 order-lg-1">
+          <!-- User Info -->
+          <div class="media d-block d-sm-flex align-items-sm-center">
+            <div class="u-lg-avatar position-relative mb-3 mb-sm-0 mr-3">
+              <%= image_tag current_user.gravatar_url, class: "img-fluid rounded-circle", alt: current_user.full_name %>
+            </div>
+            <div class="media-body">
+              <h1 class="h3 text-white font-weight-medium mb-1">
+                <span class="opacity-50 font-weight-light"><%= action %></span>
+                <%= subject.upcase %>
+              </h1>
+              <% if local_assigns[:subtitle] %>
+                <span class="d-block text-white"><%= subtitle %></span>
+              <% end %>
+            </div>
+          </div>
+          <!-- End User Info -->
+        </div>
+      </div>
     </div>
-  <% else %>
-    <div class="u-lg-avatar position-relative mb-3 mb-sm-0 mr-0" style="width: 0px;"></div>
-  <% end %>
-  <div class="media-body">
-    <h1 class="h3 text-white font-weight-medium mb-1">
-      <span class="opacity-50 font-weight-light"><%= action %></span>
-      <%= subject.upcase %>
-    </h1>
-    <% if local_assigns[:subtitle] %>
-      <span class="d-block text-white"><%= subtitle %></span>
-    <% end %>
+
+    <div class="container space-bottom-1 space-bottom-lg-0">
+      <div class="d-lg-flex justify-content-lg-between align-items-lg-center">
+        <!-- Navbar -->
+        <div class="u-header u-header-left-aligned-nav u-header--bg-transparent-lg u-header--white-nav-links z-index-4">
+          <div class="u-header__section bg-transparent">
+            <nav class="js-breadcrumb-menu navbar navbar-expand-lg u-header__navbar u-header__navbar--no-space">
+              <div id="breadcrumbNavBar" class="collapse navbar-collapse u-header__navbar-collapse">
+                <ul class="navbar-nav u-header__navbar-nav">
+                  <!-- General -->
+                  <li class="nav-item hs-has-sub-menu u-header__nav-item"
+                      data-event="hover"
+                      data-animation-in="slideInUp"
+                      data-animation-out="fadeOut">
+                    <a id="generalDropdown" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-labelledby="generalDropdownMenu">
+                      General
+                    </a>
+
+                    <ul id="generalDropdownMenu" class="hs-sub-menu u-header__sub-menu u-header__sub-menu--spacer" style="min-width: 230px;" aria-labelledby="generalDropdown">
+                      <% if current_user.sponsor? && current_user.developer? %>
+                        <li><%= link_to "Advertiser Dashboard", dashboard_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
+                        <li><%= link_to "Publisher Dashboard", dashboard_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
+                      <% else %>
+                        <li><%= link_to "Dashboard", dashboard_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
+                      <% end %>
+                      <li><%= link_to "Profile", user_path(current_user), class: "nav-link u-header__sub-menu-nav-link" %></li>
+                      <li><%= link_to "Properties", properties_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
+                      <li><%= link_to "Campaigns", campaigns_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
+                      <li><%= link_to "Images", images_path(current_user.to_gid_param), class: "nav-link u-header__sub-menu-nav-link" %></li>
+                    </ul>
+                  </li>
+                  <!-- General -->
+
+                  <!-- Account Settings -->
+                  <li class="nav-item hs-has-sub-menu u-header__nav-item"
+                      data-event="hover"
+                      data-animation-in="slideInUp"
+                      data-animation-out="fadeOut">
+                    <a id="accountSettingsDropdown" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-labelledby="accountSettingsDropdownMenu">
+                      Account settings
+                    </a>
+
+                    <ul id="accountSettingsDropdownMenu" class="hs-sub-menu u-header__sub-menu u-header__sub-menu--spacer" style="min-width: 230px;" aria-labelledby="accountSettingsDropdown">
+                      <li><%= link_to "Edit Profile", edit_user_path(current_user), class: "nav-link u-header__sub-menu-nav-link" %></li>
+                      <li><%= link_to "Change password", edit_user_registration_path(current_user), class: "nav-link u-header__sub-menu-nav-link" %></li>
+                    </ul>
+                  </li>
+                  <!-- Account Settings -->
+
+                  <!-- Billing -->
+                  <li class="nav-item hs-has-sub-menu u-header__nav-item"
+                      data-event="hover"
+                      data-animation-in="slideInUp"
+                      data-animation-out="fadeOut">
+                    <a id="billingDropdown" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-labelledby="billingDropdownMenu">
+                      Billing
+                    </a>
+
+                    <ul id="billingDropdownMenu" class="hs-sub-menu u-header__sub-menu u-header__sub-menu--spacer" style="min-width: 230px;" aria-labelledby="billingDropdown">
+                      <li><a class="nav-link u-header__sub-menu-nav-link" href="activity.html">Activity</a></li>
+                      <li><a class="nav-link u-header__sub-menu-nav-link" href="payment-methods.html">Payment methods</a></li>
+                    </ul>
+                  </li>
+                  <!-- Billing -->
+
+                  <!-- Accessibility -->
+                  <li class="nav-item hs-has-sub-menu u-header__nav-item"
+                      data-event="hover"
+                      data-animation-in="slideInUp"
+                      data-animation-out="fadeOut">
+                    <a id="accessibilityDropdown" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-labelledby="accessibilityDropdownMenu">
+                      Accessibility
+                    </a>
+
+                    <ul id="accessibilityDropdownMenu" class="hs-sub-menu u-header__sub-menu u-header__sub-menu--spacer" style="min-width: 230px;" aria-labelledby="accessibilityDropdown">
+                      <li><a class="nav-link u-header__sub-menu-nav-link" href="invite-friends.html">Invite friends</a></li>
+                      <li><a class="nav-link u-header__sub-menu-nav-link" href="api-token.html">API Token</a></li>
+                    </ul>
+                  </li>
+                  <!-- Accessibility -->
+
+                  <!-- Others -->
+                  <li class="nav-item u-header__nav-item">
+                    <a class="nav-link u-header__nav-link" href="plans.html">Plans</a>
+                  </li>
+                  <!-- Others -->
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+        <!-- End Navbar -->
+
+        <div class="ml-lg-auto">
+          <!-- Button -->
+          <a class="btn btn-sm btn-soft-white transition-3d-hover" href="#">
+            <span class="fas fa-plus small mr-2"></span>
+            Request a Payment
+          </a>
+          <!-- End Button -->
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+  <!-- End Breadcrumb Section -->
+<% end %>

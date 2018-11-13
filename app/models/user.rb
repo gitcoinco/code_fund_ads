@@ -120,6 +120,10 @@ class User < ApplicationRecord
     250.00
   end
 
+  def revenue_rate
+    0.6
+  end
+
   # protected instance methods ................................................
   protected
 

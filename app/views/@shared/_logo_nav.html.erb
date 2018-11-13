@@ -1,4 +1,114 @@
-<div id="logoAndNav" class="container">
+    <div id="logoAndNav" class="container">
+      <!-- Nav -->
+      <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar u-header__navbar--no-space">
+        <!-- Logo -->
+        <%= link_to root_path, class: "navbar-brand u-header__navbar-brand u-header__navbar-brand-center " do %>
+          <%= image_tag "codefund-w.svg", alt: "CodeFund", class: "js-svg-injector" %>
+        <% end %>
+        <!-- End Logo -->
+
+        <!-- Responsive Toggle Button -->
+        <button type="button" class="navbar-toggler btn u-hamburger"
+                aria-label="Toggle navigation"
+                aria-expanded="false"
+                aria-controls="navBar"
+                data-toggle="collapse"
+                data-target="#navBar">
+          <span id="hamburgerTrigger" class="u-hamburger__box">
+            <span class="u-hamburger__inner"></span>
+          </span>
+        </button>
+        <!-- End Responsive Toggle Button -->
+
+        <!-- Navigation -->
+        <div id="navBar" class="collapse navbar-collapse u-header__navbar-collapse">
+          <ul class="navbar-nav u-header__navbar-nav">
+            <%= active_link_to "Home", root_path, active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+            <%= active_link_to "Advertisers", advertisers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+            <%= active_link_to "Publishers", publishers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+            <%= active_link_to "Blog", "https://medium.com/codefund", target: "_blank", class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+            <li class="nav-item hs-has-mega-menu u-header__nav-item"
+                data-event="hover"
+                data-animation-in="slideInUp"
+                data-animation-out="fadeOut"
+                data-max-width="260px"
+                data-position="right">
+              <a id="docsMegaMenu" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false">Docs</a>
+
+              <!-- Docs - Submenu -->
+              <div class="hs-mega-menu u-header__sub-menu" aria-labelledby="docsMegaMenu" style="min-width: 330px;">
+                <!-- Promo Item -->
+                <div class="u-header__promo-item">
+                  <a class="u-header__promo-link" href="../../documentation/index.html">
+                    <div class="media align-items-center">
+                      <img class="js-svg-injector u-header__promo-icon" src="../../assets/svg/icons/icon-2.svg" alt="SVG">
+                      <div class="media-body">
+                        <span class="u-header__promo-title">
+                          Documentation
+                          <span class="badge badge-primary badge-pill ml-1">v2.0</span>
+                        </span>
+                        <small class="u-header__promo-text">Development guides</small>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- End Promo Item -->
+
+                <!-- Promo Item -->
+                <div class="u-header__promo-item">
+                  <a class="u-header__promo-link" href="../../starter/index.html">
+                    <div class="media align-items-center">
+                      <img class="js-svg-injector u-header__promo-icon" src="../../assets/svg/icons/icon-1.svg" alt="SVG">
+                      <div class="media-body">
+                        <span class="u-header__promo-title">Get started</span>
+                        <small class="u-header__promo-text">Components and snippets</small>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+                <!-- End Promo Item -->
+
+                <div class="u-header__promo-footer">
+                  <!-- List -->
+                  <div class="row no-gutters">
+                    <div class="col-6">
+                      <div class="u-header__promo-footer-item">
+                        <small class="text-muted d-block">Check what's new</small>
+                        <a class="small" href="../../documentation/getting-started/changelog.html">
+                          Changelog
+                        </a>
+                      </div>
+                    </div>
+                    <div class="col-6 u-header__promo-footer-ver-divider">
+                      <div class="u-header__promo-footer-item">
+                        <small class="text-muted d-block">Have a question?</small>
+                        <a class="small" href="http://htmlstream.com/contact-us">
+                          Contact us
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- End List -->
+                </div>
+              </div>
+              <!-- End Docs - Submenu -->
+            </li>
+            <!-- End Docs -->
+
+            <!-- Button -->
+            <li class="nav-item u-header__nav-last-item">
+              <%= link_to "Login", new_user_session_path, class: "btn btn-sm btn-primary transition-3d-hover" unless current_user %>
+              <%= link_to "Dashboard", dashboard_path, class: "btn btn-sm btn-primary transition-3d-hover" if current_user %>
+            </li>
+            <!-- End Button -->
+          </ul>
+        </div>
+        <!-- End Navigation -->
+      </nav>
+      <!-- End Nav -->
+    </div>
+
+<div id="logoAndNav" class="container" style="display: none;">
   <!-- Nav -->
   <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar u-header__navbar--no-space space-1 space-md-0" data-controller="mega-menu">
     <%= link_to image_tag("codefund-w.svg", alt: "CodeFund"), root_path, class: "navbar-brand u-header__navbar-brand u-header__navbar-brand-center" %>
