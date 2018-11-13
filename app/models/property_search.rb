@@ -13,11 +13,11 @@ class PropertySearch < ApplicationSearchRecord
 
   def initialize(attrs = {})
     super FIELDS, attrs
-    self.ad_templates ||= []
-    self.keywords ||= []
-    self.languages ||= []
-    self.property_types ||= []
-    self.statuses ||= []
+    (self.ad_templates ||= []).reject!(&:blank?)
+    (self.keywords ||= []).reject!(&:blank?)
+    (self.languages ||= []).reject!(&:blank?)
+    (self.property_types ||= []).reject!(&:blank?)
+    (self.statuses ||= []).reject!(&:blank?)
   end
 
   def apply(relation)

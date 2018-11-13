@@ -8,7 +8,7 @@ require "fileutils"
 
 def build_impression(displayed_at)
   property = @publisher.properties.sample
-  campaign = @campaign_cache[property.id] || Campaign.property(property).limit(1).first
+  campaign = @campaign_cache[property.id] || Campaign.for_property(property).limit(1).first
   @campaign_cache[property.id] = campaign
   return nil unless campaign
   {
