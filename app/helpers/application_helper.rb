@@ -35,8 +35,8 @@ module ApplicationHelper
     User.advertiser.where.not(company_name: nil).order(User.arel_table[:company_name].lower).pluck(:company_name).uniq
   end
 
-  def templates_for_select
-    Template.select(:id, :name).order(:name)
+  def ad_templates_for_select
+    ENUMS::AD_TEMPLATES.values
   end
 
   def languages_for_select

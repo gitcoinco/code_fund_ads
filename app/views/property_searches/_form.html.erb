@@ -16,7 +16,7 @@
             <%= tag.div f.input(:user, label: "Publisher", required: false), class: "col-12 col-md-auto" %>
             <%= tag.div f.input(:property_types, collection: property_types_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
             <%= tag.div f.input(:statuses, collection: property_statuses_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
-            <%= tag.div f.input(:templates, collection: templates_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:ad_templates, collection: ad_templates_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
             <%= tag.div f.input(:languages, collection: languages_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
             <%= tag.div f.input(:keywords, collection: keywords_for_select, label: "Topics", required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
 
