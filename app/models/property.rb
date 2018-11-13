@@ -50,7 +50,7 @@ class Property < ApplicationRecord
   scope :search_property_type, -> (*values) { values.blank? ? all : where(property_type: values) }
   scope :search_status, -> (*values) { values.blank? ? all : where(status: values) }
   scope :search_ad_template, -> (*values) { values.blank? ? all : where(ad_template: values) }
-  scope :search_user, -> (value) { value.blank? ? all : where(user_id: User.developer.search_name(value)) }
+  scope :search_user, -> (value) { value.blank? ? all : where(user_id: User.publisher.search_name(value)) }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns

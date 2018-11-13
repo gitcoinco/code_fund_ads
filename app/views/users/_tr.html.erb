@@ -9,6 +9,6 @@
   </td>
   <td>
     <%= link_to "Edit", edit_user_path(user), class: "btn btn-link btn-sm", title: "Edit User", data: tooltip_expando %>
-    <%= link_to "#{user.image_count} Images", images_path(user.to_gid_param), class: "btn btn-link btn-sm", title: "Manage Images", data: tooltip_expando if user.sponsor? %>
+    <%= link_to "#{user.image_count} Images", images_path(user.to_gid_param), class: "btn btn-link btn-sm", title: "Manage Images", data: tooltip_expando if user.advertiser? %>
   </td>
 <% end %>
