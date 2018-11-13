@@ -8,7 +8,7 @@
         </h3>
       </div>
     </div>
-    <div id="filters" class="collapse" aria-labelledby="filters-heading" data-parent="#filters-heading">
+    <div id="filters" class="collapse <%= "show" if @user_search.present? %>" aria-labelledby="filters-heading" data-parent="#filters-heading">
       <div class="card-body px-4">
         <%= simple_form_for @user_search do |f| %>
           <div class="row">

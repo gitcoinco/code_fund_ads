@@ -22,11 +22,11 @@
     <%= pseudo_row_divider %>
 
     <div class="col-12 col-md-6">
-      <%= f.association :user, collection: users_for_select(role: :developer), label: "Developer", label_method: :scoped_name, prompt: "Choose...", required: true,
+      <%= f.association :user, collection: users_for_select(role: :publisher), label: "Publisher", label_method: :scoped_name, prompt: "Choose...", required: true,
         input_html: { data: { controller: "select" }} %>
     </div>
     <div class="col-12 col-md-6">
-      <%= f.association :template, collection: templates_for_select, label: "Template", label_method: :name, prompt: "Choose...", required: false,
+      <%= f.association :template, collection: ad_templates_for_select, label: "Template", label_method: :name, prompt: "Choose...", required: false,
         input_html: { data: { controller: "select" }} %>
     </div>
 

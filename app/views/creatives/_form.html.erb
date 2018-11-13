@@ -4,7 +4,7 @@
     <%= render "@shared/forms/section_heading", text: "Info" %>
 
     <div class="col-12 col-md-6">
-      <%= f.association :user, collection: users_for_select(role: :sponsor), label: "Advertiser", label_method: :scoped_name, prompt: "Choose...", required: true,
+      <%= f.association :user, collection: users_for_select(role: :advertiser), label: "Advertiser", label_method: :scoped_name, prompt: "Choose...", required: true,
         input_html: { id: "user-id", data: { controller: "select select-parent", child: "creative-id" }} %>
     </div>
     <%= tag.div f.input(:name, required: true), class: "col-12 col-md-6" %>

@@ -82,7 +82,7 @@ class User < ApplicationRecord
   # Examples
   #
   #   irb>User.with_roles(:admin)
-  #   irb>User.without_any_roles(:sponsor, :developer)
+  #   irb>User.without_any_roles(:advertiser, :publisher)
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   tag_columns :roles rescue ActiveRecord::NoDatabaseError # rescue required for initial migration due to devise
@@ -104,16 +104,16 @@ class User < ApplicationRecord
 
   # public instance methods ...................................................
 
-  def admin?
-    roles.include? ENUMS::USER_ROLES["admin"]
+  def administrator?
+    roles.include? ENUMS::USER_ROLES["administrator"]
   end
 
-  def sponsor?
-    roles.include? ENUMS::USER_ROLES["sponsor"]
+  def advertiser?
+    roles.include? ENUMS::USER_ROLES["advertiser"]
   end
 
-  def developer?
-    roles.include? ENUMS::USER_ROLES["developer"]
+  def publisher?
+    roles.include? ENUMS::USER_ROLES["publisher"]
   end
 
   def total_distributions
