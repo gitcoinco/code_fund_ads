@@ -84,7 +84,11 @@ class CampaignsController < ApplicationController
     end
 
     def set_user
-      @user = User.find(params[:user_id])
+      if params[:user_id] == "me"
+        @user = current_user
+      else
+        @user = User.find(params[:user_id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -37,6 +37,22 @@
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  invitation_roles       :string           default([]), is an Array
+#  invitation_token       :string
+#  invitation_created_at  :datetime
+#  invitation_sent_at     :datetime
+#  invitation_accepted_at :datetime
+#  invitation_limit       :integer
+#  invited_by_type        :string
+#  invited_by_id          :bigint(8)
+#  invitations_count      :integer          default(0)
+#  us_resident            :boolean          default(FALSE)
+#  bio                    :text
+#  website_url            :string
+#  skills                 :text             default([]), is an Array
+#  github_username        :string
+#  twitter_username       :string
+#  linkedin_username      :string
 #
 
 class User < ApplicationRecord
@@ -84,11 +100,31 @@ class User < ApplicationRecord
   #   irb>User.with_roles(:admin)
   #   irb>User.without_any_roles(:advertiser, :publisher)
 
+
+  # Scopes and helpers provied by devise_invitable
+  # SEE: https://github.com/scambra/devise_invitable
+  #
+  # - invitation_accepted
+  # - invitation_not_accepted
+  # - created_by_invite
+  # - created_by_invite?        # Verify wheather a user is created by invitation, irrespective to invitation status
+  # - invited_to_sign_up?       # Verifies whether a user has been invited or not
+  # - accepting_invitation?     # Returns true if accept_invitation! was called
+  # - invitation_accepted?      # Verifies whether a user accepted an invitation (false when user is accepting it)
+  # - accepted_or_not_invited?  # Verifies whether a user has accepted an invitation (false when user is accepting it), or was never invited
+  #
+  # Examples
+  #
+  #   irb>User.invitation_accepted
+  #   irb>User.invitation_not_accepted
+  #   irb>User.created_by_invite
+
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   tag_columns :roles rescue ActiveRecord::NoDatabaseError # rescue required for initial migration due to devise
   devise(
     :confirmable,
     :database_authenticatable,
+    :invitable,
     :lockable,
     :recoverable,
     :rememberable,
@@ -96,6 +132,8 @@ class User < ApplicationRecord
     :trackable,
     :validatable,
   )
+  has_one_attached :avatar
+  tag_columns :skills
 
   # class methods .............................................................
   class << self

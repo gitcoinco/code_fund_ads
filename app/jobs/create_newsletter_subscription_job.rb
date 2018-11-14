@@ -7,9 +7,9 @@ class CreateNewsletterSubscriptionJob < ApplicationJob
     begin
       gibbon = Gibbon::Request.new(api_key: ENV["MAILCHIMP_API_KEY"])
       gibbon.lists(ENV["MAILCHIMP_NEWSLETTER_ID"]).members.create(body: { email_address: email, status: "subscribed" })
-      CreateSlackNotificationJob.perform_later ":email: #{email} just signed up for the newsletter"
+      CreateSlackNotificationJob.perform_later text: ":email: #{email} just signed up for the newsletter"
     rescue Gibbon::MailChimpError => ex
-      CreateSlackNotificationJob.perform_later ":email: #{email} tried to sign up for the newsletter but is already signed up"
+      CreateSlackNotificationJob.perform_later text: ":email: #{email} tried to sign up for the newsletter but is already signed up"
     end
   end
 end
