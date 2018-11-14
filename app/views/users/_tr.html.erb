@@ -20,6 +20,6 @@
     <% end %>
     <%= link_to images_path(user.to_gid_param), class: "btn btn-xs btn-icon btn-soft-secondary transition-3d-hover", title: "Manage Images", data: tooltip_expando do %>
       <span class="fas fa-images btn-icon__inner"></span>
-    <% end if user.sponsor? %>
+    <% end if user.advertiser? %>
   </td>
 <% end %>

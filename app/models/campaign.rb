@@ -53,9 +53,9 @@ class Campaign < ApplicationRecord
   scope :search_negative_keywords, -> (*values) { values.blank? ? all : with_any_negative(*values) }
   scope :search_status, -> (*values) { values.blank? ? all : where(status: values) }
   scope :search_us_hours_only, -> (value) { value.nil? ? all : where(us_hours_only: value) }
-  scope :search_user, -> (value) { value.blank? ? all : where(user_id: User.sponsor.search_name(value).or(User.sponsor.search_company(value))) }
+  scope :search_user, -> (value) { value.blank? ? all : where(user_id: User.advertiser.search_name(value).or(User.advertiser.search_company(value))) }
   scope :search_weekdays_only, -> (value) { value.nil? ? all : where(weekdays_only: value) }
-  scope :property, -> (property) do
+  scope :for_property, -> (property) do
     relation = with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
     relation = relation.where(fallback: false) if property.prohibit_fallback_campaigns
     relation

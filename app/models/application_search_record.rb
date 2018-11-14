@@ -72,6 +72,10 @@ class ApplicationSearchRecord
     super
   end
 
+  def boolean(value)
+    !!(value.to_s =~ /\A1|t(rue)?\z/i)
+  end
+
   private
 
     def keyify(name)

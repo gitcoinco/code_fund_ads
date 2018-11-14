@@ -10,7 +10,7 @@ class UserSearch < ApplicationSearchRecord
 
   def initialize(attrs = {})
     super FIELDS, attrs
-    self.roles = (roles || []).reject(&:blank?)
+    (self.roles ||= []).reject!(&:blank?)
   end
 
   def apply(relation)

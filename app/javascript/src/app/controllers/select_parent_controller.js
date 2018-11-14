@@ -21,6 +21,7 @@ export default class extends Controller {
   }
 
   filterChildren() {
+    if (!this.childSelectTarget) return;
     this.childSelectTarget.dispatchEvent(new Event('select:destroy'));
     this.restoreOrigChildOptionsState();
     if (this.element.value) {
@@ -57,10 +58,17 @@ export default class extends Controller {
   }
 
   get childSelectTarget() {
-    return document.getElementById(this.element.dataset.child);
+    let id = this.element.dataset.child;
+    let element = document.getElementById(id);
+    if (!element)
+      console.log(
+        `select-parent-controller: Unable to find a child with the id '${id}'`
+      );
+    return element;
   }
 
   get childOptions() {
+    if (!this.childSelectTarget) return [];
     return toArray(this.childSelectTarget.querySelectorAll('option'));
   }
 }

@@ -52,10 +52,12 @@
   <body>
     <%= render "/@shared/skippy" %>
     <%= render "/@shared/header" %>
+
+    <div style="margin-top:114px"></div>
     <%= yield :page_heading %>
     <%= yield %>
     <%= render "/@shared/footer" %>
-    <%= render "/@shared/secondary" %>
+    <%= render "/@shared/secondary" if current_user %>
 
     <%= noty_flash %>
     <%= support_widget_tag %>

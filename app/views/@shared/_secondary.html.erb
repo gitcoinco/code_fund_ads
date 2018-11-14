@@ -29,11 +29,11 @@
           <!-- Holder Info -->
           <header class="d-flex align-items-center u-sidebar--account__holder mt-3">
             <div class="position-relative">
-              <img class="u-sidebar--account__holder-img" src="../../assets/img/100x100/img1.jpg" alt="Image Description">
+              <%= image_tag current_user.gravatar_url, class: "u-sidebar--account__holder-img", alt: current_user.full_name %>
               <span class="badge badge-xs badge-outline-success badge-pos rounded-circle"></span>
             </div>
             <div class="ml-3">
-              <span class="font-weight-semi-bold">Natalie Curtis <span class="badge badge-success ml-1">Pro</span></span>
+              <span class="font-weight-semi-bold"><%= current_user.full_name %> <span class="badge badge-success ml-1">Pro</span></span>
               <span class="u-sidebar--account__holder-text">Lead Support Adviser</span>
             </div>
 
