@@ -54,35 +54,10 @@
     <%= render "/@shared/header" %>
 
     <div style="margin-top:114px"></div>
-
-    <% if content_for?(:breadcrumbs) %>
-      <div class="bg-primary">
-        <div class="container pt-4 pb-4">
-          <div class="row">
-            <div class="col-lg-5 order-lg-2 text-lg-right mb-4 mb-lg-0">
-              <div class="d-flex d-lg-inline-block justify-content-between justify-content-lg-end align-items-center align-items-lg-start">
-                <ol class="breadcrumb breadcrumb-white breadcrumb-no-gutter mb-0">
-                  <%= yield :breadcrumbs %>
-                </ol>
-              </div>
-
-              <% if content_for?(:actions) %>
-                <div class="ml-lg-auto mt-4">
-                  <%= yield :actions %>
-                </div>
-              <% end %>
-            </div>
-
-            <div class="col-lg-7 order-lg-1">
-              <%= yield :page_heading %>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-
+    <%= yield :page_heading %>
     <%= yield %>
     <%= render "/@shared/footer" %>
+    <%= render "/@shared/secondary" if current_user %>
 
     <%= noty_flash %>
     <%= support_widget_tag %>

@@ -74,3 +74,7 @@ fieldset.inline {
     }
   }
 }
+
+.breadcrumb-item.active .breadcrumb-link {
+  color: #fff;
+}

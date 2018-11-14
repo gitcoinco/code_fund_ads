@@ -1,12 +1,19 @@
-<div class="accordion mb-4">
-  <div class="card u-card-collapse border-0">
-    <div class="card-header px-4 bg-white border-0" id="filters-heading">
-      <div class="collapsed" data-toggle="collapse" data-target="#filters" aria-expanded="false" aria-controls="filters" role="button">
-        <h3 class="h6 d-flex justify-content-between align-items-center font-weight-normal u-card-collapse__heading mb-0">
-          <span><i class="fas fa-search"></i></span>
-          <span class="fa fa-angle-up u-card-collapse__heading-icon"></span>
-        </h3>
-      </div>
+<div id="filterAccordian">
+  <div class="card mb-3">
+    <div class="card-header card-collapse" id="filterHeading">
+      <h5 class="mb-0">
+        <button class="btn btn-link btn-block d-flex justify-content-between card-btn p-3"
+                data-toggle="collapse"
+                data-target="#filterCollapse"
+                aria-expanded="true"
+                aria-controls="filterCollapse">
+          Apply Filters
+
+          <span class="card-btn-arrow">
+            <span class="fas fa-arrow-down small"></span>
+          </span>
+        </button>
+      </h5>
     </div>
     <div id="filters" class="collapse <%= "show" if @user_search.present? %>" aria-labelledby="filters-heading" data-parent="#filters-heading">
       <div class="card-body px-4">

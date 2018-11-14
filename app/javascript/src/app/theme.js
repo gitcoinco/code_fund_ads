@@ -12,6 +12,7 @@ import 'theme/vendor/svg-injector/dist/svg-injector.min';
 import 'theme/vendor/slick-carousel/slick/slick';
 import 'theme/vendor/chartist/dist/chartist.min';
 import 'theme/vendor/chartist-js-tooltip/chartist-plugin-tooltip';
+// import 'theme/vendor/summernote/dist/summernote-lite';
 
 // theme scripts
 import 'theme/js/hs.core';
@@ -28,6 +29,7 @@ import 'theme/js/components/hs.show-animation';
 import 'theme/js/components/hs.go-to';
 import 'theme/js/components/hs.sticky-block';
 import 'theme/js/components/hs.scroll-nav';
+// import "theme/js/components/hs.summernote-editor";
 import 'theme/js/components/hs.chartist-area-chart';
 import 'theme/js/components/hs.chartist-bar-chart';
 import "theme/js/components/hs.focus-state";
@@ -44,5 +46,22 @@ document.addEventListener('turbolinks:load', () => {
   jQuery.HSCore.components.HSFancyBox.init(".js-fancybox");
   jQuery.HSCore.components.HSSlickCarousel.init(".js-slick-carousel");
   jQuery.HSCore.components.HSValidation.init(".js-validate");
+  // jQuery.HSCore.components.HSSummernoteEditor.init(".js-summernote-editor");
   jQuery.HSCore.components.HSFocusState.init();
+
+  // initialization of HSMegaMenu component
+  jQuery(".js-mega-menu").HSMegaMenu({
+    event: "hover",
+    pageContainer: jQuery(".container"),
+    breakpoint: 767.98,
+    hideTimeOut: 0
+  });
+
+  // initialization of HSMegaMenu component
+  jQuery(".js-breadcrumb-menu").HSMegaMenu({
+    event: "hover",
+    pageContainer: jQuery(".container"),
+    breakpoint: 991.98,
+    hideTimeOut: 0
+  });
 });

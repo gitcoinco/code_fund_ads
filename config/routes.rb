@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root "pages#index"
-  devise_for :users
+  root to: "pages#index"
+
+  devise_for :users, controllers: { sessions: "sessions" }
 
   resource :dashboard, only: [:show]
+  resource :contact, only: [:show, :create]
   resources :campaign_searches, only: [:create, :destroy]
   resources :property_searches, only: [:create, :destroy]
   resources :user_searches, only: [:create, :destroy]

@@ -13,12 +13,11 @@
     icon: "user-circle" %>
 <% end %>
 
-<main id="content" role="main">
-  <div class="u-bg-light-blue-50">
-    <div class="container u-space-1">
-      <p id="notice"><%= notice %></p>
-      <%= render "/user_searches/form" %>
-      <div class="bg-white p-4">
+<main id="content" role="main" class="bg-light">
+  <div class="container space-1">
+    <%= render "/user_searches/form" %>
+    <div class="card">
+      <div class="card-body">
         <%= render "/users/table" %>
       </div>
     </div>
