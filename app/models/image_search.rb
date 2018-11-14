@@ -2,9 +2,10 @@
 
 class ImageSearch < ApplicationSearchRecord
   FIELDS = %w[
+    description
+    filename
     formats
     name
-    description
   ].freeze
 
   def initialize(attrs = {})
@@ -15,8 +16,9 @@ class ImageSearch < ApplicationSearchRecord
   def apply(relation)
     return relation unless present?
     relation
-      .then { |result| result.search_metadata_format *formats }
-      .then { |result| result.search_metadata_name name }
-      .then { |result| result.search_metadata_description description }
+      .then { |result| result.merge ActiveStorage::Attachment.search_filename(filename).merge result }
+      .then { |result| result.merge ActiveStorage::Attachment.search_metadata_description(description) }
+      .then { |result| result.merge ActiveStorage::Attachment.search_metadata_format(*formats) }
+      .then { |result| result.merge ActiveStorage::Attachment.search_metadata_name(name) }
   end
 end

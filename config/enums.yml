@@ -97,6 +97,11 @@ IMAGE_FORMATS:
   - large
   - wide
 
+IMAGE_CONTENT_TYPES:
+  - image/gif
+  - image/jpeg
+  - image/png
+
 IMPRESSION_CODES:
   - ok
   - property_inactive

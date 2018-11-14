@@ -1,0 +1,2 @@
+module ImageSearchesHelper
+end
