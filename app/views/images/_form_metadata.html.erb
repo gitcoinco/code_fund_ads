@@ -1,7 +1,7 @@
 <%= simple_form_for @image, url: image_path(@imageable.to_gid_param, @image) do |f| %>
-  <div class="row">
+  <div class="row mt-5">
     <div class="col-12">
-      <%= image_tag @image.variant(geometry: "400x400>"), class: "img-thumbnail img-fluid d-block" %>
+      <%= image_tag @image.variant(geometry: "400x400>"), class: "img-thumbnail img-fluid d-block mb-1" %>
       <%= link_to "View original", @image, target: "_blank" %>
     </div>
 
@@ -42,7 +42,9 @@
     <%= pseudo_row_divider %>
 
     <%= render "@shared/forms/button_panel" do %>
-      <%= f.button(:submit, value: "Update Image", class: "btn-lg btn-primary") %>
+      <%= f.button(:submit, value: "Update Image", class: "btn btn-pill btn-primary btn-lg") %>
+      <%= link_to "Delete Image", image_path(@imageable.to_gid_param, @image), class: "btn btn-link btn-lg text-danger", method: :delete,
+        data: { confirm: I18n.t("images.destroy.confirm") } if authorizable.can_destroy?(@image) %>
     <% end %>
   </div>
 <% end %>

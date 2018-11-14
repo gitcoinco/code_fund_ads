@@ -4,12 +4,12 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   before_action -> { cookies.encrypted[:example_id] ||= SecureRandom.uuid }
 
-  # NOTE: The `authorizer` instance variable should be setup
+  # NOTE: The `authorizable` instance variable should be setup
   #       with a `before_action` in each controller when appropriate
-  attr_reader :authorizer
+  attr_reader :authorizable
 
-  # The authorizer is also made available to views
-  helper_method :authorizer
+  # The `authorizable` variable is made available to views
+  helper_method :authorizable
 
   protected
 

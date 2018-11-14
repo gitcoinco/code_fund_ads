@@ -13,6 +13,7 @@ class Image
     filename
     id
     persisted?
+    record
     variant
   ]
 

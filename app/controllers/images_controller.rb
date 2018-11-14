@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ImagesController < ApplicationController
-  before_action :set_authorizer
+  before_action :set_authorizable
   before_action :set_imageable
 
   def index
@@ -12,13 +12,13 @@ class ImagesController < ApplicationController
 
   def edit
     image = @imageable.images.find(params[:id])
-    return render_forbidden unless authorizer.can_update?(image)
+    return render_forbidden unless authorizable.can_update?(image)
     @image = Image.new(image)
   end
 
   def update
     image = @imageable.images.find(params[:id])
-    return render_forbidden unless authorizer.can_update?(image)
+    return render_forbidden unless authorizable.can_update?(image)
     image.blob.metadata = image.blob.metadata.merge(image_params)
     image.blob.save
     flash[:notice] = I18n.t("images.update.success")
@@ -32,7 +32,7 @@ class ImagesController < ApplicationController
 
   def destroy
     image = ActiveStorage::Attachment.find(params[:id])
-    return render_forbidden unless authorizer.can_destroy?(image)
+    return render_forbidden unless authorizable.can_destroy?(image)
     image.purge
     flash[:notice] = I18n.t("images.destroy.success")
     redirect_to images_path(@imageable.to_gid_param)
@@ -40,8 +40,8 @@ class ImagesController < ApplicationController
 
   private
 
-    def set_authorizer
-      @authorizer = ImagesAuthorizer.new(current_user)
+    def set_authorizable
+      @authorizable = ImagesAuthorizer.new(current_user)
     end
 
     def set_imageable

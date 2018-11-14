@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ImagesAuthorizer < Perm::Authorized
   alias_method :user, :subject
 
