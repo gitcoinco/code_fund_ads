@@ -30,6 +30,17 @@ enums[:ad_themes] = Dir.glob(Rails.root.join("app/views/ads/**/themes/*.css")).m
   File.basename(path).sub(".css", "")
 end.uniq.sort
 
+# Exposes pages for the partials living under: app/views/pages
+#
+# Examples:
+#
+#   ENUMS::PAGES::HELP
+#   ENUMS::PAGES::TEAM
+#
+enums[:pages] = Dir.glob("_*rb", base: Rails.root.join("app/views/pages")).map do |page|
+  page.scan(/(?<=\A_).*(?=\.html\.erb\z)/)
+end.flatten.sort
+
 enums.each do |key, dictionary|
   dictionary = dictionary.zip(dictionary).to_h if dictionary.is_a?(Array)
 

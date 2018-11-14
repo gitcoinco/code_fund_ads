@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ImagesController < ApplicationController
+  before_action :set_authorizer
   before_action :set_imageable, except: [:update, :destroy]
 
   # GET /imageable/:imageable_gid/images/
@@ -14,12 +15,15 @@ class ImagesController < ApplicationController
   # GET /imageable/:imageable_gid/images/1/edit
   def edit
     image = @imageable.images.find(params[:id])
+    return render_forbidden unless authorizer.can_update?(image)
     @image = Image.new(image)
   end
 
   # PATCH/PUT /imageable/:imageable_gid/images/1/edit
   # PATCH/PUT /imageable/:imageable_gid/images/1/edit.json
   def update
+    image = @imageable.images.find(params[:id])
+    return render_forbidden unless authorizer.can_update?(image)
     binding.pry
   end
 
@@ -43,6 +47,10 @@ class ImagesController < ApplicationController
   end
 
   private
+
+    def set_authorizer
+      @authorizer = ImagesAuthorizer.new(current_user)
+    end
 
     def set_imageable
       @imageable = GlobalID.parse(params[:imageable_gid]).find
