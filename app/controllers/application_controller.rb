@@ -15,5 +15,4 @@ class ApplicationController < ActionController::Base
     def after_invite_path_for(inviter, invitee = nil)
       users_path
     end
-
 end

@@ -33,7 +33,7 @@
               <span class="badge badge-xs badge-outline-success badge-pos rounded-circle"></span>
             </div>
             <div class="ml-3">
-              <span class="font-weight-semi-bold"><%= current_user.full_name %> <span class="badge badge-success ml-1">Pro</span></span>
+              <span class="font-weight-semi-bold"><%= current_user.full_name %></span>
               <span class="u-sidebar--account__holder-text"><%= current_user.company_name || current_user.email %></span>
             </div>
 
@@ -125,7 +125,7 @@
             </ul>
             <!-- End List Links -->
 
-            <div class="u-sidebar--account__list-divider"></div>
+            <div class="u-sidebar--account__list-divider pb-0 mt-2"></div>
 
             <!-- List Links -->
             <ul class="list-unstyled u-sidebar--account__list">
@@ -141,6 +141,13 @@
                   API Token
                 </a>
               </li>
+            </ul>
+            <!-- End List Links -->
+
+            <div class="u-sidebar--account__list-divider pb-0 mt-2"></div>
+
+            <!-- List Links -->
+            <ul class="list-unstyled u-sidebar--account__list">
               <li class="u-sidebar--account__list-item">
                 <%= link_to destroy_user_session_path, class: "u-sidebar--account__list-link" do %>
                   <span class="fas fa-key u-sidebar--account__list-icon mr-2"></span>

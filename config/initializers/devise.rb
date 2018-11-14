@@ -143,9 +143,9 @@ Devise.setup do |config|
   # config.invite_key = {:email => /\A[^@]+@[^@]+\z/}
   # config.invite_key = {:email => /\A[^@]+@[^@]+\z/, :username => nil}
   config.invite_key = {
-    :email => /\A[^@]+@[^@]+\z/,
-    :first_name => /\A.+\z/,
-    :last_name => /\A.+\z/
+    email: /\A[^@]+@[^@]+\z/,
+    first_name: /\A.+\z/,
+    last_name: /\A.+\z/
   }
 
   # Flag that force a record to be valid before being actually invited

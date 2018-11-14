@@ -25,7 +25,7 @@
           <div class="card p-1 mb-4">
             <div class="card-body text-center">
               <div class="mb-3">
-                <%= image_tag @user.gravatar_url, class: "u-lg-avatar rounded-circle", alt: current_user.full_name %>
+                <%= image_tag @user.avatar.attached? ? @user.avatar : @user.gravatar_url, class: "u-lg-avatar rounded-circle", alt: current_user.full_name %>
               </div>
 
               <div class="mb-3">
@@ -43,29 +43,42 @@
             </div>
 
             <div class="card-body pt-3 pb-4 px-4">
-              <!-- Social Profiles -->
-              <a class="media mb-4" href="#">
-                <div class="u-sm-avatar mr-3">
-                  <img class="img-fluid" src="../../assets/img/160x160/img19.png" alt="Image Description">
-                </div>
-                <div class="media-body">
-                  <span class="d-block text-dark">Twitter</span>
-                  <small class="d-block text-secondary">@coderberry</small>
-                </div>
-              </a>
-              <!-- End Social Profiles -->
-
-              <!-- Social Profiles -->
-              <a class="media" href="#">
-                <div class="u-sm-avatar mr-3">
-                  <img class="img-fluid" src="../../assets/img/160x160/img20.png" alt="Image Description">
-                </div>
-                <div class="media-body">
-                  <span class="d-block text-dark">Facebook</span>
-                  <small class="d-block text-secondary">3k followers</small>
-                </div>
-              </a>
-              <!-- End Social Profiles -->
+              
+              <% if @user.twitter_username.present? %>
+                <a class="media mb-4" href="https://twitter.com/<%= @user.twitter_username %>" target="_blank">
+                  <div class="u-sm-avatar mr-3">
+                    <i class="fab fa-twitter fa-2x" style="color: #00acec;"></i>
+                  </div>
+                  <div class="media-body">
+                    <span class="d-block text-dark">Twitter</span>
+                    <small class="d-block text-secondary">@<%= @user.twitter_username %></small>
+                  </div>
+                </a>
+              <% end %>
+              
+              <% if @user.github_username.present? %>
+                <a class="media mb-4" href="https://github.com/<%= @user.github_username %>" target="_blank">
+                  <div class="u-sm-avatar mr-3">
+                    <i class="fab fa-github fa-2x text-dark"></i>
+                  </div>
+                  <div class="media-body">
+                    <span class="d-block text-dark">GitHub</span>
+                    <small class="d-block text-secondary"><%= @user.github_username %></small>
+                  </div>
+                </a>
+              <% end %>
+              
+              <% if @user.linkedin_username.present? %>
+                <a class="media mb-4" href="https://linkedin.com/in/<%= @user.github_username %>" target="_blank">
+                  <div class="u-sm-avatar mr-3">
+                    <i class="fab fa-linkedin fa-2x" style="color: #0077b5;"></i>
+                  </div>
+                  <div class="media-body">
+                    <span class="d-block text-dark">LinkedIn</span>
+                    <small class="d-block text-secondary"><%= @user.linkedin_username %></small>
+                  </div>
+                </a>
+              <% end %>
             </div>
           </div>
           <!-- End Social Profiles -->
@@ -79,13 +92,13 @@
               <%= badge_for_role(role) %>
             <% end %>
             </h2>
-            <h4 class="h6 text-secondary mb-0">London, UK <small>- Joined in July 2017</small></h4>
+            <h4 class="h6 text-secondary mb-0"><%= @user.display_region %> <small>- Joined in <%= @user.created_at.strftime("%B, %Y") %></small></h4>
           </div>
           <!-- End User Details -->
 
           <!-- Info -->
           <div class="mb-4">
-            <p>I am a project manager from England. This is where I sit down, grab a cup of coffee and dial in the details. Understanding the task at hand and ironing out the wrinkles is key. The time has come to bring those ideas and plans to life. This is where we really begin to visualize your napkin sketches and make them into beautiful pixels.</p>
+            <p><%= simple_format @user.bio %></p>
           </div>
           <!-- End Info -->
 
@@ -93,28 +106,38 @@
           <ul class="list-inline d-flex align-items-center">
             <li class="list-inline-item mb-3 mb-sm-0 mr-5">
               <div class="d-flex align-items-center">
-                <span class="bg-warning text-white font-weight-medium rounded py-2 px-3 mr-2">125</span>
+                <span class="bg-warning text-white font-weight-medium rounded py-2 px-3 mr-2"><%= @user.properties.count %></span>
                 <div class="text-secondary">
-                  Reviews
+                  Properties
                 </div>
               </div>
             </li>
             <li class="list-inline-item mb-3 mb-sm-0 mr-5">
               <div class="d-flex align-items-center">
-                <img class="mr-2" src="../../assets/svg/illustrations/referral.svg" alt="Image Description" style="width: 40px;">
+                <span class="bg-info text-white font-weight-medium rounded py-2 px-3 mr-2"><%= @user.campaigns.count %></span>
                 <div class="text-secondary">
-                  +3 Referrals
+                  Campaigns
                 </div>
               </div>
             </li>
-            <li class="list-inline-item mb-3 mb-sm-0">
+            <li class="list-inline-item mb-3 mb-sm-0 mr-5">
               <div class="d-flex align-items-center">
-                <img class="mr-2" src="../../assets/svg/illustrations/verified-user.svg" alt="Image Description" style="width: 40px;">
+                <%= image_tag "/assets/svg/illustrations/referral.svg", class: "mr-2", style: "width: 40px;" %>
                 <div class="text-secondary">
-                  Verified
+                  <%= @user.invitations_count %> Invitations
                 </div>
               </div>
             </li>
+            <% if @user.accepted_or_not_invited? %>
+              <li class="list-inline-item mb-3 mb-sm-0">
+                <div class="d-flex align-items-center">
+                  <%= image_tag "/assets/svg/illustrations/verified-user.svg", class: "mr-2", style: "width: 40px;" %>
+                  <div class="text-secondary">
+                    Verified
+                  </div>
+                </div>
+              </li>
+            <% end %>
           </ul>
           <!-- End Collections -->
 
@@ -130,7 +153,7 @@
                     <span class="fas fa-envelope list-group-icon mr-3"></span>
                     <div class="media-body text-lh-sm">
                       <span class="d-block mb-1">Email:</span>
-                      <a href="#">natalie.curtis@gmail.com</a>
+                      <%= mail_to @user.email %>
                     </div>
                   </div>
                 </li>
@@ -139,16 +162,7 @@
                     <span class="fas fa-link list-group-icon mr-3"></span>
                     <div class="media-body text-lh-sm">
                       <span class="d-block mb-1">Web page:</span>
-                      <a href="#">www.htmlstream.com/natalie</a>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item pt-0 pb-4">
-                  <div class="media">
-                    <span class="fas fa-map-marker-alt list-group-icon mr-3"></span>
-                    <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">Location:</span>
-                      <a href="#">London, England</a>
+                      <%= link_to @user.website_url, @user.website_url if @user.website_url.present? %>
                     </div>
                   </div>
                 </li>
@@ -161,10 +175,10 @@
               <ul class="list-group list-group-transparent list-group-flush list-group-borderless mb-0">
                 <li class="list-group-item pt-0 pb-4">
                   <div class="media">
-                    <span class="fas fa-birthday-cake list-group-icon mr-3"></span>
+                    <span class="fas fa-map-marker-alt list-group-icon mr-3"></span>
                     <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">Birthday:</span>
-                      <span class="d-block text-muted">May 3, 1986</span>
+                      <span class="d-block mb-1">Location:</span>
+                      <span class="d-block text-muted"><%= @user.display_region %></span>
                     </div>
                   </div>
                 </li>
@@ -173,16 +187,7 @@
                     <span class="fas fa-building list-group-icon mr-3"></span>
                     <div class="media-body text-lh-sm">
                       <span class="d-block mb-1">Organization:</span>
-                      <a href="#">Pixeel Ltd.</a>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item pt-0 pb-4">
-                  <div class="media">
-                    <span class="fas fa-mobile-alt list-group-icon mr-3"></span>
-                    <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">Phone number:</span>
-                      <a href="#">+44 (0161) 347 8854</a>
+                      <span class="d-block text-muted"><%= @user.company_name %></span>
                     </div>
                   </div>
                 </li>
@@ -197,8 +202,8 @@
                   <div class="media">
                     <span class="fas fa-globe list-group-icon mr-3"></span>
                     <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">Language:</span>
-                      <span class="d-block text-muted">English, French</span>
+                      <span class="d-block mb-1">US Resident?</span>
+                      <span class="d-block text-muted"><%= @user.us_resident? ? "Yes" : "No" %></span>
                     </div>
                   </div>
                 </li>
@@ -206,11 +211,8 @@
                   <div class="media">
                     <span class="fas fa-tags list-group-icon mr-3"></span>
                     <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">Skills:</span>
-                      <a href="#">HTML5,</a>
-                      <a href="#">CSS3,</a>
-                      <a href="#">JavaScript,</a>
-                      <a href="#">jQuery</a>
+                      <span class="d-block mb-1">Tags:</span>
+                      <span class="d-block text-muted"><%= @user.skills.join(", ") %></span>
                     </div>
                   </div>
                 </li>
@@ -219,212 +221,6 @@
             </div>
           </div>
           <!-- End Icon Blocks -->
-
-          <hr class="my-7">
-
-          <!-- Info -->
-          <div class="row mb-7">
-            <div class="col-md-6 mb-7 mb-md-0">
-              <!-- Title -->
-              <div class="mb-3">
-                <h3 class="h6 mb-0">Work experience</h3>
-              </div>
-              <!-- End Title -->
-
-              <!-- Info -->
-              <div class="d-flex mb-5">
-                <img class="u-avatar align-self-center mr-4" src="../../assets/img/160x160/img17.png" alt="Image Description">
-                <div>
-                  <small class="d-block text-secondary">Jul 2018</small>
-                  <h4 class="h6 mb-0">Senior Frontend Developer</h4>
-                  <span class="d-block text-secondary">at Google - SF, US</span>
-                </div>
-              </div>
-              <!-- End Info -->
-
-              <!-- Info -->
-              <div class="d-flex">
-                <img class="u-avatar align-self-center mr-4" src="../../assets/img/160x160/img14.png" alt="Image Description">
-                <div>
-                  <small class="d-block text-secondary">Aug 2016 - Jul 2018</small>
-                  <h4 class="h6 mb-0">Junior Frontend Developer</h4>
-                  <span class="d-block text-secondary">at Slack Inc - London, UK</span>
-                </div>
-              </div>
-              <!-- End Info -->
-            </div>
-
-            <div class="col-md-6 mb-3 mb-md-0">
-              <!-- Title -->
-              <div class="mb-3">
-                <h3 class="h6 mb-0">Education</h3>
-              </div>
-              <!-- End Title -->
-
-              <!-- Info -->
-              <div class="row align-items-center mb-5">
-                <div class="col-4">
-                  <img class="img-fluid" src="../../assets/img/logos/harvard-university.png" alt="Image Description">
-                </div>
-                <div class="col-8">
-                  <small class="d-block text-secondary">Sep 2009 - June 2013</small>
-                  <h4 class="h6 mb-0">BS in Computer Science</h4>
-                  <span class="d-block text-secondary">Harvard University</span>
-                </div>
-              </div>
-              <!-- End Info -->
-
-              <!-- Info -->
-              <div class="row align-items-center">
-                <div class="col-4">
-                  <img class="img-fluid" src="../../assets/img/logos/ubc.png" alt="Image Description">
-                </div>
-                <div class="col-8">
-                  <small class="d-block text-secondary">Sep 2014 - June 2016</small>
-                  <h4 class="h6 mb-0">MBA in Marketing</h4>
-                  <span class="d-block text-secondary">University of British Columbia</span>
-                </div>
-              </div>
-              <!-- End Info -->
-            </div>
-          </div>
-          <!-- End Info -->
-
-          <hr class="my-7">
-
-          <!-- Title -->
-          <div id="reviews" class="mb-3">
-            <h3 class="h4 mb-0">Reviews <span class="text-muted font-size-1">(125)</span></h3>
-          </div>
-          <!-- End Title -->
-
-          <!-- Reviews -->
-          <div>
-            <!-- Author -->
-            <div class="media mb-3">
-              <img class="u-avatar rounded-circle mr-3" src="../../assets/img/100x100/img3.jpg" alt="Image Description">
-
-              <div class="media-body align-self-center">
-                <h4 class="d-inline-block mb-1">
-                  <a class="d-block h6 mb-0" href="#">Russel Fernandes</a>
-                </h4>
-                <ul class="list-inline text-warning small mb-0">
-                  <li class="list-inline-item mx-0">
-                    <span class="fas fa-star"></span>
-                  </li>
-                  <li class="list-inline-item mx-0">
-                    <span class="fas fa-star"></span>
-                  </li>
-                  <li class="list-inline-item mx-0">
-                    <span class="fas fa-star"></span>
-                  </li>
-                  <li class="list-inline-item mx-0">
-                    <span class="fas fa-star"></span>
-                  </li>
-                  <li class="list-inline-item mx-0">
-                    <span class="fas fa-star text-warning"></span>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="media-body text-right">
-                <small class="d-block text-muted">3 hours ago.</small>
-              </div>
-            </div>
-            <!-- End Author -->
-
-            <p>At the end of the day, it's important to not let being busy distract us from having fun. Smiling, laughing, and hanging helps us work together to achieve this.</p>
-
-            <!-- Likes/Reply -->
-            <ul class="list-inline d-flex">
-              <li class="list-inline-item">
-                <a class="text-secondary" href="#">
-                  17
-                  <span class="far fa-thumbs-up ml-1"></span>
-                </a>
-              </li>
-              <li class="list-inline-item ml-3">
-                <a class="text-secondary" href="#">
-                  0
-                  <span class="far fa-thumbs-down ml-1"></span>
-                </a>
-              </li>
-              <li class="list-inline-item ml-auto">
-                <a class="text-secondary" href="#">
-                  <span class="far fa-comments mr-1"></span>
-                  Reply
-                </a>
-              </li>
-            </ul>
-            <!-- End Likes/Reply -->
-          </div>
-          <!-- End Reviews -->
-
-          <hr class="my-7">
-
-          <!-- Reviews -->
-          <div class="mb-7">
-            <!-- Author -->
-            <div class="media mb-3">
-              <img class="u-avatar rounded-circle mr-3" src="../../assets/img/100x100/img2.jpg" alt="Image Description">
-
-              <div class="media-body align-self-center">
-                <h4 class="d-inline-block mb-1">
-                  <a class="d-block h6 mb-0" href="#">Elizabeth Lord</a>
-                </h4>
-                <ul class="list-inline text-warning small mb-0">
-                  <li class="list-inline-item mx-0">
-                    <span class="fas fa-star"></span>
-                  </li>
-                  <li class="list-inline-item mx-0">
-                    <span class="fas fa-star"></span>
-                  </li>
-                  <li class="list-inline-item mx-0">
-                    <span class="fas fa-star"></span>
-                  </li>
-                  <li class="list-inline-item mx-0">
-                    <span class="fas fa-star"></span>
-                  </li>
-                  <li class="list-inline-item mx-0">
-                    <span class="far fa-star text-warning"></span>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="media-body text-right">
-                <small class="d-block text-muted">1 day ago.</small>
-              </div>
-            </div>
-            <!-- End Author -->
-
-            <p>It's important to stay detail oriented with every project we tackle. Staying focused allows us to turn every project we complete into something we love. We strive to embrace and drive change in our industry which allows us to keep our clients relevant and ready to adapt.</p>
-
-            <!-- Likes/Reply -->
-            <ul class="list-inline d-flex">
-              <li class="list-inline-item">
-                <a class="text-secondary" href="#">
-                  17
-                  <span class="far fa-thumbs-up ml-1"></span>
-                </a>
-              </li>
-              <li class="list-inline-item ml-3">
-                <a class="text-secondary" href="#">
-                  0
-                  <span class="far fa-thumbs-down ml-1"></span>
-                </a>
-              </li>
-              <li class="list-inline-item ml-auto">
-                <a class="text-secondary" href="#">
-                  <span class="far fa-comments mr-1"></span>
-                  Reply
-                </a>
-              </li>
-            </ul>
-            <!-- End Likes/Reply -->
-          </div>
-          <!-- End Reviews -->
-
-          <a class="btn btn-block btn-soft-primary transition-3d-hover" href="#">See More</a>
         </div>
       </div>
     </div>

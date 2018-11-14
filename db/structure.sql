@@ -1562,6 +1562,7 @@ CREATE TABLE public.users (
     locked_at timestamp without time zone,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
+    invitation_roles character varying[] DEFAULT '{}'::character varying[],
     invitation_token character varying,
     invitation_created_at timestamp without time zone,
     invitation_sent_at timestamp without time zone,
@@ -1569,7 +1570,14 @@ CREATE TABLE public.users (
     invitation_limit integer,
     invited_by_type character varying,
     invited_by_id bigint,
-    invitations_count integer DEFAULT 0
+    invitations_count integer DEFAULT 0,
+    us_resident boolean DEFAULT false,
+    bio text,
+    website_url character varying,
+    skills text[] DEFAULT '{}'::text[],
+    github_username character varying,
+    twitter_username character varying,
+    linkedin_username character varying
 );
 
 
@@ -11396,6 +11404,7 @@ SET search_path TO "$user", public;
 INSERT INTO "schema_migrations" (version) VALUES
 ('20181017152837'),
 ('20181110133743'),
-('20181114164908');
+('20181114164908'),
+('20181114202957');
 
 

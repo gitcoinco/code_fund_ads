@@ -1,5 +1,6 @@
-class InvitationsController < Devise::InvitationsController
+# frozen_string_literal: true
 
+class InvitationsController < Devise::InvitationsController
   # PUT /resource/invitation
   def update
     raw_invitation_token = update_resource_params[:invitation_token]
@@ -9,7 +10,7 @@ class InvitationsController < Devise::InvitationsController
     yield resource if block_given?
 
     if invitation_accepted
-      
+
       # Notify via Slack
       CreateSlackNotificationJob.perform_later text: ":email: #{resource.email} just registered via invitation"
 
@@ -17,15 +18,14 @@ class InvitationsController < Devise::InvitationsController
         flash_message = resource.active_for_authentication? ? :updated : :updated_not_active
         set_flash_message :notice, flash_message if is_flashing_format?
         sign_in(resource_name, resource)
-        respond_with resource, :location => after_accept_path_for(resource)
+        respond_with resource, location: after_accept_path_for(resource)
       else
         set_flash_message :notice, :updated_not_active if is_flashing_format?
-        respond_with resource, :location => new_session_path(resource_name)
+        respond_with resource, location: new_session_path(resource_name)
       end
     else
       resource.invitation_token = raw_invitation_token
-      respond_with_navigational(resource){ render :edit }
+      respond_with_navigational(resource) { render :edit }
     end
   end
-
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -36,6 +37,7 @@
 #  locked_at              :datetime
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  invitation_roles       :string           default([]), is an Array
 #  invitation_token       :string
 #  invitation_created_at  :datetime
 #  invitation_sent_at     :datetime
@@ -44,6 +46,13 @@
 #  invited_by_type        :string
 #  invited_by_id          :bigint(8)
 #  invitations_count      :integer          default(0)
+#  us_resident            :boolean          default(FALSE)
+#  bio                    :text
+#  website_url            :string
+#  skills                 :text             default([]), is an Array
+#  github_username        :string
+#  twitter_username       :string
+#  linkedin_username      :string
 #
 
 require "test_helper"
