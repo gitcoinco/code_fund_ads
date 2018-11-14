@@ -143,8 +143,8 @@ def generate_properties(publisher)
   end
 end
 
-create_administrator unless User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADMINISTRATOR)
-100.times { create_advertiser } unless User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADVERTISER)
-1000.times { create_publisher } unless User.where("? = ANY (roles)", ENUMS::USER_ROLES::PUBLISHER)
+create_administrator if User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADMINISTRATOR).count.zero?
+100.times { create_advertiser } if User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADVERTISER).count.zero?
+1000.times { create_publisher } if User.where("? = ANY (roles)", ENUMS::USER_ROLES::PUBLISHER).count.zero?
 
 require_relative "./seeds_impressions" if ENV["IMPRESSIONS"]
