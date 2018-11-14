@@ -2,47 +2,39 @@
 
 class ImagesController < ApplicationController
   before_action :set_authorizer
-  before_action :set_imageable, except: [:update, :destroy]
+  before_action :set_imageable
 
-  # GET /imageable/:imageable_gid/images/
-  # GET /imageable/:imageable_gid/images.json
   def index
     images = @imageable.images
     return redirect_to(new_image_path) if images.count == 0
     @pagy, @images = pagy(images)
   end
 
-  # GET /imageable/:imageable_gid/images/1/edit
   def edit
     image = @imageable.images.find(params[:id])
     return render_forbidden unless authorizer.can_update?(image)
     @image = Image.new(image)
   end
 
-  # PATCH/PUT /imageable/:imageable_gid/images/1/edit
-  # PATCH/PUT /imageable/:imageable_gid/images/1/edit.json
   def update
     image = @imageable.images.find(params[:id])
     return render_forbidden unless authorizer.can_update?(image)
-    binding.pry
+    image.blob.metadata = image.blob.metadata.merge(image_params)
+    image.blob.save
+    flash[:notice] = I18n.t("images.update.success")
+    redirect_to edit_image_path(@imageable.to_gid_param, image)
   end
 
-  # GET /imageable/:imageable_gid/images/new
-  def new
-  end
-
-  # POST /imageable/:imageable_gid/images
-  # POST /imageable/:imageable_gid/images.json
   def create
     @imageable.images.attach *imageable_params[:images]
     head :ok
   end
 
-  # DELETE /imageable/:imageable_gid/images/1
-  # DELETE /imageable/:imageable_gid/images/1.json
   def destroy
     image = ActiveStorage::Attachment.find(params[:id])
+    return render_forbidden unless authorizer.can_destroy?(image)
     image.purge
+    flash[:notice] = I18n.t("images.destroy.success")
     redirect_to images_path(@imageable.to_gid_param)
   end
 
@@ -58,5 +50,9 @@ class ImagesController < ApplicationController
 
     def imageable_params
       params.require(:imageable).permit(images: [])
+    end
+
+    def image_params
+      params.require(:image).permit(:format, :name, :description)
     end
 end

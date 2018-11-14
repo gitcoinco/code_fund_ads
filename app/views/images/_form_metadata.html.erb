@@ -1,19 +1,19 @@
-<%= simple_form_for @image do |f| %>
+<%= simple_form_for @image, url: image_path(@imageable.to_gid_param, @image) do |f| %>
   <div class="row">
     <div class="col-12">
-      <%= image_tag @image.variant(geometry: "x500>"), class: "img-thumbnail img-fluid d-block" %>
+      <%= image_tag @image.variant(geometry: "400x400>"), class: "img-thumbnail img-fluid d-block" %>
       <%= link_to "View original", @image, target: "_blank" %>
     </div>
 
     <% #################################################################################################### %>
     <%= render "@shared/forms/section_heading", text: "Metadata" %>
 
-    <%= tag.div f.input(:meta_name, label: "Name", required: true), class: "col-12 col-md-6" %>
-    <%= tag.div f.input(:meta_format, label: "Format", collection: image_formats_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:name, label: "Name", required: true), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:format, label: "Format", collection: image_formats_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 col-md-6" %>
 
     <%= pseudo_row_divider %>
 
-    <%= tag.div f.input(:meta_description, label: "Description", as: :text), class: "col-12" %>
+    <%= tag.div f.input(:description, label: "Description", as: :text), class: "col-12" %>
 
     <%= pseudo_row_divider %>
 
@@ -23,12 +23,12 @@
     <%= pseudo_row_divider %>
 
     <div class="col-12 col-md-6">
-      <%= f.input :meta_width, label: "Width", disabled: true, required: true,
-        input_html: { value: "#{number_with_precision(@image.meta_width, precision: 0)}px" } %>
+      <%= f.input :width, label: "Width", disabled: true, required: true,
+        input_html: { value: "#{number_with_precision(@image.width, precision: 0)}px" } %>
     </div>
     <div class="col-12 col-md-6">
-      <%= f.input :meta_height, label: "Height", disabled: true, required: true,
-        input_html: { value: "#{number_with_precision(@image.meta_height, precision: 0)}px" } %>
+      <%= f.input :height, label: "Height", disabled: true, required: true,
+        input_html: { value: "#{number_with_precision(@image.height, precision: 0)}px" } %>
     </div>
 
     <%= pseudo_row_divider %>

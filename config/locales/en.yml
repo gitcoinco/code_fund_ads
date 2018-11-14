@@ -31,3 +31,9 @@
 
 en:
   hello: "Hello world"
+
+  images:
+    destroy:
+      success: "The image was deleted successfully."
+    update:
+      success: "The image was updated successfully."

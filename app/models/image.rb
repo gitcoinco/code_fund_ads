@@ -22,23 +22,23 @@ class Image
     @attachment = active_storage_attachment
   end
 
-  def meta_name
+  def name
     attachment.blob.metadata[:name]
   end
 
-  def meta_description
+  def description
     attachment.blob.metadata[:description]
   end
 
-  def meta_format
+  def format
     attachment.blob.metadata[:format]
   end
 
-  def meta_width
+  def width
     attachment.blob.metadata[:width]
   end
 
-  def meta_height
+  def height
     attachment.blob.metadata[:height]
   end
 end

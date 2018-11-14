@@ -5,4 +5,9 @@ class ImagesAuthorizer < Perm::Authorized
     return true if user.has_role?(ENUMS::USER_ROLES::ADMINISTRATOR)
     image.record == user
   end
+
+  def can_destroy?(image)
+    return true if user.has_role?(ENUMS::USER_ROLES::ADMINISTRATOR)
+    image.record == user
+  end
 end
