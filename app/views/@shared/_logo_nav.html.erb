@@ -95,12 +95,13 @@
             </li>
             <!-- End Docs -->
 
-            <!-- Button -->
-            <li class="nav-item u-header__nav-last-item">
-              <%= link_to "Login", new_user_session_path, class: "btn btn-sm btn-primary transition-3d-hover" unless current_user %>
-              <%= link_to "Dashboard", dashboard_path, class: "btn btn-sm btn-primary transition-3d-hover" if current_user %>
-            </li>
-            <!-- End Button -->
+            <% unless current_user %>
+              <!-- Button -->
+              <li class="nav-item u-header__nav-last-item">
+                <%= link_to "Login", new_user_session_path, class: "btn btn-sm btn-primary transition-3d-hover" unless current_user %>
+              </li>
+              <!-- End Button -->
+            <% end %>
           </ul>
         </div>
         <!-- End Navigation -->
