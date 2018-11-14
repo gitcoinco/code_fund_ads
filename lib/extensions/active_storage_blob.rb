@@ -18,8 +18,18 @@ module CodeFundAds::Extensions
         self.indexed_metadata = metadata || {}
       end
 
-      scope :metadata_name, -> (value) { where "#{quote_column :indexed_metadata} ->> 'name' = ?", value }
-      scope :metadata_format, -> (value) { where "#{quote_column :indexed_metadata} ->> 'format' = ?", value }
+      scope :search_metadata, -> (key, *values) do
+        values = values.reject(&:blank?)
+        case
+        when values.blank? then all
+        when values.one? then where("#{quote_column :indexed_metadata} ->> ? ILIKE ?", key, "%#{values.first}%")
+        else where("#{quote_column :indexed_metadata} ->> ? in (?)", key, values)
+        end
+      end
+
+      scope :search_metadata_format, -> (*values) { search_metadata :format, *values }
+      scope :search_metadata_name, -> (value) { search_metadata_name :name, value }
+      scope :search_metadata_description, -> (value) { search_metadata :description, value }
     end
   end
 end
