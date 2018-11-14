@@ -29,7 +29,7 @@
           <!-- Holder Info -->
           <header class="d-flex align-items-center u-sidebar--account__holder mt-3">
             <div class="position-relative">
-              <%= image_tag current_user.gravatar_url, class: "u-sidebar--account__holder-img", alt: current_user.full_name %>
+              <%= image_tag current_user.avatar.attached? ? current_user.avatar : current_user.gravatar_url, class: "u-sidebar--account__holder-img", alt: current_user.full_name %>
               <span class="badge badge-xs badge-outline-success badge-pos rounded-circle"></span>
             </div>
             <div class="ml-3">
@@ -150,7 +150,7 @@
             <ul class="list-unstyled u-sidebar--account__list">
               <li class="u-sidebar--account__list-item">
                 <%= link_to destroy_user_session_path, class: "u-sidebar--account__list-link" do %>
-                  <span class="fas fa-key u-sidebar--account__list-icon mr-2"></span>
+                  <span class="fas fa-sign-out-alt u-sidebar--account__list-icon mr-2"></span>
                   Sign Out
                 <% end %>
               </li>
