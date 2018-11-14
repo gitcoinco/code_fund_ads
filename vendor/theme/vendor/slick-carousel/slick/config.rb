@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 css_dir = "."
 sass_dir = "."
 images_dir = "."
