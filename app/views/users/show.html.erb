@@ -9,9 +9,9 @@
 <% end %>
 
 <% content_for :page_heading do %>
-  <%= page_heading "Viewing", "Users",
-    subtitle: "asdf",
-    icon: "user-circle" %>
+  <%= page_heading @user.first_name, @user.last_name,
+    subtitle: @user.email,
+    icon: "fas fa-user-circle" %>
 <% end %>
 
 <!-- ========== MAIN ========== -->
@@ -25,93 +25,16 @@
           <div class="card p-1 mb-4">
             <div class="card-body text-center">
               <div class="mb-3">
-                <img class="u-lg-avatar rounded-circle" src="../../assets/img/160x160/img2.jpg" alt="Image Description">
+                <%= image_tag @user.gravatar_url, class: "u-lg-avatar rounded-circle", alt: current_user.full_name %>
               </div>
 
               <div class="mb-3">
-                <h1 class="h6 font-weight-medium mb-0">Natalie Curtis</h1>
-                <small class="d-block text-muted">UI/UX Designer</small>
+                <h1 class="h6 font-weight-medium mb-0"><%= @user.full_name %></h1>
+                <small class="d-block text-muted"><%= @user.company_name %></small>
               </div>
-
-              <div class="mb-2">
-                <a class="btn btn-sm btn-soft-primary transition-3d-hover" href="#">
-                  <span class="far fa-envelope mr-2"></span>
-                  Send a Message
-                </a>
-              </div>
-
-              <a class="text-secondary small" href="#">
-                <i class="far fa-flag mr-1"></i> Report this user
-              </a>
             </div>
           </div>
           <!-- End Profile Card -->
-
-          <!-- Contacts  -->
-          <div class="card mb-4">
-            <div class="card-header pt-4 pb-3 px-0 mx-4">
-              <h2 class="h6 mb-0">Contacts</h2>
-            </div>
-
-            <div class="card-body pt-3 pb-4 px-4">
-              <!-- User -->
-              <a class="d-flex align-items-start mb-4" href="#">
-                <div class="position-relative u-avatar">
-                  <img class="img-fluid rounded-circle" src="../../assets/img/100x100/img9.jpg" alt="Image Description">
-                  <span class="badge badge-xs badge-outline-success badge-pos badge-pos--bottom-right rounded-circle"></span>
-                </div>
-
-                <div class="ml-3">
-                  <span class="d-block text-dark">Patrick Garner</span>
-                  <small class="d-block text-secondary">Web Developer</small>
-                </div>
-              </a>
-              <!-- End User -->
-
-              <!-- User -->
-              <a class="d-flex align-items-start mb-4" href="#">
-                <span class="btn btn-icon btn-soft-danger rounded-circle">
-                  <span class="btn-icon__inner">AO</span>
-                  <span class="badge badge-xs badge-outline-warning badge-pos badge-pos--bottom-right rounded-circle"></span>
-                </span>
-
-                <div class="ml-3">
-                  <span class="d-block text-dark">Amanta Owens</span>
-                  <small class="d-block text-secondary">UI/UX Designer</small>
-                </div>
-              </a>
-              <!-- End User -->
-
-              <!-- User -->
-              <a class="d-flex align-items-start mb-4" href="#">
-                <div class="position-relative u-avatar">
-                  <img class="img-fluid rounded-circle" src="../../assets/img/100x100/img1.jpg" alt="Image Description">
-                  <span class="badge badge-xs badge-outline-warning badge-pos badge-pos--bottom-right rounded-circle"></span>
-                </div>
-
-                <div class="ml-3">
-                  <span class="d-block text-dark">Eliza Donovan</span>
-                  <small class="d-block text-secondary">Project Manager</small>
-                </div>
-              </a>
-              <!-- End User -->
-
-              <!-- User -->
-              <a class="d-flex align-items-start" href="#">
-                <span class="btn btn-icon btn-soft-success rounded-circle">
-                  <span class="btn-icon__inner">JC</span>
-                  <span class="badge badge-xs badge-outline-success badge-pos badge-pos--bottom-right rounded-circle"></span>
-                </span>
-
-                <div class="ml-3">
-                  <span class="d-block text-dark">James Collins</span>
-                  <small class="d-block text-secondary">Angular Developer</small>
-                </div>
-              </a>
-              <!-- End User -->
-            </div>
-          </div>
-          <!-- End Contacts  -->
 
           <!-- Social Profiles -->
           <div class="card mb-4">
@@ -123,35 +46,11 @@
               <!-- Social Profiles -->
               <a class="media mb-4" href="#">
                 <div class="u-sm-avatar mr-3">
-                  <img class="img-fluid" src="../../assets/img/160x160/img18.png" alt="Image Description">
-                </div>
-                <div class="media-body">
-                  <span class="d-block text-dark">Behance</span>
-                  <small class="d-block text-secondary">1.2k followers</small>
-                </div>
-              </a>
-              <!-- End Social Profiles -->
-
-              <!-- Social Profiles -->
-              <a class="media mb-4" href="#">
-                <div class="u-sm-avatar mr-3">
-                  <img class="img-fluid" src="../../assets/img/160x160/img21.png" alt="Image Description">
-                </div>
-                <div class="media-body">
-                  <span class="d-block text-dark">Dribbble</span>
-                  <small class="d-block text-secondary">4.5k followers</small>
-                </div>
-              </a>
-              <!-- End Social Profiles -->
-
-              <!-- Social Profiles -->
-              <a class="media mb-4" href="#">
-                <div class="u-sm-avatar mr-3">
                   <img class="img-fluid" src="../../assets/img/160x160/img19.png" alt="Image Description">
                 </div>
                 <div class="media-body">
                   <span class="d-block text-dark">Twitter</span>
-                  <small class="d-block text-secondary">2.7k followers</small>
+                  <small class="d-block text-secondary">@coderberry</small>
                 </div>
               </a>
               <!-- End Social Profiles -->
@@ -175,7 +74,11 @@
         <div class="col-lg-9">
           <!-- User Details -->
           <div class="mb-4">
-            <h2 class="h4">Hey, I am Natalie Curtis <span class="badge badge-success ml-1">Pro</span></h2>
+            <h2 class="h4">Hello, my name is <%= @user.full_name %>
+            <% @user.roles.each do |role| %>
+              <%= badge_for_role(role) %>
+            <% end %>
+            </h2>
             <h4 class="h6 text-secondary mb-0">London, UK <small>- Joined in July 2017</small></h4>
           </div>
           <!-- End User Details -->

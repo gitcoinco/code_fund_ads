@@ -67,6 +67,32 @@ module ApplicationHelper
     render("/@shared/scripts/groove", id: ENV["GROOVE_WIDGET_ID"])
   end
 
+  def badge_for_role(role, wrap_class: "")
+    case role
+    when "administrator"
+      tag.span(
+        tag.span("", class: "fas fa-key content-centered", style: "top: 5px; left: 5px; position: absolute;"),
+        class: "btn btn-icon btn-dark btn-xs rounded-circle position-relative #{wrap_class}",
+        title: "Administrator",
+        data: tooltip_expando
+      )
+    when "advertiser"
+      tag.span(
+        tag.span("", class: "fas fa-ad content-centered", style: "top: 5px; left: 5px; position: absolute;"),
+        class: "btn btn-icon btn-success btn-xs rounded-circle position-relative #{wrap_class}",
+        title: "Advertiser",
+        data: tooltip_expando
+      )
+    when "publisher"
+      tag.span(
+        tag.span("", class: "fas fa-code content-centered", style: "top: 5px; left: 3px; position: absolute;"),
+        class: "btn btn-icon btn-primary btn-xs rounded-circle position-relative #{wrap_class}",
+        title: "Publisher",
+        data: tooltip_expando
+      )
+    end
+  end
+
   def noty_flash
     flash_messages = []
     flash.each do |type, message|

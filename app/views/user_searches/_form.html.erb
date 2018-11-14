@@ -15,7 +15,7 @@
         </button>
       </h5>
     </div>
-    <div id="filters" class="collapse <%= "show" if @user_search.present? %>" aria-labelledby="filters-heading" data-parent="#filters-heading">
+    <div id="filterCollapse" class="collapse <%= "show" if @user_search.present? %>" aria-labelledby="filterHeading" data-parent="#filterHeading">
       <div class="card-body px-4">
         <%= simple_form_for @user_search do |f| %>
           <div class="row">

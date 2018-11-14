@@ -3,7 +3,10 @@
 Rails.application.routes.draw do
   root to: "pages#index"
 
-  devise_for :users, controllers: { sessions: "sessions" }
+  devise_for :users, controllers: {
+    sessions: "sessions",
+    invitations: "invitations"
+  }
 
   resource :dashboard, only: [:show]
   resource :contact, only: [:show, :create]
@@ -24,7 +27,7 @@ Rails.application.routes.draw do
   resources :themes
   resources :users
 
-  scope "/users/:user_id", constraints: { user_id: /\d.+/ } do
+  scope "/users/:user_id" do
     resources :campaigns, only: [:index], as: :user_campaigns
     resources :properties, only: [:index], as: :user_properties
     resources :creatives, only: [:index], as: :user_creatives

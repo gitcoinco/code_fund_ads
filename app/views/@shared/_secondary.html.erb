@@ -34,7 +34,7 @@
             </div>
             <div class="ml-3">
               <span class="font-weight-semi-bold"><%= current_user.full_name %> <span class="badge badge-success ml-1">Pro</span></span>
-              <span class="u-sidebar--account__holder-text">Lead Support Adviser</span>
+              <span class="u-sidebar--account__holder-text"><%= current_user.company_name || current_user.email %></span>
             </div>
 
             <!-- Settings -->
@@ -75,22 +75,28 @@
                 <% end %>
               </li>
               <li class="u-sidebar--account__list-item">
-                <%= link_to user_path(current_user), class: "u-sidebar--account__list-link" do %>
+                <%= link_to user_path("me"), class: "u-sidebar--account__list-link" do %>
                   <span class="fas fa-user-circle u-sidebar--account__list-icon mr-2"></span>
                   Profile
                 <% end %>
               </li>
               <li class="u-sidebar--account__list-item">
-                <a class="u-sidebar--account__list-link" href="my-tasks.html">
+                <%= link_to user_properties_path("me"), class: "u-sidebar--account__list-link" do %>
                   <span class="fas fa-tasks u-sidebar--account__list-icon mr-2"></span>
                   My Properties
-                </a>
+                  <% if current_user.properties.count > 0 %>
+                    <span class="badge badge-danger float-right mt-1"><%= current_user.properties.count %></span>
+                  <% end %>
+                <% end %>
               </li>
               <li class="u-sidebar--account__list-item">
-                <a class="u-sidebar--account__list-link" href="projects.html">
+                <%= link_to user_campaigns_path("me"), class: "u-sidebar--account__list-link" do %>
                   <span class="fas fa-layer-group u-sidebar--account__list-icon mr-2"></span>
-                  Projects <span class="badge badge-danger float-right mt-1">3</span>
-                </a>
+                  My Campaigns
+                  <% if current_user.campaigns.count > 0 %>
+                    <span class="badge badge-danger float-right mt-1"><%= current_user.campaigns.count %></span>
+                  <% end %>
+                <% end %>
               </li>
               <li class="u-sidebar--account__list-item">
                 <a class="u-sidebar--account__list-link" href="members.html">
