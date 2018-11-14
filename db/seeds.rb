@@ -7,42 +7,55 @@ unless Rails.env.development?
   exit 1
 end
 
-user_attributes = {
-  company_name: "CodeFund",
-  confirmation_sent_at: 2.days.ago,
-  confirmed_at: 1.day.ago,
-  password: "secret",
-  password_confirmation: "secret",
-}
+def user_attributes
+  first_name = Faker::Name.first_name
+  last_name = Faker::Name.last_name
+  email = Faker::Internet.email("#{first_name} #{last_name}", %w(. _ -))
 
-administrator = User.find_or_initialize_by(email: "chris.knight@codefund.io")
-administrator.assign_attributes(
-  user_attributes.merge(
+  {
+    first_name:             first_name,
+    last_name:              last_name,
+    email:                  email,
+    company_name:           Faker::SiliconValley.company,
+    confirmation_sent_at:   2.days.ago,
+    confirmed_at:           1.day.ago,
+    password:               "secret",
+    password_confirmation:  "secret",
+  }
+end
+
+def create_administrator
+  attrs = user_attributes.merge(
+    company_name: "CodeFund",
+    email: "admin@codefund.io",
     roles: [ENUMS::USER_ROLES::ADMINISTRATOR],
-    first_name: "Chris",
-    last_name: "Knight",
-  ))
-administrator.save!
+  )
+  administrator = User.find_or_initialize_by(email: attrs[:email])
+  administrator.update_attributes!(attrs)
+end
 
-publisher = User.find_or_initialize_by(email: "mitch.taylor@codefund.io")
-publisher.assign_attributes(
-  user_attributes.merge(
-    roles: [ENUMS::USER_ROLES::PUBLISHER],
-    first_name: "Mitch",
-    last_name: "Taylor",
-  ))
-publisher.save!
+def create_publisher
+  attrs = user_attributes.merge(roles: [ENUMS::USER_ROLES::PUBLISHER])
+  publisher = User.find_or_initialize_by(email: attrs[:email])
+  publisher.update_attributes!(attrs)
+  generate_properties(publisher)
+end
 
-advertiser = User.find_or_initialize_by(email: "jordan.cochran@codefund.io")
-advertiser.assign_attributes(
-  user_attributes.merge(
-    roles: [ENUMS::USER_ROLES::ADVERTISER],
-    first_name: "Jordan",
-    last_name: "Cochran",
-  ))
-advertiser.save!
+def create_advertiser
+  attrs = user_attributes.merge(roles: [ENUMS::USER_ROLES::ADVERTISER])
+  advertiser = User.find_or_initialize_by(email: attrs[:email])
+  advertiser.update_attributes!(attrs)
+  seed_campaigns(advertiser)
+end
 
-if advertiser.images.metadata_name("CodeFund Small").metadata_format(ENUMS::IMAGE_FORMATS::SMALL).count == 0
+def seed_campaigns(advertiser)
+  add_small_image(advertiser)
+  add_large_image(advertiser)
+  generate_creatives(advertiser)
+  generate_campaigns(advertiser)
+end
+
+def add_small_image(advertiser)
   advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/code-fund-100x100.png")),
     filename: "code-fund-100x100.png",
     content_type: "image/png",
@@ -56,7 +69,7 @@ if advertiser.images.metadata_name("CodeFund Small").metadata_format(ENUMS::IMAG
     }
 end
 
-if advertiser.images.metadata_name("CodeFund Large").metadata_format(ENUMS::IMAGE_FORMATS::LARGE).count == 0
+def add_large_image(advertiser)
   advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/code-fund-260x200.png")),
     filename: "code-fund-100x100.png",
     content_type: "image/png",
@@ -70,7 +83,7 @@ if advertiser.images.metadata_name("CodeFund Large").metadata_format(ENUMS::IMAG
     }
 end
 
-if advertiser.creatives.count == 0
+def generate_creatives(advertiser)
   5.times do
     creative = Creative.create(
       user: advertiser,
@@ -84,11 +97,10 @@ if advertiser.creatives.count == 0
   end
 end
 
-if advertiser.campaigns.count == 0
-  10.times do
+def generate_campaigns(advertiser)
+  (1..10).times do
     start_date = rand(3).months.from_now.to_date
     end_date = start_date.advance(months: 6)
-    days = (end_date - start_date).to_i
     total_budget = ([*500..5000].sample / 100) * 100
     daily_budget = total_budget / (end_date - start_date).to_i
     countries = ENUMS::DEVELOPED_MARKET_COUNTRIES.keys
@@ -115,8 +127,8 @@ if advertiser.campaigns.count == 0
   end
 end
 
-if publisher.properties.count == 0
-  10.times do
+def generate_properties(publisher)
+  (1..10).times do
     Property.create(
       user: publisher,
       property_type: ENUMS::PROPERTY_TYPES.values.sample,
@@ -130,5 +142,9 @@ if publisher.properties.count == 0
     )
   end
 end
+
+create_administrator unless User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADMINISTRATOR)
+100.times { create_advertiser } unless User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADVERTISER)
+1000.times { create_publisher } unless User.where("? = ANY (roles)", ENUMS::USER_ROLES::PUBLISHER)
 
 require_relative "./seeds_impressions" if ENV["IMPRESSIONS"]
