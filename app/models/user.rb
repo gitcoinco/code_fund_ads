@@ -91,7 +91,6 @@ class User < ApplicationRecord
     :database_authenticatable,
     :lockable,
     :recoverable,
-    :registerable,
     :rememberable,
     :timeoutable,
     :trackable,
