@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class PropertiesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_property_search, only: [:index]
   before_action :set_property, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }

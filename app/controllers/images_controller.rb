@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ImagesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_imageable, except: [:update, :destroy]
 
   # GET /imageable/:imageable_gid/images/
