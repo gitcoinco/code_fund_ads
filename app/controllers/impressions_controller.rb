@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class ImpressionsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_impression, only: [:show, :edit, :update, :destroy]
 
   # GET /impressions

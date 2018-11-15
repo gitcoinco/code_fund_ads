@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :templates
   resources :themes
   resources :users
+  resource :user_passwords, only: [:edit, :update], path: "/password"
 
   scope "/users/:user_id" do
     resources :campaigns, only: [:index], as: :user_campaigns

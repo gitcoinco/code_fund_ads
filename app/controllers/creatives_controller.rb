@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CreativesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_creative, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
 

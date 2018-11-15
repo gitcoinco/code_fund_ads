@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CampaignSearchesController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     session[:campaign_search] = CampaignSearch.new(campaign_search_params).to_gid_param
     redirect_to campaigns_path
