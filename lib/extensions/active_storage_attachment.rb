@@ -4,16 +4,21 @@ module CodeFundAds::Extensions
   module ActiveStorageAttachment
     extend ActiveSupport::Concern
 
-    included do
-      scope :metadata_name, -> (value) do
-        subquery = ActiveStorage::Blob.arel_table[:id].eq(arel_table[:blob_id])
-        where blob_id: ActiveStorage::Blob.where(subquery).metadata_name(value)
+    module ClassMethods
+      def blob_relation
+        ActiveStorage::Blob.where ActiveStorage::Blob.arel_table[:id].eq(arel_table[:blob_id])
       end
+    end
 
-      scope :metadata_format, -> (value) do
-        subquery = ActiveStorage::Blob.arel_table[:id].eq(arel_table[:blob_id])
-        where blob_id: ActiveStorage::Blob.where(subquery).metadata_format(value)
-      end
+    included do
+      scope :search_filename, -> (value) { value.blank? ? all : where(blob_id: blob_relation.search_filename(value)) }
+      scope :search_metadata_format, -> (*values) { values.blank? ? all : where(blob_id: blob_relation.search_metadata_format(*values)) }
+      scope :search_metadata_name, -> (value) { value.blank? ? all : where(blob_id: blob_relation.search_metadata_name(value)) }
+      scope :search_metadata_description, -> (value) { value.blank? ? all : where(blob_id: blob_relation.search_metadata_description(value)) }
+    end
+
+    def my_record?(record)
+      record_type = record.class.name && record_id == record.id
     end
   end
 end
