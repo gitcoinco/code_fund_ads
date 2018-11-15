@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class UserSearchesController < ApplicationController
+  before_action :authenticate_user!
+
   def create
     session[:user_search] = UserSearch.new(user_search_params).to_gid_param
     redirect_to users_path
