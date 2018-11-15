@@ -10,7 +10,7 @@ end
 def user_attributes
   first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name
-  email = Faker::Internet.email("#{first_name} #{last_name}", %w(. _ -))
+  email = Faker::Internet.email("#{first_name} #{last_name}", "-")
 
   {
     first_name:             first_name,
@@ -98,7 +98,7 @@ def generate_creatives(advertiser)
 end
 
 def generate_campaigns(advertiser)
-  (1..10).times do
+  (1..10).each do
     start_date = rand(3).months.from_now.to_date
     end_date = start_date.advance(months: 6)
     total_budget = ([*500..5000].sample / 100) * 100
@@ -128,7 +128,7 @@ def generate_campaigns(advertiser)
 end
 
 def generate_properties(publisher)
-  (1..10).times do
+  (1..10).each do
     Property.create(
       user: publisher,
       property_type: ENUMS::PROPERTY_TYPES.values.sample,
@@ -151,4 +151,4 @@ create_administrator if admin_count.zero?
 (advertiser_count..99).each { create_advertiser }
 (publisher_count..999).each { create_publisher }
 
-require_relative "./seeds_impressions" if ENV["IMPRESSIONS"]
+# require_relative "./seeds_impressions" if ENV["IMPRESSIONS"]
