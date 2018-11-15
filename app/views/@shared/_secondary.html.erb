@@ -29,12 +29,12 @@
           <!-- Holder Info -->
           <header class="d-flex align-items-center u-sidebar--account__holder mt-3">
             <div class="position-relative">
-              <%= image_tag current_user.gravatar_url, class: "u-sidebar--account__holder-img", alt: current_user.full_name %>
+              <%= image_tag current_user.avatar.attached? ? current_user.avatar : current_user.gravatar_url, class: "u-sidebar--account__holder-img", alt: current_user.full_name %>
               <span class="badge badge-xs badge-outline-success badge-pos rounded-circle"></span>
             </div>
             <div class="ml-3">
-              <span class="font-weight-semi-bold"><%= current_user.full_name %> <span class="badge badge-success ml-1">Pro</span></span>
-              <span class="u-sidebar--account__holder-text">Lead Support Adviser</span>
+              <span class="font-weight-semi-bold"><%= current_user.full_name %></span>
+              <span class="u-sidebar--account__holder-text"><%= current_user.company_name || current_user.email %></span>
             </div>
 
             <!-- Settings -->
@@ -58,7 +58,7 @@
                 <a class="dropdown-item" href="#">Settings</a>
                 <a class="dropdown-item" href="#">History</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Sign Out</a>
+                <%= link_to "Sign Out", destroy_user_session_path, class: "dropdown-item" %>
               </div>
             </div>
             <!-- End Settings -->
@@ -69,28 +69,34 @@
             <!-- List Links -->
             <ul class="list-unstyled u-sidebar--account__list">
               <li class="u-sidebar--account__list-item">
-                <a class="u-sidebar--account__list-link" href="dashboard.html">
+                <%= link_to dashboard_path, class: "u-sidebar--account__list-link" do %>
                   <span class="fas fa-home u-sidebar--account__list-icon mr-2"></span>
                   Dashboard
-                </a>
+                <% end %>
               </li>
               <li class="u-sidebar--account__list-item">
-                <a class="u-sidebar--account__list-link" href="profile.html">
+                <%= link_to user_path("me"), class: "u-sidebar--account__list-link" do %>
                   <span class="fas fa-user-circle u-sidebar--account__list-icon mr-2"></span>
                   Profile
-                </a>
+                <% end %>
               </li>
               <li class="u-sidebar--account__list-item">
-                <a class="u-sidebar--account__list-link" href="my-tasks.html">
+                <%= link_to user_properties_path("me"), class: "u-sidebar--account__list-link" do %>
                   <span class="fas fa-tasks u-sidebar--account__list-icon mr-2"></span>
-                  My tasks
-                </a>
+                  My Properties
+                  <% if current_user.properties.count > 0 %>
+                    <span class="badge badge-danger float-right mt-1"><%= current_user.properties.count %></span>
+                  <% end %>
+                <% end %>
               </li>
               <li class="u-sidebar--account__list-item">
-                <a class="u-sidebar--account__list-link" href="projects.html">
+                <%= link_to user_campaigns_path("me"), class: "u-sidebar--account__list-link" do %>
                   <span class="fas fa-layer-group u-sidebar--account__list-icon mr-2"></span>
-                  Projects <span class="badge badge-danger float-right mt-1">3</span>
-                </a>
+                  My Campaigns
+                  <% if current_user.campaigns.count > 0 %>
+                    <span class="badge badge-danger float-right mt-1"><%= current_user.campaigns.count %></span>
+                  <% end %>
+                <% end %>
               </li>
               <li class="u-sidebar--account__list-item">
                 <a class="u-sidebar--account__list-link" href="members.html">
@@ -119,7 +125,7 @@
             </ul>
             <!-- End List Links -->
 
-            <div class="u-sidebar--account__list-divider"></div>
+            <div class="u-sidebar--account__list-divider pb-0 mt-2"></div>
 
             <!-- List Links -->
             <ul class="list-unstyled u-sidebar--account__list">
@@ -134,6 +140,19 @@
                   <span class="fas fa-key u-sidebar--account__list-icon mr-2"></span>
                   API Token
                 </a>
+              </li>
+            </ul>
+            <!-- End List Links -->
+
+            <div class="u-sidebar--account__list-divider pb-0 mt-2"></div>
+
+            <!-- List Links -->
+            <ul class="list-unstyled u-sidebar--account__list">
+              <li class="u-sidebar--account__list-item">
+                <%= link_to destroy_user_session_path, class: "u-sidebar--account__list-link" do %>
+                  <span class="fas fa-sign-out-alt u-sidebar--account__list-icon mr-2"></span>
+                  Sign Out
+                <% end %>
               </li>
             </ul>
             <!-- End List Links -->

@@ -1,8 +1,13 @@
 <%= tag.tr class: classes("even": user_counter.even?, "odd": user_counter.odd?) do %>
   <td class="align-middle">
     <div class="media align-items-center">
-      <span class="u-sm-avatar mr-2">
+      <span class="u-sm-avatar position-relative mr-2">
         <%= image_tag user.gravatar_url, class: "img-fluid rounded-circle", alt: user.full_name %>
+        <% unless user.accepted_or_not_invited? %>
+          <span class="badge badge-md badge-outline-dark badge-pos badge-pos--bottom-right rounded-circle">
+            <%= tag.span "", class: "fas fa-envelope", title: "Pending invitation", data: tooltip_expando %>
+          </span>
+        <% end %>
       </span>
       <span><%= link_to user.full_name, user_path(user), title: "View User", data: tooltip_expando %></span>
     </div>
@@ -11,7 +16,7 @@
   <td class="align-middle"><%= user.company_name %></td>
   <td class="align-middle">
     <% user.roles.each do |role| %>
-      <span class="badge badge-light"><%= role %></span>
+      <%= badge_for_role(role) %>
     <% end %>
   </td>
   <td class="align-middle text-secondary">

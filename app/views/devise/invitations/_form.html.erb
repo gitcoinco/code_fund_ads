@@ -1,0 +1,13 @@
+<%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: { method: :post } do |f| %>
+  <%= devise_error_messages! %>
+
+  <div class="row">
+    <%= tag.div f.input(:first_name, required: true), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:last_name, required: true), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:email, required: true), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:company_name, required: false), class: "col-12 col-md-6" %>
+    <%= tag.div f.input(:roles, collection: ENUMS::USER_ROLES.values, required: true, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12" %>
+  </div>
+
+  <%= f.button :submit, t("devise.invitations.new.submit_button"), class: "btn btn-primary" %>
+<% end %>

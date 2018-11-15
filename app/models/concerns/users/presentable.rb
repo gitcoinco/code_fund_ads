@@ -19,5 +19,13 @@ module Users
       hash = Digest::MD5.hexdigest(email)
       "https://www.gravatar.com/avatar/#{hash}"
     end
+
+    def display_region
+      if country == "US"
+        [city, region].join(", ")
+      else
+        [city, country].join(", ")
+      end
+    end
   end
 end

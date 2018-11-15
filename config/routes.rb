@@ -3,7 +3,10 @@
 Rails.application.routes.draw do
   root to: "pages#index"
 
-  devise_for :users, controllers: { sessions: "sessions" }
+  devise_for :users, controllers: {
+    sessions: "sessions",
+    invitations: "invitations"
+  }
 
   resource :dashboard, only: [:show]
   resource :contact, only: [:show, :create]

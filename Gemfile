@@ -10,6 +10,7 @@ gem "bootsnap",        ">= 1.1.0", require: false
 gem "cable_ready",     "~> 2.0.7"
 gem "country_select",  "~> 3.1.1"
 gem "devise",          "~> 4.5.0"
+gem "devise_invitable", "~> 1.7.5"
 gem "gibbon",          "~> 3.2.0"
 gem "inky-rb",         "~> 1.3.7.3", require: "inky"
 gem "jbuilder",        "~> 2.5"

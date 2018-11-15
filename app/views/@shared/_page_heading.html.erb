@@ -31,9 +31,13 @@
         <div class="col-lg-7 order-lg-1">
           <!-- User Info -->
           <div class="media d-block d-sm-flex align-items-sm-center">
-            <div class="u-lg-avatar position-relative mb-3 mb-sm-0 mr-3">
-              <%= image_tag current_user.gravatar_url, class: "img-fluid rounded-circle", alt: current_user.full_name %>
-            </div>
+            <% if local_assigns[:icon] %>
+              <div class="u-lg-avatar position-relative mb-3 mb-sm-0 mr-3">
+                <i class="<%= icon %> fa-5x opacity-20"></i>
+              </div>
+            <% else %>
+              <div class="u-lg-avatar position-relative mb-3 mb-sm-0 mr-0" style="width: 0px;"></div>
+            <% end %>
             <div class="media-body">
               <h1 class="h3 text-white font-weight-medium mb-1">
                 <span class="opacity-50 font-weight-light"><%= action %></span>
@@ -73,7 +77,7 @@
                       <% else %>
                         <li><%= link_to "Dashboard", dashboard_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
                       <% end %>
-                      <li><%= link_to "Profile", user_path(current_user), class: "nav-link u-header__sub-menu-nav-link" %></li>
+                      <li><%= link_to "Profile", user_path("me"), class: "nav-link u-header__sub-menu-nav-link" %></li>
                       <li><%= link_to "Properties", properties_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
                       <li><%= link_to "Campaigns", campaigns_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
                       <li><%= link_to "Images", images_path(current_user.to_gid_param), class: "nav-link u-header__sub-menu-nav-link" %></li>
@@ -92,7 +96,7 @@
 
                     <ul id="accountSettingsDropdownMenu" class="hs-sub-menu u-header__sub-menu u-header__sub-menu--spacer" style="min-width: 230px;" aria-labelledby="accountSettingsDropdown">
                       <li><%= link_to "Edit Profile", edit_user_path(current_user), class: "nav-link u-header__sub-menu-nav-link" %></li>
-                      <li><%= link_to "Change password", edit_user_registration_path(current_user), class: "nav-link u-header__sub-menu-nav-link" %></li>
+                      <li><%= link_to "Change password", "#", class: "nav-link u-header__sub-menu-nav-link" %></li>
                     </ul>
                   </li>
                   <!-- Account Settings -->
@@ -129,11 +133,23 @@
                   </li>
                   <!-- Accessibility -->
 
-                  <!-- Others -->
-                  <li class="nav-item u-header__nav-item">
-                    <a class="nav-link u-header__nav-link" href="plans.html">Plans</a>
-                  </li>
-                  <!-- Others -->
+                  <% if current_user.administrator? %>
+                    <!-- Administration -->
+                    <li class="nav-item hs-has-sub-menu u-header__nav-item"
+                        data-event="hover"
+                        data-animation-in="slideInUp"
+                        data-animation-out="fadeOut">
+                      <a id="adminDropdown" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-labelledby="adminDropdownMenu">
+                        Administration
+                      </a>
+
+                      <ul id="adminDropdownMenu" class="hs-sub-menu u-header__sub-menu u-header__sub-menu--spacer" style="min-width: 230px;" aria-labelledby="adminDropdown">
+                        <li><%= link_to "Users", users_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
+                        <li><%= link_to "Invite User", new_user_invitation_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
+                      </ul>
+                    </li>
+                    <!-- Administration -->
+                  <% end %>
                 </ul>
               </div>
             </nav>
@@ -142,12 +158,7 @@
         <!-- End Navbar -->
 
         <div class="ml-lg-auto">
-          <!-- Button -->
-          <a class="btn btn-sm btn-soft-white transition-3d-hover" href="#">
-            <span class="fas fa-plus small mr-2"></span>
-            Request a Payment
-          </a>
-          <!-- End Button -->
+          <%= yield :actions %>
         </div>
       </div>
     </div>

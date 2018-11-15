@@ -1,7 +1,18 @@
 <% content_for :breadcrumbs do %>
   <%= render "/@shared/breadcrumbs/dashboard" %>
   <%= render "/@shared/breadcrumbs/users" %>
-  <%= render "/@shared/breadcrumbs/user", class: "active" %>
+  <%= render "/@shared/breadcrumbs/user" %>
+  <%= render "/@shared/breadcrumbs/edit_user", user: @user, class: "active" %>
+<% end %>
+
+<% content_for :actions do %>
+  <%= render "/@shared/actions/show_user", user: @user %>
+<% end %>
+
+<% content_for :page_heading do %>
+  <%= page_heading "Editing", "User",
+    subtitle: "Fill out the form below",
+    icon: "fas fa-user-circle" %>
 <% end %>
 
 <main id="content" role="main" class="bg-light">
