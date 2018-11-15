@@ -133,7 +133,7 @@
                   </li>
                   <!-- Accessibility -->
 
-                  <% if current_user.administrator? %>
+                  <% if users_authorizer.can_admin? %>
                     <!-- Administration -->
                     <li class="nav-item hs-has-sub-menu u-header__nav-item"
                         data-event="hover"
