@@ -78,3 +78,21 @@ fieldset.inline {
 .breadcrumb-item.active .breadcrumb-link {
   color: #fff;
 }
+
+#filterAccordian .filter-badge {
+  padding: 0.5rem 0.8rem 0.5rem;
+  font-size: 80%;
+  font-weight: 400;
+  line-height: 1rem;
+  margin-bottom: -4px;
+
+  &:before {
+    font-family: "Font Awesome 5 Pro"; font-weight: 900; content: "\f00c ";
+  }
+}
+
+th[scope=col] a {
+  color: #1e2022;
+  border-bottom: 1px dotted #1e2022;
+  text-decoration: none;
+}

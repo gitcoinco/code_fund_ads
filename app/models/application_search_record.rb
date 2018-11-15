@@ -39,6 +39,10 @@ class ApplicationSearchRecord
     @attributes.dup
   end
 
+  def searched_keys
+    @attributes.reject { |k,v| v.blank? }.keys
+  end
+
   def present?
     @attributes.values.flatten.reject(&:blank?).join.present?
   end

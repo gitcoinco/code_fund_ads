@@ -13,14 +13,13 @@
     icon: "fas fa-browser" %>
 <% end %>
 
-<main id="content" role="main">
-  <div class="u-bg-light-blue-50">
-    <div class="container u-space-1">
-      <p id="notice"><%= notice %></p>
-      <%= render "/property_searches/form" %>
-      <div class="bg-white p-4">
-        <%= render "/properties/table", properties: @properties %>
-      </div>
+<main id="content" role="main" class="bg-light">
+  <div class="container space-1">
+    <%= render partial: "/property_searches/form",
+               layout: "/@shared/collapsable_search_form",
+               locals: { search: @property_search } %>
+    <div class="bg-white p-4">
+      <%= render "/properties/table", properties: @properties %>
     </div>
   </div>
 </main>

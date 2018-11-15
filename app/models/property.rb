@@ -22,10 +22,11 @@
 #
 
 class Property < ApplicationRecord
-  include Taggable
-
   # extends ...................................................................
+
   # includes ..................................................................
+  include Properties::Presentable
+  include Taggable
 
   # relationships .............................................................
   belongs_to :user

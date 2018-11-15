@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PropertiesController < ApplicationController
+  include Sortable
+
   before_action :authenticate_user!
   before_action :set_property_search, only: [:index]
   before_action :set_property, only: [:show, :edit, :update, :destroy]
@@ -9,10 +11,12 @@ class PropertiesController < ApplicationController
   # GET /properties
   # GET /properties.json
   def index
-    properties = Property.order(:name).includes(:user)
+    properties = Property.order(order_by).includes(:user)
     properties = properties.where(user: @user) if @user
     properties = @property_search.apply(properties)
     @pagy, @properties = pagy(properties)
+
+    puts "ORDER BY: #{order_by}"
 
     render "/properties/for_user/index" if @user
   end
@@ -94,5 +98,9 @@ class PropertiesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
       params.fetch(:property, {})
+    end
+
+    def sortable_columns
+      %w( name status created_at )
     end
 end

@@ -115,4 +115,37 @@ module ApplicationHelper
     end
     flash_messages.join("\n").html_safe
   end
+
+  def sortable_tr(column, title = nil)
+    title   ||= column.titleize
+    direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
+    link_up   = link_to(tag.span("", class: "fas fa-angle-up u-datatable__thead-icon"), {column: column, direction: "asc"})
+    link_down = link_to(tag.span("", class: "fas fa-angle-down u-datatable__thead-icon"), {column: column, direction: "desc"})
+
+    if params[:column] == column
+      link_up = link_to(tag.span("", class: "fas fa-angle-up u-datatable__thead-icon text-primary"), {column: column, direction: "asc"}) if direction == "desc"
+      link_down = link_to(tag.span("", class: "fas fa-angle-down u-datatable__thead-icon text-primary"), {column: column, direction: "desc"}) if direction == "asc"
+    end
+
+    tr = <<~EOS
+      <th scope="col" class="font-weight-medium sorting" tabindex="0" rowspan="1" colspan="1">
+        <div class="d-flex justify-content-between align-items-center">
+          #{title}
+          <div class="ml-2">
+            #{link_up}
+            #{link_down}
+          </div>
+        </div>
+      </th>
+    EOS
+
+    tr.html_safe
+  end
+
+  def pagy_entries(pagy)
+    start = pagy.offset + 1
+    finish = start + pagy.items - 1
+    count = pagy.count
+    tag.small("Showing #{start} to #{finish} of #{count} Entries", class: "text-secondary").html_safe
+  end
 end
