@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ImageSearchesController < ApplicationController
   before_action :set_imageable
 
