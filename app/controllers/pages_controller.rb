@@ -19,6 +19,6 @@ class PagesController < ApplicationController
   private
 
     def verify_page
-      render file: Rails.public_path.join("404.html"), status: :not_found, layout: false
+      render_not_found unless ENUMS::PAGES.values.include?(params[:id])
     end
 end

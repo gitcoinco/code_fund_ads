@@ -40,7 +40,7 @@ class ApplicationSearchRecord
   end
 
   def present?
-    @attributes.values.flatten.join.present?
+    @attributes.values.flatten.reject(&:blank?).join.present?
   end
 
   def blank?

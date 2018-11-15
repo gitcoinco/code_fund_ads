@@ -22,7 +22,7 @@
             <%= tag.div f.input(:name, required: false), class: "col-12 col-md-auto" %>
             <%= tag.div f.input(:email, required: false), class: "col-12 col-md-auto" %>
             <%= tag.div f.input(:company_name, required: false), class: "col-12 col-md-auto" %>
-            <%= tag.div f.input(:roles, collection: ENUMS::USER_ROLES.values, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:roles, collection: user_roles_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
 
             <%= pseudo_row_divider %>
 

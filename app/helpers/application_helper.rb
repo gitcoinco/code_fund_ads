@@ -31,6 +31,14 @@ module ApplicationHelper
     relation
   end
 
+  def user_roles_for_select
+    ENUMS::USER_ROLES.values
+  end
+
+  def image_formats_for_select
+    ENUMS::IMAGE_FORMATS.values
+  end
+
   def companies_for_select
     User.advertiser.where.not(company_name: nil).order(User.arel_table[:company_name].lower).pluck(:company_name).uniq
   end

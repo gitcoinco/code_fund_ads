@@ -1,4 +1,4 @@
-<%= form_tag images_path, method: :post, multipart: true,
+<%= form_tag images_path(@imageable.to_gid_param), method: :post, multipart: true,
   data: {
   remote: true,
   success_url: images_path(@imageable.to_gid_param),
