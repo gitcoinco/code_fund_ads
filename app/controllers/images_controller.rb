@@ -6,7 +6,7 @@ class ImagesController < ApplicationController
   before_action :set_image_search, only: [:index]
 
   def index
-    return render_forbidden unless imageable_authorizer.can_view?(@imageable)
+    return render_forbidden unless authorized_user.can_view_imageable?(@imageable)
     images = @imageable.images
     return redirect_to(new_image_path) if images.count == 0
     images = @image_search.apply(images.attachments)
@@ -15,13 +15,13 @@ class ImagesController < ApplicationController
 
   def edit
     image = @imageable.images.find(params[:id])
-    return render_forbidden unless images_authorizer.can_update?(image)
+    return render_forbidden unless authorized_user.can_update_image?(image)
     @image = Image.new(image)
   end
 
   def update
     image = @imageable.images.find(params[:id])
-    return render_forbidden unless images_authorizer.can_update?(image)
+    return render_forbidden unless authorized_user.can_update_image?(image)
     image.blob.metadata = image.blob.metadata.merge(image_params)
     image.blob.save
     flash[:notice] = I18n.t("images.update.success")
@@ -35,7 +35,7 @@ class ImagesController < ApplicationController
 
   def destroy
     image = ActiveStorage::Attachment.find(params[:id])
-    return render_forbidden unless images_authorizer.can_destroy?(image)
+    return render_forbidden unless authorized_user.can_destroy_image?(image)
     image.purge
     flash[:notice] = I18n.t("images.destroy.success")
     redirect_to images_path(@imageable.to_gid_param)

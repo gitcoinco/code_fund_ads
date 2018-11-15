@@ -85,7 +85,7 @@
         </div>
       </div>
 
-      <% if users_authorizer.can_admin_system? %>
+      <% if authorized_user.can_admin_system? %>
         <hr class="my-6">
 
         <%= render "@shared/forms/section_heading", title: "Security", subtitle: "Admin-only settings for user" %>
