@@ -11,10 +11,10 @@ module CodeFundAds::Extensions
     end
 
     included do
-      scope :search_filename, -> (value) { where blob_id: blob_relation.search_filename(value) }
-      scope :search_metadata_format, -> (*values) { where blob_id: blob_relation.search_metadata_format(*values) }
-      scope :search_metadata_name, -> (value) { where blob_id: blob_relation.search_metadata_name(value) }
-      scope :search_metadata_description, -> (value) { where blob_id: blob_relation.search_metadata_description(value) }
+      scope :search_filename, -> (value) { value.blank? ? all : where(blob_id: blob_relation.search_filename(value)) }
+      scope :search_metadata_format, -> (*values) { values.blank? ? all : where(blob_id: blob_relation.search_metadata_format(*values)) }
+      scope :search_metadata_name, -> (value) { value.blank? ? all : where(blob_id: blob_relation.search_metadata_name(value)) }
+      scope :search_metadata_description, -> (value) { value.blank? ? all : where(blob_id: blob_relation.search_metadata_description(value)) }
     end
 
     def my_record?(record)

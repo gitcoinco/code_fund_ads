@@ -14,9 +14,7 @@ module CodeFundAds::Extensions
     end
 
     included do
-      before_save -> do
-        self.indexed_metadata = metadata || {}
-      end
+      before_save :set_indexed_metadata
 
       scope :search_column, -> (column_name, value) do
         where arel_table[column_name].lower.matches("%#{model.send :sanitize_sql_like, value.downcase}%")
@@ -35,6 +33,10 @@ module CodeFundAds::Extensions
       scope :search_metadata_name, -> (value) { search_metadata :name, value }
       scope :search_metadata_description, -> (value) { search_metadata :description, value }
       scope :search_filename, -> (value) { value.blank? ? all : search_column(:filename, value) }
+    end
+
+    def set_indexed_metadata
+      self.indexed_metadata = metadata
     end
   end
 end

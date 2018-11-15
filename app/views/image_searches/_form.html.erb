@@ -8,7 +8,7 @@
         </h3>
       </div>
     </div>
-    <div id="filters" class="collapse <%= "show" if @property_search.present? %>" aria-labelledby="filters-heading" data-parent="#filters-heading">
+    <div id="filters" class="collapse <%= "show" if @image_search.present? %>" aria-labelledby="filters-heading" data-parent="#filters-heading">
       <div class="card-body px-4">
         <%= simple_form_for @image_search, url: image_searches_path(@imageable.to_gid_param) do |f| %>
           <div class="row">
@@ -21,7 +21,7 @@
 
             <div class="col-12 mt-3">
               <%= f.button :submit, value: "Search", class: "btn btn-primary mr-3" %>
-              <%= link_to "Clear", image_search_path(@imageable, @image_search.to_gid_param), class: "btn-md btn-link text-danger", method: :delete if @image_search.present? %>
+              <%= link_to "Clear", image_search_path(@imageable.to_gid_param, @image_search.to_gid_param), class: "btn-md btn-link text-danger", method: :delete if @image_search.present? %>
             </div>
           </div>
         <% end %>

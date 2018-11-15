@@ -8,7 +8,7 @@ class ImageSearchesController < ApplicationController
 
   def destroy
     session[:image_search] = ImageSearch.new.to_gid_param
-    redirect_to images_path(@images_path)
+    redirect_to images_path(@imageable.to_gid_param)
   end
 
   private
