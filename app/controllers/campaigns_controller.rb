@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CampaignsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_campaign_search, only: [:index]
@@ -74,26 +72,26 @@ class CampaignsController < ApplicationController
 
   private
 
-    def set_campaign_search
-      @campaign_search = GlobalID.parse(session[:campaign_search]).find if session[:campaign_search].present?
-      @campaign_search ||= CampaignSearch.new
-    end
+  def set_campaign_search
+    @campaign_search = GlobalID.parse(session[:campaign_search]).find if session[:campaign_search].present?
+    @campaign_search ||= CampaignSearch.new
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_campaign
-      @campaign = Campaign.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_campaign
+    @campaign = Campaign.find(params[:id])
+  end
 
-    def set_user
-      if params[:user_id] == "me"
-        @user = current_user
-      else
-        @user = User.find(params[:user_id])
-      end
+  def set_user
+    @user = if params[:user_id] == "me"
+      current_user
+    else
+      User.find(params[:user_id])
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def campaign_params
-      params.fetch(:campaign, {})
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def campaign_params
+    params.fetch(:campaign, {})
+  end
 end

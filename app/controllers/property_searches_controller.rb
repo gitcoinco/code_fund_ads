@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class PropertySearchesController < ApplicationController
   before_action :authenticate_user!
 
@@ -15,17 +13,17 @@ class PropertySearchesController < ApplicationController
 
   private
 
-    def property_search_params
-      params.require(:property_search).permit(
-        :name,
-        :url,
-        :user,
-        :user_id,
-        ad_templates: [],
-        keywords: [],
-        languages: [],
-        property_types: [],
-        statuses: [],
-      )
-    end
+  def property_search_params
+    params.require(:property_search).permit(
+      :name,
+      :url,
+      :user,
+      :user_id,
+      ad_templates: [],
+      keywords: [],
+      languages: [],
+      property_types: [],
+      statuses: [],
+    )
+  end
 end
