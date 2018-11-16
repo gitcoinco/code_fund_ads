@@ -20,6 +20,7 @@ class CampaignSearchesController < ApplicationController
         :name,
         :us_hours_only,
         :user,
+        :user_id,
         :weekdays_only,
         countries: [],
         keywords: [],

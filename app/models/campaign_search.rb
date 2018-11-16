@@ -6,6 +6,7 @@ class CampaignSearch < ApplicationSearchRecord
     name
     statuses
     us_hours_only
+    user_id
     user
     weekdays_only
   ].freeze
@@ -31,6 +32,7 @@ class CampaignSearch < ApplicationSearchRecord
       then { |result| result.search_status(*statuses) }.
       then { |result| us_hours_only ? result.search_us_hours_only(us_hours_only) : result }.
       then { |result| result.search_user(user) }.
+      then { |result| result.search_user_id(user_id) }.
       then { |result| weekdays_only ? result.search_weekdays_only(weekdays_only) : result }
   end
 end

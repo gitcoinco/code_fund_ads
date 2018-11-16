@@ -80,6 +80,11 @@ CAMPAIGN_STATUSES:
   - active
   - archived
 
+CAMPAIGN_STATUS_COLORS:
+  pending: warning
+  active: success
+  archived: muted
+
 PROPERTY_TYPES:
   - website
   - repository
