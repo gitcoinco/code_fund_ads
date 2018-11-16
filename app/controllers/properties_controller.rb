@@ -95,7 +95,16 @@ class PropertiesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def property_params
-    params.require(:property).permit(:name, :url, :status, :language, :description, :property_type, :screenshot, keywords: [])
+    params.require(:property).permit(
+      :description,
+      :language,
+      :name,
+      :property_type,
+      :screenshot,
+      :status,
+      :url,
+      keywords: [],
+    )
   end
 
   def sortable_columns

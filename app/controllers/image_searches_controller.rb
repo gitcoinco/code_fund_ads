@@ -18,6 +18,11 @@ class ImageSearchesController < ApplicationController
   end
 
   def image_search_params
-    params.require(:image_search).permit(:description, :filename, :name, formats: [])
+    params.require(:image_search).permit(
+      :description,
+      :filename,
+      :name,
+      formats: [],
+    )
   end
 end
