@@ -55,6 +55,7 @@ group :development do
   gem "meta_request" # RailsPanel Chrome extension
   gem "model_probe"
   gem "rubocop"
+  gem "standard"
   gem "teamocil"
   gem "web-console", ">= 3.3.0"
 end

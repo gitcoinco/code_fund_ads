@@ -12,10 +12,7 @@ export default class extends Controller {
       jQuery(this.element).off('change.select2', this.changeHandler);
     }).bind(this);
 
-    document.addEventListener(
-      'turbolinks:before-cache',
-      this.beforeCacheHandler
-    );
+    document.addEventListener('turbolinks:before-cache', this.beforeCacheHandler);
     jQuery(this.element).on('change.select2', this.changeHandler);
     if (this.element.value) this.filterChildren();
   }
@@ -60,10 +57,7 @@ export default class extends Controller {
   get childSelectTarget() {
     let id = this.element.dataset.child;
     let element = document.getElementById(id);
-    if (!element)
-      console.log(
-        `select-parent-controller: Unable to find a child with the id '${id}'`
-      );
+    if (!element) console.log(`select-parent-controller: Unable to find a child with the id '${id}'`);
     return element;
   }
 

@@ -1,0 +1,15 @@
+fix: false
+parallel: true
+format: progress
+ruby_version: 2.5.3
+ignore:
+  - 'bin/**/*'
+  - 'db/schema.rb'
+  - 'log/**/*'
+  - 'node_modules/**/*'
+  - 'public/**/*'
+  - 'storage/**/*'
+  - 'tmp/**/*'
+  - 'vendor/**/*'
+  - 'test/**/*':
+    - Layout/AlignHash

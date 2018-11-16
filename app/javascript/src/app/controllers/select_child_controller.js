@@ -13,10 +13,7 @@ export default class extends Controller {
       jQuery(this.element).off('change.select2', this.changeHandler);
     }).bind(this);
 
-    document.addEventListener(
-      'turbolinks:before-cache',
-      this.beforeCacheHandler
-    );
+    document.addEventListener('turbolinks:before-cache', this.beforeCacheHandler);
     this.element.addEventListener('select:created', this.createdHandler);
     this.addSelect2EventListeners();
   }
