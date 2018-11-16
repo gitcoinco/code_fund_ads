@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -145,7 +143,7 @@ Devise.setup do |config|
   config.invite_key = {
     email: /\A[^@]+@[^@]+\z/,
     first_name: /\A.+\z/,
-    last_name: /\A.+\z/
+    last_name: /\A.+\z/,
   }
 
   # Flag that force a record to be valid before being actually invited

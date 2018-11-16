@@ -74,7 +74,7 @@ class ApplicationSearchRecord
     super
   end
 
-  def respond_to_missing?(name, indlucd_all)
+  def respond_to_missing?(name, include_all)
     return true if @fields.include?(keyify(name))
     super
   end

@@ -1,12 +1,8 @@
-# frozen_string_literal: true
-
 # Pagy initializer file
 # Customize only what you really need but notice that Pagy works also without any of the following lines.
 
-
 # Extras
 # See https://ddnexus.github.io/pagy/extras
-
 
 # Backend Extras
 
@@ -21,7 +17,6 @@
 # Searchkick: Paginate `Searchkick::Results` objects efficiently, avoiding expensive object-wrapping and without overriding.
 # See https://ddnexus.github.io/pagy/extras/searchkick
 # require 'pagy/extras/searchkick'
-
 
 # Frontend Extras
 
@@ -55,7 +50,6 @@ require "pagy/extras/bootstrap"
 # See https://ddnexus.github.io/pagy/extras/navs#breakpoints
 # Pagy::VARS[:breakpoints] = { 0 => [1,2,2,1], 350 => [2,3,3,2], 550 => [3,4,4,3] }    # example of width/size pairs
 
-
 # Feature Extras
 
 # Items: Allow the client to request a custom number of items per page with an optional selector UI
@@ -72,19 +66,15 @@ require "pagy/extras/bootstrap"
 # See https://ddnexus.github.io/pagy/extras/trim
 # require 'pagy/extras/trim'
 
-
-
 # Pagy Variables
 # See https://ddnexus.github.io/pagy/api/pagy#variables
 # All the Pagy::VARS are set for all the Pagy instances but can be overridden
 # per instance by just passing them to Pagy.new or the #pagy controller method
 
-
 # Instance variables
 # See https://ddnexus.github.io/pagy/api/pagy#instance-variables
 # Pagy::VARS[:items] = 20                                   # default
 Pagy::VARS[:items] = 15
-
 
 # Other Variables
 # See https://ddnexus.github.io/pagy/api/pagy#other-variables
@@ -95,13 +85,11 @@ Pagy::VARS[:items] = 15
 # Pagy::VARS[:link_extra] = 'data-remote="true"'            # example
 # Pagy::VARS[:item_path]  = 'activerecord.models.product'   # example
 
-
 # Rails
 
 # Rails: extras assets path required by the compact and responsive navs, and the items extra
 # See https://ddnexus.github.io/pagy/extras#javascript
 Rails.application.config.assets.paths << Pagy.root.join("javascripts")
-
 
 # I18n
 

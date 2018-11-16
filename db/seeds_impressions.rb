@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "csv"
 require "fileutils"
 
@@ -31,9 +29,9 @@ def build_impression(displayed_at)
 end
 
 def build_impressions(displayed_at, max_impressions_per_second: 25)
-  rand(max_impressions_per_second + 1).times.map do
+  rand(max_impressions_per_second + 1).times.map {
     build_impression displayed_at
-  end.compact
+  }.compact
 end
 
 def build_impressions_for_minute(time)
@@ -85,7 +83,7 @@ def create_impressions_for_month(date_string)
     begin
       puts "Copying #{csv_path} with #{list.length} rows to Postgres"
       ActiveRecord::Base.connection.execute "COPY \"#{partition_table_name}\" FROM '#{csv_path}' CSV;"
-    rescue StandardError => e
+    rescue => e
       puts "Failed to copy #{csv_path} to Postgres! #{e}"
     ensure
       FileUtils.rm_f csv_path, verbose: true
@@ -98,10 +96,12 @@ end
 # This will create 30M impressions (give or take) when max_impressions_per_second is set to 6
 # Currently configured to use 4 CPU cores... customize for the number of cores on your machine
 # NOTE: this will peg your hardware for a while
-pids = [
-  Process.fork { sleep 0; create_impressions_for_month "2019-01-01" },
-  Process.fork { sleep 30; create_impressions_for_month "2019-02-01" },
-  Process.fork { sleep 60; create_impressions_for_month "2019-03-01" },
-  Process.fork { sleep 90; create_impressions_for_month "2019-04-01" },
-]
-pids.each { |pid| Process.waitpid pid }
+# pids = [
+#   Process.fork { sleep 0; create_impressions_for_month "2019-01-01" },
+#   Process.fork { sleep 30; create_impressions_for_month "2019-02-01" },
+#   Process.fork { sleep 60; create_impressions_for_month "2019-03-01" },
+#   Process.fork { sleep 90; create_impressions_for_month "2019-04-01" },
+# ]
+# pids.each { |pid| Process.waitpid pid }
+
+create_impressions_for_month "2019-01-01"

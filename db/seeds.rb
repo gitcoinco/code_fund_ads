@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "faker"
 
 unless Rails.env.development?
@@ -21,7 +19,8 @@ administrator.assign_attributes(
     roles: [ENUMS::USER_ROLES::ADMINISTRATOR],
     first_name: "Chris",
     last_name: "Knight",
-  ))
+  )
+)
 administrator.save!
 
 publisher = User.find_or_initialize_by(email: "mitch.taylor@codefund.io")
@@ -30,7 +29,8 @@ publisher.assign_attributes(
     roles: [ENUMS::USER_ROLES::PUBLISHER],
     first_name: "Mitch",
     last_name: "Taylor",
-  ))
+  )
+)
 publisher.save!
 
 advertiser = User.find_or_initialize_by(email: "jordan.cochran@codefund.io")
@@ -39,7 +39,8 @@ advertiser.assign_attributes(
     roles: [ENUMS::USER_ROLES::ADVERTISER],
     first_name: "Jordan",
     last_name: "Cochran",
-  ))
+  )
+)
 advertiser.save!
 
 if advertiser.images.metadata_name("CodeFund Small").metadata_format(ENUMS::IMAGE_FORMATS::SMALL).count == 0
@@ -88,12 +89,11 @@ if advertiser.campaigns.count == 0
   10.times do
     start_date = rand(3).months.from_now.to_date
     end_date = start_date.advance(months: 6)
-    days = (end_date - start_date).to_i
     total_budget = ([*500..5000].sample / 100) * 100
     daily_budget = total_budget / (end_date - start_date).to_i
     countries = ENUMS::DEVELOPED_MARKET_COUNTRIES.keys
-    countries = countries + ENUMS::EMERGING_MARKET_COUNTRIES.keys if rand(3).zero?
-    countries = countries + ENUMS::COUNTRIES.keys.sample(5) if rand(5).zero?
+    countries += ENUMS::EMERGING_MARKET_COUNTRIES.keys if rand(3).zero?
+    countries += ENUMS::COUNTRIES.keys.sample(5) if rand(5).zero?
     keywords = ENUMS::KEYWORDS.values.sample(25)
     Campaign.create(
       user: advertiser,

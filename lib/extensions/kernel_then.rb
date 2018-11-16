@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module CodeFundAds::Extensions
   module KernelThen
     extend ActiveSupport::Concern
