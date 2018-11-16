@@ -1,13 +1,8 @@
-import { Controller } from "stimulus";
-import { toArray } from "../utils";
+import { Controller } from 'stimulus';
+import { toArray } from '../utils';
 
 export default class extends Controller {
-  static targets = [
-    "chooseButton",
-    "input",
-    "progressBarTemplate",
-    "submitButton"
-  ];
+  static targets = ['chooseButton', 'input', 'progressBarTemplate', 'submitButton'];
 
   connect() {
     this.progressBars = {};
@@ -21,7 +16,7 @@ export default class extends Controller {
   showUploadProgress(event) {
     let { file, progress } = event.detail;
     this.chooseButtonTarget.innerHTML = this.chooseButtonTarget.dataset.disableWith;
-    let innerBar = this.progressBars[file.name].querySelector(".progress-bar");
+    let innerBar = this.progressBars[file.name].querySelector('.progress-bar');
     innerBar.innerText = `${file.name} ${Math.floor(event.detail.progress)}%`;
     innerBar.style.width = `${progress}%`;
   }
@@ -44,11 +39,8 @@ export default class extends Controller {
   showProgressBar(file) {
     let bar = this.progressBarTemplateTarget.cloneNode(true);
     bar.hidden = false;
-    bar.querySelector(".progress-bar").innerText = file.name;
+    bar.querySelector('.progress-bar').innerText = file.name;
     this.progressBars[file.name] = bar;
-    this.progressBarTemplateTarget.parentNode.insertBefore(
-      bar,
-      this.progressBarTemplateTarget
-    );
+    this.progressBarTemplateTarget.parentNode.insertBefore(bar, this.progressBarTemplateTarget);
   }
 }
