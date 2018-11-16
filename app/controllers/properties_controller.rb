@@ -28,7 +28,7 @@ class PropertiesController < ApplicationController
 
   # GET /properties/new
   def new
-    @property = Property.new(user_id: current_user.id, status: "pending")
+    @property = current_user.properties.build(status: "pending")
   end
 
   # GET /properties/1/edit

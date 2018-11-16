@@ -6,6 +6,11 @@ module Sortable
   included do
     helper_method :sort_column, :sort_direction
   end
+  
+  # Abstract method that should be overridden in including controllers
+  def sortable_columns
+    raise NotImplementedError, "controller should include method `sortable_columns`"
+  end
 
   def order_by
     "#{sort_column} #{sort_direction}"

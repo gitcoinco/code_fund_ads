@@ -6,7 +6,7 @@
   <br>
   
   <div class="row">
-    <% if current_user.administrator? %>
+    <% if authorized_user.can_admin_system? %>
       <%= tag.div f.input(:user_id, label: "Publisher", collection: User.publisher.order(last_name: :asc).map { |u| [u.name, u.id] }, required: true,
         input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" %>
     <% else %>

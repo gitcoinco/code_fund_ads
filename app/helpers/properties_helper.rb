@@ -10,13 +10,7 @@ module PropertiesHelper
   end
 
   def property_status_color(status)
-    {
-      "pending" => "warning",
-      "active" => "success",
-      "rejected" => "danger",
-      "archived" => "muted",
-      "blacklisted" => "dark"
-    }[status]
+    ENUMS::PROPERTY_STATUS_COLORS[status]
   end
 
   def property_status_html(status)

@@ -31,7 +31,7 @@
               </span>
             </span>
           </a>
-          <%= link_to "refresh screenshot", property_property_screenshot_path(@property), method: :put, class: "btn btn-xs btn-secondary text-center" if current_user.administrator? %>
+          <%= link_to "refresh screenshot", property_property_screenshot_path(@property), method: :put, class: "btn btn-xs btn-secondary text-center mb-4" if authorized_user.can_admin_system? %>
         </div>
         <div class="col-lg-7 col-md-12 mb-7 mb-md-0">
           <!-- User Details -->
@@ -90,15 +90,6 @@
                     <div class="media-body text-lh-sm">
                       <span class="d-block mb-1">Primary Language:</span>
                       <span class="d-block text-muted"><%= @property.language %></span>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item pt-0 pb-4">
-                  <div class="media">
-                    <span class="fas fa-tags list-group-icon mr-3"></span>
-                    <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">Tags:</span>
-                      <span class="d-block text-muted"><%= @property.keywords.join(", ") %></span>
                     </div>
                   </div>
                 </li>
