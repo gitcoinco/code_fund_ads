@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module PropertiesHelper
   def property_types_for_select
     ENUMS::PROPERTY_TYPES.values.map { |val| [val.humanize, val] }

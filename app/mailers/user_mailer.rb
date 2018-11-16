@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class UserMailer < ApplicationMailer
   default from: "noreply@codefund.io"
   layout "mailer"
