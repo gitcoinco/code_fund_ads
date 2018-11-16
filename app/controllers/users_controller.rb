@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class UsersController < ApplicationController
   include Sortable
 
@@ -53,30 +51,53 @@ class UsersController < ApplicationController
 
   private
 
-    def set_user_search
-      @user_search = GlobalID.parse(session[:user_search]).find if session[:user_search].present?
-      @user_search ||= UserSearch.new
-    end
+  def set_user_search
+    @user_search = GlobalID.parse(session[:user_search]).find if session[:user_search].present?
+    @user_search ||= UserSearch.new
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      if params[:id] == "me"
-        @user = current_user
-      else
-        @user = User.find(params[:id])
-      end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = if params[:id] == "me"
+      current_user
+    else
+      User.find(params[:id])
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(
-        :avatar, :first_name, :last_name, :email, :company_name, :paypal_email, :address_1,
-        :address_2, :city, :region, :postal_code, :country, :api_access, :us_resident, :bio,
-        :website_url, :github_username, :twitter_username, :linkedin_username, skills: [], roles: []
-      )
-    end
+  def user_params
+    params.require(:user).permit(
+      :address_1,
+      :address_2,
+      :api_access,
+      :avatar,
+      :bio,
+      :city,
+      :company_name,
+      :country,
+      :email,
+      :first_name,
+      :github_username,
+      :last_name,
+      :linkedin_username,
+      :paypal_email,
+      :postal_code,
+      :region,
+      :twitter_username,
+      :us_resident,
+      :website_url,
+      roles: [],
+      skills: [],
+    )
+  end
 
-    def sortable_columns
-      %w( first_name company_name email last_sign_in_at created_at )
-    end
+  def sortable_columns
+    %w[
+      company_name
+      created_at
+      email
+      first_name
+      last_sign_in_at
+    ]
+  end
 end

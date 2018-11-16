@@ -1,0 +1,5 @@
+#!/bin/bash
+
+bundle exec standard --fix app/models
+bundle exec standard --fix app/controllers
+prettier --write app/**/*.js

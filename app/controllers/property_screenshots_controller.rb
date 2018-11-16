@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class PropertyScreenshotsController < ApplicationController
   before_action :authenticate_user!
 

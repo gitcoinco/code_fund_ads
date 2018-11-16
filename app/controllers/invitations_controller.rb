@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class InvitationsController < Devise::InvitationsController
   # PUT /resource/invitation
   def update

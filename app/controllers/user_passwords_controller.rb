@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class UserPasswordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:edit, :update]
@@ -23,11 +21,14 @@ class UserPasswordsController < ApplicationController
 
   private
 
-    def set_user
-      @user = current_user
-    end
+  def set_user
+    @user = current_user
+  end
 
-    def user_password_params
-      params.require(:user).permit(:password, :password_confirmation)
-    end
+  def user_password_params
+    params.require(:user).permit(
+      :password,
+      :password_confirmation,
+    )
+  end
 end

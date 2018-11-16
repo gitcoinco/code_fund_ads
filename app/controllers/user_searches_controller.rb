@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class UserSearchesController < ApplicationController
   before_action :authenticate_user!
 
@@ -15,7 +13,12 @@ class UserSearchesController < ApplicationController
 
   private
 
-    def user_search_params
-      params.require(:user_search).permit(:name, :email, :company_name, roles: [])
-    end
+  def user_search_params
+    params.require(:user_search).permit(
+      :company_name,
+      :email,
+      :name,
+      roles: [],
+    )
+  end
 end

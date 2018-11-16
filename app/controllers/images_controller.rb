@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ImagesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_imageable
@@ -29,7 +27,7 @@ class ImagesController < ApplicationController
   end
 
   def create
-    @imageable.images.attach *imageable_params[:images]
+    @imageable.images.attach(*imageable_params[:images])
     head :ok
   end
 
@@ -43,20 +41,24 @@ class ImagesController < ApplicationController
 
   private
 
-    def set_imageable
-      @imageable = GlobalID.parse(params[:imageable_gid]).find
-    end
+  def set_imageable
+    @imageable = GlobalID.parse(params[:imageable_gid]).find
+  end
 
-    def set_image_search
-      @image_search = GlobalID.parse(session[:image_search]).find if session[:image_search].present?
-      @image_search ||= ImageSearch.new
-    end
+  def set_image_search
+    @image_search = GlobalID.parse(session[:image_search]).find if session[:image_search].present?
+    @image_search ||= ImageSearch.new
+  end
 
-    def imageable_params
-      params.require(:imageable).permit(images: [])
-    end
+  def imageable_params
+    params.require(:imageable).permit(images: [])
+  end
 
-    def image_params
-      params.require(:image).permit(:format, :name, :description)
-    end
+  def image_params
+    params.require(:image).permit(
+      :description,
+      :format,
+      :name,
+    )
+  end
 end

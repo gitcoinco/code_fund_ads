@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreativesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_creative, only: [:show, :edit, :update, :destroy]
@@ -71,17 +69,17 @@ class CreativesController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_creative
-      @creative = Creative.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_creative
+    @creative = Creative.find(params[:id])
+  end
 
-    def set_user
-      @user = User.find(params[:user_id])
-    end
+  def set_user
+    @user = User.find(params[:user_id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def creative_params
-      params.fetch(:creative, {})
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def creative_params
+    params.fetch(:creative, {})
+  end
 end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ImpressionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_impression, only: [:show, :edit, :update, :destroy]
@@ -66,13 +64,13 @@ class ImpressionsController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_impression
-      @impression = Impression.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_impression
+    @impression = Impression.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def impression_params
-      params.fetch(:impression, {})
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def impression_params
+    params.fetch(:impression, {})
+  end
 end
