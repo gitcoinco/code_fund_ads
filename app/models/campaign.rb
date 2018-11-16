@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: campaigns
@@ -40,22 +38,22 @@ class Campaign < ApplicationRecord
   has_many :impressions
 
   # validations ...............................................................
-  validates :name, length: { maximum: 255, allow_blank: false }
+  validates :name, length: {maximum: 255, allow_blank: false}
   validates :url, presence: true
-  validates :status, inclusion: { in: ENUMS::CAMPAIGN_STATUSES.values }
+  validates :status, inclusion: {in: ENUMS::CAMPAIGN_STATUSES.values}
 
   # callbacks .................................................................
 
   # scopes ....................................................................
-  scope :search_keywords, -> (*values) { values.blank? ? all : with_any_keywords(*values) }
-  scope :search_countries, -> (*values) { values.blank? ? all : with_any_countries(*values) }
-  scope :search_name, -> (value) { value.blank? ? all : search_column(:name, value) }
-  scope :search_negative_keywords, -> (*values) { values.blank? ? all : with_any_negative(*values) }
-  scope :search_status, -> (*values) { values.blank? ? all : where(status: values) }
-  scope :search_us_hours_only, -> (value) { value.nil? ? all : where(us_hours_only: value) }
-  scope :search_user, -> (value) { value.blank? ? all : where(user_id: User.advertiser.search_name(value).or(User.advertiser.search_company(value))) }
-  scope :search_weekdays_only, -> (value) { value.nil? ? all : where(weekdays_only: value) }
-  scope :for_property, -> (property) do
+  scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
+  scope :search_countries, ->(*values) { values.blank? ? all : with_any_countries(*values) }
+  scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
+  scope :search_negative_keywords, ->(*values) { values.blank? ? all : with_any_negative(*values) }
+  scope :search_status, ->(*values) { values.blank? ? all : where(status: values) }
+  scope :search_us_hours_only, ->(value) { value.nil? ? all : where(us_hours_only: value) }
+  scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertiser.search_name(value).or(User.advertiser.search_company(value))) }
+  scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
+  scope :for_property, ->(property) do
     relation = with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
     relation = relation.where(fallback: false) if property.prohibit_fallback_campaigns
     relation
@@ -96,9 +94,9 @@ class Campaign < ApplicationRecord
   scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  monetize :total_budget_cents, numericality: { greater_than_or_equal_to: 0 }
-  monetize :daily_budget_cents, numericality: { greater_than_or_equal_to: 0 }
-  monetize :ecpm_cents, numericality: { greater_than_or_equal_to: 0 }
+  monetize :total_budget_cents, numericality: {greater_than_or_equal_to: 0}
+  monetize :daily_budget_cents, numericality: {greater_than_or_equal_to: 0}
+  monetize :ecpm_cents, numericality: {greater_than_or_equal_to: 0}
   tag_columns :countries
   tag_columns :keywords
   tag_columns :negative_keywords
@@ -126,8 +124,6 @@ class Campaign < ApplicationRecord
   end
 
   # protected instance methods ................................................
-  protected
 
   # private instance methods ..................................................
-  private
 end

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Users
   module Presentable
     extend ActiveSupport::Concern
@@ -8,7 +6,7 @@ module Users
       [first_name, last_name].compact.join " "
     end
 
-    alias_method :name, :full_name
+    alias name full_name
 
     def scoped_name
       [company_name, full_name].compact.join "・"

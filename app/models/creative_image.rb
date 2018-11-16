@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: creative_images
@@ -35,8 +33,6 @@ class CreativeImage < ApplicationRecord
   # public instance methods ...................................................
 
   # protected instance methods ................................................
-  protected
 
   # private instance methods ..................................................
-  private
 end

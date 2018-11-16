@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: impressions
@@ -31,9 +29,9 @@ class Impression < ApplicationRecord
   belongs_to :property
 
   # validations ...............................................................
-  validates :country, length: { maximum: 255 }
-  validates :ip, length: { maximum: 255, allow_blank: false }
-  validates :postal_code, length: { maximum: 255 }
+  validates :country, length: {maximum: 255}
+  validates :ip, length: {maximum: 255, allow_blank: false}
+  validates :postal_code, length: {maximum: 255}
 
   # callbacks .................................................................
   # scopes ....................................................................
@@ -48,8 +46,6 @@ class Impression < ApplicationRecord
   # public instance methods ...................................................
 
   # protected instance methods ................................................
-  protected
 
   # private instance methods ..................................................
-  private
 end

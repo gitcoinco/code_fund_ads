@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: creatives
@@ -23,9 +21,9 @@ class Creative < ApplicationRecord
   has_many :creative_images
 
   # validations ...............................................................
-  validates :body, length: { maximum: 255, allow_blank: false }
-  validates :headline, length: { maximum: 255, allow_blank: false }
-  validates :name, length: { maximum: 255, allow_blank: false }
+  validates :body, length: {maximum: 255, allow_blank: false}
+  validates :headline, length: {maximum: 255, allow_blank: false}
+  validates :name, length: {maximum: 255, allow_blank: false}
 
   # callbacks .................................................................
   # scopes ....................................................................
@@ -54,8 +52,6 @@ class Creative < ApplicationRecord
   end
 
   # protected instance methods ................................................
-  protected
 
   # private instance methods ..................................................
-  private
 end
