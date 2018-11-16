@@ -1,5 +1,9 @@
 #!/bin/bash
 
-bundle exec standard --fix app/models
+bundle exec standard --fix app/channels
 bundle exec standard --fix app/controllers
-prettier --write app/**/*.js
+bundle exec standard --fix app/helpers
+bundle exec standard --fix app/jobs
+bundle exec standard --fix app/mailers
+bundle exec standard --fix app/models
+prettier --loglevel silent --write app/**/*.js

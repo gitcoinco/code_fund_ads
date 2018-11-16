@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class GeneratePropertyScreenshotJob < ApplicationJob
   queue_as :default
 
@@ -7,12 +5,12 @@ class GeneratePropertyScreenshotJob < ApplicationJob
     property = Property.find(property_id)
 
     sm = ScreenshotMachine.new(property.url)
-    image = sm.screenshot
+    # image = sm.screenshot
 
     tempfile = Tempfile.new("fileupload")
     tempfile.binmode
     tempfile.write(sm.screenshot)
-    tempfile.rewind()
+    tempfile.rewind
 
     uploaded_file = ActionDispatch::Http::UploadedFile.new(tempfile: tempfile, filename: "property-screenshot-#{property.id}.jpg", type: "image/jpeg")
 
