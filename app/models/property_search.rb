@@ -6,10 +6,11 @@ class PropertySearch < ApplicationSearchRecord
     keywords
     languages
     name
-    url
     property_types
     statuses
+    url
     user
+    user_id
   ].freeze
 
   def initialize(attrs = {})
@@ -28,9 +29,10 @@ class PropertySearch < ApplicationSearchRecord
       .then { |result| result.search_keywords(*keywords) }
       .then { |result| result.search_language(*languages) }
       .then { |result| result.search_name(name) }
-      .then { |result| result.search_url(url) }
       .then { |result| result.search_property_type(*property_types) }
       .then { |result| result.search_status(*statuses) }
+      .then { |result| result.search_url(url) }
       .then { |result| result.search_user(user) }
+      .then { |result| result.search_user_id(user_id) }
   end
 end

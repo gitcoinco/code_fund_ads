@@ -28,7 +28,7 @@ class PropertiesController < ApplicationController
 
   # GET /properties/new
   def new
-    @property = Property.new(status: "pending")
+    @property = Property.new(user_id: current_user.id, status: "pending")
   end
 
   # GET /properties/1/edit
@@ -97,7 +97,7 @@ class PropertiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def property_params
-      params.require(:property).permit(:name, :url, :status, :language, :description, :property_type, keywords: [])
+      params.require(:property).permit(:name, :url, :status, :language, :description, :property_type, :screenshot, keywords: [])
     end
 
     def sortable_columns

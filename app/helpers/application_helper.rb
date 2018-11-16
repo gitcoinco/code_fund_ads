@@ -119,12 +119,12 @@ module ApplicationHelper
   def sortable_tr(column, title = nil)
     title   ||= column.titleize
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
-    link_up   = link_to(tag.span("", class: "fas fa-angle-up u-datatable__thead-icon"), {column: column, direction: "asc"})
-    link_down = link_to(tag.span("", class: "fas fa-angle-down u-datatable__thead-icon"), {column: column, direction: "desc"})
+    link_up   = link_to(tag.span("", class: "fas fa-angle-up u-datatable__thead-icon"), column: column, direction: "asc")
+    link_down = link_to(tag.span("", class: "fas fa-angle-down u-datatable__thead-icon"), column: column, direction: "desc")
 
     if params[:column] == column
-      link_up = link_to(tag.span("", class: "fas fa-angle-up u-datatable__thead-icon text-primary"), {column: column, direction: "asc"}) if direction == "desc"
-      link_down = link_to(tag.span("", class: "fas fa-angle-down u-datatable__thead-icon text-primary"), {column: column, direction: "desc"}) if direction == "asc"
+      link_up = link_to(tag.span("", class: "fas fa-angle-up u-datatable__thead-icon text-primary"), column: column, direction: "asc") if direction == "desc"
+      link_down = link_to(tag.span("", class: "fas fa-angle-down u-datatable__thead-icon text-primary"), column: column, direction: "desc") if direction == "asc"
     end
 
     tr = <<~EOS

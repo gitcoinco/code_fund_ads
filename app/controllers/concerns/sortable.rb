@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Sortable
   extend ActiveSupport::Concern
 
@@ -8,7 +10,7 @@ module Sortable
   def order_by
     "#{sort_column} #{sort_direction}"
   end
-  
+
   def sort_column
     return params[:column] if sortable_columns.include?(params[:column])
     return "name"          if sortable_columns.include?("name")

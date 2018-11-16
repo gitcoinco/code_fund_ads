@@ -2,11 +2,11 @@
 
 module PropertiesHelper
   def property_types_for_select
-    ENUMS::PROPERTY_TYPES.values
+    ENUMS::PROPERTY_TYPES.values.map { |val| [val.humanize, val] }
   end
 
   def property_statuses_for_select
-    ENUMS::PROPERTY_STATUSES.values
+    ENUMS::PROPERTY_STATUSES.values.map { |val| [val.humanize, val] }
   end
 
   def property_status_color(status)

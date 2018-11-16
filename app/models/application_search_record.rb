@@ -40,7 +40,7 @@ class ApplicationSearchRecord
   end
 
   def searched_keys
-    @attributes.reject { |k,v| v.blank? }.keys
+    @attributes.reject { |k, v| v.blank? }.keys
   end
 
   def present?
