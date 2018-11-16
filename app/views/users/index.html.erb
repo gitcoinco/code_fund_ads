@@ -15,11 +15,11 @@
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
-    <%= render "/user_searches/form" %>
-    <div class="card">
-      <div class="card-body">
-        <%= render "/users/table" %>
-      </div>
+    <%= render partial: "/user_searches/form",
+               layout: "/@shared/collapsable_search_form",
+               locals: { search: @user_search } %>
+    <div class="bg-white p-4">
+      <%= render "/users/table" %>
     </div>
   </div>
 </main>

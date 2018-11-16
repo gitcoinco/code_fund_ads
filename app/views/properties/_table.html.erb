@@ -2,22 +2,20 @@
   <table class="table table-borderless u-datatable u-datatable__striped">
     <thead>
       <tr class="border-bottom">
-        <th scope="col" style="width: 30px;">&nbsp;</th>
-        <th scope="col">Name</th>
+        <%= sortable_tr "name" %>
         <th scope="col">Publisher</th>
         <th scope="col">URL</th>
+        <%= sortable_tr "created_at", "Date Added" %>
+        <%= sortable_tr "status" %>
         <th scope="col"></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="font-size-1">
       <%= render partial: "/properties/tr", collection: @properties, as: :property %>
     </tbody>
-    <tfoot>
-      <tr class="border-top">
-        <td colspan="5" class="pt-3">
-          <%== pagy_nav_bootstrap(@pagy) if @pagy.pages > 1 %>
-        </td>
-      </tr>
-    </tfoot>
   </table>
-</table>
+  <div class="d-flex justify-content-between align-items-center">
+    <span><%== pagy_nav_bootstrap(@pagy) if @pagy.pages > 1 %></span>
+    <%= pagy_entries(@pagy) %>
+  </div>
+</div>

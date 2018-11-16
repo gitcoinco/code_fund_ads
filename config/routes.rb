@@ -23,7 +23,9 @@ Rails.application.routes.draw do
   resources :campaigns
   resources :creatives
   resources :impressions
-  resources :properties
+  resources :properties do
+    resources :property_screenshots, only: [:update]
+  end
   resources :templates
   resources :themes
   resources :users

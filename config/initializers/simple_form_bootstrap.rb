@@ -45,6 +45,23 @@ SimpleForm.setup do |config|
   config.input_field_error_class = "is-invalid"
   config.input_field_valid_class = "is-valid"
 
+  # front forms
+  #
+  # front default_wrapper
+  config.wrappers :front_form, tag: "div", class: "js-form-message js-focus-state", error_class: "u-has-error", valid_class: "u-has-success" do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :minlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+    b.use :label, class: "form-label"
+    b.use :input, class: "form-control"
+    b.use :full_error, wrap_with: { tag: "div", class: "invalid-feedback" }
+    b.use :hint, wrap_with: { tag: "small", class: "form-text text-muted" }
+  end
+
   # vertical forms
   #
   # vertical default_wrapper
@@ -99,14 +116,14 @@ SimpleForm.setup do |config|
   end
 
   # vertical file input
-  config.wrappers :vertical_file, tag: "div", class: "form-group", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
+  config.wrappers :vertical_file, tag: "div", class: "form-group js-form-message js-focus-state", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
     b.use :html5
     b.use :placeholder
     b.optional :maxlength
     b.optional :minlength
     b.optional :readonly
-    b.use :label
-    b.use :input, class: "form-control-file", error_class: "is-invalid", valid_class: "is-valid"
+    b.use :label, class: "form-label"
+    b.use :input, class: "form-control-file form-control", error_class: "is-invalid", valid_class: "is-valid"
     b.use :full_error, wrap_with: { tag: "div", class: "invalid-feedback d-block" }
     b.use :hint, wrap_with: { tag: "small", class: "form-text text-muted" }
   end
@@ -133,6 +150,25 @@ SimpleForm.setup do |config|
     b.use :input, class: "form-control-range", error_class: "is-invalid", valid_class: "is-valid"
     b.use :full_error, wrap_with: { tag: "div", class: "invalid-feedback d-block" }
     b.use :hint, wrap_with: { tag: "small", class: "form-text text-muted" }
+  end
+
+  # seafilterrch forms
+  #
+  # filter default_wrapper
+  config.wrappers :filter_form, tag: "div", class: "form-group row", error_class: "form-group-invalid", valid_class: "form-group-valid" do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :minlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+    b.use :label, class: "col-sm-2 col-form-label"
+    b.wrapper :grid_wrapper, tag: "div", class: "col-sm-10" do |ba|
+      ba.use :input, class: "form-control  form-control-sm", error_class: "is-invalid", valid_class: "is-valid"
+      ba.use :full_error, wrap_with: { tag: "div", class: "invalid-feedback" }
+      ba.use :hint, wrap_with: { tag: "small", class: "form-text text-muted" }
+    end
   end
 
   # horizontal forms

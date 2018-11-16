@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/coderberry/screenshot_machine.git
+  revision: f065ca91092ed655f17c02f729e74074daeddeab
+  specs:
+    screenshot_machine (0.0.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -173,7 +179,7 @@ GEM
     nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
-    pagy (0.23.1)
+    pagy (0.21.0)
     parallel (1.12.1)
     parser (2.5.3.0)
       ast (~> 2.4.0)
@@ -285,7 +291,7 @@ GEM
       sprockets (>= 3.0.0)
     standard (0.0.10)
       rubocop (>= 0.60)
-    stimulus_reflex (0.2.0)
+    stimulus_reflex (0.1.12)
       actioncable (>= 5.2.1)
       actionpack (>= 5.2.1)
       cable_ready (>= 2.0.7)
@@ -354,7 +360,7 @@ DEPENDENCIES
   monetize (~> 1.9.0)
   money (~> 6.13.1)
   money-rails (~> 1.13.0)
-  pagy (~> 0.23.1)
+  pagy (~> 0.21.0)
   perm (~> 1.0.2)
   pg (>= 0.18, < 2.0)
   pg_party (~> 0.7.3)
@@ -367,11 +373,12 @@ DEPENDENCIES
   redis (~> 4.0)
   rubocop
   sass-rails (~> 5.0)
+  screenshot_machine (~> 0.0.4)!
   selenium-webdriver
   simple_form (~> 4.0)
   slack-notifier (~> 2.3.2)
   standard
-  stimulus_reflex (~> 0.2.0)
+  stimulus_reflex (~> 0.1.12)
   tag_columns (~> 0.1.6)
   teamocil
   turbolinks (~> 5)

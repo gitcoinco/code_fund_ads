@@ -1,0 +1,28 @@
+<div id="filterAccordian">
+  <div class="card mb-3 border-0">
+    <div class="card-header card-collapse bg-white border-0" id="filters-heading">
+      <h5 class="mb-0">
+        <button class="btn btn-link btn-block d-flex justify-content-between card-btn p-3 collapsed"
+                data-toggle="collapse"
+                data-target="#filters"
+                aria-expanded="true"
+                aria-controls="filters">
+          <span><i class="fas fa-search mr-3"></i>
+            <% search.searched_keys.each do |search_key| %>
+              <span class="badge badge-light filter-badge mr-1"><%= search_key.humanize.titleize %></span>
+            <% end %>
+          </span> 
+
+          <span class="card-btn-arrow">
+            <span class="fas fa-arrow-down small"></span>
+          </span>
+        </button>
+      </h5>
+    </div>
+    <div id="filters" class="collapse" aria-labelledby="filters-heading" data-parent="#filters-heading">
+      <div class="card-body px-4">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</div>

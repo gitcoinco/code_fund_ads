@@ -115,4 +115,24 @@ module ApplicationHelper
     end
     flash_messages.join("\n").html_safe
   end
+
+  def sortable_tr(column, title = nil)
+    title   ||= column.titleize
+    direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
+    selected  = nil
+
+    if params[:column] == column
+      selected = "up" if direction == "desc"
+      selected = "down" if direction == "asc"
+    end
+
+    render "/@shared/sortable_tr", title: title, selected: selected, column: column
+  end
+
+  def pagy_entries(pagy)
+    start = pagy.offset + 1
+    finish = start + pagy.items - 1
+    count = pagy.count
+    tag.small("Showing #{start} to #{finish} of #{count} Entries", class: "text-secondary").html_safe
+  end
 end

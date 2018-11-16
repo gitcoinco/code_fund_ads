@@ -78,3 +78,59 @@ fieldset.inline {
 .breadcrumb-item.active .breadcrumb-link {
   color: #fff;
 }
+
+#filterAccordian .filter-badge {
+  padding: 0.5rem 0.8rem 0.5rem;
+  font-size: 80%;
+  font-weight: 400;
+  line-height: 1rem;
+  margin-bottom: -4px;
+
+  &:before {
+    font-family: "Font Awesome 5 Pro"; font-weight: 900; content: "\f00c ";
+  }
+}
+
+th[scope=col] a {
+  color: #1e2022;
+  border-bottom: 1px dotted #1e2022;
+  text-decoration: none;
+}
+
+
+.select2-container--bootstrap .select2-selection--single {
+  height: 48px !important;
+  padding: 7px 5px 7px 15px !important;
+  border-radius: 0.125rem !important;
+  box-shadow: none !important;
+  border: 1px solid #d5dae2 !important;
+  font-size: 1rem !important;
+  line-height: 2 !important;
+}
+
+.select2-selection--multiple {
+  padding: 7px 5px !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  border-radius: 0.125rem !important;
+  box-shadow: none !important;
+  border: 1px solid #d5dae2 !important;
+  
+  .select2-selection__choice {
+    margin: 5px 0 0 6px !important;
+    padding: 0 6px !important;
+    position: relative !important;
+    display: inline-block !important;
+    font-size: .875rem !important;
+    color: #77838f !important;
+    background: rgba(119, 131, 143, 0.1) !important;
+    border-radius: 0.25rem !important;
+    border: none !important;
+    padding: .25rem .75rem !important;
+    margin: 0 0 .25rem .25rem !important;
+
+    .select2-selection__choice__remove {
+      margin-right: 6px !important;
+    }
+  }
+}

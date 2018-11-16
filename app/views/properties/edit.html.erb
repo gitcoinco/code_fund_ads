@@ -1,12 +1,22 @@
 <% content_for :breadcrumbs do %>
   <%= render "/@shared/breadcrumbs/dashboard" %>
   <%= render "/@shared/breadcrumbs/properties" %>
-  <%= render "/@shared/breadcrumbs/property", class: "active" %>
+  <%= render "/@shared/breadcrumbs/property", property: @edit_property %>
+  <%= render "/@shared/breadcrumbs/edit_property", property: @property, class: "active" %>
 <% end %>
 
-<div class="container mt-3">
-  <%= page_heading "Editing", "Property", subtitle: @property.scoped_name %>
-  <%= render '/properties/form', property: @property %>
-  <%= link_to 'Show', @property, class: "btn btn-link" %>
-  <%= link_to 'Back', properties_path, class: "btn btn-link" %>
-</div>
+<% content_for :actions do %>
+  <%= render "/@shared/actions/show_property", property: @property %>
+<% end %>
+
+<% content_for :page_heading do %>
+  <%= page_heading "Editing", "Property",
+    subtitle: @property.scoped_name,
+    icon: "fas fa-browser" %>
+<% end %>
+
+<main id="content" role="main" class="bg-light">
+  <div class="container space-1">
+    <%= render "/properties/form", property: @property %>
+  </div>
+</main>
