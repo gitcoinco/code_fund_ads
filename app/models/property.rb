@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: properties
@@ -35,25 +34,25 @@ class Property < ApplicationRecord
   # validations ...............................................................
   # validates :ad_template, presence: true
   # validates :ad_theme, presence: true
-  validates :language, length: { maximum: 255, allow_blank: false }
-  validates :name, length: { maximum: 255, allow_blank: false }
-  validates :property_type, inclusion: { in: ENUMS::PROPERTY_TYPES.values }
-  validates :status, inclusion: { in: ENUMS::PROPERTY_STATUSES.values }
+  validates :language, length: {maximum: 255, allow_blank: false}
+  validates :name, length: {maximum: 255, allow_blank: false}
+  validates :property_type, inclusion: {in: ENUMS::PROPERTY_TYPES.values}
+  validates :status, inclusion: {in: ENUMS::PROPERTY_STATUSES.values}
   validates :url, presence: true
 
   # callbacks .................................................................
   after_save :generate_screenshot
 
   # scopes ....................................................................
-  scope :search_ad_template, -> (*values) { values.blank? ? all : where(ad_template: values) }
-  scope :search_keywords, -> (*values) { values.blank? ? all : with_any_keywords(*values) }
-  scope :search_language, -> (*values) { values.blank? ? all : where(language: values) }
-  scope :search_name, -> (value) { value.blank? ? all : search_column(:name, value) }
-  scope :search_property_type, -> (*values) { values.blank? ? all : where(property_type: values) }
-  scope :search_status, -> (*values) { values.blank? ? all : where(status: values) }
-  scope :search_url, -> (value) { value.blank? ? all : search_column(:url, value) }
-  scope :search_user, -> (value) { value.blank? ? all : where(user_id: User.publisher.search_name(value)) }
-  scope :search_user_id, -> (value) { value.blank? ? all : where(user_id: value) }
+  scope :search_ad_template, ->(*values) { values.blank? ? all : where(ad_template: values) }
+  scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
+  scope :search_language, ->(*values) { values.blank? ? all : where(language: values) }
+  scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
+  scope :search_property_type, ->(*values) { values.blank? ? all : where(property_type: values) }
+  scope :search_status, ->(*values) { values.blank? ? all : where(status: values) }
+  scope :search_url, ->(value) { value.blank? ? all : search_column(:url, value) }
+  scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.publisher.search_name(value)) }
+  scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
@@ -97,12 +96,11 @@ class Property < ApplicationRecord
   end
 
   # protected instance methods ................................................
-  protected
 
   # private instance methods ..................................................
   private
 
-    def generate_screenshot
-      GeneratePropertyScreenshotJob.perform_later(self.id) if saved_change_to_url?
-    end
+  def generate_screenshot
+    GeneratePropertyScreenshotJob.perform_later(id) if saved_change_to_url?
+  end
 end

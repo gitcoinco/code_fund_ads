@@ -1,7 +1,5 @@
-# frozen_string_literal: true
-
 class AuthorizedUser < Perm::Authorized
-  alias_method :user, :subject
+  alias user subject
 
   # Authorization methods in concerns must be unique to avoid naming collisions
   # The naming convention is: can_VERB_NOUN?

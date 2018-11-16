@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Authorizers
   module Images
     def can_update_image?(image)

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Authorizers
   module Roles
     def can_admin_system?

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Image
   extend ActiveModel::Naming
   include ActiveModel::Conversion
@@ -17,7 +15,7 @@ class Image
     variant
   ]
 
-  delegate *delegated_methods, to: :attachment
+  delegate(*delegated_methods, to: :attachment)
 
   def initialize(active_storage_attachment)
     @attachment = active_storage_attachment

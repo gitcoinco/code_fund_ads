@@ -1,4 +1,3 @@
-# frozen_string_literal: true
 # == Schema Information
 #
 # Table name: users
@@ -78,10 +77,10 @@ class User < ApplicationRecord
   scope :administrator, -> { with_all_roles ENUMS::USER_ROLES::ADMINISTRATOR }
   scope :advertiser, -> { with_all_roles ENUMS::USER_ROLES::ADVERTISER }
   scope :publisher, -> { with_all_roles ENUMS::USER_ROLES::PUBLISHER }
-  scope :search_company, -> (value) { value.blank? ? all : search_column(:company_name, value) }
-  scope :search_email, -> (value) { value.blank? ? all : search_column(:email, value) }
-  scope :search_name, -> (value) { value.blank? ? all : search_column(:first_name, value).or(search_column(:last_name, value)) }
-  scope :search_roles, -> (*values) { values.blank? ? all : with_any_roles(*values) }
+  scope :search_company, ->(value) { value.blank? ? all : search_column(:company_name, value) }
+  scope :search_email, ->(value) { value.blank? ? all : search_column(:email, value) }
+  scope :search_name, ->(value) { value.blank? ? all : search_column(:first_name, value).or(search_column(:last_name, value)) }
+  scope :search_roles, ->(*values) { values.blank? ? all : with_any_roles(*values) }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
@@ -97,7 +96,6 @@ class User < ApplicationRecord
   #
   #   irb>User.with_roles(:admin)
   #   irb>User.without_any_roles(:advertiser, :publisher)
-
 
   # Scopes and helpers provied by devise_invitable
   # SEE: https://github.com/scambra/devise_invitable
@@ -118,7 +116,12 @@ class User < ApplicationRecord
   #   irb>User.created_by_invite
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  tag_columns :roles rescue ActiveRecord::NoDatabaseError # rescue required for initial migration due to devise
+  begin
+    tag_columns :roles
+  rescue
+    # rescue required for initial migration due to devise
+    ActiveRecord::NoDatabaseError
+  end
   devise(
     :confirmable,
     :database_authenticatable,
@@ -160,12 +163,11 @@ class User < ApplicationRecord
   end
 
   # protected instance methods ................................................
-  protected
 
   # private instance methods ..................................................
   private
 
-    def ensure_roles
-      self.roles = roles & ENUMS::USER_ROLES.values
-    end
+  def ensure_roles
+    self.roles = roles & ENUMS::USER_ROLES.values
+  end
 end
