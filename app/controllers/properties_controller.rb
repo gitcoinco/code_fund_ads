@@ -14,8 +14,6 @@ class PropertiesController < ApplicationController
     properties = @property_search.apply(properties)
     @pagy, @properties = pagy(properties)
 
-    puts "ORDER BY: #{order_by}"
-
     render "/properties/for_user/index" if @user
   end
 
@@ -108,6 +106,10 @@ class PropertiesController < ApplicationController
   end
 
   def sortable_columns
-    %w[name status created_at]
+    %w[
+      created_at
+      name
+      status
+    ]
   end
 end

@@ -1,10 +1,12 @@
 class UsersController < ApplicationController
+  include Sortable
+
   before_action :authenticate_user!
   before_action :set_user_search, only: [:index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    users = User.include_image_count.order(:company_name, :first_name, :last_name)
+    users = User.include_image_count.order(order_by)
     users = @user_search.apply(users)
     @pagy, @users = pagy(users)
   end
@@ -63,7 +65,6 @@ class UsersController < ApplicationController
     end
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
     params.require(:user).permit(
       :address_1,
@@ -88,5 +89,15 @@ class UsersController < ApplicationController
       roles: [],
       skills: [],
     )
+  end
+
+  def sortable_columns
+    %w[
+      company_name
+      created_at
+      email
+      first_name
+      last_sign_in_at
+    ]
   end
 end
