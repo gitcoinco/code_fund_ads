@@ -2,22 +2,20 @@
   <table class="table table-striped">
     <thead>
       <tr class="border-bottom">
-        <th scope="col">Name</th>
-        <th scope="col">Email</th>
-        <th scope="col">Company</th>
+        <%= sortable_tr "first_name", "Name" %>
+        <%= sortable_tr "email" %>
+        <%= sortable_tr "company_name", "Company" %>
         <th scope="col">Roles</th>
+        <%= sortable_tr "last_sign_in_at", "Login" %>
         <th scope="col"></th>
       </tr>
     </thead>
     <tbody class="font-size-1">
-      <%= render partial: "/users/tr", collection: @users, as: :user %>
+      <%= render partial: "/users/tr", collection: users, as: :user %>
     </tbody>
-    <tfoot>
-      <tr class="border-top">
-        <td colspan="5" class="pt-3">
-          <%== pagy_nav_responsive_bootstrap(@pagy) if @pagy.pages > 1 %>
-        </td>
-      </tr>
-    </tfoot>
   </table>
+  <div class="d-flex justify-content-between align-items-center">
+    <span><%== pagy_nav_bootstrap(pagy) if pagy.pages > 1 %></span>
+    <%= pagy_entries(pagy) %>
+  </div>
 </div>
