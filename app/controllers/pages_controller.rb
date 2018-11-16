@@ -17,6 +17,6 @@ class PagesController < ApplicationController
   private
 
   def verify_page
-    render_not_found unless ENUMS::PAGES.value?(params[:id])
+    render_not_found unless ENUMS::PAGES.values.any?(params[:id])
   end
 end
