@@ -1448,8 +1448,8 @@ CREATE TABLE public.properties (
     name character varying NOT NULL,
     description text,
     url text NOT NULL,
-    ad_template character varying NOT NULL,
-    ad_theme character varying NOT NULL,
+    ad_template character varying,
+    ad_theme character varying,
     language character varying NOT NULL,
     keywords character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     prohibited_advertisers bigint[] DEFAULT '{}'::bigint[],
@@ -11404,6 +11404,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181017152837'),
 ('20181110133743'),
 ('20181114164908'),
-('20181114202957');
+('20181114202957'),
+('20181116155623');
 
 

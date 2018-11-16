@@ -92,6 +92,13 @@ PROPERTY_STATUSES:
   - archived
   - blacklisted
 
+PROPERTY_STATUS_COLORS:
+  pending: warning
+  active: success
+  rejected: danger
+  archived: muted
+  blacklisted: dark
+
 IMAGE_FORMATS:
   - small
   - large

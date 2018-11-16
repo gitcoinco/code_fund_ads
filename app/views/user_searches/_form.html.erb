@@ -1,38 +1,13 @@
-<div id="filterAccordian">
-  <div class="card mb-3">
-    <div class="card-header card-collapse" id="filterHeading">
-      <h5 class="mb-0">
-        <button class="btn btn-link btn-block d-flex justify-content-between card-btn p-3"
-                data-toggle="collapse"
-                data-target="#filterCollapse"
-                aria-expanded="true"
-                aria-controls="filterCollapse">
-          Apply Filters
+<%= simple_form_for @user_search do |f| %>
+  <div class="row">
+    <%= tag.div f.input(:name, required: false), class: "col-12 col-md-auto" %>
+    <%= tag.div f.input(:email, required: false), class: "col-12 col-md-auto" %>
+    <%= tag.div f.input(:company_name, required: false), class: "col-12 col-md-auto" %>
+    <%= tag.div f.input(:roles, collection: user_roles_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
 
-          <span class="card-btn-arrow">
-            <span class="fas fa-arrow-down small"></span>
-          </span>
-        </button>
-      </h5>
-    </div>
-    <div id="filterCollapse" class="collapse <%= "show" if @user_search.present? %>" aria-labelledby="filterHeading" data-parent="#filterHeading">
-      <div class="card-body px-4">
-        <%= simple_form_for @user_search do |f| %>
-          <div class="row">
-            <%= tag.div f.input(:name, required: false), class: "col-12 col-md-auto" %>
-            <%= tag.div f.input(:email, required: false), class: "col-12 col-md-auto" %>
-            <%= tag.div f.input(:company_name, required: false), class: "col-12 col-md-auto" %>
-            <%= tag.div f.input(:roles, collection: user_roles_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
-
-            <%= pseudo_row_divider %>
-
-            <div class="col-12 mt-3">
-              <%= f.button :submit, value: "Search", class: "btn btn-primary mr-3" %>
-              <%= link_to "Clear", user_search_path(@user_search.to_gid_param), class: "btn-md btn-link text-danger", method: :delete if @user_search.present? %>
-            </div>
-          </div>
-        <% end %>
-      </div>
+    <div class="col-12 mt-3">
+      <%= f.button :submit, value: "Search", class: "btn btn-primary mr-3" %>
+      <%= link_to "Clear", user_search_path(@user_search.to_gid_param), class: "btn-md btn-link text-danger", method: :delete if @user_search.present? %>
     </div>
   </div>
-</div>
+<% end %>

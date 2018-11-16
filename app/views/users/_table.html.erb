@@ -9,13 +9,13 @@
         <th scope="col"></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="font-size-1">
       <%= render partial: "/users/tr", collection: @users, as: :user %>
     </tbody>
     <tfoot>
       <tr class="border-top">
         <td colspan="5" class="pt-3">
-          <%== pagy_nav_bootstrap(@pagy) if @pagy.pages > 1 %>
+          <%== pagy_nav_responsive_bootstrap(@pagy) if @pagy.pages > 1 %>
         </td>
       </tr>
     </tfoot>

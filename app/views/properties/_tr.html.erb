@@ -1,7 +1,18 @@
 <%= tag.tr class: classes("even": property_counter.even?, "odd": property_counter.odd?, "opacity-40": %w[archived blacklisted rejected].any?(ENUMS::PROPERTY_STATUSES[property.status])) do %>
-  <td><%= property_status_html property.status %></span></td>
-  <td><%= link_to property.name, property_path(property), title: "View Property", data: tooltip_expando %></td>
-  <td><%= link_to property.user.full_name, user_path(property.user), title: "View User", data: tooltip_expando %></td>
-  <td><%= link_to truncate(property.url, length: 20), property.url, title: "Visit #{property.url}", target: "_blank", data: tooltip_expando %></td>
-  <td><%= link_to "Edit", edit_property_path(property), class: "btn btn-link btn-sm", title: "Edit Property", data: tooltip_expando %></td>
+  <td class="align-middle"><%= link_to property.name, property_path(property), title: "View Property", data: tooltip_expando %></td>
+  <td class="align-middle"><%= link_to property.user.full_name, user_path(property.user), title: "View User", data: tooltip_expando %></td>
+  <td class="align-middle">
+    <%= link_to truncate(property.display_url, length: 20), property.url, target: "_blank" %>
+  </td>
+  <td class="align-middle text-secondary">
+    <small class="d-block"><%= property.created_at.strftime("%d %b, %Y") %></small>
+    <small class="d-block"><%= property.created_at.strftime("%I:%M %p")  %></small>
+  </td>
+  <td class="align-middle text-<%= property_status_color(property.status) %>">
+    <span class="fas fa-circle small mr-1"></span>
+    <%= property.status.humanize %>
+  </td>
+  <td class="align-middle text-right text-secondary">
+    <%= render "/@shared/table_buttons/edit", link: edit_property_path(property) %>
+  </td>
 <% end %>

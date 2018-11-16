@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/coderberry/screenshot_machine.git
+  revision: f065ca91092ed655f17c02f729e74074daeddeab
+  specs:
+    screenshot_machine (0.0.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -365,6 +371,7 @@ DEPENDENCIES
   redis (~> 4.0)
   rubocop
   sass-rails (~> 5.0)
+  screenshot_machine (~> 0.0.4)!
   selenium-webdriver
   simple_form (~> 4.0)
   slack-notifier (~> 2.3.2)
