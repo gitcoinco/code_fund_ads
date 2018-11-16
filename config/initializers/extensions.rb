@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require Rails.root.join("lib/extensions/kernel_then")
 require Rails.root.join("lib/extensions/active_storage_blob")
 require Rails.root.join("lib/extensions/active_storage_attachment")

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AddDefaultPartitionForImpressions < ActiveRecord::Migration[5.2]
   def up
     execute "CREATE TABLE impressions_default PARTITION OF impressions DEFAULT;"
