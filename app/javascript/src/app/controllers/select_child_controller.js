@@ -1,6 +1,6 @@
-import 'select2';
-import { Controller } from 'stimulus';
-import { toArray } from '../utils';
+import "select2";
+import { Controller } from "stimulus";
+import { toArray } from "../utils";
 
 export default class extends Controller {
   connect() {
@@ -10,25 +10,25 @@ export default class extends Controller {
     this.createdHandler = this.addSelect2EventListeners.bind(this);
     this.beforeCacheHandler = (() => {
       this.restoreOrigParentOptionsState();
-      jQuery(this.element).off('change.select2', this.changeHandler);
+      jQuery(this.element).off("change.select2", this.changeHandler);
     }).bind(this);
 
     document.addEventListener(
-      'turbolinks:before-cache',
+      "turbolinks:before-cache",
       this.beforeCacheHandler
     );
-    this.element.addEventListener('select:created', this.createdHandler);
+    this.element.addEventListener("select:created", this.createdHandler);
     this.addSelect2EventListeners();
   }
 
   addSelect2EventListeners() {
-    jQuery(this.element).on('change.select2', this.changeHandler);
+    jQuery(this.element).on("change.select2", this.changeHandler);
   }
 
   selectParent(event) {
     this.parentSelectTarget.value = this.selectedOption.dataset.parentId;
     this.parentSelectTarget.triggeringChildOption = this.selectedOption;
-    this.parentSelectTarget.dispatchEvent(new Event('change'));
+    this.parentSelectTarget.dispatchEvent(new Event("change"));
     setTimeout(() => delete this.parentSelectTarget.triggeringChildOption, 100);
   }
 
@@ -42,9 +42,9 @@ export default class extends Controller {
 
   restoreOrigParentOptionsState(callback) {
     this.parentOptions.forEach(option => {
-      option.hidden = option.dataset.origHidden === 'true';
-      option.disabled = option.dataset.origDisabled === 'true';
-      option.selected = option.dataset.origSelected === 'true';
+      option.hidden = option.dataset.origHidden === "true";
+      option.disabled = option.dataset.origDisabled === "true";
+      option.selected = option.dataset.origSelected === "true";
     });
   }
 
@@ -53,7 +53,7 @@ export default class extends Controller {
   }
 
   get options() {
-    return toArray(this.element.querySelectorAll('option'));
+    return toArray(this.element.querySelectorAll("option"));
   }
 
   get parentSelectTarget() {
@@ -61,6 +61,6 @@ export default class extends Controller {
   }
 
   get parentOptions() {
-    return toArray(this.parentSelectTarget.querySelectorAll('option'));
+    return toArray(this.parentSelectTarget.querySelectorAll("option"));
   }
 }

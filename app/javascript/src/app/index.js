@@ -1,10 +1,10 @@
-import './stylesheets/application.scss';
-import './theme';
-import 'select2';
-import { Application } from 'stimulus';
-import { definitionsFromContext } from 'stimulus/webpack-helpers';
+import "./stylesheets/application.scss";
+import "./theme";
+import "select2";
+import { Application } from "stimulus";
+import { definitionsFromContext } from "stimulus/webpack-helpers";
 
-window.Noty = require('noty');
+window.Noty = require("noty");
 window.Noty.overrideDefaults({
   layout: "topRight",
   theme: "mint",
@@ -18,5 +18,5 @@ window.Noty.overrideDefaults({
 });
 
 const application = Application.start();
-const context = require.context('./controllers', true, /\.js$/);
+const context = require.context("./controllers", true, /\.js$/);
 application.load(definitionsFromContext(context));

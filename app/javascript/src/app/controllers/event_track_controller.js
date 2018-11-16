@@ -1,4 +1,4 @@
-import { Controller } from 'stimulus';
+import { Controller } from "stimulus";
 
 export default class extends Controller {
   logEvent(event) {
@@ -6,27 +6,27 @@ export default class extends Controller {
       gaEventCategory,
       gaEventAction,
       gaEventLabel,
-      gaEventValue,
+      gaEventValue
     } = this.element.dataset;
 
     const options = {
       event_category: gaEventCategory,
       event_label: gaEventLabel,
-      value: gaEventValue,
+      value: gaEventValue
     };
 
     if (window.debugCodeFund) {
       event.preventDefault();
       event.stopPropagation();
-      console.log('Emitting GA event', gaEventAction, options);
+      console.log("Emitting GA event", gaEventAction, options);
     }
 
     try {
-      window.gtag('event', gaEventAction, options);
+      window.gtag("event", gaEventAction, options);
     } catch (ex) {
       if (window.debugCodeFund) {
         console.log(
-          'Failed to emit GA event',
+          "Failed to emit GA event",
           gaEventAction,
           options,
           ex.message

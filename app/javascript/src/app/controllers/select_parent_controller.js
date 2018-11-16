@@ -1,6 +1,6 @@
-import 'select2';
-import { Controller } from 'stimulus';
-import { toArray } from '../utils';
+import "select2";
+import { Controller } from "stimulus";
+import { toArray } from "../utils";
 
 export default class extends Controller {
   connect() {
@@ -9,20 +9,20 @@ export default class extends Controller {
     this.changeHandler = this.filterChildren.bind(this);
     this.beforeCacheHandler = (() => {
       this.restoreOrigChildOptionsState();
-      jQuery(this.element).off('change.select2', this.changeHandler);
+      jQuery(this.element).off("change.select2", this.changeHandler);
     }).bind(this);
 
     document.addEventListener(
-      'turbolinks:before-cache',
+      "turbolinks:before-cache",
       this.beforeCacheHandler
     );
-    jQuery(this.element).on('change.select2', this.changeHandler);
+    jQuery(this.element).on("change.select2", this.changeHandler);
     if (this.element.value) this.filterChildren();
   }
 
   filterChildren() {
     if (!this.childSelectTarget) return;
-    this.childSelectTarget.dispatchEvent(new Event('select:destroy'));
+    this.childSelectTarget.dispatchEvent(new Event("select:destroy"));
     this.restoreOrigChildOptionsState();
     if (this.element.value) {
       this.childOptions.forEach(option => {
@@ -38,7 +38,7 @@ export default class extends Controller {
       this.element.triggeringChildOption.disabled = false;
       this.element.triggeringChildOption.selected = true;
     }
-    this.childSelectTarget.dispatchEvent(new Event('select:create'));
+    this.childSelectTarget.dispatchEvent(new Event("select:create"));
   }
 
   saveOrigChildOptionsState() {
@@ -51,9 +51,9 @@ export default class extends Controller {
 
   restoreOrigChildOptionsState(callback) {
     this.childOptions.forEach(option => {
-      option.hidden = option.dataset.origHidden === 'true';
-      option.disabled = option.dataset.origDisabled === 'true';
-      option.selected = option.dataset.origSelected === 'true';
+      option.hidden = option.dataset.origHidden === "true";
+      option.disabled = option.dataset.origDisabled === "true";
+      option.selected = option.dataset.origSelected === "true";
     });
   }
 
@@ -69,6 +69,6 @@ export default class extends Controller {
 
   get childOptions() {
     if (!this.childSelectTarget) return [];
-    return toArray(this.childSelectTarget.querySelectorAll('option'));
+    return toArray(this.childSelectTarget.querySelectorAll("option"));
   }
 }
