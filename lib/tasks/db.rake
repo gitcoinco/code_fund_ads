@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 namespace :db do
   namespace :migrate do
     desc <<~DESC
@@ -9,8 +7,8 @@ namespace :db do
     DESC
     task skip_shotgun: :environment do
       ActiveRecord::Base.connection.execute <<~SQL
-      INSERT INTO schema_migrations
-      (version, inserted_at) VALUES('20181017152837', now())
+        INSERT INTO schema_migrations
+        (version, inserted_at) VALUES('20181017152837', now())
       SQL
     end
   end
