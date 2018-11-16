@@ -7,20 +7,13 @@ WIP...
  We avoid [bike shedding](https://en.wikipedia.org/wiki/Law_of_triviality) by enforcing coding standards through tooling.
 
  - Ruby - [standard](https://github.com/testdouble/standard)
-
-   Run the following before committing.
-
-   ```sh
-   bundle exec standard
-   ```
-
  - JavaScript - [prettier](https://github.com/prettier/prettier)
 
-   Run the following before committing.
+ Ensure the code is standardized by running the following before you commit.
 
-   ```sh
-   prettier --write app/**/*.js
-   ```
+ ```sh
+ ./bin/standardize
+ ```
 
 ## Candidates for GEM extraction
 
