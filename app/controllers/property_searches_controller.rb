@@ -19,6 +19,7 @@ class PropertySearchesController < ApplicationController
       params.require(:property_search).permit(
         :name,
         :user,
+        :url,
         ad_templates: [],
         keywords: [],
         languages: [],

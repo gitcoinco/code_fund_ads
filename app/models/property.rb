@@ -33,8 +33,8 @@ class Property < ApplicationRecord
   has_many :impressions
 
   # validations ...............................................................
-  validates :ad_template, presence: true
-  validates :ad_theme, presence: true
+  # validates :ad_template, presence: true
+  # validates :ad_theme, presence: true
   validates :language, length: { maximum: 255, allow_blank: false }
   validates :name, length: { maximum: 255, allow_blank: false }
   validates :property_type, inclusion: { in: ENUMS::PROPERTY_TYPES.values }
@@ -48,6 +48,7 @@ class Property < ApplicationRecord
   scope :search_keywords, -> (*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :search_language, -> (*values) { values.blank? ? all : where(language: values) }
   scope :search_name, -> (value) { value.blank? ? all : search_column(:name, value) }
+  scope :search_url, -> (value) { value.blank? ? all : search_column(:url, value) }
   scope :search_property_type, -> (*values) { values.blank? ? all : where(property_type: values) }
   scope :search_status, -> (*values) { values.blank? ? all : where(status: values) }
   scope :search_user, -> (value) { value.blank? ? all : where(user_id: User.publisher.search_name(value)) }

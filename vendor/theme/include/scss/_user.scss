@@ -2,8 +2,17 @@
   File for your custom SCSS style
 ------------------------------------*/
 
+.select2-container--bootstrap .select2-selection--single {
+  height: 48px !important;
+  padding: 7px 5px 7px 15px !important;
+  border-radius: 0.125rem !important;
+  box-shadow: none !important;
+  border: 1px solid #d5dae2 !important;
+  font-size: 1rem !important;
+  line-height: 2 !important;
+}
+
 .select2-selection--multiple {
-  // min-height: calc(2.5625rem - 10px) !important;
   padding: 7px 5px !important;
   font-size: 0.875rem !important;
   line-height: 1.5 !important;

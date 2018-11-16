@@ -45,6 +45,23 @@ SimpleForm.setup do |config|
   config.input_field_error_class = "is-invalid"
   config.input_field_valid_class = "is-valid"
 
+  # front forms
+  #
+  # front default_wrapper
+  config.wrappers :front_form, tag: "div", class: "js-form-message js-focus-state", error_class: "u-has-error", valid_class: "u-has-success" do |b|
+    b.use :html5
+    b.use :placeholder
+    b.optional :maxlength
+    b.optional :minlength
+    b.optional :pattern
+    b.optional :min_max
+    b.optional :readonly
+    b.use :label, class: "form-label"
+    b.use :input, class: "form-control"
+    b.use :full_error, wrap_with: { tag: "div", class: "invalid-feedback" }
+    b.use :hint, wrap_with: { tag: "small", class: "form-text text-muted" }
+  end
+
   # vertical forms
   #
   # vertical default_wrapper
