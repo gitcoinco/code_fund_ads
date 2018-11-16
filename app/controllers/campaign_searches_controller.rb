@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CampaignSearchesController < ApplicationController
   before_action :authenticate_user!
 
@@ -15,17 +13,17 @@ class CampaignSearchesController < ApplicationController
 
   private
 
-    def campaign_search_params
-      params.require(:campaign_search).permit(
-        :name,
-        :us_hours_only,
-        :user,
-        :user_id,
-        :weekdays_only,
-        countries: [],
-        keywords: [],
-        negative_keywords: [],
-        statuses: [],
-      )
-    end
+  def campaign_search_params
+    params.require(:campaign_search).permit(
+      :name,
+      :us_hours_only,
+      :user,
+      :user_id,
+      :weekdays_only,
+      countries: [],
+      keywords: [],
+      negative_keywords: [],
+      statuses: [],
+    )
+  end
 end

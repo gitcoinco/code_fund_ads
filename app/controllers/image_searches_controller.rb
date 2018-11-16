@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class ImageSearchesController < ApplicationController
   before_action :set_imageable
 
@@ -15,11 +13,16 @@ class ImageSearchesController < ApplicationController
 
   private
 
-    def set_imageable
-      @imageable = GlobalID.parse(params[:imageable_gid]).find
-    end
+  def set_imageable
+    @imageable = GlobalID.parse(params[:imageable_gid]).find
+  end
 
-    def image_search_params
-      params.require(:image_search).permit(:description, :filename, :name, formats: [])
-    end
+  def image_search_params
+    params.require(:image_search).permit(
+      :description,
+      :filename,
+      :name,
+      formats: [],
+    )
+  end
 end

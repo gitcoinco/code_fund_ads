@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class CreateSlackNotificationJob < ApplicationJob
   queue_as :default
 
@@ -8,7 +6,7 @@ class CreateSlackNotificationJob < ApplicationJob
 
     notifier = Slack::Notifier.new ENV["SLACK_WEBHOOK_URL"]
     if args[:message].present?
-      notifier.post text: args[:text], attachments: { text: args[:message] }, format: :markdown
+      notifier.post text: args[:text], attachments: {text: args[:message]}, format: :markdown
     else
       notifier.post text: args[:text], format: :markdown
     end

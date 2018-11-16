@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AdvertisersController < ApplicationController
   before_action :authenticate_user!
 
@@ -19,7 +17,14 @@ class AdvertisersController < ApplicationController
 
   private
 
-    def advertiser_params
-      params.require(:form).permit(:first_name, :last_name, :company_name, :company_url, :email, :monthly_budget)
-    end
+  def advertiser_params
+    params.require(:form).permit(
+      :company_name,
+      :company_url,
+      :email,
+      :first_name,
+      :last_name,
+      :monthly_budget,
+    )
+  end
 end
