@@ -1,7 +1,6 @@
 // theme vendored scripts
 import 'theme/vendor/bootstrap/bootstrap.min';
 import 'theme/vendor/appear';
-import 'theme/vendor/flatpickr/dist/flatpickr';
 import 'theme/vendor/bootstrap-select/dist/js/bootstrap-select';
 import 'theme/vendor/hs-megamenu/src/hs.megamenu';
 import 'theme/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min';
@@ -29,7 +28,6 @@ import 'theme/js/components/hs.show-animation';
 import 'theme/js/components/hs.go-to';
 import 'theme/js/components/hs.sticky-block';
 import 'theme/js/components/hs.scroll-nav';
-// import "theme/js/components/hs.summernote-editor";
 import 'theme/js/components/hs.chartist-area-chart';
 import 'theme/js/components/hs.chartist-bar-chart';
 import 'theme/js/components/hs.focus-state';
@@ -46,7 +44,6 @@ document.addEventListener('turbolinks:load', () => {
   jQuery.HSCore.components.HSFancyBox.init('.js-fancybox');
   jQuery.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
   jQuery.HSCore.components.HSValidation.init('.js-validate');
-  // jQuery.HSCore.components.HSSummernoteEditor.init(".js-summernote-editor");
   jQuery.HSCore.components.HSFocusState.init();
 
   // initialization of HSMegaMenu component

@@ -1,6 +1,9 @@
 import './stylesheets/application.scss';
 import './theme';
 import 'select2';
+import 'moment';
+import 'bootstrap-daterangepicker';
+
 import { Application } from 'stimulus';
 import { definitionsFromContext } from 'stimulus/webpack-helpers';
 

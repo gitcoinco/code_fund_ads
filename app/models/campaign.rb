@@ -124,6 +124,12 @@ class Campaign < ApplicationRecord
     "#{start_date.to_s "mm/dd/yyyy"} #{end_date.to_s "mm/dd/yyyy"}"
   end
 
+  def date_range=(value)
+    dates = value.split(" - ")
+    start_date = Date.strptime(dates[0], "%m/%d/%Y")
+    end_date = Date.strptime(dates[1], "%m/%d/%Y")
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................

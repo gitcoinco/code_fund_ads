@@ -24,7 +24,7 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns/new
   def new
-    @campaign = Campaign.new
+    @campaign = current_user.campaigns.build(status: "pending")
   end
 
   # GET /campaigns/1/edit
@@ -94,7 +94,24 @@ class CampaignsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def campaign_params
-    params.fetch(:campaign, {})
+    parms = params.require(:campaign).permit(
+      :user_id,
+      :status,
+      :name,
+      :date_range,
+      :url,
+      :creative_id,
+      :us_hours_only,
+      :weekdays_only,
+      :ecpm,
+      :daily_budget,
+      :total_budget,
+      countries: [],
+      keywords: [],
+      negative_keywords: []
+    )
+
+    parms
   end
 
   def sortable_columns
