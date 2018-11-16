@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module ENUMS; end
 
 def enumify(key)
@@ -13,8 +11,7 @@ def init_constant(context, key, value, inverted: false)
   context.values << value unless inverted
 end
 
-path = Rails.root.join("config/enums.yml")
-raw = File.read(path)
+raw = File.read(Rails.root.join("config/enums.yml"))
 hash = YAML.safe_load(raw)
 enums = HashWithIndifferentAccess.new(hash)
 
@@ -26,9 +23,9 @@ enums = HashWithIndifferentAccess.new(hash)
 #   ENUMS::AD_THEMES::LIGHT
 #
 enums[:ad_templates] = Dir.children(Rails.root.join("app/views/ads")).sort
-enums[:ad_themes] = Dir.glob(Rails.root.join("app/views/ads/**/themes/*.css")).map do |path|
+enums[:ad_themes] = Dir.glob(Rails.root.join("app/views/ads/**/themes/*.css")).map { |path|
   File.basename(path).sub(".css", "")
-end.uniq.sort
+}.uniq.sort
 
 # Exposes pages for the partials living under: app/views/pages
 #
@@ -37,26 +34,47 @@ end.uniq.sort
 #   ENUMS::PAGES::HELP
 #   ENUMS::PAGES::TEAM
 #
-enums[:pages] = Dir.glob("_*rb", base: Rails.root.join("app/views/pages")).map do |page|
+enums[:pages] = Dir.glob("_*rb", base: Rails.root.join("app/views/pages")).map { |page|
   page.scan(/(?<=\A_).*(?=\.html\.erb\z)/)
-end.flatten.sort
+}.flatten.sort
 
 enums.each do |key, dictionary|
   dictionary = dictionary.zip(dictionary).to_h if dictionary.is_a?(Array)
 
   context = Module.new
-  def context.keys; @keys ||= []; end
-  def context.values; @values ||= []; end
+  def context.keys
+    @keys ||= []
+  end
+
+  def context.values
+    @values ||= []
+  end
+
   def context.[](value)
     return values[keys.index(value)] if keys.include?(value)
     return keys[values.index(value)] if values.include?(value)
     nil
   end
+
   def context.method_missing(name, *args)
     key = name.to_s.parameterize(separator: "_").underscore.upcase.to_sym
     return super unless const_defined?(key)
     return super unless name.to_s.end_with?("?")
     args.first.to_s == const_get(key).to_s
+  end
+
+  def context.respond_to?(name, include_all = false)
+    key = name.to_s.parameterize(separator: "_").underscore.upcase.to_sym
+    return super unless const_defined?(key)
+    return super unless name.to_s.end_with?("?")
+    true
+  end
+
+  def context.respond_to_missing?(name, include_all)
+    key = name.to_s.parameterize(separator: "_").underscore.upcase.to_sym
+    return super unless const_defined?(key)
+    return super unless name.to_s.end_with?("?")
+    true
   end
 
   key = enumify(key)
