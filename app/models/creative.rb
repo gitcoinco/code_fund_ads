@@ -40,15 +40,15 @@ class Creative < ApplicationRecord
   end
 
   def small_images
-    images.metadata_format ENUMS::IMAGE_FORMATS::SMALL
+    images.search_metadata_format ENUMS::IMAGE_FORMATS::SMALL
   end
 
   def large_images
-    images.metadata_format ENUMS::IMAGE_FORMATS::LARGE
+    images.search_metadata_format ENUMS::IMAGE_FORMATS::LARGE
   end
 
   def wide_images
-    images.metadata_format ENUMS::IMAGE_FORMATS::WIDE
+    images.search_metadata_format ENUMS::IMAGE_FORMATS::WIDE
   end
 
   # protected instance methods ................................................
