@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+  include Sortable
+
   before_action :authenticate_user!
   before_action :set_user_search, only: [:index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    users = User.include_image_count.order(:company_name, :first_name, :last_name)
+    users = User.include_image_count.order(order_by)
     users = @user_search.apply(users)
     @pagy, @users = pagy(users)
   end
@@ -72,5 +74,9 @@ class UsersController < ApplicationController
         :address_2, :city, :region, :postal_code, :country, :api_access, :us_resident, :bio,
         :website_url, :github_username, :twitter_username, :linkedin_username, skills: [], roles: []
       )
+    end
+
+    def sortable_columns
+      %w( first_name company_name email last_sign_in_at created_at )
     end
 end

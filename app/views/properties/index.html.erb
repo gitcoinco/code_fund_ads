@@ -19,7 +19,7 @@
                layout: "/@shared/collapsable_search_form",
                locals: { search: @property_search } %>
     <div class="bg-white p-4">
-      <%= render "/properties/table", properties: @properties %>
+      <%= render "/properties/table", properties: @properties, pagy: @pagy %>
     </div>
   </div>
 </main>

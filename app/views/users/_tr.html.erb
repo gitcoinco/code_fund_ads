@@ -20,11 +20,15 @@
     <% end %>
   </td>
   <td class="align-middle text-secondary">
-    <%= link_to edit_user_path(user), class: "btn btn-xs btn-icon btn-soft-secondary transition-3d-hover", title: "Edit User", data: tooltip_expando do %>
-      <span class="fas fa-pen btn-icon__inner"></span>
+    <% if user.last_sign_in_at %>
+      <small class="d-block"><%= user.last_sign_in_at.strftime("%d %b, %Y") %></small>
+      <small class="d-block"><%= user.last_sign_in_at.strftime("%I:%M %p")  %></small>
+    <% else %>
+      <small class="d-block">Never</small>
     <% end %>
-    <%= link_to images_path(user.to_gid_param), class: "btn btn-xs btn-icon btn-soft-secondary transition-3d-hover", title: "Manage Images", data: tooltip_expando do %>
-      <span class="fas fa-images btn-icon__inner"></span>
-    <% end if user.advertiser? %>
+  </td>
+  <td class="align-middle text-right text-secondary">
+    <%= render "/@shared/table_buttons/goto", link: images_path(user.to_gid_param), icon: "fas fa-images", title: "Manage Images" if user.advertiser? %>
+    <%= render "/@shared/table_buttons/edit", link: edit_user_path(user) %>
   </td>
 <% end %>

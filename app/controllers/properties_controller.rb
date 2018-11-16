@@ -16,8 +16,6 @@ class PropertiesController < ApplicationController
     properties = @property_search.apply(properties)
     @pagy, @properties = pagy(properties)
 
-    puts "ORDER BY: #{order_by}"
-
     render "/properties/for_user/index" if @user
   end
 
