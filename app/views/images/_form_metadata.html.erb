@@ -44,7 +44,7 @@
     <%= render "@shared/forms/button_panel" do %>
       <%= f.button(:submit, value: "Update Image", class: "btn btn-pill btn-primary btn-lg") %>
       <%= link_to "Delete Image", image_path(@imageable.to_gid_param, @image), class: "btn btn-link btn-lg text-danger", method: :delete,
-        data: { confirm: I18n.t("images.destroy.confirm") } if authorizable.can_destroy?(@image) %>
+        data: { confirm: I18n.t("images.destroy.confirm") } if authorized_user.can_destroy_image?(@image) %>
     <% end %>
   </div>
 <% end %>
