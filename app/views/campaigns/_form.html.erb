@@ -23,7 +23,9 @@
         input_html: {
           class: "js-range-datepicker form-control bg-white rounded-right",
           data: {
-            controller: "select-date-range"
+            controller: "select-date-range",
+            start_date: (campaign.start_date || Date.today).strftime("%m/%d/%Y"),
+            end_date: (campaign.end_date || 29.days.from_now).strftime("%m/%d/%Y")
           }
         }), class: "col-md-6 mb-3" %>
     <%= tag.div f.input(:url, as: :string, placeholder: "https://", required: true, input_html: { class: "form-control" },
@@ -44,7 +46,7 @@
               <label class="custom-control-label ml-1" for="campaign_creative_id_<%= creative.id %>">
                 <div class="media ml-2">
                   <%= image_tag creative.large_images.first, class: "align-self-start mr-3", style: "width: 130px;" %>
-                  <div class="media-body h6 .text-black-50 font-weight-normal">
+                  <div class="media-body h6 text-black-50 font-weight-normal">
                     <strong class="text-dark"><%= creative.headline %></strong>
                     <%= creative.body %>
                   </div>

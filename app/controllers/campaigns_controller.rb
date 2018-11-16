@@ -94,7 +94,7 @@ class CampaignsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def campaign_params
-    parms = params.require(:campaign).permit(
+    params.require(:campaign).permit(
       :user_id,
       :status,
       :name,
@@ -110,8 +110,6 @@ class CampaignsController < ApplicationController
       keywords: [],
       negative_keywords: []
     )
-
-    parms
   end
 
   def sortable_columns

@@ -126,8 +126,8 @@ class Campaign < ApplicationRecord
 
   def date_range=(value)
     dates = value.split(" - ")
-    start_date = Date.strptime(dates[0], "%m/%d/%Y")
-    end_date = Date.strptime(dates[1], "%m/%d/%Y")
+    self.start_date = Date.strptime(dates[0], "%m/%d/%Y")
+    self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
   end
 
   # protected instance methods ................................................
