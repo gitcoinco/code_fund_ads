@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "csv"
+require "fileutils"
 require "faker"
 
 unless Rails.env.development?
@@ -13,39 +15,114 @@ def user_attributes
   email = Faker::Internet.email("#{first_name} #{last_name}", "-")
 
   {
-    first_name:             first_name,
-    last_name:              last_name,
-    email:                  email,
-    company_name:           Faker::SiliconValley.company,
-    confirmation_sent_at:   2.days.ago,
-    confirmed_at:           1.day.ago,
-    password:               "secret",
-    password_confirmation:  "secret",
+    roles: [],
+    first_name: first_name,
+    last_name: last_name,
+    company_name: Faker::SiliconValley.company,
+    address_1: nil,
+    address_2: nil,
+    city: nil,
+    region: nil,
+    postal_code: nil,
+    country: nil,
+    api_access: true,
+    api_key: nil,
+    paypal_email: nil,
+    email: email,
+    encrypted_password: User.new(password: "secret").encrypted_password,
+    reset_password_token: nil,
+    reset_password_sent_at: nil,
+    remember_created_at: nil,
+    sign_in_count: 1,
+    current_sign_in_at: nil,
+    last_sign_in_at: nil,
+    current_sign_in_ip: nil,
+    last_sign_in_ip: nil,
+    confirmation_token: Devise.friendly_token,
+    confirmed_at: 1.day.ago,
+    confirmation_sent_at: 2.days.ago,
+    unconfirmed_email: nil,
+    failed_attempts: 0,
+    unlock_token: nil,
+    locked_at: nil,
+    created_at: 3.days.ago,
+    updated_at: 3.days.ago,
   }
 end
 
-def create_administrator
-  attrs = user_attributes.merge(
+def create_csv(list, csv_path)
+  puts "Creating #{csv_path}"
+  CSV.open(csv_path, "wb") do |csv|
+    list.each_with_index do |record, index|
+      csv << record.unshift(index + 1)
+    end
+  end
+end
+
+def import_csv(table_name, csv_path)
+  puts "Copying #{csv_path} to Postgres"
+  ActiveRecord::Base.connection.execute "COPY \"#{table_name}\" FROM '#{csv_path}' CSV;"
+  puts "Copy complete"
+rescue StandardError => e
+  puts "Failed to copy #{csv_path} to Postgres! #{e}"
+ensure
+  FileUtils.rm_f csv_path, verbose: true
+end
+
+def build_users
+  csv_path = Rails.root.join("tmp", "users.csv")
+  users = []
+  users << build_administrator
+  users.concat build_advertisers
+  users.concat build_publishers
+  create_csv(users, csv_path)
+  import_csv("users", csv_path)
+end
+
+def build_administrator
+  puts "Building administrator"
+  # return nil unless User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADMINISTRATOR).count.zero?
+  user_attributes.merge(
     company_name: "CodeFund",
     email: "admin@codefund.io",
-    roles: [ENUMS::USER_ROLES::ADMINISTRATOR],
-  )
-  administrator = User.find_or_initialize_by(email: attrs[:email])
-  administrator.update_attributes!(attrs)
+    roles: "{#{ENUMS::USER_ROLES::ADMINISTRATOR}}",
+  ).values
 end
 
-def create_publisher
-  attrs = user_attributes.merge(roles: [ENUMS::USER_ROLES::PUBLISHER])
-  publisher = User.find_or_initialize_by(email: attrs[:email])
-  publisher.update_attributes!(attrs)
-  generate_properties(publisher)
+def build_advertisers
+  puts "Building advertisers"
+  # advertiser_count = User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADVERTISER).count
+  (1..100).map do
+    user_attributes.merge(roles: "{#{ENUMS::USER_ROLES::ADVERTISER}}").values
+  end
 end
 
-def create_advertiser
-  attrs = user_attributes.merge(roles: [ENUMS::USER_ROLES::ADVERTISER])
-  advertiser = User.find_or_initialize_by(email: attrs[:email])
-  advertiser.update_attributes!(attrs)
-  seed_campaigns(advertiser)
+def build_publishers
+  puts "Building publishers"
+  # publisher_count  = User.where("? = ANY (roles)", ENUMS::USER_ROLES::PUBLISHER).count
+  (1..1000).map do
+    user_attributes.merge(roles: "{#{ENUMS::USER_ROLES::PUBLISHER}}").values
+  end
+end
+
+def generate_properties(publisher)
+  csv_path = "/tmp/properties-#{publisher.id}.csv"
+  CSV.open(csv_path, "wb") do |csv|
+    (1..10).each do
+      csv << {
+        id: SecureRandom.uuid,
+        user_id: publisher.id,
+        property_type: ENUMS::PROPERTY_TYPES.values.sample,
+        status: ENUMS::PROPERTY_STATUSES.values.sample,
+        name: Faker::SiliconValley.invention,
+        url: Faker::SiliconValley.url,
+        ad_template: ENUMS::AD_TEMPLATES.values.sample,
+        ad_theme: ENUMS::AD_THEMES.values.sample,
+        language: ENUMS::LANGUAGES::ENGLISH,
+        keywords: ENUMS::KEYWORDS.values.sample(25),
+      }
+    end
+  end
 end
 
 def seed_campaigns(advertiser)
@@ -127,32 +204,15 @@ def generate_campaigns(advertiser)
   end
 end
 
-def generate_properties(publisher)
-  (1..10).each do
-    Property.create(
-      user: publisher,
-      property_type: ENUMS::PROPERTY_TYPES.values.sample,
-      status: ENUMS::PROPERTY_STATUSES.values.sample,
-      name: Faker::SiliconValley.invention,
-      url: Faker::SiliconValley.url,
-      ad_template: ENUMS::AD_TEMPLATES.values.sample,
-      ad_theme: ENUMS::AD_THEMES.values.sample,
-      language: ENUMS::LANGUAGES::ENGLISH,
-      keywords: ENUMS::KEYWORDS.values.sample(25),
-    )
-  end
-end
-
 puts "[SEEDING DATABASE]: Started"
-admin_count      = User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADMINISTRATOR).count
-advertiser_count = User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADVERTISER).count
-publisher_count  = User.where("? = ANY (roles)", ENUMS::USER_ROLES::PUBLISHER).count
 
-create_administrator if admin_count.zero?
-puts "[SEEDING DATABASE]: Generating advertisers"
-(advertiser_count..99).each { create_advertiser }
-puts "[SEEDING DATABASE]: Generating publishers"
-(publisher_count..999).each { create_publisher }
+build_users
+# puts "[SEEDING DATABASE]: Generating administrator"
+# create_administrator
+# puts "[SEEDING DATABASE]: Generating advertisers"
+# create_advertisers
+# puts "[SEEDING DATABASE]: Generating publishers"
+# create_publishers
 
 # require_relative "./seeds_impressions" if ENV["IMPRESSIONS"]
 
