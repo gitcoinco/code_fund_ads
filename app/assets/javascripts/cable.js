@@ -8,7 +8,8 @@
 //= require_tree ./channels
 
 (function() {
-  this.App || (this.App = {});
-
-  App.cable = ActionCable.createConsumer();
+  document.addEventListener('DOMContentLoaded', function() {
+    this.App || (this.App = {});
+    App.cable || (App.cable = ActionCable.createConsumer());
+  });
 }.call(this));

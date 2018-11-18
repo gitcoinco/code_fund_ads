@@ -43,7 +43,7 @@ advertiser.assign_attributes(
 )
 advertiser.save!
 
-if advertiser.images.metadata_name("CodeFund Small").metadata_format(ENUMS::IMAGE_FORMATS::SMALL).count == 0
+if advertiser.images.search_metadata_name("CodeFund Small").search_metadata_format(ENUMS::IMAGE_FORMATS::SMALL).count == 0
   advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/code-fund-100x100.png")),
     filename: "code-fund-100x100.png",
     content_type: "image/png",
@@ -57,7 +57,7 @@ if advertiser.images.metadata_name("CodeFund Small").metadata_format(ENUMS::IMAG
     }
 end
 
-if advertiser.images.metadata_name("CodeFund Large").metadata_format(ENUMS::IMAGE_FORMATS::LARGE).count == 0
+if advertiser.images.search_metadata_name("CodeFund Large").search_metadata_format(ENUMS::IMAGE_FORMATS::LARGE).count == 0
   advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/code-fund-260x200.png")),
     filename: "code-fund-100x100.png",
     content_type: "image/png",
