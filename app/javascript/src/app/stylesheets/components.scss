@@ -122,8 +122,8 @@ th[scope=col] a {
     position: relative !important;
     display: inline-block !important;
     font-size: .875rem !important;
-    color: #77838f !important;
-    background: rgba(119, 131, 143, 0.1) !important;
+    color: #ffffff !important;
+    background: rgba(44, 127, 210, 0.66) !important;
     border-radius: 0.25rem !important;
     border: none !important;
     padding: .25rem .75rem !important;
@@ -131,6 +131,7 @@ th[scope=col] a {
 
     .select2-selection__choice__remove {
       margin-right: 6px !important;
+      color: #ffffff !important;
     }
   }
 }

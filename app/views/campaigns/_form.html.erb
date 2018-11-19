@@ -1,74 +1,138 @@
-<%= simple_form_for campaign do |f| %>
+<%= simple_form_for campaign, html: { class: "js-validate" }, wrapper: :front_form do |f| %>
+  <%= render "/@shared/forms/section_heading", title: "Campaign Details", subtitle: "Tell us about your campaign" %>
+  <%= render "/@shared/forms/error_messages", object: campaign %>
+
   <div class="row">
-    <% #################################################################################################### %>
-    <%= render "@shared/forms/section_heading", text: "Info" %>
-
-    <%= tag.div f.input(:status, collection: campaign_statuses_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 mb-3" %>
-
-    <%= pseudo_row_divider %>
-
-    <%= tag.div f.input(:name, required: true), class: "col-12 col-md-6" %>
-    <div class="col-12 col-md-6">
-      <%= f.input :date_range,
-        input_html: {
-          class: "js-range-datepicker bg-white w-100",
-          data: { controller: "select-date-range" }
-        } %>
-    </div>
-
-    <%= pseudo_row_divider %>
-
-    <div class="col-12 col-md-6">
-      <%= f.association :user, collection: users_for_select(role: :advertiser), label: "Advertiser", label_method: :scoped_name, prompt: "Choose...", required: true,
-        input_html: { id: "user-id", data: { controller: "select select-parent", child: "creative-id" }} %>
-    </div>
-    <div class="col-12 col-md-6">
-      <%= f.association :creative, collection: creatives_for_select, id: "bar", label: "Creative", prompt: "Choose...", required: true,
-        input_html: { id: "creative-id", data: { controller: "select select-child", parent: "user-id" }} %>
-      <%= link_to "New creative", new_creative_path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;" %>
-    </div>
-
-    <%= pseudo_row_divider %>
-
-    <%= tag.div f.input(:url, as: :string), class: "col-12" %>
-
-    <% #################################################################################################### %>
-    <%= render "@shared/forms/section_heading", text: "Targeting" %>
-
-    <div class="col-12" data-controller="select-countries">
-      <%= f.input :countries, collection: countries_for_select, label: "Targeted Counties", input_html: { multiple: true, data: { controller: "select", target: "select-countries.select" }} %>
-      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#selectAll" }  %>
-      <%= link_to "Developed markets", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#selectDevelopedMarkets" }  %>
-      <%= link_to "Emerging markets", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#selectEmergingMarkets" }  %>
-      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-countries#clearSelections" }  %>
-    </div>
-
-    <%= pseudo_row_divider %>
-
-    <div class="col-12 col-md-6" data-controller="select-multiple">
-      <%= f.input :keywords, collection: keywords_for_select, label: "Targeted Topics",
-        input_html: { multiple: true, class: "mb-0", data: { controller: "select", target: "select-multiple.select" }} %>
-      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
-      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
-    </div>
-    <div class="col-12 col-md-6" data-controller="select-multiple">
-      <%= f.input :negative_keywords, collection: keywords_for_select, label: "Excluded Topics",
-        input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
-      <%= link_to "All", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#selectAll" }  %>
-      <%= link_to "Clear", request.path, class: "btn btn-link btn-sm pb-0", style: "position:relative;top:-15px;", data: { action: "click->select-multiple#clearSelections" }  %>
-    </div>
-
-    <% #################################################################################################### %>
-    <%= render "@shared/forms/section_heading", text: "Budget" %>
-
-    <%= tag.div f.input(:total_budget, label: "Total Budget", as: :decimal, required: true), class: "col-12 col-md-4" %>
-    <%= tag.div f.input(:daily_budget, label: "Daily Budget", as: :decimal, required: true), class: "col-12 col-md-4" %>
-    <%= tag.div f.input(:ecpm, label: "eCPM", as: :decimal, required: true), class: "col-12 col-md-4" %>
-
-    <%= pseudo_row_divider %>
-
-    <%= render "@shared/forms/button_panel" do %>
-      <%= f.button(:submit, class: "btn-lg btn-primary") %>
+    <% if authorized_user.can_admin_system? %>
+      <%= tag.div f.input(:user_id, label: "Advertiser", collection: User.advertiser.order(last_name: :asc).map { |u| [u.name, u.id] }, required: true,
+        input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" %>
+    <% else %>
+      <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+      <div class="col-md-6 mb-3">
+        <div class="js-form-message js-focus-state string required property_name">
+          <label class="form-label string required" for="property_name">Advertiser <abbr title="required">*</abbr></label>
+          <input type="text" class="form-control" placeholder="<%= current_user.name %>" aria-label="<%= current_user.name %>" readonly>
+        </div>
+      </div>
     <% end %>
+    <%= tag.div f.input(:status, label: "Status", collection: ENUMS::PROPERTY_STATUSES.values.map { |status| [status.capitalize, status] }, required: true,
+      input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" %>
+    <%= tag.div f.input(:name, required: true, input_html: { class: "form-control" },
+      data: { msg: "Please enter a property name", error_class: "u-has-error", success_class: "u-has-success" }), class: "col-md-6 mb-3" %>
+    <%= tag.div f.input(:date_range, required: true,
+        input_html: {
+          class: "js-range-datepicker form-control bg-white rounded-right",
+          data: {
+            controller: "select-date-range",
+            start_date: (campaign.start_date || Date.today).strftime("%m/%d/%Y"),
+            end_date: (campaign.end_date || 29.days.from_now).strftime("%m/%d/%Y")
+          }
+        }), class: "col-md-6 mb-3" %>
+    <%= tag.div f.input(:url, as: :string, placeholder: "https://", required: true, input_html: { class: "form-control" },
+      data: { msg: "Please enter a valid URL", error_class: "u-has-error", success_class: "u-has-success", rule_url: true }), class: "col-12 mb-3" %>
   </div>
+
+  <hr class="mt-3 mb-4" />
+
+  <%= render "/@shared/forms/section_heading", title: "Creative", subtitle: "Pick which creative you would like to use" %>
+
+  <div class="row">
+    <% Creative.order(name: :asc).each do |creative| %>
+      <div class="col-md-6 mb-3">
+        <div class="card border-0">
+          <div class="card-body p-3">
+            <div class="custom-control custom-radio d-flex align-items-center small text-muted">
+              <%= f.radio_button :creative_id, creative.id, class: "custom-control-input" %>
+              <label class="custom-control-label ml-1" for="campaign_creative_id_<%= creative.id %>">
+                <div class="media ml-2">
+                  <%= image_tag creative.large_images.first, class: "align-self-start mr-3", style: "width: 130px;" %>
+                  <div class="media-body h6 text-black-50 font-weight-normal">
+                    <strong class="text-dark"><%= creative.headline %></strong>
+                    <%= creative.body %>
+                  </div>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <div class="col-md-6 mb-3">
+      <div class="card border-0 bg-white  ">
+        <div class="card-body p-5 text-center">
+          <%= link_to "Add New Creative", new_creative_path, class: "btn btn-link btn-lg" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="mt-3 mb-4" />
+
+  <%= render "/@shared/forms/section_heading", title: "Targeting", subtitle: "Who do you want this campaign to reach?" %>
+
+  <div class="row">
+    <div class="col-12 mb-3" data-controller="select-countries">
+      <%= f.input :countries, required: true, collection: countries_for_select, label: "Targeted Counties", input_html: { multiple: true, data: { controller: "select", target: "select-countries.select" }} %>
+      <div class="d-block">
+        <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-countries#selectAll" }  %>
+        <%= link_to "Developed markets", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-countries#selectDevelopedMarkets" }  %>
+        <%= link_to "Emerging markets", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-countries#selectEmergingMarkets" }  %>
+        <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-countries#clearSelections" }  %>
+      </div>
+    </div>
+    <div class="col-12 mb-3" data-controller="select-multiple">
+      <%= f.input :keywords, required: true, collection: keywords_for_select, label: "Targeted Topics & Programming Languages",
+        input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
+      <div class="d-block">
+        <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
+        <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
+      </div>
+    </div>
+    <div class="col-12 mb-4" data-controller="select-multiple">
+      <%= f.input :negative_keywords, collection: keywords_for_select, label: "Excluded Topics or Programming Languages",
+        input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
+      <div class="d-block">
+        <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
+        <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
+      </div>
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <div class="media align-items-center mb-3">
+        <label class="checkbox-switch mb-0 mr-3">
+          <%= f.check_box :us_hours_only, class: "checkbox-switch__input" %>
+          <span class="checkbox-switch__slider"></span>
+        </label>
+        <label class="media-body text-muted mb-0" for="campaign_us_hours_only">
+          <span class="d-block text-dark">Only display between 5am - 5pm PDT?</span>
+        </label>
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="media align-items-center mb-3">
+        <label class="checkbox-switch mb-0 mr-3">
+          <%= f.check_box :weekdays_only, class: "checkbox-switch__input" %>
+          <span class="checkbox-switch__slider"></span>
+        </label>
+        <label class="media-body text-muted mb-0" for="campaign_weekdays_only">
+          <span class="d-block text-dark">Only display on weekdays?</span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <hr class="mt-3 mb-4" />
+  
+  <%= render "/@shared/forms/section_heading", title: "Budget", subtitle: "Let's talk numbers" %>
+
+  <div class="row">
+    <%= tag.div f.input(:ecpm, as: :currency, currency: "$"), class: "col-md-4 mb-3" %>
+    <%= tag.div f.input(:daily_budget, as: :currency, currency: "$"), class: "col-md-4 mb-3" %>
+    <%= tag.div f.input(:total_budget, label: "Total (MAX) Budget", as: :currency, currency: "$"), class: "col-md-4 mb-3" %>
+  <div>
+
+  <%= render "@shared/forms/button_panel" do %>
+    <%= f.submit "Save Campaign", class: "btn btn-sm btn-primary transition-3d-hover mr-1" %>  
+    <%= link_to "Cancel", campaigns_path, class: "btn btn-sm btn-soft-secondary transition-3d-hover" %>
+  <% end %>
 <% end %>
