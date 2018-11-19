@@ -1,4 +1,4 @@
-module CodeFundAds::Extensions
+module Extensions
   module ActiveStorageBlob
     extend ActiveSupport::Concern
 
