@@ -53,8 +53,9 @@ end
 def create_csv(list, csv_path)
   puts "Creating #{csv_path}"
   CSV.open(csv_path, "wb") do |csv|
-    list.each_with_index do |record, index|
-      csv << record.unshift(index + 1)
+    list.each do |record|
+      csv << record.unshift(@index)
+      @index += 1
     end
   end
 end
@@ -70,18 +71,29 @@ ensure
 end
 
 def build_users
+  @users = []
+  @user_count = 0
+  @index = User.last&.id.to_i + 1
+  @emails = User.all.pluck(:email).each_with_object({}) do |email, memo|
+    memo[email] = true
+  end
+
   csv_path = Rails.root.join("tmp", "users.csv")
-  users = []
-  users << build_administrator
-  users.concat build_advertisers
-  users.concat build_publishers
-  create_csv(users, csv_path)
+  @users << build_administrator
+  @users.concat build_advertisers
+  puts
+  @users.concat build_publishers
+  puts
+  create_csv(@users, csv_path)
   import_csv("users", csv_path)
 end
 
 def build_administrator
   puts "Building administrator"
-  # return nil unless User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADMINISTRATOR).count.zero?
+  admin_count = User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADMINISTRATOR).count
+  return nil unless admin_count.zero?
+  return nil if @emails["admin@codefund.io"]
+  @user_count += 1
   user_attributes.merge(
     company_name: "CodeFund",
     email: "admin@codefund.io",
@@ -91,16 +103,20 @@ end
 
 def build_advertisers
   puts "Building advertisers"
-  # advertiser_count = User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADVERTISER).count
-  (1..100).map do
+  advertiser_count = User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADVERTISER).count
+  (advertiser_count..99).map do
+    @user_count += 1
+    print "." if @user_count % 10 == 0
     user_attributes.merge(roles: "{#{ENUMS::USER_ROLES::ADVERTISER}}").values
   end
 end
 
 def build_publishers
   puts "Building publishers"
-  # publisher_count  = User.where("? = ANY (roles)", ENUMS::USER_ROLES::PUBLISHER).count
-  (1..1000).map do
+  publisher_count  = User.where("? = ANY (roles)", ENUMS::USER_ROLES::PUBLISHER).count
+  (publisher_count..999).map do
+    @user_count += 1
+    print "." if @user_count % 10 == 0
     user_attributes.merge(roles: "{#{ENUMS::USER_ROLES::PUBLISHER}}").values
   end
 end
@@ -204,7 +220,7 @@ def generate_campaigns(advertiser)
   end
 end
 
-puts "[SEEDING DATABASE]: Started"
+puts "[SEEDING DATABASE]: Started - This may take several minutes."
 
 build_users
 # puts "[SEEDING DATABASE]: Generating administrator"
