@@ -104,4 +104,4 @@ end
 # ]
 # pids.each { |pid| Process.waitpid pid }
 
-create_impressions_for_month "2019-01-01"
+create_impressions_for_month "2019-10-01"

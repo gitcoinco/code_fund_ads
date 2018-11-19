@@ -289,7 +289,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    standard (0.0.10)
+    standard (0.0.12)
       rubocop (>= 0.60)
     stimulus_reflex (0.1.12)
       actioncable (>= 5.2.1)
@@ -308,7 +308,7 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
-    uglifier (4.1.19)
+    uglifier (4.1.20)
       execjs (>= 0.3.0, < 3)
     unf (0.1.4)
       unf_ext

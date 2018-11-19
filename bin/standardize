@@ -1,13 +1,14 @@
 #!/bin/bash
 
-bundle exec standard --fix app/channels
-bundle exec standard --fix app/controllers
-bundle exec standard --fix app/helpers
-bundle exec standard --fix app/jobs
-bundle exec standard --fix app/mailers
-bundle exec standard --fix app/models
-bundle exec standard --fix config
-bundle exec standard --fix db
-bundle exec standard --fix lib
-bundle exec standard --fix test
+bundle exec standard --fix \
+  app/channels \
+  app/controllers \
+  app/helpers \
+  app/jobs \
+  app/mailers \
+  app/models \
+  config \
+  db \
+  lib \
+  test
 prettier --loglevel silent --write app/**/*.js
