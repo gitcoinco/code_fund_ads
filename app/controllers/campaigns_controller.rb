@@ -113,6 +113,13 @@ class CampaignsController < ApplicationController
   end
 
   def sortable_columns
-    %w[name end_date total_budget_cents status created_at user.first_name]
+    %w[
+      name
+      end_date
+      total_budget_cents
+      status
+      created_at
+      user.first_name
+    ]
   end
 end
