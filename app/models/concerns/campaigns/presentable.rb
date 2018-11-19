@@ -15,7 +15,7 @@ module Campaigns
 
     def duration
       return nil unless start_date && end_date
-      distance_of_time_in_words(start_date, end_date, scope: 'datetime.distance_in_words.short')
+      distance_of_time_in_words(start_date, end_date, scope: "datetime.distance_in_words.short")
     end
   end
 end

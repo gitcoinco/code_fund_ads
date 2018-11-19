@@ -12,8 +12,15 @@ export default class extends Controller {
         'Next 60 Days': [moment(), moment().add(59, 'days')],
         'Next 90 Days': [moment(), moment().add(89, 'days')],
         'This Month': [moment().startOf('month'), moment().endOf('month')],
-        'Next Month': [moment().add(1, 'month').startOf('month'), moment().add(1, 'month').endOf('month')]
-      }
+        'Next Month': [
+          moment()
+            .add(1, 'month')
+            .startOf('month'),
+          moment()
+            .add(1, 'month')
+            .endOf('month'),
+        ],
+      },
     });
   }
 }
