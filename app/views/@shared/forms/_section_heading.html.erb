@@ -1,6 +1,4 @@
 <div class="mb-3">
   <h2 class="h5 mb-0"><%= title %></h2>
-  <% if local_assigns[:subtitle] %>
-    <p><%= subtitle %></p>
-  <% end %>
+  <%= tag.p subtitle if local_assigns[:subtitle] %>
 </div>

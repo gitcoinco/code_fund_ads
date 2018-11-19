@@ -6,7 +6,7 @@
     </div>
 
     <% #################################################################################################### %>
-    <%= render "@shared/forms/section_heading", text: "Metadata" %>
+    <%= render "/@shared/forms/section_heading", title: "Metadata" %>
 
     <%= tag.div f.input(:name, label: "Name", required: true), class: "col-12 col-md-6" %>
     <%= tag.div f.input(:format, label: "Format", collection: image_formats_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 col-md-6" %>
