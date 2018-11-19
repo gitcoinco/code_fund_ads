@@ -147,7 +147,8 @@ CREATE TABLE public.campaigns (
     keywords character varying[] DEFAULT '{}'::character varying[],
     negative_keywords character varying[] DEFAULT '{}'::character varying[],
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    total_impressions_count integer DEFAULT 0 NOT NULL
 );
 
 
@@ -17592,6 +17593,10 @@ SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20181017152837'),
-('20181123143528');
+('20181110133743'),
+('20181114164908'),
+('20181114202957'),
+('20181116155623'),
+('20181119194349');
 
 

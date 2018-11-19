@@ -26,7 +26,7 @@ class Impression < ApplicationRecord
   # includes ..................................................................
 
   # relationships .............................................................
-  belongs_to :campaign
+  belongs_to :campaign, counter_cache: :total_impressions_count
   belongs_to :distribution, optional: true
   belongs_to :property
 
@@ -36,6 +36,8 @@ class Impression < ApplicationRecord
   validates :postal_code, length: {maximum: 255}
 
   # callbacks .................................................................
+  after_commit :increment_daily_counters, on: [:create]
+
   # scopes ....................................................................
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
@@ -50,4 +52,10 @@ class Impression < ApplicationRecord
   # protected instance methods ................................................
 
   # private instance methods ..................................................
+
+  private
+
+  def increment_daily_counters
+    IncrementDailyImpressionsCountJob.perform_later(campaign_id, Date.current.iso8601)
+  end
 end

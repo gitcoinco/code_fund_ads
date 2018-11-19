@@ -2,28 +2,29 @@
 #
 # Table name: campaigns
 #
-#  id                    :bigint(8)        not null, primary key
-#  user_id               :bigint(8)
-#  creative_id           :bigint(8)
-#  status                :string           not null
-#  fallback              :boolean          default(FALSE), not null
-#  name                  :string           not null
-#  url                   :text             not null
-#  start_date            :date
-#  end_date              :date
-#  us_hours_only         :boolean          default(FALSE)
-#  weekdays_only         :boolean          default(FALSE)
-#  total_budget_cents    :integer          default(0), not null
-#  total_budget_currency :string           default("USD"), not null
-#  daily_budget_cents    :integer          default(0), not null
-#  daily_budget_currency :string           default("USD"), not null
-#  ecpm_cents            :integer          default(0), not null
-#  ecpm_currency         :string           default("USD"), not null
-#  countries             :string           default([]), is an Array
-#  keywords              :string           default([]), is an Array
-#  negative_keywords     :string           default([]), is an Array
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
+#  id                      :bigint(8)        not null, primary key
+#  user_id                 :bigint(8)
+#  creative_id             :bigint(8)
+#  status                  :string           not null
+#  fallback                :boolean          default(FALSE), not null
+#  name                    :string           not null
+#  url                     :text             not null
+#  start_date              :date
+#  end_date                :date
+#  us_hours_only           :boolean          default(FALSE)
+#  weekdays_only           :boolean          default(FALSE)
+#  total_budget_cents      :integer          default(0), not null
+#  total_budget_currency   :string           default("USD"), not null
+#  daily_budget_cents      :integer          default(0), not null
+#  daily_budget_currency   :string           default("USD"), not null
+#  ecpm_cents              :integer          default(0), not null
+#  ecpm_currency           :string           default("USD"), not null
+#  countries               :string           default([]), is an Array
+#  keywords                :string           default([]), is an Array
+#  negative_keywords       :string           default([]), is an Array
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  total_impressions_count :integer          default(0), not null
 #
 
 class Campaign < ApplicationRecord
@@ -128,10 +129,41 @@ class Campaign < ApplicationRecord
     "#{start_date.to_s "mm/dd/yyyy"} #{end_date.to_s "mm/dd/yyyy"}"
   end
 
-  def date_range=(value)
-    dates = value.split(" - ")
-    self.start_date = Date.strptime(dates[0], "%m/%d/%Y")
-    self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
+  def total_remaining_budget
+    total_budget - total_consumed_budget
+  end
+
+  def total_consumed_budget
+    total_budget - (ecpm * total_impressions_per_mille)
+  end
+
+  def total_impressions_per_mille
+    total_impressions_count / 1000.to_f
+  end
+
+  def daily_remaining_budget
+    daily_budget - daily_consumed_budget
+  end
+
+  def daily_consumed_budget
+    daily_budget - (ecpm * daily_impressions_per_mille)
+  end
+
+  def daily_impressions_per_mille
+    daily_impressions_count / 1000.to_f
+  end
+
+  def daily_impressions_count_cache_key(date = nil)
+    date ||= Date.current
+    "#{cache_key}/daily_impressions_count/#{date.iso8601}"
+  end
+
+  def daily_impressions_count(date = nil)
+    date ||= Date.current
+    cache_key = daily_impressions_count_cache_key(date)
+    return Rails.cache.redis.get(cache_key).to_i if Rails.cache.redis.exists(cache_key)
+    CalculateDailyImpressionsCountJob.perform_later(self, date.iso8601)
+    0
   end
 
   # protected instance methods ................................................
