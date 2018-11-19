@@ -1,4 +1,6 @@
 class CampaignsController < ApplicationController
+  include Sortable
+
   before_action :authenticate_user!
   before_action :set_campaign_search, only: [:index]
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
@@ -7,7 +9,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns
   # GET /campaigns.json
   def index
-    campaigns = Campaign.order(:name).includes(:user, :creative)
+    campaigns = Campaign.order(order_by).includes(:user, :creative)
     campaigns = campaigns.where(user: @user) if @user
     campaigns = @campaign_search.apply(campaigns)
     @pagy, @campaigns = pagy(campaigns)
@@ -22,7 +24,7 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns/new
   def new
-    @campaign = Campaign.new
+    @campaign = current_user.campaigns.build(status: "pending")
   end
 
   # GET /campaigns/1/edit
@@ -92,6 +94,32 @@ class CampaignsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def campaign_params
-    params.fetch(:campaign, {})
+    params.require(:campaign).permit(
+      :user_id,
+      :status,
+      :name,
+      :date_range,
+      :url,
+      :creative_id,
+      :us_hours_only,
+      :weekdays_only,
+      :ecpm,
+      :daily_budget,
+      :total_budget,
+      countries: [],
+      keywords: [],
+      negative_keywords: []
+    )
+  end
+
+  def sortable_columns
+    %w[
+      name
+      end_date
+      total_budget_cents
+      status
+      created_at
+      user.first_name
+    ]
   end
 end

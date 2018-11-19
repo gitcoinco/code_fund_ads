@@ -1,11 +1,17 @@
 <% content_for :breadcrumbs do %>
   <%= render "/@shared/breadcrumbs/dashboard" %>
   <%= render "/@shared/breadcrumbs/campaigns" %>
-  <%= render "/@shared/breadcrumbs/campaign", class: "active" %>
+  <%= render "/@shared/breadcrumbs/add_campaign", class: "active" %>
 <% end %>
 
-<div class="container mt-3">
-  <%= page_heading "Creating", "Campaign" %>
-  <%= render 'form', campaign: @campaign %>
-  <%= link_to 'Back', campaigns_path, class: "btn btn-link" %>
-</div>
+<% content_for :page_heading do %>
+  <%= page_heading "Adding", "Campaign",
+    subtitle: "Fill out the form below",
+    icon: "fas fa-ad" %>
+<% end %>
+
+<main id="content" role="main" class="bg-light">
+  <div class="container space-1">
+    <%= render "/campaigns/form", campaign: @campaign %>
+  </div>
+</main>

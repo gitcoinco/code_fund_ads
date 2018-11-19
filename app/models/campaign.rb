@@ -52,6 +52,7 @@ class Campaign < ApplicationRecord
   scope :search_status, ->(*values) { values.blank? ? all : where(status: values) }
   scope :search_us_hours_only, ->(value) { value.nil? ? all : where(us_hours_only: value) }
   scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertiser.search_name(value).or(User.advertiser.search_company(value))) }
+  scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
   scope :for_property, ->(property) do
     relation = with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
@@ -121,6 +122,12 @@ class Campaign < ApplicationRecord
   def date_range
     return nil unless start_date && end_date
     "#{start_date.to_s "mm/dd/yyyy"} #{end_date.to_s "mm/dd/yyyy"}"
+  end
+
+  def date_range=(value)
+    dates = value.split(" - ")
+    self.start_date = Date.strptime(dates[0], "%m/%d/%Y")
+    self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
   end
 
   # protected instance methods ................................................

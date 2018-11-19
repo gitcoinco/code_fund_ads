@@ -7,10 +7,10 @@
 
     <%= f.input(:url, label: "URL", required: false) %>
     <%= f.input(:statuses, label: "Status", collection: property_statuses_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}) %>
-    <%= f.input(:keywords, collection: keywords_for_select, label: "Topics", required: false, input_html: { multiple: true, data: { controller: "select" }}) %>
+    <%= f.input(:keywords, collection: keywords_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}) %>
 
     <div class="text-right">
       <%= f.button :submit, value: "Apply Filters", class: "btn btn-sm btn-primary" %>
-      <%= link_to "Clear", property_search_path(@property_search.to_gid_param), class: "btn-sm btn-link text-danger ml-3", method: :delete if @property_search.present? %>
+      <%= link_to "Clear", property_search_path(@property_search.to_gid_param), class: "btn-sm btn-link text-danger ml-3", method: :delete %>
     </div>
 <% end %>

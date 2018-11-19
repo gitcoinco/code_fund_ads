@@ -1,8 +1,13 @@
 <%= tag.tr class: classes("even": campaign_counter.even?, "odd": campaign_counter.odd?, "opacity-40": ENUMS::CAMPAIGN_STATUSES[campaign.status] == "archived") do %>
-  <td><%= campaign_status_html campaign.status %></span></td>
-  <td><%= link_to campaign.name, campaign_path(campaign), title: "View Campaign", data: tooltip_expando %></td>
-  <td><%= link_to campaign.user.full_name, user_path(campaign.user), title: "View User", data: tooltip_expando %></td>
-  <td><%= distance_of_time_in_words(Date.today, campaign.end_date) rescue "Unknown" %></td>
-  <td>$50.00</td>
-  <td><%= link_to "Edit", edit_campaign_path(campaign), class: "btn btn-link btn-sm", title: "Edit Campaign", data: tooltip_expando %></td>
+  <td class="align-middle text-secondary"><%= link_to campaign.name, campaign_path(campaign) %></td>
+  <td class="align-middle text-secondary"><%= link_to campaign.user.full_name, user_path(campaign.user) %></td>
+  <td class="align-middle text-secondary"><%= campaign.end_date&.strftime("%d %b") %></td>
+  <td class="align-middle text-secondary"><%= campaign.total_budget.format %></td>
+  <td class="align-middle text-<%= campaign_status_color(campaign.status) %>">
+    <span class="fas fa-circle small mr-1"></span>
+    <%= campaign.status.humanize %>
+  </td>
+  <td class="align-middle text-right text-secondary">
+    <%= render "/@shared/table_buttons/edit", link: edit_campaign_path(campaign) %>
+  </td>
 <% end %>
