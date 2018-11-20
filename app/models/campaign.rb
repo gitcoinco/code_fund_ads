@@ -155,7 +155,7 @@ class Campaign < ApplicationRecord
 
   def daily_impressions_count_cache_key(date = nil)
     date ||= Date.current
-    "#{cache_key}/daily_impressions_count/#{date.iso8601}"
+    "#{cache_key}/daily_impressions_count/#{date.to_date.iso8601}"
   end
 
   def daily_impressions_count(date = nil)
@@ -164,6 +164,12 @@ class Campaign < ApplicationRecord
     return Rails.cache.redis.get(cache_key).to_i if Rails.cache.redis.exists(cache_key)
     CalculateDailyImpressionsCountJob.perform_later(self, date.iso8601)
     0
+  end
+
+  def date_range=(value)
+    dates = value.split(" - ")
+    self.start_date = Date.strptime(dates[0], "%m/%d/%Y")
+    self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
   end
 
   # protected instance methods ................................................
