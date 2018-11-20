@@ -1,0 +1,2 @@
+module PropertyScreenshotsHelper
+end

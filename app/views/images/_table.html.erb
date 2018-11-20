@@ -2,14 +2,15 @@
   <table class="table table-borderless u-datatable u-datatable__striped mt-5">
     <thead>
       <tr class="border-bottom">
+        <th scope="col">Filename</th>
         <th scope="col">Name</th>
-        <th scope="col">Type</th>
-        <th scope="col">Size</th>
+        <th scope="col">Format</th>
+        <th scope="col">Content Type</th>
         <th scope="col">Preview</th>
       </tr>
     </thead>
     <tbody>
-      <%= render partial: "/images/tr", collection: @imageable.images, as: :image %>
+      <%= render partial: "/images/tr", collection: @images, as: :image %>
     </tbody>
     <tfoot>
       <tr class="border-top">

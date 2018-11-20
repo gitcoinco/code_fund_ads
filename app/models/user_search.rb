@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class UserSearch < ApplicationSearchRecord
   FIELDS = %w[
     company_name
@@ -10,15 +8,15 @@ class UserSearch < ApplicationSearchRecord
 
   def initialize(attrs = {})
     super FIELDS, attrs
-    self.roles = (roles || []).reject(&:blank?)
+    (self.roles ||= []).reject!(&:blank?)
   end
 
   def apply(relation)
     return relation unless present?
-    relation
-      .then { |result| result.search_company(company_name) }
-      .then { |result| result.search_email(email) }
-      .then { |result| result.search_name(name) }
-      .then { |result| result.search_roles(*roles) }
+    relation.
+      then { |result| result.search_company(company_name) }.
+      then { |result| result.search_email(email) }.
+      then { |result| result.search_name(name) }.
+      then { |result| result.search_roles(*roles) }
   end
 end

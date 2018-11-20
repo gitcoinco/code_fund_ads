@@ -10,10 +10,7 @@ export default class extends Controller {
     this.create();
     this.element.addEventListener('select:create', this.create.bind(this));
     this.element.addEventListener('select:destroy', this.destroy.bind(this));
-    document.addEventListener(
-      'turbolinks:before-cache',
-      this.destroy.bind(this)
-    );
+    document.addEventListener('turbolinks:before-cache', this.destroy.bind(this));
   }
 
   create() {

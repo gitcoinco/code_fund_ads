@@ -1,6 +1,6 @@
-# frozen_string_literal: true
-
 class PublishersController < ApplicationController
+  before_action :authenticate_user!
+
   # Creates a Publisher application, does not create a User record
   def create
     CreateSlackNotificationJob.perform_later text: "<!channel> *Publisher Form Submission*", message: <<~MESSAGE
@@ -16,7 +16,13 @@ class PublishersController < ApplicationController
 
   private
 
-    def publisher_params
-      params.require(:form).permit(:first_name, :last_name, :email, :monthly_visitors, :website_url)
-    end
+  def publisher_params
+    params.require(:form).permit(
+      :email,
+      :first_name,
+      :last_name,
+      :monthly_visitors,
+      :website_url,
+    )
+  end
 end

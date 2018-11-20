@@ -1,0 +1,31 @@
+<div class="accordion mb-4">
+  <div class="card u-card-collapse border-0">
+    <div class="card-header px-4 bg-white border-0" id="filters-heading">
+      <div class="collapsed" data-toggle="collapse" data-target="#filters" aria-expanded="false" aria-controls="filters" role="button">
+        <h3 class="h6 d-flex justify-content-between align-items-center font-weight-normal u-card-collapse__heading mb-0">
+          <span><i class="fas fa-search"></i></span>
+          <span class="fa fa-angle-up u-card-collapse__heading-icon"></span>
+        </h3>
+      </div>
+    </div>
+    <div id="filters" class="collapse <%= "show" if @image_search.present? %>" aria-labelledby="filters-heading" data-parent="#filters-heading">
+      <div class="card-body px-4">
+        <%= simple_form_for @image_search, url: image_searches_path(@imageable.to_gid_param) do |f| %>
+          <div class="row">
+            <%= tag.div f.input(:formats, collection: image_formats_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:filename, required: false), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:name, required: false), class: "col-12 col-md-auto" %>
+            <%= tag.div f.input(:description, required: false), class: "col-12 col-md-auto" %>
+
+            <%= pseudo_row_divider %>
+
+            <div class="col-12 mt-3">
+              <%= f.button :submit, value: "Search", class: "btn btn-primary mr-3" %>
+              <%= link_to "Clear", image_search_path(@imageable.to_gid_param, @image_search.to_gid_param), class: "btn-md btn-link text-danger", method: :delete if @image_search.present? %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: creative_images
@@ -22,9 +20,9 @@ class CreativeImage < ApplicationRecord
   # validations ...............................................................
   # callbacks .................................................................
   # scopes ....................................................................
-  scope :small, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::SMALL) }
-  scope :large, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::LARGE) }
-  scope :wide, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::WIDE) }
+  scope :small, -> { where active_storage_attachment_id: ActiveStorage::Attachment.search_metadata_format(ENUMS::IMAGE_FORMATS::SMALL) }
+  scope :large, -> { where active_storage_attachment_id: ActiveStorage::Attachment.search_metadata_format(ENUMS::IMAGE_FORMATS::LARGE) }
+  scope :wide, -> { where active_storage_attachment_id: ActiveStorage::Attachment.search_metadata_format(ENUMS::IMAGE_FORMATS::WIDE) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
 
@@ -35,8 +33,6 @@ class CreativeImage < ApplicationRecord
   # public instance methods ...................................................
 
   # protected instance methods ................................................
-  protected
 
   # private instance methods ..................................................
-  private
 end

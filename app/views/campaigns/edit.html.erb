@@ -1,12 +1,18 @@
 <% content_for :breadcrumbs do %>
   <%= render "/@shared/breadcrumbs/dashboard" %>
   <%= render "/@shared/breadcrumbs/campaigns" %>
-  <%= render "/@shared/breadcrumbs/campaign", class: "active" %>
+  <%= render "/@shared/breadcrumbs/campaign", campaign: @campaign %>
+  <%= render "/@shared/breadcrumbs/edit_campaign", campaign: @campaign, class: "active" %>
 <% end %>
 
-<div class="container mt-3">
-  <%= page_heading "Editing", "Campaign", subtitle: @campaign.scoped_name %>
-  <%= render "/campaigns/form", campaign: @campaign %>
-  <%= link_to "View", @campaign, class: "btn btn-link" %>
-  <%= link_to "Back", campaigns_path, class: "btn btn-link" %>
-</div>
+<% content_for :page_heading do %>
+  <%= page_heading "Editing", "Campaign",
+    subtitle: @campaign.name,
+    icon: "fas fa-ad" %>
+<% end %>
+
+<main id="content" role="main" class="bg-light">
+  <div class="container space-1">
+    <%= render "/campaigns/form", campaign: @campaign %>
+  </div>
+</main>

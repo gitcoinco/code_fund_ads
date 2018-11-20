@@ -1,26 +1,33 @@
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
-  root "pages#index"
-  devise_for :users
+  root to: "pages#index"
+
+  devise_for :users, controllers: {
+    sessions: "sessions",
+    invitations: "invitations",
+  }
 
   resource :dashboard, only: [:show]
+  resource :contact, only: [:show, :create]
   resources :campaign_searches, only: [:create, :destroy]
   resources :property_searches, only: [:create, :destroy]
   resources :user_searches, only: [:create, :destroy]
 
   # polymorphic based on: app/models/concerns/imageable.rb
   scope "/imageables/:imageable_gid/" do
+    resources :image_searches, only: [:create, :destroy]
     resources :images, except: [:show]
   end
 
   resources :campaigns
   resources :creatives
   resources :impressions
-  resources :properties
+  resources :properties do
+    resources :property_screenshots, only: [:update]
+  end
   resources :templates
   resources :themes
   resources :users
+  resource :user_passwords, only: [:edit, :update], path: "/password"
 
   scope "/users/:user_id" do
     resources :campaigns, only: [:index], as: :user_campaigns

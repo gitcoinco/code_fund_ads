@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module Users
   module Presentable
     extend ActiveSupport::Concern
@@ -8,7 +6,7 @@ module Users
       [first_name, last_name].compact.join " "
     end
 
-    alias_method :name, :full_name
+    alias name full_name
 
     def scoped_name
       [company_name, full_name].compact.join "・"
@@ -18,6 +16,14 @@ module Users
       require "digest/md5"
       hash = Digest::MD5.hexdigest(email)
       "https://www.gravatar.com/avatar/#{hash}"
+    end
+
+    def display_region
+      if country == "US"
+        [city, region].join(", ")
+      else
+        [city, country].join(", ")
+      end
     end
   end
 end

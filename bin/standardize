@@ -1,0 +1,14 @@
+#!/bin/bash
+
+bundle exec standard --fix \
+  app/channels \
+  app/controllers \
+  app/helpers \
+  app/jobs \
+  app/mailers \
+  app/models \
+  config \
+  db \
+  lib \
+  test
+prettier --loglevel silent --write app/**/*.js

@@ -1,9 +1,9 @@
 /**
  * Sticky blocks wrapper.
  *
- * @author Htmlstream
- * @version 1.0
- * @requires
+ * @author : Htmlstream
+ * @version : 2.0
+ * @requires : jQuery, jQuery Migrate
  *
  */
 ;(function ($) {
@@ -50,147 +50,78 @@
     initStickyBlock: function () {
       //Variables
       var $self = this,
-        config = $self.config,
-        collection = $self.pageCollection,
-        windW = window.innerWidth;
+        collection = $self.pageCollection;
 
       this.collection.each(function (i, el) {
         //Variables
         var $stickyBlock = $(el),
-          stickyBlockClasses = $stickyBlock.attr('class').replace($self.config.itemSelector.substring(1), ''),
-          stickyBlockH = $stickyBlock.outerHeight(),
-          stickyBlockW = $stickyBlock.outerWidth(),
-          stickyBlockParentW = $stickyBlock.parent().width(),
-          stickyBlockOffsetTop = $stickyBlock.offset().top,
-          stickyBlockOffsetLeft = $stickyBlock.offset().left,
+          stickyBlockHeight = $stickyBlock.outerHeight(),
+          windowOffsetTop = $(window).scrollTop(),
+          windowWidth = window.innerWidth,
           startPoint = $.isNumeric($stickyBlock.data('start-point')) ? $stickyBlock.data('start-point') : $($stickyBlock.data('start-point')).offset().top,
           endPoint = $.isNumeric($stickyBlock.data('end-point')) ? $stickyBlock.data('end-point') : $($stickyBlock.data('end-point')).offset().top,
-          hasStickyHeader = $stickyBlock.data('has-sticky-header'),
-          stickyView = $stickyBlock.data('sticky-view'),
-          offsetTarget = $stickyBlock.data('offset-target'),
-          offsetTargetH = $(offsetTarget).outerHeight(),
-          stickyOffsetTop = $stickyBlock.data('offset-top'),
-          stickyOffsetBottom = $stickyBlock.data('offset-bottom');
+          $parent = $($stickyBlock.data('parent')),
+          parentWidth = $parent.width(),
+          parentPaddingLeft = parseInt($parent.css('padding-left')),
+          parentOffsetLeft = $parent.offset().left,
+          targetOffset = $stickyBlock.data('offset-target'),
+          targetOffsetHeight = targetOffset ? $(targetOffset).outerHeight() : 0,
+          stickyOffsetTop = $stickyBlock.data('offset-top') ? $stickyBlock.data('offset-top') : 0,
+          stickyOffsetBottom = $stickyBlock.data('offset-bottom') ? $stickyBlock.data('offset-bottom') : 0,
+          stickyView = $stickyBlock.data('sticky-view');
 
-        $('.collapse').on('hidden.bs.collapse', function () {
-          endPoint = $.isNumeric($stickyBlock.data('end-point')) ? $stickyBlock.data('end-point') : $($stickyBlock.data('end-point')).offset().top;
-        });
+        $self.killSticky($stickyBlock, stickyView, windowWidth);
 
-        $('.collapse').on('shown.bs.collapse', function () {
-          endPoint = $.isNumeric($stickyBlock.data('end-point')) ? $stickyBlock.data('end-point') : $($stickyBlock.data('end-point')).offset().top;
-        });
+        if (!$stickyBlock.hasClass('kill-sticky')) {
+          if (windowOffsetTop >= (startPoint - targetOffsetHeight - stickyOffsetTop) && windowOffsetTop <= (endPoint - targetOffsetHeight - stickyOffsetTop)) {
+            $self.addSticky($stickyBlock, parentOffsetLeft, parentWidth, parentPaddingLeft);
+            $self.stickyTop($stickyBlock, stickyOffsetTop, targetOffsetHeight);
+            $self.parentSetHeight($parent, stickyBlockHeight);
+          } else {
+            $self.removeSticky($stickyBlock);
+            $self.parentRemoveHeight($parent);
+          }
 
-        //Break function if there are no target element
-        if (!$stickyBlock.length) return;
-        if (stickyBlockH > (endPoint - startPoint)) return;
-
-        $self.killSticky($stickyBlock);
-
-        if (stickyView == 'sm' && windW <= 576) {
-          $stickyBlock.addClass('die-sticky');
-          $self.killSticky($stickyBlock);
-        } else if (stickyView == 'md' && windW <= 768) {
-          $stickyBlock.addClass('die-sticky');
-          $self.killSticky($stickyBlock);
-        } else if (stickyView == 'lg' && windW <= 992) {
-          $stickyBlock.addClass('die-sticky');
-          $self.killSticky($stickyBlock);
-        } else if (stickyView == 'xl' && windW <= 1200) {
-          $stickyBlock.addClass('die-sticky');
-          $self.killSticky($stickyBlock);
-        } else {
-          $stickyBlock.removeClass('die-sticky');
+          if (windowOffsetTop >= (endPoint - targetOffsetHeight - stickyBlockHeight - stickyOffsetTop - stickyOffsetBottom)) {
+            $self.stickyBottom($stickyBlock, endPoint, windowOffsetTop, stickyBlockHeight, stickyOffsetBottom);
+          }
         }
 
-        $(window).on('resize', function () {
-          var windW = window.innerWidth;
+        var stickyUpdate = function () {
+          windowOffsetTop = $(window).scrollTop();
+          windowWidth = window.innerWidth;
+          stickyBlockHeight = $stickyBlock.outerHeight();
+          startPoint = $.isNumeric($stickyBlock.data('start-point')) ? $stickyBlock.data('start-point') : $($stickyBlock.data('start-point')).offset().top;
+          endPoint = $.isNumeric($stickyBlock.data('end-point')) ? $stickyBlock.data('end-point') : $($stickyBlock.data('end-point')).offset().top;
+          parentOffsetLeft = $parent.offset().left;
+          parentWidth = $parent.width();
+          parentPaddingLeft = parseInt($parent.css('padding-left'));
+          targetOffsetHeight = targetOffset ? $(targetOffset).outerHeight() : 0;
 
-          $stickyBlock.css({
-            'height': ''
-          });
+          $self.killSticky($stickyBlock, stickyView, windowWidth);
 
-          if (stickyView == 'sm' && windW <= 576) {
-            $stickyBlock.addClass('die-sticky');
-            $self.killSticky($stickyBlock);
-          } else if (stickyView == 'md' && windW <= 768) {
-            $stickyBlock.addClass('die-sticky');
-            $self.killSticky($stickyBlock);
-          } else if (stickyView == 'lg' && windW <= 992) {
-            $stickyBlock.addClass('die-sticky');
-            $self.killSticky($stickyBlock);
-          } else if (stickyView == 'xl' && windW <= 1200) {
-            $stickyBlock.addClass('die-sticky');
-            $self.killSticky($stickyBlock);
-          } else {
-            $stickyBlock
-              .removeClass('die-sticky')
-              .css({
-                'top': '',
-                'left': ''
-              });
-          }
-
-          setTimeout(function () {
-            var offsetTop = $(this).scrollTop();
-            stickyBlockH = $stickyBlock.outerHeight(),
-              stickyBlockW = $stickyBlock.outerWidth(),
-              stickyBlockParentW = $stickyBlock.parent().width(),
-              stickyBlockOffsetTop = $stickyBlock.offset().top,
-              stickyBlockOffsetLeft = $stickyBlock.offset().left,
-              startPoint = $.isNumeric($stickyBlock.data('start-point')) ? $stickyBlock.data('start-point') : $($stickyBlock.data('start-point')).offset().top,
-              endPoint = $.isNumeric($stickyBlock.data('end-point')) ? $stickyBlock.data('end-point') : $($stickyBlock.data('end-point')).offset().top,
-              offsetTargetH = $(offsetTarget).outerHeight();
-
-            if (hasStickyHeader === true) {
-              $stickyBlock
-                .not('.die-sticky')
-                .css({
-                  'top': offsetTop + offsetTargetH >= (endPoint - stickyBlockH) ? endPoint - stickyBlockH - stickyBlockOffsetTop : offsetTargetH,
-                  'left': stickyBlockOffsetLeft,
-                  'width': stickyBlockParentW
-                });
+          if (!$stickyBlock.hasClass('kill-sticky')) {
+            if (windowOffsetTop >= (startPoint - targetOffsetHeight - stickyOffsetTop) && windowOffsetTop <= (endPoint - targetOffsetHeight - stickyOffsetTop)) {
+              $self.addSticky($stickyBlock, parentOffsetLeft, parentWidth, parentPaddingLeft);
+              $self.stickyTop($stickyBlock, stickyOffsetTop, targetOffsetHeight);
+              $self.parentSetHeight($parent, stickyBlockHeight);
             } else {
-              $stickyBlock
-                .not('.die-sticky')
-                .css({
-                  'top': offsetTop >= (endPoint - stickyBlockH) ? endPoint - stickyBlockH - stickyBlockOffsetTop : 0,
-                  'left': stickyBlockOffsetLeft,
-                  'width': stickyBlockParentW
-                });
+              $self.removeSticky($stickyBlock);
+              $self.parentRemoveHeight($parent);
             }
-          }, 400);
-        });
 
-        var offsetTop = $(this).scrollTop();
-
-        //Add responsive sticky state
-        $self.addShadow($stickyBlock, hasStickyHeader ? offsetTop + offsetTargetH : offsetTop, stickyBlockH, stickyBlockW, i, stickyBlockClasses, startPoint, endPoint);
-
-        //Add sticky state
-        $self.addSticky($stickyBlock, hasStickyHeader ? offsetTop + offsetTargetH : offsetTop, stickyBlockH, stickyBlockParentW, stickyBlockOffsetLeft, startPoint, endPoint);
+            if (windowOffsetTop >= (endPoint - targetOffsetHeight - stickyBlockHeight - stickyOffsetTop - stickyOffsetBottom)) {
+              $self.stickyBottom($stickyBlock, endPoint, windowOffsetTop, stickyBlockHeight, stickyOffsetBottom);
+            }
+          }
+        };
 
         $(window).on('scroll', function () {
-          var offsetTop = $(this).scrollTop();
-
-          //Add "shadow" element
-          $self.addShadow($stickyBlock, hasStickyHeader ? offsetTop + offsetTargetH : offsetTop, stickyBlockH, stickyBlockParentW, i, stickyBlockClasses, startPoint, endPoint, stickyOffsetTop);
-
-          //Add sticky state
-          $self.addSticky($stickyBlock, hasStickyHeader ? offsetTop + offsetTargetH : offsetTop, stickyBlockH, stickyBlockParentW, stickyBlockOffsetLeft, startPoint, endPoint, hasStickyHeader ? offsetTargetH : 0, stickyOffsetTop);
-
-          //Remove sticky state
-          $self.removeSticky($stickyBlock, hasStickyHeader ? offsetTop + offsetTargetH : offsetTop, startPoint, stickyOffsetTop);
-
-          if (endPoint) {
-            //Add absolute state
-            $self.addAbsolute($stickyBlock, stickyBlockH, i, stickyBlockOffsetTop, hasStickyHeader ? offsetTop + offsetTargetH : offsetTop, endPoint, stickyOffsetTop, stickyOffsetBottom);
-          }
+          stickyUpdate();
         });
 
-        $(window).trigger('scroll');
-
-        $('a[href="#"],a[href="#!"]').on('click', function() {
-          $self.killSticky($stickyBlock);
+        $(window).on('resize', function () {
+          stickyUpdate();
         });
 
         //Add object to collection
@@ -198,79 +129,72 @@
       });
     },
 
-    addSticky: function (target, offsetTop, targetH, targetW, offsetLeft, startPoint, endPoint, offsetTargetH, stickyOffsetTop) {
-      if (offsetTop >= startPoint - stickyOffsetTop && offsetTop < endPoint) {
-        target
-          .not('.die-sticky')
-          .removeClass('position-relative')
-          .css({
-            'top': '',
-            'left': '',
-            'width': '',
-            'height': ''
-          })
-          .addClass('position-fixed m-0')
-          .css({
-            'top': offsetTargetH + stickyOffsetTop,
-            'left': offsetLeft,
-            'width': targetW,
-            'height': targetH
-          });
-      }
+    addSticky: function (el, parentOffsetLeft, parentWidth, parentPaddingLeft) {
+      $(el).css({
+        'position': 'fixed',
+        'left': parentOffsetLeft + parentPaddingLeft,
+        'width': parentWidth
+      });
     },
 
-    removeSticky: function (target, offsetTop, startPoint, stickyOffsetTop) {
-      if (offsetTop <= startPoint - stickyOffsetTop) {
-        target
-          .not('.die-sticky')
-          .removeClass('position-fixed m-0')
-          .css({
-            'left': ''
-          });
-      }
+    stickyTop: function (el, offsetTop, targetOffsetHeight) {
+      $(el).css({
+        'top': offsetTop + targetOffsetHeight
+      });
     },
 
-    addAbsolute: function (target, targetH, targetI, targetOffsetTop, offsetTop, endPoint, stickyOffsetTop, stickyOffsetBottom) {
-      if (target.hasClass('position-relative')) return;
-
-      if (offsetTop >= endPoint - targetH - stickyOffsetTop - stickyOffsetBottom) {
-        target
-          .not('.die-sticky')
-          .removeClass('position-fixed m-0')
-          .addClass('position-relative')
-          .css({
-            'top': endPoint - targetH - targetOffsetTop - stickyOffsetBottom,
-            'left': ''
-          });
-      }
+    stickyBottom: function (el, endPoint, windowOffsetTop, stickyBlockHeight, offsetBottom) {
+      $(el).css({
+        'top': endPoint - windowOffsetTop - stickyBlockHeight - offsetBottom
+      });
     },
 
-    addShadow: function (target, offsetTop, targetH, targetW, targetI, targetClasses, startPoint, endPoint, stickyOffsetTop, stickyOffsetBottom) {
-      if (offsetTop > startPoint - stickyOffsetTop && offsetTop < endPoint - targetH - stickyOffsetBottom) {
-        if ($('#shadow' + targetI).length) return;
+    removeSticky: function (el) {
+      $(el).css({
+        'position': '',
+        'top': '',
+        'bottom': '',
+        'left': '',
+        'width': ''
+      });
+    },
 
-        //Add shadow block
-        target
-          .not('.die-sticky')
-          .before('<div id="shadow' + targetI + '" class="' + targetClasses + '" style="height: ' + targetH + 'px; width: ' + targetW + 'px; margin-top: ' + stickyOffsetTop + 'px; background-color: transparent !important;"></div>');
+    killSticky: function (el, stickyView, windowWidth) {
+      //Variables
+      var $self = this,
+        $parent = $(el.data('parent'));
+
+      if (stickyView === 'sm' && windowWidth <= 576) {
+        el.addClass('kill-sticky');
+        $self.removeSticky(el);
+        $self.parentRemoveHeight($parent);
+      } else if (stickyView === 'md' && windowWidth <= 768) {
+        el.addClass('kill-sticky');
+        $self.removeSticky(el);
+        $self.parentRemoveHeight($parent);
+      } else if (stickyView === 'lg' && windowWidth <= 992) {
+        el.addClass('kill-sticky');
+        $self.removeSticky(el);
+        $self.parentRemoveHeight($parent);
+      } else if (stickyView === 'xl' && windowWidth <= 1200) {
+        el.addClass('kill-sticky');
+        $self.removeSticky(el);
+        $self.parentRemoveHeight($parent);
       } else {
-        if (!$('#shadow' + targetI).length) return;
-
-        //Remove shadow block
-        $('#shadow' + targetI).remove();
+        el.removeClass('kill-sticky');
       }
     },
 
-    killSticky: function (target) {
-      target
-        .removeClass('position-fixed m-0')
-        .css({
-          'top': '',
-          'left': '',
-          'width': '',
-          'height': '',
-          'z-index': '1'
-        });
+    parentSetHeight: function (parent, stickyBlockHeight) {
+      parent.css({
+        'height': stickyBlockHeight
+      });
+    },
+
+    parentRemoveHeight: function (parent) {
+      parent.css({
+        'height': ''
+      });
     }
   }
 })(jQuery);

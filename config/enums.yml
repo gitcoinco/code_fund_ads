@@ -46,7 +46,7 @@
 #   pry>ENUMS::USER_ROLES.keys                          # [administrator, advertiser, publisher]
 #   pry>ENUMS::USER_ROLES.values                        # [administrator, advertiser, publisher]
 #   pry>ENUMS::USER_ROLES.administrator? :administrator # true
-#   pry>ENUMS::USER_ROLES.administrator? :developer     # false
+#   pry>ENUMS::USER_ROLES.administrator? :publisher     # false
 #   pry>ENUMS::USER_ROLES["administrator"]              # admin
 #
 #   ----------------------------------------------------------------------------
@@ -80,6 +80,11 @@ CAMPAIGN_STATUSES:
   - active
   - archived
 
+CAMPAIGN_STATUS_COLORS:
+  pending: warning
+  active: success
+  archived: muted
+
 PROPERTY_TYPES:
   - website
   - repository
@@ -92,10 +97,22 @@ PROPERTY_STATUSES:
   - archived
   - blacklisted
 
+PROPERTY_STATUS_COLORS:
+  pending: warning
+  active: success
+  rejected: danger
+  archived: muted
+  blacklisted: dark
+
 IMAGE_FORMATS:
   - small
   - large
   - wide
+
+IMAGE_CONTENT_TYPES:
+  - image/gif
+  - image/jpeg
+  - image/png
 
 IMPRESSION_CODES:
   - ok

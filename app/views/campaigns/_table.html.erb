@@ -1,24 +1,21 @@
 <div class="table-responsive">
-  <table class="table table-borderless u-datatable u-datatable__striped">
+  <table class="js-datatable table table-borderless u-datatable u-datatable__striped u-datatable__trigger">
     <thead>
       <tr class="border-bottom">
-        <th scope="col" style="width: 30px;">&nbsp;</th>
-        <th scope="col">Name</th>
-        <th scope="col">Advertiser</th>
-        <th scope="col">Expires</th>
-        <th scope="col">Spend</th>
+        <%= sortable_tr "name" %>
+        <%= sortable_tr "user.first_name", "Advertiser" %>
+        <%= sortable_tr "end_date", "Expires" %>
+        <%= sortable_tr "total_budget_cents", "Budget" %>
+        <%= sortable_tr "status" %>
         <th scope="col"></th>
       </tr>
     </thead>
-    <tbody>
-      <%= render partial: "/campaigns/tr", collection: @campaigns, as: :campaign %>
+    <tbody class="font-size-1">
+      <%= render partial: "/campaigns/tr", collection: campaigns, as: :campaign %>
     </tbody>
-    <tfoot>
-      <tr class="border-top">
-        <td colspan="6" class="pt-3">
-          <%== pagy_nav_bootstrap(@pagy) if @pagy.pages > 1 %>
-        </td>
-      </tr>
-    </tfoot>
   </table>
+  <div class="d-flex justify-content-between align-items-center">
+    <span><%== pagy_nav_bootstrap(pagy) if pagy.pages > 1 %></span>
+    <%= pagy_entries(pagy) %>
+  </div>
 </div>

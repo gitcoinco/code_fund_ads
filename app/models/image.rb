@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class Image
   extend ActiveModel::Naming
   include ActiveModel::Conversion
@@ -13,32 +11,33 @@ class Image
     filename
     id
     persisted?
+    record
     variant
   ]
 
-  delegate *delegated_methods, to: :attachment
+  delegate(*delegated_methods, to: :attachment)
 
   def initialize(active_storage_attachment)
     @attachment = active_storage_attachment
   end
 
-  def meta_name
+  def name
     attachment.blob.metadata[:name]
   end
 
-  def meta_description
+  def description
     attachment.blob.metadata[:description]
   end
 
-  def meta_format
+  def format
     attachment.blob.metadata[:format]
   end
 
-  def meta_width
+  def width
     attachment.blob.metadata[:width]
   end
 
-  def meta_height
+  def height
     attachment.blob.metadata[:height]
   end
 end

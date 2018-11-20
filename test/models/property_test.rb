@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 # == Schema Information
 #
 # Table name: properties
@@ -11,8 +9,8 @@
 #  name                        :string           not null
 #  description                 :text
 #  url                         :text             not null
-#  ad_template                 :string           not null
-#  ad_theme                    :string           not null
+#  ad_template                 :string
+#  ad_theme                    :string
 #  language                    :string           not null
 #  keywords                    :string           default([]), not null, is an Array
 #  prohibited_advertisers      :bigint(8)        default([]), is an Array

@@ -1,6 +1,7 @@
-# frozen_string_literal: true
-
 class PropertiesController < ApplicationController
+  include Sortable
+
+  before_action :authenticate_user!
   before_action :set_property_search, only: [:index]
   before_action :set_property, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
@@ -8,7 +9,7 @@ class PropertiesController < ApplicationController
   # GET /properties
   # GET /properties.json
   def index
-    properties = Property.order(:name).includes(:user, :template)
+    properties = Property.order(order_by).includes(:user)
     properties = properties.where(user: @user) if @user
     properties = @property_search.apply(properties)
     @pagy, @properties = pagy(properties)
@@ -23,7 +24,7 @@ class PropertiesController < ApplicationController
 
   # GET /properties/new
   def new
-    @property = Property.new
+    @property = current_user.properties.build(status: "pending")
   end
 
   # GET /properties/1/edit
@@ -33,7 +34,7 @@ class PropertiesController < ApplicationController
   # POST /properties
   # POST /properties.json
   def create
-    @property = Property.new(property_params)
+    @property = current_user.properties.build(property_params)
 
     respond_to do |format|
       if @property.save
@@ -72,22 +73,43 @@ class PropertiesController < ApplicationController
 
   private
 
-    def set_property_search
-      @property_search = GlobalID.parse(session[:property_search]).find if session[:property_search].present?
-      @property_search ||= PropertySearch.new
-    end
+  def set_property_search
+    @property_search = GlobalID.parse(session[:property_search]).find if session[:property_search].present?
+    @property_search ||= PropertySearch.new
+  end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_property
-      @property = Property.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_property
+    @property = Property.find(params[:id])
+  end
 
-    def set_user
-      @user = User.find(params[:user_id])
+  def set_user
+    @user = if params[:user_id] == "me"
+      current_user
+    else
+      User.find(params[:user_id])
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def property_params
-      params.fetch(:property, {})
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def property_params
+    params.require(:property).permit(
+      :description,
+      :language,
+      :name,
+      :property_type,
+      :screenshot,
+      :status,
+      :url,
+      keywords: [],
+    )
+  end
+
+  def sortable_columns
+    %w[
+      created_at
+      name
+      status
+    ]
+  end
 end

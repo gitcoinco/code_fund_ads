@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 require "digest/md5"
 
 class ApplicationSearchRecord
@@ -15,7 +13,7 @@ class ApplicationSearchRecord
 
   class << self
     def find(id)
-      new **JSON.parse(Base64.decode64(id)).symbolize_keys
+      new(**JSON.parse(Base64.decode64(id)).symbolize_keys)
     end
 
     def subject
@@ -39,23 +37,27 @@ class ApplicationSearchRecord
     @attributes.dup
   end
 
+  def searched_keys
+    @attributes.reject { |_k, v| v.blank? }.keys
+  end
+
   def present?
-    @attributes.values.flatten.join.present?
+    @attributes.values.flatten.reject(&:blank?).join.present?
   end
 
   def blank?
     !present?
   end
 
-  alias_method :empty?, :blank?
+  alias empty? blank?
 
   def persisted?
     false
   end
 
-  def apply(relation)
+  def apply(_relation)
     message = "ApplicationSearchRecord#apply is abstract & must be implemented by subclasses"
-    raise NotImplementedError.new(message)
+    raise NotImplementedError, message
   end
 
   def method_missing(name, *args)
@@ -67,14 +69,23 @@ class ApplicationSearchRecord
     end
   end
 
-  def respond_to?(name)
+  def respond_to?(name, include_all = false)
     return true if @fields.include?(keyify(name))
     super
   end
 
+  def respond_to_missing?(name, include_all)
+    return true if @fields.include?(keyify(name))
+    super
+  end
+
+  def boolean(value)
+    !!(value.to_s =~ /\A1|t(rue)?\z/i)
+  end
+
   private
 
-    def keyify(name)
-      name.to_s.sub /\=\z/, ""
-    end
+  def keyify(name)
+    name.to_s.sub(/\=\z/, "")
+  end
 end

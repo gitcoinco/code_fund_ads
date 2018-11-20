@@ -21,6 +21,7 @@
       easing: 'linear',
       over: $(),
       sectionClass: 'u-scroll-nav-section',
+      customOffsetTop: 0,
       activeItemClass: 'active',
       activeSectionClass: 'active',
       afterShow: function () {},
@@ -237,7 +238,7 @@
 
     });
 
-    if (current && this.current != current) {
+    if (current && this.current !== current) {
 
       this.unhighlight();
       current.highlight();
@@ -342,13 +343,13 @@
     this.changeHash();
 
     $('html, body').stop().animate({
-      scrollTop: self.offset + 3
+      scrollTop: self.offset + self.config.customOffsetTop
     }, {
       duration: self.config.duration,
       easing: self.config.easing,
       complete: function () {
         $('html, body').stop().animate({
-          scrollTop: self.offset + 3
+          scrollTop: self.offset + self.config.customOffsetTop
         }, {
           duration: self.config.duration,
           easing: self.config.easing,

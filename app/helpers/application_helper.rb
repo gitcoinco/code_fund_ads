@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 module ApplicationHelper
   include Pagy::Frontend
 
@@ -22,7 +20,7 @@ module ApplicationHelper
   end
 
   def tooltip_expando(options = {})
-    { toggle: "tooltip", placement: "top" }.merge(options)
+    {toggle: "tooltip", placement: "top"}.merge(options)
   end
 
   def users_for_select(role: nil)
@@ -31,12 +29,20 @@ module ApplicationHelper
     relation
   end
 
-  def companies_for_select
-    User.sponsor.where.not(company_name: nil).order(User.arel_table[:company_name].lower).pluck(:company_name).uniq
+  def user_roles_for_select
+    ENUMS::USER_ROLES.values
   end
 
-  def templates_for_select
-    Template.select(:id, :name).order(:name)
+  def image_formats_for_select
+    ENUMS::IMAGE_FORMATS.values
+  end
+
+  def companies_for_select
+    User.advertiser.where.not(company_name: nil).order(User.arel_table[:company_name].lower).pluck(:company_name).uniq
+  end
+
+  def ad_templates_for_select
+    ENUMS::AD_TEMPLATES.values
   end
 
   def languages_for_select
@@ -67,6 +73,32 @@ module ApplicationHelper
     render("/@shared/scripts/groove", id: ENV["GROOVE_WIDGET_ID"])
   end
 
+  def badge_for_role(role, wrap_class: "")
+    case role
+    when "administrator"
+      tag.span(
+        tag.span("", class: "fas fa-key content-centered", style: "top: 5px; left: 5px; position: absolute;"),
+        class: "btn btn-icon btn-dark btn-xs rounded-circle position-relative #{wrap_class}",
+        title: "Administrator",
+        data: tooltip_expando
+      )
+    when "advertiser"
+      tag.span(
+        tag.span("", class: "fas fa-ad content-centered", style: "top: 5px; left: 5px; position: absolute;"),
+        class: "btn btn-icon btn-success btn-xs rounded-circle position-relative #{wrap_class}",
+        title: "Advertiser",
+        data: tooltip_expando
+      )
+    when "publisher"
+      tag.span(
+        tag.span("", class: "fas fa-code content-centered", style: "top: 5px; left: 3px; position: absolute;"),
+        class: "btn btn-icon btn-primary btn-xs rounded-circle position-relative #{wrap_class}",
+        title: "Publisher",
+        data: tooltip_expando
+      )
+    end
+  end
+
   def noty_flash
     flash_messages = []
     flash.each do |type, message|
@@ -74,11 +106,31 @@ module ApplicationHelper
       type = "error"   if type == "alert"
       body = {
         type: type,
-        text: message
+        text: message,
       }
       text = "<script>new Noty(#{body.to_json}).show();</script>"
       flash_messages << text.html_safe if message
     end
     flash_messages.join("\n").html_safe
+  end
+
+  def sortable_tr(column, title = nil)
+    title   ||= column.titleize
+    direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
+    selected  = nil
+
+    if params[:column] == column
+      selected = "up" if direction == "desc"
+      selected = "down" if direction == "asc"
+    end
+
+    render "/@shared/sortable_tr", title: title, selected: selected, column: column
+  end
+
+  def pagy_entries(pagy)
+    start = pagy.offset + 1
+    finish = start + pagy.items - 1
+    count = pagy.count
+    tag.small("Showing #{start} to #{finish} of #{count} Entries", class: "text-secondary").html_safe
   end
 end

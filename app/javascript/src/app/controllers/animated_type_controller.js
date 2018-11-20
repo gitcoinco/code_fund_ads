@@ -1,11 +1,10 @@
-import { Controller } from "stimulus";
+import { Controller } from 'stimulus';
 
 export default class extends Controller {
   connect() {
-    const
-      strings = JSON.parse(this.element.dataset.strings),
+    const strings = JSON.parse(this.element.dataset.strings),
       typeSpeed = parseInt(this.element.dataset.typeSpeed),
-      loop = this.element.dataset.loop === "true",
+      loop = this.element.dataset.loop === 'true',
       backSpeed = parseInt(this.element.dataset.backSpeed),
       backDelay = parseInt(this.element.dataset.backDelay);
 
