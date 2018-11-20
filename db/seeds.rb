@@ -3,7 +3,6 @@
 require "csv"
 require "fileutils"
 require "faker"
-
 require_relative "./seeds_impressions"
 
 unless Rails.env.development?
@@ -17,12 +16,9 @@ class Seeder
   end
 
   def initialize
-    @user_id = User.last&.id.to_i + 1
-    @property_id = Property.last&.id.to_i + 1
-    @user_count = 0
+    @user_id = User.maximum(:id).to_i
+    @property_id = Property.maximum(:id).to_i
     @users = []
-    @publishers = []
-    @properties = []
   end
 
   def call
@@ -30,7 +26,7 @@ class Seeder
     seed_users
     seed_campaigns
     seed_properties
-    ImpressionSeeder.run(ENV["MAX_IMPRESSIONS"].to_i)
+    ImpressionSeeder.run(ENV["MAX_IMPRESSIONS"].to_i) if ENV["MAX_IMPRESSIONS"].present?
     puts "[SEEDING DATABASE]: Completed"
   end
 
@@ -43,7 +39,9 @@ class Seeder
     csv_path = Rails.root.join("tmp", "users.csv")
     @users << build_administrator
     @users.concat build_advertisers
+    puts
     @users.concat build_publishers
+    puts
     csv_created = create_csv(@users, csv_path)
     import_csv("users", csv_path) if csv_created
   end
@@ -53,14 +51,12 @@ class Seeder
     return unless admin_count.zero?
     return if @emails["admin@codefund.io"]
     puts "[SEEDING DATABASE]: Building administrator"
-    @user_count += 1
     admin = user_attributes.merge(
-      id: @user_id,
+      id: @user_id += 1,
       company_name: "CodeFund",
       email: "admin@codefund.io",
       roles: "{#{ENUMS::USER_ROLES::ADMINISTRATOR}}",
     ).values
-    @user_id += 1
     admin
   end
 
@@ -68,31 +64,20 @@ class Seeder
     advertiser_count = User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADVERTISER).count
     return [] if advertiser_count >= 100
     print "[SEEDING DATABASE]: Building advertisers "
-    advertisers = (advertiser_count..99).map {
-      @user_count += 1
-      print "." if @user_count % 10 == 0
-      advertiser = user_attributes.merge(id: @user_id, roles: "{#{ENUMS::USER_ROLES::ADVERTISER}}").values
-      @user_id += 1
-      advertiser
+    (advertiser_count..99).map {
+      print "."
+      user_attributes.merge(id: @user_id += 1, roles: "{#{ENUMS::USER_ROLES::ADVERTISER}}").values
     }
-    puts
-    advertisers
   end
 
   def build_publishers
     publisher_count = User.where("? = ANY (roles)", ENUMS::USER_ROLES::PUBLISHER).count
     return [] if publisher_count >= 1000
     print "[SEEDING DATABASE]: Building publishers "
-    publishers = (publisher_count..999).map {
-      @user_count += 1
-      print "." if @user_count % 10 == 0
-      publisher = user_attributes.merge(id: @user_id, roles: "{#{ENUMS::USER_ROLES::PUBLISHER}}").values
-      @publishers << @user_id
-      @user_id += 1
-      publisher
+    (publisher_count..999).map {
+      print "."
+      user_attributes.merge(id: @user_id += 1, roles: "{#{ENUMS::USER_ROLES::PUBLISHER}}").values
     }
-    puts
-    publishers
   end
 
   def seed_campaigns
@@ -184,13 +169,13 @@ class Seeder
     return if Property.count >= 10_000
     print "[SEEDING DATABASE]: Building properties"
     csv_path = Rails.root.join("tmp", "properties.csv")
-    @publishers = User.where("? = ANY (roles)", ENUMS::USER_ROLES::PUBLISHER).pluck(:id) unless @publishers.present?
-    @publishers.each do |publisher|
+    user_ids = User.where("? = ANY (roles)", ENUMS::USER_ROLES::PUBLISHER).pluck(:id)
+    properties = user_ids.each_with_object([]) do |user_id, memo|
       print "."
       10.times do
-        @properties << {
-          id: @property_id,
-          user_id: publisher,
+        memo << {
+          id: @property_id += 1,
+          user_id: user_id,
           property_type: ENUMS::PROPERTY_TYPES.values.sample,
           status: ENUMS::PROPERTY_STATUSES.values.sample,
           name: Faker::SiliconValley.invention,
@@ -205,11 +190,10 @@ class Seeder
           created_at: Time.now,
           updated_at: Time.now,
         }.values
-        @property_id += 1
       end
     end
     puts
-    csv_created = create_csv(@properties, csv_path)
+    csv_created = create_csv(properties, csv_path)
     import_csv("properties", csv_path) if csv_created
   end
 
@@ -237,10 +221,10 @@ class Seeder
   def user_attributes
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
-    email = Faker::Internet.email("#{first_name} #{last_name}", "-")
+    email = Faker::Internet.email("#{first_name} #{last_name} #{SecureRandom.hex[0, 8]}", "-")
     {
       id: 1,
-      roles: [],
+      roles: "{}",
       first_name: first_name,
       last_name: last_name,
       company_name: Faker::SiliconValley.company,
@@ -272,6 +256,21 @@ class Seeder
       locked_at: nil,
       created_at: 3.days.ago,
       updated_at: 3.days.ago,
+      invitation_token: Devise.friendly_token,
+      invitation_created_at: 3.days.ago,
+      invitation_sent_at: 3.days.ago,
+      invitation_accepted_at: 1.day.ago,
+      invitation_limit: nil,
+      invited_by_type: "User",
+      invited_by_id: 1,
+      invitations_count: 1,
+      us_resident: true,
+      bio: nil,
+      website_url: nil,
+      skills: "{}",
+      github_username: Faker::Twitter.screen_name,
+      twitter_username: Faker::Twitter.screen_name,
+      linkedin_username: nil,
     }
   end
 end

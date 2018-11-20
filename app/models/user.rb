@@ -118,6 +118,7 @@ class User < ApplicationRecord
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   begin
     tag_columns :roles
+    tag_columns :skills
   rescue
     # rescue required for initial migration due to devise
     ActiveRecord::NoDatabaseError
@@ -134,7 +135,6 @@ class User < ApplicationRecord
     :validatable,
   )
   has_one_attached :avatar
-  tag_columns :skills
 
   # class methods .............................................................
   class << self
