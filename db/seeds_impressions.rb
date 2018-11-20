@@ -56,9 +56,9 @@ class ImpressionSeeder
   end
 
   def build_impressions(displayed_at)
-    rand(@max_impressions_per_second + 1).times.map do
+    rand(@max_impressions_per_second + 1).times.map {
       build_impression displayed_at
-    end.compact
+    }.compact
   end
 
   def build_impressions_for_minute(time)
@@ -110,7 +110,7 @@ class ImpressionSeeder
       begin
         puts "Copying #{csv_path} with #{list.length} rows to Postgres"
         ActiveRecord::Base.connection.execute "COPY \"#{partition_table_name}\" FROM '#{csv_path}' CSV;"
-      rescue StandardError => e
+      rescue => e
         puts "Failed to copy #{csv_path} to Postgres! #{e}"
       ensure
         FileUtils.rm_f csv_path, verbose: true
