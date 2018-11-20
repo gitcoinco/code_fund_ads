@@ -4,6 +4,8 @@ require "csv"
 require "fileutils"
 require "faker"
 
+require_relative "./seeds_impressions"
+
 unless Rails.env.development?
   puts "SEEDS ARE FOR DEVELOPMENT ONLY!"
   exit 1
@@ -28,6 +30,7 @@ class Seeder
     seed_users
     seed_campaigns
     seed_properties
+    ImpressionSeeder.run(ENV["MAX_IMPRESSIONS"].to_i)
     puts "[SEEDING DATABASE]: Completed"
   end
 
@@ -274,6 +277,3 @@ class Seeder
 end
 
 Seeder.run
-
-# require_relative "./seeds_impressions" if ENV["IMPRESSIONS"]
-
