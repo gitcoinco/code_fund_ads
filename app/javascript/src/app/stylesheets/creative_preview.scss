@@ -34,3 +34,11 @@
   color: #777;
   text-decoration: none;
 }
+
+.copy-wrapper {
+  background-color: #e7eaec;
+
+  &.over-limit {
+    background-color: red;
+  }
+}

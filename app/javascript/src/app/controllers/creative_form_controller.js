@@ -14,7 +14,7 @@ export default class extends Controller {
     "previewImageUrl",
     "previewHeadline",
     "previewBody",
-    "lengthWarning"
+    "copyWrapper"
   ]
 
   initialize() {
@@ -29,11 +29,10 @@ export default class extends Controller {
 
   checkLimit() {
     const adLength = this.previewHeadlineTarget.textContent.length + this.previewBodyTarget.textContent.length + 1;
-    console.log(adLength);
     if (adLength > 85) {
-      this.lengthWarningTarget.hidden = false;
+      this.copyWrapperTarget.classList.add('over-limit');
     } else {
-      this.lengthWarningTarget.hidden = true;
+      this.copyWrapperTarget.classList.remove('over-limit');
     }
   }
 

@@ -18,8 +18,13 @@
             </div>
           <% end %>
 
-          <%= tag.div f.input(:headline, required: true, input_html: { data: { target: "creative-form.inputHeadline", action: "change->creative-form#setHeadline keyup->creative-form#setHeadline" }}), class: "col-12 mb-3" %>
-          <%= tag.div f.input(:body, required: true, input_html: { rows: 2, data: { target: "creative-form.inputBody", action: "change->creative-form#setBody keyup->creative-form#setBody" }}), class: "col-12 mb-3" %>
+
+
+          <div class="copy-wrapper col-12 p-0 py-2 mb-2" data-target="creative-form.copyWrapper">
+            <div class="text-center pb-2">The <strong>HEADLINE</strong> + <strong>BODY</strong> length cannot exceed 84 characters</div>
+            <%= tag.div f.input(:headline, required: true, input_html: { data: { target: "creative-form.inputHeadline", action: "change->creative-form#setHeadline keyup->creative-form#setHeadline" }}), class: "col-12 mb-3" %>
+            <%= tag.div f.input(:body, required: true, input_html: { rows: 2, data: { target: "creative-form.inputBody", action: "change->creative-form#setBody keyup->creative-form#setBody" }}), class: "col-12 mb-3" %>
+          </div>
           
           <%= tag.div f.input(:small_image, label: "Small Image",
                 input_html: {
@@ -107,8 +112,6 @@
           </ul>
         </div>
         <!-- End Filter -->
-
-        <div class="alert alert-danger" hidden data-target="creative-form.lengthWarning">You are too long</div>
       </div>
 
       <div class="p-4 bg-white">
@@ -128,10 +131,5 @@
         </div>
       </div>
     </div>
-  </div>
-  
-  
-  <div class="col-md-6">
-    
   </div>
 </div>
