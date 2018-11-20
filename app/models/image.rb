@@ -40,4 +40,8 @@ class Image
   def height
     attachment.blob.metadata[:height]
   end
+
+  def display_name
+    "#{name} (#{width}x#{height})"
+  end
 end

@@ -1,6 +1,7 @@
 // theme vendored scripts
 import 'theme/vendor/bootstrap/bootstrap.min';
 import 'theme/vendor/appear';
+import 'theme/vendor/circles/circles.min';
 import 'theme/vendor/bootstrap-select/dist/js/bootstrap-select';
 import 'theme/vendor/hs-megamenu/src/hs.megamenu';
 import 'theme/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min';
@@ -30,6 +31,7 @@ import 'theme/js/components/hs.sticky-block';
 import 'theme/js/components/hs.scroll-nav';
 import 'theme/js/components/hs.chartist-area-chart';
 import 'theme/js/components/hs.chartist-bar-chart';
+import 'theme/js/components/hs.chart-pie';
 import 'theme/js/components/hs.focus-state';
 
 // theme initialization

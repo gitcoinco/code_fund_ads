@@ -45,7 +45,7 @@
               <%= f.radio_button :creative_id, creative.id, class: "custom-control-input" %>
               <label class="custom-control-label ml-1" for="campaign_creative_id_<%= creative.id %>">
                 <div class="media ml-2">
-                  <%= image_tag creative.large_images.first, class: "align-self-start mr-3", style: "width: 130px;" %>
+                  <%= image_tag creative.large_image, class: "align-self-start mr-3", style: "width: 130px;" %>
                   <div class="media-body h6 text-black-50 font-weight-normal">
                     <strong class="text-dark"><%= creative.headline %></strong>
                     <%= creative.body %>

@@ -162,6 +162,24 @@ class User < ApplicationRecord
     0.6
   end
 
+  def small_images(wrapped = false)
+    list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::SMALL)
+    return list unless wrapped
+    list.map { |i| Image.new(i) }
+  end
+
+  def large_images(wrapped = false)
+    list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::LARGE)
+    return list unless wrapped
+    list.map { |i| Image.new(i) }
+  end
+
+  def wide_images(wrapped = false)
+    list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::WIDE)
+    return list unless wrapped
+    list.map { |i| Image.new(i) }
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................

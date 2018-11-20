@@ -1,16 +1,14 @@
 class CreativesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_creative_search, only: [:index]
   before_action :set_creative, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
 
   # GET /creatives
   # GET /creatives.json
   def index
     creatives = Creative.order(:name).includes(:user)
-    creatives = creatives.where(user: @user) if @user
+    creatives = @creative_search.apply(creatives)
     @pagy, @creatives = pagy(creatives)
-
-    render "/creatives/for_user/index" if @user
   end
 
   # GET /creatives/1
@@ -69,13 +67,14 @@ class CreativesController < ApplicationController
 
   private
 
+  def set_creative_search
+    @creative_search = GlobalID.parse(session[:creative_search]).find if session[:creative_search].present?
+    @creative_search ||= CreativeSearch.new
+  end
+
   # Use callbacks to share common setup or constraints between actions.
   def set_creative
     @creative = Creative.find(params[:id])
-  end
-
-  def set_user
-    @user = User.find(params[:user_id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
