@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-require "etc"
+require "benchmark"
 require "csv"
+require "etc"
 require "fileutils"
 
 class ImpressionSeeder
@@ -10,40 +11,46 @@ class ImpressionSeeder
   end
 
   def initialize(max_impressions)
+    puts "Seeding impressions start..."
     @processes = (Etc.nprocessors - 1)
     @processes = 1 if @processes < 1
-    @max_impressions = max_impressions
-    @count = Impression.count
+    @current_count = Impression.count
+    @max_impressions = max_impressions.to_i - @current_count
+    @max_impressions = 10_000 if @max_impressions.to_i == 0
+    @max_impressions = (@max_impressions / @processes.to_f).floor
     @publishers = User.publisher.includes(:properties).load
-    @campaign_cache = {}
-    max_impressions = 1000 if max_impressions.to_i == 0
-    @max_impressions_per_second = ((max_impressions / @processes.to_f) / 1.month.seconds.to_f).ceil
+    @campaign_cache = Property.all.each_with_object({}).each do |property, memo|
+      memo[property.id] = Campaign.for_property(property).load
+    end
   end
 
   def call
-    # This will create 30M impressions (give or take) when @max_impressions_per_second is set to 6
-    # Currently configured to use 4 CPU cores... customize for the number of cores on your machine
-    # NOTE: this will peg your hardware for a while
-    puts "[SEEDING DATABASE]: Seeding impressions"
-    pids = @processes.times.map do
-      Process.fork { create_impressions_for_month "2019-#{(1..12).to_a.sample}-01" }
+    if @current_count < @max_impressions
+      benchmark = Benchmark.measure {
+        pids = @processes.times.map {
+          Process.fork do
+            (1..12).to_a.shuffle.each do |i|
+              create_impressions_for_month "2019-#{i.to_s.rjust(2, "0")}-01", @max_impressions / 12
+            end
+          end
+        }
+        pids.each { |pid| Process.waitpid pid }
+      }
     end
-    pids.each { |pid| Process.waitpid pid }
-    puts "[SEEDING DATABASE]: Seeding impressions done"
+    print "Seeding impressions finish...".ljust(48)
+    print "verified [#{Impression.count.to_s.rjust(8)}] total impressions".ljust(48)
+    puts benchmark
   end
 
   private
 
   def incomplete?
-    @count < @max_impressions
+    @count < @max
   end
 
   def build_impression(displayed_at)
     property = @publishers.sample.properties.sample
-    campaigns = @campaign_cache[property.id]
-    campaigns ||= Campaign.for_property(property)
-    @campaign_cache[property.id] = campaigns
-    campaign = campaigns.sample
+    campaign = @campaign_cache[property.id].sample
     return nil unless campaign
     @count += 1
     {
@@ -66,7 +73,7 @@ class ImpressionSeeder
   end
 
   def build_impressions(displayed_at)
-    rand(@max_impressions_per_second + 1).times.map {
+    rand(21).times.map {
       build_impression displayed_at
     }.compact
   end
@@ -101,28 +108,37 @@ class ImpressionSeeder
     impressions
   end
 
-  def create_impressions_for_month(date_string)
+  def create_impressions_for_month(date_string, max)
+    @count = 0
+    @max = max
     start_date = Date.parse(date_string).beginning_of_month
-    return if Impression.where(displayed_at: start_date).count > 0
     partition_table_name = "impressions_#{start_date.to_s "yyyy_mm"}"
     current_date = start_date
     while incomplete? && current_date <= start_date.end_of_month
-      csv_path = "/tmp/impressions-#{current_date.iso8601}.csv"
-      puts "[SEEDING DATABASE]: Creating #{csv_path}"
-      list = build_impressions_for_day(current_date.to_time)
-      CSV.open(csv_path, "wb") do |csv|
-        list.each do |record|
-          csv << record.values
+      error = nil
+      benchmark = Benchmark.measure {
+        list = build_impressions_for_day(current_date.to_time)
+        csv_path = "/tmp/impressions-#{Process.pid}-#{current_date.iso8601}.csv"
+        CSV.open(csv_path, "wb") do |csv|
+          list.each do |record|
+            csv << record.values
+          end
         end
-      end
 
-      begin
-        puts "[SEEDING DATABASE]: Copying #{csv_path} with #{list.length} rows to Postgres"
-        ActiveRecord::Base.connection.execute "COPY \"#{partition_table_name}\" FROM '#{csv_path}' CSV;"
-      rescue => e
-        puts "[SEEDING DATABASE]: Failed to copy #{csv_path} to Postgres! #{e}"
-      ensure
-        FileUtils.rm_f csv_path, verbose: true
+        begin
+          ActiveRecord::Base.connection.execute "COPY \"#{partition_table_name}\" FROM '#{csv_path}' CSV;"
+        rescue => e
+          error = e
+          puts "Failed to copy #{csv_path} to Postgres! #{e}"
+        ensure
+          FileUtils.rm_f csv_path
+        end
+      }
+
+      if error.nil?
+        message = "Seeding impressions ##{Process.pid} #{current_date.iso8601}...".ljust(96)
+        message += benchmark.to_s
+        puts message
       end
 
       current_date = current_date.advance(days: 1)
