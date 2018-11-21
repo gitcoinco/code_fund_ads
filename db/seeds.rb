@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
+require "benchmark"
 require "csv"
-require "fileutils"
 require "faker"
-
-require_relative "./seeds_impressions"
+require "fileutils"
+require_relative "./impression_seeder"
 
 unless Rails.env.development?
   puts "SEEDS ARE FOR DEVELOPMENT ONLY!"
@@ -17,95 +17,82 @@ class Seeder
   end
 
   def initialize
-    @user_id = User.last&.id.to_i + 1
-    @property_id = Property.last&.id.to_i + 1
-    @user_count = 0
-    @users = []
-    @publishers = []
-    @properties = []
+    @user_id = User.maximum(:id).to_i
+    @property_id = Property.maximum(:id).to_i
+    @emails = User.all.pluck(:email).each_with_object({}) { |email, memo|
+      memo[email] = true
+    }
   end
 
   def call
-    puts "[SEEDING DATABASE]: Started - This may take several minutes."
-    seed_users
-    seed_campaigns
-    seed_properties
-    ImpressionSeeder.run(ENV["MAX_IMPRESSIONS"].to_i)
-    puts "[SEEDING DATABASE]: Completed"
+    print "Seeding...".ljust(48)
+    puts "please be patient"
+    benchmark = Benchmark.measure {
+      seed_users
+      seed_campaigns
+      seed_properties
+      ImpressionSeeder.run(ENV["MAX_IMPRESSIONS"])
+    }
+    print "Seeding finished...".ljust(96)
+    puts benchmark
   end
 
   private
 
   def seed_users
-    @emails = User.all.pluck(:email).each_with_object({}) { |email, memo|
-      memo[email] = true
+    print "Seeding users...".ljust(48)
+    benchmark = Benchmark.measure {
+      users = build_administrators
+      users.concat build_advertisers
+      users.concat build_publishers
+      import_csv :users, create_csv(users, Rails.root.join("tmp/users.csv")) unless users.blank?
     }
-    csv_path = Rails.root.join("tmp", "users.csv")
-    @users << build_administrator
-    @users.concat build_advertisers
-    @users.concat build_publishers
-    csv_created = create_csv(@users, csv_path)
-    import_csv("users", csv_path) if csv_created
+    print "verified [#{User.count.to_s.rjust(8)}] total users".ljust(48)
+    puts benchmark
   end
 
-  def build_administrator
-    admin_count = User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADMINISTRATOR).count
-    return unless admin_count.zero?
-    return if @emails["admin@codefund.io"]
-    puts "[SEEDING DATABASE]: Building administrator"
-    @user_count += 1
-    admin = user_attributes.merge(
-      id: @user_id,
-      company_name: "CodeFund",
-      email: "admin@codefund.io",
-      roles: "{#{ENUMS::USER_ROLES::ADMINISTRATOR}}",
-    ).values
-    @user_id += 1
-    admin
+  def build_administrators
+    return [] unless User.administrator.count.zero?
+    return [] if @emails["admin@codefund.io"]
+    [
+      user_attributes.merge(
+        id: @user_id += 1,
+        company_name: "CodeFund",
+        email: "admin@codefund.io",
+        roles: "{#{ENUMS::USER_ROLES::ADMINISTRATOR}}",
+      ).values,
+    ]
   end
 
   def build_advertisers
-    advertiser_count = User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADVERTISER).count
-    return [] if advertiser_count >= 100
-    print "[SEEDING DATABASE]: Building advertisers "
-    advertisers = (advertiser_count..99).map {
-      @user_count += 1
-      print "." if @user_count % 10 == 0
-      advertiser = user_attributes.merge(id: @user_id, roles: "{#{ENUMS::USER_ROLES::ADVERTISER}}").values
-      @user_id += 1
-      advertiser
-    }
-    puts
-    advertisers
+    count = User.advertiser.count
+    return [] if count >= 100
+    (count..99).map do
+      user_attributes.merge(id: @user_id += 1, roles: "{#{ENUMS::USER_ROLES::ADVERTISER}}").values
+    end
   end
 
   def build_publishers
-    publisher_count = User.where("? = ANY (roles)", ENUMS::USER_ROLES::PUBLISHER).count
-    return [] if publisher_count >= 1000
-    print "[SEEDING DATABASE]: Building publishers "
-    publishers = (publisher_count..999).map {
-      @user_count += 1
-      print "." if @user_count % 10 == 0
-      publisher = user_attributes.merge(id: @user_id, roles: "{#{ENUMS::USER_ROLES::PUBLISHER}}").values
-      @publishers << @user_id
-      @user_id += 1
-      publisher
-    }
-    puts
-    publishers
+    count = User.publisher.count
+    return [] if count >= 1000
+    (count..999).map do
+      user_attributes.merge(id: @user_id += 1, roles: "{#{ENUMS::USER_ROLES::PUBLISHER}}").values
+    end
   end
 
   def seed_campaigns
-    return if Campaign.count >= 1000
-    print "[SEEDING DATABASE]: Seeding campaigns "
-    User.where("? = ANY (roles)", ENUMS::USER_ROLES::ADVERTISER).each do |advertiser|
-      print "."
-      add_small_image(advertiser)
-      add_large_image(advertiser)
-      generate_creatives(advertiser)
-      generate_campaigns(advertiser)
-    end
-    puts
+    print "Seeding campaigns...".ljust(48)
+    benchmark = Benchmark.measure {
+      User.advertiser.each do |advertiser|
+        next if advertiser.campaigns.count > 0
+        add_small_image advertiser
+        add_large_image advertiser
+        generate_creatives advertiser
+        generate_campaigns advertiser
+      end
+    }
+    print "verified [#{Campaign.count.to_s.rjust(8)}] total campaigns".ljust(48)
+    puts benchmark
   end
 
   def add_small_image(advertiser)
@@ -151,7 +138,7 @@ class Seeder
   end
 
   def generate_campaigns(advertiser)
-    10.times do
+    rand(2..12).times do
       start_date = rand(3).months.from_now.to_date
       end_date = start_date.advance(months: 6)
       total_budget = ([*500..5000].sample / 100) * 100
@@ -181,66 +168,61 @@ class Seeder
   end
 
   def seed_properties
-    return if Property.count >= 10_000
-    print "[SEEDING DATABASE]: Building properties"
-    csv_path = Rails.root.join("tmp", "properties.csv")
-    @publishers = User.where("? = ANY (roles)", ENUMS::USER_ROLES::PUBLISHER).pluck(:id) unless @publishers.present?
-    @publishers.each do |publisher|
-      print "."
-      10.times do
-        @properties << {
-          id: @property_id,
-          user_id: publisher,
-          property_type: ENUMS::PROPERTY_TYPES.values.sample,
-          status: ENUMS::PROPERTY_STATUSES.values.sample,
-          name: Faker::SiliconValley.invention,
-          description: nil,
-          url: Faker::SiliconValley.url,
-          ad_template: ENUMS::AD_TEMPLATES.values.sample,
-          ad_theme: ENUMS::AD_THEMES.values.sample,
-          language: ENUMS::LANGUAGES::ENGLISH,
-          keywords: "{#{ENUMS::KEYWORDS.values.sample(25).join(",")}}",
-          prohibited_advertisers: nil,
-          prohibit_fallback_campaigns: false,
-          created_at: Time.now,
-          updated_at: Time.now,
-        }.values
-        @property_id += 1
-      end
-    end
-    puts
-    csv_created = create_csv(@properties, csv_path)
-    import_csv("properties", csv_path) if csv_created
+    print "Seeding properties...".ljust(48)
+    benchmark = Benchmark.measure {
+      properties = User.publisher.each_with_object([]) { |publisher, memo|
+        next if publisher.properties.count > 0
+        rand(1..4).times.each do
+          memo << {
+            id: @property_id += 1,
+            user_id: publisher.id,
+            property_type: ENUMS::PROPERTY_TYPES.values.sample,
+            status: ENUMS::PROPERTY_STATUSES.values.sample,
+            name: Faker::SiliconValley.invention,
+            description: nil,
+            url: Faker::SiliconValley.url,
+            ad_template: ENUMS::AD_TEMPLATES.values.sample,
+            ad_theme: ENUMS::AD_THEMES.values.sample,
+            language: ENUMS::LANGUAGES::ENGLISH,
+            keywords: "{#{ENUMS::KEYWORDS.values.sample(25).join(",")}}",
+            prohibited_advertisers: nil,
+            prohibit_fallback_campaigns: false,
+            created_at: Time.now,
+            updated_at: Time.now,
+          }.values
+        end
+      }
+      import_csv :properties, create_csv(properties, Rails.root.join("tmp/properties.csv")) unless properties.blank?
+    }
+    print "verified [#{Property.count.to_s.rjust(8)}] total properties".ljust(48)
+    puts benchmark
   end
 
   def create_csv(list, csv_path)
-    return false unless list.compact.present?
-    puts "Creating #{csv_path}"
     CSV.open(csv_path, "wb") do |csv|
       list.each do |record|
         csv << record
       end
     end
-    true
+    csv_path
   end
 
   def import_csv(table_name, csv_path)
-    puts "Copying #{csv_path} to Postgres"
     ActiveRecord::Base.connection.execute "COPY \"#{table_name}\" FROM '#{csv_path}' CSV;"
-    puts "Copy complete"
   rescue => e
     puts "Failed to copy #{csv_path} to Postgres! #{e}"
   ensure
-    FileUtils.rm_f csv_path, verbose: true
+    FileUtils.rm_f csv_path
   end
 
   def user_attributes
+    @encrypted_password ||= User.new(password: "secret").encrypted_password
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
-    email = Faker::Internet.email("#{first_name} #{last_name}", "-")
+    email = Faker::Internet.email("#{first_name} #{last_name} #{SecureRandom.hex[0, 8]}", "-")
     {
       id: 1,
-      roles: [],
+      roles: "{}",
       first_name: first_name,
       last_name: last_name,
       company_name: Faker::SiliconValley.company,
@@ -254,7 +236,7 @@ class Seeder
       api_key: nil,
       paypal_email: nil,
       email: email,
-      encrypted_password: User.new(password: "secret").encrypted_password,
+      encrypted_password: @encrypted_password,
       reset_password_token: nil,
       reset_password_sent_at: nil,
       remember_created_at: nil,
@@ -272,6 +254,21 @@ class Seeder
       locked_at: nil,
       created_at: 3.days.ago,
       updated_at: 3.days.ago,
+      invitation_token: Devise.friendly_token,
+      invitation_created_at: 3.days.ago,
+      invitation_sent_at: 3.days.ago,
+      invitation_accepted_at: 1.day.ago,
+      invitation_limit: nil,
+      invited_by_type: "User",
+      invited_by_id: 1,
+      invitations_count: 1,
+      us_resident: true,
+      bio: nil,
+      website_url: nil,
+      skills: "{}",
+      github_username: Faker::Twitter.screen_name,
+      twitter_username: Faker::Twitter.screen_name,
+      linkedin_username: nil,
     }
   end
 end
