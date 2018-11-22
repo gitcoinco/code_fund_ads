@@ -243,7 +243,9 @@ ALTER SEQUENCE public.creatives_id_seq OWNED BY public.creatives.id;
 CREATE TABLE public.impressions (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     campaign_id bigint,
+    campaign_name character varying,
     property_id bigint,
+    property_name character varying,
     ip character varying,
     user_agent text,
     country character varying,
@@ -1531,6 +1533,7 @@ CREATE TABLE public.schema_migrations (
 CREATE TABLE public.users (
     id bigint NOT NULL,
     roles character varying[] DEFAULT '{}'::character varying[],
+    skills text[] DEFAULT '{}'::text[],
     first_name character varying NOT NULL,
     last_name character varying NOT NULL,
     company_name character varying,
@@ -1540,8 +1543,14 @@ CREATE TABLE public.users (
     region character varying,
     postal_code character varying,
     country character varying,
+    us_resident boolean DEFAULT false,
     api_access boolean DEFAULT false NOT NULL,
     api_key character varying,
+    bio text,
+    website_url character varying,
+    github_username character varying,
+    twitter_username character varying,
+    linkedin_username character varying,
     paypal_email character varying,
     email character varying NOT NULL,
     encrypted_password character varying NOT NULL,
@@ -1560,8 +1569,6 @@ CREATE TABLE public.users (
     failed_attempts integer DEFAULT 0 NOT NULL,
     unlock_token character varying,
     locked_at timestamp without time zone,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
     invitation_token character varying,
     invitation_created_at timestamp without time zone,
     invitation_sent_at timestamp without time zone,
@@ -1570,13 +1577,8 @@ CREATE TABLE public.users (
     invited_by_type character varying,
     invited_by_id bigint,
     invitations_count integer DEFAULT 0,
-    us_resident boolean DEFAULT false,
-    bio text,
-    website_url character varying,
-    skills text[] DEFAULT '{}'::text[],
-    github_username character varying,
-    twitter_username character varying,
-    linkedin_username character varying
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -6138,6 +6140,13 @@ CREATE INDEX index_impressions_2018_11_on_campaign_id ON public.impressions_2018
 
 
 --
+-- Name: index_impressions_2018_11_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2018_11_on_campaign_name ON public.impressions_2018_11 USING btree (campaign_name);
+
+
+--
 -- Name: index_impressions_2018_11_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -6166,10 +6175,24 @@ CREATE INDEX index_impressions_2018_11_on_property_id ON public.impressions_2018
 
 
 --
+-- Name: index_impressions_2018_11_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2018_11_on_property_name ON public.impressions_2018_11 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2018_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2018_12_on_campaign_id ON public.impressions_2018_12 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2018_12_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2018_12_on_campaign_name ON public.impressions_2018_12 USING btree (campaign_name);
 
 
 --
@@ -6201,10 +6224,24 @@ CREATE INDEX index_impressions_2018_12_on_property_id ON public.impressions_2018
 
 
 --
+-- Name: index_impressions_2018_12_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2018_12_on_property_name ON public.impressions_2018_12 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2019_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2019_01_on_campaign_id ON public.impressions_2019_01 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2019_01_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_01_on_campaign_name ON public.impressions_2019_01 USING btree (campaign_name);
 
 
 --
@@ -6236,10 +6273,24 @@ CREATE INDEX index_impressions_2019_01_on_property_id ON public.impressions_2019
 
 
 --
+-- Name: index_impressions_2019_01_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_01_on_property_name ON public.impressions_2019_01 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2019_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2019_02_on_campaign_id ON public.impressions_2019_02 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2019_02_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_02_on_campaign_name ON public.impressions_2019_02 USING btree (campaign_name);
 
 
 --
@@ -6271,10 +6322,24 @@ CREATE INDEX index_impressions_2019_02_on_property_id ON public.impressions_2019
 
 
 --
+-- Name: index_impressions_2019_02_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_02_on_property_name ON public.impressions_2019_02 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2019_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2019_03_on_campaign_id ON public.impressions_2019_03 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2019_03_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_03_on_campaign_name ON public.impressions_2019_03 USING btree (campaign_name);
 
 
 --
@@ -6306,10 +6371,24 @@ CREATE INDEX index_impressions_2019_03_on_property_id ON public.impressions_2019
 
 
 --
+-- Name: index_impressions_2019_03_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_03_on_property_name ON public.impressions_2019_03 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2019_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2019_04_on_campaign_id ON public.impressions_2019_04 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2019_04_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_04_on_campaign_name ON public.impressions_2019_04 USING btree (campaign_name);
 
 
 --
@@ -6341,10 +6420,24 @@ CREATE INDEX index_impressions_2019_04_on_property_id ON public.impressions_2019
 
 
 --
+-- Name: index_impressions_2019_04_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_04_on_property_name ON public.impressions_2019_04 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2019_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2019_05_on_campaign_id ON public.impressions_2019_05 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2019_05_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_05_on_campaign_name ON public.impressions_2019_05 USING btree (campaign_name);
 
 
 --
@@ -6376,10 +6469,24 @@ CREATE INDEX index_impressions_2019_05_on_property_id ON public.impressions_2019
 
 
 --
+-- Name: index_impressions_2019_05_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_05_on_property_name ON public.impressions_2019_05 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2019_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2019_06_on_campaign_id ON public.impressions_2019_06 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2019_06_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_06_on_campaign_name ON public.impressions_2019_06 USING btree (campaign_name);
 
 
 --
@@ -6411,10 +6518,24 @@ CREATE INDEX index_impressions_2019_06_on_property_id ON public.impressions_2019
 
 
 --
+-- Name: index_impressions_2019_06_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_06_on_property_name ON public.impressions_2019_06 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2019_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2019_07_on_campaign_id ON public.impressions_2019_07 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2019_07_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_07_on_campaign_name ON public.impressions_2019_07 USING btree (campaign_name);
 
 
 --
@@ -6446,10 +6567,24 @@ CREATE INDEX index_impressions_2019_07_on_property_id ON public.impressions_2019
 
 
 --
+-- Name: index_impressions_2019_07_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_07_on_property_name ON public.impressions_2019_07 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2019_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2019_08_on_campaign_id ON public.impressions_2019_08 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2019_08_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_08_on_campaign_name ON public.impressions_2019_08 USING btree (campaign_name);
 
 
 --
@@ -6481,10 +6616,24 @@ CREATE INDEX index_impressions_2019_08_on_property_id ON public.impressions_2019
 
 
 --
+-- Name: index_impressions_2019_08_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_08_on_property_name ON public.impressions_2019_08 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2019_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2019_09_on_campaign_id ON public.impressions_2019_09 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2019_09_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_09_on_campaign_name ON public.impressions_2019_09 USING btree (campaign_name);
 
 
 --
@@ -6516,10 +6665,24 @@ CREATE INDEX index_impressions_2019_09_on_property_id ON public.impressions_2019
 
 
 --
+-- Name: index_impressions_2019_09_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_09_on_property_name ON public.impressions_2019_09 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2019_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2019_10_on_campaign_id ON public.impressions_2019_10 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2019_10_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_10_on_campaign_name ON public.impressions_2019_10 USING btree (campaign_name);
 
 
 --
@@ -6551,10 +6714,24 @@ CREATE INDEX index_impressions_2019_10_on_property_id ON public.impressions_2019
 
 
 --
+-- Name: index_impressions_2019_10_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_10_on_property_name ON public.impressions_2019_10 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2019_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2019_11_on_campaign_id ON public.impressions_2019_11 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2019_11_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_11_on_campaign_name ON public.impressions_2019_11 USING btree (campaign_name);
 
 
 --
@@ -6586,10 +6763,24 @@ CREATE INDEX index_impressions_2019_11_on_property_id ON public.impressions_2019
 
 
 --
+-- Name: index_impressions_2019_11_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_11_on_property_name ON public.impressions_2019_11 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2019_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2019_12_on_campaign_id ON public.impressions_2019_12 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2019_12_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_12_on_campaign_name ON public.impressions_2019_12 USING btree (campaign_name);
 
 
 --
@@ -6621,10 +6812,24 @@ CREATE INDEX index_impressions_2019_12_on_property_id ON public.impressions_2019
 
 
 --
+-- Name: index_impressions_2019_12_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2019_12_on_property_name ON public.impressions_2019_12 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2020_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2020_01_on_campaign_id ON public.impressions_2020_01 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2020_01_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_01_on_campaign_name ON public.impressions_2020_01 USING btree (campaign_name);
 
 
 --
@@ -6656,10 +6861,24 @@ CREATE INDEX index_impressions_2020_01_on_property_id ON public.impressions_2020
 
 
 --
+-- Name: index_impressions_2020_01_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_01_on_property_name ON public.impressions_2020_01 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2020_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2020_02_on_campaign_id ON public.impressions_2020_02 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2020_02_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_02_on_campaign_name ON public.impressions_2020_02 USING btree (campaign_name);
 
 
 --
@@ -6691,10 +6910,24 @@ CREATE INDEX index_impressions_2020_02_on_property_id ON public.impressions_2020
 
 
 --
+-- Name: index_impressions_2020_02_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_02_on_property_name ON public.impressions_2020_02 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2020_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2020_03_on_campaign_id ON public.impressions_2020_03 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2020_03_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_03_on_campaign_name ON public.impressions_2020_03 USING btree (campaign_name);
 
 
 --
@@ -6726,10 +6959,24 @@ CREATE INDEX index_impressions_2020_03_on_property_id ON public.impressions_2020
 
 
 --
+-- Name: index_impressions_2020_03_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_03_on_property_name ON public.impressions_2020_03 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2020_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2020_04_on_campaign_id ON public.impressions_2020_04 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2020_04_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_04_on_campaign_name ON public.impressions_2020_04 USING btree (campaign_name);
 
 
 --
@@ -6761,10 +7008,24 @@ CREATE INDEX index_impressions_2020_04_on_property_id ON public.impressions_2020
 
 
 --
+-- Name: index_impressions_2020_04_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_04_on_property_name ON public.impressions_2020_04 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2020_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2020_05_on_campaign_id ON public.impressions_2020_05 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2020_05_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_05_on_campaign_name ON public.impressions_2020_05 USING btree (campaign_name);
 
 
 --
@@ -6796,10 +7057,24 @@ CREATE INDEX index_impressions_2020_05_on_property_id ON public.impressions_2020
 
 
 --
+-- Name: index_impressions_2020_05_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_05_on_property_name ON public.impressions_2020_05 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2020_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2020_06_on_campaign_id ON public.impressions_2020_06 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2020_06_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_06_on_campaign_name ON public.impressions_2020_06 USING btree (campaign_name);
 
 
 --
@@ -6831,10 +7106,24 @@ CREATE INDEX index_impressions_2020_06_on_property_id ON public.impressions_2020
 
 
 --
+-- Name: index_impressions_2020_06_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_06_on_property_name ON public.impressions_2020_06 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2020_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2020_07_on_campaign_id ON public.impressions_2020_07 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2020_07_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_07_on_campaign_name ON public.impressions_2020_07 USING btree (campaign_name);
 
 
 --
@@ -6866,10 +7155,24 @@ CREATE INDEX index_impressions_2020_07_on_property_id ON public.impressions_2020
 
 
 --
+-- Name: index_impressions_2020_07_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_07_on_property_name ON public.impressions_2020_07 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2020_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2020_08_on_campaign_id ON public.impressions_2020_08 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2020_08_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_08_on_campaign_name ON public.impressions_2020_08 USING btree (campaign_name);
 
 
 --
@@ -6901,10 +7204,24 @@ CREATE INDEX index_impressions_2020_08_on_property_id ON public.impressions_2020
 
 
 --
+-- Name: index_impressions_2020_08_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_08_on_property_name ON public.impressions_2020_08 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2020_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2020_09_on_campaign_id ON public.impressions_2020_09 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2020_09_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_09_on_campaign_name ON public.impressions_2020_09 USING btree (campaign_name);
 
 
 --
@@ -6936,10 +7253,24 @@ CREATE INDEX index_impressions_2020_09_on_property_id ON public.impressions_2020
 
 
 --
+-- Name: index_impressions_2020_09_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_09_on_property_name ON public.impressions_2020_09 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2020_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2020_10_on_campaign_id ON public.impressions_2020_10 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2020_10_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_10_on_campaign_name ON public.impressions_2020_10 USING btree (campaign_name);
 
 
 --
@@ -6971,10 +7302,24 @@ CREATE INDEX index_impressions_2020_10_on_property_id ON public.impressions_2020
 
 
 --
+-- Name: index_impressions_2020_10_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_10_on_property_name ON public.impressions_2020_10 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2020_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2020_11_on_campaign_id ON public.impressions_2020_11 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2020_11_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_11_on_campaign_name ON public.impressions_2020_11 USING btree (campaign_name);
 
 
 --
@@ -7006,10 +7351,24 @@ CREATE INDEX index_impressions_2020_11_on_property_id ON public.impressions_2020
 
 
 --
+-- Name: index_impressions_2020_11_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_11_on_property_name ON public.impressions_2020_11 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2020_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2020_12_on_campaign_id ON public.impressions_2020_12 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2020_12_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_12_on_campaign_name ON public.impressions_2020_12 USING btree (campaign_name);
 
 
 --
@@ -7041,10 +7400,24 @@ CREATE INDEX index_impressions_2020_12_on_property_id ON public.impressions_2020
 
 
 --
+-- Name: index_impressions_2020_12_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2020_12_on_property_name ON public.impressions_2020_12 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2021_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2021_01_on_campaign_id ON public.impressions_2021_01 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2021_01_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_01_on_campaign_name ON public.impressions_2021_01 USING btree (campaign_name);
 
 
 --
@@ -7076,10 +7449,24 @@ CREATE INDEX index_impressions_2021_01_on_property_id ON public.impressions_2021
 
 
 --
+-- Name: index_impressions_2021_01_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_01_on_property_name ON public.impressions_2021_01 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2021_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2021_02_on_campaign_id ON public.impressions_2021_02 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2021_02_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_02_on_campaign_name ON public.impressions_2021_02 USING btree (campaign_name);
 
 
 --
@@ -7111,10 +7498,24 @@ CREATE INDEX index_impressions_2021_02_on_property_id ON public.impressions_2021
 
 
 --
+-- Name: index_impressions_2021_02_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_02_on_property_name ON public.impressions_2021_02 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2021_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2021_03_on_campaign_id ON public.impressions_2021_03 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2021_03_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_03_on_campaign_name ON public.impressions_2021_03 USING btree (campaign_name);
 
 
 --
@@ -7146,10 +7547,24 @@ CREATE INDEX index_impressions_2021_03_on_property_id ON public.impressions_2021
 
 
 --
+-- Name: index_impressions_2021_03_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_03_on_property_name ON public.impressions_2021_03 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2021_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2021_04_on_campaign_id ON public.impressions_2021_04 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2021_04_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_04_on_campaign_name ON public.impressions_2021_04 USING btree (campaign_name);
 
 
 --
@@ -7181,10 +7596,24 @@ CREATE INDEX index_impressions_2021_04_on_property_id ON public.impressions_2021
 
 
 --
+-- Name: index_impressions_2021_04_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_04_on_property_name ON public.impressions_2021_04 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2021_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2021_05_on_campaign_id ON public.impressions_2021_05 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2021_05_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_05_on_campaign_name ON public.impressions_2021_05 USING btree (campaign_name);
 
 
 --
@@ -7216,10 +7645,24 @@ CREATE INDEX index_impressions_2021_05_on_property_id ON public.impressions_2021
 
 
 --
+-- Name: index_impressions_2021_05_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_05_on_property_name ON public.impressions_2021_05 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2021_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2021_06_on_campaign_id ON public.impressions_2021_06 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2021_06_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_06_on_campaign_name ON public.impressions_2021_06 USING btree (campaign_name);
 
 
 --
@@ -7251,10 +7694,24 @@ CREATE INDEX index_impressions_2021_06_on_property_id ON public.impressions_2021
 
 
 --
+-- Name: index_impressions_2021_06_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_06_on_property_name ON public.impressions_2021_06 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2021_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2021_07_on_campaign_id ON public.impressions_2021_07 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2021_07_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_07_on_campaign_name ON public.impressions_2021_07 USING btree (campaign_name);
 
 
 --
@@ -7286,10 +7743,24 @@ CREATE INDEX index_impressions_2021_07_on_property_id ON public.impressions_2021
 
 
 --
+-- Name: index_impressions_2021_07_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_07_on_property_name ON public.impressions_2021_07 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2021_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2021_08_on_campaign_id ON public.impressions_2021_08 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2021_08_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_08_on_campaign_name ON public.impressions_2021_08 USING btree (campaign_name);
 
 
 --
@@ -7321,10 +7792,24 @@ CREATE INDEX index_impressions_2021_08_on_property_id ON public.impressions_2021
 
 
 --
+-- Name: index_impressions_2021_08_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_08_on_property_name ON public.impressions_2021_08 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2021_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2021_09_on_campaign_id ON public.impressions_2021_09 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2021_09_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_09_on_campaign_name ON public.impressions_2021_09 USING btree (campaign_name);
 
 
 --
@@ -7356,10 +7841,24 @@ CREATE INDEX index_impressions_2021_09_on_property_id ON public.impressions_2021
 
 
 --
+-- Name: index_impressions_2021_09_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_09_on_property_name ON public.impressions_2021_09 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2021_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2021_10_on_campaign_id ON public.impressions_2021_10 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2021_10_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_10_on_campaign_name ON public.impressions_2021_10 USING btree (campaign_name);
 
 
 --
@@ -7391,10 +7890,24 @@ CREATE INDEX index_impressions_2021_10_on_property_id ON public.impressions_2021
 
 
 --
+-- Name: index_impressions_2021_10_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_10_on_property_name ON public.impressions_2021_10 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2021_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2021_11_on_campaign_id ON public.impressions_2021_11 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2021_11_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_11_on_campaign_name ON public.impressions_2021_11 USING btree (campaign_name);
 
 
 --
@@ -7426,10 +7939,24 @@ CREATE INDEX index_impressions_2021_11_on_property_id ON public.impressions_2021
 
 
 --
+-- Name: index_impressions_2021_11_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_11_on_property_name ON public.impressions_2021_11 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2021_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2021_12_on_campaign_id ON public.impressions_2021_12 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2021_12_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_12_on_campaign_name ON public.impressions_2021_12 USING btree (campaign_name);
 
 
 --
@@ -7461,10 +7988,24 @@ CREATE INDEX index_impressions_2021_12_on_property_id ON public.impressions_2021
 
 
 --
+-- Name: index_impressions_2021_12_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2021_12_on_property_name ON public.impressions_2021_12 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2022_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2022_01_on_campaign_id ON public.impressions_2022_01 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2022_01_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_01_on_campaign_name ON public.impressions_2022_01 USING btree (campaign_name);
 
 
 --
@@ -7496,10 +8037,24 @@ CREATE INDEX index_impressions_2022_01_on_property_id ON public.impressions_2022
 
 
 --
+-- Name: index_impressions_2022_01_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_01_on_property_name ON public.impressions_2022_01 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2022_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2022_02_on_campaign_id ON public.impressions_2022_02 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2022_02_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_02_on_campaign_name ON public.impressions_2022_02 USING btree (campaign_name);
 
 
 --
@@ -7531,10 +8086,24 @@ CREATE INDEX index_impressions_2022_02_on_property_id ON public.impressions_2022
 
 
 --
+-- Name: index_impressions_2022_02_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_02_on_property_name ON public.impressions_2022_02 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2022_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2022_03_on_campaign_id ON public.impressions_2022_03 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2022_03_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_03_on_campaign_name ON public.impressions_2022_03 USING btree (campaign_name);
 
 
 --
@@ -7566,10 +8135,24 @@ CREATE INDEX index_impressions_2022_03_on_property_id ON public.impressions_2022
 
 
 --
+-- Name: index_impressions_2022_03_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_03_on_property_name ON public.impressions_2022_03 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2022_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2022_04_on_campaign_id ON public.impressions_2022_04 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2022_04_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_04_on_campaign_name ON public.impressions_2022_04 USING btree (campaign_name);
 
 
 --
@@ -7601,10 +8184,24 @@ CREATE INDEX index_impressions_2022_04_on_property_id ON public.impressions_2022
 
 
 --
+-- Name: index_impressions_2022_04_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_04_on_property_name ON public.impressions_2022_04 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2022_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2022_05_on_campaign_id ON public.impressions_2022_05 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2022_05_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_05_on_campaign_name ON public.impressions_2022_05 USING btree (campaign_name);
 
 
 --
@@ -7636,10 +8233,24 @@ CREATE INDEX index_impressions_2022_05_on_property_id ON public.impressions_2022
 
 
 --
+-- Name: index_impressions_2022_05_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_05_on_property_name ON public.impressions_2022_05 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2022_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2022_06_on_campaign_id ON public.impressions_2022_06 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2022_06_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_06_on_campaign_name ON public.impressions_2022_06 USING btree (campaign_name);
 
 
 --
@@ -7671,10 +8282,24 @@ CREATE INDEX index_impressions_2022_06_on_property_id ON public.impressions_2022
 
 
 --
+-- Name: index_impressions_2022_06_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_06_on_property_name ON public.impressions_2022_06 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2022_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2022_07_on_campaign_id ON public.impressions_2022_07 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2022_07_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_07_on_campaign_name ON public.impressions_2022_07 USING btree (campaign_name);
 
 
 --
@@ -7706,10 +8331,24 @@ CREATE INDEX index_impressions_2022_07_on_property_id ON public.impressions_2022
 
 
 --
+-- Name: index_impressions_2022_07_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_07_on_property_name ON public.impressions_2022_07 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2022_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2022_08_on_campaign_id ON public.impressions_2022_08 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2022_08_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_08_on_campaign_name ON public.impressions_2022_08 USING btree (campaign_name);
 
 
 --
@@ -7741,10 +8380,24 @@ CREATE INDEX index_impressions_2022_08_on_property_id ON public.impressions_2022
 
 
 --
+-- Name: index_impressions_2022_08_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_08_on_property_name ON public.impressions_2022_08 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2022_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2022_09_on_campaign_id ON public.impressions_2022_09 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2022_09_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_09_on_campaign_name ON public.impressions_2022_09 USING btree (campaign_name);
 
 
 --
@@ -7776,10 +8429,24 @@ CREATE INDEX index_impressions_2022_09_on_property_id ON public.impressions_2022
 
 
 --
+-- Name: index_impressions_2022_09_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_09_on_property_name ON public.impressions_2022_09 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2022_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2022_10_on_campaign_id ON public.impressions_2022_10 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2022_10_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_10_on_campaign_name ON public.impressions_2022_10 USING btree (campaign_name);
 
 
 --
@@ -7811,10 +8478,24 @@ CREATE INDEX index_impressions_2022_10_on_property_id ON public.impressions_2022
 
 
 --
+-- Name: index_impressions_2022_10_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_10_on_property_name ON public.impressions_2022_10 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2022_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2022_11_on_campaign_id ON public.impressions_2022_11 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2022_11_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_11_on_campaign_name ON public.impressions_2022_11 USING btree (campaign_name);
 
 
 --
@@ -7846,10 +8527,24 @@ CREATE INDEX index_impressions_2022_11_on_property_id ON public.impressions_2022
 
 
 --
+-- Name: index_impressions_2022_11_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_11_on_property_name ON public.impressions_2022_11 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2022_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2022_12_on_campaign_id ON public.impressions_2022_12 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2022_12_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_12_on_campaign_name ON public.impressions_2022_12 USING btree (campaign_name);
 
 
 --
@@ -7881,10 +8576,24 @@ CREATE INDEX index_impressions_2022_12_on_property_id ON public.impressions_2022
 
 
 --
+-- Name: index_impressions_2022_12_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2022_12_on_property_name ON public.impressions_2022_12 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2023_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2023_01_on_campaign_id ON public.impressions_2023_01 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2023_01_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_01_on_campaign_name ON public.impressions_2023_01 USING btree (campaign_name);
 
 
 --
@@ -7916,10 +8625,24 @@ CREATE INDEX index_impressions_2023_01_on_property_id ON public.impressions_2023
 
 
 --
+-- Name: index_impressions_2023_01_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_01_on_property_name ON public.impressions_2023_01 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2023_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2023_02_on_campaign_id ON public.impressions_2023_02 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2023_02_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_02_on_campaign_name ON public.impressions_2023_02 USING btree (campaign_name);
 
 
 --
@@ -7951,10 +8674,24 @@ CREATE INDEX index_impressions_2023_02_on_property_id ON public.impressions_2023
 
 
 --
+-- Name: index_impressions_2023_02_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_02_on_property_name ON public.impressions_2023_02 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2023_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2023_03_on_campaign_id ON public.impressions_2023_03 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2023_03_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_03_on_campaign_name ON public.impressions_2023_03 USING btree (campaign_name);
 
 
 --
@@ -7986,10 +8723,24 @@ CREATE INDEX index_impressions_2023_03_on_property_id ON public.impressions_2023
 
 
 --
+-- Name: index_impressions_2023_03_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_03_on_property_name ON public.impressions_2023_03 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2023_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2023_04_on_campaign_id ON public.impressions_2023_04 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2023_04_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_04_on_campaign_name ON public.impressions_2023_04 USING btree (campaign_name);
 
 
 --
@@ -8021,10 +8772,24 @@ CREATE INDEX index_impressions_2023_04_on_property_id ON public.impressions_2023
 
 
 --
+-- Name: index_impressions_2023_04_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_04_on_property_name ON public.impressions_2023_04 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2023_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2023_05_on_campaign_id ON public.impressions_2023_05 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2023_05_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_05_on_campaign_name ON public.impressions_2023_05 USING btree (campaign_name);
 
 
 --
@@ -8056,10 +8821,24 @@ CREATE INDEX index_impressions_2023_05_on_property_id ON public.impressions_2023
 
 
 --
+-- Name: index_impressions_2023_05_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_05_on_property_name ON public.impressions_2023_05 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2023_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2023_06_on_campaign_id ON public.impressions_2023_06 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2023_06_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_06_on_campaign_name ON public.impressions_2023_06 USING btree (campaign_name);
 
 
 --
@@ -8091,10 +8870,24 @@ CREATE INDEX index_impressions_2023_06_on_property_id ON public.impressions_2023
 
 
 --
+-- Name: index_impressions_2023_06_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_06_on_property_name ON public.impressions_2023_06 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2023_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2023_07_on_campaign_id ON public.impressions_2023_07 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2023_07_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_07_on_campaign_name ON public.impressions_2023_07 USING btree (campaign_name);
 
 
 --
@@ -8126,10 +8919,24 @@ CREATE INDEX index_impressions_2023_07_on_property_id ON public.impressions_2023
 
 
 --
+-- Name: index_impressions_2023_07_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_07_on_property_name ON public.impressions_2023_07 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2023_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2023_08_on_campaign_id ON public.impressions_2023_08 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2023_08_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_08_on_campaign_name ON public.impressions_2023_08 USING btree (campaign_name);
 
 
 --
@@ -8161,10 +8968,24 @@ CREATE INDEX index_impressions_2023_08_on_property_id ON public.impressions_2023
 
 
 --
+-- Name: index_impressions_2023_08_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_08_on_property_name ON public.impressions_2023_08 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2023_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2023_09_on_campaign_id ON public.impressions_2023_09 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2023_09_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_09_on_campaign_name ON public.impressions_2023_09 USING btree (campaign_name);
 
 
 --
@@ -8196,10 +9017,24 @@ CREATE INDEX index_impressions_2023_09_on_property_id ON public.impressions_2023
 
 
 --
+-- Name: index_impressions_2023_09_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_09_on_property_name ON public.impressions_2023_09 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2023_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2023_10_on_campaign_id ON public.impressions_2023_10 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2023_10_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_10_on_campaign_name ON public.impressions_2023_10 USING btree (campaign_name);
 
 
 --
@@ -8231,10 +9066,24 @@ CREATE INDEX index_impressions_2023_10_on_property_id ON public.impressions_2023
 
 
 --
+-- Name: index_impressions_2023_10_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_10_on_property_name ON public.impressions_2023_10 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2023_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2023_11_on_campaign_id ON public.impressions_2023_11 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2023_11_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_11_on_campaign_name ON public.impressions_2023_11 USING btree (campaign_name);
 
 
 --
@@ -8266,10 +9115,24 @@ CREATE INDEX index_impressions_2023_11_on_property_id ON public.impressions_2023
 
 
 --
+-- Name: index_impressions_2023_11_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_11_on_property_name ON public.impressions_2023_11 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2023_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2023_12_on_campaign_id ON public.impressions_2023_12 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2023_12_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_12_on_campaign_name ON public.impressions_2023_12 USING btree (campaign_name);
 
 
 --
@@ -8301,10 +9164,24 @@ CREATE INDEX index_impressions_2023_12_on_property_id ON public.impressions_2023
 
 
 --
+-- Name: index_impressions_2023_12_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2023_12_on_property_name ON public.impressions_2023_12 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2024_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2024_01_on_campaign_id ON public.impressions_2024_01 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2024_01_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_01_on_campaign_name ON public.impressions_2024_01 USING btree (campaign_name);
 
 
 --
@@ -8336,10 +9213,24 @@ CREATE INDEX index_impressions_2024_01_on_property_id ON public.impressions_2024
 
 
 --
+-- Name: index_impressions_2024_01_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_01_on_property_name ON public.impressions_2024_01 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2024_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2024_02_on_campaign_id ON public.impressions_2024_02 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2024_02_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_02_on_campaign_name ON public.impressions_2024_02 USING btree (campaign_name);
 
 
 --
@@ -8371,10 +9262,24 @@ CREATE INDEX index_impressions_2024_02_on_property_id ON public.impressions_2024
 
 
 --
+-- Name: index_impressions_2024_02_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_02_on_property_name ON public.impressions_2024_02 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2024_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2024_03_on_campaign_id ON public.impressions_2024_03 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2024_03_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_03_on_campaign_name ON public.impressions_2024_03 USING btree (campaign_name);
 
 
 --
@@ -8406,10 +9311,24 @@ CREATE INDEX index_impressions_2024_03_on_property_id ON public.impressions_2024
 
 
 --
+-- Name: index_impressions_2024_03_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_03_on_property_name ON public.impressions_2024_03 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2024_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2024_04_on_campaign_id ON public.impressions_2024_04 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2024_04_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_04_on_campaign_name ON public.impressions_2024_04 USING btree (campaign_name);
 
 
 --
@@ -8441,10 +9360,24 @@ CREATE INDEX index_impressions_2024_04_on_property_id ON public.impressions_2024
 
 
 --
+-- Name: index_impressions_2024_04_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_04_on_property_name ON public.impressions_2024_04 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2024_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2024_05_on_campaign_id ON public.impressions_2024_05 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2024_05_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_05_on_campaign_name ON public.impressions_2024_05 USING btree (campaign_name);
 
 
 --
@@ -8476,10 +9409,24 @@ CREATE INDEX index_impressions_2024_05_on_property_id ON public.impressions_2024
 
 
 --
+-- Name: index_impressions_2024_05_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_05_on_property_name ON public.impressions_2024_05 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2024_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2024_06_on_campaign_id ON public.impressions_2024_06 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2024_06_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_06_on_campaign_name ON public.impressions_2024_06 USING btree (campaign_name);
 
 
 --
@@ -8511,10 +9458,24 @@ CREATE INDEX index_impressions_2024_06_on_property_id ON public.impressions_2024
 
 
 --
+-- Name: index_impressions_2024_06_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_06_on_property_name ON public.impressions_2024_06 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2024_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2024_07_on_campaign_id ON public.impressions_2024_07 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2024_07_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_07_on_campaign_name ON public.impressions_2024_07 USING btree (campaign_name);
 
 
 --
@@ -8546,10 +9507,24 @@ CREATE INDEX index_impressions_2024_07_on_property_id ON public.impressions_2024
 
 
 --
+-- Name: index_impressions_2024_07_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_07_on_property_name ON public.impressions_2024_07 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2024_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2024_08_on_campaign_id ON public.impressions_2024_08 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2024_08_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_08_on_campaign_name ON public.impressions_2024_08 USING btree (campaign_name);
 
 
 --
@@ -8581,10 +9556,24 @@ CREATE INDEX index_impressions_2024_08_on_property_id ON public.impressions_2024
 
 
 --
+-- Name: index_impressions_2024_08_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_08_on_property_name ON public.impressions_2024_08 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2024_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2024_09_on_campaign_id ON public.impressions_2024_09 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2024_09_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_09_on_campaign_name ON public.impressions_2024_09 USING btree (campaign_name);
 
 
 --
@@ -8616,10 +9605,24 @@ CREATE INDEX index_impressions_2024_09_on_property_id ON public.impressions_2024
 
 
 --
+-- Name: index_impressions_2024_09_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_09_on_property_name ON public.impressions_2024_09 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2024_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2024_10_on_campaign_id ON public.impressions_2024_10 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2024_10_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_10_on_campaign_name ON public.impressions_2024_10 USING btree (campaign_name);
 
 
 --
@@ -8651,10 +9654,24 @@ CREATE INDEX index_impressions_2024_10_on_property_id ON public.impressions_2024
 
 
 --
+-- Name: index_impressions_2024_10_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_10_on_property_name ON public.impressions_2024_10 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2024_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2024_11_on_campaign_id ON public.impressions_2024_11 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2024_11_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_11_on_campaign_name ON public.impressions_2024_11 USING btree (campaign_name);
 
 
 --
@@ -8686,10 +9703,24 @@ CREATE INDEX index_impressions_2024_11_on_property_id ON public.impressions_2024
 
 
 --
+-- Name: index_impressions_2024_11_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_11_on_property_name ON public.impressions_2024_11 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2024_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2024_12_on_campaign_id ON public.impressions_2024_12 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2024_12_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_12_on_campaign_name ON public.impressions_2024_12 USING btree (campaign_name);
 
 
 --
@@ -8721,10 +9752,24 @@ CREATE INDEX index_impressions_2024_12_on_property_id ON public.impressions_2024
 
 
 --
+-- Name: index_impressions_2024_12_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2024_12_on_property_name ON public.impressions_2024_12 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2025_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2025_01_on_campaign_id ON public.impressions_2025_01 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2025_01_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_01_on_campaign_name ON public.impressions_2025_01 USING btree (campaign_name);
 
 
 --
@@ -8756,10 +9801,24 @@ CREATE INDEX index_impressions_2025_01_on_property_id ON public.impressions_2025
 
 
 --
+-- Name: index_impressions_2025_01_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_01_on_property_name ON public.impressions_2025_01 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2025_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2025_02_on_campaign_id ON public.impressions_2025_02 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2025_02_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_02_on_campaign_name ON public.impressions_2025_02 USING btree (campaign_name);
 
 
 --
@@ -8791,10 +9850,24 @@ CREATE INDEX index_impressions_2025_02_on_property_id ON public.impressions_2025
 
 
 --
+-- Name: index_impressions_2025_02_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_02_on_property_name ON public.impressions_2025_02 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2025_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2025_03_on_campaign_id ON public.impressions_2025_03 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2025_03_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_03_on_campaign_name ON public.impressions_2025_03 USING btree (campaign_name);
 
 
 --
@@ -8826,10 +9899,24 @@ CREATE INDEX index_impressions_2025_03_on_property_id ON public.impressions_2025
 
 
 --
+-- Name: index_impressions_2025_03_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_03_on_property_name ON public.impressions_2025_03 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2025_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2025_04_on_campaign_id ON public.impressions_2025_04 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2025_04_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_04_on_campaign_name ON public.impressions_2025_04 USING btree (campaign_name);
 
 
 --
@@ -8861,10 +9948,24 @@ CREATE INDEX index_impressions_2025_04_on_property_id ON public.impressions_2025
 
 
 --
+-- Name: index_impressions_2025_04_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_04_on_property_name ON public.impressions_2025_04 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2025_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2025_05_on_campaign_id ON public.impressions_2025_05 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2025_05_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_05_on_campaign_name ON public.impressions_2025_05 USING btree (campaign_name);
 
 
 --
@@ -8896,10 +9997,24 @@ CREATE INDEX index_impressions_2025_05_on_property_id ON public.impressions_2025
 
 
 --
+-- Name: index_impressions_2025_05_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_05_on_property_name ON public.impressions_2025_05 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2025_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2025_06_on_campaign_id ON public.impressions_2025_06 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2025_06_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_06_on_campaign_name ON public.impressions_2025_06 USING btree (campaign_name);
 
 
 --
@@ -8931,10 +10046,24 @@ CREATE INDEX index_impressions_2025_06_on_property_id ON public.impressions_2025
 
 
 --
+-- Name: index_impressions_2025_06_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_06_on_property_name ON public.impressions_2025_06 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2025_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2025_07_on_campaign_id ON public.impressions_2025_07 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2025_07_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_07_on_campaign_name ON public.impressions_2025_07 USING btree (campaign_name);
 
 
 --
@@ -8966,10 +10095,24 @@ CREATE INDEX index_impressions_2025_07_on_property_id ON public.impressions_2025
 
 
 --
+-- Name: index_impressions_2025_07_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_07_on_property_name ON public.impressions_2025_07 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2025_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2025_08_on_campaign_id ON public.impressions_2025_08 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2025_08_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_08_on_campaign_name ON public.impressions_2025_08 USING btree (campaign_name);
 
 
 --
@@ -9001,10 +10144,24 @@ CREATE INDEX index_impressions_2025_08_on_property_id ON public.impressions_2025
 
 
 --
+-- Name: index_impressions_2025_08_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_08_on_property_name ON public.impressions_2025_08 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2025_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2025_09_on_campaign_id ON public.impressions_2025_09 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2025_09_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_09_on_campaign_name ON public.impressions_2025_09 USING btree (campaign_name);
 
 
 --
@@ -9036,10 +10193,24 @@ CREATE INDEX index_impressions_2025_09_on_property_id ON public.impressions_2025
 
 
 --
+-- Name: index_impressions_2025_09_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_09_on_property_name ON public.impressions_2025_09 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2025_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2025_10_on_campaign_id ON public.impressions_2025_10 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2025_10_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_10_on_campaign_name ON public.impressions_2025_10 USING btree (campaign_name);
 
 
 --
@@ -9071,10 +10242,24 @@ CREATE INDEX index_impressions_2025_10_on_property_id ON public.impressions_2025
 
 
 --
+-- Name: index_impressions_2025_10_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_10_on_property_name ON public.impressions_2025_10 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2025_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2025_11_on_campaign_id ON public.impressions_2025_11 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2025_11_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_11_on_campaign_name ON public.impressions_2025_11 USING btree (campaign_name);
 
 
 --
@@ -9106,10 +10291,24 @@ CREATE INDEX index_impressions_2025_11_on_property_id ON public.impressions_2025
 
 
 --
+-- Name: index_impressions_2025_11_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_11_on_property_name ON public.impressions_2025_11 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2025_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2025_12_on_campaign_id ON public.impressions_2025_12 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2025_12_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_12_on_campaign_name ON public.impressions_2025_12 USING btree (campaign_name);
 
 
 --
@@ -9141,10 +10340,24 @@ CREATE INDEX index_impressions_2025_12_on_property_id ON public.impressions_2025
 
 
 --
+-- Name: index_impressions_2025_12_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2025_12_on_property_name ON public.impressions_2025_12 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2026_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2026_01_on_campaign_id ON public.impressions_2026_01 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2026_01_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_01_on_campaign_name ON public.impressions_2026_01 USING btree (campaign_name);
 
 
 --
@@ -9176,10 +10389,24 @@ CREATE INDEX index_impressions_2026_01_on_property_id ON public.impressions_2026
 
 
 --
+-- Name: index_impressions_2026_01_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_01_on_property_name ON public.impressions_2026_01 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2026_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2026_02_on_campaign_id ON public.impressions_2026_02 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2026_02_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_02_on_campaign_name ON public.impressions_2026_02 USING btree (campaign_name);
 
 
 --
@@ -9211,10 +10438,24 @@ CREATE INDEX index_impressions_2026_02_on_property_id ON public.impressions_2026
 
 
 --
+-- Name: index_impressions_2026_02_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_02_on_property_name ON public.impressions_2026_02 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2026_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2026_03_on_campaign_id ON public.impressions_2026_03 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2026_03_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_03_on_campaign_name ON public.impressions_2026_03 USING btree (campaign_name);
 
 
 --
@@ -9246,10 +10487,24 @@ CREATE INDEX index_impressions_2026_03_on_property_id ON public.impressions_2026
 
 
 --
+-- Name: index_impressions_2026_03_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_03_on_property_name ON public.impressions_2026_03 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2026_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2026_04_on_campaign_id ON public.impressions_2026_04 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2026_04_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_04_on_campaign_name ON public.impressions_2026_04 USING btree (campaign_name);
 
 
 --
@@ -9281,10 +10536,24 @@ CREATE INDEX index_impressions_2026_04_on_property_id ON public.impressions_2026
 
 
 --
+-- Name: index_impressions_2026_04_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_04_on_property_name ON public.impressions_2026_04 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2026_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2026_05_on_campaign_id ON public.impressions_2026_05 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2026_05_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_05_on_campaign_name ON public.impressions_2026_05 USING btree (campaign_name);
 
 
 --
@@ -9316,10 +10585,24 @@ CREATE INDEX index_impressions_2026_05_on_property_id ON public.impressions_2026
 
 
 --
+-- Name: index_impressions_2026_05_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_05_on_property_name ON public.impressions_2026_05 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2026_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2026_06_on_campaign_id ON public.impressions_2026_06 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2026_06_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_06_on_campaign_name ON public.impressions_2026_06 USING btree (campaign_name);
 
 
 --
@@ -9351,10 +10634,24 @@ CREATE INDEX index_impressions_2026_06_on_property_id ON public.impressions_2026
 
 
 --
+-- Name: index_impressions_2026_06_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_06_on_property_name ON public.impressions_2026_06 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2026_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2026_07_on_campaign_id ON public.impressions_2026_07 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2026_07_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_07_on_campaign_name ON public.impressions_2026_07 USING btree (campaign_name);
 
 
 --
@@ -9386,10 +10683,24 @@ CREATE INDEX index_impressions_2026_07_on_property_id ON public.impressions_2026
 
 
 --
+-- Name: index_impressions_2026_07_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_07_on_property_name ON public.impressions_2026_07 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2026_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2026_08_on_campaign_id ON public.impressions_2026_08 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2026_08_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_08_on_campaign_name ON public.impressions_2026_08 USING btree (campaign_name);
 
 
 --
@@ -9421,10 +10732,24 @@ CREATE INDEX index_impressions_2026_08_on_property_id ON public.impressions_2026
 
 
 --
+-- Name: index_impressions_2026_08_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_08_on_property_name ON public.impressions_2026_08 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2026_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2026_09_on_campaign_id ON public.impressions_2026_09 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2026_09_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_09_on_campaign_name ON public.impressions_2026_09 USING btree (campaign_name);
 
 
 --
@@ -9456,10 +10781,24 @@ CREATE INDEX index_impressions_2026_09_on_property_id ON public.impressions_2026
 
 
 --
+-- Name: index_impressions_2026_09_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_09_on_property_name ON public.impressions_2026_09 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2026_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2026_10_on_campaign_id ON public.impressions_2026_10 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2026_10_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_10_on_campaign_name ON public.impressions_2026_10 USING btree (campaign_name);
 
 
 --
@@ -9491,10 +10830,24 @@ CREATE INDEX index_impressions_2026_10_on_property_id ON public.impressions_2026
 
 
 --
+-- Name: index_impressions_2026_10_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_10_on_property_name ON public.impressions_2026_10 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2026_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2026_11_on_campaign_id ON public.impressions_2026_11 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2026_11_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_11_on_campaign_name ON public.impressions_2026_11 USING btree (campaign_name);
 
 
 --
@@ -9526,10 +10879,24 @@ CREATE INDEX index_impressions_2026_11_on_property_id ON public.impressions_2026
 
 
 --
+-- Name: index_impressions_2026_11_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_11_on_property_name ON public.impressions_2026_11 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2026_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2026_12_on_campaign_id ON public.impressions_2026_12 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2026_12_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_12_on_campaign_name ON public.impressions_2026_12 USING btree (campaign_name);
 
 
 --
@@ -9561,10 +10928,24 @@ CREATE INDEX index_impressions_2026_12_on_property_id ON public.impressions_2026
 
 
 --
+-- Name: index_impressions_2026_12_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2026_12_on_property_name ON public.impressions_2026_12 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2027_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2027_01_on_campaign_id ON public.impressions_2027_01 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2027_01_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_01_on_campaign_name ON public.impressions_2027_01 USING btree (campaign_name);
 
 
 --
@@ -9596,10 +10977,24 @@ CREATE INDEX index_impressions_2027_01_on_property_id ON public.impressions_2027
 
 
 --
+-- Name: index_impressions_2027_01_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_01_on_property_name ON public.impressions_2027_01 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2027_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2027_02_on_campaign_id ON public.impressions_2027_02 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2027_02_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_02_on_campaign_name ON public.impressions_2027_02 USING btree (campaign_name);
 
 
 --
@@ -9631,10 +11026,24 @@ CREATE INDEX index_impressions_2027_02_on_property_id ON public.impressions_2027
 
 
 --
+-- Name: index_impressions_2027_02_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_02_on_property_name ON public.impressions_2027_02 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2027_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2027_03_on_campaign_id ON public.impressions_2027_03 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2027_03_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_03_on_campaign_name ON public.impressions_2027_03 USING btree (campaign_name);
 
 
 --
@@ -9666,10 +11075,24 @@ CREATE INDEX index_impressions_2027_03_on_property_id ON public.impressions_2027
 
 
 --
+-- Name: index_impressions_2027_03_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_03_on_property_name ON public.impressions_2027_03 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2027_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2027_04_on_campaign_id ON public.impressions_2027_04 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2027_04_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_04_on_campaign_name ON public.impressions_2027_04 USING btree (campaign_name);
 
 
 --
@@ -9701,10 +11124,24 @@ CREATE INDEX index_impressions_2027_04_on_property_id ON public.impressions_2027
 
 
 --
+-- Name: index_impressions_2027_04_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_04_on_property_name ON public.impressions_2027_04 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2027_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2027_05_on_campaign_id ON public.impressions_2027_05 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2027_05_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_05_on_campaign_name ON public.impressions_2027_05 USING btree (campaign_name);
 
 
 --
@@ -9736,10 +11173,24 @@ CREATE INDEX index_impressions_2027_05_on_property_id ON public.impressions_2027
 
 
 --
+-- Name: index_impressions_2027_05_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_05_on_property_name ON public.impressions_2027_05 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2027_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2027_06_on_campaign_id ON public.impressions_2027_06 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2027_06_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_06_on_campaign_name ON public.impressions_2027_06 USING btree (campaign_name);
 
 
 --
@@ -9771,10 +11222,24 @@ CREATE INDEX index_impressions_2027_06_on_property_id ON public.impressions_2027
 
 
 --
+-- Name: index_impressions_2027_06_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_06_on_property_name ON public.impressions_2027_06 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2027_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2027_07_on_campaign_id ON public.impressions_2027_07 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2027_07_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_07_on_campaign_name ON public.impressions_2027_07 USING btree (campaign_name);
 
 
 --
@@ -9806,10 +11271,24 @@ CREATE INDEX index_impressions_2027_07_on_property_id ON public.impressions_2027
 
 
 --
+-- Name: index_impressions_2027_07_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_07_on_property_name ON public.impressions_2027_07 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2027_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2027_08_on_campaign_id ON public.impressions_2027_08 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2027_08_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_08_on_campaign_name ON public.impressions_2027_08 USING btree (campaign_name);
 
 
 --
@@ -9841,10 +11320,24 @@ CREATE INDEX index_impressions_2027_08_on_property_id ON public.impressions_2027
 
 
 --
+-- Name: index_impressions_2027_08_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_08_on_property_name ON public.impressions_2027_08 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2027_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2027_09_on_campaign_id ON public.impressions_2027_09 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2027_09_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_09_on_campaign_name ON public.impressions_2027_09 USING btree (campaign_name);
 
 
 --
@@ -9876,10 +11369,24 @@ CREATE INDEX index_impressions_2027_09_on_property_id ON public.impressions_2027
 
 
 --
+-- Name: index_impressions_2027_09_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_09_on_property_name ON public.impressions_2027_09 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2027_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2027_10_on_campaign_id ON public.impressions_2027_10 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2027_10_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_10_on_campaign_name ON public.impressions_2027_10 USING btree (campaign_name);
 
 
 --
@@ -9911,10 +11418,24 @@ CREATE INDEX index_impressions_2027_10_on_property_id ON public.impressions_2027
 
 
 --
+-- Name: index_impressions_2027_10_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_10_on_property_name ON public.impressions_2027_10 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2027_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2027_11_on_campaign_id ON public.impressions_2027_11 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2027_11_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_11_on_campaign_name ON public.impressions_2027_11 USING btree (campaign_name);
 
 
 --
@@ -9946,10 +11467,24 @@ CREATE INDEX index_impressions_2027_11_on_property_id ON public.impressions_2027
 
 
 --
+-- Name: index_impressions_2027_11_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_11_on_property_name ON public.impressions_2027_11 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2027_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2027_12_on_campaign_id ON public.impressions_2027_12 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2027_12_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_12_on_campaign_name ON public.impressions_2027_12 USING btree (campaign_name);
 
 
 --
@@ -9981,10 +11516,24 @@ CREATE INDEX index_impressions_2027_12_on_property_id ON public.impressions_2027
 
 
 --
+-- Name: index_impressions_2027_12_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2027_12_on_property_name ON public.impressions_2027_12 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2028_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2028_01_on_campaign_id ON public.impressions_2028_01 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2028_01_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_01_on_campaign_name ON public.impressions_2028_01 USING btree (campaign_name);
 
 
 --
@@ -10016,10 +11565,24 @@ CREATE INDEX index_impressions_2028_01_on_property_id ON public.impressions_2028
 
 
 --
+-- Name: index_impressions_2028_01_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_01_on_property_name ON public.impressions_2028_01 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2028_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2028_02_on_campaign_id ON public.impressions_2028_02 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2028_02_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_02_on_campaign_name ON public.impressions_2028_02 USING btree (campaign_name);
 
 
 --
@@ -10051,10 +11614,24 @@ CREATE INDEX index_impressions_2028_02_on_property_id ON public.impressions_2028
 
 
 --
+-- Name: index_impressions_2028_02_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_02_on_property_name ON public.impressions_2028_02 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2028_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2028_03_on_campaign_id ON public.impressions_2028_03 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2028_03_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_03_on_campaign_name ON public.impressions_2028_03 USING btree (campaign_name);
 
 
 --
@@ -10086,10 +11663,24 @@ CREATE INDEX index_impressions_2028_03_on_property_id ON public.impressions_2028
 
 
 --
+-- Name: index_impressions_2028_03_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_03_on_property_name ON public.impressions_2028_03 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2028_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2028_04_on_campaign_id ON public.impressions_2028_04 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2028_04_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_04_on_campaign_name ON public.impressions_2028_04 USING btree (campaign_name);
 
 
 --
@@ -10121,10 +11712,24 @@ CREATE INDEX index_impressions_2028_04_on_property_id ON public.impressions_2028
 
 
 --
+-- Name: index_impressions_2028_04_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_04_on_property_name ON public.impressions_2028_04 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2028_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2028_05_on_campaign_id ON public.impressions_2028_05 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2028_05_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_05_on_campaign_name ON public.impressions_2028_05 USING btree (campaign_name);
 
 
 --
@@ -10156,10 +11761,24 @@ CREATE INDEX index_impressions_2028_05_on_property_id ON public.impressions_2028
 
 
 --
+-- Name: index_impressions_2028_05_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_05_on_property_name ON public.impressions_2028_05 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2028_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2028_06_on_campaign_id ON public.impressions_2028_06 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2028_06_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_06_on_campaign_name ON public.impressions_2028_06 USING btree (campaign_name);
 
 
 --
@@ -10191,10 +11810,24 @@ CREATE INDEX index_impressions_2028_06_on_property_id ON public.impressions_2028
 
 
 --
+-- Name: index_impressions_2028_06_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_06_on_property_name ON public.impressions_2028_06 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2028_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2028_07_on_campaign_id ON public.impressions_2028_07 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2028_07_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_07_on_campaign_name ON public.impressions_2028_07 USING btree (campaign_name);
 
 
 --
@@ -10226,10 +11859,24 @@ CREATE INDEX index_impressions_2028_07_on_property_id ON public.impressions_2028
 
 
 --
+-- Name: index_impressions_2028_07_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_07_on_property_name ON public.impressions_2028_07 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2028_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2028_08_on_campaign_id ON public.impressions_2028_08 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2028_08_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_08_on_campaign_name ON public.impressions_2028_08 USING btree (campaign_name);
 
 
 --
@@ -10261,10 +11908,24 @@ CREATE INDEX index_impressions_2028_08_on_property_id ON public.impressions_2028
 
 
 --
+-- Name: index_impressions_2028_08_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_08_on_property_name ON public.impressions_2028_08 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2028_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2028_09_on_campaign_id ON public.impressions_2028_09 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2028_09_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_09_on_campaign_name ON public.impressions_2028_09 USING btree (campaign_name);
 
 
 --
@@ -10296,10 +11957,24 @@ CREATE INDEX index_impressions_2028_09_on_property_id ON public.impressions_2028
 
 
 --
+-- Name: index_impressions_2028_09_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_09_on_property_name ON public.impressions_2028_09 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2028_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2028_10_on_campaign_id ON public.impressions_2028_10 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2028_10_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_10_on_campaign_name ON public.impressions_2028_10 USING btree (campaign_name);
 
 
 --
@@ -10331,10 +12006,24 @@ CREATE INDEX index_impressions_2028_10_on_property_id ON public.impressions_2028
 
 
 --
+-- Name: index_impressions_2028_10_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_10_on_property_name ON public.impressions_2028_10 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2028_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2028_11_on_campaign_id ON public.impressions_2028_11 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2028_11_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_11_on_campaign_name ON public.impressions_2028_11 USING btree (campaign_name);
 
 
 --
@@ -10366,10 +12055,24 @@ CREATE INDEX index_impressions_2028_11_on_property_id ON public.impressions_2028
 
 
 --
+-- Name: index_impressions_2028_11_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_11_on_property_name ON public.impressions_2028_11 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2028_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2028_12_on_campaign_id ON public.impressions_2028_12 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2028_12_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_12_on_campaign_name ON public.impressions_2028_12 USING btree (campaign_name);
 
 
 --
@@ -10401,10 +12104,24 @@ CREATE INDEX index_impressions_2028_12_on_property_id ON public.impressions_2028
 
 
 --
+-- Name: index_impressions_2028_12_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2028_12_on_property_name ON public.impressions_2028_12 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2029_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2029_01_on_campaign_id ON public.impressions_2029_01 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2029_01_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_01_on_campaign_name ON public.impressions_2029_01 USING btree (campaign_name);
 
 
 --
@@ -10436,10 +12153,24 @@ CREATE INDEX index_impressions_2029_01_on_property_id ON public.impressions_2029
 
 
 --
+-- Name: index_impressions_2029_01_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_01_on_property_name ON public.impressions_2029_01 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2029_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2029_02_on_campaign_id ON public.impressions_2029_02 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2029_02_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_02_on_campaign_name ON public.impressions_2029_02 USING btree (campaign_name);
 
 
 --
@@ -10471,10 +12202,24 @@ CREATE INDEX index_impressions_2029_02_on_property_id ON public.impressions_2029
 
 
 --
+-- Name: index_impressions_2029_02_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_02_on_property_name ON public.impressions_2029_02 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2029_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2029_03_on_campaign_id ON public.impressions_2029_03 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2029_03_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_03_on_campaign_name ON public.impressions_2029_03 USING btree (campaign_name);
 
 
 --
@@ -10506,10 +12251,24 @@ CREATE INDEX index_impressions_2029_03_on_property_id ON public.impressions_2029
 
 
 --
+-- Name: index_impressions_2029_03_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_03_on_property_name ON public.impressions_2029_03 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2029_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2029_04_on_campaign_id ON public.impressions_2029_04 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2029_04_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_04_on_campaign_name ON public.impressions_2029_04 USING btree (campaign_name);
 
 
 --
@@ -10541,10 +12300,24 @@ CREATE INDEX index_impressions_2029_04_on_property_id ON public.impressions_2029
 
 
 --
+-- Name: index_impressions_2029_04_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_04_on_property_name ON public.impressions_2029_04 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2029_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2029_05_on_campaign_id ON public.impressions_2029_05 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2029_05_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_05_on_campaign_name ON public.impressions_2029_05 USING btree (campaign_name);
 
 
 --
@@ -10576,10 +12349,24 @@ CREATE INDEX index_impressions_2029_05_on_property_id ON public.impressions_2029
 
 
 --
+-- Name: index_impressions_2029_05_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_05_on_property_name ON public.impressions_2029_05 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2029_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2029_06_on_campaign_id ON public.impressions_2029_06 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2029_06_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_06_on_campaign_name ON public.impressions_2029_06 USING btree (campaign_name);
 
 
 --
@@ -10611,10 +12398,24 @@ CREATE INDEX index_impressions_2029_06_on_property_id ON public.impressions_2029
 
 
 --
+-- Name: index_impressions_2029_06_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_06_on_property_name ON public.impressions_2029_06 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2029_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2029_07_on_campaign_id ON public.impressions_2029_07 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2029_07_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_07_on_campaign_name ON public.impressions_2029_07 USING btree (campaign_name);
 
 
 --
@@ -10646,10 +12447,24 @@ CREATE INDEX index_impressions_2029_07_on_property_id ON public.impressions_2029
 
 
 --
+-- Name: index_impressions_2029_07_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_07_on_property_name ON public.impressions_2029_07 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2029_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2029_08_on_campaign_id ON public.impressions_2029_08 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2029_08_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_08_on_campaign_name ON public.impressions_2029_08 USING btree (campaign_name);
 
 
 --
@@ -10681,10 +12496,24 @@ CREATE INDEX index_impressions_2029_08_on_property_id ON public.impressions_2029
 
 
 --
+-- Name: index_impressions_2029_08_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_08_on_property_name ON public.impressions_2029_08 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2029_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2029_09_on_campaign_id ON public.impressions_2029_09 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2029_09_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_09_on_campaign_name ON public.impressions_2029_09 USING btree (campaign_name);
 
 
 --
@@ -10716,10 +12545,24 @@ CREATE INDEX index_impressions_2029_09_on_property_id ON public.impressions_2029
 
 
 --
+-- Name: index_impressions_2029_09_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_09_on_property_name ON public.impressions_2029_09 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2029_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2029_10_on_campaign_id ON public.impressions_2029_10 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2029_10_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_10_on_campaign_name ON public.impressions_2029_10 USING btree (campaign_name);
 
 
 --
@@ -10751,10 +12594,24 @@ CREATE INDEX index_impressions_2029_10_on_property_id ON public.impressions_2029
 
 
 --
+-- Name: index_impressions_2029_10_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_10_on_property_name ON public.impressions_2029_10 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2029_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2029_11_on_campaign_id ON public.impressions_2029_11 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2029_11_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_11_on_campaign_name ON public.impressions_2029_11 USING btree (campaign_name);
 
 
 --
@@ -10786,10 +12643,24 @@ CREATE INDEX index_impressions_2029_11_on_property_id ON public.impressions_2029
 
 
 --
+-- Name: index_impressions_2029_11_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_11_on_property_name ON public.impressions_2029_11 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2029_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2029_12_on_campaign_id ON public.impressions_2029_12 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2029_12_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_12_on_campaign_name ON public.impressions_2029_12 USING btree (campaign_name);
 
 
 --
@@ -10821,10 +12692,24 @@ CREATE INDEX index_impressions_2029_12_on_property_id ON public.impressions_2029
 
 
 --
+-- Name: index_impressions_2029_12_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2029_12_on_property_name ON public.impressions_2029_12 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2030_01_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2030_01_on_campaign_id ON public.impressions_2030_01 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2030_01_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_01_on_campaign_name ON public.impressions_2030_01 USING btree (campaign_name);
 
 
 --
@@ -10856,10 +12741,24 @@ CREATE INDEX index_impressions_2030_01_on_property_id ON public.impressions_2030
 
 
 --
+-- Name: index_impressions_2030_01_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_01_on_property_name ON public.impressions_2030_01 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2030_02_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2030_02_on_campaign_id ON public.impressions_2030_02 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2030_02_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_02_on_campaign_name ON public.impressions_2030_02 USING btree (campaign_name);
 
 
 --
@@ -10891,10 +12790,24 @@ CREATE INDEX index_impressions_2030_02_on_property_id ON public.impressions_2030
 
 
 --
+-- Name: index_impressions_2030_02_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_02_on_property_name ON public.impressions_2030_02 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2030_03_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2030_03_on_campaign_id ON public.impressions_2030_03 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2030_03_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_03_on_campaign_name ON public.impressions_2030_03 USING btree (campaign_name);
 
 
 --
@@ -10926,10 +12839,24 @@ CREATE INDEX index_impressions_2030_03_on_property_id ON public.impressions_2030
 
 
 --
+-- Name: index_impressions_2030_03_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_03_on_property_name ON public.impressions_2030_03 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2030_04_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2030_04_on_campaign_id ON public.impressions_2030_04 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2030_04_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_04_on_campaign_name ON public.impressions_2030_04 USING btree (campaign_name);
 
 
 --
@@ -10961,10 +12888,24 @@ CREATE INDEX index_impressions_2030_04_on_property_id ON public.impressions_2030
 
 
 --
+-- Name: index_impressions_2030_04_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_04_on_property_name ON public.impressions_2030_04 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2030_05_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2030_05_on_campaign_id ON public.impressions_2030_05 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2030_05_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_05_on_campaign_name ON public.impressions_2030_05 USING btree (campaign_name);
 
 
 --
@@ -10996,10 +12937,24 @@ CREATE INDEX index_impressions_2030_05_on_property_id ON public.impressions_2030
 
 
 --
+-- Name: index_impressions_2030_05_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_05_on_property_name ON public.impressions_2030_05 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2030_06_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2030_06_on_campaign_id ON public.impressions_2030_06 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2030_06_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_06_on_campaign_name ON public.impressions_2030_06 USING btree (campaign_name);
 
 
 --
@@ -11031,10 +12986,24 @@ CREATE INDEX index_impressions_2030_06_on_property_id ON public.impressions_2030
 
 
 --
+-- Name: index_impressions_2030_06_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_06_on_property_name ON public.impressions_2030_06 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2030_07_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2030_07_on_campaign_id ON public.impressions_2030_07 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2030_07_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_07_on_campaign_name ON public.impressions_2030_07 USING btree (campaign_name);
 
 
 --
@@ -11066,10 +13035,24 @@ CREATE INDEX index_impressions_2030_07_on_property_id ON public.impressions_2030
 
 
 --
+-- Name: index_impressions_2030_07_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_07_on_property_name ON public.impressions_2030_07 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2030_08_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2030_08_on_campaign_id ON public.impressions_2030_08 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2030_08_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_08_on_campaign_name ON public.impressions_2030_08 USING btree (campaign_name);
 
 
 --
@@ -11101,10 +13084,24 @@ CREATE INDEX index_impressions_2030_08_on_property_id ON public.impressions_2030
 
 
 --
+-- Name: index_impressions_2030_08_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_08_on_property_name ON public.impressions_2030_08 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2030_09_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2030_09_on_campaign_id ON public.impressions_2030_09 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2030_09_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_09_on_campaign_name ON public.impressions_2030_09 USING btree (campaign_name);
 
 
 --
@@ -11136,10 +13133,24 @@ CREATE INDEX index_impressions_2030_09_on_property_id ON public.impressions_2030
 
 
 --
+-- Name: index_impressions_2030_09_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_09_on_property_name ON public.impressions_2030_09 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2030_10_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2030_10_on_campaign_id ON public.impressions_2030_10 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2030_10_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_10_on_campaign_name ON public.impressions_2030_10 USING btree (campaign_name);
 
 
 --
@@ -11171,10 +13182,24 @@ CREATE INDEX index_impressions_2030_10_on_property_id ON public.impressions_2030
 
 
 --
+-- Name: index_impressions_2030_10_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_10_on_property_name ON public.impressions_2030_10 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2030_11_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2030_11_on_campaign_id ON public.impressions_2030_11 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2030_11_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_11_on_campaign_name ON public.impressions_2030_11 USING btree (campaign_name);
 
 
 --
@@ -11206,10 +13231,24 @@ CREATE INDEX index_impressions_2030_11_on_property_id ON public.impressions_2030
 
 
 --
+-- Name: index_impressions_2030_11_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_11_on_property_name ON public.impressions_2030_11 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_2030_12_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_2030_12_on_campaign_id ON public.impressions_2030_12 USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_2030_12_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_12_on_campaign_name ON public.impressions_2030_12 USING btree (campaign_name);
 
 
 --
@@ -11241,10 +13280,24 @@ CREATE INDEX index_impressions_2030_12_on_property_id ON public.impressions_2030
 
 
 --
+-- Name: index_impressions_2030_12_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_2030_12_on_property_name ON public.impressions_2030_12 USING btree (property_name);
+
+
+--
 -- Name: index_impressions_default_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_impressions_default_on_campaign_id ON public.impressions_default USING btree (campaign_id);
+
+
+--
+-- Name: index_impressions_default_on_campaign_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_default_on_campaign_name ON public.impressions_default USING btree (campaign_name);
 
 
 --
@@ -11273,6 +13326,13 @@ CREATE INDEX index_impressions_default_on_payable ON public.impressions_default 
 --
 
 CREATE INDEX index_impressions_default_on_property_id ON public.impressions_default USING btree (property_id);
+
+
+--
+-- Name: index_impressions_default_on_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_default_on_property_name ON public.impressions_default USING btree (property_name);
 
 
 --
@@ -11401,10 +13461,6 @@ CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unl
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20181017152837'),
-('20181110133743'),
-('20181114164908'),
-('20181114202957'),
-('20181116155623');
+('20181017152837');
 
 

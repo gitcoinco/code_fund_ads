@@ -4,6 +4,7 @@
 #
 #  id                     :bigint(8)        not null, primary key
 #  roles                  :string           default([]), is an Array
+#  skills                 :text             default([]), is an Array
 #  first_name             :string           not null
 #  last_name              :string           not null
 #  company_name           :string
@@ -13,8 +14,14 @@
 #  region                 :string
 #  postal_code            :string
 #  country                :string
+#  us_resident            :boolean          default(FALSE)
 #  api_access             :boolean          default(FALSE), not null
 #  api_key                :string
+#  bio                    :text
+#  website_url            :string
+#  github_username        :string
+#  twitter_username       :string
+#  linkedin_username      :string
 #  paypal_email           :string
 #  email                  :string           not null
 #  encrypted_password     :string           not null
@@ -33,8 +40,6 @@
 #  failed_attempts        :integer          default(0), not null
 #  unlock_token           :string
 #  locked_at              :datetime
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
 #  invitation_token       :string
 #  invitation_created_at  :datetime
 #  invitation_sent_at     :datetime
@@ -43,13 +48,8 @@
 #  invited_by_type        :string
 #  invited_by_id          :bigint(8)
 #  invitations_count      :integer          default(0)
-#  us_resident            :boolean          default(FALSE)
-#  bio                    :text
-#  website_url            :string
-#  skills                 :text             default([]), is an Array
-#  github_username        :string
-#  twitter_username       :string
-#  linkedin_username      :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
 #
 
 class User < ApplicationRecord

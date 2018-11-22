@@ -6,31 +6,42 @@ require "etc"
 require "fileutils"
 
 class ImpressionSeeder
-  def self.run(max_impressions)
-    new(max_impressions).call
+  def self.run(desired_count)
+    new(desired_count).call
   end
 
-  def initialize(max_impressions)
+  attr_reader :initial_count, :max_count, :gap_count
+
+  def initialize(desired_count)
     puts "Seeding impressions start..."
-    @processes = (Etc.nprocessors - 1)
-    @processes = 1 if @processes < 1
-    @current_count = Impression.count
-    @max_impressions = max_impressions.to_i - @current_count
-    @max_impressions = 10_000 if @max_impressions.to_i == 0
-    @max_impressions = (@max_impressions / @processes.to_f).floor
+    @initial_count = Impression.count
+    @max_count = desired_count.to_i.zero? ? 10_000 : desired_count.to_i
+    @gap_count = max_count - initial_count
     @publishers = User.publisher.includes(:properties).load
     @campaign_cache = Property.all.each_with_object({}).each do |property, memo|
       memo[property.id] = Campaign.for_property(property).load
     end
   end
 
+  def cores
+    @cores ||= begin
+      cores = Etc.nprocessors - 1
+      cores = 1 if cores < 1
+      cores
+    end
+  end
+
+  def max_count_per_core
+    @max_count_per_core ||= (max_count / cores.to_f).floor
+  end
+
   def call
-    if @current_count < @max_impressions
+    if initial_count < max_count
       benchmark = Benchmark.measure {
-        pids = @processes.times.map {
+        pids = cores.times.map {
           Process.fork do
-            (1..12).to_a.shuffle.each do |i|
-              create_impressions_for_month "2019-#{i.to_s.rjust(2, "0")}-01", @max_impressions / 12
+            (1..12).each do |i|
+              create_impressions_for_month "2019-#{i.to_s.rjust(2, "0")}-01", max_count_per_core / 12
             end
           end
         }
@@ -56,7 +67,9 @@ class ImpressionSeeder
     {
       id: SecureRandom.uuid,
       campaign_id: campaign.id,
+      campaign_name: campaign.name,
       property_id: property.id,
+      property_name: property.name,
       ip: rand(6).zero? ? Faker::Internet.ip_v6_address : Faker::Internet.public_ip_v4_address,
       user_agent: Faker::Internet.user_agent,
       country: rand(6).zero? ? ENUMS::COUNTRIES["United States"] : ENUMS::COUNTRIES.keys.sample,
@@ -73,7 +86,9 @@ class ImpressionSeeder
   end
 
   def build_impressions(displayed_at)
-    rand(21).times.map {
+    multiplier = displayed_at.hour.between?(0, 6) || displayed_at.hour.between?(13, 21) ? 1 : 0
+    max_per_second = (@max / 1.month.seconds.to_f).ceil + multiplier
+    rand(max_per_second + 1).times.map {
       build_impression displayed_at
     }.compact
   end

@@ -84,6 +84,7 @@ GEM
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
     coderay (1.1.2)
+    colorize (0.8.1)
     concurrent-ruby (1.1.3)
     countries (2.1.4)
       i18n_data (~> 0.8.0)
@@ -297,6 +298,7 @@ GEM
       cable_ready (>= 2.0.7)
       nokogiri
       rack
+    sysrandom (1.0.5)
     tag_columns (0.1.6)
       activesupport
     teamocil (1.4.2)
@@ -310,6 +312,8 @@ GEM
       thread_safe (~> 0.1)
     uglifier (4.1.20)
       execjs (>= 0.3.0, < 3)
+    ulid (1.0.0)
+      sysrandom (>= 1.0.0, < 2.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
@@ -344,6 +348,7 @@ DEPENDENCIES
   cable_ready (~> 2.0.7)
   capybara (>= 2.15)
   chromedriver-helper
+  colorize
   country_select (~> 3.1.1)
   devise (~> 4.5.0)
   devise_invitable (~> 1.7.5)
@@ -384,6 +389,7 @@ DEPENDENCIES
   turbolinks (~> 5)
   tzinfo-data
   uglifier (>= 1.3.0)
+  ulid (~> 1.0.0)
   web-console (>= 3.3.0)
   webpacker (~> 3.5)
 
