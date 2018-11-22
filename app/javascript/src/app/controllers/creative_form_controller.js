@@ -5,6 +5,7 @@ import { Controller } from 'stimulus';
 
 export default class extends Controller {
   static targets = [
+    "adLength",
     "inputHeadline",
     "inputBody",
     "inputSmallImageId",
@@ -14,7 +15,8 @@ export default class extends Controller {
     "previewImageUrl",
     "previewHeadline",
     "previewBody",
-    "copyWrapper"
+    "copyWrapper",
+    "copyWarningWrapper"
   ]
 
   initialize() {
@@ -29,11 +31,19 @@ export default class extends Controller {
 
   checkLimit() {
     const adLength = this.previewHeadlineTarget.textContent.length + this.previewBodyTarget.textContent.length + 1;
+    this.setAdLengthCount(adLength);
+    
     if (adLength > 85) {
       this.copyWrapperTarget.classList.add('over-limit');
+      this.copyWarningWrapperTarget.classList.remove('text-secondary').add('text-danger');
     } else {
       this.copyWrapperTarget.classList.remove('over-limit');
+      this.copyWarningWrapperTarget.classList.remove('text-danger').add('text-secondary');
     }
+  }
+
+  setAdLengthCount(adLength) {
+    this.adLengthTarget.textContent = adLength;
   }
 
   setHeadline() {
@@ -61,32 +71,4 @@ export default class extends Controller {
   setTemplateTheme() {
     console.log('setTemplateTheme');
   }
-
-  // get previewHeadline() {
-  //   return this.inputHeadlineTarget.value;
-  // }
-
-  // get previewBody() {
-  //   return this.inputBodyTarget.value;
-  // }
-
-  // get smallImageId() {
-  //   return this.inputImageSmallTarget.value;
-  // }
-
-  // get largeImageId() {
-  //   return this.inputImageLargeTarget.value;
-  // }
-
-  // get wideImageId() {
-  //   return this.inputImageWideTarget.value;
-  // }
-
-  // get template() {
-  //   return this.inputTemplateThemeTarget.value.split("|")[0];
-  // }
-
-  // get theme() {
-  //   return this.inputTemplateThemeTarget.value.split("|")[1];
-  // }
 }

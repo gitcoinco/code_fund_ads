@@ -18,7 +18,7 @@ class CreativesController < ApplicationController
 
   # GET /creatives/new
   def new
-    @creative = Creative.new
+    @creative = current_user.creatives.build
   end
 
   # GET /creatives/1/edit
