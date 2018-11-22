@@ -5,7 +5,9 @@
 #
 #  id                :uuid             not null, primary key
 #  campaign_id       :bigint(8)
+#  campaign_name     :string
 #  property_id       :bigint(8)
+#  property_name     :string
 #  ip                :string
 #  user_agent        :text
 #  country           :string

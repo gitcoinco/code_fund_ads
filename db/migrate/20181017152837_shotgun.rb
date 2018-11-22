@@ -84,7 +84,9 @@ class Shotgun < ActiveRecord::Migration[5.2]
 
     create_range_partition :impressions, id: :uuid, default: -> { "gen_random_uuid()" }, partition_key: "displayed_at_date" do |t|
       t.bigint :campaign_id
+      t.string :campaign_name
       t.bigint :property_id
+      t.string :property_name
       t.string :ip
       t.text :user_agent
       t.string :country
@@ -108,9 +110,27 @@ class Shotgun < ActiveRecord::Migration[5.2]
       # NOTE: displayed_at_date is indexed by default since it's the partition key
       add_index partitioned_table_name, "date_trunc('hour', displayed_at)", name: "index_#{partitioned_table_name}_on_displayed_at_hour"
       add_index partitioned_table_name, :campaign_id
+      add_index partitioned_table_name, :campaign_name
       add_index partitioned_table_name, :property_id
+      add_index partitioned_table_name, :property_name
       add_index partitioned_table_name, :payable
       current_date = next_date
+    end
+
+    reversible do |dir|
+      dir.up do
+        execute "CREATE TABLE impressions_default PARTITION OF impressions DEFAULT;"
+        add_index :impressions_default, :displayed_at_date
+        add_index :impressions_default, "date_trunc('hour', displayed_at)", name: "index_impressions_default_on_displayed_at_hour"
+        add_index :impressions_default, :campaign_id
+        add_index :impressions_default, :campaign_name
+        add_index :impressions_default, :property_id
+        add_index :impressions_default, :property_name
+        add_index :impressions_default, :payable
+      end
+      dir.down do
+        drop_table :impressions_default
+      end
     end
 
     create_table :properties do |t|
@@ -120,8 +140,8 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.string :name, null: false
       t.text :description
       t.text :url, null: false
-      t.string :ad_template, null: false
-      t.string :ad_theme, null: false
+      t.string :ad_template
+      t.string :ad_theme
       t.string :language, null: false
       t.string :keywords, default: [], null: false, array: true
       t.bigint :prohibited_advertisers, default: [], array: true
@@ -154,6 +174,7 @@ class Shotgun < ActiveRecord::Migration[5.2]
 
     create_table :users do |t|
       t.string :roles, default: [], array: true
+      t.text :skills, default: [], array: true
       t.string :first_name, null: false
       t.string :last_name, null: false
       t.string :company_name
@@ -163,8 +184,14 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.string :region
       t.string :postal_code
       t.string :country
+      t.boolean :us_resident, default: false
       t.boolean :api_access, default: false, null: false
       t.string :api_key
+      t.text :bio
+      t.string :website_url
+      t.string :github_username
+      t.string :twitter_username
+      t.string :linkedin_username
       t.string :paypal_email
 
       ## Database authenticatable
@@ -195,6 +222,18 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.integer  :failed_attempts, default: 0, null: false # Only if lock strategy is :failed_attempts
       t.string   :unlock_token # Only if unlock strategy is :email or :both
       t.datetime :locked_at
+
+      ## Invitable
+      t.string     :invitation_token
+      t.datetime   :invitation_created_at
+      t.datetime   :invitation_sent_at
+      t.datetime   :invitation_accepted_at
+      t.integer    :invitation_limit
+      t.references :invited_by, polymorphic: true
+      t.integer    :invitations_count, default: 0
+      t.index      :invitations_count
+      t.index      :invitation_token, unique: true # for invitable
+      t.index      :invited_by_id
 
       t.timestamps
 

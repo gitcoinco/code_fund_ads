@@ -8,8 +8,6 @@ windows:
       - commands:
         - asdf local ruby 2.5.3
         - asdf local nodejs 9.11.2
-        - bundle install
-        - yarn install
         - nvim
 
   - name: console
@@ -19,8 +17,6 @@ windows:
       - commands:
         - asdf local ruby 2.5.3
         - asdf local nodejs 9.11.2
-        - bundle install
-        - yarn install
         - bundle exec rails c
 
   - name: rails
@@ -30,14 +26,10 @@ windows:
       - commands:
         - asdf local ruby 2.5.3
         - asdf local nodejs 9.11.2
-        - bundle install
-        - yarn install
         - lsof -t -i tcp:3000 | xargs kill
         - bundle exec rails s
       - commands:
         - asdf local ruby 2.5.3
         - asdf local nodejs 9.11.2
-        - bundle install
-        - yarn install
         - lsof -t -i tcp:3035 | xargs kill
         - bundle exec ./bin/webpack-dev-server

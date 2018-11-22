@@ -2,6 +2,40 @@
 
 WIP...
 
+## Development Environment
+
+```sh
+git clone https://github.com/gitcoinco/code_fund_ads.git
+cd /path/to/project
+cp .env-sample .env
+
+# setup environment variables
+
+bundle install
+yarn install
+bundle exec rails db:setup
+```
+
+### Database Seeds
+
+The `impressions` table will seed with approximately 10k records by default.
+You can increase this by setting the `IMPRESSIONS` environment variable seeding again.
+
+```
+IMPRESSIONS=10_000_000 rails db:seed
+```
+
+### Tmux/Teamocil
+
+You may want to create a [teamocil](https://github.com/remiprev/teamocil)/[tmux](https://github.com/tmux/tmux) config for your machine.
+
+SEE: https://github.com/gitcoinco/code_fund_ads/blob/master/.teamocil-example.yml
+
+```sh
+cd /path/to/project
+./bin/teamocil
+```
+
 ## Code Standards
 
  We avoid [bike shedding](https://en.wikipedia.org/wiki/Law_of_triviality) by enforcing coding standards through tooling.

@@ -31,7 +31,7 @@ class Seeder
       seed_users
       seed_campaigns
       seed_properties
-      ImpressionSeeder.run(ENV["MAX_IMPRESSIONS"])
+      ImpressionSeeder.run(ENV["IMPRESSIONS"])
     }
     print "Seeding finished...".ljust(96)
     puts benchmark
@@ -54,21 +54,23 @@ class Seeder
   def build_administrators
     return [] unless User.administrator.count.zero?
     return [] if @emails["admin@codefund.io"]
-    [
-      user_attributes.merge(
-        id: @user_id += 1,
-        company_name: "CodeFund",
-        email: "admin@codefund.io",
-        roles: "{#{ENUMS::USER_ROLES::ADMINISTRATOR}}",
-      ).values,
-    ]
+    attributes = user_attributes.merge(
+      "id" => @user_id += 1,
+      "company_name" => "CodeFund",
+      "email" => "admin@codefund.io",
+      "roles" => "{#{ENUMS::USER_ROLES::ADMINISTRATOR}}",
+    )
+    [attributes.values]
   end
 
   def build_advertisers
     count = User.advertiser.count
     return [] if count >= 100
     (count..99).map do
-      user_attributes.merge(id: @user_id += 1, roles: "{#{ENUMS::USER_ROLES::ADVERTISER}}").values
+      user_attributes.merge(
+        "id" => @user_id += 1,
+        "roles" => "{#{ENUMS::USER_ROLES::ADVERTISER}}"
+      ).values
     end
   end
 
@@ -76,7 +78,10 @@ class Seeder
     count = User.publisher.count
     return [] if count >= 1000
     (count..999).map do
-      user_attributes.merge(id: @user_id += 1, roles: "{#{ENUMS::USER_ROLES::PUBLISHER}}").values
+      user_attributes.merge(
+        "id" => @user_id += 1,
+        "roles" => "{#{ENUMS::USER_ROLES::PUBLISHER}}"
+      ).values
     end
   end
 
@@ -173,23 +178,25 @@ class Seeder
       properties = User.publisher.each_with_object([]) { |publisher, memo|
         next if publisher.properties.count > 0
         rand(1..4).times.each do
-          memo << {
+          property = Property.new(
             id: @property_id += 1,
             user_id: publisher.id,
             property_type: ENUMS::PROPERTY_TYPES.values.sample,
             status: ENUMS::PROPERTY_STATUSES.values.sample,
             name: Faker::SiliconValley.invention,
-            description: nil,
             url: Faker::SiliconValley.url,
             ad_template: ENUMS::AD_TEMPLATES.values.sample,
             ad_theme: ENUMS::AD_THEMES.values.sample,
             language: ENUMS::LANGUAGES::ENGLISH,
-            keywords: "{#{ENUMS::KEYWORDS.values.sample(25).join(",")}}",
-            prohibited_advertisers: nil,
             prohibit_fallback_campaigns: false,
-            created_at: Time.now,
-            updated_at: Time.now,
-          }.values
+            created_at: Time.current,
+            updated_at: Time.current,
+          )
+          attributes = property.attributes.merge(
+            "keywords" => "{#{ENUMS::KEYWORDS.values.sample(25).join(",")}}",
+            "prohibited_advertisers" => "{}"
+          )
+          memo << attributes.values
         end
       }
       import_csv :properties, create_csv(properties, Rails.root.join("tmp/properties.csv")) unless properties.blank?
@@ -220,56 +227,32 @@ class Seeder
     first_name = Faker::Name.first_name
     last_name = Faker::Name.last_name
     email = Faker::Internet.email("#{first_name} #{last_name} #{SecureRandom.hex[0, 8]}", "-")
-    {
-      id: 1,
-      roles: "{}",
+    user = User.new(
       first_name: first_name,
       last_name: last_name,
       company_name: Faker::SiliconValley.company,
-      address_1: nil,
-      address_2: nil,
-      city: nil,
-      region: nil,
-      postal_code: nil,
-      country: nil,
-      api_access: true,
-      api_key: nil,
-      paypal_email: nil,
       email: email,
       encrypted_password: @encrypted_password,
-      reset_password_token: nil,
-      reset_password_sent_at: nil,
-      remember_created_at: nil,
-      sign_in_count: 1,
-      current_sign_in_at: nil,
-      last_sign_in_at: nil,
-      current_sign_in_ip: nil,
-      last_sign_in_ip: nil,
       confirmation_token: Devise.friendly_token,
       confirmed_at: 1.day.ago,
       confirmation_sent_at: 2.days.ago,
-      unconfirmed_email: nil,
-      failed_attempts: 0,
-      unlock_token: nil,
-      locked_at: nil,
-      created_at: 3.days.ago,
-      updated_at: 3.days.ago,
       invitation_token: Devise.friendly_token,
       invitation_created_at: 3.days.ago,
       invitation_sent_at: 3.days.ago,
       invitation_accepted_at: 1.day.ago,
-      invitation_limit: nil,
       invited_by_type: "User",
       invited_by_id: 1,
       invitations_count: 1,
       us_resident: true,
-      bio: nil,
-      website_url: nil,
-      skills: "{}",
       github_username: Faker::Twitter.screen_name,
       twitter_username: Faker::Twitter.screen_name,
-      linkedin_username: nil,
-    }
+      created_at: 3.days.ago,
+      updated_at: 3.days.ago,
+    )
+    user.attributes.merge(
+      "roles" => "{}",
+      "skills" => "{}",
+    )
   end
 end
 
