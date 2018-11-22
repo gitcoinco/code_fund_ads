@@ -236,7 +236,7 @@ class Seeder
       confirmation_token: Devise.friendly_token,
       confirmed_at: 1.day.ago,
       confirmation_sent_at: 2.days.ago,
-      invitation_token: Devise.friendly_token,
+      invitation_token: nil,
       invitation_created_at: 3.days.ago,
       invitation_sent_at: 3.days.ago,
       invitation_accepted_at: 1.day.ago,
