@@ -248,7 +248,7 @@ CREATE TABLE public.impressions (
     property_name character varying,
     ip character varying,
     user_agent text,
-    country character varying,
+    country_code character varying,
     postal_code character varying,
     latitude numeric,
     longitude numeric,
@@ -5990,6 +5990,2078 @@ ALTER TABLE ONLY public.schema_migrations
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_impressions_on_campaign_name_and_property_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_campaign_name_and_property_name ON ONLY public.impressions USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2018_11_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_campaign_name_property_name_idx ON public.impressions_2018_11 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: index_impressions_on_country_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_country_code ON ONLY public.impressions USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_11_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_country_code_idx ON public.impressions_2018_11 USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_12_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_campaign_name_property_name_idx ON public.impressions_2018_12 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2018_12_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_country_code_idx ON public.impressions_2018_12 USING btree (country_code);
+
+
+--
+-- Name: impressions_2019_01_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_01_campaign_name_property_name_idx ON public.impressions_2019_01 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2019_01_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_01_country_code_idx ON public.impressions_2019_01 USING btree (country_code);
+
+
+--
+-- Name: impressions_2019_02_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_02_campaign_name_property_name_idx ON public.impressions_2019_02 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2019_02_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_02_country_code_idx ON public.impressions_2019_02 USING btree (country_code);
+
+
+--
+-- Name: impressions_2019_03_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_03_campaign_name_property_name_idx ON public.impressions_2019_03 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2019_03_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_03_country_code_idx ON public.impressions_2019_03 USING btree (country_code);
+
+
+--
+-- Name: impressions_2019_04_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_04_campaign_name_property_name_idx ON public.impressions_2019_04 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2019_04_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_04_country_code_idx ON public.impressions_2019_04 USING btree (country_code);
+
+
+--
+-- Name: impressions_2019_05_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_05_campaign_name_property_name_idx ON public.impressions_2019_05 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2019_05_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_05_country_code_idx ON public.impressions_2019_05 USING btree (country_code);
+
+
+--
+-- Name: impressions_2019_06_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_06_campaign_name_property_name_idx ON public.impressions_2019_06 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2019_06_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_06_country_code_idx ON public.impressions_2019_06 USING btree (country_code);
+
+
+--
+-- Name: impressions_2019_07_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_07_campaign_name_property_name_idx ON public.impressions_2019_07 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2019_07_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_07_country_code_idx ON public.impressions_2019_07 USING btree (country_code);
+
+
+--
+-- Name: impressions_2019_08_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_08_campaign_name_property_name_idx ON public.impressions_2019_08 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2019_08_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_08_country_code_idx ON public.impressions_2019_08 USING btree (country_code);
+
+
+--
+-- Name: impressions_2019_09_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_09_campaign_name_property_name_idx ON public.impressions_2019_09 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2019_09_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_09_country_code_idx ON public.impressions_2019_09 USING btree (country_code);
+
+
+--
+-- Name: impressions_2019_10_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_10_campaign_name_property_name_idx ON public.impressions_2019_10 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2019_10_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_10_country_code_idx ON public.impressions_2019_10 USING btree (country_code);
+
+
+--
+-- Name: impressions_2019_11_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_11_campaign_name_property_name_idx ON public.impressions_2019_11 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2019_11_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_11_country_code_idx ON public.impressions_2019_11 USING btree (country_code);
+
+
+--
+-- Name: impressions_2019_12_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_12_campaign_name_property_name_idx ON public.impressions_2019_12 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2019_12_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2019_12_country_code_idx ON public.impressions_2019_12 USING btree (country_code);
+
+
+--
+-- Name: impressions_2020_01_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_01_campaign_name_property_name_idx ON public.impressions_2020_01 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2020_01_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_01_country_code_idx ON public.impressions_2020_01 USING btree (country_code);
+
+
+--
+-- Name: impressions_2020_02_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_02_campaign_name_property_name_idx ON public.impressions_2020_02 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2020_02_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_02_country_code_idx ON public.impressions_2020_02 USING btree (country_code);
+
+
+--
+-- Name: impressions_2020_03_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_03_campaign_name_property_name_idx ON public.impressions_2020_03 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2020_03_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_03_country_code_idx ON public.impressions_2020_03 USING btree (country_code);
+
+
+--
+-- Name: impressions_2020_04_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_04_campaign_name_property_name_idx ON public.impressions_2020_04 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2020_04_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_04_country_code_idx ON public.impressions_2020_04 USING btree (country_code);
+
+
+--
+-- Name: impressions_2020_05_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_05_campaign_name_property_name_idx ON public.impressions_2020_05 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2020_05_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_05_country_code_idx ON public.impressions_2020_05 USING btree (country_code);
+
+
+--
+-- Name: impressions_2020_06_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_06_campaign_name_property_name_idx ON public.impressions_2020_06 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2020_06_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_06_country_code_idx ON public.impressions_2020_06 USING btree (country_code);
+
+
+--
+-- Name: impressions_2020_07_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_07_campaign_name_property_name_idx ON public.impressions_2020_07 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2020_07_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_07_country_code_idx ON public.impressions_2020_07 USING btree (country_code);
+
+
+--
+-- Name: impressions_2020_08_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_08_campaign_name_property_name_idx ON public.impressions_2020_08 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2020_08_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_08_country_code_idx ON public.impressions_2020_08 USING btree (country_code);
+
+
+--
+-- Name: impressions_2020_09_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_09_campaign_name_property_name_idx ON public.impressions_2020_09 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2020_09_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_09_country_code_idx ON public.impressions_2020_09 USING btree (country_code);
+
+
+--
+-- Name: impressions_2020_10_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_10_campaign_name_property_name_idx ON public.impressions_2020_10 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2020_10_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_10_country_code_idx ON public.impressions_2020_10 USING btree (country_code);
+
+
+--
+-- Name: impressions_2020_11_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_11_campaign_name_property_name_idx ON public.impressions_2020_11 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2020_11_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_11_country_code_idx ON public.impressions_2020_11 USING btree (country_code);
+
+
+--
+-- Name: impressions_2020_12_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_12_campaign_name_property_name_idx ON public.impressions_2020_12 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2020_12_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_12_country_code_idx ON public.impressions_2020_12 USING btree (country_code);
+
+
+--
+-- Name: impressions_2021_01_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_01_campaign_name_property_name_idx ON public.impressions_2021_01 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2021_01_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_01_country_code_idx ON public.impressions_2021_01 USING btree (country_code);
+
+
+--
+-- Name: impressions_2021_02_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_02_campaign_name_property_name_idx ON public.impressions_2021_02 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2021_02_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_02_country_code_idx ON public.impressions_2021_02 USING btree (country_code);
+
+
+--
+-- Name: impressions_2021_03_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_03_campaign_name_property_name_idx ON public.impressions_2021_03 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2021_03_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_03_country_code_idx ON public.impressions_2021_03 USING btree (country_code);
+
+
+--
+-- Name: impressions_2021_04_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_04_campaign_name_property_name_idx ON public.impressions_2021_04 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2021_04_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_04_country_code_idx ON public.impressions_2021_04 USING btree (country_code);
+
+
+--
+-- Name: impressions_2021_05_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_05_campaign_name_property_name_idx ON public.impressions_2021_05 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2021_05_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_05_country_code_idx ON public.impressions_2021_05 USING btree (country_code);
+
+
+--
+-- Name: impressions_2021_06_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_06_campaign_name_property_name_idx ON public.impressions_2021_06 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2021_06_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_06_country_code_idx ON public.impressions_2021_06 USING btree (country_code);
+
+
+--
+-- Name: impressions_2021_07_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_07_campaign_name_property_name_idx ON public.impressions_2021_07 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2021_07_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_07_country_code_idx ON public.impressions_2021_07 USING btree (country_code);
+
+
+--
+-- Name: impressions_2021_08_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_08_campaign_name_property_name_idx ON public.impressions_2021_08 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2021_08_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_08_country_code_idx ON public.impressions_2021_08 USING btree (country_code);
+
+
+--
+-- Name: impressions_2021_09_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_09_campaign_name_property_name_idx ON public.impressions_2021_09 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2021_09_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_09_country_code_idx ON public.impressions_2021_09 USING btree (country_code);
+
+
+--
+-- Name: impressions_2021_10_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_10_campaign_name_property_name_idx ON public.impressions_2021_10 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2021_10_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_10_country_code_idx ON public.impressions_2021_10 USING btree (country_code);
+
+
+--
+-- Name: impressions_2021_11_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_11_campaign_name_property_name_idx ON public.impressions_2021_11 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2021_11_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_11_country_code_idx ON public.impressions_2021_11 USING btree (country_code);
+
+
+--
+-- Name: impressions_2021_12_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_12_campaign_name_property_name_idx ON public.impressions_2021_12 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2021_12_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2021_12_country_code_idx ON public.impressions_2021_12 USING btree (country_code);
+
+
+--
+-- Name: impressions_2022_01_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_01_campaign_name_property_name_idx ON public.impressions_2022_01 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2022_01_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_01_country_code_idx ON public.impressions_2022_01 USING btree (country_code);
+
+
+--
+-- Name: impressions_2022_02_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_02_campaign_name_property_name_idx ON public.impressions_2022_02 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2022_02_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_02_country_code_idx ON public.impressions_2022_02 USING btree (country_code);
+
+
+--
+-- Name: impressions_2022_03_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_03_campaign_name_property_name_idx ON public.impressions_2022_03 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2022_03_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_03_country_code_idx ON public.impressions_2022_03 USING btree (country_code);
+
+
+--
+-- Name: impressions_2022_04_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_04_campaign_name_property_name_idx ON public.impressions_2022_04 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2022_04_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_04_country_code_idx ON public.impressions_2022_04 USING btree (country_code);
+
+
+--
+-- Name: impressions_2022_05_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_05_campaign_name_property_name_idx ON public.impressions_2022_05 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2022_05_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_05_country_code_idx ON public.impressions_2022_05 USING btree (country_code);
+
+
+--
+-- Name: impressions_2022_06_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_06_campaign_name_property_name_idx ON public.impressions_2022_06 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2022_06_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_06_country_code_idx ON public.impressions_2022_06 USING btree (country_code);
+
+
+--
+-- Name: impressions_2022_07_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_07_campaign_name_property_name_idx ON public.impressions_2022_07 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2022_07_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_07_country_code_idx ON public.impressions_2022_07 USING btree (country_code);
+
+
+--
+-- Name: impressions_2022_08_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_08_campaign_name_property_name_idx ON public.impressions_2022_08 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2022_08_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_08_country_code_idx ON public.impressions_2022_08 USING btree (country_code);
+
+
+--
+-- Name: impressions_2022_09_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_09_campaign_name_property_name_idx ON public.impressions_2022_09 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2022_09_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_09_country_code_idx ON public.impressions_2022_09 USING btree (country_code);
+
+
+--
+-- Name: impressions_2022_10_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_10_campaign_name_property_name_idx ON public.impressions_2022_10 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2022_10_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_10_country_code_idx ON public.impressions_2022_10 USING btree (country_code);
+
+
+--
+-- Name: impressions_2022_11_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_11_campaign_name_property_name_idx ON public.impressions_2022_11 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2022_11_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_11_country_code_idx ON public.impressions_2022_11 USING btree (country_code);
+
+
+--
+-- Name: impressions_2022_12_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_12_campaign_name_property_name_idx ON public.impressions_2022_12 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2022_12_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2022_12_country_code_idx ON public.impressions_2022_12 USING btree (country_code);
+
+
+--
+-- Name: impressions_2023_01_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_01_campaign_name_property_name_idx ON public.impressions_2023_01 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2023_01_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_01_country_code_idx ON public.impressions_2023_01 USING btree (country_code);
+
+
+--
+-- Name: impressions_2023_02_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_02_campaign_name_property_name_idx ON public.impressions_2023_02 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2023_02_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_02_country_code_idx ON public.impressions_2023_02 USING btree (country_code);
+
+
+--
+-- Name: impressions_2023_03_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_03_campaign_name_property_name_idx ON public.impressions_2023_03 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2023_03_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_03_country_code_idx ON public.impressions_2023_03 USING btree (country_code);
+
+
+--
+-- Name: impressions_2023_04_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_04_campaign_name_property_name_idx ON public.impressions_2023_04 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2023_04_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_04_country_code_idx ON public.impressions_2023_04 USING btree (country_code);
+
+
+--
+-- Name: impressions_2023_05_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_05_campaign_name_property_name_idx ON public.impressions_2023_05 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2023_05_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_05_country_code_idx ON public.impressions_2023_05 USING btree (country_code);
+
+
+--
+-- Name: impressions_2023_06_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_06_campaign_name_property_name_idx ON public.impressions_2023_06 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2023_06_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_06_country_code_idx ON public.impressions_2023_06 USING btree (country_code);
+
+
+--
+-- Name: impressions_2023_07_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_07_campaign_name_property_name_idx ON public.impressions_2023_07 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2023_07_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_07_country_code_idx ON public.impressions_2023_07 USING btree (country_code);
+
+
+--
+-- Name: impressions_2023_08_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_08_campaign_name_property_name_idx ON public.impressions_2023_08 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2023_08_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_08_country_code_idx ON public.impressions_2023_08 USING btree (country_code);
+
+
+--
+-- Name: impressions_2023_09_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_09_campaign_name_property_name_idx ON public.impressions_2023_09 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2023_09_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_09_country_code_idx ON public.impressions_2023_09 USING btree (country_code);
+
+
+--
+-- Name: impressions_2023_10_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_10_campaign_name_property_name_idx ON public.impressions_2023_10 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2023_10_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_10_country_code_idx ON public.impressions_2023_10 USING btree (country_code);
+
+
+--
+-- Name: impressions_2023_11_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_11_campaign_name_property_name_idx ON public.impressions_2023_11 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2023_11_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_11_country_code_idx ON public.impressions_2023_11 USING btree (country_code);
+
+
+--
+-- Name: impressions_2023_12_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_12_campaign_name_property_name_idx ON public.impressions_2023_12 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2023_12_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2023_12_country_code_idx ON public.impressions_2023_12 USING btree (country_code);
+
+
+--
+-- Name: impressions_2024_01_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_01_campaign_name_property_name_idx ON public.impressions_2024_01 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2024_01_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_01_country_code_idx ON public.impressions_2024_01 USING btree (country_code);
+
+
+--
+-- Name: impressions_2024_02_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_02_campaign_name_property_name_idx ON public.impressions_2024_02 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2024_02_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_02_country_code_idx ON public.impressions_2024_02 USING btree (country_code);
+
+
+--
+-- Name: impressions_2024_03_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_03_campaign_name_property_name_idx ON public.impressions_2024_03 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2024_03_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_03_country_code_idx ON public.impressions_2024_03 USING btree (country_code);
+
+
+--
+-- Name: impressions_2024_04_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_04_campaign_name_property_name_idx ON public.impressions_2024_04 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2024_04_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_04_country_code_idx ON public.impressions_2024_04 USING btree (country_code);
+
+
+--
+-- Name: impressions_2024_05_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_05_campaign_name_property_name_idx ON public.impressions_2024_05 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2024_05_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_05_country_code_idx ON public.impressions_2024_05 USING btree (country_code);
+
+
+--
+-- Name: impressions_2024_06_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_06_campaign_name_property_name_idx ON public.impressions_2024_06 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2024_06_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_06_country_code_idx ON public.impressions_2024_06 USING btree (country_code);
+
+
+--
+-- Name: impressions_2024_07_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_07_campaign_name_property_name_idx ON public.impressions_2024_07 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2024_07_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_07_country_code_idx ON public.impressions_2024_07 USING btree (country_code);
+
+
+--
+-- Name: impressions_2024_08_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_08_campaign_name_property_name_idx ON public.impressions_2024_08 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2024_08_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_08_country_code_idx ON public.impressions_2024_08 USING btree (country_code);
+
+
+--
+-- Name: impressions_2024_09_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_09_campaign_name_property_name_idx ON public.impressions_2024_09 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2024_09_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_09_country_code_idx ON public.impressions_2024_09 USING btree (country_code);
+
+
+--
+-- Name: impressions_2024_10_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_10_campaign_name_property_name_idx ON public.impressions_2024_10 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2024_10_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_10_country_code_idx ON public.impressions_2024_10 USING btree (country_code);
+
+
+--
+-- Name: impressions_2024_11_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_11_campaign_name_property_name_idx ON public.impressions_2024_11 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2024_11_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_11_country_code_idx ON public.impressions_2024_11 USING btree (country_code);
+
+
+--
+-- Name: impressions_2024_12_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_12_campaign_name_property_name_idx ON public.impressions_2024_12 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2024_12_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2024_12_country_code_idx ON public.impressions_2024_12 USING btree (country_code);
+
+
+--
+-- Name: impressions_2025_01_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_01_campaign_name_property_name_idx ON public.impressions_2025_01 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2025_01_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_01_country_code_idx ON public.impressions_2025_01 USING btree (country_code);
+
+
+--
+-- Name: impressions_2025_02_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_02_campaign_name_property_name_idx ON public.impressions_2025_02 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2025_02_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_02_country_code_idx ON public.impressions_2025_02 USING btree (country_code);
+
+
+--
+-- Name: impressions_2025_03_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_03_campaign_name_property_name_idx ON public.impressions_2025_03 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2025_03_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_03_country_code_idx ON public.impressions_2025_03 USING btree (country_code);
+
+
+--
+-- Name: impressions_2025_04_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_04_campaign_name_property_name_idx ON public.impressions_2025_04 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2025_04_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_04_country_code_idx ON public.impressions_2025_04 USING btree (country_code);
+
+
+--
+-- Name: impressions_2025_05_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_05_campaign_name_property_name_idx ON public.impressions_2025_05 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2025_05_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_05_country_code_idx ON public.impressions_2025_05 USING btree (country_code);
+
+
+--
+-- Name: impressions_2025_06_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_06_campaign_name_property_name_idx ON public.impressions_2025_06 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2025_06_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_06_country_code_idx ON public.impressions_2025_06 USING btree (country_code);
+
+
+--
+-- Name: impressions_2025_07_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_07_campaign_name_property_name_idx ON public.impressions_2025_07 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2025_07_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_07_country_code_idx ON public.impressions_2025_07 USING btree (country_code);
+
+
+--
+-- Name: impressions_2025_08_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_08_campaign_name_property_name_idx ON public.impressions_2025_08 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2025_08_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_08_country_code_idx ON public.impressions_2025_08 USING btree (country_code);
+
+
+--
+-- Name: impressions_2025_09_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_09_campaign_name_property_name_idx ON public.impressions_2025_09 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2025_09_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_09_country_code_idx ON public.impressions_2025_09 USING btree (country_code);
+
+
+--
+-- Name: impressions_2025_10_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_10_campaign_name_property_name_idx ON public.impressions_2025_10 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2025_10_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_10_country_code_idx ON public.impressions_2025_10 USING btree (country_code);
+
+
+--
+-- Name: impressions_2025_11_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_11_campaign_name_property_name_idx ON public.impressions_2025_11 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2025_11_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_11_country_code_idx ON public.impressions_2025_11 USING btree (country_code);
+
+
+--
+-- Name: impressions_2025_12_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_12_campaign_name_property_name_idx ON public.impressions_2025_12 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2025_12_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2025_12_country_code_idx ON public.impressions_2025_12 USING btree (country_code);
+
+
+--
+-- Name: impressions_2026_01_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_01_campaign_name_property_name_idx ON public.impressions_2026_01 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2026_01_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_01_country_code_idx ON public.impressions_2026_01 USING btree (country_code);
+
+
+--
+-- Name: impressions_2026_02_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_02_campaign_name_property_name_idx ON public.impressions_2026_02 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2026_02_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_02_country_code_idx ON public.impressions_2026_02 USING btree (country_code);
+
+
+--
+-- Name: impressions_2026_03_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_03_campaign_name_property_name_idx ON public.impressions_2026_03 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2026_03_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_03_country_code_idx ON public.impressions_2026_03 USING btree (country_code);
+
+
+--
+-- Name: impressions_2026_04_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_04_campaign_name_property_name_idx ON public.impressions_2026_04 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2026_04_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_04_country_code_idx ON public.impressions_2026_04 USING btree (country_code);
+
+
+--
+-- Name: impressions_2026_05_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_05_campaign_name_property_name_idx ON public.impressions_2026_05 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2026_05_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_05_country_code_idx ON public.impressions_2026_05 USING btree (country_code);
+
+
+--
+-- Name: impressions_2026_06_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_06_campaign_name_property_name_idx ON public.impressions_2026_06 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2026_06_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_06_country_code_idx ON public.impressions_2026_06 USING btree (country_code);
+
+
+--
+-- Name: impressions_2026_07_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_07_campaign_name_property_name_idx ON public.impressions_2026_07 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2026_07_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_07_country_code_idx ON public.impressions_2026_07 USING btree (country_code);
+
+
+--
+-- Name: impressions_2026_08_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_08_campaign_name_property_name_idx ON public.impressions_2026_08 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2026_08_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_08_country_code_idx ON public.impressions_2026_08 USING btree (country_code);
+
+
+--
+-- Name: impressions_2026_09_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_09_campaign_name_property_name_idx ON public.impressions_2026_09 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2026_09_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_09_country_code_idx ON public.impressions_2026_09 USING btree (country_code);
+
+
+--
+-- Name: impressions_2026_10_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_10_campaign_name_property_name_idx ON public.impressions_2026_10 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2026_10_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_10_country_code_idx ON public.impressions_2026_10 USING btree (country_code);
+
+
+--
+-- Name: impressions_2026_11_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_11_campaign_name_property_name_idx ON public.impressions_2026_11 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2026_11_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_11_country_code_idx ON public.impressions_2026_11 USING btree (country_code);
+
+
+--
+-- Name: impressions_2026_12_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_12_campaign_name_property_name_idx ON public.impressions_2026_12 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2026_12_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2026_12_country_code_idx ON public.impressions_2026_12 USING btree (country_code);
+
+
+--
+-- Name: impressions_2027_01_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_01_campaign_name_property_name_idx ON public.impressions_2027_01 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2027_01_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_01_country_code_idx ON public.impressions_2027_01 USING btree (country_code);
+
+
+--
+-- Name: impressions_2027_02_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_02_campaign_name_property_name_idx ON public.impressions_2027_02 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2027_02_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_02_country_code_idx ON public.impressions_2027_02 USING btree (country_code);
+
+
+--
+-- Name: impressions_2027_03_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_03_campaign_name_property_name_idx ON public.impressions_2027_03 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2027_03_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_03_country_code_idx ON public.impressions_2027_03 USING btree (country_code);
+
+
+--
+-- Name: impressions_2027_04_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_04_campaign_name_property_name_idx ON public.impressions_2027_04 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2027_04_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_04_country_code_idx ON public.impressions_2027_04 USING btree (country_code);
+
+
+--
+-- Name: impressions_2027_05_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_05_campaign_name_property_name_idx ON public.impressions_2027_05 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2027_05_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_05_country_code_idx ON public.impressions_2027_05 USING btree (country_code);
+
+
+--
+-- Name: impressions_2027_06_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_06_campaign_name_property_name_idx ON public.impressions_2027_06 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2027_06_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_06_country_code_idx ON public.impressions_2027_06 USING btree (country_code);
+
+
+--
+-- Name: impressions_2027_07_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_07_campaign_name_property_name_idx ON public.impressions_2027_07 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2027_07_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_07_country_code_idx ON public.impressions_2027_07 USING btree (country_code);
+
+
+--
+-- Name: impressions_2027_08_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_08_campaign_name_property_name_idx ON public.impressions_2027_08 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2027_08_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_08_country_code_idx ON public.impressions_2027_08 USING btree (country_code);
+
+
+--
+-- Name: impressions_2027_09_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_09_campaign_name_property_name_idx ON public.impressions_2027_09 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2027_09_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_09_country_code_idx ON public.impressions_2027_09 USING btree (country_code);
+
+
+--
+-- Name: impressions_2027_10_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_10_campaign_name_property_name_idx ON public.impressions_2027_10 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2027_10_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_10_country_code_idx ON public.impressions_2027_10 USING btree (country_code);
+
+
+--
+-- Name: impressions_2027_11_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_11_campaign_name_property_name_idx ON public.impressions_2027_11 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2027_11_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_11_country_code_idx ON public.impressions_2027_11 USING btree (country_code);
+
+
+--
+-- Name: impressions_2027_12_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_12_campaign_name_property_name_idx ON public.impressions_2027_12 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2027_12_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2027_12_country_code_idx ON public.impressions_2027_12 USING btree (country_code);
+
+
+--
+-- Name: impressions_2028_01_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_01_campaign_name_property_name_idx ON public.impressions_2028_01 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2028_01_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_01_country_code_idx ON public.impressions_2028_01 USING btree (country_code);
+
+
+--
+-- Name: impressions_2028_02_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_02_campaign_name_property_name_idx ON public.impressions_2028_02 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2028_02_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_02_country_code_idx ON public.impressions_2028_02 USING btree (country_code);
+
+
+--
+-- Name: impressions_2028_03_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_03_campaign_name_property_name_idx ON public.impressions_2028_03 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2028_03_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_03_country_code_idx ON public.impressions_2028_03 USING btree (country_code);
+
+
+--
+-- Name: impressions_2028_04_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_04_campaign_name_property_name_idx ON public.impressions_2028_04 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2028_04_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_04_country_code_idx ON public.impressions_2028_04 USING btree (country_code);
+
+
+--
+-- Name: impressions_2028_05_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_05_campaign_name_property_name_idx ON public.impressions_2028_05 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2028_05_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_05_country_code_idx ON public.impressions_2028_05 USING btree (country_code);
+
+
+--
+-- Name: impressions_2028_06_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_06_campaign_name_property_name_idx ON public.impressions_2028_06 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2028_06_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_06_country_code_idx ON public.impressions_2028_06 USING btree (country_code);
+
+
+--
+-- Name: impressions_2028_07_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_07_campaign_name_property_name_idx ON public.impressions_2028_07 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2028_07_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_07_country_code_idx ON public.impressions_2028_07 USING btree (country_code);
+
+
+--
+-- Name: impressions_2028_08_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_08_campaign_name_property_name_idx ON public.impressions_2028_08 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2028_08_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_08_country_code_idx ON public.impressions_2028_08 USING btree (country_code);
+
+
+--
+-- Name: impressions_2028_09_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_09_campaign_name_property_name_idx ON public.impressions_2028_09 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2028_09_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_09_country_code_idx ON public.impressions_2028_09 USING btree (country_code);
+
+
+--
+-- Name: impressions_2028_10_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_10_campaign_name_property_name_idx ON public.impressions_2028_10 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2028_10_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_10_country_code_idx ON public.impressions_2028_10 USING btree (country_code);
+
+
+--
+-- Name: impressions_2028_11_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_11_campaign_name_property_name_idx ON public.impressions_2028_11 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2028_11_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_11_country_code_idx ON public.impressions_2028_11 USING btree (country_code);
+
+
+--
+-- Name: impressions_2028_12_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_12_campaign_name_property_name_idx ON public.impressions_2028_12 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2028_12_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2028_12_country_code_idx ON public.impressions_2028_12 USING btree (country_code);
+
+
+--
+-- Name: impressions_2029_01_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_01_campaign_name_property_name_idx ON public.impressions_2029_01 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2029_01_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_01_country_code_idx ON public.impressions_2029_01 USING btree (country_code);
+
+
+--
+-- Name: impressions_2029_02_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_02_campaign_name_property_name_idx ON public.impressions_2029_02 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2029_02_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_02_country_code_idx ON public.impressions_2029_02 USING btree (country_code);
+
+
+--
+-- Name: impressions_2029_03_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_03_campaign_name_property_name_idx ON public.impressions_2029_03 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2029_03_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_03_country_code_idx ON public.impressions_2029_03 USING btree (country_code);
+
+
+--
+-- Name: impressions_2029_04_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_04_campaign_name_property_name_idx ON public.impressions_2029_04 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2029_04_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_04_country_code_idx ON public.impressions_2029_04 USING btree (country_code);
+
+
+--
+-- Name: impressions_2029_05_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_05_campaign_name_property_name_idx ON public.impressions_2029_05 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2029_05_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_05_country_code_idx ON public.impressions_2029_05 USING btree (country_code);
+
+
+--
+-- Name: impressions_2029_06_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_06_campaign_name_property_name_idx ON public.impressions_2029_06 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2029_06_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_06_country_code_idx ON public.impressions_2029_06 USING btree (country_code);
+
+
+--
+-- Name: impressions_2029_07_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_07_campaign_name_property_name_idx ON public.impressions_2029_07 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2029_07_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_07_country_code_idx ON public.impressions_2029_07 USING btree (country_code);
+
+
+--
+-- Name: impressions_2029_08_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_08_campaign_name_property_name_idx ON public.impressions_2029_08 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2029_08_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_08_country_code_idx ON public.impressions_2029_08 USING btree (country_code);
+
+
+--
+-- Name: impressions_2029_09_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_09_campaign_name_property_name_idx ON public.impressions_2029_09 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2029_09_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_09_country_code_idx ON public.impressions_2029_09 USING btree (country_code);
+
+
+--
+-- Name: impressions_2029_10_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_10_campaign_name_property_name_idx ON public.impressions_2029_10 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2029_10_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_10_country_code_idx ON public.impressions_2029_10 USING btree (country_code);
+
+
+--
+-- Name: impressions_2029_11_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_11_campaign_name_property_name_idx ON public.impressions_2029_11 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2029_11_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_11_country_code_idx ON public.impressions_2029_11 USING btree (country_code);
+
+
+--
+-- Name: impressions_2029_12_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_12_campaign_name_property_name_idx ON public.impressions_2029_12 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2029_12_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2029_12_country_code_idx ON public.impressions_2029_12 USING btree (country_code);
+
+
+--
+-- Name: impressions_2030_01_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_01_campaign_name_property_name_idx ON public.impressions_2030_01 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2030_01_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_01_country_code_idx ON public.impressions_2030_01 USING btree (country_code);
+
+
+--
+-- Name: impressions_2030_02_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_02_campaign_name_property_name_idx ON public.impressions_2030_02 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2030_02_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_02_country_code_idx ON public.impressions_2030_02 USING btree (country_code);
+
+
+--
+-- Name: impressions_2030_03_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_03_campaign_name_property_name_idx ON public.impressions_2030_03 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2030_03_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_03_country_code_idx ON public.impressions_2030_03 USING btree (country_code);
+
+
+--
+-- Name: impressions_2030_04_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_04_campaign_name_property_name_idx ON public.impressions_2030_04 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2030_04_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_04_country_code_idx ON public.impressions_2030_04 USING btree (country_code);
+
+
+--
+-- Name: impressions_2030_05_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_05_campaign_name_property_name_idx ON public.impressions_2030_05 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2030_05_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_05_country_code_idx ON public.impressions_2030_05 USING btree (country_code);
+
+
+--
+-- Name: impressions_2030_06_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_06_campaign_name_property_name_idx ON public.impressions_2030_06 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2030_06_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_06_country_code_idx ON public.impressions_2030_06 USING btree (country_code);
+
+
+--
+-- Name: impressions_2030_07_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_07_campaign_name_property_name_idx ON public.impressions_2030_07 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2030_07_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_07_country_code_idx ON public.impressions_2030_07 USING btree (country_code);
+
+
+--
+-- Name: impressions_2030_08_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_08_campaign_name_property_name_idx ON public.impressions_2030_08 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2030_08_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_08_country_code_idx ON public.impressions_2030_08 USING btree (country_code);
+
+
+--
+-- Name: impressions_2030_09_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_09_campaign_name_property_name_idx ON public.impressions_2030_09 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2030_09_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_09_country_code_idx ON public.impressions_2030_09 USING btree (country_code);
+
+
+--
+-- Name: impressions_2030_10_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_10_campaign_name_property_name_idx ON public.impressions_2030_10 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2030_10_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_10_country_code_idx ON public.impressions_2030_10 USING btree (country_code);
+
+
+--
+-- Name: impressions_2030_11_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_11_campaign_name_property_name_idx ON public.impressions_2030_11 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2030_11_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_11_country_code_idx ON public.impressions_2030_11 USING btree (country_code);
+
+
+--
+-- Name: impressions_2030_12_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_12_campaign_name_property_name_idx ON public.impressions_2030_12 USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_2030_12_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2030_12_country_code_idx ON public.impressions_2030_12 USING btree (country_code);
+
+
+--
+-- Name: impressions_default_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_campaign_name_property_name_idx ON public.impressions_default USING btree (campaign_name, property_name);
+
+
+--
+-- Name: impressions_default_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_country_code_idx ON public.impressions_default USING btree (country_code);
 
 
 --
@@ -13455,12 +15527,2071 @@ CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unl
 
 
 --
+-- Name: impressions_2018_11_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2018_11_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2018_11_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_11_country_code_idx;
+
+
+--
+-- Name: impressions_2018_12_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2018_12_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2018_12_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_12_country_code_idx;
+
+
+--
+-- Name: impressions_2019_01_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2019_01_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2019_01_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2019_01_country_code_idx;
+
+
+--
+-- Name: impressions_2019_02_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2019_02_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2019_02_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2019_02_country_code_idx;
+
+
+--
+-- Name: impressions_2019_03_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2019_03_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2019_03_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2019_03_country_code_idx;
+
+
+--
+-- Name: impressions_2019_04_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2019_04_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2019_04_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2019_04_country_code_idx;
+
+
+--
+-- Name: impressions_2019_05_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2019_05_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2019_05_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2019_05_country_code_idx;
+
+
+--
+-- Name: impressions_2019_06_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2019_06_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2019_06_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2019_06_country_code_idx;
+
+
+--
+-- Name: impressions_2019_07_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2019_07_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2019_07_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2019_07_country_code_idx;
+
+
+--
+-- Name: impressions_2019_08_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2019_08_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2019_08_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2019_08_country_code_idx;
+
+
+--
+-- Name: impressions_2019_09_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2019_09_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2019_09_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2019_09_country_code_idx;
+
+
+--
+-- Name: impressions_2019_10_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2019_10_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2019_10_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2019_10_country_code_idx;
+
+
+--
+-- Name: impressions_2019_11_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2019_11_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2019_11_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2019_11_country_code_idx;
+
+
+--
+-- Name: impressions_2019_12_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2019_12_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2019_12_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2019_12_country_code_idx;
+
+
+--
+-- Name: impressions_2020_01_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2020_01_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2020_01_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2020_01_country_code_idx;
+
+
+--
+-- Name: impressions_2020_02_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2020_02_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2020_02_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2020_02_country_code_idx;
+
+
+--
+-- Name: impressions_2020_03_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2020_03_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2020_03_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2020_03_country_code_idx;
+
+
+--
+-- Name: impressions_2020_04_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2020_04_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2020_04_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2020_04_country_code_idx;
+
+
+--
+-- Name: impressions_2020_05_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2020_05_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2020_05_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2020_05_country_code_idx;
+
+
+--
+-- Name: impressions_2020_06_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2020_06_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2020_06_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2020_06_country_code_idx;
+
+
+--
+-- Name: impressions_2020_07_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2020_07_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2020_07_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2020_07_country_code_idx;
+
+
+--
+-- Name: impressions_2020_08_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2020_08_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2020_08_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2020_08_country_code_idx;
+
+
+--
+-- Name: impressions_2020_09_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2020_09_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2020_09_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2020_09_country_code_idx;
+
+
+--
+-- Name: impressions_2020_10_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2020_10_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2020_10_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2020_10_country_code_idx;
+
+
+--
+-- Name: impressions_2020_11_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2020_11_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2020_11_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2020_11_country_code_idx;
+
+
+--
+-- Name: impressions_2020_12_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2020_12_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2020_12_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2020_12_country_code_idx;
+
+
+--
+-- Name: impressions_2021_01_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2021_01_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2021_01_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2021_01_country_code_idx;
+
+
+--
+-- Name: impressions_2021_02_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2021_02_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2021_02_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2021_02_country_code_idx;
+
+
+--
+-- Name: impressions_2021_03_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2021_03_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2021_03_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2021_03_country_code_idx;
+
+
+--
+-- Name: impressions_2021_04_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2021_04_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2021_04_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2021_04_country_code_idx;
+
+
+--
+-- Name: impressions_2021_05_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2021_05_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2021_05_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2021_05_country_code_idx;
+
+
+--
+-- Name: impressions_2021_06_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2021_06_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2021_06_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2021_06_country_code_idx;
+
+
+--
+-- Name: impressions_2021_07_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2021_07_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2021_07_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2021_07_country_code_idx;
+
+
+--
+-- Name: impressions_2021_08_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2021_08_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2021_08_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2021_08_country_code_idx;
+
+
+--
+-- Name: impressions_2021_09_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2021_09_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2021_09_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2021_09_country_code_idx;
+
+
+--
+-- Name: impressions_2021_10_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2021_10_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2021_10_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2021_10_country_code_idx;
+
+
+--
+-- Name: impressions_2021_11_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2021_11_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2021_11_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2021_11_country_code_idx;
+
+
+--
+-- Name: impressions_2021_12_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2021_12_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2021_12_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2021_12_country_code_idx;
+
+
+--
+-- Name: impressions_2022_01_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2022_01_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2022_01_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2022_01_country_code_idx;
+
+
+--
+-- Name: impressions_2022_02_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2022_02_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2022_02_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2022_02_country_code_idx;
+
+
+--
+-- Name: impressions_2022_03_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2022_03_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2022_03_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2022_03_country_code_idx;
+
+
+--
+-- Name: impressions_2022_04_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2022_04_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2022_04_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2022_04_country_code_idx;
+
+
+--
+-- Name: impressions_2022_05_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2022_05_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2022_05_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2022_05_country_code_idx;
+
+
+--
+-- Name: impressions_2022_06_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2022_06_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2022_06_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2022_06_country_code_idx;
+
+
+--
+-- Name: impressions_2022_07_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2022_07_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2022_07_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2022_07_country_code_idx;
+
+
+--
+-- Name: impressions_2022_08_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2022_08_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2022_08_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2022_08_country_code_idx;
+
+
+--
+-- Name: impressions_2022_09_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2022_09_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2022_09_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2022_09_country_code_idx;
+
+
+--
+-- Name: impressions_2022_10_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2022_10_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2022_10_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2022_10_country_code_idx;
+
+
+--
+-- Name: impressions_2022_11_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2022_11_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2022_11_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2022_11_country_code_idx;
+
+
+--
+-- Name: impressions_2022_12_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2022_12_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2022_12_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2022_12_country_code_idx;
+
+
+--
+-- Name: impressions_2023_01_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2023_01_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2023_01_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2023_01_country_code_idx;
+
+
+--
+-- Name: impressions_2023_02_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2023_02_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2023_02_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2023_02_country_code_idx;
+
+
+--
+-- Name: impressions_2023_03_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2023_03_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2023_03_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2023_03_country_code_idx;
+
+
+--
+-- Name: impressions_2023_04_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2023_04_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2023_04_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2023_04_country_code_idx;
+
+
+--
+-- Name: impressions_2023_05_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2023_05_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2023_05_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2023_05_country_code_idx;
+
+
+--
+-- Name: impressions_2023_06_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2023_06_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2023_06_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2023_06_country_code_idx;
+
+
+--
+-- Name: impressions_2023_07_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2023_07_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2023_07_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2023_07_country_code_idx;
+
+
+--
+-- Name: impressions_2023_08_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2023_08_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2023_08_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2023_08_country_code_idx;
+
+
+--
+-- Name: impressions_2023_09_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2023_09_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2023_09_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2023_09_country_code_idx;
+
+
+--
+-- Name: impressions_2023_10_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2023_10_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2023_10_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2023_10_country_code_idx;
+
+
+--
+-- Name: impressions_2023_11_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2023_11_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2023_11_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2023_11_country_code_idx;
+
+
+--
+-- Name: impressions_2023_12_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2023_12_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2023_12_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2023_12_country_code_idx;
+
+
+--
+-- Name: impressions_2024_01_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2024_01_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2024_01_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2024_01_country_code_idx;
+
+
+--
+-- Name: impressions_2024_02_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2024_02_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2024_02_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2024_02_country_code_idx;
+
+
+--
+-- Name: impressions_2024_03_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2024_03_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2024_03_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2024_03_country_code_idx;
+
+
+--
+-- Name: impressions_2024_04_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2024_04_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2024_04_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2024_04_country_code_idx;
+
+
+--
+-- Name: impressions_2024_05_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2024_05_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2024_05_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2024_05_country_code_idx;
+
+
+--
+-- Name: impressions_2024_06_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2024_06_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2024_06_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2024_06_country_code_idx;
+
+
+--
+-- Name: impressions_2024_07_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2024_07_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2024_07_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2024_07_country_code_idx;
+
+
+--
+-- Name: impressions_2024_08_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2024_08_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2024_08_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2024_08_country_code_idx;
+
+
+--
+-- Name: impressions_2024_09_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2024_09_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2024_09_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2024_09_country_code_idx;
+
+
+--
+-- Name: impressions_2024_10_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2024_10_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2024_10_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2024_10_country_code_idx;
+
+
+--
+-- Name: impressions_2024_11_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2024_11_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2024_11_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2024_11_country_code_idx;
+
+
+--
+-- Name: impressions_2024_12_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2024_12_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2024_12_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2024_12_country_code_idx;
+
+
+--
+-- Name: impressions_2025_01_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2025_01_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2025_01_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2025_01_country_code_idx;
+
+
+--
+-- Name: impressions_2025_02_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2025_02_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2025_02_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2025_02_country_code_idx;
+
+
+--
+-- Name: impressions_2025_03_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2025_03_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2025_03_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2025_03_country_code_idx;
+
+
+--
+-- Name: impressions_2025_04_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2025_04_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2025_04_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2025_04_country_code_idx;
+
+
+--
+-- Name: impressions_2025_05_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2025_05_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2025_05_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2025_05_country_code_idx;
+
+
+--
+-- Name: impressions_2025_06_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2025_06_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2025_06_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2025_06_country_code_idx;
+
+
+--
+-- Name: impressions_2025_07_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2025_07_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2025_07_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2025_07_country_code_idx;
+
+
+--
+-- Name: impressions_2025_08_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2025_08_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2025_08_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2025_08_country_code_idx;
+
+
+--
+-- Name: impressions_2025_09_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2025_09_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2025_09_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2025_09_country_code_idx;
+
+
+--
+-- Name: impressions_2025_10_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2025_10_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2025_10_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2025_10_country_code_idx;
+
+
+--
+-- Name: impressions_2025_11_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2025_11_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2025_11_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2025_11_country_code_idx;
+
+
+--
+-- Name: impressions_2025_12_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2025_12_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2025_12_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2025_12_country_code_idx;
+
+
+--
+-- Name: impressions_2026_01_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2026_01_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2026_01_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2026_01_country_code_idx;
+
+
+--
+-- Name: impressions_2026_02_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2026_02_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2026_02_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2026_02_country_code_idx;
+
+
+--
+-- Name: impressions_2026_03_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2026_03_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2026_03_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2026_03_country_code_idx;
+
+
+--
+-- Name: impressions_2026_04_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2026_04_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2026_04_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2026_04_country_code_idx;
+
+
+--
+-- Name: impressions_2026_05_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2026_05_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2026_05_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2026_05_country_code_idx;
+
+
+--
+-- Name: impressions_2026_06_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2026_06_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2026_06_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2026_06_country_code_idx;
+
+
+--
+-- Name: impressions_2026_07_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2026_07_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2026_07_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2026_07_country_code_idx;
+
+
+--
+-- Name: impressions_2026_08_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2026_08_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2026_08_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2026_08_country_code_idx;
+
+
+--
+-- Name: impressions_2026_09_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2026_09_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2026_09_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2026_09_country_code_idx;
+
+
+--
+-- Name: impressions_2026_10_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2026_10_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2026_10_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2026_10_country_code_idx;
+
+
+--
+-- Name: impressions_2026_11_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2026_11_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2026_11_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2026_11_country_code_idx;
+
+
+--
+-- Name: impressions_2026_12_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2026_12_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2026_12_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2026_12_country_code_idx;
+
+
+--
+-- Name: impressions_2027_01_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2027_01_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2027_01_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2027_01_country_code_idx;
+
+
+--
+-- Name: impressions_2027_02_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2027_02_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2027_02_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2027_02_country_code_idx;
+
+
+--
+-- Name: impressions_2027_03_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2027_03_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2027_03_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2027_03_country_code_idx;
+
+
+--
+-- Name: impressions_2027_04_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2027_04_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2027_04_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2027_04_country_code_idx;
+
+
+--
+-- Name: impressions_2027_05_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2027_05_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2027_05_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2027_05_country_code_idx;
+
+
+--
+-- Name: impressions_2027_06_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2027_06_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2027_06_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2027_06_country_code_idx;
+
+
+--
+-- Name: impressions_2027_07_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2027_07_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2027_07_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2027_07_country_code_idx;
+
+
+--
+-- Name: impressions_2027_08_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2027_08_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2027_08_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2027_08_country_code_idx;
+
+
+--
+-- Name: impressions_2027_09_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2027_09_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2027_09_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2027_09_country_code_idx;
+
+
+--
+-- Name: impressions_2027_10_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2027_10_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2027_10_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2027_10_country_code_idx;
+
+
+--
+-- Name: impressions_2027_11_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2027_11_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2027_11_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2027_11_country_code_idx;
+
+
+--
+-- Name: impressions_2027_12_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2027_12_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2027_12_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2027_12_country_code_idx;
+
+
+--
+-- Name: impressions_2028_01_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2028_01_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2028_01_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2028_01_country_code_idx;
+
+
+--
+-- Name: impressions_2028_02_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2028_02_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2028_02_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2028_02_country_code_idx;
+
+
+--
+-- Name: impressions_2028_03_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2028_03_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2028_03_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2028_03_country_code_idx;
+
+
+--
+-- Name: impressions_2028_04_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2028_04_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2028_04_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2028_04_country_code_idx;
+
+
+--
+-- Name: impressions_2028_05_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2028_05_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2028_05_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2028_05_country_code_idx;
+
+
+--
+-- Name: impressions_2028_06_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2028_06_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2028_06_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2028_06_country_code_idx;
+
+
+--
+-- Name: impressions_2028_07_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2028_07_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2028_07_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2028_07_country_code_idx;
+
+
+--
+-- Name: impressions_2028_08_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2028_08_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2028_08_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2028_08_country_code_idx;
+
+
+--
+-- Name: impressions_2028_09_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2028_09_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2028_09_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2028_09_country_code_idx;
+
+
+--
+-- Name: impressions_2028_10_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2028_10_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2028_10_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2028_10_country_code_idx;
+
+
+--
+-- Name: impressions_2028_11_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2028_11_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2028_11_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2028_11_country_code_idx;
+
+
+--
+-- Name: impressions_2028_12_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2028_12_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2028_12_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2028_12_country_code_idx;
+
+
+--
+-- Name: impressions_2029_01_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2029_01_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2029_01_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2029_01_country_code_idx;
+
+
+--
+-- Name: impressions_2029_02_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2029_02_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2029_02_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2029_02_country_code_idx;
+
+
+--
+-- Name: impressions_2029_03_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2029_03_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2029_03_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2029_03_country_code_idx;
+
+
+--
+-- Name: impressions_2029_04_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2029_04_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2029_04_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2029_04_country_code_idx;
+
+
+--
+-- Name: impressions_2029_05_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2029_05_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2029_05_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2029_05_country_code_idx;
+
+
+--
+-- Name: impressions_2029_06_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2029_06_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2029_06_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2029_06_country_code_idx;
+
+
+--
+-- Name: impressions_2029_07_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2029_07_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2029_07_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2029_07_country_code_idx;
+
+
+--
+-- Name: impressions_2029_08_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2029_08_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2029_08_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2029_08_country_code_idx;
+
+
+--
+-- Name: impressions_2029_09_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2029_09_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2029_09_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2029_09_country_code_idx;
+
+
+--
+-- Name: impressions_2029_10_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2029_10_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2029_10_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2029_10_country_code_idx;
+
+
+--
+-- Name: impressions_2029_11_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2029_11_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2029_11_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2029_11_country_code_idx;
+
+
+--
+-- Name: impressions_2029_12_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2029_12_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2029_12_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2029_12_country_code_idx;
+
+
+--
+-- Name: impressions_2030_01_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2030_01_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2030_01_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2030_01_country_code_idx;
+
+
+--
+-- Name: impressions_2030_02_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2030_02_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2030_02_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2030_02_country_code_idx;
+
+
+--
+-- Name: impressions_2030_03_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2030_03_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2030_03_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2030_03_country_code_idx;
+
+
+--
+-- Name: impressions_2030_04_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2030_04_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2030_04_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2030_04_country_code_idx;
+
+
+--
+-- Name: impressions_2030_05_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2030_05_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2030_05_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2030_05_country_code_idx;
+
+
+--
+-- Name: impressions_2030_06_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2030_06_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2030_06_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2030_06_country_code_idx;
+
+
+--
+-- Name: impressions_2030_07_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2030_07_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2030_07_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2030_07_country_code_idx;
+
+
+--
+-- Name: impressions_2030_08_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2030_08_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2030_08_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2030_08_country_code_idx;
+
+
+--
+-- Name: impressions_2030_09_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2030_09_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2030_09_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2030_09_country_code_idx;
+
+
+--
+-- Name: impressions_2030_10_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2030_10_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2030_10_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2030_10_country_code_idx;
+
+
+--
+-- Name: impressions_2030_11_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2030_11_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2030_11_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2030_11_country_code_idx;
+
+
+--
+-- Name: impressions_2030_12_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_2030_12_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_2030_12_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2030_12_country_code_idx;
+
+
+--
+-- Name: impressions_default_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_default_campaign_name_property_name_idx;
+
+
+--
+-- Name: impressions_default_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_default_country_code_idx;
+
+
+--
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20181017152837');
+('20181017152837'),
+('20181123143528');
 
 

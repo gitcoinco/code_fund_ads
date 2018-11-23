@@ -9,7 +9,7 @@
 #  property_name     :string
 #  ip                :string
 #  user_agent        :text
-#  country           :string
+#  country_code      :string
 #  postal_code       :string
 #  latitude          :decimal(, )
 #  longitude         :decimal(, )
