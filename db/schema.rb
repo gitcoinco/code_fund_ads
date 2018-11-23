@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_16_155623) do
+ActiveRecord::Schema.define(version: 2018_11_23_143528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -99,10 +99,12 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
   create_table "impressions", id: false, force: :cascade do |t|
     t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -116,10 +118,12 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
 
   create_table "impressions_2018_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -131,17 +135,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2018_11_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2018_11_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2018_11_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2018_11_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2018_11_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2018_11_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2018_11_on_payable"
     t.index ["property_id"], name: "index_impressions_2018_11_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2018_11_on_property_name"
   end
 
   create_table "impressions_2018_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -153,17 +163,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2018_12_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2018_12_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2018_12_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2018_12_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2018_12_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2018_12_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2018_12_on_payable"
     t.index ["property_id"], name: "index_impressions_2018_12_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2018_12_on_property_name"
   end
 
   create_table "impressions_2019_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -175,17 +191,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_01_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2019_01_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2019_01_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2019_01_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2019_01_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2019_01_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2019_01_on_payable"
     t.index ["property_id"], name: "index_impressions_2019_01_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2019_01_on_property_name"
   end
 
   create_table "impressions_2019_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -197,17 +219,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_02_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2019_02_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2019_02_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2019_02_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2019_02_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2019_02_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2019_02_on_payable"
     t.index ["property_id"], name: "index_impressions_2019_02_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2019_02_on_property_name"
   end
 
   create_table "impressions_2019_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -219,17 +247,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_03_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2019_03_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2019_03_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2019_03_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2019_03_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2019_03_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2019_03_on_payable"
     t.index ["property_id"], name: "index_impressions_2019_03_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2019_03_on_property_name"
   end
 
   create_table "impressions_2019_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -241,17 +275,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_04_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2019_04_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2019_04_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2019_04_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2019_04_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2019_04_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2019_04_on_payable"
     t.index ["property_id"], name: "index_impressions_2019_04_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2019_04_on_property_name"
   end
 
   create_table "impressions_2019_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -263,17 +303,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_05_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2019_05_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2019_05_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2019_05_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2019_05_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2019_05_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2019_05_on_payable"
     t.index ["property_id"], name: "index_impressions_2019_05_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2019_05_on_property_name"
   end
 
   create_table "impressions_2019_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -285,17 +331,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_06_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2019_06_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2019_06_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2019_06_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2019_06_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2019_06_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2019_06_on_payable"
     t.index ["property_id"], name: "index_impressions_2019_06_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2019_06_on_property_name"
   end
 
   create_table "impressions_2019_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -307,17 +359,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_07_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2019_07_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2019_07_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2019_07_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2019_07_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2019_07_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2019_07_on_payable"
     t.index ["property_id"], name: "index_impressions_2019_07_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2019_07_on_property_name"
   end
 
   create_table "impressions_2019_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -329,17 +387,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_08_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2019_08_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2019_08_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2019_08_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2019_08_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2019_08_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2019_08_on_payable"
     t.index ["property_id"], name: "index_impressions_2019_08_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2019_08_on_property_name"
   end
 
   create_table "impressions_2019_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -351,17 +415,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_09_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2019_09_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2019_09_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2019_09_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2019_09_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2019_09_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2019_09_on_payable"
     t.index ["property_id"], name: "index_impressions_2019_09_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2019_09_on_property_name"
   end
 
   create_table "impressions_2019_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -373,17 +443,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_10_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2019_10_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2019_10_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2019_10_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2019_10_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2019_10_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2019_10_on_payable"
     t.index ["property_id"], name: "index_impressions_2019_10_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2019_10_on_property_name"
   end
 
   create_table "impressions_2019_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -395,17 +471,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_11_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2019_11_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2019_11_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2019_11_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2019_11_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2019_11_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2019_11_on_payable"
     t.index ["property_id"], name: "index_impressions_2019_11_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2019_11_on_property_name"
   end
 
   create_table "impressions_2019_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -417,17 +499,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2019_12_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2019_12_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2019_12_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2019_12_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2019_12_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2019_12_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2019_12_on_payable"
     t.index ["property_id"], name: "index_impressions_2019_12_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2019_12_on_property_name"
   end
 
   create_table "impressions_2020_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -439,17 +527,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_01_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2020_01_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2020_01_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2020_01_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2020_01_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2020_01_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2020_01_on_payable"
     t.index ["property_id"], name: "index_impressions_2020_01_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2020_01_on_property_name"
   end
 
   create_table "impressions_2020_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -461,17 +555,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_02_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2020_02_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2020_02_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2020_02_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2020_02_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2020_02_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2020_02_on_payable"
     t.index ["property_id"], name: "index_impressions_2020_02_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2020_02_on_property_name"
   end
 
   create_table "impressions_2020_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -483,17 +583,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_03_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2020_03_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2020_03_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2020_03_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2020_03_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2020_03_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2020_03_on_payable"
     t.index ["property_id"], name: "index_impressions_2020_03_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2020_03_on_property_name"
   end
 
   create_table "impressions_2020_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -505,17 +611,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_04_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2020_04_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2020_04_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2020_04_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2020_04_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2020_04_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2020_04_on_payable"
     t.index ["property_id"], name: "index_impressions_2020_04_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2020_04_on_property_name"
   end
 
   create_table "impressions_2020_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -527,17 +639,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_05_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2020_05_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2020_05_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2020_05_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2020_05_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2020_05_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2020_05_on_payable"
     t.index ["property_id"], name: "index_impressions_2020_05_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2020_05_on_property_name"
   end
 
   create_table "impressions_2020_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -549,17 +667,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_06_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2020_06_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2020_06_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2020_06_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2020_06_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2020_06_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2020_06_on_payable"
     t.index ["property_id"], name: "index_impressions_2020_06_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2020_06_on_property_name"
   end
 
   create_table "impressions_2020_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -571,17 +695,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_07_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2020_07_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2020_07_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2020_07_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2020_07_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2020_07_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2020_07_on_payable"
     t.index ["property_id"], name: "index_impressions_2020_07_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2020_07_on_property_name"
   end
 
   create_table "impressions_2020_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -593,17 +723,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_08_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2020_08_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2020_08_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2020_08_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2020_08_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2020_08_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2020_08_on_payable"
     t.index ["property_id"], name: "index_impressions_2020_08_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2020_08_on_property_name"
   end
 
   create_table "impressions_2020_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -615,17 +751,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_09_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2020_09_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2020_09_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2020_09_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2020_09_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2020_09_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2020_09_on_payable"
     t.index ["property_id"], name: "index_impressions_2020_09_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2020_09_on_property_name"
   end
 
   create_table "impressions_2020_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -637,17 +779,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_10_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2020_10_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2020_10_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2020_10_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2020_10_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2020_10_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2020_10_on_payable"
     t.index ["property_id"], name: "index_impressions_2020_10_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2020_10_on_property_name"
   end
 
   create_table "impressions_2020_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -659,17 +807,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_11_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2020_11_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2020_11_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2020_11_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2020_11_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2020_11_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2020_11_on_payable"
     t.index ["property_id"], name: "index_impressions_2020_11_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2020_11_on_property_name"
   end
 
   create_table "impressions_2020_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -681,17 +835,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2020_12_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2020_12_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2020_12_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2020_12_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2020_12_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2020_12_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2020_12_on_payable"
     t.index ["property_id"], name: "index_impressions_2020_12_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2020_12_on_property_name"
   end
 
   create_table "impressions_2021_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -703,17 +863,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_01_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2021_01_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2021_01_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2021_01_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2021_01_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2021_01_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2021_01_on_payable"
     t.index ["property_id"], name: "index_impressions_2021_01_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2021_01_on_property_name"
   end
 
   create_table "impressions_2021_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -725,17 +891,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_02_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2021_02_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2021_02_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2021_02_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2021_02_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2021_02_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2021_02_on_payable"
     t.index ["property_id"], name: "index_impressions_2021_02_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2021_02_on_property_name"
   end
 
   create_table "impressions_2021_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -747,17 +919,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_03_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2021_03_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2021_03_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2021_03_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2021_03_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2021_03_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2021_03_on_payable"
     t.index ["property_id"], name: "index_impressions_2021_03_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2021_03_on_property_name"
   end
 
   create_table "impressions_2021_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -769,17 +947,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_04_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2021_04_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2021_04_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2021_04_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2021_04_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2021_04_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2021_04_on_payable"
     t.index ["property_id"], name: "index_impressions_2021_04_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2021_04_on_property_name"
   end
 
   create_table "impressions_2021_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -791,17 +975,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_05_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2021_05_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2021_05_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2021_05_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2021_05_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2021_05_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2021_05_on_payable"
     t.index ["property_id"], name: "index_impressions_2021_05_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2021_05_on_property_name"
   end
 
   create_table "impressions_2021_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -813,17 +1003,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_06_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2021_06_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2021_06_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2021_06_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2021_06_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2021_06_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2021_06_on_payable"
     t.index ["property_id"], name: "index_impressions_2021_06_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2021_06_on_property_name"
   end
 
   create_table "impressions_2021_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -835,17 +1031,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_07_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2021_07_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2021_07_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2021_07_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2021_07_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2021_07_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2021_07_on_payable"
     t.index ["property_id"], name: "index_impressions_2021_07_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2021_07_on_property_name"
   end
 
   create_table "impressions_2021_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -857,17 +1059,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_08_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2021_08_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2021_08_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2021_08_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2021_08_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2021_08_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2021_08_on_payable"
     t.index ["property_id"], name: "index_impressions_2021_08_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2021_08_on_property_name"
   end
 
   create_table "impressions_2021_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -879,17 +1087,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_09_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2021_09_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2021_09_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2021_09_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2021_09_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2021_09_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2021_09_on_payable"
     t.index ["property_id"], name: "index_impressions_2021_09_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2021_09_on_property_name"
   end
 
   create_table "impressions_2021_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -901,17 +1115,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_10_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2021_10_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2021_10_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2021_10_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2021_10_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2021_10_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2021_10_on_payable"
     t.index ["property_id"], name: "index_impressions_2021_10_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2021_10_on_property_name"
   end
 
   create_table "impressions_2021_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -923,17 +1143,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_11_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2021_11_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2021_11_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2021_11_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2021_11_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2021_11_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2021_11_on_payable"
     t.index ["property_id"], name: "index_impressions_2021_11_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2021_11_on_property_name"
   end
 
   create_table "impressions_2021_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -945,17 +1171,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2021_12_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2021_12_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2021_12_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2021_12_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2021_12_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2021_12_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2021_12_on_payable"
     t.index ["property_id"], name: "index_impressions_2021_12_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2021_12_on_property_name"
   end
 
   create_table "impressions_2022_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -967,17 +1199,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_01_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2022_01_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2022_01_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2022_01_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2022_01_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2022_01_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2022_01_on_payable"
     t.index ["property_id"], name: "index_impressions_2022_01_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2022_01_on_property_name"
   end
 
   create_table "impressions_2022_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -989,17 +1227,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_02_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2022_02_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2022_02_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2022_02_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2022_02_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2022_02_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2022_02_on_payable"
     t.index ["property_id"], name: "index_impressions_2022_02_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2022_02_on_property_name"
   end
 
   create_table "impressions_2022_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1011,17 +1255,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_03_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2022_03_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2022_03_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2022_03_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2022_03_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2022_03_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2022_03_on_payable"
     t.index ["property_id"], name: "index_impressions_2022_03_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2022_03_on_property_name"
   end
 
   create_table "impressions_2022_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1033,17 +1283,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_04_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2022_04_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2022_04_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2022_04_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2022_04_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2022_04_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2022_04_on_payable"
     t.index ["property_id"], name: "index_impressions_2022_04_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2022_04_on_property_name"
   end
 
   create_table "impressions_2022_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1055,17 +1311,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_05_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2022_05_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2022_05_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2022_05_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2022_05_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2022_05_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2022_05_on_payable"
     t.index ["property_id"], name: "index_impressions_2022_05_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2022_05_on_property_name"
   end
 
   create_table "impressions_2022_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1077,17 +1339,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_06_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2022_06_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2022_06_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2022_06_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2022_06_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2022_06_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2022_06_on_payable"
     t.index ["property_id"], name: "index_impressions_2022_06_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2022_06_on_property_name"
   end
 
   create_table "impressions_2022_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1099,17 +1367,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_07_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2022_07_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2022_07_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2022_07_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2022_07_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2022_07_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2022_07_on_payable"
     t.index ["property_id"], name: "index_impressions_2022_07_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2022_07_on_property_name"
   end
 
   create_table "impressions_2022_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1121,17 +1395,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_08_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2022_08_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2022_08_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2022_08_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2022_08_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2022_08_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2022_08_on_payable"
     t.index ["property_id"], name: "index_impressions_2022_08_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2022_08_on_property_name"
   end
 
   create_table "impressions_2022_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1143,17 +1423,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_09_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2022_09_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2022_09_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2022_09_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2022_09_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2022_09_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2022_09_on_payable"
     t.index ["property_id"], name: "index_impressions_2022_09_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2022_09_on_property_name"
   end
 
   create_table "impressions_2022_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1165,17 +1451,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_10_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2022_10_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2022_10_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2022_10_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2022_10_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2022_10_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2022_10_on_payable"
     t.index ["property_id"], name: "index_impressions_2022_10_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2022_10_on_property_name"
   end
 
   create_table "impressions_2022_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1187,17 +1479,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_11_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2022_11_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2022_11_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2022_11_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2022_11_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2022_11_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2022_11_on_payable"
     t.index ["property_id"], name: "index_impressions_2022_11_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2022_11_on_property_name"
   end
 
   create_table "impressions_2022_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1209,17 +1507,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2022_12_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2022_12_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2022_12_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2022_12_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2022_12_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2022_12_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2022_12_on_payable"
     t.index ["property_id"], name: "index_impressions_2022_12_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2022_12_on_property_name"
   end
 
   create_table "impressions_2023_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1231,17 +1535,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_01_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2023_01_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2023_01_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2023_01_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2023_01_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2023_01_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2023_01_on_payable"
     t.index ["property_id"], name: "index_impressions_2023_01_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2023_01_on_property_name"
   end
 
   create_table "impressions_2023_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1253,17 +1563,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_02_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2023_02_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2023_02_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2023_02_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2023_02_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2023_02_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2023_02_on_payable"
     t.index ["property_id"], name: "index_impressions_2023_02_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2023_02_on_property_name"
   end
 
   create_table "impressions_2023_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1275,17 +1591,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_03_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2023_03_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2023_03_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2023_03_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2023_03_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2023_03_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2023_03_on_payable"
     t.index ["property_id"], name: "index_impressions_2023_03_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2023_03_on_property_name"
   end
 
   create_table "impressions_2023_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1297,17 +1619,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_04_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2023_04_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2023_04_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2023_04_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2023_04_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2023_04_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2023_04_on_payable"
     t.index ["property_id"], name: "index_impressions_2023_04_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2023_04_on_property_name"
   end
 
   create_table "impressions_2023_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1319,17 +1647,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_05_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2023_05_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2023_05_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2023_05_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2023_05_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2023_05_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2023_05_on_payable"
     t.index ["property_id"], name: "index_impressions_2023_05_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2023_05_on_property_name"
   end
 
   create_table "impressions_2023_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1341,17 +1675,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_06_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2023_06_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2023_06_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2023_06_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2023_06_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2023_06_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2023_06_on_payable"
     t.index ["property_id"], name: "index_impressions_2023_06_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2023_06_on_property_name"
   end
 
   create_table "impressions_2023_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1363,17 +1703,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_07_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2023_07_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2023_07_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2023_07_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2023_07_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2023_07_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2023_07_on_payable"
     t.index ["property_id"], name: "index_impressions_2023_07_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2023_07_on_property_name"
   end
 
   create_table "impressions_2023_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1385,17 +1731,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_08_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2023_08_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2023_08_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2023_08_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2023_08_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2023_08_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2023_08_on_payable"
     t.index ["property_id"], name: "index_impressions_2023_08_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2023_08_on_property_name"
   end
 
   create_table "impressions_2023_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1407,17 +1759,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_09_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2023_09_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2023_09_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2023_09_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2023_09_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2023_09_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2023_09_on_payable"
     t.index ["property_id"], name: "index_impressions_2023_09_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2023_09_on_property_name"
   end
 
   create_table "impressions_2023_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1429,17 +1787,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_10_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2023_10_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2023_10_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2023_10_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2023_10_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2023_10_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2023_10_on_payable"
     t.index ["property_id"], name: "index_impressions_2023_10_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2023_10_on_property_name"
   end
 
   create_table "impressions_2023_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1451,17 +1815,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_11_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2023_11_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2023_11_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2023_11_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2023_11_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2023_11_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2023_11_on_payable"
     t.index ["property_id"], name: "index_impressions_2023_11_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2023_11_on_property_name"
   end
 
   create_table "impressions_2023_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1473,17 +1843,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2023_12_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2023_12_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2023_12_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2023_12_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2023_12_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2023_12_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2023_12_on_payable"
     t.index ["property_id"], name: "index_impressions_2023_12_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2023_12_on_property_name"
   end
 
   create_table "impressions_2024_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1495,17 +1871,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_01_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2024_01_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2024_01_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2024_01_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2024_01_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2024_01_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2024_01_on_payable"
     t.index ["property_id"], name: "index_impressions_2024_01_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2024_01_on_property_name"
   end
 
   create_table "impressions_2024_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1517,17 +1899,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_02_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2024_02_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2024_02_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2024_02_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2024_02_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2024_02_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2024_02_on_payable"
     t.index ["property_id"], name: "index_impressions_2024_02_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2024_02_on_property_name"
   end
 
   create_table "impressions_2024_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1539,17 +1927,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_03_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2024_03_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2024_03_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2024_03_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2024_03_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2024_03_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2024_03_on_payable"
     t.index ["property_id"], name: "index_impressions_2024_03_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2024_03_on_property_name"
   end
 
   create_table "impressions_2024_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1561,17 +1955,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_04_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2024_04_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2024_04_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2024_04_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2024_04_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2024_04_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2024_04_on_payable"
     t.index ["property_id"], name: "index_impressions_2024_04_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2024_04_on_property_name"
   end
 
   create_table "impressions_2024_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1583,17 +1983,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_05_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2024_05_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2024_05_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2024_05_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2024_05_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2024_05_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2024_05_on_payable"
     t.index ["property_id"], name: "index_impressions_2024_05_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2024_05_on_property_name"
   end
 
   create_table "impressions_2024_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1605,17 +2011,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_06_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2024_06_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2024_06_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2024_06_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2024_06_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2024_06_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2024_06_on_payable"
     t.index ["property_id"], name: "index_impressions_2024_06_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2024_06_on_property_name"
   end
 
   create_table "impressions_2024_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1627,17 +2039,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_07_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2024_07_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2024_07_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2024_07_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2024_07_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2024_07_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2024_07_on_payable"
     t.index ["property_id"], name: "index_impressions_2024_07_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2024_07_on_property_name"
   end
 
   create_table "impressions_2024_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1649,17 +2067,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_08_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2024_08_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2024_08_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2024_08_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2024_08_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2024_08_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2024_08_on_payable"
     t.index ["property_id"], name: "index_impressions_2024_08_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2024_08_on_property_name"
   end
 
   create_table "impressions_2024_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1671,17 +2095,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_09_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2024_09_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2024_09_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2024_09_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2024_09_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2024_09_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2024_09_on_payable"
     t.index ["property_id"], name: "index_impressions_2024_09_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2024_09_on_property_name"
   end
 
   create_table "impressions_2024_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1693,17 +2123,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_10_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2024_10_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2024_10_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2024_10_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2024_10_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2024_10_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2024_10_on_payable"
     t.index ["property_id"], name: "index_impressions_2024_10_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2024_10_on_property_name"
   end
 
   create_table "impressions_2024_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1715,17 +2151,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_11_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2024_11_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2024_11_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2024_11_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2024_11_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2024_11_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2024_11_on_payable"
     t.index ["property_id"], name: "index_impressions_2024_11_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2024_11_on_property_name"
   end
 
   create_table "impressions_2024_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1737,17 +2179,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2024_12_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2024_12_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2024_12_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2024_12_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2024_12_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2024_12_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2024_12_on_payable"
     t.index ["property_id"], name: "index_impressions_2024_12_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2024_12_on_property_name"
   end
 
   create_table "impressions_2025_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1759,17 +2207,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_01_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2025_01_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2025_01_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2025_01_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2025_01_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2025_01_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2025_01_on_payable"
     t.index ["property_id"], name: "index_impressions_2025_01_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2025_01_on_property_name"
   end
 
   create_table "impressions_2025_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1781,17 +2235,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_02_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2025_02_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2025_02_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2025_02_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2025_02_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2025_02_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2025_02_on_payable"
     t.index ["property_id"], name: "index_impressions_2025_02_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2025_02_on_property_name"
   end
 
   create_table "impressions_2025_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1803,17 +2263,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_03_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2025_03_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2025_03_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2025_03_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2025_03_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2025_03_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2025_03_on_payable"
     t.index ["property_id"], name: "index_impressions_2025_03_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2025_03_on_property_name"
   end
 
   create_table "impressions_2025_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1825,17 +2291,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_04_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2025_04_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2025_04_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2025_04_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2025_04_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2025_04_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2025_04_on_payable"
     t.index ["property_id"], name: "index_impressions_2025_04_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2025_04_on_property_name"
   end
 
   create_table "impressions_2025_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1847,17 +2319,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_05_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2025_05_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2025_05_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2025_05_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2025_05_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2025_05_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2025_05_on_payable"
     t.index ["property_id"], name: "index_impressions_2025_05_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2025_05_on_property_name"
   end
 
   create_table "impressions_2025_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1869,17 +2347,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_06_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2025_06_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2025_06_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2025_06_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2025_06_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2025_06_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2025_06_on_payable"
     t.index ["property_id"], name: "index_impressions_2025_06_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2025_06_on_property_name"
   end
 
   create_table "impressions_2025_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1891,17 +2375,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_07_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2025_07_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2025_07_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2025_07_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2025_07_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2025_07_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2025_07_on_payable"
     t.index ["property_id"], name: "index_impressions_2025_07_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2025_07_on_property_name"
   end
 
   create_table "impressions_2025_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1913,17 +2403,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_08_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2025_08_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2025_08_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2025_08_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2025_08_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2025_08_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2025_08_on_payable"
     t.index ["property_id"], name: "index_impressions_2025_08_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2025_08_on_property_name"
   end
 
   create_table "impressions_2025_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1935,17 +2431,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_09_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2025_09_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2025_09_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2025_09_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2025_09_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2025_09_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2025_09_on_payable"
     t.index ["property_id"], name: "index_impressions_2025_09_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2025_09_on_property_name"
   end
 
   create_table "impressions_2025_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1957,17 +2459,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_10_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2025_10_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2025_10_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2025_10_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2025_10_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2025_10_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2025_10_on_payable"
     t.index ["property_id"], name: "index_impressions_2025_10_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2025_10_on_property_name"
   end
 
   create_table "impressions_2025_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -1979,17 +2487,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_11_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2025_11_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2025_11_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2025_11_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2025_11_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2025_11_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2025_11_on_payable"
     t.index ["property_id"], name: "index_impressions_2025_11_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2025_11_on_property_name"
   end
 
   create_table "impressions_2025_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2001,17 +2515,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2025_12_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2025_12_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2025_12_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2025_12_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2025_12_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2025_12_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2025_12_on_payable"
     t.index ["property_id"], name: "index_impressions_2025_12_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2025_12_on_property_name"
   end
 
   create_table "impressions_2026_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2023,17 +2543,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_01_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2026_01_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2026_01_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2026_01_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2026_01_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2026_01_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2026_01_on_payable"
     t.index ["property_id"], name: "index_impressions_2026_01_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2026_01_on_property_name"
   end
 
   create_table "impressions_2026_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2045,17 +2571,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_02_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2026_02_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2026_02_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2026_02_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2026_02_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2026_02_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2026_02_on_payable"
     t.index ["property_id"], name: "index_impressions_2026_02_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2026_02_on_property_name"
   end
 
   create_table "impressions_2026_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2067,17 +2599,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_03_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2026_03_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2026_03_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2026_03_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2026_03_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2026_03_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2026_03_on_payable"
     t.index ["property_id"], name: "index_impressions_2026_03_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2026_03_on_property_name"
   end
 
   create_table "impressions_2026_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2089,17 +2627,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_04_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2026_04_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2026_04_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2026_04_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2026_04_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2026_04_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2026_04_on_payable"
     t.index ["property_id"], name: "index_impressions_2026_04_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2026_04_on_property_name"
   end
 
   create_table "impressions_2026_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2111,17 +2655,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_05_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2026_05_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2026_05_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2026_05_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2026_05_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2026_05_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2026_05_on_payable"
     t.index ["property_id"], name: "index_impressions_2026_05_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2026_05_on_property_name"
   end
 
   create_table "impressions_2026_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2133,17 +2683,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_06_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2026_06_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2026_06_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2026_06_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2026_06_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2026_06_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2026_06_on_payable"
     t.index ["property_id"], name: "index_impressions_2026_06_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2026_06_on_property_name"
   end
 
   create_table "impressions_2026_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2155,17 +2711,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_07_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2026_07_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2026_07_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2026_07_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2026_07_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2026_07_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2026_07_on_payable"
     t.index ["property_id"], name: "index_impressions_2026_07_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2026_07_on_property_name"
   end
 
   create_table "impressions_2026_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2177,17 +2739,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_08_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2026_08_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2026_08_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2026_08_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2026_08_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2026_08_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2026_08_on_payable"
     t.index ["property_id"], name: "index_impressions_2026_08_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2026_08_on_property_name"
   end
 
   create_table "impressions_2026_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2199,17 +2767,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_09_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2026_09_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2026_09_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2026_09_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2026_09_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2026_09_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2026_09_on_payable"
     t.index ["property_id"], name: "index_impressions_2026_09_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2026_09_on_property_name"
   end
 
   create_table "impressions_2026_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2221,17 +2795,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_10_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2026_10_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2026_10_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2026_10_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2026_10_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2026_10_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2026_10_on_payable"
     t.index ["property_id"], name: "index_impressions_2026_10_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2026_10_on_property_name"
   end
 
   create_table "impressions_2026_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2243,17 +2823,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_11_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2026_11_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2026_11_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2026_11_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2026_11_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2026_11_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2026_11_on_payable"
     t.index ["property_id"], name: "index_impressions_2026_11_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2026_11_on_property_name"
   end
 
   create_table "impressions_2026_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2265,17 +2851,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2026_12_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2026_12_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2026_12_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2026_12_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2026_12_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2026_12_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2026_12_on_payable"
     t.index ["property_id"], name: "index_impressions_2026_12_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2026_12_on_property_name"
   end
 
   create_table "impressions_2027_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2287,17 +2879,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_01_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2027_01_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2027_01_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2027_01_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2027_01_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2027_01_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2027_01_on_payable"
     t.index ["property_id"], name: "index_impressions_2027_01_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2027_01_on_property_name"
   end
 
   create_table "impressions_2027_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2309,17 +2907,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_02_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2027_02_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2027_02_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2027_02_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2027_02_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2027_02_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2027_02_on_payable"
     t.index ["property_id"], name: "index_impressions_2027_02_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2027_02_on_property_name"
   end
 
   create_table "impressions_2027_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2331,17 +2935,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_03_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2027_03_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2027_03_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2027_03_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2027_03_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2027_03_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2027_03_on_payable"
     t.index ["property_id"], name: "index_impressions_2027_03_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2027_03_on_property_name"
   end
 
   create_table "impressions_2027_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2353,17 +2963,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_04_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2027_04_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2027_04_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2027_04_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2027_04_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2027_04_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2027_04_on_payable"
     t.index ["property_id"], name: "index_impressions_2027_04_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2027_04_on_property_name"
   end
 
   create_table "impressions_2027_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2375,17 +2991,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_05_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2027_05_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2027_05_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2027_05_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2027_05_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2027_05_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2027_05_on_payable"
     t.index ["property_id"], name: "index_impressions_2027_05_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2027_05_on_property_name"
   end
 
   create_table "impressions_2027_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2397,17 +3019,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_06_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2027_06_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2027_06_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2027_06_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2027_06_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2027_06_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2027_06_on_payable"
     t.index ["property_id"], name: "index_impressions_2027_06_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2027_06_on_property_name"
   end
 
   create_table "impressions_2027_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2419,17 +3047,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_07_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2027_07_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2027_07_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2027_07_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2027_07_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2027_07_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2027_07_on_payable"
     t.index ["property_id"], name: "index_impressions_2027_07_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2027_07_on_property_name"
   end
 
   create_table "impressions_2027_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2441,17 +3075,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_08_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2027_08_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2027_08_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2027_08_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2027_08_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2027_08_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2027_08_on_payable"
     t.index ["property_id"], name: "index_impressions_2027_08_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2027_08_on_property_name"
   end
 
   create_table "impressions_2027_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2463,17 +3103,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_09_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2027_09_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2027_09_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2027_09_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2027_09_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2027_09_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2027_09_on_payable"
     t.index ["property_id"], name: "index_impressions_2027_09_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2027_09_on_property_name"
   end
 
   create_table "impressions_2027_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2485,17 +3131,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_10_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2027_10_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2027_10_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2027_10_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2027_10_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2027_10_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2027_10_on_payable"
     t.index ["property_id"], name: "index_impressions_2027_10_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2027_10_on_property_name"
   end
 
   create_table "impressions_2027_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2507,17 +3159,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_11_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2027_11_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2027_11_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2027_11_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2027_11_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2027_11_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2027_11_on_payable"
     t.index ["property_id"], name: "index_impressions_2027_11_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2027_11_on_property_name"
   end
 
   create_table "impressions_2027_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2529,17 +3187,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2027_12_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2027_12_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2027_12_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2027_12_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2027_12_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2027_12_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2027_12_on_payable"
     t.index ["property_id"], name: "index_impressions_2027_12_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2027_12_on_property_name"
   end
 
   create_table "impressions_2028_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2551,17 +3215,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_01_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2028_01_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2028_01_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2028_01_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2028_01_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2028_01_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2028_01_on_payable"
     t.index ["property_id"], name: "index_impressions_2028_01_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2028_01_on_property_name"
   end
 
   create_table "impressions_2028_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2573,17 +3243,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_02_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2028_02_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2028_02_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2028_02_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2028_02_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2028_02_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2028_02_on_payable"
     t.index ["property_id"], name: "index_impressions_2028_02_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2028_02_on_property_name"
   end
 
   create_table "impressions_2028_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2595,17 +3271,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_03_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2028_03_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2028_03_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2028_03_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2028_03_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2028_03_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2028_03_on_payable"
     t.index ["property_id"], name: "index_impressions_2028_03_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2028_03_on_property_name"
   end
 
   create_table "impressions_2028_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2617,17 +3299,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_04_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2028_04_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2028_04_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2028_04_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2028_04_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2028_04_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2028_04_on_payable"
     t.index ["property_id"], name: "index_impressions_2028_04_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2028_04_on_property_name"
   end
 
   create_table "impressions_2028_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2639,17 +3327,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_05_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2028_05_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2028_05_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2028_05_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2028_05_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2028_05_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2028_05_on_payable"
     t.index ["property_id"], name: "index_impressions_2028_05_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2028_05_on_property_name"
   end
 
   create_table "impressions_2028_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2661,17 +3355,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_06_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2028_06_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2028_06_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2028_06_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2028_06_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2028_06_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2028_06_on_payable"
     t.index ["property_id"], name: "index_impressions_2028_06_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2028_06_on_property_name"
   end
 
   create_table "impressions_2028_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2683,17 +3383,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_07_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2028_07_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2028_07_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2028_07_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2028_07_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2028_07_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2028_07_on_payable"
     t.index ["property_id"], name: "index_impressions_2028_07_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2028_07_on_property_name"
   end
 
   create_table "impressions_2028_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2705,17 +3411,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_08_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2028_08_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2028_08_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2028_08_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2028_08_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2028_08_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2028_08_on_payable"
     t.index ["property_id"], name: "index_impressions_2028_08_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2028_08_on_property_name"
   end
 
   create_table "impressions_2028_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2727,17 +3439,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_09_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2028_09_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2028_09_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2028_09_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2028_09_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2028_09_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2028_09_on_payable"
     t.index ["property_id"], name: "index_impressions_2028_09_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2028_09_on_property_name"
   end
 
   create_table "impressions_2028_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2749,17 +3467,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_10_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2028_10_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2028_10_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2028_10_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2028_10_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2028_10_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2028_10_on_payable"
     t.index ["property_id"], name: "index_impressions_2028_10_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2028_10_on_property_name"
   end
 
   create_table "impressions_2028_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2771,17 +3495,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_11_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2028_11_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2028_11_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2028_11_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2028_11_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2028_11_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2028_11_on_payable"
     t.index ["property_id"], name: "index_impressions_2028_11_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2028_11_on_property_name"
   end
 
   create_table "impressions_2028_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2793,17 +3523,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2028_12_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2028_12_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2028_12_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2028_12_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2028_12_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2028_12_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2028_12_on_payable"
     t.index ["property_id"], name: "index_impressions_2028_12_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2028_12_on_property_name"
   end
 
   create_table "impressions_2029_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2815,17 +3551,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_01_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2029_01_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2029_01_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2029_01_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2029_01_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2029_01_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2029_01_on_payable"
     t.index ["property_id"], name: "index_impressions_2029_01_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2029_01_on_property_name"
   end
 
   create_table "impressions_2029_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2837,17 +3579,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_02_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2029_02_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2029_02_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2029_02_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2029_02_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2029_02_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2029_02_on_payable"
     t.index ["property_id"], name: "index_impressions_2029_02_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2029_02_on_property_name"
   end
 
   create_table "impressions_2029_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2859,17 +3607,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_03_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2029_03_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2029_03_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2029_03_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2029_03_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2029_03_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2029_03_on_payable"
     t.index ["property_id"], name: "index_impressions_2029_03_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2029_03_on_property_name"
   end
 
   create_table "impressions_2029_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2881,17 +3635,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_04_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2029_04_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2029_04_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2029_04_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2029_04_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2029_04_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2029_04_on_payable"
     t.index ["property_id"], name: "index_impressions_2029_04_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2029_04_on_property_name"
   end
 
   create_table "impressions_2029_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2903,17 +3663,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_05_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2029_05_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2029_05_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2029_05_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2029_05_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2029_05_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2029_05_on_payable"
     t.index ["property_id"], name: "index_impressions_2029_05_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2029_05_on_property_name"
   end
 
   create_table "impressions_2029_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2925,17 +3691,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_06_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2029_06_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2029_06_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2029_06_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2029_06_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2029_06_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2029_06_on_payable"
     t.index ["property_id"], name: "index_impressions_2029_06_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2029_06_on_property_name"
   end
 
   create_table "impressions_2029_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2947,17 +3719,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_07_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2029_07_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2029_07_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2029_07_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2029_07_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2029_07_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2029_07_on_payable"
     t.index ["property_id"], name: "index_impressions_2029_07_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2029_07_on_property_name"
   end
 
   create_table "impressions_2029_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2969,17 +3747,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_08_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2029_08_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2029_08_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2029_08_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2029_08_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2029_08_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2029_08_on_payable"
     t.index ["property_id"], name: "index_impressions_2029_08_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2029_08_on_property_name"
   end
 
   create_table "impressions_2029_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -2991,17 +3775,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_09_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2029_09_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2029_09_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2029_09_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2029_09_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2029_09_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2029_09_on_payable"
     t.index ["property_id"], name: "index_impressions_2029_09_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2029_09_on_property_name"
   end
 
   create_table "impressions_2029_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3013,17 +3803,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_10_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2029_10_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2029_10_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2029_10_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2029_10_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2029_10_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2029_10_on_payable"
     t.index ["property_id"], name: "index_impressions_2029_10_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2029_10_on_property_name"
   end
 
   create_table "impressions_2029_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3035,17 +3831,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_11_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2029_11_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2029_11_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2029_11_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2029_11_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2029_11_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2029_11_on_payable"
     t.index ["property_id"], name: "index_impressions_2029_11_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2029_11_on_property_name"
   end
 
   create_table "impressions_2029_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3057,17 +3859,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2029_12_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2029_12_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2029_12_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2029_12_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2029_12_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2029_12_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2029_12_on_payable"
     t.index ["property_id"], name: "index_impressions_2029_12_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2029_12_on_property_name"
   end
 
   create_table "impressions_2030_01", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3079,17 +3887,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_01_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2030_01_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2030_01_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2030_01_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2030_01_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2030_01_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2030_01_on_payable"
     t.index ["property_id"], name: "index_impressions_2030_01_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2030_01_on_property_name"
   end
 
   create_table "impressions_2030_02", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3101,17 +3915,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_02_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2030_02_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2030_02_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2030_02_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2030_02_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2030_02_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2030_02_on_payable"
     t.index ["property_id"], name: "index_impressions_2030_02_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2030_02_on_property_name"
   end
 
   create_table "impressions_2030_03", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3123,17 +3943,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_03_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2030_03_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2030_03_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2030_03_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2030_03_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2030_03_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2030_03_on_payable"
     t.index ["property_id"], name: "index_impressions_2030_03_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2030_03_on_property_name"
   end
 
   create_table "impressions_2030_04", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3145,17 +3971,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_04_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2030_04_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2030_04_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2030_04_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2030_04_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2030_04_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2030_04_on_payable"
     t.index ["property_id"], name: "index_impressions_2030_04_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2030_04_on_property_name"
   end
 
   create_table "impressions_2030_05", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3167,17 +3999,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_05_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2030_05_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2030_05_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2030_05_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2030_05_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2030_05_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2030_05_on_payable"
     t.index ["property_id"], name: "index_impressions_2030_05_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2030_05_on_property_name"
   end
 
   create_table "impressions_2030_06", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3189,17 +4027,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_06_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2030_06_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2030_06_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2030_06_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2030_06_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2030_06_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2030_06_on_payable"
     t.index ["property_id"], name: "index_impressions_2030_06_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2030_06_on_property_name"
   end
 
   create_table "impressions_2030_07", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3211,17 +4055,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_07_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2030_07_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2030_07_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2030_07_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2030_07_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2030_07_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2030_07_on_payable"
     t.index ["property_id"], name: "index_impressions_2030_07_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2030_07_on_property_name"
   end
 
   create_table "impressions_2030_08", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3233,17 +4083,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_08_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2030_08_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2030_08_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2030_08_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2030_08_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2030_08_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2030_08_on_payable"
     t.index ["property_id"], name: "index_impressions_2030_08_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2030_08_on_property_name"
   end
 
   create_table "impressions_2030_09", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3255,17 +4111,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_09_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2030_09_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2030_09_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2030_09_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2030_09_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2030_09_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2030_09_on_payable"
     t.index ["property_id"], name: "index_impressions_2030_09_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2030_09_on_property_name"
   end
 
   create_table "impressions_2030_10", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3277,17 +4139,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_10_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2030_10_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2030_10_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2030_10_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2030_10_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2030_10_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2030_10_on_payable"
     t.index ["property_id"], name: "index_impressions_2030_10_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2030_10_on_property_name"
   end
 
   create_table "impressions_2030_11", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3299,17 +4167,23 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_11_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2030_11_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2030_11_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2030_11_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2030_11_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2030_11_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2030_11_on_payable"
     t.index ["property_id"], name: "index_impressions_2030_11_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2030_11_on_property_name"
   end
 
   create_table "impressions_2030_12", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3321,18 +4195,24 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_2030_12_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_2030_12_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_2030_12_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_2030_12_on_campaign_name"
+    t.index ["country_code"], name: "impressions_2030_12_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_2030_12_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_2030_12_on_payable"
     t.index ["property_id"], name: "index_impressions_2030_12_on_property_id"
+    t.index ["property_name"], name: "index_impressions_2030_12_on_property_name"
   end
 
   create_table "impressions_default", id: false, force: :cascade do |t|
     t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
     t.bigint "campaign_id"
+    t.string "campaign_name"
     t.bigint "property_id"
+    t.string "property_name"
     t.string "ip"
     t.text "user_agent"
-    t.string "country"
+    t.string "country_code"
     t.string "postal_code"
     t.decimal "latitude"
     t.decimal "longitude"
@@ -3344,9 +4224,13 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.boolean "fallback_campaign", default: false, null: false
     t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_default_on_displayed_at_hour"
     t.index ["campaign_id"], name: "index_impressions_default_on_campaign_id"
+    t.index ["campaign_name", "property_name"], name: "impressions_default_campaign_name_property_name_idx"
+    t.index ["campaign_name"], name: "index_impressions_default_on_campaign_name"
+    t.index ["country_code"], name: "impressions_default_country_code_idx"
     t.index ["displayed_at_date"], name: "index_impressions_default_on_displayed_at_date"
     t.index ["payable"], name: "index_impressions_default_on_payable"
     t.index ["property_id"], name: "index_impressions_default_on_property_id"
+    t.index ["property_name"], name: "index_impressions_default_on_property_name"
   end
 
   create_table "properties", force: :cascade do |t|
@@ -3389,6 +4273,7 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
 
   create_table "users", force: :cascade do |t|
     t.string "roles", default: [], array: true
+    t.text "skills", default: [], array: true
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "company_name"
@@ -3398,8 +4283,14 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.string "region"
     t.string "postal_code"
     t.string "country"
+    t.boolean "us_resident", default: false
     t.boolean "api_access", default: false, null: false
     t.string "api_key"
+    t.text "bio"
+    t.string "website_url"
+    t.string "github_username"
+    t.string "twitter_username"
+    t.string "linkedin_username"
     t.string "paypal_email"
     t.string "email", null: false
     t.string "encrypted_password", null: false
@@ -3418,8 +4309,6 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.integer "failed_attempts", default: 0, null: false
     t.string "unlock_token"
     t.datetime "locked_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "invitation_token"
     t.datetime "invitation_created_at"
     t.datetime "invitation_sent_at"
@@ -3428,13 +4317,8 @@ ActiveRecord::Schema.define(version: 2018_11_16_155623) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.boolean "us_resident", default: false
-    t.text "bio"
-    t.string "website_url"
-    t.text "skills", default: [], array: true
-    t.string "github_username"
-    t.string "twitter_username"
-    t.string "linkedin_username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index "lower((email)::text)", name: "index_users_on_email", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

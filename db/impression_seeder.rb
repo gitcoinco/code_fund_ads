@@ -72,7 +72,7 @@ class ImpressionSeeder
       property_name: property.name,
       ip: rand(6).zero? ? Faker::Internet.ip_v6_address : Faker::Internet.public_ip_v4_address,
       user_agent: Faker::Internet.user_agent,
-      country: rand(6).zero? ? ENUMS::COUNTRIES["United States"] : ENUMS::COUNTRIES.keys.sample,
+      country_code: rand(6).zero? ? ENUMS::COUNTRIES["United States"] : ENUMS::COUNTRIES.keys.sample,
       postal_code: nil,
       latitude: nil,
       longitude: nil,
@@ -80,7 +80,7 @@ class ImpressionSeeder
       reason: nil,
       displayed_at: displayed_at,
       displayed_at_date: displayed_at.to_date,
-      clicked_at: rand(100) <= 2 ? displayed_at : nil,
+      clicked_at: rand(100) <= 1 ? displayed_at : nil,
       fallback_campaign: campaign.fallback,
     }
   end
