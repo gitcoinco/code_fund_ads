@@ -15,7 +15,7 @@ class ImpressionSeeder
   def initialize(desired_count, months)
     puts "Seeding impressions start..."
     @initial_count = Impression.count
-    @max_count = desired_count.to_i.zero? ? 1_000_000 : desired_count.to_i
+    @max_count = desired_count.to_i.zero? ? 100_000 : desired_count.to_i
     @months = months.to_i.zero? ? 1 : months.to_i
     @gap_count = max_count - initial_count
     @publishers = User.publisher.includes(:properties).load
