@@ -31,7 +31,7 @@ class Seeder
       seed_users
       seed_campaigns
       seed_properties
-      ImpressionSeeder.run(ENV["IMPRESSIONS"])
+      ImpressionSeeder.run(ENV["IMPRESSIONS"], ENV["MONTHS"])
     }
     print "Seeding finished...".ljust(96)
     puts benchmark
@@ -65,8 +65,8 @@ class Seeder
 
   def build_advertisers
     count = User.advertiser.count
-    return [] if count >= 100
-    (count..99).map do
+    return [] if count >= 25
+    (count..25).map do
       user_attributes.merge(
         "id" => @user_id += 1,
         "roles" => "{#{ENUMS::USER_ROLES::ADVERTISER}}"
@@ -76,8 +76,8 @@ class Seeder
 
   def build_publishers
     count = User.publisher.count
-    return [] if count >= 1000
-    (count..999).map do
+    return [] if count >= 250
+    (count..250).map do
       user_attributes.merge(
         "id" => @user_id += 1,
         "roles" => "{#{ENUMS::USER_ROLES::PUBLISHER}}"
@@ -143,7 +143,7 @@ class Seeder
   end
 
   def generate_campaigns(advertiser)
-    rand(2..12).times do
+    rand(1..5).times do
       start_date = rand(3).months.from_now.to_date
       end_date = start_date.advance(months: 6)
       total_budget = ([*500..5000].sample / 100) * 100
@@ -156,7 +156,7 @@ class Seeder
         user: advertiser,
         creative: advertiser.creatives.sample,
         status: ENUMS::CAMPAIGN_STATUSES.values.sample,
-        name: Faker::SiliconValley.invention,
+        name: "#{Faker::Company.name} #{SecureRandom.hex.to_s[0,6]}",
         url: Faker::SiliconValley.url,
         start_date: start_date,
         end_date: end_date,
@@ -177,13 +177,13 @@ class Seeder
     benchmark = Benchmark.measure {
       properties = User.publisher.each_with_object([]) { |publisher, memo|
         next if publisher.properties.count > 0
-        rand(1..4).times.each do
+        rand(1..2).times.each do
           property = Property.new(
             id: @property_id += 1,
             user_id: publisher.id,
             property_type: ENUMS::PROPERTY_TYPES.values.sample,
             status: ENUMS::PROPERTY_STATUSES.values.sample,
-            name: Faker::SiliconValley.invention,
+            name: "#{Faker::SiliconValley.invention} #{SecureRandom.hex.upcase[0,6]}",
             url: Faker::SiliconValley.url,
             ad_template: ENUMS::AD_TEMPLATES.values.sample,
             ad_theme: ENUMS::AD_THEMES.values.sample,

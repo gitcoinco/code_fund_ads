@@ -3,10 +3,6 @@ module Campaigns
     extend ActiveSupport::Concern
     include ActionView::Helpers::DateHelper
 
-    def scoped_name
-      [user.scoped_name, name, creative&.name].compact.join "・"
-    end
-
     def daily_spend_series(_days = 30)
       # Calculate spend for x days by day
       # TODO: Use roll-up data

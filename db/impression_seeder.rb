@@ -6,21 +6,20 @@ require "etc"
 require "fileutils"
 
 class ImpressionSeeder
-  def self.run(desired_count)
-    new(desired_count).call
+  def self.run(desired_count, months)
+    new(desired_count, months).call
   end
 
-  attr_reader :initial_count, :max_count, :gap_count
+  attr_reader :initial_count, :max_count, :gap_count, :months
 
-  def initialize(desired_count)
+  def initialize(desired_count, months)
     puts "Seeding impressions start..."
     @initial_count = Impression.count
-    @max_count = desired_count.to_i.zero? ? 10_000 : desired_count.to_i
+    @max_count = desired_count.to_i.zero? ? 100_000 : desired_count.to_i
+    @months = months.to_i.zero? ? 1 : months.to_i
     @gap_count = max_count - initial_count
     @publishers = User.publisher.includes(:properties).load
-    @campaign_cache = Property.all.each_with_object({}).each do |property, memo|
-      memo[property.id] = Campaign.for_property(property).load
-    end
+    @campaigns_cache = {}
   end
 
   def cores
@@ -40,8 +39,8 @@ class ImpressionSeeder
       benchmark = Benchmark.measure {
         pids = cores.times.map {
           Process.fork do
-            (1..12).each do |i|
-              create_impressions_for_month "2019-#{i.to_s.rjust(2, "0")}-01", max_count_per_core / 12
+            (1..months).each do |i|
+              create_impressions_for_month "2019-#{i.to_s.rjust(2, "0")}-01", max_count_per_core / months
             end
           end
         }
@@ -61,28 +60,25 @@ class ImpressionSeeder
 
   def build_impression(displayed_at)
     property = @publishers.sample.properties.sample
-    campaign = @campaign_cache[property.id].sample
+    campaigns = @campaigns_cache[property.id] ||= Campaign.includes(:user, :creative).for_property(property).load
+    campaign = campaigns.sample
     return nil unless campaign
     @count += 1
-    {
+    Impression.new(
       id: SecureRandom.uuid,
       campaign_id: campaign.id,
-      campaign_name: campaign.name,
+      campaign_name: campaign.scoped_name,
       property_id: property.id,
-      property_name: property.name,
+      property_name: property.scoped_name,
       ip: rand(6).zero? ? Faker::Internet.ip_v6_address : Faker::Internet.public_ip_v4_address,
       user_agent: Faker::Internet.user_agent,
       country_code: rand(6).zero? ? ENUMS::COUNTRIES["United States"] : ENUMS::COUNTRIES.keys.sample,
-      postal_code: nil,
-      latitude: nil,
-      longitude: nil,
       payable: rand(10).zero? ? false : true,
-      reason: nil,
       displayed_at: displayed_at,
       displayed_at_date: displayed_at.to_date,
-      clicked_at: rand(100) <= 1 ? displayed_at : nil,
+      clicked_at: rand(100) <= 3 ? displayed_at : nil,
       fallback_campaign: campaign.fallback,
-    }
+    ).attributes
   end
 
   def build_impressions(displayed_at)

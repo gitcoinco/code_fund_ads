@@ -18,11 +18,11 @@ bundle exec rails db:setup
 
 ### Database Seeds
 
-The `impressions` table will seed with approximately 10k records by default.
-You can increase this by setting the `IMPRESSIONS` environment variable and seeding again.
+The `impressions` table will seed with approximately 100k records spread over 1 month by default.
+You can increase this by setting the `IMPRESSIONS` and `MONTHS` environment variables and seeding again.
 
 ```
-IMPRESSIONS=10_000_000 rails db:seed
+IMPRESSIONS=25_000_000 MONTHS=12 rails db:seed
 ```
 
 ### Tmux/Teamocil
