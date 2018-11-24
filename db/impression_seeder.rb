@@ -19,6 +19,7 @@ class ImpressionSeeder
     @max_count = desired_count.to_i.zero? ? 100_000 : desired_count.to_i
     @months = months.to_i.zero? ? 1 : months.to_i
     @gap_count = max_count - initial_count
+    @gap_count = 0 if @gap_count < 0
 
     puts "creating [#{gap_count.to_s.rjust(8)}] new impressions spread over [#{months}] months using [#{cores}] cpu cores"
     print "".ljust(48)
