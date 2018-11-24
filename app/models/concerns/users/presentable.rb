@@ -8,10 +8,6 @@ module Users
 
     alias name full_name
 
-    def scoped_name
-      [company_name, full_name].compact.join "・"
-    end
-
     def gravatar_url
       require "digest/md5"
       hash = Digest::MD5.hexdigest(email)

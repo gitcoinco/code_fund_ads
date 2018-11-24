@@ -119,6 +119,10 @@ class Campaign < ApplicationRecord
     ENUMS::CAMPAIGN_STATUSES.archived? status
   end
 
+  def scoped_name
+    [user.scoped_name, name, creative&.name].compact.join "・"
+  end
+
   def date_range
     return nil unless start_date && end_date
     "#{start_date.to_s "mm/dd/yyyy"} #{end_date.to_s "mm/dd/yyyy"}"
