@@ -129,16 +129,81 @@ class Campaign < ApplicationRecord
     "#{start_date.to_s "mm/dd/yyyy"} #{end_date.to_s "mm/dd/yyyy"}"
   end
 
+  def recommended_daily_budget
+    total_remaining_budget / remaining_operative_days
+  end
+
+  def recommended_end_date
+    total_available_impression_count = ((total_remaining_budget.to_f / ecpm.to_f) * 1_000).ceil
+    days = total_available_impression_count / estimated_max_daily_impression_count
+
+    date = start_date
+    date = Current.date if date.past?
+
+    return date.advance(days: days) unless weekdays_only?
+
+    count = 0
+    while count < days
+      count += 1 unless date.saturday? || date.sunday?
+      date = date.advance(days: 1)
+    end
+    date
+  end
+
+  def operative_dates
+    dates = (start_date..end_date).to_a
+    return dates unless weekdays_only?
+    dates.select { |date| !date.saturday? && !date.sunday? }
+  end
+
+  def remaining_operative_dates
+    today = Date.current
+    operative_dates.select { |date| date >= today }
+  end
+
+  def total_operative_days
+    operative_dates.size
+  end
+
+  def remaining_operative_days
+    remaining_operative_dates.size
+  end
+
+  def estimated_max_total_impression_count
+    ((total_budget.to_f / ecpm.to_f) * 1_000).ceil
+  end
+
+  def estimated_max_remaining_impression_count
+    estimated_max_daily_impression_count * remaining_operative_days
+  end
+
+  def estimated_max_daily_impression_count
+    ((daily_budget.to_f / ecpm.to_f) * 1_000).ceil
+  end
+
+  def total_unusable_budget
+    return Money.new(0, "USD") if ecpm.to_f.zero?
+    total_remaining_budget - total_remaining_usable_budget
+  end
+
+  def budget_surplus?
+    total_unusable_budget > 0
+  end
+
+  def total_remaining_usable_budget
+    (estimated_max_remaining_impression_count / 1_000.to_f) * ecpm
+  end
+
   def total_remaining_budget
     total_budget - total_consumed_budget
   end
 
   def total_consumed_budget
-    total_budget - (ecpm * total_impressions_per_mille)
+    ecpm * total_impressions_per_mille
   end
 
   def total_impressions_per_mille
-    total_impressions_count / 1000.to_f
+    total_impressions_count / 1_000.to_f
   end
 
   def daily_remaining_budget
@@ -146,11 +211,11 @@ class Campaign < ApplicationRecord
   end
 
   def daily_consumed_budget
-    daily_budget - (ecpm * daily_impressions_per_mille)
+    ecpm * daily_impressions_per_mille
   end
 
   def daily_impressions_per_mille
-    daily_impressions_count / 1000.to_f
+    daily_impressions_count / 1_000.to_f
   end
 
   def daily_impressions_count_cache_key(date = nil)
