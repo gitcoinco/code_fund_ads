@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2018_11_23_143528) do
     t.string "negative_keywords", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "total_impressions_count", default: 0, null: false
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
     t.index ["countries"], name: "index_campaigns_on_countries", using: :gin
     t.index ["creative_id"], name: "index_campaigns_on_creative_id"
