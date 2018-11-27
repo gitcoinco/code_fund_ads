@@ -101,6 +101,24 @@ class Campaign < ApplicationRecord
   tag_columns :countries
   tag_columns :keywords
   tag_columns :negative_keywords
+  acts_as_commentable
+  has_paper_trail only: %i[
+    user_id
+    creative_id
+    status
+    name
+    url
+    start_date
+    end_date
+    us_hours_only
+    weekdays_only
+    total_budget_cents
+    daily_budget_cents
+    ecpm_cents
+    countries
+    keywords
+    negative_keywords
+  ]
 
   # class methods .............................................................
   class << self
@@ -132,6 +150,38 @@ class Campaign < ApplicationRecord
     dates = value.split(" - ")
     self.start_date = Date.strptime(dates[0], "%m/%d/%Y")
     self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
+  end
+
+  def properties
+    PropertySearch.new({
+      keywords: keywords,
+      negative_keywords: negative_keywords,
+      status: ["active"],
+    }).apply(Property.order(name: :asc))
+  end
+
+  def total_days
+    return 0 unless start_date.present? && end_date.present?
+    (end_date - start_date).to_i
+  end
+
+  def total_spend
+    1295.13
+  end
+
+  def remaining_days
+    return 0 unless start_date.present? && end_date.present?
+    return 0 if end_date < Date.current
+    return total_days if start_date > Date.current
+    (end_date - Date.current).to_i
+  end
+
+  def remaining_budget
+    1599.95
+  end
+
+  def average_ctr
+    0.35
   end
 
   # protected instance methods ................................................

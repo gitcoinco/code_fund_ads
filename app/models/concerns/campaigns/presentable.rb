@@ -13,5 +13,21 @@ module Campaigns
       return nil unless start_date && end_date
       distance_of_time_in_words(start_date, end_date, scope: "datetime.distance_in_words.short")
     end
+
+    def percentage_complete_by_date
+      return 0   unless start_date.present? && end_date.present?
+      return 0   if start_date > Date.current
+      return 100 if end_date < Date.current
+
+      ((remaining_days.to_f / total_days.to_f) * 100).to_i
+    end
+
+    def percentage_complete_by_budget
+      return 0   unless start_date.present? && end_date.present?
+      return 0   if start_date > Date.current
+      return 100 if end_date < Date.current
+
+      ((remaining_days.to_f / total_days.to_f) * 100).to_i
+    end
   end
 end

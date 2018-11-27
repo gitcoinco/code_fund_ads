@@ -114,6 +114,10 @@ module ApplicationHelper
     flash_messages.join("\n").html_safe
   end
 
+  def details_li(label, &block)
+    render partial: "/@shared/details_li", locals: {label: label, block: block}
+  end
+
   def sortable_tr(column, title = nil)
     title   ||= column.titleize
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
@@ -132,5 +136,16 @@ module ApplicationHelper
     finish = start + pagy.items - 1
     count = pagy.count
     tag.small("Showing #{start} to #{finish} of #{count} Entries", class: "text-secondary").html_safe
+  end
+
+  def find_version_author(version)
+    User.find_version_author(version)
+  end
+
+  def diff(content1, content2)
+    changes = Diffy::Diff.new(content1, content2,
+      include_plus_and_minus_in_html: true,
+      include_diff_info: true)
+    changes.to_s.present? ? changes.to_s(:html).html_safe : "No Changes"
   end
 end

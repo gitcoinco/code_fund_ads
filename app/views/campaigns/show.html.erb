@@ -14,157 +14,23 @@
     icon: "fas fa-ad" %>
 <% end %>
 
-<main id="content" role="main" class="bg-light">
-  <div class="container space-2">
-    <div class="row">
-      <div class="col-md-6 col-lg-4">
-        <div class="card mb-5">
-          <div class="card-body p-4">
-            <div class="text-center">
-              <div class="mx-auto mb-3">
-                <%= image_tag @campaign.creative.large_images.first, class: "img-fluid" %>
-              </div>
-
-              <!-- Title -->
-              <div class="mb-2 px-3">
-                <p class="media-body h6 text-black-50 font-weight-normal">
-                  <strong class="text-dark"><%= @campaign.creative.headline %></strong>
-                  <%= @campaign.creative.body %>
-                </p>
-              </div>
-              <!-- End Title -->
-            </div>
-          </div>
-
-          <div class="card-footer text-center">
-            <!-- Goal -->
-            <div class="row mb-7">
-              <div class="col-6">
-                <h4 class="small text-muted">
-                  Max: <strong class="text-secondary"><%= @campaign.total_budget.format %></strong>
-                </h4>
-                <div class="js-hr-progress progress" style="height: 6px;">
-                  <div class="js-hr-progress-bar progress-bar bg-success" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-              <div class="col-6">
-                <h4 class="small text-muted">
-                  Duration: <strong class="text-secondary"><%= @campaign.duration %></strong>
-                </h4>
-                <div class="js-hr-progress progress" style="height: 6px;">
-                  <div class="js-hr-progress-bar progress-bar bg-warning" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-              </div>
-            </div>
-            <!-- End Goal -->
-
-            <!-- Chart -->
-            <div class="js-bar-chart"
-                data-controller="bar-chart"
-                data-series='[
-                  [10,8,5,7,6,6,10,10,8,5,7,6,6,10,6,6,10,10,8,5,7,6,6,10,6,6,10,10,8]
-                ]'
-                data-is-show-axis-x="false"
-                data-is-show-axis-y="false"
-                data-height="62px"
-                data-high="10"
-                data-low="0"
-                data-distance="5"
-                data-stroke-width="6"
-                data-stroke-color="#19a0ff"></div>
-            <!-- Chart -->
-          </div>
-        </div>
-      </div>
-      <div class="col-md-8">
-        <h2 class="h4"><%= @campaign.name %></h2>
-        <h4 class="h6 text-secondary mb-6"><%= @campaign.start_date.strftime("%b %d, %Y") %> &ndash; <%= @campaign.end_date.strftime("%b %d, %Y") %></small></h4>
-
-        <!-- Icon Blocks -->
-        <div class="row">
-          <div class="col-md-6 col-lg-3">
-            <!-- List Group -->
-            <ul class="list-group list-group-transparent list-group-flush list-group-borderless mb-0">
-              <li class="list-group-item pt-0 pb-4">
-                <div class="media">
-                  <span class="fas fa-user list-group-icon mr-3"></span>
-                  <div class="media-body text-lh-sm">
-                    <span class="d-block mb-1">Advertiser:</span>
-                    <span class="d-block text-muted"><%= link_to @campaign.user.full_name, @campaign.user %></span>
-                  </div>
-                </div>
-              </li>
-            </ul>
-            <!-- End List Group -->
-          </div>
-
-          <div class="col-md-6 col-lg-3">
-            <!-- List Group -->
-            <ul class="list-group list-group-transparent list-group-flush list-group-borderless mb-0">
-              <li class="list-group-item pt-0 pb-4">
-                <div class="media">
-                  <span class="fas fa-info-square list-group-icon mr-3"></span>
-                  <div class="media-body text-lh-sm">
-                    <span class="d-block mb-1">Status:</span>
-                    <span class="d-block text-muted"><%= @campaign.status.humanize %></span>
-                  </div>
-                </div>
-              </li>
-            </ul>
-            <!-- End List Group -->
-          </div>
-
-          <div class="col-md-6 col-lg-6">
-            <!-- List Group -->
-            <ul class="list-group list-group-transparent list-group-flush list-group-borderless mb-0">
-              <li class="list-group-item pt-0 pb-4">
-                <div class="media">
-                  <span class="fas fa-link list-group-icon mr-3"></span>
-                  <div class="media-body text-lh-sm">
-                    <span class="d-block mb-1">URL:</span>
-                    <span class="d-block text-muted"><%= link_to @campaign.url, @campaign.url, target: "_blank" %></span>
-                  </div>
-                </div>
-              </li>
-            </ul>
-            <!-- End List Group -->
-          </div>
-        </div>
-        <!-- End Icon Blocks -->
-
-        <ul class="nav nav-classic" id="myTab" role="tablist">
-          <li class="nav-item">
-            <a class="nav-link active" id="details-tab" data-toggle="tab" href="#details" role="tab" aria-controls="details" aria-selected="true">Details</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="targeting-tab" data-toggle="tab" href="#targeting" role="tab" aria-controls="targeting" aria-selected="false">Targeting</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="budget-tab" data-toggle="tab" href="#budget" role="tab" aria-controls="budget" aria-selected="false">Budget</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" id="properties-tab" data-toggle="tab" href="#properties" role="tab" aria-controls="properties" aria-selected="false">Properties</a>
-          </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-          <div class="tab-pane fade show active py-5" id="details" role="tabpanel" aria-labelledby="details-tab">
-            <div class="row">
-              <div class="col-lg-4 col-md-6">
-                
-              </div>
-            </div>         
-          </div>
-          <div class="tab-pane fade" id="targeting" role="tabpanel" aria-labelledby="targeting-tab">
-
-          </div>
-          <div class="tab-pane fade" id="budget" role="tabpanel" aria-labelledby="budget-tab">
-          
-          </div>
-          <div class="tab-pane fade" id="properties" role="tabpanel" aria-labelledby="properties-tab">
-          
-          </div>
-        </div>
-      </div>
+<%= render layout: "/campaigns/show_layout", locals: { campaign: @campaign } do %>
+  <div class="row">
+    <div class="col-md-6 col-lg-4">
+      <%= render "/campaigns/card", campaign: @campaign %>
+    </div>
+    <div class="col-md-6 col-lg-8">
+      <ul class="list-unstyled mb-0">
+        <%= details_li("Name") { @campaign.name } %>
+        <%= details_li("User") { link_to @campaign.user.full_name, @campaign.user } %>
+        <%= details_li("Status") { @campaign.status.humanize } %>
+        <%= details_li("URL") { link_to @campaign.url, @campaign.url } %>
+        <%= details_li("US Hours Only?") { @campaign.us_hours_only? ? "Yes" : "No" } %>
+        <%= details_li("Weekdays Only?") { @campaign.weekdays_only? ? "Yes" : "No" } %>
+        <%= details_li("Total Budget") { @campaign.total_budget.format } %>
+        <%= details_li("Total Budget") { @campaign.daily_budget.format } %>
+        <%= details_li("eCPM") { @campaign.ecpm.format } %>
+      </ul>
     </div>
   </div>
-</main>
+<% end %>

@@ -18,7 +18,19 @@ Rails.application.routes.draw do
     resources :images, except: [:show]
   end
 
-  resources :campaigns
+  resources :comments, only: [:destroy]
+  resources :campaigns do
+    resource :campaign_targeting, only: [:show], path: "/targeting"
+    resource :campaign_budget, only: [:show], path: "/budget"
+    resources :campaign_notes, only: [:index, :create, :destroy], path: "/notes"
+    resources :campaign_properties, only: [:index], path: "/properties"
+    resources :campaign_changelogs, only: [:index, :destroy], path: "/changelog" do
+      member do
+        get :diff, to: "campaign_changelogs#diff"
+        patch :rollback, to: "campaign_changelogs#rollback"
+      end
+    end
+  end
   resources :creatives
   resources :impressions
   resources :properties do

@@ -46,6 +46,7 @@ class Property < ApplicationRecord
   # scopes ....................................................................
   scope :search_ad_template, ->(*values) { values.blank? ? all : where(ad_template: values) }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
+  scope :exclude_keywords, ->(*values) { values.blank? ? all : without_any_keywords(*values) }
   scope :search_language, ->(*values) { values.blank? ? all : where(language: values) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
   scope :search_property_type, ->(*values) { values.blank? ? all : where(property_type: values) }
@@ -75,6 +76,19 @@ class Property < ApplicationRecord
   tag_columns :prohibited_advertisers
   tag_columns :keywords
   has_one_attached :screenshot
+  has_paper_trail only: %i[
+    user_id
+    property_type
+    status
+    name
+    url
+    ad_template
+    ad_theme
+    language
+    keywords
+    prohibited_advertisers
+    prohibit_fallback_campaigns
+  ]
 
   # class methods .............................................................
   class << self

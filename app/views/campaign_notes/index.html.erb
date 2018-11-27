@@ -1,0 +1,33 @@
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/campaigns" %>
+  <%= render "/@shared/breadcrumbs/campaign", campaign: @campaign, class: "active" %>
+<% end %>
+
+<% content_for :actions do %>
+  <%= render "/@shared/actions/edit_campaign", campaign: @campaign %>
+<% end %>
+
+<% content_for :page_heading do %>
+  <%= page_heading "Viewing", "Campaign",
+    subtitle: @campaign.name,
+    icon: "fas fa-ad" %>
+<% end %>
+
+<%= render layout: "/campaigns/show_layout", locals: { campaign: @campaign } do %>
+  <%= render partial: "/@shared/comment", collection: @notes, as: :comment %>
+
+  <%= form_tag campaign_campaign_notes_path(@campaign), method: :post do %>
+    <div class="mb-3">
+      <div class="js-form-message">
+        <div class="input-group input-group-borderless">
+          <textarea class="form-control bg-light" rows="4" name="note" placeholder="Add a note" aria-label="Add a note" required
+                    data-msg="Please enter a note."
+                    data-error-class="u-has-error"
+                    data-success-class="u-has-success"></textarea>
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-block btn-soft-primary transition-3d-hover">Add Note</button>
+  <% end %>
+<% end %>
