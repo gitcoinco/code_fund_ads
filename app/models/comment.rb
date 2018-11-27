@@ -1,32 +1,37 @@
-class Comment < ActiveRecord::Base
-  acts_as_nested_set scope: [:commentable_id, :commentable_type]
+# == Schema Information
+#
+# Table name: comments
+#
+#  id               :bigint(8)        not null, primary key
+#  commentable_id   :integer
+#  commentable_type :string
+#  title            :string
+#  body             :text
+#  subject          :string
+#  user_id          :integer          not null
+#  parent_id        :integer
+#  lft              :integer
+#  rgt              :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
 
+class Comment < ActiveRecord::Base
+  # extends ...................................................................
+  # class methods .............................................................
+  # includes ..................................................................
+
+  # relationships .............................................................
+  belongs_to :commentable, polymorphic: true
+  belongs_to :user
+
+  # validations ...............................................................
   validates :body, presence: true
   validates :user, presence: true
 
-  # NOTE: install the acts_as_votable plugin if you
-  # want user to vote on the quality of comments.
-  # acts_as_votable
+  # callbacks .................................................................
 
-  belongs_to :commentable, polymorphic: true
-
-  # NOTE: Comments belong to a user
-  belongs_to :user
-
-  # Helper class method that allows you to build a comment
-  # by passing a commentable object, a user_id, and comment text
-  # example in readme
-  def self.build_from(obj, user_id, comment)
-    new \
-      commentable: obj,
-      body: comment,
-      user_id: user_id
-  end
-
-  # helper method to check if a comment has children
-  def has_children?
-    children.any?
-  end
+  # scopes ....................................................................
 
   # Helper class method to lookup all comments assigned
   # to all commentable types for a given user.
@@ -40,9 +45,35 @@ class Comment < ActiveRecord::Base
     where(commentable_type: commentable_str.to_s, commentable_id: commentable_id).order("created_at DESC")
   }
 
-  # Helper class method to look up a commentable object
-  # given the commentable class name and id
-  def self.find_commentable(commentable_str, commentable_id)
-    commentable_str.constantize.find(commentable_id)
+  # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  acts_as_nested_set scope: [:commentable_id, :commentable_type]
+
+  # class methods .............................................................
+  class << self
+    # Helper class method that allows you to build a comment
+    # by passing a commentable object, a user_id, and comment text
+    # example in readme
+    def build_from(obj, user_id, comment)
+      new \
+        commentable: obj,
+        body: comment,
+        user_id: user_id
+    end
+
+    # Helper class method to look up a commentable object
+    # given the commentable class name and id
+    def find_commentable(commentable_str, commentable_id)
+      commentable_str.constantize.find(commentable_id)
+    end
   end
+
+  # public instance methods ...................................................
+
+  # helper method to check if a comment has children
+  def has_children?
+    children.any?
+  end
+
+  # protected instance methods ................................................
+  # private instance methods ..................................................
 end
