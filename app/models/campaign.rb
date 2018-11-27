@@ -156,13 +156,13 @@ class Campaign < ApplicationRecord
     dates.select { |date| !date.saturday? && !date.sunday? }
   end
 
+  def total_operative_days
+    operative_dates.size
+  end
+
   def remaining_operative_dates
     today = Date.current
     operative_dates.select { |date| date >= today }
-  end
-
-  def total_operative_days
-    operative_dates.size
   end
 
   def remaining_operative_days
