@@ -135,7 +135,7 @@ class User < ApplicationRecord
     :validatable,
   )
   has_one_attached :avatar
-  has_paper_trail only: %i[
+  has_paper_trail on: %i[create update destroy], only: %i[
     roles
     first_name
     last_name

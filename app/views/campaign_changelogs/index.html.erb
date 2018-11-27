@@ -15,5 +15,5 @@
 <% end %>
 
 <%= render layout: "/campaigns/show_layout", locals: { campaign: @campaign } do %>
-  <%= render "/campaign_changelogs/table", campaign: @campaign, versions: @versions %>
+  <%= render "/versions/table", versionable: @campaign %>
 <% end %>

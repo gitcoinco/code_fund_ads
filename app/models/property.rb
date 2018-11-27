@@ -76,7 +76,7 @@ class Property < ApplicationRecord
   tag_columns :prohibited_advertisers
   tag_columns :keywords
   has_one_attached :screenshot
-  has_paper_trail only: %i[
+  has_paper_trail on: %i[create update destroy], only: %i[
     user_id
     property_type
     status

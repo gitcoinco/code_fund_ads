@@ -102,7 +102,7 @@ class Campaign < ApplicationRecord
   tag_columns :keywords
   tag_columns :negative_keywords
   acts_as_commentable
-  has_paper_trail only: %i[
+  has_paper_trail on: %i[create update destroy], only: %i[
     user_id
     creative_id
     status

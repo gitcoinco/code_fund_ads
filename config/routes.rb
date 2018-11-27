@@ -18,24 +18,30 @@ Rails.application.routes.draw do
     resources :images, except: [:show]
   end
 
+  resources :versions, only: [:show, :update]
   resources :comments, only: [:destroy]
+
   resources :campaigns do
     resource :campaign_targeting, only: [:show], path: "/targeting"
     resource :campaign_budget, only: [:show], path: "/budget"
     resources :campaign_notes, only: [:index, :create, :destroy], path: "/notes"
     resources :campaign_properties, only: [:index], path: "/properties"
-    resources :campaign_changelogs, only: [:index, :destroy], path: "/changelog" do
-      member do
-        get :diff, to: "campaign_changelogs#diff"
-        patch :rollback, to: "campaign_changelogs#rollback"
-      end
-    end
+    resources :campaign_changelogs, only: [:index, :destroy], path: "/changelog"
   end
+  scope "/campaigns/:campaign_id" do
+    resources :versions, only: [:index], as: :campaign_versions
+  end
+
   resources :creatives
   resources :impressions
+
   resources :properties do
     resources :property_screenshots, only: [:update]
   end
+  scope "/properties/:property_id" do
+    resources :versions, only: [:index], as: :property_versions
+  end
+
   resources :templates
   resources :themes
   resources :users
@@ -45,6 +51,7 @@ Rails.application.routes.draw do
     resources :campaigns, only: [:index], as: :user_campaigns
     resources :properties, only: [:index], as: :user_properties
     resources :creatives, only: [:index], as: :user_creatives
+    resources :versions, only: [:index], as: :user_versions
   end
 
   resource :newsletter_subscription, only: [:create]

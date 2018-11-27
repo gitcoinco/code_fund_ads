@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <% versions.reverse.each do |version| %>
+      <% versionable.versions.reverse.each do |version| %>
       <tr>
         <td><%= version.index %></td>
         <td><%= version.created_at %></td>
@@ -19,7 +19,7 @@
         <td class="text-right">
           <a data-controller="remote-modal"
 						data-action="click->remote-modal#displayModal"
-            data-url="<%= diff_campaign_campaign_changelog_path(@campaign, version) %>"
+            data-url="<%= version_path(version, sgid: versionable.to_sgid) %>"
 						href="#">
             <i class="fas fa-exchange"></i> Diff
           </a>
