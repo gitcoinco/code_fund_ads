@@ -5,14 +5,13 @@ class VersionsController < ApplicationController
   before_action :set_property, only: [:index], if: -> { params[:property_id].present? }
   before_action :set_versionable, only: [:show, :update]
   before_action :set_version, only: [:show, :update]
-  
 
   def index
     @versions = @versionable.versions
 
-    render "/versions/for_user/index"     if @versionable.kind_of? User
-    render "/versions/for_campaign/index" if @versionable.kind_of? Campaign
-    render "/versions/for_property/index" if @versionable.kind_of? Property
+    render "/versions/for_user/index"     if @versionable.is_a? User
+    render "/versions/for_campaign/index" if @versionable.is_a? Campaign
+    render "/versions/for_property/index" if @versionable.is_a? Property
   end
 
   def show

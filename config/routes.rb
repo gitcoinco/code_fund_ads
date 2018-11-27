@@ -19,17 +19,16 @@ Rails.application.routes.draw do
   end
 
   resources :versions, only: [:show, :update]
-  resources :comments, only: [:destroy]
+  resources :comments, only: [:create, :destroy]
 
   resources :campaigns do
     resource :campaign_targeting, only: [:show], path: "/targeting"
     resource :campaign_budget, only: [:show], path: "/budget"
-    resources :campaign_notes, only: [:index, :create, :destroy], path: "/notes"
     resources :campaign_properties, only: [:index], path: "/properties"
-    resources :campaign_changelogs, only: [:index, :destroy], path: "/changelog"
   end
   scope "/campaigns/:campaign_id" do
     resources :versions, only: [:index], as: :campaign_versions
+    resources :comments, only: [:index], as: :campaign_comments
   end
 
   resources :creatives
@@ -40,6 +39,7 @@ Rails.application.routes.draw do
   end
   scope "/properties/:property_id" do
     resources :versions, only: [:index], as: :property_versions
+    resources :comments, only: [:index], as: :property_comments
   end
 
   resources :templates
@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     resources :properties, only: [:index], as: :user_properties
     resources :creatives, only: [:index], as: :user_creatives
     resources :versions, only: [:index], as: :user_versions
+    resources :comments, only: [:index], as: :user_comments
   end
 
   resource :newsletter_subscription, only: [:create]

@@ -170,7 +170,7 @@ class Campaign < ApplicationRecord
   end
 
   def remaining_days
-    return 0 unless start_date.present? && end_date.present?
+    return 0 if total_days.zero?
     return 0 if end_date < Date.current
     return total_days if start_date > Date.current
     (end_date - Date.current).to_i
