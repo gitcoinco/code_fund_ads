@@ -6,6 +6,8 @@ class SyncImpressionsCountersJob < ApplicationJob
     Campaign.available.active.each do |campaign|
       InitializeDailyImpressionsCountJob.perform_now campaign.id, Date.current.iso8601
       InitializeTotalImpressionsCountJob.perform_now campaign.id
+      InitializeDailyClicksCountJob.perform_now campaign.id, Date.current.iso8601
+      InitializeTotalClicksCountJob.perform_now campaign.id
     end
   end
 end

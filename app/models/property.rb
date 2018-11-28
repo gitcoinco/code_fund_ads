@@ -77,17 +77,17 @@ class Property < ApplicationRecord
   tag_columns :keywords
   has_one_attached :screenshot
   has_paper_trail on: %i[create update destroy], only: %i[
-    user_id
-    property_type
-    status
-    name
-    url
     ad_template
     ad_theme
-    language
     keywords
-    prohibited_advertisers
+    language
     prohibit_fallback_campaigns
+    prohibited_advertisers
+    name
+    property_type
+    status
+    url
+    user_id
   ]
 
   # class methods .............................................................

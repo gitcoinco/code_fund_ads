@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @campaign.properties.each do |property| %>
+      <% @campaign.matching_properties.each do |property| %>
       <tr>
         <td class="text-left align-middle text-secondary"><%= link_to property.name, property %></td>
         <td class="text-left align-middle text-secondary"><%= link_to property.url, property.url, target: "_blank" %></td>

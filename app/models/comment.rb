@@ -35,21 +35,22 @@ class Comment < ActiveRecord::Base
 
   # Helper class method to lookup all comments assigned
   # to all commentable types for a given user.
-  scope :find_comments_by_user, lambda { |user|
-    where(user_id: user.id).order("created_at DESC")
-  }
+  scope :find_comments_by_user, ->(user) { where(user_id: user.id).order("created_at DESC") }
 
   # Helper class method to look up all comments for
   # commentable class name and commentable id.
-  scope :find_comments_for_commentable, lambda { |commentable_str, commentable_id|
+  scope :find_comments_for_commentable, ->(commentable_str, commentable_id) do
     where(commentable_type: commentable_str.to_s, commentable_id: commentable_id).order("created_at DESC")
-  }
+  end
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   acts_as_nested_set scope: [:commentable_id, :commentable_type]
 
   # class methods .............................................................
   class << self
+    alias_method :by_user, :find_comments_by_user
+    alias_method :for_commentable, :find_comments_for_commentable
+
     # Helper class method that allows you to build a comment
     # by passing a commentable object, a user_id, and comment text
     # example in readme

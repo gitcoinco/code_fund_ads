@@ -2,9 +2,6 @@ class CampaignBudgetsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_campaign
 
-  def show
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.

@@ -136,13 +136,13 @@ class User < ApplicationRecord
   )
   has_one_attached :avatar
   has_paper_trail on: %i[create update destroy], only: %i[
-    roles
-    first_name
-    last_name
-    company_name
     api_access
     api_key
+    company_name
     email
+    first_name
+    last_name
+    roles
   ]
 
   # class methods .............................................................
