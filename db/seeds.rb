@@ -144,8 +144,8 @@ class Seeder
 
   def generate_campaigns(advertiser)
     rand(1..5).times do
-      start_date = rand(3).months.from_now.to_date
-      end_date = start_date.advance(months: 6)
+      start_date = Date.current
+      end_date = Date.current.advance(years: 1)
       total_budget = ([*500..5000].sample / 100) * 100
       daily_budget = total_budget / (end_date - start_date).to_i
       countries = ENUMS::DEVELOPED_MARKET_COUNTRIES.keys

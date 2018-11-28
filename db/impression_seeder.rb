@@ -20,8 +20,9 @@ class ImpressionSeeder
     @months = months.to_i.zero? ? 1 : months.to_i
     @gap_count = max_count - initial_count
     @gap_count = 0 if @gap_count < 0
+    @cores = [@months, cores].min
 
-    puts "creating [#{gap_count.to_s.rjust(8)}] new impressions spread over [#{months}] months using [#{cores}] cpu cores"
+    puts "creating [#{gap_count.to_s.rjust(8)}] new impressions spread over [#{@months}] months using [#{cores}] cpu cores"
     print "".ljust(48)
     puts "...the count is an estimate due to randomness added to mimic real world behavior"
 
@@ -44,7 +45,7 @@ class ImpressionSeeder
   def call
     if initial_count < max_count
       benchmark = Benchmark.measure {
-        dates = [Date.parse("2019-01-01")]
+        dates = [Date.current.beginning_of_month]
         (months - 1).times.each { dates << dates.last.advance(months: 1) }
         chunked_dates = dates.in_groups_of((months / cores.to_f).ceil)
         pids = cores.times.map { |i|
@@ -71,7 +72,7 @@ class ImpressionSeeder
   def build_impression(displayed_at)
     property = @publishers.sample.properties.sample
     campaigns = @campaigns_cache[property.id] ||= Campaign.includes(:user, :creative).for_property(property).load
-    campaign = campaigns.sample
+    campaign = campaigns.select { |c| c.available_on? displayed_at }.sample
     return nil unless campaign
     @count += 1
     Impression.new(

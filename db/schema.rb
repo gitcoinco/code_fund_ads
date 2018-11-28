@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_23_143528) do
+ActiveRecord::Schema.define(version: 2018_11_27_212138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -75,6 +75,18 @@ ActiveRecord::Schema.define(version: 2018_11_23_143528) do
     t.index ["us_hours_only"], name: "index_campaigns_on_us_hours_only"
     t.index ["user_id"], name: "index_campaigns_on_user_id"
     t.index ["weekdays_only"], name: "index_campaigns_on_weekdays_only"
+  end
+
+  create_table "counters", force: :cascade do |t|
+    t.bigint "record_id", null: false
+    t.string "record_type", null: false
+    t.string "scope", null: false
+    t.string "segment"
+    t.bigint "count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id", "scope", "segment"], name: "index_counters_on_record_and_scope_and_segment", unique: true
+    t.index ["record_type", "record_id", "scope"], name: "index_counters_on_record_type_and_record_id_and_scope"
   end
 
   create_table "creative_images", force: :cascade do |t|
