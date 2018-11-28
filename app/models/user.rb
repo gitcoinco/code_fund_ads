@@ -135,9 +135,21 @@ class User < ApplicationRecord
     :validatable,
   )
   has_one_attached :avatar
+  has_paper_trail on: %i[create update destroy], only: %i[
+    api_access
+    api_key
+    company_name
+    email
+    first_name
+    last_name
+    roles
+  ]
 
   # class methods .............................................................
   class << self
+    def find_version_author(version)
+      find(version.terminator)
+    end
   end
 
   # public instance methods ...................................................
@@ -164,6 +176,10 @@ class User < ApplicationRecord
 
   def revenue_rate
     0.6
+  end
+
+  def to_s
+    full_name
   end
 
   # protected instance methods ................................................

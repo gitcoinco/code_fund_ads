@@ -1,61 +1,18 @@
-<div class="col-md-6 col-lg-4 mb-7 mb-lg-0">
-  <article class="bg-white shadow-sm rounded p-4">
-    <header class="p-6">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <small class="d-block text-muted">22 February, 2018</small>
-
-        <a class="u-icon u-icon--sm u-icon-primary--air rounded-circle" href="javascript:;" data-toggle="tooltip" data-placement="top" title="Download overall report">
-          <span class="fa fa-cloud-download-alt u-icon__inner"></span>
-        </a>
+<div class="card">
+  <div class="card-body p-4">
+    <div class="text-center">
+      <div class="mx-auto mb-3">
+        <%= image_tag campaign.creative.large_images.first, class: "img-fluid" %>
       </div>
 
-      <div class="media align-items-center">
-        <div class="d-flex mr-3">
-          <img class="img-fluid u-sm-avatar rounded-circle" src="../assets/vendor/flag-icon-css/flags/1x1/us.svg" alt="United States Flag">
-        </div>
-        <div class="media-body">
-          <h3 class="h6 mb-0">35,298 USD</h3>
-          <a class="small text-success" href="#">
-            1.3649%
-            <span class="fa fa-angle-up ml-2"></span>
-          </a>
-        </div>
+      <!-- Title -->
+      <div class="mb-2 px-3">
+        <p class="media-body h6 text-black-50 font-weight-normal">
+          <strong class="text-dark"><%= campaign.creative.headline %></strong>
+          <%= campaign.creative.body %>
+        </p>
       </div>
-    </header>
-
-    <hr class="my-0">
-
-    <div class="p-6">
-      <div class="row mb-7">
-        <div class="col-6">
-          <h4 class="small text-muted">
-            Goal: <strong class="text-secondary">$70,000</strong>
-          </h4>
-          <div class="js-hr-progress progress" style="height: 6px;">
-            <div class="js-hr-progress-bar progress-bar bg-success" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-        </div>
-        <div class="col-6">
-          <h4 class="small text-muted">
-            Duration: <strong class="text-secondary">1 week</strong>
-          </h4>
-          <div class="js-hr-progress progress" style="height: 6px;">
-            <div class="js-hr-progress-bar progress-bar bg-warning" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="js-bar-chart"
-        data-controller="bar-chart"
-        data-series='<%= campaign.daily_spend_series.to_json %>'
-        data-is-show-axis-x="false"
-        data-is-show-axis-y="false"
-        data-height="62px"
-        data-high="10"
-        data-low="0"
-        data-distance="5"
-        data-stroke-width="6"
-        data-stroke-color="#19a0ff"></div>
+      <!-- End Title -->
     </div>
-  </article>
+  </div>
 </div>

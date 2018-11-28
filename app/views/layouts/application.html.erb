@@ -58,6 +58,9 @@
     <%= render "/@shared/footer" %>
     <%= render "/@shared/secondary" if current_user %>
 
+    <!-- Target for dynamically generated modals -->
+    <div id="global-modal" class="modal fade"></div>
+
     <%= noty_flash %>
     <%= support_widget_tag %>
     <%= ga_tag %>

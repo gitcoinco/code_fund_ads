@@ -1,0 +1,17 @@
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/properties" %>
+  <%= render "/@shared/breadcrumbs/property", property: @versionable, class: "active" %>
+<% end %>
+
+<% content_for :actions do %>
+  <%= render "/@shared/actions/edit_property", property: @versionable %>
+<% end %>
+
+<% content_for :page_heading do %>
+  <%= page_heading "Viewing", "Property",
+    subtitle: @versionable.name,
+    icon: "fas fa-browser" %>
+<% end %>
+
+<%= render "/versions/table", versionable: @versionable %>

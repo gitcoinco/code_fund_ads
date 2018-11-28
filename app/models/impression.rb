@@ -39,6 +39,7 @@ class Impression < ApplicationRecord
   after_commit :increment_counters, on: [:create]
 
   # scopes ....................................................................
+  scope :clicked, -> { where.not(clicked_at: nil) }
   scope :on, ->(date) { where displayed_at_date: date }
 
   # This scope may look odd but isolating the date range query like this allows us to

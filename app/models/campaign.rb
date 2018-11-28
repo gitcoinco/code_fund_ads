@@ -29,6 +29,8 @@
 class Campaign < ApplicationRecord
   TOTAL_IMPRESSIONS_COUNT_KEY = "total_impressions_count".freeze
   DAILY_IMPRESSIONS_COUNT_KEY = "daily_impressions_count".freeze
+  TOTAL_CLICKS_COUNT_KEY = "total_clicks_count".freeze
+  DAILY_CLICKS_COUNT_KEY = "daily_clicks_count".freeze
 
   # extends ...................................................................
   # includes ..................................................................
@@ -39,8 +41,10 @@ class Campaign < ApplicationRecord
   belongs_to :creative
   belongs_to :user
   has_one :total_impressions_counter, -> { where scope: TOTAL_IMPRESSIONS_COUNT_KEY }, as: :record, class_name: "Counter"
+  has_one :total_clicks_counter, -> { where scope: TOTAL_CLICKS_COUNT_KEY }, as: :record, class_name: "Counter"
   has_many :impressions
   has_many :daily_impressions_counters, -> { where scope: DAILY_IMPRESSIONS_COUNT_KEY }, as: :record, class_name: "Counter"
+  has_many :daily_clicks_counters, -> { where scope: DAILY_CLICKS_COUNT_KEY }, as: :record, class_name: "Counter"
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
@@ -107,6 +111,24 @@ class Campaign < ApplicationRecord
   tag_columns :countries
   tag_columns :keywords
   tag_columns :negative_keywords
+  acts_as_commentable
+  has_paper_trail on: %i[create update destroy], only: %i[
+    countries
+    creative_id
+    daily_budget_cents
+    ecpm_cents
+    end_date
+    keywords
+    name
+    negative_keywords
+    start_date
+    status
+    total_budget_cents
+    url
+    us_hours_only
+    user_id
+    weekdays_only
+  ]
 
   # class methods .............................................................
   class << self
@@ -152,6 +174,39 @@ class Campaign < ApplicationRecord
       InitializeDailyImpressionsCountJob.perform_later id, date.iso8601 unless counter
       counter&.count.to_i
     end
+  end
+
+  def total_clicks_count_cache_key
+    "#{cache_key}/#{TOTAL_CLICKS_COUNT_KEY}"
+  end
+
+  def daily_clicks_count_cache_key(date = nil)
+    "#{cache_key}/#{DAILY_CLICKS_COUNT_KEY}/#{(date || Date.current).to_date.iso8601}"
+  end
+
+  def total_clicks_count
+    Rails.cache.fetch total_clicks_count_cache_key, expires_in: (remaining_operative_days + 7).days do
+      counter = total_clicks_counter
+      InitializeTotalClicksCountJob.perform_later id unless counter
+      counter&.count.to_i
+    end
+  end
+
+  def daily_clicks_count(date = nil)
+    date ||= Date.current
+    Rails.cache.fetch daily_clicks_count_cache_key(date), expires_in: 2.days do
+      counter = daily_clicks_counters.segmented_by(date.iso8601).first
+      InitializeDailyClicksCountJob.perform_later id, date.iso8601 unless counter
+      counter&.count.to_i
+    end
+  end
+
+  def daily_ctr(date = nil)
+    date ||= Date.current
+    impressions_count = daily_impressions_count(date)
+    clicks_count = daily_clicks_count(date)
+    return 0 if impressions_count == 0
+    (clicks_count / impressions_count.to_f) * 100
   end
 
   def scoped_name
@@ -256,6 +311,18 @@ class Campaign < ApplicationRecord
     dates = value.split(" - ")
     self.start_date = Date.strptime(dates[0], "%m/%d/%Y")
     self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
+  end
+
+  def matching_properties
+    PropertySearch.new({
+      keywords: keywords,
+      negative_keywords: negative_keywords,
+      status: ["active"],
+    }).apply(Property.order(name: :asc))
+  end
+
+  def average_ctr
+    (total_clicks_count / total_impressions_count.to_f) * 100
   end
 
   # protected instance methods ................................................

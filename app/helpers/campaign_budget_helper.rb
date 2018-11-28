@@ -1,0 +1,2 @@
+module CampaignBudgetHelper
+end

@@ -1,0 +1,82 @@
+<main id="content" role="main" class="bg-light">
+  <div class="container space-1">
+    <h2 class="h4 mb-3">
+      <%= campaign_status_html(campaign.status) %>
+      <%= campaign.name %>
+    </h2>
+
+    <div class="card border-0 mb-3">
+      <div class="card-body p-4">
+        <div class="row mb-4">
+          <div class="col-md-4">
+            <label class="d-block text-muted mb-0">Schedule</label>
+            <span class="h5 text-black-70 font-weight-semi-bold"><%= campaign.start_date.strftime("%b %d, %Y") %> &ndash; <%= campaign.end_date.strftime("%b %d, %Y") %></span>
+          </div>
+          <div class="col-md-2">
+            <label class="d-block text-muted mb-0">Total Budget</label>
+            <span class="h5 text-black-70 font-weight-semi-bold"><%= number_to_currency campaign.total_budget %></span>
+          </div>
+          <div class="col-md-2">
+            <label class="d-block text-muted mb-0">Total Spend</label>
+            <span class="h5 text-black-70 font-weight-semi-bold"><%= number_to_currency campaign.total_consumed_budget %></span>
+          </div>
+          <div class="col-md-2">
+            <label class="d-block text-muted mb-0">Average CTR</label>
+            <span class="h5 text-black-70 font-weight-semi-bold"><%= number_to_percentage campaign.average_ctr %></span>
+          </div>
+          <div class="col-md-2">
+            <label class="d-block text-muted mb-0">Duration</label>
+            <span class="h5 text-black-70 font-weight-semi-bold"><%= campaign.duration %></span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4">
+            <label class="d-block text-muted mb-1">Remaining Days: <span class="text-black-70"><%= campaign.remaining_operative_days %></span></label>
+            <div class="progress" style="height: 25px;">
+              <div class="progress-bar bg-soft-primary" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <label class="d-block text-muted mb-1">Remaining Budget: <span class="text-black-70"><%= number_to_currency campaign.total_remaining_budget %></span></label>
+            <div class="progress" style="height: 25px;">
+              <div class="progress-bar bg-success" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <label class="d-block text-muted mb-0">Impressions</label>
+            <span class="h5 text-black-70 font-weight-semi-bold"><%= campaign.impressions.count %></span>
+          </div>
+          <div class="col-md-2">
+            <label class="d-block text-muted mb-0">Clicks</label>
+            <span class="h5 text-black-70 font-weight-semi-bold"><%= campaign.impressions.clicked.count %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ul class="nav nav-classic" id="myTab" role="tablist">
+      <li class="nav-item">
+        <%= active_link_to "Details", campaign_path(campaign), active: :exact, class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= active_link_to "Targeting", campaign_campaign_targeting_path(campaign), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= active_link_to "Budget", campaign_campaign_budget_path(campaign), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= active_link_to "Properties", campaign_campaign_properties_path(campaign), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= active_link_to "Notes", campaign_comments_path(campaign), class: "nav-link" %>
+      </li>
+      <li class="nav-item">
+        <%= active_link_to "Versions", campaign_versions_path(campaign), class: "nav-link" %>
+      </li>
+    </ul>
+    
+    <div class="bg-white border border-top-0 p-4">
+      <%= yield %>
+    </div>
+  </div>
+</main>

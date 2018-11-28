@@ -1,0 +1,19 @@
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/campaigns" %>
+  <%= render "/@shared/breadcrumbs/campaign", campaign: @campaign, class: "active" %>
+<% end %>
+
+<% content_for :actions do %>
+  <%= render "/@shared/actions/edit_campaign", campaign: @campaign %>
+<% end %>
+
+<% content_for :page_heading do %>
+  <%= page_heading "Viewing", "Campaign",
+    subtitle: @campaign.name,
+    icon: "fas fa-ad" %>
+<% end %>
+
+<%= render layout: "/campaigns/show_layout", locals: { campaign: @campaign } do %>
+  <%= render "/campaign_properties/table", campaign: @campaign %>
+<% end %>

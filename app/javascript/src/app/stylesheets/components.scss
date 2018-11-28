@@ -135,3 +135,8 @@ th[scope=col] a {
     }
   }
 }
+
+tr.border-bottom,
+tr.border-bottom td {
+  border-bottom: 1px solid #d8d8d8;
+}

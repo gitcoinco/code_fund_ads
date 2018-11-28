@@ -1,0 +1,24 @@
+<div class="table-responsive">
+  <table class="js-datatable table table-striped table-compact table-borderless u-datatable u-datatable__striped u-datatable__trigger">
+    <thead>
+      <tr class="border-bottom">
+        <th class="text-center" style="width: 20%;">Name</th>
+        <th class="text-center" style="width: 20%;">URL</th>
+        <th class="text-center" style="width: 20%;">Impressions</th>
+        <th class="text-center" style="width: 20%;">Clicks</th>
+        <th class="text-center" style="width: 20%;">CTR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @campaign.matching_properties.each do |property| %>
+      <tr>
+        <td class="text-left align-middle text-secondary"><%= link_to property.name, property %></td>
+        <td class="text-left align-middle text-secondary"><%= link_to property.url, property.url, target: "_blank" %></td>
+        <td class="text-center align-middle text-secondary">-</td>
+        <td class="text-center align-middle text-secondary">-</td>
+        <td class="text-center align-middle text-secondary">-</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -51,6 +51,10 @@ GEM
       i18n (>= 0.7, < 2)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    acts_as_commentable_with_threading (2.0.1)
+      activerecord (>= 4.0)
+      activesupport (>= 4.0)
+      awesome_nested_set (>= 3.0)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     annotate (2.7.4)
@@ -60,6 +64,8 @@ GEM
       io-like (~> 0.3.0)
     arel (9.0.0)
     ast (2.4.0)
+    awesome_nested_set (3.1.4)
+      activerecord (>= 4.0.0, < 5.3)
     awesome_print (1.8.0)
     bcrypt (3.1.12)
     bindex (0.5.0)
@@ -106,6 +112,7 @@ GEM
     devise_invitable (1.7.5)
       actionmailer (>= 4.1.0)
       devise (>= 4.0.0)
+    diffy (3.2.1)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.5.0)
@@ -182,6 +189,9 @@ GEM
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
     pagy (0.21.0)
+    paper_trail (10.0.1)
+      activerecord (>= 4.2, < 5.3)
+      request_store (~> 1.1)
     parallel (1.12.1)
     parser (2.5.3.0)
       ast (~> 2.4.0)
@@ -247,6 +257,8 @@ GEM
       ffi (>= 0.5.0, < 2)
     redis (4.0.3)
     regexp_parser (1.3.0)
+    request_store (1.4.1)
+      rack (>= 1.4)
     responders (2.4.0)
       actionpack (>= 4.2.0, < 5.3)
       railties (>= 4.2.0, < 5.3)
@@ -345,6 +357,7 @@ PLATFORMS
 
 DEPENDENCIES
   active_link_to (~> 1.0.5)
+  acts_as_commentable_with_threading (~> 2.0.1)
   annotate
   awesome_print
   bootsnap (>= 1.1.0)
@@ -355,6 +368,7 @@ DEPENDENCIES
   country_select (~> 3.1.1)
   devise (~> 4.5.0)
   devise_invitable (~> 1.7.5)
+  diffy (~> 3.2.1)
   dotenv
   faker (>= 1.9.1)
   gibbon (~> 3.2.0)
@@ -370,6 +384,7 @@ DEPENDENCIES
   money (~> 6.13.1)
   money-rails (~> 1.13.0)
   pagy (~> 0.21.0)
+  paper_trail (~> 10.0.1)
   perm (~> 1.0.2)
   pg (>= 0.18, < 2.0)
   pg_party (~> 0.7.3)
@@ -401,4 +416,4 @@ RUBY VERSION
    ruby 2.5.3p105
 
 BUNDLED WITH
-   1.16.6
+   1.17.1
