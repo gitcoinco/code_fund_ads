@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <%= stylesheet_link_tag "foundation_emails" %>
+  </head>
+
+  <body>
+    <table class="body" data-made-with-foundation>
+      <tr>
+        <td class="center" align="center" valign="top">
+          <center>
+            <spacer size="32"></spacer>
+
+            <container class="header">
+              <spacer size="16"></spacer>
+              <row class="collapse">
+                <columns>
+                  <%= image_tag attachments['logo.png'].url, class: "email-logo", alt: "CodeFund" %>
+                </columns>
+              </row>
+              <spacer size="2"></spacer>
+            </container>
+
+            <container class="email-body">
+              <spacer size="32"></spacer>
+              <row>
+                <columns large="12" class="email-content">
+                  <%= yield %>
+                </columns>
+              </row>
+              <spacer size="16"></spacer>
+            </container>
+
+            <container class="footer">
+              <row>
+                <columns class="footer-content" large="12">
+                  <p class="text-center" style="font-size: 12px;">
+                    CodeFund 💚 Open Source Developers
+                  </p>
+                </columns>
+              </row>
+            </container>
+          </center>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
