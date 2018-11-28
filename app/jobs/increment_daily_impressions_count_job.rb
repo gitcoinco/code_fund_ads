@@ -9,7 +9,7 @@ class IncrementDailyImpressionsCountJob < ApplicationJob
     counter = campaign.daily_impressions_counters.segmented_by(date.iso8601).first
     return InitializeDailyImpressionsCountJob.perform_later(campaign_id, date_string) unless counter
 
-    initialize_counter campaign, date, counter
+    increment campaign, date, counter
   end
 
   private
