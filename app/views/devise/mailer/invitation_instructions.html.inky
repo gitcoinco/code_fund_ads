@@ -1,0 +1,17 @@
+<container>
+  <row>
+    <columns>
+      <h4>Hi <%= @resource.first_name || @resource.email %>!</h4>
+      <p><%= t("devise.mailer.invitation_instructions.someone_invited_you", url: root_url) %></p>
+      <spacer size="8"></spacer>
+      <button href="<%= accept_invitation_url(@resource, :invitation_token => @token) %>"><%= t("devise.mailer.invitation_instructions.accept") %></button>
+      <spacer size="8"></spacer>
+      <% if @resource.invitation_due_at %>
+        <p><%= t("devise.mailer.invitation_instructions.accept_until", due_date: l(@resource.invitation_due_at, format: :'devise.mailer.invitation_instructions.accept_until_format')) %></p>
+        <spacer size="8"></spacer>
+      <% end %>
+      <spacer size="8"></spacer>
+      <p><%= t("devise.mailer.invitation_instructions.ignore") %></p>
+    </columns>
+  </row>
+</container>

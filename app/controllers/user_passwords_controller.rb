@@ -8,7 +8,7 @@ class UserPasswordsController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_password_params)
-        UserMailer.with(email: @user.email).password_changed.deliver_later
+        @user.send_password_change_notification
 
         format.html { redirect_to user_path("me"), notice: "Password was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
