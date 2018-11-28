@@ -53,7 +53,8 @@ class Campaign < ApplicationRecord
   scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
   scope :active, -> { where status: ENUMS::CAMPAIGN_STATUSES::ACTIVE }
   scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
-  scope :available, -> { where(arel_table[:start_date].lteq(Date.current)).where(arel_table[:end_date].gteq(Date.current)) }
+  scope :available_on, ->(date) { where(arel_table[:start_date].lteq(date)).where(arel_table[:end_date].gteq(date)) }
+  scope :available, -> { available_on Date.current }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :search_countries, ->(*values) { values.blank? ? all : with_any_countries(*values) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
@@ -124,6 +125,10 @@ class Campaign < ApplicationRecord
     ENUMS::CAMPAIGN_STATUSES.archived? status
   end
 
+  def available_on?(date)
+    date.to_date.between? start_date, end_date
+  end
+
   def total_impressions_count_cache_key
     "#{cache_key}/#{TOTAL_IMPRESSIONS_COUNT_KEY}"
   end
@@ -134,14 +139,18 @@ class Campaign < ApplicationRecord
 
   def total_impressions_count
     Rails.cache.fetch total_impressions_count_cache_key, expires_in: (remaining_operative_days + 7).days do
-      total_impressions_counter&.count.to_i
+      counter = total_impressions_counter
+      InitializeTotalImpressionsCountJob.perform_later id unless counter
+      counter&.count.to_i
     end
   end
 
   def daily_impressions_count(date = nil)
     date ||= Date.current
     Rails.cache.fetch daily_impressions_count_cache_key(date), expires_in: 2.days do
-      daily_impressions_counters.segmented_by(date.iso8601).first&.count.to_i
+      counter = daily_impressions_counters.segmented_by(date.iso8601).first
+      InitializeDailyImpressionsCountJob.perform_later id, date.iso8601 unless counter
+      counter&.count.to_i
     end
   end
 

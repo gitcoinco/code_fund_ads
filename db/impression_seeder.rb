@@ -29,6 +29,7 @@ class ImpressionSeeder
     @campaigns_cache = {}
   end
 
+  attr_writer :cores
   def cores
     @cores ||= begin
       cores = Etc.nprocessors - 1
@@ -46,6 +47,7 @@ class ImpressionSeeder
       benchmark = Benchmark.measure {
         dates = [Date.parse("2019-01-01")]
         (months - 1).times.each { dates << dates.last.advance(months: 1) }
+        self.cores = dates.size if dates.size < cores
         chunked_dates = dates.in_groups_of((months / cores.to_f).ceil)
         pids = cores.times.map { |i|
           Process.fork do
@@ -71,7 +73,7 @@ class ImpressionSeeder
   def build_impression(displayed_at)
     property = @publishers.sample.properties.sample
     campaigns = @campaigns_cache[property.id] ||= Campaign.includes(:user, :creative).for_property(property).load
-    campaign = campaigns.sample
+    campaign = campaigns.select { |c| c.available_on? displayed_at }.sample
     return nil unless campaign
     @count += 1
     Impression.new(

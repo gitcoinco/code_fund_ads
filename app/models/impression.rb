@@ -39,11 +39,11 @@ class Impression < ApplicationRecord
   after_commit :increment_counters, on: [:create]
 
   # scopes ....................................................................
-  scope :on, -> (date) { where displayed_at_date: date }
+  scope :on, ->(date) { where displayed_at_date: date }
 
   # This scope may look odd but isolating the date range query like this allows us to
   # optimize for the fastest query that takes advantage of partitioning and indexes
-  scope :between, -> (start_date, end_date) {
+  scope :between, ->(start_date, end_date) {
     where displayed_at_date: (start_date..end_date).map(&:iso8601)
   }
 
@@ -64,6 +64,6 @@ class Impression < ApplicationRecord
 
   def increment_counters
     IncrementTotalImpressionsCountJob.perform_later campaign_id
-    IncrementDailyImpressionsCountJob.perform_later campaign_id
+    IncrementDailyImpressionsCountJob.perform_later campaign_id, Date.current.iso8601
   end
 end
