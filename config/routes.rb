@@ -28,12 +28,12 @@ Rails.application.routes.draw do
   resources :versions, only: [:show, :update]
   resources :comments, only: [:create, :destroy]
 
-  resources :campaigns do
+  resources :campaigns
+  scope "/campaigns/:campaign_id" do
     resource :campaign_targeting, only: [:show], path: "/targeting"
     resource :campaign_budget, only: [:show], path: "/budget"
+    resource :campaign_dashboards, only: [:show], path: "/dashboard"
     resources :campaign_properties, only: [:index], path: "/properties"
-  end
-  scope "/campaigns/:campaign_id" do
     resources :versions, only: [:index], as: :campaign_versions
     resources :comments, only: [:index], as: :campaign_comments
   end

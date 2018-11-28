@@ -19,15 +19,12 @@ module Campaigns
       return 0   if start_date > Date.current
       return 100 if end_date < Date.current
 
-      ((remaining_days.to_f / total_days.to_f) * 100).to_i
+      ((consumed_operative_days.to_f / total_operative_days.to_f) * 100).to_i
     end
 
     def percentage_complete_by_budget
-      return 0   if total_operative_days.zero?
-      return 0   if start_date > Date.current
-      return 100 if end_date < Date.current
-
-      ((remaining_days.to_f / total_days.to_f) * 100).to_i
+      return 0 if total_budget.zero?
+      ((total_consumed_budget.to_f / total_budget.to_f) * 100).to_i
     end
   end
 end
