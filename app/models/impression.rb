@@ -26,7 +26,7 @@ class Impression < ApplicationRecord
   # includes ..................................................................
 
   # relationships .............................................................
-  belongs_to :campaign, counter_cache: :total_impressions_count
+  belongs_to :campaign
   belongs_to :distribution, optional: true
   belongs_to :property
 
@@ -36,9 +36,16 @@ class Impression < ApplicationRecord
   validates :postal_code, length: {maximum: 255}
 
   # callbacks .................................................................
-  after_commit :increment_daily_counters, on: [:create]
+  after_commit :increment_counters, on: [:create]
 
   # scopes ....................................................................
+  scope :on, -> (date) { where displayed_at_date: date }
+
+  # This scope may look odd but isolating the date range query like this allows us to
+  # optimize for the fastest query that takes advantage of partitioning and indexes
+  scope :between, -> (start_date, end_date) {
+    where displayed_at_date: (start_date..end_date).map(&:iso8601)
+  }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   range_partition_by :displayed_at_date
@@ -55,7 +62,8 @@ class Impression < ApplicationRecord
 
   private
 
-  def increment_daily_counters
-    IncrementDailyImpressionsCountJob.perform_later(campaign_id, Date.current.iso8601)
+  def increment_counters
+    IncrementTotalImpressionsCountJob.perform_later campaign_id
+    IncrementDailyImpressionsCountJob.perform_later campaign_id
   end
 end

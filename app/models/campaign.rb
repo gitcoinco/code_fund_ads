@@ -2,32 +2,34 @@
 #
 # Table name: campaigns
 #
-#  id                      :bigint(8)        not null, primary key
-#  user_id                 :bigint(8)
-#  creative_id             :bigint(8)
-#  status                  :string           not null
-#  fallback                :boolean          default(FALSE), not null
-#  name                    :string           not null
-#  url                     :text             not null
-#  start_date              :date
-#  end_date                :date
-#  us_hours_only           :boolean          default(FALSE)
-#  weekdays_only           :boolean          default(FALSE)
-#  total_budget_cents      :integer          default(0), not null
-#  total_budget_currency   :string           default("USD"), not null
-#  daily_budget_cents      :integer          default(0), not null
-#  daily_budget_currency   :string           default("USD"), not null
-#  ecpm_cents              :integer          default(0), not null
-#  ecpm_currency           :string           default("USD"), not null
-#  countries               :string           default([]), is an Array
-#  keywords                :string           default([]), is an Array
-#  negative_keywords       :string           default([]), is an Array
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  total_impressions_count :integer          default(0), not null
+#  id                    :bigint(8)        not null, primary key
+#  user_id               :bigint(8)
+#  creative_id           :bigint(8)
+#  status                :string           not null
+#  fallback              :boolean          default(FALSE), not null
+#  name                  :string           not null
+#  url                   :text             not null
+#  start_date            :date
+#  end_date              :date
+#  us_hours_only         :boolean          default(FALSE)
+#  weekdays_only         :boolean          default(FALSE)
+#  total_budget_cents    :integer          default(0), not null
+#  total_budget_currency :string           default("USD"), not null
+#  daily_budget_cents    :integer          default(0), not null
+#  daily_budget_currency :string           default("USD"), not null
+#  ecpm_cents            :integer          default(0), not null
+#  ecpm_currency         :string           default("USD"), not null
+#  countries             :string           default([]), is an Array
+#  keywords              :string           default([]), is an Array
+#  negative_keywords     :string           default([]), is an Array
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
 #
 
 class Campaign < ApplicationRecord
+  TOTAL_IMPRESSIONS_COUNT_KEY = "total_impressions_count".freeze
+  DAILY_IMPRESSIONS_COUNT_KEY = "daily_impressions_count".freeze
+
   # extends ...................................................................
   # includes ..................................................................
   include Taggable
@@ -36,7 +38,9 @@ class Campaign < ApplicationRecord
   # relationships .............................................................
   belongs_to :creative
   belongs_to :user
+  has_one :total_impressions_counter, -> { where scope: TOTAL_IMPRESSIONS_COUNT_KEY }, as: :record, class_name: "Counter"
   has_many :impressions
+  has_many :daily_impressions_counters, -> { where scope: DAILY_IMPRESSIONS_COUNT_KEY }, as: :record, class_name: "Counter"
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
@@ -46,6 +50,10 @@ class Campaign < ApplicationRecord
   # callbacks .................................................................
 
   # scopes ....................................................................
+  scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
+  scope :active, -> { where status: ENUMS::CAMPAIGN_STATUSES::ACTIVE }
+  scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
+  scope :available, -> { where(arel_table[:start_date].lteq(Date.current)).where(arel_table[:end_date].gteq(Date.current)) }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :search_countries, ->(*values) { values.blank? ? all : with_any_countries(*values) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
@@ -91,10 +99,6 @@ class Campaign < ApplicationRecord
   #   irb>Campaign.with_keywords("Frontend Frameworks & Tools", "Ruby")
   #   irb>Campaign.without_negative_keywords("Database", "Docker", "React")
 
-  scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
-  scope :active, -> { where status: ENUMS::CAMPAIGN_STATUSES::ACTIVE }
-  scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
-
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   monetize :total_budget_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :daily_budget_cents, numericality: {greater_than_or_equal_to: 0}
@@ -118,6 +122,27 @@ class Campaign < ApplicationRecord
 
   def archived?
     ENUMS::CAMPAIGN_STATUSES.archived? status
+  end
+
+  def total_impressions_count_cache_key
+    "#{cache_key}/#{TOTAL_IMPRESSIONS_COUNT_KEY}"
+  end
+
+  def daily_impressions_count_cache_key(date = nil)
+    "#{cache_key}/#{DAILY_IMPRESSIONS_COUNT_KEY}/#{(date || Date.current).to_date.iso8601}"
+  end
+
+  def total_impressions_count
+    Rails.cache.fetch total_impressions_count_cache_key, expires_in: (remaining_operative_days + 7).days do
+      total_impressions_counter&.count.to_i
+    end
+  end
+
+  def daily_impressions_count(date = nil)
+    date ||= Date.current
+    Rails.cache.fetch daily_impressions_count_cache_key(date), expires_in: 2.days do
+      daily_impressions_counters.segmented_by(date.iso8601).first&.count.to_i
+    end
   end
 
   def scoped_name
@@ -216,19 +241,6 @@ class Campaign < ApplicationRecord
 
   def daily_impressions_per_mille
     daily_impressions_count / 1_000.to_f
-  end
-
-  def daily_impressions_count_cache_key(date = nil)
-    date ||= Date.current
-    "#{cache_key}/daily_impressions_count/#{date.to_date.iso8601}"
-  end
-
-  def daily_impressions_count(date = nil)
-    date ||= Date.current
-    cache_key = daily_impressions_count_cache_key(date)
-    return Rails.cache.redis.get(cache_key).to_i if Rails.cache.redis.exists(cache_key)
-    CalculateDailyImpressionsCountJob.perform_later(self, date.iso8601)
-    0
   end
 
   def date_range=(value)
