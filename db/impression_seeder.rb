@@ -20,8 +20,9 @@ class ImpressionSeeder
     @months = months.to_i.zero? ? 1 : months.to_i
     @gap_count = max_count - initial_count
     @gap_count = 0 if @gap_count < 0
+    @cores = [@months, cores].min
 
-    puts "creating [#{gap_count.to_s.rjust(8)}] new impressions spread over [#{months}] months using [#{cores}] cpu cores"
+    puts "creating [#{gap_count.to_s.rjust(8)}] new impressions spread over [#{@months}] months using [#{cores}] cpu cores"
     print "".ljust(48)
     puts "...the count is an estimate due to randomness added to mimic real world behavior"
 
@@ -29,7 +30,6 @@ class ImpressionSeeder
     @campaigns_cache = {}
   end
 
-  attr_writer :cores
   def cores
     @cores ||= begin
       cores = Etc.nprocessors - 1
@@ -45,9 +45,8 @@ class ImpressionSeeder
   def call
     if initial_count < max_count
       benchmark = Benchmark.measure {
-        dates = [Date.parse("2019-01-01")]
+        dates = [Date.current.beginning_of_month]
         (months - 1).times.each { dates << dates.last.advance(months: 1) }
-        self.cores = dates.size if dates.size < cores
         chunked_dates = dates.in_groups_of((months / cores.to_f).ceil)
         pids = cores.times.map { |i|
           Process.fork do

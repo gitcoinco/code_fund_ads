@@ -22,7 +22,7 @@ The `impressions` table will seed with approximately 100k records spread over 1 
 You can increase this by setting the `IMPRESSIONS` and `MONTHS` environment variables and seeding again.
 
 ```
-IMPRESSIONS=25_000_000 MONTHS=12 rails db:seed
+IMPRESSIONS=10_000_000 MONTHS=12 rails db:seed
 ```
 
 ### Tmux/Teamocil
