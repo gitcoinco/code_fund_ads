@@ -171,6 +171,41 @@ ALTER SEQUENCE public.campaigns_id_seq OWNED BY public.campaigns.id;
 
 
 --
+-- Name: counters; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.counters (
+    id bigint NOT NULL,
+    record_id bigint NOT NULL,
+    record_type character varying NOT NULL,
+    scope character varying NOT NULL,
+    segment character varying,
+    count bigint DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: counters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.counters_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: counters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.counters_id_seq OWNED BY public.counters.id;
+
+
+--
 -- Name: creative_images; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1620,6 +1655,13 @@ ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval
 --
 
 ALTER TABLE ONLY public.campaigns ALTER COLUMN id SET DEFAULT nextval('public.campaigns_id_seq'::regclass);
+
+
+--
+-- Name: counters id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.counters ALTER COLUMN id SET DEFAULT nextval('public.counters_id_seq'::regclass);
 
 
 --
@@ -4774,6 +4816,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 ALTER TABLE ONLY public.campaigns
     ADD CONSTRAINT campaigns_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: counters counters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.counters
+    ADD CONSTRAINT counters_pkey PRIMARY KEY (id);
 
 
 --
@@ -8181,6 +8231,20 @@ CREATE INDEX index_campaigns_on_user_id ON public.campaigns USING btree (user_id
 --
 
 CREATE INDEX index_campaigns_on_weekdays_only ON public.campaigns USING btree (weekdays_only);
+
+
+--
+-- Name: index_counters_on_record_and_scope_and_segment; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_counters_on_record_and_scope_and_segment ON public.counters USING btree (record_type, record_id, scope, segment);
+
+
+--
+-- Name: index_counters_on_record_type_and_record_id_and_scope; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_counters_on_record_type_and_record_id_and_scope ON public.counters USING btree (record_type, record_id, scope);
 
 
 --
@@ -17592,6 +17656,7 @@ SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20181017152837'),
-('20181123143528');
+('20181123143528'),
+('20181127212138');
 
 

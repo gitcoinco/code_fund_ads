@@ -51,3 +51,27 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
+
+administrator:
+  roles:
+    - <%= ENUMS::USER_ROLES::ADMINISTRATOR %>
+  first_name: Chris
+  last_name: Knight
+  email: chris.knight@codefund.io
+  encrypted_password: <%= User.new(password: "secret").encrypted_password %>
+
+publisher:
+  roles:
+    - <%= ENUMS::USER_ROLES::PUBLISHER %>
+  first_name: Jordan
+  last_name: Cochran
+  email: jordan.cochran@codefund.io
+  encrypted_password: <%= User.new(password: "secret").encrypted_password %>
+
+advertiser:
+  roles:
+    - <%= ENUMS::USER_ROLES::ADVERTISER %>
+  first_name: Mitch
+  last_name: Taylor
+  email: mitch.taylor@codefund.io
+  encrypted_password: <%= User.new(password: "secret").encrypted_password %>

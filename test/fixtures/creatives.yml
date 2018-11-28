@@ -11,3 +11,9 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+
+code_fund:
+  user: advertiser
+  name: CodeFund
+  headline: CodeFund
+  body: We help open source thrive. Learn how...

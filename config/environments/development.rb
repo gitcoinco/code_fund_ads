@@ -21,7 +21,7 @@ Rails.application.configure do
   if Rails.root.join("tmp", "caching-dev.txt").exist?
     config.action_controller.perform_caching = true
 
-    config.cache_store = :memory_store
+    config.cache_store = :redis_cache_store, {driver: :hiredis, namespace: "code_fund_ads_#{Rails.env}_cache", url: ENV["REDIS_CACHE_URL"]}
     config.public_file_server.headers = {
       "Cache-Control" => "public, max-age=#{2.days.to_i}",
     }
