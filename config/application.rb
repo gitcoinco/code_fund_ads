@@ -18,5 +18,6 @@ module CodeFundAds
 
     config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
     config.active_record.schema_format = :sql
+    config.active_job.queue_adapter = :sidekiq
   end
 end
