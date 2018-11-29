@@ -11,13 +11,13 @@ module Campaigns
 
       scope :include_total_impressions_count, -> {
         subquery = Counter.select(:count).where(record_type: "Campaign", record_id: arel_table[:id], scope: TOTAL_IMPRESSIONS_COUNT_KEY)
-        select(arel_table[Arel.star]).select("(#{subquery.to_sql}) AS #{TOTAL_IMPRESSIONS_COUNT_KEY}")
+        select(arel_table[Arel.star]).select(subquery.arel.as(TOTAL_IMPRESSIONS_COUNT_KEY))
       }
 
       scope :include_daily_impressions_count, ->(date = nil) {
         date ||= Date.current
         subquery = Counter.select(:count).where(record_type: "Campaign", record_id: arel_table[:id], scope: DAILY_IMPRESSIONS_COUNT_KEY, segment: date.iso8601)
-        select(arel_table[Arel.star]).select("(#{subquery.to_sql}) AS #{DAILY_IMPRESSIONS_COUNT_KEY}")
+        select(arel_table[Arel.star]).select(subquery.arel.as(DAILY_IMPRESSIONS_COUNT_KEY))
       }
     end
 
