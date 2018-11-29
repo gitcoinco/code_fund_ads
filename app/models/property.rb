@@ -96,10 +96,6 @@ class Property < ApplicationRecord
 
   # public instance methods ...................................................
 
-  def scoped_name
-    [user.scoped_name, name].compact.join "・"
-  end
-
   def favicon_image_url
     domain = url.gsub(/^https?:\/\//, "")
     "//www.google.com/s2/favicons?domain=#{domain}"

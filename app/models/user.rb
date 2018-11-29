@@ -166,10 +166,6 @@ class User < ApplicationRecord
     roles.include? ENUMS::USER_ROLES["publisher"]
   end
 
-  def scoped_name
-    [company_name, full_name].compact.join "・"
-  end
-
   def total_distributions
     250.00
   end
