@@ -22,7 +22,7 @@
           </div>
           <div class="col-md-2">
             <label class="d-block text-muted mb-0">Average CTR</label>
-            <span class="h5 text-black-70 font-weight-semi-bold"><%= number_to_percentage campaign.average_ctr %></span>
+            <span class="h5 text-black-70 font-weight-semi-bold"><%= number_to_percentage campaign.total_ctr %></span>
           </div>
           <div class="col-md-2">
             <label class="d-block text-muted mb-0">Duration</label>
@@ -74,7 +74,7 @@
         <%= active_link_to "Versions", campaign_versions_path(campaign), class: "nav-link" %>
       </li>
     </ul>
-    
+
     <div class="bg-white border border-top-0 p-4">
       <%= yield %>
     </div>

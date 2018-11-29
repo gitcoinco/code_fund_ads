@@ -14,5 +14,6 @@ class InitializeDailyImpressionsCountJob < ApplicationJob
     count = campaign.impressions.on(date).count
     counter = Counter.where(record: campaign, scope: Campaign::DAILY_IMPRESSIONS_COUNT_KEY, segment: date.iso8601).first_or_initialize(count: count)
     counter.save!
+    Rails.cache.write campaign.daily_impressions_count_cache_key(date), counter.count, expires_in: 2.days
   end
 end

@@ -1,0 +1,24 @@
+module Campaigns
+  module Operable
+    extend ActiveSupport::Concern
+
+    def operative_dates
+      dates = (start_date..end_date).to_a
+      return dates unless weekdays_only?
+      dates.select { |date| !date.saturday? && !date.sunday? }
+    end
+
+    def total_operative_days
+      operative_dates.size
+    end
+
+    def remaining_operative_dates
+      today = Date.current
+      operative_dates.select { |date| date >= today }
+    end
+
+    def remaining_operative_days
+      remaining_operative_dates.size
+    end
+  end
+end

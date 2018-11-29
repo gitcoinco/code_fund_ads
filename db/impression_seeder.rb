@@ -100,7 +100,7 @@ class ImpressionSeeder
       return [] unless rand(4).zero?
     end
 
-    rand(@max_per_second * 2).times.map {
+    rand(@max_per_second * 4).times.map {
       build_impression displayed_at
     }.compact
   end

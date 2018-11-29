@@ -77,6 +77,22 @@ ActiveRecord::Schema.define(version: 2018_11_27_212138) do
     t.index ["weekdays_only"], name: "index_campaigns_on_weekdays_only"
   end
 
+  create_table "comments", force: :cascade do |t|
+    t.integer "commentable_id"
+    t.string "commentable_type"
+    t.string "title"
+    t.text "body"
+    t.string "subject"
+    t.integer "user_id", null: false
+    t.integer "parent_id"
+    t.integer "lft"
+    t.integer "rgt"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
   create_table "counters", force: :cascade do |t|
     t.bigint "record_id", null: false
     t.string "record_type", null: false
@@ -4339,6 +4355,17 @@ ActiveRecord::Schema.define(version: 2018_11_27_212138) do
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
+  end
+
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type", null: false
+    t.integer "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.datetime "created_at"
+    t.text "object_changes"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
   end
 
 end
