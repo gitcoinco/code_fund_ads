@@ -1,53 +1,41 @@
-<div class="card text-center mb-5">
-  <div class="card-body p-6">
-    <!-- Team -->
-    <div class="mb-4">
-      <div class="position-relative u-lg-avatar mx-auto mb-3">
-        <img class="img-fluid rounded-circle" src="../../assets/img/100x100/img9.jpg" alt="Image Description">
-        <span class="badge badge-xs badge-outline-primary badge-pos badge-pos--bottom-left rounded-circle"></span>
+<div class="card text-center mb-5 border-0">
+  <div class="card-body">
+    <%= image_tag user.avatar.attached? ? user.avatar : user.gravatar_url, class: "img-fluid w-100 rounded", alt: user.name %>
+    <div class="card border-0 shadow-sm mt-n6 mx-3">
+      <div class="card-body text-center p-4">
+        <h3 class="h6 mb-1"><%= link_to user.name, user %></h3>
+        <p class="font-size-1 mb-3"><%= user.company_name || user.email %></p>
+        <ul class="list-inline mb-0">
+          <% if user.website_url.present? %>
+            <li class="list-inline-item">
+              <%= link_to user.website_url, class: "btn btn-sm btn-icon btn-soft-secondary rounded-circle", target: "_blank" do %>
+                <span class="fab fa-browser btn-icon__inner"></span>
+              <% end %>
+            </li>
+          <% end %>
+          <% if user.linkedin_username.present? %>
+            <li class="list-inline-item">
+              <%= link_to "https://linkedin.com/in/#{user.linkedin_username}", class: "btn btn-sm btn-icon btn-soft-secondary rounded-circle", target: "_blank" do %>
+                <span class="fab fa-linkedin btn-icon__inner"></span>
+              <% end %>
+            </li>
+          <% end %>
+          <% if user.twitter_username.present? %>
+            <li class="list-inline-item">
+              <%= link_to "https://twitter.com/#{user.twitter_username}", class: "btn btn-sm btn-icon btn-soft-secondary rounded-circle", target: "_blank" do %>
+                <span class="fab fa-twitter btn-icon__inner"></span>
+              <% end %>
+            </li>
+          <% end %>
+          <% if user.github_username.present? %>
+            <li class="list-inline-item">
+              <%= link_to "https://github.com/#{user.github_username}", class: "btn btn-sm btn-icon btn-soft-secondary rounded-circle", target: "_blank" do %>
+                <span class="fab fa-github btn-icon__inner"></span>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
       </div>
-
-      <a class="btn btn-sm btn-icon btn-soft-warning btn-bg-transparent position-absolute top-0 right-0 rounded-circle m-3" href="javascript:;" data-toggle="tooltip" data-placement="top" title="Add to favorites">
-        <span class="far fa-star btn-icon__inner"></span>
-      </a>
-
-      <h2 class="h6 mb-0">
-        <a href="#">Patrick Garner</a>
-      </h2>
-      <a class="small" href="#">@patrickgarner</a>
     </div>
-    <!-- End Team -->
-
-    <!-- Social Networks -->
-    <ul class="list-inline mb-0">
-      <li class="list-inline-item">
-        <a class="btn btn-sm btn-icon btn-soft-secondary rounded-circle" href="#">
-          <span class="fab fa-facebook-f btn-icon__inner"></span>
-        </a>
-      </li>
-      <li class="list-inline-item">
-        <a class="btn btn-sm btn-icon btn-soft-secondary rounded-circle" href="#">
-          <span class="fab fa-google btn-icon__inner"></span>
-        </a>
-      </li>
-      <li class="list-inline-item">
-        <a class="btn btn-sm btn-icon btn-soft-secondary rounded-circle" href="#">
-          <span class="fab fa-twitter btn-icon__inner"></span>
-        </a>
-      </li>
-      <li class="list-inline-item">
-        <a class="btn btn-sm btn-icon btn-soft-secondary rounded-circle" href="#">
-          <span class="fab fa-github btn-icon__inner"></span>
-        </a>
-      </li>
-    </ul>
-    <!-- End Social Networks -->
-  </div>
-
-  <div class="card-footer py-4 px-6">
-    <a class="btn btn-sm btn-soft-primary transition-3d-hover" href="#">
-      <span class="far fa-envelope mr-2"></span>
-      Send a Message
-    </a>
   </div>
 </div>
