@@ -1,6 +1,6 @@
 <div class="card text-center mb-5 border-0">
   <div class="card-body">
-    <%= image_tag user.avatar.attached? ? user.avatar : user.gravatar_url, class: "img-fluid w-100 rounded", alt: user.name %>
+    <%= user_avatar_image_tag(user, "img-fluid w-100 rounded") %>
     <div class="card border-0 shadow-sm mt-n6 mx-3">
       <div class="card-body text-center p-4">
         <h3 class="h6 mb-1"><%= link_to user.name, user %></h3>
@@ -9,7 +9,7 @@
           <% if user.website_url.present? %>
             <li class="list-inline-item">
               <%= link_to user.website_url, class: "btn btn-sm btn-icon btn-soft-secondary rounded-circle", target: "_blank" do %>
-                <span class="fab fa-browser btn-icon__inner"></span>
+                <span class="far fa-browser btn-icon__inner"></span>
               <% end %>
             </li>
           <% end %>

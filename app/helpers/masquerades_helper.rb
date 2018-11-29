@@ -1,0 +1,2 @@
+module MasqueradesHelper
+end

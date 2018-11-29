@@ -128,6 +128,7 @@ class User < ApplicationRecord
     :database_authenticatable,
     :invitable,
     :lockable,
+    :masqueradable,
     :recoverable,
     :rememberable,
     :timeoutable,

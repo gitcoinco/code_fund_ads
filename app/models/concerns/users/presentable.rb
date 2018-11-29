@@ -8,10 +8,12 @@ module Users
 
     alias name full_name
 
-    def gravatar_url
-      require "digest/md5"
-      hash = Digest::MD5.hexdigest(email)
-      "https://www.gravatar.com/avatar/#{hash}"
+    def hashed_email
+      Digest::MD5.hexdigest(email.downcase)
+    end
+
+    def gravatar_url(d = "404")
+      "https://www.gravatar.com/avatar/#{hashed_email}?d=#{d}"
     end
 
     def display_region

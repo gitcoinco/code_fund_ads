@@ -5,9 +5,16 @@ class ApplicationController < ActionController::Base
   before_action :reload_extensions, unless: -> { Rails.env.production? }
   before_action -> { cookies.encrypted[:example_id] ||= SecureRandom.uuid }
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :masquerade_user!
   before_action :set_paper_trail_whodunnit
 
   protected
+
+  def authenticate_administrator!
+    unless AuthorizedUser.new(current_user).can_admin_system?
+      render status: :forbidden, text: "You do not have access to this page."
+    end
+  end
 
   def render_not_found
     render file: Rails.public_path.join("404.html"), status: :not_found, layout: false

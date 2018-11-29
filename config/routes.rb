@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: "sessions",
     invitations: "invitations",
+    masquerades: "masquerades_override"
   }
 
   resource :dashboard, only: [:show]
@@ -60,6 +61,7 @@ Rails.application.routes.draw do
     resources :creatives, only: [:index], as: :user_creatives
     resources :versions, only: [:index], as: :user_versions
     resources :comments, only: [:index], as: :user_comments
+    resource :identicon, only: [:show], format: :png, as: :user_identicon, path: "/identicon.png"
   end
 
   resource :newsletter_subscription, only: [:create]
