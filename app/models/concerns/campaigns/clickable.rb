@@ -10,14 +10,29 @@ module Campaigns
       has_many :daily_clicks_counters, -> { where scope: DAILY_CLICKS_COUNT_KEY }, as: :record, class_name: "Counter"
 
       scope :include_total_clicks_count, -> {
-        subquery = Counter.select(:count).where(record_type: "Campaign", record_id: arel_table[:id], scope: TOTAL_CLICKS_COUNT_KEY)
+        subquery = Counter.select(:count).for_model(Campaign).scoped_by(TOTAL_CLICKS_COUNT_KEY)
         select(arel_table[Arel.star]).select(subquery.arel.as(TOTAL_CLICKS_COUNT_KEY))
       }
 
+      scope :include_total_click_rate, -> {
+        impression_count_subquery = Counter.select(:count).for_model(Campaign).scoped_by(Campaigns::Displayable::TOTAL_IMPRESSIONS_COUNT_KEY)
+        click_count_subquery = Counter.select(:count).for_model(Campaign).scoped_by(TOTAL_CLICKS_COUNT_KEY)
+        divide = Arel::Nodes::NamedFunction.new("div", [click_count_subquery.arel, click_count_subquery.arel])
+        select(arel_table[Arel.star]).select(divide.as("total_click_rate"))
+      }
+
       scope :include_daily_clicks_count, ->(date = nil) {
-        date ||= Date.current
-        subquery = Counter.select(:count).where(record_type: "Campaign", record_id: arel_table[:id], scope: DAILY_CLICKS_COUNT_KEY, segment: date.iso8601)
+        date = (date ||= Date.current).to_date
+        subquery = Counter.select(:count).for_model(Campaign).scoped_by(DAILY_CLICKS_COUNT_KEY).segmented_by(date.iso8601)
         select(arel_table[Arel.star]).select(subquery.arel.as(DAILY_CLICKS_COUNT_KEY))
+      }
+
+      scope :include_daily_click_rate, ->(date = nil) {
+        date = (date ||= Date.current).to_date
+        impression_count_subquery = Counter.select(:count).for_model(Campaign).scoped_by(Campaigns::Displayable::TOTAL_IMPRESSIONS_COUNT_KEY).segmented_by(date.iso8601)
+        click_count_subquery = Counter.select(:count).for_model(Campaign).scoped_by(DAILY_CLICKS_COUNT_KEY).segmented_by(date.iso8601)
+        divide = Arel::Nodes::NamedFunction.new("div", [click_count_subquery.arel, click_count_subquery.arel])
+        select(arel_table[Arel.star]).select(divide.as("daily_click_rate"))
       }
     end
 
