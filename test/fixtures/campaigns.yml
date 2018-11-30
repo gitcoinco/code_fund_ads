@@ -1,4 +1,3 @@
-
 # == Schema Information
 #
 # Table name: campaigns
@@ -26,3 +25,20 @@
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #
+
+code_fund:
+  user: advertiser
+  creative: code_fund
+  status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
+  name: CodeFund
+  url: https://codefund.io
+  start_date: <%= Date.current %>
+  end_date: <%= Date.current.advance(days: 90) %>
+  total_budget_cents: 500_000
+  total_budget_currency: USD
+  daily_budget_cents: 5_500
+  daily_budget_currency: USD
+  ecpm_cents: 300
+  ecpm_currency: USD
+  countries: [<%= ENUMS::DEVELOPED_MARKET_COUNTRIES.keys %>]
+  keywords: [<%= ENUMS::KEYWORDS.values %>]

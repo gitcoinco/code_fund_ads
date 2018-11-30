@@ -17,7 +17,7 @@ environment.config.merge({
 });
 
 environment.plugins.prepend(
-  "Provide",
+  'Provide',
   new webpack.ProvidePlugin({
     jQuery: "jquery",
     "window.jQuery": "jquery",

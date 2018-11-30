@@ -1,0 +1,3 @@
+<%= render layout: "/users/show_layout", locals: { user: @versionable } do %>
+  <%= render "/versions/table", versionable: @versionable, versions: @versions %>
+<% end %>

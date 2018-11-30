@@ -135,9 +135,22 @@ class User < ApplicationRecord
     :validatable,
   )
   has_one_attached :avatar
+  acts_as_commentable
+  has_paper_trail on: %i[create update destroy], only: %i[
+    api_access
+    api_key
+    company_name
+    email
+    first_name
+    last_name
+    roles
+  ]
 
   # class methods .............................................................
   class << self
+    def find_version_author(version)
+      find(version.terminator)
+    end
   end
 
   # public instance methods ...................................................
@@ -152,6 +165,10 @@ class User < ApplicationRecord
 
   def publisher?
     roles.include? ENUMS::USER_ROLES["publisher"]
+  end
+
+  def scoped_name
+    [company_name, full_name].compact.join "・"
   end
 
   def total_distributions
@@ -178,6 +195,10 @@ class User < ApplicationRecord
     list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::WIDE)
     return list unless wrapped
     list.map { |i| Image.new(i) }
+  end
+  
+  def to_s
+    full_name
   end
 
   # protected instance methods ................................................

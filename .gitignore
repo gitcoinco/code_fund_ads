@@ -34,3 +34,4 @@ yarn-debug.log*
 .env
 .teamocil.yml
 .mertrc
+.tool-versions

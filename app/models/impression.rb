@@ -9,7 +9,7 @@
 #  property_name     :string
 #  ip                :string
 #  user_agent        :text
-#  country           :string
+#  country_code      :string
 #  postal_code       :string
 #  latitude          :decimal(, )
 #  longitude         :decimal(, )
@@ -36,7 +36,17 @@ class Impression < ApplicationRecord
   validates :postal_code, length: {maximum: 255}
 
   # callbacks .................................................................
+  after_commit :increment_counters, on: [:create]
+
   # scopes ....................................................................
+  scope :clicked, -> { where.not(clicked_at: nil) }
+  scope :on, ->(date) { where displayed_at_date: date }
+
+  # This scope may look odd but isolating the date range query like this allows us to
+  # optimize for the fastest query that takes advantage of partitioning and indexes
+  scope :between, ->(start_date, end_date) {
+    where displayed_at_date: (start_date..end_date).map(&:iso8601)
+  }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   range_partition_by :displayed_at_date
@@ -50,4 +60,11 @@ class Impression < ApplicationRecord
   # protected instance methods ................................................
 
   # private instance methods ..................................................
+
+  private
+
+  def increment_counters
+    IncrementTotalImpressionsCountJob.perform_later campaign_id
+    IncrementDailyImpressionsCountJob.perform_later campaign_id, Date.current.iso8601
+  end
 end

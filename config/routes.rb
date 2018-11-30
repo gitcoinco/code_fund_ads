@@ -1,5 +1,12 @@
+require "sidekiq/web"
+Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
+
 Rails.application.routes.draw do
   root to: "pages#index"
+
+  authenticate :user, lambda { |user| AuthorizedUser.new(user).can_admin_system? } do
+    mount Sidekiq::Web => "/sidekiq"
+  end
 
   devise_for :users, controllers: {
     sessions: "sessions",
@@ -19,12 +26,30 @@ Rails.application.routes.draw do
     resources :images, except: [:show]
   end
 
+  resources :versions, only: [:show, :update]
+  resources :comments, only: [:create, :destroy]
+
   resources :campaigns
+  scope "/campaigns/:campaign_id" do
+    resource :campaign_targeting, only: [:show], path: "/targeting"
+    resource :campaign_budget, only: [:show], path: "/budget"
+    resource :campaign_dashboards, only: [:show], path: "/dashboard"
+    resources :campaign_properties, only: [:index], path: "/properties"
+    resources :versions, only: [:index], as: :campaign_versions
+    resources :comments, only: [:index], as: :campaign_comments
+  end
+
   resources :creatives
   resources :impressions
+
   resources :properties do
     resources :property_screenshots, only: [:update]
   end
+  scope "/properties/:property_id" do
+    resources :versions, only: [:index], as: :property_versions
+    resources :comments, only: [:index], as: :property_comments
+  end
+
   resources :templates
   resources :themes
   resources :users
@@ -34,7 +59,12 @@ Rails.application.routes.draw do
     resources :campaigns, only: [:index], as: :user_campaigns
     resources :properties, only: [:index], as: :user_properties
     resources :creatives, only: [:index], as: :user_creatives
+    resources :versions, only: [:index], as: :user_versions
+    resources :comments, only: [:index], as: :user_comments
+    resource :identicon, only: [:show], format: :png, as: :user_identicon, path: "/identicon.png"
+    resource :impersonations, only: [:update], as: :user_impersonation, path: "/impersonate"
   end
+  get "/stop_user_impersonation", to: "impersonations#destroy", as: :stop_user_impersonation
 
   resource :newsletter_subscription, only: [:create]
   resources :advertisers, only: [:index, :create]

@@ -1,7 +1,7 @@
 <% content_for :breadcrumbs do %>
   <%= render "/@shared/breadcrumbs/dashboard" %>
   <%= render "/@shared/breadcrumbs/users" %>
-  <%= render "/@shared/breadcrumbs/user" %>
+  <%= render "/@shared/breadcrumbs/user", user: @user %>
   <%= render "/@shared/breadcrumbs/edit_password", class: "active" %>
 <% end %>
 

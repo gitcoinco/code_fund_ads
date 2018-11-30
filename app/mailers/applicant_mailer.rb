@@ -1,4 +1,6 @@
 class ApplicantMailer < ApplicationMailer
+  before_action :set_inline_attachments
+
   def advertiser_application_email
     @form = params[:form]
     @name = "#{@form[:first_name]} #{@form[:last_name]}"

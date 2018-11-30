@@ -3,10 +3,6 @@ module Campaigns
     extend ActiveSupport::Concern
     include ActionView::Helpers::DateHelper
 
-    def scoped_name
-      [user.scoped_name, name, creative&.name].compact.join "・"
-    end
-
     def daily_spend_series(_days = 30)
       # Calculate spend for x days by day
       # TODO: Use roll-up data
@@ -14,8 +10,21 @@ module Campaigns
     end
 
     def duration
-      return nil unless start_date && end_date
+      return nil if total_operative_days.zero?
       distance_of_time_in_words(start_date, end_date, scope: "datetime.distance_in_words.short")
+    end
+
+    def percentage_complete_by_date
+      return 0   if total_operative_days.zero?
+      return 0   if start_date > Date.current
+      return 100 if end_date < Date.current
+
+      ((consumed_operative_days.to_f / total_operative_days.to_f) * 100).to_i
+    end
+
+    def percentage_complete_by_budget
+      return 0 if total_budget.zero?
+      ((total_consumed_budget.to_f / total_budget.to_f) * 100).to_i
     end
   end
 end

@@ -1,0 +1,3 @@
+#!/bin/sh
+# SEE: https://github.com/eggplanetio/mert
+cd $(pwd) && mert start .mertrc
