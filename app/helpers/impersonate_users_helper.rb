@@ -1,0 +1,2 @@
+module ImpersonateUsersHelper
+end

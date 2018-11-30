@@ -113,9 +113,6 @@ GEM
     devise_invitable (1.7.5)
       actionmailer (>= 4.1.0)
       devise (>= 4.0.0)
-    devise_masquerade (0.6.5)
-      devise (>= 2.1.0)
-      railties (>= 3.0)
     diffy (3.2.1)
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
@@ -211,6 +208,8 @@ GEM
     premailer-rails (1.10.2)
       actionmailer (>= 3, < 6)
       premailer (~> 1.7, >= 1.7.9)
+    pretender (0.3.3)
+      actionpack (>= 4.2)
     pry (0.12.2)
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
@@ -374,7 +373,6 @@ DEPENDENCIES
   country_select (~> 3.1.1)
   devise (~> 4.5.0)
   devise_invitable (~> 1.7.5)
-  devise_masquerade (~> 0.6.5)
   diffy (~> 3.2.1)
   dotenv
   faker (>= 1.9.1)
@@ -396,6 +394,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pg_party (~> 0.7.3)
   premailer-rails (~> 1.10.2)
+  pretender
   pry
   pry-byebug
   pry-rails

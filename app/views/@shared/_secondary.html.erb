@@ -30,7 +30,7 @@
           <header class="d-flex align-items-center u-sidebar--account__holder mt-3">
             <div class="position-relative">
               <%= user_avatar_image_tag(current_user, "u-sidebar--account__holder-img") %>
-              <% if user_masquerade? %>
+              <% if current_user != true_user %>
                 <span class="badge badge-xs badge-outline-danger badge-pos rounded-circle"></span>
               <% end %>
             </div>
@@ -95,9 +95,9 @@
 
             <!-- List Links -->
             <ul class="list-unstyled u-sidebar--account__list">
-              <% if user_masquerade? %>
+              <% if current_user != true_user %>
                 <li class="u-sidebar--account__list-item">
-                  <%= link_to back_masquerade_path(current_user), class: "u-sidebar--account__list-link" do %>
+                  <%= link_to impersonate_user_path(current_user), method: :delete, class: "u-sidebar--account__list-link" do %>
                     <span class="far fa-mask u-sidebar--account__list-icon mr-2"></span>
                     Reverse Masquerade
                   <% end %>

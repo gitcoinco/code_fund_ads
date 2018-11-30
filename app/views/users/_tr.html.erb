@@ -30,6 +30,6 @@
   <td class="align-middle text-right text-secondary">
     <%= render "/@shared/table_buttons/goto", link: images_path(user.to_gid_param), icon: "fas fa-images", title: "Manage Images" if user.advertiser? %>
     <%= render "/@shared/table_buttons/edit", link: edit_user_path(user) %>
-    <%= render "/@shared/table_buttons/goto", link: masquerade_path(user), icon: "fas fa-mask", title: "Masquerade" if authorized_user.can_admin_system? %>
+    <%= render "/@shared/table_buttons/goto", link: impersonate_user_path(user), method: :put, icon: "fas fa-mask", title: "Masquerade" if authorized_user.can_admin_system? %>
   </td>
 <% end %>

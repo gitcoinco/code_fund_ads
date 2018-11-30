@@ -100,7 +100,7 @@
           <span class="position-relative">
             <span class="u-sidebar--account__toggle-text"><%= current_user.name %></span>
             <%= user_avatar_image_tag(current_user, "u-sidebar--account__toggle-img") %>
-            <% if user_masquerade? %>
+            <% if current_user != true_user %>
               <span class="badge badge-xs badge-outline-danger badge-pos rounded-circle"></span>
             <% end %>
           </span>

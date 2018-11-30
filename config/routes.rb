@@ -10,8 +10,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     sessions: "sessions",
-    invitations: "invitations",
-    masquerades: "masquerades_override",
+    invitations: "invitations"
   }
 
   resource :dashboard, only: [:show]
@@ -62,6 +61,7 @@ Rails.application.routes.draw do
     resources :versions, only: [:index], as: :user_versions
     resources :comments, only: [:index], as: :user_comments
     resource :identicon, only: [:show], format: :png, as: :user_identicon, path: "/identicon.png"
+    resource :impersonation, only: [:update, :destroy], as: :user_impersonation, path: "/impersonate"
   end
 
   resource :newsletter_subscription, only: [:create]
