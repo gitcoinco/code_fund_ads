@@ -135,6 +135,7 @@ class User < ApplicationRecord
     :validatable,
   )
   has_one_attached :avatar
+  acts_as_commentable
   has_paper_trail on: %i[create update destroy], only: %i[
     api_access
     api_key

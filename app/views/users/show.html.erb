@@ -1,230 +1,28 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/dashboard" %>
-  <%= render "/@shared/breadcrumbs/users" %>
-  <%= render "/@shared/breadcrumbs/user", user: @user, class: "active" %>
-<% end %>
-
-<% content_for :actions do %>
-  <%= render "/@shared/actions/edit_user", user: @user %>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading @user.first_name, @user.last_name,
-    subtitle: @user.email,
-    icon: "fas fa-user-circle" %>
-<% end %>
-
-<!-- ========== MAIN ========== -->
-<main id="content" role="main">
-  <!-- Content Section -->
-  <div class="bg-light">
-    <div class="container space-2">
-      <div class="row">
-        <div class="col-lg-3 mb-7 mb-lg-0">
-          <!-- Profile Card -->
-          <div class="card p-1 mb-4">
-            <div class="card-body text-center">
-              <div class="mb-3">
-                <%= image_tag @user.avatar.attached? ? @user.avatar : @user.gravatar_url, class: "u-lg-avatar rounded-circle", alt: current_user.full_name %>
-              </div>
-
-              <div class="mb-3">
-                <h1 class="h6 font-weight-medium mb-0"><%= @user.full_name %></h1>
-                <small class="d-block text-muted"><%= @user.company_name %></small>
-              </div>
-            </div>
-          </div>
-          <!-- End Profile Card -->
-
-          <!-- Social Profiles -->
-          <div class="card mb-4">
-            <div class="card-header pt-4 pb-3 px-0 mx-4">
-              <h3 class="h6 mb-0">Social Profiles</h3>
-            </div>
-
-            <div class="card-body pt-3 pb-4 px-4">
-              
-              <% if @user.twitter_username.present? %>
-                <a class="media mb-4" href="https://twitter.com/<%= @user.twitter_username %>" target="_blank">
-                  <div class="u-sm-avatar mr-3">
-                    <i class="fab fa-twitter fa-2x" style="color: #00acec;"></i>
-                  </div>
-                  <div class="media-body">
-                    <span class="d-block text-dark">Twitter</span>
-                    <small class="d-block text-secondary">@<%= @user.twitter_username %></small>
-                  </div>
-                </a>
-              <% end %>
-              
-              <% if @user.github_username.present? %>
-                <a class="media mb-4" href="https://github.com/<%= @user.github_username %>" target="_blank">
-                  <div class="u-sm-avatar mr-3">
-                    <i class="fab fa-github fa-2x text-dark"></i>
-                  </div>
-                  <div class="media-body">
-                    <span class="d-block text-dark">GitHub</span>
-                    <small class="d-block text-secondary"><%= @user.github_username %></small>
-                  </div>
-                </a>
-              <% end %>
-              
-              <% if @user.linkedin_username.present? %>
-                <a class="media mb-4" href="https://linkedin.com/in/<%= @user.github_username %>" target="_blank">
-                  <div class="u-sm-avatar mr-3">
-                    <i class="fab fa-linkedin fa-2x" style="color: #0077b5;"></i>
-                  </div>
-                  <div class="media-body">
-                    <span class="d-block text-dark">LinkedIn</span>
-                    <small class="d-block text-secondary"><%= @user.linkedin_username %></small>
-                  </div>
-                </a>
-              <% end %>
-            </div>
-          </div>
-          <!-- End Social Profiles -->
-        </div>
-
-        <div class="col-lg-9">
-          <!-- User Details -->
-          <div class="mb-4">
-            <h2 class="h4">Hello, my name is <%= @user.full_name %>
-            <% @user.roles.each do |role| %>
-              <%= badge_for_role(role) %>
-            <% end %>
-            </h2>
-            <h4 class="h6 text-secondary mb-0"><%= @user.display_region %> <small>- Joined in <%= @user.created_at.strftime("%B, %Y") %></small></h4>
-          </div>
-          <!-- End User Details -->
-
-          <!-- Info -->
-          <div class="mb-4">
-            <p><%= simple_format @user.bio %></p>
-          </div>
-          <!-- End Info -->
-
-          <!-- Collections -->
-          <ul class="list-inline d-flex align-items-center">
-            <li class="list-inline-item mb-3 mb-sm-0 mr-5">
-              <div class="d-flex align-items-center">
-                <span class="bg-warning text-white font-weight-medium rounded py-2 px-3 mr-2"><%= @user.properties.count %></span>
-                <div class="text-secondary">
-                  Properties
-                </div>
-              </div>
-            </li>
-            <li class="list-inline-item mb-3 mb-sm-0 mr-5">
-              <div class="d-flex align-items-center">
-                <span class="bg-info text-white font-weight-medium rounded py-2 px-3 mr-2"><%= @user.campaigns.count %></span>
-                <div class="text-secondary">
-                  Campaigns
-                </div>
-              </div>
-            </li>
-            <li class="list-inline-item mb-3 mb-sm-0 mr-5">
-              <div class="d-flex align-items-center">
-                <%= image_tag "/assets/svg/illustrations/referral.svg", class: "mr-2", style: "width: 40px;" %>
-                <div class="text-secondary">
-                  <%= @user.invitations_count %> Invitations
-                </div>
-              </div>
-            </li>
-            <% if @user.accepted_or_not_invited? %>
-              <li class="list-inline-item mb-3 mb-sm-0">
-                <div class="d-flex align-items-center">
-                  <%= image_tag "/assets/svg/illustrations/verified-user.svg", class: "mr-2", style: "width: 40px;" %>
-                  <div class="text-secondary">
-                    Verified
-                  </div>
-                </div>
-              </li>
-            <% end %>
-          </ul>
-          <!-- End Collections -->
-
-          <hr class="my-7">
-
-          <!-- Icon Blocks -->
-          <div class="row">
-            <div class="col-md-6 col-lg-4">
-              <!-- List Group -->
-              <ul class="list-group list-group-transparent list-group-flush list-group-borderless mb-0">
-                <li class="list-group-item pt-0 pb-4">
-                  <div class="media">
-                    <span class="fas fa-envelope list-group-icon mr-3"></span>
-                    <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">Email:</span>
-                      <%= mail_to @user.email %>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item pt-0 pb-4">
-                  <div class="media">
-                    <span class="fas fa-link list-group-icon mr-3"></span>
-                    <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">Web page:</span>
-                      <%= link_to @user.website_url, @user.website_url if @user.website_url.present? %>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <!-- End List Group -->
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-              <!-- List Group -->
-              <ul class="list-group list-group-transparent list-group-flush list-group-borderless mb-0">
-                <li class="list-group-item pt-0 pb-4">
-                  <div class="media">
-                    <span class="fas fa-map-marker-alt list-group-icon mr-3"></span>
-                    <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">Location:</span>
-                      <span class="d-block text-muted"><%= @user.display_region %></span>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item pt-0 pb-4">
-                  <div class="media">
-                    <span class="fas fa-building list-group-icon mr-3"></span>
-                    <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">Organization:</span>
-                      <span class="d-block text-muted"><%= @user.company_name %></span>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <!-- End List Group -->
-            </div>
-
-            <div class="col-md-6 col-lg-4">
-              <!-- List Group -->
-              <ul class="list-group list-group-transparent list-group-flush list-group-borderless mb-0">
-                <li class="list-group-item pt-0 pb-4">
-                  <div class="media">
-                    <span class="fas fa-globe list-group-icon mr-3"></span>
-                    <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">US Resident?</span>
-                      <span class="d-block text-muted"><%= @user.us_resident? ? "Yes" : "No" %></span>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item pt-0 pb-4">
-                  <div class="media">
-                    <span class="fas fa-tags list-group-icon mr-3"></span>
-                    <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">Tags:</span>
-                      <span class="d-block text-muted"><%= @user.skills.join(", ") %></span>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <!-- End List Group -->
-            </div>
-          </div>
-          <!-- End Icon Blocks -->
-        </div>
-      </div>
+<%= render layout: "/users/show_layout", locals: { user: @user } do %>
+  <div class="row">
+    <div class="col-md-6 col-lg-4">
+      <%= render "/users/card", user: @user %>
+    </div>
+    <div class="col-md-6 col-lg-8">
+      <ul class="list-unstyled mb-0">
+        <%= details_li("Name") { @user.name } %>
+        <%= details_li("Email") { @user.email } %>
+        <%= details_li("Company Name") { @user.company_name } %>
+        <%= details_li("Address") do %>
+          <%= @user.address_1 %><br/>
+          <%= @user.city %>, <%= @user.region %> <%= @user.postal_code %><br/>
+          <%= @user.country %>
+        <% end if @user.address_1.present? %>
+        <%= details_li("US Resident?") { @user.us_resident? ? "Yes" : "No" } %>
+        <%= details_li("Website URL") { link_to(@user.website_url, @user.website_url) } if @user.website_url %>
+        <%= details_li("API Access?") { @user.api_access? ? "Yes" : "No" }%>
+        <%= details_li("API Key") { @user.api_key } if @user.api_key %>
+        <%= details_li("Last Login") { @user.last_sign_in_at } %>
+        <%= details_li("Login Count") { @user.sign_in_count } %>
+        <%= details_li("Roles") { @user.roles.map(&:capitalize).join(", ") } %>
+        <%= details_li("Bio") { @user.bio } %>
+      </ul>
     </div>
   </div>
-  <!-- End Content Section -->
-</main>
-<!-- ========== END MAIN ========== -->
+<% end %>
+

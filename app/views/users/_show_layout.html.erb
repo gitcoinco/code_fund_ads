@@ -1,55 +1,40 @@
 <% content_for :breadcrumbs do %>
   <%= render "/@shared/breadcrumbs/dashboard" %>
   <%= render "/@shared/breadcrumbs/users" %>
-  <%= render "/@shared/breadcrumbs/user", user: @user, class: "active" %>
+  <%= render "/@shared/breadcrumbs/user", user: user, class: "active" %>
 <% end %>
 
 <% content_for :actions do %>
-  <%= render "/@shared/actions/edit_user", user: user %>
+  <ul class="nav" style="width: 130px; justify-content: flex-end;">
+    <li><%= render "/@shared/actions/edit_user", user: user %></li>
+    <% if user != current_user %>
+      <li class="ml-1"><%= render "/@shared/actions/masquerade_as_user", user: user %></li>
+    <% end %>
+  </ul>
 <% end %>
 
 <% content_for :page_heading do %>
-  <div class="media d-block d-sm-flex align-items-sm-center">
-    <div class="u-lg-avatar position-relative mb-3 mb-sm-0 mr-3">
-      <%= image_tag user.gravatar_url, class: "u-lg-avatar rounded-circle", alt: user.full_name %>
-      <span class="u-badge u-badge-border-success u-badge--md u-badge-pos--bottom-right-0 rounded-circle">
-        <span class="fa fa-check"></span>
-      </span>
-    </div>
-    <div class="media-body">
-      <h1 class="h3 text-white font-weight-medium mb-1"><%= user.full_name %></h1>
-      <span class="d-block text-white"><%= user.email %></span>
-    </div>
-  </div>
+  <%= page_heading user.first_name, user.last_name,
+    subtitle: user.email,
+    icon: "fas fa-user-circle" %>
 <% end %>
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
-    <div class="card">
-      <div class="card-body">
-        <div class="mb-4">
-          <ul class="nav nav-pills">
-            <li class="nav-item">
-              <%= active_link_to "Overview", user_path(user), active: :exact, class: "nav-link" %>
-            </li>
-            <li class="nav-item">
-              <%= active_link_to "Campaigns", user_campaigns_path(user), class: "nav-link" %>
-            </li>
-            <li class="nav-item">
-              <%= active_link_to "Properties", user_properties_path(user), class: "nav-link" %>
-            </li>
-            <li class="nav-item">
-              <%= active_link_to "Creatives", user_creatives_path(user), class: "nav-link" %>
-            </li>
-          </ul>
-        </div>
-
-        <div class="tab-content">
-          <div class="tab-pane active">
-            <%= yield %>
-          </div>
-        </div>
-      </div>
+    <ul class="nav nav-classic">
+      <%= tag.li(active_link_to("Details", user_path(user), active: :exact,
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Properties", user_properties_path(user),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) if authorized_user.can_admin_system? %>
+      <%= tag.li(active_link_to("Campaigns", user_campaigns_path(user),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) if authorized_user.can_admin_system? %>
+      <%= tag.li(active_link_to("Comments", user_comments_path(user),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) if authorized_user.can_admin_system? %>
+      <%= tag.li(active_link_to("Versions", user_versions_path(user),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+    </ul>
+    <div class="bg-white border p-4">
+      <%= yield %>
     </div>
   </div>
 </main>

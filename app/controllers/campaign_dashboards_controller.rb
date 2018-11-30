@@ -1,11 +1,6 @@
-class CampaignPropertiesController < ApplicationController
+class CampaignDashboardsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_campaign
-
-  def index
-    properties = @campaign.matching_properties
-    @pagy, @properties = pagy(properties)
-  end
 
   private
 

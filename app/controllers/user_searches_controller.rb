@@ -6,6 +6,16 @@ class UserSearchesController < ApplicationController
     redirect_to users_path
   end
 
+  def update
+    if session[:user_search].present?
+      user_search = GlobalID.parse(session[:user_search]).find if session[:user_search].present?
+      attrs = user_search.to_h
+      attrs.delete(params[:remove])
+      session[:user_search] = UserSearch.new(attrs).to_gid_param
+    end
+    redirect_to users_path
+  end
+
   def destroy
     session[:user_search] = UserSearch.new.to_gid_param
     redirect_to users_path

@@ -98,8 +98,11 @@
             data-unfold-animation-out="fadeOutRight"
             data-unfold-duration="500">
           <span class="position-relative">
-            <span class="u-sidebar--account__toggle-text"><%= current_user.full_name %></span>
-            <%= image_tag current_user.avatar.attached? ? current_user.avatar : current_user.gravatar_url, class: "u-sidebar--account__toggle-img", alt: current_user.full_name %>
+            <span class="u-sidebar--account__toggle-text"><%= current_user.name %></span>
+            <%= user_avatar_image_tag(current_user, "u-sidebar--account__toggle-img") %>
+            <% if current_user != true_user %>
+              <span class="badge badge-xs badge-outline-danger badge-pos rounded-circle"></span>
+            <% end %>
           </span>
         </a>
         <!-- End Account Sidebar Toggle Button -->

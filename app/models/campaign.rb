@@ -227,7 +227,7 @@ class Campaign < ApplicationRecord
     days = total_available_impression_count / estimated_max_daily_impression_count
 
     date = start_date
-    date = Current.date if date.past?
+    date = Date.current if date.past?
 
     return date.advance(days: days) unless weekdays_only?
 
@@ -254,8 +254,17 @@ class Campaign < ApplicationRecord
     operative_dates.select { |date| date >= today }
   end
 
+  def consumed_operative_dates
+    today = Date.current
+    operative_dates.select { |date| date < today }
+  end
+
   def remaining_operative_days
     remaining_operative_dates.size
+  end
+
+  def consumed_operative_days
+    consumed_operative_dates.size
   end
 
   def estimated_max_total_impression_count

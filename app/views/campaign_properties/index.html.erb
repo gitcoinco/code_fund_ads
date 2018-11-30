@@ -15,5 +15,5 @@
 <% end %>
 
 <%= render layout: "/campaigns/show_layout", locals: { campaign: @campaign } do %>
-  <%= render "/campaign_properties/table", campaign: @campaign %>
+  <%= render "/campaign_properties/table", campaign: @campaign, properties: @properties, pagy: @pagy %>
 <% end %>

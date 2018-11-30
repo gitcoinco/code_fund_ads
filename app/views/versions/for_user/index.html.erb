@@ -1,17 +1,3 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/dashboard" %>
-  <%= render "/@shared/breadcrumbs/users" %>
-  <%= render "/@shared/breadcrumbs/user", user: @versionable, class: "active" %>
+<%= render layout: "/users/show_layout", locals: { user: @versionable } do %>
+  <%= render "/versions/table", versionable: @versionable, versions: @versions %>
 <% end %>
-
-<% content_for :actions do %>
-  <%= render "/@shared/actions/edit_user", user: @versionable %>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading @versionable.first_name, @versionable.last_name,
-    subtitle: @versionable.email,
-    icon: "fas fa-user-circle" %>
-<% end %>
-
-<%= render "/versions/table", versionable: @versionable %>
