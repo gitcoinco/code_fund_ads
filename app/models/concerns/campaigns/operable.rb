@@ -2,8 +2,11 @@ module Campaigns
   module Operable
     extend ActiveSupport::Concern
 
+    def dates
+      (start_date..end_date).to_a
+    end
+
     def operative_dates
-      dates = (start_date..end_date).to_a
       return dates unless weekdays_only?
       dates.select { |date| !date.saturday? && !date.sunday? }
     end

@@ -8,6 +8,7 @@ module Campaigns
     included do
       has_one :total_clicks_counter, -> { where scope: TOTAL_CLICKS_COUNT_KEY }, as: :record, class_name: "Counter"
       has_many :daily_clicks_counters, -> { where scope: DAILY_CLICKS_COUNT_KEY }, as: :record, class_name: "Counter"
+      has_many :click_counters
 
       scope :include_total_clicks_count, -> {
         subquery = Counter.select(:count).for_model(Campaign).scoped_by(TOTAL_CLICKS_COUNT_KEY)
@@ -17,21 +18,21 @@ module Campaigns
       scope :include_total_click_rate, -> {
         impression_count_subquery = Counter.select(:count).for_model(Campaign).scoped_by(Campaigns::Displayable::TOTAL_IMPRESSIONS_COUNT_KEY)
         click_count_subquery = Counter.select(:count).for_model(Campaign).scoped_by(TOTAL_CLICKS_COUNT_KEY)
-        divide = Arel::Nodes::NamedFunction.new("div", [click_count_subquery.arel, click_count_subquery.arel])
+        divide = Arel::Nodes::NamedFunction.new("div", [click_count_subquery.arel, impression_count_subquery.arel])
         select(arel_table[Arel.star]).select(divide.as("total_click_rate"))
       }
 
       scope :include_daily_clicks_count, ->(date = nil) {
-        date = (date ||= Date.current).to_date
+        date = Date.parse(date || Date.current).to_date
         subquery = Counter.select(:count).for_model(Campaign).scoped_by(DAILY_CLICKS_COUNT_KEY).segmented_by(date.iso8601)
         select(arel_table[Arel.star]).select(subquery.arel.as(DAILY_CLICKS_COUNT_KEY))
       }
 
       scope :include_daily_click_rate, ->(date = nil) {
-        date = (date ||= Date.current).to_date
+        date = Date.parse(date || Date.current).to_date
         impression_count_subquery = Counter.select(:count).for_model(Campaign).scoped_by(Campaigns::Displayable::TOTAL_IMPRESSIONS_COUNT_KEY).segmented_by(date.iso8601)
         click_count_subquery = Counter.select(:count).for_model(Campaign).scoped_by(DAILY_CLICKS_COUNT_KEY).segmented_by(date.iso8601)
-        divide = Arel::Nodes::NamedFunction.new("div", [click_count_subquery.arel, click_count_subquery.arel])
+        divide = Arel::Nodes::NamedFunction.new("div", [click_count_subquery.arel, impression_count_subquery.arel])
         select(arel_table[Arel.star]).select(divide.as("daily_click_rate"))
       }
     end
@@ -46,18 +47,14 @@ module Campaigns
 
     def total_clicks_count
       Rails.cache.fetch total_clicks_count_cache_key, expires_in: (remaining_operative_days + 7).days do
-        counter = total_clicks_counter
-        InitializeTotalClicksCountJob.perform_later id unless counter
-        counter&.count.to_i
+        click_counters.sum(:count).to_i
       end
     end
 
     def daily_clicks_count(date = nil)
-      date ||= Date.current
-      Rails.cache.fetch daily_clicks_count_cache_key(date), expires_in: 2.days do
-        counter = daily_clicks_counters.segmented_by(date.iso8601).first
-        InitializeDailyClicksCountJob.perform_later id, date.iso8601 unless counter
-        counter&.count.to_i
+      date = Date.parse(date || Date.current).to_date
+      Rails.cache.fetch daily_clicks_count_cache_key(date), expires_in: (remaining_operative_days + 7).days do
+        click_counters.on(date).limit(1).pluck(:count).first.to_i
       end
     end
 

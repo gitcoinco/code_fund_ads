@@ -6,8 +6,7 @@ module Campaigns
     DAILY_IMPRESSIONS_COUNT_KEY = "daily_impressions_count".freeze
 
     included do
-      has_one :total_impressions_counter, -> { where scope: TOTAL_IMPRESSIONS_COUNT_KEY }, as: :record, class_name: "Counter"
-      has_many :daily_impressions_counters, -> { where scope: DAILY_IMPRESSIONS_COUNT_KEY }, as: :record, class_name: "Counter"
+      has_many :impression_counters
 
       scope :include_total_impressions_count, -> {
         subquery = Counter.select(:count).for_model(Campaign).scoped_by(TOTAL_IMPRESSIONS_COUNT_KEY)
@@ -15,7 +14,7 @@ module Campaigns
       }
 
       scope :include_daily_impressions_count, ->(date = nil) {
-        date = (date ||= Date.current).to_date
+        date = Date.parse(date || Date.current).to_date
         subquery = Counter.select(:count).for_model(Campaign).scoped_by(DAILY_IMPRESSIONS_COUNT_KEY).segmented_by(date.iso8601)
         select(arel_table[Arel.star]).select(subquery.arel.as(DAILY_IMPRESSIONS_COUNT_KEY))
       }
@@ -31,9 +30,7 @@ module Campaigns
 
     def total_impressions_count
       Rails.cache.fetch total_impressions_count_cache_key, expires_in: (remaining_operative_days + 7).days do
-        counter = total_impressions_counter
-        InitializeTotalImpressionsCountJob.perform_later id unless counter
-        counter&.count.to_i
+        impression_counters.sum(:count).to_i
       end
     end
 
@@ -42,11 +39,9 @@ module Campaigns
     end
 
     def daily_impressions_count(date = nil)
-      date = (date ||= Date.current).to_date
+      date = Date.parse(date || Date.current).to_date
       Rails.cache.fetch daily_impressions_count_cache_key(date), expires_in: 2.days do
-        counter = daily_impressions_counters.segmented_by(date.iso8601).first
-        InitializeDailyImpressionsCountJob.perform_later id, date.iso8601 unless counter
-        counter&.count.to_i
+        impression_counters.on(date).pluck(:count).first.to_i
       end
     end
 

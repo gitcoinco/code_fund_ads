@@ -41,7 +41,6 @@ class Campaign < ApplicationRecord
   # relationships .............................................................
   belongs_to :creative
   belongs_to :user
-  has_many :impressions
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
@@ -132,6 +131,11 @@ class Campaign < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def impressions
+    Impression.where(campaign_id: id).between(start_date, end_date)
+  end
+
   def pending?
     ENUMS::CAMPAIGN_STATUSES.pending? status
   end

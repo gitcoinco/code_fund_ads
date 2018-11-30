@@ -29,7 +29,8 @@ class Property < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :user
-  has_many :impressions
+  has_many :impression_counters
+  has_many :click_counters
 
   # validations ...............................................................
   # validates :ad_template, presence: true
@@ -44,6 +45,11 @@ class Property < ApplicationRecord
   after_save :generate_screenshot
 
   # scopes ....................................................................
+  scope :active, -> { where status: ENUMS::PROPERTY_STATUSES::ACTIVE }
+  scope :archived, -> { where status: ENUMS::PROPERTY_STATUSES::ARCHIVED }
+  scope :blacklisted, -> { where status: ENUMS::PROPERTY_STATUSES::BLACKLISTED }
+  scope :pending, -> { where status: ENUMS::PROPERTY_STATUSES::PENDING }
+  scope :rejected, -> { where status: ENUMS::PROPERTY_STATUSES::REJECTED }
   scope :search_ad_template, ->(*values) { values.blank? ? all : where(ad_template: values) }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :exclude_keywords, ->(*values) { values.blank? ? all : without_any_keywords(*values) }

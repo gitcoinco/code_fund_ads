@@ -44,9 +44,7 @@ class Impression < ApplicationRecord
 
   # This scope may look odd but isolating the date range query like this allows us to
   # optimize for the fastest query that takes advantage of partitioning and indexes
-  scope :between, ->(start_date, end_date) {
-    where displayed_at_date: (start_date..end_date).map(&:iso8601)
-  }
+  scope :between, ->(start_date, end_date) { where displayed_at_date: start_date..end_date }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   range_partition_by :displayed_at_date
@@ -64,7 +62,7 @@ class Impression < ApplicationRecord
   private
 
   def increment_counters
-    IncrementTotalImpressionsCountJob.perform_later campaign_id
-    IncrementDailyImpressionsCountJob.perform_later campaign_id, Date.current.iso8601
+    IncrementImpressionsCountJob.perform_later self
+    IncrementClicksCountJob.perform_later self
   end
 end
