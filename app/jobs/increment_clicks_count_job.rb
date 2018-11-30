@@ -2,6 +2,7 @@ class IncrementClicksCountJob < ApplicationJob
   queue_as :counters_critical
 
   def perform(impression)
+    return unless impression.payable?
     return if impression.clicked_at.nil?
 
     relation = ClickCounter.on(impression.clicked_at.to_date).

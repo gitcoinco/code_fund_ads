@@ -41,6 +41,8 @@ class Impression < ApplicationRecord
   # scopes ....................................................................
   scope :clicked, -> { where.not(clicked_at: nil) }
   scope :on, ->(date) { where displayed_at_date: date }
+  scope :payable, -> { where payable: true }
+  scope :unpayable, -> { where payable: false }
 
   # This scope may look odd but isolating the date range query like this allows us to
   # optimize for the fastest query that takes advantage of partitioning and indexes
@@ -62,6 +64,7 @@ class Impression < ApplicationRecord
   private
 
   def increment_counters
+    return unless payable?
     IncrementImpressionsCountJob.perform_later self
     IncrementClicksCountJob.perform_later self
   end

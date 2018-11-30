@@ -9,7 +9,7 @@ module Campaigns
       has_many :impression_counters
 
       scope :include_total_impressions_count, -> {
-        subquery = Counter.select(:count).for_model(Campaign).scoped_by(TOTAL_IMPRESSIONS_COUNT_KEY)
+        subquery = ImpressionCounter.for_campaign_model.sum(:count)
         select(arel_table[Arel.star]).select(subquery.arel.as(TOTAL_IMPRESSIONS_COUNT_KEY))
       }
 

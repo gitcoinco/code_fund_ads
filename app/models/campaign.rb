@@ -133,7 +133,43 @@ class Campaign < ApplicationRecord
   # public instance methods ...................................................
 
   def impressions
-    Impression.where(campaign_id: id).between(start_date, end_date)
+    Impression.between(start_date, end_date).where(campaign: self)
+  end
+
+  def dates_with_impressions
+    impressions.select(:displayed_at_date).distinct.pluck(:displayed_at_date)
+  end
+
+  def dates_with_payable_impressions
+    impressions.payable.select(:displayed_at_date).distinct.pluck(:displayed_at_date)
+  end
+
+  def property_ids_with_impressions(date = nil)
+    return Impression.on(date).where(campaign: self).select(:property_id).distinct.pluck(:property_id) if date
+    impressions.select(:property_id).distinct.pluck(:property_id)
+  end
+
+  def property_ids_with_payable_impressions(date = nil)
+    return Impression.payable.on(date).where(campaign: self).select(:property_id).distinct.pluck(:property_id) if date
+    impressions.payable.select(:property_id).distinct.pluck(:property_id)
+  end
+
+  def property_ids_with_clicked_impressions(date = nil)
+    return Impression.clicked.on(date).where(campaign: self).select(:property_id).distinct.pluck(:property_id) if date
+    impressions.clicked.select(:property_id).distinct.pluck(:property_id)
+  end
+
+  def property_ids_with_clicked_payable_impressions(date = nil)
+    return Impression.clicked.payable.on(date).where(campaign: self).select(:property_id).distinct.pluck(:property_id) if date
+    impressions.clicked.payable.select(:property_id).distinct.pluck(:property_id)
+  end
+
+  def matching_properties
+    PropertySearch.new({
+      keywords: keywords,
+      negative_keywords: negative_keywords,
+      status: ["active"],
+    }).apply(Property.order(name: :asc))
   end
 
   def pending?
@@ -163,12 +199,8 @@ class Campaign < ApplicationRecord
     self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
   end
 
-  def matching_properties
-    PropertySearch.new({
-      keywords: keywords,
-      negative_keywords: negative_keywords,
-      status: ["active"],
-    }).apply(Property.order(name: :asc))
+  def update_counters
+    UpdateCountersJob.perform_later self
   end
 
   # protected instance methods ................................................

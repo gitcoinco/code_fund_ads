@@ -27,6 +27,12 @@ class ImpressionCounter < ApplicationRecord
 
   # scopes ....................................................................
   scope :on, ->(date) { where displayed_at_date: date }
+  scope :for_campaign_model, -> {
+    where arel_table[:campaign_id].eq(Campaign.arel_table[:id])
+  }
+  scope :for_property_model, -> {
+    where arel_table[:property_id].eq(Property.arel_table[:id])
+  }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
 

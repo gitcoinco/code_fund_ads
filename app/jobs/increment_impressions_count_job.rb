@@ -2,6 +2,7 @@ class IncrementImpressionsCountJob < ApplicationJob
   queue_as :counters_critical
 
   def perform(impression)
+    return unless impression.payable?
     relation = ImpressionCounter.on(impression.displayed_at_date).
       where(campaign_id: impression.campaign_id, property_id: impression.property_id)
 
