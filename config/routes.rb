@@ -11,14 +11,14 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: "sessions",
     invitations: "invitations",
-    masquerades: "masquerades_override"
+    masquerades: "masquerades_override",
   }
 
   resource :dashboard, only: [:show]
   resource :contact, only: [:show, :create]
   resources :campaign_searches, only: [:create, :destroy]
   resources :property_searches, only: [:create, :destroy]
-  resources :user_searches, only: [:create, :destroy]
+  resources :user_searches, only: [:create, :update, :destroy]
 
   # polymorphic based on: app/models/concerns/imageable.rb
   scope "/imageables/:imageable_gid/" do

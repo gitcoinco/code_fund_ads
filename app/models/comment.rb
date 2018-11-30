@@ -48,8 +48,8 @@ class Comment < ActiveRecord::Base
 
   # class methods .............................................................
   class << self
-    alias_method :by_user, :find_comments_by_user
-    alias_method :for_commentable, :find_comments_for_commentable
+    alias by_user find_comments_by_user
+    alias for_commentable find_comments_for_commentable
 
     # Helper class method that allows you to build a comment
     # by passing a commentable object, a user_id, and comment text
