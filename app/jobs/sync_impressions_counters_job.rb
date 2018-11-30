@@ -3,19 +3,12 @@ class SyncImpressionsCountersJob < ApplicationJob
   queue_as :counters_low
 
   def perform
-    campaign_ids = Campaign.available.active.pluck(:id)
-    property_ids = Property.active.pluck(:id)
-
-    campaign_ids.each do |campaign_id|
-      campaign = Campaign.find(campaign_id)
-      property_ids.each do |property_id|
-        property = Property.find(property_id)
+    Campaign.available.active.each do |campaign|
+      campaign.matching_properties.each do |property|
         campaign.dates.each do |date|
           relation = Impression.on(date).where(campaign: campaign, property: property)
-          if relation.exists?
-            set_impression_count date, campaign, property, relation.count
-            set_click_count date, campaign, property, relation.clicked.count
-          end
+          set_impression_count(date, campaign, property, relation.count) if relation.exists?
+          set_click_count(date, campaign, property, relation.clicked.count) if relation.clicked.exists?
         end
       end
     end
