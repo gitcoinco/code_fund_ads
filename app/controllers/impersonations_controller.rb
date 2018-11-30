@@ -1,8 +1,8 @@
-class UserImpersonationsController < ApplicationController
+class ImpersonationsController < ApplicationController
   before_action :authenticate_administrator!, only: [:update]
 
   def update
-    user = User.find(params[:id])
+    user = User.find(params[:user_id])
     impersonate_user(user)
     redirect_to user_path(user)
   end

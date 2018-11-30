@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     sessions: "sessions",
-    invitations: "invitations"
+    invitations: "invitations",
   }
 
   resource :dashboard, only: [:show]
@@ -61,8 +61,9 @@ Rails.application.routes.draw do
     resources :versions, only: [:index], as: :user_versions
     resources :comments, only: [:index], as: :user_comments
     resource :identicon, only: [:show], format: :png, as: :user_identicon, path: "/identicon.png"
-    resource :impersonation, only: [:update, :destroy], as: :user_impersonation, path: "/impersonate"
+    resource :impersonations, only: [:update], as: :user_impersonation, path: "/impersonate"
   end
+  get "/stop_user_impersonation", to: "impersonations#destroy", as: :stop_user_impersonation
 
   resource :newsletter_subscription, only: [:create]
   resources :advertisers, only: [:index, :create]

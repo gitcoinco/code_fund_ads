@@ -97,7 +97,7 @@
             <ul class="list-unstyled u-sidebar--account__list">
               <% if current_user != true_user %>
                 <li class="u-sidebar--account__list-item">
-                  <%= link_to impersonate_user_path(current_user), method: :delete, class: "u-sidebar--account__list-link" do %>
+                  <%= link_to stop_user_impersonation_path, class: "u-sidebar--account__list-link" do %>
                     <span class="far fa-mask u-sidebar--account__list-icon mr-2"></span>
                     Reverse Masquerade
                   <% end %>
