@@ -5,18 +5,12 @@
       <%= simple_form_for creative, html: { class: "js-validate" }, wrapper: :front_form do |f| %>
         <div class="row">
           <%= tag.div f.input(:name, required: true), class: "col-md-6 mb-3" %>
-          <% if authorized_user.can_admin_system? %>
-            <%= tag.div f.input(:user_id, label: "Advertiser", collection: User.advertiser.order(last_name: :asc).map { |u| [u.name, u.id] }, required: true,
-              input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" %>
-          <% else %>
-            <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
-            <div class="col-md-6 mb-3">
-              <div class="js-form-message js-focus-state string required property_name">
-                <label class="form-label string required" for="property_name">Advertiser <abbr title="required">*</abbr></label>
-                <input type="text" class="form-control" placeholder="<%= current_user.name %>" aria-label="<%= current_user.name %>" readonly>
-              </div>
+          <div class="col-md-6 mb-3">
+            <div class="js-form-message js-focus-state string required property_name">
+              <label class="form-label string required" for="property_name">Advertiser <abbr title="required">*</abbr></label>
+              <input type="text" class="form-control" placeholder="<%= current_user.name %>" aria-label="<%= current_user.name %>" readonly>
             </div>
-          <% end %>
+          </div>
 
 
 
@@ -27,58 +21,89 @@
             <%= tag.div f.input(:headline, required: true, input_html: { data: { target: "creative-form.inputHeadline", action: "change->creative-form#setHeadline keyup->creative-form#setHeadline" }}), class: "col-12 mb-3" %>
             <%= tag.div f.input(:body, required: true, input_html: { rows: 2, data: { target: "creative-form.inputBody", action: "change->creative-form#setBody keyup->creative-form#setBody" }}), class: "col-12 mb-3" %>
           </div>
-          
-          <%= tag.div f.input(:small_image, label: "Small Image",
-                input_html: {
-                  data: {
-                    target: "creative-form.inputSmallImageId",
-                    action: "change->creative-form#setSmallImage"
-                  }
-                },
-                hint: "200x200",
-                required: true,
-                collection: small_images_for_select(current_user)
-              ),
-              class: "col-12 mb-3" %>
 
-          <%= tag.div f.input(:large_image, label: "Large Image",
-                input_html: {
-                  data: {
-                    target: "creative-form.inputLargeImageId",
-                    action: "change->creative-form#setLargeImage"
-                  }
-                },
-                hint: "260x200",
-                required: true,
-                collection: large_images_for_select(current_user)
-              ),
-              class: "col-12 mb-3" %>
-          <%= tag.div f.input(:wide_image, label: "Wide Image",
-                input_html: {
-                  data: {
-                    target: "creative-form.inputWideImageId",
-                    action: "change->creative-form#setWideImage"
-                  }
-                },
-                hint: "512x320",
-                required: true,
-                collection: wide_images_for_select(current_user)
-              ),
-              class: "col-12 mb-3" %>
+          <div class="col-12 mb-3">
+            <div class="js-form-message js-focus-state select required creative_small_image u-has-success">
+              <label class="form-label select required" for="creative_small_image">
+                Small Image <abbr title="required">*</abbr>
+              </label>
+              <select class="form-control select required"
+                      data-target="creative-form.inputSmallImageId"
+                      data-action="change->creative-form#setSmallImage"
+                      required="required"
+                      aria-required="true"
+                      name="creative[small_image]"
+                      id="creative_small_image"
+                      required>
+                <option value=""></option>
+                <% creative.user.small_images.each do |image| %>
+                  <%= tag.option(Image.new(image).display_name, value: image.record_id,
+                        data: { image_url: polymorphic_url(image) }) %>
+                <% end %>
+              </select>
+              <small class="form-text text-muted">200x200</small>
+            </div>
+          </div>
+
+          <div class="col-12 mb-3">
+            <div class="js-form-message js-focus-state select required creative_large_image u-has-success">
+              <label class="form-label select required" for="creative_large_image">
+                Large Image <abbr title="required">*</abbr>
+              </label>
+              <select class="form-control select required"
+                      data-target="creative-form.inputLargeImageId"
+                      data-action="change->creative-form#setLargeImage"
+                      required="required"
+                      aria-required="true"
+                      name="creative[large_image]"
+                      id="creative_large_image"
+                      required>
+                <option value=""></option>
+                <% creative.user.large_images.each do |image| %>
+                  <%= tag.option(Image.new(image).display_name, value: image.record_id,
+                        data: { image_url: polymorphic_url(image) }) %>
+                <% end %>
+              </select>
+              <small class="form-text text-muted">200x200</small>
+            </div>
+          </div>
+
+          <div class="col-12 mb-3">
+            <div class="js-form-message js-focus-state select required creative_wide_image u-has-success">
+              <label class="form-label select required" for="creative_wide_image">
+                Wide Image <abbr title="required">*</abbr>
+              </label>
+              <select class="form-control select required"
+                      data-target="creative-form.inputWideImageId"
+                      data-action="change->creative-form#setWideImage"
+                      required="required"
+                      aria-required="true"
+                      name="creative[wide_image]"
+                      id="creative_wide_image"
+                      required>
+                <option value=""></option>
+                <% creative.user.wide_images.each do |image| %>
+                  <%= tag.option(Image.new(image).display_name, value: image.record_id,
+                        data: { image_url: polymorphic_url(image) }) %>
+                <% end %>
+              </select>
+              <small class="form-text text-muted">200x200</small>
+            </div>
+          </div>
 
           <div class="col-12 mt-5 mb-2">
             <%= f.submit "Save Creative", class: "btn btn-sm btn-primary transition-3d-hover mr-1" %>  
-            <%= link_to "Cancel", campaigns_path, class: "btn btn-sm btn-soft-secondary transition-3d-hover" %>
+            <%= link_to "Cancel", creatives_path, class: "btn btn-sm btn-soft-secondary transition-3d-hover" %>
           </div>
         </div>
       <% end %>
     </div>
     <div class="col-md-6">
-      <div class="p-4 mb-3 bg-white shadow-lg rounded">
+      <div class="p-4 mb-3 rounded">
         <%= image_tag "anatomy-of-an-ad@2x.png", class: "img-fluid" %>
       </div>
 
-      <div class="row justify-content-between align-items-center mb-4">
+      <div class="row justify-content-between align-items-center mb-2">
         <!-- Title -->
         <div class="col-sm-4 col-md-6 mb-3 mb-sm-0">
           <h2 class="h6 mb-0">Preview</h2>
@@ -86,7 +111,7 @@
         <!-- End Title -->
 
         <!-- Filter -->
-        <div class="col-sm-8 col-md-6 text-sm-right">
+        <div class="col-sm-8 col-md-6 text-sm-right" hidden>
           <ul class="list-inline mb-0">
             <li class="list-inline-item">
               <!-- Select -->
@@ -116,7 +141,7 @@
         <!-- End Filter -->
       </div>
 
-      <div class="p-4 bg-white">
+      <div class="p-4 bg-white shadow-lg rounded">
         <div id="creative-preview" data-target="preview">
           <span class="cf-wrapper">
             <a href="javascript:;" class="cf-img-wrapper" rel="noopener">

@@ -1,7 +1,19 @@
 <%= tag.tr class: classes("even": image_counter.even?, "odd": image_counter.odd?) do %>
-  <td><%= link_to truncate(image.blob.filename.to_s, length: 20), edit_image_path(@imageable.to_gid_param, image), title: "Edit Image", data: tooltip_expando %></td>
-  <td><%= truncate image.metadata["name"].to_s, length: 20 %></td>
-  <td><%= tag.span image.metadata["format"], class: "badge badge-light" %></td>
-  <td><%= image.blob.content_type %></td>
-  <td><%= link_to image_tag(image.variant(thumbnail: "x50"), style: "height:50px", class: "img-thumbnail", title: "View Original", data: tooltip_expando), image %></td>
+  <td class="align-middle text-secondary">
+    <a class="js-fancybox u-media-viewer" href="javascript:;"
+       data-src="../../assets/img/1920x1080/img10.jpg"
+       data-caption="<%= image.blob.filename.to_s %>"
+       data-speed="700">
+      <%= image_tag image.variant(thumbnail: "x50"), style: "height: 50px", class: "img-thumbnail" %>
+      <span class="u-media-viewer__container" style="left: 4%;">
+        <span class="u-media-viewer__icon">
+          <span class="fas fa-search u-media-viewer__icon-inner"></span>
+        </span>
+      </span>
+    </a>
+  </td>
+  <td class="align-middle text-secondary"><%= link_to truncate(image.blob.filename.to_s, length: 20), edit_image_path(@imageable.to_gid_param, image), title: "Edit Image", data: tooltip_expando %></td>
+  <td class="align-middle text-secondary"><%= truncate image.metadata["name"].to_s, length: 20 %></td>
+  <td class="align-middle text-secondary text-center"><%= tag.span image.metadata["format"], class: "badge badge-light" %></td>
+  <td class="align-middle text-secondary text-center"><%= image.blob.content_type %></td>
 <% end %>

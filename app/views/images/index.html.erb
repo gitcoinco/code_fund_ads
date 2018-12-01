@@ -1,8 +1,6 @@
 <% content_for :breadcrumbs do %>
   <%= render "/@shared/breadcrumbs/dashboard" %>
-  <%= render "/@shared/breadcrumbs/imageables" %>
-  <%= render "/@shared/breadcrumbs/imageable" %>
-  <%= render "/@shared/breadcrumbs/images", class: "active" %>
+  <%= render "/@shared/breadcrumbs/images", imageable: @imageable, class: "active" %>
 <% end %>
 
 <% content_for :actions do %>
@@ -12,16 +10,59 @@
 <% content_for :page_heading do %>
   <%= page_heading "Viewing", "Images",
     subtitle: "for #{@imageable.imageable_name}",
-    icon: "images" %>
+    icon: "fas fa-images" %>
 <% end %>
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
-    <%= render partial: "/image_searches/form",
-              layout: "/@shared/collapsable_search_form",
-              locals: { search: @image_search } %>
-    <div class="bg-white p-4">
-      <%= render "/images/table" %>
+    <div class="u-cubeportfolio">
+      <!-- Filter -->
+      <ul id="filterControls" class="list-inline cbp-l-filters-alignRight text-center">
+        <li class="list-inline-item cbp-filter-item cbp-filter-item-active u-cubeportfolio__item" data-filter="*">All</li>
+        <li class="list-inline-item cbp-filter-item u-cubeportfolio__item" data-filter=".200x200">200x200</li>
+        <li class="list-inline-item cbp-filter-item u-cubeportfolio__item" data-filter=".260x200">260x200</li>
+        <li class="list-inline-item cbp-filter-item u-cubeportfolio__item" data-filter=".512x320">512x320</li>
+      </ul>
+      <!-- End Filter -->
+
+      <!-- Content -->
+      <div class="cbp"
+          data-controller="cube-folio"
+          data-layout="mosaic"
+          data-controls="#filterControls"
+          data-animation="quicksand"
+          data-x-gap="32"
+          data-y-gap="32"
+          data-media-queries='[
+            {"width": 1500, "cols": 4},
+            {"width": 1100, "cols": 4},
+            {"width": 800, "cols": 3},
+            {"width": 480, "cols": 2},
+            {"width": 300, "cols": 1}
+          ]'>
+
+        <% @images.each do |image| %>
+          <div class="cbp-item <%= "#{image.metadata['width']}x#{image.metadata['height']}" %>">
+            <%= link_to edit_image_path(@imageable.to_gid_param, image), class: "cbp-caption" do %>
+              <div class="cbp-caption-defaultWrap">
+                <%= image_tag image.variant(thumbnail: "x200"), style: "height: #{image.metadata['height']}px; width: #{image.metadata['width']}px" %>
+              </div>
+              <div class="cbp-caption-activeWrap bg-dark">
+                <div class="cbp-l-caption-alignCenter">
+                  <div class="cbp-l-caption-body">
+                    <h4 class="h6 text-white mb-0"><%= image.blob.filename.to_s %></h4>
+                    <p class="small text-white-70 mb-0">
+                      <%= "#{image.metadata['width']}x#{image.metadata['height']}" %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+
+      </div>
+      <!-- End Content -->
     </div>
   </div>
 </main>

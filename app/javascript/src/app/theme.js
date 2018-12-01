@@ -12,6 +12,7 @@ import 'theme/vendor/svg-injector/dist/svg-injector.min';
 import 'theme/vendor/slick-carousel/slick/slick';
 import 'theme/vendor/chartist/dist/chartist.min';
 import 'theme/vendor/chartist-js-tooltip/chartist-plugin-tooltip';
+import 'theme/vendor/cubeportfolio/js/jquery.cubeportfolio.min';
 // import 'theme/vendor/summernote/dist/summernote-lite';
 
 // theme scripts
@@ -33,6 +34,7 @@ import 'theme/js/components/hs.chartist-area-chart';
 import 'theme/js/components/hs.chartist-bar-chart';
 import 'theme/js/components/hs.chart-pie';
 import 'theme/js/components/hs.focus-state';
+import 'theme/js/components/hs.cubeportfolio';
 
 // theme initialization
 document.addEventListener('turbolinks:load', () => {

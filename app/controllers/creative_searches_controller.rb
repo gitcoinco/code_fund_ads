@@ -6,6 +6,16 @@ class CreativeSearchesController < ApplicationController
     redirect_to creatives_path
   end
 
+  def update
+    if session[:creative_search].present?
+      creative_search = GlobalID.parse(session[:creative_search]).find if session[:creative_search].present?
+      attrs = creative_search.to_h
+      attrs.delete(params[:remove])
+      session[:creative_search] = CreativeSearch.new(attrs).to_gid_param
+    end
+    redirect_to creatives_path
+  end
+
   def destroy
     session[:creative_search] = CreativeSearch.new.to_gid_param
     redirect_to creatives_path

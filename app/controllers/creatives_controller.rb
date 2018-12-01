@@ -3,32 +3,18 @@ class CreativesController < ApplicationController
   before_action :set_creative_search, only: [:index]
   before_action :set_creative, only: [:show, :edit, :update, :destroy]
 
-  # GET /creatives
-  # GET /creatives.json
   def index
     creatives = Creative.order(:name).includes(:user)
     creatives = @creative_search.apply(creatives)
-    @pagy, @creatives = pagy(creatives)
+    @pagy, @creatives = pagy(creatives, items: 10)
   end
 
-  # GET /creatives/1
-  # GET /creatives/1.json
-  def show
-  end
-
-  # GET /creatives/new
   def new
     @creative = current_user.creatives.build
   end
 
-  # GET /creatives/1/edit
-  def edit
-  end
-
-  # POST /creatives
-  # POST /creatives.json
   def create
-    @creative = Creative.new(creative_params)
+    @creative = current_user.creatives.build(creative_params)
 
     respond_to do |format|
       if @creative.save
@@ -41,8 +27,6 @@ class CreativesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /creatives/1
-  # PATCH/PUT /creatives/1.json
   def update
     respond_to do |format|
       if @creative.update(creative_params)
@@ -55,8 +39,6 @@ class CreativesController < ApplicationController
     end
   end
 
-  # DELETE /creatives/1
-  # DELETE /creatives/1.json
   def destroy
     @creative.destroy
     respond_to do |format|

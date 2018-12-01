@@ -1,6 +1,7 @@
 class Image
   extend ActiveModel::Naming
   include ActiveModel::Conversion
+  include Rails.application.routes.url_helpers
 
   attr_reader :attachment
 

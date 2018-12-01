@@ -32,13 +32,15 @@ export default class extends Controller {
   checkLimit() {
     const adLength = this.previewHeadlineTarget.textContent.length + this.previewBodyTarget.textContent.length + 1;
     this.setAdLengthCount(adLength);
-    
+
     if (adLength > 85) {
       this.copyWrapperTarget.classList.add('over-limit');
-      this.copyWarningWrapperTarget.classList.remove('text-secondary').add('text-danger');
+      this.copyWarningWrapperTarget.classList.remove('text-secondary');
+      this.copyWarningWrapperTarget.classList.add('text-danger');
     } else {
       this.copyWrapperTarget.classList.remove('over-limit');
-      this.copyWarningWrapperTarget.classList.remove('text-danger').add('text-secondary');
+      this.copyWarningWrapperTarget.classList.remove('text-danger');
+      this.copyWarningWrapperTarget.classList.add('text-secondary');
     }
   }
 
@@ -57,15 +59,20 @@ export default class extends Controller {
   }
 
   setSmallImage() {
-    console.log('setSmallImage');
+    // Implement when we are able to display compatible templates
   }
 
   setLargeImage() {
-    console.log('setLargeImage');
+    let target = this.inputLargeImageIdTarget;
+    let imageId = parseInt(target.value, 10);
+    if (!isNaN(imageId)) {
+      let selectedOption = target.options[target.selectedIndex];
+      this.previewImageUrlTarget.src = selectedOption.dataset.imageUrl;
+    }
   }
 
   setWideImage() {
-    console.log('setWideImage');
+    // Implement when we are able to display compatible templates
   }
 
   setTemplateTheme() {

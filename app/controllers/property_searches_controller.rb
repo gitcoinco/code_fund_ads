@@ -6,6 +6,16 @@ class PropertySearchesController < ApplicationController
     redirect_to properties_path
   end
 
+  def update
+    if session[:property_search].present?
+      property_search = GlobalID.parse(session[:property_search]).find if session[:property_search].present?
+      attrs = property_search.to_h
+      attrs.delete(params[:remove])
+      session[:property_search] = PropertySearch.new(attrs).to_gid_param
+    end
+    redirect_to properties_path
+  end
+
   def destroy
     session[:property_search] = PropertySearch.new.to_gid_param
     redirect_to properties_path
