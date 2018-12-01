@@ -15,20 +15,28 @@
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
+    <%= render partial: "/image_searches/form",
+              layout: "/@shared/collapsable_search_form",
+              locals: { search: @image_search } %>
     <div class="u-cubeportfolio">
       <!-- Filter -->
       <ul id="filterControls" class="list-inline cbp-l-filters-alignRight text-center">
         <li class="list-inline-item cbp-filter-item cbp-filter-item-active u-cubeportfolio__item" data-filter="*">All</li>
-        <li class="list-inline-item cbp-filter-item u-cubeportfolio__item" data-filter=".200x200">200x200</li>
-        <li class="list-inline-item cbp-filter-item u-cubeportfolio__item" data-filter=".260x200">260x200</li>
-        <li class="list-inline-item cbp-filter-item u-cubeportfolio__item" data-filter=".512x320">512x320</li>
+        <li class="list-inline-item cbp-filter-item u-cubeportfolio__item text-downcase" data-filter=".200x200">200x200</li>
+        <li class="list-inline-item cbp-filter-item u-cubeportfolio__item text-downcase" data-filter=".260x200">260x200</li>
+        <li class="list-inline-item cbp-filter-item u-cubeportfolio__item text-downcase" data-filter=".512x320">512x320</li>
+        <% User.advertiser.include_image_count.order(:company_name).select { |u| u.image_count > 0 }.each do |advertiser| %>
+          <li class="list-inline-item cbp-filter-item u-cubeportfolio__item" data-filter=".advertiser-<%= advertiser.id %>">
+            <%= advertiser.company_name %> (<%= advertiser.image_count.to_i %>)
+          </li>
+        <% end %>
       </ul>
       <!-- End Filter -->
 
       <!-- Content -->
       <div class="cbp"
           data-controller="cube-folio"
-          data-layout="mosaic"
+          data-layout="grid"
           data-controls="#filterControls"
           data-animation="quicksand"
           data-x-gap="32"
@@ -42,10 +50,10 @@
           ]'>
 
         <% @images.each do |image| %>
-          <div class="cbp-item <%= "#{image.metadata['width']}x#{image.metadata['height']}" %>">
+          <div class="cbp-item <%= "#{image.metadata['width']}x#{image.metadata['height']} advertiser-#{image.record_id}" %>">
             <%= link_to edit_image_path(@imageable.to_gid_param, image), class: "cbp-caption" do %>
               <div class="cbp-caption-defaultWrap">
-                <%= image_tag image.variant(thumbnail: "x200"), style: "height: #{image.metadata['height']}px; width: #{image.metadata['width']}px" %>
+                <%= image_tag image.variant(geometry: "200x200>"), style: "height: 200px;" %>
               </div>
               <div class="cbp-caption-activeWrap bg-dark">
                 <div class="cbp-l-caption-alignCenter">

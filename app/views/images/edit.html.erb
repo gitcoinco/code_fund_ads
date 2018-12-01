@@ -5,7 +5,7 @@
 <% end %>
 
 <% content_for :actions do %>
-  <%#= render "/@shared/actions/d" %>
+  <%= render "/@shared/actions/delete_image", imageable: @imageable, image: @image %>
 <% end %>
 
 <% content_for :page_heading do %>
@@ -16,7 +16,6 @@
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
-    <%= render "/images/form_metadata" %>
-    <%= link_to "Cancel", images_path, class: "btn btn-link" %>
+    <%= render "/images/form_metadata", imageable: @imageable, image: @image %>
   </div>
 </main>
