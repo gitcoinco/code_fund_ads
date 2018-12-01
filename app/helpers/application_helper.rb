@@ -38,7 +38,7 @@ module ApplicationHelper
   end
 
   def companies_for_select
-    User.advertiser.where.not(company_name: nil).order(User.arel_table[:company_name].lower).pluck(:company_name).uniq
+    User.advertisers.where.not(company_name: nil).order(User.arel_table[:company_name].lower).pluck(:company_name).uniq
   end
 
   def ad_templates_for_select

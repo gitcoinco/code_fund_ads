@@ -29,7 +29,7 @@ class Creative < ApplicationRecord
   
   # scopes ....................................................................
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
-  scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertiser.search_name(value).or(User.advertiser.search_company(value))) }
+  scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertisers.search_name(value).or(User.advertisers.search_company(value))) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
