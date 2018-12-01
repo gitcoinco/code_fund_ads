@@ -58,6 +58,12 @@ cd /path/to/project
  ./bin/standardize
  ```
 
+ ## Deployment
+
+ ### Database
+
+ - The database user needs permissions to execute DDL and create schema to support dynamic partition tables
+
 ## Candidates for GEM extraction
 
 - Searchable ActiveStorage metadata
