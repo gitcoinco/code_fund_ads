@@ -9,7 +9,7 @@ class AssurePropertyAdvertisersJob < ApplicationJob
           campaign.property_ids_with_impressions(date).each do |property_id|
             PropertyAdvertiser.where(
               property_id: property_id,
-              advertiser: user,
+              advertiser_id: user.id,
               displayed_at_date: date
             ).first_or_create!
           end

@@ -7,13 +7,18 @@ module Campaigns
 
     included do
       scope :include_total_impressions_count, -> {
-        subquery = ImpressionCounter.for_campaign_model.sum(:count)
+        subquery = Impression.select("COUNT(*)").
+          where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
+          where(Impression.arel_table[:displayed_at_date].gteq(Campaign.arel_table[:start_date])).
+          where(Impression.arel_table[:displayed_at_date].lteq(Campaign.arel_table[:end_date]))
         select(arel_table[Arel.star]).select(subquery.arel.as(TOTAL_IMPRESSIONS_COUNT_KEY))
       }
 
       scope :include_daily_impressions_count, ->(date = nil) {
-        date = Date.parse(date || Date.current).to_date
-        subquery = Counter.select(:count).for_model(Campaign).scoped_by(DAILY_IMPRESSIONS_COUNT_KEY).segmented_by(date.iso8601)
+        date = Date.parse((date || Date.current).to_s).to_date
+        subquery = Impression.select("COUNT(*)").
+          where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
+          where(Impression.arel_table[:displayed_at_date].eq(date))
         select(arel_table[Arel.star]).select(subquery.arel.as(DAILY_IMPRESSIONS_COUNT_KEY))
       }
     end
@@ -37,7 +42,7 @@ module Campaigns
     end
 
     def daily_impressions_count(date = nil)
-      date = Date.parse(date || Date.current).to_date
+      date = Date.parse((date || Date.current).to_s).to_date
       Rails.cache.fetch daily_impressions_count_cache_key(date), expires_in: 2.days do
         impressions.on(date).count
       end
