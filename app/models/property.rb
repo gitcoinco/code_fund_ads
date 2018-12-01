@@ -26,11 +26,13 @@ class Property < ApplicationRecord
   include Properties::Presentable
   include Taggable
   include Imageable
+  include Impressionable
 
   # relationships .............................................................
   belongs_to :user
   has_many :impression_counters
   has_many :click_counters
+  has_many :property_advertisers
 
   # validations ...............................................................
   # validates :ad_template, presence: true
@@ -108,6 +110,10 @@ class Property < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def impressions
+    Impression.where(advertiser_id: property_advertisers.select(:advertiser_id))
+  end
+
   def favicon_image_url
     domain = url.gsub(/^https?:\/\//, "")
     "//www.google.com/s2/favicons?domain=#{domain}"
@@ -119,6 +125,18 @@ class Property < ApplicationRecord
 
   def matching_campaigns
     Campaign.for_property self
+  end
+
+  def advertisers
+    User.where(id: property_advertisers.select(:advertiser_id)) unless date
+  end
+
+  def advertisers_on(date)
+    User.where(id: property_advertisers.on(date).select(:advertiser_id))
+  end
+
+  def advertisers_between(start_date, end_date)
+    User.where(id: property_advertisers.between(start_date, end_date).select(:advertiser_id))
   end
 
   # protected instance methods ................................................

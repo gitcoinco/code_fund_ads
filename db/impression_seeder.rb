@@ -146,7 +146,7 @@ class ImpressionSeeder
   def create_impressions_for_month(date_string, max)
     @count = 0
     @max = max
-    @max_per_second = (max / 1.month.seconds.to_f).ceil + 6
+    @max_per_second = (max / 1.month.seconds.to_f).ceil * 6
     start_date = Date.parse(date_string).beginning_of_month
     active_date = start_date
     list = []

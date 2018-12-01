@@ -39,17 +39,14 @@ class Impression < ApplicationRecord
   before_validation :assure_property_name, on: [:create]
   before_validation :set_displayed_at, on: [:create]
   before_create :assure_partition_table, on: [:create]
-  #after_commit :increment_counters, on: [:create]
+  # after_commit :increment_counters, on: [:create]
 
   # scopes ....................................................................
-  scope :clicked, -> { where.not(clicked_at: nil) }
-  scope :on, ->(date) { where displayed_at_date: date }
+  scope :clicked, -> { where.not clicked_at: nil }
   scope :payable, -> { where payable: true }
   scope :unpayable, -> { where payable: false }
-
-  # This scope may look odd but isolating the date range query like this allows us to
-  # optimize for the fastest query that takes advantage of partitioning and indexes
-  scope :between, ->(start_date, end_date) { where displayed_at_date: start_date..end_date }
+  scope :on, ->(date) { where displayed_at_date: date.to_date }
+  scope :between, ->(start_date, end_date) { where displayed_at_date: start_date.to_date..end_date.to_date }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
 
@@ -65,7 +62,7 @@ class Impression < ApplicationRecord
       "impressions",
       displayed_at_date.to_s("yyyy_mm"),
       "advertiser",
-      advertiser_id.to_i
+      advertiser_id.to_i,
     ].join("_")
   end
 

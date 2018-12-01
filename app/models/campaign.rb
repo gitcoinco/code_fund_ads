@@ -30,6 +30,7 @@ class Campaign < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
   include Taggable
+  include Impressionable
   include Campaigns::Operable
   include Campaigns::Displayable
   include Campaigns::Clickable
@@ -65,7 +66,7 @@ class Campaign < ApplicationRecord
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
   scope :for_property, ->(property) do
-    relation = active.with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
+    relation = available.active.with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
     relation = relation.where(fallback: false) if property.prohibit_fallback_campaigns
     relation
   end
@@ -134,14 +135,6 @@ class Campaign < ApplicationRecord
 
   def impressions
     Impression.between(start_date, end_date).where(campaign: self)
-  end
-
-  def dates_with_impressions
-    impressions.select(:displayed_at_date).distinct.pluck(:displayed_at_date)
-  end
-
-  def dates_with_payable_impressions
-    impressions.payable.select(:displayed_at_date).distinct.pluck(:displayed_at_date)
   end
 
   def property_ids_with_impressions(date = nil)
