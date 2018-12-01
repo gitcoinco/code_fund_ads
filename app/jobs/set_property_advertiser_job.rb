@@ -1,5 +1,5 @@
 class SetPropertyAdvertiserJob < ApplicationJob
-  queue_as :default
+  queue_as :low
 
   def perform(impression)
     PropertyAdvertiser.where(

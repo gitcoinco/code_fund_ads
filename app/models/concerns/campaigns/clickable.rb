@@ -7,28 +7,38 @@ module Campaigns
 
     included do
       scope :include_total_clicks_count, -> {
-        subquery = Counter.select(:count).for_model(Campaign).scoped_by(TOTAL_CLICKS_COUNT_KEY)
+        subquery = Impression.clicked.select("COUNT(*)").
+          where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
+          where(Impression.arel_table[:displayed_at_date].gteq(Campaign.arel_table[:start_date])).
+          where(Impression.arel_table[:displayed_at_date].lteq(Campaign.arel_table[:end_date]))
         select(arel_table[Arel.star]).select(subquery.arel.as(TOTAL_CLICKS_COUNT_KEY))
       }
 
       scope :include_total_click_rate, -> {
-        impression_count_subquery = Counter.select(:count).for_model(Campaign).scoped_by(Campaigns::Displayable::TOTAL_IMPRESSIONS_COUNT_KEY)
-        click_count_subquery = Counter.select(:count).for_model(Campaign).scoped_by(TOTAL_CLICKS_COUNT_KEY)
-        divide = Arel::Nodes::NamedFunction.new("div", [click_count_subquery.arel, impression_count_subquery.arel])
+        impression_count_subquery = Impression.select("COUNT(*)::numeric").
+          where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
+          where(Impression.arel_table[:displayed_at_date].gteq(Campaign.arel_table[:start_date])).
+          where(Impression.arel_table[:displayed_at_date].lteq(Campaign.arel_table[:end_date]))
+        click_count_subquery = impression_count_subquery.clicked
+        divide = Arel::Nodes::Division.new(click_count_subquery.arel, impression_count_subquery.arel)
         select(arel_table[Arel.star]).select(divide.as("total_click_rate"))
       }
 
       scope :include_daily_clicks_count, ->(date = nil) {
-        date = Date.parse(date || Date.current).to_date
-        subquery = Counter.select(:count).for_model(Campaign).scoped_by(DAILY_CLICKS_COUNT_KEY).segmented_by(date.iso8601)
+        date = Date.parse((date || Date.current).to_s).to_date
+        subquery = Impression.clicked.select("COUNT(*)").
+          where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
+          where(Impression.arel_table[:displayed_at_date].eq(date))
         select(arel_table[Arel.star]).select(subquery.arel.as(DAILY_CLICKS_COUNT_KEY))
       }
 
       scope :include_daily_click_rate, ->(date = nil) {
-        date = Date.parse(date || Date.current).to_date
-        impression_count_subquery = Counter.select(:count).for_model(Campaign).scoped_by(Campaigns::Displayable::TOTAL_IMPRESSIONS_COUNT_KEY).segmented_by(date.iso8601)
-        click_count_subquery = Counter.select(:count).for_model(Campaign).scoped_by(DAILY_CLICKS_COUNT_KEY).segmented_by(date.iso8601)
-        divide = Arel::Nodes::NamedFunction.new("div", [click_count_subquery.arel, impression_count_subquery.arel])
+        date = Date.parse((date || Date.current).to_s).to_date
+        impression_count_subquery = Impression.select("COUNT(*)::numeric").
+          where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
+          where(Impression.arel_table[:displayed_at_date].eq(date))
+        click_count_subquery = impression_count_subquery.clicked
+        divide = Arel::Nodes::Division.new(click_count_subquery.arel, impression_count_subquery.arel)
         select(arel_table[Arel.star]).select(divide.as("daily_click_rate"))
       }
     end
