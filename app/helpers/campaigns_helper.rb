@@ -6,7 +6,7 @@ module CampaignsHelper
   end
 
   def campaign_statuses_for_select
-    ENUMS::CAMPAIGN_STATUSES.values
+    ENUMS::CAMPAIGN_STATUSES.values.map { |val| [val.humanize, val] }
   end
 
   def campaign_status_color(status)

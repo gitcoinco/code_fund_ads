@@ -17,7 +17,7 @@
 
   <div class="card-body p-4">
     <div class="media ml-2">
-      <%= image_tag creative.large_image, class: "align-self-start mr-3", style: "width: 130px;" %>
+      <%= image_tag creative.large_image.variant(geometry: "130x100"), class: "align-self-start mr-3", style: "width: 130px;" %>
       <div class="media-body h6 text-black-50 font-weight-normal">
         <strong class="text-dark"><%= creative.headline %></strong>
         <%= creative.body %>

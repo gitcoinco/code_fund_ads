@@ -31,7 +31,7 @@ class Seeder
       seed_users
       seed_campaigns
       seed_properties
-      ImpressionSeeder.run(ENV["IMPRESSIONS"], ENV["MONTHS"])
+      # ImpressionSeeder.run(ENV["IMPRESSIONS"], ENV["MONTHS"])
     }
     print "Seeding finished...".ljust(96)
     puts benchmark

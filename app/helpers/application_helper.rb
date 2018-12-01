@@ -34,7 +34,7 @@ module ApplicationHelper
   end
 
   def image_formats_for_select
-    ENUMS::IMAGE_FORMATS.values
+    ENUMS::IMAGE_FORMATS.values.map { |f| [f.humanize, f] }
   end
 
   def companies_for_select

@@ -1,7 +1,6 @@
 class Image
   extend ActiveModel::Naming
   include ActiveModel::Conversion
-  include Rails.application.routes.url_helpers
 
   attr_reader :attachment
 
@@ -44,5 +43,14 @@ class Image
 
   def display_name
     "#{name} (#{width}x#{height})"
+  end
+
+  def image_path
+    Rails.application.routes.url_helpers.rails_blob_path(attachment, only_path: true)
+  end
+
+  def image_url
+    url_options = Rails.configuration.action_mailer.default_url_options
+    Rails.application.routes.url_helpers.rails_blob_path(attachment, url_options)
   end
 end

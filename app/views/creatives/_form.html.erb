@@ -38,7 +38,8 @@
                 <option value=""></option>
                 <% creative.user.small_images.each do |image| %>
                   <%= tag.option(Image.new(image).display_name, value: image.record_id,
-                        data: { image_url: polymorphic_url(image) }) %>
+                        data: { image_url: polymorphic_url(image) },
+                        selected: creative.small_image == image) %>
                 <% end %>
               </select>
               <small class="form-text text-muted">200x200</small>
@@ -61,7 +62,8 @@
                 <option value=""></option>
                 <% creative.user.large_images.each do |image| %>
                   <%= tag.option(Image.new(image).display_name, value: image.record_id,
-                        data: { image_url: polymorphic_url(image) }) %>
+                        data: { image_url: polymorphic_url(image) },
+                        selected: creative.large_image == image) %>
                 <% end %>
               </select>
               <small class="form-text text-muted">200x200</small>
@@ -84,7 +86,8 @@
                 <option value=""></option>
                 <% creative.user.wide_images.each do |image| %>
                   <%= tag.option(Image.new(image).display_name, value: image.record_id,
-                        data: { image_url: polymorphic_url(image) }) %>
+                        data: { image_url: polymorphic_url(image) },
+                        selected: creative.wide_image == image) %>
                 <% end %>
               </select>
               <small class="form-text text-muted">200x200</small>
@@ -145,7 +148,7 @@
         <div id="creative-preview" data-target="preview">
           <span class="cf-wrapper">
             <a href="javascript:;" class="cf-img-wrapper" rel="noopener">
-              <img data-target="creative-form.previewImageUrl" src="https://cdn.codefund.io/1a6f8eb2-6703-4d5b-8211-47a7aad53f67_gitcoin-2-260x200.png" alt="" border="0" height="100" width="130" class="cf-img">
+              <%= image_tag creative.large_image.variant(geometry: "130x100"), border: 0, height: 100, width: 130, class: "cf-img", data: { target: "creative-form.previewImageUrl" } %>
             </a>
             <a href="javascript:;" class="cf-text" rel="noopener">
               <strong data-target="creative-form.previewHeadline">Gitcoin</strong>
