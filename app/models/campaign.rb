@@ -27,24 +27,19 @@
 #
 
 class Campaign < ApplicationRecord
-  TOTAL_IMPRESSIONS_COUNT_KEY = "total_impressions_count".freeze
-  DAILY_IMPRESSIONS_COUNT_KEY = "daily_impressions_count".freeze
-  TOTAL_CLICKS_COUNT_KEY = "total_clicks_count".freeze
-  DAILY_CLICKS_COUNT_KEY = "daily_clicks_count".freeze
-
   # extends ...................................................................
   # includes ..................................................................
   include Taggable
+  include Impressionable
+  include Campaigns::Operable
+  include Campaigns::Predictable
+  include Campaigns::Budgetable
+  include Campaigns::Recommendable
   include Campaigns::Presentable
 
   # relationships .............................................................
   belongs_to :creative
   belongs_to :user
-  has_one :total_impressions_counter, -> { where scope: TOTAL_IMPRESSIONS_COUNT_KEY }, as: :record, class_name: "Counter"
-  has_one :total_clicks_counter, -> { where scope: TOTAL_CLICKS_COUNT_KEY }, as: :record, class_name: "Counter"
-  has_many :impressions
-  has_many :daily_impressions_counters, -> { where scope: DAILY_IMPRESSIONS_COUNT_KEY }, as: :record, class_name: "Counter"
-  has_many :daily_clicks_counters, -> { where scope: DAILY_CLICKS_COUNT_KEY }, as: :record, class_name: "Counter"
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
@@ -69,7 +64,7 @@ class Campaign < ApplicationRecord
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
   scope :for_property, ->(property) do
-    relation = with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
+    relation = available.active.with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
     relation = relation.where(fallback: false) if property.prohibit_fallback_campaigns
     relation
   end
@@ -135,6 +130,35 @@ class Campaign < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def impressions
+    Impression.between(start_date, end_date).where(campaign: self)
+  end
+
+  def property_ids_with_impressions(date = nil)
+    return impressions.on(date).select(:property_id).distinct.pluck(:property_id) if date
+    impressions.select(:property_id).distinct.pluck(:property_id)
+  end
+
+  def property_ids_with_payable_impressions(date = nil)
+    return impressions.payable.on(date).select(:property_id).distinct.pluck(:property_id) if date
+    impressions.payable.select(:property_id).distinct.pluck(:property_id)
+  end
+
+  def property_ids_with_clicked_impressions(date = nil)
+    return impressions.clicked.on(date).select(:property_id).distinct.pluck(:property_id) if date
+    impressions.clicked.select(:property_id).distinct.pluck(:property_id)
+  end
+
+  def property_ids_with_clicked_payable_impressions(date = nil)
+    return impressions.clicked.payable.on(date).select(:property_id).distinct.pluck(:property_id) if date
+    impressions.clicked.payable.select(:property_id).distinct.pluck(:property_id)
+  end
+
+  def matching_properties
+    Property.for_campaign self
+  end
+
   def pending?
     ENUMS::CAMPAIGN_STATUSES.pending? status
   end
@@ -151,187 +175,15 @@ class Campaign < ApplicationRecord
     date.to_date.between? start_date, end_date
   end
 
-  def total_impressions_count_cache_key
-    "#{cache_key}/#{TOTAL_IMPRESSIONS_COUNT_KEY}"
-  end
-
-  def daily_impressions_count_cache_key(date = nil)
-    "#{cache_key}/#{DAILY_IMPRESSIONS_COUNT_KEY}/#{(date || Date.current).to_date.iso8601}"
-  end
-
-  def total_impressions_count
-    Rails.cache.fetch total_impressions_count_cache_key, expires_in: (remaining_operative_days + 7).days do
-      counter = total_impressions_counter
-      InitializeTotalImpressionsCountJob.perform_later id unless counter
-      counter&.count.to_i
-    end
-  end
-
-  def daily_impressions_count(date = nil)
-    date ||= Date.current
-    Rails.cache.fetch daily_impressions_count_cache_key(date), expires_in: 2.days do
-      counter = daily_impressions_counters.segmented_by(date.iso8601).first
-      InitializeDailyImpressionsCountJob.perform_later id, date.iso8601 unless counter
-      counter&.count.to_i
-    end
-  end
-
-  def total_clicks_count_cache_key
-    "#{cache_key}/#{TOTAL_CLICKS_COUNT_KEY}"
-  end
-
-  def daily_clicks_count_cache_key(date = nil)
-    "#{cache_key}/#{DAILY_CLICKS_COUNT_KEY}/#{(date || Date.current).to_date.iso8601}"
-  end
-
-  def total_clicks_count
-    Rails.cache.fetch total_clicks_count_cache_key, expires_in: (remaining_operative_days + 7).days do
-      counter = total_clicks_counter
-      InitializeTotalClicksCountJob.perform_later id unless counter
-      counter&.count.to_i
-    end
-  end
-
-  def daily_clicks_count(date = nil)
-    date ||= Date.current
-    Rails.cache.fetch daily_clicks_count_cache_key(date), expires_in: 2.days do
-      counter = daily_clicks_counters.segmented_by(date.iso8601).first
-      InitializeDailyClicksCountJob.perform_later id, date.iso8601 unless counter
-      counter&.count.to_i
-    end
-  end
-
-  def daily_ctr(date = nil)
-    date ||= Date.current
-    impressions_count = daily_impressions_count(date)
-    clicks_count = daily_clicks_count(date)
-    return 0 if impressions_count == 0
-    (clicks_count / impressions_count.to_f) * 100
-  end
-
-  def scoped_name
-    [user.scoped_name, name, creative&.name].compact.join "・"
-  end
-
   def date_range
     return nil unless start_date && end_date
     "#{start_date.to_s "mm/dd/yyyy"} #{end_date.to_s "mm/dd/yyyy"}"
-  end
-
-  def recommended_daily_budget
-    total_remaining_budget / remaining_operative_days
-  end
-
-  def recommended_end_date
-    total_available_impression_count = ((total_remaining_budget.to_f / ecpm.to_f) * 1_000).ceil
-    days = total_available_impression_count / estimated_max_daily_impression_count
-
-    date = start_date
-    date = Date.current if date.past?
-
-    return date.advance(days: days) unless weekdays_only?
-
-    count = 0
-    while count < days
-      count += 1 unless date.saturday? || date.sunday?
-      date = date.advance(days: 1)
-    end
-    date
-  end
-
-  def operative_dates
-    dates = (start_date..end_date).to_a
-    return dates unless weekdays_only?
-    dates.select { |date| !date.saturday? && !date.sunday? }
-  end
-
-  def total_operative_days
-    operative_dates.size
-  end
-
-  def remaining_operative_dates
-    today = Date.current
-    operative_dates.select { |date| date >= today }
-  end
-
-  def consumed_operative_dates
-    today = Date.current
-    operative_dates.select { |date| date < today }
-  end
-
-  def remaining_operative_days
-    remaining_operative_dates.size
-  end
-
-  def consumed_operative_days
-    consumed_operative_dates.size
-  end
-
-  def estimated_max_total_impression_count
-    ((total_budget.to_f / ecpm.to_f) * 1_000).ceil
-  end
-
-  def estimated_max_remaining_impression_count
-    estimated_max_daily_impression_count * remaining_operative_days
-  end
-
-  def estimated_max_daily_impression_count
-    ((daily_budget.to_f / ecpm.to_f) * 1_000).ceil
-  end
-
-  def total_unusable_budget
-    return Money.new(0, "USD") if ecpm.to_f.zero?
-    total_remaining_budget - total_remaining_usable_budget
-  end
-
-  def budget_surplus?
-    total_unusable_budget > 0
-  end
-
-  def total_remaining_usable_budget
-    (estimated_max_remaining_impression_count / 1_000.to_f) * ecpm
-  end
-
-  def total_remaining_budget
-    total_budget - total_consumed_budget
-  end
-
-  def total_consumed_budget
-    ecpm * total_impressions_per_mille
-  end
-
-  def total_impressions_per_mille
-    total_impressions_count / 1_000.to_f
-  end
-
-  def daily_remaining_budget
-    daily_budget - daily_consumed_budget
-  end
-
-  def daily_consumed_budget
-    ecpm * daily_impressions_per_mille
-  end
-
-  def daily_impressions_per_mille
-    daily_impressions_count / 1_000.to_f
   end
 
   def date_range=(value)
     dates = value.split(" - ")
     self.start_date = Date.strptime(dates[0], "%m/%d/%Y")
     self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
-  end
-
-  def matching_properties
-    PropertySearch.new({
-      keywords: keywords,
-      negative_keywords: negative_keywords,
-      status: ["active"],
-    }).apply(Property.order(name: :asc))
-  end
-
-  def average_ctr
-    (total_clicks_count / total_impressions_count.to_f) * 100
   end
 
   # protected instance methods ................................................

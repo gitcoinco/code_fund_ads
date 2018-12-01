@@ -82,51 +82,39 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.index :active_storage_attachment_id
     end
 
-    create_range_partition :impressions, id: :uuid, default: -> { "gen_random_uuid()" }, partition_key: "displayed_at_date" do |t|
-      t.bigint :campaign_id
-      t.string :campaign_name
-      t.bigint :property_id
-      t.string :property_name
-      t.string :ip
-      t.text :user_agent
+    create_table :impressions, id: false, options: "PARTITION BY RANGE (advertiser_id, displayed_at_date)" do |t|
+      t.uuid :id, null: false, default: "gen_random_uuid()"
+      t.bigint :advertiser_id, null: false
+      t.bigint :campaign_id, null: false
+      t.string :campaign_name, null: false
+      t.bigint :property_id, null: false
+      t.string :property_name, null: false
+      t.string :ip, null: false
+      t.text :user_agent, null: false
       t.string :country
       t.string :postal_code
       t.decimal :latitude
       t.decimal :longitude
       t.boolean :payable, default: false, null: false
       t.string :reason
-      t.datetime :displayed_at
-      t.date :displayed_at_date
+      t.datetime :displayed_at, default: "now()", null: false
+      t.date :displayed_at_date, default: "now()::date", null: false
       t.datetime :clicked_at
       t.boolean :fallback_campaign, default: false, null: false
-    end
 
-    start_date = Date.parse("2018-11-01")
-    current_date = start_date
-    while current_date < Date.parse("2031-01-01")
-      next_date = current_date.advance(months: 1)
-      partitioned_table_name = "impressions_#{current_date.to_s "yyyy_mm"}"
-      create_range_partition_of :impressions, name: partitioned_table_name, partition_key: "displayed_at_date", start_range: current_date, end_range: next_date
-      # NOTE: displayed_at_date is indexed by default since it's the partition key
-      add_index partitioned_table_name, "date_trunc('hour', displayed_at)", name: "index_#{partitioned_table_name}_on_displayed_at_hour"
-      add_index partitioned_table_name, :campaign_id
-      add_index partitioned_table_name, :campaign_name
-      add_index partitioned_table_name, :property_id
-      add_index partitioned_table_name, :property_name
-      add_index partitioned_table_name, :payable
-      current_date = next_date
+      t.index :displayed_at_date
+      t.index "date_trunc('hour', displayed_at)", name: "index_impressions_on_displayed_at_hour"
+      t.index :advertiser_id
+      t.index :campaign_id
+      t.index :campaign_name
+      t.index :property_id
+      t.index :property_name
+      t.index :payable
     end
 
     reversible do |dir|
       dir.up do
         execute "CREATE TABLE impressions_default PARTITION OF impressions DEFAULT;"
-        add_index :impressions_default, :displayed_at_date
-        add_index :impressions_default, "date_trunc('hour', displayed_at)", name: "index_impressions_default_on_displayed_at_hour"
-        add_index :impressions_default, :campaign_id
-        add_index :impressions_default, :campaign_name
-        add_index :impressions_default, :property_id
-        add_index :impressions_default, :property_name
-        add_index :impressions_default, :payable
       end
       dir.down do
         drop_table :impressions_default

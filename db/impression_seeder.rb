@@ -17,16 +17,18 @@ class ImpressionSeeder
 
     @initial_count = Impression.count
     @max_count = desired_count.to_i.zero? ? 100_000 : desired_count.to_i
-    @months = months.to_i.zero? ? 1 : months.to_i
+    @months = months.to_i.zero? ? 12 : months.to_i
+    @months = 4 if @months < 4
     @gap_count = max_count - initial_count
     @gap_count = 0 if @gap_count < 0
     @cores = [@months, cores].min
+    @partition_tables = {}
 
     puts "creating [#{gap_count.to_s.rjust(8)}] new impressions spread over [#{@months}] months using [#{cores}] cpu cores"
     print "".ljust(48)
     puts "...the count is an estimate due to randomness added to mimic real world behavior"
 
-    @publishers = User.publisher.includes(:properties).load
+    @publishers = User.publishers.includes(:properties).load
     @campaigns_cache = {}
   end
 
@@ -46,7 +48,7 @@ class ImpressionSeeder
     if initial_count < max_count
       benchmark = Benchmark.measure {
         dates = [Date.current.beginning_of_month]
-        (months - 1).times.each { dates << dates.last.advance(months: 1) }
+        (months - 1).times.each { dates << dates.last.advance(months: -1) }
         chunked_dates = dates.in_groups_of((months / cores.to_f).ceil)
         pids = cores.times.map { |i|
           Process.fork do
@@ -75,8 +77,9 @@ class ImpressionSeeder
     campaign = campaigns.select { |c| c.available_on? displayed_at }.sample
     return nil unless campaign
     @count += 1
-    Impression.new(
+    impression = Impression.new(
       id: SecureRandom.uuid,
+      advertiser_id: campaign.user_id,
       campaign_id: campaign.id,
       campaign_name: campaign.scoped_name,
       property_id: property.id,
@@ -89,7 +92,12 @@ class ImpressionSeeder
       displayed_at_date: displayed_at.to_date,
       clicked_at: rand(100) <= 3 ? displayed_at : nil,
       fallback_campaign: campaign.fallback,
-    ).attributes
+    )
+    @partition_tables[impression.partition_table_name] ||= begin
+      impression.assure_partition_table!
+      true
+    end
+    impression.attributes
   end
 
   def build_impressions(displayed_at)
@@ -100,7 +108,7 @@ class ImpressionSeeder
       return [] unless rand(4).zero?
     end
 
-    rand(@max_per_second * 2).times.map {
+    rand(@max_per_second).times.map {
       build_impression displayed_at
     }.compact
   end
@@ -138,9 +146,8 @@ class ImpressionSeeder
   def create_impressions_for_month(date_string, max)
     @count = 0
     @max = max
-    @max_per_second = (max / 1.month.seconds.to_f).ceil
+    @max_per_second = (max / 1.month.seconds.to_f).ceil * 6
     start_date = Date.parse(date_string).beginning_of_month
-    partition_table_name = "impressions_#{start_date.to_s "yyyy_mm"}"
     active_date = start_date
     list = []
     error = nil
@@ -157,7 +164,7 @@ class ImpressionSeeder
       end
 
       begin
-        ActiveRecord::Base.connection.execute "COPY \"#{partition_table_name}\" FROM '#{csv_path}' CSV;"
+        ActiveRecord::Base.connection.execute "COPY \"impressions\" FROM '#{csv_path}' CSV;"
       rescue => e
         error = e
         puts "Failed to copy #{csv_path} to Postgres! #{e}"

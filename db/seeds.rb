@@ -52,7 +52,7 @@ class Seeder
   end
 
   def build_administrators
-    return [] unless User.administrator.count.zero?
+    return [] unless User.administrators.count.zero?
     return [] if @emails["admin@codefund.io"]
     attributes = user_attributes.merge(
       "id" => @user_id += 1,
@@ -64,9 +64,10 @@ class Seeder
   end
 
   def build_advertisers
-    count = User.advertiser.count
-    return [] if count >= 25
-    (count..25).map do
+    target = 100
+    count = User.advertisers.count
+    return [] if count >= target
+    (count..target).map do
       user_attributes.merge(
         "id" => @user_id += 1,
         "roles" => "{#{ENUMS::USER_ROLES::ADVERTISER}}"
@@ -75,9 +76,10 @@ class Seeder
   end
 
   def build_publishers
-    count = User.publisher.count
-    return [] if count >= 250
-    (count..250).map do
+    target = 1000
+    count = User.publishers.count
+    return [] if count >= target
+    (count..target).map do
       user_attributes.merge(
         "id" => @user_id += 1,
         "roles" => "{#{ENUMS::USER_ROLES::PUBLISHER}}"
@@ -88,7 +90,7 @@ class Seeder
   def seed_campaigns
     print "Seeding campaigns...".ljust(48)
     benchmark = Benchmark.measure {
-      User.advertiser.each do |advertiser|
+      User.advertisers.each do |advertiser|
         next if advertiser.campaigns.count > 0
         add_small_image advertiser
         add_large_image advertiser
@@ -143,9 +145,9 @@ class Seeder
   end
 
   def generate_campaigns(advertiser)
-    rand(1..5).times do
-      start_date = Date.current
-      end_date = Date.current.advance(years: 1)
+    rand(2..6).times do
+      start_date = (Date.current.advance(months: -12)..Date.current).to_a.sample.beginning_of_month
+      end_date = start_date.advance(months: rand(1..4))
       total_budget = ([*500..5000].sample / 100) * 100
       daily_budget = total_budget / (end_date - start_date).to_i
       countries = ENUMS::DEVELOPED_MARKET_COUNTRIES.keys
@@ -175,7 +177,7 @@ class Seeder
   def seed_properties
     print "Seeding properties...".ljust(48)
     benchmark = Benchmark.measure {
-      properties = User.publisher.each_with_object([]) { |publisher, memo|
+      properties = User.publishers.each_with_object([]) { |publisher, memo|
         next if publisher.properties.count > 0
         rand(1..2).times.each do
           property = Property.new(
