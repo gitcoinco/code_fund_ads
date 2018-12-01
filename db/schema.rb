@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_30_175815) do
+ActiveRecord::Schema.define(version: 2018_12_01_133512) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -77,19 +77,6 @@ ActiveRecord::Schema.define(version: 2018_11_30_175815) do
     t.index ["weekdays_only"], name: "index_campaigns_on_weekdays_only"
   end
 
-  create_table "click_counters", force: :cascade do |t|
-    t.bigint "campaign_id", null: false
-    t.bigint "property_id", null: false
-    t.date "clicked_at_date", null: false
-    t.bigint "count", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["campaign_id", "property_id", "clicked_at_date"], name: "index_click_counters_uniqueness", unique: true
-    t.index ["campaign_id"], name: "index_click_counters_on_campaign_id"
-    t.index ["clicked_at_date"], name: "index_click_counters_on_clicked_at_date"
-    t.index ["property_id"], name: "index_click_counters_on_property_id"
-  end
-
   create_table "comments", force: :cascade do |t|
     t.integer "commentable_id"
     t.string "commentable_type"
@@ -135,19 +122,6 @@ ActiveRecord::Schema.define(version: 2018_11_30_175815) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_creatives_on_user_id"
-  end
-
-  create_table "impression_counters", force: :cascade do |t|
-    t.bigint "campaign_id", null: false
-    t.bigint "property_id", null: false
-    t.date "displayed_at_date", null: false
-    t.bigint "count", default: 0, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["campaign_id", "property_id", "displayed_at_date"], name: "index_impression_counters_uniqueness", unique: true
-    t.index ["campaign_id"], name: "index_impression_counters_on_campaign_id"
-    t.index ["displayed_at_date"], name: "index_impression_counters_on_displayed_at_date"
-    t.index ["property_id"], name: "index_impression_counters_on_property_id"
   end
 
   create_table "impressions", id: false, force: :cascade do |t|
@@ -11228,6 +11202,18 @@ ActiveRecord::Schema.define(version: 2018_11_30_175815) do
     t.index ["property_type"], name: "index_properties_on_property_type"
     t.index ["status"], name: "index_properties_on_status"
     t.index ["user_id"], name: "index_properties_on_user_id"
+  end
+
+  create_table "property_advertisers", force: :cascade do |t|
+    t.bigint "property_id", null: false
+    t.bigint "advertiser_id", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["advertiser_id"], name: "index_property_advertisers_on_advertiser_id"
+    t.index ["displayed_at_date"], name: "index_property_advertisers_on_displayed_at_date"
+    t.index ["property_id", "advertiser_id", "displayed_at_date"], name: "index_property_advertisers_unique", unique: true
+    t.index ["property_id"], name: "index_property_advertisers_on_property_id"
   end
 
   create_table "publisher_invoices", force: :cascade do |t|
