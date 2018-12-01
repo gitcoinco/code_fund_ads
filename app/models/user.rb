@@ -64,6 +64,7 @@ class User < ApplicationRecord
   has_many :assets
   has_many :campaigns
   has_many :creatives
+  has_many :impressions_as_advertiser, class_name: "Impression", foreign_key: "advertiser_id"
   has_many :properties
 
   # validations ...............................................................
@@ -74,9 +75,9 @@ class User < ApplicationRecord
   before_save :ensure_roles
 
   # scopes ....................................................................
-  scope :administrator, -> { with_all_roles ENUMS::USER_ROLES::ADMINISTRATOR }
-  scope :advertiser, -> { with_all_roles ENUMS::USER_ROLES::ADVERTISER }
-  scope :publisher, -> { with_all_roles ENUMS::USER_ROLES::PUBLISHER }
+  scope :administrators, -> { with_all_roles ENUMS::USER_ROLES::ADMINISTRATOR }
+  scope :advertisers, -> { with_all_roles ENUMS::USER_ROLES::ADVERTISER }
+  scope :publishers, -> { with_all_roles ENUMS::USER_ROLES::PUBLISHER }
   scope :search_company, ->(value) { value.blank? ? all : search_column(:company_name, value) }
   scope :search_email, ->(value) { value.blank? ? all : search_column(:email, value) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:first_name, value).or(search_column(:last_name, value)) }
@@ -165,10 +166,6 @@ class User < ApplicationRecord
 
   def publisher?
     roles.include? ENUMS::USER_ROLES["publisher"]
-  end
-
-  def scoped_name
-    [company_name, full_name].compact.join "・"
   end
 
   def total_distributions

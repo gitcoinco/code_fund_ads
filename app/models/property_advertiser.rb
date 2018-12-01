@@ -1,33 +1,34 @@
 # == Schema Information
 #
-# Table name: counters
+# Table name: property_advertisers
 #
-#  id          :bigint(8)        not null, primary key
-#  record_id   :bigint(8)        not null
-#  record_type :string           not null
-#  scope       :string           not null
-#  segment     :string
-#  count       :bigint(8)        default(0), not null
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
+#  id            :bigint(8)        not null, primary key
+#  property_id   :bigint(8)        not null
+#  advertiser_id :bigint(8)        not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
 #
 
-class Counter < ApplicationRecord
+class PropertyAdvertiser < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
 
   # relationships .............................................................
-  belongs_to :record, polymorphic: true
+  belongs_to :advertiser, class_name: "User", foreign_key: "advertiser_id"
+  belongs_to :property
 
   # validations ...............................................................
   # callbacks .................................................................
-
   # scopes ....................................................................
-  scope :segmented_by, ->(value) { where segment: value }
-
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+
   # class methods .............................................................
+  class << self
+  end
+
   # public instance methods ...................................................
+
   # protected instance methods ................................................
+
   # private instance methods ..................................................
 end

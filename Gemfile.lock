@@ -198,8 +198,6 @@ GEM
       ast (~> 2.4.0)
     perm (1.0.2)
     pg (1.1.3)
-    pg_party (0.7.3)
-      activerecord (>= 4.2, < 6)
     powerpack (0.1.2)
     premailer (1.11.1)
       addressable
@@ -392,7 +390,6 @@ DEPENDENCIES
   paper_trail (~> 10.0.1)
   perm (~> 1.0.2)
   pg (>= 0.18, < 2.0)
-  pg_party (~> 0.7.3)
   premailer-rails (~> 1.10.2)
   pretender
   pry

@@ -26,10 +26,12 @@ class Property < ApplicationRecord
   include Properties::Presentable
   include Taggable
   include Imageable
+  include Impressionable
 
   # relationships .............................................................
   belongs_to :user
-  has_many :impressions
+  has_many :property_advertisers
+  has_many :advertisers, through: :property_advertisers, class_name: "User", foreign_key: "advertiser_id"
 
   # validations ...............................................................
   # validates :ad_template, presence: true
@@ -44,6 +46,11 @@ class Property < ApplicationRecord
   after_save :generate_screenshot
 
   # scopes ....................................................................
+  scope :active, -> { where status: ENUMS::PROPERTY_STATUSES::ACTIVE }
+  scope :archived, -> { where status: ENUMS::PROPERTY_STATUSES::ARCHIVED }
+  scope :blacklisted, -> { where status: ENUMS::PROPERTY_STATUSES::BLACKLISTED }
+  scope :pending, -> { where status: ENUMS::PROPERTY_STATUSES::PENDING }
+  scope :rejected, -> { where status: ENUMS::PROPERTY_STATUSES::REJECTED }
   scope :search_ad_template, ->(*values) { values.blank? ? all : where(ad_template: values) }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :exclude_keywords, ->(*values) { values.blank? ? all : without_any_keywords(*values) }
@@ -54,6 +61,12 @@ class Property < ApplicationRecord
   scope :search_url, ->(value) { value.blank? ? all : search_column(:url, value) }
   scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.publisher.search_name(value)) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
+  scope :for_campaign, ->(campaign) {
+    relation = active.with_any_keywords(*campaign.keywords).without_any_keywords(*campaign.negative_keywords)
+    relation = relation.where(prohibit_fallback_campaigns: false) if campaign.fallback?
+    # TODO: omit prohibitited advertisers
+    relation
+  }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
@@ -96,8 +109,8 @@ class Property < ApplicationRecord
 
   # public instance methods ...................................................
 
-  def scoped_name
-    [user.scoped_name, name].compact.join "・"
+  def impressions
+    Impression.where(advertiser_id: property_advertisers.select(:advertiser_id))
   end
 
   def favicon_image_url
@@ -107,6 +120,10 @@ class Property < ApplicationRecord
 
   def pretty_url
     url.gsub(/^https?:\/\//, "").gsub("www.", "").split("/").first
+  end
+
+  def matching_campaigns
+    Campaign.for_property self
   end
 
   # protected instance methods ................................................

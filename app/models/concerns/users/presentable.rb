@@ -2,6 +2,10 @@ module Users
   module Presentable
     extend ActiveSupport::Concern
 
+    def scoped_name
+      [company_name, full_name].compact.join "・"
+    end
+
     def full_name
       [first_name, last_name].compact.join " "
     end
