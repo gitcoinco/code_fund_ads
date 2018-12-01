@@ -188,10 +188,6 @@ class Campaign < ApplicationRecord
     self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
   end
 
-  def update_counters
-    UpdateCountersJob.perform_later self
-  end
-
   # protected instance methods ................................................
 
   # private instance methods ..................................................

@@ -1,4 +1,4 @@
-# This job should be run as a failsafe... perhaps every 2-4 days
+# This job should be run as a failsafe... perhaps every 24 hours
 class AssurePropertyAdvertisersJob < ApplicationJob
   queue_as :low
 

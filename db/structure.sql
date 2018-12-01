@@ -171,40 +171,6 @@ ALTER SEQUENCE public.campaigns_id_seq OWNED BY public.campaigns.id;
 
 
 --
--- Name: click_counters; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.click_counters (
-    id bigint NOT NULL,
-    campaign_id bigint NOT NULL,
-    property_id bigint NOT NULL,
-    clicked_at_date date NOT NULL,
-    count bigint DEFAULT 0 NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: click_counters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.click_counters_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: click_counters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.click_counters_id_seq OWNED BY public.click_counters.id;
-
-
---
 -- Name: comments; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -342,40 +308,6 @@ CREATE SEQUENCE public.creatives_id_seq
 --
 
 ALTER SEQUENCE public.creatives_id_seq OWNED BY public.creatives.id;
-
-
---
--- Name: impression_counters; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.impression_counters (
-    id bigint NOT NULL,
-    campaign_id bigint NOT NULL,
-    property_id bigint NOT NULL,
-    displayed_at_date date NOT NULL,
-    count bigint DEFAULT 0 NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: impression_counters_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.impression_counters_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: impression_counters_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.impression_counters_id_seq OWNED BY public.impression_counters.id;
 
 
 --
@@ -3506,13 +3438,6 @@ ALTER TABLE ONLY public.campaigns ALTER COLUMN id SET DEFAULT nextval('public.ca
 
 
 --
--- Name: click_counters id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.click_counters ALTER COLUMN id SET DEFAULT nextval('public.click_counters_id_seq'::regclass);
-
-
---
 -- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -3538,13 +3463,6 @@ ALTER TABLE ONLY public.creative_images ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.creatives ALTER COLUMN id SET DEFAULT nextval('public.creatives_id_seq'::regclass);
-
-
---
--- Name: impression_counters id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.impression_counters ALTER COLUMN id SET DEFAULT nextval('public.impression_counters_id_seq'::regclass);
 
 
 --
@@ -11091,14 +11009,6 @@ ALTER TABLE ONLY public.campaigns
 
 
 --
--- Name: click_counters click_counters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.click_counters
-    ADD CONSTRAINT click_counters_pkey PRIMARY KEY (id);
-
-
---
 -- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -11128,14 +11038,6 @@ ALTER TABLE ONLY public.creative_images
 
 ALTER TABLE ONLY public.creatives
     ADD CONSTRAINT creatives_pkey PRIMARY KEY (id);
-
-
---
--- Name: impression_counters impression_counters_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.impression_counters
-    ADD CONSTRAINT impression_counters_pkey PRIMARY KEY (id);
 
 
 --
@@ -36296,34 +36198,6 @@ CREATE INDEX index_campaigns_on_weekdays_only ON public.campaigns USING btree (w
 
 
 --
--- Name: index_click_counters_on_campaign_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_click_counters_on_campaign_id ON public.click_counters USING btree (campaign_id);
-
-
---
--- Name: index_click_counters_on_clicked_at_date; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_click_counters_on_clicked_at_date ON public.click_counters USING btree (clicked_at_date);
-
-
---
--- Name: index_click_counters_on_property_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_click_counters_on_property_id ON public.click_counters USING btree (property_id);
-
-
---
--- Name: index_click_counters_uniqueness; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_click_counters_uniqueness ON public.click_counters USING btree (campaign_id, property_id, clicked_at_date);
-
-
---
 -- Name: index_comments_on_commentable_id_and_commentable_type; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -36370,34 +36244,6 @@ CREATE INDEX index_creative_images_on_creative_id ON public.creative_images USIN
 --
 
 CREATE INDEX index_creatives_on_user_id ON public.creatives USING btree (user_id);
-
-
---
--- Name: index_impression_counters_on_campaign_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_impression_counters_on_campaign_id ON public.impression_counters USING btree (campaign_id);
-
-
---
--- Name: index_impression_counters_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_impression_counters_on_displayed_at_date ON public.impression_counters USING btree (displayed_at_date);
-
-
---
--- Name: index_impression_counters_on_property_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_impression_counters_on_property_id ON public.impression_counters USING btree (property_id);
-
-
---
--- Name: index_impression_counters_uniqueness; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_impression_counters_uniqueness ON public.impression_counters USING btree (campaign_id, property_id, displayed_at_date);
 
 
 --
@@ -61490,6 +61336,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181129192559'),
 ('20181129193015'),
 ('20181130175815'),
-('20181201120915');
+('20181201120915'),
+('20181201133512');
 
 

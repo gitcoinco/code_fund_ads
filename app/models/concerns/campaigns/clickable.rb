@@ -6,10 +6,6 @@ module Campaigns
     DAILY_CLICKS_COUNT_KEY = "daily_clicks_count".freeze
 
     included do
-      has_one :total_clicks_counter, -> { where scope: TOTAL_CLICKS_COUNT_KEY }, as: :record, class_name: "Counter"
-      has_many :daily_clicks_counters, -> { where scope: DAILY_CLICKS_COUNT_KEY }, as: :record, class_name: "Counter"
-      has_many :click_counters
-
       scope :include_total_clicks_count, -> {
         subquery = Counter.select(:count).for_model(Campaign).scoped_by(TOTAL_CLICKS_COUNT_KEY)
         select(arel_table[Arel.star]).select(subquery.arel.as(TOTAL_CLICKS_COUNT_KEY))
@@ -47,14 +43,14 @@ module Campaigns
 
     def total_clicks_count
       Rails.cache.fetch total_clicks_count_cache_key, expires_in: (remaining_operative_days + 7).days do
-        click_counters.sum(:count).to_i
+        impressions.clicked.count
       end
     end
 
     def daily_clicks_count(date = nil)
       date = Date.parse(date || Date.current).to_date
       Rails.cache.fetch daily_clicks_count_cache_key(date), expires_in: (remaining_operative_days + 7).days do
-        click_counters.on(date).limit(1).pluck(:count).first.to_i
+        impressions.on(date).clicked.count
       end
     end
 

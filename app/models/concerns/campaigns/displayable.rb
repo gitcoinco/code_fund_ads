@@ -6,8 +6,6 @@ module Campaigns
     DAILY_IMPRESSIONS_COUNT_KEY = "daily_impressions_count".freeze
 
     included do
-      has_many :impression_counters
-
       scope :include_total_impressions_count, -> {
         subquery = ImpressionCounter.for_campaign_model.sum(:count)
         select(arel_table[Arel.star]).select(subquery.arel.as(TOTAL_IMPRESSIONS_COUNT_KEY))
@@ -30,7 +28,7 @@ module Campaigns
 
     def total_impressions_count
       Rails.cache.fetch total_impressions_count_cache_key, expires_in: (remaining_operative_days + 7).days do
-        impression_counters.sum(:count).to_i
+        impressions.count
       end
     end
 
@@ -41,7 +39,7 @@ module Campaigns
     def daily_impressions_count(date = nil)
       date = Date.parse(date || Date.current).to_date
       Rails.cache.fetch daily_impressions_count_cache_key(date), expires_in: 2.days do
-        impression_counters.on(date).pluck(:count).first.to_i
+        impressions.on(date).count
       end
     end
 

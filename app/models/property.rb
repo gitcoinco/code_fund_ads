@@ -30,8 +30,6 @@ class Property < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :user
-  has_many :impression_counters
-  has_many :click_counters
   has_many :property_advertisers
 
   # validations ...............................................................
