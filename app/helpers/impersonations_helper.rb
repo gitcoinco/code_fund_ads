@@ -1,0 +1,2 @@
+module ImpersonationsHelper
+end

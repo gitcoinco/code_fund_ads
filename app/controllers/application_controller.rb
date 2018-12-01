@@ -7,7 +7,13 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_paper_trail_whodunnit
 
+  impersonates :user
+
   protected
+
+  def authenticate_administrator!
+    return render_forbidden unless AuthorizedUser.new(current_user).can_admin_system?
+  end
 
   def render_not_found
     render file: Rails.public_path.join("404.html"), status: :not_found, layout: false

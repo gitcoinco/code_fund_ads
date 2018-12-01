@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resource :contact, only: [:show, :create]
   resources :campaign_searches, only: [:create, :destroy]
   resources :property_searches, only: [:create, :destroy]
-  resources :user_searches, only: [:create, :destroy]
+  resources :user_searches, only: [:create, :update, :destroy]
 
   # polymorphic based on: app/models/concerns/imageable.rb
   scope "/imageables/:imageable_gid/" do
@@ -28,12 +28,12 @@ Rails.application.routes.draw do
   resources :versions, only: [:show, :update]
   resources :comments, only: [:create, :destroy]
 
-  resources :campaigns do
+  resources :campaigns
+  scope "/campaigns/:campaign_id" do
     resource :campaign_targeting, only: [:show], path: "/targeting"
     resource :campaign_budget, only: [:show], path: "/budget"
+    resource :campaign_dashboards, only: [:show], path: "/dashboard"
     resources :campaign_properties, only: [:index], path: "/properties"
-  end
-  scope "/campaigns/:campaign_id" do
     resources :versions, only: [:index], as: :campaign_versions
     resources :comments, only: [:index], as: :campaign_comments
   end
@@ -60,7 +60,10 @@ Rails.application.routes.draw do
     resources :creatives, only: [:index], as: :user_creatives
     resources :versions, only: [:index], as: :user_versions
     resources :comments, only: [:index], as: :user_comments
+    resource :identicon, only: [:show], format: :png, as: :user_identicon, path: "/identicon.png"
+    resource :impersonations, only: [:update], as: :user_impersonation, path: "/impersonate"
   end
+  get "/stop_user_impersonation", to: "impersonations#destroy", as: :stop_user_impersonation
 
   resource :newsletter_subscription, only: [:create]
   resources :advertisers, only: [:index, :create]

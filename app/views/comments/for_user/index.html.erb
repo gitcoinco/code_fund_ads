@@ -1,17 +1,3 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/dashboard" %>
-  <%= render "/@shared/breadcrumbs/users" %>
-  <%= render "/@shared/breadcrumbs/user", user: @commentable, class: "active" %>
+<%= render layout: "/users/show_layout", locals: { user: @commentable } do %>
+  <%= render "/comments/table", commentable: @commentable, comments: @comments %>
 <% end %>
-
-<% content_for :actions do %>
-  <%= render "/@shared/actions/edit_user", user: @commentable %>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading @commentable.first_name, @commentable.last_name,
-    subtitle: @commentable.email,
-    icon: "fas fa-user-circle" %>
-<% end %>
-
-<%= render "/comments/table", commentable: @commentable, comments: @comments %>

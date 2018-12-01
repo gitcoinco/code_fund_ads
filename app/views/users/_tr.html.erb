@@ -2,7 +2,7 @@
   <td class="align-middle">
     <div class="media align-items-center">
       <span class="u-sm-avatar position-relative mr-2">
-        <%= image_tag user.gravatar_url, class: "img-fluid rounded-circle", alt: user.full_name %>
+        <%= user_avatar_image_tag(user, "img-fluid rounded-circle") %>
         <% unless user.accepted_or_not_invited? %>
           <span class="badge badge-md badge-outline-dark badge-pos badge-pos--bottom-right rounded-circle">
             <%= tag.span "", class: "fas fa-envelope", title: "Pending invitation", data: tooltip_expando %>
@@ -30,5 +30,6 @@
   <td class="align-middle text-right text-secondary">
     <%= render "/@shared/table_buttons/goto", link: images_path(user.to_gid_param), icon: "fas fa-images", title: "Manage Images" if user.advertiser? %>
     <%= render "/@shared/table_buttons/edit", link: edit_user_path(user) %>
+    <%= render "/@shared/table_buttons/goto", link: user_impersonation_path(user), method: :put, icon: "fas fa-mask", title: "Masquerade" if authorized_user.can_admin_system? %>
   </td>
 <% end %>

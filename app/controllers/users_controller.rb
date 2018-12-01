@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   include Sortable
 
   before_action :authenticate_user!
+  before_action :authenticate_administrator!, except: [:show]
   before_action :set_user_search, only: [:index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
@@ -58,10 +59,10 @@ class UsersController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_user
-    @user = if params[:id] == "me"
-      current_user
-    else
+    @user = if authorized_user.can_admin_system? && params[:id] != "me"
       User.find(params[:id])
+    else
+      current_user
     end
   end
 
