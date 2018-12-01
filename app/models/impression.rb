@@ -39,7 +39,7 @@ class Impression < ApplicationRecord
   before_validation :assure_property_name, on: [:create]
   before_validation :set_displayed_at, on: [:create]
   before_create :assure_partition_table, on: [:create]
-  # after_commit :increment_counters, on: [:create]
+  after_commit :set_property_advertiser, on: [:create]
 
   # scopes ....................................................................
   scope :clicked, -> { where.not clicked_at: nil }
@@ -87,10 +87,8 @@ class Impression < ApplicationRecord
 
   private
 
-  def increment_counters
-    return unless payable?
-    IncrementImpressionsCountJob.perform_later self
-    IncrementClicksCountJob.perform_later self
+  def set_property_advertiser
+    SetPropertyAdvertiserJob.perform_later self
   end
 
   def set_displayed_at
