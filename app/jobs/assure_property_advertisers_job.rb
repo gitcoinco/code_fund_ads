@@ -5,7 +5,7 @@ class AssurePropertyAdvertisersJob < ApplicationJob
   def perform
     User.advertisers.each do |user|
       user.campaigns.each do |campaign|
-        campaign.property_ids_with_impressions(date).each do |property_id|
+        campaign.property_ids_with_impressions.each do |property_id|
           SetPropertyAdvertiserJob.perform_later property_id, user.id
         end
       end
