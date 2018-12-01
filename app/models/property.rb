@@ -60,6 +60,12 @@ class Property < ApplicationRecord
   scope :search_url, ->(value) { value.blank? ? all : search_column(:url, value) }
   scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.publisher.search_name(value)) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
+  scope :for_campaign, ->(campaign) {
+    relation = active.with_any_keywords(*campaign.keywords).without_any_keywords(*campaign.negative_keywords)
+    relation = relation.where(prohibit_fallback_campaigns: false) if campaign.fallback?
+    # TODO: omit prohibitited advertisers
+    relation
+  }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
@@ -109,6 +115,10 @@ class Property < ApplicationRecord
 
   def pretty_url
     url.gsub(/^https?:\/\//, "").gsub("www.", "").split("/").first
+  end
+
+  def matching_campaigns
+    Campaign.for_property self
   end
 
   # protected instance methods ................................................

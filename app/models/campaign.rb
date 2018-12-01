@@ -65,7 +65,7 @@ class Campaign < ApplicationRecord
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
   scope :for_property, ->(property) do
-    relation = with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
+    relation = active.with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
     relation = relation.where(fallback: false) if property.prohibit_fallback_campaigns
     relation
   end
@@ -165,11 +165,7 @@ class Campaign < ApplicationRecord
   end
 
   def matching_properties
-    PropertySearch.new({
-      keywords: keywords,
-      negative_keywords: negative_keywords,
-      status: ["active"],
-    }).apply(Property.order(name: :asc))
+    Property.for_campaign self
   end
 
   def pending?
