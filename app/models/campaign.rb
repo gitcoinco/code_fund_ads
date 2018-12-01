@@ -136,22 +136,22 @@ class Campaign < ApplicationRecord
   end
 
   def property_ids_with_impressions(date = nil)
-    return Impression.on(date).where(campaign: self).select(:property_id).distinct.pluck(:property_id) if date
+    return impressions.on(date).select(:property_id).distinct.pluck(:property_id) if date
     impressions.select(:property_id).distinct.pluck(:property_id)
   end
 
   def property_ids_with_payable_impressions(date = nil)
-    return Impression.payable.on(date).where(campaign: self).select(:property_id).distinct.pluck(:property_id) if date
+    return impressions.payable.on(date).select(:property_id).distinct.pluck(:property_id) if date
     impressions.payable.select(:property_id).distinct.pluck(:property_id)
   end
 
   def property_ids_with_clicked_impressions(date = nil)
-    return Impression.clicked.on(date).where(campaign: self).select(:property_id).distinct.pluck(:property_id) if date
+    return impressions.clicked.on(date).select(:property_id).distinct.pluck(:property_id) if date
     impressions.clicked.select(:property_id).distinct.pluck(:property_id)
   end
 
   def property_ids_with_clicked_payable_impressions(date = nil)
-    return Impression.clicked.payable.on(date).where(campaign: self).select(:property_id).distinct.pluck(:property_id) if date
+    return impressions.clicked.payable.on(date).select(:property_id).distinct.pluck(:property_id) if date
     impressions.clicked.payable.select(:property_id).distinct.pluck(:property_id)
   end
 
