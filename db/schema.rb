@@ -11207,12 +11207,10 @@ ActiveRecord::Schema.define(version: 2018_12_01_133512) do
   create_table "property_advertisers", force: :cascade do |t|
     t.bigint "property_id", null: false
     t.bigint "advertiser_id", null: false
-    t.date "displayed_at_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["advertiser_id"], name: "index_property_advertisers_on_advertiser_id"
-    t.index ["displayed_at_date"], name: "index_property_advertisers_on_displayed_at_date"
-    t.index ["property_id", "advertiser_id", "displayed_at_date"], name: "index_property_advertisers_unique", unique: true
+    t.index ["property_id", "advertiser_id"], name: "index_property_advertisers_on_property_id_and_advertiser_id", unique: true
     t.index ["property_id"], name: "index_property_advertisers_on_property_id"
   end
 

@@ -31,6 +31,7 @@ class Property < ApplicationRecord
   # relationships .............................................................
   belongs_to :user
   has_many :property_advertisers
+  has_many :advertisers, through: :property_advertisers, class_name: "User", foreign_key: "advertiser_id"
 
   # validations ...............................................................
   # validates :ad_template, presence: true
@@ -123,18 +124,6 @@ class Property < ApplicationRecord
 
   def matching_campaigns
     Campaign.for_property self
-  end
-
-  def advertisers
-    User.where(id: property_advertisers.select(:advertiser_id)) unless date
-  end
-
-  def advertisers_on(date)
-    User.where(id: property_advertisers.on(date).select(:advertiser_id))
-  end
-
-  def advertisers_between(start_date, end_date)
-    User.where(id: property_advertisers.between(start_date, end_date).select(:advertiser_id))
   end
 
   # protected instance methods ................................................

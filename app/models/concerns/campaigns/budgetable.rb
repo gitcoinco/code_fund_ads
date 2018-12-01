@@ -1,6 +1,8 @@
 module Campaigns
   module Budgetable
     extend ActiveSupport::Concern
+    # NOTE: Many of these formulae only work if the eCPM remains the same throughout the life of the campaign
+    # TODO: Factor in changing eCPM over time
 
     def total_consumed_budget
       ecpm * total_impressions_per_mille

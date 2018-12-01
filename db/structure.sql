@@ -3235,7 +3235,6 @@ CREATE TABLE public.property_advertisers (
     id bigint NOT NULL,
     property_id bigint NOT NULL,
     advertiser_id bigint NOT NULL,
-    displayed_at_date date NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -36296,13 +36295,6 @@ CREATE INDEX index_property_advertisers_on_advertiser_id ON public.property_adve
 
 
 --
--- Name: index_property_advertisers_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_property_advertisers_on_displayed_at_date ON public.property_advertisers USING btree (displayed_at_date);
-
-
---
 -- Name: index_property_advertisers_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -36310,10 +36302,10 @@ CREATE INDEX index_property_advertisers_on_property_id ON public.property_advert
 
 
 --
--- Name: index_property_advertisers_unique; Type: INDEX; Schema: public; Owner: -
+-- Name: index_property_advertisers_on_property_id_and_advertiser_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_property_advertisers_unique ON public.property_advertisers USING btree (property_id, advertiser_id, displayed_at_date);
+CREATE UNIQUE INDEX index_property_advertisers_on_property_id_and_advertiser_id ON public.property_advertisers USING btree (property_id, advertiser_id);
 
 
 --
