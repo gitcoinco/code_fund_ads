@@ -52,7 +52,7 @@ class Campaign < ApplicationRecord
   scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
   scope :active, -> { where status: ENUMS::CAMPAIGN_STATUSES::ACTIVE }
   scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
-  scope :available_on, ->(date) { where(arel_table[:start_date].lteq(date)).where(arel_table[:end_date].gteq(date)) }
+  scope :available_on, ->(date) { where(arel_table[:start_date].lteq(date.to_date)).where(arel_table[:end_date].gteq(date.to_date)) }
   scope :available, -> { available_on Date.current }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :search_countries, ->(*values) { values.blank? ? all : with_any_countries(*values) }
