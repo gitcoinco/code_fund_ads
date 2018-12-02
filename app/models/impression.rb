@@ -76,12 +76,16 @@ class Impression < ApplicationRecord
   end
 
   def assure_partition_table!
-    return if partition_table_exists?
-    query = <<~QUERY
-      CREATE TABLE public.#{partition_table_name} PARTITION OF public.impressions
-      FOR VALUES FROM (#{advertiser_id}, '#{displayed_at_date.beginning_of_month.iso8601}') TO (#{advertiser_id}, '#{displayed_at_date.advance(months: 1).iso8601}');
-    QUERY
-    Impression.connection.execute query
+    Impression.transaction do
+      unless partition_table_exists?
+        range_start = displayed_at_date.beginning_of_month
+        range_end = range_start.advance(months: 1)
+        Impression.connection.execute <<~QUERY
+          CREATE TABLE public.#{partition_table_name} PARTITION OF public.impressions
+          FOR VALUES FROM (#{advertiser_id}, '#{range_start.iso8601}') TO (#{advertiser_id}, '#{range_end.iso8601}');
+        QUERY
+      end
+    end
   end
 
   # protected instance methods ................................................
