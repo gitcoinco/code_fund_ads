@@ -27,12 +27,6 @@ class AdvertisementsController < ApplicationController
 
   def create_impression
     return unless @new_impression
-    CreateImpressionJob.perform_later(
-      @property,
-      @campaign,
-      request.remote_ip,
-      request.user_agent,
-      Time.current.iso8601
-    )
+    CreateImpressionJob.perform_later(@property, @campaign, request.remote_ip, request.user_agent, Time.current.iso8601)
   end
 end

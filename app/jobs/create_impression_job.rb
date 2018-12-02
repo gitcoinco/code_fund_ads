@@ -1,8 +1,8 @@
 class CreateImpressionJob < ApplicationJob
   queue_as :default
 
-  def perform(property, campaign, ip_address, user_agent, displayed_at)
-    displayed_at = Time.parse(displayed_at)
+  def perform(property, campaign, ip_address, user_agent, displayed_at_string)
+    displayed_at = Time.parse(displayed_at_string)
 
     impression = Impression.create!(
       advertiser_id: campaign.user_id,
