@@ -12,8 +12,6 @@
             </div>
           </div>
 
-
-
           <div class="copy-wrapper col-12 p-0 py-2 mb-2" data-target="creative-form.copyWrapper">
             <div class="text-center text-secondary pb-2" data-target="creative-form.copyWarningWrapper">
               Your ad copy is <span class="actual-length text-dark" data-target="creative-form.adLength">0</span> of <strong class="text-dark">85</strong> characters
@@ -148,7 +146,7 @@
         <div id="creative-preview" data-target="preview">
           <span class="cf-wrapper">
             <a href="javascript:;" class="cf-img-wrapper" rel="noopener">
-              <%= image_tag creative.large_image.variant(geometry: "130x100"), border: 0, height: 100, width: 130, class: "cf-img", data: { target: "creative-form.previewImageUrl" } %>
+              <%= image_tag creative.large_image ? creative.large_image.variant(geometry: "130x100") : "https://placeimg.com/260/200/tech/sepia", border: 0, height: 100, width: 130, class: "cf-img", data: { target: "creative-form.previewImageUrl" } %>
             </a>
             <a href="javascript:;" class="cf-text" rel="noopener">
               <strong data-target="creative-form.previewHeadline">Gitcoin</strong>

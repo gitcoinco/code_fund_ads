@@ -4,7 +4,7 @@
 <% end %>
 
 <% content_for :actions do %>
-  <%= render "/@shared/actions/add_images" %>
+  <%= render "/@shared/actions/add_images", imageable: @imageable %>
 <% end %>
 
 <% content_for :page_heading do %>
