@@ -286,7 +286,7 @@ CREATE TABLE public.impressions (
     campaign_name character varying NOT NULL,
     property_id bigint NOT NULL,
     property_name character varying NOT NULL,
-    ip character varying NOT NULL,
+    ip_address character varying NOT NULL,
     user_agent text NOT NULL,
     country_code character varying,
     postal_code character varying,
@@ -47404,6 +47404,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181126220214'),
 ('20181130175815'),
 ('20181201120915'),
-('20181202135945');
+('20181202135945'),
+('20181202152440');
 
 

@@ -10,7 +10,7 @@ class CreateImpressionJob < ApplicationJob
       campaign_name: campaign.scoped_name,
       property: property,
       property_name: property_name.scoped_name,
-      ip: ip_address,
+      ip_address: ip_address,
       user_agent: user_agent,
       displayed_at: displayed_at,
       displayed_at_date: displayed_at.to_date,

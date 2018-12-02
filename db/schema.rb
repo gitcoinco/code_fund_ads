@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_02_135945) do
+ActiveRecord::Schema.define(version: 2018_12_02_152440) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -171,7 +171,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -202,7 +202,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -233,7 +233,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -264,7 +264,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -295,7 +295,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -326,7 +326,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -357,7 +357,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -388,7 +388,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -419,7 +419,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -450,7 +450,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -481,7 +481,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -512,7 +512,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -543,7 +543,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -574,7 +574,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -605,7 +605,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -636,7 +636,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -667,7 +667,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -698,7 +698,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -729,7 +729,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -760,7 +760,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -791,7 +791,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -822,7 +822,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -853,7 +853,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -884,7 +884,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -915,7 +915,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -946,7 +946,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -977,7 +977,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1008,7 +1008,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1039,7 +1039,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1070,7 +1070,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1101,7 +1101,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1132,7 +1132,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1163,7 +1163,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1194,7 +1194,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1225,7 +1225,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1256,7 +1256,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1287,7 +1287,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1318,7 +1318,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1349,7 +1349,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1380,7 +1380,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1411,7 +1411,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1442,7 +1442,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1473,7 +1473,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1504,7 +1504,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1535,7 +1535,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1566,7 +1566,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1597,7 +1597,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1628,7 +1628,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1659,7 +1659,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1690,7 +1690,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1721,7 +1721,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1752,7 +1752,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1783,7 +1783,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1814,7 +1814,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1845,7 +1845,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1876,7 +1876,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1907,7 +1907,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1938,7 +1938,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -1969,7 +1969,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2000,7 +2000,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2031,7 +2031,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2062,7 +2062,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2093,7 +2093,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2124,7 +2124,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2155,7 +2155,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2186,7 +2186,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2217,7 +2217,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2248,7 +2248,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2279,7 +2279,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2310,7 +2310,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2341,7 +2341,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2372,7 +2372,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2403,7 +2403,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2434,7 +2434,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2465,7 +2465,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2496,7 +2496,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2527,7 +2527,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2558,7 +2558,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2589,7 +2589,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2620,7 +2620,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2651,7 +2651,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2682,7 +2682,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2713,7 +2713,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2744,7 +2744,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2775,7 +2775,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2806,7 +2806,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2837,7 +2837,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2868,7 +2868,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2899,7 +2899,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2930,7 +2930,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2961,7 +2961,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -2992,7 +2992,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3023,7 +3023,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3054,7 +3054,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3085,7 +3085,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3116,7 +3116,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3147,7 +3147,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3178,7 +3178,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3209,7 +3209,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3240,7 +3240,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3271,7 +3271,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3302,7 +3302,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3333,7 +3333,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3364,7 +3364,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3395,7 +3395,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3426,7 +3426,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3457,7 +3457,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3488,7 +3488,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3519,7 +3519,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3550,7 +3550,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3581,7 +3581,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3612,7 +3612,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3643,7 +3643,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3674,7 +3674,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3705,7 +3705,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3736,7 +3736,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3767,7 +3767,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3798,7 +3798,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3829,7 +3829,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3860,7 +3860,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3891,7 +3891,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3922,7 +3922,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3953,7 +3953,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -3984,7 +3984,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4015,7 +4015,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4046,7 +4046,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4077,7 +4077,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4108,7 +4108,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4139,7 +4139,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4170,7 +4170,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4201,7 +4201,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4232,7 +4232,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4263,7 +4263,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4294,7 +4294,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4325,7 +4325,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4356,7 +4356,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4387,7 +4387,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4418,7 +4418,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4449,7 +4449,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4480,7 +4480,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4511,7 +4511,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4542,7 +4542,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4573,7 +4573,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4604,7 +4604,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4635,7 +4635,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4666,7 +4666,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4697,7 +4697,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4728,7 +4728,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4759,7 +4759,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4790,7 +4790,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4821,7 +4821,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4852,7 +4852,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4883,7 +4883,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4914,7 +4914,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4945,7 +4945,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -4976,7 +4976,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5007,7 +5007,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5038,7 +5038,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5069,7 +5069,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5100,7 +5100,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5131,7 +5131,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5162,7 +5162,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5193,7 +5193,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5224,7 +5224,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5255,7 +5255,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5286,7 +5286,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5317,7 +5317,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5348,7 +5348,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5379,7 +5379,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5410,7 +5410,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5441,7 +5441,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5472,7 +5472,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5503,7 +5503,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5534,7 +5534,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5565,7 +5565,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5596,7 +5596,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5627,7 +5627,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5658,7 +5658,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5689,7 +5689,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5720,7 +5720,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5751,7 +5751,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5782,7 +5782,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5813,7 +5813,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5844,7 +5844,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5875,7 +5875,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5906,7 +5906,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5937,7 +5937,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5968,7 +5968,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -5999,7 +5999,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6030,7 +6030,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6061,7 +6061,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6092,7 +6092,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6123,7 +6123,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6154,7 +6154,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6185,7 +6185,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6216,7 +6216,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6247,7 +6247,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6278,7 +6278,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6309,7 +6309,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6340,7 +6340,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6371,7 +6371,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6402,7 +6402,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6433,7 +6433,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6464,7 +6464,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6495,7 +6495,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6526,7 +6526,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6557,7 +6557,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6588,7 +6588,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6619,7 +6619,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6650,7 +6650,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6681,7 +6681,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6712,7 +6712,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6743,7 +6743,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6774,7 +6774,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6805,7 +6805,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6836,7 +6836,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6867,7 +6867,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6898,7 +6898,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6929,7 +6929,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6960,7 +6960,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -6991,7 +6991,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7022,7 +7022,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7053,7 +7053,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7084,7 +7084,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7115,7 +7115,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7146,7 +7146,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7177,7 +7177,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7208,7 +7208,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7239,7 +7239,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7270,7 +7270,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7301,7 +7301,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7332,7 +7332,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7363,7 +7363,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7394,7 +7394,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7425,7 +7425,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7456,7 +7456,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7487,7 +7487,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7518,7 +7518,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7549,7 +7549,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7580,7 +7580,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7611,7 +7611,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7642,7 +7642,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7673,7 +7673,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7704,7 +7704,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7735,7 +7735,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7766,7 +7766,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7797,7 +7797,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7828,7 +7828,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7859,7 +7859,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7890,7 +7890,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7921,7 +7921,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7952,7 +7952,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -7983,7 +7983,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8014,7 +8014,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8045,7 +8045,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8076,7 +8076,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8107,7 +8107,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8138,7 +8138,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8169,7 +8169,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8200,7 +8200,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8231,7 +8231,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8262,7 +8262,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8293,7 +8293,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8324,7 +8324,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8355,7 +8355,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8386,7 +8386,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8417,7 +8417,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8448,7 +8448,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8479,7 +8479,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8510,7 +8510,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8541,7 +8541,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8572,7 +8572,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
@@ -8603,7 +8603,7 @@ ActiveRecord::Schema.define(version: 2018_12_02_135945) do
     t.string "campaign_name", null: false
     t.bigint "property_id", null: false
     t.string "property_name", null: false
-    t.string "ip", null: false
+    t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
     t.string "postal_code"
