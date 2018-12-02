@@ -53,7 +53,6 @@ class Campaign < ApplicationRecord
   scope :active, -> { where status: ENUMS::CAMPAIGN_STATUSES::ACTIVE }
   scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
   scope :available_on, ->(date) { where(arel_table[:start_date].lteq(date.to_date)).where(arel_table[:end_date].gteq(date.to_date)) }
-  scope :available, -> { available_on Date.current }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :search_countries, ->(*values) { values.blank? ? all : with_any_countries(*values) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
@@ -64,7 +63,7 @@ class Campaign < ApplicationRecord
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
   scope :for_property, ->(property) do
-    relation = available.active.with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
+    relation = active.with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
     relation = relation.where(fallback: false) if property.prohibit_fallback_campaigns
     relation = relation.where.not(id: property.prohibited_advertiser_ids) unless property.prohibited_advertiser_ids.blank?
     relation
