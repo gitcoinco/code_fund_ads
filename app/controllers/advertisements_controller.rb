@@ -1,4 +1,5 @@
 class AdvertisementsController < ApplicationController
+  # TODO: perfomance tuning
   def show
     property = Property.find(params[:property_id])
 
@@ -10,6 +11,7 @@ class AdvertisementsController < ApplicationController
     template_name = params[:template] || "default"
     theme_name = parmas[:theme] || "light"
 
-    # TODO: setup instance variables
+    @template = render_to_string(template: "/ads/#{template_name}/show")
+    @theme = render_to_string(template: "/ads/#{template_name}/themes/#{theme_name}")
   end
 end

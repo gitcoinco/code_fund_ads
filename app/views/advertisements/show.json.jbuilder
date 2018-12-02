@@ -1,1 +1,3 @@
-json.todo "Render the advertisement"
+# TODO: add caching
+json.template @template
+json.theme @theme
