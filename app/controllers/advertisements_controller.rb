@@ -3,7 +3,7 @@ class AdvertisementsController < ApplicationController
     property = Property.find(params[:property_id])
 
     # TODO: make campaign selection more intelligent
-    campaign = Campmaign.find_by(id: property.matching_campaigns.pluck(:id).sample)
+    campaign = Campaign.find_by(id: property.matching_campaigns.pluck(:id).sample)
 
     # TODO: handle missing campaign (i.e. fallback)
 
