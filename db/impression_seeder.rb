@@ -95,7 +95,7 @@ class ImpressionSeeder
       campaign_name: campaign.scoped_name,
       property_id: property.id,
       property_name: property.scoped_name,
-      ip: rand(6).zero? ? Faker::Internet.ip_v6_address : Faker::Internet.public_ip_v4_address,
+      ip_address: rand(6).zero? ? Faker::Internet.ip_v6_address : Faker::Internet.public_ip_v4_address,
       user_agent: Faker::Internet.user_agent,
       country_code: rand(6).zero? ? ENUMS::COUNTRIES["United States"] : ENUMS::COUNTRIES.keys.sample,
       payable: rand(10).zero? ? false : true,
