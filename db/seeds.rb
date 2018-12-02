@@ -4,6 +4,7 @@ require "benchmark"
 require "csv"
 require "faker"
 require "fileutils"
+require_relative "./campaign_seeder"
 require_relative "./impression_seeder"
 
 unless Rails.env.development?
@@ -22,6 +23,11 @@ class Seeder
     @emails = User.all.pluck(:email).each_with_object({}) { |email, memo|
       memo[email] = true
     }
+    @impressions = ENV["IMPRESSIONS"].to_i
+    @impressions = 100_000 if @impressions < 100_000
+    @months = (ENV["MONTHS"] || 12).to_i
+    @months = @months.to_i.zero? ? 12 : @months.to_i
+    @months = 12 if @months < 12
   end
 
   def call
@@ -31,7 +37,7 @@ class Seeder
       seed_users
       seed_campaigns
       seed_properties
-      ImpressionSeeder.run(ENV["IMPRESSIONS"], ENV["MONTHS"])
+      ImpressionSeeder.run(@impressions, @months)
     }
     print "Seeding finished...".ljust(96)
     puts benchmark
@@ -144,33 +150,13 @@ class Seeder
     end
   end
 
+  def campaign_dates
+    @campaign_dates ||= (Date.current.advance(months: @months * -1)..Date.current).to_a
+  end
+
   def generate_campaigns(advertiser)
-    rand(2..6).times do
-      start_date = (Date.current.advance(months: -12)..Date.current).to_a.sample.beginning_of_month
-      end_date = start_date.advance(months: rand(1..4))
-      total_budget = ([*500..5000].sample / 100) * 100
-      daily_budget = total_budget / (end_date - start_date).to_i
-      countries = ENUMS::DEVELOPED_MARKET_COUNTRIES.keys
-      countries += ENUMS::EMERGING_MARKET_COUNTRIES.keys if rand(3).zero?
-      countries += ENUMS::COUNTRIES.keys.sample(5) if rand(5).zero?
-      keywords = ENUMS::KEYWORDS.values.sample(25)
-      Campaign.create(
-        user: advertiser,
-        creative: advertiser.creatives.sample,
-        status: ENUMS::CAMPAIGN_STATUSES.values.sample,
-        name: "#{Faker::Company.name} #{SecureRandom.hex.to_s[0, 6]}",
-        url: Faker::SiliconValley.url,
-        start_date: start_date,
-        end_date: end_date,
-        us_hours_only: rand(2).zero?,
-        weekdays_only: rand(2).zero?,
-        total_budget: total_budget,
-        daily_budget: daily_budget,
-        ecpm: 3,
-        countries: countries,
-        keywords: keywords,
-        negative_keywords: ENUMS::KEYWORDS.values.sample(5) - keywords,
-      )
+    rand(1..4).times do
+      CampaignSeeder.create_campaign advertiser, campaign_dates.sample
     end
   end
 

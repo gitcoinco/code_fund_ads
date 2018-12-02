@@ -4,6 +4,7 @@ require "benchmark"
 require "csv"
 require "etc"
 require "fileutils"
+require_relative "./campaign_seeder"
 
 class ImpressionSeeder
   def self.run(desired_count, months)
@@ -15,29 +16,21 @@ class ImpressionSeeder
   def initialize(desired_count, months)
     print "Seeding impressions start...".ljust(48)
 
+    @months = months
     @initial_count = Impression.count
-    @max_count = desired_count.to_i.zero? ? 100_000 : desired_count.to_i
-    @months = months.to_i.zero? ? 12 : months.to_i
-    @months = 4 if @months < 4
+    @max_count = desired_count
     @gap_count = max_count - initial_count
     @gap_count = 0 if @gap_count < 0
-    @cores = [@months, cores].min
+    @cores = [months, cores].min
     @partition_tables = {}
 
-    puts "creating [#{gap_count.to_s.rjust(8)}] new impressions spread over [#{@months}] months using [#{cores}] cpu cores"
+    puts "creating [#{gap_count.to_s.rjust(8)}] new impressions spread over [#{months}] months using [#{cores}] cpu cores"
     print "".ljust(48)
     puts "...the count is an estimate due to randomness added to mimic real world behavior"
-
-    @publishers = User.publishers.includes(:properties).load
-    @campaigns_cache = {}
   end
 
   def cores
-    @cores ||= begin
-      cores = Etc.nprocessors - 1
-      cores = 1 if cores < 1
-      cores
-    end
+    @cores ||= Etc.nprocessors == 1 ? 1 : Etc.nprocessors - 1
   end
 
   def max_count_per_core
@@ -48,12 +41,12 @@ class ImpressionSeeder
     if initial_count < max_count
       benchmark = Benchmark.measure {
         dates = [Date.current.beginning_of_month]
-        (months - 1).times.each { dates << dates.last.advance(months: -1) }
+        months.times { dates << dates.last.advance(months: -1) }
         chunked_dates = dates.in_groups_of((months / cores.to_f).ceil)
         pids = cores.times.map { |i|
           Process.fork do
-            pid_dates = chunked_dates[i]
-            max = (max_count_per_core / pid_dates.size.to_f).floor
+            pid_dates = chunked_dates[i].compact
+            max = (max_count_per_core / pid_dates.size.to_f).ceil
             pid_dates.each { |date| create_impressions_for_month date.iso8601, max }
           end
         }
@@ -67,15 +60,33 @@ class ImpressionSeeder
 
   private
 
+  def advertisers
+    @advertisers ||= User.advertisers.includes(:creatives).to_a
+  end
+
+  def campaigns(displayed_at)
+    @campaigns ||= {}
+    @campaigns[displayed_at.to_date] ||= Campaign.active.available_on(displayed_at).includes(:user).to_a
+    @campaigns[displayed_at.to_date] << CampaignSeeder.create_campaign(advertisers.sample, displayed_at) while @campaigns[displayed_at.to_date].size < 5
+    @campaigns[displayed_at.to_date]
+  end
+
+  def properties(campaign)
+    @properties ||= []
+    @properties[campaign.id] ||= Property.for_campaign(campaign).includes(:user).to_a
+  end
+
   def incomplete?
     @count < @max
   end
 
   def build_impression(displayed_at)
-    property = @publishers.sample.properties.sample
-    campaigns = @campaigns_cache[property.id] ||= Campaign.includes(:user, :creative).for_property(property).load
-    campaign = campaigns.select { |c| c.available_on? displayed_at }.sample
+    campaign = campaigns(displayed_at).sample
     return nil unless campaign
+
+    property = properties(campaign).sample
+    return nil unless property
+
     @count += 1
     impression = Impression.new(
       id: SecureRandom.uuid,
@@ -100,25 +111,25 @@ class ImpressionSeeder
     impression.attributes
   end
 
+  def core_hours?(displayed_at)
+    displayed_at.hour.between?(0, 6) || displayed_at.hour.between?(13, 21)
+  end
+
   def build_impressions(displayed_at)
-    core_hours = displayed_at.hour.between?(0, 6) || displayed_at.hour.between?(13, 21) ? true : false
-
-    # 3x more likely to have impressions this second during core hours
-    unless core_hours
-      return [] unless rand(4).zero?
-    end
-
-    rand(@max_per_second).times.map {
-      build_impression displayed_at
-    }.compact
+    chance = @max_per_second
+    chance = (chance / 2.to_f).ceil unless core_hours?(displayed_at)
+    count = rand(1..chance)
+    count.times.map { build_impression(displayed_at) }.compact
   end
 
   def build_impressions_for_minute(time)
     displayed_at = Time.new(time.year, time.month, time.day, time.hour, time.min, 0, 0)
     impressions = []
     while incomplete? && displayed_at.min == time.min && displayed_at.sec <= 59
-      impressions.concat build_impressions(displayed_at)
-      displayed_at = displayed_at.advance(seconds: rand(11))
+      new_impressions = build_impressions(displayed_at)
+      impressions.concat new_impressions
+      @count += 1 if new_impressions.size.zero?
+      displayed_at = displayed_at.advance(seconds: rand(1..10))
     end
     impressions
   end
@@ -128,7 +139,7 @@ class ImpressionSeeder
     impressions = []
     while incomplete? && displayed_at.hour == time.hour && displayed_at.min <= 59
       impressions.concat build_impressions_for_minute(displayed_at)
-      displayed_at = displayed_at.advance(minutes: rand(3))
+      displayed_at = displayed_at.advance(minutes: rand(1..5))
     end
     impressions
   end
@@ -146,7 +157,7 @@ class ImpressionSeeder
   def create_impressions_for_month(date_string, max)
     @count = 0
     @max = max
-    @max_per_second = (max / 1.month.seconds.to_f).ceil * 6
+    @max_per_second = (max / 1.month.seconds.to_f).ceil * 2
     start_date = Date.parse(date_string).beginning_of_month
     active_date = start_date
     list = []
@@ -174,8 +185,8 @@ class ImpressionSeeder
     }
 
     unless error
-      message = "Seeding impressions...".ljust(48)
-      message += "created [#{@count}] records with pid: #{Process.pid}".ljust(48)
+      message = "Seeding impressions #{date_string}...".ljust(48)
+      message += "created [#{list.size}] records with pid: #{Process.pid}".ljust(48)
       message += benchmark.to_s
       puts message
     end

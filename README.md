@@ -18,11 +18,11 @@ bundle exec rails db:setup
 
 ### Database Seeds
 
-The `impressions` table will seed with approximately 100k records spread over 1 month by default.
-You can increase this by setting the `IMPRESSIONS` and `MONTHS` environment variables and seeding again.
+The `impressions` table will seed with approximately 100k records spread over 12 months by default.
+You can increase this by setting the `IMPRESSIONS` environment variable and seeding again.
 
 ```
-IMPRESSIONS=10_000_000 MONTHS=12 rails db:seed
+IMPRESSIONS=10_000_000 rails db:seed
 ```
 
 ### Tmux/Teamocil or Mert
@@ -62,7 +62,7 @@ cd /path/to/project
 
  ### Database
 
- - The database user needs permissions to execute DDL and create schema to support dynamic partition tables
+ - The database user requires permissions to execute DDL and create schema to support dynamic partition tables
 
 ## Candidates for GEM extraction
 
