@@ -40,9 +40,6 @@ class Impression < ApplicationRecord
   before_validation :set_displayed_at, on: [:create]
   before_create :assure_partition_table, on: [:create]
   after_commit :set_property_advertiser, on: [:create]
-  after_commit :increment_impressions_counter_cache, on: [:create]
-  after_commit :increment_clicks_counter_cache, on: [:update],
-    if: -> { clicked_at.present? && previous_changes[:clicked_at] }
 
   # scopes ....................................................................
   scope :clicked, -> { where.not clicked_at: nil }
@@ -58,6 +55,10 @@ class Impression < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def clicked?
+    clicked_at.present?
+  end
 
   def partition_table_name
     return "impressions_default" unless campaign_id && displayed_at_date
@@ -93,17 +94,6 @@ class Impression < ApplicationRecord
   # private instance methods ..................................................
 
   private
-
-  def increment_impressions_counter_cache
-    IncrementImpressionsCountCacheJob.perform_later self
-  end
-
-  def increment_clicks_counter_cache
-    return unless clicked_at.present?
-    return unless previous_changes[:clicked_at]
-    return unless previous_changes[:clicked_at][0].nil? && previous_changes[:clicked_at][1].present?
-    IncrementClicksCountCacheJob.perform_later self
-  end
 
   def set_property_advertiser
     SetPropertyAdvertiserJob.perform_later property_id, advertiser_id

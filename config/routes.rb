@@ -40,6 +40,11 @@ Rails.application.routes.draw do
 
   resources :creatives
   resources :impressions
+  scope "/impressions/:impression_id" do
+    # this action should semantically be a `create`,
+    # but we are using `show` because its also a pass through that redirects to the campaign url
+    resource :advertisement_clicks, only: [:show], path: "/click"
+  end
 
   resources :properties do
     resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { req.format == :json }

@@ -4,7 +4,7 @@ class CreateImpressionJob < ApplicationJob
   def perform(property, campaign, ip_address, user_agent, displayed_at)
     displayed_at = Time.parse(displayed_at)
 
-    Impression.create!(
+    impression = Impression.create!(
       advertiser_id: campaign.user_id,
       campaign: campaign,
       campaign_name: campaign.scoped_name,
@@ -23,5 +23,7 @@ class CreateImpressionJob < ApplicationJob
       # payable: false,
       # reason: nil,
     )
+
+    IncrementImpressionsCountCacheJob.perform_now impression
   end
 end
