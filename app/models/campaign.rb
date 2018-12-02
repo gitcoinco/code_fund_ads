@@ -66,6 +66,7 @@ class Campaign < ApplicationRecord
   scope :for_property, ->(property) do
     relation = available.active.with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
     relation = relation.where(fallback: false) if property.prohibit_fallback_campaigns
+    relation = relation.where.not(id: property.prohibited_advertiser_ids) unless property.prohibited_advertiser_ids.blank?
     relation
   end
 
