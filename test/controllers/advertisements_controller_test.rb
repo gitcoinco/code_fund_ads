@@ -18,6 +18,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
       end_date: 1.month.from_now,
       keywords: ENUMS::KEYWORDS.values.sample(10)
     )
+    campaign.creative.add_image! attach_large_image!(campaign.user)
     campaign
   end
 

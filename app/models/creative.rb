@@ -39,16 +39,20 @@ class Creative < ApplicationRecord
     user.images.where(id: creative_images.select(:active_storage_attachment_id))
   end
 
-  def small_images
-    images.search_metadata_format ENUMS::IMAGE_FORMATS::SMALL
+  def small_image
+    images.search_metadata_format(ENUMS::IMAGE_FORMATS::SMALL).first
   end
 
-  def large_images
-    images.search_metadata_format ENUMS::IMAGE_FORMATS::LARGE
+  def large_image
+    images.search_metadata_format(ENUMS::IMAGE_FORMATS::LARGE).first
   end
 
-  def wide_images
-    images.search_metadata_format ENUMS::IMAGE_FORMATS::WIDE
+  def wide_image
+    images.search_metadata_format(ENUMS::IMAGE_FORMATS::WIDE).first
+  end
+
+  def add_image!(image)
+    CreativeImage.create! creative: self, image: image
   end
 
   # protected instance methods ................................................
