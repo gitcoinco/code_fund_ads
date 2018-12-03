@@ -31,8 +31,8 @@ require "test_helper"
 class CampaignTest < ActiveSupport::TestCase
   setup do
     @campaign = campaigns(:exclusive)
-    @campaign.start_date = Date.parse('2018-12-01')
-    @campaign.end_date = Date.parse('2018-12-31')
+    @campaign.start_date = Date.parse("2018-12-01")
+    @campaign.end_date = Date.parse("2018-12-31")
     @campaign.daily_budget = @campaign.recommended_daily_budget
   end
 

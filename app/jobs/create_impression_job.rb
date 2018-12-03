@@ -1,7 +1,10 @@
 class CreateImpressionJob < ApplicationJob
   queue_as :default
 
-  def perform(property, campaign, ip_address, user_agent, displayed_at_string)
+  def perform(campaign_id, property_id, ip_address, user_agent, displayed_at_string)
+    campaign = Campaign.find_by(id: campaign_id)
+    property = Property.find_by(id: property_id)
+    return unless campaign && property
     displayed_at = Time.parse(displayed_at_string)
 
     impression = Impression.create!(

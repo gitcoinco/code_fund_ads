@@ -63,11 +63,35 @@ class Campaign < ApplicationRecord
   scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertiser.search_name(value).or(User.advertiser.search_company(value))) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
-  scope :for_property, ->(property) do
-    relation = active.with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
-    relation = relation.where(fallback: false) if property.prohibit_fallback_campaigns
-    relation = relation.where.not(id: property.prohibited_advertiser_ids) unless property.prohibited_advertiser_ids.blank?
-    relation
+  scope :for_property, ->(property) { for_property_id property.id }
+  scope :for_property_id, ->(property_id) do
+    query = <<~SQL
+      SELECT c.id FROM (SELECT keywords, prohibited_advertiser_ids FROM properties WHERE id = ?) p
+      LEFT JOIN LATERAL
+      (
+        SELECT id
+        FROM campaigns
+        WHERE NOT p.prohibited_advertiser_ids @> ARRAY[id]
+        AND p.keywords && keywords
+        AND p.keywords && negative_keywords  = false
+      ) c ON true
+    SQL
+
+    where "campaigns.id IN (#{sanitize_sql_array([query, property_id])})"
+  end
+  scope :fallback_for_property_id, ->(property_id) do
+    query = <<~SQL
+      SELECT c.id FROM (SELECT prohibit_fallback_campaigns FROM properties WHERE id = ?) p
+      LEFT JOIN LATERAL
+      (
+        SELECT id
+        FROM campaigns
+        WHERE fallback = true
+        AND p.prohibit_fallback_campaigns = false
+      ) c ON true
+    SQL
+
+    where "campaigns.id IN (#{sanitize_sql_array([query, property_id])})"
   end
 
   # Scopes and helpers provied by tag_columns
