@@ -47,10 +47,10 @@ Rails.application.routes.draw do
   end
 
   resources :properties do
-    resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { req.format == :json }
     resources :property_screenshots, only: [:update]
   end
   scope "/properties/:property_id" do
+    resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { req.format == :json }
     resources :versions, only: [:index], as: :property_versions
     resources :comments, only: [:index], as: :property_comments
   end

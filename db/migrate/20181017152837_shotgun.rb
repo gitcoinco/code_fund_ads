@@ -132,7 +132,7 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.string :ad_theme
       t.string :language, null: false
       t.string :keywords, default: [], null: false, array: true
-      t.bigint :prohibited_advertisers, default: [], array: true
+      t.bigint :prohibited_advertisers, default: [], null: false, array: true
       t.boolean :prohibit_fallback_campaigns, default: false, null: false
       t.timestamps
 

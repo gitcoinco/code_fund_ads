@@ -170,7 +170,7 @@ class Seeder
             id: @property_id += 1,
             user_id: publisher.id,
             property_type: ENUMS::PROPERTY_TYPES.values.sample,
-            status: ENUMS::PROPERTY_STATUSES.values.sample,
+            status: rand(5).zero? ? ENUMS::PROPERTY_STATUSES.values.sample : ENUMS::PROPERTY_STATUSES::ACTIVE,
             name: "#{Faker::SiliconValley.invention} #{SecureRandom.hex.upcase[0, 6]}",
             url: Faker::SiliconValley.url,
             ad_template: ENUMS::AD_TEMPLATES.values.sample,

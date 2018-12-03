@@ -1,24 +1,23 @@
 class AdvertisementsController < ApplicationController
   after_action :create_impression
 
-  # TODO: perfomance tuning
+  # TODO: performance tuning
   def show
     @property = Property.find(params[:property_id])
+    @campaign = @property.matching_campaigns.available_on(Date.current).sample
+    @campaign ||= Campaign.where(fallback: true).sample unless @property.prohibit_fallback_campaigns?
 
-    # TODO: make campaign selection more intelligent
-    @campaign = Campaign.find_by(id: property.matching_campaigns.avaliable_on(Date.current).pluck(:id).sample)
-
-    # TODO: handle missing campaign (i.e. fallback)
+    # TODO: handle missing campaign (i.e. none available)
 
     template_name = params[:template] || "default"
-    theme_name = parmas[:theme] || "light"
+    theme_name = params[:theme] || "light"
 
-    cache_key = "impressions/#{property.id}/#{request.remote_ip}"
+    cache_key = "impressions/#{@property.id}/#{request.remote_ip}"
     @payload = Rails.cache.fetch(cache_key, expires_in: 10.seconds) {
       @new_impression = true
       {
-        template: render_to_string(template: "/ads/#{template_name}/show"),
-        theme: render_to_string(template: "/ads/#{template_name}/themes/#{theme_name}"),
+        template: render_to_string(template: "/ads/#{template_name}/show.html.erb"),
+        theme: render_to_string(template: "/ads/#{template_name}/themes/#{theme_name}.scss.erb"),
       }
     }
   end

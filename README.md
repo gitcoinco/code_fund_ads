@@ -2,6 +2,21 @@
 
 WIP...
 
+## Enums
+
+All enum values are managed as constants defined in `config/enums.yml`
+This file is converted to Ruby constants at runtime.
+
+Introspect what enums are defined via the cli.
+
+```ruby
+ENUMS.constants
+ENUMS::USER_ROLES.constants
+# etc...
+```
+
+__Always use enums instead of "magic" values.__
+
 ## Development Environment
 
 ```sh
@@ -52,7 +67,7 @@ cd /path/to/project
  - Ruby - [standard](https://github.com/testdouble/standard)
  - JavaScript - [prettier](https://github.com/prettier/prettier)
 
- Ensure the code is standardized by running the following before you commit.
+ Ensure the code has been standardized by running the following before you commit.
 
  ```sh
  ./bin/standardize
@@ -62,6 +77,7 @@ cd /path/to/project
 
  ### Database
 
+ - The `impressions` table is dynamically partitioned by __advertiser__ (i.e. `user`) and __date__
  - The database user requires permissions to execute DDL and create schema to support dynamic partition tables
 
 ## Candidates for GEM extraction

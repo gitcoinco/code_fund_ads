@@ -52,26 +52,29 @@
 #  updated_at             :datetime         not null
 #
 
+# IMPORTANT: Limit users fixtures to [1] per [role] using only the minimum required data
+#            Additional setup should be perfomed in the test suite
+
 administrator:
   roles:
     - <%= ENUMS::USER_ROLES::ADMINISTRATOR %>
-  first_name: Chris
-  last_name: Knight
-  email: chris.knight@codefund.io
+  first_name: Test
+  last_name: Administrator
+  email: administrator@codefund.io
   encrypted_password: <%= User.new(password: "secret").encrypted_password %>
 
 publisher:
   roles:
     - <%= ENUMS::USER_ROLES::PUBLISHER %>
-  first_name: Jordan
-  last_name: Cochran
-  email: jordan.cochran@codefund.io
+  first_name: Test
+  last_name: Publisher
+  email: publisher@codefund.io
   encrypted_password: <%= User.new(password: "secret").encrypted_password %>
 
 advertiser:
   roles:
     - <%= ENUMS::USER_ROLES::ADVERTISER %>
-  first_name: Mitch
-  last_name: Taylor
-  email: mitch.taylor@codefund.io
+  first_name: Test
+  last_name: Advertiser
+  email: advertiser@codefund.io
   encrypted_password: <%= User.new(password: "secret").encrypted_password %>
