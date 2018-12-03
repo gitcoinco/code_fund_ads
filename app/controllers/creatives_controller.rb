@@ -61,6 +61,10 @@ class CreativesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def creative_params
-    params.fetch(:creative, {})
+    params.require(:creative).permit(:name, :headline, :body)
+  end
+
+  def creative_image_params
+    params.require(:creative).permit(:small_image_id, :large_image_id, :wide_image_id)
   end
 end

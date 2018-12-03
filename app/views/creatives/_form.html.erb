@@ -30,12 +30,11 @@
                       data-action="change->creative-form#setSmallImage"
                       required="required"
                       aria-required="true"
-                      name="creative[small_image]"
-                      id="creative_small_image"
+                      name="creative[small_image_id]"
+                      id="creative_small_image_id"
                       required>
-                <option value=""></option>
-                <% creative.user.small_images.each do |image| %>
-                  <%= tag.option(Image.new(image).display_name, value: image.record_id,
+                <% current_user.small_images.each do |image| %>
+                  <%= tag.option(Image.new(image).display_name, value: image.blob_id,
                         data: { image_url: polymorphic_url(image) },
                         selected: creative.small_image == image) %>
                 <% end %>
@@ -54,12 +53,11 @@
                       data-action="change->creative-form#setLargeImage"
                       required="required"
                       aria-required="true"
-                      name="creative[large_image]"
-                      id="creative_large_image"
+                      name="creative[large_image_id]"
+                      id="creative_large_image_id"
                       required>
-                <option value=""></option>
-                <% creative.user.large_images.each do |image| %>
-                  <%= tag.option(Image.new(image).display_name, value: image.record_id,
+                <% current_user.large_images.each do |image| %>
+                  <%= tag.option(Image.new(image).display_name, value: image.blob_id,
                         data: { image_url: polymorphic_url(image) },
                         selected: creative.large_image == image) %>
                 <% end %>
@@ -78,12 +76,11 @@
                       data-action="change->creative-form#setWideImage"
                       required="required"
                       aria-required="true"
-                      name="creative[wide_image]"
-                      id="creative_wide_image"
+                      name="creative[wide_image_id]"
+                      id="creative_wide_image_id"
                       required>
-                <option value=""></option>
-                <% creative.user.wide_images.each do |image| %>
-                  <%= tag.option(Image.new(image).display_name, value: image.record_id,
+                <% current_user.wide_images.each do |image| %>
+                  <%= tag.option(Image.new(image).display_name, value: image.blob_id,
                         data: { image_url: polymorphic_url(image) },
                         selected: creative.wide_image == image) %>
                 <% end %>
