@@ -1,0 +1,20 @@
+<%= render layout: "/properties/show_layout", locals: { property: @property } do %>
+  <div class="row mb-4">
+    <div class="col-md-3 text-center">
+      <label class="d-block text-muted mb-0">Earnings</label>
+      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_to_currency 100 %></span>
+    </div>
+    <div class="col-md-3 text-center">
+      <label class="d-block text-muted mb-0">Impressions</label>
+      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_with_delimiter 100 %></span>
+    </div>
+    <div class="col-md-3 text-center">
+      <label class="d-block text-muted mb-0">Clicks</label>
+      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_with_delimiter 100 %></span>
+    </div>
+    <div class="col-md-3 text-center">
+      <label class="d-block text-muted mb-0">CTR</label>
+      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_to_percentage 100, precision: 2 %></span>
+    </div>
+  </div>
+<% end %>

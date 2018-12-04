@@ -1,0 +1,12 @@
+<%= form_tag nil, method: :get do %>
+  <div id="datepickerWrapperFrom" class="u-datepicker input-group u-form">
+    <div class="input-group-prepend u-form__prepend">
+      <span class="input-group-text u-form__text">
+        <span class="fas fa-calendar u-form__text-inner"></span>
+      </span>
+    </div>
+    <input class="js-range-datepicker form-control bg-transparent rounded-right" type="text" placeholder="From" aria-label="From"
+          data-rp-wrapper="#datepickerWrapperFrom"
+          data-rp-date-format="d/m/Y">
+  </div>
+<% end %>

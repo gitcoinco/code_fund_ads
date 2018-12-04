@@ -33,9 +33,9 @@ Rails.application.routes.draw do
   scope "/campaigns/:campaign_id" do
     resource :campaign_targeting, only: [:show], path: "/targeting"
     resource :campaign_budget, only: [:show], path: "/budget"
-    resource :campaign_dashboards, only: [:show], path: "/dashboard"
+    resource :campaign_dashboards, only: [:show], path: "/overview"
     resources :campaign_properties, only: [:index], path: "/properties"
-    resources :versions, only: [:index], as: :campaign_versions
+    resources :versions, only: [:index], as: :campaign_versions, path: "/revisions"
     resources :comments, only: [:index], as: :campaign_comments
   end
 
@@ -46,7 +46,11 @@ Rails.application.routes.draw do
     resources :property_screenshots, only: [:update]
   end
   scope "/properties/:property_id" do
-    resources :versions, only: [:index], as: :property_versions
+    resource :property_keywords, only: [:show], path: "/keywords"
+    resource :property_earnings, only: [:show], path: "/earnings"
+    resource :property_dashboards, only: [:show], path: "/overview"
+    resources :property_campaigns, only: [:index], path: "/campaigns"
+    resources :versions, only: [:index], as: :property_versions, path: "/revisions"
     resources :comments, only: [:index], as: :property_comments
   end
 
