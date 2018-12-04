@@ -33,7 +33,7 @@ class Creative < ApplicationRecord
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  attr_accessor :small_image, :large_image, :wide_image
+  attr_reader :small_image, :large_image, :wide_image
 
   # class methods .............................................................
   class << self
@@ -43,6 +43,12 @@ class Creative < ApplicationRecord
 
   def images
     user.images.where(id: creative_images.select(:active_storage_attachment_id))
+  end
+  
+  def set_images(blob_id_list = {})
+    set_image(blob_id_list[:small_blob_id], ENUMS::IMAGE_FORMATS::SMALL) if blob_id_list[:small_blob_id].present?
+    set_image(blob_id_list[:large_blob_id], ENUMS::IMAGE_FORMATS::SMALL) if blob_id_list[:large_blob_id].present?
+    set_image(blob_id_list[:wide_blob_id],  ENUMS::IMAGE_FORMATS::SMALL) if blob_id_list[:wide_blob_id].present?
   end
 
   def small_image
@@ -60,4 +66,13 @@ class Creative < ApplicationRecord
   # protected instance methods ................................................
 
   # private instance methods ..................................................
+
+  private
+
+  def set_image(blob_id, size)
+    creative_image = creative_images.where()
+    creative_image ||= CreativeImage.
+    creative_image.blob_id = blob_id
+    creative_image.save!
+  end
 end

@@ -9,9 +9,9 @@ export default class extends Controller {
     "adLength",
     "inputHeadline",
     "inputBody",
-    "inputSmallImageId",
-    "inputLargeImageId",
-    "inputWideImageId",
+    "inputSmallBlobId",
+    "inputLargeBlobId",
+    "inputWideBlobId",
     "inputTemplateTheme",
     "previewImageUrl",
     "previewHeadline",
@@ -74,9 +74,9 @@ export default class extends Controller {
   }
 
   setLargeImage() {
-    let target = this.inputLargeImageIdTarget;
-    let imageId = parseInt(target.value, 10);
-    if (!isNaN(imageId)) {
+    let target = this.inputLargeBlobIdTarget;
+    let blobId = parseInt(target.value, 10);
+    if (!isNaN(blobId)) {
       let selectedOption = target.options[target.selectedIndex];
       this.previewImageUrlTarget.src = selectedOption.dataset.imageUrl;
     } else {

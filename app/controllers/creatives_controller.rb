@@ -4,7 +4,7 @@ class CreativesController < ApplicationController
   before_action :set_creative, only: [:show, :edit, :update, :destroy]
 
   def index
-    creatives = Creative.order(:name).includes(:user)
+    creatives = current_user.creatives.order(:name).includes(:user)
     creatives = @creative_search.apply(creatives)
     @pagy, @creatives = pagy(creatives, items: 10)
   end
@@ -18,6 +18,7 @@ class CreativesController < ApplicationController
 
     respond_to do |format|
       if @creative.save
+        @creative.set_images(creative_image_params)
         format.html { redirect_to @creative, notice: "Creative was successfully created." }
         format.json { render :show, status: :created, location: @creative }
       else
@@ -30,6 +31,7 @@ class CreativesController < ApplicationController
   def update
     respond_to do |format|
       if @creative.update(creative_params)
+        @creative.set_images(creative_image_params)
         format.html { redirect_to @creative, notice: "Creative was successfully updated." }
         format.json { render :show, status: :ok, location: @creative }
       else
@@ -65,6 +67,6 @@ class CreativesController < ApplicationController
   end
 
   def creative_image_params
-    params.require(:creative).permit(:small_image_id, :large_image_id, :wide_image_id)
+    params.require(:creative).permit(:small_blob_id, :large_blob_id, :wide_blob_id)
   end
 end

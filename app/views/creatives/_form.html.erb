@@ -26,12 +26,12 @@
                 Small Image <abbr title="required">*</abbr>
               </label>
               <select class="form-control select required"
-                      data-target="creative-form.inputSmallImageId"
+                      data-target="creative-form.inputSmallBlobId"
                       data-action="change->creative-form#setSmallImage"
                       required="required"
                       aria-required="true"
-                      name="creative[small_image_id]"
-                      id="creative_small_image_id"
+                      name="creative[small_blob_id]"
+                      id="creative_small_blob_id"
                       required>
                 <% current_user.small_images.each do |image| %>
                   <%= tag.option(Image.new(image).display_name, value: image.blob_id,
@@ -49,12 +49,12 @@
                 Large Image <abbr title="required">*</abbr>
               </label>
               <select class="form-control select required"
-                      data-target="creative-form.inputLargeImageId"
+                      data-target="creative-form.inputLargeBlobId"
                       data-action="change->creative-form#setLargeImage"
                       required="required"
                       aria-required="true"
-                      name="creative[large_image_id]"
-                      id="creative_large_image_id"
+                      name="creative[large_blob_id]"
+                      id="creative_large_blob_id"
                       required>
                 <% current_user.large_images.each do |image| %>
                   <%= tag.option(Image.new(image).display_name, value: image.blob_id,
@@ -71,13 +71,14 @@
               <label class="form-label select required" for="creative_wide_image">
                 Wide Image <abbr title="required">*</abbr>
               </label>
+              <%= creative.wide_image.inspect %>
               <select class="form-control select required"
-                      data-target="creative-form.inputWideImageId"
+                      data-target="creative-form.inputWideBlobId"
                       data-action="change->creative-form#setWideImage"
                       required="required"
                       aria-required="true"
-                      name="creative[wide_image_id]"
-                      id="creative_wide_image_id"
+                      name="creative[wide_blob_id]"
+                      id="creative_wide_blob_id"
                       required>
                 <% current_user.wide_images.each do |image| %>
                   <%= tag.option(Image.new(image).display_name, value: image.blob_id,
@@ -85,7 +86,7 @@
                         selected: creative.wide_image == image) %>
                 <% end %>
               </select>
-              <small class="form-text text-muted">200x200</small>
+              <small class="form-text text-muted">512x320</small>
             </div>
           </div>
 
