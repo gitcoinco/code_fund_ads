@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   end
   scope "/properties/:property_id" do
     resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { req.format == :js }
+    resource :advertisement_previews, only: [:show], path: "/preview" if Rails.env.development?
     resources :versions, only: [:index], as: :property_versions
     resources :comments, only: [:index], as: :property_comments
   end

@@ -70,7 +70,7 @@ class Seeder
   end
 
   def build_advertisers
-    target = 100
+    target = 250
     count = User.advertisers.count
     return [] if count >= target
     (count..target).map do
@@ -155,7 +155,7 @@ class Seeder
   end
 
   def generate_campaigns(advertiser)
-    rand(1..4).times do
+    rand(2..8).times do
       CampaignSeeder.create_campaign advertiser, campaign_dates.sample
     end
   end

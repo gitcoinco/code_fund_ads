@@ -7,10 +7,11 @@ class AdvertisementsController < ApplicationController
     @virtual_impression_id = SecureRandom.uuid
 
     # TODO: smarter campaign selection
-    @campaign = Campaign.active.available_on(Date.current).for_property_id(params[:property_id]).limit(1).first
-    @campaign ||= Campaign.active.available_on(Date.current).fallback_for_property_id(params[:property_id]).limit(1).first
+    @campaign = Campaign.active.available_on(Date.current).for_property_id(params[:property_id]).limit(10).to_a.sample
+    @campaign ||= Campaign.active.available_on(Date.current).fallback_for_property_id(params[:property_id]).limit(10).to_a.sample
 
     @advertisement_html = render_advertisement if @campaign
+    respond_to { |format| format.js }
   end
 
   private
@@ -72,11 +73,12 @@ class AdvertisementsController < ApplicationController
     ).to_inline_css.strip.gsub(/\s\s|\n/, "")
   end
 
-   def create_virtual_impression
-     Rails.cache.write @virtual_impression_id, {
-       campaign_id: @campaign.id,
-       property_id: params[:property_id].to_i,
-       ip_address: request.remote_ip
-     }, expires_in: 20.seconds
-   end
+  def create_virtual_impression
+    return unless @campaign
+    Rails.cache.write @virtual_impression_id, {
+      campaign_id: @campaign.id,
+      property_id: params[:property_id].to_i,
+      ip_address: request.remote_ip,
+    }, expires_in: 20.seconds
+  end
 end

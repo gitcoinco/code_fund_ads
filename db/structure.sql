@@ -863,6 +863,20 @@ CREATE INDEX impressions_default_displayed_at_date_idx ON public.impressions_def
 
 
 --
+-- Name: index_impressions_on_id_and_advertiser_id_and_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_impressions_on_id_and_advertiser_id_and_displayed_at_date ON ONLY public.impressions USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_default_id_advertiser_id_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_default_id_advertiser_id_displayed_at_date_idx ON public.impressions_default USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
 -- Name: index_impressions_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1252,6 +1266,13 @@ ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.
 --
 
 ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_default_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_default_id_advertiser_id_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_default_id_advertiser_id_displayed_at_date_idx;
 
 
 --

@@ -1,6 +1,16 @@
-# CodeFund Ads
+# [WIP] CodeFund Ads
 
-WIP...
+## Publisher Embedding
+
+After being approved on the CodeFund platform,
+publishers can add CodeFund to their site by including the CodeFund script and adding the CodeFund `div`.
+
+```html
+<script type="text/html" src="https://codefund.io/properties/PROPERTY_ID/funder.js" defer></script>
+<div id="codefund"></div>
+```
+
+_Replacing `PROPERTY_ID` with their actual id._
 
 ## Enums
 

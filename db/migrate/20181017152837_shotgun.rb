@@ -103,6 +103,7 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.date :clicked_at_date
       t.boolean :fallback_campaign, default: false, null: false
 
+      t.index [:id, :advertiser_id, :displayed_at_date], unique: true
       t.index :advertiser_id
       t.index :campaign_id
       t.index :creative_id

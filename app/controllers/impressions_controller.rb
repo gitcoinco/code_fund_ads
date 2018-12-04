@@ -2,6 +2,10 @@ class ImpressionsController < ApplicationController
   before_action :set_virtual_impression
   after_action :create_impression
 
+  def show
+    respond_to { |format| format.svg }
+  end
+
   private
 
   def set_virtual_impression

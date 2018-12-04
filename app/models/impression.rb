@@ -39,7 +39,7 @@ class Impression < ApplicationRecord
   before_validation :assure_campaign_name, on: [:create]
   before_validation :assure_property_name, on: [:create]
   before_validation :set_displayed_at, on: [:create]
-  before_create :assure_partition_table, on: [:create]
+  before_create :assure_partition_table!, on: [:create]
   after_commit :set_property_advertiser, on: [:create]
 
   # scopes ....................................................................
