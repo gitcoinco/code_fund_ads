@@ -1,6 +1,4 @@
 class AdvertisementsController < ApplicationController
-  after_action :create_impression
-
   def show
     @property_updated_at = Property.where(id: params[:property_id]).maximum(:updated_at)
 
@@ -10,33 +8,82 @@ class AdvertisementsController < ApplicationController
 
     # TODO: handle missing campaign (i.e. none available)
 
-    @template, @theme = fetch_template_and_theme
+    render html: render_ad.html_safe
   end
 
   private
 
-  def fetch_template_and_theme
-    cache_key = "impressions/#{params[:property_id]}/#{request.remote_ip}"
-    template_name = params[:template] || "default"
-    theme_name = params[:theme] || "light"
-    payload = Rails.cache.fetch(cache_key, expires_in: 10.seconds) {
-      @new_impression = true
-      {
-        template: render_to_string(template: "/ads/#{template_name}/show.html.erb", layout: false),
-        theme: render_to_string(template: "/ads/#{template_name}/themes/#{theme_name}.scss.erb", layout: false),
-      }
-    }
-    [payload[:template], payload[:theme]]
+  def template_name
+    params[:template] || "default"
   end
 
-  def create_impression
-    return unless @new_impression
-    CreateImpressionJob.perform_later(
-      @campaign.id,
-      params[:property_id],
-      request.remote_ip,
-      request.user_agent,
-      Time.current.iso8601
-    )
+  def template_path
+    @template_path ||= Rails.root.join("app/views/ads/#{template_name}/show.html.erb")
   end
+
+  def template_mtime
+    @template_mtime ||= File.mtime(template_path)
+  end
+
+  def template_cache_key
+    @template_cache_key ||= "templates/#{template_name}/#{template_mtime.to_i}"
+  end
+
+  def template
+    render_to_string template: "/ads/#{template_name}/show.html.erb", layout: false
+  end
+
+  def theme_name
+    params[:theme] || "light"
+  end
+
+  def theme_path
+    @theme_path ||= Rails.root.join("app/views/ads/#{template_name}/themes/#{theme_name}.css")
+  end
+
+  def theme_mtime
+    @theme_mmtime ||= File.mtime(theme_path)
+  end
+
+  def theme_cache_key
+    @theme_cache_key ||= "themes/#{theme_name}/#{theme_mtime.to_i}"
+  end
+
+  def theme
+    Rails.cache.fetch(theme_cache_key) do
+      render_to_string template: "ads/#{template_name}/themes/#{theme_name}.css", layout: false
+    end
+  end
+
+  def ad_cache_key
+    @themed_template_cache_key ||= "#{template_cache_key}/#{theme_cache_key}/#{@campaign.cache_key}"
+  end
+
+  def render_ad
+    Rails.cache.fetch(ad_cache_key) do
+      Premailer.new(
+        template,
+        with_html_string: true,
+        html_fragment: true,
+        css_string: theme,
+        output_encoding: "utf-8",
+        adapter: :nokogiri_fast
+      ).to_inline_css
+    end
+  end
+
+  def visitor_ad_cache_key
+    "ad/#{params[:property_id]}/#{request.remote_ip}"
+  end
+
+  # TODO: move this to pixel fire endpoint
+  # def create_impression
+  #  CreateImpressionJob.perform_later(
+  #    @campaign.id,
+  #    params[:property_id],
+  #    request.remote_ip,
+  #    request.user_agent,
+  #    Time.current.iso8601
+  #  )
+  # end
 end
