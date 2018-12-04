@@ -4,7 +4,7 @@ class AdvertisementsController < ApplicationController
   after_action :create_virtual_impression
 
   def show
-    @impression_id = SecureRandom.uuid
+    @virtual_impression_id = SecureRandom.uuid
 
     # TODO: smarter campaign selection
     @campaign = Campaign.active.available_on(Date.current).for_property_id(params[:property_id]).limit(1).first
@@ -83,7 +83,7 @@ class AdvertisementsController < ApplicationController
   end
 
    def create_virtual_impression
-     Rails.cache.write @impression_id, {
+     Rails.cache.write @virtual_impression_id, {
        campaign_id: @campaign.id,
        property_id: params[:property_id].to_i,
        ip_address: request.remote_ip
