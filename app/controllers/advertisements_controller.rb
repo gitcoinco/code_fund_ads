@@ -1,8 +1,11 @@
 class AdvertisementsController < ApplicationController
   protect_from_forgery except: :show
   before_action :set_template_and_theme
+  after_action :create_virtual_impression
 
   def show
+    @impression_id = SecureRandom.uuid
+
     # TODO: smarter campaign selection
     @campaign = Campaign.active.available_on(Date.current).for_property_id(params[:property_id]).limit(1).first
     @campaign ||= Campaign.active.available_on(Date.current).fallback_for_property_id(params[:property_id]).limit(1).first
@@ -79,18 +82,11 @@ class AdvertisementsController < ApplicationController
     end
   end
 
-  # def visitor_ad_cache_key
-  #   "ad/#{params[:property_id]}/#{request.remote_ip}"
-  # end
-
-  # TODO: move this to pixel fire endpoint
-  # def create_impression
-  #  CreateImpressionJob.perform_later(
-  #    @campaign.id,
-  #    params[:property_id],
-  #    request.remote_ip,
-  #    request.user_agent,
-  #    Time.current.iso8601
-  #  )
-  # end
+   def create_virtual_impression
+     Rails.cache.write @impression_id, {
+       campaign_id: @campaign.id,
+       property_id: params[:property_id].to_i,
+       ip_address: request.remote_ip
+     }, expires_in: 20.seconds
+   end
 end

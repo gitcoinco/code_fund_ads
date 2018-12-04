@@ -9,10 +9,7 @@
           <strong><%= @campaign.creative.headline %></strong>
           <span><%= @campaign.creative.body %></span>
         <% end %>
-        <a href="https://codefund.io" class="cf-powered-by" target="_blank" rel="noopener">
-          ads via codefund.io
-          <img src="{{pixel}}" width="1" height="1" style="width: 1px; height: 1px;" />
-        </a>
+        <%= render "/ad_templates/powered_by" %>
       </span>
     </span>
   </div>
