@@ -15,4 +15,8 @@ module UsersHelper
       alt: user.full_name
     )
   end
+
+  def default_dashboard_path(user)
+    dashboard_path(user.advertiser? ? "advertiser" : "publisher")
+  end
 end

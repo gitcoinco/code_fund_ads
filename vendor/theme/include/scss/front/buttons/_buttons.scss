@@ -12,6 +12,10 @@
   }
 }
 
+label.btn {
+  cursor: pointer !important;
+}
+
 /* Pill */
 .btn-pill {
   @include border-radius($border-radius-pill);

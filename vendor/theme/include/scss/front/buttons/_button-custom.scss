@@ -14,6 +14,7 @@
       }
     }
 
+    &:not(label.btn),
     &:not([href]) {
       &,
       &:not([href]):not(:disabled):not(.disabled) {
@@ -25,7 +26,7 @@
 }
 
 @each $color, $value in $secondary-colors {
-	/* #{$color} button :hover, :focus, :active effects */
+  /* #{$color} button :hover, :focus, :active effects */
   .btn-#{$color} {
     &[href],
     &[type] {
@@ -36,6 +37,7 @@
       }
     }
 
+    &:not(label.btn),
     &:not([href]) {
       &,
       &:not([href]):not(:disabled):not(.disabled) {

@@ -150,7 +150,8 @@ $sizes: map-merge((
   75: 75%,
   80: 80%,
   85: 85%,
-  100: 100%
+  100: 100%,
+  auto: auto
 ), $sizes);
 // stylelint-enable
 
