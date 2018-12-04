@@ -9,9 +9,7 @@ class ImageSearchesController < ApplicationController
   def update
     if session[:image_search].present?
       image_search = GlobalID.parse(session[:image_search]).find if session[:image_search].present?
-      attrs = image_search.to_h
-      attrs.delete(params[:remove])
-      session[:image_search] = ImageSearch.new(attrs).to_gid_param
+      session[:image_search] = ImageSearch.new(image_search.to_h(params[:remove])).to_gid_param
     end
     redirect_to images_path(@imageable.to_gid_param)
   end

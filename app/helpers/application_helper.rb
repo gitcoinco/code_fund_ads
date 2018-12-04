@@ -41,6 +41,10 @@ module ApplicationHelper
     User.advertisers.where.not(company_name: nil).order(User.arel_table[:company_name].lower).pluck(:company_name).uniq
   end
 
+  def advertisers_for_select
+    User.advertisers.select(:id, :first_name, :last_name).order(:first_name).map { |user| [user.name, user.id] }
+  end
+
   def ad_templates_for_select
     ENUMS::AD_TEMPLATES.values
   end

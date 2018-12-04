@@ -33,8 +33,11 @@ class ApplicationSearchRecord
     Base64.encode64 to_h.to_json
   end
 
-  def to_h
-    @attributes.dup
+  def to_h(removed_attr = "")
+    return @attributes.dup unless removed_attr.present?
+    @attributes.dup.tap do |attrs|
+      attrs.delete removed_attr.to_sym
+    end
   end
 
   def searched_keys

@@ -9,9 +9,7 @@ class CampaignSearchesController < ApplicationController
   def update
     if session[:campaign_search].present?
       campaign_search = GlobalID.parse(session[:campaign_search]).find if session[:campaign_search].present?
-      attrs = campaign_search.to_h
-      attrs.delete(params[:remove])
-      session[:campaign_search] = CampaignSearch.new(attrs).to_gid_param
+      session[:campaign_search] = CampaignSearch.new(campaign_search.to_h(params[:remove])).to_gid_param
     end
     redirect_to campaigns_path
   end

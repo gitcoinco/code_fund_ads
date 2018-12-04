@@ -9,9 +9,7 @@ class PropertySearchesController < ApplicationController
   def update
     if session[:property_search].present?
       property_search = GlobalID.parse(session[:property_search]).find if session[:property_search].present?
-      attrs = property_search.to_h
-      attrs.delete(params[:remove])
-      session[:property_search] = PropertySearch.new(attrs).to_gid_param
+      session[:property_search] = PropertySearch.new(property_search.to_h(params[:remove])).to_gid_param
     end
     redirect_to properties_path
   end

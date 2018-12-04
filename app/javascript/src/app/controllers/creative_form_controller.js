@@ -2,7 +2,7 @@
 // Our use of it here is simply because its already a dependency
 // The verbose use of the `jQuery` variable instead of `$` is intentional so its use is easier to identify
 import { Controller } from 'stimulus';
-import _ from 'lodash';
+import { isEmpty } from 'lodash';
 
 export default class extends Controller {
   static targets = [
@@ -51,7 +51,7 @@ export default class extends Controller {
   }
 
   setHeadline() {
-    if (_.isEmpty(this.inputHeadlineTarget.value)) {
+    if (isEmpty(this.inputHeadlineTarget.value)) {
       this.previewHeadlineTarget.textContent = 'Headline';
     } else {
       this.previewHeadlineTarget.textContent = this.inputHeadlineTarget.value;
@@ -61,7 +61,7 @@ export default class extends Controller {
   }
 
   setBody() {
-    if (_.isEmpty(this.inputBodyTarget.value)) {
+    if (isEmpty(this.inputBodyTarget.value)) {
       this.previewBodyTarget.textContent =
         '🚀 Your body will go here. You can use an emoji to help catch their eye 🤪';
     } else {
