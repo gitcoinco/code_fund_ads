@@ -1,24 +1,35 @@
 class AdvertisementsController < ApplicationController
-  def show
-    @property_updated_at = Property.where(id: params[:property_id]).maximum(:updated_at)
+  protect_from_forgery except: :show
+  before_action :set_template_and_theme
 
+  def show
     # TODO: smarter campaign selection
     @campaign = Campaign.active.available_on(Date.current).for_property_id(params[:property_id]).limit(1).first
     @campaign ||= Campaign.active.available_on(Date.current).fallback_for_property_id(params[:property_id]).limit(1).first
 
-    # TODO: handle missing campaign (i.e. none available)
-
-    render html: render_ad.html_safe
+    @advertisement_html = render_advertisement if @campaign
   end
 
   private
 
-  def template_name
-    params[:template] || "default"
+  attr_reader :template_name, :theme_name
+
+  def set_template_and_theme
+    @template_name = params[:template]
+    @theme_name = params[:theme]
+
+    unless @template_name && @theme_name
+      template_name, theme_name = Property.where(id: params[:property_id]).pluck(:ad_template, :ad_theme).first
+      @template_name ||= template_name
+      @theme_name ||= theme_name
+    end
+
+    @template_name ||= "default"
+    @theme_name ||= "light"
   end
 
   def template_path
-    @template_path ||= Rails.root.join("app/views/ads/#{template_name}/show.html.erb")
+    @template_path ||= Rails.root.join("app/views/ad_templates/#{template_name}/show.html.erb")
   end
 
   def template_mtime
@@ -30,15 +41,11 @@ class AdvertisementsController < ApplicationController
   end
 
   def template
-    render_to_string template: "/ads/#{template_name}/show.html.erb", layout: false
-  end
-
-  def theme_name
-    params[:theme] || "light"
+    render_to_string template: "/ad_templates/#{template_name}/show.html.erb", layout: false
   end
 
   def theme_path
-    @theme_path ||= Rails.root.join("app/views/ads/#{template_name}/themes/#{theme_name}.css")
+    @theme_path ||= Rails.root.join("app/views/ad_templates/#{template_name}/themes/#{theme_name}.css")
   end
 
   def theme_mtime
@@ -51,7 +58,7 @@ class AdvertisementsController < ApplicationController
 
   def theme
     Rails.cache.fetch(theme_cache_key) do
-      render_to_string template: "ads/#{template_name}/themes/#{theme_name}.css", layout: false
+      render_to_string template: "ad_templates/#{template_name}/themes/#{theme_name}.css", layout: false
     end
   end
 
@@ -59,7 +66,7 @@ class AdvertisementsController < ApplicationController
     @themed_template_cache_key ||= "#{template_cache_key}/#{theme_cache_key}/#{@campaign.cache_key}"
   end
 
-  def render_ad
+  def render_advertisement
     Rails.cache.fetch(ad_cache_key) do
       Premailer.new(
         template,
@@ -68,13 +75,13 @@ class AdvertisementsController < ApplicationController
         css_string: theme,
         output_encoding: "utf-8",
         adapter: :nokogiri_fast
-      ).to_inline_css
+      ).to_inline_css.strip.gsub(/\s\s|\n/, "")
     end
   end
 
-  def visitor_ad_cache_key
-    "ad/#{params[:property_id]}/#{request.remote_ip}"
-  end
+  # def visitor_ad_cache_key
+  #   "ad/#{params[:property_id]}/#{request.remote_ip}"
+  # end
 
   # TODO: move this to pixel fire endpoint
   # def create_impression

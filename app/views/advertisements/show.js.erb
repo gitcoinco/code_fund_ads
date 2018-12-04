@@ -1,0 +1,13 @@
+(function() {
+  document.addEventListener('DOMContentLoaded', function () {
+    <% if @advertisement_html %>
+    try {
+      document.getElementById('codefund').innerHTML = '<%= @advertisement_html.html_safe %>';
+    } catch (e) {
+      console.log('CodeFund detected an error! Please verify an element exists with id="codefund". ' + e.message);
+    }
+    <% else %>
+      console.log('CodeFund does not have a advertiser for you at this time.');
+    <% end %>
+  });
+))();

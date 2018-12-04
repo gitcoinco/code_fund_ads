@@ -37,14 +37,10 @@ windows:
 
   - name: workers
     root: /path/to/project
-    layout: even-horizontal
+    layout: main-vertical
     panes:
       - commands:
         - asdf local ruby 2.5.3
         - asdf local nodejs 9.11.2
         - redis-cli flushall
         - bundle exec sidekiq -C config/sidekiq.yml
-      - commands:
-        - asdf local ruby 2.5.3
-        - asdf local nodejs 9.11.2
-        - bundle exec sidekiq -C config/sidekiq_counters.yml

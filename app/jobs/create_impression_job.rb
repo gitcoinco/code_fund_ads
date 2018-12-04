@@ -23,7 +23,6 @@ class CreateImpressionJob < ApplicationJob
       # postal_code: nil,
       # latitude: nil,
       # longitude: nil,
-      # payable: false,
       # reason: nil,
     )
 

@@ -4,9 +4,11 @@
 #
 #  id                :uuid             not null
 #  advertiser_id     :bigint(8)        not null
+#  publisher_id      :bigint(8)        not null
 #  campaign_id       :bigint(8)        not null
-#  campaign_name     :string           not null
+#  creative_id       :bigint(8)        not null
 #  property_id       :bigint(8)        not null
+#  campaign_name     :string           not null
 #  property_name     :string           not null
 #  ip_address        :string           not null
 #  user_agent        :text             not null
@@ -14,11 +16,10 @@
 #  postal_code       :string
 #  latitude          :decimal(, )
 #  longitude         :decimal(, )
-#  payable           :boolean          default(FALSE), not null
-#  reason            :string
 #  displayed_at      :datetime         not null
 #  displayed_at_date :date             not null
 #  clicked_at        :datetime
+#  clicked_at_date   :date
 #  fallback_campaign :boolean          default(FALSE), not null
 #
 
@@ -43,8 +44,6 @@ class Impression < ApplicationRecord
 
   # scopes ....................................................................
   scope :clicked, -> { where.not clicked_at: nil }
-  scope :payable, -> { where payable: true }
-  scope :unpayable, -> { where payable: false }
   scope :on, ->(date) { where displayed_at_date: date.to_date }
   scope :between, ->(start_date, end_date) { where displayed_at_date: start_date.to_date..end_date.to_date }
 

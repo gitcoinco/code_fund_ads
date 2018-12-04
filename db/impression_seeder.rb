@@ -30,6 +30,7 @@ class ImpressionSeeder
   end
 
   def cores
+    return 1
     @cores ||= Etc.nprocessors == 1 ? 1 : Etc.nprocessors - 1
   end
 
@@ -44,13 +45,13 @@ class ImpressionSeeder
         months.times { dates << dates.last.advance(months: -1) }
         chunked_dates = dates.in_groups_of((months / cores.to_f).ceil)
         pids = cores.times.map { |i|
-          Process.fork do
+          #Process.fork do
             pid_dates = chunked_dates[i].compact
             max = (max_count_per_core / pid_dates.size.to_f).ceil
             pid_dates.each { |date| create_impressions_for_month date.iso8601, max }
-          end
+          #end
         }
-        pids.each { |pid| Process.waitpid pid }
+        #pids.each { |pid| Process.waitpid pid }
       }
     end
     print "Seeding impressions finish...".ljust(48)
@@ -91,14 +92,15 @@ class ImpressionSeeder
     impression = Impression.new(
       id: SecureRandom.uuid,
       advertiser_id: campaign.user_id,
+      publisher_id: property.user_id,
       campaign_id: campaign.id,
-      campaign_name: campaign.scoped_name,
+      creative_id: campaign.creative_id,
       property_id: property.id,
+      campaign_name: campaign.scoped_name,
       property_name: property.scoped_name,
       ip_address: rand(6).zero? ? Faker::Internet.ip_v6_address : Faker::Internet.public_ip_v4_address,
       user_agent: Faker::Internet.user_agent,
       country_code: rand(6).zero? ? ENUMS::COUNTRIES["United States"] : ENUMS::COUNTRIES.keys.sample,
-      payable: rand(10).zero? ? false : true,
       displayed_at: displayed_at,
       displayed_at_date: displayed_at.to_date,
       clicked_at: rand(100) <= 3 ? displayed_at : nil,

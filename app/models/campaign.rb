@@ -165,19 +165,9 @@ class Campaign < ApplicationRecord
     impressions.select(:property_id).distinct.pluck(:property_id)
   end
 
-  def property_ids_with_payable_impressions(date = nil)
-    return impressions.payable.on(date).select(:property_id).distinct.pluck(:property_id) if date
-    impressions.payable.select(:property_id).distinct.pluck(:property_id)
-  end
-
   def property_ids_with_clicked_impressions(date = nil)
     return impressions.clicked.on(date).select(:property_id).distinct.pluck(:property_id) if date
     impressions.clicked.select(:property_id).distinct.pluck(:property_id)
-  end
-
-  def property_ids_with_clicked_payable_impressions(date = nil)
-    return impressions.clicked.payable.on(date).select(:property_id).distinct.pluck(:property_id) if date
-    impressions.clicked.payable.select(:property_id).distinct.pluck(:property_id)
   end
 
   def matching_properties
