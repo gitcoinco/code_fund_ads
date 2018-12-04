@@ -5,40 +5,46 @@ import { Controller } from 'stimulus';
 import moment from 'moment';
 
 export default class extends Controller {
-  static targets = [ 'form', 'datePicker' ];
+  static targets = ['form', 'datePicker'];
 
   connect() {
     this.initDatePicker();
   }
 
   initDatePicker() {
-    jQuery(this.datePickerTarget).daterangepicker({
-      maxDate: moment(),
-      maxSpan: {
-        months: 1
-      },
-      ranges: {
-        'This Week': [moment().startOf('week'), moment()],
-        'Last Week': [
-          moment()
-            .add(-1, 'week')
-            .startOf('week'),
-          moment()
-            .add(-1, 'week')
-            .endOf('week'),
-        ],
-        'This Month': [moment().startOf('month'), moment()],
-        'Last Month': [
-          moment()
-            .add(-1, 'month')
-            .startOf('month'),
-          moment()
-            .add(-1, 'month')
-            .endOf('month'),
-        ],
-      },
-    }).on('apply.daterangepicker', function (ev, picker) {
-      this.formTarget.submit();
-    }.bind(this));
+    jQuery(this.datePickerTarget)
+      .daterangepicker({
+        opens: 'left',
+        maxDate: moment(),
+        maxSpan: {
+          months: 1,
+        },
+        ranges: {
+          'This Week': [moment().startOf('week'), moment()],
+          'Last Week': [
+            moment()
+              .add(-1, 'week')
+              .startOf('week'),
+            moment()
+              .add(-1, 'week')
+              .endOf('week'),
+          ],
+          'This Month': [moment().startOf('month'), moment()],
+          'Last Month': [
+            moment()
+              .add(-1, 'month')
+              .startOf('month'),
+            moment()
+              .add(-1, 'month')
+              .endOf('month'),
+          ],
+        },
+      })
+      .on(
+        'apply.daterangepicker',
+        function(ev, picker) {
+          this.formTarget.submit();
+        }.bind(this)
+      );
   }
 }

@@ -2,7 +2,7 @@
   <div class="card-body p-4">
     <div class="text-center">
       <div class="mx-auto mb-3">
-        <%= image_tag campaign.creative.large_images.first, class: "img-fluid" %>
+        <%= image_tag campaign.creative.large_image || "missing-260x200.png", class: "img-fluid" %>
       </div>
 
       <!-- Title -->

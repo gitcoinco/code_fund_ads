@@ -51,7 +51,7 @@ class Seeder
       users = build_administrators
       users.concat build_advertisers
       users.concat build_publishers
-      import_csv :users, create_csv(users, Rails.root.join("tmp/users.csv")) unless users.blank?
+      import_csv :users, create_csv(users, Rails.root.join("tmp/users.csv")), User.sequence_name unless users.blank?
     }
     print "verified [#{User.count.to_s.rjust(8)}] total users".ljust(48)
     puts benchmark
@@ -187,7 +187,7 @@ class Seeder
           memo << attributes.values
         end
       }
-      import_csv :properties, create_csv(properties, Rails.root.join("tmp/properties.csv")) unless properties.blank?
+      import_csv :properties, create_csv(properties, Rails.root.join("tmp/properties.csv")), Property.sequence_name unless properties.blank?
     }
     print "verified [#{Property.count.to_s.rjust(8)}] total properties".ljust(48)
     puts benchmark
@@ -202,8 +202,9 @@ class Seeder
     csv_path
   end
 
-  def import_csv(table_name, csv_path)
+  def import_csv(table_name, csv_path, sequence_name)
     ActiveRecord::Base.connection.execute "COPY \"#{table_name}\" FROM '#{csv_path}' CSV;"
+    ActiveRecord::Base.connection.execute "SELECT SETVAL('#{sequence_name}', (SELECT MAX(id) FROM #{table_name}) + 1);"
   rescue => e
     puts "Failed to copy #{csv_path} to Postgres! #{e}"
   ensure

@@ -1,6 +1,6 @@
 <% content_for :breadcrumbs do %>
   <%= render "/@shared/breadcrumbs/dashboard" %>
-  <%= render "/@shared/breadcrumbs/users" %>
+  <%= render "/@shared/breadcrumbs/users" if authorized_user.can_admin_system? %>
   <%= render "/@shared/breadcrumbs/user", user: user, class: "active" %>
 <% end %>
 
