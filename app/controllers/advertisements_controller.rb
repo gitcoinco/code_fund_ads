@@ -39,10 +39,6 @@ class AdvertisementsController < ApplicationController
     @template_mtime ||= File.mtime(template_path)
   end
 
-  def template_cache_key
-    @template_cache_key ||= "templates/#{template_name}/#{template_mtime.to_i}"
-  end
-
   def template
     render_to_string template: "/ad_templates/#{template_name}/show.html.erb", layout: false
   end
@@ -65,21 +61,15 @@ class AdvertisementsController < ApplicationController
     end
   end
 
-  def ad_cache_key
-    @themed_template_cache_key ||= "#{template_cache_key}/#{theme_cache_key}/#{@campaign.cache_key}"
-  end
-
   def render_advertisement
-    Rails.cache.fetch(ad_cache_key) do
-      Premailer.new(
-        template,
-        with_html_string: true,
-        html_fragment: true,
-        css_string: theme,
-        output_encoding: "utf-8",
-        adapter: :nokogiri_fast
-      ).to_inline_css.strip.gsub(/\s\s|\n/, "")
-    end
+    Premailer.new(
+      template,
+      with_html_string: true,
+      html_fragment: true,
+      css_string: theme,
+      output_encoding: "utf-8",
+      adapter: :nokogiri_fast
+    ).to_inline_css.strip.gsub(/\s\s|\n/, "")
   end
 
    def create_virtual_impression
