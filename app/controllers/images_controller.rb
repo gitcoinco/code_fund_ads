@@ -7,8 +7,7 @@ class ImagesController < ApplicationController
     return render_forbidden unless authorized_user.can_view_imageable?(@imageable)
     images = @imageable.images
     return redirect_to(new_image_path) if images.count == 0
-    images = @image_search.apply(images.attachments)
-    @pagy, @images = pagy(images)
+    @images = @image_search.apply(images.attachments)
   end
 
   def edit

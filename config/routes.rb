@@ -14,15 +14,15 @@ Rails.application.routes.draw do
   }
 
   resource :contact, only: [:show, :create]
-  
   resources :dashboards, only: [:show], as: :dashboard
-  resources :campaign_searches, only: [:create, :destroy]
-  resources :property_searches, only: [:create, :destroy]
+  resources :campaign_searches, only: [:create, :update, :destroy]
+  resources :property_searches, only: [:create, :update, :destroy]
   resources :user_searches, only: [:create, :update, :destroy]
+  resources :creative_searches, only: [:create, :update, :destroy]
 
   # polymorphic based on: app/models/concerns/imageable.rb
   scope "/imageables/:imageable_gid/" do
-    resources :image_searches, only: [:create, :destroy]
+    resources :image_searches, only: [:create, :update, :destroy]
     resources :images, except: [:show]
   end
 

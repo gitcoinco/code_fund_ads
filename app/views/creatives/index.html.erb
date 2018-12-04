@@ -10,17 +10,23 @@
 <% content_for :page_heading do %>
   <%= page_heading "Viewing", "Creatives",
     subtitle: "#{pluralize(@pagy.count, "record")} found",
-    icon: "pen-nib" %>
+    icon: "fas fa-palette" %>
 <% end %>
 
-<main id="content" role="main">
-  <div class="u-bg-light-blue-50">
-    <div class="container u-space-1">
-      <p id="notice"><%= notice %></p>
-      <%#= render "/creative_searches/form" %>
-      <div class="bg-white p-4">
-        <%= render "/creatives/table", creatives: @creatives %>
+<main id="content" role="main" class="bg-light">
+  <div class="container space-1">
+    <%= render partial: "/creative_searches/form",
+              layout: "/@shared/collapsable_search_form",
+              locals: { search: @creative_search } %>
+    <div class="mb-2">
+      <div class="card-sm-columns card-md-2-count card-lg-3-count">
+        <%= render partial: "/creatives/creative", collection: @creatives, as: :creative %>
       </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <span><%== pagy_nav_bootstrap(@pagy) if @pagy.pages > 1 %></span>
+      <%= pagy_entries(@pagy) %>
     </div>
   </div>
 </main>

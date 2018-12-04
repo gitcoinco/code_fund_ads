@@ -1,18 +1,16 @@
 <% content_for :breadcrumbs do %>
   <%= render "/@shared/breadcrumbs/dashboard" %>
-  <%= render "/@shared/breadcrumbs/imageables" %>
-  <%= render "/@shared/breadcrumbs/imageable" %>
-  <%= render "/@shared/breadcrumbs/images", class: "active" %>
+  <%= render "/@shared/breadcrumbs/images", imageable: @imageable, class: "active" %>
 <% end %>
 
 <% content_for :actions do %>
-  <%= render "/@shared/actions/add_images" %>
+  <%= render "/@shared/actions/add_images", imageable: @imageable %>
 <% end %>
 
 <% content_for :page_heading do %>
   <%= page_heading "Viewing", "Images",
     subtitle: "for #{@imageable.imageable_name}",
-    icon: "images" %>
+    icon: "fas fa-images" %>
 <% end %>
 
 <main id="content" role="main" class="bg-light">
@@ -20,8 +18,6 @@
     <%= render partial: "/image_searches/form",
               layout: "/@shared/collapsable_search_form",
               locals: { search: @image_search } %>
-    <div class="bg-white p-4">
-      <%= render "/images/table" %>
-    </div>
+    <%= render "/images/grid", imageable: @imageable, images: @images %>
   </div>
 </main>

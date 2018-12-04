@@ -1,12 +1,21 @@
 <% content_for :breadcrumbs do %>
   <%= render "/@shared/breadcrumbs/dashboard" %>
   <%= render "/@shared/breadcrumbs/creatives" %>
-  <%= render "/@shared/breadcrumbs/creative", class: "active" %>
+  <%= render "/@shared/breadcrumbs/creative", creative: @creative, class: "active" %>
 <% end %>
 
-<div class="container mt-3">
-  <p id="notice"><%= notice %></p>
-  <%= page_heading "Viewing", "Creative", subtitle: @creative.name %>
-  <%= link_to 'Edit', edit_creative_path(@creative), class: "btn btn-link" %>
-  <%= link_to 'Back', creatives_path, class: "btn btn-link" %>
-</div>
+<% content_for :actions do %>
+  <%= render "/@shared/actions/edit_creative", creative: @creative %>
+<% end %>
+
+<% content_for :page_heading do %>
+  <%= page_heading "Viewing", "Creative",
+    subtitle: @creative.name,
+    icon: "fas fa-palette" %>
+<% end %>
+
+<main id="content" role="main" class="bg-light">
+  <div class="container space-1">
+    TBD .. waiting on ad rendering to be completed
+  </div>
+</main>

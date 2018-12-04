@@ -11,6 +11,7 @@ environment.config.merge({
       Typed: 'theme/vendor/typed.js/lib/typed.min',
       SVGInjector: 'theme/vendor/svg-injector/dist/svg-injector.min',
       Noty: 'node_modules/noty/lib/noty.min',
+      Circles: 'theme/vendor/circles/circles.min',
     },
   },
 });
@@ -18,13 +19,14 @@ environment.config.merge({
 environment.plugins.prepend(
   'Provide',
   new webpack.ProvidePlugin({
-    jQuery: 'jquery',
-    'window.jQuery': 'jquery',
-    Popper: 'popper.js',
-    Chartist: 'Chartist',
-    Typed: 'Typed',
-    SVGInjector: 'SVGInjector',
-    Noty: 'Noty',
+    jQuery: "jquery",
+    "window.jQuery": "jquery",
+    Popper: "popper.js",
+    Chartist: "Chartist",
+    Typed: "Typed",
+    SVGInjector: "SVGInjector",
+    Noty: "Noty",
+    Circles: "Circles",
   })
 );
 

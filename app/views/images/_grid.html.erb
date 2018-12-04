@@ -1,0 +1,36 @@
+<div class="u-cubeportfolio">
+  <div class="cbp"
+      data-controller="cube-folio"
+      data-layout="mosaic"
+      data-animation="quicksand"
+      data-x-gap="15"
+      data-y-s="15"
+      data-media-queries='[
+        {"width": 1500, "cols": 4},
+        {"width": 1100, "cols": 4},
+        {"width": 800, "cols": 3},
+        {"width": 480, "cols": 2},
+        {"width": 400, "cols": 2}
+      ]'>
+    <% images.each do |image| %>
+      <div class="cbp-item">
+        <%= link_to edit_image_path(imageable.to_gid_param, image), class: "cbp-caption" do %>
+          <div class="cbp-caption-defaultWrap">
+            <%= image_tag image.variant(geometry: "260x200") %>
+          </div>
+          <div class="cbp-caption-activeWrap bg-dark">
+            <div class="cbp-l-caption-alignCenter">
+              <div class="cbp-l-caption-body">
+                <%= tag.h4(image.metadata['name'], class: "h5 text-white mb-0") if image.metadata['name'].present? %>
+                <h4 class="h6 text-white mb-0"><%= image.blob.filename.to_s %></h4>
+                <p class="small text-white-70 mb-0">
+                  <%= "#{image.metadata['width']}×#{image.metadata['height']}" %>
+                </p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

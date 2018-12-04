@@ -2,7 +2,7 @@
   <%= f.input(:name, required: false) %>
     
   <% if authorized_user.can_admin_system? %>
-    <%= f.input(:user_id, label: "Advertiser", collection: User.advertiser.order(last_name: :asc).map { |u| [u.name, u.id] }, required: false, input_html: { data: { controller: "select" }}) %>
+    <%= f.input(:user_id, label: "Advertiser", collection: advertisers_for_select, required: false, input_html: { data: { controller: "select" }}) %>
   <% end %>
   <%= f.input(:statuses, collection: campaign_statuses_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}) %>
   <%= f.input(:countries, collection: countries_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}) %>

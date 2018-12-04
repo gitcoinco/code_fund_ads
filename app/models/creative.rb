@@ -26,7 +26,12 @@ class Creative < ApplicationRecord
   validates :name, length: {maximum: 255, allow_blank: false}
 
   # callbacks .................................................................
+
   # scopes ....................................................................
+  scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
+  scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertisers.search_name(value).or(User.advertisers.search_company(value))) }
+  scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
+
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
 
   # class methods .............................................................
@@ -39,16 +44,43 @@ class Creative < ApplicationRecord
     user.images.where(id: creative_images.select(:active_storage_attachment_id))
   end
 
-  def small_images
-    images.search_metadata_format ENUMS::IMAGE_FORMATS::SMALL
+  def assign_images(blob_id_list = {})
+    assign_small_image(blob_id_list[:small_blob_id]) if blob_id_list[:small_blob_id].present?
+    assign_large_image(blob_id_list[:large_blob_id]) if blob_id_list[:large_blob_id].present?
+    assign_wide_image(blob_id_list[:wide_blob_id]) if blob_id_list[:wide_blob_id].present?
   end
 
-  def large_images
-    images.search_metadata_format ENUMS::IMAGE_FORMATS::LARGE
+  def small_image
+    images.search_metadata_format(ENUMS::IMAGE_FORMATS::SMALL).first
   end
 
-  def wide_images
-    images.search_metadata_format ENUMS::IMAGE_FORMATS::WIDE
+  def assign_small_image(blob_id)
+    creative_image = creative_images.small.first_or_initialize
+    image = user.images.where(blob_id: blob_id).first
+    creative_image.active_storage_attachment_id = image.id
+    creative_image.save!
+  end
+
+  def large_image
+    images.search_metadata_format(ENUMS::IMAGE_FORMATS::LARGE).first
+  end
+
+  def assign_large_image(blob_id)
+    creative_image = creative_images.large.first_or_initialize
+    image = user.images.where(blob_id: blob_id).first
+    creative_image.active_storage_attachment_id = image.id
+    creative_image.save!
+  end
+
+  def wide_image
+    images.search_metadata_format(ENUMS::IMAGE_FORMATS::WIDE).first
+  end
+
+  def assign_wide_image(blob_id)
+    creative_image = creative_images.wide.first_or_initialize
+    image = user.images.where(blob_id: blob_id).first
+    creative_image.active_storage_attachment_id = image.id
+    creative_image.save!
   end
 
   # protected instance methods ................................................
