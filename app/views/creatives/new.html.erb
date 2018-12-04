@@ -1,11 +1,21 @@
 <% content_for :breadcrumbs do %>
   <%= render "/@shared/breadcrumbs/dashboard" %>
   <%= render "/@shared/breadcrumbs/creatives" %>
-  <%= render "/@shared/breadcrumbs/creative", class: "active" %>
+  <%= render "/@shared/breadcrumbs/add_creative", class: "active" %>
 <% end %>
 
-<div class="container mt-3">
-  <%= page_heading "Creating", "Creative", subtitle: @creative.name %>
-  <%= render "/creatives/form", creative: @creative %>
-  <%= link_to "Back", creatives_path, class: "btn btn-link" %>
-</div>
+<% content_for :actions do %>
+  <%= render "/@shared/actions/add_images", imageable: current_user %>
+<% end %>
+
+<% content_for :page_heading do %>
+  <%= page_heading "Adding", "Creative",
+    subtitle: "Fill out the form below",
+    icon: "fas fa-palette" %>
+<% end %>
+
+<main id="content" role="main" class="bg-light">
+  <div class="container space-1">
+    <%= render "/creatives/form", creative: @creative %>
+  </div>
+</main>

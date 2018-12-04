@@ -34,11 +34,15 @@ module ApplicationHelper
   end
 
   def image_formats_for_select
-    ENUMS::IMAGE_FORMATS.values
+    ENUMS::IMAGE_FORMATS.values.map { |f| [f.humanize, f] }
   end
 
   def companies_for_select
-    User.advertiser.where.not(company_name: nil).order(User.arel_table[:company_name].lower).pluck(:company_name).uniq
+    User.advertisers.where.not(company_name: nil).order(User.arel_table[:company_name].lower).pluck(:company_name).uniq
+  end
+
+  def advertisers_for_select
+    User.advertisers.select(:id, :first_name, :last_name).order(:first_name).map { |user| [user.name, user.id] }
   end
 
   def ad_templates_for_select

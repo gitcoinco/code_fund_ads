@@ -60,7 +60,7 @@ class Campaign < ApplicationRecord
   scope :search_negative_keywords, ->(*values) { values.blank? ? all : with_any_negative(*values) }
   scope :search_status, ->(*values) { values.blank? ? all : where(status: values) }
   scope :search_us_hours_only, ->(value) { value.nil? ? all : where(us_hours_only: value) }
-  scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertiser.search_name(value).or(User.advertiser.search_company(value))) }
+  scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertisers.search_name(value).or(User.advertisers.search_company(value))) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
   scope :for_property, ->(property) do

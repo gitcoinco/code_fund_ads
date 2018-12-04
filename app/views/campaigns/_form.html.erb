@@ -4,7 +4,7 @@
 
   <div class="row">
     <% if authorized_user.can_admin_system? %>
-      <%= tag.div f.input(:user_id, label: "Advertiser", collection: User.advertiser.order(last_name: :asc).map { |u| [u.name, u.id] }, required: true,
+      <%= tag.div f.input(:user_id, label: "Advertiser", collection: advertisers_for_select, required: true,
         input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" %>
     <% else %>
       <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
@@ -45,7 +45,7 @@
               <%= f.radio_button :creative_id, creative.id, class: "custom-control-input" %>
               <label class="custom-control-label ml-1" for="campaign_creative_id_<%= creative.id %>">
                 <div class="media ml-2">
-                  <%= image_tag creative.large_images.first, class: "align-self-start mr-3", style: "width: 130px;" %>
+                  <%= image_tag creative.large_image, class: "align-self-start mr-3", style: "width: 130px;" %>
                   <div class="media-body h6 text-black-50 font-weight-normal">
                     <strong class="text-dark"><%= creative.headline %></strong>
                     <%= creative.body %>

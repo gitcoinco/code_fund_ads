@@ -61,7 +61,6 @@ class User < ApplicationRecord
   include Taggable
 
   # relationships .............................................................
-  has_many :assets
   has_many :campaigns
   has_many :creatives
   has_many :impressions_as_advertiser, class_name: "Impression", foreign_key: "advertiser_id"
@@ -174,6 +173,24 @@ class User < ApplicationRecord
 
   def revenue_rate
     0.6
+  end
+
+  def small_images(wrapped = false)
+    list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::SMALL)
+    return list unless wrapped
+    list.map { |i| Image.new(i) }
+  end
+
+  def large_images(wrapped = false)
+    list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::LARGE)
+    return list unless wrapped
+    list.map { |i| Image.new(i) }
+  end
+
+  def wide_images(wrapped = false)
+    list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::WIDE)
+    return list unless wrapped
+    list.map { |i| Image.new(i) }
   end
 
   def to_s

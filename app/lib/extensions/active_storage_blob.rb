@@ -30,6 +30,7 @@ module Extensions
       scope :search_metadata_name, ->(value) { search_metadata :name, value }
       scope :search_metadata_description, ->(value) { search_metadata :description, value }
       scope :search_filename, ->(value) { value.blank? ? all : search_column(:filename, value) }
+      scope :search_user_id, ->(value) { value.blank? ? all : search_column(:record_id, value) }
     end
 
     def set_indexed_metadata

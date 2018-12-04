@@ -1,50 +1,36 @@
-<%= simple_form_for @image, url: image_path(@imageable.to_gid_param, @image) do |f| %>
-  <div class="row mt-5">
-    <div class="col-12">
-      <%= image_tag @image.variant(geometry: "400x400>"), class: "img-thumbnail img-fluid d-block mb-1" %>
-      <%= link_to "View original", @image, target: "_blank" %>
+<%= simple_form_for image, url: image_path(imageable.to_gid_param, image), html: { class: "js-validate" } do |f| %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= render "/@shared/forms/section_heading", title: "Image Settings", subtitle: "Fill out the form" %>
+      
+      <div class="row mb-4">
+        <%= tag.div f.input(:name, required: true), class: "col-12" %>
+        <%= tag.div f.input(:description, required: false, as: :text), class: "col-12" %>
+        <%= tag.div f.input(:format, label: "Format", as: :select, collection: image_formats_for_select, required: true), class: "col-12" %>
+        <div class="col-12 mt-2 mb-2">
+          <%= f.submit "Save Image", class: "btn btn-sm btn-primary transition-3d-hover mr-1" %>  
+          <%= link_to "Cancel", images_path(imageable.to_gid_param), class: "btn btn-sm btn-soft-secondary transition-3d-hover" %>
+        </div>
+      </div>
+
+      <small class="text-muted">* Image files cannot be replaced</small>
     </div>
 
-    <% #################################################################################################### %>
-    <%= render "/@shared/forms/section_heading", title: "Metadata" %>
-
-    <%= tag.div f.input(:name, label: "Name", required: true), class: "col-12 col-md-6" %>
-    <%= tag.div f.input(:format, label: "Format", collection: image_formats_for_select, as: :radio_buttons, wrapper_class: "inline", required: true), class: "col-12 col-md-6" %>
-
-    <%= pseudo_row_divider %>
-
-    <%= tag.div f.input(:description, label: "Description", as: :text), class: "col-12" %>
-
-    <%= pseudo_row_divider %>
-
-    <%= tag.div f.input(:filename, disabled: true, required: true), class: "col-12 col-md-6" %>
-    <%= tag.div f.input(:content_type, disabled: true, required: true), class: "col-12 col-md-6" %>
-
-    <%= pseudo_row_divider %>
-
-    <div class="col-12 col-md-6">
-      <%= f.input :width, label: "Width", disabled: true, required: true,
-        input_html: { value: "#{number_with_precision(@image.width, precision: 0)}px" } %>
+    <div class="col-md-6">
+      <%= image_tag image.variant(geometry: "400x400>"), class: "img-thumbnail img-fluid d-block mb-2" %>
+      <ul class="list-unstyled my-3">
+        <%= details_li("Owner") { link_to imageable.name, imageable } %>
+        <%= details_li("Filename") do %>
+          <%= image.filename.to_s %>
+          <%= link_to(tag.span("", class: "small fas fa-external-link"), image.image_url, target: "_blank") %>
+        <% end %>
+        <%= details_li("Content Type") { image.content_type } %>
+        <%= details_li("Width") { "#{number_with_precision(image.width, precision: 0)}px" } %>
+        <%= details_li("Height") { "#{number_with_precision(image.height, precision: 0)}px" } %>
+        <%= details_li("Size") { number_to_human_size(image.byte_size) } %>
+        <%= details_li("Checksum") { image.checksum } %>
+      </ul>
     </div>
-    <div class="col-12 col-md-6">
-      <%= f.input :height, label: "Height", disabled: true, required: true,
-        input_html: { value: "#{number_with_precision(@image.height, precision: 0)}px" } %>
-    </div>
-
-    <%= pseudo_row_divider %>
-
-    <div class="col-12 col-md-6">
-      <%= f.input :byte_size, label: "Size", disabled: true, required: true,
-        input_html: { value: number_to_human_size(@image.byte_size) } %>
-    </div>
-    <%= tag.div f.input(:checksum, disabled: true, required: true), class: "col-12 col-md-6" %>
-
-    <%= pseudo_row_divider %>
-
-    <%= render "@shared/forms/button_panel" do %>
-      <%= f.button(:submit, value: "Update Image", class: "btn btn-pill btn-primary btn-lg") %>
-      <%= link_to "Delete Image", image_path(@imageable.to_gid_param, @image), class: "btn btn-link btn-lg text-danger", method: :delete,
-        data: { confirm: I18n.t("images.destroy.confirm") } if authorized_user.can_destroy_image?(@image) %>
-    <% end %>
   </div>
+
 <% end %>
