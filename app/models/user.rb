@@ -82,7 +82,6 @@ class User < ApplicationRecord
   scope :search_name, ->(value) { value.blank? ? all : search_column(:first_name, value).or(search_column(:last_name, value)) }
   scope :search_roles, ->(*values) { values.blank? ? all : with_any_roles(*values) }
 
-
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
   #
@@ -193,7 +192,7 @@ class User < ApplicationRecord
     return list unless wrapped
     list.map { |i| Image.new(i) }
   end
-  
+
   def to_s
     full_name
   end

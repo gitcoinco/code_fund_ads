@@ -8,7 +8,6 @@ class ImagesController < ApplicationController
     images = @imageable.images
     return redirect_to(new_image_path) if images.count == 0
     @images = @image_search.apply(images.attachments)
-    # @pagy, @images = pagy(images)
   end
 
   def edit

@@ -23,7 +23,7 @@
           <div class="col-12 mb-3">
             <div class="js-form-message js-focus-state select required creative_small_image u-has-success">
               <label class="form-label select required" for="creative_small_image">
-                Small Image <abbr title="required">*</abbr>
+                Small Image <abbr title="required">*</abbr> <small class="text-muted">(200×200)</small>
               </label>
               <select class="form-control select required"
                       data-target="creative-form.inputSmallBlobId"
@@ -33,20 +33,20 @@
                       name="creative[small_blob_id]"
                       id="creative_small_blob_id"
                       required>
+                <option value="">--- select an image ---<option>
                 <% current_user.small_images.each do |image| %>
                   <%= tag.option(Image.new(image).display_name, value: image.blob_id,
                         data: { image_url: polymorphic_url(image) },
                         selected: creative.small_image == image) %>
                 <% end %>
               </select>
-              <small class="form-text text-muted">200x200</small>
             </div>
           </div>
 
           <div class="col-12 mb-3">
             <div class="js-form-message js-focus-state select required creative_large_image u-has-success">
               <label class="form-label select required" for="creative_large_image">
-                Large Image <abbr title="required">*</abbr>
+                Large Image <abbr title="required">*</abbr> <small class="text-muted">(260×200)</small>
               </label>
               <select class="form-control select required"
                       data-target="creative-form.inputLargeBlobId"
@@ -56,22 +56,21 @@
                       name="creative[large_blob_id]"
                       id="creative_large_blob_id"
                       required>
+                <option value="">--- select an image ---<option>
                 <% current_user.large_images.each do |image| %>
                   <%= tag.option(Image.new(image).display_name, value: image.blob_id,
                         data: { image_url: polymorphic_url(image) },
                         selected: creative.large_image == image) %>
                 <% end %>
               </select>
-              <small class="form-text text-muted">200x200</small>
             </div>
           </div>
 
           <div class="col-12 mb-3">
             <div class="js-form-message js-focus-state select required creative_wide_image u-has-success">
               <label class="form-label select required" for="creative_wide_image">
-                Wide Image <abbr title="required">*</abbr>
+                Wide Image <abbr title="required">*</abbr> <small class="text-muted">(512×320)</small>
               </label>
-              <%= creative.wide_image.inspect %>
               <select class="form-control select required"
                       data-target="creative-form.inputWideBlobId"
                       data-action="change->creative-form#setWideImage"
@@ -80,13 +79,13 @@
                       name="creative[wide_blob_id]"
                       id="creative_wide_blob_id"
                       required>
+                <option value="">--- select an image ---<option>
                 <% current_user.wide_images.each do |image| %>
                   <%= tag.option(Image.new(image).display_name, value: image.blob_id,
                         data: { image_url: polymorphic_url(image) },
                         selected: creative.wide_image == image) %>
                 <% end %>
               </select>
-              <small class="form-text text-muted">512x320</small>
             </div>
           </div>
 
@@ -144,7 +143,12 @@
         <div id="creative-preview" data-target="preview">
           <span class="cf-wrapper">
             <a href="javascript:;" class="cf-img-wrapper" rel="noopener">
-              <%= image_tag creative.large_image ? creative.large_image.variant(geometry: "130x100") : "https://placeimg.com/260/200/tech/sepia", border: 0, height: 100, width: 130, class: "cf-img", data: { target: "creative-form.previewImageUrl" } %>
+              <%= image_tag creative.large_image&.variant(geometry: "130x100") || "missing-260x200.png",
+                    border: 0, height: 100, width: 130, class: "cf-img",
+                    data: {
+                      target: "creative-form.previewImageUrl",
+                      default_image_url: asset_url("missing-260x200.png")
+                    } %>
             </a>
             <a href="javascript:;" class="cf-text" rel="noopener">
               <strong data-target="creative-form.previewHeadline">Gitcoin</strong>

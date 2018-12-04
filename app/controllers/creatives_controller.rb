@@ -18,7 +18,7 @@ class CreativesController < ApplicationController
 
     respond_to do |format|
       if @creative.save
-        @creative.set_images(creative_image_params)
+        @creative.assign_images(creative_image_params)
         format.html { redirect_to @creative, notice: "Creative was successfully created." }
         format.json { render :show, status: :created, location: @creative }
       else
@@ -31,7 +31,7 @@ class CreativesController < ApplicationController
   def update
     respond_to do |format|
       if @creative.update(creative_params)
-        @creative.set_images(creative_image_params)
+        @creative.assign_images(creative_image_params)
         format.html { redirect_to @creative, notice: "Creative was successfully updated." }
         format.json { render :show, status: :ok, location: @creative }
       else

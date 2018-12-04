@@ -6,19 +6,19 @@ import _ from 'lodash';
 
 export default class extends Controller {
   static targets = [
-    "adLength",
-    "inputHeadline",
-    "inputBody",
-    "inputSmallBlobId",
-    "inputLargeBlobId",
-    "inputWideBlobId",
-    "inputTemplateTheme",
-    "previewImageUrl",
-    "previewHeadline",
-    "previewBody",
-    "copyWrapper",
-    "copyWarningWrapper"
-  ]
+    'adLength',
+    'inputHeadline',
+    'inputBody',
+    'inputSmallBlobId',
+    'inputLargeBlobId',
+    'inputWideBlobId',
+    'inputTemplateTheme',
+    'previewImageUrl',
+    'previewHeadline',
+    'previewBody',
+    'copyWrapper',
+    'copyWarningWrapper',
+  ];
 
   initialize() {
     this.setHeadline();
@@ -31,7 +31,8 @@ export default class extends Controller {
   }
 
   checkLimit() {
-    const adLength = this.previewHeadlineTarget.textContent.length + this.previewBodyTarget.textContent.length + 1;
+    const adLength =
+      this.previewHeadlineTarget.textContent.length + this.previewBodyTarget.textContent.length + 1;
     this.setAdLengthCount(adLength);
 
     if (adLength > 85) {
@@ -61,7 +62,8 @@ export default class extends Controller {
 
   setBody() {
     if (_.isEmpty(this.inputBodyTarget.value)) {
-      this.previewBodyTarget.textContent = '🚀 Your body will go here. You can use an emoji to help catch their eye 🤪';
+      this.previewBodyTarget.textContent =
+        '🚀 Your body will go here. You can use an emoji to help catch their eye 🤪';
     } else {
       this.previewBodyTarget.textContent = this.inputBodyTarget.value;
     }
@@ -80,7 +82,7 @@ export default class extends Controller {
       let selectedOption = target.options[target.selectedIndex];
       this.previewImageUrlTarget.src = selectedOption.dataset.imageUrl;
     } else {
-      this.previewImageUrlTarget.src = 'https://placeimg.com/260/200/tech/sepia';
+      this.previewImageUrlTarget.src = this.previewImageUrlTarget.dataset.defaultImageUrl;
     }
   }
 
