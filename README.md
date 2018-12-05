@@ -16,18 +16,18 @@ _Replacing `PROPERTY_ID` with their actual id._
 
 The URLs/routes responsible for ad rendering are:
 
-- GET /properties/1/funder.js → `advertisements#show`
+- __GET__ `/properties/1/funder.js` → `advertisements#show` - _embed script_
 
   This is the embed JavaScript that publishers place on their site.
   It includes the ad HTML and some logic to inject the HTML to the page and setup the links and impression pixel.
 
-- GET /display/1.gif → `impressions#show` - creates an impression
+- __GET__ `/display/1.gif` → `impressions#show` - _creates an impression_
 
   This is the impression pixels image.
   The impression is created after this image is requested and served successfully.
   This means that a matching campaign was found and the embed JavaScript did its job correctly.
 
-- GET /impressions/1/click?campaign_id=1 → `advertisement_clicks#show` - creates a click
+- __GET__ `/impressions/76bfe997-898a-418c-8f0b-6298b7dd320a/click?campaign_id=1` → `advertisement_clicks#show` - _creates a click_
 
   This is the proxy/redirect URL that allows us to track the click.
   We immediately redirect to the advertiser and background the work to mark the associated impression as clicked.
