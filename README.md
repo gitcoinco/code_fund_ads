@@ -12,7 +12,7 @@ publishers can add CodeFund to their site by including the CodeFund script and a
 
 _Replacing `PROPERTY_ID` with their actual id._
 
-## Ad Rendering
+## Ad Rendering and Impression/Click Tracking
 
 The URLs/routes responsible for ad rendering are:
 
@@ -23,14 +23,14 @@ The URLs/routes responsible for ad rendering are:
 
 - __GET__ `/display/1.gif` → `impressions#show` - _creates an impression_
 
-  This is the impression pixels image.
+  This is the impression pixel image.
   The impression is created after this image is requested and served successfully.
   This means that a matching campaign was found and the embed JavaScript did its job correctly.
 
 - __GET__ `/impressions/76bfe997-898a-418c-8f0b-6298b7dd320a/click?campaign_id=1` → `advertisement_clicks#show` - _creates a click_
 
   This is the proxy/redirect URL that allows us to track the click.
-  We immediately redirect to the advertiser and background the work to mark the associated impression as clicked.
+  We immediately redirect to the advertiser's campaign URL and background the work to mark the associated impression as clicked.
 
 ## Enums
 
