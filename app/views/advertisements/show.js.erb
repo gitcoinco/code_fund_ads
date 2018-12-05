@@ -3,6 +3,8 @@
     <% if @advertisement_html %>
     try {
       document.getElementById('codefund').innerHTML = '<%= @advertisement_html.html_safe %>';
+      document.querySelector('#codefund img[data-src="impression_url"]').src = '<%= @impression_url %>';
+      document.querySelectorAll('#codefund a[data-href="campaign_url"]').forEach(function (a) { a.href = '<%= @campaign_url %>'; });
     } catch (e) {
       console.log('CodeFund detected an error! Please verify an element exists with id="codefund". ' + e.message);
     }

@@ -1,9 +1,14 @@
 class CreateClickJob < ApplicationJob
-  queue_as :default
+  queue_as :click
 
-  def perform(impression_id, clicked_at_string)
-    impression = Impression.between(1.day.ago, Date.current).where(id: impression_id).first
+  def perform(impression_id, campaign_id, clicked_at_string)
+    campaign = Campaign.find_by(id: campaign_id)
+    return unless campaign
+
+    clicked_at = Time.parse(clicked_at_string)
+    impression = Impression.partitioned(campaign.user, clicked_at.advance(months: -1), clicked_at.advance(days: 1)).find_by(id: impression_id)
     return if impression.clicked?
+
     clicked_at = Time.parse(clicked_at_string)
     records_saved = Impression.between(1.day.ago, Date.current).
       where(id: impression_id).

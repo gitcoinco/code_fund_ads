@@ -3,14 +3,17 @@ class AdvertisementClicksController < ApplicationController
 
   def show
     # TODO: handle missing impression/campaign/url
-    subquery = Impression.select(:campaign_id).where(id: params[:impression_id])
-    url = Campaign.where(id: subquery).pluck(:url).first
+    url = Campaign.where(id: params[:campaign_id]).pluck(:url).first
     redirect_to url
   end
 
   private
 
   def create_click
-    CreateClickJob.perform_later params[:impression_id], Time.current.iso8601
+    CreateClickJob.perform_later(
+      params[:impression_id],
+      params[:campaign_id],
+      Time.current.iso8601,
+    )
   end
 end

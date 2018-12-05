@@ -1,5 +1,5 @@
 class CreateImpressionJob < ApplicationJob
-  queue_as :default
+  queue_as :impression
 
   def perform(id, campaign_id, property_id, ip_address, user_agent, displayed_at_string)
     campaign = Campaign.find_by(id: campaign_id)

@@ -1,20 +1,31 @@
 class AdvertisementsController < ApplicationController
   protect_from_forgery except: :show
-  before_action :set_template_and_theme
-  after_action :create_virtual_impression
+  before_action :set_campaign
+  before_action :set_virtual_impression_id, if: -> { @campaign.present? }
+  before_action :set_template_and_theme, if: -> { @campaign.present? }
+  after_action :create_virtual_impression, if: -> { @campaign.present? }
 
   def show
-    @virtual_impression_id = SecureRandom.uuid
+    if @campaign
+      @advertisement_html = render_advertisement
+      @campaign_url = advertisement_clicks_path(@virtual_impression_id, campaign_id: @campaign.id)
+      @impression_url = impression_url(@virtual_impression_id, format: :gif)
+    end
 
-    # TODO: smarter campaign selection
-    @campaign = Campaign.active.available_on(Date.current).for_property_id(params[:property_id]).limit(10).to_a.sample
-    @campaign ||= Campaign.active.available_on(Date.current).fallback_for_property_id(params[:property_id]).limit(10).to_a.sample
-
-    @advertisement_html = render_advertisement if @campaign
     respond_to { |format| format.js }
   end
 
   private
+
+  def set_virtual_impression_id
+    @virtual_impression_id = SecureRandom.uuid
+  end
+
+  def set_campaign
+    # TODO: smarter campaign selection
+    @campaign = Campaign.active.available_on(Date.current).for_property_id(params[:property_id]).limit(10).to_a.sample
+    @campaign ||= Campaign.active.available_on(Date.current).fallback_for_property_id(params[:property_id]).limit(10).to_a.sample
+  end
 
   attr_reader :template_name, :theme_name
 
@@ -40,6 +51,10 @@ class AdvertisementsController < ApplicationController
     @template_mtime ||= File.mtime(template_path)
   end
 
+  def template_cache_key
+    @template_cache_key ||= "templates/#{template_name}/#{template_mtime.to_i}"
+  end
+
   def template
     render_to_string template: "/ad_templates/#{template_name}/show.html.erb", layout: false
   end
@@ -62,15 +77,21 @@ class AdvertisementsController < ApplicationController
     end
   end
 
+  def advertisement_cache_key
+    @ad_cache_key ||= "#{@campaign.cache_key}/#{template_cache_key}/#{theme_cache_key}"
+  end
+
   def render_advertisement
-    Premailer.new(
-      template,
-      with_html_string: true,
-      html_fragment: true,
-      css_string: theme,
-      output_encoding: "utf-8",
-      adapter: :nokogiri_fast
-    ).to_inline_css.strip.gsub(/\s\s|\n/, "")
+    Rails.cache.fetch(advertisement_cache_key) do
+      Premailer.new(
+        template,
+        with_html_string: true,
+        html_fragment: true,
+        css_string: theme,
+        output_encoding: "utf-8",
+        adapter: :nokogiri_fast
+      ).to_inline_css.strip.gsub(/\s\s|\n/, "")
+    end
   end
 
   def create_virtual_impression

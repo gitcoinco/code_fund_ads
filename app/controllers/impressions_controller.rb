@@ -3,7 +3,7 @@ class ImpressionsController < ApplicationController
   after_action :create_impression
 
   def show
-    respond_to { |format| format.svg }
+    send_file Rails.root.join("app/assets/images/pixel.gif"), type: "image/gif", disposition: "inline"
   end
 
   private
