@@ -26,19 +26,18 @@
 #  updated_at            :datetime         not null
 #
 
-code_fund:
+# IMPORTANT: Limit campaigns fixtures to [1] using only the minimum required data
+#            Additional setup should be perfomed in the test suite
+
+exclusive:
   user: advertiser
-  creative: code_fund
+  creative: exclusive
   status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
   name: CodeFund
-  url: https://codefund.io
-  start_date: <%= Date.current %>
-  end_date: <%= Date.current.advance(days: 90) %>
-  total_budget_cents: 500_000
+  url: https://advertiser.codefund.io
+  total_budget_cents: <%= Monetize.parse("$5,000 USD").cents %>
   total_budget_currency: USD
-  daily_budget_cents: 5_500
+  daily_budget_cents: <%= Monetize.parse("$55 USD").cents %>
   daily_budget_currency: USD
-  ecpm_cents: 300
+  ecpm_cents: <%= Monetize.parse("$3 USD").cents %>
   ecpm_currency: USD
-  countries: [<%= ENUMS::DEVELOPED_MARKET_COUNTRIES.keys %>]
-  keywords: [<%= ENUMS::KEYWORDS.values %>]

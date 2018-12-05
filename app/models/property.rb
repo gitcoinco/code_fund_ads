@@ -13,7 +13,7 @@
 #  ad_theme                    :string
 #  language                    :string           not null
 #  keywords                    :string           default([]), not null, is an Array
-#  prohibited_advertisers      :bigint(8)        default([]), is an Array
+#  prohibited_advertiser_ids   :bigint(8)        default([]), not null, is an Array
 #  prohibit_fallback_campaigns :boolean          default(FALSE), not null
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
@@ -64,29 +64,29 @@ class Property < ApplicationRecord
   scope :for_campaign, ->(campaign) {
     relation = active.with_any_keywords(*campaign.keywords).without_any_keywords(*campaign.negative_keywords)
     relation = relation.where(prohibit_fallback_campaigns: false) if campaign.fallback?
-    # TODO: omit prohibitited advertisers
+    relation = relation.without_all_prohibited_advertiser_ids(campaign.id)
     relation
   }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
   #
-  # - with_all_included_prohibited_advertisers
-  # - with_any_included_prohibited_advertisers
-  # - with_included_prohibited_advertisers
-  # - without_all_included_prohibited_advertisers
-  # - without_any_included_prohibited_advertisers
-  # - without_included_prohibited_advertisers
+  # - with_all_prohibited_advertiser_ids
+  # - with_any_prohibited_advertiser_ids
+  # - with_prohibited_advertiser_ids
+  # - without_all_prohibited_advertiser_ids
+  # - without_any_prohibited_advertiser_ids
+  # - without_prohibited_advertiser_ids
   #
-  # - with_all_included_keywords
-  # - with_any_included_keywords
-  # - with_included_keywords
-  # - without_all_included_keywords
-  # - without_any_included_keywords
-  # - without_included_keywords
+  # - with_all_keywords
+  # - with_any_keywords
+  # - with_keywords
+  # - without_all_keywords
+  # - without_any_keywords
+  # - without_keywords
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  tag_columns :prohibited_advertisers
+  tag_columns :prohibited_advertiser_ids
   tag_columns :keywords
   has_one_attached :screenshot
   has_paper_trail on: %i[create update destroy], only: %i[
@@ -95,7 +95,7 @@ class Property < ApplicationRecord
     keywords
     language
     prohibit_fallback_campaigns
-    prohibited_advertisers
+    prohibited_advertiser_ids
     name
     property_type
     status

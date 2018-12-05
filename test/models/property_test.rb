@@ -13,7 +13,7 @@
 #  ad_theme                    :string
 #  language                    :string           not null
 #  keywords                    :string           default([]), not null, is an Array
-#  prohibited_advertisers      :bigint(8)        default([]), is an Array
+#  prohibited_advertiser_ids   :bigint(8)        default([]), not null, is an Array
 #  prohibit_fallback_campaigns :boolean          default(FALSE), not null
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null

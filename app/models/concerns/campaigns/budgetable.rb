@@ -18,7 +18,7 @@ module Campaigns
     end
 
     def budget_surplus?
-      total_unusable_budget > 0
+      total_unusable_budget > Money.new(100, "USD")
     end
 
     def total_remaining_usable_budget

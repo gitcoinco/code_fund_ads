@@ -52,8 +52,8 @@ class Campaign < ApplicationRecord
   scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
   scope :active, -> { where status: ENUMS::CAMPAIGN_STATUSES::ACTIVE }
   scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
+  scope :fallback, -> { where fallback: true }
   scope :available_on, ->(date) { where(arel_table[:start_date].lteq(date.to_date)).where(arel_table[:end_date].gteq(date.to_date)) }
-  scope :available, -> { available_on Date.current }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :search_countries, ->(*values) { values.blank? ? all : with_any_countries(*values) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
@@ -63,10 +63,35 @@ class Campaign < ApplicationRecord
   scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertisers.search_name(value).or(User.advertisers.search_company(value))) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
-  scope :for_property, ->(property) do
-    relation = available.active.with_any_keywords(*property.keywords).without_any_negative_keywords(*property.keywords)
-    relation = relation.where(fallback: false) if property.prohibit_fallback_campaigns
-    relation
+  scope :for_property, ->(property) { for_property_id property.id }
+  scope :for_property_id, ->(property_id) do
+    query = <<~SQL
+      SELECT c.id FROM (SELECT keywords, prohibited_advertiser_ids FROM properties WHERE id = ?) p
+      LEFT JOIN LATERAL
+      (
+        SELECT id
+        FROM campaigns
+        WHERE NOT p.prohibited_advertiser_ids @> ARRAY[id]
+        AND p.keywords && keywords
+        AND p.keywords && negative_keywords  = false
+      ) c ON true
+    SQL
+
+    where "campaigns.id IN (#{sanitize_sql_array([query, property_id])})"
+  end
+  scope :fallback_for_property_id, ->(property_id) do
+    query = <<~SQL
+      SELECT c.id FROM (SELECT prohibit_fallback_campaigns FROM properties WHERE id = ?) p
+      LEFT JOIN LATERAL
+      (
+        SELECT id
+        FROM campaigns
+        WHERE fallback = true
+        AND p.prohibit_fallback_campaigns = false
+      ) c ON true
+    SQL
+
+    where "campaigns.id IN (#{sanitize_sql_array([query, property_id])})"
   end
 
   # Scopes and helpers provied by tag_columns
@@ -140,19 +165,9 @@ class Campaign < ApplicationRecord
     impressions.select(:property_id).distinct.pluck(:property_id)
   end
 
-  def property_ids_with_payable_impressions(date = nil)
-    return impressions.payable.on(date).select(:property_id).distinct.pluck(:property_id) if date
-    impressions.payable.select(:property_id).distinct.pluck(:property_id)
-  end
-
   def property_ids_with_clicked_impressions(date = nil)
     return impressions.clicked.on(date).select(:property_id).distinct.pluck(:property_id) if date
     impressions.clicked.select(:property_id).distinct.pluck(:property_id)
-  end
-
-  def property_ids_with_clicked_payable_impressions(date = nil)
-    return impressions.clicked.payable.on(date).select(:property_id).distinct.pluck(:property_id) if date
-    impressions.clicked.payable.select(:property_id).distinct.pluck(:property_id)
   end
 
   def matching_properties

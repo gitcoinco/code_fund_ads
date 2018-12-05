@@ -26,6 +26,7 @@ class Creative < ApplicationRecord
   validates :name, length: {maximum: 255, allow_blank: false}
 
   # callbacks .................................................................
+  after_commit :touch_campaigns, on: [:update]
 
   # scopes ....................................................................
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
@@ -42,6 +43,10 @@ class Creative < ApplicationRecord
 
   def images
     user.images.where(id: creative_images.select(:active_storage_attachment_id))
+  end
+
+  def add_image!(image)
+    CreativeImage.create! creative: self, image: image
   end
 
   def assign_images(blob_id_list = {})
@@ -86,4 +91,10 @@ class Creative < ApplicationRecord
   # protected instance methods ................................................
 
   # private instance methods ..................................................
+
+  private
+
+  def touch_campaigns
+    campaigns.map(&:touch)
+  end
 end

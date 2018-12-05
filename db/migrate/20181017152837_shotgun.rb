@@ -85,31 +85,36 @@ class Shotgun < ActiveRecord::Migration[5.2]
     create_table :impressions, id: false, options: "PARTITION BY RANGE (advertiser_id, displayed_at_date)" do |t|
       t.uuid :id, null: false, default: "gen_random_uuid()"
       t.bigint :advertiser_id, null: false
+      t.bigint :publisher_id, null: false
       t.bigint :campaign_id, null: false
-      t.string :campaign_name, null: false
+      t.bigint :creative_id, null: false
       t.bigint :property_id, null: false
+      t.string :campaign_name, null: false
       t.string :property_name, null: false
-      t.string :ip, null: false
+      t.string :ip_address, null: false
       t.text :user_agent, null: false
-      t.string :country
+      t.string :country_code
       t.string :postal_code
       t.decimal :latitude
       t.decimal :longitude
-      t.boolean :payable, default: false, null: false
-      t.string :reason
       t.datetime :displayed_at, default: "now()", null: false
       t.date :displayed_at_date, default: "now()::date", null: false
       t.datetime :clicked_at
+      t.date :clicked_at_date
       t.boolean :fallback_campaign, default: false, null: false
 
-      t.index :displayed_at_date
-      t.index "date_trunc('hour', displayed_at)", name: "index_impressions_on_displayed_at_hour"
+      t.index [:id, :advertiser_id, :displayed_at_date], unique: true
       t.index :advertiser_id
       t.index :campaign_id
-      t.index :campaign_name
+      t.index :creative_id
       t.index :property_id
+      t.index :campaign_name
       t.index :property_name
-      t.index :payable
+      t.index :country_code
+      t.index :displayed_at_date
+      t.index "date_trunc('hour', displayed_at)", name: "index_impressions_on_displayed_at_hour"
+      t.index :clicked_at_date
+      t.index "date_trunc('hour', clicked_at)", name: "index_impressions_on_clicked_at_hour"
     end
 
     reversible do |dir|
@@ -132,7 +137,7 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.string :ad_theme
       t.string :language, null: false
       t.string :keywords, default: [], null: false, array: true
-      t.bigint :prohibited_advertisers, default: [], array: true
+      t.bigint :prohibited_advertiser_ids, default: [], null: false, array: true
       t.boolean :prohibit_fallback_campaigns, default: false, null: false
       t.timestamps
 
@@ -141,7 +146,7 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.index :status
       t.index "lower(name)", name: "index_properties_on_name"
       t.index :keywords, using: :gin
-      t.index :prohibited_advertisers, using: :gin
+      t.index :prohibited_advertiser_ids, using: :gin
     end
 
     create_table :publisher_invoices do |t|

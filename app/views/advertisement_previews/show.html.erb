@@ -1,0 +1,15 @@
+<h1>Preview</h1>
+<h2><%= @property.scoped_name %></h2>
+
+<hr>
+
+<div id="codefund">No ads available</div>
+<%= javascript_include_tag advertisements_path(params[:property_id]), async: true %>
+
+<hr>
+
+<ul>
+  <% Property.where(ad_template: "default", ad_theme: "light").each do |property| %>
+    <%= tag.li link_to(property.scoped_name, advertisement_previews_path(property)) %>
+  <% end %>
+</ul>

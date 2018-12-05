@@ -282,21 +282,22 @@ ALTER SEQUENCE public.creatives_id_seq OWNED BY public.creatives.id;
 CREATE TABLE public.impressions (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     advertiser_id bigint NOT NULL,
+    publisher_id bigint NOT NULL,
     campaign_id bigint NOT NULL,
-    campaign_name character varying NOT NULL,
+    creative_id bigint NOT NULL,
     property_id bigint NOT NULL,
+    campaign_name character varying NOT NULL,
     property_name character varying NOT NULL,
-    ip character varying NOT NULL,
+    ip_address character varying NOT NULL,
     user_agent text NOT NULL,
     country_code character varying,
     postal_code character varying,
     latitude numeric,
     longitude numeric,
-    payable boolean DEFAULT false NOT NULL,
-    reason character varying,
     displayed_at timestamp without time zone NOT NULL,
     displayed_at_date date NOT NULL,
     clicked_at timestamp without time zone,
+    clicked_at_date date,
     fallback_campaign boolean DEFAULT false NOT NULL
 )
 PARTITION BY RANGE (advertiser_id, displayed_at_date);
@@ -326,7 +327,7 @@ CREATE TABLE public.properties (
     ad_theme character varying,
     language character varying NOT NULL,
     keywords character varying[] DEFAULT '{}'::character varying[] NOT NULL,
-    prohibited_advertisers bigint[] DEFAULT '{}'::bigint[],
+    prohibited_advertiser_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
     prohibit_fallback_campaigns boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -590,13 +591,6 @@ ALTER TABLE ONLY public.impressions_default ALTER COLUMN id SET DEFAULT public.g
 
 
 --
--- Name: impressions_default payable; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.impressions_default ALTER COLUMN payable SET DEFAULT false;
-
-
---
 -- Name: impressions_default fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -785,17 +779,17 @@ CREATE INDEX impressions_default_campaign_name_idx ON public.impressions_default
 
 
 --
--- Name: index_impressions_on_campaign_name_and_property_name; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_on_clicked_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_impressions_on_campaign_name_and_property_name ON ONLY public.impressions USING btree (campaign_name, property_name);
+CREATE INDEX index_impressions_on_clicked_at_date ON ONLY public.impressions USING btree (clicked_at_date);
 
 
 --
--- Name: impressions_default_campaign_name_property_name_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_default_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_campaign_name_property_name_idx ON public.impressions_default USING btree (campaign_name, property_name);
+CREATE INDEX impressions_default_clicked_at_date_idx ON public.impressions_default USING btree (clicked_at_date);
 
 
 --
@@ -813,6 +807,20 @@ CREATE INDEX impressions_default_country_code_idx ON public.impressions_default 
 
 
 --
+-- Name: index_impressions_on_creative_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_creative_id ON ONLY public.impressions USING btree (creative_id);
+
+
+--
+-- Name: impressions_default_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_creative_id_idx ON public.impressions_default USING btree (creative_id);
+
+
+--
 -- Name: index_impressions_on_displayed_at_hour; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -824,6 +832,20 @@ CREATE INDEX index_impressions_on_displayed_at_hour ON ONLY public.impressions U
 --
 
 CREATE INDEX impressions_default_date_trunc_idx ON public.impressions_default USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: index_impressions_on_clicked_at_hour; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_clicked_at_hour ON ONLY public.impressions USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_default_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_date_trunc_idx1 ON public.impressions_default USING btree (date_trunc('hour'::text, clicked_at));
 
 
 --
@@ -841,17 +863,17 @@ CREATE INDEX impressions_default_displayed_at_date_idx ON public.impressions_def
 
 
 --
--- Name: index_impressions_on_payable; Type: INDEX; Schema: public; Owner: -
+-- Name: index_impressions_on_id_and_advertiser_id_and_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_impressions_on_payable ON ONLY public.impressions USING btree (payable);
+CREATE UNIQUE INDEX index_impressions_on_id_and_advertiser_id_and_displayed_at_date ON ONLY public.impressions USING btree (id, advertiser_id, displayed_at_date);
 
 
 --
--- Name: impressions_default_payable_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_default_id_advertiser_id_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_payable_idx ON public.impressions_default USING btree (payable);
+CREATE UNIQUE INDEX impressions_default_id_advertiser_id_displayed_at_date_idx ON public.impressions_default USING btree (id, advertiser_id, displayed_at_date);
 
 
 --
@@ -1051,10 +1073,10 @@ CREATE INDEX index_properties_on_name ON public.properties USING btree (lower((n
 
 
 --
--- Name: index_properties_on_prohibited_advertisers; Type: INDEX; Schema: public; Owner: -
+-- Name: index_properties_on_prohibited_advertiser_ids; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_properties_on_prohibited_advertisers ON public.properties USING gin (prohibited_advertisers);
+CREATE INDEX index_properties_on_prohibited_advertiser_ids ON public.properties USING gin (prohibited_advertiser_ids);
 
 
 --
@@ -1205,10 +1227,10 @@ ALTER INDEX public.index_impressions_on_campaign_name ATTACH PARTITION public.im
 
 
 --
--- Name: impressions_default_campaign_name_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+-- Name: impressions_default_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
 --
 
-ALTER INDEX public.index_impressions_on_campaign_name_and_property_name ATTACH PARTITION public.impressions_default_campaign_name_property_name_idx;
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_default_clicked_at_date_idx;
 
 
 --
@@ -1219,10 +1241,24 @@ ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.imp
 
 
 --
+-- Name: impressions_default_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_default_creative_id_idx;
+
+
+--
 -- Name: impressions_default_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
 --
 
 ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_default_date_trunc_idx;
+
+
+--
+-- Name: impressions_default_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_default_date_trunc_idx1;
 
 
 --
@@ -1233,10 +1269,10 @@ ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION publi
 
 
 --
--- Name: impressions_default_payable_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+-- Name: impressions_default_id_advertiser_id_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
 --
 
-ALTER INDEX public.index_impressions_on_payable ATTACH PARTITION public.impressions_default_payable_idx;
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_default_id_advertiser_id_displayed_at_date_idx;
 
 
 --
@@ -1261,7 +1297,6 @@ SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
 ('20181017152837'),
-('20181123143528'),
 ('20181126182831'),
 ('20181126220213'),
 ('20181126220214'),

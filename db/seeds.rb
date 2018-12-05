@@ -70,7 +70,7 @@ class Seeder
   end
 
   def build_advertisers
-    target = 100
+    target = 250
     count = User.advertisers.count
     return [] if count >= target
     (count..target).map do
@@ -100,6 +100,7 @@ class Seeder
         next if advertiser.campaigns.count > 0
         add_small_image advertiser
         add_large_image advertiser
+        add_wide_image advertiser
         generate_creatives advertiser
         generate_campaigns advertiser
       end
@@ -109,30 +110,44 @@ class Seeder
   end
 
   def add_small_image(advertiser)
-    advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/code-fund-100x100.png")),
-      filename: "code-fund-100x100.png",
+    advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-200x200.png")),
+      filename: "seed-200x200.png",
       content_type: "image/png",
       metadata: {
         identified: true,
-        width: 100,
-        height: 100,
+        width: 200,
+        height: 200,
         analyzed: true,
-        name: "CodeFund Small",
+        name: "seed-200x200.png",
         format: ENUMS::IMAGE_FORMATS::SMALL,
       }
   end
 
   def add_large_image(advertiser)
-    advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/code-fund-260x200.png")),
-      filename: "code-fund-100x100.png",
+    advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-260x200.png")),
+      filename: "seed-260x200.png",
       content_type: "image/png",
       metadata: {
         identified: true,
         width: 260,
         height: 200,
         analyzed: true,
-        name: "CodeFund Large",
+        name: "seed-260x200.png",
         format: ENUMS::IMAGE_FORMATS::LARGE,
+      }
+  end
+
+  def add_wide_image(advertiser)
+    advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-512x320.jpg")),
+      filename: "seed-512x320.jpg",
+      content_type: "image/jpeg",
+      metadata: {
+        identified: true,
+        width: 512,
+        height: 320,
+        analyzed: true,
+        name: "seed-512x320.jpg",
+        format: ENUMS::IMAGE_FORMATS::WIDE,
       }
   end
 
@@ -155,7 +170,7 @@ class Seeder
   end
 
   def generate_campaigns(advertiser)
-    rand(1..4).times do
+    rand(2..8).times do
       CampaignSeeder.create_campaign advertiser, campaign_dates.sample
     end
   end
@@ -170,7 +185,7 @@ class Seeder
             id: @property_id += 1,
             user_id: publisher.id,
             property_type: ENUMS::PROPERTY_TYPES.values.sample,
-            status: ENUMS::PROPERTY_STATUSES.values.sample,
+            status: rand(5).zero? ? ENUMS::PROPERTY_STATUSES.values.sample : ENUMS::PROPERTY_STATUSES::ACTIVE,
             name: "#{Faker::SiliconValley.invention} #{SecureRandom.hex.upcase[0, 6]}",
             url: Faker::SiliconValley.url,
             ad_template: ENUMS::AD_TEMPLATES.values.sample,
@@ -182,7 +197,7 @@ class Seeder
           )
           attributes = property.attributes.merge(
             "keywords" => "{#{ENUMS::KEYWORDS.values.sample(25).join(",")}}",
-            "prohibited_advertisers" => "{}"
+            "prohibited_advertiser_ids" => "{}"
           )
           memo << attributes.values
         end
