@@ -14,7 +14,7 @@ _Replacing `PROPERTY_ID` with their actual id._
 
 ## Ad Rendering
 
-The routes/urls responsible for ad rendering are:
+The URLs/routes responsible for ad rendering are:
 
 - GET /properties/1/funder.js → `advertisements#show`
 
