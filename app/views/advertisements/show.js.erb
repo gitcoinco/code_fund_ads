@@ -1,5 +1,5 @@
 (function() {
-  function handler () {
+  function embed () {
     <% if @advertisement_html %>
     try {
       document.getElementById('codefund').innerHTML = '<%= @advertisement_html.html_safe %>';
@@ -11,7 +11,7 @@
     <% else %>
       console.log('CodeFund does not have a advertiser for you at this time.');
     <% end %>
+    document.removeEventListener('DOMContentLoaded', embed);
   };
-
-  document.addEventListener('DOMContentLoaded', handler);
+  (document.readyState === 'loading') ? document.addEventListener('DOMContentLoaded', embed) : embed();
 })();
