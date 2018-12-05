@@ -13,8 +13,8 @@ Rails.application.routes.draw do
     invitations: "invitations",
   }
 
-  resource :dashboard, only: [:show]
   resource :contact, only: [:show, :create]
+  resources :dashboards, only: [:show], as: :dashboard
   resources :campaign_searches, only: [:create, :update, :destroy]
   resources :property_searches, only: [:create, :update, :destroy]
   resources :user_searches, only: [:create, :update, :destroy]

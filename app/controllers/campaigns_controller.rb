@@ -2,6 +2,7 @@ class CampaignsController < ApplicationController
   include Sortable
 
   before_action :authenticate_user!
+  before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
   before_action :set_campaign_search, only: [:index]
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
@@ -9,9 +10,15 @@ class CampaignsController < ApplicationController
   # GET /campaigns.json
   def index
     campaigns = Campaign.order(order_by).includes(:user, :creative)
-    campaigns = campaigns.where(user: @user) if @user
+    if authorized_user.can_admin_system?
+      campaigns = campaigns.where(user: @user) if @user
+    else
+      campaigns = campaigns.where(user: current_user)
+    end
     campaigns = @campaign_search.apply(campaigns)
     @pagy, @campaigns = pagy(campaigns)
+
+    render "/campaigns/for_user/index" if @user
   end
 
   # GET /campaigns/1
@@ -79,6 +86,10 @@ class CampaignsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_campaign
     @campaign = Campaign.find(params[:id])
+  end
+
+  def set_user
+    @user = User.find(params[:user_id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

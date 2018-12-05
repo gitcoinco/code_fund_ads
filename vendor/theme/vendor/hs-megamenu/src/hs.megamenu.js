@@ -134,14 +134,10 @@
     mobileSpeed: 400,
     mobileEasing: 'linear',
 
-    beforeOpen: function () {
-    },
-    beforeClose: function () {
-    },
-    afterOpen: function () {
-    },
-    afterClose: function () {
-    }
+    beforeOpen: function () {},
+    beforeClose: function () {},
+    afterOpen: function () {},
+    afterClose: function () {}
   };
 
   /**
@@ -150,7 +146,6 @@
    * @protected
    */
   MegaMenu.prototype.initialize = function () {
-
     var self = this,
       $w = $(window);
 
@@ -177,23 +172,24 @@
 
     });
 
-    $(document)
-      .on('click.HSMegaMenu', function (e) {
+    $(document).on('click.HSMegaMenu touchstart.HSMegaMenu', 'body', function (e) {
 
-        var $parents = $(e.target).parents(self.itemsSelector);
-        self.closeAll($parents.add($(e.target)));
+      var $parents = $(e.target).parents(self.itemsSelector);
 
-      })
-      .on('keyup.HSMegaMenu', function (e) {
+      self.closeAll($parents.add($(e.target)));
 
-        if (e.keyCode && e.keyCode === 27) {
+    });
 
-          self.closeAll();
+    $w.on('keyup.HSMegaMenu', function (e) {
 
-          isMenuOpened = false;
-        }
+      if (e.keyCode && e.keyCode === 27) {
 
-      });
+        self.closeAll();
+
+        isMenuOpened = false;
+      }
+
+    });
 
     if (window.innerWidth <= this.options.breakpoint) this.initMobileBehavior();
     else if (window.innerWidth > this.options.breakpoint) this.initDesktopBehavior();
@@ -792,6 +788,8 @@
 
     this._updateMenuBounds();
 
+    this.menu.show();
+
     if (this.options.animationOut) {
       this.menu.removeClass(this.options.animationOut);
     }
@@ -799,7 +797,9 @@
       this.options.afterOpen.call(this, this.$element, this.menu);
     }
 
-    if (this.options.animationIn) this.menu.addClass(this.options.animationIn);
+    if (this.options.animationIn) {
+      this.menu.addClass(this.options.animationIn)
+    }
 
     return this;
   }
@@ -816,14 +816,15 @@
 
     if (!this.menu.length) return this;
 
-    if (!this.options.animationOut) {
-      this.$element.removeClass(this.activeItemClass.slice(1));
-    }
+    this.$element.removeClass(this.activeItemClass.slice(1));
 
-    if (this.options.animationIn) this.menu.removeClass(this.options.animationIn);
+    this.menu.hide();
+
+    if (this.options.animationIn) {
+      this.menu.removeClass(this.options.animationIn);
+    }
     if (this.options.animationOut) {
-      this.menu
-        .addClass(this.options.animationOut);
+      this.menu.addClass(this.options.animationOut);
     }
     else {
       this.options.afterClose.call(this, this.$element, this.menu);
@@ -969,7 +970,7 @@
    * @public
    */
 
-  $.fn.HSMegaMenu = function() {
+  $.fn.HSMegaMenu = function () {
     var _ = this,
       opt = arguments[0],
       args = Array.prototype.slice.call(arguments, 1),

@@ -45,7 +45,7 @@
             <!-- List Links -->
             <ul class="list-unstyled u-sidebar--account__list">
               <li class="u-sidebar--account__list-item">
-                <%= link_to dashboard_path, class: "u-sidebar--account__list-link" do %>
+                <%= link_to default_dashboard_path(current_user), class: "u-sidebar--account__list-link" do %>
                   <span class="fas fa-home u-sidebar--account__list-icon mr-2"></span>
                   Dashboard
                 <% end %>

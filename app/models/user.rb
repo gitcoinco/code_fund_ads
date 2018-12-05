@@ -149,6 +149,7 @@ class User < ApplicationRecord
   # class methods .............................................................
   class << self
     def find_version_author(version)
+      return unless version.terminator
       find(version.terminator)
     end
   end

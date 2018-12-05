@@ -1,17 +1,3 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/dashboard" %>
-  <%= render "/@shared/breadcrumbs/properties" %>
-  <%= render "/@shared/breadcrumbs/property", property: @commentable, class: "active" %>
+<%= render layout: "/properties/show_layout", locals: { property: @commentable } do %>
+  <%= render "/comments/table", commentable: @commentable, comments: @comments %>
 <% end %>
-
-<% content_for :actions do %>
-  <%= render "/@shared/actions/edit_property", property: @commentable %>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Viewing", "Property",
-    subtitle: @commentable.name,
-    icon: "fas fa-browser" %>
-<% end %>
-
-<%= render "/comments/table", commentable: @commentable, comments: @comments %>

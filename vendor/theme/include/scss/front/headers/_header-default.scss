@@ -269,6 +269,10 @@
     width: 100%;
     max-width: 2.75rem;
     margin-right: 1rem;
+
+    &--sm {
+      max-width: 1.75rem;
+    }
   }
 
   &-title {

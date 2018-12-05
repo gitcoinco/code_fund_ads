@@ -24,7 +24,7 @@
             data-src="<%= @property.screenshot.attached? ? url_for(@property.screenshot) : "" %>"
             data-caption="<%= @property.name %>"
             data-speed="700">
-            <%= image_tag(@property.screenshot.attached? ? @property.screenshot : "", class: "img-fluid shadow-primary-lg rounded mb-4") %>
+            <%= image_tag(@property.screenshot.attached? ? @property.screenshot : "missing-screenshot.jpg", class: "img-fluid shadow-primary-lg rounded mb-4") %>
             <span class="u-media-viewer__container">
               <span class="u-media-viewer__icon">
                 <span class="fas fa-plus u-media-viewer__icon-inner"></span>
