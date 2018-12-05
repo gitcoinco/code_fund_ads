@@ -17,6 +17,8 @@ module UsersHelper
   end
 
   def default_dashboard_path(user)
-    dashboard_path(user.advertiser? ? "advertiser" : "publisher")
+    return dashboard_path("administrator") if user.has_role?("administrator")
+    return dashboard_path("advertiser")    if user.has_role?("advertiser")
+    dashboard_path("publisher")
   end
 end

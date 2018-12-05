@@ -31,7 +31,6 @@
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
-    <%= render "/dashboards/advertiser" if @context == "advertiser" %>
-    <%= render "/dashboards/publisher"  if @context == "publisher" %>
+    <%= render "/dashboards/#{@context}" %>
   </div>
 </main>

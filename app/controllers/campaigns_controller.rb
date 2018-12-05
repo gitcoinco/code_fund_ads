@@ -18,7 +18,7 @@ class CampaignsController < ApplicationController
     campaigns = @campaign_search.apply(campaigns)
     @pagy, @campaigns = pagy(campaigns)
 
-    render "/properties/for_user/index" if @user
+    render "/campaigns/for_user/index" if @user
   end
 
   # GET /campaigns/1
