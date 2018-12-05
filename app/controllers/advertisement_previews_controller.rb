@@ -1,5 +1,5 @@
 class AdvertisementPreviewsController < ApplicationController
-  layout "minimal"
+  layout false
   before_action :set_property
 
   private
