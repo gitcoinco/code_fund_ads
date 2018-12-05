@@ -1,5 +1,7 @@
 # [WIP] CodeFund Ads
 
+CodeFund is an ethical and discreet ad platform that funds open-source... helping your favorite projects thrive.
+
 ## Publisher JavaScript Embedding
 
 After being approved on the CodeFund platform,
