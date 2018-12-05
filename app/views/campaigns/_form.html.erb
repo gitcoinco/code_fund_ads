@@ -47,7 +47,7 @@
   <%= render "/@shared/forms/section_heading", title: "Creative", subtitle: "Pick which creative you would like to use" %>
   
   <div class="row" data-target="campaign-form.creativesWrapper">
-    <%= render partial: "/user_creative_options/options",
+    <%= render partial: "/creative_options/options",
         locals: {
           selected_creative_id: campaign.creative_id,
           creatives: campaign.user.creatives.order(name: :asc)

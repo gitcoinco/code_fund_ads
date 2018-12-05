@@ -1,4 +1,4 @@
-class UserCreativeOptionsController < ApplicationController
+class CreativeOptionsController < ApplicationController
   before_action :set_user
 
   def show

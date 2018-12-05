@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :property_searches, only: [:create, :update, :destroy]
   resources :user_searches, only: [:create, :update, :destroy]
   resources :creative_searches, only: [:create, :update, :destroy]
+  resource :creative_options, only: [:show]
 
   # polymorphic based on: app/models/concerns/imageable.rb
   scope "/imageables/:imageable_gid/" do
@@ -70,7 +71,6 @@ Rails.application.routes.draw do
     resources :creatives, only: [:index], as: :user_creatives
     resources :versions, only: [:index], as: :user_versions
     resources :comments, only: [:index], as: :user_comments
-    resource :user_creative_options, only: [:show], path: "/creative_options"
     resource :identicon, only: [:show], format: :png, as: :user_identicon, path: "/identicon.png"
     resource :impersonations, only: [:update], as: :user_impersonation, path: "/impersonate"
   end

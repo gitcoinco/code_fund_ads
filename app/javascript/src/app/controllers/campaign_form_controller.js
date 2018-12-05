@@ -1,5 +1,5 @@
 import { Controller } from 'stimulus';
-import Rails from 'rails-ujs';
+// import Rails from 'rails-ujs';
 import { Binding } from '@stimulus/core/dist/src/binding';
 
 export default class extends Controller {
@@ -13,7 +13,7 @@ export default class extends Controller {
   updateCreativeOptions(event) {
     const selectedId = this.formTarget.dataset.selectedCreativeId;
     const advertiserId = this.advertiserSelectFieldTarget.value;
-    const partialUrl = `/users/${advertiserId}/creative_options?selected_id=${selectedId}`;
+    const partialUrl = `/creative_options?user_id=${advertiserId}&selected_id=${selectedId}`;
 
     fetch(partialUrl, {
       method: 'GET',
