@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :property_searches, only: [:create, :update, :destroy]
   resources :user_searches, only: [:create, :update, :destroy]
   resources :creative_searches, only: [:create, :update, :destroy]
+  resource :creative_options, only: [:show]
 
   # polymorphic based on: app/models/concerns/imageable.rb
   scope "/imageables/:imageable_gid/" do

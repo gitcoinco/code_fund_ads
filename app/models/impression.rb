@@ -43,7 +43,7 @@ class Impression < ApplicationRecord
   after_commit :set_property_advertiser, on: [:create]
 
   # scopes ....................................................................
-  scope :partitioned, ->(advertiser, start_date, end_date=nil) {
+  scope :partitioned, ->(advertiser, start_date, end_date = nil) {
     where(advertiser: advertiser).between(start_date, end_date || start_date)
   }
   scope :clicked, -> { where.not clicked_at: nil }

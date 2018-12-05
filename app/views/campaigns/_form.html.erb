@@ -1,11 +1,21 @@
-<%= simple_form_for campaign, html: { class: "js-validate" }, wrapper: :front_form do |f| %>
+<%= simple_form_for campaign, html: {
+  class: "js-validate",
+  data: {
+    controller: "campaign-form",
+    target: "campaign-form.form",
+    selected_creative_id: campaign.creative_id
+  }
+}, wrapper: :front_form do |f| %>
   <%= render "/@shared/forms/section_heading", title: "Campaign Details", subtitle: "Tell us about your campaign" %>
   <%= render "/@shared/forms/error_messages", object: campaign %>
 
   <div class="row">
     <% if authorized_user.can_admin_system? %>
       <%= tag.div f.input(:user_id, label: "Advertiser", collection: advertisers_for_select, required: true,
-        input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" %>
+        input_html: { class: "form-control", data: {
+          controller: "select",
+          target: "campaign-form.advertiserSelectField"
+        }}), class: "col-md-6 mb-3" %>
     <% else %>
       <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
       <div class="col-md-6 mb-3">
@@ -35,35 +45,13 @@
   <hr class="mt-3 mb-4" />
 
   <%= render "/@shared/forms/section_heading", title: "Creative", subtitle: "Pick which creative you would like to use" %>
-
-  <div class="row">
-    <% Creative.order(name: :asc).each do |creative| %>
-      <div class="col-md-6 mb-3">
-        <div class="card border-0">
-          <div class="card-body p-3">
-            <div class="custom-control custom-radio d-flex align-items-center small text-muted">
-              <%= f.radio_button :creative_id, creative.id, class: "custom-control-input" %>
-              <label class="custom-control-label ml-1" for="campaign_creative_id_<%= creative.id %>">
-                <div class="media ml-2">
-                  <%= image_tag creative.large_image, class: "align-self-start mr-3", style: "width: 130px;" %>
-                  <div class="media-body h6 text-black-50 font-weight-normal">
-                    <strong class="text-dark"><%= creative.headline %></strong>
-                    <%= creative.body %>
-                  </div>
-                </div>
-              </label>
-            </div>
-          </div>
-        </div>
-      </div>
-    <% end %>
-    <div class="col-md-6 mb-3">
-      <div class="card border-0 bg-white  ">
-        <div class="card-body p-5 text-center">
-          <%= link_to "Add New Creative", new_creative_path, class: "btn btn-link btn-lg" %>
-        </div>
-      </div>
-    </div>
+  
+  <div class="row" data-target="campaign-form.creativesWrapper">
+    <%= render partial: "/creative_options/options",
+        locals: {
+          selected_creative_id: campaign.creative_id,
+          creatives: campaign.user.creatives.order(name: :asc)
+        } %>
   </div>
 
   <hr class="mt-3 mb-4" />
