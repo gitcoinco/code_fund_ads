@@ -45,7 +45,7 @@
             <!-- List Links -->
             <ul class="list-unstyled u-sidebar--account__list">
               <li class="u-sidebar--account__list-item">
-                <%= link_to dashboard_path, class: "u-sidebar--account__list-link" do %>
+                <%= link_to default_dashboard_path(current_user), class: "u-sidebar--account__list-link" do %>
                   <span class="fas fa-home u-sidebar--account__list-icon mr-2"></span>
                   Dashboard
                 <% end %>
@@ -128,7 +128,7 @@
 
         <!-- SVG Background Shape -->
         <div class="position-absolute right-0 bottom-0 left-0">
-          <img class="js-svg-injector" src="../../assets/svg/components/wave-bottom-with-dots.svg" alt="Image Description"
+          <img class="js-svg-injector" src="/assets/svg/components/wave-bottom-with-dots.svg" alt="Image Description"
                   data-parent="#SVGwaveWithDots">
         </div>
         <!-- End SVG Background Shape -->

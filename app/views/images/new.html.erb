@@ -1,21 +1,17 @@
 <% content_for :breadcrumbs do %>
   <%= render "/@shared/breadcrumbs/dashboard" %>
-  <%= render "/@shared/breadcrumbs/imageables" %>
-  <%= render "/@shared/breadcrumbs/imageable" %>
-  <%= render "/@shared/breadcrumbs/images" %>
-  <%= render "/@shared/breadcrumbs/image", class: "active" %>
+  <%= render "/@shared/breadcrumbs/images", imageable: @imageable %>
+  <%= render "/@shared/breadcrumbs/add_image", class: "active" %>
 <% end %>
 
 <% content_for :page_heading do %>
-  <%= page_heading "Adding", "Images",
+  <%= page_heading "Add", "Images",
     subtitle: "for #{@imageable.imageable_name}",
-    icon: "images" %>
+    icon: "fas fa-images" %>
 <% end %>
 
-<main id="content" role="main">
-  <div class="u-bg-light-blue-50">
-    <div class="container u-space-1">
-      <%= render "/images/form_upload" %>
-    </div>
+<main id="content" role="main" class="bg-light">
+  <div class="container space-1">
+    <%= render "/images/form_upload", imageable: @imageable %>
   </div>
-</div>
+</main>

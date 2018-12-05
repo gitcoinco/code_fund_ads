@@ -2,15 +2,19 @@ class CampaignsController < ApplicationController
   include Sortable
 
   before_action :authenticate_user!
+  before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
   before_action :set_campaign_search, only: [:index]
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
-  before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
 
   # GET /campaigns
   # GET /campaigns.json
   def index
     campaigns = Campaign.order(order_by).includes(:user, :creative)
-    campaigns = campaigns.where(user: @user) if @user
+    if authorized_user.can_admin_system?
+      campaigns = campaigns.where(user: @user) if @user
+    else
+      campaigns = campaigns.where(user: current_user)
+    end
     campaigns = @campaign_search.apply(campaigns)
     @pagy, @campaigns = pagy(campaigns)
 
@@ -85,11 +89,7 @@ class CampaignsController < ApplicationController
   end
 
   def set_user
-    @user = if params[:user_id] == "me"
-      current_user
-    else
-      User.find(params[:user_id])
-    end
+    @user = User.find(params[:user_id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

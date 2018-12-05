@@ -7,6 +7,7 @@ ruby "2.5.3"
 
 gem "active_link_to",     "~> 1.0.5"
 gem "acts_as_commentable_with_threading", "~> 2.0.1"
+gem "aws-sdk-s3",         "~> 1.29.0", require: false
 gem "bootsnap",           ">= 1.1.0", require: false
 gem "cable_ready",        "~> 2.0.7"
 gem "country_select",     "~> 3.1.1"

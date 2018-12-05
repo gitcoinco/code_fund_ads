@@ -10,7 +10,7 @@
       <style><%= Diffy::CSS %></style>
         <table class="table">
         <% @versionable.attributes.each do |name, val| %>
-          <% if val != @version.reify[name] %>
+          <% if @version.reify && val != @version.reify[name] %>
             <tr>
               <td><%= name.humanize.titleize %></td>
               <td><%= diff(@version.reify[name], val) %></td>

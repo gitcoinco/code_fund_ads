@@ -13,6 +13,7 @@ module Extensions
       scope :search_metadata_format, ->(*values) { values.blank? ? all : where(blob_id: blob_relation.search_metadata_format(*values)) }
       scope :search_metadata_name, ->(value) { value.blank? ? all : where(blob_id: blob_relation.search_metadata_name(value)) }
       scope :search_metadata_description, ->(value) { value.blank? ? all : where(blob_id: blob_relation.search_metadata_description(value)) }
+      scope :search_user_id, ->(value) { value.blank? ? all : where(blob_id: blob_relation.search_user_id(value)) }
     end
 
     def my_record?(record)

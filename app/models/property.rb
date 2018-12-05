@@ -59,7 +59,7 @@ class Property < ApplicationRecord
   scope :search_property_type, ->(*values) { values.blank? ? all : where(property_type: values) }
   scope :search_status, ->(*values) { values.blank? ? all : where(status: values) }
   scope :search_url, ->(value) { value.blank? ? all : search_column(:url, value) }
-  scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.publisher.search_name(value)) }
+  scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.publishers.search_name(value)) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :for_campaign, ->(campaign) {
     relation = active.with_any_keywords(*campaign.keywords).without_any_keywords(*campaign.negative_keywords)

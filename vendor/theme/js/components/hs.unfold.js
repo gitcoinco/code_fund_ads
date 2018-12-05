@@ -25,12 +25,10 @@
       unfoldHideOnScroll: true,
       unfoldHideOnBlur: false,
       unfoldDelay: 350,
-      afterOpen: function (invoker) {
-      },
-      beforeClose: function (invoker) {
-      },
-      afterClose: function (invoker) {
-      }
+      unfoldOpenedElement: 'init',
+      afterOpen: function (invoker) {},
+      beforeClose: function (invoker) {},
+      afterClose: function (invoker) {}
     },
 
     /**
@@ -103,7 +101,11 @@
 
       });
 
-      $(window).on('click', function () {
+      $(document).on('click touchstart', 'body', function (e) {
+
+        if(e.target.id == self._baseConfig.unfoldOpenedElement) return;
+
+        if($(e.target).closest('#' + self._baseConfig.unfoldOpenedElement).length) return;
 
         self._pageCollection.each(function (i, el) {
 
@@ -121,18 +123,6 @@
           }
 
           $(el).data('HSUnfold').config.beforeClose.call(self.target, self.element);
-
-        });
-
-      });
-
-      self._pageCollection.each(function (i, el) {
-
-        var target = $(el).data('HSUnfold').config.unfoldTarget;
-
-        $(target).on('click', function (e) {
-
-          e.stopPropagation();
 
         });
 
@@ -204,7 +194,8 @@
      */
     _bindEvents: function ($invoker, eventType, delay) {
 
-      var $unfold = $($invoker.data('unfold-target'));
+      var self = this,
+        $unfold = $($invoker.data('unfold-target'));
 
       if (eventType === 'hover' && !_isTouch()) {
 
@@ -265,6 +256,8 @@
           var $curInvoker = $(this),
             $unfoldNotHasInnerUnfolds = $('[data-unfold-target].active:not(.target-of-invoker-has-unfolds)'),
             $unfoldHasInnerUnfold = $('[data-unfold-target].active.target-of-invoker-has-unfolds');
+
+          self._baseConfig.unfoldOpenedElement = $curInvoker.data('HSUnfold').target[0].id;
 
           if (!$curInvoker.data('HSUnfold')) return;
 

@@ -14,7 +14,7 @@
       <tr>
         <td><%= version.index %></td>
         <td><%= version.created_at %></td>
-        <td><%= link_to find_version_author(version), user_path(find_version_author(version)) %></td>
+        <td><%= link_to find_version_author(version), user_path(find_version_author(version)) rescue "Not Assigned" %></td>
         <td><%= version.event.humanize %></td>
         <td class="text-right">
           <a data-controller="remote-modal"

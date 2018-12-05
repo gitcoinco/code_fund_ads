@@ -100,6 +100,6 @@ class AdvertisementsController < ApplicationController
       campaign_id: @campaign.id,
       property_id: params[:property_id].to_i,
       ip_address: request.remote_ip,
-    }, expires_in: 20.seconds
+    }, expires_in: 30.seconds
   end
 end

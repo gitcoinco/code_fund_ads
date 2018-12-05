@@ -51,7 +51,7 @@ class Seeder
       users = build_administrators
       users.concat build_advertisers
       users.concat build_publishers
-      import_csv :users, create_csv(users, Rails.root.join("tmp/users.csv")) unless users.blank?
+      import_csv :users, create_csv(users, Rails.root.join("tmp/users.csv")), User.sequence_name unless users.blank?
     }
     print "verified [#{User.count.to_s.rjust(8)}] total users".ljust(48)
     puts benchmark
@@ -100,6 +100,7 @@ class Seeder
         next if advertiser.campaigns.count > 0
         add_small_image advertiser
         add_large_image advertiser
+        add_wide_image advertiser
         generate_creatives advertiser
         generate_campaigns advertiser
       end
@@ -109,30 +110,44 @@ class Seeder
   end
 
   def add_small_image(advertiser)
-    advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/code-fund-100x100.png")),
-      filename: "code-fund-100x100.png",
+    advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-200x200.png")),
+      filename: "seed-200x200.png",
       content_type: "image/png",
       metadata: {
         identified: true,
-        width: 100,
-        height: 100,
+        width: 200,
+        height: 200,
         analyzed: true,
-        name: "CodeFund Small",
+        name: "seed-200x200.png",
         format: ENUMS::IMAGE_FORMATS::SMALL,
       }
   end
 
   def add_large_image(advertiser)
-    advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/code-fund-260x200.png")),
-      filename: "code-fund-100x100.png",
+    advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-260x200.png")),
+      filename: "seed-260x200.png",
       content_type: "image/png",
       metadata: {
         identified: true,
         width: 260,
         height: 200,
         analyzed: true,
-        name: "CodeFund Large",
+        name: "seed-260x200.png",
         format: ENUMS::IMAGE_FORMATS::LARGE,
+      }
+  end
+
+  def add_wide_image(advertiser)
+    advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-512x320.jpg")),
+      filename: "seed-512x320.jpg",
+      content_type: "image/jpeg",
+      metadata: {
+        identified: true,
+        width: 512,
+        height: 320,
+        analyzed: true,
+        name: "seed-512x320.jpg",
+        format: ENUMS::IMAGE_FORMATS::WIDE,
       }
   end
 
@@ -187,7 +202,7 @@ class Seeder
           memo << attributes.values
         end
       }
-      import_csv :properties, create_csv(properties, Rails.root.join("tmp/properties.csv")) unless properties.blank?
+      import_csv :properties, create_csv(properties, Rails.root.join("tmp/properties.csv")), Property.sequence_name unless properties.blank?
     }
     print "verified [#{Property.count.to_s.rjust(8)}] total properties".ljust(48)
     puts benchmark
@@ -202,8 +217,9 @@ class Seeder
     csv_path
   end
 
-  def import_csv(table_name, csv_path)
+  def import_csv(table_name, csv_path, sequence_name)
     ActiveRecord::Base.connection.execute "COPY \"#{table_name}\" FROM '#{csv_path}' CSV;"
+    ActiveRecord::Base.connection.execute "SELECT SETVAL('#{sequence_name}', (SELECT MAX(id) FROM #{table_name}) + 1);"
   rescue => e
     puts "Failed to copy #{csv_path} to Postgres! #{e}"
   ensure

@@ -1,22 +1,21 @@
 <% content_for :breadcrumbs do %>
   <%= render "/@shared/breadcrumbs/dashboard" %>
-  <%= render "/@shared/breadcrumbs/imageables" %>
-  <%= render "/@shared/breadcrumbs/imageable" %>
-  <%= render "/@shared/breadcrumbs/images" %>
-  <%= render "/@shared/breadcrumbs/image", class: "active" %>
+  <%= render "/@shared/breadcrumbs/images", imageable: @imageable %>
+  <%= render "/@shared/breadcrumbs/edit_image", imageable: @imageable, image: @image, class: "active" %>
+<% end %>
+
+<% content_for :actions do %>
+  <%= render "/@shared/actions/delete_image", imageable: @imageable, image: @image %>
 <% end %>
 
 <% content_for :page_heading do %>
   <%= page_heading "Edit", "Image",
     subtitle: "for #{@imageable.imageable_name}",
-    icon: "images" %>
+    icon: "fas fa-images" %>
 <% end %>
 
-<main id="content" role="main">
-  <div class="u-bg-light-blue-50">
-    <div class="container u-space-1">
-      <%= render "/images/form_metadata" %>
-      <%= link_to "Cancel", images_path, class: "btn btn-link" %>
-    </div>
+<main id="content" role="main" class="bg-light">
+  <div class="container space-1">
+    <%= render "/images/form_metadata", imageable: @imageable, image: @image %>
   </div>
-</div>
+</main>
