@@ -7,7 +7,7 @@ class DownloadMaxmindFilesJob < ApplicationJob
   queue_as :low
 
   def perform
-    download(geoip2_country_uri, geoip2_country_path).
+    download(geoip2_city_uri, geoip2_city_path).
       then { |path| unzip path }.
       then { |path| untar path }
   end
@@ -20,12 +20,12 @@ class DownloadMaxmindFilesJob < ApplicationJob
     end
   end
 
-  def geoip2_country_uri
+  def geoip2_city_uri
     URI "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz"
   end
 
-  def geoip2_country_path
-    maxmind_path.join "GeoIP2-Country.tar.gz"
+  def geoip2_city_path
+    maxmind_path.join "GeoLite2-City.tar.gz"
   end
 
   def download(uri, local_path)
