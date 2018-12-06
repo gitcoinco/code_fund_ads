@@ -21,10 +21,21 @@ class AdvertisementsController < ApplicationController
     @virtual_impression_id = SecureRandom.uuid
   end
 
+  def ip_info
+    @ip_info ||= MMDB.lookup(request.remote_ip)
+  end
+
   def set_campaign
-    # TODO: smarter campaign selection
-    @campaign = Campaign.active.available_on(Date.current).for_property_id(params[:property_id]).limit(10).to_a.sample
-    @campaign ||= Campaign.active.available_on(Date.current).fallback_for_property_id(params[:property_id]).limit(10).to_a.sample
+    country_code = ip_info&.country&.iso_code
+    campaigns = Campaign.active.available_on(Date.current).for_property_id(params[:property_id])
+    campaigns = campaigns.with_all_countries(country_code) if country_code
+    @campaign = campaigns.limit(10).sample
+
+    if @campaign.nil?
+      campaigns = Campaign.active.available_on(Date.current).fallback_for_property_id(params[:property_id])
+      campaigns = campaigns.with_all_countries(country_code) if country_code
+      @campaign = campaigns.limit(10).sample
+    end
   end
 
   attr_reader :template_name, :theme_name
