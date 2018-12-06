@@ -1,0 +1,5 @@
+<%= render layout: "/properties/show_layout", locals: { property: @property } do %>
+  <% @property.keywords.sort.each do |keyword| %>
+    <span class="btn btn-xs btn-soft-primary mb-2"><%= keyword %></span>
+  <% end %>
+<% end %>

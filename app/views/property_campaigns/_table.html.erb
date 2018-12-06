@@ -1,0 +1,30 @@
+<div class="table-responsive">
+  <table class="js-datatable table table-striped table-compact table-borderless u-datatable u-datatable__striped u-datatable__trigger">
+    <thead>
+      <tr class="border-bottom">
+        <th style="width: 40%;">Name</th>
+        <th class="text-center" style="width: 10%;"><span class="d-block small text-muted">current</span>eCPM</th>
+        <th class="text-center" style="width: 10%;">Impressions</th>
+        <th class="text-center" style="width: 10%;">Clicks</th>
+        <th class="text-center" style="width: 10%;"><span class="d-block small text-muted">average</span>CTR</th>
+        <th class="text-center" style="width: 10%;"><span class="d-block small text-muted">total</span>Earnings</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% campaigns.each do |campaign| %>
+      <tr>
+        <td class="text-left align-middle text-secondary"><%= link_to campaign.name, campaign %></td>
+        <td class="text-center align-middle text-secondary"><%= number_to_currency campaign.ecpm %></td>
+        <td class="text-center align-middle text-secondary">TBD</td>
+        <td class="text-center align-middle text-secondary">TBD</td>
+        <td class="text-center align-middle text-secondary">TBD</td>
+        <td class="text-center align-middle text-secondary">TBD</td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-between align-items-center">
+    <span><%== pagy_nav_bootstrap(pagy) if pagy.pages > 1 %></span>
+    <%= pagy_entries(pagy) %>
+  </div>
+</div>

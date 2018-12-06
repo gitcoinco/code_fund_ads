@@ -1,0 +1,3 @@
+<%= render layout: "/properties/show_layout", locals: { property: @property } do %>
+  <%= render "/property_campaigns/table", property: @property, campaigns: @campaigns, pagy: @pagy %>
+<% end %>
