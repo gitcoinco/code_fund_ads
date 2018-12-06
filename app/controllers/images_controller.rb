@@ -10,6 +10,11 @@ class ImagesController < ApplicationController
     @images = @image_search.apply(images.attachments)
   end
 
+  def create
+    @imageable.images.attach(*imageable_params[:images])
+    head :ok
+  end
+
   def edit
     image = @imageable.images.find(params[:id])
     return render_forbidden unless authorized_user.can_update_image?(image)
@@ -23,11 +28,6 @@ class ImagesController < ApplicationController
     image.blob.save
     flash[:notice] = I18n.t("images.update.success")
     redirect_to edit_image_path(@imageable.to_gid_param, image)
-  end
-
-  def create
-    @imageable.images.attach(*imageable_params[:images])
-    head :ok
   end
 
   def destroy
