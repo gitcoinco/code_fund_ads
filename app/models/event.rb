@@ -1,3 +1,17 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id             :bigint(8)        not null, primary key
+#  eventable_id   :integer          not null
+#  eventable_type :string           not null
+#  tags           :string           default([]), is an Array
+#  body           :text             not null
+#  user_id        :integer          not null
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
 class Event < ApplicationRecord
   # extends ...................................................................
 
@@ -17,11 +31,11 @@ class Event < ApplicationRecord
 
   # Helper class method to lookup all events assigned
   # to all eventable types for a given user.
-  scope :find_events_by_user, ->(user) { where(user_id: user.id).order("created_at DESC") }
+  scope :by_user, ->(user) { where(user_id: user.id).order("created_at DESC") }
 
   # Helper class method to look up all events for
   # eventable class name and eventable id.
-  scope :find_events_for_eventable, ->(eventable_str, eventable_id) do
+  scope :for_eventable, ->(eventable_str, eventable_id) do
     where(eventable_type: eventable_str.to_s, eventable_id: eventable_id).order("created_at DESC")
   end
 
@@ -44,9 +58,6 @@ class Event < ApplicationRecord
 
   # class methods .............................................................
   class << self
-    alias by_user find_events_by_user
-    alias for_eventable find_events_for_eventable
-
     # Helper class method that allows you to build an event
     # by passing a eventable object, body text and tags
     def build_from(obj, body, tags = [])
@@ -63,9 +74,6 @@ class Event < ApplicationRecord
   # public instance methods ...................................................
 
   # protected instance methods ................................................
-  protected
 
   # private instance methods ..................................................
-  private
-
 end
