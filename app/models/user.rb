@@ -57,6 +57,7 @@ class User < ApplicationRecord
 
   # includes ..................................................................
   include Users::Presentable
+  include Eventable
   include Imageable
   include Taggable
 
@@ -136,7 +137,6 @@ class User < ApplicationRecord
   )
   has_one_attached :avatar
   acts_as_commentable
-  acts_as_eventable
   has_paper_trail on: %i[create update destroy], only: %i[
     api_access
     api_key

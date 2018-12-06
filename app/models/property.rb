@@ -24,6 +24,7 @@ class Property < ApplicationRecord
 
   # includes ..................................................................
   include Properties::Presentable
+  include Eventable
   include Taggable
   include Imageable
   include Impressionable
@@ -103,7 +104,6 @@ class Property < ApplicationRecord
     url
     user_id
   ]
-  acts_as_eventable
 
   # class methods .............................................................
   class << self

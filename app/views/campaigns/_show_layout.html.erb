@@ -17,34 +17,22 @@
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
     <ul class="nav nav-classic">
-      <li class="nav-item">
-        <%= active_link_to "Dashboard", campaign_dashboards_path(campaign),
-          data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= active_link_to "Details", campaign_path(campaign), active: :exact,
-          data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= active_link_to "Targeting", campaign_targeting_path(campaign),
-          data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= active_link_to "Budget", campaign_budget_path(campaign),
-          data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= active_link_to "Properties", campaign_properties_path(campaign),
-          data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= active_link_to "Comments", campaign_comments_path(campaign),
-          data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link" %>
-      </li>
-      <li class="nav-item">
-        <%= active_link_to "Versions", campaign_versions_path(campaign),
-          data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link" %>
-      </li>
+      <%= tag.li(active_link_to("Dashboard", campaign_dashboards_path(campaign),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Details", campaign_path(campaign), active: :exact,
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Targeting", campaign_targeting_path(campaign),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Budget", campaign_budget_path(campaign),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Properties", campaign_properties_path(campaign),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Comments", campaign_comments_path(campaign),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Events", campaign_events_path(campaign),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Versions", campaign_versions_path(campaign),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
     </ul>
     
     <div class="bg-white border border-top-0 p-4">

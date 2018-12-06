@@ -1,0 +1,3 @@
+<%= render layout: "/users/show_layout", locals: { user: @eventable } do %>
+  <%= render "/events/table", eventable: @eventable, events: @events %>
+<% end %>

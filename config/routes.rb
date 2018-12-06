@@ -2,7 +2,6 @@ require "sidekiq/web"
 Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
 
 Rails.application.routes.draw do
-  get 'events/index'
   root to: "pages#index"
 
   authenticate :user, lambda { |user| AuthorizedUser.new(user).can_admin_system? } do
@@ -39,9 +38,14 @@ Rails.application.routes.draw do
     resources :campaign_properties, only: [:index], path: "/properties"
     resources :versions, only: [:index], as: :campaign_versions, path: "/revisions"
     resources :comments, only: [:index], as: :campaign_comments
+    resources :events, only: [:index], as: :campaign_events
   end
 
   resources :creatives
+  scope "/creatives/:creative_id" do
+    resources :events, only: [:index], as: :creaive_events
+  end
+
   # this action should semantically be a `create`,
   # but we are using `show` because it renders the pixel image that creates the impression record
   resources :impressions, only: [:show], path: "/display", constraints: ->(req) { req.format == :gif }
@@ -63,6 +67,7 @@ Rails.application.routes.draw do
     resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { req.format == :js }
     resource :advertisement_previews, only: [:show], path: "/preview" if Rails.env.development?
     resources :comments, only: [:index], as: :property_comments
+    resources :events, only: [:index], as: :property_events
   end
 
   resources :templates
@@ -76,6 +81,7 @@ Rails.application.routes.draw do
     resources :creatives, only: [:index], as: :user_creatives
     resources :versions, only: [:index], as: :user_versions
     resources :comments, only: [:index], as: :user_comments
+    resources :events, only: [:index], as: :user_events
     resource :identicon, only: [:show], format: :png, as: :user_identicon, path: "/identicon.png"
     resource :impersonations, only: [:update], as: :user_impersonation, path: "/impersonate"
   end

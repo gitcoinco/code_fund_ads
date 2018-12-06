@@ -67,4 +67,5 @@ class Event < ApplicationRecord
 
   # private instance methods ..................................................
   private
+
 end
