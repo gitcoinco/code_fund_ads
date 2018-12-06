@@ -30,7 +30,7 @@ module ApplicationHelper
   end
 
   def user_roles_for_select
-    ENUMS::USER_ROLES.values
+    ENUMS::USER_ROLES.values.map { |f| [f.humanize, f] }
   end
 
   def image_formats_for_select

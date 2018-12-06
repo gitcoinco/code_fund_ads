@@ -10,7 +10,11 @@ class PropertiesController < ApplicationController
   # GET /properties.json
   def index
     properties = Property.order(order_by).includes(:user)
-    properties = properties.where(user: @user) if @user
+    if authorized_user.can_admin_system?
+      properties = properties.where(user: @user) if @user
+    else
+      properties = properties.where(user: current_user)
+    end
     properties = @property_search.apply(properties)
     @pagy, @properties = pagy(properties)
 
@@ -35,6 +39,7 @@ class PropertiesController < ApplicationController
   # POST /properties.json
   def create
     @property = current_user.properties.build(property_params)
+    @property.status = "pending"
 
     respond_to do |format|
       if @property.save
@@ -84,11 +89,7 @@ class PropertiesController < ApplicationController
   end
 
   def set_user
-    @user = if params[:user_id] == "me"
-      current_user
-    else
-      User.find(params[:user_id])
-    end
+    @user = User.find(params[:user_id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,0 +1,19 @@
+<% cache @campaign do %>
+  <div id="cf">
+    <span>
+      <span class="cf-wrapper">
+        <a data-href="campaign_url" class="cf-img-wrapper" target="_blank" rel="noopener">
+          <%= image_tag url_for(@campaign.creative.large_image), border: 0, height: 100, width: 130, class: "cf-img" %>
+        </a>
+        <a data-href="campaign_url" class="cf-text" target="_blank" rel="noopener">
+          <strong><%= @campaign.creative.headline %></strong>
+          <span><%= @campaign.creative.body %></span>
+        </a>
+        <a href="https://codefund.io" class="cf-powered-by" target="_blank" rel="noopener">
+          ads via codefund.io
+          <img data-src="impression_url">
+        </a>
+      </span>
+    </span>
+  </div>
+<% end %>

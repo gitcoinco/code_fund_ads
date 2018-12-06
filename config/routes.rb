@@ -13,12 +13,13 @@ Rails.application.routes.draw do
     invitations: "invitations",
   }
 
-  resource :dashboard, only: [:show]
   resource :contact, only: [:show, :create]
+  resources :dashboards, only: [:show], as: :dashboard
   resources :campaign_searches, only: [:create, :update, :destroy]
   resources :property_searches, only: [:create, :update, :destroy]
   resources :user_searches, only: [:create, :update, :destroy]
   resources :creative_searches, only: [:create, :update, :destroy]
+  resource :creative_options, only: [:show]
 
   # polymorphic based on: app/models/concerns/imageable.rb
   scope "/imageables/:imageable_gid/" do
@@ -40,7 +41,14 @@ Rails.application.routes.draw do
   end
 
   resources :creatives
-  resources :impressions
+  # this action should semantically be a `create`,
+  # but we are using `show` because it renders the pixel image that creates the impression record
+  resources :impressions, only: [:show], path: "/display", constraints: ->(req) { req.format == :gif }
+  scope "/impressions/:impression_id" do
+    # this action should semantically be a `create`,
+    # but we are using `show` because its also a pass through that redirects to the campaign url
+    resource :advertisement_clicks, only: [:show], path: "/click"
+  end
 
   resources :properties do
     resources :property_screenshots, only: [:update]
@@ -51,6 +59,8 @@ Rails.application.routes.draw do
     resource :property_dashboards, only: [:show], path: "/overview"
     resources :property_campaigns, only: [:index], path: "/campaigns"
     resources :versions, only: [:index], as: :property_versions, path: "/revisions"
+    resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { req.format == :js }
+    resource :advertisement_previews, only: [:show], path: "/preview" if Rails.env.development?
     resources :comments, only: [:index], as: :property_comments
   end
 

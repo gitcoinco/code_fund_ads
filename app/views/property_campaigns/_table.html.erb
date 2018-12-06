@@ -15,15 +15,9 @@
       <tr>
         <td class="text-left align-middle text-secondary"><%= link_to campaign.name, campaign %></td>
         <td class="text-center align-middle text-secondary"><%= number_to_currency campaign.ecpm %></td>
-        <td class="text-center align-middle text-secondary"><%= number_with_delimiter campaign.impressions.where(property_id: property.id).count %></td>
-        <td class="text-center align-middle text-secondary"><%= number_with_delimiter campaign.impressions.clicked.where(property_id: property.id).count %></td>
-        <td class="text-center align-middle text-secondary">
-          <% if campaign.impressions.where(property_id: property.id).count > 0 %>
-            <%= number_to_percentage(campaign.impressions.clicked.where(property_id: property.id).count / campaign.impressions.where(property_id: property.id).count.to_f * 100, precision: 2) %>
-          <% else %>
-            -
-          <% end %>
-        </td>
+        <td class="text-center align-middle text-secondary">TBD</td>
+        <td class="text-center align-middle text-secondary">TBD</td>
+        <td class="text-center align-middle text-secondary">TBD</td>
         <td class="text-center align-middle text-secondary">TBD</td>
       </tr>
       <% end %>

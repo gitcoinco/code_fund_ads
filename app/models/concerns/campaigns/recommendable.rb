@@ -11,7 +11,7 @@ module Campaigns
       days = total_available_impression_count / estimated_max_daily_impression_count
 
       date = start_date
-      date = Current.date if date.past?
+      date = Date.current if date.past?
 
       return date.advance(days: days) unless weekdays_only?
 
