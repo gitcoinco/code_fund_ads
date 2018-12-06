@@ -3,13 +3,17 @@
 one:
   eventable_id: 1
   eventable_type: MyString
-  keywords: MyString
-  description: MyText
+  tags:
+    - foo
+    - bar
+  body: MyText
   user_id: 1
 
 two:
   eventable_id: 1
   eventable_type: MyString
-  keywords: MyString
-  description: MyText
+  tags:
+    - foo
+    - bar
+  body: MyText
   user_id: 1
