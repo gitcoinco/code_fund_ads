@@ -6,6 +6,7 @@ class CreateImpressionJob < ApplicationJob
     property = Property.find_by(id: property_id)
     return unless campaign && property
     displayed_at = Time.parse(displayed_at_string)
+    ip_info = MMDB.lookup(ip_address)
 
     impression = Impression.create!(
       id: id,
@@ -21,12 +22,10 @@ class CreateImpressionJob < ApplicationJob
       displayed_at: displayed_at,
       displayed_at_date: displayed_at.to_date,
       fallback_campaign: campaign.fallback?,
-      # TODO: set the following keys/values
-      # country_code: nil,
-      # postal_code: nil,
-      # latitude: nil,
-      # longitude: nil,
-      # reason: nil,
+      country_code: ip_info&.country&.iso_code,
+      postal_code: ip_info&.postal&.code,
+      latitude: ip_info&.location&.latitude,
+      longitude: ip_info&.location&.longitude
     )
 
     IncrementImpressionsCountCacheJob.perform_now impression

@@ -26,7 +26,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def set_campaign
-    country_code = ip_info.country.iso_code
+    country_code = ip_info&.country&.iso_code
     campaigns = Campaign.active.available_on(Date.current).for_property_id(params[:property_id])
     campaigns = campaigns.with_all_countries(country_code) if country_code
     @campaign = campaigns.limit(10).sample
