@@ -18,8 +18,6 @@ class CampaignsController < ApplicationController
     campaigns = @campaign_search.apply(campaigns)
     @pagy, @campaigns = pagy(campaigns)
 
-    return redirect_to(new_campaign_path) if @campaigns.count == 0
-
     render "/campaigns/for_user/index" if @user
   end
 
