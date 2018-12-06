@@ -1,105 +1,15 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/dashboard" %>
-  <%= render "/@shared/breadcrumbs/properties" %>
-  <%= render "/@shared/breadcrumbs/property", property: @property, class: "active" %>
-<% end %>
-
-<% content_for :actions do %>
-  <%= render "/@shared/actions/edit_property", property: @property %>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Viewing", "Property",
-    subtitle: @property.scoped_name,
-    icon: "fas fa-browser" %>
-<% end %>
-
-<main id="content" role="main">
-  <!-- Content Section -->
-  <div class="bg-light">
-    <div class="container space-2">
-      <div class="row">
-        <div class="col-lg-5 col-md-12 text-center">
-          <a class="js-fancybox u-media-viewer" href="javascript:;"
-            data-src="<%= @property.screenshot.attached? ? url_for(@property.screenshot) : "" %>"
-            data-caption="<%= @property.name %>"
-            data-speed="700">
-            <%= image_tag(@property.screenshot.attached? ? @property.screenshot : "missing-screenshot.jpg", class: "img-fluid shadow-primary-lg rounded mb-4") %>
-            <span class="u-media-viewer__container">
-              <span class="u-media-viewer__icon">
-                <span class="fas fa-plus u-media-viewer__icon-inner"></span>
-              </span>
-            </span>
-          </a>
-          <%= link_to "refresh screenshot", property_property_screenshot_path(@property), method: :put, class: "btn btn-xs btn-secondary text-center mb-4" if authorized_user.can_admin_system? %>
-        </div>
-        <div class="col-lg-7 col-md-12 mb-7 mb-md-0">
-          <!-- User Details -->
-          <div class="mb-4">
-            <h2 class="h4"><%= @property.name %></h2>
-            <h4 class="h6 text-secondary mb-0">
-              <%= link_to @property.display_url, @property.url, target: "_blank" %>
-              <small>- Added on <%= @property.created_at.strftime("%B, %Y") %></small>
-            </h4>
-          </div>
-          <!-- End User Details -->
-
-          <% @property.keywords.each do |keyword| %>
-            <span class="btn btn-xs btn-soft-primary mb-2"><%= keyword %></span>
-          <% end %>
-
-          <!-- Info -->
-          <div class="mb-4">
-            <p><%= simple_format @property.description %></p>
-          </div>
-          <!-- End Info -->
-
-          <!-- Icon Blocks -->
-          <div class="row">
-            <div class="col-md-6">
-              <!-- List Group -->
-              <ul class="list-group list-group-transparent list-group-flush list-group-borderless mb-0">
-                <li class="list-group-item pt-0 pb-4">
-                  <div class="media">
-                    <span class="fas fa-user list-group-icon mr-3"></span>
-                    <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">Publisher:</span>
-                      <%= link_to @property.user.name, @property.user %>
-                    </div>
-                  </div>
-                </li>
-                <li class="list-group-item pt-0 pb-4">
-                  <div class="media">
-                    <span class="fas fa-link list-group-icon mr-3"></span>
-                    <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">Web page:</span>
-                      <%= link_to @property.url, @property.url %>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <!-- End List Group -->
-            </div>
-
-            <div class="col-md-6">
-              <!-- List Group -->
-              <ul class="list-group list-group-transparent list-group-flush list-group-borderless mb-0">
-                <li class="list-group-item pt-0 pb-4">
-                  <div class="media">
-                    <span class="fas fa-language list-group-icon mr-3"></span>
-                    <div class="media-body text-lh-sm">
-                      <span class="d-block mb-1">Primary Language:</span>
-                      <span class="d-block text-muted"><%= @property.language %></span>
-                    </div>
-                  </div>
-                </li>
-              </ul>
-              <!-- End List Group -->
-            </div>
-          </div>
-          <!-- End Icon Blocks -->
-        </div>
-      </div>
+<%= render layout: "/properties/show_layout", locals: { property: @property } do %>
+  <div class="row">
+    <div class="col-md-6 col-lg-4">
+      <%= render "/properties/card", property: @property, start_date: Date.current.beginning_of_month, end_date: Date.current  %>
+    </div>
+    <div class="col-md-6 col-lg-8">
+      <ul class="list-unstyled mb-0">
+        <%= details_li("Name") { @property.name } %>
+        <%= details_li("User") { link_to @property.user.full_name, @property.user } %>
+        <%= details_li("Status") { @property.status.humanize } %>
+        <%= details_li("URL") { link_to @property.url, @property.url } %>
+      </ul>
     </div>
   </div>
-</main>
+<% end %>

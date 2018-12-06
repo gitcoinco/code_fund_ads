@@ -47,6 +47,7 @@ class Campaign < ApplicationRecord
   validates :status, inclusion: {in: ENUMS::CAMPAIGN_STATUSES.values}
 
   # callbacks .................................................................
+  before_validation :sort_arrays
 
   # scopes ....................................................................
   scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
@@ -205,4 +206,12 @@ class Campaign < ApplicationRecord
   # protected instance methods ................................................
 
   # private instance methods ..................................................
+
+  private
+
+  def sort_arrays
+    self.countries = countries&.sort || []
+    self.keywords = keywords&.sort || []
+    self.negative_keywords = negative_keywords&.sort || []
+  end
 end

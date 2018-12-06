@@ -152,4 +152,8 @@ module ApplicationHelper
       include_diff_info: true)
     changes.to_s.present? ? changes.to_s(:html).html_safe : "No Changes"
   end
+
+  def date_range_picker
+    render "/@shared/date_range_picker"
+  end
 end

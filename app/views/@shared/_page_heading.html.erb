@@ -87,14 +87,15 @@
                         data-event="hover"
                         data-animation-in="slideInUp"
                         data-animation-out="fadeOut">
-                      <a id="campaignsDropdown" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-labelledby="campaignsDropdownMenu">
-                        Campaigns
+                      <a id="advertiserDropdown" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-labelledby="advertiserDropdownMenu">
+                        Advertiser
                       </a>
 
-                      <ul id="campaignsDropdownMenu" class="hs-sub-menu u-header__sub-menu u-header__sub-menu--spacer" style="min-width: 230px;" aria-labelledby="campaignsDropdown">
-                        <li><%= link_to "List Campaigns", campaigns_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
-                        <li><%= link_to "List Creatives", creatives_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
-                        <li><%= link_to "List Images", images_path(current_user.to_gid_param), class: "nav-link u-header__sub-menu-nav-link" %></li>
+                      <ul id="advertiserDropdownMenu" class="hs-sub-menu u-header__sub-menu u-header__sub-menu--spacer" style="min-width: 230px;" aria-labelledby="advertiserDropdown">
+                        <li><%= link_to "Campaigns", campaigns_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
+                        <li><%= link_to "Creatives", creatives_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
+                        <li><%= link_to "Images", images_path(current_user.to_gid_param), class: "nav-link u-header__sub-menu-nav-link" %></li>
+                        <li><%= link_to "Add Funds", "#", class: "nav-link u-header__sub-menu-nav-link" %></li>
                       </ul>
                     </li>
                   <% end %>
@@ -105,29 +106,15 @@
                         data-animation-in="slideInUp"
                         data-animation-out="fadeOut">
                       <a id="publishersDropdown" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-labelledby="publishersDropdownMenu">
-                        Properties
+                        Publisher
                       </a>
 
                       <ul id="publishersDropdownMenu" class="hs-sub-menu u-header__sub-menu u-header__sub-menu--spacer" style="min-width: 230px;" aria-labelledby="publishersDropdown">
-                        <li><%= link_to "List Properties", properties_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
-                        <li><%= link_to "Add Property", new_property_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
+                        <li><%= link_to "Properties", properties_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
+                        <li><%= link_to "Distributions", "#", class: "nav-link u-header__sub-menu-nav-link" %>
                       </ul>
                     </li>
                   <% end %>
-
-                  <li class="nav-item hs-has-sub-menu u-header__nav-item"
-                      data-event="hover"
-                      data-animation-in="slideInUp"
-                      data-animation-out="fadeOut">
-                    <a id="paymentsDropdown" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false" aria-labelledby="paymentsDropdownMenu">
-                      Payments
-                    </a>
-
-                    <ul id="paymentsDropdownMenu" class="hs-sub-menu u-header__sub-menu u-header__sub-menu--spacer" style="min-width: 230px;" aria-labelledby="paymentsDropdown">
-                      <%= active_link_to "Add Funds", "#", class: "nav-link u-header__sub-menu-nav-link", wrap_tag: :li if authorized_user.can_advertise? %>
-                      <%= active_link_to "Payment History", "#", class: "nav-link u-header__sub-menu-nav-link", wrap_tag: :li if authorized_user.can_advertise? %>
-                    </ul>
-                  </li>
 
                   <li class="nav-item hs-has-sub-menu u-header__nav-item"
                       data-event="hover"

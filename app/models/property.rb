@@ -89,6 +89,7 @@ class Property < ApplicationRecord
   tag_columns :prohibited_advertiser_ids
   tag_columns :keywords
   has_one_attached :screenshot
+  acts_as_commentable
   has_paper_trail on: %i[create update destroy], only: %i[
     ad_template
     ad_theme

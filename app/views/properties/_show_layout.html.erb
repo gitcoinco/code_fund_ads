@@ -1,0 +1,40 @@
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/dashboard" %>
+  <%= render "/@shared/breadcrumbs/properties" %>
+  <%= render "/@shared/breadcrumbs/property", property: property, class: "active" %>
+<% end %>
+
+<% content_for :actions do %>
+  <%= render "/@shared/actions/edit_property", property: property %>
+<% end %>
+
+<% content_for :page_heading do %>
+  <%= page_heading "Viewing", "Property",
+    subtitle: property.scoped_name,
+    icon: "fas fa-browser" %>
+<% end %>
+
+<main id="content" role="main" class="bg-light">
+  <div class="container space-1 space-bottom-2">
+    <ul class="nav nav-classic nav-condensed">
+      <%= tag.li(active_link_to("Overview", property_dashboards_path(property),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Details", property_path(property), active: :exact,
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Keywords", property_keywords_path(property),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Earnings", property_earnings_path(property),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Campaigns", property_campaigns_path(property),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Comments", property_comments_path(property),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Revisions", property_versions_path(property),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+    </ul>
+    
+    <div class="bg-white border border-top-0 p-4">
+      <%= yield %>
+    </div>
+  </div>
+</main>
