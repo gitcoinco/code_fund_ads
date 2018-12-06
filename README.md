@@ -116,3 +116,4 @@ cd /path/to/project
 ## Candidates for GEM extraction
 
 - Searchable ActiveStorage metadata
+- Eventable

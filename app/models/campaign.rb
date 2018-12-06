@@ -132,6 +132,7 @@ class Campaign < ApplicationRecord
   tag_columns :keywords
   tag_columns :negative_keywords
   acts_as_commentable
+  acts_as_eventable
   has_paper_trail on: %i[create update destroy], only: %i[
     countries
     creative_id

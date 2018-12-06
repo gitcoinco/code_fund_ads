@@ -102,6 +102,7 @@ class Property < ApplicationRecord
     url
     user_id
   ]
+  acts_as_eventable
 
   # class methods .............................................................
   class << self

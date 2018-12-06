@@ -34,6 +34,7 @@ class Creative < ApplicationRecord
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  acts_as_eventable
 
   # class methods .............................................................
   class << self

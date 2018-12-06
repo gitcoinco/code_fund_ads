@@ -2,6 +2,7 @@ require "sidekiq/web"
 Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
 
 Rails.application.routes.draw do
+  get 'events/index'
   root to: "pages#index"
 
   authenticate :user, lambda { |user| AuthorizedUser.new(user).can_admin_system? } do
