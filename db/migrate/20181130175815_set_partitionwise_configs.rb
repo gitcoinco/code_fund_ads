@@ -1,13 +1,15 @@
 class SetPartitionwiseConfigs < ActiveRecord::Migration[5.2]
-  disable_ddl_transaction!
+  # disable_ddl_transaction!
 
   def up
-    execute "ALTER SYSTEM SET enable_partitionwise_join=on;"
-    execute "ALTER SYSTEM SET enable_partitionwise_aggregate=on;"
+    # Disabled until Heroku supports this
+    # execute "ALTER SYSTEM SET enable_partitionwise_join=on;"
+    # execute "ALTER SYSTEM SET enable_partitionwise_aggregate=on;"
   end
 
   def down
-    execute "ALTER SYSTEM RESET enable_partitionwise_join;"
-    execute "ALTER SYSTEM RESET enable_partitionwise_aggregate;"
+    # Disabled until Heroku supports this
+    # execute "ALTER SYSTEM RESET enable_partitionwise_join;"
+    # execute "ALTER SYSTEM RESET enable_partitionwise_aggregate;"
   end
 end
