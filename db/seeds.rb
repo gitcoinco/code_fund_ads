@@ -220,11 +220,11 @@ class Seeder
   def import_csv(table_name, csv_path, sequence_name)
     model = table_name.to_s.classify.constantize
     config = model.connection_config
-    command = ["PGPASSWORD=#{config[:password]} psql #{config[:database]}"]
+    command = ["PGPASSWORD=#{config[:password]} cat #{csv_path} | psql #{config[:database]}"]
     command << "-h #{config[:host]}" if config[:host].present?
     command << "-p #{config[:port]}" if config[:port].present?
     command << "-U #{config[:username]}" if config[:username].present?
-    command << "-c \"copy #{table_name} from '#{csv_path}' CSV\""
+    command << "-c \"copy #{table_name} from stdin CSV\""
     system command.join(" ")
 
     ActiveRecord::Base.connection.execute "SELECT SETVAL('#{sequence_name}', (SELECT MAX(id) FROM #{table_name}) + 1);"
