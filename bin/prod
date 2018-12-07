@@ -1,0 +1,2 @@
+#!/bin/sh
+HEROKU_APP=code-fund-ads HKAPP=code-fund-ads exec "${HEROKU_COMMAND:-heroku}" "$@"

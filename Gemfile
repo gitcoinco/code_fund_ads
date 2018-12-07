@@ -14,6 +14,7 @@ gem "country_select",     "~> 3.1.1"
 gem "devise",             "~> 4.5.0"
 gem "devise_invitable",   "~> 1.7.5"
 gem "diffy",              "~> 3.2.1"
+gem "faker",              ">= 1.9.1", require: false
 gem "gibbon",             "~> 3.2.0"
 gem "hiredis",            "~> 0.6.3"
 gem "inky-rb",            "~> 1.3.7.3", require: "inky"
@@ -59,7 +60,6 @@ group :development do
   # gem 'spring'
   # gem 'spring-watcher-listen', '~> 2.0.0'
   gem "annotate"
-  gem "faker", ">= 1.9.1"
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "meta_request" # RailsPanel Chrome extension
   gem "model_probe"
