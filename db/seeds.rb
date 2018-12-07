@@ -218,7 +218,15 @@ class Seeder
   end
 
   def import_csv(table_name, csv_path, sequence_name)
-    ActiveRecord::Base.connection.execute "COPY \"#{table_name}\" FROM '#{csv_path}' CSV;"
+    model = table_name.to_s.classify.constantize
+    config = model.connection_config
+    command = ["PGPASSWORD=#{config[:password]} psql #{config[:database]}"]
+    command << "-h #{config[:host]}" if config[:host].present?
+    command << "-p #{config[:port]}" if config[:port].present?
+    command << "-U #{config[:username]}" if config[:username].present?
+    command << "-c \"copy #{table_name} from '#{csv_path}' CSV\""
+    system command.join(" ")
+
     ActiveRecord::Base.connection.execute "SELECT SETVAL('#{sequence_name}', (SELECT MAX(id) FROM #{table_name}) + 1);"
   rescue => e
     puts "Failed to copy #{csv_path} to Postgres! #{e}"
