@@ -7,7 +7,7 @@ require "fileutils"
 require_relative "./campaign_seeder"
 require_relative "./impression_seeder"
 
-unless Rails.env.development?
+unless Rails.env.development? || ENV["ALLOW_SEED"] == "true"
   puts "SEEDS ARE FOR DEVELOPMENT ONLY!"
   exit 1
 end
