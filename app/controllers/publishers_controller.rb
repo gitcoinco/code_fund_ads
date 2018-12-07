@@ -1,6 +1,4 @@
 class PublishersController < ApplicationController
-  before_action :authenticate_user!
-
   # Creates a Publisher application, does not create a User record
   def create
     CreateSlackNotificationJob.perform_later text: "<!channel> *Publisher Form Submission*", message: <<~MESSAGE

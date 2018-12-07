@@ -1,6 +1,4 @@
 class AdvertisersController < ApplicationController
-  before_action :authenticate_user!
-
   # Creates an Advertiser application, does not create a User record
   def create
     CreateSlackNotificationJob.perform_later text: "<!channel> *Advertiser Form Submission*", message: <<~MESSAGE
