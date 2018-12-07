@@ -9,7 +9,7 @@
 
 (function() {
   document.addEventListener('DOMContentLoaded', function() {
-    window.App = window.App || {};
-    App.cable = App.cable || ActionCable.createConsumer();
+    window.App || (window.App = {});
+    App.cable || (App.cable = ActionCable.createConsumer());
   });
 }.call());
