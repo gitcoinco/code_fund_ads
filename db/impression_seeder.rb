@@ -44,13 +44,13 @@ class ImpressionSeeder
         months.times { dates << dates.last.advance(months: -1) }
         chunked_dates = dates.in_groups_of((months / cores.to_f).ceil)
         pids = cores.times.map { |i|
-          #Process.fork do
+          Process.fork do
             pid_dates = chunked_dates[i].compact
             max = (max_count_per_core / pid_dates.size.to_f).ceil
             pid_dates.each { |date| create_impressions_for_month date.iso8601, max }
-          #end
+          end
         }
-        #pids.each { |pid| Process.waitpid pid }
+        pids.each { |pid| Process.waitpid pid }
       }
     end
     print "Seeding impressions finish...".ljust(48)
