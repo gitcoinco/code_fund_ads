@@ -427,7 +427,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   screenshot_machine (~> 0.0.4)!
   selenium-webdriver
-  sentry-raven
+  sentry-raven (~> 2.7.4)
   sidekiq (~> 5.2.3)
   sidekiq-failures (~> 1.0.0)
   simple_form (~> 4.0)
