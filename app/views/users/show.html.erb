@@ -8,17 +8,17 @@
         <%= details_li("Name") { @user.name } %>
         <%= details_li("Email") { @user.email } %>
         <%= details_li("Company Name") { @user.company_name } %>
-        <%= details_li("Address") do %>
-          <%= @user.address_1 %><br/>
-          <%= @user.city %>, <%= @user.region %> <%= @user.postal_code %><br/>
-          <%= @user.country %>
-        <% end if @user.address_1.present? %>
+        <%= details_li("Street Address") { @user.address_1 } %>
+        <%= details_li("City") { @user.city } %>
+        <%= details_li("Region") { @user.region } %>
+        <%= details_li("Postal Code") { @user.postal_code } %>
+        <%= details_li("Country") { @user.country } %>
         <%= details_li("US Resident?") { @user.us_resident? ? "Yes" : "No" } %>
         <%= details_li("Website URL") { link_to(@user.website_url, @user.website_url) } if @user.website_url %>
         <%= details_li("API Access?") { @user.api_access? ? "Yes" : "No" }%>
         <%= details_li("API Key") { @user.api_key } if @user.api_key %>
-        <%= details_li("Last Login") { @user.last_sign_in_at } %>
-        <%= details_li("Login Count") { @user.sign_in_count } %>
+        <%= details_li("Last Login") { @user.last_sign_in_at } if authorized_user.can_admin_system? %>
+        <%= details_li("Login Count") { @user.sign_in_count } if authorized_user.can_admin_system? %>
         <%= details_li("Roles") { @user.roles.map(&:capitalize).join(", ") } %>
         <%= details_li("Bio") { @user.bio } %>
       </ul>

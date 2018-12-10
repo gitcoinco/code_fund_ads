@@ -22,7 +22,7 @@
       <div class="js-bar-chart"
         data-controller="bar-chart"
         data-series='[
-          [<%= start_date.upto(end_date).map { |d| rand(50) }.join(",") %>]
+          [<%= property.impressions_by_day(start_date, end_date).join(",") %>]
         ]'
         data-is-show-axis-x="false"
         data-is-show-axis-y="false"

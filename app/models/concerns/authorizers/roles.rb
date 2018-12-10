@@ -13,7 +13,7 @@ module Authorizers
     end
 
     def can_advertise_and_publish?
-      user.has_all_roles?(ENUMS::USER_ROLES::PUBLISHER, ENUMS::USER_ROLES::ADMINISTRATOR)
+      user.has_all_roles?(ENUMS::USER_ROLES::PUBLISHER, ENUMS::USER_ROLES::ADVERTISER)
     end
   end
 end

@@ -147,7 +147,8 @@ CREATE TABLE public.campaigns (
     keywords character varying[] DEFAULT '{}'::character varying[],
     negative_keywords character varying[] DEFAULT '{}'::character varying[],
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    legacy_id uuid
 );
 
 
@@ -252,7 +253,8 @@ CREATE TABLE public.creatives (
     headline character varying NOT NULL,
     body text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    legacy_id uuid
 );
 
 
@@ -365,7 +367,8 @@ CREATE TABLE public.properties (
     prohibited_advertiser_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
     prohibit_fallback_campaigns boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    legacy_id uuid
 );
 
 
@@ -518,7 +521,8 @@ CREATE TABLE public.users (
     invited_by_id bigint,
     invitations_count integer DEFAULT 0,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    legacy_id uuid
 );
 
 
@@ -1366,6 +1370,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181126220214'),
 ('20181130175815'),
 ('20181201120915'),
-('20181206210405');
+('20181206210405'),
+('20181208164626');
 
 

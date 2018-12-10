@@ -91,7 +91,7 @@ class Property < ApplicationRecord
   tag_columns :keywords
   has_one_attached :screenshot
   acts_as_commentable
-  has_paper_trail on: %i[create update destroy], only: %i[
+  has_paper_trail on: %i[update destroy], only: %i[
     ad_template
     ad_theme
     keywords
@@ -111,6 +111,9 @@ class Property < ApplicationRecord
 
   # public instance methods ...................................................
 
+  # Intentionally override relationship to improve query performance.
+  # Query performance without joining on property_advertisers will be
+  # problematic since all partition tables would be scanned
   def impressions
     Impression.where(advertiser_id: property_advertisers.select(:advertiser_id))
   end
