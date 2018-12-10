@@ -64,6 +64,14 @@ yarn install
 bundle exec rails db:setup
 ```
 
+It is recommended to develop with Rails cache enabled. This application relies heavily
+on cacheing and may not work properly without the cache enabled.
+
+```sh
+bundle exec rails dev:cache
+# => Development mode is now being cached.
+```
+
 ### Database Seeds
 
 The `impressions` table will seed with approximately 100k records spread over 12 months by default.
