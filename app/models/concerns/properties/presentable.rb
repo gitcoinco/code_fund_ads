@@ -11,6 +11,8 @@ module Properties
     end
 
     def impressions_by_day(start_date, end_date)
+      # TODO: Nate
+
       # sql = <<~SQL
       #   SELECT COUNT(*), displayed_at_date 
       #     FROM impressions 
@@ -21,7 +23,7 @@ module Properties
       # SQL
 
       # results = self.class.connection.exec_query(sql)
-      # binding.pry
+      
       [1,2,3]
     end
   end

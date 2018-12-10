@@ -33,7 +33,6 @@ class Property < ApplicationRecord
   belongs_to :user
   has_many :property_advertisers
   has_many :advertisers, through: :property_advertisers, class_name: "User", foreign_key: "advertiser_id"
-  has_many :impressions
 
   # validations ...............................................................
   # validates :ad_template, presence: true
@@ -111,6 +110,13 @@ class Property < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  # Intentionally override relationship to improve query performance.
+  # Query performance without joining on property_advertisers will be
+  # problematic since all partition tables would be scanned
+  def impressions
+    Impression.where(advertiser_id: property_advertisers.select(:advertiser_id))
+  end
 
   def favicon_image_url
     domain = url.gsub(/^https?:\/\//, "")
