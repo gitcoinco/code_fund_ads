@@ -1,4 +1,6 @@
 class ApplicationRecord < ActiveRecord::Base
+  include GlobalID::Identification
+
   self.abstract_class = true
 
   scope :search_column, ->(column_name, value) do

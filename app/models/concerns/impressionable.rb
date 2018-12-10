@@ -123,6 +123,11 @@ module Impressionable
     (total_clicks_count / total_impressions_count.to_f) * 100
   end
 
+  def total_ctr_for_date_range(start_date, end_date)
+    return 0 if total_impressions_count.zero?
+    (total_clicks_count / total_impressions_count.to_f) * 100
+  end
+
   def daily_ctr(date = nil)
     date ||= Date.current
     impressions_count = daily_impressions_count(date)

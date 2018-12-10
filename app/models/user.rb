@@ -65,6 +65,7 @@ class User < ApplicationRecord
   has_many :campaigns
   has_many :creatives
   has_many :impressions_as_advertiser, class_name: "Impression", foreign_key: "advertiser_id"
+  has_many :impressions_as_publisher, class_name: "Impression", foreign_key: "publisher_id"
   has_many :properties
 
   # validations ...............................................................
@@ -137,7 +138,7 @@ class User < ApplicationRecord
   )
   has_one_attached :avatar
   acts_as_commentable
-  has_paper_trail on: %i[create update destroy], only: %i[
+  has_paper_trail on: %i[update destroy], only: %i[
     api_access
     api_key
     company_name
@@ -197,6 +198,11 @@ class User < ApplicationRecord
 
   def to_s
     full_name
+  end
+
+  # Deliver Devise emails via Sidekiq
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
   end
 
   # protected instance methods ................................................

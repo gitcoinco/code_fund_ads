@@ -39,7 +39,7 @@ class Campaign < ApplicationRecord
   include Campaigns::Presentable
 
   # relationships .............................................................
-  belongs_to :creative
+  belongs_to :creative, optional: true
   belongs_to :user
 
   # validations ...............................................................
@@ -134,7 +134,7 @@ class Campaign < ApplicationRecord
   tag_columns :keywords
   tag_columns :negative_keywords
   acts_as_commentable
-  has_paper_trail on: %i[create update destroy], only: %i[
+  has_paper_trail on: %i[update destroy], only: %i[
     countries
     creative_id
     daily_budget_cents

@@ -33,6 +33,7 @@ class Property < ApplicationRecord
   belongs_to :user
   has_many :property_advertisers
   has_many :advertisers, through: :property_advertisers, class_name: "User", foreign_key: "advertiser_id"
+  has_many :impressions
 
   # validations ...............................................................
   # validates :ad_template, presence: true
@@ -91,7 +92,7 @@ class Property < ApplicationRecord
   tag_columns :keywords
   has_one_attached :screenshot
   acts_as_commentable
-  has_paper_trail on: %i[create update destroy], only: %i[
+  has_paper_trail on: %i[update destroy], only: %i[
     ad_template
     ad_theme
     keywords
@@ -110,10 +111,6 @@ class Property < ApplicationRecord
   end
 
   # public instance methods ...................................................
-
-  def impressions
-    Impression.where(advertiser_id: property_advertisers.select(:advertiser_id))
-  end
 
   def favicon_image_url
     domain = url.gsub(/^https?:\/\//, "")

@@ -23,7 +23,13 @@
           <span class="fas fa-percentage btn-icon__inner"></span>
         </span>
         <div class="media-body">
-          <span class="d-block font-size-3">TBD</span>
+          <span class="d-block font-size-3">
+          <%=
+            number_to_percentage((
+              current_user.impressions_as_publisher.clicked.between(@start_date, @end_date).count.to_f /
+              current_user.impressions_as_publisher.between(@start_date, @end_date).count.to_f
+            ) * 100)
+          %></span>
           <h3 class="h6 text-secondary font-weight-normal mb-0">Average CTR</h3>
         </div>
       </div>
@@ -39,7 +45,7 @@
           <span class="fas fa-eye btn-icon__inner"></span>
         </span>
         <div class="media-body">
-          <span class="d-block font-size-3">TBD</span>
+          <span class="d-block font-size-3"><%= number_with_delimiter current_user.impressions_as_publisher.between(@start_date, @end_date).count %></span>
           <h3 class="h6 text-secondary font-weight-normal mb-0">Total Impressions</h3>
         </div>
       </div>
