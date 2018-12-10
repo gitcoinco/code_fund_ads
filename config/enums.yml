@@ -47,7 +47,7 @@
 #   pry>ENUMS::USER_ROLES.values                        # [administrator, advertiser, publisher]
 #   pry>ENUMS::USER_ROLES.administrator? :administrator # true
 #   pry>ENUMS::USER_ROLES.administrator? :publisher     # false
-#   pry>ENUMS::USER_ROLES["administrator"]              # admin
+#   pry>ENUMS::USER_ROLES["administrator"]              # administrator
 #
 #   ----------------------------------------------------------------------------
 #
