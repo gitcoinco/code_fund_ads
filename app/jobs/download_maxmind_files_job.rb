@@ -8,8 +8,9 @@ class DownloadMaxmindFilesJob < ApplicationJob
 
   def perform
     begin
-      download(geoip2_city_uri, geoip2_city_path) unless File.exist?(geoip2_city_path)
-      unzip(geoip2_city_path).then { |path| untar path }
+      download(geoip2_city_uri, geoip2_city_path).
+        then { |path| unzip path }.
+        then { |path| untar path }
     rescue StandardError => e
       logger.error "Error downloading and extracting maxmind file! #{e.message}"
     end

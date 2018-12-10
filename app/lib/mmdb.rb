@@ -33,6 +33,7 @@ module MMDB
     end
 
     def refresh?
+      return true unless mmdb_path.present?
       !Rails.cache.read(:mmdb)
     end
   end
