@@ -4,7 +4,6 @@ module Eventable
   included do
     has_many :events, class_name: "Event", as: :eventable
     before_destroy { |record| record.events.destroy_all }
-
     after_commit :track_creation, on: [:create]
   end
 
@@ -26,10 +25,8 @@ module Eventable
 
   # Helper method that defaults the submitted time.
   def add_event(body, tags = [])
-    event = Event.build_from(self, body, tags)
-    event.user_id = user_id if respond_to? :user_id
-    event.user_id = id if self.class == User
-    events << event
+    return if ENV["SKIP_EVENTS"] == "1"
+    CreateEventJob.perform_later(self.to_sgid.to_s, body, tags.map(&:to_s))
   end
 
   private

@@ -315,6 +315,8 @@ GEM
       connection_pool (~> 2.2, >= 2.2.2)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 5)
+    sidekiq-failures (1.0.0)
+      sidekiq (>= 4.0.0)
     simple_form (4.1.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
@@ -424,6 +426,7 @@ DEPENDENCIES
   screenshot_machine (~> 0.0.4)!
   selenium-webdriver
   sidekiq (~> 5.2.3)
+  sidekiq-failures (~> 1.0.0)
   simple_form (~> 4.0)
   slack-notifier (~> 2.3.2)
   standard

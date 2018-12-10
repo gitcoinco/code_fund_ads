@@ -3,7 +3,7 @@ class PropertyCampaignsController < ApplicationController
   before_action :set_property
 
   def index
-    campaigns = @property.matching_campaigns
+    campaigns = @property.matching_campaigns.order(name: :asc)
     @pagy, @campaigns = pagy(campaigns)
   end
 

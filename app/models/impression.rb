@@ -102,8 +102,8 @@ class Impression < ApplicationRecord
   end
 
   def set_displayed_at
-    self.displayed_at = Time.current
-    self.displayed_at_date = Date.current
+    self.displayed_at ||= Time.current
+    self.displayed_at_date ||= Date.current
   end
 
   def assure_campaign_name

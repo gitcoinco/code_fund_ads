@@ -17,7 +17,7 @@ module Users
     end
 
     def gravatar_url(d = "404")
-      "https://www.gravatar.com/avatar/#{hashed_email}?d=#{d}"
+      "https://www.gravatar.com/avatar/#{hashed_email}?s=300&d=#{d}"
     end
 
     def display_region

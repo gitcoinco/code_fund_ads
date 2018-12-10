@@ -10,6 +10,15 @@
         <%= details_li("Status") { @property.status.humanize } %>
         <%= details_li("URL") { link_to @property.url, @property.url } %>
       </ul>
+
+      <hr>
+
+      <h3 class="h5 mt-3">Embed Instructions</h3>
+      <p>Paste the following code snippet into your web application:</p>
+      <pre><code>
+<%= CGI::escapeHTML('<div id="codefund">No ads available</div>').html_safe %>
+<%= CGI::escapeHTML(javascript_include_tag(advertisements_url(@property.id, format: :js), async: true)).html_safe %>
+      </code></pre>
     </div>
   </div>
 <% end %>
