@@ -176,7 +176,13 @@ class ImpressionSeeder
       end
 
       begin
-        ActiveRecord::Base.connection.execute "COPY \"impressions\" FROM '#{csv_path}' CSV;"
+        config = Impression.connection_config
+        command = ["PGPASSWORD=#{config[:password]} cat #{csv_path} | psql #{config[:database]}"]
+        command << "-h #{config[:host]}" if config[:host].present?
+        command << "-p #{config[:port]}" if config[:port].present?
+        command << "-U #{config[:username]}" if config[:username].present?
+        command << "-c \"copy impressions from stdin CSV\""
+        system command.join(" ")
       rescue => e
         error = e
         puts "Failed to copy #{csv_path} to Postgres! #{e}"
