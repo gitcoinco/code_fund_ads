@@ -26,7 +26,7 @@ module Eventable
   # Helper method that defaults the submitted time.
   def add_event(body, tags = [])
     return if ENV["SKIP_EVENTS"] == "1"
-    CreateEventJob.perform_later(self.to_sgid.to_s, body, tags.map(&:to_s))
+    CreateEventJob.perform_later(to_sgid.to_s, body, tags.map(&:to_s))
   end
 
   private
