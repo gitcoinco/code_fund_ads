@@ -1,56 +1,26 @@
-<div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-6">
-  <!-- Card -->
-  <div class="card mb-3 mb-lg-0">
-    <div class="card-body p-5">
-      <div class="media align-items-center">
-        <span class="btn btn-lg btn-icon btn-soft-primary rounded-circle mr-4">
-          <span class="fas fa-dollar-sign btn-icon__inner"></span>
-        </span>
-        <div class="media-body">
-          <span class="d-block font-size-3">TBD</span>
-          <h2 class="h6 text-secondary font-weight-normal mb-0">Unpaid Earnings</h2>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End Card -->
+<div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
+  <%= render "/dashboards/stat_card",
+    label: "Impressions",
+    value: "TBD" %> <%# TODO: Nate - Total impressions for date range and publisher (start_date to end_date) %>
+  <%= render "/dashboards/stat_card",
+    label: "Clicks",
+    value: "TBD" %> <%# TODO: Nate - Total clicks for date range and publisher (start_date to end_date) %>
+  <%= render "/dashboards/stat_card",
+    label: "CTR%",
+    value: "TBD" %> <%# TODO: Nate - Average CTR for date range and publisher (start_date to end_date) %>
+  <%= render "/dashboards/stat_card",
+    label: "Earnings",
+    value: "TBD" %> <%# TODO: Nate - Average calculated CPC for date range and publisher (start_date to end_date) %>
+</div>
 
-  <!-- Card -->
-  <div class="card mb-3 mb-lg-0">
-    <div class="card-body p-5">
-      <div class="media align-items-center">
-        <span class="btn btn-lg btn-icon btn-soft-warning rounded-circle mr-4">
-          <span class="fas fa-percentage btn-icon__inner"></span>
-        </span>
-        <div class="media-body">
-          <span class="d-block font-size-3">TBD</span>
-          <h3 class="h6 text-secondary font-weight-normal mb-0">Average CTR</h3>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End Card -->
-
-  <!-- Card -->
-  <div class="card">
-    <div class="card-body p-5">
-      <div class="media align-items-center">
-        <span class="btn btn-lg btn-icon btn-soft-success rounded-circle mr-4">
-          <span class="fas fa-eye btn-icon__inner"></span>
-        </span>
-        <div class="media-body">
-          <span class="d-block font-size-3">TBD</span>
-          <h3 class="h6 text-secondary font-weight-normal mb-0">Total Impressions</h3>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- End Card -->
+<div class="text-center mb-3 mt-5">
+  <span class="u-divider u-divider--xs u-divider--text">Active Properties</span>
 </div>
 
 <div class="mb-3">
   <div class="card-deck d-block d-md-flex card-sm-columns card-sm-2-count card-md-3-count">
-    <%= render partial: "/properties/card", collection: current_user.properties.order("status, name"),
-          locals: { start_date: @start_date, end_date: @end_date }, as: :property %>
+    <%= render partial: "/properties/card",
+      collection: current_user.properties.order("status, name"),
+      locals: { start_date: @start_date, end_date: @end_date }, as: :property %>
   </div>
 </div>

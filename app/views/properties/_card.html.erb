@@ -22,6 +22,7 @@
       <div class="js-bar-chart"
         data-controller="bar-chart"
         data-series='[
+          <%# TODO: Nate - We need impressions_by_day working (start_date to end_date) %>
           [<%= property.impressions_by_day(start_date, end_date).join(",") %>]
         ]'
         data-is-show-axis-x="false"
@@ -36,21 +37,19 @@
   </div>
 
   <div class="card-footer text-center">
-    <!-- Budget & Priority -->
     <div class="row align-items-center">
       <div class="col-4 u-ver-divider">
         <h5 class="small font-weight-normal text-secondary mb-0">Impressions</h5>
-        <span class="text-dark">TBD</span>
+        <span class="text-dark">TBD</span> <%# TODO: Nate - Total impressions date range (start_date to end_date) %>
       </div>
       <div class="col-4 u-ver-divider">
         <h5 class="small font-weight-normal text-secondary mb-0">CTR</h5>
-        <span class="text-dark">TBD</span>
+        <span class="text-dark">TBD</span> <%# TODO: Nate - Average CTR for date range (start_date to end_date) %>
       </div>
       <div class="col-4">
         <h5 class="small font-weight-normal text-secondary mb-0">Earnings</h5>
-        <span class="text-dark">TBD</span>
+        <span class="text-dark">TBD</span> <%# TODO: Nate -Total distributions for date range (start_date to end_date) %>
       </div>
     </div>
-    <!-- End Budget & Priority -->
   </div>
 </div>
