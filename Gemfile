@@ -38,6 +38,7 @@ gem "redis",              "~> 4.0", require: ["redis", "redis/connection/hiredis
 gem "ruby_identicon",     "~> 0.0.5"
 gem "sass-rails",         "~> 5.0"
 gem "screenshot_machine", "~> 0.0.4", github: "coderberry/screenshot_machine"
+gem "sentry-raven",       "~> 2.7.4"
 gem "sidekiq",            "~> 5.2.3"
 gem "sidekiq-failures",   "~> 1.0.0"
 gem "simple_form",        "~> 4.0"
