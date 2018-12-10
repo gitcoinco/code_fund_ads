@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class CreateEventJobTest < ActiveJob::TestCase
   # test "the truth" do
