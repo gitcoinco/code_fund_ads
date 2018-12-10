@@ -1,7 +1,6 @@
 require "csv"
 
 namespace :legacy do
-
   desc "Import all"
   task import: :environment do
     Rake::Task["legacy:import_users"].invoke
@@ -20,14 +19,14 @@ namespace :legacy do
   desc "Import legacy user data"
   task import_users: :environment do
     print "Importing Users "
-    CSV.foreach(Rails.root.join("legacy/users_20181208.csv"), headers: true, encoding: 'ISO-8859-1:UTF-8') do |row|
+    CSV.foreach(Rails.root.join("legacy/users_20181208.csv"), headers: true, encoding: "ISO-8859-1:UTF-8") do |row|
       user = User.new
       user.legacy_id             = row["id"]
       user.roles                 = row["roles"][1...-1].
-                                      gsub("admin", "administrator").
-                                      gsub("sponsor", "advertiser").
-                                      gsub("developer", "publisher").
-                                      split
+        gsub("admin", "administrator").
+        gsub("sponsor", "advertiser").
+        gsub("developer", "publisher").
+        split
       user.first_name            = row["first_name"]&.strip
       user.last_name             = row["last_name"]&.strip
       user.company_name          = row["company"]&.strip
@@ -56,17 +55,17 @@ namespace :legacy do
   task import_properties: :environment do
     print "Importing Properties "
     user_ids = User.all.pluck(:legacy_id, :id).to_h
-    CSV.foreach(Rails.root.join("legacy/properties_20181208.csv"), headers: true, encoding: 'ISO-8859-1:UTF-8') do |row|
+    CSV.foreach(Rails.root.join("legacy/properties_20181208.csv"), headers: true, encoding: "ISO-8859-1:UTF-8") do |row|
       property               = Property.new
       property.legacy_id     = row["id"]
       property.user_id       = user_ids[row["user_id"]]
-      property.property_type = 
+      property.property_type =
         case row["property_type"]
           when "1" then "website"
           when "2" then "repository"
           when "3" then "newsletter"
         end
-      property.status = 
+      property.status =
         case row["property_type"]
           when "0" then "pending"
           when "1" then "active"
@@ -80,11 +79,11 @@ namespace :legacy do
       property.url           = row["url"]
       property.language      = row["language"].present? ? row["language"] : "English"
 
-      programming_languages = row["programming_languages"][1...-1].split(",").map { |kw| kw.gsub('"', '') }
-      topic_categories      = row["topic_categories"][1...-1].split(",").map { |kw| kw.gsub('"', '') }
+      programming_languages = row["programming_languages"][1...-1].split(",").map { |kw| kw.delete('"') }
+      topic_categories      = row["topic_categories"][1...-1].split(",").map { |kw| kw.delete('"') }
       property.keywords     = (programming_languages + topic_categories).uniq.compact.sort
 
-      excluded_advertisers               = row["excluded_advertisers"][1...-1].split(",").map { |kw| kw.gsub('"', '') }
+      excluded_advertisers               = row["excluded_advertisers"][1...-1].split(",").map { |kw| kw.delete('"') }
       property.prohibited_advertiser_ids = User.where(company_name: excluded_advertisers).pluck(:id)
 
       property.prohibit_fallback_campaigns = row["no_api_house_ads"]
@@ -101,7 +100,7 @@ namespace :legacy do
   task import_creatives: :environment do
     print "Importing Creatives "
     user_ids = User.all.pluck(:legacy_id, :id).to_h
-    CSV.foreach(Rails.root.join("legacy/creatives_20181208.csv"), headers: true, encoding: 'ISO-8859-1:UTF-8') do |row|
+    CSV.foreach(Rails.root.join("legacy/creatives_20181208.csv"), headers: true, encoding: "ISO-8859-1:UTF-8") do |row|
       creative            = Creative.new
       creative.legacy_id  = row["id"]
       creative.user_id    = user_ids[row["user_id"]]
@@ -122,12 +121,12 @@ namespace :legacy do
     print "Importing Campaigns "
     user_ids = User.all.pluck(:legacy_id, :id).to_h
     creative_ids = Creative.all.pluck(:legacy_id, :id).to_h
-    CSV.foreach(Rails.root.join("legacy/campaigns_20181208.csv"), headers: true, encoding: 'ISO-8859-1:UTF-8') do |row|
+    CSV.foreach(Rails.root.join("legacy/campaigns_20181208.csv"), headers: true, encoding: "ISO-8859-1:UTF-8") do |row|
       campaign             = Campaign.new
       campaign.legacy_id   = row["id"]
       campaign.user_id     = user_ids[row["user_id"]]
       campaign.creative_id = creative_ids[row["creative_id"]]
-      campaign.status      = 
+      campaign.status      =
         case row["status"]
           when "1" then "pending"
           when "2" then "active"
@@ -147,14 +146,14 @@ namespace :legacy do
       campaign.daily_budget_currency = "USD"
       campaign.ecpm_cents            = row["ecpm"].to_f * 100
       campaign.ecpm_currency         = "USD"
-      campaign.countries             = row["included_countries"][1...-1].split(",").map { |kw| kw.gsub('"', '') }
+      campaign.countries             = row["included_countries"][1...-1].split(",").map { |kw| kw.delete('"') }
 
-      programming_languages = row["included_programming_languages"][1...-1].split(",").map { |kw| kw.gsub('"', '') }
-      topic_categories      = row["included_topic_categories"][1...-1].split(",").map { |kw| kw.gsub('"', '') }
+      programming_languages = row["included_programming_languages"][1...-1].split(",").map { |kw| kw.delete('"') }
+      topic_categories      = row["included_topic_categories"][1...-1].split(",").map { |kw| kw.delete('"') }
       campaign.keywords     = (programming_languages + topic_categories).uniq.compact.sort
 
-      excluded_programming_languages = row["excluded_programming_languages"][1...-1].split(",").map { |kw| kw.gsub('"', '') }
-      excluded_topic_categories      = row["excluded_topic_categories"][1...-1].split(",").map { |kw| kw.gsub('"', '') }
+      excluded_programming_languages = row["excluded_programming_languages"][1...-1].split(",").map { |kw| kw.delete('"') }
+      excluded_topic_categories      = row["excluded_topic_categories"][1...-1].split(",").map { |kw| kw.delete('"') }
       campaign.negative_keywords     = (excluded_programming_languages + excluded_topic_categories).uniq.compact.sort
       campaign.created_at            = row["inserted_at"]
 
@@ -164,5 +163,4 @@ namespace :legacy do
 
     puts " Done!"
   end
-  
 end
