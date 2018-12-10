@@ -7,9 +7,13 @@ class DownloadMaxmindFilesJob < ApplicationJob
   queue_as :low
 
   def perform
-    download(geoip2_city_uri, geoip2_city_path).
-      then { |path| unzip path }.
-      then { |path| untar path }
+    begin
+      download(geoip2_city_uri, geoip2_city_path).
+        then { |path| unzip path }.
+        then { |path| untar path }
+    rescue StandardError => e
+      logger.error "Error downloading and extracting maxmind file! #{e.message}"
+    end
   end
 
   private

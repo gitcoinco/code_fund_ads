@@ -20,19 +20,20 @@ module MMDB
     end
 
     def mmdb
-      @mmdb ||= create_mmdb(mmdb_path)
-      @mmdb = create_mmdb(mmdb_path) if refresh?
-      @mmdb
+      @mmdb ||= begin
+        DownloadMaxmindFilesJob.perform_later if refresh?
+        Rails.cache.write :mmdb, true, expires_in: 1.day
+        create_mmdb
+      end
     end
 
-    def create_mmdb(path)
-      DownloadMaxmindFilesJob.perform_later
-      return nil unless path
-      Rails.cache.write :mmdb, true, expires_in: 1.day
-      MaxMindDB.new path
+    def create_mmdb
+      return nil unless mmdb_path.present?
+      MaxMindDB.new mmdb_path
     end
 
     def refresh?
+      return true unless mmdb_path.present?
       !Rails.cache.read(:mmdb)
     end
   end
