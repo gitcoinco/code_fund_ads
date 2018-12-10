@@ -164,46 +164,5 @@ namespace :legacy do
 
     puts " Done!"
   end
-
-  desc "Import legacy impression data"
-  task import_impressions: :environment do
-    user_ids = User.all.pluck(:legacy_id, :id).to_h
-    campaign_ids = Campaign.all.map { |c| [c.legacy_id, { id: c.id, user_id: c.user_id, name: c.scoped_name, creative_id: c.creative_id }] }.to_h
-    property_ids = Property.all.map { |c| [c.legacy_id, { id: c.id, user_id: c.user_id, name: c.scoped_name }] }.to_h
-    creative_ids = Creative.all.pluck(:legacy_id, :id).to_h
-    con = PG.connect(dbname: "code_fund_dev", user: "postgres")
-    total = 475_432 # 1_380_764
-    per_page = 5_000
-    page = 0
-    while per_page * page < total + per_page
-      print "#{page}."
-      offset = per_page * page
-      query = "SELECT * FROM impressions WHERE inserted_at >= '2018-11-01' AND inserted_at <= '2018-11-30' AND house_ad = false AND campaign_id IS NOT NULL AND property_id = '22e88dc3-30f2-451b-a14e-d257c1395ef1' limit #{per_page} offset #{offset}"
-      rs = con.exec query
-      rs.each do |row|
-        impression = Impression.new
-        impression.campaign_id       = campaign_ids[row["campaign_id"]][:id]
-        impression.advertiser_id     = campaign_ids[row["campaign_id"]][:user_id]
-        impression.campaign_name     = campaign_ids[row["campaign_id"]][:name]
-        impression.creative_id       = campaign_ids[row["campaign_id"]][:creative_id]
-        impression.property_id       = property_ids[row["property_id"]][:id]
-        impression.publisher_id      = property_ids[row["property_id"]][:user_id]
-        impression.property_name     = property_ids[row["property_id"]][:name]
-        impression.ip_address        = row["ip"]
-        impression.user_agent        = row["user_agent"] || "Unknown"
-        impression.displayed_at      = row["inserted_at"]
-        impression.displayed_at_date = Date.parse(row["inserted_at"])
-        impression.clicked_at        = row["redirected_at"]
-        impression.clicked_at_date   = Date.parse(row["redirected_at"]) if row["redirected_at"].present?
-        impression.fallback_campaign = false
-        impression.country_code      = row["country"]
-        impression.postal_code       = row["postal_code"]
-        impression.latitude          = row["latitude"]
-        impression.longitude         = row["longitude"]
-        impression.save!
-      end
-      page += 1
-    end
-  end
-
+  
 end
