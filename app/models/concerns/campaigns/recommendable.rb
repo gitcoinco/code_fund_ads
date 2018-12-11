@@ -3,6 +3,7 @@ module Campaigns
     extend ActiveSupport::Concern
 
     def recommended_daily_budget
+      return Money.new(0, "USD") if remaining_operative_days.zero?
       total_remaining_budget / remaining_operative_days
     end
 

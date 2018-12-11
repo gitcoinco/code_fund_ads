@@ -24,6 +24,7 @@
 #  negative_keywords     :string           default([]), is an Array
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  legacy_id             :uuid
 #
 
 require "test_helper"

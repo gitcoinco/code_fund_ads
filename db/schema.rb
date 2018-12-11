@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_06_210405) do
+ActiveRecord::Schema.define(version: 2018_12_11_201904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(version: 2018_12_06_210405) do
     t.string "negative_keywords", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "legacy_id"
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
     t.index ["countries"], name: "index_campaigns_on_countries", using: :gin
     t.index ["creative_id"], name: "index_campaigns_on_creative_id"
@@ -78,8 +79,8 @@ ActiveRecord::Schema.define(version: 2018_12_06_210405) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "commentable_id"
-    t.string "commentable_type"
+    t.bigint "commentable_id", null: false
+    t.string "commentable_type", null: false
     t.string "title"
     t.text "body"
     t.string "subject"
@@ -109,6 +110,7 @@ ActiveRecord::Schema.define(version: 2018_12_06_210405) do
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "legacy_id"
     t.index ["user_id"], name: "index_creatives_on_user_id"
   end
 
@@ -195,6 +197,8 @@ ActiveRecord::Schema.define(version: 2018_12_06_210405) do
     t.boolean "prohibit_fallback_campaigns", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "legacy_id"
+    t.decimal "revenue_percentage", default: "0.5", null: false
     t.index "lower((name)::text)", name: "index_properties_on_name"
     t.index ["keywords"], name: "index_properties_on_keywords", using: :gin
     t.index ["prohibited_advertiser_ids"], name: "index_properties_on_prohibited_advertiser_ids", using: :gin
@@ -276,6 +280,7 @@ ActiveRecord::Schema.define(version: 2018_12_06_210405) do
     t.integer "invitations_count", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "legacy_id"
     t.index "lower((email)::text)", name: "index_users_on_email", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
@@ -288,13 +293,15 @@ ActiveRecord::Schema.define(version: 2018_12_06_210405) do
 
   create_table "versions", force: :cascade do |t|
     t.string "item_type", null: false
-    t.integer "item_id", null: false
+    t.bigint "item_id", null: false
     t.string "event", null: false
     t.string "whodunnit"
-    t.text "object"
+    t.jsonb "object"
+    t.jsonb "object_changes"
     t.datetime "created_at"
-    t.text "object_changes"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+    t.index ["object"], name: "index_versions_on_object", using: :gin
+    t.index ["object_changes"], name: "index_versions_on_object_changes", using: :gin
   end
 
 end
