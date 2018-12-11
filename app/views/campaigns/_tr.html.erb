@@ -1,6 +1,10 @@
 <%= tag.tr class: classes("even": campaign_counter.even?, "odd": campaign_counter.odd?, "opacity-40": ENUMS::CAMPAIGN_STATUSES[campaign.status] == "archived") do %>
   <td class="align-middle text-secondary"><%= link_to campaign.name, campaign_dashboards_path(campaign) %></td>
-  <td class="align-middle text-secondary"><%= link_to campaign.user.full_name, user_path(campaign.user) %></td>
+  <% if authorized_user.can_admin_system? %>
+    <td class="align-middle">
+      <%= link_to campaign.user.full_name, user_path(campaign.user) %>
+    </td>
+  <% end %>
   <td class="align-middle text-secondary"><%= campaign.end_date.strftime("%b %-d, %Y") %></td>
   <td class="align-middle text-secondary"><%= campaign.total_budget.format %></td>
   <td class="align-middle text-<%= campaign_status_color(campaign.status) %>">
