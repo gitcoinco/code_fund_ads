@@ -9,10 +9,12 @@ class ChangePaperTrailToUseJsonb < ActiveRecord::Migration[5.2]
       t.string   :event, null: false
       t.string   :whodunnit
       t.jsonb    :object
+      t.jsonb    :object_changes
       t.datetime :created_at
 
       t.index [:item_type, :item_id]
       t.index :object, using: :gin
+      t.index :object_changes, using: :gin
     end
   end
 

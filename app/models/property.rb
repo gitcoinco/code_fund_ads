@@ -132,8 +132,18 @@ class Property < ApplicationRecord
     Campaign.for_property self
   end
 
-  def advertiser_campaigns
-    Campaign.where user_id: property_advertisers.select(:advertiser_id)
+  def displayed_campaigns(start_date = nil, end_date = nil)
+    subquery = impressions.between(start_date, end_date).distinct(:campaign_id).select(:campaign_id) if end_date
+    subquery ||= impressions.on(start_date).distinct(:campaign_id).select(:campaign_id) if start_date
+    subquery ||= impressions.distinct(:campaign_id).select(:campaign_id)
+    Campaign.where id: subquery
+  end
+
+  def clicked_campaigns(start_date = nil, end_date = nil)
+    subquery = impressions.clicked.between(start_date, end_date).distinct(:campaign_id).select(:campaign_id) if end_date
+    subquery ||= impressions.clicked.on(start_date).distinct(:campaign_id).select(:campaign_id) if start_date
+    subquery ||= impressions.clicked.distinct(:campaign_id).select(:campaign_id)
+    Campaign.where id: subquery
   end
 
   # protected instance methods ................................................

@@ -38,6 +38,7 @@ class Campaign < ApplicationRecord
   include Campaigns::Budgetable
   include Campaigns::Recommendable
   include Campaigns::Presentable
+  include Campaigns::Versionable
 
   # relationships .............................................................
   belongs_to :creative, optional: true
@@ -135,11 +136,13 @@ class Campaign < ApplicationRecord
   tag_columns :keywords
   tag_columns :negative_keywords
   acts_as_commentable
-  has_paper_trail on: %i[create update destroy], only: %i[
+  has_paper_trail on: %i[create update destroy], version_limit: nil, only: %i[
     countries
     creative_id
     daily_budget_cents
+    daily_budget_currency
     ecpm_cents
+    ecpm_currency
     end_date
     keywords
     name
@@ -147,6 +150,7 @@ class Campaign < ApplicationRecord
     start_date
     status
     total_budget_cents
+    total_budget_currency
     url
     us_hours_only
     user_id
@@ -202,9 +206,6 @@ class Campaign < ApplicationRecord
     dates = value.split(" - ")
     self.start_date = Date.strptime(dates[0], "%m/%d/%Y")
     self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
-  end
-
-  def ecpm_over_time
   end
 
   # protected instance methods ................................................

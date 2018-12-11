@@ -46,7 +46,7 @@ class Impression < ApplicationRecord
   scope :partitioned, ->(advertiser, start_date, end_date = nil) {
     where(advertiser: advertiser).between(start_date, end_date || start_date)
   }
-  scope :clicked, -> { where.not clicked_at: nil }
+  scope :clicked, -> { where.not clicked_at_date: nil }
   scope :on, ->(date) { where displayed_at_date: date.to_date }
   scope :between, ->(start_date, end_date) { where displayed_at_date: start_date.to_date..end_date.to_date }
 

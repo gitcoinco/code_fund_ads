@@ -57,6 +57,7 @@ class User < ApplicationRecord
   # extends ...................................................................
 
   # includes ..................................................................
+  include Users::Developable if Rails.env.development?
   include Users::Presentable
   include Eventable
   include Imageable
