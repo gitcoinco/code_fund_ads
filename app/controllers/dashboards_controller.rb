@@ -8,7 +8,8 @@ class DashboardsController < ApplicationController
     if authorized_user.can_admin_system?
       @active_advertisers = User.advertisers.with_active_campaigns.order(company_name: :asc)
       @active_campaigns = Campaign.active.order(name: :asc)
-    else
+    elsif context == "publisher"
+    elsif context == "advertiser"
       @active_campaigns = current_user.campaigns.active.order(name: :asc)
     end
   end
