@@ -1,12 +1,12 @@
 <div class="card-deck d-block d-lg-flex card-lg-gutters-2 mb-3">
   <%= render "/dashboards/stat_card",
     label: "Impressions",
-    value: "TBD", # TODO: Nate - Total impressions for date range (start_date to end_date)
+    value: number_with_delimiter(Impression.between(@start_date, @end_date).count),
     icon: "fas fa-eye",
     color: "btn-soft-info" %>
   <%= render "/dashboards/stat_card",
     label: "Clicks",
-    value: "TBD", # TODO: Nate - Total clicks for date range (start_date to end_date)
+    value: number_with_delimiter(Impression.clicked.between(@start_date, @end_date).count),
     icon: "fas fa-bullseye-pointer",
     color: "btn-soft-primary" %>
   <%= render "/dashboards/stat_card",
