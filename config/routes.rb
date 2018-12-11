@@ -55,6 +55,9 @@ Rails.application.routes.draw do
     resource :advertisement_clicks, only: [:show], path: "/click"
   end
 
+  # Legacy embed script support
+  get "/scripts/:legacy_id/embed.js", to: "advertisements#show"
+
   resources :properties do
     resources :property_screenshots, only: [:update]
   end
