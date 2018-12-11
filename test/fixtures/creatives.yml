@@ -1,4 +1,3 @@
-
 # == Schema Information
 #
 # Table name: creatives
@@ -10,6 +9,7 @@
 #  body       :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  legacy_id  :uuid
 #
 
 # IMPORTANT: Limit creatives fixtures to [1] using only the minimum required data

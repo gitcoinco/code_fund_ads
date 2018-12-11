@@ -177,8 +177,8 @@ ALTER SEQUENCE public.campaigns_id_seq OWNED BY public.campaigns.id;
 
 CREATE TABLE public.comments (
     id bigint NOT NULL,
-    commentable_id integer,
-    commentable_type character varying,
+    commentable_id bigint NOT NULL,
+    commentable_type character varying NOT NULL,
     title character varying,
     body text,
     subject character varying,
@@ -368,7 +368,8 @@ CREATE TABLE public.properties (
     prohibit_fallback_campaigns boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    legacy_id uuid
+    legacy_id uuid,
+    revenue_percentage numeric DEFAULT 0.5 NOT NULL
 );
 
 
@@ -552,12 +553,12 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 CREATE TABLE public.versions (
     id bigint NOT NULL,
     item_type character varying NOT NULL,
-    item_id integer NOT NULL,
+    item_id bigint NOT NULL,
     event character varying NOT NULL,
     whodunnit character varying,
-    object text,
-    created_at timestamp without time zone,
-    object_changes text
+    object jsonb,
+    object_changes jsonb,
+    created_at timestamp without time zone
 );
 
 
@@ -1274,6 +1275,20 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON public.versions USING bt
 
 
 --
+-- Name: index_versions_on_object; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_versions_on_object ON public.versions USING gin (object);
+
+
+--
+-- Name: index_versions_on_object_changes; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_versions_on_object_changes ON public.versions USING gin (object_changes);
+
+
+--
 -- Name: impressions_default_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
 --
 
@@ -1371,6 +1386,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181130175815'),
 ('20181201120915'),
 ('20181206210405'),
-('20181208164626');
+('20181208164626'),
+('20181211000031'),
+('20181211164312'),
+('20181211201904');
 
 
