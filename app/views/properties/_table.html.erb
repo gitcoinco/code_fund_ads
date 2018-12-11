@@ -3,7 +3,7 @@
     <thead>
       <tr class="border-bottom">
         <%= sortable_tr "name" %>
-        <th scope="col">Publisher</th>
+        <%= tag.th("Publisher", scope: "col") if authorized_user.can_admin_system? %>
         <th scope="col">URL</th>
         <%= sortable_tr "last_sign_in_at", "Date Added" %>
         <%= sortable_tr "status" %>
