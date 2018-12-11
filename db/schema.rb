@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_11_000031) do
+ActiveRecord::Schema.define(version: 2018_12_11_201904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -79,8 +79,8 @@ ActiveRecord::Schema.define(version: 2018_12_11_000031) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.integer "commentable_id"
-    t.string "commentable_type"
+    t.bigint "commentable_id", null: false
+    t.string "commentable_type", null: false
     t.string "title"
     t.text "body"
     t.string "subject"
@@ -198,6 +198,7 @@ ActiveRecord::Schema.define(version: 2018_12_11_000031) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "legacy_id"
+    t.decimal "revenue_percentage", default: "0.75", null: false
     t.index "lower((name)::text)", name: "index_properties_on_name"
     t.index ["keywords"], name: "index_properties_on_keywords", using: :gin
     t.index ["prohibited_advertiser_ids"], name: "index_properties_on_prohibited_advertiser_ids", using: :gin
@@ -296,9 +297,11 @@ ActiveRecord::Schema.define(version: 2018_12_11_000031) do
     t.string "event", null: false
     t.string "whodunnit"
     t.jsonb "object"
+    t.jsonb "object_changes"
     t.datetime "created_at"
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
     t.index ["object"], name: "index_versions_on_object", using: :gin
+    t.index ["object_changes"], name: "index_versions_on_object_changes", using: :gin
   end
 
 end

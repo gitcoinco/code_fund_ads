@@ -164,7 +164,7 @@ class Campaign < ApplicationRecord
   # public instance methods ...................................................
 
   def impressions
-    Impression.between(start_date, end_date).where(campaign: self)
+    Impression.partitioned(user_id, start_date.advance(months: -3), end_date.advance(months: 3)).where(campaign: self)
   end
 
   def property_ids_with_impressions(date = nil)

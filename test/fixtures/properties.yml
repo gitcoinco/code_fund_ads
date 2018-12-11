@@ -18,6 +18,7 @@
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #  legacy_id                   :uuid
+#  revenue_percentage          :decimal(, )      default(0.75), not null
 #
 
 # IMPORTANT: Limit properties fixtures to [1] per [type] using only the minimum required data

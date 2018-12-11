@@ -18,6 +18,7 @@
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #  legacy_id                   :uuid
+#  revenue_percentage          :decimal(, )      default(0.75), not null
 #
 
 require "test_helper"

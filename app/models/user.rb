@@ -176,10 +176,6 @@ class User < ApplicationRecord
     250.00
   end
 
-  def revenue_rate
-    0.6
-  end
-
   def small_images(wrapped = false)
     list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::SMALL)
     return list unless wrapped

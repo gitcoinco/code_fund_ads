@@ -80,21 +80,37 @@ module Impressionable
 
   def daily_impressions_count(date = nil)
     date = Date.parse((date || Date.current).to_s).to_date
-    Rails.cache.fetch daily_impressions_count_cache_key(date), expires_in: 2.days do
+    Rails.cache.fetch daily_impressions_count_cache_key(date) do
       impressions.on(date).count
     end
   end
 
-  def daily_impressions_per_mille
-    daily_impressions_count / 1_000.to_f
+  def daily_impressions_per_mille(date = nil)
+    daily_impressions_count(date) / 1_000.to_f
   end
 
-  def dates_with_impressions
-    impressions.select(:displayed_at_date).distinct.pluck(:displayed_at_date)
+  def probable_dates_with_impressions(start_date = nil, end_date = nil)
+    relation = impressions.
+      select(Impression.arel_table[:displayed_at_date].minimum.as("min")).
+      select(Impression.arel_table[:displayed_at_date].maximum.as("max")).
+      limit(1)
+    relation = relation.between(start_date, end_date) if start_date && end_date
+    relation = relation.on(start_date) if start_date && end_date.nil?
+    result = relation.first
+    return [] unless result.min
+    (result.min..result.max).to_a
   end
 
-  def dates_with_clicked_impressions
-    impressions.clicked.select(:displayed_at_date).distinct.pluck(:displayed_at_date)
+  def dates_with_impressions(start_date = nil, end_date = nil)
+    return impressions.between(start_date, end_date).distinct(:displayed_at_date).pluck(:displayed_at_date) if end_date
+    return impressions.on(start_date).distinct(:displayed_at_date).pluck(:displayed_at_date) if start_date
+    impressions.distinct(:displayed_at_date).pluck(:displayed_at_date)
+  end
+
+  def dates_with_clicked_impressions(start_date = nil, end_date = nil)
+    return impressions.clicked.between(start_date, end_date).distinct(:displayed_at_date).pluck(:displayed_at_date) if end_date
+    return impressions.clicked.on(start_date).distinct(:displayed_at_date).pluck(:displayed_at_date) if start_date
+    impressions.clicked.distinct(:displayed_at_date).pluck(:displayed_at_date)
   end
 
   def total_clicks_count_cache_key
@@ -113,7 +129,7 @@ module Impressionable
 
   def daily_clicks_count(date = nil)
     date = Date.parse(date || Date.current).to_date
-    Rails.cache.fetch daily_clicks_count_cache_key(date), expires_in: (remaining_operative_days + 7).days do
+    Rails.cache.fetch daily_clicks_count_cache_key(date) do
       impressions.on(date).clicked.count
     end
   end
