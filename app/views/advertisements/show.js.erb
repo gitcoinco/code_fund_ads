@@ -1,16 +1,18 @@
 (function() {
   function embed () {
-    <% if @advertisement_html %>
+    <% if @advertisement_html -%>
     try {
-      document.getElementById('codefund').innerHTML = '<%= @advertisement_html.html_safe %>';
-      document.querySelector('#codefund img[data-src="impression_url"]').src = '<%= @impression_url %>';
-      document.querySelectorAll('#codefund a[data-href="campaign_url"]').forEach(function (a) { a.href = '<%= @campaign_url %>'; });
+      var targetElement = document.getElementById('codefund');
+      if (targetElement == null) { targetElement = document.getElementById('<%= @target %>'); }
+      targetElement.innerHTML = '<%= @advertisement_html.html_safe %>';
+      targetElement.querySelector('img[data-src="impression_url"]').src = '<%= @impression_url %>';
+      targetElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '<%= @campaign_url %>'; });
     } catch (e) {
       console.log('CodeFund detected an error! Please verify an element exists with id="codefund". ' + e.message);
     }
-    <% else %>
+    <% else -%>
       console.log('CodeFund does not have a advertiser for you at this time.');
-    <% end %>
+    <% end -%>
     document.removeEventListener('DOMContentLoaded', embed);
   };
   (document.readyState === 'loading') ? document.addEventListener('DOMContentLoaded', embed) : embed();
