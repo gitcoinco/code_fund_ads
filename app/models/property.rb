@@ -134,15 +134,13 @@ class Property < ApplicationRecord
   end
 
   def displayed_campaigns(start_date = nil, end_date = nil)
-    subquery = impressions.between(start_date, end_date).distinct(:campaign_id).select(:campaign_id) if end_date
-    subquery ||= impressions.on(start_date).distinct(:campaign_id).select(:campaign_id) if start_date
+    subquery = impressions.between(start_date, end_date).distinct(:campaign_id).select(:campaign_id) if start_date
     subquery ||= impressions.distinct(:campaign_id).select(:campaign_id)
     Campaign.where id: subquery
   end
 
   def clicked_campaigns(start_date = nil, end_date = nil)
-    subquery = impressions.clicked.between(start_date, end_date).distinct(:campaign_id).select(:campaign_id) if end_date
-    subquery ||= impressions.clicked.on(start_date).distinct(:campaign_id).select(:campaign_id) if start_date
+    subquery = impressions.clicked.between(start_date, end_date).distinct(:campaign_id).select(:campaign_id) if start_date
     subquery ||= impressions.clicked.distinct(:campaign_id).select(:campaign_id)
     Campaign.where id: subquery
   end
@@ -160,7 +158,7 @@ class Property < ApplicationRecord
     revenue_calculators(start_date, end_date).sum(&:gross_revenue)
   end
 
-  def earned_revenue(start_date = nil, end_date = nil)
+  def property_revenue(start_date = nil, end_date = nil)
     revenue_calculators(start_date, end_date).sum(&:property_revenue)
   end
 

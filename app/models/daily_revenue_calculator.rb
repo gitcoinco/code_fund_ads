@@ -20,15 +20,15 @@ class DailyRevenueCalculator
   end
 
   def gross_revenue
-    ecpm * impressions_per_mille
+    @gross_revenue ||= ecpm * impressions_per_mille
   end
 
   def property_revenue
-    gross_revenue * property.revenue_percentage
+    @property_revenue ||= gross_revenue * property.revenue_percentage
   end
 
   def house_revenue
-    gross_revenue - property_revenue
+    @house_revenue ||= gross_revenue - property_revenue
   end
 
   def present?

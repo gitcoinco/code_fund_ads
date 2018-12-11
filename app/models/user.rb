@@ -59,6 +59,7 @@ class User < ApplicationRecord
   # includes ..................................................................
   include Users::Developable if Rails.env.development?
   include Users::Presentable
+  include Users::Publisher
   include Eventable
   include Imageable
   include Taggable
@@ -67,8 +68,6 @@ class User < ApplicationRecord
   has_many :campaigns
   has_many :creatives
   has_many :impressions_as_advertiser, class_name: "Impression", foreign_key: "advertiser_id"
-  has_many :impressions_as_publisher, class_name: "Impression", foreign_key: "publisher_id"
-  has_many :properties
 
   # validations ...............................................................
   validates :first_name, presence: true
@@ -166,14 +165,6 @@ class User < ApplicationRecord
 
   def advertiser?
     roles.include? ENUMS::USER_ROLES["advertiser"]
-  end
-
-  def publisher?
-    roles.include? ENUMS::USER_ROLES["publisher"]
-  end
-
-  def total_distributions
-    250.00
   end
 
   def small_images(wrapped = false)

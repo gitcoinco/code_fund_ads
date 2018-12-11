@@ -102,14 +102,12 @@ module Impressionable
   end
 
   def dates_with_impressions(start_date = nil, end_date = nil)
-    return impressions.between(start_date, end_date).distinct(:displayed_at_date).pluck(:displayed_at_date) if end_date
-    return impressions.on(start_date).distinct(:displayed_at_date).pluck(:displayed_at_date) if start_date
+    return impressions.between(start_date, end_date).distinct(:displayed_at_date).pluck(:displayed_at_date) if start_date
     impressions.distinct(:displayed_at_date).pluck(:displayed_at_date)
   end
 
   def dates_with_clicked_impressions(start_date = nil, end_date = nil)
-    return impressions.clicked.between(start_date, end_date).distinct(:displayed_at_date).pluck(:displayed_at_date) if end_date
-    return impressions.clicked.on(start_date).distinct(:displayed_at_date).pluck(:displayed_at_date) if start_date
+    return impressions.clicked.between(start_date, end_date).distinct(:displayed_at_date).pluck(:displayed_at_date) if start_date
     impressions.clicked.distinct(:displayed_at_date).pluck(:displayed_at_date)
   end
 
