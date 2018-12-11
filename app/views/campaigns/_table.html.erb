@@ -3,7 +3,7 @@
     <thead>
       <tr class="border-bottom">
         <%= sortable_tr "name" %>
-        <%= sortable_tr "user.first_name", "Advertiser" %>
+        <%= tag.th("Advertiser", scope: "col") if authorized_user.can_admin_system? %>
         <%= sortable_tr "end_date", "Expires" %>
         <%= sortable_tr "total_budget_cents", "Budget" %>
         <%= sortable_tr "status" %>

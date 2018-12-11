@@ -11,8 +11,8 @@ After being approved on the CodeFund platform,
 publishers can add CodeFund to their site by including the CodeFund script and adding the CodeFund `div`.
 
 ```html
-<script type="text/html" src="https://codefund.io/properties/PROPERTY_ID/funder.js" async="async"></script>
 <div id="codefund"></div>
+<script src="https://codefund.io/properties/PROPERTY_ID/funder.js" async="async" type="text/javascript"></script>
 ```
 
 > Setting `async` on the script tag will ensure that CodeFund doens't block anything on the publisher's site.
