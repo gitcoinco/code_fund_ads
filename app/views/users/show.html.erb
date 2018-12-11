@@ -4,6 +4,11 @@
       <%= render "/users/card", user: @user %>
     </div>
     <div class="col-md-6 col-lg-8">
+      <h4 class="h5 mb-3">
+        Details
+        <small class="text-muted d-block">Basic user details</small>
+      </h4>
+
       <ul class="list-unstyled mb-0">
         <%= details_li("Name") { @user.name } %>
         <%= details_li("Email") { @user.email } %>

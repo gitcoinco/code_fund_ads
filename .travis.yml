@@ -1,6 +1,28 @@
 language: ruby
+cache:
+  directories:
+    - vendor/bundle
+    - node_modules
 rvm:
   - 2.5.3
+addons:
+  postgresql: '11'
+  chrome: stable
+env:
+  global:
+    - RAILS_ENV=test
+branches:
+  only:
+    - master
+before_install:
+  - nvm install node v9.11.2
+install:
+  - bundle install --path vendor/bundle
+  - yarn install
+before_script:
+  - cp config/database.yml.travis config/database.yml
+  - psql -c 'create database travis_ci_test;' -U postgres
 script:
-  - bin/rake db:migrate RAILS_ENV=test
-  - bin/rake
+  - bundle exec ./bin/webpack-dev-server
+  - bundle exec rails db:schema:load
+  - bundle exec rake

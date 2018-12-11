@@ -12,6 +12,7 @@ environment.config.merge({
       SVGInjector: 'theme/vendor/svg-injector/dist/svg-injector.min',
       Noty: 'node_modules/noty/lib/noty.min',
       Circles: 'theme/vendor/circles/circles.min',
+      ClipboardJS: 'theme/vendor/clipboard/dist/clipboard.min',
     },
   },
 });
@@ -27,6 +28,7 @@ environment.plugins.prepend(
     SVGInjector: "SVGInjector",
     Noty: "Noty",
     Circles: "Circles",
+    ClipboardJS: "ClipboardJS",
   })
 );
 

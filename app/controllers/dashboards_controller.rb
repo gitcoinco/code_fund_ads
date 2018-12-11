@@ -5,8 +5,12 @@ class DashboardsController < ApplicationController
   def show
     @context = params[:id]
 
-    @active_advertisers = User.advertisers.with_active_campaigns.order(company_name: :asc)
-    @active_campaigns = Campaign.active.order(name: :asc)
+    if authorized_user.can_admin_system?
+      @active_advertisers = User.advertisers.with_active_campaigns.order(company_name: :asc)
+      @active_campaigns = Campaign.active.order(name: :asc)
+    else
+      @active_campaigns = current_user.campaigns.active.order(name: :asc)
+    end
   end
 
   private
