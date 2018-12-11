@@ -24,6 +24,7 @@
 #  negative_keywords     :string           default([]), is an Array
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  legacy_id             :uuid
 #
 
 class Campaign < ApplicationRecord
@@ -134,7 +135,7 @@ class Campaign < ApplicationRecord
   tag_columns :keywords
   tag_columns :negative_keywords
   acts_as_commentable
-  has_paper_trail on: %i[update destroy], only: %i[
+  has_paper_trail on: %i[create update destroy], only: %i[
     countries
     creative_id
     daily_budget_cents
@@ -201,6 +202,9 @@ class Campaign < ApplicationRecord
     dates = value.split(" - ")
     self.start_date = Date.strptime(dates[0], "%m/%d/%Y")
     self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
+  end
+
+  def ecpm_over_time
   end
 
   # protected instance methods ................................................

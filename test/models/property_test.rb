@@ -17,6 +17,7 @@
 #  prohibit_fallback_campaigns :boolean          default(FALSE), not null
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
+#  legacy_id                   :uuid
 #
 
 require "test_helper"

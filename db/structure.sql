@@ -552,12 +552,11 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 CREATE TABLE public.versions (
     id bigint NOT NULL,
     item_type character varying NOT NULL,
-    item_id integer NOT NULL,
+    item_id bigint NOT NULL,
     event character varying NOT NULL,
     whodunnit character varying,
-    object text,
-    created_at timestamp without time zone,
-    object_changes text
+    object jsonb,
+    created_at timestamp without time zone
 );
 
 
@@ -1274,6 +1273,13 @@ CREATE INDEX index_versions_on_item_type_and_item_id ON public.versions USING bt
 
 
 --
+-- Name: index_versions_on_object; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_versions_on_object ON public.versions USING gin (object);
+
+
+--
 -- Name: impressions_default_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
 --
 
@@ -1371,6 +1377,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181130175815'),
 ('20181201120915'),
 ('20181206210405'),
-('20181208164626');
+('20181208164626'),
+('20181211000031');
 
 

@@ -69,7 +69,7 @@ module Impressionable
   end
 
   def total_impressions_count
-    Rails.cache.fetch total_impressions_count_cache_key, expires_in: (remaining_operative_days + 7).days do
+    Rails.cache.fetch total_impressions_count_cache_key do
       impressions.count
     end
   end
@@ -106,7 +106,7 @@ module Impressionable
   end
 
   def total_clicks_count
-    Rails.cache.fetch total_clicks_count_cache_key, expires_in: (remaining_operative_days + 7).days do
+    Rails.cache.fetch total_clicks_count_cache_key do
       impressions.clicked.count
     end
   end
@@ -118,12 +118,12 @@ module Impressionable
     end
   end
 
-  def total_ctr
+  def total_click_rate
     return 0 if total_impressions_count.zero?
     (total_clicks_count / total_impressions_count.to_f) * 100
   end
 
-  def daily_ctr(date = nil)
+  def daily_click_rate(date = nil)
     date ||= Date.current
     impressions_count = daily_impressions_count(date)
     clicks_count = daily_clicks_count(date)

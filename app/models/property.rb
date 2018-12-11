@@ -17,6 +17,7 @@
 #  prohibit_fallback_campaigns :boolean          default(FALSE), not null
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
+#  legacy_id                   :uuid
 #
 
 class Property < ApplicationRecord
@@ -129,6 +130,10 @@ class Property < ApplicationRecord
 
   def matching_campaigns
     Campaign.for_property self
+  end
+
+  def advertiser_campaigns
+    Campaign.where user_id: property_advertisers.select(:advertiser_id)
   end
 
   # protected instance methods ................................................
