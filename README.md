@@ -19,18 +19,23 @@ publishers can add CodeFund to their site by including the CodeFund script and a
 
 The URLs/routes responsible for ad rendering are:
 
-- __GET__ `/properties/1/funder.js` → `advertisements#show` - _embed script_
+- **GET** `/properties/1/funder.js` → `advertisements#show` - _embed script_
 
   This is the embed JavaScript that publishers place on their site.
   It includes the ad HTML and some logic to inject the HTML to the page and setup the links and impression pixel.
 
-- __GET__ `/display/1.gif` → `impressions#show` - _creates an impression_
+- **GET** `/scripts/76bfe997-898a-418c-8f0b-6298b7dd320a/embed.js` → `advertisements#show` - _embed script_
+
+  This endpoint is to support our legacy system (CodeFund v1) embed URLs.
+  It points to the same endpoint as `/properties/1/funder.js`.
+
+- **GET** `/display/1.gif` → `impressions#show` - _creates an impression_
 
   This is the impression pixel image.
   The impression is created after this image is requested and served successfully.
   This means that a matching campaign was found and the embed JavaScript did its job correctly.
 
-- __GET__ `/impressions/76bfe997-898a-418c-8f0b-6298b7dd320a/click?campaign_id=1` → `advertisement_clicks#show` - _creates a click_
+- **GET** `/impressions/76bfe997-898a-418c-8f0b-6298b7dd320a/click?campaign_id=1` → `advertisement_clicks#show` - _creates a click_
 
   This is the proxy/redirect URL that allows us to track the click.
   We immediately redirect to the advertiser's campaign URL and background the work to mark the associated impression as clicked.
@@ -48,7 +53,7 @@ ENUMS::USER_ROLES.constants
 # etc...
 ```
 
-__Always use enums instead of "magic" values.__
+**Always use enums instead of "magic" values.**
 
 ## Development Environment
 
@@ -103,23 +108,23 @@ cd /path/to/project
 
 ## Code Standards
 
- We avoid [bike shedding](https://en.wikipedia.org/wiki/Law_of_triviality) by enforcing coding standards through tooling.
+We avoid [bike shedding](https://en.wikipedia.org/wiki/Law_of_triviality) by enforcing coding standards through tooling.
 
- - Ruby - [standard](https://github.com/testdouble/standard)
- - JavaScript - [prettier](https://github.com/prettier/prettier)
+- Ruby - [standard](https://github.com/testdouble/standard)
+- JavaScript - [prettier](https://github.com/prettier/prettier)
 
- Ensure the code has been standardized by running the following before you commit.
+Ensure the code has been standardized by running the following before you commit.
 
- ```sh
- ./bin/standardize
- ```
+```sh
+./bin/standardize
+```
 
- ## Deployment
+## Deployment
 
- ### Database
+### Database
 
- - The `impressions` table is dynamically partitioned by __advertiser__ (i.e. `user`) and __date__
- - The database user requires permissions to execute DDL and create schema to support dynamic partition tables
+- The `impressions` table is dynamically partitioned by **advertiser** (i.e. `user`) and **date**
+- The database user requires permissions to execute DDL and create schema to support dynamic partition tables
 
 ## Candidates for GEM extraction
 

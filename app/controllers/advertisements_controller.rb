@@ -27,10 +27,8 @@ class AdvertisementsController < ApplicationController
   end
 
   def property_id
-    @property_id ||= begin
-      return Property.where(legacy_id: params[:legacy_id]).pluck(:id).first if params[:legacy_id].present?
-      params[:property_id].to_i
-    end
+    return Property.where(legacy_id: params[:legacy_id]).pluck(:id).first if params[:legacy_id].present?
+    params[:property_id].to_i
   end
 
   def set_campaign
