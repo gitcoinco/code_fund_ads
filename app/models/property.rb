@@ -18,7 +18,7 @@
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
 #  legacy_id                   :uuid
-#  revenue_percentage          :decimal(, )      default(0.75), not null
+#  revenue_percentage          :decimal(, )      default(0.5), not null
 #
 
 class Property < ApplicationRecord

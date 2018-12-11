@@ -89,6 +89,12 @@ module Impressionable
     daily_impressions_count(date) / 1_000.to_f
   end
 
+  # Returns an Array of probable dates with impressions
+  #
+  # No dates are missed; however, there may be false positives
+  # i.e. dates returned that don't actually have impressions
+  #
+  # NOTE: This method outperforms #dates_with_impressions
   def probable_dates_with_impressions(start_date = nil, end_date = nil)
     relation = impressions.
       select(Impression.arel_table[:displayed_at_date].minimum.as("min")).

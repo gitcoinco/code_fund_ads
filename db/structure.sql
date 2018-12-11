@@ -369,7 +369,7 @@ CREATE TABLE public.properties (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     legacy_id uuid,
-    revenue_percentage numeric DEFAULT 0.75 NOT NULL
+    revenue_percentage numeric DEFAULT 0.5 NOT NULL
 );
 
 
