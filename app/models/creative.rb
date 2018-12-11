@@ -9,6 +9,7 @@
 #  body       :text
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  legacy_id  :uuid
 #
 
 class Creative < ApplicationRecord

@@ -17,6 +17,8 @@
 #  prohibit_fallback_campaigns :boolean          default(FALSE), not null
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
+#  legacy_id                   :uuid
+#  revenue_percentage          :decimal(, )      default(0.5), not null
 #
 
 class Property < ApplicationRecord
@@ -129,6 +131,39 @@ class Property < ApplicationRecord
 
   def matching_campaigns
     Campaign.for_property self
+  end
+
+  def displayed_campaigns(start_date = nil, end_date = nil)
+    subquery = impressions.between(start_date, end_date).distinct(:campaign_id).select(:campaign_id) if start_date
+    subquery ||= impressions.distinct(:campaign_id).select(:campaign_id)
+    Campaign.where id: subquery
+  end
+
+  def clicked_campaigns(start_date = nil, end_date = nil)
+    subquery = impressions.clicked.between(start_date, end_date).distinct(:campaign_id).select(:campaign_id) if start_date
+    subquery ||= impressions.clicked.distinct(:campaign_id).select(:campaign_id)
+    Campaign.where id: subquery
+  end
+
+  def revenue_calculators(start_date = nil, end_date = nil)
+    campaigns = displayed_campaigns(start_date, end_date).includes(:user)
+    probable_dates_with_impressions(start_date, end_date).each_with_object([]) do |date, memo|
+      campaigns.each do |campaign|
+        memo << DailyRevenueCalculator.new(date, self, campaign)
+      end
+    end
+  end
+
+  def gross_revenue(start_date = nil, end_date = nil)
+    revenue_calculators(start_date, end_date).sum(&:gross_revenue)
+  end
+
+  def property_revenue(start_date = nil, end_date = nil)
+    revenue_calculators(start_date, end_date).sum(&:property_revenue)
+  end
+
+  def house_revenue(start_date = nil, end_date = nil)
+    revenue_calculators(start_date, end_date).sum(&:house_revenue)
   end
 
   # protected instance methods ................................................

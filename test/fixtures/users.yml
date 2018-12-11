@@ -50,6 +50,7 @@
 #  invitations_count      :integer          default(0)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  legacy_id              :uuid
 #
 
 # IMPORTANT: Limit users fixtures to [1] per [role] using only the minimum required data

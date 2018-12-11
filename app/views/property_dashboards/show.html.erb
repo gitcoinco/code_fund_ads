@@ -6,15 +6,15 @@
     </div>
     <div class="col-md-3 text-center">
       <label class="d-block text-muted mb-0">Impressions</label>
-      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_with_delimiter 100 %></span>
+      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_with_delimiter @property.total_impressions_count %></span>
     </div>
     <div class="col-md-3 text-center">
       <label class="d-block text-muted mb-0">Clicks</label>
-      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_with_delimiter 100 %></span>
+      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_with_delimiter @property.total_clicks_count %></span>
     </div>
     <div class="col-md-3 text-center">
       <label class="d-block text-muted mb-0">CTR</label>
-      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_to_percentage 100, precision: 2 %></span>
+      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_to_percentage @property.total_click_rate, precision: 2 %></span>
     </div>
   </div>
 <% end %>

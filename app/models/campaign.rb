@@ -24,6 +24,7 @@
 #  negative_keywords     :string           default([]), is an Array
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  legacy_id             :uuid
 #
 
 class Campaign < ApplicationRecord
@@ -37,6 +38,7 @@ class Campaign < ApplicationRecord
   include Campaigns::Budgetable
   include Campaigns::Recommendable
   include Campaigns::Presentable
+  include Campaigns::Versionable
 
   # relationships .............................................................
   belongs_to :creative, optional: true
@@ -134,11 +136,13 @@ class Campaign < ApplicationRecord
   tag_columns :keywords
   tag_columns :negative_keywords
   acts_as_commentable
-  has_paper_trail on: %i[update destroy], only: %i[
+  has_paper_trail on: %i[create update destroy], version_limit: nil, only: %i[
     countries
     creative_id
     daily_budget_cents
+    daily_budget_currency
     ecpm_cents
+    ecpm_currency
     end_date
     keywords
     name
@@ -146,6 +150,7 @@ class Campaign < ApplicationRecord
     start_date
     status
     total_budget_cents
+    total_budget_currency
     url
     us_hours_only
     user_id
@@ -159,7 +164,7 @@ class Campaign < ApplicationRecord
   # public instance methods ...................................................
 
   def impressions
-    Impression.between(start_date, end_date).where(campaign: self)
+    Impression.partitioned(user_id, start_date.advance(months: -3), end_date.advance(months: 3)).where(campaign: self)
   end
 
   def property_ids_with_impressions(date = nil)

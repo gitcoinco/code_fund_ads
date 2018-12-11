@@ -17,6 +17,8 @@
 #  prohibit_fallback_campaigns :boolean          default(FALSE), not null
 #  created_at                  :datetime         not null
 #  updated_at                  :datetime         not null
+#  legacy_id                   :uuid
+#  revenue_percentage          :decimal(, )      default(0.5), not null
 #
 
 require "test_helper"

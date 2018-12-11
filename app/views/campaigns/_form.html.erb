@@ -45,7 +45,7 @@
   <hr class="mt-3 mb-4" />
 
   <%= render "/@shared/forms/section_heading", title: "Creative", subtitle: "Pick which creative you would like to use" %>
-  
+
   <div class="row" data-target="campaign-form.creativesWrapper">
     <%= render partial: "/creative_options/options",
         locals: {
@@ -110,17 +110,27 @@
   </div>
 
   <hr class="mt-3 mb-4" />
-  
+
   <%= render "/@shared/forms/section_heading", title: "Budget", subtitle: "Let's talk numbers" %>
 
   <div class="row">
-    <%= tag.div f.input(:ecpm, as: :currency, currency: "$"), class: "col-md-4 mb-3" %>
-    <%= tag.div f.input(:daily_budget, as: :currency, currency: "$"), class: "col-md-4 mb-3" %>
+    <div class="col-md-4 mb-3">
+      <%= f.input(:ecpm, as: :currency, currency: "$") %>
+      <small id="passwordHelpBlock" class="form-text text-muted">
+        Effective cost per thousand impressions
+      </small>
+    </div>
+    <div class="col-md-4 mb-3">
+      <%= f.input(:daily_budget, as: :currency, currency: "$") %>
+      <small class="form-text text-muted">
+        Recommended value: <code><%= @campaign.recommended_daily_budget.format %></code>
+      </small>
+    </div>
     <%= tag.div f.input(:total_budget, label: "Total (MAX) Budget", as: :currency, currency: "$"), class: "col-md-4 mb-3" %>
   <div>
 
   <%= render "@shared/forms/button_panel" do %>
-    <%= f.submit "Save Campaign", class: "btn btn-sm btn-primary transition-3d-hover mr-1" %>  
+    <%= f.submit "Save Campaign", class: "btn btn-sm btn-primary transition-3d-hover mr-1" %>
     <%= link_to "Cancel", campaigns_path, class: "btn btn-sm btn-soft-secondary transition-3d-hover" %>
   <% end %>
 <% end %>

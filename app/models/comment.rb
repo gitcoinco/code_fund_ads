@@ -3,8 +3,8 @@
 # Table name: comments
 #
 #  id               :bigint(8)        not null, primary key
-#  commentable_id   :integer
-#  commentable_type :string
+#  commentable_id   :bigint(8)        not null
+#  commentable_type :string           not null
 #  title            :string
 #  body             :text
 #  subject          :string
