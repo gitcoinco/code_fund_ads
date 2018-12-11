@@ -75,7 +75,7 @@ module Impressionable
   end
 
   def total_impressions_per_mille
-    total_impressions_count / 1_000.to_f
+    total_impressions_count.to_i / 1_000.to_f
   end
 
   def daily_impressions_count(date = nil)
@@ -86,7 +86,7 @@ module Impressionable
   end
 
   def daily_impressions_per_mille(date = nil)
-    daily_impressions_count(date) / 1_000.to_f
+    daily_impressions_count(date).to_i / 1_000.to_f
   end
 
   # Returns an Array of probable dates with impressions

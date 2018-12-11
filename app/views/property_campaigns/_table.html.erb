@@ -13,7 +13,7 @@
     <tbody>
       <% campaigns.each do |campaign| %>
       <tr>
-        <td class="text-left align-middle text-secondary"><%= link_to campaign.name, campaign %></td>
+        <td class="text-left align-middle text-secondary"><%= campaign.name %></td>
         <td class="text-center align-middle text-secondary"><%= number_to_currency campaign.ecpm %></td>
         <td class="text-center align-middle text-secondary"><%= campaign.impressions.where(property: property).count %></td>
         <td class="text-center align-middle text-secondary"><%= campaign.impressions.clicked.where(property: property).count %></td>
