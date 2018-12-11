@@ -24,6 +24,11 @@ The URLs/routes responsible for ad rendering are:
   This is the embed JavaScript that publishers place on their site.
   It includes the ad HTML and some logic to inject the HTML to the page and setup the links and impression pixel.
 
+- **GET** `/scripts/76bfe997-898a-418c-8f0b-6298b7dd320a/embed.js` → `advertisements#show` - _embed script_
+
+  This endpoint is to support our legacy system (CodeFund v1) embed URLs.
+  It points to the same endpoint as `/properties/1/funder.js`.
+
 - **GET** `/display/1.gif` → `impressions#show` - _creates an impression_
 
   This is the impression pixel image.

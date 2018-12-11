@@ -6,9 +6,10 @@ class AdvertisementsController < ApplicationController
   after_action :create_virtual_impression, if: -> { @campaign.present? }
 
   def show
+    @target = params[:target] || "codefund_ad"
     if @campaign
       @advertisement_html = render_advertisement
-      @campaign_url = advertisement_clicks_path(@virtual_impression_id, campaign_id: @campaign.id)
+      @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
       @impression_url = impression_url(@virtual_impression_id, format: :gif)
     end
 
@@ -25,14 +26,19 @@ class AdvertisementsController < ApplicationController
     @ip_info ||= MMDB.lookup(request.remote_ip)
   end
 
+  def property_id
+    return Property.where(legacy_id: params[:legacy_id]).pluck(:id).first if params[:legacy_id].present?
+    params[:property_id].to_i
+  end
+
   def set_campaign
     country_code = ip_info&.country&.iso_code
-    campaigns = Campaign.active.available_on(Date.current).for_property_id(params[:property_id])
+    campaigns = Campaign.active.available_on(Date.current).for_property_id(property_id)
     campaigns = campaigns.with_all_countries(country_code) if country_code
     @campaign = campaigns.limit(10).sample
 
     if @campaign.nil?
-      campaigns = Campaign.active.available_on(Date.current).fallback_for_property_id(params[:property_id])
+      campaigns = Campaign.active.available_on(Date.current).fallback_for_property_id(property_id)
       campaigns = campaigns.with_all_countries(country_code) if country_code
       @campaign = campaigns.limit(10).sample
     end
@@ -45,7 +51,7 @@ class AdvertisementsController < ApplicationController
     @theme_name = params[:theme]
 
     unless @template_name && @theme_name
-      template_name, theme_name = Property.where(id: params[:property_id]).pluck(:ad_template, :ad_theme).first
+      template_name, theme_name = Property.where(id: property_id).pluck(:ad_template, :ad_theme).first
       @template_name ||= template_name
       @theme_name ||= theme_name
     end
@@ -109,7 +115,7 @@ class AdvertisementsController < ApplicationController
     return unless @campaign
     Rails.cache.write @virtual_impression_id, {
       campaign_id: @campaign.id,
-      property_id: params[:property_id].to_i,
+      property_id: property_id,
       ip_address: request.remote_ip,
     }, expires_in: 30.seconds
   end
