@@ -1,3 +1,5 @@
+[![](https://travis-ci.org/gitcoinco/code_fund_ads.svg?branch=master)](https://travis-ci.org/gitcoinco/code_fund_ads#)
+
 # [WIP] CodeFund Ads
 
 CodeFund Ads is an ethical and discreet ad platform that funds open-source.
