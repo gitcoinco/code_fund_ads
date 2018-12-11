@@ -4,20 +4,23 @@
       <h4 class="h6 mb-0">
         <%= tag.span "", class: "fas fa-circle small mr-1 text-#{property_status_color(property.status)}",
               title: property.status.humanize, data: tooltip_expando %>
-        <%= link_to property.name, property %>
+        <%= link_to property.name, property, class: "link-muted" %>
       </h4>
       <div class="position-relative">
-        <%= link_to property.url, class: "btn btn-sm btn-link btn-bg-transparent px-0", target: "_blank" do %>
-          <span class="fas fa-external-link"></span>
+        <%= link_to property_property_screenshot_path(property), method: :put, class: "btn btn-xs btn-icon btn-light transition-3d-hover" do %>
+          <span class="fas fa-camera btn-icon__inner"></span>
+        <% end if authorized_user.can_admin_system? %>
+        <%= link_to property.url, class: "btn btn-xs btn-icon btn-light transition-3d-hover", target: "_blank" do %>
+          <span class="fas fa-external-link btn-icon__inner"></span>
         <% end %>
       </div>
     </div>
   </div>
 
-  <div class="card-body p-2">
+  <div class="card-body p-2 gradient-half-primary-v3">
     <div class="text-center">
       <div class="mx-auto">
-        <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "img-fluid rounded mb-4"), property %>
+        <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "img-fluid mb-4 border"), property %>
       </div>
       <div class="js-bar-chart"
         data-controller="bar-chart"
