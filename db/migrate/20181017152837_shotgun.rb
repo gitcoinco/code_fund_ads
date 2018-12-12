@@ -151,7 +151,7 @@ class Shotgun < ActiveRecord::Migration[5.2]
 
     create_table :publisher_invoices do |t|
       t.bigint :user_id, null: false
-      t.money :amount, null: false
+      t.monetize :amount, null: false
       t.string :currency, null: false
       t.date :start_date, null: false
       t.date :end_date, null: false
