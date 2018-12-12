@@ -1,6 +1,8 @@
 require "test_helper"
 
 class CampaignsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   # setup do
   # @campaign = campaigns(:one)
   # end
