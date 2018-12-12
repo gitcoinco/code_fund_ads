@@ -32,6 +32,7 @@ class Impression < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :advertiser, class_name: "User", foreign_key: "advertiser_id"
+  belongs_to :publisher, class_name: "User", foreign_key: "publisher_id"
   belongs_to :campaign
   belongs_to :distribution, optional: true
   belongs_to :property
@@ -104,7 +105,7 @@ class Impression < ApplicationRecord
   end
 
   def calculate_estimated_gross_revenue_fractional_cents
-    @calculated_estimated_gross_revenue_fractional_cents ||= applicable_ecpm.to_d / 1_000.to_d
+    @calculated_estimated_gross_revenue_fractional_cents ||= applicable_ecpm.cents / 1_000.to_f
   end
 
   def calculate_estimated_property_revenue_fractional_cents
@@ -115,7 +116,12 @@ class Impression < ApplicationRecord
     calculate_estimated_gross_revenue_fractional_cents - calculate_estimated_property_revenue_fractional_cents
   end
 
-  def calculate_estimated_revenue
+  def calculate_estimated_revenue(recalculate = false)
+    if recalculate
+      self.estimated_gross_revenue_fractional_cents ||= nil
+      self.estimated_property_revenue_fractional_cents ||= nil
+      self.estimated_house_revenue_fractional_cents ||= nil
+    end
     self.estimated_gross_revenue_fractional_cents ||= calculate_estimated_gross_revenue_fractional_cents
     self.estimated_property_revenue_fractional_cents ||= calculate_estimated_property_revenue_fractional_cents
     self.estimated_house_revenue_fractional_cents ||= calculate_estimated_house_revenue_fractional_cents

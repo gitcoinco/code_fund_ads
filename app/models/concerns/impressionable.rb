@@ -102,9 +102,9 @@ module Impressionable
       limit(1)
     relation = relation.between(start_date, end_date) if start_date && end_date
     relation = relation.on(start_date) if start_date && end_date.nil?
-    result = relation.first
-    return [] unless result.min
-    (result.min..result.max).to_a
+    result = self.class.connection.execute(relation.to_sql).first
+    return [] unless result["min"]
+    (result["min"]..result["max"]).to_a
   end
 
   def dates_with_impressions(start_date = nil, end_date = nil)
