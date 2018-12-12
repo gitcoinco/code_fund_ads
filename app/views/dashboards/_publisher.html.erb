@@ -1,14 +1,14 @@
 <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
-  <%= render "/dashboards/stat_card",
+  <%= render "/@shared/widgets/stat_card",
     label: "Impressions",
     value: number_with_delimiter(current_user.impressions_as_publisher.between(@start_date, @end_date).count) %>
-  <%= render "/dashboards/stat_card",
+  <%= render "/@shared/widgets/stat_card",
     label: "Clicks",
     value: number_with_delimiter(current_user.impressions_as_publisher.clicked.between(@start_date, @end_date).count) %>
-  <%= render "/dashboards/stat_card",
+  <%= render "/@shared/widgets/stat_card",
     label: "CTR",
     value: "TBD" %> <%# TODO: Nate - Average CTR for date range and publisher (start_date to end_date) %>
-  <%= render "/dashboards/stat_card",
+  <%= render "/@shared/widgets/stat_card",
     label: "Earnings",
     value: current_user.earned_revenue(@start_date, @end_date).format %> <%# TODO: Nate - Average calculated CPC for date range and publisher (start_date to end_date) %>
 </div>

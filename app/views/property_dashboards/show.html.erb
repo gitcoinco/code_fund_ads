@@ -5,16 +5,16 @@
   </h3>
 
   <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
-    <%= render "/dashboards/stat_card",
+    <%= render "/@shared/widgets/stat_card",
       label: "Impressions",
       value: number_with_delimiter(@property.total_impressions_count) %>
-    <%= render "/dashboards/stat_card",
+    <%= render "/@shared/widgets/stat_card",
       label: "Clicks",
       value: number_with_delimiter(@property.total_clicks_count) %>
-    <%= render "/dashboards/stat_card",
+    <%= render "/@shared/widgets/stat_card",
       label: "CTR%",
       value: number_to_percentage(@property.total_click_rate, precision: 2) %>
-    <%= render "/dashboards/stat_card",
+    <%= render "/@shared/widgets/stat_card",
       label: "Earnings",
       value: "TBD" %> <%# TODO: Nate - Average calculated CPC for property (start_date to end_date) %>
   </div>

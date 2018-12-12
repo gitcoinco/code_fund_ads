@@ -5,30 +5,30 @@
   </h3>
 
   <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
-    <%= render "/dashboards/stat_card",
+    <%= render "/@shared/widgets/stat_card",
       label: "Impressions",
       value: @campaign.impressions.count %>
-    <%= render "/dashboards/stat_card",
+    <%= render "/@shared/widgets/stat_card",
       label: "Clicks",
       value: @campaign.impressions.clicked.count %>
-    <%= render "/dashboards/stat_card",
+    <%= render "/@shared/widgets/stat_card",
       label: "CTR",
       value: "TBD%" %> <%# TODO: Nate - Average CTR for campaign (start_date to end_date) %>
-    <%= render "/dashboards/stat_card",
+    <%= render "/@shared/widgets/stat_card",
       label: "CPC",
       value: "$TBD" %> <%# TODO: Nate - Average calculated CPC campaign (start_date to end_date) %>
   </div>
   <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
-    <%= render "/dashboards/stat_card",
+    <%= render "/@shared/widgets/stat_card",
       label: "Total Budget",
       value: number_to_currency(@campaign.total_budget) %>
-    <%= render "/dashboards/stat_card",
+    <%= render "/@shared/widgets/stat_card",
       label: "Remaining Days",
       value: @campaign.remaining_operative_days %>
-    <%= render "/dashboards/stat_card",
+    <%= render "/@shared/widgets/stat_card",
       label: "Total Spend",
       value: "TBD" %> <%# TODO: Nate - Total consumed budget for campaign (start_date to end_date) %>
-    <%= render "/dashboards/stat_card",
+    <%= render "/@shared/widgets/stat_card",
       label: "Remaining Budget",
       value: number_to_currency(@campaign.total_remaining_budget) %>
   </div>
