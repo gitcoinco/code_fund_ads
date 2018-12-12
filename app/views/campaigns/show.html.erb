@@ -12,7 +12,12 @@
         <%= details_li("US Hours Only?") { @campaign.us_hours_only? ? "Yes" : "No" } %>
         <%= details_li("Weekdays Only?") { @campaign.weekdays_only? ? "Yes" : "No" } %>
         <%= details_li("Total Budget") { @campaign.total_budget.format } %>
-        <%= details_li("Total Budget") { @campaign.daily_budget.format } %>
+        <%= details_li("Daily Budget") do %>
+          <%= @campaign.daily_budget.format %>
+          <small class="form-text text-muted">
+            Recommended: <code><%= @campaign.recommended_daily_budget.format %></code>
+          </small>
+        <% end %>
         <%= details_li("eCPM") { @campaign.ecpm.format } %>
       </ul>
     </div>
