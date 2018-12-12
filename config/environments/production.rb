@@ -1,3 +1,6 @@
+Rails.application.routes.default_url_options[:protocol] = "https"
+Rails.application.routes.default_url_options[:host] = "codefund.app"
+
 Rails.application.configure do
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
@@ -94,5 +97,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.default_url_options = {host: "codefund.io"}
+  config.action_mailer.default_url_options = {host: "codefund.app"}
 end
