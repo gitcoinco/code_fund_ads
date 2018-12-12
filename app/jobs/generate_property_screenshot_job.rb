@@ -5,7 +5,6 @@ class GeneratePropertyScreenshotJob < ApplicationJob
     property = Property.find(property_id)
 
     sm = ScreenshotMachine.new(property.url)
-    # image = sm.screenshot
 
     tempfile = Tempfile.new("fileupload")
     tempfile.binmode

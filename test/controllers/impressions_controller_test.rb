@@ -1,6 +1,8 @@
 require "test_helper"
 
 class ImpressionsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   # setup do
   # @impression = impressions(:one)
   # end

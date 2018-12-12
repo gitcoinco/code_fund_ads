@@ -1,3 +1,3 @@
 #!/bin/sh
 DISABLE_DATABASE_ENVIRONMENT_CHECK=1 bundle exec rails db:drop
-heroku pg:pull DATABASE_URL code_funds_ads_development
+heroku pg:pull DATABASE_URL code_fund_ads_development -a code-fund-ads

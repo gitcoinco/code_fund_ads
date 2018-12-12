@@ -2,25 +2,28 @@
 #
 # Table name: impressions
 #
-#  id                :uuid             not null
-#  advertiser_id     :bigint(8)        not null
-#  publisher_id      :bigint(8)        not null
-#  campaign_id       :bigint(8)        not null
-#  creative_id       :bigint(8)        not null
-#  property_id       :bigint(8)        not null
-#  campaign_name     :string           not null
-#  property_name     :string           not null
-#  ip_address        :string           not null
-#  user_agent        :text             not null
-#  country_code      :string
-#  postal_code       :string
-#  latitude          :decimal(, )
-#  longitude         :decimal(, )
-#  displayed_at      :datetime         not null
-#  displayed_at_date :date             not null
-#  clicked_at        :datetime
-#  clicked_at_date   :date
-#  fallback_campaign :boolean          default(FALSE), not null
+#  id                                          :uuid             not null, primary key
+#  advertiser_id                               :bigint(8)        not null
+#  publisher_id                                :bigint(8)        not null
+#  campaign_id                                 :bigint(8)        not null
+#  creative_id                                 :bigint(8)        not null
+#  property_id                                 :bigint(8)        not null
+#  campaign_name                               :string           not null
+#  property_name                               :string           not null
+#  ip_address                                  :string           not null
+#  user_agent                                  :text             not null
+#  country_code                                :string
+#  postal_code                                 :string
+#  latitude                                    :decimal(, )
+#  longitude                                   :decimal(, )
+#  displayed_at                                :datetime         not null
+#  displayed_at_date                           :date             not null
+#  clicked_at                                  :datetime
+#  clicked_at_date                             :date
+#  fallback_campaign                           :boolean          default(FALSE), not null
+#  estimated_gross_revenue_fractional_cents    :float
+#  estimated_property_revenue_fractional_cents :float
+#  estimated_house_revenue_fractional_cents    :float
 #
 
 class Impression < ApplicationRecord
@@ -29,6 +32,7 @@ class Impression < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :advertiser, class_name: "User", foreign_key: "advertiser_id"
+  belongs_to :publisher, class_name: "User", foreign_key: "publisher_id"
   belongs_to :campaign
   belongs_to :distribution, optional: true
   belongs_to :property
@@ -39,7 +43,8 @@ class Impression < ApplicationRecord
   before_validation :assure_campaign_name, on: [:create]
   before_validation :assure_property_name, on: [:create]
   before_validation :set_displayed_at, on: [:create]
-  before_create :assure_partition_table!, on: [:create]
+  before_create :assure_partition_table!
+  before_create :calculate_estimated_revenue
   after_commit :set_property_advertiser, on: [:create]
 
   # scopes ....................................................................
@@ -54,6 +59,7 @@ class Impression < ApplicationRecord
   }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  self.primary_key = "id"
 
   # class methods .............................................................
   class << self
@@ -92,6 +98,33 @@ class Impression < ApplicationRecord
         QUERY
       end
     end
+  end
+
+  def applicable_ecpm
+    @applicable_ecpm ||= campaign.applicable_ecpm_on(displayed_at_date)
+  end
+
+  def calculate_estimated_gross_revenue_fractional_cents
+    @calculated_estimated_gross_revenue_fractional_cents ||= applicable_ecpm.cents / 1_000.to_f
+  end
+
+  def calculate_estimated_property_revenue_fractional_cents
+    @calculated_estimated_property_revenue_fractional_cents ||= calculate_estimated_gross_revenue_fractional_cents * property.revenue_percentage
+  end
+
+  def estimated_house_revenue_fractional_cents
+    calculate_estimated_gross_revenue_fractional_cents - calculate_estimated_property_revenue_fractional_cents
+  end
+
+  def calculate_estimated_revenue(recalculate = false)
+    if recalculate
+      self.estimated_gross_revenue_fractional_cents ||= nil
+      self.estimated_property_revenue_fractional_cents ||= nil
+      self.estimated_house_revenue_fractional_cents ||= nil
+    end
+    self.estimated_gross_revenue_fractional_cents ||= calculate_estimated_gross_revenue_fractional_cents
+    self.estimated_property_revenue_fractional_cents ||= calculate_estimated_property_revenue_fractional_cents
+    self.estimated_house_revenue_fractional_cents ||= calculate_estimated_house_revenue_fractional_cents
   end
 
   # protected instance methods ................................................

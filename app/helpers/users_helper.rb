@@ -10,7 +10,7 @@ module UsersHelper
       class: tag_class,
       data: {
         controller: "fallback-image",
-        fallback_image_url: user.gravatar_url("identicon")
+        fallback_image_url: user.gravatar_url("identicon"),
       },
       alt: user.full_name
     )
