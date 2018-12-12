@@ -1,4 +1,4 @@
 #!/bin/sh
 production backup
 staging restore production
-heroku run POOL_SIZE=2 mix ecto.migrate -a code-fund-ads-staging
+heroku run rails db:migrate -a code-fund-ads-staging
