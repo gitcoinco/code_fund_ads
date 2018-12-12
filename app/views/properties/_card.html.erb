@@ -7,7 +7,7 @@
         <%= link_to property.name, property, class: "link-muted" %>
       </h4>
       <div class="position-relative">
-        <%= link_to property_property_screenshot_path(property), method: :put, class: "btn btn-xs btn-icon btn-light transition-3d-hover" do %>
+        <%= link_to property_property_screenshots_path(property), method: :put, class: "btn btn-xs btn-icon btn-light transition-3d-hover" do %>
           <span class="fas fa-camera btn-icon__inner"></span>
         <% end if authorized_user.can_admin_system? %>
         <%= link_to property.url, class: "btn btn-xs btn-icon btn-light transition-3d-hover", target: "_blank" do %>

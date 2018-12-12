@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   }
 
   resource :contact, only: [:show, :create]
-  resources :dashboards, only: [:show], as: :dashboard
+  resource :administrator_dashboards, only: [:show], path: "/dashboards/administrator"
+  resource :advertiser_dashboards, only: [:show], path: "/dashboards/advertiser"
+  resource :publisher_dashboards, only: [:show], path: "/dashboards/publisher"
   resources :campaign_searches, only: [:create, :update, :destroy]
   resources :property_searches, only: [:create, :update, :destroy]
   resources :user_searches, only: [:create, :update, :destroy]
@@ -59,7 +61,7 @@ Rails.application.routes.draw do
   get "/scripts/:legacy_id/embed.js", to: "advertisements#show"
 
   resources :properties do
-    resources :property_screenshots, only: [:update]
+    resource :property_screenshots, only: [:update]
   end
   scope "/properties/:property_id" do
     resource :property_keywords, only: [:show], path: "/keywords"

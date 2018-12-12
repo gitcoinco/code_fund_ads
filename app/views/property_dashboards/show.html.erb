@@ -1,20 +1,21 @@
 <%= render layout: "/properties/show_layout", locals: { property: @property } do %>
-  <div class="row mb-4">
-    <div class="col-md-3 text-center">
-      <label class="d-block text-muted mb-0">Earnings</label>
-      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_to_currency 100 %></span>
-    </div>
-    <div class="col-md-3 text-center">
-      <label class="d-block text-muted mb-0">Impressions</label>
-      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_with_delimiter @property.total_impressions_count %></span>
-    </div>
-    <div class="col-md-3 text-center">
-      <label class="d-block text-muted mb-0">Clicks</label>
-      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_with_delimiter @property.total_clicks_count %></span>
-    </div>
-    <div class="col-md-3 text-center">
-      <label class="d-block text-muted mb-0">CTR</label>
-      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_to_percentage @property.total_click_rate, precision: 2 %></span>
-    </div>
+  <h3 class="h5 mb-3">
+    Overview
+    <small class="text-muted d-block">A mini-dashboard specifically for this property</small>
+  </h3>
+
+  <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
+    <%= render "/@shared/widgets/stat_card",
+      label: "Impressions",
+      value: number_with_delimiter(@property.total_impressions_count) %>
+    <%= render "/@shared/widgets/stat_card",
+      label: "Clicks",
+      value: number_with_delimiter(@property.total_clicks_count) %>
+    <%= render "/@shared/widgets/stat_card",
+      label: "CTR%",
+      value: number_to_percentage(@property.total_click_rate, precision: 2) %>
+    <%= render "/@shared/widgets/stat_card",
+      label: "Earnings",
+      value: "TBD" %> <%# TODO: Nate - Average calculated CPC for property (start_date to end_date) %>
   </div>
 <% end %>

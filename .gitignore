@@ -36,5 +36,6 @@ yarn-debug.log*
 .mertrc
 .tool-versions
 /db/maxmind
+*.dump
 legacy
 lib/tasks/impressions.rake

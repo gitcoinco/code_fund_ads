@@ -1,3 +1,10 @@
 <%= render layout: "/campaigns/show_layout", locals: { campaign: @commentable } do %>
+<<<<<<< HEAD
+=======
+  <h3 class="h5 mb-3">
+    Comments
+    <small class="text-muted d-block">Comments and notes for this campaign</small>
+  </h3>
+>>>>>>> bd60a943c91680fdcec98be973cf788997229203
   <%= render "/comments/table", commentable: @commentable, comments: @comments %>
 <% end %>
