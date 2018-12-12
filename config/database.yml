@@ -14,4 +14,5 @@ test:
 
 production:
   <<: *default
+  prepared_statements: false # See https://edgeguides.rubyonrails.org/configuring.html#configuring-a-postgresql-database 
   url: <%= ENV["PG_URL"] %>
