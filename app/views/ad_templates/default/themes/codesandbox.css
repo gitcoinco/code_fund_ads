@@ -1,10 +1,10 @@
-#cf_ad {
+#cf {
   margin: 0 auto;
   max-width: 330px;
   border: none;
   background-color: rgba(0, 0, 0, 0.05);
 }
-#cf_ad .cf-wrapper {
+#cf .cf-wrapper {
   border-radius: 0px;
   display: block;
   padding: 14px 10px;
@@ -14,20 +14,20 @@
   text-align: left;
   font-family: Helvetica;
 }
-#cf_ad .cf-img-wrapper {
+#cf .cf-img-wrapper {
   float: left;
   margin-right: 15px;
 }
-#cf_ad .cf-img {
+#cf .cf-img {
   vertical-align: middle;
   border-style: none;
   max-width: 130px;
 }
-#cf_ad .cf-text {
+#cf .cf-text {
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
 }
-#cf_ad .cf-powered-by {
+#cf .cf-powered-by {
   margin-top: 5px;
   font-size: 12px;
   display: block;

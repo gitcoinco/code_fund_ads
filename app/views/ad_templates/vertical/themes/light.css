@@ -1,11 +1,11 @@
-#cf_ad {
+#cf {
   width: 125px;
   margin: 0 auto;
   border: none;
   background-color: transparent;
 }
 
-#cf_ad .cf-wrapper {
+#cf .cf-wrapper {
   display: block;
   padding: 0px;
   font-size: 14px;
@@ -17,21 +17,21 @@
   margin-right: auto;
 }
 
-#cf_ad .cf-image-wrapper {
+#cf .cf-image-wrapper {
   display: block;
   margin-bottom: 8px;
 }
 
-#cf_ad .cf-image-wrapper img {
+#cf .cf-image-wrapper img {
   max-width: 125px;
 }
 
-#cf_ad .cf-text {
+#cf .cf-text {
   color: #3e3e3e;
   text-decoration: none;
 }
 
-#cf_ad .cf-powered-by {
+#cf .cf-powered-by {
   margin-top: 10px;
   font-size: 12px;
   display: block;
@@ -40,11 +40,11 @@
   text-align: left;
 }
 
-#cf_ad .cf-powered-by:hover {
+#cf .cf-powered-by:hover {
   text-decoration: underline;
 }
 
-#cf_ad .cf-powered-by img {
+#cf .cf-powered-by img {
   position: fixed;
   left: -1000px;
   top: -1000px;

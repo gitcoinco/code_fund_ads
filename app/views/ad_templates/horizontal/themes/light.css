@@ -1,4 +1,4 @@
-.cf-wrapper {
+#cf .cf-wrapper {
   z-index: 1;
   font-family: system, 'Helvetica Neue', Helvetica, Arial;
   font-size: 13px;
@@ -12,7 +12,7 @@
   margin: 12px 0;
 }
 
-.cf-wrapper .cf-text:before {
+#cf .cf-wrapper .cf-text:before {
   margin-right: 4px;
   padding: 2px 6px;
   border-radius: 3px;
@@ -21,21 +21,21 @@
   content: 'Supporter';
 }
 
-.cf-wrapper .cf-text {
+#cf .cf-wrapper .cf-text {
   color: #777777;
   text-decoration: none;
   cursor: pointer;
 }
 
-.cf-wrapper .cf-text:hover {
+#cf .cf-wrapper .cf-text:hover {
   text-decoration: underline;
 }
 
-.cf-wrapper .cf-text strong {
+#cf .cf-wrapper .cf-text strong {
   color: #212121;
 }
 
-.cf-wrapper .cf-label {
+#cf .cf-wrapper .cf-label {
   margin-right: 4px;
   padding: 2px 6px;
   border-radius: 3px;
@@ -43,29 +43,29 @@
   color: #fafafa;
 }
 
-.cf-wrapper .cf-label:hover {
+#cf .cf-wrapper .cf-label:hover {
   text-decoration: none !important;
 }
 
-.cf-wrapper .cf-powered-by {
+#cf .cf-wrapper .cf-powered-by {
   text-decoration: none;
   color: #909090;
   float: right;
   font-size: 12px;
 }
 
-.cf-wrapper .cf-powered-by:hover {
+#cf .cf-wrapper .cf-powered-by:hover {
   text-decoration: underline;
   cursor: pointer;
 }
 
-.cf-wrapper.cf-post-bottom {
+#cf .cf-wrapper.cf-post-bottom {
   width: 757px;
   text-align: center;
 }
 
 @media screen and (max-width: 576px) {
-  .cf-wrapper .cf-powered-by {
+  #cf .cf-wrapper .cf-powered-by {
     display: block;
     float: none;
     text-align: right;
