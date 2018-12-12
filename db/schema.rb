@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_11_201904) do
+ActiveRecord::Schema.define(version: 2018_12_12_160643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -146,6 +146,9 @@ ActiveRecord::Schema.define(version: 2018_12_11_201904) do
     t.datetime "clicked_at"
     t.date "clicked_at_date"
     t.boolean "fallback_campaign", default: false, null: false
+    t.float "estimated_gross_revenue_fractional_cents"
+    t.float "estimated_property_revenue_fractional_cents"
+    t.float "estimated_house_revenue_fractional_cents"
   end
 
   create_table "impressions_default", id: false, force: :cascade do |t|
@@ -168,6 +171,9 @@ ActiveRecord::Schema.define(version: 2018_12_11_201904) do
     t.datetime "clicked_at"
     t.date "clicked_at_date"
     t.boolean "fallback_campaign", default: false, null: false
+    t.float "estimated_gross_revenue_fractional_cents"
+    t.float "estimated_property_revenue_fractional_cents"
+    t.float "estimated_house_revenue_fractional_cents"
     t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_default_date_trunc_idx1"
     t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_default_date_trunc_idx"
     t.index ["advertiser_id"], name: "impressions_default_advertiser_id_idx"
@@ -219,7 +225,8 @@ ActiveRecord::Schema.define(version: 2018_12_11_201904) do
 
   create_table "publisher_invoices", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.money "amount", scale: 2, null: false
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "USD", null: false
     t.string "currency", null: false
     t.date "start_date", null: false
     t.date "end_date", null: false

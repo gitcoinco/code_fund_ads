@@ -2,7 +2,7 @@
 #
 # Table name: impressions
 #
-#  id                                          :uuid             not null
+#  id                                          :uuid             not null, primary key
 #  advertiser_id                               :bigint(8)        not null
 #  publisher_id                                :bigint(8)        not null
 #  campaign_id                                 :bigint(8)        not null
@@ -21,9 +21,9 @@
 #  clicked_at                                  :datetime
 #  clicked_at_date                             :date
 #  fallback_campaign                           :boolean          default(FALSE), not null
-#  estimated_gross_revenue_fractional_cents    :decimal(, )
-#  estimated_property_revenue_fractional_cents :decimal(, )
-#  estimated_house_revenue_fractional_cents    :decimal(, )
+#  estimated_gross_revenue_fractional_cents    :float
+#  estimated_property_revenue_fractional_cents :float
+#  estimated_house_revenue_fractional_cents    :float
 #
 
 class Impression < ApplicationRecord
