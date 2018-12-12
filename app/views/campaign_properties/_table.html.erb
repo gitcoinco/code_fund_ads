@@ -2,18 +2,25 @@
   <table class="js-datatable table table-striped table-compact table-borderless u-datatable u-datatable__striped u-datatable__trigger">
     <thead>
       <tr class="border-bottom">
-        <th class="text-center" style="width: 20%;">Name</th>
-        <th class="text-center" style="width: 20%;">URL</th>
-        <th class="text-center" style="width: 20%;">Impressions</th>
-        <th class="text-center" style="width: 20%;">Clicks</th>
-        <th class="text-center" style="width: 20%;">CTR</th>
+        <th class="text-left">Property</th>
+        <th class="text-center" style="width: 30%;">Matching Tags</th>
+        <th class="text-center" style="width: 10%;">Impressions</th>
+        <th class="text-center" style="width: 10%;">Clicks</th>
+        <th class="text-center" style="width: 10%;">CTR</th>
       </tr>
     </thead>
     <tbody>
       <% properties.each do |property| %>
       <tr>
-        <td class="text-left align-middle text-secondary"><%= link_to property.name, property %></td>
-        <td class="text-left align-middle text-secondary"><%= link_to property.url, property.url, target: "_blank" %></td>
+        <td class="text-left align-middle text-secondary">
+          <small class="d-block text-dark"><%= property.name %></small>
+          <small class="d-block"><%= link_to property.url, property.url, target: "_blank" %></small>
+        </td>
+        <td class="text-center align-middle text-secondary">
+          <% (property.keywords & campaign.keywords).sort.each do |keyword| %>
+            <span class="btn btn-sm btn-soft-primary mb-2 py-0 px-1"><%= keyword %></span>
+          <% end %>
+        </td>
         <td class="text-center align-middle text-secondary">-</td>
         <td class="text-center align-middle text-secondary">-</td>
         <td class="text-center align-middle text-secondary">-</td>
