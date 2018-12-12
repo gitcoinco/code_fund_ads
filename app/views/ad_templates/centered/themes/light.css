@@ -1,4 +1,4 @@
-#cf_ad .cf-wrapper {
+#cf .cf-wrapper {
   max-width: 330px;
   display: block;
   padding: 15px;
@@ -10,31 +10,31 @@
   margin-right: auto;
 }
 
-#cf_ad .cf-header {
+#cf .cf-header {
   font-size: 12px;
   color: #678;
   display: block;
   margin-bottom: 8px;
 }
 
-#cf_ad .cf-header:before {
+#cf .cf-header:before {
   content: '—';
   margin: 0 0.5em;
   opacity: 0.5;
 }
 
-#cf_ad .cf-header:after {
+#cf .cf-header:after {
   content: '—';
   margin: 0 0.5em;
   opacity: 0.5;
 }
 
-#cf_ad .cf-text {
+#cf .cf-text {
   color: #333;
   text-decoration: none;
 }
 
-#cf_ad .cf-powered-by {
+#cf .cf-powered-by {
   margin-top: 5px;
   font-size: 11px;
   display: block;
@@ -43,7 +43,7 @@
   text-align: center;
 }
 
-#cf_ad .cf-powered-by img {
+#cf .cf-powered-by img {
   position: fixed;
   left: -1000px;
   top: -1000px;

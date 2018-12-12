@@ -27,6 +27,7 @@ windows:
         - asdf local ruby 2.5.3
         - asdf local nodejs 9.11.2
         - lsof -t -i tcp:3000 | xargs kill
+        - redis-cli flushall
         - bundle exec rails s
       - commands:
         - asdf local ruby 2.5.3
