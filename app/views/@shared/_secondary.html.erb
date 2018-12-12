@@ -56,24 +56,34 @@
                   My Profile
                 <% end %>
               </li>
-              <li class="u-sidebar--account__list-item">
-                <%= link_to properties_path, class: "u-sidebar--account__list-link" do %>
-                  <span class="fas fa-tasks u-sidebar--account__list-icon mr-2"></span>
-                  Properties
-                  <% if current_user.properties.count > 0 %>
-                    <span class="badge badge-danger float-right mt-1"><%= current_user.properties.count %></span>
+              <% if authorized_user.can_publish? %>
+                <li class="u-sidebar--account__list-item">
+                  <%= link_to properties_path, class: "u-sidebar--account__list-link" do %>
+                    <span class="fas fa-tasks u-sidebar--account__list-icon mr-2"></span>
+                    Properties
                   <% end %>
-                <% end %>
-              </li>
-              <li class="u-sidebar--account__list-item">
-                <%= link_to campaigns_path, class: "u-sidebar--account__list-link" do %>
-                  <span class="fas fa-layer-group u-sidebar--account__list-icon mr-2"></span>
-                  Campaigns
-                  <% if current_user.campaigns.count > 0 %>
-                    <span class="badge badge-danger float-right mt-1"><%= current_user.campaigns.count %></span>
+                </li>
+              <% end %>
+              <% if authorized_user.can_advertise? %>
+                <li class="u-sidebar--account__list-item">
+                  <%= link_to campaigns_path, class: "u-sidebar--account__list-link" do %>
+                    <span class="fas fa-ad u-sidebar--account__list-icon mr-2"></span>
+                    Campaigns
                   <% end %>
-                <% end %>
-              </li>
+                </li>
+                <li class="u-sidebar--account__list-item">
+                  <%= link_to creatives_path, class: "u-sidebar--account__list-link" do %>
+                    <span class="fas fa-palette u-sidebar--account__list-icon mr-2"></span>
+                    Creatives
+                  <% end %>
+                </li>
+                <li class="u-sidebar--account__list-item">
+                  <%= link_to images_path(current_user.to_gid_param), class: "u-sidebar--account__list-link" do %>
+                    <span class="fas fa-images u-sidebar--account__list-icon mr-2"></span>
+                    Images
+                  <% end %>
+                </li>
+              <% end %>
             </ul>
             <!-- End List Links -->
 

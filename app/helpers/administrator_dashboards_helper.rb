@@ -1,0 +1,2 @@
+module AdministratorDashboardsHelper
+end

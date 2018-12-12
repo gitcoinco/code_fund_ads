@@ -68,6 +68,7 @@ class User < ApplicationRecord
   has_many :campaigns
   has_many :creatives
   has_many :impressions_as_advertiser, class_name: "Impression", foreign_key: "advertiser_id"
+  has_many :impressions_as_publisher, class_name: "Impression", foreign_key: "publisher_id"
 
   # validations ...............................................................
   validates :first_name, presence: true

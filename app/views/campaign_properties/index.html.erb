@@ -1,3 +1,7 @@
 <%= render layout: "/campaigns/show_layout", locals: { campaign: @campaign } do %>
+  <h3 class="h5 mb-3">
+    Matching Properties
+    <small class="text-muted d-block">Properties that match your geo-targeting and keyword criteria</small>
+  </h3>
   <%= render "/campaign_properties/table", campaign: @campaign, properties: @properties, pagy: @pagy %>
 <% end %>
