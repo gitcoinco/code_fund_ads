@@ -4,6 +4,8 @@ module Campaigns
 
     def dates
       (start_date..end_date).to_a
+    rescue
+      nil
     end
 
     def operative_dates

@@ -28,7 +28,11 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns/new
   def new
-    @campaign = current_user.campaigns.build(status: "pending")
+    @campaign = current_user.campaigns.build(
+      status: "pending",
+      start_date: Date.tomorrow,
+      end_date: 30.days.from_now
+    )
   end
 
   # GET /campaigns/1/edit
