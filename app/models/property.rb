@@ -145,8 +145,10 @@ class Property < ApplicationRecord
     Campaign.where id: subquery
   end
 
-  def revenue_calculators(start_date = nil, end_date = nil)
-    campaigns = displayed_campaigns(start_date, end_date).includes(:user)
+  def revenue_calculators(start_date = nil, end_date = nil, campaign_id = nil)
+    campaigns = campaign_id ?
+      Campaign.where(id: campaign_id).includes(:user) :
+      displayed_campaigns(start_date, end_date).includes(:user)
     probable_dates_with_impressions(start_date, end_date).each_with_object([]) do |date, memo|
       campaigns.each do |campaign|
         memo << DailyRevenueCalculator.new(date, self, campaign)

@@ -65,11 +65,13 @@ module Campaigns
     end
 
     # Returns the ecpm value for the given date
-    def applicable_ecpm_on(date)
+    def applicable_ecpm_on(date, currency_iso_code = "USD")
       hit = applicable_ecpm_by_date_range.find { |(date_range, ecpm)|
         date_range.cover? date
       }
-      hit&.last || ecpm
+      value = hit&.last || ecpm
+      value = value.exchange_to(currency_iso_code) unless value.currency.iso_code == currency_iso_code
+      value
     end
   end
 end

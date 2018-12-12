@@ -1,6 +1,8 @@
 require "test_helper"
 
 class CreativesControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   # setup do
   # @creative = creatives(:one)
   # end

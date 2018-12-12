@@ -335,7 +335,10 @@ CREATE TABLE public.impressions (
     displayed_at_date date NOT NULL,
     clicked_at timestamp without time zone,
     clicked_at_date date,
-    fallback_campaign boolean DEFAULT false NOT NULL
+    fallback_campaign boolean DEFAULT false NOT NULL,
+    estimated_gross_revenue_fractional_cents double precision,
+    estimated_property_revenue_fractional_cents double precision,
+    estimated_house_revenue_fractional_cents double precision
 )
 PARTITION BY RANGE (advertiser_id, displayed_at_date);
 
@@ -431,7 +434,8 @@ ALTER SEQUENCE public.property_advertisers_id_seq OWNED BY public.property_adver
 CREATE TABLE public.publisher_invoices (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
-    amount money NOT NULL,
+    amount_cents integer DEFAULT 0 NOT NULL,
+    amount_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     currency character varying NOT NULL,
     start_date date NOT NULL,
     end_date date NOT NULL,
@@ -1389,6 +1393,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181208164626'),
 ('20181211000031'),
 ('20181211164312'),
-('20181211201904');
+('20181211201904'),
+('20181212160643');
 
 
