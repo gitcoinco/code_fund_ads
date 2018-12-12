@@ -1,32 +1,32 @@
 <div class="card-deck d-block d-lg-flex card-lg-gutters-2 mb-3">
-  <%= render "/dashboards/stat_card",
+  <%= render "/@shared/widgets/stat_card",
     label: "Impressions",
-    value: "TBD", # TODO: Nate - Total impressions for date range (start_date to end_date)
+    value: number_with_delimiter(Impression.between(@start_date, @end_date).count),
     icon: "fas fa-eye",
     color: "btn-soft-info" %>
-  <%= render "/dashboards/stat_card",
+  <%= render "/@shared/widgets/stat_card",
     label: "Clicks",
-    value: "TBD", # TODO: Nate - Total clicks for date range (start_date to end_date)
+    value: number_with_delimiter(Impression.clicked.between(@start_date, @end_date).count),
     icon: "fas fa-bullseye-pointer",
     color: "btn-soft-primary" %>
-  <%= render "/dashboards/stat_card",
+  <%= render "/@shared/widgets/stat_card",
     label: "CTR",
     value: "TBD", # TODO: Nate - Average CTR for date range (start_date to end_date)
     icon: "fas fa-percentage",
     color: "btn-soft-warning" %>
 </div>
 <div class="card-deck d-block d-lg-flex card-lg-gutters-2 mb-6">
-  <%= render "/dashboards/stat_card",
+  <%= render "/@shared/widgets/stat_card",
     label: "Revenue",
     value: "TBD", # TODO: Nate - Total gross revenue for date range (start_date to end_date)
     icon: "fas fa-donate",
     color: "btn-soft-success" %>
-  <%= render "/dashboards/stat_card",
+  <%= render "/@shared/widgets/stat_card",
     label: "Distributions",
     value: "TBD", # TODO: Nate - Total distribution amount (paid & unpaid) for date range (start_date to end_date)
     icon: "fas fa-money-bill",
     color: "btn-soft-warning" %>
-  <%= render "/dashboards/stat_card",
+  <%= render "/@shared/widgets/stat_card",
     label: "Profit",
     value: "TBD", # TODO: Nate - Total gross profit for date range (start_date to end_date)
     icon: "fas fa-dollar-sign",

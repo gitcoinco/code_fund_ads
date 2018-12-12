@@ -13,21 +13,21 @@ module Users
 
     def gross_revenue(start_date = nil, end_date = nil)
       return Money.new(0, "USD") unless publisher?
-      properties.active.sum do |property|
+      properties.sum do |property|
         property.gross_revenue start_date, end_date
       end
     end
 
     def earned_revenue(start_date = nil, end_date = nil)
       return Money.new(0, "USD") unless publisher?
-      properties.active.sum do |property|
+      properties.sum do |property|
         property.property_revenue start_date, end_date
       end
     end
 
     def house_revenue(start_date = nil, end_date = nil)
       return Money.new(0, "USD") unless publisher?
-      properties.active.sum do |property|
+      properties.sum do |property|
         property.house_revenue start_date, end_date
       end
     end

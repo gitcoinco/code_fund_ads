@@ -1,3 +1,7 @@
 <%= render layout: "/campaigns/show_layout", locals: { campaign: @campaign } do %>
+  <h3 class="h5 mb-3">
+    Daily Budget
+    <small class="text-muted d-block">Spend and statistics by day</small>
+  </h3>
   <%= render "/campaign_budgets/table", campaign: @campaign %>
 <% end %>

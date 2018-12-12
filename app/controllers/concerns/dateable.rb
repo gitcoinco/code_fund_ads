@@ -1,12 +1,8 @@
-class DashboardsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :assign_dates
+module Dateable
+  extend ActiveSupport::Concern
 
-  def show
-    @context = params[:id]
-
-    @active_advertisers = User.advertisers.with_active_campaigns.order(company_name: :asc)
-    @active_campaigns = Campaign.active.order(name: :asc)
+  included do
+    before_action :assign_dates
   end
 
   private

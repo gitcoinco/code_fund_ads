@@ -1,16 +1,16 @@
 <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
-  <%= render "/dashboards/stat_card",
+  <%= render "/@shared/widgets/stat_card",
     label: "Impressions",
-    value: "TBD" %> <%# TODO: Nate - Total impressions for date range and publisher (start_date to end_date) %>
-  <%= render "/dashboards/stat_card",
+    value: number_with_delimiter(current_user.impressions_as_publisher.between(@start_date, @end_date).count) %>
+  <%= render "/@shared/widgets/stat_card",
     label: "Clicks",
-    value: "TBD" %> <%# TODO: Nate - Total clicks for date range and publisher (start_date to end_date) %>
-  <%= render "/dashboards/stat_card",
-    label: "CTR%",
+    value: number_with_delimiter(current_user.impressions_as_publisher.clicked.between(@start_date, @end_date).count) %>
+  <%= render "/@shared/widgets/stat_card",
+    label: "CTR",
     value: "TBD" %> <%# TODO: Nate - Average CTR for date range and publisher (start_date to end_date) %>
-  <%= render "/dashboards/stat_card",
+  <%= render "/@shared/widgets/stat_card",
     label: "Earnings",
-    value: "TBD" %> <%# TODO: Nate - Average calculated CPC for date range and publisher (start_date to end_date) %>
+    value: current_user.earned_revenue(@start_date, @end_date).format %> <%# TODO: Nate - Average calculated CPC for date range and publisher (start_date to end_date) %>
 </div>
 
 <div class="text-center mb-3 mt-5">

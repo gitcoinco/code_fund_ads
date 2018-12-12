@@ -1,46 +1,35 @@
 <%= render layout: "/campaigns/show_layout", locals: { campaign: @campaign } do %>
-  <div class="row mb-4">
-    <div class="col-md-4">
-      <label class="d-block text-muted mb-0">Schedule</label>
-      <span class="h5 text-black-70 font-weight-semi-bold"><%= @campaign.start_date.strftime("%b %d, %Y") %> &ndash; <%= @campaign.end_date.strftime("%b %d, %Y") %></span>
-    </div>
-    <div class="col-md-2">
-      <label class="d-block text-muted mb-0">Total Budget</label>
-      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_to_currency @campaign.total_budget %></span>
-    </div>
-    <div class="col-md-2">
-      <label class="d-block text-muted mb-0">Total Spend</label>
-      <span class="h5 text-black-70 font-weight-semi-bold"><%= number_to_currency @campaign.total_consumed_budget %></span>
-    </div>
-    <div class="col-md-2">
-      <label class="d-block text-muted mb-0">Average CTR</label>
-      <span class="h5 text-black-70 font-weight-semi-bold">TBD</span>
-    </div>
-    <div class="col-md-2">
-      <label class="d-block text-muted mb-0">Duration</label>
-      <span class="h5 text-black-70 font-weight-semi-bold"><%= @campaign.duration %></span>
-    </div>
+  <h3 class="h5 mb-3">
+    Overview
+    <small class="text-muted d-block">A mini-dashboard specifically for this campaign</small>
+  </h3>
+
+  <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
+    <%= render "/@shared/widgets/stat_card",
+      label: "Impressions",
+      value: @campaign.impressions.count %>
+    <%= render "/@shared/widgets/stat_card",
+      label: "Clicks",
+      value: @campaign.impressions.clicked.count %>
+    <%= render "/@shared/widgets/stat_card",
+      label: "CTR",
+      value: "TBD%" %> <%# TODO: Nate - Average CTR for campaign (start_date to end_date) %>
+    <%= render "/@shared/widgets/stat_card",
+      label: "CPC",
+      value: "$TBD" %> <%# TODO: Nate - Average calculated CPC campaign (start_date to end_date) %>
   </div>
-  <div class="row">
-    <div class="col-md-4">
-      <label class="d-block text-muted mb-1">Remaining Days: <span class="text-black-70"><%= @campaign.remaining_operative_days %></span></label>
-      <div class="progress" style="height: 25px; background-color: #eee;">
-        <div class="progress-bar bg-soft-primary" role="progressbar" style="width: <%= @campaign.percentage_complete_by_date %>%" aria-valuenow="<%= @campaign.percentage_complete_by_date %>" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <label class="d-block text-muted mb-1">Remaining Budget: <span class="text-black-70"><%= number_to_currency @campaign.total_remaining_budget %></span></label>
-      <div class="progress" style="height: 25px; background-color: #eee;">
-        <div class="progress-bar bg-success" role="progressbar" style="width: <%= @campaign.percentage_complete_by_budget %>%" aria-valuenow="<%= @campaign.percentage_complete_by_budget %>" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>
-    </div>
-    <div class="col-md-2">
-      <label class="d-block text-muted mb-0">Impressions</label>
-      <span class="h5 text-black-70 font-weight-semi-bold"><%= @campaign.impressions.count %></span>
-    </div>
-    <div class="col-md-2">
-      <label class="d-block text-muted mb-0">Clicks</label>
-      <span class="h5 text-black-70 font-weight-semi-bold"><%= @campaign.impressions.clicked.count %></span>
-    </div>
+  <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
+    <%= render "/@shared/widgets/stat_card",
+      label: "Total Budget",
+      value: number_to_currency(@campaign.total_budget) %>
+    <%= render "/@shared/widgets/stat_card",
+      label: "Remaining Days",
+      value: @campaign.remaining_operative_days %>
+    <%= render "/@shared/widgets/stat_card",
+      label: "Total Spend",
+      value: "TBD" %> <%# TODO: Nate - Total consumed budget for campaign (start_date to end_date) %>
+    <%= render "/@shared/widgets/stat_card",
+      label: "Remaining Budget",
+      value: number_to_currency(@campaign.total_remaining_budget) %>
   </div>
 <% end %>
