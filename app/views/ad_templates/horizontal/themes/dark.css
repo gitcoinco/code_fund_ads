@@ -1,0 +1,34 @@
+#cf .cf-wrapper {
+}
+
+#cf .cf-wrapper .cf-text:before {
+}
+
+#cf .cf-wrapper .cf-text {
+}
+
+#cf .cf-wrapper .cf-text:hover {
+}
+
+#cf .cf-wrapper .cf-text strong {
+}
+
+#cf .cf-wrapper .cf-label {
+}
+
+#cf .cf-wrapper .cf-label:hover {
+}
+
+#cf .cf-wrapper .cf-powered-by {
+}
+
+#cf .cf-wrapper .cf-powered-by:hover {
+}
+
+#cf .cf-wrapper.cf-post-bottom {
+}
+
+@media screen and (max-width: 576px) {
+  #cf .cf-wrapper .cf-powered-by {
+  }
+}

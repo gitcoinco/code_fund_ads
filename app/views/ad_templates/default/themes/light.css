@@ -14,19 +14,23 @@
   background-color: rgba(0, 0, 0, 0.05);
   font-family: Helvetica;
 }
+
 #cf .cf-img-wrapper {
   float: left;
   margin-right: 15px;
 }
+
 #cf .cf-img {
   vertical-align: middle;
   border-style: none;
   max-width: 130px;
 }
+
 #cf .cf-text {
   color: #333;
   text-decoration: none;
 }
+
 #cf .cf-powered-by {
   margin-top: 5px;
   font-size: 12px;
