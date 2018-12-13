@@ -104,7 +104,9 @@ module Impressionable
     relation = relation.on(start_date) if start_date && end_date.nil?
     result = self.class.connection.execute(relation.to_sql).first
     return [] unless result["min"]
-    (result["min"]..result["max"]).to_a
+    min = Date.parse(result["min"])
+    max = Date.parse(result["max"])
+    (min..max).to_a
   end
 
   def dates_with_impressions(start_date = nil, end_date = nil)
@@ -122,7 +124,7 @@ module Impressionable
   end
 
   def daily_clicks_count_cache_key(date = nil)
-    "#{cache_key}/#{DAILY_CLICKS_COUNT_KEY}/#{(date || Date.current).to_date.iso8601}"
+    "#{cache_key}/#{DAILY_CLICKS_COUNT_KEY}/#{to_date(date).iso8601}"
   end
 
   def total_clicks_count
@@ -132,8 +134,7 @@ module Impressionable
   end
 
   def daily_clicks_count(date = nil)
-    date = Date.parse(date || Date.current).to_date
-    Rails.cache.fetch daily_clicks_count_cache_key(date) do
+    Rails.cache.fetch daily_clicks_count_cache_key(to_date(date)) do
       impressions.on(date).clicked.count
     end
   end
@@ -144,10 +145,21 @@ module Impressionable
   end
 
   def daily_click_rate(date = nil)
-    date ||= Date.current
+    date = to_date(date)
     impressions_count = daily_impressions_count(date)
     clicks_count = daily_clicks_count(date)
     return 0 if impressions_count.zero?
     (clicks_count / impressions_count.to_f) * 100
+  end
+
+  private
+
+  def to_date(value)
+    case value
+    when Date then return value
+    when Time, DateTime, ActiveSupport::TimeWithZone then return value.to_date
+    when nil then return Date.current
+    else return Date.parse(value.to_s)
+    end
   end
 end

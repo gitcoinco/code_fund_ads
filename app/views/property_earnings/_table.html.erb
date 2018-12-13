@@ -10,6 +10,15 @@
       </tr>
     </thead>
     <tbody>
+      <% @property.probable_dates_with_impressions.each do |date| %>
+        <tr>
+          <td><%= date.to_s("abdy") %></td>
+          <td class="text-right"><%= number_with_delimiter @property.daily_impressions_count(date) %></td>
+          <td class="text-right"><%= number_with_delimiter @property.daily_clicks_count(date) %></td>
+          <td class="text-right"><%= number_to_percentage @property.daily_click_rate(date), precision: 2 %></td>
+          <td class="text-right"><%= @property.estimated_property_revenue(date).format %></td>
+        </tr>
+      <% end %>
     </tbody>
   </table>
 </div>
