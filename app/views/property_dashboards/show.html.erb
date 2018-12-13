@@ -15,7 +15,7 @@
       label: "CTR%",
       value: number_to_percentage(@property.total_click_rate, precision: 2) %>
     <%= render "/@shared/widgets/stat_card",
-      label: "Earnings",
-      value: "TBD" %> <%# TODO: Nate - Average calculated CPC for property (start_date to end_date) %>
+      label: "Estimated Earnings",
+      value: @property.estimated_property_revenue.format %>
   </div>
 <% end %>

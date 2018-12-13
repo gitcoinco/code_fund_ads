@@ -16,7 +16,7 @@ module Impressionable
     }
 
     scope :include_daily_impressions_count, ->(date = nil) {
-      date = Date.parse((date || Date.current).to_s).to_date
+      date = Date.coerce(date)
       subquery = Impression.select("COUNT(*)").
         where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
         where(Impression.arel_table[:displayed_at_date].eq(date))
@@ -42,7 +42,7 @@ module Impressionable
     }
 
     scope :include_daily_clicks_count, ->(date = nil) {
-      date = Date.parse((date || Date.current).to_s).to_date
+      date = Date.coerce(date)
       subquery = Impression.clicked.select("COUNT(*)").
         where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
         where(Impression.arel_table[:displayed_at_date].eq(date))
@@ -50,7 +50,7 @@ module Impressionable
     }
 
     scope :include_daily_click_rate, ->(date = nil) {
-      date = Date.parse((date || Date.current).to_s).to_date
+      date = Date.coerce(date)
       impression_count_subquery = Impression.select("COUNT(*)::numeric").
         where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
         where(Impression.arel_table[:displayed_at_date].eq(date))
@@ -64,10 +64,6 @@ module Impressionable
     "#{cache_key}/#{TOTAL_IMPRESSIONS_COUNT_KEY}"
   end
 
-  def daily_impressions_count_cache_key(date = nil)
-    "#{cache_key}/#{DAILY_IMPRESSIONS_COUNT_KEY}/#{(date || Date.current).to_date.iso8601}"
-  end
-
   def total_impressions_count
     Rails.cache.fetch total_impressions_count_cache_key do
       impressions.count
@@ -78,10 +74,20 @@ module Impressionable
     total_impressions_count.to_i / 1_000.to_f
   end
 
+  def daily_impressions_count_cache_key(date)
+    "#{cache_key}/#{DAILY_IMPRESSIONS_COUNT_KEY}/#{date.iso8601}"
+  end
+
   def daily_impressions_count(date = nil)
-    date = Date.parse((date || Date.current).to_s).to_date
+    date = Date.coerce(date)
     Rails.cache.fetch daily_impressions_count_cache_key(date) do
       impressions.on(date).count
+    end
+  end
+
+  def daily_impressions_counts(start_date = nil, end_date = nil)
+    probable_dates_with_impressions(start_date, end_date).map do |date|
+      daily_impressions_count date
     end
   end
 
@@ -104,7 +110,9 @@ module Impressionable
     relation = relation.on(start_date) if start_date && end_date.nil?
     result = self.class.connection.execute(relation.to_sql).first
     return [] unless result["min"]
-    (result["min"]..result["max"]).to_a
+    min = Date.coerce(result["min"])
+    max = Date.coerce(result["max"])
+    (min..max).to_a
   end
 
   def dates_with_impressions(start_date = nil, end_date = nil)
@@ -121,18 +129,18 @@ module Impressionable
     "#{cache_key}/#{TOTAL_CLICKS_COUNT_KEY}"
   end
 
-  def daily_clicks_count_cache_key(date = nil)
-    "#{cache_key}/#{DAILY_CLICKS_COUNT_KEY}/#{(date || Date.current).to_date.iso8601}"
-  end
-
   def total_clicks_count
     Rails.cache.fetch total_clicks_count_cache_key do
       impressions.clicked.count
     end
   end
 
+  def daily_clicks_count_cache_key(date)
+    "#{cache_key}/#{DAILY_CLICKS_COUNT_KEY}/#{date.iso8601}"
+  end
+
   def daily_clicks_count(date = nil)
-    date = Date.parse(date || Date.current).to_date
+    date = Date.coerce(date)
     Rails.cache.fetch daily_clicks_count_cache_key(date) do
       impressions.on(date).clicked.count
     end
@@ -144,10 +152,11 @@ module Impressionable
   end
 
   def daily_click_rate(date = nil)
-    date ||= Date.current
+    date = Date.coerce(date)
     impressions_count = daily_impressions_count(date)
     clicks_count = daily_clicks_count(date)
     return 0 if impressions_count.zero?
     (clicks_count / impressions_count.to_f) * 100
   end
+
 end

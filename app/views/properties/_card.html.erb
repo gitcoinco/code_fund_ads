@@ -17,42 +17,41 @@
     </div>
   </div>
 
-  <div class="card-body p-2 gradient-half-primary-v3">
-    <div class="text-center">
-      <div class="mx-auto">
-        <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "img-fluid mb-4 border"), property %>
+  <% cache [property, start_date, end_date], expires_in: 10.minutes do %>
+    <div class="card-body p-2 gradient-half-primary-v3">
+      <div class="text-center">
+        <div class="mx-auto">
+          <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "img-fluid mb-4 border"), property %>
+        </div>
+        <div class="js-bar-chart"
+          data-controller="bar-chart"
+          data-series='<%= property.daily_impressions_counts(start_date, end_date).to_json.html_safe %>'
+          data-is-show-axis-x="false"
+          data-is-show-axis-y="false"
+          data-height="62px"
+          data-high="50"
+          data-low="0"
+          data-distance="5"
+          data-stroke-width="8"
+          data-stroke-color="#19a0ff"></div>
       </div>
-      <div class="js-bar-chart"
-        data-controller="bar-chart"
-        data-series='[
-          <%# TODO: Nate - We need impressions_by_day working (start_date to end_date) %>
-          [<%= property.impressions_by_day(start_date, end_date).join(",") %>]
-        ]'
-        data-is-show-axis-x="false"
-        data-is-show-axis-y="false"
-        data-height="62px"
-        data-high="50"
-        data-low="0"
-        data-distance="5"
-        data-stroke-width="8"
-        data-stroke-color="#19a0ff"></div>
     </div>
-  </div>
 
-  <div class="card-footer text-center">
-    <div class="row align-items-center">
-      <div class="col-4 u-ver-divider">
-        <h5 class="small font-weight-normal text-secondary mb-0">Impressions</h5>
-        <span class="text-dark">TBD</span> <%# TODO: Nate - Total impressions date range (start_date to end_date) %>
-      </div>
-      <div class="col-4 u-ver-divider">
-        <h5 class="small font-weight-normal text-secondary mb-0">CTR</h5>
-        <span class="text-dark">TBD</span> <%# TODO: Nate - Average CTR for date range (start_date to end_date) %>
-      </div>
-      <div class="col-4">
-        <h5 class="small font-weight-normal text-secondary mb-0">Earnings</h5>
-        <span class="text-dark">TBD</span> <%# TODO: Nate -Total distributions for date range (start_date to end_date) %>
+    <div class="card-footer text-center">
+      <div class="row align-items-center">
+        <div class="col-4 u-ver-divider">
+          <h5 class="small font-weight-normal text-secondary mb-0">Impressions</h5>
+          <span class="text-dark"><%= number_with_delimiter property.total_impressions_count %></span>
+        </div>
+        <div class="col-4 u-ver-divider">
+          <h5 class="small font-weight-normal text-secondary mb-0">CTR</h5>
+          <span class="text-dark"><%= number_to_percentage property.total_click_rate, precision: 2 %></span>
+        </div>
+        <div class="col-4">
+          <h5 class="small font-weight-normal text-secondary mb-0">Estimated Earnings</h5>
+          <span class="text-dark"><%= property.estimated_property_revenue.format %></span>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 </div>
