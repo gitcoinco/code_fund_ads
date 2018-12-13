@@ -152,4 +152,10 @@ module Impressionable
     return 0 if impressions_count.zero?
     (clicks_count / impressions_count.to_f) * 100
   end
+
+  def impressions_count_by_day(start_date = nil, end_date = nil)
+    probable_dates_with_impressions(start_date, end_date).map do |date|
+      daily_impressions_count date
+    end
+  end
 end
