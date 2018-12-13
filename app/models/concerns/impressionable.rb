@@ -16,7 +16,7 @@ module Impressionable
     }
 
     scope :include_daily_impressions_count, ->(date = nil) {
-      date = Date.parse((date || Date.current).to_s).to_date
+      date = Date.coerce(date)
       subquery = Impression.select("COUNT(*)").
         where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
         where(Impression.arel_table[:displayed_at_date].eq(date))
@@ -42,7 +42,7 @@ module Impressionable
     }
 
     scope :include_daily_clicks_count, ->(date = nil) {
-      date = Date.parse((date || Date.current).to_s).to_date
+      date = Date.coerce(date)
       subquery = Impression.clicked.select("COUNT(*)").
         where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
         where(Impression.arel_table[:displayed_at_date].eq(date))
@@ -50,7 +50,7 @@ module Impressionable
     }
 
     scope :include_daily_click_rate, ->(date = nil) {
-      date = Date.parse((date || Date.current).to_s).to_date
+      date = Date.coerce(date)
       impression_count_subquery = Impression.select("COUNT(*)::numeric").
         where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
         where(Impression.arel_table[:displayed_at_date].eq(date))
@@ -85,6 +85,12 @@ module Impressionable
     end
   end
 
+  def daily_impressions_counts(start_date = nil, end_date = nil)
+    probable_dates_with_impressions(start_date, end_date).map do |date|
+      daily_impressions_count date
+    end
+  end
+
   def daily_impressions_per_mille(date = nil)
     daily_impressions_count(date).to_i / 1_000.to_f
   end
@@ -104,8 +110,8 @@ module Impressionable
     relation = relation.on(start_date) if start_date && end_date.nil?
     result = self.class.connection.execute(relation.to_sql).first
     return [] unless result["min"]
-    min = Date.parse(result["min"])
-    max = Date.parse(result["max"])
+    min = Date.coerce(result["min"])
+    max = Date.coerce(result["max"])
     (min..max).to_a
   end
 
@@ -153,9 +159,4 @@ module Impressionable
     (clicks_count / impressions_count.to_f) * 100
   end
 
-  def impressions_count_by_day(start_date = nil, end_date = nil)
-    probable_dates_with_impressions(start_date, end_date).map do |date|
-      daily_impressions_count date
-    end
-  end
 end

@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <% cache property, expires_in: 10.minutes do %>
+  <% cache [property, start_date, end_date], expires_in: 10.minutes do %>
     <div class="card-body p-2 gradient-half-primary-v3">
       <div class="text-center">
         <div class="mx-auto">
@@ -25,7 +25,7 @@
         </div>
         <div class="js-bar-chart"
           data-controller="bar-chart"
-          data-series='<%= property.impressions_count_by_day.to_json.html_safe %>'
+          data-series='<%= property.daily_impressions_counts(start_date, end_date).to_json.html_safe %>'
           data-is-show-axis-x="false"
           data-is-show-axis-y="false"
           data-height="62px"
