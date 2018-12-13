@@ -1,0 +1,9 @@
+<% cache [@property, campaign, @start_date, @end_date] do %>
+  <tr>
+    <td class="text-left align-middle text-secondary"><%= campaign.name %></td>
+    <td class="text-center align-middle text-secondary"><%= number_with_delimiter @property.campaign_impressions_count(campaign) %></td>
+    <td class="text-center align-middle text-secondary"><%= number_with_delimiter @property.campaign_clicks_count(campaign) %></td>
+    <td class="text-center align-middle text-secondary"><%= number_to_percentage @property.campaign_click_rate(campaign), precision: 2 %></td>
+    <td class="text-center align-middle text-secondary"><%= @property.estimated_campaign_property_revenue(campaign).format %></td>
+  </tr>
+<% end %>

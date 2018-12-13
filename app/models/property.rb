@@ -25,11 +25,13 @@ class Property < ApplicationRecord
   # extends ...................................................................
 
   # includes ..................................................................
+  include Properties::Impressionable
+  include Properties::Predictable
   include Properties::Presentable
   include Eventable
-  include Taggable
   include Imageable
   include Impressionable
+  include Taggable
 
   # relationships .............................................................
   belongs_to :user
