@@ -1,9 +1,7 @@
 module AdRenderable
   extend ActiveSupport::Concern
 
-  included do
-    attr_reader :template_name, :theme_name
-  end
+  attr_reader :template_name, :theme_name
 
   def template_path
     @template_path ||= Rails.root.join("app/views/ad_templates/#{template_name}/show.html.erb")

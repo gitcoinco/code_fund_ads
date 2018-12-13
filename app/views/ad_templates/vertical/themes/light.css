@@ -23,7 +23,8 @@
 }
 
 #cf .cf-img-wrapper img {
-  max-width: 125px;
+  width: 125px;
+  height: 125px;
 }
 
 #cf .cf-text {
@@ -37,7 +38,6 @@
   display: block;
   color: #aaa;
   text-decoration: none;
-  text-align: left;
 }
 
 #cf .cf-powered-by:hover {

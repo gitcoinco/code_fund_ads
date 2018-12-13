@@ -1,7 +1,7 @@
 class CreativePreviewsController < ApplicationController
-  before_action :authenticate_user!
-
   include AdRenderable
+
+  before_action :authenticate_user!
 
   def show
     @creative = current_user.creatives.find(params[:creative_id])
@@ -9,7 +9,7 @@ class CreativePreviewsController < ApplicationController
     @template_name = params[:template] if ENUMS::AD_TEMPLATES.value?(params[:template])
     @theme_name = params[:theme] if ENUMS::AD_THEMES.value?(params[:theme])
 
-    render_not_found unless @template_name && @theme_name
+    return render_not_found unless @template_name && @theme_name
 
     @preview_html = Premailer.new(
       template,
