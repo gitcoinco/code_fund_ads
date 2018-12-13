@@ -7,29 +7,34 @@
   <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
     <%= render "/@shared/widgets/stat_card",
       label: "Impressions",
-      value: @campaign.impressions.count %>
+      value: number_with_delimiter(@campaign.total_impressions_count) %>
     <%= render "/@shared/widgets/stat_card",
       label: "Clicks",
-      value: @campaign.impressions.clicked.count %>
+      value: number_with_delimiter(@campaign.total_clicks_count) %>
     <%= render "/@shared/widgets/stat_card",
       label: "CTR",
-      value: "TBD%" %> <%# TODO: Nate - Average CTR for campaign (start_date to end_date) %>
-    <%= render "/@shared/widgets/stat_card",
-      label: "CPC",
-      value: "$TBD" %> <%# TODO: Nate - Average calculated CPC campaign (start_date to end_date) %>
+      value: number_to_percentage(@campaign.total_click_rate, precision: 2) %>
   </div>
   <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
     <%= render "/@shared/widgets/stat_card",
       label: "Total Budget",
-      value: number_to_currency(@campaign.total_budget) %>
+      value: @campaign.total_budget.format %>
+    <%= render "/@shared/widgets/stat_card",
+      label: "Remaining Budget",
+      value: @campaign.total_remaining_budget.format %>
+    <%= render "/@shared/widgets/stat_card",
+      label: "Total Spend",
+      value: @campaign.total_consumed_budget.format %>
+  </div>
+  <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
+    <%= render "/@shared/widgets/stat_card",
+      label: "Daily Budget",
+      value: @campaign.daily_budget.format %>
+    <%= render "/@shared/widgets/stat_card",
+      label: "Recommended Daily Budget",
+      value: @campaign.recommended_daily_budget.format %>
     <%= render "/@shared/widgets/stat_card",
       label: "Remaining Days",
       value: @campaign.remaining_operative_days %>
-    <%= render "/@shared/widgets/stat_card",
-      label: "Total Spend",
-      value: "TBD" %> <%# TODO: Nate - Total consumed budget for campaign (start_date to end_date) %>
-    <%= render "/@shared/widgets/stat_card",
-      label: "Remaining Budget",
-      value: number_to_currency(@campaign.total_remaining_budget) %>
   </div>
 <% end %>
