@@ -64,10 +64,6 @@ module Impressionable
     "#{cache_key}/#{TOTAL_IMPRESSIONS_COUNT_KEY}"
   end
 
-  def daily_impressions_count_cache_key(date = nil)
-    "#{cache_key}/#{DAILY_IMPRESSIONS_COUNT_KEY}/#{(date || Date.current).to_date.iso8601}"
-  end
-
   def total_impressions_count
     Rails.cache.fetch total_impressions_count_cache_key do
       impressions.count
@@ -78,8 +74,12 @@ module Impressionable
     total_impressions_count.to_i / 1_000.to_f
   end
 
+  def daily_impressions_count_cache_key(date)
+    "#{cache_key}/#{DAILY_IMPRESSIONS_COUNT_KEY}/#{date.iso8601}"
+  end
+
   def daily_impressions_count(date = nil)
-    date = Date.parse((date || Date.current).to_s).to_date
+    date = Date.coerce(date)
     Rails.cache.fetch daily_impressions_count_cache_key(date) do
       impressions.on(date).count
     end
@@ -123,18 +123,19 @@ module Impressionable
     "#{cache_key}/#{TOTAL_CLICKS_COUNT_KEY}"
   end
 
-  def daily_clicks_count_cache_key(date = nil)
-    "#{cache_key}/#{DAILY_CLICKS_COUNT_KEY}/#{to_date(date).iso8601}"
-  end
-
   def total_clicks_count
     Rails.cache.fetch total_clicks_count_cache_key do
       impressions.clicked.count
     end
   end
 
+  def daily_clicks_count_cache_key(date)
+    "#{cache_key}/#{DAILY_CLICKS_COUNT_KEY}/#{date.iso8601}"
+  end
+
   def daily_clicks_count(date = nil)
-    Rails.cache.fetch daily_clicks_count_cache_key(to_date(date)) do
+    date = Date.coerce(date)
+    Rails.cache.fetch daily_clicks_count_cache_key(date) do
       impressions.on(date).clicked.count
     end
   end
@@ -145,21 +146,10 @@ module Impressionable
   end
 
   def daily_click_rate(date = nil)
-    date = to_date(date)
+    date = Date.coerce(date)
     impressions_count = daily_impressions_count(date)
     clicks_count = daily_clicks_count(date)
     return 0 if impressions_count.zero?
     (clicks_count / impressions_count.to_f) * 100
-  end
-
-  private
-
-  def to_date(value)
-    case value
-    when Date then return value
-    when Time, DateTime, ActiveSupport::TimeWithZone then return value.to_date
-    when nil then return Date.current
-    else return Date.parse(value.to_s)
-    end
   end
 end

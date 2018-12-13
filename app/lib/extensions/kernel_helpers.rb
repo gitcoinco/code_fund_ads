@@ -1,5 +1,5 @@
 module Extensions
-  module KernelThen
+  module KernelHelpers
     extend ActiveSupport::Concern
 
     included do
