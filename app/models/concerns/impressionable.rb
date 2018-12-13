@@ -158,5 +158,4 @@ module Impressionable
     return 0 if impressions_count.zero?
     (clicks_count / impressions_count.to_f) * 100
   end
-
 end

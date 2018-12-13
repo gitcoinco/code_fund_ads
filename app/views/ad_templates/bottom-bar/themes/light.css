@@ -8,7 +8,7 @@
   position: fixed;
   bottom: 0;
   z-index: 5;
-  padding: 0.5em 1em;
+  padding: 0.8em 1em 1em;
   width: 100%;
   border-top: solid 1px #bfbfbf;
   background-color: #eeeeee;
@@ -36,4 +36,10 @@
   text-decoration: none;
   color: #999;
   box-shadow: none;
+}
+
+#cf .cf-powered-by::before {
+  content: "\2022";
+  color: rgba(0,0,0,0.3);
+  display: inline-block;
 }

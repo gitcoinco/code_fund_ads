@@ -1,5 +1,11 @@
+#cf {
+  max-width: 280px;
+  margin: 0 auto;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
 #cf .cf-wrapper {
-  max-width: 330px;
   display: block;
   padding: 15px;
   font-size: 14px;
@@ -12,9 +18,9 @@
 
 #cf .cf-header {
   font-size: 12px;
+  color: #678;
   display: block;
   margin-bottom: 8px;
-  color: rgba(255, 255, 255, 0.8);
 }
 
 #cf .cf-header:before {
@@ -29,16 +35,29 @@
   opacity: 0.5;
 }
 
+#cf .cf-img-wrapper {
+  display: block;
+  margin-bottom: 8px;
+}
+
+#cf .cf-img-wrapper img {
+  max-width: 130px;
+}
+
 #cf .cf-text {
-  color: #fff;
+  color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
+}
+
+#cf .cf-text strong {
+  color: #4caf50;
 }
 
 #cf .cf-powered-by {
   margin-top: 5px;
   font-size: 11px;
   display: block;
-  color: rgba(255, 255, 255, 0.6);
+  color: #678;
   text-decoration: none;
   text-align: center;
 }

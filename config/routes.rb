@@ -45,7 +45,8 @@ Rails.application.routes.draw do
 
   resources :creatives
   scope "/creatives/:creative_id" do
-    resources :events, only: [:index], as: :creaive_events
+    resources :events, only: [:index], as: :creative_events
+    resource :creative_previews, only: [:show], path: "/preview/:template/:theme"
   end
 
   # this action should semantically be a `create`,
