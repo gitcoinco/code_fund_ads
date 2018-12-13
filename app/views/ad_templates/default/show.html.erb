@@ -1,4 +1,4 @@
-<% cache @campaign do %>
+<% cache_if @campaign.persisted?, @campaign do %>
   <div id="cf">
     <span>
       <span class="cf-wrapper">

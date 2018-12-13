@@ -1,4 +1,4 @@
-<% cache @campaign do %>
+<% cache_if @campaign.persisted?, @campaign do %>
   <div id="cf">
     <div class="cf-wrapper">
       <div class="cf-header">Proudly sponsored by</div>

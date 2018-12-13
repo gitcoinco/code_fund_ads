@@ -20,6 +20,12 @@ class AdvertisementsController < ApplicationController
 
   private
 
+  def theme
+    Rails.cache.fetch(theme_cache_key) do
+      render_to_string template: "ad_templates/#{template_name}/themes/#{theme_name}.css", layout: false
+    end
+  end
+
   def set_virtual_impression_id
     @virtual_impression_id = SecureRandom.uuid
   end
