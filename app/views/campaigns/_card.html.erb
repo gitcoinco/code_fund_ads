@@ -8,7 +8,7 @@
       <div class="media-body">
         <h3 class="h6 mb-0"><%= campaign.name %></h3>
         <span class="small text-success">
-          <%= number_to_percentage @campaign.total_click_rate, precision: 2 %>
+          <%= number_to_percentage campaign.total_click_rate, precision: 2 %>
           CTR
         </span>
       </div>
@@ -37,7 +37,7 @@
 
     <%# TODO: Nate - let's replace this with a better charting library %>
     <div class="js-bar-chart"
-         data-series="<%= @campaign.daily_impressions_counts.to_json.html_safe %>"
+         data-series="<%= campaign.daily_impressions_counts.to_json.html_safe %>"
          data-is-show-axis-x="false"
          data-is-show-axis-y="false"
          data-height="62px"

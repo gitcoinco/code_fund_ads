@@ -58,17 +58,14 @@ class User < ApplicationRecord
 
   # includes ..................................................................
   include Users::Developable if Rails.env.development?
-  include Users::Presentable
+  include Users::Advertiser
   include Users::Publisher
+  include Users::Presentable
   include Eventable
   include Imageable
   include Taggable
 
   # relationships .............................................................
-  has_many :campaigns
-  has_many :creatives
-  has_many :impressions_as_advertiser, class_name: "Impression", foreign_key: "advertiser_id"
-  has_many :impressions_as_publisher, class_name: "Impression", foreign_key: "publisher_id"
 
   # validations ...............................................................
   validates :first_name, presence: true
@@ -165,28 +162,6 @@ class User < ApplicationRecord
 
   def administrator?
     roles.include? ENUMS::USER_ROLES["administrator"]
-  end
-
-  def advertiser?
-    roles.include? ENUMS::USER_ROLES["advertiser"]
-  end
-
-  def small_images(wrapped = false)
-    list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::SMALL)
-    return list unless wrapped
-    list.map { |i| Image.new(i) }
-  end
-
-  def large_images(wrapped = false)
-    list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::LARGE)
-    return list unless wrapped
-    list.map { |i| Image.new(i) }
-  end
-
-  def wide_images(wrapped = false)
-    list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::WIDE)
-    return list unless wrapped
-    list.map { |i| Image.new(i) }
   end
 
   def to_s

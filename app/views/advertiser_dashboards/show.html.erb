@@ -18,16 +18,13 @@
     <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
       <%= render "/@shared/widgets/stat_card",
         label: "Impressions",
-        value: "TBD" %> <%# TODO: Nate - Total impressions for date range and campaign (start_date to end_date) %>
+        value: number_with_delimiter(current_user.impressions_count_as_advertiser(@start_date, @end_date)) %>
       <%= render "/@shared/widgets/stat_card",
         label: "Clicks",
-        value: "TBD" %> <%# TODO: Nate - Total clicks for date range and campaign (start_date to end_date) %>
+        value: number_with_delimiter(current_user.clicks_count_as_advertiser(@start_date, @end_date)) %>
       <%= render "/@shared/widgets/stat_card",
         label: "CTR",
-        value: "TBD%" %> <%# TODO: Nate - Average CTR for date range and campaign (start_date to end_date) %>
-      <%= render "/@shared/widgets/stat_card",
-        label: "CPC",
-        value: "$TBD" %> <%# TODO: Nate - Average calculated CPC for date range and campaign (start_date to end_date) %>
+        value: number_to_percentage(current_user.click_rate_as_advertiser(@start_date, @end_date), precision: 2) %>
     </div>
 
     <div class="text-center mb-3 mt-5">
