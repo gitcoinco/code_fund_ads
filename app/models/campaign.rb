@@ -30,15 +30,16 @@
 class Campaign < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
-  include Eventable
-  include Taggable
-  include Impressionable
+  include Campaigns::Budgetable
+  include Campaigns::Impressionable
   include Campaigns::Operable
   include Campaigns::Predictable
-  include Campaigns::Budgetable
-  include Campaigns::Recommendable
   include Campaigns::Presentable
+  include Campaigns::Recommendable
   include Campaigns::Versionable
+  include Eventable
+  include Impressionable
+  include Taggable
 
   # relationships .............................................................
   belongs_to :creative, optional: true

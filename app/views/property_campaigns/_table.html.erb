@@ -3,31 +3,18 @@
     <thead>
       <tr class="border-bottom">
         <th style="width: 40%;">Name</th>
-        <th class="text-center" style="width: 10%;"><span class="d-block small text-muted">current</span>eCPM</th>
         <th class="text-center" style="width: 10%;">Impressions</th>
         <th class="text-center" style="width: 10%;">Clicks</th>
         <th class="text-center" style="width: 10%;"><span class="d-block small text-muted">average</span>CTR</th>
-        <th class="text-center" style="width: 10%;"><span class="d-block small text-muted">total</span>Earnings</th>
+        <th class="text-center" style="width: 10%;"><span class="d-block small text-muted">estimated</span>Earnings</th>
       </tr>
     </thead>
     <tbody>
-      <% campaigns.each do |campaign| %>
-      <tr>
-        <td class="text-left align-middle text-secondary"><%= campaign.name %></td>
-        <td class="text-center align-middle text-secondary"><%= number_to_currency campaign.ecpm %></td>
-        <td class="text-center align-middle text-secondary"><%= campaign.impressions.where(property: property).count %></td>
-        <td class="text-center align-middle text-secondary"><%= campaign.impressions.clicked.where(property: property).count %></td>
-        <td class="text-center align-middle text-secondary"><%= number_to_percentage(
-          (campaign.impressions.clicked.where(property: property).count.to_f /
-           campaign.impressions.where(property: property).count.to_f) * 100
-        ) %></td>
-        <td class="text-center align-middle text-secondary">TBD</td>
-      </tr>
-      <% end %>
+      <%= render partial: "/property_campaigns/tr", collection: @campaigns, as: :campaign %>
     </tbody>
   </table>
   <div class="d-flex justify-content-between align-items-center">
-    <span><%== pagy_nav_bootstrap(pagy) if pagy.pages > 1 %></span>
-    <%= pagy_entries(pagy) %>
+    <span><%== pagy_nav_bootstrap(@pagy) if @pagy.pages > 1 %></span>
+    <%= pagy_entries(@pagy) %>
   </div>
 </div>
