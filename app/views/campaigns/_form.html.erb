@@ -120,12 +120,7 @@
         Effective cost per thousand impressions
       </small>
     </div>
-    <div class="col-md-4 mb-3">
-      <%= f.input(:daily_budget, as: :currency, currency: "$") %>
-      <small class="form-text text-muted">
-        Recommended value: <code><%= @campaign.recommended_daily_budget.format %></code>
-      </small>
-    </div>
+    <%= tag.div f.input(:daily_budget, label: "Daily Budget", as: :currency, currency: "$"), class: "col-md-4 mb-3" %>
     <%= tag.div f.input(:total_budget, label: "Total (MAX) Budget", as: :currency, currency: "$"), class: "col-md-4 mb-3" %>
   <div>
 

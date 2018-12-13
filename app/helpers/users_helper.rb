@@ -10,15 +10,15 @@ module UsersHelper
       class: tag_class,
       data: {
         controller: "fallback-image",
-        fallback_image_url: user_identicon_url(user.id),
+        fallback_image_url: user.gravatar_url("identicon"),
       },
       alt: user.full_name
     )
   end
 
   def default_dashboard_path(user)
-    return dashboard_path("administrator") if user.has_role?("administrator")
-    return dashboard_path("advertiser")    if user.has_role?("advertiser")
-    dashboard_path("publisher")
+    return administrator_dashboards_path if user.has_role?("administrator")
+    return advertiser_dashboards_path if user.has_role?("advertiser")
+    publisher_dashboards_path
   end
 end

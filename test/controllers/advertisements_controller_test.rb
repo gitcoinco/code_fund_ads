@@ -1,6 +1,8 @@
 require "test_helper"
 
 class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   test "get advertisement with active & matching campaign" do
     campaign = active_campaign
     property = matched_property(campaign)

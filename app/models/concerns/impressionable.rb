@@ -75,7 +75,7 @@ module Impressionable
   end
 
   def total_impressions_per_mille
-    total_impressions_count / 1_000.to_f
+    total_impressions_count.to_i / 1_000.to_f
   end
 
   def daily_impressions_count(date = nil)
@@ -86,7 +86,7 @@ module Impressionable
   end
 
   def daily_impressions_per_mille(date = nil)
-    daily_impressions_count(date) / 1_000.to_f
+    daily_impressions_count(date).to_i / 1_000.to_f
   end
 
   # Returns an Array of probable dates with impressions
@@ -102,9 +102,9 @@ module Impressionable
       limit(1)
     relation = relation.between(start_date, end_date) if start_date && end_date
     relation = relation.on(start_date) if start_date && end_date.nil?
-    result = relation.first
-    return [] unless result.min
-    (result.min..result.max).to_a
+    result = self.class.connection.execute(relation.to_sql).first
+    return [] unless result["min"]
+    (result["min"]..result["max"]).to_a
   end
 
   def dates_with_impressions(start_date = nil, end_date = nil)

@@ -1,6 +1,8 @@
 require "test_helper"
 
 class PropertiesControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   # setup do
   # @property = properties(:one)
   # end

@@ -1,3 +1,7 @@
 <%= render layout: "/properties/show_layout", locals: { property: @property } do %>
+  <h3 class="h5 mb-1">
+    Matching Campaigns
+    <small class="text-muted d-block">List of active campaigns that qualify for this property</small>
+  </h3>
   <%= render "/property_campaigns/table", property: @property, campaigns: @campaigns, pagy: @pagy %>
 <% end %>

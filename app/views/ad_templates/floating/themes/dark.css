@@ -1,4 +1,4 @@
-#cf_ad {
+#cf {
   position: absolute;
   bottom: 80px;
   right: 80px;
@@ -14,13 +14,13 @@
   font-size: 12px;
 }
 
-#cf_ad .btn-icon {
+#cf .btn-icon {
   border: 0;
   background: transparent;
   text-align: center;
 }
 
-#cf_ad .btn-icon span {
+#cf .btn-icon span {
   color: #ffffff;
   font-size: 16px;
   font-weight: bold;
@@ -28,16 +28,16 @@
   top: -3px;
 }
 
-#cf_ad .btn-hide span {
+#cf .btn-hide span {
   color: #ffffff;
 }
 
-#cf_ad .btn-icon:focus,.btn-icon:hover {
+#cf .btn-icon:focus,.btn-icon:hover {
   background: inherit;
   color: #8e9095;
 }
 
-#cf_ad .btn-hide {
+#cf .btn-hide {
   position: absolute;
   top: -5px;
   left: -10px;
@@ -51,16 +51,16 @@
   width: 20px;
 }
 
-#cf_ad a {
+#cf a {
   color: inherit;
   text-decoration: inherit;
 }
 
-#cf_ad .fa-remove {
+#cf .fa-remove {
   font-size: 12px;
 }
 
-#cf_ad .sp-image {
+#cf .sp-image {
   display: inline-block;
   object-fit: cover;
   height: 80px;
@@ -68,11 +68,11 @@
   float: left;
 }
 
-#cf_ad .sp-click {
+#cf .sp-click {
   display: block;
 }
 
-#cf_ad .sp-content {
+#cf .sp-content {
   display: inline-block;
   height: 80px;
   width: 200px;
@@ -80,24 +80,24 @@
   float: left;
 }
 
-#cf_ad .sp-logo-image {
+#cf .sp-logo-image {
   height: 40px;
 }
 
-#cf_ad .sp-company {
+#cf .sp-company {
   font-size: 12px;
   padding-bottom: 3px;
   color: #dadada;
   font-weight: 600;
 }
 
-#cf_ad .sp-pixel {
+#cf .sp-pixel {
   position: relative;
   top: -1px;
   left: -1px;
 }
 
-#cf_ad .sp-sponsor {
+#cf .sp-sponsor {
   position: absolute;
   top: 0;
   right: 0;
@@ -115,19 +115,19 @@
   line-height: 1;
 }
 
-#cf_ad .sp-description {
+#cf .sp-description {
   font-size: 12px;
   font-family: Helevetica,sans-serif;
   color: #8a8a8a;
 }
 
-#cf_ad .sp-powered-by {
+#cf .sp-powered-by {
   display: block;
   color: rgba(255,255,255,0.2);
   text-align: right;
   font-size: 10px;
 }
 
-#cf_ad .sp-powered-by span {
+#cf .sp-powered-by span {
   color: rgba(255,255,255,0.3);
 }
