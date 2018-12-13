@@ -15,7 +15,7 @@ raw = File.read(Rails.root.join("config/enums.yml"))
 hash = YAML.safe_load(raw)
 enums = HashWithIndifferentAccess.new(hash)
 
-# Exposes ad temlates and themes as enums for files living under: app/views/ads
+# Exposes ad templates and themes as enums for files living under: app/views/ads
 #
 # Examples:
 #

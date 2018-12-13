@@ -33,13 +33,14 @@
   opacity: 0.5;
 }
 
-#cf .cf-image-wrapper {
+#cf .cf-img-wrapper {
   display: block;
   margin-bottom: 8px;
 }
 
-#cf .cf-image-wrapper img {
-  width: 80%;
+#cf .cf-img-wrapper img {
+  width: 150px;
+  height: 150px;
 }
 
 #cf .cf-text {

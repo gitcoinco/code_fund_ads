@@ -17,12 +17,12 @@
   margin-right: auto;
 }
 
-#cf .cf-image-wrapper {
+#cf .cf-img-wrapper {
   display: block;
   margin-bottom: 8px;
 }
 
-#cf .cf-image-wrapper img {
+#cf .cf-img-wrapper img {
   max-width: 125px;
 }
 

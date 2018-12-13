@@ -24,14 +24,14 @@
   margin-right: auto;
 }
 
-#cf_ad .cf-image-wrapper {
+#cf_ad .cf-img-wrapper {
   display: block;
   line-height: 1;
   margin-bottom: 8px;
   max-width: var(--width);
 }
 
-#cf_ad .cf-image-wrapper img {
+#cf_ad .cf-img-wrapper img {
   vertical-align: middle;
   border-style: none;
   width: 100%;
