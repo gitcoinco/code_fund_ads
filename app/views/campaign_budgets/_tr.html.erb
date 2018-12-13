@@ -1,0 +1,15 @@
+<tr <%= 'class=border-bottom' if date.saturday? %>>
+  <td class="text-right align-middle text-secondary"><%= date.to_s("abdy") %></td>
+  <td class="text-right align-middle text-secondary">
+    <%= @campaign.daily_consumed_budget(date).format %>
+  </td>
+  <td class="text-right align-middle text-secondary">
+    <%= number_with_delimiter @campaign.daily_impressions_count(date) %>
+  </td>
+  <td class="text-right align-middle text-secondary">
+    <%= number_with_delimiter @campaign.daily_clicks_count(date) %>
+  </td>
+  <td class="text-right align-middle text-secondary">
+    <%= number_to_percentage @campaign.daily_click_rate(date), precision: 2 %>
+  </td>
+</tr>

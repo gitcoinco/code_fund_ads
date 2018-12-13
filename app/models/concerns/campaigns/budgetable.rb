@@ -26,11 +26,15 @@ module Campaigns
     end
 
     def daily_remaining_budget
-      daily_budget - daily_consumed_budget
+      daily_budget - average_daily_consumed_budget
     end
 
-    def daily_consumed_budget
+    def average_daily_consumed_budget
       ecpm * daily_impressions_per_mille
+    end
+
+    def daily_consumed_budget(date)
+      ecpm * daily_impressions_per_mille(date)
     end
   end
 end
