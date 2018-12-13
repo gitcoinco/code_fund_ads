@@ -135,12 +135,14 @@ class Property < ApplicationRecord
     Campaign.for_property self
   end
 
+  # Returns a relation for campaigns that have been rendered on this property
   def displayed_campaigns(start_date = nil, end_date = nil)
     subquery = impressions.between(start_date, end_date).distinct(:campaign_id).select(:campaign_id) if start_date
     subquery ||= impressions.distinct(:campaign_id).select(:campaign_id)
     Campaign.where id: subquery
   end
 
+  # Returns a relation for campaigns that have been clicked on this property
   def clicked_campaigns(start_date = nil, end_date = nil)
     subquery = impressions.clicked.between(start_date, end_date).distinct(:campaign_id).select(:campaign_id) if start_date
     subquery ||= impressions.clicked.distinct(:campaign_id).select(:campaign_id)

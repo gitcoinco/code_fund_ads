@@ -6,7 +6,7 @@ class AssurePropertyAdvertisersJob < ApplicationJob
     history = {}
     User.advertisers.each do |user|
       user.campaigns.each do |campaign|
-        campaign.property_ids_with_impressions.each do |property_id|
+        campaign.properties.pluck(:id).each do |property_id|
           key = [property_id, user.id].join
           next if history[key]
           history[key] = true

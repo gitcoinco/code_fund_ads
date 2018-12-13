@@ -1,0 +1,14 @@
+<tr>
+  <td class="text-left align-middle text-secondary">
+    <small class="d-block text-dark"><%= property.name %></small>
+    <small class="d-block"><%= link_to property.url, property.url, target: "_blank" %></small>
+  </td>
+  <td class="text-center align-middle text-secondary">
+    <% @campaign.matching_keywords(property).each do |keyword| %>
+      <span class="btn btn-sm btn-soft-primary mb-2 py-0 px-1"><%= keyword %></span>
+    <% end %>
+  </td>
+  <td class="text-center align-middle text-secondary"><%= number_with_delimiter @campaign.property_impressions_count(property) %></td>
+  <td class="text-center align-middle text-secondary"><%= number_with_delimiter @campaign.property_clicks_count(property) %></td>
+  <td class="text-center align-middle text-secondary"><%= number_to_percentage @campaign.property_click_rate(property), precision: 2 %></td>
+</tr>

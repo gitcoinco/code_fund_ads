@@ -10,26 +10,11 @@
       </tr>
     </thead>
     <tbody>
-      <% properties.each do |property| %>
-      <tr>
-        <td class="text-left align-middle text-secondary">
-          <small class="d-block text-dark"><%= property.name %></small>
-          <small class="d-block"><%= link_to property.url, property.url, target: "_blank" %></small>
-        </td>
-        <td class="text-center align-middle text-secondary">
-          <% (property.keywords & campaign.keywords).sort.each do |keyword| %>
-            <span class="btn btn-sm btn-soft-primary mb-2 py-0 px-1"><%= keyword %></span>
-          <% end %>
-        </td>
-        <td class="text-center align-middle text-secondary">-</td>
-        <td class="text-center align-middle text-secondary">-</td>
-        <td class="text-center align-middle text-secondary">-</td>
-      </tr>
-      <% end %>
+      <%= render partial: "/campaign_properties/tr", collection: @properties, as: :property %>
     </tbody>
   </table>
   <div class="d-flex justify-content-between align-items-center">
-    <span><%== pagy_nav_bootstrap(pagy) if pagy.pages > 1 %></span>
-    <%= pagy_entries(pagy) %>
+    <span><%== pagy_nav_bootstrap(@pagy) if @pagy.pages > 1 %></span>
+    <%= pagy_entries(@pagy) %>
   </div>
 </div>
