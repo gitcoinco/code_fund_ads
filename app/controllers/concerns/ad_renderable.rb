@@ -30,10 +30,4 @@ module AdRenderable
   def theme_cache_key
     @theme_cache_key ||= "themes/#{theme_name}/#{theme_mtime.to_i}"
   end
-
-  def theme
-    Rails.cache.fetch(theme_cache_key) do
-      render_to_string template: "ad_templates/#{template_name}/themes/#{theme_name}.css", layout: false
-    end
-  end
 end

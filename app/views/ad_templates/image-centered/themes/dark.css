@@ -57,7 +57,7 @@
   margin-top: 5px;
   font-size: 11px;
   display: block;
-  color: #678;
+  color: rgba(255,255,255,0.7);
   text-decoration: none;
   text-align: center;
 }
