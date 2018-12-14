@@ -36,5 +36,17 @@ module Extensions
     def set_indexed_metadata
       self.indexed_metadata = metadata
     end
+
+    def cloudfront_host
+      ENV["CLOUDFRONT_HOST"]
+    end
+
+    def cloudfront_url
+      return service_url unless cloudfront_host
+      return service_url unless service.is_a?(ActiveStorage::Service::S3Service)
+      uri = URI(service_url)
+      path = uri.path.gsub("/#{service.bucket.name}", "")
+      "https://#{cloudfront_host}#{path}"
+    end
   end
 end

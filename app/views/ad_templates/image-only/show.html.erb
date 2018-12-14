@@ -3,7 +3,7 @@
     <span class="cf-wrapper">
       <div class="cf-header">supported by</div>
       <a data-href="campaign_url" class="cf-img-wrapper" target="_blank" rel="noopener">
-        <%= image_tag url_for(@campaign.creative.small_image), class: "cf-img" %>
+        <%= image_tag @campaign.creative.small_image.cloudfront_url, class: "cf-img" %>
       </a>
       <a href="https://codefund.io" class="cf-powered-by" target="_blank" rel="noopener">
         <em>ethical</em> ad by CodeFund
