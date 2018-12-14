@@ -28,7 +28,7 @@ class PropertiesController < ApplicationController
 
   # GET /properties/new
   def new
-    @property = current_user.properties.build(status: "pending")
+    @property = current_user.properties.build(status: "pending", ad_template: "default", ad_theme: "light")
   end
 
   # GET /properties/1/edit
@@ -95,15 +95,22 @@ class PropertiesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def property_params
     params.require(:property).permit(
+      :ad_template,
+      :ad_theme,
       :description,
       :language,
       :name,
       :property_type,
       :screenshot,
-      :status,
       :url,
       keywords: [],
-    )
+      prohibited_advertiser_ids: [],
+    ).tap do |whitelisted|
+      if authorized_user.can_admin_system?
+        whitelisted[:status] = params[:property][:status]
+        whitelisted[:revenue_percentage] = params[:property][:revenue_percentage]
+      end
+    end
   end
 
   def sortable_columns

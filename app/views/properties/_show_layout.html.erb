@@ -19,6 +19,8 @@
     <ul class="nav nav-classic nav-condensed">
       <%= tag.li(active_link_to("Details", property_path(property), active: :exact,
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Instructions", property_instructions_path(property),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
       <%= tag.li(active_link_to("Overview", property_dashboards_path(property),
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
       <%= tag.li(active_link_to("Keywords", property_keywords_path(property),
