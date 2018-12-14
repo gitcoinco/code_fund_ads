@@ -17,66 +17,29 @@
     <div class="card-deck d-block d-lg-flex card-lg-gutters-2 mb-3">
       <%= render "/@shared/widgets/stat_card",
         label: "Impressions",
-        value: number_with_delimiter(Impression.between(@start_date, @end_date).count),
+        value: number_with_delimiter(@impressions_count),
         icon: "fas fa-eye",
         color: "btn-soft-info" %>
       <%= render "/@shared/widgets/stat_card",
         label: "Clicks",
-        value: number_with_delimiter(Impression.clicked.between(@start_date, @end_date).count),
+        value: number_with_delimiter(@clicks_count),
         icon: "fas fa-bullseye-pointer",
         color: "btn-soft-primary" %>
       <%= render "/@shared/widgets/stat_card",
         label: "CTR",
-        value: "TBD", # TODO: Nate - Average CTR for date range (start_date to end_date)
+        value: number_to_percentage(@average_click_rate, precision: 2),
         icon: "fas fa-percentage",
         color: "btn-soft-warning" %>
     </div>
-    <div class="card-deck d-block d-lg-flex card-lg-gutters-2 mb-6">
-      <%= render "/@shared/widgets/stat_card",
-        label: "Revenue",
-        value: "TBD", # TODO: Nate - Total gross revenue for date range (start_date to end_date)
-        icon: "fas fa-donate",
-        color: "btn-soft-success" %>
-      <%= render "/@shared/widgets/stat_card",
-        label: "Distributions",
-        value: "TBD", # TODO: Nate - Total distribution amount (paid & unpaid) for date range (start_date to end_date)
-        icon: "fas fa-money-bill",
-        color: "btn-soft-warning" %>
-      <%= render "/@shared/widgets/stat_card",
-        label: "Profit",
-        value: "TBD", # TODO: Nate - Total gross profit for date range (start_date to end_date)
-        icon: "fas fa-dollar-sign",
-        color: "btn-soft-success" %>
-    </div>
 
     <div class="text-center mb-3 mt-5">
-      <span class="u-divider u-divider--xs u-divider--text">Active Advertisers</span>
+      <span class="u-divider u-divider--xs u-divider--text">Active Campaigns</span>
     </div>
 
     <div class="mb-7" id="dashboard-advertiser-cards">
       <div class="card-deck d-block d-lg-flex card-lg-gutters-2">
-        <% @active_advertisers.each.with_index do |advertiser, index| %>
-          <div class="card card-frame mb-3">
-            <%= link_to user_path(advertiser), class: "card-body p-4" do %>
-              <div class="media align-items-center">
-                <div class="u-avatar mr-3">
-                  <%= user_avatar_image_tag(advertiser, "img-fluid rounded-circle") %>
-                </div>
-                <div class="media-body">
-                  <span class="text-dark"><%= advertiser.company_name %></span>
-                  <small class="d-block text-secondary"><%= advertiser.name %></small>
-                </div>
-                <div class="media-body text-right">
-                  <span class="text-primary ml-3">
-                    TBD <%# TODO: Nate - Total ad spend for date range (start_date to end_date) %>
-                  </span>
-                  <small class="d-block text-secondary">
-                    TBD <%# TODO: Nate - Average CTR for date range (start_date to end_date) %>
-                  </small>
-                </div>
-              </div>
-            <% end %>
-          </div>
+        <% @active_campaigns.each.with_index do |campaign, index| %>
+          <%= render "/campaigns/card", campaign: campaign %>
           <% if (index + 1) % 3 == 0 %>
             </div><div class="card-deck d-block d-lg-flex card-lg-gutters-2">
           <% end %>

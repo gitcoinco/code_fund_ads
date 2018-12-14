@@ -20,7 +20,8 @@
                 placeholder: "Email",
                 input_html: {
                   class: "form-control",
-                  autocomplete: "email"
+                  autocomplete: "email",
+                  tabindex: 1,
                 },
                 data: {
                   rule_email: true,
@@ -36,7 +37,7 @@
         <label class="form-label" for="signinSrPassword">
           <span class="d-flex justify-content-between align-items-center">
             Password
-            <%= link_to "Forgot Password?", new_password_path(resource_name), class: "link-muted text-capitalize font-weight-normal" %>
+            <%= link_to "Forgot Password?", new_password_path(resource_name), class: "link-muted text-capitalize font-weight-normal", tabindex: 5 %>
           </span>
         </label>
         <%= f.input :password,
@@ -44,7 +45,8 @@
                 required: true,
                 input_html: {
                   class: "form-control",
-                  autocomplete: "current-password"
+                  autocomplete: "current-password",
+                  tabindex: 2,
                 },
                 data: {
                   msg: "Your password is invalid. Please try again.",
@@ -57,11 +59,11 @@
       <!-- Button -->
       <div class="row align-items-center mb-5">
         <div class="col-6">
-          <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+          <%= f.input :remember_me, as: :boolean, input_html: { tabindex: 3 } if devise_mapping.rememberable? %>
         </div>
 
         <div class="col-6 text-right">
-          <button type="submit" class="btn btn-primary transition-3d-hover">Sign in</button>
+          <button type="submit" class="btn btn-primary transition-3d-hover" tabindex="4">Sign in</button>
         </div>
       </div>
       <!-- End Button -->

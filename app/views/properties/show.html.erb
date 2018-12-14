@@ -1,7 +1,7 @@
 <%= render layout: "/properties/show_layout", locals: { property: @property } do %>
   <div class="row">
     <div class="col-md-6 col-lg-4">
-      <%= render "/properties/card", property: @property, start_date: Date.current.beginning_of_month, end_date: Date.current  %>
+      <%= render "/properties/card", property: @property, start_date: @property.created_at.to_date, end_date: Date.current  %>
     </div>
     <div class="col-md-6 col-lg-8">
       <h4 class="h5 mb-3">
