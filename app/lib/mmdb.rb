@@ -16,7 +16,7 @@ module MMDB
     private
 
     def mmdb_path
-      Dir.glob(Rails.root.join("db/maxmind/**/GeoLite2-City.mmdb")).first
+      Dir.glob("/tmp/**/GeoLite2-City.mmdb").first
     end
 
     def mmdb

@@ -16,18 +16,12 @@ class DownloadMaxmindFilesJob < ApplicationJob
 
   private
 
-  def maxmind_path
-    Rails.root.join("db/maxmind").tap do |path|
-      FileUtils.mkdir_p path
-    end
-  end
-
   def geoip2_city_uri
     URI "http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz"
   end
 
   def geoip2_city_path
-    maxmind_path.join "GeoLite2-City.tar.gz"
+    "/tmp/GeoLite2-City.tar.gz"
   end
 
   def download(uri, local_path)
@@ -58,7 +52,7 @@ class DownloadMaxmindFilesJob < ApplicationJob
   def untar(tarred_path)
     Gem::Package::TarReader.new File.open(tarred_path) do |tar|
       tar.each do |tarfile|
-        destination = maxmind_path.join(tarfile.full_name)
+        destination = File.join("/tmp", tarfile.full_name)
 
         if tarfile.directory?
           FileUtils.mkdir_p destination
