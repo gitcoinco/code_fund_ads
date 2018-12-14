@@ -1,8 +1,11 @@
 <%= render layout: "/properties/show_layout", locals: { property: @property } do %>
-  <h3 class="h5 mb-3">
-    Overview
-    <small class="text-muted d-block">A mini-dashboard specifically for this property</small>
-  </h3>
+  <div class="d-flex mb-3">
+    <h3 class="h5 mb-3 flex-grow-1">
+      Overview
+      <small class="text-muted d-block">A mini-dashboard specifically for this property</small>
+    </h3>
+    <%= render "/@shared/date_range_picker" %>
+  </div>
 
   <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
     <%= render "/@shared/widgets/stat_card",
