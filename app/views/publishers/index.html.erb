@@ -259,7 +259,7 @@
 
 
   <!-- CORE VALUES -->
-	<div class="position-relative">
+  <div class="position-relative">
     <div class="container space-3">
       <div class="row align-items-center">
         <div class="col-lg-5 mb-9 mb-lg-0">
@@ -364,7 +364,7 @@
           <!-- SVG Icon -->
           <%= image_tag "svg/undraw_hang_out_h9ud.svg", style: "width: 100%;" %>
           <!-- End SVG Icon -->
-  			</div>
+        </div>
       </div>
     </div>
   </div>
@@ -526,30 +526,30 @@
   <!-- END FAQ -->
 
   <!-- Publisher Form Section -->
-	<div id="SVGwave5Top" class="svg-preloader position-relative gradient-half-primary-v1">
-		<div class="container space-top-3 space-top-md-4 space-bottom-2">
-			<div class="w-lg-80 mx-auto">
-				<div id="applyForPublisher" class="inverted-feedback">
-					<!-- Title -->
-					<div class="text-center mb-7">
-						<span class="u-label u-label--sm u-label--white mb-2">Join CodeFund</span>
-						<h2 class="h3 text-white font-weight-normal">Become a Publisher</h2>
+  <div id="SVGwave5Top" class="svg-preloader position-relative gradient-half-primary-v1">
+    <div class="container space-top-3 space-top-md-4 space-bottom-2">
+      <div class="w-lg-80 mx-auto">
+        <div id="applyForPublisher" class="inverted-feedback">
+          <!-- Title -->
+          <div class="text-center mb-7">
+            <span class="u-label u-label--sm u-label--white mb-2">Join CodeFund</span>
+            <h2 class="h3 text-white font-weight-normal">Become a Publisher</h2>
             <p class="text-white">Your website must have at least 5,000 visitors per month and provide value to the open source community</p>
-					</div>
-					<!-- End Title -->
+          </div>
+          <!-- End Title -->
 
-					<!-- Apply Form -->
-					<%= form_for @applicant, url: publishers_path, html: { class: "js-validate", data: {
-						controller: "event-track",
-						action: "submit->event-track#logEvent",
-						ga_event_category: "website",
-						ga_event_action: "apply",
-						ga_event_label: "publisher",
-						ga_event_value: ""
-					}} do |f| %>
+          <!-- Apply Form -->
+          <%= form_for @applicant, url: publishers_path, html: { class: "js-validate", data: {
+            controller: "event-track",
+            action: "submit->event-track#logEvent",
+            ga_event_category: "website",
+            ga_event_action: "apply",
+            ga_event_label: "publisher",
+            ga_event_value: ""
+          }} do |f| %>
             <%= f.hidden_field :role, value: "publisher" %>
-						<div class="row">
-							<div class="col-sm-6 mb-5">
+            <div class="row">
+              <div class="col-sm-6 mb-5">
                 <label class="h6 small d-block text-uppercase text-light" for="applicant_first_name">
                   Your first name
                   <span class="text-warning">*</span>
@@ -656,20 +656,20 @@
                 </label>
                 <%= invisible_recaptcha_tags text: "Submit", class: "btn text-primary u-btn-white transition-3d-hover" %>
               </div>
-						</div>
-					<% end %>
-					<!-- End Apply Form -->
-				</div>
-			</div>
-		</div>
+            </div>
+          <% end %>
+          <!-- End Apply Form -->
+        </div>
+      </div>
+    </div>
 
-		<!-- SVG Top Shape -->
-		<figure class="position-absolute top-0 right-0 left-0 z-index-2">
+    <!-- SVG Top Shape -->
+    <figure class="position-absolute top-0 right-0 left-0 z-index-2">
       <%= image_tag "/assets/svg/components/wave-5-top.svg", class: "js-svg-injector", data: { parent: "#SVGwave5Top" } %>
-		</figure>
-		<!-- End SVG Top Shape -->
-	</div>
-	<!-- End Publisher Form Section -->
+    </figure>
+    <!-- End SVG Top Shape -->
+  </div>
+  <!-- End Publisher Form Section -->
 
 </main>
 <!-- ========== END MAIN ========== -->
