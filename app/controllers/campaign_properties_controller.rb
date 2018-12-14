@@ -3,7 +3,7 @@ class CampaignPropertiesController < ApplicationController
   before_action :set_campaign
 
   def index
-    properties = @campaign.matching_properties
+    properties = @campaign.properties.order(:name)
     @pagy, @properties = pagy(properties)
   end
 

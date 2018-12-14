@@ -13,14 +13,6 @@ module ApplicationHelper
     @pseudo_row_divider ||= render("/@shared/forms/pseudo_row_divider")
   end
 
-  def date_cache_key(date, minutes_cached: 10)
-    date = Date.coerce(date)
-    return date.iso8601 unless date.today?
-    minute_groups = (1..60).each_slice(minutes_cached).to_a
-    index = minute_groups.index { |set| set.include?(Time.current.min) }
-    "#{date.iso8601}/#{Time.current.hour}/#{index}"
-  end
-
   def classes(options = {})
     list = []
     options.each { |k, v| list << k if v }

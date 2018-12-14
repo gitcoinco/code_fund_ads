@@ -10,21 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <% campaign.operative_dates.each do |date| %>
-      <tr <%= 'class=border-bottom' if date.saturday? %>>
-        <td class="text-right align-middle text-secondary"><%= date.to_s("abdy") %></td>
-        <td class="text-center align-middle text-secondary">-</td>
-        <td class="text-center align-middle text-secondary">
-          <%#= campaign.daily_impressions_count(date) %>
-        </td>
-        <td class="text-center align-middle text-secondary">
-          <%#= campaign.daily_clicks_count(date) %>
-        </td>
-        <td class="text-center align-middle text-secondary">
-          <%#= number_to_percentage campaign.daily_click_rate(date) %>
-        </td>
-      </tr>
-      <% end %>
+      <%= render partial: "/campaign_budgets/tr", collection: campaign.operative_dates, as: :date %>
     </tbody>
   </table>
 </div>

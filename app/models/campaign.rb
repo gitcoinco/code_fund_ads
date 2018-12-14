@@ -168,18 +168,26 @@ class Campaign < ApplicationRecord
     Impression.partitioned(user_id, start_date.advance(months: -3), end_date.advance(months: 3)).where(campaign: self)
   end
 
-  def property_ids_with_impressions(date = nil)
-    return impressions.on(date).select(:property_id).distinct.pluck(:property_id) if date
-    impressions.select(:property_id).distinct.pluck(:property_id)
+  # Returns a relation for properties that have rendered this campaign
+  def properties(start_date = nil, end_date = nil)
+    subquery = impressions.between(start_date, end_date).distinct(:property_id).select(:property_id) if start_date
+    subquery ||= impressions.distinct(:property_id).select(:property_id)
+    Property.where id: subquery
   end
 
-  def property_ids_with_clicked_impressions(date = nil)
-    return impressions.clicked.on(date).select(:property_id).distinct.pluck(:property_id) if date
-    impressions.clicked.select(:property_id).distinct.pluck(:property_id)
+  # Returns a relation for properties that have produced a click for this campaign
+  def properties_with_clicks(start_date = nil, end_date = nil)
+    subquery = impressions.clicked.between(start_date, end_date).distinct(:property_id).select(:property_id) if start_date
+    subquery ||= impressions.clicked.distinct(:property_id).select(:property_id)
+    Property.where id: subquery
   end
 
   def matching_properties
     Property.for_campaign self
+  end
+
+  def matching_keywords(property)
+    keywords & property.keywords
   end
 
   def pending?

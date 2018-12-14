@@ -65,9 +65,7 @@ module Impressionable
   end
 
   def total_impressions_count
-    Rails.cache.fetch total_impressions_count_cache_key do
-      impressions.count
-    end
+    Rails.cache.fetch(total_impressions_count_cache_key) { impressions.count }.to_i
   end
 
   def total_impressions_per_mille
@@ -80,14 +78,15 @@ module Impressionable
 
   def daily_impressions_count(date = nil)
     date = Date.coerce(date)
-    Rails.cache.fetch daily_impressions_count_cache_key(date) do
-      impressions.on(date).count
-    end
+    Rails.cache.fetch(daily_impressions_count_cache_key(date)) { impressions.on(date).count }.to_i
   end
 
   def daily_impressions_counts(start_date = nil, end_date = nil)
-    probable_dates_with_impressions(start_date, end_date).map do |date|
-      daily_impressions_count date
+    key = "#{cache_key}/#{__method__}/#{Date.cache_key(start_date, coerce: false)}-#{Date.cache_key(end_date, coerce: false)}"
+    Rails.cache.fetch key do
+      probable_dates_with_impressions(start_date, end_date).map do |date|
+        daily_impressions_count date
+      end
     end
   end
 
@@ -130,9 +129,7 @@ module Impressionable
   end
 
   def total_clicks_count
-    Rails.cache.fetch total_clicks_count_cache_key do
-      impressions.clicked.count
-    end
+    Rails.cache.fetch(total_clicks_count_cache_key) { impressions.clicked.count }
   end
 
   def daily_clicks_count_cache_key(date)
@@ -141,9 +138,16 @@ module Impressionable
 
   def daily_clicks_count(date = nil)
     date = Date.coerce(date)
-    Rails.cache.fetch daily_clicks_count_cache_key(date) do
-      impressions.on(date).clicked.count
-    end
+    Rails.cache.fetch(daily_clicks_count_cache_key(date)) { impressions.on(date).clicked.count }.to_i
+  end
+
+  def daily_clicks_counts(start_date = nil, end_date = nil)
+    key = "#{cache_key}/#{__method__}/#{Date.cache_key(start_date, coerce: false)}-#{Date.cache_key(end_date, coerce: false)}"
+    Rails.cache.fetch(key) {
+      probable_dates_with_impressions(start_date, end_date).map do |date|
+        daily_clicks_count date
+      end
+    }
   end
 
   def total_click_rate
