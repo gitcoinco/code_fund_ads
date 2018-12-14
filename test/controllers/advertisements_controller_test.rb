@@ -8,7 +8,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("document.getElementById('codefund').innerHTML = '<div id=\"cf\"")
+    assert response.body.include?("targetElement.innerHTML = '<div id=\"cf\"")
   end
 
   test "get advertisement with active & geo matching campaign" do
@@ -17,7 +17,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("document.getElementById('codefund').innerHTML = '<div id=\"cf\"")
+    assert response.body.include?("targetElement.innerHTML = '<div id=\"cf\"")
   end
 
   test "get advertisement with active but no geo matching campaigns" do
@@ -42,7 +42,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("document.getElementById('codefund').innerHTML = '<div id=\"cf\"")
+    assert response.body.include?("targetElement.innerHTML = '<div id=\"cf\"")
   end
 
   test "get advertisement with fallback campaign when property doesn't allow fallbacks" do

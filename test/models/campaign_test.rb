@@ -46,7 +46,7 @@ class CampaignTest < ActiveSupport::TestCase
     assert @campaign.total_remaining_budget == @campaign.total_budget
     assert @campaign.total_operative_days == (Date.current.beginning_of_month..Date.current.end_of_month).to_a.size
     assert @campaign.estimated_max_total_impression_count == 1_666_667
-    assert @campaign.estimated_max_daily_impression_count == 64_104
+    assert @campaign.estimated_max_daily_impression_count == 92_594
     refute @campaign.budget_surplus?
   end
 
@@ -61,13 +61,13 @@ class CampaignTest < ActiveSupport::TestCase
   test "increasing ecpm up impacts the numbers" do
     @campaign.update ecpm: Monetize.parse("$4.00 USD")
     assert @campaign.estimated_max_total_impression_count == 1_250_000
-    assert @campaign.estimated_max_daily_impression_count == 48_078
+    assert @campaign.estimated_max_daily_impression_count == 69_445
   end
 
   test "decreasing ecpm down impacts the numbers" do
     @campaign.update ecpm: Monetize.parse("$2.00 USD")
     assert @campaign.estimated_max_total_impression_count == 2_500_000
-    assert @campaign.estimated_max_daily_impression_count == 96_155
+    assert @campaign.estimated_max_daily_impression_count == 138_890
   end
 
   test "increasing total_budget impacts the numbers" do
