@@ -22,6 +22,7 @@ class Applicant < ApplicationRecord
 
   # includes ..................................................................
   include Applicants::Presentable
+  include Eventable
 
   # relationships .............................................................
 

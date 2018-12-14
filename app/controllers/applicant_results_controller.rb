@@ -3,7 +3,7 @@ class ApplicantResultsController < ApplicationController
   before_action :set_applicant
 
   private
-  
+
   def set_applicant
     @applicant = Applicant.find(params[:applicant_id])
   end

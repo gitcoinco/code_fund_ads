@@ -40,7 +40,7 @@ class CommentsController < ApplicationController
   def set_property
     @commentable = Property.find(params[:property_id])
   end
-  
+
   def set_applicant
     @commentable = Applicant.find(params[:applicant_id])
   end
