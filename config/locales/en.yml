@@ -30,15 +30,15 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  hello: 'Hello world'
 
   images:
     destroy:
-      confirm: "Are you sure you want to delete this image?"
-      success: "The image was deleted successfully."
+      confirm: 'Are you sure you want to delete this image?'
+      success: 'The image was deleted successfully.'
     update:
-      success: "The image was updated successfully."
-  
+      success: 'The image was updated successfully.'
+
   datetime:
     distance_in_words:
       short:
@@ -64,5 +64,8 @@ en:
           one: '1 year'
           other: '%{count} years'
         about_x_years:
+          one: '1 year'
+          other: '%{count} years'
+        almost_x_years:
           one: '1 year'
           other: '%{count} years'

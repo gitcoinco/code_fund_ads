@@ -1,26 +1,30 @@
 class PublishersController < ApplicationController
-  # Creates a Publisher application, does not create a User record
+  def index
+    @applicant = Applicant.new(role: "publisher")
+  end
+
   def create
-    CreateSlackNotificationJob.perform_later text: "<!channel> *Publisher Form Submission*", message: <<~MESSAGE
-      *First Name:* #{publisher_params[:first_name]}
-      *Last Name:*  #{publisher_params[:last_name]}
-      *Email:*  #{publisher_params[:email]}
-      *Monthly Visitors:*  #{publisher_params[:monthly_visitors]}
-      *Website:*  #{publisher_params[:website_url]}
-    MESSAGE
-    ApplicantMailer.with(form: publisher_params.to_h).publisher_application_email.deliver_later
-    redirect_to publishers_path, notice: "Your request was sent successfully. We will be in touch."
+    @applicant = Applicant.new(applicant_params)
+
+    if verify_recaptcha(model: @applicant) && @applicant.save
+      redirect_to publishers_path, notice: "Your request was sent successfully. We will be in touch."
+    else
+      flash.now[:error] = "Your application is not valid. Please correct the errors and try again"
+      render :index
+    end
   end
 
   private
 
-  def publisher_params
-    params.require(:form).permit(
-      :email,
+  def applicant_params
+    params.require(:applicant).permit(
+      :role,
+      :status,
       :first_name,
       :last_name,
+      :email,
+      :url,
       :monthly_visitors,
-      :website_url,
     )
   end
 end

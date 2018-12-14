@@ -8,7 +8,7 @@
       <span class="btn btn-sm btn-soft-primary mb-2 py-0 px-1"><%= keyword %></span>
     <% end %>
   </td>
-  <td class="text-center align-middle text-secondary"><%= number_with_delimiter @campaign.property_impressions_count(property) %></td>
-  <td class="text-center align-middle text-secondary"><%= number_with_delimiter @campaign.property_clicks_count(property) %></td>
-  <td class="text-center align-middle text-secondary"><%= number_to_percentage @campaign.property_click_rate(property), precision: 2 %></td>
+  <td class="text-center align-middle text-secondary"><%= number_with_delimiter @campaign.property_impressions_count(property, @start_date, @end_date) %></td>
+  <td class="text-center align-middle text-secondary"><%= number_with_delimiter @campaign.property_clicks_count(property, @start_date, @end_date) %></td>
+  <td class="text-center align-middle text-secondary"><%= number_to_percentage @campaign.property_click_rate(property, @start_date, @end_date), precision: 2 %></td>
 </tr>

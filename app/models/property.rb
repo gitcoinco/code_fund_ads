@@ -45,7 +45,7 @@ class Property < ApplicationRecord
   validates :name, length: {maximum: 255, allow_blank: false}
   validates :property_type, inclusion: {in: ENUMS::PROPERTY_TYPES.values}
   validates :status, inclusion: {in: ENUMS::PROPERTY_STATUSES.values}
-  validates :url, presence: true
+  validates :url, presence: true, url: true
 
   # callbacks .................................................................
   after_save :generate_screenshot

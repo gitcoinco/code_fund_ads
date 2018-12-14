@@ -1,5 +1,5 @@
 <% cache [@property, date.iso8601, Date.cache_key(date)] do %>
-  <tr>
+  <tr <%= 'class=border-bottom' if date.saturday? %>>
     <td class="text-left align-middle text-secondary"><%= date.to_s("abdy") %></td>
     <td class="text-center align-middle text-secondary"><%= number_with_delimiter @property.daily_impressions_count(date) %></td>
     <td class="text-center align-middle text-secondary"><%= number_with_delimiter @property.daily_clicks_count(date) %></td>

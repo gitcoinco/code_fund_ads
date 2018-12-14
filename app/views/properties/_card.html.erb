@@ -17,7 +17,7 @@
     </div>
   </div>
 
-  <% cache [property, start_date, end_date], expires_in: 10.minutes do %>
+  <% cache property, expires_in: 10.minutes do %>
     <div class="card-body p-0 gradient-half-primary-v3">
       <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "img-fluid"), property %>
     </div>
@@ -44,4 +44,5 @@
       </div>
     </div>
   <% end %>
+  <small class="text-muted text-center d-block mb-1 pt-1 border-top"><em>data refreshes every 10 minutes</em></small>
 </div>

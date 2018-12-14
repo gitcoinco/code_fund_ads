@@ -42,10 +42,17 @@ class CreativesController < ApplicationController
   end
 
   def destroy
-    @creative.destroy
-    respond_to do |format|
-      format.html { redirect_to creatives_url, notice: "Creative was successfully destroyed." }
-      format.json { head :no_content }
+    if @creative.campaigns.empty?
+      @creative.destroy
+      respond_to do |format|
+        format.html { redirect_to creatives_url, notice: "Creative was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to creatives_url, alert: "We are unable to delete a creative that has been used" }
+        format.json { head :no_content }
+      end
     end
   end
 

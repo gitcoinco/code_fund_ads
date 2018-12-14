@@ -32,6 +32,13 @@ Rails.application.routes.draw do
   resources :versions, only: [:show, :update]
   resources :comments, only: [:create, :destroy]
 
+  resources :applicants
+  scope "/applicants/:applicant_id" do
+    resource :applicant_results, only: [:show], path: "/results"
+    resources :comments, only: [:index], as: :applicant_comments
+    resources :events, only: [:index], as: :applicant_events
+  end
+
   resources :campaigns
   scope "/campaigns/:campaign_id" do
     resource :campaign_targeting, only: [:show], path: "/targeting"

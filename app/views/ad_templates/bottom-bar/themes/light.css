@@ -39,7 +39,7 @@
 }
 
 #cf .cf-powered-by::before {
-  content: "\2022";
-  color: rgba(0,0,0,0.3);
+  content: '\2022';
+  color: rgba(0, 0, 0, 0.3);
   display: inline-block;
 }

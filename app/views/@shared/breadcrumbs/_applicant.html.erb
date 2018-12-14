@@ -1,0 +1,3 @@
+<li class="breadcrumb-item <%= local_assigns[:class] %>" aria-current="page">
+  <%= link_to "Applicant", applicant.persisted? ? applicant_path(applicant) : "#", class: "breadcrumb-link" %>
+</li>
