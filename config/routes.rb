@@ -65,6 +65,7 @@ Rails.application.routes.draw do
     resource :property_screenshots, only: [:update]
   end
   scope "/properties/:property_id" do
+    resource :property_instructions, only: [:show], path: "/instructions"
     resource :property_keywords, only: [:show], path: "/keywords"
     resource :property_earnings, only: [:show], path: "/earnings"
     resource :property_dashboards, only: [:show], path: "/overview"
