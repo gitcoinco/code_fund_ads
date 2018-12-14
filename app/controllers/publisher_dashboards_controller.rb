@@ -1,6 +1,4 @@
 class PublisherDashboardsController < ApplicationController
-  include Dateable
-
   before_action :authenticate_user!
 
   def show
