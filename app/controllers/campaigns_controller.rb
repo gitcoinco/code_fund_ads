@@ -2,7 +2,7 @@ class CampaignsController < ApplicationController
   include Sortable
 
   before_action :authenticate_user!
-  before_action :authenticate_admin!, except: [:index, :show]
+  before_action :authenticate_administrator!, except: [:index, :show]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
   before_action :set_campaign_search, only: [:index]
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]

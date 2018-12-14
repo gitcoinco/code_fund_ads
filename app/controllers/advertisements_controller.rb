@@ -79,7 +79,7 @@ class AdvertisementsController < ApplicationController
         css_string: theme,
         output_encoding: "utf-8",
         adapter: :nokogiri_fast
-      ).to_inline_css.strip.gsub(/\s\s|\n/, "")
+      ).to_inline_css.strip.gsub(/\s\s|\n/, "").gsub(/\'/, "\\\\'")
     end
   end
 

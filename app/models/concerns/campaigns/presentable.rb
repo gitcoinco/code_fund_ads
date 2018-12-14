@@ -24,5 +24,13 @@ module Campaigns
       return 0 if total_budget.zero?
       ((total_consumed_budget.to_f / total_budget.to_f) * 100).to_i
     end
+
+    def percentage_complete_by_daily_budget
+      return 0 if total_budget.zero?
+      return 0 if daily_budget.zero?
+      return 0 if daily_remaining_budget.zero?
+      consumed_budget_for_today = (daily_budget - daily_remaining_budget)
+      ((consumed_budget_for_today.to_f / daily_budget.to_f) * 100).to_i
+    end
   end
 end

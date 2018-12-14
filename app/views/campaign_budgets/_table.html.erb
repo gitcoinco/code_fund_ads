@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <%= render partial: "/campaign_budgets/tr", collection: campaign.operative_dates, as: :date %>
+      <%= render partial: "/campaign_budgets/tr", collection: (@start_date..@end_date), as: :date %>
     </tbody>
   </table>
 </div>

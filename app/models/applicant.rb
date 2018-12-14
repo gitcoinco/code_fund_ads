@@ -88,16 +88,17 @@ class Applicant < ApplicationRecord
   def send_notifications
   end
 
-  def foo
-    # CreateSlackNotificationJob.perform_later text: "<!channel> *Publisher Form Submission*", message: <<~MESSAGE
-    #   *First Name:* #{publisher_params[:first_name]}
-    #   *Last Name:*  #{publisher_params[:last_name]}
-    #   *Email:*  #{publisher_params[:email]}
-    #   *Monthly Visitors:*  #{publisher_params[:monthly_visitors]}
-    #   *Website:*  #{publisher_params[:website_url]}
-    # MESSAGE
-    # ApplicantMailer.with(form: publisher_params.to_h).publisher_application_email.deliver_later
-    # redirect_to publishers_path, notice: "Your request was sent successfully. We will be in touch."
+  def notify_slack
+    CreateSlackNotificationJob.perform_later(
+      text: "<!channel> *Publisher Form Submission*",
+      message: <<~MESSAGE
+        *First Name:* #{first_name}
+        *Last Name:*  #{last_name}
+        *Email:*  #{email}
+        *Monthly Visitors:*  #{monthly_visitors}
+        *Website:*  #{url}
+      MESSAGE
+    )
   end
 
   def adv

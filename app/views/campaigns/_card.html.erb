@@ -17,19 +17,27 @@
 
   <div class="card-body p-4">
     <div class="row">
-      <div class="col-6">
-        <h4 class="small text-muted">
-          Budget: <strong class="text-secondary"><%= campaign.total_budget.format %></strong>
+      <div class="col-4">
+        <h4 class="small text-muted text-center">
+          Total<strong class="text-secondary d-block">Budget</strong>
         </h4>
-        <div class="js-hr-progress progress" style="height: 6px;">
+        <div class="js-hr-progress progress" style="height: 10px;">
           <div class="js-hr-progress-bar progress-bar bg-success" role="progressbar" style="width: <%= campaign.percentage_complete_by_budget %>%;" aria-valuenow="<%= campaign.percentage_complete_by_budget %>" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>
-      <div class="col-6">
-        <h4 class="small text-muted">
-          Duration: <strong class="text-secondary"><%= campaign.duration || "Unknown" %></strong>
+      <div class="col-4">
+        <h4 class="small text-muted text-center">
+          Daily<strong class="text-secondary d-block">Budget</strong>
         </h4>
-        <div class="js-hr-progress progress" style="height: 6px;">
+        <div class="js-hr-progress progress" style="height: 10px;">
+          <div class="js-hr-progress-bar progress-bar bg-success" role="progressbar" style="width: <%= campaign.percentage_complete_by_daily_budget %>%;" aria-valuenow="<%= campaign.percentage_complete_by_daily_budget %>" aria-valuemin="0" aria-valuemax="100"></div>
+        </div>
+      </div>
+      <div class="col-4">
+        <h4 class="small text-muted text-center">
+          Total<strong class="text-secondary d-block">Duration</strong>
+        </h4>
+        <div class="js-hr-progress progress" style="height: 10px;">
           <div class="js-hr-progress-bar progress-bar bg-warning" role="progressbar" style="width: <%= campaign.percentage_complete_by_date %>%;" aria-valuenow="<%= campaign.percentage_complete_by_date %>" aria-valuemin="0" aria-valuemax="100"></div>
         </div>
       </div>

@@ -18,6 +18,9 @@
       label: "CTR",
       value: number_to_percentage(@campaign.total_click_rate, precision: 2) %>
   </div>
+
+  <hr>
+  
   <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
     <%= render "/@shared/widgets/stat_card",
       label: "Total Budget",
@@ -33,11 +36,11 @@
     <%= render "/@shared/widgets/stat_card",
       label: "Daily Budget",
       value: @campaign.daily_budget.format %>
-    <%#= render "/@shared/widgets/stat_card",
-      label: "Recommended Daily Budget",
-      value: @campaign.recommended_daily_budget.format %>
     <%= render "/@shared/widgets/stat_card",
       label: "Remaining Days",
       value: @campaign.remaining_operative_days %>
+    <%= render "/@shared/widgets/stat_card",
+      label: "Recommended Daily Budget",
+      value: @campaign.recommended_daily_budget.format if authorized_user.can_admin_system? %>
   </div>
 <% end %>
