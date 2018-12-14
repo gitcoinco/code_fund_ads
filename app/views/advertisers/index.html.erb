@@ -216,131 +216,136 @@
 					<!-- End Title -->
 
 					<!-- Apply Form -->
-					<%= form_tag advertisers_path, method: :post, class: "js-validate", data: {
+					<%= form_for @applicant, url: advertisers_path, html: { class: "js-validate", data: {
 						controller: "event-track",
 						action: "submit->event-track#logEvent",
 						ga_event_category: "website",
 						ga_event_action: "apply",
 						ga_event_label: "advertiser",
 						ga_event_value: ""
-					} do %>
+					}} do |f| %>
+            <%= f.hidden_field :role, value: "advertiser" %>
 						<div class="row">
 							<div class="col-sm-6 mb-5">
-								<label class="h6 small d-block text-uppercase text-light">
+								<label class="h6 small d-block text-uppercase text-light" for="applicant_first_name">
 									Your first name
 									<span class="text-warning">*</span>
 								</label>
 								<div class="js-form-message">
 									<div class="js-focus-state input-group u-form u-form--no-brd">
-										<input class="form-control u-form__input" type="text" required
-													id="first_name"
-													name="form[first_name]"
-													placeholder="First Name"
-													aria-label="First Name"
-													data-msg="Please enter your first name."
-													data-error-class="u-has-error"
-													data-success-class="u-has-success">
+										<%= f.text_field :first_name,
+                      class: "form-control u-form__input",
+                      required: true,
+                      placeholder: "First Name",
+                      data: {
+                        msg: "Please enter your first name.",
+                        error_class: "u-has-error",
+                        success_flass: "u-has-success"
+                      } %>
 									</div>
 								</div>
 							</div>
 
 							<div class="col-sm-6 mb-5">
-								<label class="h6 small d-block text-uppercase text-light">
+								<label class="h6 small d-block text-uppercase text-light" for="applicant_last_name">
 									Your last name
 									<span class="text-warning">*</span>
 								</label>
 								<div class="js-form-message">
 									<div class="js-focus-state input-group u-form u-form--no-brd">
-										<input class="form-control u-form__input" type="text" required
-													id="last_name"
-													name="form[last_name]"
-													placeholder="Last Name"
-													aria-label="Last Name"
-													data-msg="Please enter your last name."
-													data-error-class="u-has-error"
-													data-success-class="u-has-success">
+										<%= f.text_field :last_name,
+                      class: "form-control u-form__input",
+                      required: true,
+                      placeholder: "Last Name",
+                      data: {
+                        msg: "Please enter your last name.",
+                        error_class: "u-has-error",
+                        success_flass: "u-has-success"
+                      } %>
 									</div>
 								</div>
 							</div>
+						</div>
 
+						<div class="row">
 							<div class="col-sm-6 mb-5">
-								<label class="h6 small d-block text-uppercase text-light">
+								<label class="h6 small d-block text-uppercase text-light" for="applicant_company_name">
 									Company Name
 									<span class="text-warning">*</span>
 								</label>
 								<div class="js-form-message">
 									<div class="js-focus-state input-group u-form u-form--no-brd">
-										<input class="form-control u-form__input" type="text" required
-													id="company_name"
-													name="form[company_name]"
-													placeholder="Company Name"
-													aria-label="Company Name"
-													data-msg="Please enter your company name"
-													data-error-class="u-has-error"
-													data-success-class="u-has-success">
+										<%= f.text_field :company_name,
+                      class: "form-control u-form__input",
+                      required: true,
+                      placeholder: "Company Name",
+                      data: {
+                        msg: "Please enter your company name.",
+                        error_class: "u-has-error",
+                        success_flass: "u-has-success"
+                      } %>
 									</div>
 								</div>
 							</div>
 
 							<div class="col-sm-6 mb-5">
-								<label class="h6 small d-block text-uppercase text-light">
+								<label class="h6 small d-block text-uppercase text-light" for="applicant_url">
 									Company Website
 									<span class="text-warning">*</span>
 								</label>
 								<div class="js-form-message">
 									<div class="js-focus-state input-group u-form u-form--no-brd">
-										<input class="form-control u-form__input" type="text" required
-													id="company_url"
-													name="form[company_url]"
-													placeholder="https://example.com"
-													aria-label="Company Website"
-													aria-describedby="company_url_prepend"
-													data-msg="Please enter your company website"
-													data-error-class="u-has-error"
-													data-success-class="u-has-success"
-													data-rule-url="true">
+										<%= f.text_field :url,
+                      class: "form-control u-form__input",
+                      required: true,
+                      placeholder: "https://example.com",
+                      data: {
+                        msg: "Please enter your company website",
+                        error_class: "u-has-error",
+                        success_flass: "u-has-success",
+                        rule_url: true
+                      } %>
 									</div>
 								</div>
 							</div>
 
 							<div class="col-sm-6 mb-5">
-								<label class="h6 small d-block text-uppercase text-light">
+								<label class="h6 small d-block text-uppercase text-light" for="applicant_email">
 									Email Address
 									<span class="text-warning">*</span>
 								</label>
 								<div class="js-form-message">
 									<div class="js-focus-state input-group u-form u-form--no-brd">
-										<input class="form-control u-form__input" type="email" required
-													id="email"
-													name="form[email]"
-													placeholder="Email Address"
-													aria-label="Email Address"
-													data-msg="Please enter your company name"
-													data-error-class="u-has-error"
-													data-success-class="u-has-success"
-													data-rule-email="true">
+										<%= f.email_field :email,
+                      class: "form-control u-form__input",
+                      required: true,
+                      placeholder: "Email Address",
+                      data: {
+                        msg: "Please enter your email address",
+                        error_class: "u-has-error",
+                        success_flass: "u-has-success",
+                        rule_email: true
+                      } %>
 									</div>
 								</div>
 							</div>
 
 							<div class="col-sm-6 mb-5">
-								<label class="h6 small d-block text-uppercase text-light">
+								<label class="h6 small d-block text-uppercase text-light" for="applicant_monthly_budget">
 									Tell us about your budget
 									<span class="text-warning">*</span>
 								</label>
 								<div class="js-form-message">
 									<div class="js-focus-state input-group u-form u-form--no-brd">
-										<select class="custom-select" name="form[monthly_budget]" id="monthly_budget">
-											<option value="Less than $999">Less than $999</option>
-											<option value="$1,000 - $2,499">$1,000 - $2,499</option>
-											<option value="$2,500 - $4,999">$2,500 - $4,999</option>
-											<option value="$5,000 +">$5,000 +</option>
-										</select>
+										<%= f.select :monthly_budget,
+                      ["Less than $999", "$1,000 - $2,499", "$2,500 - $4,999", "$5,000 +"],
+                      { required: true },
+                      class: "form-control u-form__input" %>
 									</div>
 								</div>
 							</div>
 							<div class="col-sm-6 align-self-end text-sm-left mb-5">
-								<button type="submit" class="btn text-primary u-btn-white transition-3d-hover">Submit</button>
+								<%= invisible_recaptcha_tags text: "Submit", class: "btn text-primary u-btn-white transition-3d-hover" %>
 							</div>
 						</div>
 					<% end %>

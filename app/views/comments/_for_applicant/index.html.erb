@@ -1,0 +1,3 @@
+<%= render layout: "/applicants/show_layout", locals: { applicant: @commentable } do %>
+  <%= render "/comments/table", commentable: @commentable, comments: @comments %>
+<% end %>

@@ -70,6 +70,15 @@
 #   pry>ENUMS::CAMPAIGN_STATUSES[2]          # active
 #
 
+APPLICANT_STATUSES:
+  - pending
+  - accepted
+  - rejected
+
+APPLICANT_ROLES:
+  - advertiser
+  - publisher
+
 USER_ROLES:
   - administrator
   - advertiser

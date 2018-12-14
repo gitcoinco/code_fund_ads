@@ -132,6 +132,9 @@ GEM
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.5.0)
+    email_address (0.1.11)
+      netaddr (~> 2.0)
+      simpleidn
     erubi (1.7.1)
     execjs (2.7.0)
     faker (1.9.1)
@@ -161,6 +164,7 @@ GEM
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
     jmespath (1.4.0)
+    json (2.1.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -201,6 +205,7 @@ GEM
     msgpack (1.2.4)
     multi_json (1.13.1)
     multipart-post (2.0.0)
+    netaddr (2.0.3)
     netrc (0.11.0)
     nio4r (2.3.1)
     nokogiri (1.8.5)
@@ -273,6 +278,8 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
+    recaptcha (4.13.1)
+      json
     redis (4.0.3)
     regexp_parser (1.3.0)
     request_store (1.4.1)
@@ -322,6 +329,8 @@ GEM
     simple_form (4.1.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
+    simpleidn (0.1.1)
+      unf (~> 0.1.4)
     sixarm_ruby_unaccent (1.2.0)
     slack-notifier (2.3.2)
     sort_alphabetical (1.1.0)
@@ -395,6 +404,7 @@ DEPENDENCIES
   devise_invitable (~> 1.7.5)
   diffy (~> 3.2.1)
   dotenv
+  email_address (~> 0.1.11)
   faker (>= 1.9.1)
   gibbon (~> 3.2.0)
   hiredis (~> 0.6.3)
@@ -421,6 +431,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 3.11)
   rails (~> 5.2.1)
+  recaptcha (~> 4.13.1)
   redis (~> 4.0)
   rubocop
   ruby_identicon (~> 0.0.5)

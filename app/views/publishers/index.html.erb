@@ -539,105 +539,113 @@
 					<!-- End Title -->
 
 					<!-- Apply Form -->
-					<%= form_tag publishers_path, method: :post, class: "js-validate", data: {
+					<%= form_for @applicant, url: publishers_path, html: { class: "js-validate", data: {
 						controller: "event-track",
 						action: "submit->event-track#logEvent",
 						ga_event_category: "website",
 						ga_event_action: "apply",
 						ga_event_label: "publisher",
 						ga_event_value: ""
-					} do %>
+					}} do |f| %>
+            <%= f.hidden_field :role, value: "publisher" %>
 						<div class="row">
 							<div class="col-sm-6 mb-5">
-                <label class="h6 small d-block text-uppercase text-light">
+                <label class="h6 small d-block text-uppercase text-light" for="applicant_first_name">
                   Your first name
                   <span class="text-warning">*</span>
                 </label>
                 <div class="js-form-message">
                   <div class="js-focus-state input-group u-form u-form--no-brd">
-                    <input class="form-control u-form__input" type="text" required
-                          name="form[first_name]"
-                          placeholder="First Name"
-                          aria-label="First Name"
-                          data-msg="Please enter your first name."
-                          data-error-class="u-has-error"
-                          data-success-class="u-has-success">
+                    <%= f.text_field :first_name,
+                      class: "form-control u-form__input",
+                      required: true,
+                      placeholder: "First Name",
+                      data: {
+                        msg: "Please enter your first name.",
+                        error_class: "u-has-error",
+                        success_flass: "u-has-success"
+                      } %>
                   </div>
                 </div>
               </div>
 
               <div class="col-sm-6 mb-5">
-                <label class="h6 small d-block text-uppercase text-light">
+                <label class="h6 small d-block text-uppercase text-light" for="applicant_last_name">
                   Your last name
                   <span class="text-warning">*</span>
                 </label>
                 <div class="js-form-message">
                   <div class="js-focus-state input-group u-form u-form--no-brd">
-                    <input class="form-control u-form__input" type="text" required
-                          name="form[last_name]"
-                          placeholder="Last Name"
-                          aria-label="Last Name"
-                          data-msg="Please enter your last name."
-                          data-error-class="u-has-error"
-                          data-success-class="u-has-success">
+                    <%= f.text_field :last_name,
+                      class: "form-control u-form__input",
+                      required: true,
+                      placeholder: "Last Name",
+                      data: {
+                        msg: "Please enter your last name.",
+                        error_class: "u-has-error",
+                        success_flass: "u-has-success"
+                      } %>
                   </div>
                 </div>
               </div>
+            </div>
 
+            <div class="row">
               <div class="col-sm-6 mb-5">
-                <label class="h6 small d-block text-uppercase text-light">
+                <label class="h6 small d-block text-uppercase text-light" for="applicant_url">
                   What's your website URL?
                   <span class="text-warning">*</span>
                 </label>
                 <div class="js-form-message">
                   <div class="js-focus-state input-group u-form u-form--no-brd">
-                    <input class="form-control u-form__input" type="text" required
-                          name="form[website_url]"
-                          placeholder="https://"
-                          aria-label="Website"
-                          data-msg="Please enter the website you would like to place ads on"
-                          data-error-class="u-has-error"
-                          data-success-class="u-has-success"
-													data-rule-url="true">
+                    <%= f.text_field :url,
+                      class: "form-control u-form__input",
+                      required: true,
+                      placeholder: "https://",
+                      data: {
+                        msg: "Please enter the website you would like to place ads on",
+                        error_class: "u-has-error",
+                        success_flass: "u-has-success",
+                        rule_url: true
+                      } %>
                   </div>
-                  <p class="small mb-0 mt-1 text-light">This is the URL we would place the ethical ad script on</p>
                 </div>
               </div>
 
               <div class="col-sm-6 mb-5">
-                <label class="h6 small d-block text-uppercase text-light">
-                  How many visitors to your website?
-                  <span class="text-warning">*</span>
-                </label>
-                <div class="js-form-message">
-                  <div class="js-focus-state input-group u-form u-form--no-brd">
-                    <select class="custom-select" name="form[monthly_visitors]" required>
-                      <option value="Less than 5,000">Less than 5,000 per month</option>
-                      <option value="5,000 - 10,000">Between 5,000 and 10,000 per month</option>
-                      <option value="10,000 - 50,000">Between 10,000 and 50,000 per month</option>
-                      <option value="50,000 - 250,000">Between 50,000 and 250,000 per month</option>
-                      <option value="250,000+">More than 250,000 per month</option>
-                    </select>
-                  </div>
-                </div>
-                <p class="small mb-0 mt-1 text-light">We require a minimum of 5,000 visitors per month</p>
-              </div>
-
-              <div class="col-sm-6 mb-5">
-                <label class="h6 small d-block text-uppercase text-light">
+                <label class="h6 small d-block text-uppercase text-light" for="applicant_email">
                   Email Address
                   <span class="text-warning">*</span>
                 </label>
                 <div class="js-form-message">
                   <div class="js-focus-state input-group u-form u-form--no-brd">
-                    <input class="form-control u-form__input" type="email" required
-                          name="form[email]"
-                          placeholder="Email Address"
-                          aria-label="Email Address"
-                          data-msg="Please enter your email address"
-                          data-error-class="u-has-error"
-                          data-success-class="u-has-success"
-													data-rule-email="true">
+                    <%= f.email_field :email,
+                      class: "form-control u-form__input",
+                      required: true,
+                      placeholder: "Email Address",
+                      data: {
+                        msg: "Please enter your email address",
+                        error_class: "u-has-error",
+                        success_flass: "u-has-success",
+                        rule_email: true
+                      } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-6 mb-5">
+                <label class="h6 small d-block text-uppercase text-light" for="applicant_monthly_visitors">
+                  How many visitors to your website per month?
+                  <span class="text-warning">*</span>
+                </label>
+                <div class="js-form-message">
+                  <div class="js-focus-state input-group u-form u-form--no-brd">
+                    <%= f.select :monthly_visitors,
+                      ["Less than 5,000", "5,000 - 10,000", "10,000 - 50,000", "50,000 - 250,000", "250,000+"],
+                      { required: true },
+                      class: "form-control u-form__input" %>
                   </div>
                 </div>
               </div>
@@ -646,7 +654,7 @@
                 <label class="h6 small d-block text-uppercase text-light">
                   &nbsp;
                 </label>
-                <button type="submit" class="btn text-primary u-btn-white transition-3d-hover">Submit</button>
+                <%= invisible_recaptcha_tags text: "Submit", class: "btn text-primary u-btn-white transition-3d-hover" %>
               </div>
 						</div>
 					<% end %>

@@ -2,6 +2,8 @@ require "sidekiq/web"
 Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
 
 Rails.application.routes.draw do
+  get 'applicants/index'
+  get 'applicants/show'
   root to: "pages#index"
 
   authenticate :user, lambda { |user| AuthorizedUser.new(user).can_admin_system? } do
@@ -31,6 +33,12 @@ Rails.application.routes.draw do
 
   resources :versions, only: [:show, :update]
   resources :comments, only: [:create, :destroy]
+
+  resources :applicants
+  scope "/applicants/:applicant_id" do
+    resource :applicant_results, only: [:show], path: "/results"
+    resources :comments, only: [:index], as: :applicant_comments
+  end
 
   resources :campaigns
   scope "/campaigns/:campaign_id" do
