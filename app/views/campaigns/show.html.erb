@@ -17,6 +17,7 @@
         <%= details_li("URL") { link_to truncate(@campaign.url), @campaign.url } %>
         <%= details_li("US Hours Only?") { @campaign.us_hours_only? ? "Yes" : "No" } %>
         <%= details_li("Weekdays Only?") { @campaign.weekdays_only? ? "Yes" : "No" } %>
+        <%= details_li("Fallback Campaign?") { "Yes" } if @campaign.fallback? %>
         <%= details_li("Total Budget") { @campaign.total_budget.format } %>
         <%= details_li("Daily Budget") { @campaign.daily_budget.format } %>
         <%= details_li("eCPM") { @campaign.ecpm.format } %>

@@ -122,10 +122,22 @@
     </div>
     <%= tag.div f.input(:daily_budget, label: "Daily Budget", as: :currency, currency: "$"), class: "col-md-4 mb-3" %>
     <%= tag.div f.input(:total_budget, label: "Total (MAX) Budget", as: :currency, currency: "$"), class: "col-md-4 mb-3" %>
-  <div>
+    
+    <div class="col-12 mb-3 mt-4">
+      <div class="media align-items-center mb-3">
+        <label class="checkbox-switch mb-0 mr-3">
+          <%= f.check_box :fallback, class: "checkbox-switch__input" %>
+          <span class="checkbox-switch__slider"></span>
+        </label>
+        <label class="media-body text-muted mb-0">
+          <span class="d-block text-dark">Is this a fallback campaign?</span>
+        </label>
+      </div>
+    </div>
 
-  <%= render "@shared/forms/button_panel" do %>
-    <%= f.submit "Save Campaign", class: "btn btn-sm btn-primary transition-3d-hover mr-1" %>
-    <%= link_to "Cancel", campaigns_path, class: "btn btn-sm btn-soft-secondary transition-3d-hover" %>
-  <% end %>
+    <%= render "@shared/forms/button_panel" do %>
+      <%= f.submit "Save Campaign", class: "btn btn-sm btn-primary transition-3d-hover mr-1" %>
+      <%= link_to "Cancel", campaigns_path, class: "btn btn-sm btn-soft-secondary transition-3d-hover" %>
+    <% end %>
+  </div>
 <% end %>

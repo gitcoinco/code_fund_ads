@@ -4,7 +4,7 @@
 <% end %>
 
 <% content_for :actions do %>
-  <%= render "/@shared/actions/add_campaign" %>
+  <%= render "/@shared/actions/add_campaign" if authorized_user.can_admin_system? %>
 <% end %>
 
 <% content_for :page_heading do %>
