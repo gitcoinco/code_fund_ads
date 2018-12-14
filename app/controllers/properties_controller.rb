@@ -104,10 +104,10 @@ class PropertiesController < ApplicationController
       :screenshot,
       :url,
       keywords: [],
-      prohibited_advertiser_ids: [],
     ).tap do |whitelisted|
       if authorized_user.can_admin_system?
         whitelisted[:status] = params[:property][:status]
+        whitelisted[:prohibited_advertiser_ids] = params[:property][:prohibited_advertiser_ids]
         whitelisted[:revenue_percentage] = params[:property][:revenue_percentage]
       end
     end
