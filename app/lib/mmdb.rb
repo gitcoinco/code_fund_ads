@@ -1,7 +1,7 @@
 module MMDB
   class << self
     def lookup(ip_address)
-      return MaxMindDB::Result.new({}) unless mmdb
+      return MaxMindDB::Result.new({}) #unless mmdb
 
       begin
         result = mmdb.lookup(ip_address)
