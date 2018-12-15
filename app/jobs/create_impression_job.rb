@@ -29,5 +29,7 @@ class CreateImpressionJob < ApplicationJob
     )
 
     IncrementImpressionsCountCacheJob.perform_now impression
+  rescue ActiveRecord::RecordNotUnique
+    # prevent reattempts when a race condition attempts to write the same record
   end
 end
