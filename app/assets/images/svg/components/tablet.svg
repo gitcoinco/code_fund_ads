@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 603 892" style="enable-background:new 0 0 603 892;" xml:space="preserve">
+<style type="text/css">
+	.tablet-0{fill:#FFFFFF;}
+	.tablet-1{fill:#F7F7F7;}
+</style>
+<path class="tablet-0 fill-white" d="M603,51.8v788.5c0,28.5-23.3,51.8-51.8,51.8H51.8C23.3,892,0,868.7,0,840.2L0,51.8
+	C0,23.3,23.3,0,51.8,0l499.5,0C579.7,0,603,23.3,603,51.8z"/>
+<circle id="tabletID1" class="tablet-1" cx="302.5" cy="846.5" r="25.5"/>
+<circle id="tabletID2" class="tablet-1" cx="301.8" cy="45.9" r="6.2"/>
+<g>
+	<defs>
+		<rect id="tabletID3" x="36" y="86" width="533" height="711"/>
+	</defs>
+	<clipPath id="tabletID4">
+		<use xlink:href="#tabletID3"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#tabletID4);">
+		<!-- Apply your (533px width to 711px height) image here -->
+		<image id="SVGtabletImg1" style="overflow:visible;" width="533" height="711" xlink:href="../../img/533x711/img4.jpg"  transform="matrix(1 0 0 1 35 86)"></image>
+	</g>
+	<use xlink:href="#SVGID_1_"  style="overflow:visible;fill:none;stroke:#E7EAF3;stroke-miterlimit:10;"/>
+</g>
+</svg>

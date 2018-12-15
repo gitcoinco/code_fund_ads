@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 120 120" style="enable-background:new 0 0 120 120;" xml:space="preserve">
+<style type="text/css">
+	.icon-45-0{fill:#BDC5D1;}
+	.icon-45-1{fill:#377DFF;}
+	.icon-45-2{fill:#FFFFFF;}
+	.icon-45-3{fill:none;stroke:#BDC5D1;}
+</style>
+<path class="icon-45-0 fill-gray-400" opacity=".5" d="M117.8,120H74.6c-1.2,0-2.2-1-2.2-2.2V74.6c0-1.2,1-2.2,2.2-2.2h43.2c1.2,0,2.2,1,2.2,2.2v43.2
+	C120,119,119,120,117.8,120z"/>
+<path class="icon-45-1 fill-primary" d="M107.5,111H67.2c-1.9,0-3.4-1.5-3.4-3.4V67.2c0-1.9,1.5-3.4,3.4-3.4h40.3c1.9,0,3.4,1.5,3.4,3.4v40.3
+	C110.9,109.5,109.4,111,107.5,111z"/>
+<path class="icon-45-2 fill-white" opacity=".5" d="M95.5,97.3H84c-0.9,0-1.7-0.8-1.7-1.7V84.1c0-0.9,0.8-1.7,1.7-1.7h11.5c0.9,0,1.7,0.8,1.7,1.7v11.5
+	C97.2,96.5,96.5,97.3,95.5,97.3z"/>
+<path class="icon-45-2 fill-white" d="M90.6,92.4H79.2c-0.9,0-1.7-0.8-1.7-1.7V79.2c0-0.9,0.8-1.7,1.7-1.7h11.5c0.9,0,1.7,0.8,1.7,1.7v11.5
+	C92.3,91.6,91.6,92.4,90.6,92.4z"/>
+<circle class="icon-45-3 fill-none stroke-gray-400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="28.8" cy="91.4" r="26.8"/>
+<circle class="icon-45-0 fill-gray-400" opacity=".5" cx="31.3" cy="94.5" r="11"/>
+<circle class="icon-45-1 fill-primary" cx="26.3" cy="88.3" r="11"/>
+<path class="icon-45-3 fill-none stroke-gray-400" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M61.1,49.2l27.1-47c0.5-0.8,1.7-0.8,2.2,0l27.1,47c0.5,0.8-0.1,1.9-1.1,1.9H62.2C61.2,51.1,60.6,50,61.1,49.2z"
+	/>
+<path class="icon-45-0 fill-gray-400" opacity=".5" d="M86.1,41.2l8.1-14c0.3-0.5,1-0.5,1.3,0l8.1,14c0.3,0.5-0.1,1.1-0.6,1.1H86.7C86.1,42.3,85.8,41.7,86.1,41.2z"/>
+<path class="icon-45-1 fill-primary" d="M79.3,36.5l8.1-14c0.3-0.5,1-0.5,1.3,0l8.1,14c0.3,0.5-0.1,1.1-0.6,1.1H80C79.4,37.6,79.1,37,79.3,36.5z"/>
+</svg>

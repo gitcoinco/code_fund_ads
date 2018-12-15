@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 120 120" style="enable-background:new 0 0 120 120;" xml:space="preserve">
+<style type="text/css">
+	.icon-white-41-0{fill:#FFFFFF;}
+	.icon-white-41-1{fill:#377DFF;stroke:#FFFFFF;}
+	.icon-white-41-2{fill:none;stroke:#FFFFFF;}
+	.icon-white-41-3{fill:#377DFF;}
+</style>
+<circle class="icon-white-41-0 fill-white" opacity=".15" cx="65" cy="65" r="55"/>
+<circle class="icon-white-41-1 fill-primary stroke-white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" cx="55.1" cy="55.1" r="53.1"/>
+<path class="icon-white-41-2 fill-none stroke-white" opacity=".5" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M100.3,55.1c0,24.9-20.2,45.2-45.2,45.2"/>
+<path class="icon-white-41-2 fill-none stroke-white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M43.5,11.5c1.9-0.5,3.7-0.9,5.7-1.1"/>
+<path class="icon-white-41-2 fill-none stroke-white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" d="M18.8,28.4c4.5-6.1,10.6-11.1,17.6-14.3"/>
+<path class="icon-white-41-0 fill-white" opacity=".15" d="M48,37.6l36,20.8c1.9,1.1,1.9,3.8,0,4.8L48,84c-1.9,1.1-4.2-0.3-4.2-2.4V40C43.8,37.8,46.1,36.5,48,37.6z"/>
+<path class="icon-white-41-0 fill-white" d="M40.3,29.9l36,20.8c1.9,1.1,1.9,3.8,0,4.8l-36,20.8c-1.9,1.1-4.2-0.3-4.2-2.4V32.3
+	C36.1,30.2,38.4,28.8,40.3,29.9z"/>
+<path class="icon-white-41-3 fill-primary" d="M50.4,47.8l7.8,4.5c0.6,0.4,0.6,1.2,0,1.6l-7.8,4.5c-0.6,0.4-1.4-0.1-1.4-0.8v-9C49.1,47.9,49.8,47.5,50.4,47.8
+	z"/>
+</svg>
