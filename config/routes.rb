@@ -4,6 +4,8 @@ Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base
 Rails.application.routes.draw do
   root to: "pages#index"
 
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+
   authenticate :user, lambda { |user| AuthorizedUser.new(user).can_admin_system? } do
     mount Sidekiq::Web => "/sidekiq"
   end
