@@ -44,10 +44,10 @@
                 </columns>
               </row>
             </container>
+            <spacer size="32"></spacer>
           </center>
         </td>
       </tr>
     </table>
-    <spacer size="16"></spacer>
   </body>
 </html>
