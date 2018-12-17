@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
-  authenticate :user, lambda { |user| AuthorizedUser.new(user).can_admin_system? } do
+  authenticate :user, lambda { |user| AuthorizedUser.new(user || User.new).can_admin_system? } do
     mount Sidekiq::Web => "/sidekiq"
   end
 

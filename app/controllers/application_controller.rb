@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def authenticate_administrator!
-    return render_forbidden unless AuthorizedUser.new(current_user).can_admin_system?
+    return render_forbidden unless AuthorizedUser.new(current_user || User.new).can_admin_system?
   end
 
   def render_not_found

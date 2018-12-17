@@ -9,6 +9,7 @@ windows:
         - asdf local ruby 2.5.3
         - asdf local nodejs 9.11.2
         - nvim
+        focus: true
 
   - name: console
     root: /path/to/project
