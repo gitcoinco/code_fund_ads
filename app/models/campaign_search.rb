@@ -5,7 +5,7 @@ class CampaignSearch < ApplicationSearchRecord
     countries
     name
     statuses
-    us_hours_only
+    core_hours_only
     user_id
     user
     weekdays_only
@@ -13,7 +13,7 @@ class CampaignSearch < ApplicationSearchRecord
 
   def initialize(attrs = {})
     super FIELDS, attrs
-    self.us_hours_only = boolean(us_hours_only)
+    self.core_hours_only = boolean(core_hours_only)
     self.weekdays_only = boolean(weekdays_only)
     (self.keywords ||= []).reject!(&:blank?)
     (self.negative_keywords ||= []).reject!(&:blank?)
@@ -30,7 +30,7 @@ class CampaignSearch < ApplicationSearchRecord
       then { |result| result.search_countries(*countries) }.
       then { |result| result.search_name(name) }.
       then { |result| result.search_status(*statuses) }.
-      then { |result| us_hours_only ? result.search_us_hours_only(us_hours_only) : result }.
+      then { |result| core_hours_only ? result.search_core_hours_only(core_hours_only) : result }.
       then { |result| result.search_user(user) }.
       then { |result| result.search_user_id(user_id) }.
       then { |result| weekdays_only ? result.search_weekdays_only(weekdays_only) : result }

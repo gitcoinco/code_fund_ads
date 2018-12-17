@@ -138,7 +138,7 @@ namespace :legacy do
       campaign.end_date              = row["end_date"]
       campaign.start_date            ||= 1.year.from_now
       campaign.end_date              ||= campaign.start_date + 3.months
-      campaign.us_hours_only         = row["us_hours_only"]
+      campaign.core_hours_only       = row["us_hours_only"]
       campaign.weekdays_only         = row["weekdays_only"]
       campaign.total_budget_cents    = row["total_spend"].to_f * 100
       campaign.total_budget_currency = "USD"

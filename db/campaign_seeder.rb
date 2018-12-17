@@ -18,7 +18,7 @@ class CampaignSeeder
       url: Faker::SiliconValley.url,
       start_date: start_date,
       end_date: end_date,
-      us_hours_only: rand(5).zero?,
+      core_hours_only: rand(5).zero?,
       weekdays_only: rand(5).zero?,
       total_budget: total_budget,
       daily_budget: daily_budget,

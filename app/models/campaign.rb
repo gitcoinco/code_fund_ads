@@ -11,7 +11,7 @@
 #  url                   :text             not null
 #  start_date            :date
 #  end_date              :date
-#  us_hours_only         :boolean          default(FALSE)
+#  core_hours_only       :boolean          default(FALSE)
 #  weekdays_only         :boolean          default(FALSE)
 #  total_budget_cents    :integer          default(0), not null
 #  total_budget_currency :string           default("USD"), not null
@@ -64,7 +64,7 @@ class Campaign < ApplicationRecord
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
   scope :search_negative_keywords, ->(*values) { values.blank? ? all : with_any_negative(*values) }
   scope :search_status, ->(*values) { values.blank? ? all : where(status: values) }
-  scope :search_us_hours_only, ->(value) { value.nil? ? all : where(us_hours_only: value) }
+  scope :search_core_hours_only, ->(value) { value.nil? ? all : where(core_hours_only: value) }
   scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertisers.search_name(value).or(User.advertisers.search_company(value))) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
@@ -78,7 +78,7 @@ class Campaign < ApplicationRecord
         FROM campaigns
         WHERE NOT p.prohibited_advertiser_ids @> ARRAY[id]
         AND p.keywords && keywords
-        AND p.keywords && negative_keywords  = false
+        AND p.keywords && negative_keywords = false
       ) c ON true
     SQL
 
@@ -153,7 +153,7 @@ class Campaign < ApplicationRecord
     total_budget_cents
     total_budget_currency
     url
-    us_hours_only
+    core_hours_only
     user_id
     weekdays_only
   ]

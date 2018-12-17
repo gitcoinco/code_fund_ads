@@ -175,7 +175,7 @@ CREATE TABLE public.campaigns (
     url text NOT NULL,
     start_date date,
     end_date date,
-    us_hours_only boolean DEFAULT false,
+    core_hours_only boolean DEFAULT false,
     weekdays_only boolean DEFAULT false,
     total_budget_cents integer DEFAULT 0 NOT NULL,
     total_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL,
@@ -2120,6 +2120,13 @@ CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_b
 
 
 --
+-- Name: index_campaigns_on_core_hours_only; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_core_hours_only ON public.campaigns USING btree (core_hours_only);
+
+
+--
 -- Name: index_campaigns_on_countries; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2173,13 +2180,6 @@ CREATE INDEX index_campaigns_on_start_date ON public.campaigns USING btree (star
 --
 
 CREATE INDEX index_campaigns_on_status ON public.campaigns USING btree (status);
-
-
---
--- Name: index_campaigns_on_us_hours_only; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_campaigns_on_us_hours_only ON public.campaigns USING btree (us_hours_only);
 
 
 --
@@ -3349,6 +3349,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181211164312'),
 ('20181211201904'),
 ('20181212160643'),
-('20181214184527');
+('20181214184527'),
+('20181217205840');
 
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_12_160643) do
+ActiveRecord::Schema.define(version: 2018_12_17_205840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -42,6 +42,21 @@ ActiveRecord::Schema.define(version: 2018_12_12_160643) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "applicants", force: :cascade do |t|
+    t.string "status", default: "pending"
+    t.string "role", null: false
+    t.string "email", null: false
+    t.string "canonical_email", null: false
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "url", null: false
+    t.string "monthly_visitors"
+    t.string "company_name"
+    t.string "monthly_budget"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "campaigns", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "creative_id"
@@ -51,7 +66,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_160643) do
     t.text "url", null: false
     t.date "start_date"
     t.date "end_date"
-    t.boolean "us_hours_only", default: false
+    t.boolean "core_hours_only", default: false
     t.boolean "weekdays_only", default: false
     t.integer "total_budget_cents", default: 0, null: false
     t.string "total_budget_currency", default: "USD", null: false
@@ -66,6 +81,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_160643) do
     t.datetime "updated_at", null: false
     t.uuid "legacy_id"
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
+    t.index ["core_hours_only"], name: "index_campaigns_on_core_hours_only"
     t.index ["countries"], name: "index_campaigns_on_countries", using: :gin
     t.index ["creative_id"], name: "index_campaigns_on_creative_id"
     t.index ["end_date"], name: "index_campaigns_on_end_date"
@@ -73,7 +89,6 @@ ActiveRecord::Schema.define(version: 2018_12_12_160643) do
     t.index ["negative_keywords"], name: "index_campaigns_on_negative_keywords", using: :gin
     t.index ["start_date"], name: "index_campaigns_on_start_date"
     t.index ["status"], name: "index_campaigns_on_status"
-    t.index ["us_hours_only"], name: "index_campaigns_on_us_hours_only"
     t.index ["user_id"], name: "index_campaigns_on_user_id"
     t.index ["weekdays_only"], name: "index_campaigns_on_weekdays_only"
   end
@@ -151,6 +166,376 @@ ActiveRecord::Schema.define(version: 2018_12_12_160643) do
     t.float "estimated_house_revenue_fractional_cents"
   end
 
+  create_table "impressions_2018_11_advertiser_123", id: false, force: :cascade do |t|
+    t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
+    t.bigint "advertiser_id", null: false
+    t.bigint "publisher_id", null: false
+    t.bigint "campaign_id", null: false
+    t.bigint "creative_id", null: false
+    t.bigint "property_id", null: false
+    t.string "campaign_name", null: false
+    t.string "property_name", null: false
+    t.string "ip_address", null: false
+    t.text "user_agent", null: false
+    t.string "country_code"
+    t.string "postal_code"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.datetime "displayed_at", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "clicked_at"
+    t.date "clicked_at_date"
+    t.boolean "fallback_campaign", default: false, null: false
+    t.float "estimated_gross_revenue_fractional_cents"
+    t.float "estimated_property_revenue_fractional_cents"
+    t.float "estimated_house_revenue_fractional_cents"
+    t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_2018_11_advertiser_123_date_trunc_idx1"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_2018_11_advertiser_123_date_trunc_idx"
+    t.index ["advertiser_id"], name: "impressions_2018_11_advertiser_123_advertiser_id_idx"
+    t.index ["campaign_id"], name: "impressions_2018_11_advertiser_123_campaign_id_idx"
+    t.index ["campaign_name"], name: "impressions_2018_11_advertiser_123_campaign_name_idx"
+    t.index ["clicked_at_date"], name: "impressions_2018_11_advertiser_123_clicked_at_date_idx"
+    t.index ["country_code"], name: "impressions_2018_11_advertiser_123_country_code_idx"
+    t.index ["creative_id"], name: "impressions_2018_11_advertiser_123_creative_id_idx"
+    t.index ["displayed_at_date"], name: "impressions_2018_11_advertiser_123_displayed_at_date_idx"
+    t.index ["id", "advertiser_id", "displayed_at_date"], name: "impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx1", unique: true
+    t.index ["property_id"], name: "impressions_2018_11_advertiser_123_property_id_idx"
+    t.index ["property_name"], name: "impressions_2018_11_advertiser_123_property_name_idx"
+  end
+
+  create_table "impressions_2018_11_advertiser_132", id: false, force: :cascade do |t|
+    t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
+    t.bigint "advertiser_id", null: false
+    t.bigint "publisher_id", null: false
+    t.bigint "campaign_id", null: false
+    t.bigint "creative_id", null: false
+    t.bigint "property_id", null: false
+    t.string "campaign_name", null: false
+    t.string "property_name", null: false
+    t.string "ip_address", null: false
+    t.text "user_agent", null: false
+    t.string "country_code"
+    t.string "postal_code"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.datetime "displayed_at", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "clicked_at"
+    t.date "clicked_at_date"
+    t.boolean "fallback_campaign", default: false, null: false
+    t.float "estimated_gross_revenue_fractional_cents"
+    t.float "estimated_property_revenue_fractional_cents"
+    t.float "estimated_house_revenue_fractional_cents"
+    t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_2018_11_advertiser_132_date_trunc_idx1"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_2018_11_advertiser_132_date_trunc_idx"
+    t.index ["advertiser_id"], name: "impressions_2018_11_advertiser_132_advertiser_id_idx"
+    t.index ["campaign_id"], name: "impressions_2018_11_advertiser_132_campaign_id_idx"
+    t.index ["campaign_name"], name: "impressions_2018_11_advertiser_132_campaign_name_idx"
+    t.index ["clicked_at_date"], name: "impressions_2018_11_advertiser_132_clicked_at_date_idx"
+    t.index ["country_code"], name: "impressions_2018_11_advertiser_132_country_code_idx"
+    t.index ["creative_id"], name: "impressions_2018_11_advertiser_132_creative_id_idx"
+    t.index ["displayed_at_date"], name: "impressions_2018_11_advertiser_132_displayed_at_date_idx"
+    t.index ["id", "advertiser_id", "displayed_at_date"], name: "impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx3", unique: true
+    t.index ["property_id"], name: "impressions_2018_11_advertiser_132_property_id_idx"
+    t.index ["property_name"], name: "impressions_2018_11_advertiser_132_property_name_idx"
+  end
+
+  create_table "impressions_2018_11_advertiser_137", id: false, force: :cascade do |t|
+    t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
+    t.bigint "advertiser_id", null: false
+    t.bigint "publisher_id", null: false
+    t.bigint "campaign_id", null: false
+    t.bigint "creative_id", null: false
+    t.bigint "property_id", null: false
+    t.string "campaign_name", null: false
+    t.string "property_name", null: false
+    t.string "ip_address", null: false
+    t.text "user_agent", null: false
+    t.string "country_code"
+    t.string "postal_code"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.datetime "displayed_at", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "clicked_at"
+    t.date "clicked_at_date"
+    t.boolean "fallback_campaign", default: false, null: false
+    t.float "estimated_gross_revenue_fractional_cents"
+    t.float "estimated_property_revenue_fractional_cents"
+    t.float "estimated_house_revenue_fractional_cents"
+    t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_2018_11_advertiser_137_date_trunc_idx1"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_2018_11_advertiser_137_date_trunc_idx"
+    t.index ["advertiser_id"], name: "impressions_2018_11_advertiser_137_advertiser_id_idx"
+    t.index ["campaign_id"], name: "impressions_2018_11_advertiser_137_campaign_id_idx"
+    t.index ["campaign_name"], name: "impressions_2018_11_advertiser_137_campaign_name_idx"
+    t.index ["clicked_at_date"], name: "impressions_2018_11_advertiser_137_clicked_at_date_idx"
+    t.index ["country_code"], name: "impressions_2018_11_advertiser_137_country_code_idx"
+    t.index ["creative_id"], name: "impressions_2018_11_advertiser_137_creative_id_idx"
+    t.index ["displayed_at_date"], name: "impressions_2018_11_advertiser_137_displayed_at_date_idx"
+    t.index ["id", "advertiser_id", "displayed_at_date"], name: "impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx5", unique: true
+    t.index ["property_id"], name: "impressions_2018_11_advertiser_137_property_id_idx"
+    t.index ["property_name"], name: "impressions_2018_11_advertiser_137_property_name_idx"
+  end
+
+  create_table "impressions_2018_11_advertiser_144", id: false, force: :cascade do |t|
+    t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
+    t.bigint "advertiser_id", null: false
+    t.bigint "publisher_id", null: false
+    t.bigint "campaign_id", null: false
+    t.bigint "creative_id", null: false
+    t.bigint "property_id", null: false
+    t.string "campaign_name", null: false
+    t.string "property_name", null: false
+    t.string "ip_address", null: false
+    t.text "user_agent", null: false
+    t.string "country_code"
+    t.string "postal_code"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.datetime "displayed_at", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "clicked_at"
+    t.date "clicked_at_date"
+    t.boolean "fallback_campaign", default: false, null: false
+    t.float "estimated_gross_revenue_fractional_cents"
+    t.float "estimated_property_revenue_fractional_cents"
+    t.float "estimated_house_revenue_fractional_cents"
+    t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_2018_11_advertiser_144_date_trunc_idx1"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_2018_11_advertiser_144_date_trunc_idx"
+    t.index ["advertiser_id"], name: "impressions_2018_11_advertiser_144_advertiser_id_idx"
+    t.index ["campaign_id"], name: "impressions_2018_11_advertiser_144_campaign_id_idx"
+    t.index ["campaign_name"], name: "impressions_2018_11_advertiser_144_campaign_name_idx"
+    t.index ["clicked_at_date"], name: "impressions_2018_11_advertiser_144_clicked_at_date_idx"
+    t.index ["country_code"], name: "impressions_2018_11_advertiser_144_country_code_idx"
+    t.index ["creative_id"], name: "impressions_2018_11_advertiser_144_creative_id_idx"
+    t.index ["displayed_at_date"], name: "impressions_2018_11_advertiser_144_displayed_at_date_idx"
+    t.index ["id", "advertiser_id", "displayed_at_date"], name: "impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx4", unique: true
+    t.index ["property_id"], name: "impressions_2018_11_advertiser_144_property_id_idx"
+    t.index ["property_name"], name: "impressions_2018_11_advertiser_144_property_name_idx"
+  end
+
+  create_table "impressions_2018_11_advertiser_146", id: false, force: :cascade do |t|
+    t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
+    t.bigint "advertiser_id", null: false
+    t.bigint "publisher_id", null: false
+    t.bigint "campaign_id", null: false
+    t.bigint "creative_id", null: false
+    t.bigint "property_id", null: false
+    t.string "campaign_name", null: false
+    t.string "property_name", null: false
+    t.string "ip_address", null: false
+    t.text "user_agent", null: false
+    t.string "country_code"
+    t.string "postal_code"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.datetime "displayed_at", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "clicked_at"
+    t.date "clicked_at_date"
+    t.boolean "fallback_campaign", default: false, null: false
+    t.float "estimated_gross_revenue_fractional_cents"
+    t.float "estimated_property_revenue_fractional_cents"
+    t.float "estimated_house_revenue_fractional_cents"
+    t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_2018_11_advertiser_146_date_trunc_idx1"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_2018_11_advertiser_146_date_trunc_idx"
+    t.index ["advertiser_id"], name: "impressions_2018_11_advertiser_146_advertiser_id_idx"
+    t.index ["campaign_id"], name: "impressions_2018_11_advertiser_146_campaign_id_idx"
+    t.index ["campaign_name"], name: "impressions_2018_11_advertiser_146_campaign_name_idx"
+    t.index ["clicked_at_date"], name: "impressions_2018_11_advertiser_146_clicked_at_date_idx"
+    t.index ["country_code"], name: "impressions_2018_11_advertiser_146_country_code_idx"
+    t.index ["creative_id"], name: "impressions_2018_11_advertiser_146_creative_id_idx"
+    t.index ["displayed_at_date"], name: "impressions_2018_11_advertiser_146_displayed_at_date_idx"
+    t.index ["id", "advertiser_id", "displayed_at_date"], name: "impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx7", unique: true
+    t.index ["property_id"], name: "impressions_2018_11_advertiser_146_property_id_idx"
+    t.index ["property_name"], name: "impressions_2018_11_advertiser_146_property_name_idx"
+  end
+
+  create_table "impressions_2018_11_advertiser_155", id: false, force: :cascade do |t|
+    t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
+    t.bigint "advertiser_id", null: false
+    t.bigint "publisher_id", null: false
+    t.bigint "campaign_id", null: false
+    t.bigint "creative_id", null: false
+    t.bigint "property_id", null: false
+    t.string "campaign_name", null: false
+    t.string "property_name", null: false
+    t.string "ip_address", null: false
+    t.text "user_agent", null: false
+    t.string "country_code"
+    t.string "postal_code"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.datetime "displayed_at", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "clicked_at"
+    t.date "clicked_at_date"
+    t.boolean "fallback_campaign", default: false, null: false
+    t.float "estimated_gross_revenue_fractional_cents"
+    t.float "estimated_property_revenue_fractional_cents"
+    t.float "estimated_house_revenue_fractional_cents"
+    t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_2018_11_advertiser_155_date_trunc_idx1"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_2018_11_advertiser_155_date_trunc_idx"
+    t.index ["advertiser_id"], name: "impressions_2018_11_advertiser_155_advertiser_id_idx"
+    t.index ["campaign_id"], name: "impressions_2018_11_advertiser_155_campaign_id_idx"
+    t.index ["campaign_name"], name: "impressions_2018_11_advertiser_155_campaign_name_idx"
+    t.index ["clicked_at_date"], name: "impressions_2018_11_advertiser_155_clicked_at_date_idx"
+    t.index ["country_code"], name: "impressions_2018_11_advertiser_155_country_code_idx"
+    t.index ["creative_id"], name: "impressions_2018_11_advertiser_155_creative_id_idx"
+    t.index ["displayed_at_date"], name: "impressions_2018_11_advertiser_155_displayed_at_date_idx"
+    t.index ["id", "advertiser_id", "displayed_at_date"], name: "impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx8", unique: true
+    t.index ["property_id"], name: "impressions_2018_11_advertiser_155_property_id_idx"
+    t.index ["property_name"], name: "impressions_2018_11_advertiser_155_property_name_idx"
+  end
+
+  create_table "impressions_2018_11_advertiser_158", id: false, force: :cascade do |t|
+    t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
+    t.bigint "advertiser_id", null: false
+    t.bigint "publisher_id", null: false
+    t.bigint "campaign_id", null: false
+    t.bigint "creative_id", null: false
+    t.bigint "property_id", null: false
+    t.string "campaign_name", null: false
+    t.string "property_name", null: false
+    t.string "ip_address", null: false
+    t.text "user_agent", null: false
+    t.string "country_code"
+    t.string "postal_code"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.datetime "displayed_at", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "clicked_at"
+    t.date "clicked_at_date"
+    t.boolean "fallback_campaign", default: false, null: false
+    t.float "estimated_gross_revenue_fractional_cents"
+    t.float "estimated_property_revenue_fractional_cents"
+    t.float "estimated_house_revenue_fractional_cents"
+    t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_2018_11_advertiser_158_date_trunc_idx1"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_2018_11_advertiser_158_date_trunc_idx"
+    t.index ["advertiser_id"], name: "impressions_2018_11_advertiser_158_advertiser_id_idx"
+    t.index ["campaign_id"], name: "impressions_2018_11_advertiser_158_campaign_id_idx"
+    t.index ["campaign_name"], name: "impressions_2018_11_advertiser_158_campaign_name_idx"
+    t.index ["clicked_at_date"], name: "impressions_2018_11_advertiser_158_clicked_at_date_idx"
+    t.index ["country_code"], name: "impressions_2018_11_advertiser_158_country_code_idx"
+    t.index ["creative_id"], name: "impressions_2018_11_advertiser_158_creative_id_idx"
+    t.index ["displayed_at_date"], name: "impressions_2018_11_advertiser_158_displayed_at_date_idx"
+    t.index ["id", "advertiser_id", "displayed_at_date"], name: "impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx6", unique: true
+    t.index ["property_id"], name: "impressions_2018_11_advertiser_158_property_id_idx"
+    t.index ["property_name"], name: "impressions_2018_11_advertiser_158_property_name_idx"
+  end
+
+  create_table "impressions_2018_11_advertiser_160", id: false, force: :cascade do |t|
+    t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
+    t.bigint "advertiser_id", null: false
+    t.bigint "publisher_id", null: false
+    t.bigint "campaign_id", null: false
+    t.bigint "creative_id", null: false
+    t.bigint "property_id", null: false
+    t.string "campaign_name", null: false
+    t.string "property_name", null: false
+    t.string "ip_address", null: false
+    t.text "user_agent", null: false
+    t.string "country_code"
+    t.string "postal_code"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.datetime "displayed_at", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "clicked_at"
+    t.date "clicked_at_date"
+    t.boolean "fallback_campaign", default: false, null: false
+    t.float "estimated_gross_revenue_fractional_cents"
+    t.float "estimated_property_revenue_fractional_cents"
+    t.float "estimated_house_revenue_fractional_cents"
+    t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_2018_11_advertiser_160_date_trunc_idx1"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_2018_11_advertiser_160_date_trunc_idx"
+    t.index ["advertiser_id"], name: "impressions_2018_11_advertiser_160_advertiser_id_idx"
+    t.index ["campaign_id"], name: "impressions_2018_11_advertiser_160_campaign_id_idx"
+    t.index ["campaign_name"], name: "impressions_2018_11_advertiser_160_campaign_name_idx"
+    t.index ["clicked_at_date"], name: "impressions_2018_11_advertiser_160_clicked_at_date_idx"
+    t.index ["country_code"], name: "impressions_2018_11_advertiser_160_country_code_idx"
+    t.index ["creative_id"], name: "impressions_2018_11_advertiser_160_creative_id_idx"
+    t.index ["displayed_at_date"], name: "impressions_2018_11_advertiser_160_displayed_at_date_idx"
+    t.index ["id", "advertiser_id", "displayed_at_date"], name: "impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx2", unique: true
+    t.index ["property_id"], name: "impressions_2018_11_advertiser_160_property_id_idx"
+    t.index ["property_name"], name: "impressions_2018_11_advertiser_160_property_name_idx"
+  end
+
+  create_table "impressions_2018_11_advertiser_169", id: false, force: :cascade do |t|
+    t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
+    t.bigint "advertiser_id", null: false
+    t.bigint "publisher_id", null: false
+    t.bigint "campaign_id", null: false
+    t.bigint "creative_id", null: false
+    t.bigint "property_id", null: false
+    t.string "campaign_name", null: false
+    t.string "property_name", null: false
+    t.string "ip_address", null: false
+    t.text "user_agent", null: false
+    t.string "country_code"
+    t.string "postal_code"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.datetime "displayed_at", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "clicked_at"
+    t.date "clicked_at_date"
+    t.boolean "fallback_campaign", default: false, null: false
+    t.float "estimated_gross_revenue_fractional_cents"
+    t.float "estimated_property_revenue_fractional_cents"
+    t.float "estimated_house_revenue_fractional_cents"
+    t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_2018_11_advertiser_169_date_trunc_idx1"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_2018_11_advertiser_169_date_trunc_idx"
+    t.index ["advertiser_id"], name: "impressions_2018_11_advertiser_169_advertiser_id_idx"
+    t.index ["campaign_id"], name: "impressions_2018_11_advertiser_169_campaign_id_idx"
+    t.index ["campaign_name"], name: "impressions_2018_11_advertiser_169_campaign_name_idx"
+    t.index ["clicked_at_date"], name: "impressions_2018_11_advertiser_169_clicked_at_date_idx"
+    t.index ["country_code"], name: "impressions_2018_11_advertiser_169_country_code_idx"
+    t.index ["creative_id"], name: "impressions_2018_11_advertiser_169_creative_id_idx"
+    t.index ["displayed_at_date"], name: "impressions_2018_11_advertiser_169_displayed_at_date_idx"
+    t.index ["id", "advertiser_id", "displayed_at_date"], name: "impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx9", unique: true
+    t.index ["property_id"], name: "impressions_2018_11_advertiser_169_property_id_idx"
+    t.index ["property_name"], name: "impressions_2018_11_advertiser_169_property_name_idx"
+  end
+
+  create_table "impressions_2018_11_advertiser_185", id: false, force: :cascade do |t|
+    t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
+    t.bigint "advertiser_id", null: false
+    t.bigint "publisher_id", null: false
+    t.bigint "campaign_id", null: false
+    t.bigint "creative_id", null: false
+    t.bigint "property_id", null: false
+    t.string "campaign_name", null: false
+    t.string "property_name", null: false
+    t.string "ip_address", null: false
+    t.text "user_agent", null: false
+    t.string "country_code"
+    t.string "postal_code"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.datetime "displayed_at", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "clicked_at"
+    t.date "clicked_at_date"
+    t.boolean "fallback_campaign", default: false, null: false
+    t.float "estimated_gross_revenue_fractional_cents"
+    t.float "estimated_property_revenue_fractional_cents"
+    t.float "estimated_house_revenue_fractional_cents"
+    t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_2018_11_advertiser_185_date_trunc_idx1"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_2018_11_advertiser_185_date_trunc_idx"
+    t.index ["advertiser_id"], name: "impressions_2018_11_advertiser_185_advertiser_id_idx"
+    t.index ["campaign_id"], name: "impressions_2018_11_advertiser_185_campaign_id_idx"
+    t.index ["campaign_name"], name: "impressions_2018_11_advertiser_185_campaign_name_idx"
+    t.index ["clicked_at_date"], name: "impressions_2018_11_advertiser_185_clicked_at_date_idx"
+    t.index ["country_code"], name: "impressions_2018_11_advertiser_185_country_code_idx"
+    t.index ["creative_id"], name: "impressions_2018_11_advertiser_185_creative_id_idx"
+    t.index ["displayed_at_date"], name: "impressions_2018_11_advertiser_185_displayed_at_date_idx"
+    t.index ["id", "advertiser_id", "displayed_at_date"], name: "impressions_2018_11_advertise_id_advertiser_id_displayed_at_idx", unique: true
+    t.index ["property_id"], name: "impressions_2018_11_advertiser_185_property_id_idx"
+    t.index ["property_name"], name: "impressions_2018_11_advertiser_185_property_name_idx"
+  end
+
   create_table "impressions_default", id: false, force: :cascade do |t|
     t.uuid "id", default: -> { "gen_random_uuid()" }, null: false
     t.bigint "advertiser_id", null: false
@@ -225,8 +610,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_160643) do
 
   create_table "publisher_invoices", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "amount_cents", default: 0, null: false
-    t.string "amount_currency", default: "USD", null: false
+    t.money "amount", scale: 2, null: false
     t.string "currency", null: false
     t.date "start_date", null: false
     t.date "end_date", null: false

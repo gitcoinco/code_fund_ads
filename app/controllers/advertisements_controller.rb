@@ -34,22 +34,35 @@ class AdvertisementsController < ApplicationController
     @ip_info ||= MMDB.lookup(request.remote_ip)
   end
 
+  def country_code
+    ip_info&.country&.iso_code
+  end
+
+  def time_zone_name
+    ip_info&.location&.time_zone || "UTC"
+  end
+
+  def core_hour?
+    hour = Time.current.in_time_zone(time_zone_name).hour rescue Time.current.hour
+    !hour.between?(0, 5)
+  end
+
   def property_id
     return Property.where(legacy_id: params[:legacy_id]).pluck(:id).first if params[:legacy_id].present?
     params[:property_id].to_i
   end
 
   def set_campaign
-    country_code = ip_info&.country&.iso_code
-    campaigns = Campaign.active.available_on(Date.current).for_property_id(property_id)
-    campaigns = campaigns.with_all_countries(country_code) if country_code
-    @campaign = campaigns.limit(10).sample
+    @campaign = Campaign.where(id: geo_targeted_campaigns.for_property_id(property_id).pluck(:id).sample).limit(1).first
+    @campaign ||= Campaign.where(id: geo_targeted_campaigns.fallback_for_property_id(property_id).pluck(:id).sample).limit(1).first
+  end
 
-    if @campaign.nil?
-      campaigns = Campaign.active.available_on(Date.current).fallback_for_property_id(property_id)
-      campaigns = campaigns.with_all_countries(country_code) if country_code
-      @campaign = campaigns.limit(10).sample
-    end
+  def geo_targeted_campaigns
+    campaigns = Campaign.active.available_on(Date.current)
+    campaigns = campaigns.with_all_countries(country_code) if country_code
+    campaigns = campaigns.where(weekdays_only: false) if Date.current.on_weekend?
+    campaigns = campaigns.where(core_hours_only: false) unless core_hour?
+    campaigns
   end
 
   def set_template_and_theme
