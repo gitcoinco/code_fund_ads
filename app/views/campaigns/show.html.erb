@@ -15,7 +15,7 @@
         <%= details_li("Status") { @campaign.status.humanize } %>
         <%= details_li("Date Range") { "#{@campaign.start_date.to_s("mm/dd/yyyy")} &mdash; #{@campaign.end_date.to_s("mm/dd/yyyy")}".html_safe } %>
         <%= details_li("URL") { link_to truncate(@campaign.url, length: 60), @campaign.url } %>
-        <%= details_li("US Hours Only?") { @campaign.us_hours_only? ? "Yes" : "No" } %>
+        <%= details_li("Core Hours Only?") { @campaign.core_hours_only? ? "Yes" : "No" } %>
         <%= details_li("Weekdays Only?") { @campaign.weekdays_only? ? "Yes" : "No" } %>
         <%= details_li("Fallback Campaign?") { "Yes" } if @campaign.fallback? %>
         <%= details_li("Total Budget") { @campaign.total_budget.format } %>

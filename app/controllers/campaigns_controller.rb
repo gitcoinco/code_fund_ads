@@ -106,7 +106,7 @@ class CampaignsController < ApplicationController
       :date_range,
       :url,
       :creative_id,
-      :us_hours_only,
+      :core_hours_only,
       :weekdays_only,
       :ecpm,
       :daily_budget,

@@ -11,7 +11,7 @@
 #  url                   :text             not null
 #  start_date            :date
 #  end_date              :date
-#  us_hours_only         :boolean          default(FALSE)
+#  core_hours_only       :boolean          default(FALSE)
 #  weekdays_only         :boolean          default(FALSE)
 #  total_budget_cents    :integer          default(0), not null
 #  total_budget_currency :string           default("USD"), not null

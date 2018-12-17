@@ -2,7 +2,7 @@
   <div id="cf">
     <span class="cf-wrapper">
       <a data-href="campaign_url" class="cf-img-wrapper" target="_blank" rel="noopener">
-        <%= image_tag @campaign.creative.small_image.cloudfront_url, border: 0, height: 100, width: 130, class: "cf-img" %>
+        <%= image_tag @campaign.creative.small_image.cloudfront_url, border: 0, height: 100, width: 130, class: "cf-img" rescue nil %>
       </a>
       <a data-href="campaign_url" class="cf-text" target="_blank" rel="noopener">
         <strong><%= @campaign.creative.headline %></strong>

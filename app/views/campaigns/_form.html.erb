@@ -88,11 +88,11 @@
     <div class="col-md-6 mb-3">
       <div class="media align-items-center mb-3">
         <label class="checkbox-switch mb-0 mr-3">
-          <%= f.check_box :us_hours_only, class: "checkbox-switch__input" %>
+          <%= f.check_box :core_hours_only, class: "checkbox-switch__input" %>
           <span class="checkbox-switch__slider"></span>
         </label>
-        <label class="media-body text-muted mb-0" for="campaign_us_hours_only">
-          <span class="d-block text-dark">Only display between 5am - 5pm PDT?</span>
+        <label class="media-body text-muted mb-0" for="campaign_core_hours_only">
+          <span class="d-block text-dark">Only display between 5am to midnight visitor time?</span>
         </label>
       </div>
     </div>
@@ -122,7 +122,7 @@
     </div>
     <%= tag.div f.input(:daily_budget, label: "Daily Budget", as: :currency, currency: "$"), class: "col-md-4 mb-3" %>
     <%= tag.div f.input(:total_budget, label: "Total (MAX) Budget", as: :currency, currency: "$"), class: "col-md-4 mb-3" %>
-    
+
     <div class="col-12 mb-3 mt-4">
       <div class="media align-items-center mb-3">
         <label class="checkbox-switch mb-0 mr-3">

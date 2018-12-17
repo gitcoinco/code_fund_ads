@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_12_160643) do
+ActiveRecord::Schema.define(version: 2018_12_17_205840) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -42,6 +42,21 @@ ActiveRecord::Schema.define(version: 2018_12_12_160643) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
+  create_table "applicants", force: :cascade do |t|
+    t.string "status", default: "pending"
+    t.string "role", null: false
+    t.string "email", null: false
+    t.string "canonical_email", null: false
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "url", null: false
+    t.string "monthly_visitors"
+    t.string "company_name"
+    t.string "monthly_budget"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "campaigns", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "creative_id"
@@ -51,7 +66,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_160643) do
     t.text "url", null: false
     t.date "start_date"
     t.date "end_date"
-    t.boolean "us_hours_only", default: false
+    t.boolean "core_hours_only", default: false
     t.boolean "weekdays_only", default: false
     t.integer "total_budget_cents", default: 0, null: false
     t.string "total_budget_currency", default: "USD", null: false
@@ -66,6 +81,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_160643) do
     t.datetime "updated_at", null: false
     t.uuid "legacy_id"
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
+    t.index ["core_hours_only"], name: "index_campaigns_on_core_hours_only"
     t.index ["countries"], name: "index_campaigns_on_countries", using: :gin
     t.index ["creative_id"], name: "index_campaigns_on_creative_id"
     t.index ["end_date"], name: "index_campaigns_on_end_date"
@@ -73,7 +89,6 @@ ActiveRecord::Schema.define(version: 2018_12_12_160643) do
     t.index ["negative_keywords"], name: "index_campaigns_on_negative_keywords", using: :gin
     t.index ["start_date"], name: "index_campaigns_on_start_date"
     t.index ["status"], name: "index_campaigns_on_status"
-    t.index ["us_hours_only"], name: "index_campaigns_on_us_hours_only"
     t.index ["user_id"], name: "index_campaigns_on_user_id"
     t.index ["weekdays_only"], name: "index_campaigns_on_weekdays_only"
   end
