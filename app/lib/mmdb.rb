@@ -1,7 +1,7 @@
 module MMDB
   class << self
     def lookup(ip_address)
-      return MaxMindDB::Result.new({}) #unless mmdb
+      return MaxMindDB::Result.new({}) unless mmdb
 
       begin
         result = mmdb.lookup(ip_address)
@@ -16,25 +16,16 @@ module MMDB
     private
 
     def mmdb_path
-      Dir.glob("/tmp/**/GeoLite2-City.mmdb").first
+      Dir.glob(DownloadAndExtractMaxmindFileJob::MAXMIND_DIR.join("**/GeoLite2-City.mmdb")).first
     end
 
     def mmdb
-      @mmdb ||= begin
-        DownloadMaxmindFilesJob.perform_later if refresh?
-        Rails.cache.write :mmdb, true, expires_in: 1.day
-        create_mmdb
-      end
+      @mmdb ||= create_mmdb
     end
 
     def create_mmdb
       return nil unless mmdb_path.present?
       MaxMindDB.new mmdb_path
-    end
-
-    def refresh?
-      return true unless mmdb_path.present?
-      !Rails.cache.read(:mmdb)
     end
   end
 end
