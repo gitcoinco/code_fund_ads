@@ -112,7 +112,7 @@ class Impression < ApplicationRecord
     @calculated_estimated_property_revenue_fractional_cents ||= calculate_estimated_gross_revenue_fractional_cents * property.revenue_percentage
   end
 
-  def estimated_house_revenue_fractional_cents
+  def calculate_estimated_house_revenue_fractional_cents
     calculate_estimated_gross_revenue_fractional_cents - calculate_estimated_property_revenue_fractional_cents
   end
 
