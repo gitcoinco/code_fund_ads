@@ -128,7 +128,25 @@ Ensure the code has been standardized by running the following before you commit
 - The `impressions` table is dynamically partitioned by **advertiser** (i.e. `user`) and **date**
 - The database user requires permissions to execute DDL and create schema to support dynamic partition tables
 
+## Maxmind
+
+This product includes GeoLite data created by MaxMind, available from: http://www.maxmind.com
+
+The GeoLite2-City.tar.gz is checked into this repo at `db/maxmind/GeoLite2-City.tar.gz`
+
+A fresh copy of the GeoLite2-City.tar.gz file can be obtained by running one of the following commands.
+
+```sh
+rails maxmind:download
+```
+
+```ruby
+DownloadAndExtractMaxmindFileJob.new.download
+```
+
 ## Candidates for GEM extraction
 
 - Searchable ActiveStorage metadata
 - Eventable
+
+---
