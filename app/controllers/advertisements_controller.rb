@@ -42,9 +42,21 @@ class AdvertisementsController < ApplicationController
     ip_info&.location&.time_zone || "UTC"
   end
 
-  def core_hour?
-    hour = Time.current.in_time_zone(time_zone_name).hour rescue Time.current.hour
-    !hour.between?(0, 5)
+  def prohibited_hour_start
+    ENV.fetch("PROHIBITED_HOUR_START") { 0 }.to_i
+  end
+
+  def prohibited_hour_end
+    ENV.fetch("PROHIBITED_HOUR_END") { 5 }.to_i
+  end
+
+  def prohibited_hour?
+    hour = begin
+             Time.current.in_time_zone(time_zone_name).hour
+           rescue
+             Time.current.hour
+           end
+    hour.between? prohibited_hour_start, prohibited_hour_end
   end
 
   def property_id
@@ -61,7 +73,7 @@ class AdvertisementsController < ApplicationController
     campaigns = Campaign.active.available_on(Date.current)
     campaigns = campaigns.with_all_countries(country_code) if country_code
     campaigns = campaigns.where(weekdays_only: false) if Date.current.on_weekend?
-    campaigns = campaigns.where(core_hours_only: false) unless core_hour?
+    campaigns = campaigns.where(core_hours_only: false) if prohibited_hour?
     campaigns
   end
 
