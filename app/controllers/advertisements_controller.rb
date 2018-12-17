@@ -27,7 +27,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def set_virtual_impression_id
-    @virtual_impression_id = SecureRandom.uuid
+    @virtual_impression_id ||= SecureRandom.uuid
   end
 
   def ip_info
