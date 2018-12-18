@@ -1,7 +1,13 @@
 module AdRenderable
   extend ActiveSupport::Concern
 
-  attr_reader :template_name, :theme_name
+  protected
+
+  # Ad Template ----------------------------------------------------------------------------------------------
+
+  def template_name
+    raise NotImplementedError.new("Must be implemented by classes that include this module")
+  end
 
   def template_path
     @template_path ||= Rails.root.join("app/views/ad_templates/#{template_name}/show.html.erb")
@@ -19,6 +25,12 @@ module AdRenderable
     render_to_string template: "/ad_templates/#{template_name}/show.html.erb", layout: false
   end
 
+  # Ad Theme -------------------------------------------------------------------------------------------------
+
+  def theme_name
+    raise NotImplementedError.new("Must be implemented by classes that include this module")
+  end
+
   def theme_path
     @theme_path ||= Rails.root.join("app/views/ad_templates/#{template_name}/themes/#{theme_name}.css")
   end
@@ -29,5 +41,9 @@ module AdRenderable
 
   def theme_cache_key
     @theme_cache_key ||= "themes/#{theme_name}/#{theme_mtime.to_i}"
+  end
+
+  def theme
+    render_to_string template: "ad_templates/#{template_name}/themes/#{theme_name}.css", layout: false
   end
 end

@@ -4,7 +4,6 @@ class AdvertisementsController < ApplicationController
   protect_from_forgery except: :show
   before_action :set_campaign
   before_action :set_virtual_impression_id, if: -> { @campaign.present? }
-  before_action :set_template_and_theme, if: -> { @campaign.present? }
   after_action :create_virtual_impression, if: -> { @campaign.present? }
 
   def show
@@ -18,13 +17,7 @@ class AdvertisementsController < ApplicationController
     respond_to { |format| format.js }
   end
 
-  private
-
-  def theme
-    Rails.cache.fetch(theme_cache_key) do
-      render_to_string template: "ad_templates/#{template_name}/themes/#{theme_name}.css", layout: false
-    end
-  end
+  protected
 
   def set_virtual_impression_id
     @virtual_impression_id ||= SecureRandom.uuid
@@ -60,8 +53,21 @@ class AdvertisementsController < ApplicationController
   end
 
   def property_id
-    return Property.where(legacy_id: params[:legacy_id]).pluck(:id).first if params[:legacy_id].present?
-    params[:property_id].to_i
+    @property_id ||= params[:legacy_id].present? ?
+      Property.where(legacy_id: params[:legacy_id]).pluck(:id).first.to_i :
+      params[:property_id].to_i
+  end
+
+  def property
+    @property ||= Property.select(:id, :ad_template, :ad_theme, :updated_at).find_by(id: property_id)
+  end
+
+  def template_name
+    @template_name = ENUMS::AD_TEMPLATES[params[:template] || property&.ad_template] || "default"
+  end
+
+  def theme_name
+    @theme_name = ENUMS::AD_THEMES[params[:theme] || property&.ad_theme] || "light"
   end
 
   def set_campaign
@@ -75,20 +81,6 @@ class AdvertisementsController < ApplicationController
     campaigns = campaigns.where(weekdays_only: false) if Date.current.on_weekend?
     campaigns = campaigns.where(core_hours_only: false) if prohibited_hour?
     campaigns
-  end
-
-  def set_template_and_theme
-    @template_name = params[:template]
-    @theme_name = params[:theme]
-
-    unless @template_name && @theme_name
-      template_name, theme_name = Property.where(id: property_id).pluck(:ad_template, :ad_theme).first
-      @template_name ||= template_name
-      @theme_name ||= theme_name
-    end
-
-    @template_name ||= "default"
-    @theme_name ||= "light"
   end
 
   def advertisement_cache_key

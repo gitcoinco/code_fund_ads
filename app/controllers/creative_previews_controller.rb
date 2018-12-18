@@ -6,10 +6,8 @@ class CreativePreviewsController < ApplicationController
   def show
     @creative = current_user.creatives.find(params[:creative_id])
     @campaign = Campaign.new(creative: @creative)
-    @template_name = params[:template] if ENUMS::AD_TEMPLATES.values.to_a.include?(params[:template])
-    @theme_name = params[:theme] if ENUMS::AD_THEMES.values.to_a.include?(params[:theme])
 
-    return render_not_found unless @template_name && @theme_name
+    return render_not_found unless template_name && theme_name
 
     @preview_html = Premailer.new(
       template,
@@ -23,9 +21,13 @@ class CreativePreviewsController < ApplicationController
     render layout: false
   end
 
-  private
+  protected
 
-  def theme
-    render_to_string template: "ad_templates/#{template_name}/themes/#{theme_name}.css", layout: false
+  def template_name
+    ENUMS::AD_TEMPLATES[params[:template]] ? params[:template] : nil
+  end
+
+  def theme_name
+    ENUMS::AD_THEMES[params[:theme]] ? params[:theme] : nil
   end
 end
