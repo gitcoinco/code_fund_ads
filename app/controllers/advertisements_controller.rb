@@ -63,16 +63,30 @@ class AdvertisementsController < ApplicationController
   end
 
   def template_name
-    @template_name = ENUMS::AD_TEMPLATES[params[:template] || property&.ad_template] || "default"
+    @template_name ||= ENUMS::AD_TEMPLATES[params[:template] || property&.ad_template] || "default"
   end
 
   def theme_name
-    @theme_name = ENUMS::AD_THEMES[params[:theme] || property&.ad_theme] || "light"
+    @theme_name ||= ENUMS::AD_THEMES[params[:theme] || property&.ad_theme] || "light"
+  end
+
+  def keywords
+    @keywords ||= params[:keywords].to_s.split(",").map(&:strip).select(&:present?)
   end
 
   def set_campaign
-    @campaign = Campaign.where(id: geo_targeted_campaigns.for_property_id(property_id).pluck(:id).sample).limit(1).first
-    @campaign ||= Campaign.where(id: geo_targeted_campaigns.fallback_for_property_id(property_id).pluck(:id).sample).limit(1).first
+    id = geo_targeted_campaigns.for_property_id(property_id, *keywords).pluck(:id).sample
+    @campaign = Campaign.find(id) if id
+
+    @campaign ||= begin
+      id = geo_targeted_campaigns.targeted_fallback_for_property_id(property_id, *keywords).pluck(:id).sample
+      @campaign = Campaign.find(id) if id
+    end
+
+    @campaign ||= begin
+      id = geo_targeted_campaigns.fallback_for_property_id(property_id).pluck(:id).sample
+      @campaign = Campaign.find(id) if id
+    end
   end
 
   def geo_targeted_campaigns

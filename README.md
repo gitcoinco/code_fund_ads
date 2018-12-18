@@ -15,6 +15,12 @@ publishers can add CodeFund to their site by including the CodeFund script and a
 <script src="https://codefund.io/properties/PROPERTY_ID/funder.js" async="async" type="text/javascript"></script>
 ```
 
+### Optional Query String Parameters
+
+- `template` - the template to use _overrides the property config_
+- `theme` - the theme to use _overrides the property config_
+- `keywords` - the keywords to use for targeting (comma delimited string) _overrides the property config_
+
 > Setting `async` on the script tag will ensure that CodeFund doens't block anything on the publisher's site.
 
 ## Ad Rendering and Impression/Click Tracking
