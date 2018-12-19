@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_17_205840) do
+ActiveRecord::Schema.define(version: 2018_12_19_171638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -148,8 +148,6 @@ ActiveRecord::Schema.define(version: 2018_12_17_205840) do
     t.bigint "campaign_id", null: false
     t.bigint "creative_id", null: false
     t.bigint "property_id", null: false
-    t.string "campaign_name", null: false
-    t.string "property_name", null: false
     t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
@@ -164,6 +162,8 @@ ActiveRecord::Schema.define(version: 2018_12_17_205840) do
     t.float "estimated_gross_revenue_fractional_cents"
     t.float "estimated_property_revenue_fractional_cents"
     t.float "estimated_house_revenue_fractional_cents"
+    t.string "ad_template"
+    t.string "ad_theme"
   end
 
   create_table "impressions_default", id: false, force: :cascade do |t|
@@ -173,8 +173,6 @@ ActiveRecord::Schema.define(version: 2018_12_17_205840) do
     t.bigint "campaign_id", null: false
     t.bigint "creative_id", null: false
     t.bigint "property_id", null: false
-    t.string "campaign_name", null: false
-    t.string "property_name", null: false
     t.string "ip_address", null: false
     t.text "user_agent", null: false
     t.string "country_code"
@@ -189,18 +187,20 @@ ActiveRecord::Schema.define(version: 2018_12_17_205840) do
     t.float "estimated_gross_revenue_fractional_cents"
     t.float "estimated_property_revenue_fractional_cents"
     t.float "estimated_house_revenue_fractional_cents"
+    t.string "ad_template"
+    t.string "ad_theme"
     t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_default_date_trunc_idx1"
     t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_default_date_trunc_idx"
+    t.index ["ad_template"], name: "impressions_default_ad_template_idx"
+    t.index ["ad_theme"], name: "impressions_default_ad_theme_idx"
     t.index ["advertiser_id"], name: "impressions_default_advertiser_id_idx"
     t.index ["campaign_id"], name: "impressions_default_campaign_id_idx"
-    t.index ["campaign_name"], name: "impressions_default_campaign_name_idx"
     t.index ["clicked_at_date"], name: "impressions_default_clicked_at_date_idx"
     t.index ["country_code"], name: "impressions_default_country_code_idx"
     t.index ["creative_id"], name: "impressions_default_creative_id_idx"
     t.index ["displayed_at_date"], name: "impressions_default_displayed_at_date_idx"
     t.index ["id", "advertiser_id", "displayed_at_date"], name: "impressions_default_id_advertiser_id_displayed_at_date_idx", unique: true
     t.index ["property_id"], name: "impressions_default_property_id_idx"
-    t.index ["property_name"], name: "impressions_default_property_name_idx"
   end
 
   create_table "properties", force: :cascade do |t|

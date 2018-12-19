@@ -6,7 +6,7 @@ class CreateClickJob < ApplicationJob
     return unless campaign
 
     clicked_at = Time.parse(clicked_at_string)
-    impression = Impression.partitioned(campaign.user, clicked_at.advance(months: -1), clicked_at.advance(days: 1)).find_by(id: impression_id)
+    impression = Impression.partitioned(campaign.user, clicked_at.advance(months: -1), clicked_at.advance(weeks: 1)).find_by(id: impression_id)
     return if impression.clicked?
 
     clicked_at = Time.parse(clicked_at_string)

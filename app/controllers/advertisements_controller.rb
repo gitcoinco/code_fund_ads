@@ -11,7 +11,7 @@ class AdvertisementsController < ApplicationController
     if @campaign
       @advertisement_html = render_advertisement
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
-      @impression_url = impression_url(@virtual_impression_id, format: :gif)
+      @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
     end
 
     respond_to { |format| format.js }

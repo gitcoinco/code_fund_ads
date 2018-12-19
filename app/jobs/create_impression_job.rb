@@ -1,7 +1,7 @@
 class CreateImpressionJob < ApplicationJob
   queue_as :impression
 
-  def perform(id, campaign_id, property_id, ip_address, user_agent, displayed_at_string)
+  def perform(id, campaign_id, property_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string)
     campaign = Campaign.find_by(id: campaign_id)
     property = Property.find_by(id: property_id)
     return unless campaign && property
@@ -13,10 +13,10 @@ class CreateImpressionJob < ApplicationJob
       advertiser_id: campaign.user_id,
       publisher_id: property.user_id,
       campaign: campaign,
-      property: property,
       creative_id: campaign.creative_id,
-      campaign_name: campaign.scoped_name,
-      property_name: property.scoped_name,
+      property: property,
+      ad_template: ad_template,
+      ad_theme: ad_theme,
       ip_address: ip_address,
       user_agent: user_agent,
       displayed_at: displayed_at,

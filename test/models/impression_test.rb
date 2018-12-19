@@ -8,8 +8,6 @@
 #  campaign_id                                 :bigint(8)        not null
 #  creative_id                                 :bigint(8)        not null
 #  property_id                                 :bigint(8)        not null
-#  campaign_name                               :string           not null
-#  property_name                               :string           not null
 #  ip_address                                  :string           not null
 #  user_agent                                  :text             not null
 #  country_code                                :string
@@ -24,6 +22,8 @@
 #  estimated_gross_revenue_fractional_cents    :float
 #  estimated_property_revenue_fractional_cents :float
 #  estimated_house_revenue_fractional_cents    :float
+#  ad_template                                 :string
+#  ad_theme                                    :string
 #
 
 require "test_helper"
