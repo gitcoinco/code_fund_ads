@@ -117,14 +117,15 @@ class Impression < ApplicationRecord
   end
 
   def calculate_estimated_revenue(recalculate = false)
-    if recalculate
-      self.estimated_gross_revenue_fractional_cents ||= nil
-      self.estimated_property_revenue_fractional_cents ||= nil
-      self.estimated_house_revenue_fractional_cents ||= nil
-    end
-    self.estimated_gross_revenue_fractional_cents ||= calculate_estimated_gross_revenue_fractional_cents
-    self.estimated_property_revenue_fractional_cents ||= calculate_estimated_property_revenue_fractional_cents
-    self.estimated_house_revenue_fractional_cents ||= calculate_estimated_house_revenue_fractional_cents
+    return unless new_record? || recalculate
+    self.estimated_gross_revenue_fractional_cents = calculate_estimated_gross_revenue_fractional_cents
+    self.estimated_property_revenue_fractional_cents = calculate_estimated_property_revenue_fractional_cents
+    self.estimated_house_revenue_fractional_cents = calculate_estimated_house_revenue_fractional_cents
+  end
+
+  def calculate_estimated_revenue_and_save!(recalculate = false)
+    calculate_estimated_revenue recalculate
+    save! if changed?
   end
 
   # protected instance methods ................................................

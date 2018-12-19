@@ -10,24 +10,22 @@ module Campaigns
     # { Time: ecpm }
     def ecpm_history
       @ecpm_history ||= begin
-        versions_with_ecpm_changes.select(:object).each_with_object({}) do |version, memo|
+        history = versions_with_ecpm_changes.select(:object).each_with_object({}) { |version, memo|
           time = Time.parse(version.object["updated_at"])
           ecpm = Money.new(version.object["ecpm_cents"], version.object["ecpm_currency"])
           memo[time] = ecpm
-        end
+        }
+        history[Time.current] = ecpm
+        history
       end
     end
 
     # Returns a Hash of ecpm version history by date (last write of the day wins)
     # { Date: ecpm }
     def ecpm_history_by_date
-      @ecpm_by_date ||= begin
-        versions_with_ecpm_changes.select(:object).each_with_object({}) do |version, memo|
-          date = Time.parse(version.object["updated_at"]).to_date
-          ecpm = Money.new(version.object["ecpm_cents"], version.object["ecpm_currency"])
-          memo[date] = ecpm
-        end
-      end
+      @ecpm_by_date ||= ecpm_history.each_with_object({}) { |(time, ecpm), memo|
+        memo[time.to_date] = ecpm
+      }
     end
 
     # Returns a Hash of applicable ecpm version history by date
