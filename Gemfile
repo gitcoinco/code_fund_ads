@@ -39,6 +39,7 @@ gem "recaptcha",          "~> 4.13.1"
 gem "redis",              "~> 4.0", require: ["redis", "redis/connection/hiredis"]
 gem "ruby_identicon",     "~> 0.0.5"
 gem "sass-rails",         "~> 5.0"
+gem "scout_apm",          "~> 2.4.21"
 gem "screenshot_machine", "~> 0.0.4", github: "coderberry/screenshot_machine"
 gem "sentry-raven",       "~> 2.7.4"
 gem "sidekiq",            "~> 5.2.3"
