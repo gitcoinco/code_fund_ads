@@ -9,6 +9,9 @@ class CreativePreviewsController < ApplicationController
 
     return render_not_found unless template_name && theme_name
 
+    @template_name = template_name
+    @theme_name = theme_name
+
     @preview_html = Premailer.new(
       template,
       with_html_string: true,

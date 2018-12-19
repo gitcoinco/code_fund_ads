@@ -1,5 +1,5 @@
 <html>
-<body style="padding: <%= @template_name == "bottom-bar" ? "0" : "10" %>px; margin: 0px; background-color: <%= @theme_name == "light" ? "#eeeeee" : "#263238" %>;
+<body style="padding: <%= @template_name == "bottom-bar" ? "0" : "10" %>px; margin: 0px; background-color: <%= @theme_name == "dark" ? "#263238" : "#eeeeee" %>;
              background-image: url(<%= asset_path("pie-factory.svg") %>);">
 <%= @preview_html.html_safe %>
 </body>
