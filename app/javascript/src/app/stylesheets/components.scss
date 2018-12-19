@@ -165,3 +165,14 @@ tr.border-bottom td {
 .u-header__nav-item.active .nav-link {
   color: #ffffff !important;
 }
+
+@media (max-width: 800px) {
+  .u-header__navbar {
+    padding-top: 1rem !important;
+    padding-bottom: 1.1rem !important;
+  }
+}
+
+#logo-and-nav-wrapper {
+  background-color: rgba(255,255,255,0.9);
+}
