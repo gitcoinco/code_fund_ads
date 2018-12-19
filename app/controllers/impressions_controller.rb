@@ -20,6 +20,8 @@ class ImpressionsController < ApplicationController
       @virtual_impression_id,
       @virtual_impression[:campaign_id],
       @virtual_impression[:property_id],
+      params[:template],
+      params[:theme],
       request.remote_ip,
       request.user_agent,
       Time.current.iso8601

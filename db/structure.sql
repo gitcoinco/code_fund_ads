@@ -363,8 +363,6 @@ CREATE TABLE public.impressions (
     campaign_id bigint NOT NULL,
     creative_id bigint NOT NULL,
     property_id bigint NOT NULL,
-    campaign_name character varying NOT NULL,
-    property_name character varying NOT NULL,
     ip_address character varying NOT NULL,
     user_agent text NOT NULL,
     country_code character varying,
@@ -378,7 +376,9 @@ CREATE TABLE public.impressions (
     fallback_campaign boolean DEFAULT false NOT NULL,
     estimated_gross_revenue_fractional_cents double precision,
     estimated_property_revenue_fractional_cents double precision,
-    estimated_house_revenue_fractional_cents double precision
+    estimated_house_revenue_fractional_cents double precision,
+    ad_template character varying,
+    ad_theme character varying
 )
 PARTITION BY RANGE (advertiser_id, displayed_at_date);
 
@@ -851,6 +851,34 @@ ALTER TABLE ONLY public.versions
 
 
 --
+-- Name: index_impressions_on_ad_template; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_ad_template ON ONLY public.impressions USING btree (ad_template);
+
+
+--
+-- Name: impressions_default_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_ad_template_idx ON public.impressions_default USING btree (ad_template);
+
+
+--
+-- Name: index_impressions_on_ad_theme; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_ad_theme ON ONLY public.impressions USING btree (ad_theme);
+
+
+--
+-- Name: impressions_default_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_ad_theme_idx ON public.impressions_default USING btree (ad_theme);
+
+
+--
 -- Name: index_impressions_on_advertiser_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -876,20 +904,6 @@ CREATE INDEX index_impressions_on_campaign_id ON ONLY public.impressions USING b
 --
 
 CREATE INDEX impressions_default_campaign_id_idx ON public.impressions_default USING btree (campaign_id);
-
-
---
--- Name: index_impressions_on_campaign_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_impressions_on_campaign_name ON ONLY public.impressions USING btree (campaign_name);
-
-
---
--- Name: impressions_default_campaign_name_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX impressions_default_campaign_name_idx ON public.impressions_default USING btree (campaign_name);
 
 
 --
@@ -1002,20 +1016,6 @@ CREATE INDEX index_impressions_on_property_id ON ONLY public.impressions USING b
 --
 
 CREATE INDEX impressions_default_property_id_idx ON public.impressions_default USING btree (property_id);
-
-
---
--- Name: index_impressions_on_property_name; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_impressions_on_property_name ON ONLY public.impressions USING btree (property_name);
-
-
---
--- Name: impressions_default_property_name_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX impressions_default_property_name_idx ON public.impressions_default USING btree (property_name);
 
 
 --
@@ -1348,6 +1348,20 @@ CREATE INDEX index_versions_on_object_changes ON public.versions USING gin (obje
 
 
 --
+-- Name: impressions_default_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_default_ad_template_idx;
+
+
+--
+-- Name: impressions_default_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_default_ad_theme_idx;
+
+
+--
 -- Name: impressions_default_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
 --
 
@@ -1359,13 +1373,6 @@ ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.im
 --
 
 ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_default_campaign_id_idx;
-
-
---
--- Name: impressions_default_campaign_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
---
-
-ALTER INDEX public.index_impressions_on_campaign_name ATTACH PARTITION public.impressions_default_campaign_name_idx;
 
 
 --
@@ -1425,13 +1432,6 @@ ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impr
 
 
 --
--- Name: impressions_default_property_name_idx; Type: INDEX ATTACH; Schema: public; Owner: -
---
-
-ALTER INDEX public.index_impressions_on_property_name ATTACH PARTITION public.impressions_default_property_name_idx;
-
-
---
 -- PostgreSQL database dump complete
 --
 
@@ -1451,6 +1451,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181211201904'),
 ('20181212160643'),
 ('20181214184527'),
-('20181217205840');
+('20181217205840'),
+('20181219171638');
 
 

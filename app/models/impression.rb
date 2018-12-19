@@ -8,8 +8,6 @@
 #  campaign_id                                 :bigint(8)        not null
 #  creative_id                                 :bigint(8)        not null
 #  property_id                                 :bigint(8)        not null
-#  campaign_name                               :string           not null
-#  property_name                               :string           not null
 #  ip_address                                  :string           not null
 #  user_agent                                  :text             not null
 #  country_code                                :string
@@ -24,6 +22,8 @@
 #  estimated_gross_revenue_fractional_cents    :float
 #  estimated_property_revenue_fractional_cents :float
 #  estimated_house_revenue_fractional_cents    :float
+#  ad_template                                 :string
+#  ad_theme                                    :string
 #
 
 class Impression < ApplicationRecord
@@ -40,8 +40,6 @@ class Impression < ApplicationRecord
   # validations ...............................................................
 
   # callbacks .................................................................
-  before_validation :assure_campaign_name, on: [:create]
-  before_validation :assure_property_name, on: [:create]
   before_validation :set_displayed_at, on: [:create]
   before_create :assure_partition_table!
   before_create :calculate_estimated_revenue
@@ -141,13 +139,5 @@ class Impression < ApplicationRecord
   def set_displayed_at
     self.displayed_at ||= Time.current
     self.displayed_at_date ||= Date.current
-  end
-
-  def assure_campaign_name
-    self.campaign_name ||= campaign.scoped_name
-  end
-
-  def assure_property_name
-    self.property_name ||= property.scoped_name
   end
 end
