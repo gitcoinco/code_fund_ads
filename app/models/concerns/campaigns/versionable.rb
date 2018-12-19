@@ -11,6 +11,7 @@ module Campaigns
     def ecpm_history
       @ecpm_history ||= begin
         history = versions_with_ecpm_changes.select(:object).each_with_object({}) { |version, memo|
+          next unless version.object
           time = Time.parse(version.object["updated_at"])
           ecpm = Money.new(version.object["ecpm_cents"], version.object["ecpm_currency"])
           memo[time] = ecpm
