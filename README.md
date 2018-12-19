@@ -12,7 +12,7 @@ publishers can add CodeFund to their site by including the CodeFund script and a
 
 ```html
 <div id="codefund"></div>
-<script src="https://codefund.io/properties/PROPERTY_ID/funder.js" async="async" type="text/javascript"></script>
+<script src="https://codefund.app/properties/PROPERTY_ID/funder.js" async="async" type="text/javascript"></script>
 ```
 
 ### Optional Query String Parameters

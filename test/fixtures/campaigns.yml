@@ -35,7 +35,7 @@ exclusive:
   creative: exclusive
   status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
   name: CodeFund
-  url: https://advertiser.codefund.io
+  url: https://advertiser.codefund.app
   total_budget_cents: <%= Monetize.parse("$5,000 USD").cents %>
   total_budget_currency: USD
   daily_budget_cents: <%= Monetize.parse("$55 USD").cents %>

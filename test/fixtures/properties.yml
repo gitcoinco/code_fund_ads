@@ -29,7 +29,7 @@ website:
   property_type: <%= ENUMS::PROPERTY_TYPES::WEBSITE %>
   status: <%= ENUMS::PROPERTY_STATUSES::ACTIVE %>
   name: Publisher Website
-  url: https://publisher-website.codefund.io
+  url: https://publisher-website.codefund.app
   language: <%= ENUMS::LANGUAGES::ENGLISH %>
 
 repository:
@@ -37,7 +37,7 @@ repository:
   property_type: <%= ENUMS::PROPERTY_TYPES::WEBSITE %>
   status: <%= ENUMS::PROPERTY_STATUSES::ACTIVE %>
   name: Publisher Repository
-  url: https://publisher-repository.codefund.io
+  url: https://publisher-repository.codefund.app
   language: <%= ENUMS::LANGUAGES::ENGLISH %>
 
 newsletter:
@@ -45,5 +45,5 @@ newsletter:
   property_type: <%= ENUMS::PROPERTY_TYPES::WEBSITE %>
   status: <%= ENUMS::PROPERTY_STATUSES::ACTIVE %>
   name: Publisher Newsletter
-  url: https://publisher-newsletter.codefund.io
+  url: https://publisher-newsletter.codefund.app
   language: <%= ENUMS::LANGUAGES::ENGLISH %>

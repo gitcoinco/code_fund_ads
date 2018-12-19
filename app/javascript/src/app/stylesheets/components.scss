@@ -165,3 +165,37 @@ tr.border-bottom td {
 .u-header__nav-item.active .nav-link {
   color: #ffffff !important;
 }
+
+@media (max-width: 800px) {
+  .u-header__navbar {
+    padding-top: 1rem !important;
+    padding-bottom: 1.1rem !important;
+  }
+}
+
+#logo-and-nav-wrapper {
+  background-color: rgba(255,255,255,0.9);
+}
+
+/* --- Remove after no longer beta */
+body:after{
+  content: "beta";
+  position: fixed;
+  z-index: 9999;
+  width: 80px;
+  height: 25px;
+  background: #EE8E4A;
+  top: 7px;
+  left: -20px;
+  text-align: center;
+  font-size: 13px;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #fff;
+  line-height: 27px;
+  -ms-transform:rotate(-45deg);
+  -webkit-transform:rotate(-45deg);
+  transform:rotate(-45deg);
+}
+/* --- end Remove after no longer beta */

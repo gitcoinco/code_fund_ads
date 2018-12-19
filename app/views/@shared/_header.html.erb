@@ -2,7 +2,7 @@
 <header id="header" class="u-header u-header--abs-top-md u-header--bg-transparent u-header--show-hide-md"
         data-header-fix-moment="500" data-header-fix-effect="slide">
   <%= render "/@shared/tophat" %>
-  <div class="u-header__section">
+  <div class="u-header__section" id="logo-and-nav-wrapper">
     <div id="logoAndNav" class="container">
       <!-- Nav -->
       <nav class="js-mega-menu navbar navbar-expand-md u-header__navbar u-header__navbar--no-space">
@@ -31,8 +31,8 @@
             <%= active_link_to "Home", root_path, active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
             <%= active_link_to "Advertisers", advertisers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
             <%= active_link_to "Publishers", publishers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-            <%= active_link_to "Blog", "https://medium.com/codefund", target: "_blank", class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-            <%= active_link_to "Help", "https://codefund.groovehq.com/help_center", target: "_blank", class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+            <li class="nav-item"><%= link_to "Blog", "https://blog.codefund.app", class: "nav-link u-header__nav-link" %></li>
+            <li class="nav-item"><%= link_to "Help", "https://codefund.groovehq.com/help_center", class: "nav-link u-header__nav-link" %></li>
 
             <% if current_user %>
               <li class="nav-item">
