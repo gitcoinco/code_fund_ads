@@ -4,8 +4,8 @@ class CreateEventJob < ApplicationJob
   def perform(sgid, body, tags = [])
     eventable = GlobalID::Locator.locate_signed(sgid)
     event = Event.build_from(eventable, body, tags)
-    event.user_id = user_id if respond_to? :user_id
-    event.user_id = id if eventable.class == User
+    event.user_id = eventable.user_id if eventable.respond_to? :user_id
+    event.user_id = eventable.id if eventable.class == User
     eventable.events << event
   end
 end
