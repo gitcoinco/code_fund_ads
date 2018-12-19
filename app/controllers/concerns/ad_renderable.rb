@@ -6,7 +6,7 @@ module AdRenderable
   # Ad Template ----------------------------------------------------------------------------------------------
 
   def template_name
-    raise NotImplementedError.new("Must be implemented by classes that include this module")
+    raise NotImplementedError, "Must be implemented by classes that include this module"
   end
 
   def template_path
@@ -28,7 +28,7 @@ module AdRenderable
   # Ad Theme -------------------------------------------------------------------------------------------------
 
   def theme_name
-    raise NotImplementedError.new("Must be implemented by classes that include this module")
+    raise NotImplementedError, "Must be implemented by classes that include this module"
   end
 
   def theme_path

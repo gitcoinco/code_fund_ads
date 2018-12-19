@@ -68,35 +68,35 @@ class Campaign < ApplicationRecord
   scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertisers.search_name(value).or(User.advertisers.search_company(value))) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
-  scope :for_property, ->(property) { for_property_id property.id }
-  scope :for_property_id, ->(property_id) do
-    query = <<~SQL
-      SELECT c.id FROM (SELECT keywords, prohibited_advertiser_ids FROM properties WHERE id = ?) p
-      LEFT JOIN LATERAL
-      (
-        SELECT id
-        FROM campaigns
-        WHERE NOT p.prohibited_advertiser_ids @> ARRAY[id]
-        AND p.keywords && keywords
-        AND p.keywords && negative_keywords = false
-      ) c ON true
-    SQL
-
-    where "campaigns.id IN (#{sanitize_sql_array([query, property_id])})"
+  scope :permitted_for_property_id, ->(property_id) {
+    subquery = Property.select(:prohibited_advertiser_ids).where(id: property_id)
+    id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"id\"]"), subquery.arel)
+    where.not id_prohibited
+  }
+  scope :for_property, ->(property, *keywords) { for_property_id property.id }
+  scope :for_property_id, ->(property_id, *keywords) do
+    if keywords.present?
+      permitted_for_property_id(property_id).
+        with_any_keywords(*keywords).
+        without_any_negative_keywords(*keywords)
+    else
+      subquery = Property.select(:keywords).where(id: property_id)
+      keywords_overlap = Arel::Nodes::InfixOperation.new("&&", arel_table[:keywords], subquery.arel)
+      negative_keywords_overlap = Arel::Nodes::InfixOperation.new("&&", arel_table[:negative_keywords], subquery.arel)
+      permitted_for_property_id(property_id).
+        where(keywords_overlap).
+        where.not(negative_keywords_overlap)
+    end
   end
   scope :fallback_for_property_id, ->(property_id) do
-    query = <<~SQL
-      SELECT c.id FROM (SELECT prohibit_fallback_campaigns FROM properties WHERE id = ?) p
-      LEFT JOIN LATERAL
-      (
-        SELECT id
-        FROM campaigns
-        WHERE fallback = true
-        AND p.prohibit_fallback_campaigns = false
-      ) c ON true
-    SQL
-
-    where "campaigns.id IN (#{sanitize_sql_array([query, property_id])})"
+    permitted_for_property_id(property_id).
+      where(fallback: true).
+      where(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id))
+  end
+  scope :targeted_fallback_for_property_id, ->(property_id, *keywords) do
+    for_property_id(property_id, *keywords).
+      where(fallback: true).
+      where(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id))
   end
 
   # Scopes and helpers provied by tag_columns
