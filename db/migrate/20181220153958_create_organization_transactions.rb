@@ -9,6 +9,7 @@ class CreateOrganizationTransactions < ActiveRecord::Migration[5.2]
       t.text :reference
 
       t.index :organization_id
+      t.index :transaction_type
 
       t.timestamps
     end

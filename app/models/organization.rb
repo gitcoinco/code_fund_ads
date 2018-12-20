@@ -17,10 +17,11 @@ class Organization < ApplicationRecord
   include Organizations::Developable
 
   # relationships .............................................................
-  has_many :users
   has_many :campaigns
   has_many :creatives
+  has_many :impressions
   has_many :organization_transactions
+  has_many :users
 
   # validations ...............................................................
   validates :name, presence: true

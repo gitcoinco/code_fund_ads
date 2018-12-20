@@ -17,6 +17,7 @@ class Creative < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
   include Eventable
+  include Organizationable
 
   # relationships .............................................................
   belongs_to :user
@@ -30,7 +31,6 @@ class Creative < ApplicationRecord
   validates :name, length: {maximum: 255, allow_blank: false}
 
   # callbacks .................................................................
-  before_validation :set_organization, only: [:create]
   after_commit :touch_campaigns, on: [:update]
 
   # scopes ....................................................................
@@ -101,9 +101,5 @@ class Creative < ApplicationRecord
 
   def touch_campaigns
     campaigns.map(&:touch)
-  end
-
-  def set_organization
-    self.organization = user.organization
   end
 end
