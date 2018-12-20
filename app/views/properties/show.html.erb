@@ -16,7 +16,7 @@
         <%= details_li("URL") { link_to @property.url, @property.url } %>
         <%= details_li("Revenue Rate") { number_to_percentage(@property.revenue_percentage * 100, precision: 1) } %>
         <%= details_li("Template") { @property.ad_template } %>
-        <%= details_li("Revenue Rate") { @property.ad_theme } %>
+        <%= details_li("Theme") { @property.ad_theme } %>
         <%= details_li("Excl. Advertisers") do %>
           <% @property.excluded_company_names.each do |company_name| -%>
             <span class="btn btn-xs btn-soft-dark mb-1"><%= company_name %></span>
