@@ -2,6 +2,7 @@
 :queues:
   - critical
   - mailers
+  - schedule
   - impression
   - click
   - default
