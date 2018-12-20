@@ -41,6 +41,10 @@ module ApplicationHelper
     User.advertisers.where.not(company_name: nil).order(User.arel_table[:company_name].lower).map { |user| [user.company_name, user.id] }
   end
 
+  def organizations_for_select
+    Organization.order(Organization.arel_table[:name].lower).map { |org| [org.name, org.id] }
+  end
+
   def advertisers_for_select
     User.advertisers.select(:id, :first_name, :last_name).order(:first_name).map { |user| [user.name, user.id] }
   end

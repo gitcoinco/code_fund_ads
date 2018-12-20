@@ -392,6 +392,76 @@ DEFAULT;
 
 
 --
+-- Name: organization_transactions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.organization_transactions (
+    id bigint NOT NULL,
+    organization_id integer NOT NULL,
+    amount_cents integer DEFAULT 0 NOT NULL,
+    amount_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    transaction_type character varying NOT NULL,
+    posted_at timestamp without time zone NOT NULL,
+    description text,
+    reference text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: organization_transactions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.organization_transactions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: organization_transactions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.organization_transactions_id_seq OWNED BY public.organization_transactions.id;
+
+
+--
+-- Name: organizations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.organizations (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    balance_cents integer DEFAULT 0 NOT NULL,
+    balance_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: organizations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.organizations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: organizations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.organizations_id_seq OWNED BY public.organizations.id;
+
+
+--
 -- Name: properties; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -567,7 +637,8 @@ CREATE TABLE public.users (
     invitations_count integer DEFAULT 0,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    legacy_id uuid
+    legacy_id uuid,
+    organization_id integer
 );
 
 
@@ -696,6 +767,20 @@ ALTER TABLE ONLY public.impressions_default ALTER COLUMN fallback_campaign SET D
 
 
 --
+-- Name: organization_transactions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organization_transactions ALTER COLUMN id SET DEFAULT nextval('public.organization_transactions_id_seq'::regclass);
+
+
+--
+-- Name: organizations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organizations ALTER COLUMN id SET DEFAULT nextval('public.organizations_id_seq'::regclass);
+
+
+--
 -- Name: properties id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -800,6 +885,22 @@ ALTER TABLE ONLY public.creatives
 
 ALTER TABLE ONLY public.events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: organization_transactions organization_transactions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organization_transactions
+    ADD CONSTRAINT organization_transactions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: organizations organizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organizations
+    ADD CONSTRAINT organizations_pkey PRIMARY KEY (id);
 
 
 --
@@ -1187,6 +1288,13 @@ CREATE INDEX index_events_on_user_id ON public.events USING btree (user_id);
 
 
 --
+-- Name: index_organization_transactions_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organization_transactions_on_organization_id ON public.organization_transactions USING btree (organization_id);
+
+
+--
 -- Name: index_properties_on_keywords; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1452,6 +1560,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181212160643'),
 ('20181214184527'),
 ('20181217205840'),
-('20181219171638');
+('20181219171638'),
+('20181220153811'),
+('20181220153958'),
+('20181220154018');
 
 

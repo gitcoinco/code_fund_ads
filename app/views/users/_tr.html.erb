@@ -1,7 +1,7 @@
 <%= tag.tr class: classes("even": user_counter.even?, "odd": user_counter.odd?) do %>
   <td class="align-middle">
     <div class="media align-items-center">
-      <span class="u-sm-avatar position-relative mr-2">
+      <span class="u-sm-avatar position-relative mr-3">
         <%= user_avatar_image_tag(user, "img-fluid rounded-circle") %>
         <% unless user.accepted_or_not_invited? %>
           <span class="badge badge-md badge-outline-dark badge-pos badge-pos--bottom-right rounded-circle">
@@ -9,11 +9,13 @@
           </span>
         <% end %>
       </span>
-      <span><%= link_to user.full_name, user_path(user), title: "View User", data: tooltip_expando %></span>
+      <span>
+        <%= link_to user.full_name, user_path(user), title: "View User", data: tooltip_expando %>
+        <small class="d-block text-muted"><%= user.email %></small>
+      </span>
     </div>
   </td>
-  <td class="align-middle"><%= link_to user.email, "mailto:#{user.email}", title: "Email User", data: tooltip_expando %></td>
-  <td class="align-middle"><%= user.company_name %></td>
+  <td class="align-middle"><%= link_to user.organization.name, user.organization if user.organization %></td>
   <td class="align-middle">
     <% user.roles.each do |role| %>
       <%= badge_for_role(role) %>

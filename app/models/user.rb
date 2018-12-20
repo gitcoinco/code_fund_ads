@@ -51,6 +51,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  legacy_id              :uuid
+#  organization_id        :integer
 #
 
 class User < ApplicationRecord
@@ -66,10 +67,12 @@ class User < ApplicationRecord
   include Taggable
 
   # relationships .............................................................
+  belongs_to :organization, optional: true
 
   # validations ...............................................................
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :organization_id, presence: true, if: -> { administrator? || advertiser? }
 
   # callbacks .................................................................
   before_save :ensure_roles

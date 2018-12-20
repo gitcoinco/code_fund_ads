@@ -51,6 +51,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  legacy_id              :uuid
+#  organization_id        :integer
 #
 
 # IMPORTANT: Limit users fixtures to [1] per [role] using only the minimum required data

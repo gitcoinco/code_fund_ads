@@ -1,0 +1,7 @@
+<%= tag.tr class: classes("even": organization_counter.even?, "odd": organization_counter.odd?) do %>
+  <td class="align-middle"><%= link_to organization.name, organization %></td>
+  <td class="align-middle"><%= organization.balance.format %></td>
+  <td class="align-middle text-right text-secondary">
+    <%= render "/@shared/table_buttons/edit", link: edit_organization_path(organization) %>
+  </td>
+<% end %>
