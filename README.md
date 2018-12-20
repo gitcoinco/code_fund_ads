@@ -1,6 +1,27 @@
+<!-- Tocer[start]: Auto-generated, don't remove. -->
+
+## Table of Contents
+
+- [CodeFund Ads](#codefund-ads)
+  - [Publisher JavaScript Embedding](#publisher-javascript-embedding)
+    - [Optional Query String Parameters](#optional-query-string-parameters)
+  - [Ad Rendering and Impression/Click Tracking](#ad-rendering-and-impressionclick-tracking)
+  - [Enums](#enums)
+  - [Development Environment](#development-environment)
+    - [Database Seeds](#database-seeds)
+    - [Tmux/Teamocil or Mert](#tmuxteamocil-or-mert)
+  - [Code Standards](#code-standards)
+  - [Deployment](#deployment)
+    - [Preboot](#preboot)
+    - [Database](#database)
+  - [Maxmind](#maxmind)
+  - [Candidates for GEM extraction](#candidates-for-gem-extraction)
+
+<!-- Tocer[finish]: Auto-generated, don't remove. -->
+
 [![](https://travis-ci.org/gitcoinco/code_fund_ads.svg?branch=master)](https://travis-ci.org/gitcoinco/code_fund_ads#)
 
-# [WIP] CodeFund Ads
+# CodeFund Ads
 
 CodeFund Ads is an ethical and discreet ad platform that funds open-source.
 It helps your favorite projects thrive by paying maintainers the majority of all generated revenue.
@@ -128,6 +149,28 @@ Ensure the code has been standardized by running the following before you commit
 ```
 
 ## Deployment
+
+All pushes of master to Github result in a deployment to the staging environment.
+We use Herou build pipelines to promote the deployment to environments like production.
+
+```
+./bin/heroku_promote
+```
+
+### Preboot
+
+The application is configured for zero downtime deployments using [Heroku's preboot](https://devcenter.heroku.com/articles/preboot) feature.
+
+This means that 2 versions of the application will be running simultaneously during deploys.
+All code changes should consider this deployment requirement to ensure that both versions of the app are valid and can run in parallel.
+
+If breaking changes are unavoidable, disable preboot prior to deployment.
+
+```sh
+./bin/heroku_preboot_disable
+./bin/heroku_promote
+./bin/heroku_preboot_enable
+```
 
 ### Database
 
