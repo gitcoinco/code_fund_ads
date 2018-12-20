@@ -1,0 +1,20 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr class="border-bottom">
+        <%= sortable_tr "name" %>
+        <th scope="col">Debits</th>
+        <th scope="col">Credits</th>
+        <%= sortable_tr "balance_cents", "Balance" %>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody class="font-size-1">
+      <%= render partial: "/organizations/tr", collection: organizations, as: :organization %>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-between align-items-center">
+    <span><%== pagy_nav_bootstrap(pagy) if pagy.pages > 1 %></span>
+    <%= pagy_entries(pagy) %>
+  </div>
+</div>

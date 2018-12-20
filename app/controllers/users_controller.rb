@@ -7,7 +7,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def index
-    users = User.include_image_count.order(order_by)
+    users = User.includes(:organization).include_image_count.order(order_by)
     users = @user_search.apply(users)
     @pagy, @users = pagy(users)
   end
@@ -70,7 +70,6 @@ class UsersController < ApplicationController
     params.require(:user).permit(
       :address_1,
       :address_2,
-      :api_access,
       :avatar,
       :bio,
       :city,
@@ -87,9 +86,14 @@ class UsersController < ApplicationController
       :twitter_username,
       :us_resident,
       :website_url,
-      roles: [],
       skills: [],
-    )
+    ).tap do |whitelisted|
+      if authorized_user.can_admin_system?
+        whitelisted[:api_access] = params[:user][:api_access]
+        whitelisted[:organization_id] = params[:user][:organization_id]
+        whitelisted[:roles] = params[:user][:roles]
+      end
+    end
   end
 
   def sortable_columns

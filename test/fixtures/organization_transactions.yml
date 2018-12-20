@@ -1,0 +1,33 @@
+# == Schema Information
+#
+# Table name: organization_transactions
+#
+#  id               :bigint(8)        not null, primary key
+#  organization_id  :integer          not null
+#  amount_cents     :integer          default(0), not null
+#  amount_currency  :string           default("USD"), not null
+#  transaction_type :string           not null
+#  posted_at        :datetime         not null
+#  description      :text
+#  reference        :text
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization: one
+  amount: 
+  transaction_type: MyString
+  posted_at: 2018-12-20 08:39:58
+  description: MyText
+  reference: MyText
+
+two:
+  organization: two
+  amount: 
+  transaction_type: MyString
+  posted_at: 2018-12-20 08:39:58
+  description: MyText
+  reference: MyText

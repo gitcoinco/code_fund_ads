@@ -34,6 +34,7 @@ class Seeder
     print "Seeding...".ljust(48)
     puts "please be patient"
     benchmark = Benchmark.measure {
+      seed_organizations
       seed_users
       seed_campaigns
       seed_properties
@@ -44,6 +45,16 @@ class Seeder
   end
 
   private
+
+  def seed_organizations
+    print "Seeding organizations...".ljust(48)
+    benchmark = Benchmark.measure {
+      organizations = build_organizations
+      import_csv :organizations, create_csv(organizations, Rails.root.join("tmp/organizations.csv")), Organization.sequence_name unless organizations.blank?
+    }
+    print "verified [#{Organization.count.to_s.rjust(8)}] total users".ljust(48)
+    puts benchmark
+  end
 
   def seed_users
     print "Seeding users...".ljust(48)
@@ -57,11 +68,40 @@ class Seeder
     puts benchmark
   end
 
+  def build_organizations
+    target = 150
+    count = Organization.count + 1
+    return [] if count >= target
+    attributes = (count..target).map { |i|
+      {
+        id: i + 1,
+        name: "#{Faker::SiliconValley.company} #{SecureRandom.hex.upcase[0, 6]}",
+        balance_cents: [0, 50000, 250000].sample,
+        balance_currency: "USD",
+        created_at: 3.days.ago,
+        updated_at: 3.days.ago,
+      }.values
+    }
+
+    attributes.unshift({
+      id: 1,
+      name: "CodeFund",
+      balance_cents: 0,
+      balance_currency: "USD",
+      created_at: 3.days.ago,
+      updated_at: 3.days.ago,
+    }.values)
+
+    attributes
+  end
+
   def build_administrators
     return [] unless User.administrators.count.zero?
     return [] if @emails["admin@codefund.io"]
+
     attributes = user_attributes.merge(
       "id" => @user_id += 1,
+      "organization_id" => 1,
       "company_name" => "CodeFund",
       "email" => "admin@codefund.io",
       "roles" => "{#{ENUMS::USER_ROLES::ADMINISTRATOR}}",
@@ -70,12 +110,14 @@ class Seeder
   end
 
   def build_advertisers
-    target = 250
+    target = 175
     count = User.advertisers.count
     return [] if count >= target
+    organization_ids = Organization.where("id > 1").pluck(:id)
     (count..target).map do
       user_attributes.merge(
         "id" => @user_id += 1,
+        "organization_id" => organization_ids.sample,
         "roles" => "{#{ENUMS::USER_ROLES::ADVERTISER}}"
       ).values
     end
@@ -155,6 +197,7 @@ class Seeder
     5.times do
       creative = Creative.create(
         user: advertiser,
+        organization: advertiser.organization,
         name: Faker::SiliconValley.company,
         headline: Faker::SiliconValley.invention,
         body: Faker::SiliconValley.motto,

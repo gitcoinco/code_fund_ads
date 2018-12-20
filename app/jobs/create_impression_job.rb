@@ -12,6 +12,7 @@ class CreateImpressionJob < ApplicationJob
       id: id,
       advertiser_id: campaign.user_id,
       publisher_id: property.user_id,
+      organization_id: campaign.organization_id,
       campaign: campaign,
       creative_id: campaign.creative_id,
       property: property,

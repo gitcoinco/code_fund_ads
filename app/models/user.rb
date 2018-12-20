@@ -51,6 +51,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  legacy_id              :uuid
+#  organization_id        :integer
 #
 
 class User < ApplicationRecord
@@ -66,10 +67,12 @@ class User < ApplicationRecord
   include Taggable
 
   # relationships .............................................................
+  belongs_to :organization, optional: true
 
   # validations ...............................................................
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :organization_id, presence: true, if: -> { administrator? || advertiser? }
 
   # callbacks .................................................................
   before_save :ensure_roles
@@ -79,6 +82,7 @@ class User < ApplicationRecord
   scope :advertisers, -> { with_all_roles ENUMS::USER_ROLES::ADVERTISER }
   scope :publishers, -> { with_all_roles ENUMS::USER_ROLES::PUBLISHER }
   scope :search_company, ->(value) { value.blank? ? all : search_column(:company_name, value) }
+  scope :search_organization, ->(value) { value.blank? ? all : where(organization_id: value) }
   scope :search_email, ->(value) { value.blank? ? all : search_column(:email, value) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:first_name, value).or(search_column(:last_name, value)) }
   scope :search_roles, ->(*values) { values.blank? ? all : with_any_roles(*values) }

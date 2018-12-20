@@ -188,7 +188,8 @@ CREATE TABLE public.campaigns (
     negative_keywords character varying[] DEFAULT '{}'::character varying[],
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    legacy_id uuid
+    legacy_id uuid,
+    organization_id bigint
 );
 
 
@@ -294,7 +295,8 @@ CREATE TABLE public.creatives (
     body text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    legacy_id uuid
+    legacy_id uuid,
+    organization_id bigint
 );
 
 
@@ -378,7 +380,8 @@ CREATE TABLE public.impressions (
     estimated_property_revenue_fractional_cents double precision,
     estimated_house_revenue_fractional_cents double precision,
     ad_template character varying,
-    ad_theme character varying
+    ad_theme character varying,
+    organization_id bigint
 )
 PARTITION BY RANGE (advertiser_id, displayed_at_date);
 
@@ -389,6 +392,76 @@ PARTITION BY RANGE (advertiser_id, displayed_at_date);
 
 CREATE TABLE public.impressions_default PARTITION OF public.impressions
 DEFAULT;
+
+
+--
+-- Name: organization_transactions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.organization_transactions (
+    id bigint NOT NULL,
+    organization_id bigint NOT NULL,
+    amount_cents integer DEFAULT 0 NOT NULL,
+    amount_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    transaction_type character varying NOT NULL,
+    posted_at timestamp without time zone NOT NULL,
+    description text,
+    reference text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: organization_transactions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.organization_transactions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: organization_transactions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.organization_transactions_id_seq OWNED BY public.organization_transactions.id;
+
+
+--
+-- Name: organizations; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.organizations (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    balance_cents integer DEFAULT 0 NOT NULL,
+    balance_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: organizations_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.organizations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: organizations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.organizations_id_seq OWNED BY public.organizations.id;
 
 
 --
@@ -567,7 +640,8 @@ CREATE TABLE public.users (
     invitations_count integer DEFAULT 0,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    legacy_id uuid
+    legacy_id uuid,
+    organization_id bigint
 );
 
 
@@ -696,6 +770,20 @@ ALTER TABLE ONLY public.impressions_default ALTER COLUMN fallback_campaign SET D
 
 
 --
+-- Name: organization_transactions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organization_transactions ALTER COLUMN id SET DEFAULT nextval('public.organization_transactions_id_seq'::regclass);
+
+
+--
+-- Name: organizations id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organizations ALTER COLUMN id SET DEFAULT nextval('public.organizations_id_seq'::regclass);
+
+
+--
 -- Name: properties id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -800,6 +888,22 @@ ALTER TABLE ONLY public.creatives
 
 ALTER TABLE ONLY public.events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: organization_transactions organization_transactions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organization_transactions
+    ADD CONSTRAINT organization_transactions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: organizations organizations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organizations
+    ADD CONSTRAINT organizations_pkey PRIMARY KEY (id);
 
 
 --
@@ -1005,6 +1109,20 @@ CREATE UNIQUE INDEX impressions_default_id_advertiser_id_displayed_at_date_idx O
 
 
 --
+-- Name: index_impressions_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_organization_id ON ONLY public.impressions USING btree (organization_id);
+
+
+--
+-- Name: impressions_default_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_organization_id_idx ON public.impressions_default USING btree (organization_id);
+
+
+--
 -- Name: index_impressions_on_property_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1110,6 +1228,13 @@ CREATE INDEX index_campaigns_on_negative_keywords ON public.campaigns USING gin 
 
 
 --
+-- Name: index_campaigns_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_organization_id ON public.campaigns USING btree (organization_id);
+
+
+--
 -- Name: index_campaigns_on_start_date; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1166,6 +1291,13 @@ CREATE INDEX index_creative_images_on_creative_id ON public.creative_images USIN
 
 
 --
+-- Name: index_creatives_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_creatives_on_organization_id ON public.creatives USING btree (organization_id);
+
+
+--
 -- Name: index_creatives_on_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1184,6 +1316,20 @@ CREATE INDEX index_events_on_eventable_id_and_eventable_type ON public.events US
 --
 
 CREATE INDEX index_events_on_user_id ON public.events USING btree (user_id);
+
+
+--
+-- Name: index_organization_transactions_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organization_transactions_on_organization_id ON public.organization_transactions USING btree (organization_id);
+
+
+--
+-- Name: index_organization_transactions_on_transaction_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organization_transactions_on_transaction_type ON public.organization_transactions USING btree (transaction_type);
 
 
 --
@@ -1313,6 +1459,13 @@ CREATE INDEX index_users_on_invited_by_type_and_invited_by_id ON public.users US
 
 
 --
+-- Name: index_users_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_organization_id ON public.users USING btree (organization_id);
+
+
+--
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1425,6 +1578,13 @@ ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_da
 
 
 --
+-- Name: impressions_default_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_default_organization_id_idx;
+
+
+--
 -- Name: impressions_default_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
 --
 
@@ -1452,6 +1612,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181212160643'),
 ('20181214184527'),
 ('20181217205840'),
-('20181219171638');
+('20181219171638'),
+('20181220153811'),
+('20181220153958'),
+('20181220201430');
 
 

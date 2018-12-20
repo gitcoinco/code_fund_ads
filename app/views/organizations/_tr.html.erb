@@ -1,0 +1,9 @@
+<%= tag.tr class: classes("even": organization_counter.even?, "odd": organization_counter.odd?) do %>
+  <td class="align-middle text-secondary"><%= link_to organization.name, organization %></td>
+  <td class="align-middle text-right text-success" style="width: 175px;"><%= organization.total_debits.format %></td>
+  <td class="align-middle text-right text-danger" style="width: 175px;"><%= organization.total_credits.format %></td>
+  <td class="align-middle text-right" style="width: 175px;"><%= link_to organization.balance.format, organization_transactions_path(organization) %></td>
+  <td class="align-middle text-secondary text-right">
+    <%= render "/@shared/table_buttons/edit", link: edit_organization_path(organization) %>
+  </td>
+<% end %>

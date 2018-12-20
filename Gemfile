@@ -71,6 +71,7 @@ group :development do
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "meta_request" # RailsPanel Chrome extension
   gem "model_probe"
+  gem "rails-erd"
   gem "rubocop"
   gem "standard"
   gem "teamocil"

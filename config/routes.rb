@@ -20,10 +20,16 @@ Rails.application.routes.draw do
   resource :advertiser_dashboards, only: [:show], path: "/dashboards/advertiser"
   resource :publisher_dashboards, only: [:show], path: "/dashboards/publisher"
   resources :campaign_searches, only: [:create, :update, :destroy]
+  resources :organization_searches, only: [:create, :update, :destroy]
   resources :property_searches, only: [:create, :update, :destroy]
   resources :user_searches, only: [:create, :update, :destroy]
   resources :creative_searches, only: [:create, :update, :destroy]
   resource :creative_options, only: [:show]
+
+  resources :organizations
+  scope "/organization/:organization_id/" do
+    resources :organization_transactions, path: "/transactions"
+  end
 
   # polymorphic based on: app/models/concerns/imageable.rb
   scope "/imageables/:imageable_gid/" do

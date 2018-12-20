@@ -129,6 +129,13 @@ IMPRESSION_CODES:
   - impression_count_exceeded
   - no_possible_ads
 
+RESERVED_ORGANIZATION_NAMES:
+  - codefund
+
+ORGANIZATION_TRANSACTION_TYPES:
+  - debit
+  - credit
+
 # SEE: https://dev.maxmind.com/geoip/legacy/codes/iso3166/
 COUNTRIES:
   #A1: Anonymous Proxy

@@ -24,6 +24,7 @@
 #  estimated_house_revenue_fractional_cents    :float
 #  ad_template                                 :string
 #  ad_theme                                    :string
+#  organization_id                             :bigint(8)
 #
 
 require "test_helper"

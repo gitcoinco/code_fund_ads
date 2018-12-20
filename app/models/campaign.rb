@@ -25,6 +25,7 @@
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  legacy_id             :uuid
+#  organization_id       :integer
 #
 
 class Campaign < ApplicationRecord
@@ -39,6 +40,7 @@ class Campaign < ApplicationRecord
   include Campaigns::Versionable
   include Eventable
   include Impressionable
+  include Organizationable
   include Taggable
 
   # relationships .............................................................

@@ -2,23 +2,26 @@
 #
 # Table name: creatives
 #
-#  id         :bigint(8)        not null, primary key
-#  user_id    :bigint(8)        not null
-#  name       :string           not null
-#  headline   :string           not null
-#  body       :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  legacy_id  :uuid
+#  id              :bigint(8)        not null, primary key
+#  user_id         :bigint(8)        not null
+#  name            :string           not null
+#  headline        :string           not null
+#  body            :text
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  legacy_id       :uuid
+#  organization_id :integer
 #
 
 class Creative < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
   include Eventable
+  include Organizationable
 
   # relationships .............................................................
   belongs_to :user
+  belongs_to :organization
   has_many :campaigns
   has_many :creative_images
 

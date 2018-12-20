@@ -26,8 +26,8 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:first_name, :last_name, :company_name])
-    devise_parameter_sanitizer.permit(:invite, keys: [:first_name, :last_name, :company_name, roles: []])
+    devise_parameter_sanitizer.permit(:accept_invitation, keys: [:first_name, :last_name])
+    devise_parameter_sanitizer.permit(:invite, keys: [:first_name, :last_name, :organization_id, roles: []])
   end
 
   def after_invite_path_for(_inviter, _invitee = nil)

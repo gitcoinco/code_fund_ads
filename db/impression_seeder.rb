@@ -92,6 +92,7 @@ class ImpressionSeeder
       id: SecureRandom.uuid,
       advertiser_id: campaign.user_id,
       publisher_id: property.user_id,
+      organization_id: campaign.user.organization_id,
       campaign_id: campaign.id,
       creative_id: campaign.creative_id,
       property_id: property.id,

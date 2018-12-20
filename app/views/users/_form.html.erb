@@ -19,6 +19,8 @@
   <%= render "@shared/forms/section_heading", title: "Personal", subtitle: "How can we contact you?" %>
 
   <div class="row">
+    <%= tag.div f.input(:organization_id, label: "Organization", collection: organizations_for_select, include_blank: "None",
+      input_html: { class: "form-control", data: { controller: "select" }}), class: "col-12 mb-3" if authorized_user.can_admin_system? %>
     <%= tag.div f.input(:first_name, required: true), class: "col-sm-6 col-md-4 mb-2" %>
     <%= tag.div f.input(:last_name, required: true), class: "col-sm-6 col-md-4 mb-2" %>
     <%= tag.div f.input(:email, required: true), class: "col-sm-6 col-md-4 mb-2" %>

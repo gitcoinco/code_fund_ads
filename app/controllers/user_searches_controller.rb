@@ -23,7 +23,7 @@ class UserSearchesController < ApplicationController
 
   def user_search_params
     params.require(:user_search).permit(
-      :company_name,
+      :organization_id,
       :email,
       :name,
       roles: [],
