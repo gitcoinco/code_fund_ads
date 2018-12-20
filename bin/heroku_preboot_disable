@@ -1,0 +1,2 @@
+#!/bin/sh
+heroku features:disable -a code-fund-ads preboot

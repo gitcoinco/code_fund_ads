@@ -73,6 +73,7 @@ group :development do
   gem "rubocop"
   gem "standard"
   gem "teamocil"
+  gem "tocer"
   gem "web-console", ">= 3.3.0"
 end
 
