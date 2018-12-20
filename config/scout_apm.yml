@@ -1,0 +1,5 @@
+ignore:
+  - "/okcomputer"
+  - "/okcomputer.json"
+  - "/okcomputer/all"
+  - "/okcomputer/all.json"
