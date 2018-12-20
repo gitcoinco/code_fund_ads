@@ -12,6 +12,7 @@ class CampaignSeeder
 
     Campaign.create(
       user: advertiser,
+      organization: advertiser.organization,
       creative: advertiser.creatives.sample,
       status: ENUMS::CAMPAIGN_STATUSES.values.sample,
       name: "#{Faker::Company.name} #{SecureRandom.hex.to_s[0, 6]}",

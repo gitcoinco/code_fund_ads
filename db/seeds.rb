@@ -72,24 +72,24 @@ class Seeder
     target = 150
     count = Organization.count + 1
     return [] if count >= target
-    attributes = (count..target).map do |i|
+    attributes = (count..target).map { |i|
       {
         id: i + 1,
         name: "#{Faker::SiliconValley.company} #{SecureRandom.hex.upcase[0, 6]}",
         balance_cents: [0, 50000, 250000].sample,
         balance_currency: "USD",
         created_at: 3.days.ago,
-        updated_at: 3.days.ago
+        updated_at: 3.days.ago,
       }.values
-    end
-    
+    }
+
     attributes.unshift({
       id: 1,
       name: "CodeFund",
       balance_cents: 0,
       balance_currency: "USD",
       created_at: 3.days.ago,
-      updated_at: 3.days.ago
+      updated_at: 3.days.ago,
     }.values)
 
     attributes
@@ -197,6 +197,7 @@ class Seeder
     5.times do
       creative = Creative.create(
         user: advertiser,
+        organization: advertiser.organization,
         name: Faker::SiliconValley.company,
         headline: Faker::SiliconValley.invention,
         body: Faker::SiliconValley.motto,

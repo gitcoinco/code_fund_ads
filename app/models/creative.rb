@@ -2,14 +2,15 @@
 #
 # Table name: creatives
 #
-#  id         :bigint(8)        not null, primary key
-#  user_id    :bigint(8)        not null
-#  name       :string           not null
-#  headline   :string           not null
-#  body       :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  legacy_id  :uuid
+#  id              :bigint(8)        not null, primary key
+#  user_id         :bigint(8)        not null
+#  name            :string           not null
+#  headline        :string           not null
+#  body            :text
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  legacy_id       :uuid
+#  organization_id :integer
 #
 
 class Creative < ApplicationRecord
@@ -19,6 +20,7 @@ class Creative < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :user
+  belongs_to :organization
   has_many :campaigns
   has_many :creative_images
 
@@ -28,6 +30,7 @@ class Creative < ApplicationRecord
   validates :name, length: {maximum: 255, allow_blank: false}
 
   # callbacks .................................................................
+  before_validation :set_organization, only: [:create]
   after_commit :touch_campaigns, on: [:update]
 
   # scopes ....................................................................
@@ -98,5 +101,9 @@ class Creative < ApplicationRecord
 
   def touch_campaigns
     campaigns.map(&:touch)
+  end
+
+  def set_organization
+    self.organization = user.organization
   end
 end

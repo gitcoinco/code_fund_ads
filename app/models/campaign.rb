@@ -25,6 +25,7 @@
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  legacy_id             :uuid
+#  organization_id       :integer
 #
 
 class Campaign < ApplicationRecord
@@ -44,6 +45,7 @@ class Campaign < ApplicationRecord
   # relationships .............................................................
   belongs_to :creative, optional: true
   belongs_to :user
+  belongs_to :organization
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
@@ -52,6 +54,7 @@ class Campaign < ApplicationRecord
 
   # callbacks .................................................................
   before_validation :sort_arrays
+  before_validation :set_organization, only: [:create]
 
   # scopes ....................................................................
   scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
@@ -227,5 +230,9 @@ class Campaign < ApplicationRecord
     self.countries = countries&.sort || []
     self.keywords = keywords&.sort || []
     self.negative_keywords = negative_keywords&.sort || []
+  end
+
+  def set_organization
+    self.organization = user.organization
   end
 end

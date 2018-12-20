@@ -2,14 +2,15 @@
 #
 # Table name: creatives
 #
-#  id         :bigint(8)        not null, primary key
-#  user_id    :bigint(8)        not null
-#  name       :string           not null
-#  headline   :string           not null
-#  body       :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  legacy_id  :uuid
+#  id              :bigint(8)        not null, primary key
+#  user_id         :bigint(8)        not null
+#  name            :string           not null
+#  headline        :string           not null
+#  body            :text
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  legacy_id       :uuid
+#  organization_id :integer
 #
 
 require "test_helper"

@@ -1,0 +1,10 @@
+<%= tag.tr class: classes("even": organization_transaction_counter.even?, "odd": organization_transaction_counter.odd?) do %>
+  <td class="align-middle text-secondary" style="width: 150px;">
+    <%= organization_transaction.posted_at.to_s("mm/dd/yyyy") %>
+  </td>
+  <td class="align-middle text-secondary" style="width: 150px;">
+    <%= link_to organization_transaction.amount.format,
+          organization_transaction_path(organization, organization_transaction) %>
+  </td>
+  <td class="align-middle text-secondary"><%= organization_transaction.description %></td>
+<% end %>

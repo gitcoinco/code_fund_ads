@@ -25,6 +25,7 @@
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  legacy_id             :uuid
+#  organization_id       :integer
 #
 
 # IMPORTANT: Limit campaigns fixtures to [1] using only the minimum required data

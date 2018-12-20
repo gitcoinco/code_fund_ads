@@ -25,9 +25,12 @@ Rails.application.routes.draw do
   resources :user_searches, only: [:create, :update, :destroy]
   resources :creative_searches, only: [:create, :update, :destroy]
   resource :creative_options, only: [:show]
-  
+
   resources :organizations
-  
+  scope "/organization/:organization_id/" do
+    resources :organization_transactions, path: "/transactions"
+  end
+
   # polymorphic based on: app/models/concerns/imageable.rb
   scope "/imageables/:imageable_gid/" do
     resources :image_searches, only: [:create, :update, :destroy]

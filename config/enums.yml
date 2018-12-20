@@ -133,9 +133,8 @@ RESERVED_ORGANIZATION_NAMES:
   - codefund
 
 ORGANIZATION_TRANSACTION_TYPES:
-  - deposit
-  - withdrawal
-  - bonus
+  - debit
+  - credit
 
 # SEE: https://dev.maxmind.com/geoip/legacy/codes/iso3166/
 COUNTRIES:

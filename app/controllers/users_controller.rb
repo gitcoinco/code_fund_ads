@@ -91,7 +91,7 @@ class UsersController < ApplicationController
       if authorized_user.can_admin_system?
         whitelisted[:api_access] = params[:user][:api_access]
         whitelisted[:organization_id] = params[:user][:organization_id]
-        whitelisted[:roles] = params[:users][:roles]
+        whitelisted[:roles] = params[:user][:roles]
       end
     end
   end
