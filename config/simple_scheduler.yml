@@ -1,8 +1,0 @@
-# SEE: https://www.simplymadeapps.com/blog/2017/01/simple-scheduler-schedule-recurring-tasks-to-run-at-any-interval/
-# SEE: https://github.com/simplymadeapps/simple_scheduler
-queue_name: "schedule"
-
-set_campaign_cached_counts:
-  class: "SetCampaignCachedCountsJob"
-  every: "30.minutes"
-  at: "*:30"

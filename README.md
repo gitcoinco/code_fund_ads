@@ -13,6 +13,7 @@
   - [Code Standards](#code-standards)
   - [Deployment](#deployment)
     - [Preboot](#preboot)
+    - [Scheduler](#scheduler)
     - [Database](#database)
   - [Maxmind](#maxmind)
   - [Candidates for GEM extraction](#candidates-for-gem-extraction)
@@ -171,6 +172,14 @@ If breaking changes are unavoidable, disable preboot prior to deployment.
 ./bin/heroku_promote
 ./bin/heroku_preboot_enable
 ```
+
+### Scheduler
+
+There are several tasks that should be scheduled to run at different intervals.
+We manage this with [Heroku Scheduler](https://devcenter.heroku.com/articles/scheduler).
+
+- `rails schedule:counter_updates` - hourly
+- `rails schedule:update_campaign_statuses` - daily
 
 ### Database
 
