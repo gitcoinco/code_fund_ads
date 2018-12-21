@@ -4,7 +4,7 @@ class SetCampaignCachedCountsJob < ApplicationJob
   queue_as :default
 
   def perform(_scheduled_time = nil)
-    Campaign.active.available_on(Date.current).each do |campaign|
+    Campaign.active.available_on(Date.current).find_each do |campaign|
       # impressions
       Rails.cache.write campaign.total_impressions_count_cache_key, campaign.impressions.count
       Rails.cache.write campaign.daily_impressions_count_cache_key(Date.current), campaign.impressions.on(Date.current).count
