@@ -31,6 +31,7 @@ class Property < ApplicationRecord
   include Eventable
   include Imageable
   include Impressionable
+  include Sparklineable
   include Taggable
 
   # relationships .............................................................

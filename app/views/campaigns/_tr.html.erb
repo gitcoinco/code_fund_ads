@@ -11,6 +11,7 @@
     <span class="fas fa-circle small mr-1"></span>
     <%= campaign.status.humanize %>
   </td>
+  <td><%= sparkline campaign.sparkline_impressions(@start_date, @end_date) %></td>
   <td class="align-middle text-right text-secondary">
     <%= render "/@shared/table_buttons/edit", link: edit_campaign_path(campaign) %>
   </td>

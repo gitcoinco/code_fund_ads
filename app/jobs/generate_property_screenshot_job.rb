@@ -15,5 +15,7 @@ class GeneratePropertyScreenshotJob < ApplicationJob
 
     property.screenshot = uploaded_file
     property.save!
+
+    property.add_event("Captured new screenshot", ["screenshot"])
   end
 end

@@ -160,4 +160,9 @@ module ApplicationHelper
   def date_range_picker
     render "/@shared/date_range_picker"
   end
+
+  def sparkline(values, width: 100, height: 30, stroke_width: 3, color: "green", filled: true)
+    svg_class = "sparkline sparkline--#{color}#{" sparkline--filled" if filled}"
+    render "/@shared/widgets/sparkline_graph", values: values, width: width, height: height, stroke_width: stroke_width, svg_class: svg_class
+  end
 end
