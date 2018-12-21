@@ -6,3 +6,8 @@ set_campaign_cached_counts:
   class: "SetCampaignCachedCountsJob"
   every: "30.minutes"
   at: "*:30"
+
+set_property_cached_counts:
+  class: "SetPropertyCachedCountsJob"
+  every: "30.minutes"
+  at: "*:15"
