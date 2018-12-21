@@ -119,7 +119,7 @@ class Property < ApplicationRecord
   # Query performance without joining on property_advertisers will be
   # problematic since all partition tables would be scanned
   def impressions
-    Impression.where(advertiser_id: property_advertisers.select(:advertiser_id))
+    Impression.where(advertiser_id: property_advertisers.select(:advertiser_id)).where(property: self)
   end
 
   def favicon_image_url
