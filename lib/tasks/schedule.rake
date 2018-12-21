@@ -1,4 +1,4 @@
-desc "Tasks that to be executed by Heroku Scheduler"
+desc "Tasks to be executed by Heroku Scheduler"
 namespace :schedule do
   desc <<~DESC
     Queues job that updates total and daily counter caches on campmaigns and properties
@@ -18,5 +18,13 @@ namespace :schedule do
   DESC
   task update_campaign_statuses: :environment do
     UpdateCampaignStatusesJob.perform_later
+  end
+
+  desc <<~DESC
+    Queues job that creates transactions for daily campaign spend
+    NOTE: Schedule daily
+  DESC
+  task create_debits_for_campaigns: :environment do
+    CreateDebitsForCampaignsJob.perform_later
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_19_171638) do
+ActiveRecord::Schema.define(version: 2018_12_21_205112) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2018_12_19_171638) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "legacy_id"
+    t.bigint "organization_id"
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
     t.index ["core_hours_only"], name: "index_campaigns_on_core_hours_only"
     t.index ["countries"], name: "index_campaigns_on_countries", using: :gin
@@ -87,6 +88,7 @@ ActiveRecord::Schema.define(version: 2018_12_19_171638) do
     t.index ["end_date"], name: "index_campaigns_on_end_date"
     t.index ["keywords"], name: "index_campaigns_on_keywords", using: :gin
     t.index ["negative_keywords"], name: "index_campaigns_on_negative_keywords", using: :gin
+    t.index ["organization_id"], name: "index_campaigns_on_organization_id"
     t.index ["start_date"], name: "index_campaigns_on_start_date"
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["user_id"], name: "index_campaigns_on_user_id"
@@ -126,6 +128,8 @@ ActiveRecord::Schema.define(version: 2018_12_19_171638) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "legacy_id"
+    t.bigint "organization_id"
+    t.index ["organization_id"], name: "index_creatives_on_organization_id"
     t.index ["user_id"], name: "index_creatives_on_user_id"
   end
 
@@ -164,6 +168,7 @@ ActiveRecord::Schema.define(version: 2018_12_19_171638) do
     t.float "estimated_house_revenue_fractional_cents"
     t.string "ad_template"
     t.string "ad_theme"
+    t.bigint "organization_id"
   end
 
   create_table "impressions_default", id: false, force: :cascade do |t|
@@ -189,6 +194,7 @@ ActiveRecord::Schema.define(version: 2018_12_19_171638) do
     t.float "estimated_house_revenue_fractional_cents"
     t.string "ad_template"
     t.string "ad_theme"
+    t.bigint "organization_id"
     t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_default_date_trunc_idx1"
     t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_default_date_trunc_idx"
     t.index ["ad_template"], name: "impressions_default_ad_template_idx"
@@ -200,7 +206,31 @@ ActiveRecord::Schema.define(version: 2018_12_19_171638) do
     t.index ["creative_id"], name: "impressions_default_creative_id_idx"
     t.index ["displayed_at_date"], name: "impressions_default_displayed_at_date_idx"
     t.index ["id", "advertiser_id", "displayed_at_date"], name: "impressions_default_id_advertiser_id_displayed_at_date_idx", unique: true
+    t.index ["organization_id"], name: "impressions_default_organization_id_idx"
     t.index ["property_id"], name: "impressions_default_property_id_idx"
+  end
+
+  create_table "organization_transactions", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.integer "amount_cents", default: 0, null: false
+    t.string "amount_currency", default: "USD", null: false
+    t.string "transaction_type", null: false
+    t.datetime "posted_at", null: false
+    t.text "description"
+    t.text "reference"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id"], name: "index_organization_transactions_on_organization_id"
+    t.index ["reference"], name: "index_organization_transactions_on_reference"
+    t.index ["transaction_type"], name: "index_organization_transactions_on_transaction_type"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "balance_cents", default: 0, null: false
+    t.string "balance_currency", default: "USD", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "properties", force: :cascade do |t|
@@ -303,12 +333,14 @@ ActiveRecord::Schema.define(version: 2018_12_19_171638) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "legacy_id"
+    t.bigint "organization_id"
     t.index "lower((email)::text)", name: "index_users_on_email", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invitations_count"], name: "index_users_on_invitations_count"
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
+    t.index ["organization_id"], name: "index_users_on_organization_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end

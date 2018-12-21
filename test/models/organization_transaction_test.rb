@@ -3,7 +3,7 @@
 # Table name: organization_transactions
 #
 #  id               :bigint(8)        not null, primary key
-#  organization_id  :integer          not null
+#  organization_id  :bigint(8)        not null
 #  amount_cents     :integer          default(0), not null
 #  amount_currency  :string           default("USD"), not null
 #  transaction_type :string           not null
