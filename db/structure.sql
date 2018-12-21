@@ -1326,6 +1326,13 @@ CREATE INDEX index_organization_transactions_on_organization_id ON public.organi
 
 
 --
+-- Name: index_organization_transactions_on_reference; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organization_transactions_on_reference ON public.organization_transactions USING btree (reference);
+
+
+--
 -- Name: index_organization_transactions_on_transaction_type; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1615,6 +1622,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181219171638'),
 ('20181220153811'),
 ('20181220153958'),
-('20181220201430');
+('20181220201430'),
+('20181221205112');
 
 

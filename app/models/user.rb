@@ -51,7 +51,7 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  legacy_id              :uuid
-#  organization_id        :integer
+#  organization_id        :bigint(8)
 #
 
 class User < ApplicationRecord
