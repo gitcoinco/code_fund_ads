@@ -5,8 +5,9 @@
         <%= sortable_tr "name" %>
         <%= tag.th("Publisher", scope: "col") if authorized_user.can_admin_system? %>
         <th scope="col">URL</th>
-        <%= sortable_tr "last_sign_in_at", "Date Added" %>
+        <%= sortable_tr "created_at", "Date Added" %>
         <%= sortable_tr "status" %>
+        <th scope="col">Impressions</th>
         <th scope="col"></th>
       </tr>
     </thead>

@@ -41,6 +41,7 @@ class Campaign < ApplicationRecord
   include Eventable
   include Impressionable
   include Organizationable
+  include Sparklineable
   include Taggable
 
   # relationships .............................................................

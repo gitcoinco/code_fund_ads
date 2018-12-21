@@ -2,6 +2,7 @@
   "name": "code_fund_ads",
   "private": true,
   "dependencies": {
+    "@fnando/sparkline": "^0.3.10",
     "@rails/webpacker": "3.5",
     "bootstrap-daterangepicker": "^3.0.3",
     "moment": "^2.22.2",
