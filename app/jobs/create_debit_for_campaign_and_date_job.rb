@@ -17,14 +17,14 @@ class CreateDebitForCampaignAndDateJob < ApplicationJob
     attrs = {
       organization_id: campaign.organization_id,
       transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::DEBIT,
-      reference: "Campaign: [#{campaign.id}] [#{date.iso8601}]",
+      reference: [campaign.id, date.iso8601].join(":"),
     }
 
     debit = OrganizationTransaction.find_by(attrs)
     return if debit # transaction already exists
 
     debit = OrganizationTransaction.new(attrs.merge(
-      description: "Daily Spend for Campaign [#{campaign.id}]",
+      description: "Daily Spend on [#{date.iso8601}] for Campaign [#{campaign.id}: #{campaign.name}]",
       amount: amount,
       posted_at: Time.current,
     ))
