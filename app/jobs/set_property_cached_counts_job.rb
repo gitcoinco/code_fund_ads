@@ -1,9 +1,9 @@
 # Ensures that active property counters are in sync (just in case the increment jobs cause drift)
-# Scheduled by: config/simple_scheduler.yml
+# Scheduled via Heroku Scheduler
 class SetPropertyCachedCountsJob < ApplicationJob
   queue_as :default
 
-  def perform(_scheduled_time = nil)
+  def perform
     Property.active.find_each do |property|
       # impressions
       Rails.cache.write property.total_impressions_count_cache_key, property.impressions.count

@@ -1,9 +1,9 @@
 # Ensures that active campaign counters are in sync (just in case the increment jobs cause drift)
-# Scheduled by: config/simple_scheduler.yml
+# Scheduled via Heroku Scheduler
 class SetCampaignCachedCountsJob < ApplicationJob
   queue_as :default
 
-  def perform(_scheduled_time = nil)
+  def perform
     Campaign.active.available_on(Date.current).find_each do |campaign|
       # impressions
       Rails.cache.write campaign.total_impressions_count_cache_key, campaign.impressions.count
