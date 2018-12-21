@@ -1,5 +1,6 @@
 # Ensures that active property counters are in sync (just in case the increment jobs cause drift)
 # Scheduled via Heroku Scheduler
+# SEE: lib/tasks/schedule.rake
 class SetPropertyCachedCountsJob < ApplicationJob
   queue_as :default
 

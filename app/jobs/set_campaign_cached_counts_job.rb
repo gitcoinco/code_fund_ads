@@ -1,5 +1,6 @@
 # Ensures that active campaign counters are in sync (just in case the increment jobs cause drift)
 # Scheduled via Heroku Scheduler
+# SEE: lib/tasks/schedule.rake
 class SetCampaignCachedCountsJob < ApplicationJob
   queue_as :default
 
