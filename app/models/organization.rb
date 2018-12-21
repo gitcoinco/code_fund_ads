@@ -26,7 +26,7 @@ class Organization < ApplicationRecord
   # validations ...............................................................
   validates :name, presence: true
   validates_each :name do |record, attr, value|
-    record.errors.add(attr, "'#{value}' is reserved") if ENUMS::RESERVED_ORGANIZATION_NAMES.values.include?(value.downcase.strip)
+    record.errors.add(attr, "'#{value}' is reserved") if ENUMS::RESERVED_ORGANIZATION_NAMES[value.downcase.strip]
   end
 
   # callbacks .................................................................

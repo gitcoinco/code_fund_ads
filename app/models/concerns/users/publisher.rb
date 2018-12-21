@@ -30,33 +30,33 @@ module Users
 
     def gross_revenue(start_date = nil, end_date = nil)
       return Money.new(0, "USD") unless publisher?
-      total = properties.sum do |property|
+      total = properties.sum { |property|
         property.gross_revenue start_date, end_date
-      end
+      }
       Money.new total, "USD"
     end
 
     def estimated_property_revenue(start_date = nil, end_date = nil)
       return Money.new(0, "USD") unless publisher?
-      total = properties.sum do |property|
+      total = properties.sum { |property|
         property.estimated_property_revenue start_date, end_date
-      end
+      }
       Money.new total, "USD"
     end
 
     def property_revenue(start_date = nil, end_date = nil)
       return Money.new(0, "USD") unless publisher?
-      total = properties.sum do |property|
+      total = properties.sum { |property|
         property.property_revenue start_date, end_date
-      end
+      }
       Money.new total, "USD"
     end
 
     def house_revenue(start_date = nil, end_date = nil)
       return Money.new(0, "USD") unless publisher?
-      total = properties.sum do |property|
+      total = properties.sum { |property|
         property.house_revenue start_date, end_date
-      end
+      }
       Money.new total, "USD"
     end
   end
