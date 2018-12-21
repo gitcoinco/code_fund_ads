@@ -1,7 +1,7 @@
 desc "Tasks that to be executed by Heroku Scheduler"
 namespace :schedule do
   desc <<~DESC
-    Queues job for updating total and daily counter caches on campmaigns and properties
+    Queues job that updates total and daily counter caches on campmaigns and properties
     NOTE: Schedule hourly
   DESC
   task counter_updates: :environment do
