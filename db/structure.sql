@@ -387,6 +387,118 @@ PARTITION BY RANGE (advertiser_id, displayed_at_date);
 
 
 --
+-- Name: impressions_2018_11_advertiser_123; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2018_11_advertiser_123 PARTITION OF public.impressions
+FOR VALUES FROM ('123', '2018-11-01') TO ('123', '2018-11-30');
+
+
+--
+-- Name: impressions_2018_11_advertiser_132; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2018_11_advertiser_132 PARTITION OF public.impressions
+FOR VALUES FROM ('132', '2018-11-01') TO ('132', '2018-11-30');
+
+
+--
+-- Name: impressions_2018_11_advertiser_137; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2018_11_advertiser_137 PARTITION OF public.impressions
+FOR VALUES FROM ('137', '2018-11-01') TO ('137', '2018-11-30');
+
+
+--
+-- Name: impressions_2018_11_advertiser_144; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2018_11_advertiser_144 PARTITION OF public.impressions
+FOR VALUES FROM ('144', '2018-11-01') TO ('144', '2018-11-30');
+
+
+--
+-- Name: impressions_2018_11_advertiser_146; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2018_11_advertiser_146 PARTITION OF public.impressions
+FOR VALUES FROM ('146', '2018-11-01') TO ('146', '2018-11-30');
+
+
+--
+-- Name: impressions_2018_11_advertiser_155; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2018_11_advertiser_155 PARTITION OF public.impressions
+FOR VALUES FROM ('155', '2018-11-01') TO ('155', '2018-11-30');
+
+
+--
+-- Name: impressions_2018_11_advertiser_158; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2018_11_advertiser_158 PARTITION OF public.impressions
+FOR VALUES FROM ('158', '2018-11-01') TO ('158', '2018-11-30');
+
+
+--
+-- Name: impressions_2018_11_advertiser_160; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2018_11_advertiser_160 PARTITION OF public.impressions
+FOR VALUES FROM ('160', '2018-11-01') TO ('160', '2018-11-30');
+
+
+--
+-- Name: impressions_2018_11_advertiser_169; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2018_11_advertiser_169 PARTITION OF public.impressions
+FOR VALUES FROM ('169', '2018-11-01') TO ('169', '2018-11-30');
+
+
+--
+-- Name: impressions_2018_11_advertiser_185; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2018_11_advertiser_185 PARTITION OF public.impressions
+FOR VALUES FROM ('185', '2018-11-01') TO ('185', '2018-11-30');
+
+
+--
+-- Name: impressions_2018_12_advertiser_123; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2018_12_advertiser_123 PARTITION OF public.impressions
+FOR VALUES FROM ('123', '2018-12-01') TO ('123', '2018-12-31');
+
+
+--
+-- Name: impressions_2018_12_advertiser_137; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2018_12_advertiser_137 PARTITION OF public.impressions
+FOR VALUES FROM ('137', '2018-12-01') TO ('137', '2018-12-31');
+
+
+--
+-- Name: impressions_2018_12_advertiser_158; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2018_12_advertiser_158 PARTITION OF public.impressions
+FOR VALUES FROM ('158', '2018-12-01') TO ('158', '2018-12-31');
+
+
+--
+-- Name: impressions_2018_12_advertiser_185; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2018_12_advertiser_185 PARTITION OF public.impressions
+FOR VALUES FROM ('185', '2018-12-01') TO ('185', '2018-12-31');
+
+
+--
 -- Name: impressions_default; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -408,7 +520,8 @@ CREATE TABLE public.organization_transactions (
     description text,
     reference text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    gift_credit boolean DEFAULT false
 );
 
 
@@ -547,8 +660,7 @@ ALTER SEQUENCE public.property_advertisers_id_seq OWNED BY public.property_adver
 CREATE TABLE public.publisher_invoices (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
-    amount_cents integer DEFAULT 0 NOT NULL,
-    amount_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    amount money NOT NULL,
     currency character varying NOT NULL,
     start_date date NOT NULL,
     end_date date NOT NULL,
@@ -756,6 +868,202 @@ ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.event
 
 
 --
+-- Name: impressions_2018_11_advertiser_123 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_123 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_2018_11_advertiser_123 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_123 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_2018_11_advertiser_132 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_132 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_2018_11_advertiser_132 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_132 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_2018_11_advertiser_137 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_137 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_2018_11_advertiser_137 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_137 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_2018_11_advertiser_144 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_144 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_2018_11_advertiser_144 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_144 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_2018_11_advertiser_146 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_146 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_2018_11_advertiser_146 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_146 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_2018_11_advertiser_155 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_155 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_2018_11_advertiser_155 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_155 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_2018_11_advertiser_158 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_158 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_2018_11_advertiser_158 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_158 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_2018_11_advertiser_160 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_160 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_2018_11_advertiser_160 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_160 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_2018_11_advertiser_169 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_169 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_2018_11_advertiser_169 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_169 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_2018_11_advertiser_185 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_185 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_2018_11_advertiser_185 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_11_advertiser_185 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_2018_12_advertiser_123 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_12_advertiser_123 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_2018_12_advertiser_123 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_12_advertiser_123 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_2018_12_advertiser_137 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_12_advertiser_137 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_2018_12_advertiser_137 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_12_advertiser_137 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_2018_12_advertiser_158 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_12_advertiser_158 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_2018_12_advertiser_158 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_12_advertiser_158 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_2018_12_advertiser_185 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_12_advertiser_185 ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
+
+
+--
+-- Name: impressions_2018_12_advertiser_185 fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_2018_12_advertiser_185 ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
 -- Name: impressions_default id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -955,6 +1263,83 @@ ALTER TABLE ONLY public.versions
 
 
 --
+-- Name: index_impressions_on_id_and_advertiser_id_and_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_impressions_on_id_and_advertiser_id_and_displayed_at_date ON ONLY public.impressions USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx1 ON public.impressions_2018_11_advertiser_123 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx2 ON public.impressions_2018_11_advertiser_160 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx3; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx3 ON public.impressions_2018_11_advertiser_132 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx4; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx4 ON public.impressions_2018_11_advertiser_144 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx5; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx5 ON public.impressions_2018_11_advertiser_137 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx6; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx6 ON public.impressions_2018_11_advertiser_158 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx7; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx7 ON public.impressions_2018_11_advertiser_146 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx8; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx8 ON public.impressions_2018_11_advertiser_155 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx9; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx9 ON public.impressions_2018_11_advertiser_169 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_at_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2018_11_advertise_id_advertiser_id_displayed_at_idx ON public.impressions_2018_11_advertiser_185 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
 -- Name: index_impressions_on_ad_template; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -962,10 +1347,10 @@ CREATE INDEX index_impressions_on_ad_template ON ONLY public.impressions USING b
 
 
 --
--- Name: impressions_default_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2018_11_advertiser_123_ad_template_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_ad_template_idx ON public.impressions_default USING btree (ad_template);
+CREATE INDEX impressions_2018_11_advertiser_123_ad_template_idx ON public.impressions_2018_11_advertiser_123 USING btree (ad_template);
 
 
 --
@@ -976,10 +1361,10 @@ CREATE INDEX index_impressions_on_ad_theme ON ONLY public.impressions USING btre
 
 
 --
--- Name: impressions_default_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2018_11_advertiser_123_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_ad_theme_idx ON public.impressions_default USING btree (ad_theme);
+CREATE INDEX impressions_2018_11_advertiser_123_ad_theme_idx ON public.impressions_2018_11_advertiser_123 USING btree (ad_theme);
 
 
 --
@@ -990,10 +1375,10 @@ CREATE INDEX index_impressions_on_advertiser_id ON ONLY public.impressions USING
 
 
 --
--- Name: impressions_default_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2018_11_advertiser_123_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_advertiser_id_idx ON public.impressions_default USING btree (advertiser_id);
+CREATE INDEX impressions_2018_11_advertiser_123_advertiser_id_idx ON public.impressions_2018_11_advertiser_123 USING btree (advertiser_id);
 
 
 --
@@ -1004,10 +1389,10 @@ CREATE INDEX index_impressions_on_campaign_id ON ONLY public.impressions USING b
 
 
 --
--- Name: impressions_default_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2018_11_advertiser_123_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_campaign_id_idx ON public.impressions_default USING btree (campaign_id);
+CREATE INDEX impressions_2018_11_advertiser_123_campaign_id_idx ON public.impressions_2018_11_advertiser_123 USING btree (campaign_id);
 
 
 --
@@ -1018,10 +1403,10 @@ CREATE INDEX index_impressions_on_clicked_at_date ON ONLY public.impressions USI
 
 
 --
--- Name: impressions_default_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2018_11_advertiser_123_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_clicked_at_date_idx ON public.impressions_default USING btree (clicked_at_date);
+CREATE INDEX impressions_2018_11_advertiser_123_clicked_at_date_idx ON public.impressions_2018_11_advertiser_123 USING btree (clicked_at_date);
 
 
 --
@@ -1032,10 +1417,10 @@ CREATE INDEX index_impressions_on_country_code ON ONLY public.impressions USING 
 
 
 --
--- Name: impressions_default_country_code_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2018_11_advertiser_123_country_code_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_country_code_idx ON public.impressions_default USING btree (country_code);
+CREATE INDEX impressions_2018_11_advertiser_123_country_code_idx ON public.impressions_2018_11_advertiser_123 USING btree (country_code);
 
 
 --
@@ -1046,10 +1431,10 @@ CREATE INDEX index_impressions_on_creative_id ON ONLY public.impressions USING b
 
 
 --
--- Name: impressions_default_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2018_11_advertiser_123_creative_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_creative_id_idx ON public.impressions_default USING btree (creative_id);
+CREATE INDEX impressions_2018_11_advertiser_123_creative_id_idx ON public.impressions_2018_11_advertiser_123 USING btree (creative_id);
 
 
 --
@@ -1060,10 +1445,10 @@ CREATE INDEX index_impressions_on_displayed_at_hour ON ONLY public.impressions U
 
 
 --
--- Name: impressions_default_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2018_11_advertiser_123_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_date_trunc_idx ON public.impressions_default USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX impressions_2018_11_advertiser_123_date_trunc_idx ON public.impressions_2018_11_advertiser_123 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
@@ -1074,10 +1459,10 @@ CREATE INDEX index_impressions_on_clicked_at_hour ON ONLY public.impressions USI
 
 
 --
--- Name: impressions_default_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2018_11_advertiser_123_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_date_trunc_idx1 ON public.impressions_default USING btree (date_trunc('hour'::text, clicked_at));
+CREATE INDEX impressions_2018_11_advertiser_123_date_trunc_idx1 ON public.impressions_2018_11_advertiser_123 USING btree (date_trunc('hour'::text, clicked_at));
 
 
 --
@@ -1088,24 +1473,10 @@ CREATE INDEX index_impressions_on_displayed_at_date ON ONLY public.impressions U
 
 
 --
--- Name: impressions_default_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2018_11_advertiser_123_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_displayed_at_date_idx ON public.impressions_default USING btree (displayed_at_date);
-
-
---
--- Name: index_impressions_on_id_and_advertiser_id_and_displayed_at_date; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_impressions_on_id_and_advertiser_id_and_displayed_at_date ON ONLY public.impressions USING btree (id, advertiser_id, displayed_at_date);
-
-
---
--- Name: impressions_default_id_advertiser_id_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX impressions_default_id_advertiser_id_displayed_at_date_idx ON public.impressions_default USING btree (id, advertiser_id, displayed_at_date);
+CREATE INDEX impressions_2018_11_advertiser_123_displayed_at_date_idx ON public.impressions_2018_11_advertiser_123 USING btree (displayed_at_date);
 
 
 --
@@ -1116,10 +1487,10 @@ CREATE INDEX index_impressions_on_organization_id ON ONLY public.impressions USI
 
 
 --
--- Name: impressions_default_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2018_11_advertiser_123_organization_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_organization_id_idx ON public.impressions_default USING btree (organization_id);
+CREATE INDEX impressions_2018_11_advertiser_123_organization_id_idx ON public.impressions_2018_11_advertiser_123 USING btree (organization_id);
 
 
 --
@@ -1127,6 +1498,1217 @@ CREATE INDEX impressions_default_organization_id_idx ON public.impressions_defau
 --
 
 CREATE INDEX index_impressions_on_property_id ON ONLY public.impressions USING btree (property_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_123_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_123_property_id_idx ON public.impressions_2018_11_advertiser_123 USING btree (property_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_132_ad_template_idx ON public.impressions_2018_11_advertiser_132 USING btree (ad_template);
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_132_ad_theme_idx ON public.impressions_2018_11_advertiser_132 USING btree (ad_theme);
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_132_advertiser_id_idx ON public.impressions_2018_11_advertiser_132 USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_132_campaign_id_idx ON public.impressions_2018_11_advertiser_132 USING btree (campaign_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_132_clicked_at_date_idx ON public.impressions_2018_11_advertiser_132 USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_132_country_code_idx ON public.impressions_2018_11_advertiser_132 USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_132_creative_id_idx ON public.impressions_2018_11_advertiser_132 USING btree (creative_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_132_date_trunc_idx ON public.impressions_2018_11_advertiser_132 USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_132_date_trunc_idx1 ON public.impressions_2018_11_advertiser_132 USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_132_displayed_at_date_idx ON public.impressions_2018_11_advertiser_132 USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_132_organization_id_idx ON public.impressions_2018_11_advertiser_132 USING btree (organization_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_132_property_id_idx ON public.impressions_2018_11_advertiser_132 USING btree (property_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_137_ad_template_idx ON public.impressions_2018_11_advertiser_137 USING btree (ad_template);
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_137_ad_theme_idx ON public.impressions_2018_11_advertiser_137 USING btree (ad_theme);
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_137_advertiser_id_idx ON public.impressions_2018_11_advertiser_137 USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_137_campaign_id_idx ON public.impressions_2018_11_advertiser_137 USING btree (campaign_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_137_clicked_at_date_idx ON public.impressions_2018_11_advertiser_137 USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_137_country_code_idx ON public.impressions_2018_11_advertiser_137 USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_137_creative_id_idx ON public.impressions_2018_11_advertiser_137 USING btree (creative_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_137_date_trunc_idx ON public.impressions_2018_11_advertiser_137 USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_137_date_trunc_idx1 ON public.impressions_2018_11_advertiser_137 USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_137_displayed_at_date_idx ON public.impressions_2018_11_advertiser_137 USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_137_organization_id_idx ON public.impressions_2018_11_advertiser_137 USING btree (organization_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_137_property_id_idx ON public.impressions_2018_11_advertiser_137 USING btree (property_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_144_ad_template_idx ON public.impressions_2018_11_advertiser_144 USING btree (ad_template);
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_144_ad_theme_idx ON public.impressions_2018_11_advertiser_144 USING btree (ad_theme);
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_144_advertiser_id_idx ON public.impressions_2018_11_advertiser_144 USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_144_campaign_id_idx ON public.impressions_2018_11_advertiser_144 USING btree (campaign_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_144_clicked_at_date_idx ON public.impressions_2018_11_advertiser_144 USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_144_country_code_idx ON public.impressions_2018_11_advertiser_144 USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_144_creative_id_idx ON public.impressions_2018_11_advertiser_144 USING btree (creative_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_144_date_trunc_idx ON public.impressions_2018_11_advertiser_144 USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_144_date_trunc_idx1 ON public.impressions_2018_11_advertiser_144 USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_144_displayed_at_date_idx ON public.impressions_2018_11_advertiser_144 USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_144_organization_id_idx ON public.impressions_2018_11_advertiser_144 USING btree (organization_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_144_property_id_idx ON public.impressions_2018_11_advertiser_144 USING btree (property_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_146_ad_template_idx ON public.impressions_2018_11_advertiser_146 USING btree (ad_template);
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_146_ad_theme_idx ON public.impressions_2018_11_advertiser_146 USING btree (ad_theme);
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_146_advertiser_id_idx ON public.impressions_2018_11_advertiser_146 USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_146_campaign_id_idx ON public.impressions_2018_11_advertiser_146 USING btree (campaign_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_146_clicked_at_date_idx ON public.impressions_2018_11_advertiser_146 USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_146_country_code_idx ON public.impressions_2018_11_advertiser_146 USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_146_creative_id_idx ON public.impressions_2018_11_advertiser_146 USING btree (creative_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_146_date_trunc_idx ON public.impressions_2018_11_advertiser_146 USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_146_date_trunc_idx1 ON public.impressions_2018_11_advertiser_146 USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_146_displayed_at_date_idx ON public.impressions_2018_11_advertiser_146 USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_146_organization_id_idx ON public.impressions_2018_11_advertiser_146 USING btree (organization_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_146_property_id_idx ON public.impressions_2018_11_advertiser_146 USING btree (property_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_155_ad_template_idx ON public.impressions_2018_11_advertiser_155 USING btree (ad_template);
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_155_ad_theme_idx ON public.impressions_2018_11_advertiser_155 USING btree (ad_theme);
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_155_advertiser_id_idx ON public.impressions_2018_11_advertiser_155 USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_155_campaign_id_idx ON public.impressions_2018_11_advertiser_155 USING btree (campaign_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_155_clicked_at_date_idx ON public.impressions_2018_11_advertiser_155 USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_155_country_code_idx ON public.impressions_2018_11_advertiser_155 USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_155_creative_id_idx ON public.impressions_2018_11_advertiser_155 USING btree (creative_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_155_date_trunc_idx ON public.impressions_2018_11_advertiser_155 USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_155_date_trunc_idx1 ON public.impressions_2018_11_advertiser_155 USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_155_displayed_at_date_idx ON public.impressions_2018_11_advertiser_155 USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_155_organization_id_idx ON public.impressions_2018_11_advertiser_155 USING btree (organization_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_155_property_id_idx ON public.impressions_2018_11_advertiser_155 USING btree (property_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_158_ad_template_idx ON public.impressions_2018_11_advertiser_158 USING btree (ad_template);
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_158_ad_theme_idx ON public.impressions_2018_11_advertiser_158 USING btree (ad_theme);
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_158_advertiser_id_idx ON public.impressions_2018_11_advertiser_158 USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_158_campaign_id_idx ON public.impressions_2018_11_advertiser_158 USING btree (campaign_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_158_clicked_at_date_idx ON public.impressions_2018_11_advertiser_158 USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_158_country_code_idx ON public.impressions_2018_11_advertiser_158 USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_158_creative_id_idx ON public.impressions_2018_11_advertiser_158 USING btree (creative_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_158_date_trunc_idx ON public.impressions_2018_11_advertiser_158 USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_158_date_trunc_idx1 ON public.impressions_2018_11_advertiser_158 USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_158_displayed_at_date_idx ON public.impressions_2018_11_advertiser_158 USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_158_organization_id_idx ON public.impressions_2018_11_advertiser_158 USING btree (organization_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_158_property_id_idx ON public.impressions_2018_11_advertiser_158 USING btree (property_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_160_ad_template_idx ON public.impressions_2018_11_advertiser_160 USING btree (ad_template);
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_160_ad_theme_idx ON public.impressions_2018_11_advertiser_160 USING btree (ad_theme);
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_160_advertiser_id_idx ON public.impressions_2018_11_advertiser_160 USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_160_campaign_id_idx ON public.impressions_2018_11_advertiser_160 USING btree (campaign_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_160_clicked_at_date_idx ON public.impressions_2018_11_advertiser_160 USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_160_country_code_idx ON public.impressions_2018_11_advertiser_160 USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_160_creative_id_idx ON public.impressions_2018_11_advertiser_160 USING btree (creative_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_160_date_trunc_idx ON public.impressions_2018_11_advertiser_160 USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_160_date_trunc_idx1 ON public.impressions_2018_11_advertiser_160 USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_160_displayed_at_date_idx ON public.impressions_2018_11_advertiser_160 USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_160_organization_id_idx ON public.impressions_2018_11_advertiser_160 USING btree (organization_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_160_property_id_idx ON public.impressions_2018_11_advertiser_160 USING btree (property_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_169_ad_template_idx ON public.impressions_2018_11_advertiser_169 USING btree (ad_template);
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_169_ad_theme_idx ON public.impressions_2018_11_advertiser_169 USING btree (ad_theme);
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_169_advertiser_id_idx ON public.impressions_2018_11_advertiser_169 USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_169_campaign_id_idx ON public.impressions_2018_11_advertiser_169 USING btree (campaign_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_169_clicked_at_date_idx ON public.impressions_2018_11_advertiser_169 USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_169_country_code_idx ON public.impressions_2018_11_advertiser_169 USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_169_creative_id_idx ON public.impressions_2018_11_advertiser_169 USING btree (creative_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_169_date_trunc_idx ON public.impressions_2018_11_advertiser_169 USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_169_date_trunc_idx1 ON public.impressions_2018_11_advertiser_169 USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_169_displayed_at_date_idx ON public.impressions_2018_11_advertiser_169 USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_169_organization_id_idx ON public.impressions_2018_11_advertiser_169 USING btree (organization_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_169_property_id_idx ON public.impressions_2018_11_advertiser_169 USING btree (property_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_185_ad_template_idx ON public.impressions_2018_11_advertiser_185 USING btree (ad_template);
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_185_ad_theme_idx ON public.impressions_2018_11_advertiser_185 USING btree (ad_theme);
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_185_advertiser_id_idx ON public.impressions_2018_11_advertiser_185 USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_185_campaign_id_idx ON public.impressions_2018_11_advertiser_185 USING btree (campaign_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_185_clicked_at_date_idx ON public.impressions_2018_11_advertiser_185 USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_185_country_code_idx ON public.impressions_2018_11_advertiser_185 USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_185_creative_id_idx ON public.impressions_2018_11_advertiser_185 USING btree (creative_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_185_date_trunc_idx ON public.impressions_2018_11_advertiser_185 USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_185_date_trunc_idx1 ON public.impressions_2018_11_advertiser_185 USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_185_displayed_at_date_idx ON public.impressions_2018_11_advertiser_185 USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_185_organization_id_idx ON public.impressions_2018_11_advertiser_185 USING btree (organization_id);
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_11_advertiser_185_property_id_idx ON public.impressions_2018_11_advertiser_185 USING btree (property_id);
+
+
+--
+-- Name: impressions_2018_12_advertise_id_advertiser_id_displayed_a_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2018_12_advertise_id_advertiser_id_displayed_a_idx1 ON public.impressions_2018_12_advertiser_137 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2018_12_advertise_id_advertiser_id_displayed_a_idx2; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2018_12_advertise_id_advertiser_id_displayed_a_idx2 ON public.impressions_2018_12_advertiser_185 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2018_12_advertise_id_advertiser_id_displayed_a_idx3; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2018_12_advertise_id_advertiser_id_displayed_a_idx3 ON public.impressions_2018_12_advertiser_123 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2018_12_advertise_id_advertiser_id_displayed_at_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2018_12_advertise_id_advertiser_id_displayed_at_idx ON public.impressions_2018_12_advertiser_158 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_123_ad_template_idx ON public.impressions_2018_12_advertiser_123 USING btree (ad_template);
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_123_ad_theme_idx ON public.impressions_2018_12_advertiser_123 USING btree (ad_theme);
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_123_advertiser_id_idx ON public.impressions_2018_12_advertiser_123 USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_123_campaign_id_idx ON public.impressions_2018_12_advertiser_123 USING btree (campaign_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_123_clicked_at_date_idx ON public.impressions_2018_12_advertiser_123 USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_123_country_code_idx ON public.impressions_2018_12_advertiser_123 USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_123_creative_id_idx ON public.impressions_2018_12_advertiser_123 USING btree (creative_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_123_date_trunc_idx ON public.impressions_2018_12_advertiser_123 USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_123_date_trunc_idx1 ON public.impressions_2018_12_advertiser_123 USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_123_displayed_at_date_idx ON public.impressions_2018_12_advertiser_123 USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_123_organization_id_idx ON public.impressions_2018_12_advertiser_123 USING btree (organization_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_123_property_id_idx ON public.impressions_2018_12_advertiser_123 USING btree (property_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_137_ad_template_idx ON public.impressions_2018_12_advertiser_137 USING btree (ad_template);
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_137_ad_theme_idx ON public.impressions_2018_12_advertiser_137 USING btree (ad_theme);
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_137_advertiser_id_idx ON public.impressions_2018_12_advertiser_137 USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_137_campaign_id_idx ON public.impressions_2018_12_advertiser_137 USING btree (campaign_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_137_clicked_at_date_idx ON public.impressions_2018_12_advertiser_137 USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_137_country_code_idx ON public.impressions_2018_12_advertiser_137 USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_137_creative_id_idx ON public.impressions_2018_12_advertiser_137 USING btree (creative_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_137_date_trunc_idx ON public.impressions_2018_12_advertiser_137 USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_137_date_trunc_idx1 ON public.impressions_2018_12_advertiser_137 USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_137_displayed_at_date_idx ON public.impressions_2018_12_advertiser_137 USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_137_organization_id_idx ON public.impressions_2018_12_advertiser_137 USING btree (organization_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_137_property_id_idx ON public.impressions_2018_12_advertiser_137 USING btree (property_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_158_ad_template_idx ON public.impressions_2018_12_advertiser_158 USING btree (ad_template);
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_158_ad_theme_idx ON public.impressions_2018_12_advertiser_158 USING btree (ad_theme);
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_158_advertiser_id_idx ON public.impressions_2018_12_advertiser_158 USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_158_campaign_id_idx ON public.impressions_2018_12_advertiser_158 USING btree (campaign_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_158_clicked_at_date_idx ON public.impressions_2018_12_advertiser_158 USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_158_country_code_idx ON public.impressions_2018_12_advertiser_158 USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_158_creative_id_idx ON public.impressions_2018_12_advertiser_158 USING btree (creative_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_158_date_trunc_idx ON public.impressions_2018_12_advertiser_158 USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_158_date_trunc_idx1 ON public.impressions_2018_12_advertiser_158 USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_158_displayed_at_date_idx ON public.impressions_2018_12_advertiser_158 USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_158_organization_id_idx ON public.impressions_2018_12_advertiser_158 USING btree (organization_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_158_property_id_idx ON public.impressions_2018_12_advertiser_158 USING btree (property_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_185_ad_template_idx ON public.impressions_2018_12_advertiser_185 USING btree (ad_template);
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_185_ad_theme_idx ON public.impressions_2018_12_advertiser_185 USING btree (ad_theme);
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_185_advertiser_id_idx ON public.impressions_2018_12_advertiser_185 USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_185_campaign_id_idx ON public.impressions_2018_12_advertiser_185 USING btree (campaign_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_185_clicked_at_date_idx ON public.impressions_2018_12_advertiser_185 USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_185_country_code_idx ON public.impressions_2018_12_advertiser_185 USING btree (country_code);
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_185_creative_id_idx ON public.impressions_2018_12_advertiser_185 USING btree (creative_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_185_date_trunc_idx ON public.impressions_2018_12_advertiser_185 USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_185_date_trunc_idx1 ON public.impressions_2018_12_advertiser_185 USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_185_displayed_at_date_idx ON public.impressions_2018_12_advertiser_185 USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_185_organization_id_idx ON public.impressions_2018_12_advertiser_185 USING btree (organization_id);
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2018_12_advertiser_185_property_id_idx ON public.impressions_2018_12_advertiser_185 USING btree (property_id);
+
+
+--
+-- Name: impressions_default_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_ad_template_idx ON public.impressions_default USING btree (ad_template);
+
+
+--
+-- Name: impressions_default_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_ad_theme_idx ON public.impressions_default USING btree (ad_theme);
+
+
+--
+-- Name: impressions_default_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_advertiser_id_idx ON public.impressions_default USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_default_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_campaign_id_idx ON public.impressions_default USING btree (campaign_id);
+
+
+--
+-- Name: impressions_default_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_clicked_at_date_idx ON public.impressions_default USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_default_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_country_code_idx ON public.impressions_default USING btree (country_code);
+
+
+--
+-- Name: impressions_default_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_creative_id_idx ON public.impressions_default USING btree (creative_id);
+
+
+--
+-- Name: impressions_default_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_date_trunc_idx ON public.impressions_default USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_default_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_date_trunc_idx1 ON public.impressions_default USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_default_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_displayed_at_date_idx ON public.impressions_default USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_default_id_advertiser_id_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_default_id_advertiser_id_displayed_at_date_idx ON public.impressions_default USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_default_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_organization_id_idx ON public.impressions_default USING btree (organization_id);
 
 
 --
@@ -1319,6 +2901,13 @@ CREATE INDEX index_events_on_user_id ON public.events USING btree (user_id);
 
 
 --
+-- Name: index_organization_transactions_on_gift_credit; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organization_transactions_on_gift_credit ON public.organization_transactions USING btree (gift_credit);
+
+
+--
 -- Name: index_organization_transactions_on_organization_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1508,6 +3097,1280 @@ CREATE INDEX index_versions_on_object_changes ON public.versions USING gin (obje
 
 
 --
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx1;
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx2; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx2;
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx3; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx3;
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx4; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx4;
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx5; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx5;
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx6; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx6;
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx7; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx7;
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx8; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx8;
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx9; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertise_id_advertiser_id_displayed_a_idx9;
+
+
+--
+-- Name: impressions_2018_11_advertise_id_advertiser_id_displayed_at_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertise_id_advertiser_id_displayed_at_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_123_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2018_11_advertiser_123_ad_template_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_123_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2018_11_advertiser_123_ad_theme_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_123_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2018_11_advertiser_123_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_123_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2018_11_advertiser_123_campaign_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_123_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_123_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_123_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_11_advertiser_123_country_code_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_123_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2018_11_advertiser_123_creative_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_123_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_123_date_trunc_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_123_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_123_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2018_11_advertiser_123_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_123_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_123_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2018_11_advertiser_123_organization_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_123_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2018_11_advertiser_123_property_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2018_11_advertiser_132_ad_template_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2018_11_advertiser_132_ad_theme_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2018_11_advertiser_132_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2018_11_advertiser_132_campaign_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_132_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_11_advertiser_132_country_code_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2018_11_advertiser_132_creative_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_132_date_trunc_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_132_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_132_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2018_11_advertiser_132_organization_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_132_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2018_11_advertiser_132_property_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2018_11_advertiser_137_ad_template_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2018_11_advertiser_137_ad_theme_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2018_11_advertiser_137_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2018_11_advertiser_137_campaign_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_137_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_11_advertiser_137_country_code_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2018_11_advertiser_137_creative_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_137_date_trunc_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_137_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_137_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2018_11_advertiser_137_organization_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_137_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2018_11_advertiser_137_property_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2018_11_advertiser_144_ad_template_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2018_11_advertiser_144_ad_theme_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2018_11_advertiser_144_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2018_11_advertiser_144_campaign_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_144_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_11_advertiser_144_country_code_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2018_11_advertiser_144_creative_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_144_date_trunc_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_144_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_144_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2018_11_advertiser_144_organization_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_144_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2018_11_advertiser_144_property_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2018_11_advertiser_146_ad_template_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2018_11_advertiser_146_ad_theme_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2018_11_advertiser_146_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2018_11_advertiser_146_campaign_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_146_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_11_advertiser_146_country_code_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2018_11_advertiser_146_creative_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_146_date_trunc_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_146_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_146_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2018_11_advertiser_146_organization_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_146_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2018_11_advertiser_146_property_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2018_11_advertiser_155_ad_template_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2018_11_advertiser_155_ad_theme_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2018_11_advertiser_155_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2018_11_advertiser_155_campaign_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_155_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_11_advertiser_155_country_code_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2018_11_advertiser_155_creative_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_155_date_trunc_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_155_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_155_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2018_11_advertiser_155_organization_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_155_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2018_11_advertiser_155_property_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2018_11_advertiser_158_ad_template_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2018_11_advertiser_158_ad_theme_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2018_11_advertiser_158_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2018_11_advertiser_158_campaign_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_158_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_11_advertiser_158_country_code_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2018_11_advertiser_158_creative_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_158_date_trunc_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_158_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_158_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2018_11_advertiser_158_organization_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_158_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2018_11_advertiser_158_property_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2018_11_advertiser_160_ad_template_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2018_11_advertiser_160_ad_theme_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2018_11_advertiser_160_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2018_11_advertiser_160_campaign_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_160_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_11_advertiser_160_country_code_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2018_11_advertiser_160_creative_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_160_date_trunc_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_160_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_160_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2018_11_advertiser_160_organization_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_160_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2018_11_advertiser_160_property_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2018_11_advertiser_169_ad_template_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2018_11_advertiser_169_ad_theme_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2018_11_advertiser_169_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2018_11_advertiser_169_campaign_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_169_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_11_advertiser_169_country_code_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2018_11_advertiser_169_creative_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_169_date_trunc_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_169_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_169_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2018_11_advertiser_169_organization_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_169_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2018_11_advertiser_169_property_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2018_11_advertiser_185_ad_template_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2018_11_advertiser_185_ad_theme_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2018_11_advertiser_185_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2018_11_advertiser_185_campaign_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_185_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_11_advertiser_185_country_code_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2018_11_advertiser_185_creative_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_185_date_trunc_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2018_11_advertiser_185_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2018_11_advertiser_185_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2018_11_advertiser_185_organization_id_idx;
+
+
+--
+-- Name: impressions_2018_11_advertiser_185_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2018_11_advertiser_185_property_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertise_id_advertiser_id_displayed_a_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2018_12_advertise_id_advertiser_id_displayed_a_idx1;
+
+
+--
+-- Name: impressions_2018_12_advertise_id_advertiser_id_displayed_a_idx2; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2018_12_advertise_id_advertiser_id_displayed_a_idx2;
+
+
+--
+-- Name: impressions_2018_12_advertise_id_advertiser_id_displayed_a_idx3; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2018_12_advertise_id_advertiser_id_displayed_a_idx3;
+
+
+--
+-- Name: impressions_2018_12_advertise_id_advertiser_id_displayed_at_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2018_12_advertise_id_advertiser_id_displayed_at_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2018_12_advertiser_123_ad_template_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2018_12_advertiser_123_ad_theme_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2018_12_advertiser_123_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2018_12_advertiser_123_campaign_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2018_12_advertiser_123_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_12_advertiser_123_country_code_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2018_12_advertiser_123_creative_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2018_12_advertiser_123_date_trunc_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2018_12_advertiser_123_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2018_12_advertiser_123_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2018_12_advertiser_123_organization_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_123_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2018_12_advertiser_123_property_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2018_12_advertiser_137_ad_template_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2018_12_advertiser_137_ad_theme_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2018_12_advertiser_137_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2018_12_advertiser_137_campaign_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2018_12_advertiser_137_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_12_advertiser_137_country_code_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2018_12_advertiser_137_creative_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2018_12_advertiser_137_date_trunc_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2018_12_advertiser_137_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2018_12_advertiser_137_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2018_12_advertiser_137_organization_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_137_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2018_12_advertiser_137_property_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2018_12_advertiser_158_ad_template_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2018_12_advertiser_158_ad_theme_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2018_12_advertiser_158_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2018_12_advertiser_158_campaign_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2018_12_advertiser_158_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_12_advertiser_158_country_code_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2018_12_advertiser_158_creative_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2018_12_advertiser_158_date_trunc_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2018_12_advertiser_158_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2018_12_advertiser_158_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2018_12_advertiser_158_organization_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_158_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2018_12_advertiser_158_property_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2018_12_advertiser_185_ad_template_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2018_12_advertiser_185_ad_theme_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2018_12_advertiser_185_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2018_12_advertiser_185_campaign_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2018_12_advertiser_185_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2018_12_advertiser_185_country_code_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2018_12_advertiser_185_creative_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2018_12_advertiser_185_date_trunc_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2018_12_advertiser_185_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2018_12_advertiser_185_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2018_12_advertiser_185_organization_id_idx;
+
+
+--
+-- Name: impressions_2018_12_advertiser_185_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2018_12_advertiser_185_property_id_idx;
+
+
+--
 -- Name: impressions_default_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
 --
 
@@ -1623,6 +4486,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181220153811'),
 ('20181220153958'),
 ('20181220201430'),
-('20181221205112');
+('20181221205112'),
+('20181222164913');
 
 

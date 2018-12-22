@@ -4,21 +4,30 @@
 <% end %>
 
 <% content_for :actions do %>
-
-  <ul class="nav" style="width: 130px; justify-content: flex-end;">
-    <li><%= render "/@shared/actions/edit_organization", organization: organization %></li>
-    <li class="ml-1"><%= render "/@shared/actions/list_organization_transactions", organization: organization %></li>
-  </ul>
-  
+  <%= render "/@shared/actions/edit_organization", organization: organization %>
 <% end %>
 
 <% content_for :page_heading do %>
-  <%= page_heading organization.name, "",
+  <%= page_heading "", organization.name,
     icon: "fas fa-building" %>
 <% end %>
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
+    <ul class="nav nav-classic">
+      <%= tag.li(active_link_to("Details", organization, active: :exact,
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Members", organization_users_path(organization),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link"))  %>
+      <%= tag.li(active_link_to("Transactions", organization_transactions_path(organization),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Comments", organization_comments_path(organization),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Events", organization_events_path(organization),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Revisions", organization_versions_path(organization),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+    </ul>
     <div class="bg-white border p-4">
       <%= yield %>
     </div>

@@ -67,9 +67,10 @@ class OrganizationTransactionsController < ApplicationController
     params.require(:organization_transaction).
       permit(
         :amount,
-        :transaction_type,
+        :description,
+        :gift_credit,
         :reference,
-        :description
+        :transaction_type
       ).tap do |whitelisted|
         whitelisted[:posted_at] = Date.strptime(params[:organization_transaction][:posted_at], "%m/%d/%Y")
       end

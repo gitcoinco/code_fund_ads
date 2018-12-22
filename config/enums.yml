@@ -136,6 +136,11 @@ ORGANIZATION_TRANSACTION_TYPES:
   - debit
   - credit
 
+ORGANIZATION_SEARCH_DIRECTIONS:
+  - positive
+  - negative
+  - zero
+
 # SEE: https://dev.maxmind.com/geoip/legacy/codes/iso3166/
 COUNTRIES:
   #A1: Anonymous Proxy

@@ -5,11 +5,15 @@ class UsersController < ApplicationController
   before_action :authenticate_administrator!, except: [:show, :edit, :update]
   before_action :set_user_search, only: [:index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_organization, only: [:index], if: -> { params[:organization_id].present? }
 
   def index
     users = User.includes(:organization).include_image_count.order(order_by)
     users = @user_search.apply(users)
+    users = users.where(organization: @organization) if @organization
     @pagy, @users = pagy(users)
+
+    render "/users/for_organization/index" if @organization
   end
 
   def new
@@ -64,6 +68,10 @@ class UsersController < ApplicationController
     else
       current_user
     end
+  end
+
+  def set_organization
+    @organization = Organization.find(params[:organization_id])
   end
 
   def user_params

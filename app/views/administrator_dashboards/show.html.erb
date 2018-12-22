@@ -32,6 +32,24 @@
         color: "btn-soft-warning" %>
     </div>
 
+    <div class="card-deck d-block d-lg-flex card-lg-gutters-2 mb-3">
+      <%= render "/@shared/widgets/stat_card",
+        label: "Gross Revenue",
+        value: @total_revenue.format,
+        icon: "fas fa-file-invoice-dollar",
+        color: "btn-soft-success" %>
+      <%= render "/@shared/widgets/stat_card",
+        label: "Distributions",
+        value: @total_revenue.format,
+        icon: "fas fa-envelope-open-dollar",
+        color: "btn-soft-danger" %>
+      <%= render "/@shared/widgets/stat_card",
+        label: "Gross Profit",
+        value: @total_profit.format,
+        icon: "fas fa-piggy-bank",
+        color: "btn-soft-primary" %>
+    </div>
+
     <div class="text-center mb-3 mt-5">
       <span class="u-divider u-divider--xs u-divider--text">Active Campaigns</span>
     </div>

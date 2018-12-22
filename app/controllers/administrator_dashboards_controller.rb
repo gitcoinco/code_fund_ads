@@ -10,5 +10,8 @@ class AdministratorDashboardsController < ApplicationController
     else
       0.0
     end
+    @total_revenue = Money.new 0, "USD"
+    @total_distributions = Money.new 0, "USD"
+    @total_profit = Money.new 0, "USD"
   end
 end
