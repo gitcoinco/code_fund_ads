@@ -39,6 +39,7 @@ class DownloadAndExtractMaxmindFileJob < ApplicationJob
 
   def unzip
     unzipped_path = MAXMIND_PATH.sub(/\.gz\z/, "")
+    FileUtils.rm_rf unzipped_path
     File.open unzipped_path, "wb" do |unzipped_file|
       Zlib::GzipReader.open MAXMIND_PATH do |zipped_file|
         zipped_file.each_line { |line| unzipped_file.write line }
@@ -62,6 +63,5 @@ class DownloadAndExtractMaxmindFileJob < ApplicationJob
         end
       end
     end
-    FileUtils.rm_rf tarred_path
   end
 end
