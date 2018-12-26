@@ -7,6 +7,9 @@ class AdvertisementsController < ApplicationController
   after_action :create_virtual_impression, if: -> { @campaign.present? }
 
   def show
+    # TODO: deprecate legacy support on 2019-04-01
+    return render_legacy_show if request.format.json?
+
     @target = params[:target] || "codefund_ad"
 
     if @campaign
@@ -15,16 +18,23 @@ class AdvertisementsController < ApplicationController
       @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
     end
 
-    status = @advertisement_html ? :ok : :not_found
-
     respond_to do |format|
       format.js
-      format.json { render "/advertisements/show", status: status }
-      format.html { render "/advertisements/show", status: status, layout: false }
+      format.html { render "/advertisements/show", status: @advertisement_html ? :ok : :not_found, layout: false }
     end
   end
 
   protected
+
+  # TODO: deprecate legacy support on 2019-04-01
+  def render_legacy_show
+    if @campaign
+      @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
+      @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
+    end
+    response.status = :not_found unless @campaign
+    respond_to :json
+  end
 
   def set_virtual_impression_id
     @virtual_impression_id ||= SecureRandom.uuid
@@ -59,9 +69,10 @@ class AdvertisementsController < ApplicationController
     hour.between? prohibited_hour_start, prohibited_hour_end
   end
 
+  # TODO: deprecate legacy support on 2019-04-01
   def property_id
-    @property_id ||= params[:legacy_id].present? ?
-      Property.where(legacy_id: params[:legacy_id]).pluck(:id).first.to_i :
+    @property_id ||= params[:legacy_property_id].present? ?
+      Property.where(legacy_id: params[:legacy_property_id]).pluck(:id).first.to_i :
       params[:property_id].to_i
   end
 
