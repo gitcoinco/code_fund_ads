@@ -12,7 +12,7 @@ class OrganizationTransactionsController < ApplicationController
   end
 
   def new
-    @organization_transaction = @organization.organization_transactions.build
+    @organization_transaction = @organization.organization_transactions.build(posted_at: Date.current)
   end
 
   def create
