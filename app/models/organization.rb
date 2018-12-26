@@ -39,7 +39,7 @@ class Organization < ApplicationRecord
   scope :with_negative_balance, -> { where(Organization.arel_table[:balance_cents].lt(0)) }
   scope :with_zero_balance, -> { where(balance_cents: 0) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
-  scope :search_balance_direction, ->(value) { 
+  scope :search_balance_direction, ->(value) {
     case value
       when ENUMS::ORGANIZATION_SEARCH_DIRECTIONS::POSITIVE then with_positive_balance
       when ENUMS::ORGANIZATION_SEARCH_DIRECTIONS::NEGATIVE then with_negative_balance
