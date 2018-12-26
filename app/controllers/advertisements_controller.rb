@@ -15,10 +15,12 @@ class AdvertisementsController < ApplicationController
       @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
     end
 
+    status = @advertisement_html ? :ok : :not_found
+
     respond_to do |format|
-      format.html { render "/advertisements/show", layout: false, status: @advertisement_html ? :ok : :not_found }
       format.js
-      format.json { render "/advertisements/show", status: @advertisement_html ? :ok : :not_found }
+      format.json { render "/advertisements/show", status: status }
+      format.html { render "/advertisements/show", status: status, layout: false }
     end
   end
 
