@@ -86,7 +86,7 @@ Rails.application.routes.draw do
     resource :property_dashboards, only: [:show], path: "/overview"
     resources :property_campaigns, only: [:index], path: "/campaigns"
     resources :versions, only: [:index], as: :property_versions, path: "/revisions"
-    resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { req.format == :js }
+    resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { [:js, :json, :html].any? req.format }
     resource :advertisement_previews, only: [:show], path: "/preview" if Rails.env.development?
     resources :comments, only: [:index], as: :property_comments
     resources :events, only: [:index], as: :property_events

@@ -8,13 +8,18 @@ class AdvertisementsController < ApplicationController
 
   def show
     @target = params[:target] || "codefund_ad"
+
     if @campaign
       @advertisement_html = render_advertisement
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
       @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
     end
 
-    respond_to { |format| format.js }
+    respond_to do |format|
+      format.html { render "/advertisements/show", layout: false, status: @advertisement_html ? :ok : :not_found }
+      format.js
+      format.json { render "/advertisements/show", status: @advertisement_html ? :ok : :not_found }
+    end
   end
 
   protected
