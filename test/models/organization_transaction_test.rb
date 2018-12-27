@@ -12,6 +12,7 @@
 #  reference        :text
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  gift             :boolean          default(FALSE)
 #
 
 require "test_helper"

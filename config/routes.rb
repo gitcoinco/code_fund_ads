@@ -29,6 +29,10 @@ Rails.application.routes.draw do
   resources :organizations
   scope "/organization/:organization_id/" do
     resources :organization_transactions, path: "/transactions"
+    resources :users, path: "/members", as: :organization_users
+    resources :comments, only: [:index], as: :organization_comments
+    resources :events, only: [:index], as: :organization_events
+    resources :versions, only: [:index], as: :organization_versions, path: "/revisions"
   end
 
   # polymorphic based on: app/models/concerns/imageable.rb
@@ -104,7 +108,7 @@ Rails.application.routes.draw do
     resources :campaigns, only: [:index], as: :user_campaigns
     resources :properties, only: [:index], as: :user_properties
     resources :creatives, only: [:index], as: :user_creatives
-    resources :versions, only: [:index], as: :user_versions
+    resources :versions, only: [:index], as: :user_versions, path: "/revisions"
     resources :comments, only: [:index], as: :user_comments
     resources :events, only: [:index], as: :user_events
     resource :identicon, only: [:show], format: :png, as: :user_identicon, path: "/identicon.png"

@@ -9,7 +9,6 @@
       <ul class="list-unstyled mb-0">
         <%= details_li("Name") { @organization.name } %>
         <%= details_li("Balance") { link_to @organization.balance.format, organization_transactions_path(@organization) } %>
-        <%= details_li("# Users") { @organization.users.count } %>
       </ul>
     </div>
   </div>

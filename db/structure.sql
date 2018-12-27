@@ -408,7 +408,8 @@ CREATE TABLE public.organization_transactions (
     description text,
     reference text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    gift boolean DEFAULT false
 );
 
 
@@ -1319,6 +1320,13 @@ CREATE INDEX index_events_on_user_id ON public.events USING btree (user_id);
 
 
 --
+-- Name: index_organization_transactions_on_gift; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organization_transactions_on_gift ON public.organization_transactions USING btree (gift);
+
+
+--
 -- Name: index_organization_transactions_on_organization_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1623,6 +1631,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181220153811'),
 ('20181220153958'),
 ('20181220201430'),
-('20181221205112');
+('20181221205112'),
+('20181222164913');
 
 

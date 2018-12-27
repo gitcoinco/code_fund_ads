@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
+  before_action :set_organization, only: [:index], if: -> { params[:organization_id].present? }
   before_action :set_campaign, only: [:index], if: -> { params[:campaign_id].present? }
   before_action :set_property, only: [:index], if: -> { params[:property_id].present? }
   before_action :set_applicant, only: [:index], if: -> { params[:applicant_id].present? }
@@ -9,10 +10,11 @@ class CommentsController < ApplicationController
   def index
     @comments = @commentable.comment_threads
 
-    render "/comments/for_user/index"      if @commentable.is_a? User
-    render "/comments/for_campaign/index"  if @commentable.is_a? Campaign
-    render "/comments/for_property/index"  if @commentable.is_a? Property
-    render "/comments/for_applicant/index" if @commentable.is_a? Applicant
+    render "/comments/for_user/index"         if @commentable.is_a? User
+    render "/comments/for_organization/index" if @commentable.is_a? Organization
+    render "/comments/for_campaign/index"     if @commentable.is_a? Campaign
+    render "/comments/for_property/index"     if @commentable.is_a? Property
+    render "/comments/for_applicant/index"    if @commentable.is_a? Applicant
   end
 
   def create
@@ -31,6 +33,10 @@ class CommentsController < ApplicationController
 
   def set_user
     @commentable = User.find(params[:user_id])
+  end
+
+  def set_organization
+    @commentable = Organization.find(params[:organization_id])
   end
 
   def set_campaign

@@ -23,7 +23,8 @@ class OrganizationSearchesController < ApplicationController
 
   def organization_search_params
     params.require(:organization_search).permit(
-      :name
+      :name,
+      :balance_direction
     )
   end
 end

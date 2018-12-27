@@ -12,6 +12,7 @@
 #  reference        :text
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  gift             :boolean          default(FALSE)
 #
 
 class OrganizationTransaction < ApplicationRecord
@@ -30,8 +31,9 @@ class OrganizationTransaction < ApplicationRecord
   after_commit :update_organization_balance, on: [:create, :update, :destroy]
 
   # scopes ....................................................................
-  scope :debits, -> { where(transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::DEBIT)}
-  scope :credits, -> { where(transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::CREDIT)}
+  scope :debits, -> { where(transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::DEBIT) }
+  scope :credits, -> { where(transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::CREDIT) }
+  scope :gift, -> { where(gift: true) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   monetize :amount_cents, numericality: true

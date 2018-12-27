@@ -1,6 +1,7 @@
 class VersionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
+  before_action :set_organization, only: [:index], if: -> { params[:organization_id].present? }
   before_action :set_campaign, only: [:index], if: -> { params[:campaign_id].present? }
   before_action :set_property, only: [:index], if: -> { params[:property_id].present? }
   before_action :set_versionable, only: [:show, :update]
@@ -9,9 +10,10 @@ class VersionsController < ApplicationController
   def index
     @versions = @versionable.versions
 
-    render "/versions/for_user/index"     if @versionable.is_a? User
-    render "/versions/for_campaign/index" if @versionable.is_a? Campaign
-    render "/versions/for_property/index" if @versionable.is_a? Property
+    render "/versions/for_user/index"         if @versionable.is_a? User
+    render "/versions/for_organization/index" if @versionable.is_a? Organization
+    render "/versions/for_campaign/index"     if @versionable.is_a? Campaign
+    render "/versions/for_property/index"     if @versionable.is_a? Property
   end
 
   def show
@@ -28,6 +30,10 @@ class VersionsController < ApplicationController
 
   def set_user
     @versionable = User.find(params[:user_id])
+  end
+
+  def set_organization
+    @versionable = Organization.find(params[:organization_id])
   end
 
   def set_campaign

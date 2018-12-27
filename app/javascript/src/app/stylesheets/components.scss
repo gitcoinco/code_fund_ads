@@ -179,6 +179,10 @@ tr.border-bottom td {
   background-color: rgba(255,255,255,0.9);
 }
 
+.text-link {
+  border-bottom: 1px dotted #969696;
+}
+
 /* --- Remove after no longer beta */
 body:after{
   content: "beta";

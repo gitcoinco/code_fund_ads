@@ -12,7 +12,7 @@ class OrganizationTransactionsController < ApplicationController
   end
 
   def new
-    @organization_transaction = @organization.organization_transactions.build
+    @organization_transaction = @organization.organization_transactions.build(posted_at: Date.current)
   end
 
   def create
@@ -67,9 +67,10 @@ class OrganizationTransactionsController < ApplicationController
     params.require(:organization_transaction).
       permit(
         :amount,
-        :transaction_type,
+        :description,
+        :gift,
         :reference,
-        :description
+        :transaction_type
       ).tap do |whitelisted|
         whitelisted[:posted_at] = Date.strptime(params[:organization_transaction][:posted_at], "%m/%d/%Y")
       end

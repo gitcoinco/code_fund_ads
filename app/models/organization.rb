@@ -15,6 +15,7 @@ class Organization < ApplicationRecord
 
   # includes ..................................................................
   include Organizations::Developable
+  include Eventable
 
   # relationships .............................................................
   has_many :campaigns
@@ -34,10 +35,25 @@ class Organization < ApplicationRecord
   # callbacks .................................................................
 
   # scopes ....................................................................
+  scope :with_positive_balance, -> { where(Organization.arel_table[:balance_cents].gt(0)) }
+  scope :with_negative_balance, -> { where(Organization.arel_table[:balance_cents].lt(0)) }
+  scope :with_zero_balance, -> { where(balance_cents: 0) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
+  scope :search_balance_direction, ->(value) {
+    case value
+      when ENUMS::ORGANIZATION_SEARCH_DIRECTIONS::POSITIVE then with_positive_balance
+      when ENUMS::ORGANIZATION_SEARCH_DIRECTIONS::NEGATIVE then with_negative_balance
+      when ENUMS::ORGANIZATION_SEARCH_DIRECTIONS::ZERO     then with_zero_balance
+      else all
+    end
+  }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   monetize :balance_cents, numericality: true
+  acts_as_commentable
+  has_paper_trail on: %i[update destroy], only: %i[
+    name
+  ]
 
   # class methods .............................................................
   class << self
@@ -54,7 +70,7 @@ class Organization < ApplicationRecord
   end
 
   def recalculate_balance!
-    update_attribute(:balance, total_debits - total_credits)
+    update_attribute(:balance, total_credits - total_debits)
   end
 
   # protected instance methods ................................................
