@@ -68,7 +68,7 @@ class OrganizationTransactionsController < ApplicationController
       permit(
         :amount,
         :description,
-        :gift_credit,
+        :gift,
         :reference,
         :transaction_type
       ).tap do |whitelisted|

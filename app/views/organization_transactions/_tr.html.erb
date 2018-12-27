@@ -6,7 +6,7 @@
     <%= link_to organization_transaction.amount.format,
           organization_transaction_path(organization, organization_transaction), class: "text-link" %>
   </td>
-  <td class="align-middle text-secondary"><%= organization_transaction.gift_credit? ? "Yes" : "No" %></td>
+  <td class="align-middle text-secondary"><%= organization_transaction.gift? ? "Yes" : "No" %></td>
   <td class="align-middle text-secondary"><%= organization_transaction.reference %></td>
   <td class="align-middle text-secondary"><%= organization_transaction.description %></td>
 <% end %>
