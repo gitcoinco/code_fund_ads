@@ -30,7 +30,6 @@ axios.get('https://api.codefund.app/properties/1/funder.html')
 
   + Parameters
     + property_id (number, required) - The property id
-      _will be deprecated on 2019-04-01_
     + template (enum[string], optional) - The ad template to use
       _overrides property config_
       + `bottom-bar`
