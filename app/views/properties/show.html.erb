@@ -1,13 +1,13 @@
 <%= render layout: "/properties/show_layout", locals: { property: @property } do %>
   <div class="row">
     <div class="col-md-6 col-lg-4">
-      <%= render "/properties/card", property: @property, start_date: @property.created_at.to_date, end_date: Date.current  %>
+      <%= render "/properties/card", property: @property, start_date: @start_date, end_date: @end_date  %>
     </div>
     <div class="col-md-6 col-lg-8">
-      <h4 class="h5 mb-3">
+      <h3 class="h5 mb-3 flex-grow-1">
         Details
         <small class="text-muted d-block">Basic details for this property</small>
-      </h4>
+      </h3>
 
       <ul class="list-unstyled mb-0">
         <%= details_li("Name") { @property.name } %>
