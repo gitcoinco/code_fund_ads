@@ -6,12 +6,13 @@
     </td>
   <% end %>
   <td class="align-middle text-secondary"><%= campaign.end_date.strftime("%b %-d, %Y") %></td>
-  <td class="align-middle text-secondary"><%= campaign.total_budget.format %></td>
+  <td class="align-middle text-secondary text-right"><%= campaign.total_budget.format %></td>
   <td class="align-middle text-<%= campaign_status_color(campaign.status) %>">
     <span class="fas fa-circle small mr-1"></span>
     <%= campaign.status.humanize %>
   </td>
   <td><%= sparkline campaign.sparkline_impressions(@start_date, @end_date) %></td>
+  <td class="align-middle text-secondary text-right"><%= number_to_percentage campaign.click_rate(@start_date, @end_date), precision: 2 %></td>
   <td class="align-middle text-right text-secondary">
     <%= render "/@shared/table_buttons/edit", link: edit_campaign_path(campaign) %>
   </td>
