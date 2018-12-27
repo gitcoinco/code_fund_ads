@@ -162,4 +162,19 @@ module Impressionable
     return 0 if impressions_count.zero?
     (clicks_count / impressions_count.to_f) * 100
   end
+
+  def daily_click_rates(start_date = nil, end_date = nil)
+    icounts = daily_impressions_counts(start_date, end_date)
+    ccounts = daily_clicks_counts(start_date, end_date)
+    icounts.map.with_index do |icount, i|
+      icount > 0 ? (ccounts[i] / icount.to_f) * 100 : 0
+    end
+  end
+
+  def click_rate(start_date = nil, end_date = nil)
+    impressions = daily_impressions_counts(start_date, end_date).sum
+    return 0 if impressions.zero?
+    clicks = daily_clicks_counts(start_date, end_date).sum
+    (clicks / impressions.to_f) * 100
+  end
 end
