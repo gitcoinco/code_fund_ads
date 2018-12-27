@@ -1,0 +1,69 @@
+{
+  "projectName": "code_fund_ads",
+  "projectOwner": "gitcoinco",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "hopsoft",
+      "name": "Nathan Hopkins",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/32920?v=4",
+      "profile": "https://twitter.com/@hopsoft",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "infra",
+        "platform",
+        "review"
+      ]
+    },
+    {
+      "login": "coderberry",
+      "name": "Eric Berry",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/12481?v=4",
+      "profile": "https://codefund.io",
+      "contributions": [
+        "code",
+        "doc",
+        "ideas",
+        "infra",
+        "platform",
+        "review"
+      ]
+    },
+    {
+      "login": "brascoder",
+      "name": "Ron Cooke",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/5496174?v=4",
+      "profile": "http://thebrascode.com",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    },
+    {
+      "login": "barbeque",
+      "name": "Mike",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/423811?v=4",
+      "profile": "https://github.com/barbeque",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "arku",
+      "name": "Arun Kumar",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/7039523?v=4",
+      "profile": "https://github.com/arku",
+      "contributions": [
+        "doc"
+      ]
+    }
+  ]
+}
