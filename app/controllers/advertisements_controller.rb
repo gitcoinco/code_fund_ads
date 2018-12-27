@@ -2,6 +2,7 @@ class AdvertisementsController < ApplicationController
   include AdRenderable
 
   protect_from_forgery except: :show
+  before_action :set_cors_headers
   before_action :set_campaign
   before_action :set_virtual_impression_id, if: -> { @campaign.present? }
   after_action :create_virtual_impression, if: -> { @campaign.present? }
@@ -139,5 +140,12 @@ class AdvertisementsController < ApplicationController
       property_id: property_id,
       ip_address: request.remote_ip,
     }, expires_in: 30.seconds
+  end
+
+  def set_cors_headers
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "POST, PUT, DELETE, GET, OPTIONS"
+    response.headers["Access-Control-Request-Method"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   end
 end
