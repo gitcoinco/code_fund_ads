@@ -1,6 +1,11 @@
 {
   "name": "code_fund_ads",
   "private": true,
+  "license": "CC BY-NC-SA 4.0",
+  "scripts": {
+    "contributors:add": "all-contributors add",
+    "contributors:generate": "all-contributors generate"
+  },
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
     "@rails/webpacker": "3.5",
@@ -14,6 +19,7 @@
     "stimulus": "^1.1.0"
   },
   "devDependencies": {
+    "all-contributors-cli": "^5.4.1",
     "prettier": "1.14.3",
     "webpack-dev-server": "2.11.2"
   }

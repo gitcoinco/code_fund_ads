@@ -1,8 +1,13 @@
+# CodeFund Ads
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
+
+CodeFund Ads is an ethical and discreet ad platform that funds open-source.
+It helps your favorite projects thrive by paying maintainers the majority of all generated revenue.
+
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
 ## Table of Contents
 
-- [CodeFund Ads](#codefund-ads)
   - [Publisher JavaScript Embedding](#publisher-javascript-embedding)
     - [Optional Query String Parameters](#optional-query-string-parameters)
   - [API](#api)
@@ -18,15 +23,9 @@
     - [Database](#database)
   - [Maxmind](#maxmind)
   - [Candidates for GEM extraction](#candidates-for-gem-extraction)
+  - [Contributors](#contributors)
 
 <!-- Tocer[finish]: Auto-generated, don't remove. -->
-
-[![](https://travis-ci.org/gitcoinco/code_fund_ads.svg?branch=master)](https://travis-ci.org/gitcoinco/code_fund_ads#)
-
-# CodeFund Ads
-
-CodeFund Ads is an ethical and discreet ad platform that funds open-source.
-It helps your favorite projects thrive by paying maintainers the majority of all generated revenue.
 
 ## Publisher JavaScript Embedding
 
@@ -218,3 +217,15 @@ DownloadAndExtractMaxmindFileJob.new.download
 - Eventable
 
 ---
+
+## Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore -->
+| [<img src="https://avatars2.githubusercontent.com/u/32920?v=4" width="100px;"/><br /><sub><b>Nathan Hopkins</b></sub>](https://twitter.com/@hopsoft)<br />[💬](#question-hopsoft "Answering Questions") [🐛](https://github.com/gitcoinco/code_fund_ads/issues?q=author%3Ahopsoft "Bug reports") [💻](https://github.com/gitcoinco/code_fund_ads/commits?author=hopsoft "Code") [🎨](#design-hopsoft "Design") [📖](https://github.com/gitcoinco/code_fund_ads/commits?author=hopsoft "Documentation") [💡](#example-hopsoft "Examples") [🤔](#ideas-hopsoft "Ideas, Planning, & Feedback") [🚇](#infra-hopsoft "Infrastructure (Hosting, Build-Tools, etc)") [📦](#platform-hopsoft "Packaging/porting to new platform") [👀](#review-hopsoft "Reviewed Pull Requests") [⚠️](https://github.com/gitcoinco/code_fund_ads/commits?author=hopsoft "Tests") [🔧](#tool-hopsoft "Tools") [✅](#tutorial-hopsoft "Tutorials") | [<img src="https://avatars2.githubusercontent.com/u/12481?v=4" width="100px;"/><br /><sub><b>Eric Berry</b></sub>](https://codefund.io)<br />[💬](#question-coderberry "Answering Questions") [📝](#blog-coderberry "Blogposts") [🐛](https://github.com/gitcoinco/code_fund_ads/issues?q=author%3Acoderberry "Bug reports") [💻](https://github.com/gitcoinco/code_fund_ads/commits?author=coderberry "Code") [🎨](#design-coderberry "Design") [📖](https://github.com/gitcoinco/code_fund_ads/commits?author=coderberry "Documentation") [💡](#example-coderberry "Examples") [💵](#financial-coderberry "Financial") [🔍](#fundingFinding-coderberry "Funding Finding") [🤔](#ideas-coderberry "Ideas, Planning, & Feedback") [🚇](#infra-coderberry "Infrastructure (Hosting, Build-Tools, etc)") [📦](#platform-coderberry "Packaging/porting to new platform") [👀](#review-coderberry "Reviewed Pull Requests") [📢](#talk-coderberry "Talks") [⚠️](https://github.com/gitcoinco/code_fund_ads/commits?author=coderberry "Tests") [🔧](#tool-coderberry "Tools") [✅](#tutorial-coderberry "Tutorials") | [<img src="https://avatars3.githubusercontent.com/u/5496174?v=4" width="100px;"/><br /><sub><b>Ron Cooke</b></sub>](http://thebrascode.com)<br />[💻](https://github.com/gitcoinco/code_fund_ads/commits?author=brascoder "Code") [📖](https://github.com/gitcoinco/code_fund_ads/commits?author=brascoder "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/423811?v=4" width="100px;"/><br /><sub><b>Mike</b></sub>](https://github.com/barbeque)<br />[📖](https://github.com/gitcoinco/code_fund_ads/commits?author=barbeque "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/7039523?v=4" width="100px;"/><br /><sub><b>Arun Kumar</b></sub>](https://github.com/arku)<br />[📖](https://github.com/gitcoinco/code_fund_ads/commits?author=arku "Documentation") |
+| :---: | :---: | :---: | :---: | :---: |
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
