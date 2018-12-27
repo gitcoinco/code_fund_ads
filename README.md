@@ -48,14 +48,12 @@ publishers can add CodeFund to their site by including the CodeFund script and a
 
 ## API
 
-The API is documented with a [Blueprint](https://apiblueprint.org) markdown.
-
-https://github.com/gitcoinco/code_fund_ads/blob/master/BLUEPRINT.md
-
-The official documentation is currently hosted at [Apiary](https://codefund.docs.apiary.io/#).
+The API is documented with [Blueprint](https://apiblueprint.org) and is [hosted on Apiary](https://codefund.docs.apiary.io/#).
 
 > NOTE: Apairy doesn't fully adhere to the [Blueprint 1A9 specification](https://github.com/apiaryio/api-blueprint/blob/format-1A9/API%20Blueprint%20Specification.md).
 > Our Blueprint file may deviate from the spec to satisfy Apiary limitations.
+
+https://github.com/gitcoinco/code_fund_ads/blob/master/BLUEPRINT.md
 
 ## Ad Rendering and Impression/Click Tracking
 
