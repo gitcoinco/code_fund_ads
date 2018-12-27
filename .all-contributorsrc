@@ -15,19 +15,12 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/32920?v=4",
       "profile": "https://twitter.com/@hopsoft",
       "contributions": [
-        "question",
-        "bug",
         "code",
-        "design",
         "doc",
-        "example",
         "ideas",
         "infra",
         "platform",
-        "review",
-        "test",
-        "tool",
-        "tutorial"
+        "review"
       ]
     },
     {
@@ -36,23 +29,12 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/12481?v=4",
       "profile": "https://codefund.io",
       "contributions": [
-        "question",
-        "blog",
-        "bug",
         "code",
-        "design",
         "doc",
-        "example",
-        "financial",
-        "fundingFinding",
         "ideas",
         "infra",
         "platform",
-        "review",
-        "talk",
-        "test",
-        "tool",
-        "tutorial"
+        "review"
       ]
     },
     {
