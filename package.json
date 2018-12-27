@@ -10,6 +10,8 @@
     "@fnando/sparkline": "^0.3.10",
     "@rails/webpacker": "3.5",
     "bootstrap-daterangepicker": "^3.0.3",
+    "git": "^0.1.5",
+    "github-buttons": "git+https://github.com/ntkme/github-buttons.git",
     "moment": "^2.22.2",
     "moment-timezone": "^0.5.23",
     "noty": "^3.2.0-beta",
