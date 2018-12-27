@@ -73,8 +73,11 @@ Rails.application.routes.draw do
     resource :advertisement_clicks, only: [:show], path: "/click"
   end
 
+  # TODO: deprecate legacy support on 2019-04-01
   # Legacy embed script support
-  get "/scripts/:legacy_id/embed.js", to: "advertisements#show"
+  get "/scripts/:legacy_property_id/embed.js", to: "advertisements#show"
+  # Legacy impressions api support
+  post "/api/v1/impression/:legacy_property_id", to: "advertisements#show", defaults: { format: :json }
 
   resources :properties do
     resource :property_screenshots, only: [:update]
@@ -86,7 +89,7 @@ Rails.application.routes.draw do
     resource :property_dashboards, only: [:show], path: "/overview"
     resources :property_campaigns, only: [:index], path: "/campaigns"
     resources :versions, only: [:index], as: :property_versions, path: "/revisions"
-    resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { req.format == :js }
+    resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { [:js, :html].any? req.format }
     resource :advertisement_previews, only: [:show], path: "/preview" if Rails.env.development?
     resources :comments, only: [:index], as: :property_comments
     resources :events, only: [:index], as: :property_events
