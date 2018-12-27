@@ -81,7 +81,7 @@ Rails.application.routes.draw do
   # Legacy embed script support
   get "/scripts/:legacy_property_id/embed.js", to: "advertisements#show"
   # Legacy impressions api support
-  post "/api/v1/impression/:legacy_property_id", to: "advertisements#show", defaults: { format: :json }
+  post "/api/v1/impression/:legacy_property_id", to: "advertisements#show", defaults: {format: :json}
 
   resources :properties do
     resource :property_screenshots, only: [:update]
