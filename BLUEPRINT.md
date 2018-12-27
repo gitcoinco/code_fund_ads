@@ -11,8 +11,19 @@ Returns an HTML fragment that you can add to your page.
 
 ```
 require "open-uri"
-response = open("https://api.codefund.app/1/funder.html")
+response = open("https://api.codefund.app/properties/1/funder.html")
 @ad_html = response.read # place this HTML on your page somewhere
+```
+
+↓ _Your client SPA code should do something similar to the example below._
+
+```
+const axios = require('axios');
+
+axios.get('https://api.codefund.app/properties/1/funder.html')
+  .then(function (response) {
+    document.getElementById("codefund").innerHTML = response.data;
+  });
 ```
 
 ## Fetch Ad for Property [GET]
