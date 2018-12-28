@@ -8,12 +8,13 @@ class CreateClickJob < ApplicationJob
     clicked_at = Time.parse(clicked_at_string)
     impression = Impression.partitioned(campaign.user, clicked_at.advance(months: -1), clicked_at.advance(weeks: 1)).find_by(id: impression_id)
 
-    # let sidekiq reattempt for 10 minutes if we didn't find the impression
+    # reattempt for up to 10 minutes if we didn't find the impression
     # NOTE: sidekiq is configured to drain the impression queue before dequeuing any click jobs
     # SEE: config/sidekiq.yml
     if impression.nil? && clicked_at >= 10.minutes.ago
       return CreateClickJob.set(wait: 1.minute).perform_later(impression_id, campaign_id, clicked_at_string)
     end
+
     return if impression.nil? || impression.clicked?
 
     clicked_at = Time.parse(clicked_at_string)
