@@ -35,7 +35,7 @@ gem "pg",                                 ">= 0.18", "< 2.0"
 gem "premailer",                          "~> 1.11.1"
 gem "premailer-rails",                    "~> 1.10.2"
 gem "pretender",                          "~> 0.3.3"
-gem "puma",                               "~> 3.11"
+gem "puma",                               "~> 3.12"
 gem "rails",                              "~> 5.2.1"
 gem "recaptcha",                          "~> 4.13.1"
 gem "redis",                              "~> 4.0", require: ["redis", "redis/connection/hiredis"]

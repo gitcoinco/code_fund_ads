@@ -460,7 +460,7 @@ DEPENDENCIES
   pry
   pry-byebug
   pry-rails
-  puma (~> 3.11)
+  puma (~> 3.12)
   rails (~> 5.2.1)
   rails-erd
   recaptcha (~> 4.13.1)
