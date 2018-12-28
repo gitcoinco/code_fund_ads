@@ -8,7 +8,7 @@ class AdvertisementClicksController < ApplicationController
     parsed_query = Rack::Utils.parse_query(uri.query)
     query = {
       "utm_campaign" => params[:campaign_id],
-      "utm_iid" => params[:impression_id],
+      "utm_impression" => params[:impression_id],
       "utm_medium" => "display",
       "utm_referrer" => request.referer,
       "utm_source" => "CodeFund",

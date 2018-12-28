@@ -6,11 +6,10 @@ module Sparklineable
     Rails.cache.fetch(key) {
       date_range = (start_date..end_date).to_a
       date_range.map do |date|
-        count = daily_impressions_count date
         {
           name: "Impressions",
           date: date.to_s("%F"),
-          value: count,
+          value: daily_impressions_count(date),
         }
       end
     }
@@ -21,11 +20,10 @@ module Sparklineable
     Rails.cache.fetch(key) {
       date_range = (start_date..end_date).to_a
       date_range.map do |date|
-        count = daily_clicks_count date
         {
           name: "Clicks",
           date: date.to_s("%F"),
-          value: count,
+          value: daily_clicks_count(date),
         }
       end
     }
