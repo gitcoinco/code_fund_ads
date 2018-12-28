@@ -1,0 +1,55 @@
+version: '3.4'
+services:
+  db:
+    image: postgres:11-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=codefund_dev
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:5.0-alpine
+
+  app: &app_base
+    image: codefund_app_development
+    build:
+      context: .
+      args:
+        - ADDITIONAL_PACKAGES=nodejs-current yarn
+        - EXECJS_RUNTIME=Node
+        - RAILS_ENV=development
+        - NODE_ENV=development
+    environment:
+      - GA_TRACKING_ID=1234abcd
+      - GROOVE_WIDGET_ID=1234abcd
+      - MAILGUN_DOMAIN=mg.codefund.io
+      - MAILGUN_API_KEY=key-1234abcd
+      - MAILCHIMP_API_KEY=1234abcd
+      - MAILCHIMP_NEWSLETTER_ID=1234abcd
+      - SLACK_WEBHOOK_URL
+      - SCREENSHOT_MACHINE_KEY
+      - AWS_S3_ACCESS_KEY_ID=1234abcd
+      - AWS_S3_SECRET_ACCESS_KEY=1234abcd
+      - AWS_S3_REGION=us-west-2
+      - AWS_S3_BUCKET=mybucket
+      - RECAPTCHA_SITE_KEY
+      - RECAPTCHA_SECRET_KEY
+    ports:
+      - "3000"
+    links:
+      - db
+      - redis
+    volumes:
+      - .:/app
+
+  worker:
+    <<: *app_base
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    ports: []
+    depends_on:
+      - app
+
+volumes:
+  db-data:

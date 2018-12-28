@@ -1,0 +1,48 @@
+version: '3.4'
+services:
+  db:
+    image: postgres:11-alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=codefund_test
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:5.0-alpine
+
+  selenium:
+    image: selenium/standalone-chrome
+    ports:
+      - 4444:4444
+      - 5900:5900
+
+  app:
+    image: dockerrails_app_test
+    build:
+      context: .
+      args:
+        - ADDITIONAL_PACKAGES=nodejs-current
+        - EXECJS_RUNTIME=Node
+        - BUNDLE_WITHOUT=production
+        - RAILS_ENV=test
+    environment:
+      REDIS_SIDEKIQ_URL: redis://redis:6379/0
+      REDIS_CABLE_URL: redis://redis:6379/1
+      SELENIUM_REMOTE_HOST: selenium
+      RAILS_ENV: test
+      DB_HOST: db
+      POSTGRES_PASSWORD: pguser
+      SECRET_KEY_BASE: we-dont-need-a-secret-here
+      DB_USER: postgres
+      DB_PASSWORD: pguser
+    ports:
+      - 3000
+    links:
+      - db
+      - redis
+      - selenium
+
+volumes:
+  db-data:
