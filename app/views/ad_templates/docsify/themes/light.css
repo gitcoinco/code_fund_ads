@@ -1,0 +1,55 @@
+#cf {
+  margin: 0 auto;
+  max-width: 330px;
+}
+
+#cf .cf-wrapper {
+  display: block;
+  padding: 15px;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+  font-family: Helvetica;
+}
+
+#cf .cf-img-wrapper {
+  float: left;
+  margin-right: 15px;
+}
+
+#cf .cf-img {
+  vertical-align: middle;
+  border-style: none;
+  max-width: 130px;
+}
+
+#cf .cf-text {
+  color: #333;
+  text-decoration: none;
+}
+
+#cf .cf-powered-by {
+  margin-top: 8px;
+  background-color: hsla(0, 0%, 0%, 0.05);
+  text-align: center;
+  display: block;
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  line-height: 2.2;
+  padding: 10px var(--font-size);
+  text-transform: uppercase;
+  color: hsla(0, 0%, 0%, 0.8);
+  text-decoration: none;
+}
+
+#cf .clearfix {
+  overflow: auto;
+}
+
+#cf .clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
