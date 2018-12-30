@@ -76,6 +76,11 @@ class OrganizationTransactionsController < ApplicationController
       end
   end
 
+  def sort_column
+    return params[:column] if sortable_columns.include?(params[:column])
+    "posted_at"
+  end
+
   def sortable_columns
     %w[
       posted_at
