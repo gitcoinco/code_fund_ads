@@ -72,6 +72,8 @@ class AdvertisementsController < ApplicationController
 
   # TODO: deprecate legacy support on 2019-04-01
   def property_id
+    params[:legacy_property_id] ||= params[:property_id] if params[:property_id].to_s =~ /[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}/
+    
     @property_id ||= params[:legacy_property_id].present? ?
       Property.where(legacy_id: params[:legacy_property_id]).pluck(:id).first.to_i :
       params[:property_id].to_i
