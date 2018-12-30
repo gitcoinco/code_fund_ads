@@ -8,6 +8,8 @@
 
       <ul class="list-unstyled mb-0">
         <%= details_li("Name") { @organization.name } %>
+        <%= details_li("Credits") { @organization.total_credits.format } %>
+        <%= details_li("Debits") { @organization.total_debits.format } %>
         <%= details_li("Balance") { link_to @organization.balance.format, organization_transactions_path(@organization) } %>
       </ul>
     </div>

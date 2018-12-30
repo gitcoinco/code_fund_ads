@@ -12,6 +12,9 @@
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
-    <%= render "/organization_transactions/form", organization: @organization, organization_transaction: @organization_transaction %>
+    <%= render "/organization_transactions/form",
+        organization: @organization,
+        organization_transaction: @organization_transaction,
+        url: organization_transactions_path(@organization) %>
   </div>
 </main>

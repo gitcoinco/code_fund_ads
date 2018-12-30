@@ -1,4 +1,4 @@
-<%= simple_form_for organization_transaction, url: organization_transactions_path(organization), html: { class: "js-validate" }, wrapper: :front_form do |f| %>
+<%= simple_form_for organization_transaction, url: url, html: { class: "js-validate" }, wrapper: :front_form do |f| %>
   <%= render "/@shared/forms/section_heading", title: "Transaction Details", subtitle: "Fill out the fields below" %>
   <%= render "/@shared/forms/error_messages", object: organization_transaction %>
 
