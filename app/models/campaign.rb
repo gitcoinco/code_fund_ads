@@ -94,12 +94,12 @@ class Campaign < ApplicationRecord
   scope :fallback_for_property_id, ->(property_id) do
     permitted_for_property_id(property_id).
       where(fallback: true).
-      where(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id))
+      where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
   end
   scope :targeted_fallback_for_property_id, ->(property_id, *keywords) do
     for_property_id(property_id, *keywords).
       where(fallback: true).
-      where(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id))
+      where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
   end
 
   # Scopes and helpers provied by tag_columns
