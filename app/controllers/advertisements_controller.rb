@@ -98,7 +98,7 @@ class AdvertisementsController < ApplicationController
   def set_campaign
     campaign_relation = geo_targeted_campaigns.
       active.available_on(Date.current).
-      select(:id, :user_id, :creative_id, :ecpm_currency, :ecpm_cents, :daily_budget_currency, :daily_budget_cents, :start_date, :end_date, :updated_at)
+      select(:id, :user_id, :creative_id, :ecpm_currency, :ecpm_cents, :daily_budget_currency, :daily_budget_cents, :fallback, :start_date, :end_date, :updated_at)
     @campaign = choose_campaign(campaign_relation.for_property_id(property_id, *keywords))
     @campaign ||= choose_campaign(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords), ignore_budgets: true)
     @campaign ||= choose_campaign(campaign_relation.fallback_for_property_id(property_id), ignore_budgets: true)
