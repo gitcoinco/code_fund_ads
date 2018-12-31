@@ -112,7 +112,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def geo_targeted_campaigns
-    campaigns = Campaign.active.available_on(Date.current)
+    campaigns = Campaign.all
     campaigns = campaigns.with_all_countries(country_code) if country_code
     campaigns = campaigns.where(weekdays_only: false) if Date.current.on_weekend?
     campaigns = campaigns.where(core_hours_only: false) if prohibited_hour?
