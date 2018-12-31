@@ -96,18 +96,19 @@ class AdvertisementsController < ApplicationController
   end
 
   def set_campaign
-    id = geo_targeted_campaigns.for_property_id(property_id, *keywords).pluck(:id).sample
-    @campaign = Campaign.find(id) if id
+    campaign_relation = geo_targeted_campaigns.
+      active.available_on(Date.current).
+      joins(:organization).where(Organization.arel_table[:balance_cents].gt(0)).
+      select(:id, :user_id, :creative_id, :ecpm_currency, :ecpm_cents, :daily_budget_currency, :daily_budget_cents, :start_date, :end_date, :updated_at)
+    @campaign = choose_campaign(campaign_relation.for_property_id(property_id, *keywords))
+    @campaign ||= choose_campaign(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords))
+    @campaign ||= choose_campaign(campaign_relation.fallback_for_property_id(property_id))
+  end
 
-    @campaign ||= begin
-      id = geo_targeted_campaigns.targeted_fallback_for_property_id(property_id, *keywords).pluck(:id).sample
-      @campaign = Campaign.find(id) if id
-    end
-
-    @campaign ||= begin
-      id = geo_targeted_campaigns.fallback_for_property_id(property_id).pluck(:id).sample
-      @campaign = Campaign.find(id) if id
-    end
+  def choose_campaign(campaign_relation)
+    campaigns = campaign_relation.to_a
+    campaigns.select! { |campaign| campaign.daily_budget_available? }
+    campaigns.sample
   end
 
   def geo_targeted_campaigns
