@@ -36,17 +36,17 @@ module Campaigns
     end
 
     # Returns a Money indicating how much budget remains for the passed date (or today)
-    def daily_remaining_budget(date=nil)
+    def daily_remaining_budget(date = nil)
       daily_budget - daily_consumed_budget(date)
     end
 
     # Returns a Money indicating how much budget has been spent for the passed date (or today)
-    def daily_consumed_budget(date=nil)
+    def daily_consumed_budget(date = nil)
       ecpm * daily_impressions_per_mille(date)
     end
 
     # Returns a boolean indicating if the campaign has available budget for the passed date (or today)
-    def daily_budget_available?(date=nil)
+    def daily_budget_available?(date = nil)
       daily_consumed_budget(date) < daily_budget
     end
   end
