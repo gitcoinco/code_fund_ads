@@ -20,6 +20,11 @@ module Campaigns
       total_remaining_budget - total_remaining_usable_budget
     end
 
+    # Returns a boolean indicating if the campaign has available budget
+    def budget_available?
+      total_consumed_budget < total_budget
+    end
+
     # Returns a boolean indicating if there will be a budget surplus when the campaign ends
     def budget_surplus?
       total_unusable_budget > Money.new(100, "USD")
