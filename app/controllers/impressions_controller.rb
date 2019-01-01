@@ -17,8 +17,8 @@ class ImpressionsController < ApplicationController
       Raven.capture_message("IP addresses do not match", {
         level: "debug",
         extra: {
-          virtual: @virtual_impression[:ip_address],
-          actual: request.remote_ip,
+          virtual_impression: @virtual_impression,
+          remote_ip: request.remote_ip,
         },
       })
     end
