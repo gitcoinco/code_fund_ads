@@ -13,7 +13,7 @@ class ImpressionsController < ApplicationController
     @virtual_impression = Rails.cache.read(@virtual_impression_id)
     Rails.cache.delete params[:id]
 
-    if @virtual_impression[:ip_address] != request.remote_ip
+    if @virtual_impression && @virtual_impression[:ip_address] != request.remote_ip
       Raven.capture_message("IP addresses do not match", {
         level: "debug",
         extra: {
