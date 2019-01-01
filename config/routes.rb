@@ -79,6 +79,7 @@ Rails.application.routes.draw do
 
   # TODO: deprecate legacy support on 2019-04-01
   # Legacy embed script support
+  get "/display/:id", to: "impressions#show", constraints: ->(req) { req.format == :gif }
   get "/scripts/:legacy_property_id/embed.js", to: "advertisements#show"
   # Legacy impressions api support
   post "/api/v1/impression/:legacy_property_id", to: "advertisements#show", defaults: {format: :json}
