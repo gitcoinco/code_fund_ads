@@ -15,9 +15,11 @@ class ImpressionsController < ApplicationController
 
     if @virtual_impression[:ip_address] != request.remote_ip
       Raven.capture_message("IP addresses do not match", {
-        virtual: @virtual_impression[:ip_address],
-        actual: request.remote_ip,
         level: "debug",
+        extra: {
+          virtual: @virtual_impression[:ip_address],
+          actual: request.remote_ip,
+        },
       })
     end
 
