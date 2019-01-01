@@ -41,8 +41,16 @@ class AdvertisementsController < ApplicationController
     @virtual_impression_id ||= SecureRandom.uuid
   end
 
+  # TODO: Wrap this IP assignment to only be allowed when API is enabled for
+  #       the publisher instead of using the legacy_property_id as a qualifier
+  def ip_address
+    @ip_address ||= params[:legacy_property_id].present? ?
+      (params[:ip_address] || request.remote_ip) :
+      request.remote_ip
+  end
+
   def ip_info
-    @ip_info ||= MMDB.lookup(request.remote_ip)
+    @ip_info ||= MMDB.lookup(ip_address)
   end
 
   def country_code
@@ -144,7 +152,7 @@ class AdvertisementsController < ApplicationController
     Rails.cache.write @virtual_impression_id, {
       campaign_id: @campaign.id,
       property_id: property_id,
-      ip_address: request.remote_ip,
+      ip_address: ip_address,
     }, expires_in: 30.seconds
   end
 
