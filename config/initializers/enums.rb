@@ -26,6 +26,7 @@ enums[:ad_templates] = Dir.children(Rails.root.join("app/views/ad_templates")).s
 enums[:ad_themes] = Dir.glob(Rails.root.join("app/views/ad_templates/**/themes/*.css")).map { |path|
   File.basename(path).sub(".css", "")
 }.uniq.sort
+enums[:ad_themes] << "unstyled"
 
 # Exposes pages for the partials living under: app/views/pages
 #
