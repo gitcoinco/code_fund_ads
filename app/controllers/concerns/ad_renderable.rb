@@ -36,6 +36,7 @@ module AdRenderable
   end
 
   def theme_mtime
+    return Time.at(1546300800) if theme_name == ENUMS::AD_THEMES::UNSTYLED # 2019-01-01 00:00:00 UTC
     @theme_mmtime ||= File.mtime(theme_path)
   end
 
@@ -44,6 +45,7 @@ module AdRenderable
   end
 
   def theme
+    return "" if theme_name == ENUMS::AD_THEMES::UNSTYLED
     render_to_string template: "ad_templates/#{template_name}/themes/#{theme_name}.css", layout: false
   end
 end

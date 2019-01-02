@@ -44,6 +44,7 @@ axios.get('https://api.codefund.app/properties/1/funder.html')
       _overrides property config_
       + `dark`
       + `light`
+      + `unstyled` - exclude styles, only HTML
     + keywords (enum[string], optional) - Comma delimited list of property keywords used to find a matching ad
       _overrides property config_
       + `ABAP`
