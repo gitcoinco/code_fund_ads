@@ -5,7 +5,7 @@ class AdvertisersController < ApplicationController
 
   def create
     @applicant = Applicant.new(applicant_params)
-    if verify_recaptcha(model: @applicant) && @applicant.save
+    if @applicant.save
       redirect_to advertisers_path, notice: "Your request was sent successfully. We will be in touch."
     else
       flash.now[:error] = "Your application is not valid. Please correct the errors and try again"
