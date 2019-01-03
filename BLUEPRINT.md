@@ -3,6 +3,8 @@ HOST: api.condefund.app
 
 # CodeFund Ads
 
+This document is hosted at Apiary: https://codefund.docs.apiary.io/
+
 # Advertisement [/properties/{property_id}/funder.html/?{template}{theme}{keywords}]
 
 Returns an HTML fragment that you can add to your page.
