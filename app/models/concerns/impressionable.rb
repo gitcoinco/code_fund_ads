@@ -6,65 +6,12 @@ module Impressionable
   TOTAL_CLICKS_COUNT_KEY = "total_clicks_count".freeze
   DAILY_CLICKS_COUNT_KEY = "daily_clicks_count".freeze
 
-  included do
-    scope :include_total_impressions_count, -> {
-      subquery = Impression.select("COUNT(*)").
-        where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
-        where(Impression.arel_table[:displayed_at_date].gteq(Campaign.arel_table[:start_date])).
-        where(Impression.arel_table[:displayed_at_date].lteq(Campaign.arel_table[:end_date]))
-      select(arel_table[Arel.star]).select(subquery.arel.as(TOTAL_IMPRESSIONS_COUNT_KEY))
-    }
-
-    scope :include_daily_impressions_count, ->(date = nil) {
-      date = Date.coerce(date)
-      subquery = Impression.select("COUNT(*)").
-        where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
-        where(Impression.arel_table[:displayed_at_date].eq(date))
-      select(arel_table[Arel.star]).select(subquery.arel.as(DAILY_IMPRESSIONS_COUNT_KEY))
-    }
-
-    scope :include_total_clicks_count, -> {
-      subquery = Impression.clicked.select("COUNT(*)").
-        where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
-        where(Impression.arel_table[:displayed_at_date].gteq(Campaign.arel_table[:start_date])).
-        where(Impression.arel_table[:displayed_at_date].lteq(Campaign.arel_table[:end_date]))
-      select(arel_table[Arel.star]).select(subquery.arel.as(TOTAL_CLICKS_COUNT_KEY))
-    }
-
-    scope :include_total_click_rate, -> {
-      impression_count_subquery = Impression.select("COUNT(*)::numeric").
-        where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
-        where(Impression.arel_table[:displayed_at_date].gteq(Campaign.arel_table[:start_date])).
-        where(Impression.arel_table[:displayed_at_date].lteq(Campaign.arel_table[:end_date]))
-      click_count_subquery = impression_count_subquery.clicked
-      divide = Arel::Nodes::Division.new(click_count_subquery.arel, impression_count_subquery.arel)
-      select(arel_table[Arel.star]).select(divide.as("total_click_rate"))
-    }
-
-    scope :include_daily_clicks_count, ->(date = nil) {
-      date = Date.coerce(date)
-      subquery = Impression.clicked.select("COUNT(*)").
-        where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
-        where(Impression.arel_table[:displayed_at_date].eq(date))
-      select(arel_table[Arel.star]).select(subquery.arel.as(DAILY_CLICKS_COUNT_KEY))
-    }
-
-    scope :include_daily_click_rate, ->(date = nil) {
-      date = Date.coerce(date)
-      impression_count_subquery = Impression.select("COUNT(*)::numeric").
-        where(Impression.arel_table[:advertiser_id].eq(Campaign.arel_table[:user_id])).
-        where(Impression.arel_table[:displayed_at_date].eq(date))
-      click_count_subquery = impression_count_subquery.clicked
-      divide = Arel::Nodes::Division.new(click_count_subquery.arel, impression_count_subquery.arel)
-      select(arel_table[Arel.star]).select(divide.as("daily_click_rate"))
-    }
-  end
-
   def total_impressions_count_cache_key
     "#{cache_key}/#{TOTAL_IMPRESSIONS_COUNT_KEY}"
   end
 
-  def total_impressions_count
+  def total_impressions_count(start_date = nil, end_date = nil)
+    return daily_impressions_counts(start_date, end_date).sum if start_date && end_date
     Rails.cache.fetch(total_impressions_count_cache_key) { impressions.count }.to_i
   end
 
@@ -128,7 +75,8 @@ module Impressionable
     "#{cache_key}/#{TOTAL_CLICKS_COUNT_KEY}"
   end
 
-  def total_clicks_count
+  def total_clicks_count(start_date = nil, end_date = nil)
+    return daily_clicks_counts(start_date, end_date).sum if start_date && end_date
     Rails.cache.fetch(total_clicks_count_cache_key) { impressions.clicked.count }
   end
 
@@ -150,9 +98,9 @@ module Impressionable
     }
   end
 
-  def total_click_rate
-    return 0 if total_impressions_count.zero?
-    (total_clicks_count / total_impressions_count.to_f) * 100
+  def total_click_rate(start_date = nil, end_date = nil)
+    return 0 if total_impressions_count(start_date, end_date).zero?
+    (total_clicks_count(start_date, end_date) / total_impressions_count(start_date, end_date).to_f) * 100
   end
 
   def daily_click_rate(date = nil)
