@@ -21,8 +21,6 @@
         <%= details_li("Country") { @user.country } %>
         <%= details_li("US Resident?") { @user.us_resident? ? "Yes" : "No" } %>
         <%= details_li("Website URL") { link_to(@user.website_url, @user.website_url) } if @user.website_url %>
-        <%= details_li("API Access?") { @user.api_access? ? "Yes" : "No" }%>
-        <%= details_li("API Key") { @user.api_key } if @user.api_key %>
         <%= details_li("Last Login") { @user.last_sign_in_at } if authorized_user.can_admin_system? %>
         <%= details_li("Login Count") { @user.sign_in_count } if authorized_user.can_admin_system? %>
         <%= details_li("Roles") { @user.roles.map(&:capitalize).join(", ") } %>
