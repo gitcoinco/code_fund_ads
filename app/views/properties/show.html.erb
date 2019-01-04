@@ -17,11 +17,12 @@
         <%= details_li("Revenue Rate") { number_to_percentage(@property.revenue_percentage * 100, precision: 1) } %>
         <%= details_li("Template") { @property.ad_template } %>
         <%= details_li("Theme") { @property.ad_theme } %>
+        <%= details_li("Allow fallback ads?") { @property.prohibit_fallback_campaigns ? "No" : "Yes (thank you)" } %>
         <%= details_li("Excl. Advertisers") do %>
           <% @property.excluded_company_names.each do |company_name| -%>
             <span class="btn btn-xs btn-soft-dark mb-1"><%= company_name %></span>
           <% end -%>
-        <% end %>
+        <% end if authorized_user.can_admin_system? %>
       </ul>
     </div>
   </div>
