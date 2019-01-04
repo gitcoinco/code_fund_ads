@@ -73,7 +73,7 @@ class Campaign < ApplicationRecord
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
   scope :permitted_for_property_id, ->(property_id) {
     subquery = Property.select(:prohibited_advertiser_ids).where(id: property_id)
-    id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"id\"]"), subquery.arel)
+    id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"user_id\"]"), subquery.arel)
     where.not id_prohibited
   }
   scope :for_property, ->(property, *keywords) { for_property_id property.id }
