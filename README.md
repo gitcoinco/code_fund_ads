@@ -66,23 +66,23 @@ window.addEventListener("codefund", function(evt) {
 On a successful embed, `evt.detail` will return:
 
 ```json
-{ status: 'ok', house: false }
+{ "status": "ok", "house": false }
 
 or 
 
-{ status: 'ok', house: true } // Ad returned is a house ad
+{ "status": "ok", "house": true } // Ad returned is a house ad
 ```
 
 If an error occurs with embedding the ad, `evt.detail` will return:
 
 ```json
-{ status: 'error', message: 'error message' }
+{ "status": "error", "message": "error message" }
 ```
 
 And in the event that we do not have an available advertiser, you will see:
 
 ```json
-{ status: 'no-advertiser' }
+{ "status": "no-advertiser" }
 ```
 
 ## API
