@@ -30,8 +30,8 @@ module Extensions
       end
     end
 
-    def cache_key
-      Date.cache_key self
+    def cache_key(minutes_cached: 10)
+      Date.cache_key self, coerce: false, minutes_cached: minutes_cached
     end
   end
 end
