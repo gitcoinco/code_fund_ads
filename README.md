@@ -139,7 +139,7 @@ ENUMS::USER_ROLES.constants
 ```sh
 git clone https://github.com/gitcoinco/code_fund_ads.git
 cd /path/to/project
-cp .env-sample .env
+cp .env-example .env
 
 # setup environment variables
 
