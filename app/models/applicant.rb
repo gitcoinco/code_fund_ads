@@ -86,10 +86,11 @@ class Applicant < ApplicationRecord
   private
 
   def send_notifications
-    notify_slack
+    notify_slack_of_publisher_applicant if for_publisher?
+    notify_slack_of_advertiser_applicant if for_advertiser?
   end
 
-  def notify_slack
+  def notify_slack_of_publisher_applicant
     CreateSlackNotificationJob.perform_later(
       text: "<!channel> *Publisher Form Submission*",
       message: <<~MESSAGE
@@ -98,6 +99,20 @@ class Applicant < ApplicationRecord
         *Email:*  #{email}
         *Monthly Visitors:*  #{monthly_visitors}
         *Website:*  #{url}
+      MESSAGE
+    )
+  end
+
+  def notify_slack_of_advertiser_applicant
+    CreateSlackNotificationJob.perform_later(
+      text: "<!channel> *Advertiser Form Submission*",
+      message: <<~MESSAGE
+        *First Name:* #{first_name}
+        *Last Name:* #{last_name}
+        *Email:* #{email}
+        *Company:* #{company_name}
+        *Est. Budget:* #{monthly_budget}
+        *Website:* #{url}
       MESSAGE
     )
   end
