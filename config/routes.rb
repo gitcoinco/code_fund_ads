@@ -35,6 +35,8 @@ Rails.application.routes.draw do
     resources :versions, only: [:index], as: :organization_versions, path: "/revisions"
   end
 
+  resources :email_templates
+
   # polymorphic based on: app/models/concerns/imageable.rb
   scope "/imageables/:imageable_gid/" do
     resources :image_searches, only: [:create, :update, :destroy]
