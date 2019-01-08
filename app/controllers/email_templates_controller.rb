@@ -7,6 +7,23 @@ class EmailTemplatesController < ApplicationController
     @pagy, @email_templates = pagy(email_templates)
   end
 
+  def show
+    @applicant = Applicant.new(
+      role: "publisher",
+      first_name: "Kevin",
+      last_name: "Owocki",
+      email: "kevin@gitcoin.co",
+      company_name: "Gitcoin",
+      url: "https://gitcoin.co",
+      monthly_visitors: "50,000 - 250,000",
+      monthly_budget: "$1,000 - $2,499"
+    )
+    subject_template = Liquid::Template.parse(@email_template.subject)
+    body_template = Liquid::Template.parse(@email_template.body)
+    @subject = subject_template.render(@applicant.liquid_attributes)
+    @body = body_template.render(@applicant.liquid_attributes)
+  end
+
   def new
     @email_template = EmailTemplate.new
   end

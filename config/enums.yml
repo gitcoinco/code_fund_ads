@@ -74,6 +74,13 @@ APPLICANT_STATUSES:
   - pending
   - accepted
   - rejected
+  - duplicate
+
+APPLICANT_STATUS_COLORS:
+  pending: warning
+  accepted: success
+  rejected: muted
+  duplicate: muted
 
 APPLICANT_ROLES:
   - advertiser
@@ -313,7 +320,7 @@ COUNTRIES:
   NU: Niue
   NF: Norfolk Island
   MP: Northern Mariana Islands
-  "NO": Norway
+  'NO': Norway
   OM: Oman
   PK: Pakistan
   PW: Palau
@@ -415,7 +422,7 @@ DEVELOPED_MARKET_COUNTRIES:
   JP: Japan
   NL: Netherlands
   NZ: New Zealand
-  "NO": Norway
+  'NO': Norway
   PT: Portugal
   SG: Singapore
   ES: Spain

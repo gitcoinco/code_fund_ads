@@ -3,6 +3,7 @@
     <div class="col-12">
       <ul class="list-unstyled mb-0">
         <%= details_li("Status") { @applicant.status.humanize } %>
+        <%= details_li("User") { link_to @applicant.invited_user.name, @applicant.invited_user } if @applicant.invited_user %>
         <%= details_li("Role") { @applicant.role.humanize } %>
         <%= details_li("Name") { @applicant.name } %>
         <%= details_li("Email") { @applicant.email } %>

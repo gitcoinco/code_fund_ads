@@ -126,7 +126,8 @@ CREATE TABLE public.applicants (
     company_name character varying,
     monthly_budget character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    invited_user_id bigint
 );
 
 
@@ -317,6 +318,39 @@ CREATE SEQUENCE public.creatives_id_seq
 --
 
 ALTER SEQUENCE public.creatives_id_seq OWNED BY public.creatives.id;
+
+
+--
+-- Name: email_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.email_templates (
+    id bigint NOT NULL,
+    title character varying NOT NULL,
+    subject character varying NOT NULL,
+    body character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: email_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.email_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: email_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.email_templates_id_seq OWNED BY public.email_templates.id;
 
 
 --
@@ -750,6 +784,13 @@ ALTER TABLE ONLY public.creatives ALTER COLUMN id SET DEFAULT nextval('public.cr
 
 
 --
+-- Name: email_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.email_templates ALTER COLUMN id SET DEFAULT nextval('public.email_templates_id_seq'::regclass);
+
+
+--
 -- Name: events id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -881,6 +922,14 @@ ALTER TABLE ONLY public.creative_images
 
 ALTER TABLE ONLY public.creatives
     ADD CONSTRAINT creatives_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: email_templates email_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.email_templates
+    ADD CONSTRAINT email_templates_pkey PRIMARY KEY (id);
 
 
 --
@@ -1632,6 +1681,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181220153958'),
 ('20181220201430'),
 ('20181221205112'),
-('20181222164913');
+('20181222164913'),
+('20190107225451'),
+('20190108190511');
 
 

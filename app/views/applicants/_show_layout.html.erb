@@ -18,6 +18,8 @@
     <ul class="nav nav-classic">
       <%= tag.li(active_link_to("Details", applicant_path(applicant), active: :exact,
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Send Email", new_applicant_email_path(applicant),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
       <%= tag.li(active_link_to("Results", applicant_results_path(applicant),
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
       <%= tag.li(active_link_to("Comments", applicant_comments_path(applicant),

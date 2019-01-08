@@ -3,7 +3,8 @@
 @import '~noty/src/noty';
 @import '~noty/src/themes/mint';
 @import '~bootstrap-daterangepicker/daterangepicker';
-@import '~quill/dist/quill.snow';
+@import '~codemirror/lib/codemirror';
+@import '~codemirror/theme/idea';
 @import 'theme';
 @import 'components';
 @import 'utilities';

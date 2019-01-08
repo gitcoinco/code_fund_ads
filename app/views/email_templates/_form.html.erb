@@ -1,21 +1,54 @@
 <%= simple_form_for email_template, html: { class: "js-validate", id: "email-template-form" }, wrapper: :front_form do |f| %>
   <%= render "/@shared/forms/error_messages", object: email_template %>
-  <%= f.hidden_field :body, value: email_template.body %>
-
   <div class="row">
-    <%= tag.div f.input(:title, as: :string, required: true, input_html: { class: "form-control" },
-      data: { msg: "Please enter a valid title", error_class: "u-has-error", success_class: "u-has-success" }), class: "col-12 mb-3" %>
+    <div class="col-md-8">
+      <%= tag.div f.input(:title, as: :string, required: true, input_html: {
+          class: "form-control",
+          data: {
+            msg: "Please enter a valid title",
+            error_class: "u-has-error",
+            success_class: "u-has-success"
+          }
+        }), class: "col-12 mb-3" %>
 
-    <%= tag.div f.input(:subject, as: :string, required: true, input_html: { class: "form-control" },
-      hint: "Use the liquid template to use variables. For example, you can add their first name by using {{first_name}}",
-      data: { msg: "Please enter a valid subject", error_class: "u-has-error", success_class: "u-has-success" }), class: "col-12 mb-3" %>
+      <%= tag.div f.input(:subject, as: :string, required: true, input_html: {
+          class: "form-control",
+          data: {
+            msg: "Please enter a valid subject",
+            error_class: "u-has-error",
+            success_class: "u-has-success"
+          }
+        }), class: "col-12 mb-3" %>
 
-    <div class="col-12 mb-3">
-      <div class="js-form-message js-focus-state string required email_template_body u-has-success">
-        <label class="form-label string required" for="email_template_body">Body <abbr title="required">*</abbr></label>
-        <div id="scrolling-container">
-          <div id="quill-container" data-controller="rich-text-editor" data-form-id="email-template-form">
-            <%= @email_template.body.html_safe %>
+      <%= tag.div f.input(:body, label: "Body", as: :text, required: true, input_html: {
+          class: "form-control",
+          rows: 10,
+          data: {
+            controller: "rich-text-editor",
+            msg: "Please enter a valid subject",
+            error_class: "u-has-error",
+            success_class: "u-has-success"
+          }
+        }), class: "col-12 mb-3" %>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+          <div class="card-body">
+            <h5 class="card-title">Applicant Variables</h5>
+            <h6 class="card-subtitle mb-2 text-muted">for liquid template</h6>
+            <p class="card-text">
+              <ul>
+                <li>first_name</li>
+                <li>last_name</li>
+                <li>email</li>
+                <li>url</li>
+                <li>monthly_visitors</li>
+                <li>company_name</li>
+                <li>monthly_budget</li>
+              </ul>
+              To use a variable in the subject or body, wrap the variable with <code>{{</code> and <code>}}</code>
+            </p>
           </div>
         </div>
       </div>

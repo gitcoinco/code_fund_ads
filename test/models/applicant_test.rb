@@ -15,6 +15,7 @@
 #  monthly_budget   :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  invited_user_id  :bigint(8)
 #
 
 require "test_helper"

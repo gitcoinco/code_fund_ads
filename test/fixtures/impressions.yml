@@ -1,4 +1,3 @@
-
 # == Schema Information
 #
 # Table name: impressions
@@ -26,4 +25,5 @@
 #  ad_template                                 :string
 #  ad_theme                                    :string
 #  organization_id                             :bigint(8)
+#  abp                                         :boolean          default(FALSE)
 #
