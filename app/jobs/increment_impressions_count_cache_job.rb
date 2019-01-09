@@ -1,7 +1,7 @@
 class IncrementImpressionsCountCacheJob < ApplicationJob
   queue_as :critical
 
-  # TODO: add protections to guard against multiple counts if errros occur
+  # TODO: add protections to guard against multiple counts if errors occur
   def perform(impression)
     Rails.cache.write(
       impression.campaign.total_impressions_count_cache_key,

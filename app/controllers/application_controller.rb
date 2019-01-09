@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   include Authorizable
   include Dateable
+  include NSA::Statsd::Publisher
 
   before_action :reload_extensions, unless: -> { Rails.env.production? }
   before_action -> { cookies.encrypted[:example_id] ||= SecureRandom.uuid }
