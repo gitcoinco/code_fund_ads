@@ -4,7 +4,7 @@
   <td class="align-middle text-secondary"><%= link_to applicant.name, applicant %></td>
   <td class="align-middle text-secondary"><%= applicant.canonical_email %></td>
   <td class="align-middle text-secondary"><%= applicant.url %></td>
-  <td class="align-middle text-<%= campaign_status_color(applicant.status) %>">
+  <td class="align-middle text-<%= applicant_status_color(applicant.status) %>">
     <span class="fas fa-circle small mr-1"></span>
     <%= applicant.status.humanize %>
   </td>

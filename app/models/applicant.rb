@@ -15,6 +15,7 @@
 #  monthly_budget   :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  invited_user_id  :bigint(8)
 #
 
 class Applicant < ApplicationRecord
@@ -43,17 +44,23 @@ class Applicant < ApplicationRecord
 
   # callbacks .................................................................
   after_commit :send_notifications, on: [:create]
+  after_commit :convert_to_invitation, on: [:update]
 
   # scopes ....................................................................
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   acts_as_commentable
+  attr_accessor :subject, :body, :organization_id
 
   # class methods .............................................................
   class << self
   end
 
   # public instance methods ...................................................
+
+  def invited_user
+    @invited_user ||= User.where(id: invited_user_id).first
+  end
 
   def email=(email_address)
     self[:canonical_email] = email_address
@@ -78,6 +85,27 @@ class Applicant < ApplicationRecord
 
   def for_advertiser?
     role == "advertiser"
+  end
+
+  def liquid_attributes
+    slice(
+      :company_name,
+      :email,
+      :first_name,
+      :last_name,
+      :monthly_budget,
+      :monthly_visitors,
+      :role,
+      :url
+    )
+  end
+
+  def to_s
+    "#{role.humanize} Applicant [#{first_name} #{last_name}]"
+  end
+
+  def user_id
+    @user_id ||= (User.where(email: "eric@codefund.io").first || User.administrator.first).id
   end
 
   # protected instance methods ................................................
@@ -115,5 +143,21 @@ class Applicant < ApplicationRecord
         *Website:* #{url}
       MESSAGE
     )
+  end
+
+  def convert_to_invitation
+    return if invited_user_id
+    return unless status == ENUMS::APPLICANT_STATUSES::ACCEPTED
+
+    user = User.invite!(
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      organization_id: organization_id,
+      roles: [role]
+    )
+
+    update_attribute(:invited_user_id, user.id)
+    add_event("Sent invitation", ["email"])
   end
 end
