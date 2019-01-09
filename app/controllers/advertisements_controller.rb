@@ -156,6 +156,15 @@ class AdvertisementsController < ApplicationController
 
   def create_virtual_impression
     return unless @campaign
+
+    statsd_increment([
+      "web",
+      "AdvertisementsController",
+      "create_virtual_impression",
+      @campaign.id,
+      property_id,
+    ].join("."))
+
     Rails.cache.write @virtual_impression_id, {
       campaign_id: @campaign.id,
       property_id: property_id,
