@@ -33,6 +33,10 @@ module ApplicationHelper
     ENUMS::USER_ROLES.values.map { |f| [f.humanize, f] }
   end
 
+  def applicant_statuses_for_select
+    ENUMS::APPLICANT_STATUSES.values.map { |f| [f.humanize, f] }
+  end
+
   def image_formats_for_select
     ENUMS::IMAGE_FORMATS.values.map { |f| [f.humanize, f] }
   end

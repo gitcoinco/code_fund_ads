@@ -35,6 +35,8 @@ Rails.application.routes.draw do
     resources :versions, only: [:index], as: :organization_versions, path: "/revisions"
   end
 
+  resources :email_templates
+
   # polymorphic based on: app/models/concerns/imageable.rb
   scope "/imageables/:imageable_gid/" do
     resources :image_searches, only: [:create, :update, :destroy]
@@ -47,6 +49,8 @@ Rails.application.routes.draw do
   resources :applicants
   scope "/applicants/:applicant_id" do
     resource :applicant_results, only: [:show], path: "/results"
+    resource :applicant_email_template_preview, only: [:show], path: "/:email_template_id/preview", defaults: {format: :json}
+    resources :applicant_emails, only: [:new, :create], path: "/emails"
     resources :comments, only: [:index], as: :applicant_comments
     resources :events, only: [:index], as: :applicant_events
   end

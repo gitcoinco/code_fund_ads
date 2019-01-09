@@ -4,7 +4,7 @@
   </span>
   <div class="media-body">
     <h5 class="font-size-1 mb-1"><%= event.user %></h5>
-    <p class="small mb-1"><%= event.eventable %> - <%= event.body %></p>
+    <p class="small mb-1"><strong><%= event.eventable %></strong><%= simple_format event.body %></p>
     <small class="d-block text-muted"><%= time_ago_in_words event.created_at %> ago</small>
   </div>
 </li>
