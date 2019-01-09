@@ -159,5 +159,7 @@ class Applicant < ApplicationRecord
 
     update_attribute(:invited_user_id, user.id)
     add_event("Sent invitation", ["email"])
+
+    AddToMailchimpListJob.perform_later email, user.id
   end
 end
