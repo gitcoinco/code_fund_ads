@@ -1,4 +1,4 @@
-<% cache [@property, campaign, @start_date, @end_date] do %>
+<% cache [@property, campaign, @start_date&.cache_key, @end_date&.cache_key] do %>
   <tr>
     <td class="text-left align-middle text-secondary"><%= campaign.name %></td>
     <td class="text-center align-middle text-secondary"><%= number_with_delimiter @property.campaign_impressions_count(campaign, @start_date, @end_date) %></td>

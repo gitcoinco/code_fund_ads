@@ -131,7 +131,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def advertisement_cache_key
-    @ad_cache_key ||= "#{@campaign.cache_key}/#{@campaign.updated_at.iso8601}/#{template_cache_key}/#{theme_cache_key}"
+    @ad_cache_key ||= "#{@campaign.cache_key(:updated_at)}/#{template_cache_key}/#{theme_cache_key}"
   end
 
   def render_advertisement
