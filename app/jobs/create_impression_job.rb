@@ -4,7 +4,12 @@ class CreateImpressionJob < ApplicationJob
   def perform(id, campaign_id, property_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string)
     campaign = Campaign.find_by(id: campaign_id)
     property = Property.find_by(id: property_id)
-    return unless campaign && property
+
+    unless campaign && property
+      statsd_increment(["sidekiq", "CreateImpressionJob", "perform", "missing_campaign_and_property"].join("."))
+      return
+    end
+
     displayed_at = Time.parse(displayed_at_string)
     ip_info = MMDB.lookup(ip_address)
 
@@ -29,8 +34,21 @@ class CreateImpressionJob < ApplicationJob
       longitude: ip_info&.location&.longitude
     )
 
+    statsd_increment([
+      "sidekiq",
+      "CreateImpressionJob",
+      "perform",
+      "create_impression",
+      campaign.id,
+      property.id,
+      campaign.creative_id,
+      impression.country_code,
+      campaign.fallback?,
+    ].join("."))
+
     IncrementImpressionsCountCacheJob.perform_now impression
   rescue ActiveRecord::RecordNotUnique
     # prevent reattempts when a race condition attempts to write the same record
+    statsd_increment(["sidekiq", "CreateImpressionJob", "perform", "record_not_unique"].join("."))
   end
 end

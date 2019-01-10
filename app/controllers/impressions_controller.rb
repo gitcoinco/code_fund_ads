@@ -14,6 +14,7 @@ class ImpressionsController < ApplicationController
     Rails.cache.delete params[:id]
 
     if @virtual_impression && @virtual_impression[:ip_address] != request.remote_ip
+      statsd_increment(["web", "ImpressionsController", "set_virtual_impression", "mismatch"].join("."))
       Raven.capture_message("IP addresses do not match", {
         level: "debug",
         extra: {
@@ -23,7 +24,10 @@ class ImpressionsController < ApplicationController
       })
     end
 
-    head(:not_found) if @virtual_impression.nil? || @virtual_impression[:ip_address] != request.remote_ip
+    if @virtual_impression.nil? || @virtual_impression[:ip_address] != request.remote_ip
+      statsd_increment(["web", "ImpressionsController", "set_virtual_impression", "not_found"].join("."))
+      head(:not_found)
+    end
   end
 
   def create_impression

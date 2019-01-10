@@ -29,11 +29,18 @@ class AdvertisementsController < ApplicationController
 
   # TODO: deprecate legacy support on 2019-04-01
   def render_legacy_show
+    statsd_increment(["web", "AdvertisementsController", "render_legacy_show"].join("."))
+
     if @campaign
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
       @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
     end
-    response.status = :not_found unless @campaign
+
+    unless @campaign
+      statsd_increment(["web", "AdvertisementsController", "render_legacy_show", "not_found"].join("."))
+      response.status = :not_found
+    end
+
     respond_to :json
   end
 
@@ -149,6 +156,15 @@ class AdvertisementsController < ApplicationController
 
   def create_virtual_impression
     return unless @campaign
+
+    statsd_increment([
+      "web",
+      "AdvertisementsController",
+      "create_virtual_impression",
+      @campaign.id,
+      property_id,
+    ].join("."))
+
     Rails.cache.write @virtual_impression_id, {
       campaign_id: @campaign.id,
       property_id: property_id,

@@ -28,6 +28,7 @@ gem "mini_magick",                        "~> 4.9.2" # intended for use with Act
 gem "monetize",                           "~> 1.9.0"
 gem "money",                              "~> 6.13.1"
 gem "money-rails",                        "~> 1.13.0"
+gem "nsa",                                "~> 0.2.4", github: "coderberry/nsa"
 gem "okcomputer",                         "~> 1.17.3"
 gem "pagy",                               "~> 0.21.0"
 gem "paper_trail",                        "~> 10.0.1"
