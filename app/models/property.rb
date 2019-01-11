@@ -133,7 +133,7 @@ class Property < ApplicationRecord
   end
 
   def matching_campaigns
-    Campaign.for_property self
+    Campaign.targeted_premium_for_property self
   end
 
   # Returns a relation for campaigns that have been rendered on this property
