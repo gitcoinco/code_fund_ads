@@ -77,17 +77,18 @@ class Campaign < ApplicationRecord
     id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"user_id\"]"), subquery.arel)
     where.not id_prohibited
   }
-  scope :targeted_premium_for_property, ->(property, *keywords) { for_property_id property.id }
-  scope :targeted_premium_for_property_id, ->(property_id, *keywords) do
+  scope :targeted_premium_for_property, ->(property, *keywords) { targeted_premium_for_property_id property.id }
+  scope :targeted_premium_for_property_id, ->(property_id, *keywords) { premium.targeted_for_property_id(property_id, *keywords) }
+  scope :targeted_for_property_id, ->(property_id, *keywords) do
     if keywords.present?
-      premium.permitted_for_property_id(property_id).
+      permitted_for_property_id(property_id).
         with_any_keywords(*keywords).
         without_any_negative_keywords(*keywords)
     else
       subquery = Property.active.select(:keywords).where(id: property_id)
       keywords_overlap = Arel::Nodes::InfixOperation.new("&&", arel_table[:keywords], subquery.arel)
       negative_keywords_overlap = Arel::Nodes::InfixOperation.new("&&", arel_table[:negative_keywords], subquery.arel)
-      premium.permitted_for_property_id(property_id).
+      permitted_for_property_id(property_id).
         where(keywords_overlap).
         where.not(negative_keywords_overlap)
     end
@@ -98,7 +99,7 @@ class Campaign < ApplicationRecord
       where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
   end
   scope :targeted_fallback_for_property_id, ->(property_id, *keywords) do
-    for_property_id(property_id, *keywords).
+    targeted_for_property_id(property_id, *keywords).
       where(fallback: true).
       where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
   end
