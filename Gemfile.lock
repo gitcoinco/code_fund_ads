@@ -1,14 +1,4 @@
 GIT
-  remote: https://github.com/coderberry/nsa.git
-  revision: 836935f8f9eb5f9ad3652f00d7b1a2e18dcf5133
-  specs:
-    nsa (0.2.4)
-      activesupport (>= 4.2, < 6)
-      concurrent-ruby (~> 1.0.0)
-      sidekiq (>= 3.5.0)
-      statsd-ruby (~> 1.4.0)
-
-GIT
   remote: https://github.com/coderberry/screenshot_machine.git
   revision: f065ca91092ed655f17c02f729e74074daeddeab
   specs:
@@ -233,6 +223,12 @@ GEM
     nio4r (2.3.1)
     nokogiri (1.9.1)
       mini_portile2 (~> 2.4.0)
+    nsa (0.2.7)
+      activesupport (>= 4.2, < 6)
+      concurrent-ruby (~> 1.0, >= 1.0.2)
+      sidekiq (>= 3.5)
+      statsd-ruby (~> 1.4, >= 1.4.0)
+    oj (3.7.6)
     okcomputer (1.17.3)
     orm_adapter (0.5.0)
     pagy (0.21.0)
@@ -322,6 +318,8 @@ GEM
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
     rinku (2.0.4)
+    rollbar (2.18.2)
+      multi_json
     rubocop (0.61.1)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
@@ -353,8 +351,6 @@ GEM
     selenium-webdriver (3.141.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.2, >= 1.2.2)
-    sentry-raven (2.7.4)
-      faraday (>= 0.7.6, < 1.0)
     sidekiq (5.2.3)
       connection_pool (~> 2.2, >= 2.2.2)
       rack-protection (>= 1.5.0)
@@ -462,7 +458,8 @@ DEPENDENCIES
   monetize (~> 1.9.0)
   money (~> 6.13.1)
   money-rails (~> 1.13.0)
-  nsa (~> 0.2.4)!
+  nsa (~> 0.2.7)
+  oj (~> 3.7.6)
   okcomputer (~> 1.17.3)
   pagy (~> 0.21.0)
   paper_trail (~> 10.0.1)
@@ -480,13 +477,13 @@ DEPENDENCIES
   recaptcha (~> 4.13.1)
   redis (~> 4.0)
   rinku (~> 2.0.4)
+  rollbar (~> 2.18.2)
   rubocop
   ruby_identicon (~> 0.0.5)
   sass-rails (~> 5.0)
   scout_apm (~> 2.4.21)
   screenshot_machine (~> 0.0.4)!
   selenium-webdriver
-  sentry-raven (~> 2.7.4)
   sidekiq (~> 5.2.3)
   sidekiq-failures (~> 1.0.0)
   simple_form (~> 4.0)
