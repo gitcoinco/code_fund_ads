@@ -34,6 +34,7 @@ class ImpressionsController < ApplicationController
       @virtual_impression[:property_id],
       params[:template],
       params[:theme],
+      params[:uplift],
       request.remote_ip,
       request.user_agent,
       Time.current.iso8601

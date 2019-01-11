@@ -1,7 +1,13 @@
 class CreateImpressionJob < ApplicationJob
   queue_as :impression
 
-  def perform(id, campaign_id, property_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string)
+  def perform(*args)
+    # Protection for impressions during deploy. Can remove after successful deploy
+    args = args.insert(5, "false") if args.length == 8
+    create_impression(*args)
+  end
+
+  def create_impression(id, campaign_id, property_id, ad_template, ad_theme, uplift, ip_address, user_agent, displayed_at_string)
     campaign = Campaign.find_by(id: campaign_id)
     property = Property.find_by(id: property_id)
 
@@ -23,6 +29,7 @@ class CreateImpressionJob < ApplicationJob
       property: property,
       ad_template: ad_template,
       ad_theme: ad_theme,
+      uplift: uplift == "true",
       ip_address: ip_address,
       user_agent: user_agent,
       displayed_at: displayed_at,
