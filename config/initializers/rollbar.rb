@@ -23,7 +23,8 @@ Rollbar.configure do |config|
   # provide a lambda like the following. It should return a hash.
   # config.custom_data_method = lambda { {:some_key => "some_value" } }
 
-  config.custom_data_method = lambda { |message, exception, context|
+  config.custom_data_method = ->(message, exception, context) {
+    return {} unless context
     {
       params: context[:params]&.to_unsafe_h,
       url: context[:request]&.url,
