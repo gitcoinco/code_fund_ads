@@ -61,6 +61,7 @@ class Campaign < ApplicationRecord
   scope :active, -> { where status: ENUMS::CAMPAIGN_STATUSES::ACTIVE }
   scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
   scope :fallback, -> { where fallback: true }
+  scope :premium, -> { where fallback: false }
   scope :available_on, ->(date) { where(arel_table[:start_date].lteq(date.to_date)).where(arel_table[:end_date].gteq(date.to_date)) }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :search_countries, ->(*values) { values.blank? ? all : with_any_countries(*values) }
@@ -76,17 +77,17 @@ class Campaign < ApplicationRecord
     id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"user_id\"]"), subquery.arel)
     where.not id_prohibited
   }
-  scope :for_property, ->(property, *keywords) { for_property_id property.id }
-  scope :for_property_id, ->(property_id, *keywords) do
+  scope :targeted_premium_for_property, ->(property, *keywords) { for_property_id property.id }
+  scope :targeted_premium_for_property_id, ->(property_id, *keywords) do
     if keywords.present?
-      permitted_for_property_id(property_id).
+      premium.permitted_for_property_id(property_id).
         with_any_keywords(*keywords).
         without_any_negative_keywords(*keywords)
     else
       subquery = Property.active.select(:keywords).where(id: property_id)
       keywords_overlap = Arel::Nodes::InfixOperation.new("&&", arel_table[:keywords], subquery.arel)
       negative_keywords_overlap = Arel::Nodes::InfixOperation.new("&&", arel_table[:negative_keywords], subquery.arel)
-      permitted_for_property_id(property_id).
+      premium.permitted_for_property_id(property_id).
         where(keywords_overlap).
         where.not(negative_keywords_overlap)
     end
