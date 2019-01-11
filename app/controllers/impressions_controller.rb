@@ -15,12 +15,9 @@ class ImpressionsController < ApplicationController
 
     if @virtual_impression && @virtual_impression[:ip_address] != request.remote_ip
       statsd_increment(["web", "ImpressionsController", "set_virtual_impression", "mismatch"].join("."))
-      Raven.capture_message("IP addresses do not match", {
-        level: "debug",
-        extra: {
-          virtual_impression: @virtual_impression,
-          remote_ip: request.remote_ip,
-        },
+      Rollbar.debug("IP addresses do not match", {
+        virtual_impression: @virtual_impression,
+        remote_ip: request.remote_ip,
       })
     end
 
