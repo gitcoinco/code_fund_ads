@@ -23,7 +23,7 @@ class CreateImpressionJob < ApplicationJob
       property: property,
       ad_template: ad_template,
       ad_theme: ad_theme,
-      uplift: uplift == "true",
+      uplift: uplift.to_s == "true",
       ip_address: ip_address,
       user_agent: user_agent,
       displayed_at: displayed_at,
