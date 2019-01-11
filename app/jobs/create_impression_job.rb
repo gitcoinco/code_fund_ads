@@ -1,7 +1,7 @@
 class CreateImpressionJob < ApplicationJob
   queue_as :impression
 
-  def perform(id, campaign_id, property_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string)
+  def perform(id, campaign_id, property_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string, uplift = "false")
     campaign = Campaign.find_by(id: campaign_id)
     property = Property.find_by(id: property_id)
 
@@ -23,6 +23,7 @@ class CreateImpressionJob < ApplicationJob
       property: property,
       ad_template: ad_template,
       ad_theme: ad_theme,
+      uplift: uplift.to_s == "true",
       ip_address: ip_address,
       user_agent: user_agent,
       displayed_at: displayed_at,

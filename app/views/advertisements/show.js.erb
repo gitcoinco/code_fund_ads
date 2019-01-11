@@ -6,7 +6,7 @@
       var targetElement = document.getElementById('codefund');
       if (targetElement == null) { targetElement = document.getElementById('<%= @target %>'); }
       targetElement.innerHTML = '<%= @advertisement_html.html_safe %>';
-      targetElement.querySelector('img[data-src="impression_url"]').src = '<%= @impression_url.html_safe %>&abp=' + (window.abp === true);
+      targetElement.querySelector('img[data-src="impression_url"]').src = '<%= @impression_url.html_safe %>&uplift=' + (window.abp === true);
       targetElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '<%= @campaign_url.html_safe %>' });
       evt.detail = { status: 'ok', house: <%= @campaign.fallback? %> };
     } catch (e) {
