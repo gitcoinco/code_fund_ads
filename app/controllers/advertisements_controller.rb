@@ -29,15 +29,12 @@ class AdvertisementsController < ApplicationController
 
   # TODO: deprecate legacy support on 2019-04-01
   def render_legacy_show
-    statsd_increment(["web", "AdvertisementsController", "render_legacy_show"].join("."))
-
     if @campaign
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
       @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
-    end
-
-    unless @campaign
-      statsd_increment(["web", "AdvertisementsController", "render_legacy_show", "not_found"].join("."))
+      instrument "render_legacy_ad.codefund", statsd_key: "web.render_legacy_ad.success"
+    else
+      instrument "render_legacy_ad.codefund", statsd_key: "web.render_legacy_ad.fail.not_found"
       response.status = :not_found
     end
 
@@ -157,19 +154,13 @@ class AdvertisementsController < ApplicationController
   def create_virtual_impression
     return unless @campaign
 
-    statsd_increment([
-      "web",
-      "AdvertisementsController",
-      "create_virtual_impression",
-      @campaign.id,
-      property_id,
-    ].join("."))
-
     Rails.cache.write @virtual_impression_id, {
       campaign_id: @campaign.id,
       property_id: property_id,
       ip_address: ip_address,
     }, expires_in: 30.seconds
+
+    instrument "create_virtual_impression.codefund", statsd_key: "web.create_virtual_impression.success.#{@campaign.id}.#{property_id}"
   end
 
   def set_cors_headers

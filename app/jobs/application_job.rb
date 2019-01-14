@@ -1,4 +1,4 @@
 class ApplicationJob < ActiveJob::Base
   include Rollbar::ActiveJob
-  include ::NSA::Statsd::Publisher
+  delegate :instrument, to: ActiveSupport::Notifications
 end

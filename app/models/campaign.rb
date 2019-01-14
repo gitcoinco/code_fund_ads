@@ -222,6 +222,11 @@ class Campaign < ApplicationRecord
     self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
   end
 
+  def campaign_type
+    return "fallback" if fallback?
+    "premium"
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................
