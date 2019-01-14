@@ -8,6 +8,8 @@ class AdvertisementsController < ApplicationController
   after_action :create_virtual_impression, if: -> { @campaign.present? }
 
   def show
+    instrument "increment.statsd", data: { action: "visit", property_id: property_id, campaign_id: @campaign&.id }
+
     # TODO: deprecate legacy support on 2019-04-01
     return render_legacy_show if request.format.json?
 
