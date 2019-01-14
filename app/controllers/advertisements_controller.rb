@@ -32,9 +32,9 @@ class AdvertisementsController < ApplicationController
     if @campaign
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
       @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
-      instrument "render_legacy_ad.codefund", statsd_key: "web.render_legacy_ad.success"
+      instrument "increment.statsd", key: "web.render_legacy_ad.success"
     else
-      instrument "render_legacy_ad.codefund", statsd_key: "web.render_legacy_ad.fail.not_found"
+      instrument "increment.statsd", key: "web.render_legacy_ad.fail.not_found"
       response.status = :not_found
     end
 
@@ -111,18 +111,35 @@ class AdvertisementsController < ApplicationController
     campaign_relation = geo_targeted_campaigns.
       active.available_on(Date.current).
       select(:id, :user_id, :creative_id, :ecpm_currency, :ecpm_cents, :daily_budget_currency, :daily_budget_cents, :fallback, :start_date, :end_date, :updated_at)
-    @campaign = choose_campaign(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
-    @campaign ||= choose_campaign(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords), ignore_budgets: true)
-    @campaign ||= choose_campaign(campaign_relation.fallback_for_property_id(property_id), ignore_budgets: true)
+
+    @campaign = get_premium_campaign(campaign_relation)
+    @campaign ||= get_fallback_campaign(campaign_relation)
+
+    unless @campaign
+      instrument "increment.statsd",
+        key: "web.find_campaign.fail.#{property_id}.#{country_code || "UNKNOWN"}"
+    end
+  end
+
+  def get_premium_campaign(campaign_relation)
+    campaign = choose_campaign(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
+    instrument "increment.statsd", key: "web.find_premium_campaign.success.#{property_id}.#{country_code || "UNKNOWN"}"
+    campaign
+  end
+
+  def get_fallback_campaign(campaign_relation)
+    campaign = choose_campaign(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords), ignore_budgets: true)
+    campaign ||= choose_campaign(campaign_relation.fallback_for_property_id(property_id), ignore_budgets: true)
+    return nil unless campaign
+    instrument "increment.statsd", key: "web.find_fallback_campaign.success.#{property_id}.#{country_code || "UNKNOWN"}"
+    campaign
   end
 
   def choose_campaign(campaign_relation, ignore_budgets: false)
-    unless ignore_budgets
-      campaign_relation = campaign_relation.
-        joins(:organization).where(Organization.arel_table[:balance_cents].gt(0))
-    end
+    return campaign_relation.to_a.sample if ignore_budgets
+    campaign_relation = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0))
     campaigns = campaign_relation.to_a
-    campaigns.select! { |campaign| campaign.daily_budget_available? } unless ignore_budgets
+    campaigns.select! { |campaign| campaign.daily_budget_available? }
     campaigns.sample
   end
 
@@ -160,7 +177,7 @@ class AdvertisementsController < ApplicationController
       ip_address: ip_address,
     }, expires_in: 30.seconds
 
-    instrument "create_virtual_impression.codefund", statsd_key: "web.create_virtual_impression.success.#{@campaign.id}.#{property_id}"
+    instrument "increment.statsd", key: "web.create_virtual_impression.success.#{@campaign.id}.#{property_id}"
   end
 
   def set_cors_headers

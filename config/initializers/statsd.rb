@@ -9,18 +9,10 @@ end
 def statsd_increment(key)
   return unless key.present?
   StatsD.increment key
+rescue StandardError => e
+  Rails.logger.error "StatsD increment failed! #{e.message}"
 end
 
-events = %w[
-  create_impression_job_fail.codefund
-  create_impression_job_success.codefund
-  create_virtual_impression.codefund
-  find_virtual_impression.codefund
-  render_legacy_ad.codefund
-]
-
-events.each do |event|
-  ActiveSupport::Notifications.subscribe event do |_name, _started, _finished, _unique_id, data|
-    statsd_increment data[:statsd_key]
-  end
+ActiveSupport::Notifications.subscribe "increment.statsd" do |_name, _started, _finished, _unique_id, data|
+  statsd_increment data[:key]
 end
