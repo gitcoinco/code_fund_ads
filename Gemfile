@@ -29,8 +29,8 @@ gem "monetize",                           "~> 1.9.0"
 gem "money",                              "~> 6.13.1"
 gem "money-rails",                        "~> 1.13.0"
 gem "nsa",                                "~> 0.2.7"
-gem "okcomputer",                         "~> 1.17.3"
 gem "oj",                                 "~> 3.7.6"
+gem "okcomputer",                         "~> 1.17.3"
 gem "pagy",                               "~> 0.21.0"
 gem "paper_trail",                        "~> 10.0.1"
 gem "perm",                               "~> 1.0.2"
@@ -65,6 +65,7 @@ group :development, :test do
   gem "pry"
   gem "pry-byebug"
   gem "pry-rails"
+  gem "rb-readline"
 end
 
 group :development do
