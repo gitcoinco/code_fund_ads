@@ -6,9 +6,9 @@ when "development"
   StatsD.backend = StatsD::Instrument::Backends::LoggerBackend.new(Rails.logger)
 end
 
-def statsd_increment(category:, action:, status: "success", property_id: "UNKNOWN", campaign_id: "UNKNOWN", creative_id: "UNKNOWN", country_code: "UNKNOWN")
+def statsd_increment(category: "web", action:, status: "success", property_id: "UNKNOWN", campaign_id: "UNKNOWN", creative_id: "UNKNOWN", country_code: "UNKNOWN")
   key = [
-    category,
+    category || "web",
     action,
     status || "success",
     property_id || "UNKNOWN",
