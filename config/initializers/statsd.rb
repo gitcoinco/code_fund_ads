@@ -6,13 +6,21 @@ when "development"
   StatsD.backend = StatsD::Instrument::Backends::LoggerBackend.new(Rails.logger)
 end
 
-def statsd_increment(key)
-  return unless key.present?
+def statsd_increment(category:, action:, status: "success", property_id: "UNKNOWN", campaign_id: "UNKNOWN", creative_id: "UNKNOWN", country_code: "UNKNOWN")
+  key = [
+    category,
+    action,
+    status || "success",
+    property_id || "UNKNOWN",
+    campaign_id || "UNKNOWN",
+    creative_id || "UNKNOWN",
+    country_code || "UNKNOWN",
+  ].join(".")
   StatsD.increment key
-rescue StandardError => e
+rescue => e
   Rails.logger.error "StatsD increment failed! #{e.message}"
 end
 
 ActiveSupport::Notifications.subscribe "increment.statsd" do |_name, _started, _finished, _unique_id, data|
-  statsd_increment data[:key]
+  statsd_increment data[:data]
 end

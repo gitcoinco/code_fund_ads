@@ -6,7 +6,7 @@ class CreateImpressionJob < ApplicationJob
     property = Property.find_by(id: property_id)
 
     unless campaign && property
-      return instrument("increment.statsd", key: statsd_key(:fail, :missing_campaign_and_property))
+      return instrument "increment.statsd", data: statsd_data({status: "missing_campaign_and_property"})
     end
 
     displayed_at = Time.parse(displayed_at_string)
@@ -36,15 +36,20 @@ class CreateImpressionJob < ApplicationJob
 
     IncrementImpressionsCountCacheJob.perform_now impression
     instrument "increment.statsd",
-      key: statsd_key(:success, campaign.id, campaign.creative_id, property.id, campaign.campaign_type, impression.country_code)
+      data: statsd_data({
+        campaign_id: campaign.id,
+        creative_id: campaign.creative_id,
+        property_id: property.id,
+        country_code: impression.country_code,
+      })
   rescue ActiveRecord::RecordNotUnique
     # prevent reattempts when a race condition attempts to write the same record
-    instrument "increment.statsd", key: statsd_key(:fail, :record_not_unique)
+    instrument "increment.statsd", key: statsd_data({status: "record_not_unique"})
   end
 
   private
 
-  def statsd_key(*subkeys)
-    ["job.create_impression", subkeys].flatten.reject(&:blank?).join(".")
+  def statsd_data(data)
+    {category: "job", action: "create_impression"}.merge(data)
   end
 end

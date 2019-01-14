@@ -251,6 +251,34 @@ rails maxmind:download
 DownloadAndExtractMaxmindFileJob.new.download
 ```
 
+## Instrumentation
+
+CodeFund uses statsd to gather and analyze data. This data does not include any personal identifiable information.
+
+The pattern in which to instrument CodeFund with is as follows:
+
+    :application.:environment.:category.:action.:status.:property_id.:campaign_id.:creative_id.:country_code
+
+Each variable can be the following value:
+
+- `application` - the name of the application (codefund)
+- `environment` - the Rails environment (production, staging, etc)
+- `category` - the overall category of the stat. Can be `web`, `job`, `api`
+- `action` - the label for the action being tracked (e.g. `find_virtual_impression`)
+- `status` - the status of the action (e.g. `success` or `fail`)
+- `property_id` - the Property ID (or `UNKNOWN` for none)
+- `campaign_id` - the Campaign ID (or `UNKNOWN` for none)
+- `creative_id` - the Creative ID (or `UNKNOWN` for none)
+- `country_code` - the country code (or `UNKNOWN` for none)
+
+Example:
+
+```ruby
+# Application & Environment are added by default
+instrument "increment.statsd", key: "web.find_virtual_impression.fail"
+instrument "increment.statsd", key: "web.find_fallback_campaign.success.1.UNKNOWN.UNKNOWN.US"
+```
+
 ## Candidates for GEM extraction
 
 - Searchable ActiveStorage metadata
