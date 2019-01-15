@@ -157,6 +157,7 @@ JOB_TYPES:
 JOB_SOURCES:
   - internal
   - remoteok
+  - github
   
 # SEE: https://dev.maxmind.com/geoip/legacy/codes/iso3166/
 COUNTRIES:

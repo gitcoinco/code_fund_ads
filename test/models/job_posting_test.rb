@@ -9,8 +9,12 @@
 #  source                     :string           default("internal"), not null
 #  source_identifier          :string
 #  job_type                   :string           not null
+#  company_name               :string
+#  company_url                :string
+#  company_logo_url           :string
 #  title                      :string           not null
 #  description                :text             not null
+#  how_to_apply               :text
 #  keywords                   :string           default([]), not null, is an Array
 #  min_annual_salary_cents    :integer          default(0), not null
 #  min_annual_salary_currency :string           default("USD"), not null
@@ -22,8 +26,8 @@
 #  province_code              :string
 #  country_code               :string
 #  url                        :text
-#  start_date                 :date
-#  end_date                   :date
+#  start_date                 :date             not null
+#  end_date                   :date             not null
 #  full_text_search           :tsvector
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null

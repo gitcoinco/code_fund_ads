@@ -27,7 +27,9 @@ class ImportRemoteokJobsJob < ApplicationJob
       posting.start_date       = Time.at(job["epoch"].to_i).to_date
       posting.end_date         = posting.start_date + 60.days
       posting.source           = ENUMS::JOB_SOURCES::REMOTEOK
-      posting.save
+      unless posting.save
+        puts "Unable to save: #{posting.errors.inspect}"
+      end
     end
 
     nil

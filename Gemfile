@@ -11,6 +11,7 @@ gem "aws-sdk-s3",                         "~> 1.29.0", require: false
 gem "barnes",                             "~> 0.0.7"
 gem "bootsnap",                           ">= 1.1.0", require: false
 gem "cable_ready",                        "~> 2.0.7"
+gem "chronic",                            "~> 0.10.2"
 gem "country_select",                     "~> 3.1.1"
 gem "devise",                             "~> 4.5.0"
 gem "devise_invitable",                   "~> 1.7.5"

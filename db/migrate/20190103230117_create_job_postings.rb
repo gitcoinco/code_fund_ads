@@ -11,9 +11,11 @@ class CreateJobPostings < ActiveRecord::Migration[5.2]
       t.string :source_identifier
       t.string :job_type, null: false
       t.string :company_name
+      t.string :company_url
       t.string :company_logo_url
       t.string :title, null: false
       t.text :description, null: false
+      t.text :how_to_apply
       t.string :keywords, array: true, default: [], null: false
       t.monetize :min_annual_salary, null: false, default: Money.new(75_000, "USD")
       t.monetize :max_annual_salary
