@@ -9,6 +9,7 @@
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
     "@rails/webpacker": "3.5",
+    "axios": "^0.18.0",
     "bootstrap-daterangepicker": "^3.0.3",
     "codesandbox": "^1.3.6",
     "git": "^0.1.5",

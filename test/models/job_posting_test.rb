@@ -5,7 +5,9 @@
 #  id                         :bigint(8)        not null, primary key
 #  organization_id            :bigint(8)        not null
 #  user_id                    :bigint(8)        not null
-#  campaign_id                :bigint(8)        not null
+#  campaign_id                :bigint(8)
+#  source                     :string           default("internal"), not null
+#  source_identifier          :string
 #  job_type                   :string           not null
 #  title                      :string           not null
 #  description                :text             not null

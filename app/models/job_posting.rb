@@ -5,7 +5,9 @@
 #  id                         :bigint(8)        not null, primary key
 #  organization_id            :bigint(8)        not null
 #  user_id                    :bigint(8)        not null
-#  campaign_id                :bigint(8)        not null
+#  campaign_id                :bigint(8)
+#  source                     :string           default("internal"), not null
+#  source_identifier          :string
 #  job_type                   :string           not null
 #  title                      :string           not null
 #  description                :text             not null
@@ -46,9 +48,15 @@ class JobPosting < ApplicationRecord
   validates :min_annual_salary_cents, presence: true
   validates :min_annual_salary_currency, presence: true
   validates :remote, presence: true
+  validates :source, inclusion: {in: ENUMS::JOB_SOURCES.keys}
+  validates :source_identifier, presence: true, if: -> { external? }
+  validates :start_date, presence: true
+  validates :end_date, presence: true
 
   # callbacks .................................................................
+
   # scopes ....................................................................
+  scope :remoteok, -> { where(source: ENUMS::JOB_SOURCES::REMOTEOK) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   tag_columns :keywords
@@ -58,6 +66,10 @@ class JobPosting < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def external?
+    source != ENUMS::JOB_SOURCES::INTERNAL
+  end
 
   # protected instance methods ................................................
 

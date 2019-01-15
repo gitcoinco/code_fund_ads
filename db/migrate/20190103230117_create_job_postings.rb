@@ -6,8 +6,12 @@ class CreateJobPostings < ActiveRecord::Migration[5.2]
     create_table :job_postings do |t|
       t.bigint :organization_id, null: false
       t.bigint :user_id, null: false
-      t.bigint :campaign_id, null: false
+      t.bigint :campaign_id
+      t.string :source, null: false, default: ENUMS::JOB_SOURCES::INTERNAL
+      t.string :source_identifier
       t.string :job_type, null: false
+      t.string :company_name
+      t.string :company_logo_url
       t.string :title, null: false
       t.text :description, null: false
       t.string :keywords, array: true, default: [], null: false
@@ -19,15 +23,18 @@ class CreateJobPostings < ActiveRecord::Migration[5.2]
       t.string :province_code
       t.string :country_code
       t.text :url
-      t.date :start_date
-      t.date :end_date
+      t.date :start_date, null: false
+      t.date :end_date, null: false
       t.tsvector :full_text_search
       t.timestamps
 
       t.index :organization_id
       t.index :user_id
       t.index :campaign_id
+      t.index :source
+      t.index :source_identifier
       t.index :job_type
+      t.index :company_name
       t.index :title
       t.index :keywords, using: :gin
       t.index :min_annual_salary_cents

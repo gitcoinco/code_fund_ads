@@ -220,8 +220,12 @@ ActiveRecord::Schema.define(version: 2019_01_08_201954) do
   create_table "job_postings", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.bigint "user_id", null: false
-    t.bigint "campaign_id", null: false
+    t.bigint "campaign_id"
+    t.string "source", default: "internal", null: false
+    t.string "source_identifier"
     t.string "job_type", null: false
+    t.string "company_name"
+    t.string "company_logo_url"
     t.string "title", null: false
     t.text "description", null: false
     t.string "keywords", default: [], null: false, array: true
@@ -235,13 +239,14 @@ ActiveRecord::Schema.define(version: 2019_01_08_201954) do
     t.string "province_code"
     t.string "country_code"
     t.text "url"
-    t.date "start_date"
-    t.date "end_date"
+    t.date "start_date", null: false
+    t.date "end_date", null: false
     t.tsvector "full_text_search"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["campaign_id"], name: "index_job_postings_on_campaign_id"
     t.index ["city"], name: "index_job_postings_on_city"
+    t.index ["company_name"], name: "index_job_postings_on_company_name"
     t.index ["country_code"], name: "index_job_postings_on_country_code"
     t.index ["end_date"], name: "index_job_postings_on_end_date"
     t.index ["full_text_search"], name: "index_job_postings_on_full_text_search", using: :gin
@@ -253,6 +258,8 @@ ActiveRecord::Schema.define(version: 2019_01_08_201954) do
     t.index ["province_code"], name: "index_job_postings_on_province_code"
     t.index ["province_name"], name: "index_job_postings_on_province_name"
     t.index ["remote"], name: "index_job_postings_on_remote"
+    t.index ["source"], name: "index_job_postings_on_source"
+    t.index ["source_identifier"], name: "index_job_postings_on_source_identifier"
     t.index ["start_date"], name: "index_job_postings_on_start_date"
     t.index ["title"], name: "index_job_postings_on_title"
     t.index ["user_id"], name: "index_job_postings_on_user_id"

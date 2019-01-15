@@ -27,7 +27,7 @@ class Organization < ApplicationRecord
 
   # validations ...............................................................
   validates :name, presence: true
-  validates_each :name do |record, attr, value|
+  validates_each :name, unless: :skip_validation do |record, attr, value|
     if record.name_changed? && ENUMS::RESERVED_ORGANIZATION_NAMES[value.downcase.strip]
       record.errors.add(attr, "'#{value}' is reserved")
     end
@@ -50,6 +50,7 @@ class Organization < ApplicationRecord
   }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  attr_accessor :skip_validation
   monetize :balance_cents, numericality: true
   acts_as_commentable
   has_paper_trail on: %i[update destroy], only: %i[
@@ -58,6 +59,9 @@ class Organization < ApplicationRecord
 
   # class methods .............................................................
   class << self
+    def codefund
+      where(name: "CodeFund").first_or_create!(skip_validation: true)
+    end
   end
 
   # public instance methods ...................................................

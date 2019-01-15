@@ -2,7 +2,12 @@ class JobPostingsController < ApplicationController
   before_action :set_job_posting, except: [:index, :new, :create]
 
   def index
-    @job_postings = JobPosting.all
+    job_postings = JobPosting.order(start_date: :desc)
+    @pagy, @job_postings = pagy(job_postings, items: 30)
+
+    if params[:partial]
+      render partial: "/job_postings/list_items", locals: {job_postings: @job_postings, pagy: @pagy}, layout: false
+    end
   end
 
   def show

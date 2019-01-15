@@ -51,6 +51,7 @@ gem "slack-notifier",                     "~> 2.3.2"
 gem "stimulus_reflex",                    "~> 0.2.0"
 gem "tag_columns",                        "~> 0.1.6"
 gem "turbolinks",                         "~> 5"
+gem "typhoeus",                           "~> 1.3.1"
 gem "uglifier",                           ">= 1.3.0"
 gem "webpacker",                          "~> 3.5"
 

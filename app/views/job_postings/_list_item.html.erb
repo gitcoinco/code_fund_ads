@@ -1,0 +1,14 @@
+<li class="list-group-item d-flex justify-content-between align-items-center py-3 px-2">
+  <span>
+    <%= image_tag job_posting.company_logo_url, class: "u-avatar d-none d-md-block",
+          style: "position: absolute; left: -60px; top: 24px;" if job_posting.company_logo_url.present? %>
+    <%= link_to job_posting.title, job_posting, class: "lead text-dark", style: "font-weight: bold;" %>
+    <div class="mb-2"><%= job_posting.company_name %></div>
+    <span>
+      <% job_posting.keywords.each do |keyword| %>
+        <a class="btn btn-sm btn-soft-primary mb-1" style="padding: 3px 8px;"><%= keyword %></a>
+      <% end %>
+    </span>
+  </span>
+  <div class="d-none d-sm-block" style="width: 100px; text-align: right;"><%= job_posting.start_date.to_s "bd" %></div>
+</li>

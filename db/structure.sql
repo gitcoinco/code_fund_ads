@@ -405,8 +405,12 @@ CREATE TABLE public.job_postings (
     id bigint NOT NULL,
     organization_id bigint NOT NULL,
     user_id bigint NOT NULL,
-    campaign_id bigint NOT NULL,
+    campaign_id bigint,
+    source character varying DEFAULT 'internal'::character varying NOT NULL,
+    source_identifier character varying,
     job_type character varying NOT NULL,
+    company_name character varying,
+    company_logo_url character varying,
     title character varying NOT NULL,
     description text NOT NULL,
     keywords character varying[] DEFAULT '{}'::character varying[] NOT NULL,
@@ -420,8 +424,8 @@ CREATE TABLE public.job_postings (
     province_code character varying,
     country_code character varying,
     url text,
-    start_date date,
-    end_date date,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
     full_text_search tsvector,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
@@ -1430,6 +1434,13 @@ CREATE INDEX index_job_postings_on_city ON public.job_postings USING btree (city
 
 
 --
+-- Name: index_job_postings_on_company_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_company_name ON public.job_postings USING btree (company_name);
+
+
+--
 -- Name: index_job_postings_on_country_code; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1504,6 +1515,20 @@ CREATE INDEX index_job_postings_on_province_name ON public.job_postings USING bt
 --
 
 CREATE INDEX index_job_postings_on_remote ON public.job_postings USING btree (remote);
+
+
+--
+-- Name: index_job_postings_on_source; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_source ON public.job_postings USING btree (source);
+
+
+--
+-- Name: index_job_postings_on_source_identifier; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_source_identifier ON public.job_postings USING btree (source_identifier);
 
 
 --

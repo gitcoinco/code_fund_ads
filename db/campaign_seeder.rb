@@ -7,8 +7,8 @@ class CampaignSeeder
     country_codes = ["US", "CA"]
     country_codes += ["BR", "IN"] if rand(3).zero?
     country_codes += Country.all.sample(5).map(&:iso_code) if rand(5).zero?
-    keywords = ENUMS::KEYWORDS.values.sample(25)
-    negative_keywords = ENUMS::KEYWORDS.values.sample(2) - keywords
+    keywords = ENUMS::KEYWORDS.keys.sample(25)
+    negative_keywords = ENUMS::KEYWORDS.keys.sample(2) - keywords
 
     Campaign.create(
       user: advertiser,

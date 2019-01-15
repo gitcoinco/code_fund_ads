@@ -161,6 +161,18 @@ class User < ApplicationRecord
       return unless version.terminator
       find(version.terminator)
     end
+
+    def codefund_bot
+      pw = SecureRandom.uuid
+      where(email: "bot@codefund.io").first_or_create!(
+        first_name: "CodeFund",
+        last_name: "Bot",
+        password: pw,
+        password_confirmation: pw,
+        organization: Organization.codefund,
+        invitation_accepted_at: Time.current
+      )
+    end
   end
 
   # public instance methods ...................................................
