@@ -1,6 +1,6 @@
 # CodeFund Ads
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors)
 
 CodeFund Ads is an ethical and discreet ad platform that funds open-source.
 It helps your favorite projects thrive by paying maintainers the majority of all generated revenue.
@@ -45,6 +45,45 @@ publishers can add CodeFund to their site by including the CodeFund script and a
 - `keywords` - the keywords to use for targeting (comma delimited string) _overrides the property config_
 
 > Setting `async` on the script tag will ensure that CodeFund doens't block anything on the publisher's site.
+
+### Embed Callbacks
+
+You may want to perform a function if the embed function does not return an ad.
+
+To do this, you must create an event listener for the window event `codefund`.
+
+Example:
+
+```js
+window.addEventListener("codefund", function(evt) {
+  if (evt.detail.status !== 'ok') {
+    // Do something else
+    console.log(evt.detail.status);
+  }
+});
+```
+
+On a successful embed, `evt.detail` will return:
+
+```json
+{ "status": "ok", "house": false }
+
+or 
+
+{ "status": "ok", "house": true } // Ad returned is a house ad
+```
+
+If an error occurs with embedding the ad, `evt.detail` will return:
+
+```json
+{ "status": "error", "message": "error message" }
+```
+
+And in the event that we do not have an available advertiser, you will see:
+
+```json
+{ "status": "no-advertiser" }
+```
 
 ## API
 
@@ -100,7 +139,7 @@ ENUMS::USER_ROLES.constants
 ```sh
 git clone https://github.com/gitcoinco/code_fund_ads.git
 cd /path/to/project
-cp .env-sample .env
+cp .env-example .env
 
 # setup environment variables
 
@@ -212,6 +251,34 @@ rails maxmind:download
 DownloadAndExtractMaxmindFileJob.new.download
 ```
 
+## Instrumentation
+
+CodeFund uses statsd to gather and analyze data. This data does not include any personal identifiable information.
+
+The pattern in which to instrument CodeFund with is as follows:
+
+    :application.:environment.:category.:action.:status.:property_id.:campaign_id.:creative_id.:country_code
+
+Each variable can be the following value:
+
+- `application` - the name of the application (codefund)
+- `environment` - the Rails environment (production, staging, etc)
+- `category` - the overall category of the stat. Can be `web`, `job`, `api`
+- `action` - the label for the action being tracked (e.g. `find_virtual_impression`)
+- `status` - the status of the action (e.g. `success` or `fail`)
+- `property_id` - the Property ID (or `UNKNOWN` for none)
+- `campaign_id` - the Campaign ID (or `UNKNOWN` for none)
+- `creative_id` - the Creative ID (or `UNKNOWN` for none)
+- `country_code` - the country code (or `UNKNOWN` for none)
+
+Example:
+
+```ruby
+# Application & Environment are added by default
+instrument "increment.statsd", key: "web.find_virtual_impression.fail"
+instrument "increment.statsd", key: "web.find_fallback_campaign.success.1.UNKNOWN.UNKNOWN.US"
+```
+
 ## Candidates for GEM extraction
 
 - Searchable ActiveStorage metadata
@@ -223,8 +290,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars2.githubusercontent.com/u/32920?v=4" width="100px;"/><br /><sub><b>Nathan Hopkins</b></sub>](https://twitter.com/@hopsoft)<br />[💻](https://github.com/gitcoinco/code_fund_ads/commits?author=hopsoft "Code") [📖](https://github.com/gitcoinco/code_fund_ads/commits?author=hopsoft "Documentation") [🤔](#ideas-hopsoft "Ideas, Planning, & Feedback") [🚇](#infra-hopsoft "Infrastructure (Hosting, Build-Tools, etc)") [📦](#platform-hopsoft "Packaging/porting to new platform") [👀](#review-hopsoft "Reviewed Pull Requests") | [<img src="https://avatars2.githubusercontent.com/u/12481?v=4" width="100px;"/><br /><sub><b>Eric Berry</b></sub>](https://codefund.io)<br />[💻](https://github.com/gitcoinco/code_fund_ads/commits?author=coderberry "Code") [📖](https://github.com/gitcoinco/code_fund_ads/commits?author=coderberry "Documentation") [🤔](#ideas-coderberry "Ideas, Planning, & Feedback") [🚇](#infra-coderberry "Infrastructure (Hosting, Build-Tools, etc)") [📦](#platform-coderberry "Packaging/porting to new platform") [👀](#review-coderberry "Reviewed Pull Requests") | [<img src="https://avatars3.githubusercontent.com/u/5496174?v=4" width="100px;"/><br /><sub><b>Ron Cooke</b></sub>](http://thebrascode.com)<br />[💻](https://github.com/gitcoinco/code_fund_ads/commits?author=brascoder "Code") [📖](https://github.com/gitcoinco/code_fund_ads/commits?author=brascoder "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/423811?v=4" width="100px;"/><br /><sub><b>Mike</b></sub>](https://github.com/barbeque)<br />[📖](https://github.com/gitcoinco/code_fund_ads/commits?author=barbeque "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/7039523?v=4" width="100px;"/><br /><sub><b>Arun Kumar</b></sub>](https://github.com/arku)<br />[📖](https://github.com/gitcoinco/code_fund_ads/commits?author=arku "Documentation") |
-| :---: | :---: | :---: | :---: | :---: |
+| [<img src="https://avatars2.githubusercontent.com/u/32920?v=4" width="100px;"/><br /><sub><b>Nathan Hopkins</b></sub>](https://twitter.com/@hopsoft)<br />[💻](https://github.com/gitcoinco/code_fund_ads/commits?author=hopsoft "Code") [📖](https://github.com/gitcoinco/code_fund_ads/commits?author=hopsoft "Documentation") [🤔](#ideas-hopsoft "Ideas, Planning, & Feedback") [🚇](#infra-hopsoft "Infrastructure (Hosting, Build-Tools, etc)") [📦](#platform-hopsoft "Packaging/porting to new platform") [👀](#review-hopsoft "Reviewed Pull Requests") | [<img src="https://avatars2.githubusercontent.com/u/12481?v=4" width="100px;"/><br /><sub><b>Eric Berry</b></sub>](https://codefund.io)<br />[💻](https://github.com/gitcoinco/code_fund_ads/commits?author=coderberry "Code") [📖](https://github.com/gitcoinco/code_fund_ads/commits?author=coderberry "Documentation") [🤔](#ideas-coderberry "Ideas, Planning, & Feedback") [🚇](#infra-coderberry "Infrastructure (Hosting, Build-Tools, etc)") [📦](#platform-coderberry "Packaging/porting to new platform") [👀](#review-coderberry "Reviewed Pull Requests") | [<img src="https://avatars3.githubusercontent.com/u/5496174?v=4" width="100px;"/><br /><sub><b>Ron Cooke</b></sub>](http://thebrascode.com)<br />[💻](https://github.com/gitcoinco/code_fund_ads/commits?author=brascoder "Code") [📖](https://github.com/gitcoinco/code_fund_ads/commits?author=brascoder "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/423811?v=4" width="100px;"/><br /><sub><b>Mike</b></sub>](https://github.com/barbeque)<br />[📖](https://github.com/gitcoinco/code_fund_ads/commits?author=barbeque "Documentation") | [<img src="https://avatars2.githubusercontent.com/u/7039523?v=4" width="100px;"/><br /><sub><b>Arun Kumar</b></sub>](https://github.com/arku)<br />[📖](https://github.com/gitcoinco/code_fund_ads/commits?author=arku "Documentation") | [<img src="https://avatars1.githubusercontent.com/u/8299599?v=4" width="100px;"/><br /><sub><b>Maxim Dzhuliy</b></sub>](http://max-si-m.github.io)<br />[📖](https://github.com/gitcoinco/code_fund_ads/commits?author=max-si-m "Documentation") |
+| :---: | :---: | :---: | :---: | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!

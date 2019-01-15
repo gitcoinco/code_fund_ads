@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_08_201954) do
+ActiveRecord::Schema.define(version: 2019_01_11_172606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_01_08_201954) do
     t.string "monthly_budget"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "invited_user_id"
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -137,6 +138,14 @@ ActiveRecord::Schema.define(version: 2019_01_08_201954) do
     t.index ["user_id"], name: "index_creatives_on_user_id"
   end
 
+  create_table "email_templates", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "subject", null: false
+    t.string "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "events", force: :cascade do |t|
     t.integer "eventable_id", null: false
     t.string "eventable_type", null: false
@@ -174,6 +183,7 @@ ActiveRecord::Schema.define(version: 2019_01_08_201954) do
     t.string "ad_theme"
     t.bigint "organization_id"
     t.string "province_code"
+    t.boolean "uplift", default: false
   end
 
   create_table "impressions_default", id: false, force: :cascade do |t|
@@ -201,6 +211,7 @@ ActiveRecord::Schema.define(version: 2019_01_08_201954) do
     t.string "ad_theme"
     t.bigint "organization_id"
     t.string "province_code"
+    t.boolean "uplift", default: false
     t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_default_date_trunc_idx1"
     t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_default_date_trunc_idx"
     t.index ["ad_template"], name: "impressions_default_ad_template_idx"
@@ -215,6 +226,7 @@ ActiveRecord::Schema.define(version: 2019_01_08_201954) do
     t.index ["organization_id"], name: "impressions_default_organization_id_idx"
     t.index ["property_id"], name: "impressions_default_property_id_idx"
     t.index ["province_code"], name: "impressions_default_province_code_idx"
+    t.index ["uplift"], name: "impressions_default_uplift_idx"
   end
 
   create_table "job_postings", force: :cascade do |t|

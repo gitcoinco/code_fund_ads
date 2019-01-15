@@ -126,7 +126,8 @@ CREATE TABLE public.applicants (
     company_name character varying,
     monthly_budget character varying,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    invited_user_id bigint
 );
 
 
@@ -322,6 +323,39 @@ ALTER SEQUENCE public.creatives_id_seq OWNED BY public.creatives.id;
 
 
 --
+-- Name: email_templates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.email_templates (
+    id bigint NOT NULL,
+    title character varying NOT NULL,
+    subject character varying NOT NULL,
+    body character varying NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: email_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.email_templates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: email_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.email_templates_id_seq OWNED BY public.email_templates.id;
+
+
+--
 -- Name: events; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -384,7 +418,8 @@ CREATE TABLE public.impressions (
     ad_template character varying,
     ad_theme character varying,
     organization_id bigint,
-    province_code character varying
+    province_code character varying,
+    uplift boolean DEFAULT false
 )
 PARTITION BY RANGE (advertiser_id, displayed_at_date);
 
@@ -807,6 +842,13 @@ ALTER TABLE ONLY public.creatives ALTER COLUMN id SET DEFAULT nextval('public.cr
 
 
 --
+-- Name: email_templates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.email_templates ALTER COLUMN id SET DEFAULT nextval('public.email_templates_id_seq'::regclass);
+
+
+--
 -- Name: events id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -825,6 +867,13 @@ ALTER TABLE ONLY public.impressions_default ALTER COLUMN id SET DEFAULT public.g
 --
 
 ALTER TABLE ONLY public.impressions_default ALTER COLUMN fallback_campaign SET DEFAULT false;
+
+
+--
+-- Name: impressions_default uplift; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_default ALTER COLUMN uplift SET DEFAULT false;
 
 
 --
@@ -945,6 +994,14 @@ ALTER TABLE ONLY public.creative_images
 
 ALTER TABLE ONLY public.creatives
     ADD CONSTRAINT creatives_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: email_templates email_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.email_templates
+    ADD CONSTRAINT email_templates_pkey PRIMARY KEY (id);
 
 
 --
@@ -1221,6 +1278,20 @@ CREATE INDEX index_impressions_on_province_code ON ONLY public.impressions USING
 --
 
 CREATE INDEX impressions_default_province_code_idx ON public.impressions_default USING btree (province_code);
+
+
+--
+-- Name: index_impressions_on_uplift; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_uplift ON ONLY public.impressions USING btree (uplift);
+
+
+--
+-- Name: impressions_default_uplift_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_uplift_idx ON public.impressions_default USING btree (uplift);
 
 
 --
@@ -1847,6 +1918,13 @@ ALTER INDEX public.index_impressions_on_province_code ATTACH PARTITION public.im
 
 
 --
+-- Name: impressions_default_uplift_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_uplift ATTACH PARTITION public.impressions_default_uplift_idx;
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -1874,6 +1952,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181221205112'),
 ('20181222164913'),
 ('20190103230117'),
-('20190108201954');
+('20190107225451'),
+('20190108190511'),
+('20190108201954'),
+('20190111172606');
 
 

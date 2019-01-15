@@ -100,6 +100,7 @@ class PropertiesController < ApplicationController
       :description,
       :language,
       :name,
+      :prohibit_fallback_campaigns,
       :property_type,
       :screenshot,
       :url,

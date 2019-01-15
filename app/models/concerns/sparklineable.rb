@@ -2,7 +2,7 @@ module Sparklineable
   extend ActiveSupport::Concern
 
   def sparkline_impressions(start_date, end_date)
-    key = "#{cache_key}/#{__method__}/#{Date.cache_key(start_date, coerce: false)}-#{Date.cache_key(end_date, coerce: false)}"
+    key = "#{cache_key}/#{__method__}/#{start_date&.cache_key}-#{end_date&.cache_key}"
     Rails.cache.fetch(key) {
       date_range = (start_date..end_date).to_a
       date_range.map do |date|
@@ -16,7 +16,7 @@ module Sparklineable
   end
 
   def sparkline_clicks(start_date, end_date)
-    key = "#{cache_key}/#{__method__}/#{Date.cache_key(start_date, coerce: false)}-#{Date.cache_key(end_date, coerce: false)}"
+    key = "#{cache_key}/#{__method__}/#{start_date&.cache_key}-#{end_date&.cache_key}"
     Rails.cache.fetch(key) {
       date_range = (start_date..end_date).to_a
       date_range.map do |date|

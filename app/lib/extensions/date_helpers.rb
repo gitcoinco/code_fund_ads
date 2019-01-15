@@ -23,11 +23,15 @@ module Extensions
       def cache_key(date, coerce: true, minutes_cached: 10)
         return nil unless date || coerce
         date = Date.coerce(date)
-        return date.iso8601 unless date.today?
+        return date.iso8601 if date.past?
         minute_groups = (1..60).each_slice(minutes_cached).to_a
         index = minute_groups.index { |set| set.include?(Time.current.min) }
-        "#{date.iso8601}#{Time.current.hour}#{index}"
+        "#{date.iso8601}/#{Time.current.hour}#{index}"
       end
+    end
+
+    def cache_key(minutes_cached: 10)
+      Date.cache_key self, coerce: false, minutes_cached: minutes_cached
     end
   end
 end

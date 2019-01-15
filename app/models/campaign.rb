@@ -79,11 +79,12 @@ class Campaign < ApplicationRecord
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
   scope :permitted_for_property_id, ->(property_id) {
     subquery = Property.select(:prohibited_advertiser_ids).where(id: property_id)
-    id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"id\"]"), subquery.arel)
+    id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"user_id\"]"), subquery.arel)
     where.not id_prohibited
   }
-  scope :for_property, ->(property, *keywords) { for_property_id property.id }
-  scope :for_property_id, ->(property_id, *keywords) do
+  scope :targeted_premium_for_property, ->(property, *keywords) { targeted_premium_for_property_id property.id }
+  scope :targeted_premium_for_property_id, ->(property_id, *keywords) { premium.targeted_for_property_id(property_id, *keywords) }
+  scope :targeted_for_property_id, ->(property_id, *keywords) do
     if keywords.present?
       premium.permitted_for_property_id(property_id).
         with_any_keywords(*keywords).
@@ -102,7 +103,8 @@ class Campaign < ApplicationRecord
       where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
   end
   scope :targeted_fallback_for_property_id, ->(property_id, *keywords) do
-    fallback.for_property_id(property_id, *keywords).
+    targeted_for_property_id(property_id, *keywords).
+      where(fallback: true).
       where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
   end
 
@@ -243,6 +245,11 @@ class Campaign < ApplicationRecord
 
   def provinces
     Province.where iso_code: province_codes
+  end
+  
+  def campaign_type
+    return "fallback" if fallback?
+    "premium"
   end
 
   # protected instance methods ................................................

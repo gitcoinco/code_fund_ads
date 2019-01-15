@@ -29,7 +29,7 @@ module Impressionable
   end
 
   def daily_impressions_counts(start_date = nil, end_date = nil)
-    key = "#{cache_key}/#{__method__}/#{Date.cache_key(start_date, coerce: false)}-#{Date.cache_key(end_date, coerce: false)}"
+    key = "#{cache_key}/#{__method__}/#{start_date&.cache_key}-#{end_date&.cache_key}"
     Rails.cache.fetch key do
       probable_dates_with_impressions(start_date, end_date).map do |date|
         daily_impressions_count date
@@ -90,7 +90,7 @@ module Impressionable
   end
 
   def daily_clicks_counts(start_date = nil, end_date = nil)
-    key = "#{cache_key}/#{__method__}/#{Date.cache_key(start_date, coerce: false)}-#{Date.cache_key(end_date, coerce: false)}"
+    key = "#{cache_key}/#{__method__}/#{start_date&.cache_key}-#{end_date&.cache_key}"
     Rails.cache.fetch(key) {
       probable_dates_with_impressions(start_date, end_date).map do |date|
         daily_clicks_count date
