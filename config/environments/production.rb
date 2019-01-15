@@ -62,8 +62,7 @@ Rails.application.configure do
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  config.cache_store = :redis_cache_store, {driver: :hiredis, namespace: "code_fund_ads_#{Rails.env}_cache", url: ENV["REDIS_CACHE_URL"]}
-
+  config.cache_store = :redis_cache_store, {namespace: "code_fund_ads_#{Rails.env}_cache", url: ENV["REDIS_CACHE_URL"], size: ENV.fetch("RAILS_MAX_THREADS") { 5 }}
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "code_fund_ads_#{Rails.env}"
