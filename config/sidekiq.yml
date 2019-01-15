@@ -1,4 +1,4 @@
-:concurrency: <%= (ENV.fetch("RAILS_MAX_THREADS") { 10 }).to_i %>
+:concurrency: <%= (ENV.fetch("RAILS_MAX_THREADS") { 10 }).to_i - 2 %>
 :queues:
   - critical
   - mailers
