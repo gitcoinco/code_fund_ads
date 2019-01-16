@@ -173,7 +173,7 @@ class AdvertisementsController < ApplicationController
         output_encoding: "utf-8",
         adapter: :nokogiri_fast
       ).to_inline_css.strip.gsub(/\s\s|\n/, "")
-      formatted_code = code.gsub(/\'/, "\\\\'") unless request.format.html?
+      formatted_code = formatted_code.gsub(/\'/, "\\\\'") unless request.format.html?
       formatted_code
     end
   end
