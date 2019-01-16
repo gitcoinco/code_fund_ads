@@ -4,11 +4,11 @@
   <div class="container space-top-md-3 space-1">
     <div class="border-bottom space-top-2">
       <div class="media mb-5">
-        <!-- Avatar -->
-        <div class="u-lg-avatar mr-4">
-          <%= image_tag @job_posting.company_logo_url, class: "img-fluid" if @job_posting.company_logo_url.present? %>
-        </div>
-        <!-- End Avatar -->
+        <% if @job_posting.company_logo_url.present? %>
+          <div class="u-lg-avatar mr-4">
+            <%= image_tag @job_posting.company_logo_url, class: "img-fluid" if @job_posting.company_logo_url.present? %>
+          </div>
+        <% end %>
 
         <div class="media-body">
           <div class="row">

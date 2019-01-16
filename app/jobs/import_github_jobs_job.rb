@@ -4,6 +4,14 @@ class ImportGithubJobsJob < ApplicationJob
   queue_as :default
 
   def perform(*tags)
+    tags.in_groups_of(5, false).each do |tag_group|
+      import_jobs(tag_group)
+      print tag_group.join(", ")
+      sleep 3
+    end
+  end
+
+  def import_jobs(tags)
     @jobs = []
 
     fetch_jobs(tags)
@@ -23,27 +31,30 @@ class ImportGithubJobsJob < ApplicationJob
       posting.title            = truncate(job["title"], length: 80)
       posting.how_to_apply     = job["how_to_apply"]
       posting.description      = job["description"]
-      posting.keywords         << job["tag"]
       if job["location"].downcase.include?("remote") || job["title"].downcase.include?("remote")
         posting.remote = true
-        posting.keywords << "remote"
       end
+      keywords = posting.keywords + [job["tag"]]
+      posting.keywords         = normalize_keywords(keywords)
       posting.city             = job["location"]
       posting.url              = job["url"]
       posting.start_date       = Chronic.parse(job["created_at"]).to_date
       posting.end_date         = posting.start_date + 60.days
       posting.source           = ENUMS::JOB_SOURCES::GITHUB
       posting.save
+      print "."
     end
 
     nil
   end
 
   def fetch_jobs(tags)
-    hydra = Typhoeus::Hydra.new(max_concurrency: 10)
+    hydra = Typhoeus::Hydra.new(max_concurrency: 5)
+    headers = { "Content-Type" => "application/json" }
 
     tags.each do |tag|
-      request = Typhoeus::Request.new("https://jobs.github.com/positions.json?search=#{tag}")
+      url = "https://jobs.github.com/positions.json"
+      request = Typhoeus::Request.new(url, headers: headers, params: { search: tag })
       request.on_complete do |response|
         JSON.parse(response.body).each { |listing| @jobs << listing.merge({ "tag" => tag }) }
       end
@@ -61,5 +72,29 @@ class ImportGithubJobsJob < ApplicationJob
     else
       nil
     end
+  end
+
+  def normalize_keywords(tags)
+    keywords = []
+    unmatched = []
+
+    tags.each do |tag|
+      ENUMS::KEYWORDS.keys.each do |key|
+        if ENUMS::KEYWORDS[key].include?(tag)
+          keywords << key 
+        elsif tag == key
+          keywords << key
+        end
+      end
+    end
+
+    puts "KW: #{keywords.to_json}"
+
+    # if keywords.empty?
+    #   Rails.logger.info("Unmatched tags from remoteok: #{tag}")
+    #   keywords << "Other"
+    # end
+
+    keywords.uniq.compact.sort
   end
 end

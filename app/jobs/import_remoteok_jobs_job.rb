@@ -41,7 +41,7 @@ class ImportRemoteokJobsJob < ApplicationJob
     tags.each do |tag|
       request = Typhoeus::Request.new("https://remoteok.io/api?tags=#{tag}")
       request.on_complete do |response|
-        JSON.parse(response.body).each { |listing| @jobs << listing }
+        JSON.parse(response.body).each { |listing| @jobs << listing.merge({ tag: tag }) }
       end
       hydra.queue(request)
     end
