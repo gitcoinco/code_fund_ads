@@ -1,14 +1,4 @@
 #!/bin/bash
 
-bundle exec standardrb --fix \
-  app/channels/**/*.rb \
-  app/controllers/**/*.rb \
-  app/helpers/**/*.rb \
-  app/jobs/**/*.rb \
-  app/mailers/**/*.rb \
-  app/models/**/*.rb \
-  config/**/*.rb \
-  db/**/*.rb \
-  lib/**/*.rb \
-  test/**/*.rb
+bundle exec standardrb --fix
 prettier --loglevel silent --write app/**/*.js
