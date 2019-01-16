@@ -41,7 +41,7 @@ class ImportRemoteokJobsJob < ApplicationJob
     tags.each do |tag|
       request = Typhoeus::Request.new("https://remoteok.io/api?tags=#{tag}")
       request.on_complete do |response|
-        JSON.parse(response.body).each { |listing| @jobs << listing.merge({ tag: tag }) }
+        JSON.parse(response.body).each { |listing| @jobs << listing.merge({tag: tag}) }
       end
       hydra.queue(request)
     end
@@ -51,18 +51,17 @@ class ImportRemoteokJobsJob < ApplicationJob
 
   def normalize_keywords(tags)
     keywords = []
-    unmatched = []
-  
+
     tags.each do |tag|
       ENUMS::KEYWORDS.keys.each do |key|
         if ENUMS::KEYWORDS[key].include?(tag)
-          keywords << key 
+          keywords << key
         end
       end
     end
 
     if keywords.empty?
-      Rails.logger.info("Unmatched tags from remoteok: #{tags.join(', ')}")
+      Rails.logger.info("Unmatched tags from remoteok: #{tags.join(", ")}")
       keywords << "Other"
     end
 

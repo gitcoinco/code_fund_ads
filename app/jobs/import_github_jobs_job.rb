@@ -50,13 +50,13 @@ class ImportGithubJobsJob < ApplicationJob
 
   def fetch_jobs(tags)
     hydra = Typhoeus::Hydra.new(max_concurrency: 5)
-    headers = { "Content-Type" => "application/json" }
+    headers = {"Content-Type" => "application/json"}
 
     tags.each do |tag|
       url = "https://jobs.github.com/positions.json"
-      request = Typhoeus::Request.new(url, headers: headers, params: { search: tag })
+      request = Typhoeus::Request.new(url, headers: headers, params: {search: tag})
       request.on_complete do |response|
-        JSON.parse(response.body).each { |listing| @jobs << listing.merge({ "tag" => tag }) }
+        JSON.parse(response.body).each { |listing| @jobs << listing.merge({"tag" => tag}) }
       end
       hydra.queue(request)
     end
@@ -69,19 +69,16 @@ class ImportGithubJobsJob < ApplicationJob
     when "Full Time" then ENUMS::JOB_TYPES::FULL_TIME
     when "Part Time" then ENUMS::JOB_TYPES::PART_TIME
     when "Contract" then ENUMS::JOB_TYPES::CONTRACT
-    else
-      nil
     end
   end
 
   def normalize_keywords(tags)
     keywords = []
-    unmatched = []
 
     tags.each do |tag|
       ENUMS::KEYWORDS.keys.each do |key|
         if ENUMS::KEYWORDS[key].include?(tag)
-          keywords << key 
+          keywords << key
         elsif tag == key
           keywords << key
         end
@@ -89,11 +86,6 @@ class ImportGithubJobsJob < ApplicationJob
     end
 
     puts "KW: #{keywords.to_json}"
-
-    # if keywords.empty?
-    #   Rails.logger.info("Unmatched tags from remoteok: #{tag}")
-    #   keywords << "Other"
-    # end
 
     keywords.uniq.compact.sort
   end
