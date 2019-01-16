@@ -14,7 +14,7 @@ class ImpressionsController < ApplicationController
     Rails.cache.delete params[:id]
 
     if @virtual_impression.nil?
-      instrument "increment.statsd", data: { action: "find_virtual_impression", status: "not_found" }
+      instrument "increment.statsd", data: {action: "find_virtual_impression", status: "not_found"}
       return head(:not_found)
     end
 
@@ -24,7 +24,7 @@ class ImpressionsController < ApplicationController
           action: "find_virtual_impression",
           status: "ip_mismatch",
           campaign_id: @virtual_impression[:campaign_id],
-          property_id: @virtual_impression[:property_id]
+          property_id: @virtual_impression[:property_id],
         }
       Rollbar.debug("IP addresses do not match", {
         virtual_impression: @virtual_impression,
@@ -37,7 +37,7 @@ class ImpressionsController < ApplicationController
       data: {
         action: "find_virtual_impression",
         campaign_id: @virtual_impression[:campaign_id],
-        property_id: @virtual_impression[:property_id]
+        property_id: @virtual_impression[:property_id],
       }
   end
 

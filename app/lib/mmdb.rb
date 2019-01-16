@@ -5,7 +5,7 @@ module MMDB
 
       begin
         result = mmdb.lookup(ip_address)
-      rescue StandardError => e
+      rescue => e
         Rails.logger.error "Error performing lookup on ip address! #{ip_address} #{e}"
         result = MaxMindDB::Result.new({})
       end
