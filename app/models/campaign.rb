@@ -86,16 +86,13 @@ class Campaign < ApplicationRecord
   scope :targeted_premium_for_property_id, ->(property_id, *keywords) { premium.targeted_for_property_id(property_id, *keywords) }
   scope :targeted_for_property_id, ->(property_id, *keywords) do
     if keywords.present?
-      premium.permitted_for_property_id(property_id).
-        with_any_keywords(*keywords).
-        without_any_negative_keywords(*keywords)
+      permitted_for_property_id(property_id).with_any_keywords(*keywords).without_any_negative_keywords(*keywords)
     else
       subquery = Property.active.select(:keywords).where(id: property_id)
       keywords_overlap = Arel::Nodes::InfixOperation.new("&&", arel_table[:keywords], subquery.arel)
       negative_keywords_overlap = Arel::Nodes::InfixOperation.new("&&", arel_table[:negative_keywords], subquery.arel)
-      premium.permitted_for_property_id(property_id).
-        where(keywords_overlap).
-        where.not(negative_keywords_overlap)
+      permitted_for_property_id(property_id).where(keywords_overlap).where.not(negative_keywords_overlap)
+      permitted_for_property_id(property_id).where(keywords_overlap)
     end
   end
   scope :fallback_for_property_id, ->(property_id) do

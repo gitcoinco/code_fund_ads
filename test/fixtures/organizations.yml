@@ -14,3 +14,5 @@
 
 default:
   name: Acme Company
+  balance_cents: 1000000
+  balance_currency: USD
