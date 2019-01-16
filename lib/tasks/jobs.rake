@@ -5,4 +5,11 @@ namespace :jobs do
     ImportRemoteokJobsJob.new.perform(*tags)
     puts "There are #{JobPosting.count} jobs"
   end
+
+  desc "Import jobs from GitHub"
+  task import_github: :environment do
+    tags = ENUMS::KEYWORDS.values.flatten.uniq.sort
+    ImportGithubJobsJob.new.perform(*tags)
+    puts "There are #{JobPosting.count} jobs"
+  end
 end

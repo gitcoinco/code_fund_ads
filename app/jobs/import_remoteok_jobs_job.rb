@@ -27,7 +27,9 @@ class ImportRemoteokJobsJob < ApplicationJob
       posting.start_date       = Time.at(job["epoch"].to_i).to_date
       posting.end_date         = posting.start_date + 60.days
       posting.source           = ENUMS::JOB_SOURCES::REMOTEOK
-      posting.save
+      unless posting.save
+        puts "Unable to save: #{posting.errors.inspect}"
+      end
     end
 
     nil
@@ -39,7 +41,7 @@ class ImportRemoteokJobsJob < ApplicationJob
     tags.each do |tag|
       request = Typhoeus::Request.new("https://remoteok.io/api?tags=#{tag}")
       request.on_complete do |response|
-        JSON.parse(response.body).each { |listing| @jobs << listing }
+        JSON.parse(response.body).each { |listing| @jobs << listing.merge({tag: tag}) }
       end
       hydra.queue(request)
     end
@@ -49,7 +51,6 @@ class ImportRemoteokJobsJob < ApplicationJob
 
   def normalize_keywords(tags)
     keywords = []
-    unmatched = []
 
     tags.each do |tag|
       ENUMS::KEYWORDS.keys.each do |key|

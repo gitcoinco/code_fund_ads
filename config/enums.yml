@@ -157,6 +157,7 @@ JOB_TYPES:
 JOB_SOURCES:
   - internal
   - remoteok
+  - github
   
 # SEE: https://dev.maxmind.com/geoip/legacy/codes/iso3166/
 COUNTRIES:
@@ -533,22 +534,21 @@ KEYWORDS:
   # topics
   'Android':
     - android
-    - javascript
-    - mobile
   'Angular':
+    - angular
     - angularjs
-    - javascript
   'Backend':
     - architecture
     - backend
     - full stack
     - full-stack
   'Blockchain':
+    - blockchain
+    - solidity
     - cryptography
   'CSS & Design':
     - css
     - design
-    - html
     - ui
     - ux
   'Cryptography':
@@ -558,9 +558,13 @@ KEYWORDS:
     - full-stack
     - graphql
     - mongodb
+    - postgresql
+    - postgres
+    - mysql
   'DevOps':
     - devops
     - kubernetes
+    - serverless
   'Developer Resources':
     - technical writing
   'Frontend':
@@ -569,9 +573,10 @@ KEYWORDS:
     - full stack
     - full-stack
     - javascript
-    - html
-    - vue react angular
-    - web dev
+    - vue
+    - react
+    - angular
+    - angularjs
   'Game Development':
     - game design
     - game dev
@@ -579,9 +584,6 @@ KEYWORDS:
     - unity
   'Hybrid & Mobile Web':
     - electron
-    - javascript
-    - html
-    - mobile
   'IoT':
     - iot
     - internet of things
@@ -589,7 +591,6 @@ KEYWORDS:
   'Machine Learning':
     - machine learning
   'React':
-    - javascript
     - react
     - react native
     - reactnative
@@ -607,9 +608,10 @@ KEYWORDS:
     - virtual reality
     - vr
   'VueJS':
-    - javascript
+    - vuejs
+    - vue
   'iOS':
-    - mobile
+    - ios
 
   # programming languages
   '.NET':

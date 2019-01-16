@@ -108,6 +108,7 @@ GEM
     chromedriver-helper (2.1.0)
       archive-zip (~> 0.10)
       nokogiri (~> 1.8)
+    chronic (0.10.2)
     chunky_png (1.3.11)
     coderay (1.1.2)
     concurrent-ruby (1.1.4)
@@ -452,6 +453,7 @@ DEPENDENCIES
   cable_ready (~> 2.0.7)
   capybara (>= 2.15)
   chromedriver-helper
+  chronic (~> 0.10.2)
   country_select (~> 3.1.1)
   devise (~> 4.5.0)
   devise_invitable (~> 1.7.5)
