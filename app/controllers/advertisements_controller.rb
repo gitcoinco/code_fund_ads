@@ -8,7 +8,7 @@ class AdvertisementsController < ApplicationController
   after_action :create_virtual_impression, if: -> { @campaign.present? }
 
   def show
-    instrument "increment.statsd", data: { action: "visit", property_id: property_id, campaign_id: @campaign&.id, creative_id: @campaign&.creative_id, country_code: country_code }
+    instrument "increment.statsd", data: {action: "visit", property_id: property_id, campaign_id: @campaign&.id, creative_id: @campaign&.creative_id, country_code: country_code}
 
     # TODO: deprecate legacy support on 2019-04-01
     return render_legacy_show if request.format.json?
@@ -34,9 +34,9 @@ class AdvertisementsController < ApplicationController
     if @campaign
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
       @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
-      instrument "increment.statsd", data: { action: "render_legacy_ad", property_id: property_id, campaign_id: @campaign.id, creative_id: @campaign.creative_id, country_code: country_code }
+      instrument "increment.statsd", data: {action: "render_legacy_ad", property_id: property_id, campaign_id: @campaign.id, creative_id: @campaign.creative_id, country_code: country_code}
     else
-      instrument "increment.statsd", data: { action: "render_legacy_ad", status: "not_found", property_id: property_id, country_code: country_code }
+      instrument "increment.statsd", data: {action: "render_legacy_ad", status: "not_found", property_id: property_id, country_code: country_code}
       response.status = :not_found
     end
 
@@ -119,23 +119,24 @@ class AdvertisementsController < ApplicationController
   end
 
   def set_campaign
-    campaign_relation = active.available_on(Date.current).
+    campaign_relation = geo_targeted_campaigns.
+      active.available_on(Date.current).
       select(:id, :user_id, :creative_id, :ecpm_currency, :ecpm_cents, :daily_budget_currency, :daily_budget_cents, :fallback, :start_date, :end_date, :updated_at)
-    campaigns = campaigns.where(weekdays_only: false) if Date.current.on_weekend?
-    campaigns = campaigns.where(core_hours_only: false) if prohibited_hour?
-    @campaign = campaigns.with_all_country_codes(country_code).with_all_province_codes(province_code) if province_code.present?
-    @campaign ||= campaigns.with_all_country_codes(country_code).without_province_codes if country_code.present?
-    @campaign ||= choose_campaign(campaign_relation.for_property_id(property_id, *keywords))
-    @campaign ||= choose_campaign(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords), ignore_budgets: true)
-    @campaign ||= choose_campaign(campaign_relation.fallback_for_property_id(property_id), ignore_budgets: true)
+
+    @campaign = get_premium_campaign(campaign_relation)
+    @campaign ||= get_fallback_campaign(campaign_relation)
+
+    unless @campaign
+      instrument "increment.statsd", data: {action: "find_campaign", status: "fail", property_id: property_id, country_code: country_code}
+    end
   end
 
   def get_premium_campaign(campaign_relation)
     campaign = choose_campaign(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
     if campaign
-      instrument "increment.statsd", data: { action: "find_premium_campaign", status: "success", property_id: property_id, campaign_id: campaign.id, creative_id: campaign.creative_id, country_code: country_code }
+      instrument "increment.statsd", data: {action: "find_premium_campaign", status: "success", property_id: property_id, campaign_id: campaign.id, creative_id: campaign.creative_id, country_code: country_code}
     else
-      instrument "increment.statsd", data: { action: "find_premium_campaign", status: "fail", property_id: property_id, country_code: country_code }
+      instrument "increment.statsd", data: {action: "find_premium_campaign", status: "fail", property_id: property_id, country_code: country_code}
     end
     campaign
   end
@@ -144,9 +145,9 @@ class AdvertisementsController < ApplicationController
     campaign = choose_campaign(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords), ignore_budgets: true)
     campaign ||= choose_campaign(campaign_relation.fallback_for_property_id(property_id), ignore_budgets: true)
     if campaign
-      instrument "increment.statsd", data: { action: "find_fallback_campaign", status: "success", property_id: property_id, campaign_id: campaign.id, creative_id: campaign.creative_id, country_code: country_code }
+      instrument "increment.statsd", data: {action: "find_fallback_campaign", status: "success", property_id: property_id, campaign_id: campaign.id, creative_id: campaign.creative_id, country_code: country_code}
     else
-      instrument "increment.statsd", data: { action: "find_fallback_campaign", status: "fail", property_id: property_id, country_code: country_code }
+      instrument "increment.statsd", data: {action: "find_fallback_campaign", status: "fail", property_id: property_id, country_code: country_code}
     end
     campaign
   end
@@ -157,6 +158,14 @@ class AdvertisementsController < ApplicationController
     campaigns = campaign_relation.to_a
     campaigns.select! { |campaign| campaign.daily_budget_available? }
     campaigns.sample
+  end
+
+  def geo_targeted_campaigns
+    campaigns = Campaign.all
+    campaigns = campaigns.with_all_countries(country_code) if country_code
+    campaigns = campaigns.where(weekdays_only: false) if Date.current.on_weekend?
+    campaigns = campaigns.where(core_hours_only: false) if prohibited_hour?
+    campaigns
   end
 
   def advertisement_cache_key
@@ -185,7 +194,7 @@ class AdvertisementsController < ApplicationController
       ip_address: ip_address,
     }, expires_in: 30.seconds
 
-    instrument "increment.statsd", data: { action: "create_virtual_impression", property_id: property_id, campaign_id: @campaign.id, creative_id: @campaign.creative_id, country_code: country_code }
+    instrument "increment.statsd", data: {action: "create_virtual_impression", property_id: property_id, campaign_id: @campaign.id, creative_id: @campaign.creative_id, country_code: country_code}
   end
 
   def set_cors_headers
