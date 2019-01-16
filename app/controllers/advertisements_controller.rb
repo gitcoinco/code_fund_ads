@@ -165,14 +165,16 @@ class AdvertisementsController < ApplicationController
 
   def render_advertisement
     Rails.cache.fetch(advertisement_cache_key) do
-      Premailer.new(
+      html = Premailer.new(
         template,
         with_html_string: true,
         html_fragment: true,
         css_string: theme,
         output_encoding: "utf-8",
         adapter: :nokogiri_fast
-      ).to_inline_css.strip.gsub(/\s\s|\n/, "").gsub(/\'/, "\\\\'")
+      ).to_inline_css.strip.gsub(/\s\s|\n/, "")
+      html = html.gsub(/\'/, "\\\\'") if params[:format] == "js"
+      html
     end
   end
 
