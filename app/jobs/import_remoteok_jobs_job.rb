@@ -50,17 +50,17 @@ class ImportRemoteokJobsJob < ApplicationJob
   def normalize_keywords(tags)
     keywords = []
     unmatched = []
-  
+
     tags.each do |tag|
       ENUMS::KEYWORDS.keys.each do |key|
         if ENUMS::KEYWORDS[key].include?(tag)
-          keywords << key 
+          keywords << key
         end
       end
     end
 
     if keywords.empty?
-      Rails.logger.info("Unmatched tags from remoteok: #{tags.join(', ')}")
+      Rails.logger.info("Unmatched tags from remoteok: #{tags.join(", ")}")
       keywords << "Other"
     end
 

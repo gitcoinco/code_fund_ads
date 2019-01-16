@@ -246,7 +246,7 @@ class Campaign < ApplicationRecord
   def provinces
     Province.where iso_code: province_codes
   end
-  
+
   def campaign_type
     return "fallback" if fallback?
     "premium"
