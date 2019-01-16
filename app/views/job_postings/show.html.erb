@@ -25,15 +25,6 @@
           </div>
         </div>
       </div>
-
-      <!-- Viewed Info -->
-      <div class="space-bottom-1">
-        <div class="small text-right text-secondary">
-          <span class="fas fa-eye mr-1"></span>
-          Viewed 3,910 times
-        </div>
-      </div>
-      <!-- End Viewed Info -->
     </div>
   </div>
   <!-- End Hero Section -->
@@ -60,6 +51,8 @@
 
           <div class="mb-7">
             <%= @job_posting.pretty_description %>
+            
+            <%= link_to "Apply Now", @job_posting.url, class: "btn btn-sm btn-soft-primary transition-3d-hover mt-5" %>
           </div>
         </div>
 
