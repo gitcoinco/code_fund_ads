@@ -1591,17 +1591,10 @@ CREATE INDEX index_job_postings_on_remote ON public.job_postings USING btree (re
 
 
 --
--- Name: index_job_postings_on_source; Type: INDEX; Schema: public; Owner: -
+-- Name: index_job_postings_on_source_and_source_identifier; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_job_postings_on_source ON public.job_postings USING btree (source);
-
-
---
--- Name: index_job_postings_on_source_identifier; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_job_postings_on_source_identifier ON public.job_postings USING btree (source_identifier);
+CREATE UNIQUE INDEX index_job_postings_on_source_and_source_identifier ON public.job_postings USING btree (source, source_identifier);
 
 
 --
@@ -1957,6 +1950,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190107225451'),
 ('20190108190511'),
 ('20190108201954'),
-('20190111172606');
+('20190111172606'),
+('20190117205738');
 
 
