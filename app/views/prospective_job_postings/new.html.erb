@@ -1,5 +1,6 @@
-<h1>New Prospective Job Posting</h1>
-
-<%= render 'form', prospective_job_posting: @prospective_job_posting %>
-
-<%= link_to 'Back', prospective_job_postings_path %>
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main" class="gradient-half-primary-v2">
+  <div class="container space-top-md-4 space-1">
+    <%= render partial: "/prospective_job_postings/form", locals: { job: @prospective_job_posting, step: 1 } %>
+  </div>
+</main>

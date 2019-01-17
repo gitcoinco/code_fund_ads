@@ -1,12 +1,125 @@
+<%= simple_form_for job, html: {
+    class: "js-validate js-step-form",
+    data: {
+      progress_id: "#progressStepForm",
+      steps_id: "#contentStepForm",
+      novalidate: "novalidate"
+    }
+  }, wrapper: :horizontal_form do |f| %>
+  <div class="card">
+    <div class="card-header p-5">
+      <nav id="progressStepForm" class="js-step-progress nav nav-icon nav-justified text-center">
+        <a href="javascript:;" class="nav-item">
+          <span class="nav-icon-action">
+            <span class="fas fa-user-circle nav-icon-action-inner"></span>
+          </span>
+          1. Create
+        </a>
+        <a href="javascript:;" class="nav-item">
+          <span class="nav-icon-action">
+            <span class="fas fa-file-invoice-dollar nav-icon-action-inner"></span>
+          </span>
+          2. Preview
+        </a>
+        <a href="javascript:;" class="nav-item">
+          <span class="nav-icon-action">
+            <span class="fas fa-paperclip nav-icon-action-inner"></span>
+          </span>
+          3. Purchase
+        </a>
+      </nav>
+    </div>
 
-<%= simple_form_for(@prospective_job_posting) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+    <!-- Content Step Form -->
+    <div id="contentStepForm" class="card-body p-5">
+      <div id="selectStepOne" class="active">
+        <%= f.error_notification %>
+        <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <div class="form-inputs">
-  </div>
+        <div class="text-center mb-5">
+          <span class="u-divider u-divider--xs u-divider--text">Position Details</span>
+        </div>
+      
+        <%= f.input :title, label: "Job Title", required: true, hint: "Example: “Senior Designer”. Titles must describe one position" %>
+        
+        <div class="form-group row prospective_job_posting_job_type">
+          <label class="col-sm-3 col-form-label string" for="prospective_job_posting_job_type">Job Type <abbr title="required">*</abbr></label>
+          <div class="col-sm-9" style="margin-top: 14px;">
+            <% ENUMS::JOB_TYPES.keys.each do |val| %>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input type="radio" id="prospective_job_posting_job_type_<%= val %>" name="prospective_job_posting[job_type][]" class="custom-control-input" value="<%= val %>" />
+                <label class="custom-control-label" for="prospective_job_posting_job_type_<%= val %>"><%= val.humanize.titleize %></label>
+              </div>
+            <% end %>
+          </div>
+        </div>
+        
+        <div class="form-group row prospective_job_posting_remote">
+          <label class="col-sm-3 col-form-label string" for="prospective_job_posting_remote">Remote?</label>
+          <div class="col-sm-9" style="margin-top: 14px;">
+            <div class="media align-items-center">
+              <label class="checkbox-switch mr-3">
+                <%= f.check_box :remote, class: "checkbox-switch__input" %>
+                <span class="checkbox-switch__slider"></span>
+              </label>
+              <label class="media-body text-muted" for="checkboxSwitch1">
+                <span class="d-block text-dark">This job is available as a remote-only position</span>
+              </label>
+            </div>
+          </div>
+        </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+        <div class="form-group row prospective_job_posting_description">
+          <label class="col-sm-3 col-form-label string" for="prospective_job_posting_description">Description</label>
+          <div class="col-sm-9">
+            <%= f.text_area :description, data: { controller: "rich-text-editor" } %>
+          </div>
+        </div>
+
+        <div class="text-center space-top-2 mb-5">
+          <span class="u-divider u-divider--xs u-divider--text">Company Information</span>
+        </div>
+        
+        <%= f.input :company_name, label: "Company Name", required: true %>
+        <%= f.input :company_url, label: "Company Website", required: true %>
+
+        <div class="text-center my-5">
+          <span class="u-divider u-divider--xs u-divider--text">Targeting</span>
+        </div>
+
+        <%= f.input(:keywords, collection: keywords_for_select, required: true, input_html: { multiple: true, data: { controller: "select" }}) %>
+
+            
+
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-sm btn-primary transition-3d-hover mr-1" data-next-step="#selectStepTwo">Next</button>
+        </div>
+      </div>
+    </div>
+    <!-- End Content Step Form -->
   </div>
 <% end %>
+
+  <%# :id,
+  :organization_id,
+  :organization_name,
+  :company_name,
+  :company_url,
+  :company_logo_url, 
+  :title,
+  :description,
+  :how_to_apply,
+  :job_type,
+  :url,
+  :keywords,
+  :min_annual_salary_cents,
+  :min_annual_salary_currency,
+  :max_annual_salary_cents,
+  :max_annual_salary_currency,
+  :remote,
+  :city,
+  :province_name,
+  :province_code,
+  :country_code,
+  :start_date,
+  :end_date, %>
