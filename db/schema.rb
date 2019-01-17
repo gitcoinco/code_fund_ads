@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_11_172606) do
+ActiveRecord::Schema.define(version: 2019_01_17_205738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -237,9 +237,11 @@ ActiveRecord::Schema.define(version: 2019_01_11_172606) do
     t.string "source_identifier"
     t.string "job_type", null: false
     t.string "company_name"
+    t.string "company_url"
     t.string "company_logo_url"
     t.string "title", null: false
     t.text "description", null: false
+    t.text "how_to_apply"
     t.string "keywords", default: [], null: false, array: true
     t.integer "min_annual_salary_cents", default: 0, null: false
     t.string "min_annual_salary_currency", default: "USD", null: false
@@ -270,8 +272,7 @@ ActiveRecord::Schema.define(version: 2019_01_11_172606) do
     t.index ["province_code"], name: "index_job_postings_on_province_code"
     t.index ["province_name"], name: "index_job_postings_on_province_name"
     t.index ["remote"], name: "index_job_postings_on_remote"
-    t.index ["source"], name: "index_job_postings_on_source"
-    t.index ["source_identifier"], name: "index_job_postings_on_source_identifier"
+    t.index ["source", "source_identifier"], name: "index_job_postings_on_source_and_source_identifier", unique: true
     t.index ["start_date"], name: "index_job_postings_on_start_date"
     t.index ["title"], name: "index_job_postings_on_title"
     t.index ["user_id"], name: "index_job_postings_on_user_id"
