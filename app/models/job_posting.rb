@@ -63,6 +63,15 @@ class JobPosting < ApplicationRecord
   scope :internal, -> { where(source: ENUMS::JOB_SOURCES::INTERNAL) }
   scope :remoteok, -> { where(source: ENUMS::JOB_SOURCES::REMOTEOK) }
   scope :github, -> { where(source: ENUMS::JOB_SOURCES::GITHUB) }
+  scope :search_company_name, ->(value) { value.blank? ? all : search_column(:company_name, value) }
+  scope :search_country_codes, ->(*values) { values.blank? ? all : where(country_code: values) }
+  scope :search_description, ->(value) { value.blank? ? all : search_column(:description, value) }
+  scope :search_job_types, ->(*values) { values.blank? ? all : where(job_type: values) }
+  scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
+  scope :search_organization, ->(value) { value.blank? ? all : where(organization_id: value) }
+  scope :search_province_codes, ->(*values) { values.blank? ? all : where(province_code: values) }
+  scope :search_remote, ->(value) { value.nil? ? all : where(remote: value) }
+  scope :search_title, ->(value) { value.blank? ? all : search_column(:title, value) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   tag_columns :keywords
