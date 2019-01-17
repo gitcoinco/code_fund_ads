@@ -1,7 +1,7 @@
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= (ENV.fetch("RAILS_MAX_THREADS") { 10 }).to_i %>
   timeout: <%= (ENV.fetch("PG_TIMEOUT_IN_SECONDS") { 3 }).seconds %>
 
 development:
@@ -14,5 +14,5 @@ test:
 
 production:
   <<: *default
-  prepared_statements: false # See https://edgeguides.rubyonrails.org/configuring.html#configuring-a-postgresql-database 
+  prepared_statements: false # See https://edgeguides.rubyonrails.org/configuring.html#configuring-a-postgresql-database
   url: <%= ENV["PG_URL"] %>

@@ -415,7 +415,8 @@ CREATE TABLE public.impressions (
     estimated_house_revenue_fractional_cents double precision,
     ad_template character varying,
     ad_theme character varying,
-    organization_id bigint
+    organization_id bigint,
+    uplift boolean DEFAULT false
 )
 PARTITION BY RANGE (advertiser_id, displayed_at_date);
 
@@ -812,6 +813,13 @@ ALTER TABLE ONLY public.impressions_default ALTER COLUMN fallback_campaign SET D
 
 
 --
+-- Name: impressions_default uplift; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.impressions_default ALTER COLUMN uplift SET DEFAULT false;
+
+
+--
 -- Name: organization_transactions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1184,6 +1192,20 @@ CREATE INDEX index_impressions_on_property_id ON ONLY public.impressions USING b
 --
 
 CREATE INDEX impressions_default_property_id_idx ON public.impressions_default USING btree (property_id);
+
+
+--
+-- Name: index_impressions_on_uplift; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_uplift ON ONLY public.impressions USING btree (uplift);
+
+
+--
+-- Name: impressions_default_uplift_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_uplift_idx ON public.impressions_default USING btree (uplift);
 
 
 --
@@ -1656,6 +1678,13 @@ ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impr
 
 
 --
+-- Name: impressions_default_uplift_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_uplift ATTACH PARTITION public.impressions_default_uplift_idx;
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -1683,6 +1712,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181221205112'),
 ('20181222164913'),
 ('20190107225451'),
-('20190108190511');
+('20190108190511'),
+('20190111172606');
 
 

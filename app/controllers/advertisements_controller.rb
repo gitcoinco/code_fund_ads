@@ -8,6 +8,8 @@ class AdvertisementsController < ApplicationController
   after_action :create_virtual_impression, if: -> { @campaign.present? }
 
   def show
+    instrument "increment.statsd", data: {action: "visit", property_id: property_id, campaign_id: @campaign&.id, creative_id: @campaign&.creative_id, country_code: country_code}
+
     # TODO: deprecate legacy support on 2019-04-01
     return render_legacy_show if request.format.json?
 
@@ -29,15 +31,12 @@ class AdvertisementsController < ApplicationController
 
   # TODO: deprecate legacy support on 2019-04-01
   def render_legacy_show
-    statsd_increment(["web", "AdvertisementsController", "render_legacy_show"].join("."))
-
     if @campaign
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
       @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
-    end
-
-    unless @campaign
-      statsd_increment(["web", "AdvertisementsController", "render_legacy_show", "not_found"].join("."))
+      instrument "increment.statsd", data: {action: "render_legacy_ad", property_id: property_id, campaign_id: @campaign.id, creative_id: @campaign.creative_id, country_code: country_code}
+    else
+      instrument "increment.statsd", data: {action: "render_legacy_ad", status: "not_found", property_id: property_id, country_code: country_code}
       response.status = :not_found
     end
 
@@ -114,16 +113,42 @@ class AdvertisementsController < ApplicationController
     campaign_relation = geo_targeted_campaigns.
       active.available_on(Date.current).
       select(:id, :user_id, :creative_id, :ecpm_currency, :ecpm_cents, :daily_budget_currency, :daily_budget_cents, :fallback, :start_date, :end_date, :updated_at)
-    @campaign = choose_campaign(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
-    @campaign ||= choose_campaign(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords), ignore_budgets: true)
-    @campaign ||= choose_campaign(campaign_relation.fallback_for_property_id(property_id), ignore_budgets: true)
+
+    @campaign = get_premium_campaign(campaign_relation)
+    @campaign ||= get_fallback_campaign(campaign_relation)
+
+    unless @campaign
+      instrument "increment.statsd", data: {action: "find_campaign", status: "fail", property_id: property_id, country_code: country_code}
+    end
+  end
+
+  def get_premium_campaign(campaign_relation)
+    campaign = choose_campaign(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
+    if campaign
+      instrument "increment.statsd", data: {action: "find_premium_campaign", status: "success", property_id: property_id, campaign_id: campaign.id, creative_id: campaign.creative_id, country_code: country_code}
+    else
+      instrument "increment.statsd", data: {action: "find_premium_campaign", status: "fail", property_id: property_id, country_code: country_code}
+    end
+    campaign
+  end
+
+  def get_fallback_campaign(campaign_relation)
+    campaign = choose_campaign(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords), ignore_budgets: true)
+    campaign ||= choose_campaign(campaign_relation.fallback_for_property_id(property_id), ignore_budgets: true)
+    if campaign
+      instrument "increment.statsd", data: {action: "find_fallback_campaign", status: "success", property_id: property_id, campaign_id: campaign.id, creative_id: campaign.creative_id, country_code: country_code}
+    else
+      instrument "increment.statsd", data: {action: "find_fallback_campaign", status: "fail", property_id: property_id, country_code: country_code}
+    end
+    campaign
   end
 
   def choose_campaign(campaign_relation, ignore_budgets: false)
     return campaign_relation.to_a.sample if ignore_budgets
     campaign_relation = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0))
-    campaigns = campaign_relation.to_a.select! { |campaign| campaign.daily_budget_available? }
-    campaigns.sort(&:daily_remaining_budget).last
+    campaigns = campaign_relation.to_a
+    campaigns.select! { |campaign| campaign.daily_budget_available? }
+    campaigns.sample
   end
 
   def geo_targeted_campaigns
@@ -140,33 +165,29 @@ class AdvertisementsController < ApplicationController
 
   def render_advertisement
     Rails.cache.fetch(advertisement_cache_key) do
-      Premailer.new(
+      formatted_code = Premailer.new(
         template,
         with_html_string: true,
         html_fragment: true,
         css_string: theme,
         output_encoding: "utf-8",
         adapter: :nokogiri_fast
-      ).to_inline_css.strip.gsub(/\s\s|\n/, "").gsub(/\'/, "\\\\'")
+      ).to_inline_css.strip.gsub(/\s\s|\n/, "")
+      formatted_code = formatted_code.gsub(/\'/, "\\\\'") unless request.format.html?
+      formatted_code
     end
   end
 
   def create_virtual_impression
     return unless @campaign
 
-    statsd_increment([
-      "web",
-      "AdvertisementsController",
-      "create_virtual_impression",
-      @campaign.id,
-      property_id,
-    ].join("."))
-
     Rails.cache.write @virtual_impression_id, {
       campaign_id: @campaign.id,
       property_id: property_id,
       ip_address: ip_address,
     }, expires_in: 30.seconds
+
+    instrument "increment.statsd", data: {action: "create_virtual_impression", property_id: property_id, campaign_id: @campaign.id, creative_id: @campaign.creative_id, country_code: country_code}
   end
 
   def set_cors_headers

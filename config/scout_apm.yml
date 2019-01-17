@@ -1,10 +1,13 @@
 common: &defaults
   monitor: true
   ignore:
-    - "/okcomputer"
-    - "/okcomputer.json"
-    - "/okcomputer/all"
-    - "/okcomputer/all.json"
+    - '/okcomputer'
+    - '/okcomputer.json'
+    - '/okcomputer/all'
+    - '/okcomputer/all.json'
+
+development:
+  monitor: false
 
 production:
   <<: *defaults

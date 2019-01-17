@@ -2,13 +2,13 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   include Authorizable
   include Dateable
-  include NSA::Statsd::Publisher
+
+  delegate :instrument, to: ActiveSupport::Notifications
 
   before_action :reload_extensions, unless: -> { Rails.env.production? }
   before_action -> { cookies.encrypted[:example_id] ||= SecureRandom.uuid }
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_paper_trail_whodunnit
-  before_action :set_raven_context
 
   impersonates :user
 
@@ -37,10 +37,5 @@ class ApplicationController < ActionController::Base
 
   def reload_extensions
     load Rails.root.join("app/lib/extensions.rb")
-  end
-
-  def set_raven_context
-    Raven.user_context(id: session[:current_user_id])
-    Raven.extra_context(params: params.to_unsafe_h, url: request.url)
   end
 end

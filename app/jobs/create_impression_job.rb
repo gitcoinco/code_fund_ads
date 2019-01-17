@@ -1,13 +1,12 @@
 class CreateImpressionJob < ApplicationJob
   queue_as :impression
 
-  def perform(id, campaign_id, property_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string)
+  def perform(id, campaign_id, property_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string, uplift = "false")
     campaign = Campaign.find_by(id: campaign_id)
     property = Property.find_by(id: property_id)
 
     unless campaign && property
-      statsd_increment(["sidekiq", "CreateImpressionJob", "perform", "missing_campaign_and_property"].join("."))
-      return
+      return instrument "increment.statsd", data: statsd_data({status: "missing_campaign_and_property"})
     end
 
     displayed_at = Time.parse(displayed_at_string)
@@ -23,6 +22,7 @@ class CreateImpressionJob < ApplicationJob
       property: property,
       ad_template: ad_template,
       ad_theme: ad_theme,
+      uplift: uplift.to_s == "true",
       ip_address: ip_address,
       user_agent: user_agent,
       displayed_at: displayed_at,
@@ -34,21 +34,22 @@ class CreateImpressionJob < ApplicationJob
       longitude: ip_info&.location&.longitude
     )
 
-    statsd_increment([
-      "sidekiq",
-      "CreateImpressionJob",
-      "perform",
-      "create_impression",
-      campaign.id,
-      property.id,
-      campaign.creative_id,
-      impression.country_code,
-      campaign.fallback?,
-    ].join("."))
-
     IncrementImpressionsCountCacheJob.perform_now impression
+    instrument "increment.statsd",
+      data: statsd_data({
+        campaign_id: campaign.id,
+        creative_id: campaign.creative_id,
+        property_id: property.id,
+        country_code: impression.country_code,
+      })
   rescue ActiveRecord::RecordNotUnique
     # prevent reattempts when a race condition attempts to write the same record
-    statsd_increment(["sidekiq", "CreateImpressionJob", "perform", "record_not_unique"].join("."))
+    instrument "increment.statsd", key: statsd_data({status: "record_not_unique"})
+  end
+
+  private
+
+  def statsd_data(data)
+    {category: "job", action: "create_impression"}.merge(data)
   end
 end
