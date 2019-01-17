@@ -2,6 +2,7 @@ require "sidekiq/web"
 Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
 
 Rails.application.routes.draw do
+  resources :prospective_job_postings
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   authenticate :user, lambda { |user| AuthorizedUser.new(user || User.new).can_admin_system? } do
