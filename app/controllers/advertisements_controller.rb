@@ -148,7 +148,7 @@ class AdvertisementsController < ApplicationController
     campaign_relation = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0))
     campaigns = campaign_relation.to_a
     campaigns.select! { |campaign| campaign.daily_budget_available? }
-    campaigns.sample
+    campaigns.max(&:daily_remaining_budget_percentage)
   end
 
   def geo_targeted_campaigns

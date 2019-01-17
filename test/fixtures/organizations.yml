@@ -10,10 +10,7 @@
 #  updated_at       :datetime         not null
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  name: MyString
-
-two:
-  name: MyString
+default:
+  name: Acme Company
+  balance_cents: 1000000
+  balance_currency: USD

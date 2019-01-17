@@ -14,21 +14,3 @@
 #  updated_at       :datetime         not null
 #  gift             :boolean          default(FALSE)
 #
-
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  organization: one
-  amount: 
-  transaction_type: MyString
-  posted_at: 2018-12-20 08:39:58
-  description: MyText
-  reference: MyText
-
-two:
-  organization: two
-  amount: 
-  transaction_type: MyString
-  posted_at: 2018-12-20 08:39:58
-  description: MyText
-  reference: MyText
