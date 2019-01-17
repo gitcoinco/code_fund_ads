@@ -32,6 +32,7 @@
 #            Additional setup should be perfomed in the test suite
 
 exclusive:
+  organization: default
   user: advertiser
   creative: exclusive
   status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>

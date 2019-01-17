@@ -58,6 +58,7 @@
 #            Additional setup should be perfomed in the test suite
 
 administrator:
+  organization: default
   roles:
     - <%= ENUMS::USER_ROLES::ADMINISTRATOR %>
   first_name: Test
@@ -66,6 +67,7 @@ administrator:
   encrypted_password: <%= User.new(password: "secret").encrypted_password %>
 
 publisher:
+  organization: default
   roles:
     - <%= ENUMS::USER_ROLES::PUBLISHER %>
   first_name: Test
@@ -74,6 +76,7 @@ publisher:
   encrypted_password: <%= User.new(password: "secret").encrypted_password %>
 
 advertiser:
+  organization: default
   roles:
     - <%= ENUMS::USER_ROLES::ADVERTISER %>
   first_name: Test
