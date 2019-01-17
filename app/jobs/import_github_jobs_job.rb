@@ -23,7 +23,7 @@ class ImportGithubJobsJob < ApplicationJob
 
     @jobs.each do |job|
       words = sieve.filter(lang: :en, words: "#{job["title"]} #{job["description"]} #{job["tag"]}".downcase.gsub(/,|\.\s/, "").split)
-      matching_keyword_aliases = ENUMS::KEYWORDS.values.flatten.map(&:downcase) & words
+      matching_keyword_aliases = keyword_aliases & words
 
       posting = JobPosting.github.where(source_identifier: job["id"]).first_or_initialize
 
