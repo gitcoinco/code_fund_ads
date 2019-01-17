@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Prospective Job Postings</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @prospective_job_postings.each do |prospective_job_posting| %>
+      <tr>
+        <td><%= link_to 'Show', prospective_job_posting %></td>
+        <td><%= link_to 'Edit', edit_prospective_job_posting_path(prospective_job_posting) %></td>
+        <td><%= link_to 'Destroy', prospective_job_posting, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Prospective Job Posting', new_prospective_job_posting_path %>
