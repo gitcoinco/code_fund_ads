@@ -14,7 +14,7 @@ class ProspectiveJobPostingsController < ApplicationController
 
   # GET /prospective_job_postings/new
   def new
-    @prospective_job_posting = ProspectiveJobPosting.new
+    @prospective_job_posting = ProspectiveJobPosting.new(currency: "USD", job_type: ENUMS::JOB_TYPES::FULL_TIME)
   end
 
   # GET /prospective_job_postings/1/edit
@@ -25,6 +25,8 @@ class ProspectiveJobPostingsController < ApplicationController
   # POST /prospective_job_postings.json
   def create
     @prospective_job_posting = ProspectiveJobPosting.new(prospective_job_posting_params)
+
+    binding.pry
 
     respond_to do |format|
       if @prospective_job_posting.save
@@ -69,6 +71,25 @@ class ProspectiveJobPostingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def prospective_job_posting_params
-      params.fetch(:prospective_job_posting, {})
+      params.require(:prospective_job_posting).permit([
+        :id,
+        :company_name,
+        :company_url,
+        :company_logo, 
+        :title,
+        :description,
+        :how_to_apply,
+        :job_type,
+        :url,
+        :min_annual_salary_cents,
+        :max_annual_salary_cents,
+        :currency,
+        :remote,
+        :city,
+        :province_code,
+        :country_code,
+        keywords: [],
+        remote_country_codes: []
+      ])
     end
 end
