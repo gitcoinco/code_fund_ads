@@ -37,6 +37,7 @@ class JobPosting < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
   include Taggable
+  include FullTextSearchable
   include JobPostings::Presentable
 
   # relationships .............................................................
@@ -84,6 +85,18 @@ class JobPosting < ApplicationRecord
 
   def external?
     source != ENUMS::JOB_SOURCES::INTERNAL
+  end
+
+  def to_tsvector
+    [].
+      then { |result| keywords.blank? ? result : keywords.each_with_object(result) { |tag, memo| memo << make_tsvector(tag, weight: "A") } }.
+      then { |result| title.blank? ? result : result << make_tsvector(title, weight: "B") }.
+      then { |result| description.blank? ? result : result << make_tsvector(description, weight: "B") }.
+      then { |result| job_type.blank? ? result : result << make_tsvector(job_type, weight: "C") }.
+      then { |result| province_name.blank? ? result : result << make_tsvector(province_name, weight: "D") }.
+      then { |result| country_code.blank? ? result : result << make_tsvector(country_code, weight: "D") }.
+      then { |result| Country.find(country_code).blank? ? result : result << make_tsvector(Country.find(country_code).name, weight: "D") }.
+      then { |result| result.compact.join " || " }
   end
 
   # protected instance methods ................................................

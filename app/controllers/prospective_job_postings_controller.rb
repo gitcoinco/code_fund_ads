@@ -28,7 +28,7 @@ class ProspectiveJobPostingsController < ApplicationController
 
     respond_to do |format|
       if @prospective_job_posting.save
-        format.html { redirect_to @prospective_job_posting, notice: 'Prospective job posting was successfully created.' }
+        format.html { redirect_to @prospective_job_posting, notice: "Prospective job posting was successfully created." }
         format.json { render :show, status: :created, location: @prospective_job_posting }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ProspectiveJobPostingsController < ApplicationController
   def update
     respond_to do |format|
       if @prospective_job_posting.update(prospective_job_posting_params)
-        format.html { redirect_to @prospective_job_posting, notice: 'Prospective job posting was successfully updated.' }
+        format.html { redirect_to @prospective_job_posting, notice: "Prospective job posting was successfully updated." }
         format.json { render :show, status: :ok, location: @prospective_job_posting }
       else
         format.html { render :edit }
@@ -56,19 +56,20 @@ class ProspectiveJobPostingsController < ApplicationController
   def destroy
     @prospective_job_posting.destroy
     respond_to do |format|
-      format.html { redirect_to prospective_job_postings_url, notice: 'Prospective job posting was successfully destroyed.' }
+      format.html { redirect_to prospective_job_postings_url, notice: "Prospective job posting was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_prospective_job_posting
-      @prospective_job_posting = ProspectiveJobPosting.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def prospective_job_posting_params
-      params.fetch(:prospective_job_posting, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_prospective_job_posting
+    @prospective_job_posting = ProspectiveJobPosting.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def prospective_job_posting_params
+    params.fetch(:prospective_job_posting, {})
+  end
 end
