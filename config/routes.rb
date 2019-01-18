@@ -13,7 +13,6 @@ Rails.application.routes.draw do
     invitations: "invitations",
   }
 
-  # https://jobs.codefund.app/
   scope "jobs" do
     resources :jobs, only: [:index], path: "/"
     resources :job_postings, path: "/listings"

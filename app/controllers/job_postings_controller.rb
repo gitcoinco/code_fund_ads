@@ -1,4 +1,5 @@
 class JobPostingsController < ApplicationController
+  before_action :authenticate_administrator!
   before_action :set_job_posting, except: [:index, :new, :create]
 
   def index
