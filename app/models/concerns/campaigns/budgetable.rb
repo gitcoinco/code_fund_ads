@@ -40,6 +40,12 @@ module Campaigns
       daily_budget - daily_consumed_budget(date)
     end
 
+    # Returns a Float indicating how much budget percentage remains for the passed date (or today)
+    def daily_remaining_budget_percentage(date = nil)
+      return 0.0 unless daily_budget > 0
+      (daily_remaining_budget(date).cents / daily_budget.cents.to_f) * 100
+    end
+
     # Returns a Money indicating how much budget has been spent for the passed date (or today)
     def daily_consumed_budget(date = nil)
       ecpm * daily_impressions_per_mille(date)

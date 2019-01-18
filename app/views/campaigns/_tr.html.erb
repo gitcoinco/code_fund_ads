@@ -6,7 +6,12 @@
     </td>
   <% end %>
   <td class="align-middle text-secondary"><%= campaign.end_date.strftime("%b %-d, %Y") %></td>
-  <td class="align-middle text-secondary text-right"><%= campaign.total_budget.format %></td>
+  <td class="align-middle text-secondary text-right">
+    <small class="d-block"><%= campaign.daily_budget.format %> / <%= campaign.total_budget.format %></small>
+    <div class="js-hr-progress progress" style="height: 10px; background-color: #e7e7e8;">
+      <div class="js-hr-progress-bar progress-bar bg-success" role="progressbar" style="width: <%= campaign.percentage_complete_by_daily_budget %>%;" aria-valuenow="<%= campaign.percentage_complete_by_daily_budget %>" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+  </td>
   <td class="align-middle text-<%= campaign_status_color(campaign.status) %>">
     <span class="fas fa-circle small mr-1"></span>
     <%= campaign.status.humanize %>

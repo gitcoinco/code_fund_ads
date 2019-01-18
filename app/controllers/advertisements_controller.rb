@@ -171,7 +171,7 @@ class AdvertisementsController < ApplicationController
     campaign_relation = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0))
     campaigns = campaign_relation.to_a
     campaigns.select! { |campaign| campaign.daily_budget_available? }
-    campaigns.sample
+    campaigns.max_by(&:daily_remaining_budget_percentage)
   end
 
   def advertisement_cache_key
@@ -180,14 +180,16 @@ class AdvertisementsController < ApplicationController
 
   def render_advertisement
     Rails.cache.fetch(advertisement_cache_key) do
-      Premailer.new(
+      formatted_code = Premailer.new(
         template,
         with_html_string: true,
         html_fragment: true,
         css_string: theme,
         output_encoding: "utf-8",
         adapter: :nokogiri_fast
-      ).to_inline_css.strip.gsub(/\s\s|\n/, "").gsub(/\'/, "\\\\'")
+      ).to_inline_css.strip.gsub(/\s\s|\n/, "")
+      formatted_code = formatted_code.gsub(/\'/, "\\\\'") unless request.format.html?
+      formatted_code
     end
   end
 

@@ -10,8 +10,6 @@
 #  updated_at       :datetime         not null
 #
 
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 default:
   name: Acme Company
   balance_cents: 1000000
