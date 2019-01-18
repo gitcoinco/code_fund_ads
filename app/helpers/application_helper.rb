@@ -53,6 +53,12 @@ module ApplicationHelper
     User.advertisers.select(:id, :first_name, :last_name).order(:first_name).map { |user| [user.name, user.id] }
   end
 
+  def currencies_for_select
+    Money::Currency.table.values.map do |currency|
+      ["[#{currency[:iso_code]}] #{currency[:name]}", currency[:iso_code]]
+    end
+  end
+
   def ad_templates_for_select
     ENUMS::AD_TEMPLATES.values
   end

@@ -1,0 +1,555 @@
+<!-- ========== MAIN CONTENT ========== -->
+<main id="content" role="main">
+  <!-- Hero Section -->
+  <div class="position-relative">
+    <!-- Slick Carousel -->
+    <div class="js-slick-carousel u-slick"
+          data-fade="true"
+          data-autoplay="true"
+          data-speed="5000"
+          data-infinite="true">
+      <div class="js-slide">
+        <div class="bg-img-hero min-height-620" style="background-image: url(<%= asset_path("jobs/job-hero-2.jpg") %>;"></div>
+      </div>
+      <div class="js-slide">
+        <div class="bg-img-hero min-height-620" style="background-image: url(<%= asset_path("jobs/job-hero-1.jpg") %>;"></div>
+      </div>
+      <div class="js-slide">
+        <div class="bg-img-hero min-height-620" style="background-image: url(<%= asset_path("jobs/job-hero-3.jpg") %>;"></div>
+      </div>
+    </div>
+    <!-- End Slick Carousel -->
+
+    <div class="container position-absolute right-0 bottom-0 left-0 space-top-5 space-bottom-2">
+      <!-- Info Link -->
+      <%= link_to new_job_posting_path, class: "d-sm-inline-flex align-items-center bg-primary text-white shadow rounded-pill p-2 pr-3 mb-3" do %>
+        <span class="btn btn-xs btn-soft-white btn-pill font-weight-semi-bold mr-3">Post a job for $299/mo</span>
+        <span class="d-block d-sm-inline-block">
+          Don't just wait for the right candidate to search job boards
+        </span>
+      <% end %>
+      <!-- End Info Link -->
+
+      <div class="card border-0">
+        <div class="card-body p-7">
+          <!-- Search Jobs Form -->
+          <form class="js-validate">
+            <div class="row">
+              <div class="col-lg-5 mb-4 mb-lg-0">
+                <!-- Input -->
+                <label class="d-block">
+                  <span class="h4 d-block text-dark font-weight-semi-bold mb-0">what</span>
+                  <small class="d-block text-secondary">job title, keywords, or company</small>
+                </label>
+                <div class="js-focus-state">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Keyword or title" aria-label="Keyword or title" aria-describedby="keywordInputAddon">
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <span class="fas fa-search" id="keywordInputAddon"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Input -->
+              </div>
+
+              <div class="col-lg-5 mb-4 mb-lg-0">
+                <!-- Input -->
+                <label class="d-block">
+                  <span class="h4 d-block text-dark font-weight-semi-bold mb-0">where</span>
+                  <small class="d-block text-secondary">city, state, or zip code</small>
+                </label>
+                <div class="js-focus-state">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="City, state, or zip" aria-label="City, state, or zip" aria-describedby="locationInputAddon">
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <span class="fas fa-map-marker-alt" id="locationInputAddon"></span>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <!-- End Input -->
+              </div>
+
+              <div class="col-lg-2 align-self-lg-end">
+                <button type="submit" class="btn btn-block btn-primary transition-3d-hover">Find Jobs</button>
+              </div>
+            </div>
+            <!-- End Checkbox -->
+          </form>
+          <!-- End Search Jobs Form -->
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End Hero Section -->
+  <div class="clearfix border-bottom space-top-2 space-top-md-4 space-top-lg-3">
+    <div class="container">
+      <!-- Title -->
+      <div class="w-md-75 text-center mx-md-auto mb-9">
+        <h2 class="h1 font-weight-normal mb-3">Why CodeFund Jobs?</h2>
+        <p class="text-left">
+          <strong class="text-dark">Hiring top talent is hard.</strong> Some of the most qualified candidates never visit job
+          boards because they have multiple companies seeking them already.
+        </p>
+        <p class="text-left">
+          CodeFund takes a different approach and brings the jobs to them. Using our
+          publisher network of developer-centric websites, we place your job in front of
+          pre-qualified candidates based on their location and interests.
+        </p>
+        <%= link_to "Post a job for $299/mo", new_job_posting_path, class: "btn btn-lg btn-success btn-wide transition-3d-hover mt-3" %>
+      </div>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="container">
+    <hr class="my-0">
+  </div>
+  <!-- End Divider -->
+
+  <!-- Cards Section -->
+  <div class="container space-2 space-md-3">
+    <!-- Title -->
+    <div class="w-md-80 w-lg-50 text-center mx-md-auto mb-9">
+      <h2 class="font-weight-medium">Who's hiring?</h2>
+      <p>We currently have <%= JobPosting.count %> jobs listed so you've got plenty of options. Search your next job now.</p>
+    </div>
+    <!-- End Title -->
+
+    <!-- Clients Section -->
+    <div class="row justify-content-center text-center">
+      <% JobPosting.pluck(:company_logo_url).compact.uniq.sample(18).each.with_index do |company_logo_url, index| %>
+        <div class="col-4 col-md-2 mb-8 align-middle">
+          <%= image_tag company_logo_url, class: "u-clients" %>
+        </div>
+        <% if [4, 8, 13].include? index %>
+          <div class="w-100"></div>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="text-center mt-7">
+      <%= link_to "View all Open Jobs", job_postings_path, class: "btn btn-primary transition-3d-hover" %>
+    </div>
+  </div>
+  <!-- End Cards Section -->
+
+  <!-- Testimonials -->
+  <div id="SVGbgElements5" class="svg-preloader position-relative gradient-half-primary-v1">
+    <div class="container position-relative z-index-2 space-2 space-md-3">
+      <!-- Title -->
+      <div class="text-center mb-4">
+        <!-- SVG Quote -->
+        <figure class="mx-auto mb-2">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="40px" height="40px"
+              viewBox="0 0 8 8" style="enable-background:new 0 0 8 8;" xml:space="preserve">
+            <path class="fill-warning" d="M3,1.3C2,1.7,1.2,2.7,1.2,3.6c0,0.2,0,0.4,0.1,0.5c0.2-0.2,0.5-0.3,0.9-0.3c0.8,0,1.5,0.6,1.5,1.5c0,0.9-0.7,1.5-1.5,1.5
+              C1.4,6.9,1,6.6,0.7,6.1C0.4,5.6,0.3,4.9,0.3,4.5c0-1.6,0.8-2.9,2.5-3.7L3,1.3z M7.1,1.3c-1,0.4-1.8,1.4-1.8,2.3
+              c0,0.2,0,0.4,0.1,0.5c0.2-0.2,0.5-0.3,0.9-0.3c0.8,0,1.5,0.6,1.5,1.5c0,0.9-0.7,1.5-1.5,1.5c-0.7,0-1.1-0.3-1.4-0.8
+              C4.4,5.6,4.4,4.9,4.4,4.5c0-1.6,0.8-2.9,2.5-3.7L7.1,1.3z"/>
+          </svg>
+        </figure>
+        <!-- End SVG Quote -->
+
+        <h2 class="text-white font-weight-medium">Satisfied customers on Front</h2>
+      </div>
+      <!-- End Title -->
+
+      <!-- Slick Carousel - Testimonials Main Nav -->
+      <div id="testimonialsNavMain" class="js-slick-carousel u-slick text-center w-lg-75 mx-lg-auto mb-7"
+            data-adaptive-height="true"
+            data-infinite="true"
+            data-fade="true"
+            data-nav-for="#testimonialsNavPagination">
+        <div class="js-slide">
+          <!-- Testimonials -->
+          <blockquote class="lead text-white-70 text-lh-md">
+            I followed a link for a job on Front and uploaded my resume. About two hours later, I received an email from an employer looking for someone with my skills. In a week's time and four interviews later I have a fantastic new job! Thanks Front!</blockquote>
+          <!-- End Testimonials -->
+        </div>
+
+        <div class="js-slide">
+          <!-- Testimonials -->
+          <blockquote class="lead text-white-70 text-lh-md">
+            I had my resume public on Front for only two days and I got flooded with interviews from serious competitive employers that resulted in me choosing between very tempting offers. Don't waste your time. Go Front. It's real!</blockquote>
+          <!-- End Testimonials -->
+        </div>
+
+        <div class="js-slide">
+          <!-- Testimonials -->
+          <blockquote class="lead text-white-70 text-lh-md">
+            I found my current Job on Front. I applied and got a reply from the company within one day. Hired within the week. No other job site has as many tech jobs as Front.</blockquote>
+          <!-- End Testimonials -->
+        </div>
+
+        <div class="js-slide">
+          <!-- Testimonials -->
+          <blockquote class="lead text-white-70 text-lh-md">
+            I uploaded my resume on Front and within that week had several emails and calls about opportunities from recruiters. I decided to pursue an opportunity with HP and started working there that same month. Excellent site!</blockquote>
+          <!-- End Testimonials -->
+        </div>
+      </div>
+      <!-- End Slick Carousel - Testimonials Main Nav -->
+
+      <!-- Slick Carousel - Testimonials Pagination Nav -->
+      <div id="testimonialsNavPagination" class="js-slick-carousel u-slick u-slick--gutters-3 u-slick--pagination-interactive"
+            data-infinite="true"
+            data-slides-show="3"
+            data-center-mode="true"
+            data-focus-on-select="true"
+            data-nav-for="#testimonialsNavMain"
+            data-responsive='[{
+              "breakpoint": 1200,
+              "settings": {
+                "slidesToShow": 2
+              }
+            }, {
+              "breakpoint": 768,
+              "settings": {
+                "slidesToShow": 2
+              }
+            }, {
+              "breakpoint": 554,
+              "settings": {
+                "slidesToShow": 1
+              }
+            }]'>
+        <div class="js-slide rounded-pill p-2">
+          <!-- Authors -->
+          <div class="media align-items-center">
+            <div class="u-avatar mr-3">
+              <img class="img-fluid rounded-circle" src="../../assets/img/100x100/img1.jpg" alt="Image Description">
+            </div>
+            <div class="media-body">
+              <h4 class="h6 u-slick--pagination-interactive__title mb-0">Casy Williams</h4>
+              <p class="small u-slick--pagination-interactive__text mb-0">NERC CIP Consultant</p>
+            </div>
+          </div>
+          <!-- End Authors -->
+        </div>
+        <div class="js-slide rounded-pill p-2">
+          <!-- Authors -->
+          <div class="media align-items-center">
+            <div class="u-avatar mr-3">
+              <img class="img-fluid rounded-circle" src="../../assets/img/100x100/img3.jpg" alt="Image Description">
+            </div>
+            <div class="media-body">
+              <h4 class="h6 u-slick--pagination-interactive__title mb-0">Elon Fisher</h4>
+              <p class="small u-slick--pagination-interactive__text mb-0">Consultant</p>
+            </div>
+          </div>
+          <!-- End Authors -->
+        </div>
+        <div class="js-slide rounded-pill p-2">
+          <!-- Authors -->
+          <div class="media align-items-center">
+            <div class="u-avatar mr-3">
+              <img class="img-fluid rounded-circle" src="../../assets/img/100x100/img2.jpg" alt="Image Description">
+            </div>
+            <div class="media-body">
+              <h4 class="h6 u-slick--pagination-interactive__title mb-0">Linda Spears</h4>
+              <p class="small u-slick--pagination-interactive__text mb-0">Business Analyst</p>
+            </div>
+          </div>
+          <!-- End Authors -->
+        </div>
+        <div class="js-slide rounded-pill p-2">
+          <!-- Authors -->
+          <div class="media align-items-center">
+            <div class="u-avatar mr-3">
+              <img class="img-fluid rounded-circle" src="../../assets/img/100x100/img4.jpg" alt="Image Description">
+            </div>
+            <div class="media-body">
+              <h4 class="h6 u-slick--pagination-interactive__title mb-0">Chris Johnson</h4>
+              <p class="small u-slick--pagination-interactive__text mb-0">Firewall Engineer</p>
+            </div>
+          </div>
+          <!-- End Authors -->
+        </div>
+      </div>
+      <!-- End Slick Carousel - Testimonials Pagination Nav -->
+    </div>
+
+    <!-- SVG Background Element -->
+    <figure class="position-absolute top-0 right-0 w-100 h-100">
+      <img class="js-svg-injector" src="../../assets/svg/components/bg-elements-5.svg" alt="SVG"
+            data-parent="#SVGbgElements5">
+    </figure>
+    <!-- End SVG Background Element -->
+  </div>
+  <!-- End Testimonials -->
+
+  <!-- Clients Section -->
+  <div class="container space-2">
+    <div class="js-slick-carousel u-slick"
+          data-autoplay="true"
+          data-speed="5000"
+          data-infinite="true"
+          data-slides-show="6"
+          data-responsive='[{
+            "breakpoint": 1200,
+            "settings": {
+              "slidesToShow": 4
+            }
+          }, {
+            "breakpoint": 992,
+            "settings": {
+              "slidesToShow": 4
+            }
+          }, {
+            "breakpoint": 768,
+            "settings": {
+              "slidesToShow": 3
+            }
+          }, {
+            "breakpoint": 576,
+            "settings": {
+              "slidesToShow": 3
+            }
+          }, {
+            "breakpoint": 480,
+            "settings": {
+              "slidesToShow": 2
+            }
+          }]'>
+      <div class="js-slide">
+        <img class="u-clients" src="../../assets/svg/clients-logo/airbnb.svg" alt="Image Description">
+      </div>
+      <div class="js-slide">
+        <img class="u-clients" src="../../assets/svg/clients-logo/paypal.svg" alt="Image Description">
+      </div>
+      <div class="js-slide">
+        <img class="u-clients" src="../../assets/svg/clients-logo/mapbox.svg" alt="Image Description">
+      </div>
+      <div class="js-slide">
+        <img class="u-clients" src="../../assets/svg/clients-logo/boring-company.svg" alt="Image Description">
+      </div>
+      <div class="js-slide">
+        <img class="u-clients" src="../../assets/svg/clients-logo/google.svg" alt="Image Description">
+      </div>
+      <div class="js-slide">
+        <img class="u-clients" src="../../assets/svg/clients-logo/embark.svg" alt="Image Description">
+      </div>
+      <div class="js-slide">
+        <img class="u-clients" src="../../assets/svg/clients-logo/spotify.svg" alt="Image Description">
+      </div>
+      <div class="js-slide">
+        <img class="u-clients" src="../../assets/svg/clients-logo/stripe.svg" alt="Image Description">
+      </div>
+    </div>
+  </div>
+  <!-- End Clients Section -->
+
+  <hr class="my-0">
+
+  <!-- Features Section -->
+  <div class="container space-2 space-md-3">
+    <div class="row justify-content-lg-between align-items-lg-center">
+      <div class="col-lg-5 order-lg-2 mb-9 mb-lg-0">
+        <!-- Description -->
+        <h2 class="font-weight-medium">Millions of Jobs.<br>Find the one that suits you.</h2>
+        <p>Search all the open positions on the web. Get your own personalized salary estimate. Read reviews on over 600,000 companies worldwide.</p>
+        <!-- End Description -->
+
+        <!-- List -->
+        <ul class="list-unstyled text-secondary">
+          <li class="media my-3">
+            <div class="d-flex mt-1 mr-2">
+              <span class="fas fa-check text-success"></span>
+            </div>
+            <div class="media-body">
+              Verified, up-to-date Cards
+            </div>
+          </li>
+          <li class="media my-3">
+            <div class="d-flex mt-1 mr-2">
+              <span class="fas fa-check text-success"></span>
+            </div>
+            <div class="media-body">
+              Seamless job search
+            </div>
+          </li>
+          <li class="media my-3">
+            <div class="d-flex mt-1 mr-2">
+              <span class="fas fa-check text-success"></span>
+            </div>
+            <div class="media-body">
+              Job seekers and employers connect
+            </div>
+          </li>
+        </ul>
+        <!-- End List -->
+      </div>
+
+      <div class="col-lg-7 order-lg-1">
+        <!-- SVG Shape -->
+        <figure id="SVGgetAnswered" class="svg-preloader ie-get-answered">
+          <img class="js-svg-injector" src="../../assets/svg/illustrations/get-answered.svg" alt="Image Description"
+                data-parent="#SVGgetAnswered">
+        </figure>
+        <!-- End SVG Shape -->
+      </div>
+    </div>
+  </div>
+  <!-- End Features Section -->
+
+  <!-- Stats Section -->
+  <div class="container space-bottom-2 space-bottom-md-3">
+    <div class="row justify-content-md-between">
+      <div class="col-sm-6 offset-sm-3 col-lg-4 offset-lg-0 mb-7 mb-lg-0">
+        <!-- Figures -->
+        <div class="text-center">
+          <h3 class="display-2 text-primary font-weight-semi-bold">2M</h3>
+          <p>2 million daily active users</p>
+        </div>
+        <!-- End Figures -->
+      </div>
+
+      <div class="col-sm-6 col-lg-4 mb-7 mb-sm-0">
+        <!-- Figures -->
+        <div class="text-center">
+          <h3 class="display-2 text-primary font-weight-semi-bold">7k</h3>
+          <p>Over 7k open job positions</p>
+        </div>
+        <!-- End Figures -->
+      </div>
+
+      <div class="col-sm-6 col-lg-4">
+        <!-- Figures -->
+        <div class="text-center">
+          <h3 class="display-2 text-primary font-weight-semi-bold">10M</h3>
+          <p>Over 10 million stories shared</p>
+        </div>
+        <!-- End Figures -->
+      </div>
+    </div>
+  </div>
+  <!-- End Stats Section -->
+
+  <!-- Divider -->
+  <div class="container">
+    <hr class="my-0">
+  </div>
+  <!-- End Divider -->
+
+  <!-- Featured Jobs Section -->
+  <div id="SVGbgElements6" class="svg-preloader position-relative overflow-hidden">
+    <div class="container space-2 space-md-3">
+      <!-- Title -->
+      <div class="d-sm-flex justify-content-sm-between align-items-sm-center mb-5">
+        <h2 class="h3 font-weight-medium">Featured Jobs</h2>
+        <a class="link-muted" href="#">
+          See all Jobs
+          <span class="fas fa-angle-right small ml-2"></span>
+        </a>
+      </div>
+      <!-- End Title -->
+
+      <div class="card-deck d-block d-lg-flex card-lg-gutters-3">
+        <div class="card card-frame text-center mb-5">
+          <!-- Card -->
+          <div class="card-body p-6">
+            <div class="u-avatar mx-auto mb-4">
+              <img class="img-fluid rounded" src="../../assets/img/160x160/img3.jpg" alt="Image Description">
+            </div>
+            <div class="mb-4">
+              <h4 class="h6 mb-1">IT business manager</h4>
+              <p>London, UK</p>
+            </div>
+            <a class="btn btn-sm btn-soft-primary btn-wide" href="#">View Details</a>
+          </div>
+          <!-- End Card -->
+        </div>
+
+        <div class="card card-frame text-center mb-5">
+          <!-- Card -->
+          <div class="card-body p-6">
+            <div class="u-avatar mx-auto mb-4">
+              <img class="img-fluid rounded" src="../../assets/img/160x160/img4.jpg" alt="Image Description">
+            </div>
+            <div class="mb-4">
+              <h4 class="h6 mb-1">Membership director</h4>
+              <p>Manchester, UK</p>
+            </div>
+            <a class="btn btn-sm btn-soft-primary btn-wide" href="#">View Details</a>
+          </div>
+          <!-- End Card -->
+        </div>
+
+        <div class="card card-frame text-center mb-5">
+          <!-- Card -->
+          <div class="card-body p-6">
+            <div class="u-avatar mx-auto mb-4">
+              <img class="img-fluid rounded" src="../../assets/img/160x160/img5.jpg" alt="Image Description">
+            </div>
+            <div class="mb-4">
+              <h4 class="h6 mb-1">UI/UX designer</h4>
+              <p>New York, NY</p>
+            </div>
+            <a class="btn btn-sm btn-soft-primary btn-wide" href="#">View Details</a>
+          </div>
+          <!-- End Card -->
+        </div>
+      </div>
+
+      <div class="card-deck d-block d-lg-flex card-lg-gutters-3">
+        <div class="card card-frame text-center mb-5 mb-lg-0">
+          <!-- Card -->
+          <div class="card-body p-6">
+            <div class="u-avatar mx-auto mb-4">
+              <img class="img-fluid rounded" src="../../assets/img/160x160/img6.jpg" alt="Image Description">
+            </div>
+            <div class="mb-4">
+              <h4 class="h6 mb-1">Facility project manager</h4>
+              <p>London, UK</p>
+            </div>
+            <a class="btn btn-sm btn-soft-primary btn-wide" href="#">View Details</a>
+          </div>
+          <!-- End Card -->
+        </div>
+
+        <div class="card card-frame text-center mb-5 mb-lg-0">
+          <!-- Card -->
+          <div class="card-body p-6">
+            <div class="u-avatar mx-auto mb-4">
+              <img class="img-fluid rounded" src="../../assets/img/160x160/img7.jpg" alt="Image Description">
+            </div>
+            <div class="mb-4">
+              <h4 class="h6 mb-1">Electrical systems specialist</h4>
+              <p>New York, NY</p>
+            </div>
+            <a class="btn btn-sm btn-soft-primary btn-wide" href="#">View Details</a>
+          </div>
+          <!-- End Card -->
+        </div>
+
+        <div class="card card-frame text-center">
+          <!-- Card -->
+          <div class="card-body p-6">
+            <div class="u-avatar mx-auto mb-4">
+              <img class="img-fluid rounded" src="../../assets/img/160x160/img8.jpg" alt="Image Description">
+            </div>
+            <div class="mb-4">
+              <h4 class="h6 mb-1">Account manager</h4>
+              <p>Chester, UK</p>
+            </div>
+            <a class="btn btn-sm btn-soft-primary btn-wide" href="#">View Details</a>
+          </div>
+          <!-- End Card -->
+        </div>
+      </div>
+    </div>
+
+    <!-- SVG Background Element -->
+    <figure class="position-absolute top-0 right-0 z-index-n1 w-100 h-100">
+      <img class="js-svg-injector" src="../../assets/svg/components/bg-elements-6.svg" alt="SVG"
+            data-parent="#SVGbgElements6">
+    </figure>
+    <!-- End SVG Background Element -->
+  </div>
+  <!-- End Featured Jobs Section -->
+</main>
+<!-- ========== END MAIN CONTENT ========== -->

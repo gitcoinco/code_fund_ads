@@ -230,9 +230,10 @@ ActiveRecord::Schema.define(version: 2019_01_17_205738) do
   end
 
   create_table "job_postings", force: :cascade do |t|
-    t.bigint "organization_id", null: false
-    t.bigint "user_id", null: false
+    t.bigint "organization_id"
+    t.bigint "user_id"
     t.bigint "campaign_id"
+    t.string "status", default: "pending", null: false
     t.string "source", default: "internal", null: false
     t.string "source_identifier"
     t.string "job_type", null: false
@@ -243,11 +244,13 @@ ActiveRecord::Schema.define(version: 2019_01_17_205738) do
     t.text "description", null: false
     t.text "how_to_apply"
     t.string "keywords", default: [], null: false, array: true
+    t.boolean "display_salary", default: true
     t.integer "min_annual_salary_cents", default: 0, null: false
     t.string "min_annual_salary_currency", default: "USD", null: false
     t.integer "max_annual_salary_cents", default: 0, null: false
     t.string "max_annual_salary_currency", default: "USD", null: false
     t.boolean "remote", default: false, null: false
+    t.string "remote_country_codes", default: [], array: true
     t.string "city"
     t.string "province_name"
     t.string "province_code"
