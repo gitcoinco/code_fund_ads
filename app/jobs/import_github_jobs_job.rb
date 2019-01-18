@@ -18,8 +18,13 @@ class ImportGithubJobsJob < ApplicationJob
 
     user = User.codefund_bot
     organization = Organization.codefund
+    keyword_aliases = ENUMS::KEYWORDS.values.flatten.map(&:downcase).uniq
+    sieve = Stopwords::Snowball::WordSieve.new
 
     @jobs.each do |job|
+      words = sieve.filter(lang: :en, words: "#{job["title"]} #{job["description"]} #{job["tag"]}".downcase.gsub(/,|\.\s/, "").split)
+      matching_keyword_aliases = keyword_aliases & words
+
       posting = JobPosting.github.where(source_identifier: job["id"]).first_or_initialize
 
       posting.user             = user
@@ -34,8 +39,7 @@ class ImportGithubJobsJob < ApplicationJob
       if job["location"].downcase.include?("remote") || job["title"].downcase.include?("remote")
         posting.remote = true
       end
-      keywords = posting.keywords + [job["tag"]]
-      posting.keywords         = normalize_keywords(keywords)
+      posting.keywords         = normalize_keywords(matching_keyword_aliases)
       posting.city             = job["location"]
       posting.url              = job["url"]
       posting.start_date       = Chronic.parse(job["created_at"]).to_date

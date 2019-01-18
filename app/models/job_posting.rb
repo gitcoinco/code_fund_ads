@@ -40,6 +40,7 @@ class JobPosting < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
   include Taggable
+  include FullTextSearchable
   include JobPostings::Presentable
 
   # relationships .............................................................
@@ -67,6 +68,15 @@ class JobPosting < ApplicationRecord
   scope :internal, -> { where(source: ENUMS::JOB_SOURCES::INTERNAL) }
   scope :remoteok, -> { where(source: ENUMS::JOB_SOURCES::REMOTEOK) }
   scope :github, -> { where(source: ENUMS::JOB_SOURCES::GITHUB) }
+  scope :search_company_name, ->(value) { value.blank? ? all : search_column(:company_name, value) }
+  scope :search_country_codes, ->(*values) { values.blank? ? all : where(country_code: values) }
+  scope :search_description, ->(value) { value.blank? ? all : search_column(:description, value) }
+  scope :search_job_types, ->(*values) { values.blank? ? all : where(job_type: values) }
+  scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
+  scope :search_organization, ->(value) { value.blank? ? all : where(organization_id: value) }
+  scope :search_province_codes, ->(*values) { values.blank? ? all : where(province_code: values) }
+  scope :search_remote, ->(value) { value.nil? ? all : where(remote: value) }
+  scope :search_title, ->(value) { value.blank? ? all : search_column(:title, value) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   tag_columns :keywords
@@ -83,12 +93,24 @@ class JobPosting < ApplicationRecord
     source != ENUMS::JOB_SOURCES::INTERNAL
   end
 
+  def to_tsvector
+    [].
+      then { |result| keywords.blank? ? result : keywords.each_with_object(result) { |tag, memo| memo << make_tsvector(tag, weight: "A") } }.
+      then { |result| title.blank? ? result : result << make_tsvector(title, weight: "B") }.
+      then { |result| description.blank? ? result : result << make_tsvector(description, weight: "B") }.
+      then { |result| job_type.blank? ? result : result << make_tsvector(job_type, weight: "C") }.
+      then { |result| province_name.blank? ? result : result << make_tsvector(province_name, weight: "D") }.
+      then { |result| country_code.blank? ? result : result << make_tsvector(country_code, weight: "D") }.
+      then { |result| Country.find(country_code).blank? ? result : result << make_tsvector(Country.find(country_code).name, weight: "D") }.
+      then { |result| result.compact.join " || " }
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................
 
   private
-  
+
   def set_currency
     if currency.present?
       self.min_annual_salary_currency = currency

@@ -3,24 +3,24 @@ Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base
 
 Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
-  
+
   authenticate :user, lambda { |user| AuthorizedUser.new(user || User.new).can_admin_system? } do
     mount Sidekiq::Web => "/sidekiq"
   end
-  
+
   devise_for :users, controllers: {
     sessions: "sessions",
     invitations: "invitations",
   }
-  
+
   # https://jobs.codefund.app/
   scope "jobs" do
     resources :jobs, only: [:index], path: "/"
     resources :job_postings, path: "/listings"
   end
-  
+
   root to: "pages#index"
-  
+
   resource :contact, only: [:show, :create]
   resource :administrator_dashboards, only: [:show], path: "/dashboards/administrator"
   resource :advertiser_dashboards, only: [:show], path: "/dashboards/advertiser"
