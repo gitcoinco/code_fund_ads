@@ -17,8 +17,8 @@
         Countries
         <small class="text-muted d-block">Targeted Countries</small>
       </h3>
-      <% @campaign.countries.sort.each do |country| %>
-        <span class="btn btn-xs btn-soft-success mb-2"><%= country %></span>
+      <% @campaign.countries.each do |country| %>
+        <span class="btn btn-xs btn-soft-success mb-2"><%= country.name %></span>
       <% end %>
     </div>
   </div>

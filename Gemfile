@@ -11,6 +11,7 @@ gem "aws-sdk-s3",                         "~> 1.29.0", require: false
 gem "barnes",                             "~> 0.0.7"
 gem "bootsnap",                           ">= 1.1.0", require: false
 gem "cable_ready",                        "~> 2.0.7"
+gem "chronic",                            "~> 0.10.2"
 gem "country_select",                     "~> 3.1.1"
 gem "devise",                             "~> 4.5.0"
 gem "devise_invitable",                   "~> 1.7.5"
@@ -53,8 +54,10 @@ gem "simple_form",                        "~> 4.0"
 gem "slack-notifier",                     "~> 2.3.2"
 gem "statsd-instrument",                  "~> 2.3.2"
 gem "stimulus_reflex",                    "~> 0.2.0"
+gem "stopwords-filter",                   "~> 0.4.1", require: "stopwords"
 gem "tag_columns",                        "~> 0.1.6"
 gem "turbolinks",                         "~> 5"
+gem "typhoeus",                           "~> 1.3.1"
 gem "uglifier",                           ">= 1.3.0"
 gem "webpacker",                          "~> 3.5"
 
@@ -74,6 +77,7 @@ group :development do
   gem "annotate"
   gem "letter_opener_web"
   gem "listen", ">= 3.0.5", "< 3.2"
+  gem "mechanize"
   gem "meta_request" # RailsPanel Chrome extension
   gem "model_probe"
   gem "rails-erd"
@@ -88,6 +92,7 @@ group :test do
   gem "capybara", ">= 2.15"
   gem "chromedriver-helper"
   gem "selenium-webdriver"
+  gem "timecop"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_11_172606) do
+ActiveRecord::Schema.define(version: 2019_01_17_205738) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -75,21 +75,25 @@ ActiveRecord::Schema.define(version: 2019_01_11_172606) do
     t.string "daily_budget_currency", default: "USD", null: false
     t.integer "ecpm_cents", default: 0, null: false
     t.string "ecpm_currency", default: "USD", null: false
-    t.string "countries", default: [], array: true
+    t.string "country_codes", default: [], array: true
     t.string "keywords", default: [], array: true
     t.string "negative_keywords", default: [], array: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "legacy_id"
     t.bigint "organization_id"
+    t.boolean "job_posting", default: false, null: false
+    t.string "province_codes", default: [], array: true
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
     t.index ["core_hours_only"], name: "index_campaigns_on_core_hours_only"
-    t.index ["countries"], name: "index_campaigns_on_countries", using: :gin
+    t.index ["country_codes"], name: "index_campaigns_on_country_codes", using: :gin
     t.index ["creative_id"], name: "index_campaigns_on_creative_id"
     t.index ["end_date"], name: "index_campaigns_on_end_date"
+    t.index ["job_posting"], name: "index_campaigns_on_job_posting"
     t.index ["keywords"], name: "index_campaigns_on_keywords", using: :gin
     t.index ["negative_keywords"], name: "index_campaigns_on_negative_keywords", using: :gin
     t.index ["organization_id"], name: "index_campaigns_on_organization_id"
+    t.index ["province_codes"], name: "index_campaigns_on_province_codes", using: :gin
     t.index ["start_date"], name: "index_campaigns_on_start_date"
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["user_id"], name: "index_campaigns_on_user_id"
@@ -178,6 +182,7 @@ ActiveRecord::Schema.define(version: 2019_01_11_172606) do
     t.string "ad_template"
     t.string "ad_theme"
     t.bigint "organization_id"
+    t.string "province_code"
     t.boolean "uplift", default: false
   end
 
@@ -205,6 +210,7 @@ ActiveRecord::Schema.define(version: 2019_01_11_172606) do
     t.string "ad_template"
     t.string "ad_theme"
     t.bigint "organization_id"
+    t.string "province_code"
     t.boolean "uplift", default: false
     t.index "date_trunc('hour'::text, clicked_at)", name: "impressions_default_date_trunc_idx1"
     t.index "date_trunc('hour'::text, displayed_at)", name: "impressions_default_date_trunc_idx"
@@ -219,7 +225,60 @@ ActiveRecord::Schema.define(version: 2019_01_11_172606) do
     t.index ["id", "advertiser_id", "displayed_at_date"], name: "impressions_default_id_advertiser_id_displayed_at_date_idx", unique: true
     t.index ["organization_id"], name: "impressions_default_organization_id_idx"
     t.index ["property_id"], name: "impressions_default_property_id_idx"
+    t.index ["province_code"], name: "impressions_default_province_code_idx"
     t.index ["uplift"], name: "impressions_default_uplift_idx"
+  end
+
+  create_table "job_postings", force: :cascade do |t|
+    t.bigint "organization_id"
+    t.bigint "user_id"
+    t.bigint "campaign_id"
+    t.string "status", default: "pending", null: false
+    t.string "source", default: "internal", null: false
+    t.string "source_identifier"
+    t.string "job_type", null: false
+    t.string "company_name"
+    t.string "company_url"
+    t.string "company_logo_url"
+    t.string "title", null: false
+    t.text "description", null: false
+    t.text "how_to_apply"
+    t.string "keywords", default: [], null: false, array: true
+    t.boolean "display_salary", default: true
+    t.integer "min_annual_salary_cents", default: 0, null: false
+    t.string "min_annual_salary_currency", default: "USD", null: false
+    t.integer "max_annual_salary_cents", default: 0, null: false
+    t.string "max_annual_salary_currency", default: "USD", null: false
+    t.boolean "remote", default: false, null: false
+    t.string "remote_country_codes", default: [], array: true
+    t.string "city"
+    t.string "province_name"
+    t.string "province_code"
+    t.string "country_code"
+    t.text "url"
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.tsvector "full_text_search"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["campaign_id"], name: "index_job_postings_on_campaign_id"
+    t.index ["city"], name: "index_job_postings_on_city"
+    t.index ["company_name"], name: "index_job_postings_on_company_name"
+    t.index ["country_code"], name: "index_job_postings_on_country_code"
+    t.index ["end_date"], name: "index_job_postings_on_end_date"
+    t.index ["full_text_search"], name: "index_job_postings_on_full_text_search", using: :gin
+    t.index ["job_type"], name: "index_job_postings_on_job_type"
+    t.index ["keywords"], name: "index_job_postings_on_keywords", using: :gin
+    t.index ["max_annual_salary_cents"], name: "index_job_postings_on_max_annual_salary_cents"
+    t.index ["min_annual_salary_cents"], name: "index_job_postings_on_min_annual_salary_cents"
+    t.index ["organization_id"], name: "index_job_postings_on_organization_id"
+    t.index ["province_code"], name: "index_job_postings_on_province_code"
+    t.index ["province_name"], name: "index_job_postings_on_province_name"
+    t.index ["remote"], name: "index_job_postings_on_remote"
+    t.index ["source", "source_identifier"], name: "index_job_postings_on_source_and_source_identifier", unique: true
+    t.index ["start_date"], name: "index_job_postings_on_start_date"
+    t.index ["title"], name: "index_job_postings_on_title"
+    t.index ["user_id"], name: "index_job_postings_on_user_id"
   end
 
   create_table "organization_transactions", force: :cascade do |t|

@@ -28,9 +28,10 @@ class CampaignSearchesController < ApplicationController
       :user,
       :user_id,
       :weekdays_only,
-      countries: [],
+      country_codes: [],
       keywords: [],
       negative_keywords: [],
+      province_codes: [],
       statuses: [],
     )
   end

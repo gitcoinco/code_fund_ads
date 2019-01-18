@@ -184,13 +184,15 @@ CREATE TABLE public.campaigns (
     daily_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     ecpm_cents integer DEFAULT 0 NOT NULL,
     ecpm_currency character varying DEFAULT 'USD'::character varying NOT NULL,
-    countries character varying[] DEFAULT '{}'::character varying[],
+    country_codes character varying[] DEFAULT '{}'::character varying[],
     keywords character varying[] DEFAULT '{}'::character varying[],
     negative_keywords character varying[] DEFAULT '{}'::character varying[],
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     legacy_id uuid,
-    organization_id bigint
+    organization_id bigint,
+    job_posting boolean DEFAULT false NOT NULL,
+    province_codes character varying[] DEFAULT '{}'::character varying[]
 );
 
 
@@ -416,6 +418,7 @@ CREATE TABLE public.impressions (
     ad_template character varying,
     ad_theme character varying,
     organization_id bigint,
+    province_code character varying,
     uplift boolean DEFAULT false
 )
 PARTITION BY RANGE (advertiser_id, displayed_at_date);
@@ -427,6 +430,65 @@ PARTITION BY RANGE (advertiser_id, displayed_at_date);
 
 CREATE TABLE public.impressions_default PARTITION OF public.impressions
 DEFAULT;
+
+
+--
+-- Name: job_postings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.job_postings (
+    id bigint NOT NULL,
+    organization_id bigint,
+    user_id bigint,
+    campaign_id bigint,
+    status character varying DEFAULT 'pending'::character varying NOT NULL,
+    source character varying DEFAULT 'internal'::character varying NOT NULL,
+    source_identifier character varying,
+    job_type character varying NOT NULL,
+    company_name character varying,
+    company_url character varying,
+    company_logo_url character varying,
+    title character varying NOT NULL,
+    description text NOT NULL,
+    how_to_apply text,
+    keywords character varying[] DEFAULT '{}'::character varying[] NOT NULL,
+    display_salary boolean DEFAULT true,
+    min_annual_salary_cents integer DEFAULT 0 NOT NULL,
+    min_annual_salary_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    max_annual_salary_cents integer DEFAULT 0 NOT NULL,
+    max_annual_salary_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    remote boolean DEFAULT false NOT NULL,
+    remote_country_codes character varying[] DEFAULT '{}'::character varying[],
+    city character varying,
+    province_name character varying,
+    province_code character varying,
+    country_code character varying,
+    url text,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    full_text_search tsvector,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: job_postings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.job_postings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: job_postings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.job_postings_id_seq OWNED BY public.job_postings.id;
 
 
 --
@@ -820,6 +882,13 @@ ALTER TABLE ONLY public.impressions_default ALTER COLUMN uplift SET DEFAULT fals
 
 
 --
+-- Name: job_postings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.job_postings ALTER COLUMN id SET DEFAULT nextval('public.job_postings_id_seq'::regclass);
+
+
+--
 -- Name: organization_transactions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -946,6 +1015,14 @@ ALTER TABLE ONLY public.email_templates
 
 ALTER TABLE ONLY public.events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: job_postings job_postings_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.job_postings
+    ADD CONSTRAINT job_postings_pkey PRIMARY KEY (id);
 
 
 --
@@ -1195,6 +1272,20 @@ CREATE INDEX impressions_default_property_id_idx ON public.impressions_default U
 
 
 --
+-- Name: index_impressions_on_province_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_impressions_on_province_code ON ONLY public.impressions USING btree (province_code);
+
+
+--
+-- Name: impressions_default_province_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_province_code_idx ON public.impressions_default USING btree (province_code);
+
+
+--
 -- Name: index_impressions_on_uplift; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1258,10 +1349,10 @@ CREATE INDEX index_campaigns_on_core_hours_only ON public.campaigns USING btree 
 
 
 --
--- Name: index_campaigns_on_countries; Type: INDEX; Schema: public; Owner: -
+-- Name: index_campaigns_on_country_codes; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_campaigns_on_countries ON public.campaigns USING gin (countries);
+CREATE INDEX index_campaigns_on_country_codes ON public.campaigns USING gin (country_codes);
 
 
 --
@@ -1276,6 +1367,13 @@ CREATE INDEX index_campaigns_on_creative_id ON public.campaigns USING btree (cre
 --
 
 CREATE INDEX index_campaigns_on_end_date ON public.campaigns USING btree (end_date);
+
+
+--
+-- Name: index_campaigns_on_job_posting; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_job_posting ON public.campaigns USING btree (job_posting);
 
 
 --
@@ -1304,6 +1402,13 @@ CREATE INDEX index_campaigns_on_negative_keywords ON public.campaigns USING gin 
 --
 
 CREATE INDEX index_campaigns_on_organization_id ON public.campaigns USING btree (organization_id);
+
+
+--
+-- Name: index_campaigns_on_province_codes; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_province_codes ON public.campaigns USING gin (province_codes);
 
 
 --
@@ -1388,6 +1493,132 @@ CREATE INDEX index_events_on_eventable_id_and_eventable_type ON public.events US
 --
 
 CREATE INDEX index_events_on_user_id ON public.events USING btree (user_id);
+
+
+--
+-- Name: index_job_postings_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_campaign_id ON public.job_postings USING btree (campaign_id);
+
+
+--
+-- Name: index_job_postings_on_city; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_city ON public.job_postings USING btree (city);
+
+
+--
+-- Name: index_job_postings_on_company_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_company_name ON public.job_postings USING btree (company_name);
+
+
+--
+-- Name: index_job_postings_on_country_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_country_code ON public.job_postings USING btree (country_code);
+
+
+--
+-- Name: index_job_postings_on_end_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_end_date ON public.job_postings USING btree (end_date);
+
+
+--
+-- Name: index_job_postings_on_full_text_search; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_full_text_search ON public.job_postings USING gin (full_text_search);
+
+
+--
+-- Name: index_job_postings_on_job_type; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_job_type ON public.job_postings USING btree (job_type);
+
+
+--
+-- Name: index_job_postings_on_keywords; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_keywords ON public.job_postings USING gin (keywords);
+
+
+--
+-- Name: index_job_postings_on_max_annual_salary_cents; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_max_annual_salary_cents ON public.job_postings USING btree (max_annual_salary_cents);
+
+
+--
+-- Name: index_job_postings_on_min_annual_salary_cents; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_min_annual_salary_cents ON public.job_postings USING btree (min_annual_salary_cents);
+
+
+--
+-- Name: index_job_postings_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_organization_id ON public.job_postings USING btree (organization_id);
+
+
+--
+-- Name: index_job_postings_on_province_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_province_code ON public.job_postings USING btree (province_code);
+
+
+--
+-- Name: index_job_postings_on_province_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_province_name ON public.job_postings USING btree (province_name);
+
+
+--
+-- Name: index_job_postings_on_remote; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_remote ON public.job_postings USING btree (remote);
+
+
+--
+-- Name: index_job_postings_on_source_and_source_identifier; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_job_postings_on_source_and_source_identifier ON public.job_postings USING btree (source, source_identifier);
+
+
+--
+-- Name: index_job_postings_on_start_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_start_date ON public.job_postings USING btree (start_date);
+
+
+--
+-- Name: index_job_postings_on_title; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_title ON public.job_postings USING btree (title);
+
+
+--
+-- Name: index_job_postings_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_user_id ON public.job_postings USING btree (user_id);
 
 
 --
@@ -1678,6 +1909,13 @@ ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impr
 
 
 --
+-- Name: impressions_default_province_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_province_code ATTACH PARTITION public.impressions_default_province_code_idx;
+
+
+--
 -- Name: impressions_default_uplift_idx; Type: INDEX ATTACH; Schema: public; Owner: -
 --
 
@@ -1711,8 +1949,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20181220201430'),
 ('20181221205112'),
 ('20181222164913'),
+('20190103230117'),
 ('20190107225451'),
 ('20190108190511'),
-('20190111172606');
+('20190108201954'),
+('20190111172606'),
+('20190117205738');
 
 

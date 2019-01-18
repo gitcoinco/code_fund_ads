@@ -19,13 +19,15 @@
 #  daily_budget_currency :string           default("USD"), not null
 #  ecpm_cents            :integer          default(0), not null
 #  ecpm_currency         :string           default("USD"), not null
-#  countries             :string           default([]), is an Array
+#  country_codes         :string           default([]), is an Array
 #  keywords              :string           default([]), is an Array
 #  negative_keywords     :string           default([]), is an Array
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  legacy_id             :uuid
 #  organization_id       :bigint(8)
+#  job_posting           :boolean          default(FALSE), not null
+#  province_codes        :string           default([]), is an Array
 #
 
 class Campaign < ApplicationRecord
@@ -47,6 +49,7 @@ class Campaign < ApplicationRecord
   # relationships .............................................................
   belongs_to :creative, optional: true
   belongs_to :user
+  has_one :job_posting
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
@@ -62,9 +65,11 @@ class Campaign < ApplicationRecord
   scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
   scope :fallback, -> { where fallback: true }
   scope :premium, -> { where fallback: false }
+  scope :job_posting, -> { where job_posting: true }
   scope :available_on, ->(date) { where(arel_table[:start_date].lteq(date.to_date)).where(arel_table[:end_date].gteq(date.to_date)) }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
-  scope :search_countries, ->(*values) { values.blank? ? all : with_any_countries(*values) }
+  scope :search_country_codes, ->(*values) { values.blank? ? all : with_any_country_codes(*values) }
+  scope :search_province_codes, ->(*values) { values.blank? ? all : with_any_province_codes(*values) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
   scope :search_negative_keywords, ->(*values) { values.blank? ? all : with_any_negative(*values) }
   scope :search_status, ->(*values) { values.blank? ? all : where(status: values) }
@@ -81,21 +86,17 @@ class Campaign < ApplicationRecord
   scope :targeted_premium_for_property_id, ->(property_id, *keywords) { premium.targeted_for_property_id(property_id, *keywords) }
   scope :targeted_for_property_id, ->(property_id, *keywords) do
     if keywords.present?
-      permitted_for_property_id(property_id).
-        with_any_keywords(*keywords).
-        without_any_negative_keywords(*keywords)
+      permitted_for_property_id(property_id).with_any_keywords(*keywords).without_any_negative_keywords(*keywords)
     else
       subquery = Property.active.select(:keywords).where(id: property_id)
       keywords_overlap = Arel::Nodes::InfixOperation.new("&&", arel_table[:keywords], subquery.arel)
       negative_keywords_overlap = Arel::Nodes::InfixOperation.new("&&", arel_table[:negative_keywords], subquery.arel)
-      permitted_for_property_id(property_id).
-        where(keywords_overlap).
-        where.not(negative_keywords_overlap)
+      permitted_for_property_id(property_id).where(keywords_overlap).where.not(negative_keywords_overlap)
+      permitted_for_property_id(property_id).where(keywords_overlap)
     end
   end
   scope :fallback_for_property_id, ->(property_id) do
-    permitted_for_property_id(property_id).
-      where(fallback: true).
+    fallback.permitted_for_property_id(property_id).
       where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
   end
   scope :targeted_fallback_for_property_id, ->(property_id, *keywords) do
@@ -107,12 +108,19 @@ class Campaign < ApplicationRecord
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
   #
-  # - with_countries
-  # - without_countries
-  # - with_any_countries
-  # - without_any_countries
-  # - with_all_countries
-  # - without_all_countries
+  # - with_country_codes
+  # - without_country_codes
+  # - with_any_country_codes
+  # - without_any_country_codes
+  # - with_all_country_codes
+  # - without_all_country_codes
+  #
+  # - with_province_codes
+  # - without_province_codes
+  # - with_any_province_codes
+  # - without_any_province_codes
+  # - with_all_province_codes
+  # - without_all_province_codes
   #
   # - with_keywords
   # - without_keywords
@@ -130,7 +138,7 @@ class Campaign < ApplicationRecord
   #
   # Examples
   #
-  #   irb>Campaign.with_countries("US", "GB")
+  #   irb>Campaign.with_country_codes("US", "GB")
   #   irb>Campaign.with_keywords("Frontend Frameworks & Tools", "Ruby")
   #   irb>Campaign.without_negative_keywords("Database", "Docker", "React")
 
@@ -138,12 +146,14 @@ class Campaign < ApplicationRecord
   monetize :total_budget_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :daily_budget_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :ecpm_cents, numericality: {greater_than_or_equal_to: 0}
-  tag_columns :countries
+  tag_columns :country_codes
+  tag_columns :province_codes
   tag_columns :keywords
   tag_columns :negative_keywords
   acts_as_commentable
   has_paper_trail on: %i[create update destroy], version_limit: nil, only: %i[
-    countries
+    core_hours_only
+    country_codes
     creative_id
     daily_budget_cents
     daily_budget_currency
@@ -153,12 +163,12 @@ class Campaign < ApplicationRecord
     keywords
     name
     negative_keywords
+    province_codes
     start_date
     status
     total_budget_cents
     total_budget_currency
     url
-    core_hours_only
     user_id
     weekdays_only
   ]
@@ -207,6 +217,10 @@ class Campaign < ApplicationRecord
     ENUMS::CAMPAIGN_STATUSES.archived? status
   end
 
+  def premium?
+    !fallback?
+  end
+
   def available_on?(date)
     date.to_date.between? start_date, end_date
   end
@@ -222,6 +236,14 @@ class Campaign < ApplicationRecord
     self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
   end
 
+  def countries
+    Country.where iso_code: country_codes
+  end
+
+  def provinces
+    Province.where iso_code: province_codes
+  end
+
   def campaign_type
     return "fallback" if fallback?
     "premium"
@@ -234,8 +256,9 @@ class Campaign < ApplicationRecord
   private
 
   def sort_arrays
-    self.countries = countries&.sort || []
-    self.keywords = keywords&.sort || []
-    self.negative_keywords = negative_keywords&.sort || []
+    self.country_codes = country_codes&.reject(&:blank?)&.sort || []
+    self.keywords = keywords&.reject(&:blank?)&.sort || []
+    self.negative_keywords = negative_keywords&.reject(&:blank?)&.sort || []
+    self.province_codes = province_codes&.reject(&:blank?)&.sort
   end
 end

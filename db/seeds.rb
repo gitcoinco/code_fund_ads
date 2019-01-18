@@ -239,7 +239,7 @@ class Seeder
             updated_at: Time.current,
           )
           attributes = property.attributes.merge(
-            "keywords" => "{#{ENUMS::KEYWORDS.values.sample(25).join(",")}}",
+            "keywords" => "{#{ENUMS::KEYWORDS.keys.sample(25).join(",")}}",
             "prohibited_advertiser_ids" => "{}"
           )
           memo << attributes.values

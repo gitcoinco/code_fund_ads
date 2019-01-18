@@ -2,8 +2,6 @@ require "sidekiq/web"
 Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
 
 Rails.application.routes.draw do
-  root to: "pages#index"
-
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   authenticate :user, lambda { |user| AuthorizedUser.new(user || User.new).can_admin_system? } do
@@ -14,6 +12,13 @@ Rails.application.routes.draw do
     sessions: "sessions",
     invitations: "invitations",
   }
+
+  scope "jobs" do
+    resources :jobs, only: [:index], path: "/"
+    resources :job_postings, path: "/listings"
+  end
+
+  root to: "pages#index"
 
   resource :contact, only: [:show, :create]
   resource :administrator_dashboards, only: [:show], path: "/dashboards/administrator"

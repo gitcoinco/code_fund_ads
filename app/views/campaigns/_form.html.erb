@@ -58,14 +58,23 @@
 
   <%= render "/@shared/forms/section_heading", title: "Targeting", subtitle: "Who do you want this campaign to reach?" %>
 
-  <div class="row">
-    <div class="col-12 mb-3" data-controller="select-countries">
-      <%= f.input :countries, required: true, collection: countries_for_select, label: "Targeted Counties", input_html: { multiple: true, data: { controller: "select", target: "select-countries.select" }} %>
+  <div class="row" data-controller="select-geo-targets" data-action="click@document->select-geo-targets#updateProvinceCodeOptions keyup@document->select-geo-targets#updateProvinceCodeOptions">
+    <div class="col-12 mb-3" data-controller="select-multiple">
+      <%= f.input :country_codes, required: true, collection: countries_for_select, label: "Targeted Counties",
+        input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select select-geo-targets.countryCodesSelect", action: " cf:select-batch->select-geo-targets#updateProvinceCodeOptions" }} %>
       <div class="d-block">
-        <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-countries#selectAll" }  %>
-        <%= link_to "Developed markets", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-countries#selectDevelopedMarkets" }  %>
-        <%= link_to "Emerging markets", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-countries#selectEmergingMarkets" }  %>
-        <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-countries#clearSelections" }  %>
+        <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
+        <%# link_to "Developed markets", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-countries#selectDevelopedMarkets" }  %>
+        <%# link_to "Emerging markets", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-countries#selectEmergingMarkets" }  %>
+        <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
+      </div>
+    </div>
+    <div class="col-12 mb-3" data-controller="select-multiple">
+      <%= f.input :province_codes, required: false, collection: [], label: "Targeted States/Provinces",
+        input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select select-geo-targets.provinceCodesSelect", provinces: provinces_for_stimulus, selected: @campaign.province_codes }} %>
+      <div class="d-block">
+        <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
+        <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
       </div>
     </div>
     <div class="col-12 mb-3" data-controller="select-multiple">

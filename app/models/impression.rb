@@ -25,6 +25,7 @@
 #  ad_template                                 :string
 #  ad_theme                                    :string
 #  organization_id                             :bigint(8)
+#  province_code                               :string
 #  uplift                                      :boolean          default(FALSE)
 #
 

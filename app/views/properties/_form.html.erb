@@ -15,7 +15,7 @@
       data: { msg: "Please enter a valid website URL", error_class: "u-has-error", success_class: "u-has-success", rule_url: true }), class: "col-12 mb-3" %>
     <%= tag.div f.input(:language, label: "Primary Language", collection: ENUMS::LANGUAGES.values, required: true,
       input_html: { class: "form-control", data: { controller: "select" }}), class: "col-12 mb-3" %>
-    <%= tag.div f.input(:keywords, label: "Programming Languages & Topics", collection: ENUMS::KEYWORDS.values, required: true,
+    <%= tag.div f.input(:keywords, label: "Programming Languages & Topics", collection: ENUMS::KEYWORDS.keys, required: true,
       input_html: { class: "form-control", multiple: true, data: { controller: "select" }}), class: "col-12 mb-3" %>
     <%= tag.div f.input(:ad_template, label: "Template", collection: ENUMS::AD_TEMPLATES.values, required: true,
       input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" %>

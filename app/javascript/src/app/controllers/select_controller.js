@@ -17,6 +17,7 @@ export default class extends Controller {
     if (this.created) return;
     jQuery(this.element).select2({
       theme: 'bootstrap',
+      width: '100%',
       closeOnSelect: !this.element.multiple,
     });
     this.element.dispatchEvent(new Event('select:created'));

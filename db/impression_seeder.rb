@@ -100,7 +100,7 @@ class ImpressionSeeder
       ad_theme: "light",
       ip_address: rand(6).zero? ? Faker::Internet.ip_v6_address : Faker::Internet.public_ip_v4_address,
       user_agent: Faker::Internet.user_agent,
-      country_code: rand(6).zero? ? ENUMS::COUNTRIES["United States"] : ENUMS::COUNTRIES.keys.sample,
+      country_code: rand(6).zero? ? "US" : Country.all.sample.iso_code,
       displayed_at: displayed_at,
       displayed_at_date: displayed_at.to_date,
       clicked_at: rand(100) <= 3 ? displayed_at : nil,

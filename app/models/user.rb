@@ -68,6 +68,7 @@ class User < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :organization, optional: true
+  has_many :job_postings
 
   # validations ...............................................................
   validates :first_name, presence: true
@@ -159,6 +160,18 @@ class User < ApplicationRecord
     def find_version_author(version)
       return unless version.terminator
       find(version.terminator)
+    end
+
+    def codefund_bot
+      pw = SecureRandom.uuid
+      where(email: "bot@codefund.io").first_or_create!(
+        first_name: "CodeFund",
+        last_name: "Bot",
+        password: pw,
+        password_confirmation: pw,
+        organization: Organization.codefund,
+        invitation_accepted_at: Time.current
+      )
     end
   end
 

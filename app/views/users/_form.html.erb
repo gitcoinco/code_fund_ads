@@ -51,7 +51,7 @@
 
   <div class="row">
     <%= tag.div f.input(:bio, input_html: { class: "js-summernote-editor", rows: 6 }), class: "col-12 mb-2" %>
-    <%= tag.div f.input(:skills, collection: ENUMS::KEYWORDS.values, required: false, input_html: { class: "form-control", multiple: true, data: { controller: "select" }}), class: "col-12" %>
+    <%= tag.div f.input(:skills, collection: ENUMS::KEYWORDS.keys, required: false, input_html: { class: "form-control", multiple: true, data: { controller: "select" }}), class: "col-12" %>
   </div>
 
   <hr class="my-6">

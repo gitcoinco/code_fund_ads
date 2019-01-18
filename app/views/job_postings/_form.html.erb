@@ -1,0 +1,134 @@
+<%= simple_form_for job_posting, wrapper: :horizontal_form do |f| %>
+  <div class="card-body p-5" data-controller="select-geo-targets">
+    <%= f.error_notification %>
+
+    <div class="h5 mb-5 text-secondary">
+      Position Details
+    </div>
+
+    <div class="form-group row job_posting_job_type">
+      <label class="col-sm-3 col-form-label string" for="job_posting_job_type">Job Type <abbr title="required">*</abbr></label>
+      <div class="col-sm-9" style="margin-top: 14px;">
+        <% ENUMS::JOB_TYPES.keys.each do |val| %>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="job_posting_job_type_<%= val %>"
+              name="job_posting[job_type]" class="custom-control-input" value="<%= val %>"
+              <% if job_posting.job_type == val %>checked="checked"<% end %> />
+            <label class="custom-control-label" for="job_posting_job_type_<%= val %>"><%= val.humanize.titleize %></label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  
+    <%= f.input :title, label: "Job Title", required: true, hint: "Example: “Senior Designer”. Titles must describe one position" %>
+    <%= f.input :url, as: :string, label: "Link to Apply", required: true, placeholder: "https://",
+      hint: "This can be a link to your job posting, application form, or website",
+      input_html: { data: { msg: "Please enter a valid URL", error_class: "u-has-error", success_class: "u-has-success", rule_url: true }} %>
+
+    <div class="form-group row job_posting_description">
+      <label class="col-sm-3 col-form-label string" for="job_posting_description">Description</label>
+      <div class="col-sm-9">
+        <%= f.text_area :description, data: { controller: "rich-text-editor" } %>
+      </div>
+    </div>
+
+    <div class="form-group row job_posting_how_to_apply">
+      <label class="col-sm-3 col-form-label string" for="job_posting_how_to_apply">How to apply?</label>
+      <div class="col-sm-9">
+        <%= f.text_area :how_to_apply, data: { controller: "rich-text-editor" } %>
+      </div>
+    </div>
+
+    <div class="form-group row job_posting_min_annual_salary_cents">
+      <label class="col-sm-3 col-form-label string" for="job_posting_min_annual_salary_cents">Salary Range</label>
+      <div class="col-sm-2">
+        <%= f.text_field :min_annual_salary_cents, placeholder: "115,000", class: "form-control" %>
+        <small class="form-text text-muted">Minimum Salary</small>
+      </div>
+      <div class="col-sm-2">
+        <%= f.text_field :max_annual_salary_cents, placeholder: "145,000", class: "form-control" %>
+        <small class="form-text text-muted">Maximum Salary</small>
+      </div>
+      <div class="col-sm-4">
+        <%= f.select :currency, currencies_for_select, { include_blank: true }, data: { controller: "select" } %>
+        <small class="form-text text-muted">Currency (example: USD or GBP)</small>
+      </div>
+    </div>
+
+    <div class="h5 space-top-1 mt-9 mb-5 border-top text-secondary">
+      Company Information
+    </div>
+    
+    <%= f.input :company_name, label: "Company Name", required: true %>
+    <%= f.input :company_url, label: "Company Website", required: true, placeholder: "https://" %>
+
+    <%= f.input :country_code, required: true, collection: countries_for_select, label: "Country",
+        input_html: { data: {
+          controller: "select",
+          target: "select-geo-targets.countryCodesSelect",
+          action: " cf:select-batch->select-geo-targets#updateProvinceCodeOptions" }} %>
+
+    <%= f.input :province_code, required: true, collection: [], label: "State/Province",
+        input_html: { data: { 
+          controller: "select",
+          target: "select-geo-targets.provinceCodesSelect",
+          provinces: provinces_for_stimulus,
+          selected: job_posting.province_code }} %>
+
+    <%= f.input :city, required: true%>
+
+    <div class="form-group row job_posting_company_logo">
+      <label class="col-sm-3 col-form-label string" for="job_posting_remote_country_codes">Company Logo</label>
+      <div class="col-sm-9">
+        <div class="input-group">
+          <div class="custom-file">
+            <%= f.file_field :company_logo, class: "custom-file-input" %>
+            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="company_logo">
+            <label class="custom-file-label" for="job_posting_company_logo">Choose logo file</label>
+          </div>
+        </div>
+        <small class="form-text text-muted">We recommend using your Facebook or Twitter avatar</small>
+      </div>
+    </div>
+
+    <div class="h5 space-top-1 mt-9 mb-5 border-top text-secondary">
+      Targeting
+    </div>
+
+    <%= f.input(:keywords, collection: keywords_for_select, label: "Skills / Keywords", required: true, input_html: { multiple: true, data: { controller: "select" }}) %>
+    
+    <div class="form-group row job_posting_remote">
+      <label class="col-sm-3 col-form-label string" for="job_posting_remote">Remote?</label>
+      <div class="col-sm-9" style="margin-top: 14px;">
+        <div class="media align-items-center">
+          <label class="checkbox-switch mr-3">
+            <%= f.check_box :remote, class: "checkbox-switch__input" %>
+            <span class="checkbox-switch__slider"></span>
+          </label>
+          <label class="media-body text-muted" for="checkboxSwitch1">
+            <span class="d-block text-dark">This job is available to remote-only candidates</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row job_posting_remote_country_codes">
+      <label class="col-sm-3 col-form-label string" for="job_posting_remote_country_codes">Allowed Remote Counties</label>
+      <div class="col-sm-9" data-controller="select-multiple">
+        <%= f.select :remote_country_codes, countries_for_select, {}, { multiple: true, data: { controller: "select", target: "select-multiple.select select-geo-targets.countryCodesSelect", action: " cf:select-batch->select-geo-targets#updateProvinceCodeOptions" }} %>
+        <div class="d-flex align-items-center">
+          <small class="flex-grow-1 form-text text-muted">Only accept remote applicants from the selected countries</small>
+          <span>
+            <%= link_to "Select All Countries", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
+            <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+    <div class="d-flex justify-content-end">
+      <%= f.submit "Next", class: "btn btn-primary transition-3d-hover mr-1" %>
+    </div>
+  </div>
+<% end %>

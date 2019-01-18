@@ -11,6 +11,9 @@ class CreateImpressionJob < ApplicationJob
 
     displayed_at = Time.parse(displayed_at_string)
     ip_info = MMDB.lookup(ip_address)
+    country_code = ip_info&.country&.iso_code
+    subdivision = ip_info&.subdivisions&.first&.iso_code
+    province_code = "#{country_code}-#{subdivision}" if country_code.present? && subdivision.present?
 
     impression = Impression.create!(
       id: id,
@@ -28,7 +31,8 @@ class CreateImpressionJob < ApplicationJob
       displayed_at: displayed_at,
       displayed_at_date: displayed_at.to_date,
       fallback_campaign: campaign.fallback?,
-      country_code: ip_info&.country&.iso_code,
+      country_code: country_code,
+      province_code: province_code,
       postal_code: ip_info&.postal&.code,
       latitude: ip_info&.location&.latitude,
       longitude: ip_info&.location&.longitude
