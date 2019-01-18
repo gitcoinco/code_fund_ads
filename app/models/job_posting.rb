@@ -95,6 +95,7 @@ class JobPosting < ApplicationRecord
       then { |result| job_type.blank? ? result : result << make_tsvector(job_type, weight: "C") }.
       then { |result| province_name.blank? ? result : result << make_tsvector(province_name, weight: "D") }.
       then { |result| country_code.blank? ? result : result << make_tsvector(country_code, weight: "D") }.
+      then { |result| Country.find(country_code).blank? ? result : result << make_tsvector(Country.find(country_code).name, weight: "D") }.
       then { |result| result.compact.join " || " }
   end
 
