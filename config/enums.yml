@@ -153,6 +153,12 @@ JOB_TYPES:
   - full_time
   - part_time
   - contract
+  
+JOB_STATUSES:
+  - pending
+  - active
+  - archived
+  - abandoned
 
 JOB_SOURCES:
   - internal

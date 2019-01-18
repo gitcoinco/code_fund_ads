@@ -4,9 +4,10 @@ class CreateJobPostings < ActiveRecord::Migration[5.2]
     add_index :campaigns, :job_posting
 
     create_table :job_postings do |t|
-      t.bigint :organization_id, null: false
-      t.bigint :user_id, null: false
+      t.bigint :organization_id
+      t.bigint :user_id
       t.bigint :campaign_id
+      t.string :status, null: false, default: ENUMS::JOB_STATUSES::PENDING
       t.string :source, null: false, default: ENUMS::JOB_SOURCES::INTERNAL
       t.string :source_identifier
       t.string :job_type, null: false
@@ -17,9 +18,11 @@ class CreateJobPostings < ActiveRecord::Migration[5.2]
       t.text :description, null: false
       t.text :how_to_apply
       t.string :keywords, array: true, default: [], null: false
+      t.boolean :display_salary, default: true
       t.monetize :min_annual_salary, null: false, default: Money.new(75_000, "USD")
       t.monetize :max_annual_salary
       t.boolean :remote, null: false, default: false
+      t.string :remote_country_codes, array: true, default: []
       t.string :city
       t.string :province_name
       t.string :province_code

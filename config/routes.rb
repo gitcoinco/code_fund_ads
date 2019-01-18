@@ -14,10 +14,9 @@ Rails.application.routes.draw do
   }
   
   # https://jobs.codefund.app/
-  constraints subdomain: "jobs" do
-    resources :prospective_job_postings, path: "/post-job", except: [:index]
+  scope "jobs" do
+    resources :jobs, only: [:index], path: "/"
     resources :job_postings, path: "/listings"
-    root to: "jobs#index", as: :jobs_root
   end
   
   root to: "pages#index"

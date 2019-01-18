@@ -14,7 +14,13 @@ class JobPostingsController < ApplicationController
   end
 
   def new
-    @job_posting = JobPosting.new
+    @job_posting = JobPosting.new(
+      status: ENUMS::JOB_STATUSES::PENDING,
+      max_annual_salary_cents: nil,
+      min_annual_salary_cents: nil,
+      currency: "USD",
+      job_type: ENUMS::JOB_TYPES::FULL_TIME
+    )
   end
 
   def edit
@@ -22,6 +28,12 @@ class JobPostingsController < ApplicationController
 
   def create
     @job_posting = JobPosting.new(job_posting_params)
+    @job_posting.status = ENUMS::JOB_STATUSES::PENDING
+    @job_posting.start_date = Date.today
+    @job_posting.end_date = 1.month.from_now
+
+    puts @job_posting.valid?
+    puts @job_posting.errors.inspect
 
     respond_to do |format|
       if @job_posting.save
@@ -62,16 +74,22 @@ class JobPostingsController < ApplicationController
 
   def job_posting_params
     params.require(:job_posting).permit(
-      :city,
-      :country_code,
-      :description,
-      :end_date,
-      :job_type,
-      :province_code,
-      :remote,
-      :start_date,
+      :company_name,
+      :company_url,
       :title,
+      :description,
+      :how_to_apply,
+      :job_type,
       :url,
+      :min_annual_salary_cents,
+      :max_annual_salary_cents,
+      :currency,
+      :remote,
+      :city,
+      :province_code,
+      :country_code,
+      keywords: [],
+      remote_country_codes: []
     )
   end
 end
