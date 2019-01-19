@@ -472,7 +472,7 @@ CREATE TABLE public.job_postings (
     max_annual_salary_cents integer DEFAULT 0 NOT NULL,
     max_annual_salary_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     remote boolean DEFAULT false NOT NULL,
-    remote_country_codes character varying[] DEFAULT '{}'::character varying[],
+    remote_country_codes character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     city character varying,
     province_name character varying,
     province_code character varying,
@@ -1654,6 +1654,13 @@ CREATE INDEX index_job_postings_on_remote ON public.job_postings USING btree (re
 
 
 --
+-- Name: index_job_postings_on_remote_country_codes; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_remote_country_codes ON public.job_postings USING gin (remote_country_codes);
+
+
+--
 -- Name: index_job_postings_on_source_and_source_identifier; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2037,6 +2044,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190111172606'),
 ('20190117205738'),
 ('20190118223858'),
-('20190119154353');
+('20190119154353'),
+('20190119160341');
 
 
