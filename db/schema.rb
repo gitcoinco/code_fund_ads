@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_17_205738) do
+ActiveRecord::Schema.define(version: 2019_01_19_160341) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
+  enable_extension "pg_trgm"
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
@@ -106,8 +107,8 @@ ActiveRecord::Schema.define(version: 2019_01_17_205738) do
     t.string "title"
     t.text "body"
     t.string "subject"
-    t.integer "user_id", null: false
-    t.integer "parent_id"
+    t.bigint "user_id", null: false
+    t.bigint "parent_id"
     t.integer "lft"
     t.integer "rgt"
     t.datetime "created_at", null: false
@@ -147,11 +148,11 @@ ActiveRecord::Schema.define(version: 2019_01_17_205738) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.integer "eventable_id", null: false
+    t.bigint "eventable_id", null: false
     t.string "eventable_type", null: false
     t.string "tags", default: [], array: true
     t.text "body", null: false
-    t.integer "user_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["eventable_id", "eventable_type"], name: "index_events_on_eventable_id_and_eventable_type"
@@ -250,7 +251,7 @@ ActiveRecord::Schema.define(version: 2019_01_17_205738) do
     t.integer "max_annual_salary_cents", default: 0, null: false
     t.string "max_annual_salary_currency", default: "USD", null: false
     t.boolean "remote", default: false, null: false
-    t.string "remote_country_codes", default: [], array: true
+    t.string "remote_country_codes", default: [], null: false, array: true
     t.string "city"
     t.string "province_name"
     t.string "province_code"
@@ -275,6 +276,7 @@ ActiveRecord::Schema.define(version: 2019_01_17_205738) do
     t.index ["province_code"], name: "index_job_postings_on_province_code"
     t.index ["province_name"], name: "index_job_postings_on_province_name"
     t.index ["remote"], name: "index_job_postings_on_remote"
+    t.index ["remote_country_codes"], name: "index_job_postings_on_remote_country_codes", using: :gin
     t.index ["source", "source_identifier"], name: "index_job_postings_on_source_and_source_identifier", unique: true
     t.index ["start_date"], name: "index_job_postings_on_start_date"
     t.index ["title"], name: "index_job_postings_on_title"
@@ -429,6 +431,15 @@ ActiveRecord::Schema.define(version: 2019_01_17_205738) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
     t.index ["object"], name: "index_versions_on_object", using: :gin
     t.index ["object_changes"], name: "index_versions_on_object_changes", using: :gin
+  end
+
+  create_table "words", force: :cascade do |t|
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.text "word", null: false
+    t.index ["record_type", "record_id", "word"], name: "index_words_on_record_type_and_record_id_and_word", unique: true
+    t.index ["record_type", "record_id"], name: "index_words_on_record_type_and_record_id"
+    t.index ["word"], name: "index_words_on_word", opclass: :gin_trgm_ops, using: :gin
   end
 
 end

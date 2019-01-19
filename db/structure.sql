@@ -23,6 +23,20 @@ COMMENT ON EXTENSION pg_stat_statements IS 'track execution statistics of all SQ
 
 
 --
+-- Name: pg_trgm; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pg_trgm WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pg_trgm; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pg_trgm IS 'text similarity measurement and index searching based on trigrams';
+
+
+--
 -- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -226,8 +240,8 @@ CREATE TABLE public.comments (
     title character varying,
     body text,
     subject character varying,
-    user_id integer NOT NULL,
-    parent_id integer,
+    user_id bigint NOT NULL,
+    parent_id bigint,
     lft integer,
     rgt integer,
     created_at timestamp without time zone NOT NULL,
@@ -361,11 +375,11 @@ ALTER SEQUENCE public.email_templates_id_seq OWNED BY public.email_templates.id;
 
 CREATE TABLE public.events (
     id bigint NOT NULL,
-    eventable_id integer NOT NULL,
+    eventable_id bigint NOT NULL,
     eventable_type character varying NOT NULL,
     tags character varying[] DEFAULT '{}'::character varying[],
     body text NOT NULL,
-    user_id integer NOT NULL,
+    user_id bigint NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
@@ -458,7 +472,7 @@ CREATE TABLE public.job_postings (
     max_annual_salary_cents integer DEFAULT 0 NOT NULL,
     max_annual_salary_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     remote boolean DEFAULT false NOT NULL,
-    remote_country_codes character varying[] DEFAULT '{}'::character varying[],
+    remote_country_codes character varying[] DEFAULT '{}'::character varying[] NOT NULL,
     city character varying,
     province_name character varying,
     province_code character varying,
@@ -798,6 +812,37 @@ ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
 
 
 --
+-- Name: words; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.words (
+    id bigint NOT NULL,
+    record_type character varying NOT NULL,
+    record_id bigint NOT NULL,
+    word text NOT NULL
+);
+
+
+--
+-- Name: words_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.words_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: words_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.words_id_seq OWNED BY public.words.id;
+
+
+--
 -- Name: active_storage_attachments id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -935,6 +980,13 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
+
+
+--
+-- Name: words id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.words ALTER COLUMN id SET DEFAULT nextval('public.words_id_seq'::regclass);
 
 
 --
@@ -1087,6 +1139,14 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: words words_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.words
+    ADD CONSTRAINT words_pkey PRIMARY KEY (id);
 
 
 --
@@ -1594,6 +1654,13 @@ CREATE INDEX index_job_postings_on_remote ON public.job_postings USING btree (re
 
 
 --
+-- Name: index_job_postings_on_remote_country_codes; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_remote_country_codes ON public.job_postings USING gin (remote_country_codes);
+
+
+--
 -- Name: index_job_postings_on_source_and_source_identifier; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1818,6 +1885,27 @@ CREATE INDEX index_versions_on_object_changes ON public.versions USING gin (obje
 
 
 --
+-- Name: index_words_on_record_type_and_record_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_words_on_record_type_and_record_id ON public.words USING btree (record_type, record_id);
+
+
+--
+-- Name: index_words_on_record_type_and_record_id_and_word; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_words_on_record_type_and_record_id_and_word ON public.words USING btree (record_type, record_id, word);
+
+
+--
+-- Name: index_words_on_word; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_words_on_word ON public.words USING gin (word public.gin_trgm_ops);
+
+
+--
 -- Name: impressions_default_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
 --
 
@@ -1954,6 +2042,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190108190511'),
 ('20190108201954'),
 ('20190111172606'),
-('20190117205738');
+('20190117205738'),
+('20190118223858'),
+('20190119154353'),
+('20190119160341');
 
 

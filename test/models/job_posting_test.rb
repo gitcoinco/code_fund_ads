@@ -23,7 +23,7 @@
 #  max_annual_salary_cents    :integer          default(0), not null
 #  max_annual_salary_currency :string           default("USD"), not null
 #  remote                     :boolean          default(FALSE), not null
-#  remote_country_codes       :string           default([]), is an Array
+#  remote_country_codes       :string           default([]), not null, is an Array
 #  city                       :string
 #  province_name              :string
 #  province_code              :string

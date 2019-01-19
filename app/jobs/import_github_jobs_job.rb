@@ -4,6 +4,7 @@ class ImportGithubJobsJob < ApplicationJob
   queue_as :default
 
   def perform(*tags)
+    @count = 0
     tags.in_groups_of(5, false).each do |tag_group|
       import_jobs(tag_group)
       print tag_group.join(", ")
@@ -46,7 +47,7 @@ class ImportGithubJobsJob < ApplicationJob
       posting.end_date         = posting.start_date + 60.days
       posting.source           = ENUMS::JOB_SOURCES::GITHUB
       posting.save
-      print "."
+      print "#{@count += 1},"
     end
 
     nil
@@ -88,8 +89,6 @@ class ImportGithubJobsJob < ApplicationJob
         end
       end
     end
-
-    puts "KW: #{keywords.to_json}"
 
     keywords.uniq.compact.sort
   end

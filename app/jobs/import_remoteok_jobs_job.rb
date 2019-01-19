@@ -2,6 +2,7 @@ class ImportRemoteokJobsJob < ApplicationJob
   queue_as :default
 
   def perform(*tags)
+    @count = 0
     @jobs = []
 
     fetch_jobs(tags)
@@ -27,6 +28,7 @@ class ImportRemoteokJobsJob < ApplicationJob
       posting.start_date       = Time.at(job["epoch"].to_i).to_date
       posting.end_date         = posting.start_date + 60.days
       posting.source           = ENUMS::JOB_SOURCES::REMOTEOK
+      print "#{@count += 1},"
       unless posting.save
         puts "Unable to save: #{posting.errors.inspect}"
       end
