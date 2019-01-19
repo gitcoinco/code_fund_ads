@@ -1,0 +1,69 @@
+<main id="content" role="main" class="bg-light">
+  <div class="container space-top-3 space-bottom-2">
+    <div class="w-lg-80 mx-lg-auto">
+      <div class="card shadow-sm p-7 job-listing">
+        <div class="nav nav-icon nav-justified text-center">
+          <div class="nav-item">
+            <%= link_to "1", edit_job_posting_path(@job_posting), class: "btn btn-icon btn-outline-primary bg-white rounded-circle transition-3d-hover mb-1" %>
+            <p>Create</p>
+          </div>
+          <div class="nav-item">
+            <button class="btn btn-icon btn-primary rounded-circle transition-3d-hover mb-1">2</button>
+            <p>Preview</p>
+          </div>
+          <div class="nav-item">
+            <%= link_to "3", new_purchase_job_posting_path(@job_posting), class: "btn btn-icon btn-outline-primary bg-white rounded-circle transition-3d-hover mb-1" %>
+            <p>Purchase</p>
+          </div>
+        </div>
+
+        <div class="space-1">
+          <div class="border-bottom space-top-1">
+            <div class="media mb-5">
+              <% if @job_posting.company_logo_url.present? %>
+                <div class="mr-4 company-logo-wrapper border rounded">
+                  <%= image_tag @job_posting.company_logo_url, class: "img-fluid company-logo", style: "vertical-align: middle;" %>
+                </div>
+              <% end %>
+
+              <div class="media-body">
+                <div class="mb-3 mb-lg-0">
+                  <h1 class="h4 mb-1"><%= @job_posting.title %></h1>
+                  <small class="h6 font-weight-light text-muted">
+                    <%= link_to @job_posting.company_name, @job_posting.company_url, target: "_blank", class: "text-link" %>
+                    <span class="px-1">•</span>
+                    <%= @job_posting.city %>, <%= @job_posting.country_code %>
+                  </small>
+                  <ul class="list-inline my-3">
+                    <% @job_posting.keywords.each do |keyword| %>
+                    <li class="list-inline-item pb-3">
+                      <a class="btn btn-sm btn-soft-primary mb-1" style="padding: 3px 8px;"><%= keyword %></a>
+                    </li>
+                    <% end %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-7 job-listing__description">
+          <h2 class="h4">Job Description</h2>
+          <%= @job_posting.description.html_safe %>
+        </div>
+
+        <div class="mb-7 border-top pt-5 job-listing__how-to-apply">
+          <h2 class="h4">How to Apply</h2>
+          <%= @job_posting.how_to_apply.html_safe %>
+        </div>
+
+        <div class="d-flex">
+          <%= link_to "Make Changes", edit_job_posting_path(@job_posting),
+                class: "btn btn-block btn-sm btn-soft-secondary transition-3d-hover mr-1" %>
+          <%= link_to "Next", new_purchase_job_posting_path,
+                class: "btn btn-block btn-sm btn-primary transition-3d-hover ml-1 mt-0" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

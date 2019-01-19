@@ -12,6 +12,7 @@ class JobPostingsController < ApplicationController
   end
 
   def show
+    render :preview if @job_posting.pending?
   end
 
   def new
@@ -19,7 +20,7 @@ class JobPostingsController < ApplicationController
       status: ENUMS::JOB_STATUSES::PENDING,
       max_annual_salary_cents: nil,
       min_annual_salary_cents: nil,
-      currency: "USD",
+      min_annual_salary_currency: "USD",
       job_type: ENUMS::JOB_TYPES::FULL_TIME
     )
   end
@@ -85,7 +86,7 @@ class JobPostingsController < ApplicationController
       :url,
       :min_annual_salary_cents,
       :max_annual_salary_cents,
-      :currency,
+      :min_annual_salary_currency,
       :remote,
       :city,
       :province_code,

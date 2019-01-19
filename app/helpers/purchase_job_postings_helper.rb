@@ -1,0 +1,2 @@
+module PurchaseJobPostingsHelper
+end

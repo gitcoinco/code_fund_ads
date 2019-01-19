@@ -1,0 +1,40 @@
+.job-listing {
+  &__description,
+  &__how-to-apply {
+    h1 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+    ul {
+      margin-left: 25px;
+      padding-left: 0px;
+    }
+    strong {
+      color: #1e2022;
+    }
+    p {
+      color: #3c3e3f;
+    }
+  }
+
+  .company-logo-wrapper {
+    height: 150px;
+    width: 150px;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+  }
+
+  img.company-logo {
+    max-height: 140px;
+    max-width: 140px;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 5px;
+    bottom: 5px;
+    left: 5px;
+    right: 5px;
+    margin: auto;
+  }
+}

@@ -28,29 +28,29 @@
   <!-- End Platform -->
 
   <%= tag.div f.input(:title, label: "Job Title", required: true, input_html: { max_length: 80 },
-      hint: "Example: “Senior Designer”. Titles must describe one position"), class: "mb-3" %>
-  <%= tag.div f.input(:url, as: :string, label: "Link to Apply", required: true, placeholder: "https://",
+      hint: "Example: “Senior Designer”. Titles must describe one position"), class: "mb-5" %>
+  <%= tag.div f.input(:url, as: :url, label: "Link to Apply", pattern: "https?:\/\/.*", required: true, placeholder: "https://",
     hint: "This can be a link to your job posting, application form, or website"),
-    class: "mb-3" %>
+    class: "mb-5" %>
 
-  <%= tag.div class: "mb-3" do %>
+  <%= tag.div class: "mb-5" do %>
     <%= f.input :description, as: :hidden %>
     <%= f.label :description, required: true, class: "form-label string" %>
     <trix-editor class="trix-content" input="job_posting_description"></trix-editor>
   <% end %>
 
-  <%= tag.div class: "mb-3" do %>
+  <%= tag.div class: "mb-5" do %>
     <%= f.input :how_to_apply, as: :hidden %>
     <%= f.label :how_to_apply, required: true, class: "form-label string" %>
     <trix-editor class="trix-content" input="job_posting_how_to_apply"></trix-editor>
   <% end %>
 
   <div class="row">
-    <%= tag.div f.input(:min_annual_salary_cents, placeholder: "115,000", label: "Min Annual Salary"), class: "col-sm-3 mb-3" %>
-    <%= tag.div f.input(:max_annual_salary_cents, placeholder: "115,000", label: "Max Annual Salary"), class: "col-sm-3 mb-3" %>
-    <%= tag.div f.input(:currency, collection: currencies_for_select, label: "Salary Currency", required: true,
+    <%= tag.div f.input(:min_annual_salary_cents, placeholder: "115,000", label: "Min Annual Salary"), class: "col-sm-3 mb-5" %>
+    <%= tag.div f.input(:max_annual_salary_cents, placeholder: "115,000", label: "Max Annual Salary"), class: "col-sm-3 mb-5" %>
+    <%= tag.div f.input(:min_annual_salary_currency, collection: currencies_for_select, label: "Salary Currency", required: true,
         input_html: { data: { controller: "select" }}
-      ), class: "col-sm-6 mb-3" %>
+      ), class: "col-sm-6 mb-5" %>
   </div>
 
   <div class="media align-items-center mt-2 space-bottom-1">
@@ -67,26 +67,26 @@
 
   <h2 class="h4 space-1">Company Information</h2>
 
-  <%= tag.div f.input(:company_name, label: "Company Name", required: true), class: "mb-3" %>
-  <%= tag.div f.input(:company_url, label: "Company Website", required: true, placeholder: "https://"), class: "mb-3" %>
+  <%= tag.div f.input(:company_name, label: "Company Name", required: true), class: "mb-5" %>
+  <%= tag.div f.input(:company_url, label: "Company Website", required: true, placeholder: "https://"), class: "mb-5" %>
 
   <%= tag.div f.input(:country_code, required: true, collection: countries_for_select, label: "Country",
       input_html: { data: {
         controller: "select",
         target: "select-geo-targets.countryCodesSelect",
-        action: " cf:select-batch->select-geo-targets#updateProvinceCodeOptions" }}), class: "mb-3" %>
+        action: " cf:select-batch->select-geo-targets#updateProvinceCodeOptions" }}), class: "mb-5" %>
 
   <%= tag.div f.input(:province_code, collection: [], label: "State/Province",
       input_html: { data: {
         controller: "select",
         target: "select-geo-targets.provinceCodesSelect",
         provinces: provinces_for_stimulus,
-        selected: job_posting.province_code }}), class: "mb-3" %>
+        selected: job_posting.province_code }}), class: "mb-5" %>
 
-  <%= tag.div f.input(:city, required: true), class: "mb-3" %>
+  <%= tag.div f.input(:city, required: true), class: "mb-5" %>
 
   <label class="file-attachment-input">
-    <div class="mb-3">
+    <div class="mb-5">
       Upload your company logo
       <small class="d-block text-muted">we recommend using your Facebook or Twitter avatar</small>
     </div>
@@ -103,7 +103,7 @@
   <%= tag.div f.input(:keywords, collection: keywords_for_select, label: "Keywords", required: true,
       hint: "Keywords are used to target the qualified candidates for this job",
       input_html: { multiple: true, data: { controller: "select" }}
-    ), class: "mb-3" %>
+    ), class: "mb-5" %>
 
   <div class="media align-items-center mt-4 space-bottom-1">
     <label class="checkbox-switch mb-0 mr-3">
@@ -115,7 +115,7 @@
     <% end %>
   </div>
 
-  <div class="mb-3" hidden data-target="job-posting-form.remoteCountryCodesSelector">
+  <div class="mb-5" <%= "hidden" unless job_posting.remote? %> data-target="job-posting-form.remoteCountryCodesSelector">
     <%= f.input :remote_country_codes, collection: countries_for_select, input_html: {
         multiple: true,
         data: {
@@ -131,5 +131,8 @@
     </div>
   </div>
 
-  <%= f.submit "Next", class: "btn btn-primary transition-3d-hover mt-5" %>
+  <div class="d-flex space-top-1">
+    <%= link_to "Cancel", jobs_path, class: "btn btn-block btn-sm btn-soft-secondary transition-3d-hover mr-1" %>
+    <%= f.submit "Next", class: "btn btn-block btn-sm btn-primary transition-3d-hover ml-1 mt-0" %>
+  </div>
 <% end %>

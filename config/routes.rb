@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   scope "jobs" do
     resources :jobs, only: [:index], path: "/"
     resources :job_postings, path: "/listings"
+    scope "/listings/:id" do
+      resource :purchase_job_posting, only: [:new, :create], path: "/purchase"
+    end
   end
 
   root to: "pages#index"
