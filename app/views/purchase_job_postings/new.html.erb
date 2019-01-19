@@ -18,7 +18,17 @@
         </div>
 
         <div class="space-1">
-          STRIPE FORM HERE
+          <%= form_tag url: purchase_job_posting_path(@job_posting) do %>
+            <script
+              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="<%= ENV["STRIPE_PERISHABLE_KEY"] %>"
+              data-image="<%= asset_url("codefund-logo-circle-256.png") %>"
+              data-name="CodeFund Jobs"
+              data-description="Monthly ad posting"
+              data-amount="29900"
+              data-label="Place your order">
+            </script>
+          <% end %>
         </div>
 
         <div class="d-flex">

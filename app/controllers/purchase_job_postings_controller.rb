@@ -5,6 +5,9 @@ class PurchaseJobPostingsController < ApplicationController
   def new
   end
 
+  def create
+  end
+
   private
 
   def load_job_posting
