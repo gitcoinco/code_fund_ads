@@ -33,14 +33,12 @@
     hint: "This can be a link to your job posting, application form, or website"),
     class: "mb-3" %>
 
-  <%# tag.div f.input(:description, as: :text, input_html: { rows: 5, data: { controller: "tinymce" }}), class: "mb-3" %>
   <%= tag.div class: "mb-3" do %>
     <%= f.input :description, as: :hidden %>
     <%= f.label :description, required: true, class: "form-label string" %>
     <trix-editor class="trix-content" input="job_posting_description"></trix-editor>
   <% end %>
 
-  <%# tag.div f.input(:how_to_apply, as: :text, input_html: { rows: 5, data: { controller: "tinymce" }}), class: "mb-3" %>
   <%= tag.div class: "mb-3" do %>
     <%= f.input :how_to_apply, as: :hidden %>
     <%= f.label :how_to_apply, required: true, class: "form-label string" %>
