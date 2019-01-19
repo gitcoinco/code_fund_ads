@@ -5,7 +5,9 @@
 @import '~bootstrap-daterangepicker/daterangepicker';
 @import '~codemirror/lib/codemirror';
 @import '~codemirror/theme/idea';
+@import "~trix/dist/trix";
 @import 'theme';
+@import 'trix';
 @import 'components';
 @import 'utilities';
 @import 'creative_preview';

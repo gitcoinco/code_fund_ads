@@ -6539,11 +6539,6 @@ timers-browserify@^2.0.4:
   dependencies:
     setimmediate "^1.0.4"
 
-tinymce@^4.9.2:
-  version "4.9.2"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-4.9.2.tgz#c20ba7aa082125f16e0372fbc2f844c83236b75e"
-  integrity sha512-ZRoTGG4GAsOI73QPSNkabO7nkoYw9H6cglRB44W2mMkxSiqxYi8WJlgkUphk0fDqo6ZD6r3E+NSP4UHxF2lySg==
-
 tmp@^0.0.33:
   version "0.0.33"
   resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.33.tgz#6d34335889768d21b2bcda0aa277ced3b1bfadf9"
@@ -6600,6 +6595,11 @@ trim-newlines@^1.0.0:
 trim-right@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/trim-right/-/trim-right-1.0.1.tgz#cb2e1203067e0c8de1f614094b9fe45704ea6003"
+
+trix@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/trix/-/trix-1.0.0.tgz#e9cc98cf6030c908f8d54e317b5b072f927b0c6b"
+  integrity sha512-feli9QVXe6gzZOCUfpPGpNDURW9jMciIRVQ5gkDudOctcA1oMtI5K/qEbsL2rFCoGl1rSoeRt+HPhIFGyQscKg==
 
 "true-case-path@^1.0.2":
   version "1.0.3"

@@ -23,7 +23,7 @@
     "select2": "^4.0.6-rc.1",
     "select2-bootstrap-theme": "^0.1.0-beta.10",
     "stimulus": "^1.1.1",
-    "tinymce": "^4.9.2"
+    "trix": "^1.0.0"
   },
   "devDependencies": {
     "all-contributors-cli": "^5.4.1",
