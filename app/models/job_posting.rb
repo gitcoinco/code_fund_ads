@@ -63,6 +63,7 @@ class JobPosting < ApplicationRecord
 
   # callbacks .................................................................
   before_validation :set_currency
+  before_save :replace_logo_cdn
 
   # scopes ....................................................................
   scope :internal, -> { where(source: ENUMS::JOB_SOURCES::INTERNAL) }
@@ -120,5 +121,11 @@ class JobPosting < ApplicationRecord
       self.min_annual_salary_currency = currency
       self.max_annual_salary_currency = currency
     end
+  end
+
+  def replace_logo_cdn
+    return unless company_logo_url.include?("ucarecdn")
+    ucare_id = company_logo_url[/(\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b)/, 1]
+    company_logo_url = "https://cdn2.codefund.app/images/logos/#{ucare_id}"
   end
 end
