@@ -14,7 +14,6 @@ import 'theme/vendor/chartist/dist/chartist.min';
 import 'theme/vendor/chartist-js-tooltip/chartist-plugin-tooltip';
 import 'theme/vendor/cubeportfolio/js/jquery.cubeportfolio.min';
 import 'theme/vendor/clipboard/dist/clipboard.min';
-// import 'theme/vendor/summernote/dist/summernote-lite';
 
 // theme scripts
 import 'theme/js/hs.core';

@@ -79,9 +79,9 @@ class JobPosting < ApplicationRecord
   scope :search_title, ->(value) { value.blank? ? all : search_column(:title, value) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  attr_accessor :currency
   tag_columns :keywords
   tag_columns :remote_country_codes
-  attr_accessor :currency
 
   # class methods .............................................................
   class << self
@@ -91,6 +91,10 @@ class JobPosting < ApplicationRecord
 
   def external?
     source != ENUMS::JOB_SOURCES::INTERNAL
+  end
+
+  def pending?
+    status == ENUMS::JOB_STATUSES::PENDING
   end
 
   def to_tsvector

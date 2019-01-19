@@ -1,0 +1,168 @@
+<!-- Hero Section -->
+<div class="container space-top-md-3 space-1">
+  <div class="border-bottom space-top-2">
+    <div class="media mb-5">
+      <% if job_posting.company_logo_url.present? %>
+        <div class="u-lg-avatar mr-4">
+          <%= image_tag job_posting.company_logo_url, class: "img-fluid" if job_posting.company_logo_url.present? %>
+        </div>
+      <% end %>
+
+      <div class="media-body">
+        <div class="row">
+          <div class="col-lg-6 mb-3 mb-lg-0">
+            <h1 class="h4 mb-1"><%= job_posting.title %></h1>
+            <small class="h6 text-muted"><%= job_posting.company_name %></small>
+          </div>
+
+          <div class="col-lg-6 text-lg-right">
+            <div class="d-flex justify-content-md-end align-items-center">
+              <%= link_to "Apply Now", job_posting.url, class: "btn btn-sm btn-soft-primary transition-3d-hover" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Hero Section -->
+
+<!-- Jobs Description Section -->
+<div class="container">
+  <div class="border-bottom space-2">
+    <div class="row">
+      <div class="col-lg-8 mb-9 mb-lg-0">
+        <div class="mb-4">
+          <h2 class="h5">Job Description</h2>
+          <p class="text-muted font-size-1">Posted <%= time_ago_in_words(job_posting.start_date) %> ago</p>
+        </div>
+
+        <!-- Skills -->
+        <ul class="list-inline mb-3">
+          <% job_posting.keywords.each do |keyword| %>
+          <li class="list-inline-item pb-3">
+            <a class="btn btn-sm btn-soft-primary mb-1" style="padding: 3px 8px;"><%= keyword %></a>
+          </li>
+          <% end %>
+        </ul>
+        <!-- End Skills -->
+
+        <div class="mb-7">
+          <%= job_posting.pretty_description %>
+          
+          <%= link_to "Apply Now", job_posting.url, class: "btn btn-sm btn-soft-primary transition-3d-hover mt-5" %>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="pl-lg-4">
+          <!-- Sidebar Info -->
+          <div class="card border-0 shadow-sm mb-3">
+            <!-- Header -->
+            <header id="SVGwave1BottomShapeID1" class="svg-preloader card-header border-bottom-0 bg-primary text-white p-0">
+              <div class="pt-5 px-5">
+                <h3 class="h5">Job Summary</h3>
+              </div>
+
+              <figure class="ie-wave-1-bottom mt-n5">
+                <img class="js-svg-injector" src="../../assets/svg/components/wave-1-bottom.svg" alt="Image Description"
+                      data-parent="#SVGwave1BottomShapeID1">
+              </figure>
+            </header>
+            <!-- End Header -->
+
+            <!-- Content -->
+            <div class="card-body pt-1 px-5 pb-5">
+              <% if job_posting.company_host_url %>
+                <div class="media mb-3">
+                  <div class="min-width-4 text-center text-primary mt-1 mr-3">
+                    <span class="fas fa-globe"></span>
+                  </div>
+                  <div class="media-body">
+                    <%= link_to job_posting.company_host_url, job_posting.company_url, class: "font-weight-medium", target: "_blank" %>
+                    <small class="d-block text-secondary">Website</small>
+                  </div>
+                </div>
+              <% end %>
+
+              <div class="media mb-3">
+                <div class="min-width-4 text-center text-primary mt-1 mr-3">
+                  <span class="fas fa-map-marked-alt"></span>
+                </div>
+                <div class="media-body">
+                  <span class="d-block font-weight-medium"><%= job_posting.city %></span>
+                  <small class="d-block text-secondary">Location</small>
+                </div>
+              </div>
+
+              <div class="media mb-3">
+                <div class="min-width-4 text-center text-primary mt-1 mr-3">
+                  <span class="fas fa-clock"></span>
+                </div>
+                <div class="media-body">
+                  <span class="d-block font-weight-medium"><%= job_posting.job_type.humanize.titleize %></span>
+                  <small class="d-block text-secondary">Job type</small>
+                </div>
+              </div>
+
+              <% if job_posting.min_annual_salary_cents > 0 %>
+                <div class="media mb-3">
+                  <div class="min-width-4 text-center text-primary mt-1 mr-3">
+                    <span class="fas fa-money-bill-alt"></span>
+                  </div>
+                  <div class="media-body">
+                    <span class="d-block font-weight-medium">Salary</span>
+                    <small class="d-block text-secondary"><%= job_posting.salary_range %></small>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+            <!-- End Content -->
+          </div>
+          <!-- End Sidebar Info -->
+
+          <div class="mb-4 mt-4">
+            <h4 class="h6">How to Apply</h4>
+            <%= job_posting.pretty_how_to_apply %>
+          </div>
+          
+          <!-- Subscribe -->
+          <div id="stickyBlockStartPoint">
+            <div class="js-sticky-block bg-primary text-white shadow-primary-lg text-center shadow rounded p-5"
+                  data-parent="#stickyBlockStartPoint"
+                  data-sticky-view="lg"
+                  data-start-point="#stickyBlockStartPoint"
+                  data-end-point="#stickyBlockEndPoint"
+                  data-offset-top="24"
+                  data-offset-bottom="0">
+              <h3 class="h5">Get email alerts for similar jobs</h3>
+              <p class="text-white-70 mb-4">We have 1000+ similar open jobs.</p>
+
+              <!-- Form Input -->
+              <form class="js-validate js-form-message">
+                <label class="sr-only" for="subscribeSrEmail">Your email address</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="name" id="subscribeSrEmail" required placeholder="Your email address" aria-label="Enter your email address"aria-describedby="subscribeEmailButton"
+                          data-msg="Please enter a valid email address."
+                          data-error-class="u-has-error"
+                          data-success-class="u-has-success">
+                  <div class="input-group-append">
+                    <button type="submit" class="btn btn-success" id="subscribeEmailButton">
+                      <span class="fas fa-angle-right"></span>
+                    </button>
+                  </div>
+                </div>
+              </form>
+              <!-- End Form Input -->
+            </div>
+          </div>
+          <!-- End Subscribe -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Sticky Block End Point -->
+    <div id="stickyBlockEndPoint"></div>
+  </div>
+</div>
+<!-- End Jobs Description Section -->

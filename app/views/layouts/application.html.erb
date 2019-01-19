@@ -48,6 +48,19 @@
     <!-- Compressed JavaScripts -->
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'code_fund', 'data-turbolinks-track': 'reload' %>
+
+    <script>
+      UPLOADCARE_PUBLIC_KEY = '<%= ENV["UPLOADCARE_PUBLIC_KEY"] %>';
+      UPLOADCARE_TABS = 'file url facebook gdrive dropbox instagram evernote skydrive';
+      UPLOADCARE_EFFECTS = 'crop';
+      UPLOADCARE_IMAGES_ONLY = true;
+      UPLOADCARE_PREVIEW_STEP = true;
+      UPLOADCARE_CLEARABLE = true;
+    </script>
+    <script src="https://ucarecdn.com/libs/widget/3.6.2/uploadcare.full.min.js" charset="utf-8"></script>
+    <script>
+      uploadcare.registerTab('preview', uploadcareTabEffects)
+    </script>
   </head>
   <body>
     <%= render "/@shared/skippy" %>
