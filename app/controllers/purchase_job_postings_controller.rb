@@ -1,7 +1,7 @@
 class PurchaseJobPostingsController < ApplicationController
   before_action :authenticate_administrator!
   before_action :load_job_posting
-  
+
   def new
   end
 

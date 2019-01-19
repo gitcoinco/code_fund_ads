@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class PurchaseJobPostingsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
