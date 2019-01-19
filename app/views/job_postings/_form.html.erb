@@ -1,134 +1,126 @@
-<%= simple_form_for job_posting, wrapper: :horizontal_form do |f| %>
-  <div class="card-body p-5" data-controller="select-geo-targets">
-    <%= f.error_notification %>
+<%= simple_form_for job_posting, wrapper: :front_form, data: { controller: "job-posting-form" } do |f| %>
+  <%= f.error_notification %>
 
-    <div class="h5 mb-5 text-secondary">
-      Position Details
-    </div>
+  <hr>
 
-    <div class="form-group row job_posting_job_type">
-      <label class="col-sm-3 col-form-label string" for="job_posting_job_type">Job Type <abbr title="required">*</abbr></label>
-      <div class="col-sm-9" style="margin-top: 14px;">
-        <% ENUMS::JOB_TYPES.keys.each do |val| %>
-          <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="job_posting_job_type_<%= val %>"
-              name="job_posting[job_type]" class="custom-control-input" value="<%= val %>"
-              <% if job_posting.job_type == val %>checked="checked"<% end %> />
-            <label class="custom-control-label" for="job_posting_job_type_<%= val %>"><%= val.humanize.titleize %></label>
-          </div>
-        <% end %>
-      </div>
+  <h2 class="h4 space-1">Job Details</h2>
+
+    <!-- Platform -->
+  <div class="mb-6">
+    <label class="form-label">
+      Job Type
+      <span class="text-danger">*</span>
+    </label>
+
+    <!-- Button Group -->
+    <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons" data-controller="radio-button-group">
+      <% ENUMS::JOB_TYPES.keys.each do |val| %>
+        <label class="btn btn-outline-secondary btn-custom-toggle-primary flex-fill
+          <%= "active" if val == job_posting.job_type %>" data-action="click->radio-button-group#select">
+          <input type="radio" id="job_posting_job_type_<%= val %>" name="job_posting[job_type]" value="<%= val %>"
+            <%= "checked" if val == job_posting.job_type %> />
+          <%= val.humanize.titleize %>
+        </label>
+      <% end %>
     </div>
+    <!-- End Button Group -->
+  </div>
+  <!-- End Platform -->
   
-    <%= f.input :title, label: "Job Title", required: true, hint: "Example: “Senior Designer”. Titles must describe one position" %>
-    <%= f.input :url, as: :string, label: "Link to Apply", required: true, placeholder: "https://",
-      hint: "This can be a link to your job posting, application form, or website",
-      input_html: { data: { msg: "Please enter a valid URL", error_class: "u-has-error", success_class: "u-has-success", rule_url: true }} %>
+  <%= tag.div f.input(:title, label: "Job Title", required: true, input_html: { max_length: 80 },
+      hint: "Example: “Senior Designer”. Titles must describe one position"), class: "mb-3" %>
+  <%= tag.div f.input(:url, as: :string, label: "Link to Apply", required: true, placeholder: "https://",
+    hint: "This can be a link to your job posting, application form, or website"),
+    class: "mb-3" %>
 
-    <div class="form-group row job_posting_description">
-      <label class="col-sm-3 col-form-label string" for="job_posting_description">Description</label>
-      <div class="col-sm-9">
-        <%= f.text_area :description, data: { controller: "rich-text-editor" } %>
-      </div>
-    </div>
+  <%= tag.div f.input(:description, as: :text, input_html: { rows: 5 }), class: "mb-3" %>
+  <%= tag.div f.input(:how_to_apply, as: :text, input_html: { rows: 5 }), class: "mb-3" %>
 
-    <div class="form-group row job_posting_how_to_apply">
-      <label class="col-sm-3 col-form-label string" for="job_posting_how_to_apply">How to apply?</label>
-      <div class="col-sm-9">
-        <%= f.text_area :how_to_apply, data: { controller: "rich-text-editor" } %>
-      </div>
-    </div>
+  <div class="row">
+    <%= tag.div f.input(:min_annual_salary_cents, placeholder: "115,000", label: "Min Annual Salary"), class: "col-sm-3 mb-3" %>
+    <%= tag.div f.input(:max_annual_salary_cents, placeholder: "115,000", label: "Max Annual Salary"), class: "col-sm-3 mb-3" %>
+    <%= tag.div f.input(:currency, collection: currencies_for_select, label: "Salary Currency", required: true,
+        input_html: { data: { controller: "select" }}
+      ), class: "col-sm-6 mb-3" %>
+  </div>
+  
+  <div class="media align-items-center mt-2 space-bottom-1">
+    <label class="checkbox-switch mb-0 mr-3">
+      <%= f.check_box :display_salary, class: "checkbox-switch__input" %>
+      <span class="checkbox-switch__slider"></span>
+    </label>
+    <%= f.label :display_salary, class: "media-body text-muted mb-0" do %>
+      <span class="d-block text-dark">Display the salary range on the job listing</span>
+    <% end %>
+  </div>
 
-    <div class="form-group row job_posting_min_annual_salary_cents">
-      <label class="col-sm-3 col-form-label string" for="job_posting_min_annual_salary_cents">Salary Range</label>
-      <div class="col-sm-2">
-        <%= f.text_field :min_annual_salary_cents, placeholder: "115,000", class: "form-control" %>
-        <small class="form-text text-muted">Minimum Salary</small>
-      </div>
-      <div class="col-sm-2">
-        <%= f.text_field :max_annual_salary_cents, placeholder: "145,000", class: "form-control" %>
-        <small class="form-text text-muted">Maximum Salary</small>
-      </div>
-      <div class="col-sm-4">
-        <%= f.select :currency, currencies_for_select, { include_blank: true }, data: { controller: "select" } %>
-        <small class="form-text text-muted">Currency (example: USD or GBP)</small>
-      </div>
-    </div>
+  <hr>
 
-    <div class="h5 space-top-1 mt-9 mb-5 border-top text-secondary">
-      Company Information
-    </div>
+  <h2 class="h4 space-1">Company Information</h2>
     
-    <%= f.input :company_name, label: "Company Name", required: true %>
-    <%= f.input :company_url, label: "Company Website", required: true, placeholder: "https://" %>
+  <%= tag.div f.input(:company_name, label: "Company Name", required: true), class: "mb-3" %>
+  <%= tag.div f.input(:company_url, label: "Company Website", required: true, placeholder: "https://"), class: "mb-3" %>
 
-    <%= f.input :country_code, required: true, collection: countries_for_select, label: "Country",
-        input_html: { data: {
+  <%= tag.div f.input(:country_code, required: true, collection: countries_for_select, label: "Country",
+      input_html: { data: {
+        controller: "select",
+        target: "select-geo-targets.countryCodesSelect",
+        action: " cf:select-batch->select-geo-targets#updateProvinceCodeOptions" }}), class: "mb-3" %>
+
+  <%= tag.div f.input(:province_code, collection: [], label: "State/Province",
+      input_html: { data: { 
+        controller: "select",
+        target: "select-geo-targets.provinceCodesSelect",
+        provinces: provinces_for_stimulus,
+        selected: job_posting.province_code }}), class: "mb-3" %>
+
+  <%= tag.div f.input(:city, required: true), class: "mb-3" %>
+
+  <label class="file-attachment-input">
+    <div class="mb-3">
+      Upload your company logo
+      <small class="d-block text-muted">we recommend using your Facebook or Twitter avatar</small>
+    </div>
+    <%= f.hidden_field :company_logo_url, role: "uploadcare-uploader", data: {
+      image_shrink: "512x512",
+      crop: "1:1"
+    } %>
+  </label>
+
+  <hr>
+
+  <h2 class="h4 space-1">Targeting</h2>
+
+  <%= tag.div f.input(:keywords, collection: keywords_for_select, label: "Keywords", required: true,
+      hint: "Keywords are used to target the qualified candidates for this job",
+      input_html: { multiple: true, data: { controller: "select" }}
+    ), class: "mb-3" %>
+
+  <div class="media align-items-center mt-4 space-bottom-1">
+    <label class="checkbox-switch mb-0 mr-3">
+      <%= f.check_box :remote, class: "checkbox-switch__input", data: { action: "change->job-posting-form#toggleRemote" } %>
+      <span class="checkbox-switch__slider"></span>
+    </label>
+    <%= f.label :remote, class: "media-body text-muted mb-0" do %>
+      <span class="d-block text-dark">This job is available to remote-only candidates</span>
+    <% end %>
+  </div>
+
+  <div class="mb-3" hidden data-target="job-posting-form.remoteCountryCodesSelector">
+    <%= f.input :remote_country_codes, collection: countries_for_select, input_html: {
+        multiple: true,
+        data: {
           controller: "select",
-          target: "select-geo-targets.countryCodesSelect",
-          action: " cf:select-batch->select-geo-targets#updateProvinceCodeOptions" }} %>
-
-    <%= f.input :province_code, required: true, collection: [], label: "State/Province",
-        input_html: { data: { 
-          controller: "select",
-          target: "select-geo-targets.provinceCodesSelect",
-          provinces: provinces_for_stimulus,
-          selected: job_posting.province_code }} %>
-
-    <%= f.input :city, required: true%>
-
-    <div class="form-group row job_posting_company_logo">
-      <label class="col-sm-3 col-form-label string" for="job_posting_remote_country_codes">Company Logo</label>
-      <div class="col-sm-9">
-        <div class="input-group">
-          <div class="custom-file">
-            <%= f.file_field :company_logo, class: "custom-file-input" %>
-            <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="company_logo">
-            <label class="custom-file-label" for="job_posting_company_logo">Choose logo file</label>
-          </div>
-        </div>
-        <small class="form-text text-muted">We recommend using your Facebook or Twitter avatar</small>
-      </div>
-    </div>
-
-    <div class="h5 space-top-1 mt-9 mb-5 border-top text-secondary">
-      Targeting
-    </div>
-
-    <%= f.input(:keywords, collection: keywords_for_select, label: "Skills / Keywords", required: true, input_html: { multiple: true, data: { controller: "select" }}) %>
-    
-    <div class="form-group row job_posting_remote">
-      <label class="col-sm-3 col-form-label string" for="job_posting_remote">Remote?</label>
-      <div class="col-sm-9" style="margin-top: 14px;">
-        <div class="media align-items-center">
-          <label class="checkbox-switch mr-3">
-            <%= f.check_box :remote, class: "checkbox-switch__input" %>
-            <span class="checkbox-switch__slider"></span>
-          </label>
-          <label class="media-body text-muted" for="checkboxSwitch1">
-            <span class="d-block text-dark">This job is available to remote-only candidates</span>
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group row job_posting_remote_country_codes">
-      <label class="col-sm-3 col-form-label string" for="job_posting_remote_country_codes">Allowed Remote Counties</label>
-      <div class="col-sm-9" data-controller="select-multiple">
-        <%= f.select :remote_country_codes, countries_for_select, {}, { multiple: true, data: { controller: "select", target: "select-multiple.select select-geo-targets.countryCodesSelect", action: " cf:select-batch->select-geo-targets#updateProvinceCodeOptions" }} %>
-        <div class="d-flex align-items-center">
-          <small class="flex-grow-1 form-text text-muted">Only accept remote applicants from the selected countries</small>
-          <span>
-            <%= link_to "Select All Countries", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
-            <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
-          </span>
-        </div>
-      </div>
+          target: "select-multiple.select"
+        }} %>
+    <div class="d-flex align-items-center">
+      <small class="flex-grow-1 form-text text-muted">Only accept remote applicants from the selected countries</small>
+      <span>
+        <%= link_to "Select All Countries", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
+        <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
+      </span>
     </div>
   </div>
-  <div class="card-footer">
-    <div class="d-flex justify-content-end">
-      <%= f.submit "Next", class: "btn btn-primary transition-3d-hover mr-1" %>
-    </div>
-  </div>
+
+  <%= f.submit "Next", class: "btn btn-primary transition-3d-hover mt-5" %>
 <% end %>

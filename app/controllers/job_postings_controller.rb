@@ -77,6 +77,7 @@ class JobPostingsController < ApplicationController
     params.require(:job_posting).permit(
       :company_name,
       :company_url,
+      :company_logo_url,
       :title,
       :description,
       :how_to_apply,
@@ -89,6 +90,7 @@ class JobPostingsController < ApplicationController
       :city,
       :province_code,
       :country_code,
+      :display_salary,
       keywords: [],
       remote_country_codes: []
     )

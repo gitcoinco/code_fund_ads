@@ -1,29 +1,24 @@
-<main id="content" role="main" class="gradient-half-primary-v2">
-  <div class="container space-top-md-4 space-1">
-    <div class="card">
-      <div class="card-header p-5">
-        <nav id="progressStepForm" class="js-step-progress nav nav-icon nav-justified text-center">
-          <a href="javascript:;" class="nav-item active">
-            <span class="nav-icon-action">
-              <span class="fas fa-user-circle nav-icon-action-inner"></span>
-            </span>
-            1. Create
-          </a>
-          <a href="javascript:;" class="nav-item">
-            <span class="nav-icon-action">
-              <span class="fas fa-file-invoice-dollar nav-icon-action-inner"></span>
-            </span>
-            2. Preview
-          </a>
-          <a href="javascript:;" class="nav-item">
-            <span class="nav-icon-action">
-              <span class="fas fa-paperclip nav-icon-action-inner"></span>
-            </span>
-            3. Purchase 
-          </a>
-        </nav>
+<main id="content" role="main" class="bg-light">
+  <div class="container space-top-3 space-bottom-2">
+    <div class="w-lg-80 mx-lg-auto">
+      <div class="card shadow-sm p-7">
+        <div class="nav nav-icon nav-justified text-center">
+          <div class="nav-item">
+            <button class="btn btn-icon btn-primary rounded-circle transition-3d-hover mb-1">1</button>
+            <p>Create</p>
+          </div>
+          <div class="nav-item">
+            <button class="btn btn-icon btn-outline-primary bg-white rounded-circle transition-3d-hover mb-1">2</button>
+            <p>Preview</p>
+          </div>
+          <div class="nav-item">
+            <button class="btn btn-icon btn-outline-primary bg-white rounded-circle transition-3d-hover mb-1">3</button>
+            <p>Purchase</p>
+          </div>
+        </div>
+
+        <%= yield %>
       </div>
-      <%= yield %>
     </div>
   </div>
 </main>
