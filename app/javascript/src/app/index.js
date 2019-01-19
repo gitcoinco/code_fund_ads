@@ -2,6 +2,7 @@ import './stylesheets/application.scss';
 import './theme';
 import 'select2';
 import 'moment';
+import 'trix';
 import 'bootstrap-daterangepicker';
 import './prefetch';
 
