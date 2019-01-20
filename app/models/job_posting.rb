@@ -67,9 +67,8 @@ class JobPosting < ApplicationRecord
     job_posting.validates :company_url, presence: true
     job_posting.validates :company_logo_url, presence: true
     job_posting.validates :city, presence: true
-    # TODO: Uncomment once nate fixes province picker
-    # job_posting.validates :province_name, presence: true
-    # job_posting.validates :province_code, presence: true
+    job_posting.validates :province_name, presence: true
+    job_posting.validates :province_code, presence: true
     job_posting.validates :country_code, presence: true
   end
 
