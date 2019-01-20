@@ -1,6 +1,26 @@
-<h1>Editing Job Posting</h1>
+<main id="content" role="main" class="bg-light">
+  <div class="container space-top-3 space-bottom-2">
+    <div class="w-lg-80 mx-lg-auto">
+      <div class="card shadow-sm p-7">
+        <% if @job_posting.pending? %>
+          <div class="nav nav-icon nav-justified text-center">
+            <div class="nav-item">
+              <button class="btn btn-icon btn-primary rounded-circle transition-3d-hover mb-1">1</button>
+              <p>Create</p>
+            </div>
+            <div class="nav-item">
+              <button class="btn btn-icon btn-outline-primary bg-white rounded-circle transition-3d-hover mb-1">2</button>
+              <p>Preview</p>
+            </div>
+            <div class="nav-item">
+              <button class="btn btn-icon btn-outline-primary bg-white rounded-circle transition-3d-hover mb-1">3</button>
+              <p>Purchase</p>
+            </div>
+          </div>
+        <% end %>
 
-<%= render 'form', job_posting: @job_posting %>
-
-<%= link_to 'Show', @job_posting %> |
-<%= link_to 'Back', job_postings_path %>
+        <%= render partial: "/job_postings/form", locals: { job_posting: @job_posting } %>
+      </div>
+    </div>
+  </div>
+</main>

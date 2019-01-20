@@ -1,0 +1,41 @@
+<main id="content" role="main" class="bg-light">
+  <div class="container space-top-3 space-bottom-2">
+    <div class="w-lg-80 mx-lg-auto">
+      <div class="card shadow-sm p-7 job-listing">
+        <div class="nav nav-icon nav-justified text-center">
+          <div class="nav-item">
+            <%= link_to "1", edit_job_posting_path(@job_posting), class: "btn btn-icon btn-outline-primary bg-white rounded-circle transition-3d-hover mb-1" %>
+            <p>Create</p>
+          </div>
+          <div class="nav-item">
+            <%= link_to "2", job_posting_path(@job_posting), class: "btn btn-icon btn-outline-primary bg-white rounded-circle transition-3d-hover mb-1" %>
+            <p>Preview</p>
+          </div>
+          <div class="nav-item">
+            <button class="btn btn-icon btn-primary rounded-circle transition-3d-hover mb-1">3</button>
+            <p>Purchase</p>
+          </div>
+        </div>
+
+        <div class="space-1">
+          <%= form_tag url: purchase_job_posting_path(@job_posting) do %>
+            <script
+              src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="<%= ENV["STRIPE_PERISHABLE_KEY"] %>"
+              data-image="<%= asset_url("codefund-logo-circle-256.png") %>"
+              data-name="CodeFund Jobs"
+              data-description="Monthly ad posting"
+              data-amount="29900"
+              data-label="Place your order">
+            </script>
+          <% end %>
+        </div>
+
+        <div class="d-flex">
+          <%= link_to "Make Changes", edit_job_posting_path(@job_posting),
+                class: "btn btn-block btn-sm btn-soft-secondary transition-3d-hover mr-1" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

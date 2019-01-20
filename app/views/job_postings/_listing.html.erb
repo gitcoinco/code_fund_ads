@@ -1,18 +1,29 @@
 <!-- Hero Section -->
-<div class="container space-top-md-3 space-1">
+<div class="container space-top-md-3 space-1 job-listing">
   <div class="border-bottom space-top-2">
     <div class="media mb-5">
       <% if job_posting.company_logo_url.present? %>
-        <div class="u-lg-avatar mr-4">
-          <%= image_tag job_posting.company_logo_url, class: "img-fluid" if job_posting.company_logo_url.present? %>
+        <div class="mr-4 company-logo-wrapper border rounded">
+          <%= image_tag job_posting.company_logo_url, class: "img-fluid company-logo", style: "vertical-align: middle;" %>
         </div>
       <% end %>
 
       <div class="media-body">
         <div class="row">
           <div class="col-lg-6 mb-3 mb-lg-0">
-            <h1 class="h4 mb-1"><%= job_posting.title %></h1>
-            <small class="h6 text-muted"><%= job_posting.company_name %></small>
+            <h1 class="h4 mb-1"><%=job_posting.title %></h1>
+            <small class="h6 font-weight-light text-muted">
+              <%= link_to job_posting.company_name, job_posting.company_url, target: "_blank", class: "text-link" %>
+              <span class="px-1">•</span>
+              <%= job_posting.city %><%= ", #{job_posting.country_code}" if job_posting.country_code %>
+            </small>
+            <ul class="list-inline my-3">
+              <% job_posting.keywords.each do |keyword| %>
+              <li class="list-inline-item pb-3">
+                <a class="btn btn-sm btn-soft-primary mb-1" style="padding: 3px 8px;"><%= keyword %></a>
+              </li>
+              <% end %>
+            </ul>
           </div>
 
           <div class="col-lg-6 text-lg-right">
@@ -40,16 +51,21 @@
         <!-- Skills -->
         <ul class="list-inline mb-3">
           <% job_posting.keywords.each do |keyword| %>
-          <li class="list-inline-item pb-3">
-            <a class="btn btn-sm btn-soft-primary mb-1" style="padding: 3px 8px;"><%= keyword %></a>
-          </li>
+            <li class="list-inline-item pb-3">
+              <a class="btn btn-sm btn-soft-primary mb-1" style="padding: 3px 8px;"><%= keyword %></a>
+            </li>
           <% end %>
         </ul>
         <!-- End Skills -->
 
-        <div class="mb-7">
+        <div class="mb-7 job-listing__description">
           <%= job_posting.pretty_description %>
-          
+        </div>
+
+        <div class="mb-7 border-top pt-5 job-listing__how-to-apply">
+          <h1>How to apply</h1>
+          <%= @job_posting.how_to_apply.html_safe %>
+
           <%= link_to "Apply Now", job_posting.url, class: "btn btn-sm btn-soft-primary transition-3d-hover mt-5" %>
         </div>
       </div>

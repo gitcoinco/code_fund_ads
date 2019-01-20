@@ -80,7 +80,6 @@ class JobPosting < ApplicationRecord
   scope :search_title, ->(value) { value.blank? ? all : search_column(:title, value) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  attr_accessor :currency
   tag_columns :keywords
   tag_columns :remote_country_codes
 
@@ -117,15 +116,14 @@ class JobPosting < ApplicationRecord
   private
 
   def set_currency
-    if currency.present?
-      self.min_annual_salary_currency = currency
-      self.max_annual_salary_currency = currency
+    if min_annual_salary_currency.present?
+      self.max_annual_salary_currency = min_annual_salary_currency
     end
   end
 
   def replace_logo_cdn
-    return unless company_logo_url.include?("ucarecdn")
+    return unless company_logo_url&.include?("ucarecdn")
     ucare_id = company_logo_url[/(\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b)/, 1]
-    company_logo_url = "https://cdn2.codefund.app/images/logos/#{ucare_id}"
+    self.company_logo_url = "https://cdn2.codefund.app/images/logos/#{ucare_id}"
   end
 end
