@@ -1,4 +1,4 @@
-<%= simple_form_for job_posting, wrapper: :front_form, data: { controller: "job-posting-form" } do |f| %>
+<%= simple_form_for job_posting, wrapper: :front_form, data: { controller: "job-posting-form select-country-province" } do |f| %>
   <%= f.error_notification %>
 
   <h2 class="h4 space-1 space-top-2">Job Details</h2>
@@ -73,13 +73,12 @@
   <%= tag.div f.input(:country_code, required: true, collection: countries_for_select, label: "Country",
       input_html: { data: {
         controller: "select",
-        target: "select-geo-targets.countryCodesSelect",
-        action: " cf:select-batch->select-geo-targets#updateProvinceCodeOptions" }}), class: "mb-5" %>
+        target: "select-country-province.countryCodeSelect" }}), class: "mb-5" %>
 
   <%= tag.div f.input(:province_code, collection: [], label: "State/Province",
       input_html: { data: {
         controller: "select",
-        target: "select-geo-targets.provinceCodesSelect",
+        target: "select-country-province.provinceCodeSelect",
         provinces: provinces_for_stimulus,
         selected: job_posting.province_code }}), class: "mb-5" %>
 
