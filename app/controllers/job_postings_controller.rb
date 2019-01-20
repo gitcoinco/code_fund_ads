@@ -1,5 +1,4 @@
 class JobPostingsController < ApplicationController
-  before_action :authenticate_administrator!
   before_action :set_job_posting, except: [:index, :new, :create]
 
   def index
@@ -33,6 +32,8 @@ class JobPostingsController < ApplicationController
     @job_posting.status = ENUMS::JOB_STATUSES::PENDING
     @job_posting.start_date = Date.today
     @job_posting.end_date = 1.month.from_now
+
+    puts job_posting_params.inspect
 
     respond_to do |format|
       if @job_posting.save
@@ -89,11 +90,12 @@ class JobPostingsController < ApplicationController
       :city,
       :province_code,
       :country_code,
-      :display_salary,
-      keywords: [],
-      remote_country_codes: []
+      :display_salary
     ).tap do |whitelisted|
       whitelisted[:source] = ENUMS::JOB_SOURCES::INTERNAL
+      whitelisted[:keywords] = params[:job_posting][:keywords].reject(&:blank?)
+      whitelisted[:remote_country_codes] = params[:job_posting][:remote_country_codes].reject(&:blank?)
+      whitelisted[:province_name] = Province.find_by_iso_code(params[:job_posting][:province_code])&.name
     end
   end
 end

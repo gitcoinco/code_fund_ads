@@ -74,7 +74,7 @@ class JobPosting < ApplicationRecord
 
   # callbacks .................................................................
   before_validation :set_currency
-  before_save :replace_logo_cdn
+  before_save :replace_logo_cdn, unless: :pending?, unless: :internal?
 
   # scopes ....................................................................
   scope :internal, -> { where(source: ENUMS::JOB_SOURCES::INTERNAL) }
@@ -138,6 +138,7 @@ class JobPosting < ApplicationRecord
 
   def replace_logo_cdn
     return unless company_logo_url&.include?("ucarecdn")
+    return unless 
     ucare_id = company_logo_url[/(\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b)/, 1]
     self.company_logo_url = "https://cdn2.codefund.app/images/logos/#{ucare_id}"
   end

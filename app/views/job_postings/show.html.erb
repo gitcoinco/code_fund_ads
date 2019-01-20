@@ -1,11 +1,3 @@
-<% if @job_posting.pending? %>
-  <%= render layout: "/job_postings/steps_layout", locals: { job_posting: @job_posting, step: 2 } do %>
-    <main id="content" role="main">
-      <%= render "/job_postings/listing", job_posting: @job_posting %>
-    </main>
-  <% end %>
-<% else %>
-  <main id="content" role="main">
-    <%= render "/job_postings/listing", job_posting: @job_posting %>
-  </main>
-<% end %>
+<main id="content" role="main">
+  <%= render "/job_postings/listing", job_posting: @job_posting %>
+</main>

@@ -1,7 +1,8 @@
-<%= simple_form_for job_posting, wrapper: :front_form, data: { controller: "job-posting-form select-country-province" } do |f| %>
-  <%= f.error_notification %>
+<%= simple_form_for job_posting, wrapper: :front_form, data: { controller: "job-posting-form select-country-province file-picker" } do |f| %>
 
-  <h2 class="h4 space-1 space-top-2">Job Details</h2>
+  <%= render "/@shared/forms/error_messages", object: job_posting %>
+
+  <h2 class="h4">Job Details</h2>
 
     <!-- Platform -->
   <div class="mb-6">
@@ -81,18 +82,27 @@
         target: "select-country-province.provinceCodeSelect",
         provinces: provinces_for_stimulus,
         selected: job_posting.province_code }}), class: "mb-5" %>
+  <% f.hidden_field :province_name %>
 
   <%= tag.div f.input(:city, required: true), class: "mb-5" %>
 
   <label class="file-attachment-input">
     <div class="mb-5">
-      Upload your company logo
+      Upload your company logo <abbr title="required">*</abbr>
       <small class="d-block text-muted">we recommend using your Facebook or Twitter avatar</small>
+
+      <div data-target="filepicker.image-preview" <#= "hidden" unless job_posting.company_logo_url.present? %>>
+        <%= image_tag job_posting.company_logo_url, class: "img-responsive", data: { target: "file-picker.preview" } %>
+        <div class="control" data-target="file-picker.filename"></div>
+      </div>
+
+      <button class="btn btn-primary btn-sm mt-3" type="button"
+        data-action="click->file-picker#pickFile">Upload Image</button>
+      <%= f.hidden_field :company_logo_url, data: { target: "file-picker.input" } %>
+
+      <div class="control" data-target="file-picker.name"></div>
+      <div class="control" data-target="file-picker.url"></div>
     </div>
-    <%= f.hidden_field :company_logo_url, role: "uploadcare-uploader", data: {
-      image_shrink: "512x512",
-      crop: "1:1"
-    } %>
   </label>
 
   <hr>
