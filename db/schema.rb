@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_19_160341) do
+ActiveRecord::Schema.define(version: 2019_01_20_042919) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -262,6 +262,7 @@ ActiveRecord::Schema.define(version: 2019_01_19_160341) do
     t.tsvector "full_text_search"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "company_email"
     t.index ["campaign_id"], name: "index_job_postings_on_campaign_id"
     t.index ["city"], name: "index_job_postings_on_city"
     t.index ["company_name"], name: "index_job_postings_on_company_name"
