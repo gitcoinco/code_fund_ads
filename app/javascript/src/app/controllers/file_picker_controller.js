@@ -2,7 +2,7 @@ import { Controller } from 'stimulus';
 const filestack = require('filestack-js');
 
 export default class extends Controller {
-  static targets = ["name", "url", "input"];
+  static targets = ["filename", "input", "previewImg", "previewWrapper"];
 
   connect() {
     this.updateForm = this.updateForm.bind(this);
@@ -20,11 +20,6 @@ export default class extends Controller {
         "image/png",
         "image/gif"
       ],
-      storeTo: {
-        "container": "codefund.app",
-        "path": "fs/",
-        "region": "us-west-2"
-      },
       fromSources: [
         "local_file_system"
       ],
@@ -37,13 +32,12 @@ export default class extends Controller {
   updateForm(results) {
     const fileData = results.filesUploaded[0];
     this.inputTarget.value = fileData.url;
+    this.previewImgTarget.src = fileData.url;
 
-    const name = document.createTextNode('Selected: ' + fileData.filename);
     const url = document.createElement('a');
     url.href = fileData.url;
-    url.appendChild(document.createTextNode(fileData.url));
-    this.nameTarget.appendChild(name);
-    this.urlTarget.appendChild(document.createTextNode('Uploaded to: '));
-    this.urlTarget.appendChild(url);
+    url.appendChild(document.createTextNode(fileData.filename));
+    this.filenameTarget.appendChild(url);
+    this.previewWrapperTarget.hidden = false;
   }
 }
