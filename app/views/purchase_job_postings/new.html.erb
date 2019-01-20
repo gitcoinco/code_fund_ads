@@ -2,20 +2,26 @@
   <div class="container space-top-3 space-bottom-2">
     <div class="w-lg-80 mx-lg-auto">
       <div class="card shadow-sm p-7 job-listing">
-        <div class="nav nav-icon nav-justified text-center">
-          <div class="nav-item">
-            <%= link_to "1", edit_job_posting_path(@job_posting), class: "btn btn-icon btn-outline-primary bg-white rounded-circle transition-3d-hover mb-1" %>
-            <p>Create</p>
-          </div>
-          <div class="nav-item">
-            <%= link_to "2", job_posting_path(@job_posting), class: "btn btn-icon btn-outline-primary bg-white rounded-circle transition-3d-hover mb-1" %>
-            <p>Preview</p>
-          </div>
-          <div class="nav-item">
-            <button class="btn btn-icon btn-primary rounded-circle transition-3d-hover mb-1">3</button>
-            <p>Purchase</p>
-          </div>
-        </div>
+        <nav class="nav nav-icon nav-justified text-center">
+          <%= link_to edit_job_posting_path(@job_posting), class: "nav-item" do %>
+            <span class="nav-icon-action transition-3d-hover">
+              <span class="fas fa-check-square nav-icon-action-inner"></span>
+            </span>
+            Modify Ad
+          <% end %>
+          <%= link_to job_posting_path(@job_posting), class: "nav-item" do %>
+            <span class="nav-icon-action transition-3d-hover">
+              <span class="fas fa-thumbs-up nav-icon-action-inner"></span>
+            </span>
+            Preview
+          <% end %>
+          <%= link_to "javascript:;", class: "nav-item active text-dark" do %>
+            <span class="nav-icon-action bg-success">
+              <span class="fas fa-file-invoice-dollar nav-icon-action-inner"></span>
+            </span>
+            Purchase
+          <% end %>
+        </nav>
 
         <div class="space-1">
           <%= form_tag url: purchase_job_posting_path(@job_posting) do %>

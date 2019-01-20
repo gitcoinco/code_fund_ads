@@ -34,6 +34,7 @@
 #  full_text_search           :tsvector
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
+#  company_email              :string
 #
 
 class JobPosting < ApplicationRecord
@@ -60,6 +61,17 @@ class JobPosting < ApplicationRecord
   validates :source_identifier, presence: true, if: -> { external? }
   validates :start_date, presence: true
   validates :end_date, presence: true
+
+  with_options if: :internal? do |job_posting|
+    job_posting.validates :company_name, presence: true
+    job_posting.validates :company_url, presence: true
+    job_posting.validates :company_logo_url, presence: true
+    job_posting.validates :city, presence: true
+    # TODO: Uncomment once nate fixes province picker
+    # job_posting.validates :province_name, presence: true
+    # job_posting.validates :province_code, presence: true
+    job_posting.validates :country_code, presence: true
+  end
 
   # callbacks .................................................................
   before_validation :set_currency
@@ -89,8 +101,12 @@ class JobPosting < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def internal?
+    source == ENUMS::JOB_SOURCES::INTERNAL
+  end
+
   def external?
-    source != ENUMS::JOB_SOURCES::INTERNAL
+    !internal?
   end
 
   def pending?

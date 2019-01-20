@@ -34,6 +34,7 @@
 #  full_text_search           :tsvector
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
+#  company_email              :string
 #
 
 require "test_helper"

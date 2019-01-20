@@ -34,9 +34,6 @@ class JobPostingsController < ApplicationController
     @job_posting.start_date = Date.today
     @job_posting.end_date = 1.month.from_now
 
-    puts @job_posting.valid?
-    puts @job_posting.errors.inspect
-
     respond_to do |format|
       if @job_posting.save
         format.html { redirect_to @job_posting, notice: "Job posting was successfully created." }
@@ -78,6 +75,7 @@ class JobPostingsController < ApplicationController
     params.require(:job_posting).permit(
       :company_name,
       :company_url,
+      :company_email,
       :company_logo_url,
       :title,
       :description,
@@ -94,6 +92,8 @@ class JobPostingsController < ApplicationController
       :display_salary,
       keywords: [],
       remote_country_codes: []
-    )
+    ).tap do |whitelisted|
+      whitelisted[:source] = ENUMS::JOB_SOURCES::INTERNAL
+    end
   end
 end

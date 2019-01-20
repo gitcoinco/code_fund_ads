@@ -1,9 +1,7 @@
 <%= simple_form_for job_posting, wrapper: :front_form, data: { controller: "job-posting-form" } do |f| %>
   <%= f.error_notification %>
 
-  <hr>
-
-  <h2 class="h4 space-1">Job Details</h2>
+  <h2 class="h4 space-1 space-top-2">Job Details</h2>
 
     <!-- Platform -->
   <div class="mb-6">
@@ -69,6 +67,8 @@
 
   <%= tag.div f.input(:company_name, label: "Company Name", required: true), class: "mb-5" %>
   <%= tag.div f.input(:company_url, label: "Company Website", required: true, placeholder: "https://"), class: "mb-5" %>
+  <%= tag.div f.input(:company_email, label: "Company Email", required: true,
+        hint: "This email is not made public. We use it to send your invoice and link to edit your job post later"), class: "mb-5" %>
 
   <%= tag.div f.input(:country_code, required: true, collection: countries_for_select, label: "Country",
       input_html: { data: {
