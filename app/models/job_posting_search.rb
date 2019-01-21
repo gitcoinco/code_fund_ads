@@ -29,7 +29,7 @@ class JobPostingSearch < ApplicationSearchRecord
       then { |result| result.matching(full_text_search_b).ranked(full_text_search_b) }.
       then { |result| result.search_company_name(company_name) }.
       then { |result| result.search_country_codes(*country_codes) }.
-      then { |result| result.search_descpription(description) }.
+      then { |result| result.search_description(description) }.
       then { |result| result.search_job_types(*job_types) }.
       then { |result| result.search_keywords(*keywords) }.
       then { |result| result.search_organization(organization_id) }.
