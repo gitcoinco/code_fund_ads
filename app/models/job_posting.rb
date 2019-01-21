@@ -123,6 +123,10 @@ class JobPosting < ApplicationRecord
       then { |result| result.compact.join " || " }
   end
 
+  def province
+    Province.find_by_iso_code(province_code)
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................

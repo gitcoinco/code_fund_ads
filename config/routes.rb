@@ -27,12 +27,13 @@ Rails.application.routes.draw do
   resource :administrator_dashboards, only: [:show], path: "/dashboards/administrator"
   resource :advertiser_dashboards, only: [:show], path: "/dashboards/advertiser"
   resource :publisher_dashboards, only: [:show], path: "/dashboards/publisher"
+  resource :creative_options, only: [:show]
   resources :campaign_searches, only: [:create, :update, :destroy]
   resources :organization_searches, only: [:create, :update, :destroy]
   resources :property_searches, only: [:create, :update, :destroy]
   resources :user_searches, only: [:create, :update, :destroy]
   resources :creative_searches, only: [:create, :update, :destroy]
-  resource :creative_options, only: [:show]
+  resources :charges, only: [:create]
 
   resources :organizations
   scope "/organization/:organization_id/" do

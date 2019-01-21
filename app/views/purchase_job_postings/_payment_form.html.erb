@@ -1,0 +1,14 @@
+<h2 class="h5 mt-5">Payment</h2>
+
+<p>Your card will be charged $299.</p>
+
+<script
+  src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+  data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+  data-image="<%= asset_url("codefund-logo-circle-256.png") %>"
+  data-name="CodeFund Jobs"
+  data-description="1 Month Job Listing"
+  data-amount="29900"
+  data-locale="auto"
+  data-label="Place your order">
+</script>
