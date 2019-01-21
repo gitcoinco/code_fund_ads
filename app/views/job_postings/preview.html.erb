@@ -27,7 +27,7 @@
           <div class="border-bottom space-top-1">
             <div class="media mb-5">
               <% if @job_posting.company_logo_url.present? %>
-                <div class="mr-4 company-logo-wrapper border rounded">
+                <div class="mr-4 company-logo-wrapper border rounded bg-white">
                   <%= image_tag @job_posting.company_logo_url, class: "img-fluid company-logo", style: "vertical-align: middle;" %>
                 </div>
               <% end %>
@@ -42,7 +42,7 @@
                   </small>
                   <ul class="list-inline my-3">
                     <% @job_posting.keywords.each do |keyword| %>
-                    <li class="list-inline-item pb-3">
+                    <li class="list-inline-item pb-1">
                       <a class="btn btn-sm btn-soft-primary mb-1" style="padding: 3px 8px;"><%= keyword %></a>
                     </li>
                     <% end %>

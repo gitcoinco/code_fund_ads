@@ -17,6 +17,11 @@ class Province
       new data[id.to_s]
     end
 
+    def find_by_iso_code(val)
+      country_code, subdivision = val.split("-")
+      where(country_code: country_code, subdivision: subdivision).first
+    end
+
     def all
       @all ||= data.values.map { |row| new row }
     end

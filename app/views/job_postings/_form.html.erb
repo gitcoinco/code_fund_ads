@@ -1,7 +1,8 @@
-<%= simple_form_for job_posting, wrapper: :front_form, data: { controller: "job-posting-form select-country-province" } do |f| %>
-  <%= f.error_notification %>
+<%= simple_form_for job_posting, wrapper: :front_form, data: { controller: "job-posting-form select-country-province file-picker" } do |f| %>
 
-  <h2 class="h4 space-1 space-top-2">Job Details</h2>
+  <%= render "/@shared/forms/error_messages", object: job_posting %>
+
+  <h2 class="h4">Job Details</h2>
 
     <!-- Platform -->
   <div class="mb-6">
@@ -81,18 +82,24 @@
         target: "select-country-province.provinceCodeSelect",
         provinces: provinces_for_stimulus,
         selected: job_posting.province_code }}), class: "mb-5" %>
+  <% f.hidden_field :province_name %>
 
   <%= tag.div f.input(:city, required: true), class: "mb-5" %>
 
-  <label class="file-attachment-input">
-    <div class="mb-5">
-      Upload your company logo
-      <small class="d-block text-muted">we recommend using your Facebook or Twitter avatar</small>
+  <label class="file-attachment-input p-2 py-3">
+    Upload your company logo <abbr title="required">*</abbr>
+    <small class="d-block text-muted">we recommend using your Facebook or Twitter avatar</small>
+
+    <div data-target="file-picker.previewWrapper" class="mt-3" <%= "hidden" unless job_posting.company_logo_url %>>
+      <%= image_tag job_posting.company_logo_url,
+            class: "img-responsive", style: "max-width: 300px; max-height: 300px;", data: { target: "file-picker.previewImg" } %>
+      <div class="control mt-1" data-target="file-picker.filename"></div>
     </div>
-    <%= f.hidden_field :company_logo_url, role: "uploadcare-uploader", data: {
-      image_shrink: "512x512",
-      crop: "1:1"
-    } %>
+
+    <button class="btn btn-primary btn-sm mt-3 d-block mx-auto" type="button"
+      data-action="click->file-picker#pickFile">Upload Image</button>
+    <button class="btn btn-sm btn-link d-block mx-auto" type="button" data-action="click->file-picker#clearFile">clear</button>
+    <%= f.hidden_field :company_logo_url, data: { target: "file-picker.input" } %>
   </label>
 
   <hr>
