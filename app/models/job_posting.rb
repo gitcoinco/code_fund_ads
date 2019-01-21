@@ -76,9 +76,10 @@ class JobPosting < ApplicationRecord
   before_validation :set_currency
 
   # scopes ....................................................................
-  scope :internal, -> { where(source: ENUMS::JOB_SOURCES::INTERNAL) }
-  scope :remoteok, -> { where(source: ENUMS::JOB_SOURCES::REMOTEOK) }
-  scope :github, -> { where(source: ENUMS::JOB_SOURCES::GITHUB) }
+  scope :active, -> { where status: ENUMS::JOB_STATUSES::ACTIVE }
+  scope :internal, -> { where source: ENUMS::JOB_SOURCES::INTERNAL }
+  scope :remoteok, -> { where source: ENUMS::JOB_SOURCES::REMOTEOK }
+  scope :github, -> { where source: ENUMS::JOB_SOURCES::GITHUB }
   scope :search_company_name, ->(value) { value.blank? ? all : search_column(:company_name, value) }
   scope :search_country_codes, ->(*values) { values.blank? ? all : where(country_code: values) }
   scope :search_description, ->(value) { value.blank? ? all : search_column(:description, value) }
