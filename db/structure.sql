@@ -483,7 +483,8 @@ CREATE TABLE public.job_postings (
     full_text_search tsvector,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    company_email character varying
+    company_email character varying,
+    stripe_charge_id character varying
 );
 
 
@@ -754,7 +755,8 @@ CREATE TABLE public.users (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     legacy_id uuid,
-    organization_id bigint
+    organization_id bigint,
+    stripe_customer_id character varying
 );
 
 
@@ -2047,6 +2049,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190118223858'),
 ('20190119154353'),
 ('20190119160341'),
-('20190120042919');
+('20190120042919'),
+('20190121220544');
 
 

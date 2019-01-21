@@ -519,7 +519,7 @@ DEPENDENCIES
   statsd-instrument (~> 2.3.2)
   stimulus_reflex (~> 0.2.0)
   stopwords-filter (~> 0.4.1)
-  stripe
+  stripe (~> 4.6.0)
   tag_columns (~> 0.1.6)
   teamocil
   timecop

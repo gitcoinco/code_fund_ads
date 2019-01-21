@@ -52,6 +52,7 @@
 #  updated_at             :datetime         not null
 #  legacy_id              :uuid
 #  organization_id        :bigint(8)
+#  stripe_customer_id     :string
 #
 
 class User < ApplicationRecord
@@ -157,6 +158,11 @@ class User < ApplicationRecord
 
   # class methods .............................................................
   class << self
+    def authenticate(email, password)
+      user = User.find_for_authentication(email: email)
+      user&.valid_password?(password) ? user : nil
+    end
+
     def find_version_author(version)
       return unless version.terminator
       find(version.terminator)
