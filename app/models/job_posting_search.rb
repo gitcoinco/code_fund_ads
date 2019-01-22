@@ -14,6 +14,7 @@ class JobPostingSearch < ApplicationSearchRecord
 
   def initialize(attrs = {})
     super FIELDS, attrs
+    self.full_text_search = full_text_search.to_s.downcase.split(" ").uniq.join(" ")
     (self.country_codes ||= []).reject!(&:blank?)
     (self.job_types ||= []).reject!(&:blank?)
     (self.keywords ||= []).reject!(&:blank?)
