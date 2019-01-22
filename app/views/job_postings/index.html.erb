@@ -12,7 +12,7 @@
     <h2>
       Found <strong><%= @job_postings_count %> <%= "Job".pluralize @job_postings_count %></strong>
       <% if @job_posting_search.present? %>
-        <small><%= link_to "Reset Search", job_posting_search_path(0), class: "btn btn-link btn-sm text-muted", method: :delete %></small>
+        <small><%= link_to "clear search", job_posting_search_path(0), class: "btn btn-link btn-sm text-muted", method: :delete %></small>
       <% end %>
     </h2>
     <ul class="list-group list-group-flush" data-target="load-more.container">

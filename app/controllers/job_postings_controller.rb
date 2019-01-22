@@ -1,6 +1,6 @@
 class JobPostingsController < ApplicationController
   before_action :set_job_posting, except: [:index, :new, :create]
-  before_action :set_job_posting_search, only: [:index]
+  before_action :set_job_posting_search, only: [:index, :show]
 
   def index
     job_postings = JobPosting.active.order(start_date: :desc)

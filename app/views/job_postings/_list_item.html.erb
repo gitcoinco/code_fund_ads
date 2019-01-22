@@ -1,7 +1,7 @@
 <% cache job_posting do %>
   <li class="list-group-item d-flex justify-content-between align-items-center py-3 px-2">
     <span>
-      <%= link_to tag.u(sanitize(job_posting.title).html_safe), job_posting, class: "lead text-primary", style: "font-weight: bold;" %>
+      <%= link_to tag.u(sanitize(job_posting.title, scrubber: Loofah::Scrubbers::Prune.new)), job_posting, class: "lead text-primary", style: "font-weight: bold;" %>
       <div class="mb-2"><%= job_posting.company_name %></div>
       <span>
         <% job_posting.keywords.each do |keyword| %>

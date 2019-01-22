@@ -55,13 +55,13 @@
 
         <div class="mb-7 job-listing__description">
           <h2 class="h4">Job Description</h2>
-          <%= @job_posting.description.html_safe %>
+          <%= sanitize @job_posting.description, scrubber: Loofah::Scrubbers::Prune.new %>
         </div>
 
         <% if @job_posting.how_to_apply %>
           <div class="mb-7 border-top pt-5 job-listing__how-to-apply">
             <h2 class="h4">How to Apply</h2>
-            <%= @job_posting.how_to_apply.html_safe %>
+            <%= sanitize @job_posting.how_to_apply, scrubber: Loofah::Scrubbers::Prune.new %>
           </div>
         <% end %>
 

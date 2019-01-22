@@ -20,9 +20,11 @@
             <ul class="list-inline my-3">
               <% job_posting.keywords.each do |keyword| %>
               <li class="list-inline-item pb-3">
-                <a class="btn btn-sm btn-soft-primary mb-1" style="padding: 3px 8px;"><%= keyword %></a>
+                <%= link_to keyword,
+                  job_posting_searches_path(job_posting_search: { full_text_search: "#{@job_posting_search.full_text_search} #{keyword}"}),
+                  class: "btn btn-sm btn-soft-primary mb-1 job-listing-keyword", method: :post %>
+                <% end %>
               </li>
-              <% end %>
             </ul>
           </div>
 
@@ -52,7 +54,9 @@
         <ul class="list-inline mb-3">
           <% job_posting.keywords.each do |keyword| %>
             <li class="list-inline-item pb-3">
-              <a class="btn btn-sm btn-soft-primary mb-1" style="padding: 3px 8px;"><%= keyword %></a>
+              <%= link_to keyword,
+                job_posting_searches_path(job_posting_search: { full_text_search: "#{@job_posting_search.full_text_search} #{keyword}"}),
+                class: "btn btn-sm btn-soft-primary mb-1 job-listing-keyword", method: :post %>
             </li>
           <% end %>
         </ul>
@@ -65,7 +69,7 @@
         <% if @job_posting.how_to_apply %>
           <div class="mb-7 border-top pt-5 job-listing__how-to-apply">
             <h1>How to apply</h1>
-            <%= @job_posting.how_to_apply.html_safe %>
+            <%= sanitize @job_posting.how_to_apply, scrubber: Loofah::Scrubbers::Prune.new %>
             <%= link_to "Apply Now", job_posting.url, class: "btn btn-sm btn-soft-primary transition-3d-hover mt-5" %>
           </div>
         <% end %>
