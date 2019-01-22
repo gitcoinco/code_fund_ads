@@ -76,9 +76,10 @@ class JobPosting < ApplicationRecord
   before_validation :set_currency
 
   # scopes ....................................................................
-  scope :internal, -> { where(source: ENUMS::JOB_SOURCES::INTERNAL) }
-  scope :remoteok, -> { where(source: ENUMS::JOB_SOURCES::REMOTEOK) }
-  scope :github, -> { where(source: ENUMS::JOB_SOURCES::GITHUB) }
+  scope :active, -> { where status: ENUMS::JOB_STATUSES::ACTIVE }
+  scope :internal, -> { where source: ENUMS::JOB_SOURCES::INTERNAL }
+  scope :remoteok, -> { where source: ENUMS::JOB_SOURCES::REMOTEOK }
+  scope :github, -> { where source: ENUMS::JOB_SOURCES::GITHUB }
   scope :search_company_name, ->(value) { value.blank? ? all : search_column(:company_name, value) }
   scope :search_country_codes, ->(*values) { values.blank? ? all : where(country_code: values) }
   scope :search_description, ->(value) { value.blank? ? all : search_column(:description, value) }
@@ -113,10 +114,12 @@ class JobPosting < ApplicationRecord
 
   def to_tsvector
     [].
+      then { |result| remote? ? result << make_tsvector("remote", weight: "A") : result }.
       then { |result| keywords.blank? ? result : keywords.each_with_object(result) { |tag, memo| memo << make_tsvector(tag, weight: "A") } }.
       then { |result| title.blank? ? result : result << make_tsvector(title, weight: "B") }.
       then { |result| description.blank? ? result : result << make_tsvector(description, weight: "B") }.
       then { |result| job_type.blank? ? result : result << make_tsvector(job_type, weight: "C") }.
+      then { |result| city.blank? ? result : result << make_tsvector(city, weight: "D") }.
       then { |result| province_name.blank? ? result : result << make_tsvector(province_name, weight: "D") }.
       then { |result| country_code.blank? ? result : result << make_tsvector(country_code, weight: "D") }.
       then { |result| Country.find(country_code).blank? ? result : result << make_tsvector(Country.find(country_code).name, weight: "D") }.

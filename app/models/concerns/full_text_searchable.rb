@@ -21,7 +21,7 @@ module FullTextSearchable
 
     scope :similar, ->(value) {
       words = FullTextSearchable.fts_words(value)
-      words.blank? ? none : begin
+      words.blank? ? all : begin
         relation = all
         words.each do |word|
           relation = relation.where(id: Word.where(record_type: name).similar(word).select(:record_id))
@@ -30,24 +30,29 @@ module FullTextSearchable
       end
     }
 
-    scope :ranked, ->(value) {
+    scope :matched, ->(value) {
       value = value.to_s.gsub(/\W/, " ").squeeze(" ").downcase.strip
-      return none if value.blank?
-      value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["?", value]))
-      plainto_tsquery = Arel::Nodes::NamedFunction.new("plainto_tsquery", [Arel::Nodes::SqlLiteral.new("'simple'"), value])
-      ts_rank = Arel::Nodes::NamedFunction.new("ts_rank", [arel_table[:full_text_search], plainto_tsquery])
-      select(Arel.star).
-        select(ts_rank.as("rank")).
-        order("rank desc")
+      value.blank? ? all : begin
+        value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["?", value]))
+        plainto_tsquery = Arel::Nodes::NamedFunction.new("plainto_tsquery", [Arel::Nodes::SqlLiteral.new("'simple'"), value])
+        where Arel::Nodes::InfixOperation.new("@@", arel_table[:full_text_search], plainto_tsquery)
+      end
     }
 
-    scope :matching, ->(value) {
+    scope :ranked, ->(value) {
+      rank_alias = "rank_#{SecureRandom.hex}"
       value = value.to_s.gsub(/\W/, " ").squeeze(" ").downcase.strip
-      return none if value.blank?
-      value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["?", value]))
-      plainto_tsquery = Arel::Nodes::NamedFunction.new("plainto_tsquery", [Arel::Nodes::SqlLiteral.new("'simple'"), value])
-      where Arel::Nodes::InfixOperation.new("@@", arel_table[:full_text_search], plainto_tsquery)
+      value.blank? ? all : begin
+        value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["?", value]))
+        plainto_tsquery = Arel::Nodes::NamedFunction.new("plainto_tsquery", [Arel::Nodes::SqlLiteral.new("'simple'"), value])
+        ts_rank = Arel::Nodes::NamedFunction.new("ts_rank", [arel_table[:full_text_search], plainto_tsquery])
+        select(Arel.star).
+          select(ts_rank.as(rank_alias)).
+          order("#{rank_alias} desc")
+      end
     }
+
+    scope :matched_and_ranked, ->(value) { value.blank? ? all : matched(value).ranked(value) }
   end
 
   def similarity_words

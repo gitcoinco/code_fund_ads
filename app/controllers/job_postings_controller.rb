@@ -1,8 +1,11 @@
 class JobPostingsController < ApplicationController
   before_action :set_job_posting, except: [:index, :new, :create]
+  before_action :set_job_posting_search, only: [:index]
 
   def index
-    job_postings = JobPosting.order(start_date: :desc)
+    job_postings = JobPosting.active.order(start_date: :desc)
+    job_postings = @job_posting_search.apply(job_postings)
+    @job_postings_count = job_postings.reorder("").size
     @pagy, @job_postings = pagy(job_postings, items: 30)
 
     if params[:partial]
@@ -65,6 +68,11 @@ class JobPostingsController < ApplicationController
   end
 
   private
+
+  def set_job_posting_search
+    @job_posting_search = GlobalID.parse(session[:job_posting_search]).find if session[:job_posting_search].present?
+    @job_posting_search ||= JobPostingSearch.new
+  end
 
   def set_job_posting
     @job_posting = JobPosting.find(params[:id])
