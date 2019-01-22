@@ -58,10 +58,12 @@
           <%= @job_posting.description.html_safe %>
         </div>
 
-        <div class="mb-7 border-top pt-5 job-listing__how-to-apply">
-          <h2 class="h4">How to Apply</h2>
-          <%= @job_posting.how_to_apply.html_safe %>
-        </div>
+        <% if @job_posting.how_to_apply %>
+          <div class="mb-7 border-top pt-5 job-listing__how-to-apply">
+            <h2 class="h4">How to Apply</h2>
+            <%= @job_posting.how_to_apply.html_safe %>
+          </div>
+        <% end %>
 
         <div class="d-flex">
           <%= link_to "Make Changes", edit_job_posting_path(@job_posting),

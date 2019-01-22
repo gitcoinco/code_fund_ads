@@ -25,8 +25,14 @@ class JobPostingSearch < ApplicationSearchRecord
     return relation unless present?
 
     relation.
-      then { |result| result.matching(full_text_search_a).ranked(full_text_search_a) }.
-      then { |result| result.matching(full_text_search_b).ranked(full_text_search_b) }.
+      then { |result| result.matching(full_text_search_a) }.
+      then { |result|
+        if full_text_search_b.present?
+          result.ranked(full_text_search_b)
+        elsif full_text_search_a.present?
+          result.ranked(full_text_search_a)
+        end
+      }.
       then { |result| result.search_company_name(company_name) }.
       then { |result| result.search_country_codes(*country_codes) }.
       then { |result| result.search_description(description) }.

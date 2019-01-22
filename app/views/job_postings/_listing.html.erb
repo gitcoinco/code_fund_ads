@@ -62,12 +62,13 @@
           <%= job_posting.pretty_description %>
         </div>
 
-        <div class="mb-7 border-top pt-5 job-listing__how-to-apply">
-          <h1>How to apply</h1>
-          <%= @job_posting.how_to_apply.html_safe %>
-
-          <%= link_to "Apply Now", job_posting.url, class: "btn btn-sm btn-soft-primary transition-3d-hover mt-5" %>
-        </div>
+        <% if @job_posting.how_to_apply %>
+          <div class="mb-7 border-top pt-5 job-listing__how-to-apply">
+            <h1>How to apply</h1>
+            <%= @job_posting.how_to_apply.html_safe %>
+            <%= link_to "Apply Now", job_posting.url, class: "btn btn-sm btn-soft-primary transition-3d-hover mt-5" %>
+          </div>
+        <% end %>
       </div>
 
       <div class="col-lg-4">
@@ -141,7 +142,7 @@
             <h4 class="h6">How to Apply</h4>
             <%= job_posting.pretty_how_to_apply %>
           </div>
-          
+
           <!-- Subscribe -->
           <div id="stickyBlockStartPoint">
             <div class="js-sticky-block bg-primary text-white shadow-primary-lg text-center shadow rounded p-5"

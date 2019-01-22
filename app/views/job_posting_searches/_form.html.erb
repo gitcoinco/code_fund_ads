@@ -8,7 +8,7 @@
 
     <div class="js-focus-state">
       <div class="input-group">
-        <input type="text" name="job_posting_search[full_text_search_a]" class="form-control" placeholder="Keyword or title" aria-label="Keyword or title" aria-describedby="keywordInputAddon">
+        <%= f.input_field :full_text_search_a, class: "form-control", valid_class: nil, placeholder: "Keyword or title" %>
         <div class="input-group-append">
           <span class="input-group-text">
             <span class="fas fa-search" id="keywordInputAddon"></span>
@@ -23,11 +23,11 @@
     <!-- Input -->
     <label class="d-block">
       <span class="h4 d-block text-dark font-weight-semi-bold mb-0">where</span>
-      <small class="d-block text-secondary">city, state, or zip code</small>
+      <small class="d-block text-secondary">city, state, or remote</small>
     </label>
     <div class="js-focus-state">
       <div class="input-group">
-        <input type="text" name="job_posting_search[full_text_search_b]" class="form-control" placeholder="City, state, or zip" aria-label="City, state, or zip" aria-describedby="locationInputAddon">
+        <%= f.input_field :full_text_search_b, class: "form-control", valid_class: nil, placeholder: "City, state, or remote" %>
         <div class="input-group-append">
           <span class="input-group-text">
             <span class="fas fa-map-marker-alt" id="locationInputAddon"></span>
@@ -42,4 +42,5 @@
     <button type="submit" class="btn btn-block btn-primary transition-3d-hover">Find Jobs</button>
   </div>
   <!-- End Checkbox -->
+
 <% end %>

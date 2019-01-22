@@ -31,14 +31,15 @@ module FullTextSearchable
     }
 
     scope :ranked, ->(value) {
+      rank_alias = "rank_#{SecureRandom.hex}"
       value = value.to_s.gsub(/\W/, " ").squeeze(" ").downcase.strip
       value.blank? ? all : begin
         value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["?", value]))
         plainto_tsquery = Arel::Nodes::NamedFunction.new("plainto_tsquery", [Arel::Nodes::SqlLiteral.new("'simple'"), value])
         ts_rank = Arel::Nodes::NamedFunction.new("ts_rank", [arel_table[:full_text_search], plainto_tsquery])
         select(Arel.star).
-          select(ts_rank.as("rank")).
-          order("rank desc")
+          select(ts_rank.as(rank_alias)).
+          order("#{rank_alias} desc")
       end
     }
 
