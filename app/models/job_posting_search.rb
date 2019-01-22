@@ -3,8 +3,7 @@ class JobPostingSearch < ApplicationSearchRecord
     company_name
     country_codes
     description
-    full_text_search_a
-    full_text_search_b
+    full_text_search
     job_types
     keywords
     organization_id
@@ -25,14 +24,7 @@ class JobPostingSearch < ApplicationSearchRecord
     return relation unless present?
 
     relation.
-      then { |result| result.matching(full_text_search_a) }.
-      then { |result|
-        if full_text_search_b.present?
-          result.ranked(full_text_search_b)
-        elsif full_text_search_a.present?
-          result.ranked(full_text_search_a)
-        end
-      }.
+      then { |result| result.matched_and_ranked(full_text_search) }.
       then { |result| result.search_company_name(company_name) }.
       then { |result| result.search_country_codes(*country_codes) }.
       then { |result| result.search_description(description) }.

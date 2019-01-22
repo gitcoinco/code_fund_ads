@@ -30,6 +30,15 @@ module FullTextSearchable
       end
     }
 
+    scope :matched, ->(value) {
+      value = value.to_s.gsub(/\W/, " ").squeeze(" ").downcase.strip
+      value.blank? ? all : begin
+        value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["?", value]))
+        plainto_tsquery = Arel::Nodes::NamedFunction.new("plainto_tsquery", [Arel::Nodes::SqlLiteral.new("'simple'"), value])
+        where Arel::Nodes::InfixOperation.new("@@", arel_table[:full_text_search], plainto_tsquery)
+      end
+    }
+
     scope :ranked, ->(value) {
       rank_alias = "rank_#{SecureRandom.hex}"
       value = value.to_s.gsub(/\W/, " ").squeeze(" ").downcase.strip
@@ -43,14 +52,7 @@ module FullTextSearchable
       end
     }
 
-    scope :matching, ->(value) {
-      value = value.to_s.gsub(/\W/, " ").squeeze(" ").downcase.strip
-      value.blank? ? all : begin
-        value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["?", value]))
-        plainto_tsquery = Arel::Nodes::NamedFunction.new("plainto_tsquery", [Arel::Nodes::SqlLiteral.new("'simple'"), value])
-        where Arel::Nodes::InfixOperation.new("@@", arel_table[:full_text_search], plainto_tsquery)
-      end
-    }
+    scope :matched_and_ranked, ->(value) { value.blank? ? all : matched(value).ranked(value) }
   end
 
   def similarity_words

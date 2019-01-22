@@ -23,8 +23,7 @@ class JobPostingSearchesController < ApplicationController
     params.require(:job_posting_search).permit(
       :company_name,
       :description,
-      :full_text_search_a,
-      :full_text_search_b,
+      :full_text_search,
       :organization_id,
       :remote,
       :title,
