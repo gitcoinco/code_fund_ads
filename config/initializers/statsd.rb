@@ -2,6 +2,7 @@ case Rails.env
 when "production"
   StatsD.backend = StatsD::Instrument::Backends::UDPBackend.new("#{ENV["STATSD_HOST"]}:#{ENV["STATSD_PORT"]}", :statsd)
   StatsD.prefix = ENV["STATSD_PREFIX"]
+  StatsD.default_sample_rate = (ENV["STATSD_SAMPLE_RATE"] || 0.1).to_f
 when "development", "test"
   StatsD.backend = StatsD::Instrument::Backends::LoggerBackend.new(Rails.logger)
 end
