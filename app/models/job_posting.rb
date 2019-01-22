@@ -114,7 +114,7 @@ class JobPosting < ApplicationRecord
 
   def to_tsvector
     [].
-      then { |result| title.remote? ? result << make_tsvector("remote", weight: "A") : remote }.
+      then { |result| remote? ? result << make_tsvector("remote", weight: "A") : result }.
       then { |result| keywords.blank? ? result : keywords.each_with_object(result) { |tag, memo| memo << make_tsvector(tag, weight: "A") } }.
       then { |result| title.blank? ? result : result << make_tsvector(title, weight: "B") }.
       then { |result| description.blank? ? result : result << make_tsvector(description, weight: "B") }.

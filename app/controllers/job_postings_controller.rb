@@ -3,7 +3,7 @@ class JobPostingsController < ApplicationController
   before_action :set_job_posting_search, only: [:index]
 
   def index
-    job_postings = JobPosting.order(start_date: :desc)
+    job_postings = JobPosting.active.order(start_date: :desc)
     job_postings = @job_posting_search.apply(job_postings)
     @job_postings_count = job_postings.reorder("").size
     @pagy, @job_postings = pagy(job_postings, items: 30)
