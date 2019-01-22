@@ -40,6 +40,7 @@
 class JobPosting < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
+  include Sanitizable
   include Taggable
   include FullTextSearchable
   include JobPostings::Presentable
@@ -93,6 +94,7 @@ class JobPosting < ApplicationRecord
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   tag_columns :keywords
   tag_columns :remote_country_codes
+  sanitize :title, :description, :how_to_apply
 
   # class methods .............................................................
   class << self
