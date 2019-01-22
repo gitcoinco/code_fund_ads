@@ -34,19 +34,13 @@ class PurchaseJobPostingsController < ApplicationController
         description: 'CodeFund Jobs Listing',
         metadata: {'job_posting_id' => @job_posting.id}
       })
-
-      user.update_attribute(:stripe_customer_id, @customer.id)
-
-      user = current_user
-      user ||= User.find_for_authentication(email: user_params[:email])
-      user ||= User.new(user_params)
-
+      
       unless user.persisted?
         password = SecureRandom.hex(5)
         user.password = password
         user.password_confirmation = password
       end
-
+      
       user.stripe_customer_id = @customer.id
       user.roles << ENUMS::USER_ROLES::EMPLOYER
       user.save!
@@ -73,10 +67,6 @@ class PurchaseJobPostingsController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :company_name, :email).tap do |whitelisted|
-      password = SecureRandom.hex(5)
-      whitelisted[:password] = password
-      whitelisted[:password_confirmation] = password
-    end
+    params.require(:user).permit(:first_name, :last_name, :company_name, :email)
   end
 end
