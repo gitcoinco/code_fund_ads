@@ -6,7 +6,7 @@
       <span>
         <% job_posting.keywords.each do |keyword| %>
           <%= link_to keyword, nil, class: "btn btn-xs btn-soft-primary mb-1 job-listing-keyword",
-            data: { controller: "job-listing-keyword", action: "click->job-listing-keyword#appendToSearch", target: "job_posting_search_full_text_search_a" } %>
+            data: { controller: "job-listing-keyword", action: "click->job-listing-keyword#appendToSearch", target: "job_posting_search_full_text_search" } %>
         <% end %>
       </span>
     </span>
