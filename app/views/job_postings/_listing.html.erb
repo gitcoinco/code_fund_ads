@@ -1,66 +1,40 @@
-<!-- Hero Section -->
-<div class="container space-top-md-3 space-1 job-listing">
-  <div class="border-bottom space-top-2">
-    <div class="media mb-5">
-      <% if job_posting.company_logo_url.present? %>
-        <div class="mr-4 company-logo-wrapper border rounded">
-          <%= image_tag job_posting.company_logo_url, class: "img-fluid company-logo", style: "vertical-align: middle;" %>
-        </div>
-      <% end %>
+<div class="container">
+  <div class="border-bottom space-top-4 space-2">
+    <div class="row">
+      <div class="col-lg-8 mb-9 mb-lg-0">
+        <div class="media mb-2">
+          <% if job_posting.company_logo_url.present? %>
+            <div class="mr-4 company-logo-wrapper border rounded">
+              <%= image_tag job_posting.company_logo_url, class: "img-fluid company-logo", style: "vertical-align: middle;" %>
+            </div>
+          <% end %>
 
-      <div class="media-body">
-        <div class="row">
-          <div class="col-lg-6 mb-3 mb-lg-0">
-            <h1 class="h4 mb-1"><%=job_posting.title %></h1>
-            <small class="h6 font-weight-light text-muted">
-              <%= link_to job_posting.company_name, job_posting.company_url, target: "_blank", class: "text-link" %>
-              <span class="px-1">•</span>
-              <%= job_posting.city %><%= ", #{job_posting.country_code}" if job_posting.country_code %>
-            </small>
-            <ul class="list-inline my-3">
-              <% job_posting.keywords.each do |keyword| %>
-              <li class="list-inline-item pb-3">
-                <%= link_to keyword,
-                  job_posting_searches_path(job_posting_search: { full_text_search: "#{@job_posting_search.full_text_search} #{keyword}"}),
-                  class: "btn btn-sm btn-soft-primary mb-1 job-listing-keyword", method: :post %>
-                <% end %>
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-lg-6 text-lg-right">
-            <div class="d-flex justify-content-md-end align-items-center">
-              <%= link_to "Apply Now", job_posting.url, class: "btn btn-sm btn-soft-primary transition-3d-hover" %>
+          <div class="media-body">
+            <div class="row">
+              <div class="col-12 mb-3 mb-lg-0">
+                <h1 class="h4 mb-1"><%=job_posting.title %></h1>
+                <small class="h6 font-weight-light text-muted">
+                  <%= link_to job_posting.company_name, job_posting.company_url, target: "_blank", class: "text-link" %>
+                  <span class="px-1">•</span>
+                  <%= job_posting.company_location %>
+                </small>
+                <ul class="list-inline my-3">
+                  <% job_posting.keywords.each do |keyword| %>
+                  <li class="list-inline-item pb-3">
+                    <%= link_to keyword,
+                      job_posting_searches_path(job_posting_search: { full_text_search: "#{@job_posting_search.full_text_search} #{keyword}"}),
+                      class: "btn btn-sm btn-soft-primary mb-1 job-listing-keyword", method: :post %>
+                    <% end %>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- End Hero Section -->
 
-<!-- Jobs Description Section -->
-<div class="container">
-  <div class="border-bottom space-2">
-    <div class="row">
-      <div class="col-lg-8 mb-9 mb-lg-0">
         <div class="mb-4">
-          <h2 class="h5">Job Description</h2>
           <p class="text-muted font-size-1">Posted <%= time_ago_in_words(job_posting.start_date) %> ago</p>
         </div>
-
-        <!-- Skills -->
-        <ul class="list-inline mb-3">
-          <% job_posting.keywords.each do |keyword| %>
-            <li class="list-inline-item pb-3">
-              <%= link_to keyword,
-                job_posting_searches_path(job_posting_search: { full_text_search: "#{@job_posting_search.full_text_search} #{keyword}"}),
-                class: "btn btn-sm btn-soft-primary mb-1 job-listing-keyword", method: :post %>
-            </li>
-          <% end %>
-        </ul>
-        <!-- End Skills -->
 
         <div class="mb-7 job-listing__description">
           <%= job_posting.pretty_description %>
@@ -137,6 +111,8 @@
                   </div>
                 </div>
               <% end %>
+
+              <%= link_to "Apply Now", job_posting.url, class: "btn btn-sm btn-block mt-5 btn-soft-primary transition-3d-hover" %>
             </div>
             <!-- End Content -->
           </div>
