@@ -210,8 +210,8 @@
         <div id="applyForAdvertiser" class="inverted-feedback">
           <!-- Title -->
           <div class="text-center mb-7">
-            <span class="u-label u-label--sm u-label--white mb-2">Join CodeFund</span>
             <h2 class="h3 text-white font-weight-normal">Become an Advertiser</h2>
+            <p class="text-white">If your audience is software developers, we can help you!</p>
           </div>
           <!-- End Title -->
 
@@ -332,14 +332,15 @@
 
               <div class="col-sm-6 mb-5">
                 <label class="h6 small d-block text-uppercase text-light" for="applicant_monthly_budget">
-                  Tell us about your budget
+                  Tell us about your monthly budget
                   <span class="text-warning">*</span>
                 </label>
                 <div class="js-form-message">
                   <div class="js-focus-state input-group u-form u-form--no-brd">
                     <%= f.select :monthly_budget,
-                      ["Less than $999", "$1,000 - $2,499", "$2,500 - $4,999", "$5,000 +"],
-                      { required: true },
+                      ["$250 - $499", "$500 - $999", "$1,000 - $2,499", "$2,500 - $4,999", "$5,000 +"],
+                      { include_blank: true },
+                      required: true,
                       class: "form-control u-form__input" %>
                   </div>
                 </div>
