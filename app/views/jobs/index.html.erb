@@ -32,54 +32,7 @@
 
       <div class="card border-0">
         <div class="card-body p-7">
-          <!-- Search Jobs Form -->
-          <form class="js-validate">
-            <div class="row">
-              <div class="col-lg-5 mb-4 mb-lg-0">
-                <!-- Input -->
-                <label class="d-block">
-                  <span class="h4 d-block text-dark font-weight-semi-bold mb-0">what</span>
-                  <small class="d-block text-secondary">job title, keywords, or company</small>
-                </label>
-                <div class="js-focus-state">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Keyword or title" aria-label="Keyword or title" aria-describedby="keywordInputAddon">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <span class="fas fa-search" id="keywordInputAddon"></span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Input -->
-              </div>
-
-              <div class="col-lg-5 mb-4 mb-lg-0">
-                <!-- Input -->
-                <label class="d-block">
-                  <span class="h4 d-block text-dark font-weight-semi-bold mb-0">where</span>
-                  <small class="d-block text-secondary">city, state, or zip code</small>
-                </label>
-                <div class="js-focus-state">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="City, state, or zip" aria-label="City, state, or zip" aria-describedby="locationInputAddon">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <span class="fas fa-map-marker-alt" id="locationInputAddon"></span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Input -->
-              </div>
-
-              <div class="col-lg-2 align-self-lg-end">
-                <button type="submit" class="btn btn-block btn-primary transition-3d-hover">Find Jobs</button>
-              </div>
-            </div>
-            <!-- End Checkbox -->
-          </form>
-          <!-- End Search Jobs Form -->
+          <%= render partial: "/job_posting_searches/form" %>
         </div>
       </div>
     </div>

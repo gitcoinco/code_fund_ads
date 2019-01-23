@@ -1,0 +1,23 @@
+<%= simple_form_for @job_posting_search, html: { class: "row mb-2" } do |f| %>
+  <div class="col-lg-10 mb-4 mb-lg-0">
+    <label class="d-block">
+      <span class="h4 d-block text-dark font-weight-semi-bold mb-0">search</span>
+      <small class="d-block text-secondary">title, keywords, company, location, etc...</small>
+    </label>
+
+    <div class="js-focus-state">
+      <div class="input-group">
+        <%= f.input_field :full_text_search, class: "form-control", valid_class: nil, placeholder: "javascript frontend remote" %>
+        <div class="input-group-append">
+          <span class="input-group-text">
+            <span class="fas fa-search" id="keywordInputAddon"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-lg-2 align-self-lg-end">
+    <button type="submit" class="btn btn-block btn-primary transition-3d-hover">Find Jobs</button>
+  </div>
+<% end %>

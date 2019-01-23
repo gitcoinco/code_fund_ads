@@ -18,6 +18,7 @@ class Creative < ApplicationRecord
   # includes ..................................................................
   include Eventable
   include Organizationable
+  include Sanitizable
 
   # relationships .............................................................
   belongs_to :user
@@ -39,6 +40,7 @@ class Creative < ApplicationRecord
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  sanitize :headline, :body
 
   # class methods .............................................................
   class << self

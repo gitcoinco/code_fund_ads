@@ -41,16 +41,29 @@ class ImportGithubJobsJob < ApplicationJob
         posting.remote = true
       end
       posting.keywords         = normalize_keywords(matching_keyword_aliases)
-      posting.city             = job["location"]
+      city, province_abbr      = parse_location(job["location"])
+      province                 = Province.find("US-#{province_abbr}")
+
+      posting.city             = city
+      posting.province_code    = province&.iso_code
+      posting.country_code     = province&.country_code
       posting.url              = job["url"]
       posting.start_date       = Chronic.parse(job["created_at"]).to_date
       posting.end_date         = posting.start_date + 60.days
+      posting.status           = posting.start_date <= 60.days.ago ? ENUMS::JOB_STATUSES::ACTIVE : ENUMS::JOB_STATUSES::ARCHIVED
       posting.source           = ENUMS::JOB_SOURCES::GITHUB
       posting.save
       print "#{@count += 1},"
     end
 
     nil
+  end
+
+  def parse_location(location)
+    parts = location.to_s.split(",").map { |part| part.strip }.select(&:present?)
+    return [parts.join(" "), nil] unless parts.size == 2
+    return [parts.first, nil] unless parts.last.size == 2
+    [parts.first, parts.last.upcase]
   end
 
   def fetch_jobs(tags)

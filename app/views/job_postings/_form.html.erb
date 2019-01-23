@@ -72,7 +72,9 @@
         hint: "This email is not made public. We use it to send your invoice and link to edit your job post later"), class: "mb-4" %>
 
   <%= tag.div f.input(:country_code, required: true, collection: countries_for_select, label: "Country",
-      input_html: { data: {
+    input_html: {
+      autocomplete: SecureRandom.uuid,
+      data: {
         controller: "select",
         target: "select-country-province.countryCodeSelect" }}), class: "mb-4" %>
 
