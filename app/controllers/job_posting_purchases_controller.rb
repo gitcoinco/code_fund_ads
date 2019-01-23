@@ -1,18 +1,16 @@
-class PurchaseJobPostingsController < ApplicationController
+class JobPostingPurchasesController < ApplicationController
   before_action :load_job_posting
 
   def new
-    @user = User.new(
-      email: @job_posting.company_email,
-      company_name: @job_posting.company_name
-    )
+    @user = current_user || User.new
+    @user.email ||= @job_posting.company_email
+    @user.company_name ||= @job_posting.company_name
   end
 
   def create
     @token = params[:token]
 
     JobPosting.transaction do
-
       user = current_user
       user ||= User.find_for_authentication(email: user_params[:email])
       user ||= User.create!(user_params)
@@ -24,23 +22,23 @@ class PurchaseJobPostingsController < ApplicationController
       @customer ||= Stripe::Customer.create({
         email: user.email,
         source: @token,
-        metadata: user_params.to_h.slice(:first_name, :last_name, :company_name, :email)
+        metadata: user_params.to_h.slice(:first_name, :last_name, :company_name, :email),
       })
 
       @charge = Stripe::Charge.create({
         amount: 29900,
         customer: @customer.id,
-        currency: 'usd',
-        description: 'CodeFund Jobs Listing',
-        metadata: {'job_posting_id' => @job_posting.id}
+        currency: "usd",
+        description: "CodeFund Jobs Listing",
+        metadata: {"job_posting_id" => @job_posting.id},
       })
-      
+
       unless user.persisted?
         password = SecureRandom.hex(5)
         user.password = password
         user.password_confirmation = password
       end
-      
+
       user.stripe_customer_id = @customer.id
       user.roles << ENUMS::USER_ROLES::EMPLOYER
       user.save!
@@ -54,7 +52,6 @@ class PurchaseJobPostingsController < ApplicationController
     # Trigger email
 
     redirect_to @job_posting, notice: "Your job has been posted!"
-
   rescue Stripe::CardError => e
     flash.now[:error] = e.message
     render :new

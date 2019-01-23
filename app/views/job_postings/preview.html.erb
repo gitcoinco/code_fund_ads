@@ -15,7 +15,7 @@
             </span>
             Preview
           <% end %>
-          <%= link_to new_purchase_job_posting_path(@job_posting), class: "nav-item" do %>
+          <%= link_to new_job_posting_purchase_path(@job_posting), class: "nav-item" do %>
             <span class="nav-icon-action transition-3d-hover">
               <span class="fas fa-file-invoice-dollar nav-icon-action-inner"></span>
             </span>
@@ -68,7 +68,7 @@
         <div class="d-flex">
           <%= link_to "Make Changes", edit_job_posting_path(@job_posting),
                 class: "btn btn-block btn-sm btn-soft-secondary transition-3d-hover mr-1" %>
-          <%= link_to "Next", new_purchase_job_posting_path,
+          <%= link_to "Next", new_job_posting_purchase_path,
                 class: "btn btn-block btn-sm btn-primary transition-3d-hover ml-1 mt-0" %>
         </div>
       </div>

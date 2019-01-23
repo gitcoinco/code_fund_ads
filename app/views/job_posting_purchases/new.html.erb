@@ -24,9 +24,9 @@
         </nav>
 
         <div class="space-1">
-          <%= simple_form_for @user, url: purchase_job_posting_path(@job_posting),
+          <%= simple_form_for @user, url: job_posting_purchase_path(@job_posting),
                 data: { target: "stripe-checkout.form" } do |form| %>
-            <%= render partial: "/purchase_job_postings/user_form", locals: { form: form } unless current_user %>
+            <%= render partial: "/job_posting_purchases/user_form", locals: { form: form } unless current_user %>
             <input type="hidden" name="token" data-target="stripe-checkout.tokenInput" />
 
             <div class="form-group required form-group-valid">
@@ -40,7 +40,7 @@
             <div class="error" role="alert">
               <span class="message"></span>
             </div>
-      
+
             <div class="text-center">
               <button type="submit" class="btn btn-primary d-block mx-auto">Pay $299</button>
               <%= link_to "Make Changes", edit_job_posting_path(@job_posting),

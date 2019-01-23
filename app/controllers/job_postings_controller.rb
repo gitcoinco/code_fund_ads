@@ -28,7 +28,7 @@ class JobPostingsController < ApplicationController
   end
 
   def edit
-    return render_forbidden unless AuthorizedUser.can_update_job_posting?(@job_posting, session.id)
+    return render_forbidden unless authorized_user.can_update_job_posting?(@job_posting, session.id)
   end
 
   def create
@@ -49,7 +49,7 @@ class JobPostingsController < ApplicationController
   end
 
   def update
-    return render_forbidden unless AuthorizedUser.can_update_job_posting?(@job_posting, session.id)
+    return render_forbidden unless authorized_user.can_update_job_posting?(@job_posting, session.id)
     respond_to do |format|
       if @job_posting.update(job_posting_params)
         format.html { redirect_to @job_posting, notice: "Job was successfully updated." }
@@ -62,7 +62,7 @@ class JobPostingsController < ApplicationController
   end
 
   def destroy
-    return render_forbidden unless AuthorizedUser.can_destroy_job_posting?(@job_posting)
+    return render_forbidden unless authorized_user.can_destroy_job_posting?(@job_posting)
     @job_posting.destroy
     respond_to do |format|
       format.html { redirect_to job_postings_url, notice: "Job was successfully destroyed." }

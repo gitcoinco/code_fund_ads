@@ -1,15 +1,7 @@
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
-  static targets = [
-    'form',
-    'card',
-    'firstName',
-    'lastName',
-    'companyName',
-    'email',
-    'tokenInput'
-  ];
+  static targets = ['form', 'card', 'firstName', 'lastName', 'companyName', 'email', 'tokenInput'];
 
   connect() {
     this.stripe = Stripe(document.body.dataset.stripeKey);
@@ -18,7 +10,7 @@ export default class extends Controller {
         {
           cssSrc: 'https://fonts.googleapis.com/css?family=Poppins',
         },
-      ]
+      ],
     });
     const style = {
       base: {
@@ -39,7 +31,7 @@ export default class extends Controller {
       invalid: {
         iconColor: '#FFC7EE',
         color: '#FFC7EE',
-      }
+      },
     };
     const card = elements.create('card', { iconStyle: 'solid', style: style });
     card.mount(this.cardTarget);
@@ -52,8 +44,8 @@ export default class extends Controller {
     const error = this.formTarget.querySelector('.error');
     const errorMessage = this.formTarget.querySelector('.message');
 
-    elements.forEach(function (element, idx) {
-      element.on('change', function (event) {
+    elements.forEach(function(element, idx) {
+      element.on('change', function(event) {
         if (event.error) {
           error.classList.add('visible');
           savedErrors[idx] = event.error.message;
@@ -64,7 +56,7 @@ export default class extends Controller {
           // Loop over the saved errors and find the first one, if any.
           var nextError = Object.keys(savedErrors)
             .sort()
-            .reduce(function (maybeFoundError, key) {
+            .reduce(function(maybeFoundError, key) {
               return maybeFoundError || savedErrors[key];
             }, null);
 
@@ -84,10 +76,8 @@ export default class extends Controller {
 
   enableInputs() {
     Array.prototype.forEach.call(
-      this.formTarget.querySelectorAll(
-        "input[type='text'], input[type='email'], input[type='tel']"
-      ),
-      function (input) {
+      this.formTarget.querySelectorAll("input[type='text'], input[type='email'], input[type='tel']"),
+      function(input) {
         input.removeAttribute('disabled');
       }
     );
@@ -95,10 +85,8 @@ export default class extends Controller {
 
   disableInputs() {
     Array.prototype.forEach.call(
-      this.formTarget.querySelectorAll(
-        "input[type='text'], input[type='email'], input[type='tel']"
-      ),
-      function (input) {
+      this.formTarget.querySelectorAll("input[type='text'], input[type='email'], input[type='tel']"),
+      function(input) {
         input.setAttribute('disabled', 'true');
       }
     );
@@ -119,9 +107,7 @@ export default class extends Controller {
 
     // Trigger HTML5 validation UI on the form if any of the inputs fail validation.
     var plainInputsValid = true;
-    Array.prototype.forEach.call(this.formTarget.querySelectorAll('input'), function (
-      input
-    ) {
+    Array.prototype.forEach.call(this.formTarget.querySelectorAll('input'), function(input) {
       if (input.checkValidity && !input.checkValidity()) {
         plainInputsValid = false;
         return;
@@ -144,23 +130,25 @@ export default class extends Controller {
       first_name: this.firstNameTarget ? this.firstNameTarget.value : undefined,
       last_name: this.lastNameTarget ? this.lastNameTarget.value : undefined,
       company_name: this.companyNameTarget ? this.companyNameTarget.value : undefined,
-      email: this.emailTarget ? this.emailTarget.value : undefined
+      email: this.emailTarget ? this.emailTarget.value : undefined,
     };
 
     // Use Stripe.js to create a token. We only need to pass in one Element
     // from the Element group in order to create a token. We can also pass
     // in the additional customer data we collected in our form.
-    this.stripe.createToken(elements[0], additionalData).then(function (result) {
-      // Stop loading!
-      this.formTarget.classList.remove('submitting');
-      this.enableInputs();
+    this.stripe.createToken(elements[0], additionalData).then(
+      function(result) {
+        // Stop loading!
+        this.formTarget.classList.remove('submitting');
+        this.enableInputs();
 
-      if (result.token) {
-        // If we received a token, show the token ID.
-        this.tokenInputTarget.value = result.token.id;
-        this.formTarget.classList.add('submitted');
-        this.formTarget.submit();
-      }
-    }.bind(this));
+        if (result.token) {
+          // If we received a token, show the token ID.
+          this.tokenInputTarget.value = result.token.id;
+          this.formTarget.classList.add('submitted');
+          this.formTarget.submit();
+        }
+      }.bind(this)
+    );
   }
 }
