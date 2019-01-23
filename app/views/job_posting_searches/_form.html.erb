@@ -1,8 +1,13 @@
 <%= simple_form_for @job_posting_search, html: { class: "row mb-2", data: { controller: "submit-on-enter" }} do |f| %>
   <div class="col-12 mb-4 mb-lg-0">
-    <label class="d-block">
-      <span class="h4 d-block text-white font-weight-semi-bold mb-0">search jobs</span>
-    </label>
+    <div class="d-flex">
+      <label class="d-block flex-grow-1">
+        <span class="h4 d-block text-white font-weight-semi-bold mb-0">search jobs</span>
+      </label>
+      <% if controller_name != "jobs" %>
+        <%= link_to "Post a job for $299", new_job_posting_path, class: "font-size-1 p-0 mt-3", style: "text-decoration: underline; color: #ecff63 !important" %>
+      <% end %>
+    </div>
 
     <div class="js-focus-state">
       <div class="input-group input-group-lg">

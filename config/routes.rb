@@ -23,7 +23,6 @@ Rails.application.routes.draw do
 
   root to: "pages#index"
 
-  resource :contact, only: [:show, :create]
   resource :administrator_dashboards, only: [:show], path: "/dashboards/administrator"
   resource :advertiser_dashboards, only: [:show], path: "/dashboards/advertiser"
   resource :publisher_dashboards, only: [:show], path: "/dashboards/publisher"
