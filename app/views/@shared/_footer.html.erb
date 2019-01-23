@@ -12,7 +12,7 @@
             <li><%= link_to "Advertise with Us", advertisers_path, class: "list-group-item list-group-item-action" %></li>
             <li><%= link_to "Become a Publisher", publishers_path, class: "list-group-item list-group-item-action" %></li>
             <li><%= link_to "Post a Job", new_job_posting_path, class: "list-group-item list-group-item-action" %></li>
-            <li><%= link_to "Contact", contact_path, class: "list-group-item list-group-item-action" %></li>
+            <li><%= link_to "Contact", "javascript: window._grv.api.open();", class: "list-group-item list-group-item-action" %></li>
           </ul>
           <!-- End List Group -->
         </div>
@@ -24,8 +24,7 @@
           <ul class="list-group list-group-flush list-group-borderless mb-0">
             <li><%= link_to "Team", page_path(:team), class: "list-group-item list-group-item-action" %></li>
             <li><a href="https://blog.codefund.app" class="list-group-item list-group-item-action">Blog</a></li>
-            <li><a href="https://gitcoin.co" target="_blank" class="list-group-item list-group-item-action">Gitcoin</a></li>
-            <li><a href="https://github.com/gitcoinco/code_fund_ads" class="list-group-item list-group-item-action">GitHub</a></li>
+            <li><a href="https://github.com/gitcoinco/code_fund_ads" class="list-group-item list-group-item-action">Code</a></li>
           </ul>
           <!-- End List Group -->
         </div>
