@@ -56,15 +56,20 @@ module FullTextSearchable
   end
 
   def similarity_words
-    result = self.class.connection.execute("SELECT word from ts_stat('SELECT #{to_tsvector.gsub(/'/, "''")}')")
+    ts_stat = Arel::Nodes::NamedFunction.new("ts_stat", [
+      Arel::Nodes::SqlLiteral.new(sanitize_sql_value("SELECT #{to_tsvector}")),
+    ])
+    length = Arel::Nodes::NamedFunction.new("length", [Arel::Nodes::SqlLiteral.new(quote_column_name(:word))])
+    query = self.class.select(:word).from(ts_stat.to_sql).where(length.gteq(3)).to_sql
+    result = self.class.connection.execute(query)
     result.values.flatten
   end
 
   def set_full_text_search
     self.class.connection.execute <<~QUERY
-      UPDATE #{self.class.quoted_table_name}
-      SET #{self.class.connection.quote_column_name :full_text_search} = #{to_tsvector}
-      WHERE #{self.class.connection.quote_column_name :id} = #{id}
+      UPDATE #{quoted_table_name}
+      SET #{quote_column_name :full_text_search} = #{to_tsvector}
+      WHERE #{quote_column_name :id} = #{id}
     QUERY
 
     Word.where(record_type: self.class.name, record_id: id).delete_all
