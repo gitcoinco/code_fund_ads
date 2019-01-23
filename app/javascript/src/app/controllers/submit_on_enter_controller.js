@@ -5,8 +5,7 @@ export default class extends Controller {
 
   connect() {
     this.inputTarget.addEventListener('keydown', event => {
-      const keypressed = event.keyCode || event.which;
-      if (keypressed == 13) {
+      if (event.key === 'Enter') {
         this.formTarget.submit();
       }
     });
