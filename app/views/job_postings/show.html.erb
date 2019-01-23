@@ -77,8 +77,7 @@
                 </div>
 
                 <figure class="ie-wave-1-bottom mt-n5">
-                  <img class="js-svg-injector" src="../../assets/svg/components/wave-1-bottom.svg" alt="Image Description"
-                        data-parent="#SVGwave1BottomShapeID1">
+                  <%= image_tag "svg/components/wave-1-bottom.svg", class: "js-svg-injector", data: { parent: "#SVGwave1BottomShapeID1" } %>
                 </figure>
               </header>
               <!-- End Header -->
@@ -151,7 +150,6 @@
     </div>
   </div>
 
-
   <div id="SVGwave5Top" class="svg-preloader position-relative gradient-half-primary-v1">
     <div class="container space-top-3 space-top-md-4 space-bottom-2">
       <!-- Title -->
@@ -177,12 +175,9 @@
         <%= link_to "View all Open Jobs", job_posting_search_path(0), class: "btn btn-white text-primary transition-3d-hover", method: :delete %>
       </div>
 
-      <!-- SVG Top Shape -->
       <figure class="position-absolute top-0 right-0 left-0 z-index-2">
-        <img class="js-svg-injector" src="../../assets/svg/components/wave-5-top.svg" alt="Image Description"
-            data-parent="#SVGwave5Top">
+        <%= image_tag "svg/components/wave-5-top.svg", class: "js-svg-injector", data: { parent: "#SVGwave5Top" } %>
       </figure>
-      <!-- End SVG Top Shape -->
     </div>
 
   </div>
