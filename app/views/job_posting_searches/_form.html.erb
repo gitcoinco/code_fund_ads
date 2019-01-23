@@ -1,23 +1,25 @@
-<%= simple_form_for @job_posting_search, html: { class: "row mb-2" } do |f| %>
-  <div class="col-lg-10 mb-4 mb-lg-0">
+<%= simple_form_for @job_posting_search, html: { class: "row mb-2", data: { controller: "submit-on-enter" }} do |f| %>
+  <div class="col-12 mb-4 mb-lg-0">
     <label class="d-block">
-      <span class="h4 d-block text-dark font-weight-semi-bold mb-0">search</span>
-      <small class="d-block text-secondary">title, keywords, company, location, etc...</small>
+      <span class="h4 d-block text-white font-weight-semi-bold mb-0">search jobs</span>
     </label>
 
     <div class="js-focus-state">
-      <div class="input-group">
-        <%= f.input_field :full_text_search, class: "form-control", valid_class: nil, placeholder: "javascript frontend remote" %>
+      <div class="input-group input-group-lg">
+        <%= f.input_field :full_text_search, class: "form-control border-0",
+              valid_class: nil, placeholder: "javascript frontend san francisco",
+              data: { action: "keydown->submit-on-enter#keyPress" } %>
         <div class="input-group-append">
-          <span class="input-group-text">
-            <span class="fas fa-search" id="keywordInputAddon"></span>
-          </span>
+          <button class="btn btn-white" type="submit">
+            <span class="fas fa-search text-muted"></span>
+          </button>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="col-lg-2 align-self-lg-end">
-    <button type="submit" class="btn btn-block btn-primary transition-3d-hover">Find Jobs</button>
+  <div class="col-12 mt-1 pt-2 text-white-70" style="font-size: 1rem;">
+    You can search by title, keywords, company, location and
+    <%= link_to "remote", job_posting_searches_path(job_posting_search: { full_text_search: "remote" }), method: :post, class: "text-white text-link" %>
   </div>
 <% end %>

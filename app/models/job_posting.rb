@@ -90,6 +90,7 @@ class JobPosting < ApplicationRecord
   scope :search_province_codes, ->(*values) { values.blank? ? all : where(province_code: values) }
   scope :search_remote, ->(value) { value.nil? ? all : where(remote: value) }
   scope :search_title, ->(value) { value.blank? ? all : search_column(:title, value) }
+  scope :similar_to, ->(job_posting) { search_keywords(job_posting.keywords).search_remote(job_posting.remote) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   tag_columns :keywords
@@ -112,6 +113,10 @@ class JobPosting < ApplicationRecord
 
   def pending?
     status == ENUMS::JOB_STATUSES::PENDING
+  end
+
+  def province
+    Province.find_by_iso_code(province_code)
   end
 
   def to_tsvector

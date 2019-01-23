@@ -28,5 +28,12 @@ module JobPostings
       max = number_to_human max_annual_salary_cents, units: {thousand: "K"}
       "$#{min} - $#{max}"
     end
+
+    def company_location
+      return city unless province&.name.present?
+      return city unless country_code.present?
+
+      "#{city}, #{province&.name}, #{country_code}"
+    end
   end
 end

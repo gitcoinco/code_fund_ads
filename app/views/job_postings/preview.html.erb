@@ -38,7 +38,7 @@
                   <small class="h6 font-weight-light text-muted">
                     <%= link_to @job_posting.company_name, @job_posting.company_url, target: "_blank", class: "text-link" %>
                     <span class="px-1">•</span>
-                    <%= @job_posting.city %>, <%= @job_posting.country_code %>
+                    <%= @job_posting.company_location %>
                   </small>
                   <ul class="list-inline my-3">
                     <% @job_posting.keywords.each do |keyword| %>

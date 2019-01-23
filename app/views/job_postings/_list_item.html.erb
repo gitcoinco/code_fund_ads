@@ -1,15 +1,32 @@
 <% cache job_posting do %>
   <li class="list-group-item d-flex justify-content-between align-items-center py-3 px-2">
-    <span>
-      <%= link_to tag.u(sanitize(job_posting.title, scrubber: Loofah::Scrubbers::Prune.new)), job_posting, class: "lead text-primary", style: "font-weight: bold;" %>
-      <div class="mb-2"><%= job_posting.company_name %></div>
-      <span>
-        <% job_posting.keywords.each do |keyword| %>
-          <%= link_to keyword, nil, class: "btn btn-xs btn-soft-primary mb-1 job-listing-keyword",
-            data: { controller: "job-listing-keyword", action: "click->job-listing-keyword#appendToSearch", target: "job_posting_search_full_text_search" } %>
-        <% end %>
-      </span>
-    </span>
+    <div class="media">
+      <div class="mr-3 company-logo-wrapper company-logo-wrapper--100">
+        <%= link_to image_tag(job_posting.company_logo_url.to_s, class: "img-fluid company-logo company-logo--100", style: "vertical-align: middle;"), job_posting %>
+      </div>
+      <div class="media-body align-self-center">
+        <%= link_to sanitize(job_posting.title).html_safe, job_posting, class: "lead", style: "font-weight: 400; text-decoration: none;" %>
+        <div class="mb-3 mt-1 text-muted">
+          <a href="javascript:;"
+                data-controller="job-listing-keyword"
+                data-action="click->job-listing-keyword#appendToSearch"
+                data-target="job_posting_search_full_text_search"
+                class="text-link text-muted"><%= job_posting.company_name %></a>
+          <span class="px-1">•</span>
+          <%= job_posting.company_location %>
+        </div>
+        <span>
+          <% job_posting.keywords.each do |keyword| %>
+            <%= link_to keyword, nil, class: "btn btn-xs btn-soft-secondary mb-1 job-listing-keyword",
+              data: {
+                controller: "job-listing-keyword",
+                action: "click->job-listing-keyword#appendToSearch",
+                target: "job_posting_search_full_text_search"
+              } %>
+          <% end %>
+        </span>
+      </div>
+    </div>
     <div class="d-none d-sm-block" style="width: 100px; text-align: right;"><%= job_posting.start_date.to_s "bd" %></div>
   </li>
 <% end %>

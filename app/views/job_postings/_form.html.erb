@@ -2,7 +2,7 @@
 
   <%= render "/@shared/forms/error_messages", object: job_posting %>
 
-  <h2 class="h4">Job Details</h2>
+  <h2 class="h4 mt-3">Job Details</h2>
 
     <!-- Platform -->
   <div class="mb-6">
@@ -27,29 +27,29 @@
   <!-- End Platform -->
 
   <%= tag.div f.input(:title, label: "Job Title", required: true, input_html: { max_length: 80 },
-      hint: "Example: “Senior Designer”. Titles must describe one position"), class: "mb-5" %>
+      hint: "Example: “Senior Designer”. Titles must describe one position"), class: "mb-4" %>
   <%= tag.div f.input(:url, as: :url, label: "Link to Apply", pattern: "https?:\/\/.*", required: true, placeholder: "https://",
     hint: "This can be a link to your job posting, application form, or website"),
-    class: "mb-5" %>
+    class: "mb-4" %>
 
-  <%= tag.div class: "mb-5" do %>
+  <%= tag.div class: "mb-4" do %>
     <%= f.input :description, as: :hidden %>
     <%= f.label :description, required: true, class: "form-label string" %>
     <trix-editor class="trix-content" input="job_posting_description"></trix-editor>
   <% end %>
 
-  <%= tag.div class: "mb-5" do %>
+  <%= tag.div class: "mb-4" do %>
     <%= f.input :how_to_apply, as: :hidden %>
     <%= f.label :how_to_apply, required: true, class: "form-label string" %>
     <trix-editor class="trix-content" input="job_posting_how_to_apply"></trix-editor>
   <% end %>
 
   <div class="row">
-    <%= tag.div f.input(:min_annual_salary_cents, placeholder: "115,000", label: "Min Annual Salary"), class: "col-sm-3 mb-5" %>
-    <%= tag.div f.input(:max_annual_salary_cents, placeholder: "115,000", label: "Max Annual Salary"), class: "col-sm-3 mb-5" %>
+    <%= tag.div f.input(:min_annual_salary_cents, placeholder: "115,000", label: "Min Annual Salary"), class: "col-sm-3 mb-4" %>
+    <%= tag.div f.input(:max_annual_salary_cents, placeholder: "115,000", label: "Max Annual Salary"), class: "col-sm-3 mb-4" %>
     <%= tag.div f.input(:min_annual_salary_currency, collection: currencies_for_select, label: "Salary Currency", required: true,
         input_html: { data: { controller: "select" }}
-      ), class: "col-sm-6 mb-5" %>
+      ), class: "col-sm-6 mb-4" %>
   </div>
 
   <div class="media align-items-center mt-2 space-bottom-1">
@@ -66,27 +66,28 @@
 
   <h2 class="h4 space-1">Company Information</h2>
 
-  <%= tag.div f.input(:company_name, label: "Company Name", required: true), class: "mb-5" %>
-  <%= tag.div f.input(:company_url, label: "Company Website", required: true, placeholder: "https://"), class: "mb-5" %>
+  <%= tag.div f.input(:company_name, label: "Company Name", required: true), class: "mb-4" %>
+  <%= tag.div f.input(:company_url, label: "Company Website", required: true, placeholder: "https://"), class: "mb-4" %>
   <%= tag.div f.input(:company_email, label: "Company Email", required: true,
-        hint: "This email is not made public. We use it to send your invoice and link to edit your job post later"), class: "mb-5" %>
+        hint: "This email is not made public. We use it to send your invoice and link to edit your job post later"), class: "mb-4" %>
 
   <%= tag.div f.input(:country_code, required: true, collection: countries_for_select, label: "Country",
     input_html: {
       autocomplete: SecureRandom.uuid,
       data: {
         controller: "select",
-        target: "select-country-province.countryCodeSelect" }}), class: "mb-5" %>
+        target: "select-country-province.countryCodeSelect" }}), class: "mb-4" %>
 
-  <%= tag.div f.input(:province_code, collection: [], label: "State/Province",
+  <%= tag.div f.input(:province_code, collection: [], required: true, label: "State/Province",
       input_html: { data: {
         controller: "select",
         target: "select-country-province.provinceCodeSelect",
         provinces: provinces_for_stimulus,
-        selected: job_posting.province_code }}), class: "mb-5" %>
+        selected: job_posting.province_code }},
+        hint: "Your job will be advertised to this state/province (as well as remote if selected)"), class: "mb-4" %>
   <% f.hidden_field :province_name %>
 
-  <%= tag.div f.input(:city, required: true), class: "mb-5" %>
+  <%= tag.div f.input(:city, required: true), class: "mb-4" %>
 
   <label class="file-attachment-input p-2 py-3">
     Upload your company logo <abbr title="required">*</abbr>
@@ -111,7 +112,7 @@
   <%= tag.div f.input(:keywords, collection: keywords_for_select, label: "Keywords", required: true,
       hint: "Keywords are used to target the qualified candidates for this job",
       input_html: { multiple: true, data: { controller: "select" }}
-    ), class: "mb-5" %>
+    ), class: "mb-4" %>
 
   <div class="media align-items-center mt-4 space-bottom-1">
     <label class="checkbox-switch mb-0 mr-3">
@@ -123,7 +124,7 @@
     <% end %>
   </div>
 
-  <div class="mb-5" <%= "hidden" unless job_posting.remote? %> data-target="job-posting-form.remoteCountryCodesSelector">
+  <div class="mb-4" <%= "hidden" unless job_posting.remote? %> data-target="job-posting-form.remoteCountryCodesSelector">
     <%= f.input :remote_country_codes, collection: countries_for_select, input_html: {
         multiple: true,
         data: {
