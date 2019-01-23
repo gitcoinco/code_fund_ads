@@ -1,14 +1,13 @@
 import { Controller } from 'stimulus';
-import moment from 'moment';
 
 export default class extends Controller {
+  static targets = ['form', 'input'];
+
   connect() {
-    jQuery(this.element).keydown(function(event) {
+    this.inputTarget.addEventListener('keydown', event => {
       const keypressed = event.keyCode || event.which;
       if (keypressed == 13) {
-        jQuery(this.element)
-          .closest('form')
-          .submit();
+        this.formTarget.submit();
       }
     });
   }

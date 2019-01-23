@@ -1,4 +1,4 @@
-<%= simple_form_for @job_posting_search, html: { class: "row mb-2" } do |f| %>
+<%= simple_form_for @job_posting_search, html: { class: "row mb-2", data: { controller: "submit-on-enter", target: "submit-on-enter.form" }} do |f| %>
   <div class="col-12 mb-4 mb-lg-0">
     <label class="d-block">
       <span class="h4 d-block text-white font-weight-semi-bold mb-0">search jobs</span>
@@ -8,7 +8,7 @@
       <div class="input-group input-group-lg">
         <%= f.input_field :full_text_search, class: "form-control border-0",
               valid_class: nil, placeholder: "javascript frontend san francisco",
-              data: { controller: "submit-on-enter" } %>
+              data: { target: "submit-on-enter.input" } %>
         <div class="input-group-append">
           <button class="btn btn-white" type="submit">
             <span class="fas fa-search text-muted"></span>
