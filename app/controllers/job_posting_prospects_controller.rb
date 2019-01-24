@@ -29,6 +29,7 @@ class JobPostingProspectsController < ApplicationController
 
     respond_to do |format|
       if @job_posting.save
+        session[:job_posting_prospect_id] = @job_posting.id
         format.html { redirect_to job_posting_prospect_path(@job_posting), notice: "Job was successfully created." }
         format.json { render :show, status: :created, location: @job_posting }
       else
@@ -46,6 +47,7 @@ class JobPostingProspectsController < ApplicationController
     return render_forbidden unless authorized_user.can_update_job_posting?(@job_posting, session.id)
     respond_to do |format|
       if @job_posting.update(job_posting_params)
+        session[:job_posting_prospect_id] ||= @job_posting.id
         format.html { redirect_to job_posting_prospect_path(@job_posting), notice: "Job was successfully updated." }
         format.json { render :show, status: :ok, location: @job_posting }
       else

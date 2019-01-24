@@ -2,26 +2,7 @@
   <div class="container space-top-3 space-bottom-2">
     <div class="w-lg-80 mx-lg-auto">
       <div class="card shadow-sm p-7 job-listing">
-        <nav class="nav nav-icon nav-justified text-center">
-          <%= link_to edit_job_posting_prospect_path(@job_posting), class: "nav-item" do %>
-            <span class="nav-icon-action transition-3d-hover">
-              <span class="fas fa-check-square nav-icon-action-inner"></span>
-            </span>
-            Modify Ad
-          <% end %>
-          <%= link_to job_posting_prospect_path(@job_posting), class: "nav-item active text-dark" do %>
-            <span class="nav-icon-action bg-success">
-              <span class="fas fa-thumbs-up nav-icon-action-inner"></span>
-            </span>
-            Preview
-          <% end %>
-          <%= link_to new_job_posting_purchase_path(@job_posting), class: "nav-item" do %>
-            <span class="nav-icon-action transition-3d-hover">
-              <span class="fas fa-file-invoice-dollar nav-icon-action-inner"></span>
-            </span>
-            Purchase
-          <% end %>
-        </nav>
+        <%= render partial: "/job_posting_prospects/nav" %>
 
         <div class="space-1">
           <div class="border-bottom space-top-1">
