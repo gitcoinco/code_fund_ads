@@ -13,13 +13,13 @@ Rails.application.routes.draw do
     invitations: "invitations",
   }
 
-  scope "jobs" do
-    resources :jobs, only: [:index], path: "/"
-    resources :job_postings, path: "/listings"
-    scope "/listings/:id" do
-      resource :purchase_job_posting, only: [:new, :create], path: "/purchase"
-    end
+  resources :jobs, only: [:index]
+  resources :job_posting_prospects, except: [:index, :destroy], path: "/jobs/listings"
+  scope "/jobs/listings/:job_posting_id" do
+    resource :job_posting_user, only: [:new, :create], path: "/user"
+    resource :job_posting_purchase, only: [:new, :create, :show], path: "/purchase"
   end
+  resources :job_postings, except: [:new, :create], path: "/jobs/directory"
 
   root to: "pages#index"
 
@@ -27,13 +27,13 @@ Rails.application.routes.draw do
   resource :administrator_dashboards, only: [:show], path: "/dashboards/administrator"
   resource :advertiser_dashboards, only: [:show], path: "/dashboards/advertiser"
   resource :publisher_dashboards, only: [:show], path: "/dashboards/publisher"
-  resource :creative_options, only: [:show]
   resources :campaign_searches, only: [:create, :update, :destroy]
+  resources :creative_searches, only: [:create, :update, :destroy]
+  resources :job_posting_searches, only: [:create, :update, :destroy], path: "/jobs/searches"
   resources :organization_searches, only: [:create, :update, :destroy]
   resources :property_searches, only: [:create, :update, :destroy]
   resources :user_searches, only: [:create, :update, :destroy]
-  resources :creative_searches, only: [:create, :update, :destroy]
-  resources :charges, only: [:create]
+  resource :creative_options, only: [:show]
 
   resources :organizations
   scope "/organization/:organization_id/" do

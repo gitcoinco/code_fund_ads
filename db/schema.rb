@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_21_220544) do
+ActiveRecord::Schema.define(version: 2019_01_23_180606) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -264,6 +264,7 @@ ActiveRecord::Schema.define(version: 2019_01_21_220544) do
     t.datetime "updated_at", null: false
     t.string "company_email"
     t.string "stripe_charge_id"
+    t.string "session_id"
     t.index ["campaign_id"], name: "index_job_postings_on_campaign_id"
     t.index ["city"], name: "index_job_postings_on_city"
     t.index ["company_name"], name: "index_job_postings_on_company_name"
@@ -279,6 +280,7 @@ ActiveRecord::Schema.define(version: 2019_01_21_220544) do
     t.index ["province_name"], name: "index_job_postings_on_province_name"
     t.index ["remote"], name: "index_job_postings_on_remote"
     t.index ["remote_country_codes"], name: "index_job_postings_on_remote_country_codes", using: :gin
+    t.index ["session_id"], name: "index_job_postings_on_session_id"
     t.index ["source", "source_identifier"], name: "index_job_postings_on_source_and_source_identifier", unique: true
     t.index ["start_date"], name: "index_job_postings_on_start_date"
     t.index ["title"], name: "index_job_postings_on_title"

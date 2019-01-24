@@ -1,0 +1,22 @@
+<main id="content" role="main" class="bg-light">
+  <div class="container space-top-3 space-bottom-2">
+    <div class="w-lg-80 mx-lg-auto">
+      <div class="card shadow-sm p-7 job-listing">
+        <%= render partial: "/job_posting_prospects/nav" %>
+
+        <h2 class="h4 mt-3">Purchase Details</h2>
+        <p>You are about to purchase a 30 day listing on CodeFund Jobs for a one time fee of $299</p>
+        <p>This listing will auto renew at %299 every 30 days... yada yada yada</p>
+
+        <div class="space-1">
+          <input type="hidden" name="token" data-target="stripe-checkout.tokenInput" />
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary d-block mx-auto">Pay $299</button>
+            <%= link_to "Make Changes", edit_job_posting_prospect_path(@job_posting), class: "btn btn-sm text-muted btn-link" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

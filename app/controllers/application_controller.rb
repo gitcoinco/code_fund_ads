@@ -38,4 +38,9 @@ class ApplicationController < ActionController::Base
   def reload_extensions
     load Rails.root.join("app/lib/extensions.rb")
   end
+
+  def default_value(development: nil, production: nil)
+    return production if Rails.env.production?
+    development || production
+  end
 end

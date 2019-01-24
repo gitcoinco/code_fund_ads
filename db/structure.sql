@@ -484,7 +484,8 @@ CREATE TABLE public.job_postings (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     company_email character varying,
-    stripe_charge_id character varying
+    stripe_charge_id character varying,
+    session_id character varying
 );
 
 
@@ -1664,6 +1665,13 @@ CREATE INDEX index_job_postings_on_remote_country_codes ON public.job_postings U
 
 
 --
+-- Name: index_job_postings_on_session_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_session_id ON public.job_postings USING btree (session_id);
+
+
+--
 -- Name: index_job_postings_on_source_and_source_identifier; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2050,6 +2058,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190119154353'),
 ('20190119160341'),
 ('20190120042919'),
-('20190121220544');
+('20190121220544'),
+('20190123180606');
 
 

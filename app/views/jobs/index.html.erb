@@ -22,7 +22,7 @@
 
     <div class="container position-absolute right-0 bottom-0 left-0 space-top-5 space-bottom-2">
       <!-- Info Link -->
-      <%= link_to new_job_posting_path, class: "d-sm-inline-flex align-items-center bg-primary text-white shadow rounded-pill p-2 pr-3 mb-3" do %>
+      <%= link_to new_job_posting_prospect_path, class: "d-sm-inline-flex align-items-center bg-primary text-white shadow rounded-pill p-2 pr-3 mb-3" do %>
         <span class="btn btn-xs btn-soft-white btn-pill font-weight-semi-bold mr-3">Post a job for $299/mo</span>
         <span class="d-block d-sm-inline-block">
           Don't just wait for the right candidate to search job boards
@@ -32,54 +32,7 @@
 
       <div class="card border-0">
         <div class="card-body p-7">
-          <!-- Search Jobs Form -->
-          <form class="js-validate">
-            <div class="row">
-              <div class="col-lg-5 mb-4 mb-lg-0">
-                <!-- Input -->
-                <label class="d-block">
-                  <span class="h4 d-block text-dark font-weight-semi-bold mb-0">what</span>
-                  <small class="d-block text-secondary">job title, keywords, or company</small>
-                </label>
-                <div class="js-focus-state">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Keyword or title" aria-label="Keyword or title" aria-describedby="keywordInputAddon">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <span class="fas fa-search" id="keywordInputAddon"></span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Input -->
-              </div>
-
-              <div class="col-lg-5 mb-4 mb-lg-0">
-                <!-- Input -->
-                <label class="d-block">
-                  <span class="h4 d-block text-dark font-weight-semi-bold mb-0">where</span>
-                  <small class="d-block text-secondary">city, state, or zip code</small>
-                </label>
-                <div class="js-focus-state">
-                  <div class="input-group">
-                    <input type="text" class="form-control" placeholder="City, state, or zip" aria-label="City, state, or zip" aria-describedby="locationInputAddon">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <span class="fas fa-map-marker-alt" id="locationInputAddon"></span>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <!-- End Input -->
-              </div>
-
-              <div class="col-lg-2 align-self-lg-end">
-                <button type="submit" class="btn btn-block btn-primary transition-3d-hover">Find Jobs</button>
-              </div>
-            </div>
-            <!-- End Checkbox -->
-          </form>
-          <!-- End Search Jobs Form -->
+          <%= render partial: "/job_posting_searches/form" %>
         </div>
       </div>
     </div>
@@ -99,7 +52,7 @@
           publisher network of developer-centric websites, we place your job in front of
           pre-qualified candidates based on their location and interests.
         </p>
-        <%= link_to "Post a job for $299/mo", new_job_posting_path, class: "btn btn-lg btn-success btn-wide transition-3d-hover mt-3" %>
+        <%= link_to "Post a job for $299/mo", new_job_posting_prospect_path, class: "btn btn-lg btn-success btn-wide transition-3d-hover mt-3" %>
       </div>
     </div>
   </div>
