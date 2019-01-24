@@ -4,13 +4,13 @@
       <div class="card shadow-sm p-7">
         <% if @job_posting.pending? %>
           <nav class="nav nav-icon nav-justified text-center">
-            <%= link_to edit_job_posting_path(@job_posting), class: "nav-item active text-dark" do %>
+            <%= link_to edit_job_posting_prospect_path(@job_posting), class: "nav-item active text-dark" do %>
               <span class="nav-icon-action bg-success">
                 <span class="fas fa-check-square nav-icon-action-inner"></span>
               </span>
-              Modify Ad
+              Modify
             <% end %>
-            <%= link_to job_posting_path(@job_posting), class: "nav-item" do %>
+            <%= link_to job_posting_prospect_path(@job_posting), class: "nav-item" do %>
               <span class="nav-icon-action transition-3d-hover">
                 <span class="fas fa-thumbs-up nav-icon-action-inner"></span>
               </span>
@@ -25,7 +25,7 @@
           </nav>
         <% end %>
 
-        <%= render partial: "/job_postings/form", locals: { job_posting: @job_posting } %>
+        <%= render partial: "/job_posting_prospects/form", locals: { job_posting: @job_posting } %>
       </div>
     </div>
   </div>

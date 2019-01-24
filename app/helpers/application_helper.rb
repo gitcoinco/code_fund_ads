@@ -54,8 +54,8 @@ module ApplicationHelper
   end
 
   def currencies_for_select
-    Money::Currency.table.values.map do |currency|
-      ["[#{currency[:iso_code]}] #{currency[:name]}", currency[:iso_code]]
+    Money::Currency.table.values.sort_by { |currency| currency[:name] }.map do |currency|
+      ["#{currency[:name]} (#{currency[:iso_code]})", currency[:iso_code]]
     end
   end
 

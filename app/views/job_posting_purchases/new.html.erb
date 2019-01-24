@@ -1,15 +1,15 @@
-<main id="content" role="main" class="bg-light" data-controller="stripe-checkout">
+<main id="content" role="main" class="bg-light">
   <div class="container space-top-3 space-bottom-2">
     <div class="w-lg-80 mx-lg-auto">
       <div class="card shadow-sm p-7 job-listing">
         <nav class="nav nav-icon nav-justified text-center">
-          <%= link_to edit_job_posting_path(@job_posting), class: "nav-item" do %>
+          <%= link_to edit_job_posting_prospect_path(@job_posting), class: "nav-item" do %>
             <span class="nav-icon-action transition-3d-hover">
               <span class="fas fa-check-square nav-icon-action-inner"></span>
             </span>
             Modify Ad
           <% end %>
-          <%= link_to job_posting_path(@job_posting), class: "nav-item" do %>
+          <%= link_to job_posting_prospect_path(@job_posting), class: "nav-item" do %>
             <span class="nav-icon-action transition-3d-hover">
               <span class="fas fa-thumbs-up nav-icon-action-inner"></span>
             </span>
@@ -23,30 +23,15 @@
           <% end %>
         </nav>
 
+        <%# render partial: "stripe payment button or form" %>
+
         <div class="space-1">
-          <%= simple_form_for @user, url: job_posting_purchase_path(@job_posting),
-                data: { target: "stripe-checkout.form" } do |form| %>
-            <%= render partial: "/job_posting_purchases/user_form", locals: { form: form } unless current_user %>
-            <input type="hidden" name="token" data-target="stripe-checkout.tokenInput" />
+          <input type="hidden" name="token" data-target="stripe-checkout.tokenInput" />
 
-            <div class="form-group required form-group-valid">
-              <label class="form-control-label required">Credit Card <abbr title="required">*</abbr></label>
-              <div data-target="stripe-checkout.card" class="border rounded p-3">
-                <!-- A Stripe Element will be inserted here. -->
-              </div>
-            </div>
-
-            <!-- Used to display stripe form errors. -->
-            <div class="error" role="alert">
-              <span class="message"></span>
-            </div>
-
-            <div class="text-center">
-              <button type="submit" class="btn btn-primary d-block mx-auto">Pay $299</button>
-              <%= link_to "Make Changes", edit_job_posting_path(@job_posting),
-                  class: "btn btn-sm text-muted btn-link" %>
-            </div>
-          <% end %>
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary d-block mx-auto">Pay $299</button>
+            <%= link_to "Make Changes", edit_job_posting_prospect_path(@job_posting), class: "btn btn-sm text-muted btn-link" %>
+          </div>
         </div>
       </div>
     </div>

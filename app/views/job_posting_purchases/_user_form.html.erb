@@ -15,11 +15,11 @@
 
 <div class="row">
   <%= tag.div form.input(:first_name, required: true, placeholder: "First Name",
-    input_html: { data: { target: "stripe-checkout.firstName" }}), class: "col-md-6" %>
+    input_html: { data: { target: "job-posting-purchase-form.firstName" }}), class: "col-md-6" %>
   <%= tag.div form.input(:last_name, required: true, placeholder: "Last Name",
-    input_html: { data: { target: "stripe-checkout.lastName" }}), class: "col-md-6" %>
+    input_html: { data: { target: "job-posting-purchase-form.lastName" }}), class: "col-md-6" %>
   <%= tag.div form.input(:company_name, required: true, placeholder: "Company Name",
-    input_html: { data: { target: "stripe-checkout.companyName" }}), class: "col-12" %>
+    input_html: { data: { target: "job-posting-purchase-form.companyName" }}), class: "col-12" %>
   <%= tag.div form.input(:email, required: true, as: :email, placeholder: "Email Address",
-    input_html: { data: { target: "stripe-checkout.email" }}), class: "col-12" %>
+    input_html: { data: { target: "job-posting-purchase-form.email" }}), class: "col-12" %>
 </div>

@@ -3,13 +3,13 @@
     <div class="w-lg-80 mx-lg-auto">
       <div class="card shadow-sm p-7 job-listing">
         <nav class="nav nav-icon nav-justified text-center">
-          <%= link_to edit_job_posting_path(@job_posting), class: "nav-item" do %>
+          <%= link_to edit_job_posting_prospect_path(@job_posting), class: "nav-item" do %>
             <span class="nav-icon-action transition-3d-hover">
               <span class="fas fa-check-square nav-icon-action-inner"></span>
             </span>
             Modify Ad
           <% end %>
-          <%= link_to "javascript;", class: "nav-item active text-dark" do %>
+          <%= link_to job_posting_prospect_path(@job_posting), class: "nav-item active text-dark" do %>
             <span class="nav-icon-action bg-success">
               <span class="fas fa-thumbs-up nav-icon-action-inner"></span>
             </span>
@@ -66,9 +66,9 @@
         <% end %>
 
         <div class="d-flex">
-          <%= link_to "Make Changes", edit_job_posting_path(@job_posting),
+          <%= link_to "Make Changes", edit_job_posting_prospect_path(@job_posting),
                 class: "btn btn-block btn-sm btn-soft-secondary transition-3d-hover mr-1" %>
-          <%= link_to "Next", new_job_posting_purchase_path,
+          <%= link_to "Next", new_job_posting_purchase_path(@job_posting),
                 class: "btn btn-block btn-sm btn-primary transition-3d-hover ml-1 mt-0" %>
         </div>
       </div>

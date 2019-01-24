@@ -1,4 +1,5 @@
-<%= simple_form_for job_posting, wrapper: :front_form, data: { controller: "job-posting-form select-country-province file-picker" } do |f| %>
+<%= simple_form_for job_posting, url: job_posting_prospects_form_url(job_posting),
+  wrapper: :front_form, data: { controller: "job-posting-form select-country-province file-picker" } do |f| %>
 
   <%= render "/@shared/forms/error_messages", object: job_posting %>
 
@@ -26,7 +27,7 @@
   </div>
   <!-- End Platform -->
 
-  <%= tag.div f.input(:title, label: "Job Title", required: true, input_html: { max_length: 80 },
+  <%= tag.div f.input(:title, label: "Job Title", required: true, placeholder: "Full Stack Developer", input_html: { max_length: 80 },
       hint: "Example: “Senior Designer”. Titles must describe one position"), class: "mb-4" %>
   <%= tag.div f.input(:url, as: :url, label: "Link to Apply", pattern: "https?:\/\/.*", required: true, placeholder: "https://",
     hint: "This can be a link to your job posting, application form, or website"),
@@ -35,19 +36,19 @@
   <%= tag.div class: "mb-4" do %>
     <%= f.input :description, as: :hidden %>
     <%= f.label :description, required: true, class: "form-label string" %>
-    <trix-editor class="trix-content" input="job_posting_description"></trix-editor>
+    <trix-editor class="trix-content" input="job_posting_description" placeholder="The detailed job description..."></trix-editor>
   <% end %>
 
   <%= tag.div class: "mb-4" do %>
     <%= f.input :how_to_apply, as: :hidden %>
     <%= f.label :how_to_apply, required: true, class: "form-label string" %>
-    <trix-editor class="trix-content" input="job_posting_how_to_apply"></trix-editor>
+    <trix-editor class="trix-content" input="job_posting_how_to_apply" placeholder="Instructions on how to apply..."></trix-editor>
   <% end %>
 
   <div class="row">
-    <%= tag.div f.input(:min_annual_salary_cents, placeholder: "115,000", label: "Min Annual Salary"), class: "col-sm-3 mb-4" %>
-    <%= tag.div f.input(:max_annual_salary_cents, placeholder: "115,000", label: "Max Annual Salary"), class: "col-sm-3 mb-4" %>
-    <%= tag.div f.input(:min_annual_salary_currency, collection: currencies_for_select, label: "Salary Currency", required: true,
+    <%= tag.div f.input(:min_annual_salary_cents, placeholder: "75,000", label: "Min Annual Salary"), class: "col-sm-3 mb-4" %>
+    <%= tag.div f.input(:max_annual_salary_cents, placeholder: "150,000", label: "Max Annual Salary"), class: "col-sm-3 mb-4" %>
+    <%= tag.div f.input(:min_annual_salary_currency, collection: currencies_for_select, label: "Currency", required: true,
         input_html: { data: { controller: "select" }}
       ), class: "col-sm-6 mb-4" %>
   </div>
@@ -120,7 +121,7 @@
       <span class="checkbox-switch__slider"></span>
     </label>
     <%= f.label :remote, class: "media-body text-muted mb-0" do %>
-      <span class="d-block text-dark">Remote-only candidates are welcome to apply?</span>
+      <span class="d-block text-dark">Remote candidates are welcome to apply?</span>
     <% end %>
   </div>
 
