@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_25_221903) do
+ActiveRecord::Schema.define(version: 2019_01_25_224425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -265,6 +265,8 @@ ActiveRecord::Schema.define(version: 2019_01_25_221903) do
     t.string "company_email"
     t.string "stripe_charge_id"
     t.string "session_id"
+    t.boolean "auto_renew", default: true, null: false
+    t.index ["auto_renew"], name: "index_job_postings_on_auto_renew"
     t.index ["campaign_id"], name: "index_job_postings_on_campaign_id"
     t.index ["city"], name: "index_job_postings_on_city"
     t.index ["company_name"], name: "index_job_postings_on_company_name"

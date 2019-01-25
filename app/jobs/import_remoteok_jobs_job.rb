@@ -29,6 +29,7 @@ class ImportRemoteokJobsJob < ApplicationJob
       posting.end_date         = posting.start_date + 60.days
       posting.status           = posting.start_date <= 60.days.ago ? ENUMS::JOB_STATUSES::ACTIVE : ENUMS::JOB_STATUSES::ARCHIVED
       posting.source           = ENUMS::JOB_SOURCES::REMOTEOK
+      posting.auto_renew       = false
       print "#{@count += 1},"
       unless posting.save
         puts "Unable to save: #{posting.errors.inspect}"

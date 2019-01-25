@@ -485,7 +485,8 @@ CREATE TABLE public.job_postings (
     updated_at timestamp without time zone NOT NULL,
     company_email character varying,
     stripe_charge_id character varying,
-    session_id character varying
+    session_id character varying,
+    auto_renew boolean DEFAULT true NOT NULL
 );
 
 
@@ -1514,6 +1515,13 @@ CREATE INDEX index_events_on_user_id ON public.events USING btree (user_id);
 
 
 --
+-- Name: index_job_postings_on_auto_renew; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_auto_renew ON public.job_postings USING btree (auto_renew);
+
+
+--
 -- Name: index_job_postings_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1993,6 +2001,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190120042919'),
 ('20190121220544'),
 ('20190123180606'),
-('20190125221903');
+('20190125221903'),
+('20190125224425');
 
 
