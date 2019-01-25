@@ -1,0 +1,55 @@
+<div class="media mb-2">
+  <% if job_posting.company_logo_url.present? %>
+    <div class="mr-4 company-logo-wrapper">
+      <%= image_tag job_posting.company_logo_url, class: "img-fluid company-logo", style: "vertical-align: middle;" %>
+    </div>
+  <% end %>
+
+  <div class="media-body">
+    <div class="row">
+      <div class="col-12 mb-3 mb-lg-0">
+        <h1 class="h4 mb-1"><%= job_posting.title %></h1>
+        <small class="h6 font-weight-light text-muted">
+          <%= link_to job_posting.company_name, job_posting.company_url, target: "_blank", class: "text-link" %>
+          <span class="px-1">•</span>
+          <%= job_posting.company_location %>
+        </small>
+        <ul class="list-inline my-3">
+          <% job_posting.keywords.each do |keyword| %>
+            <li class="list-inline-item pb-1">
+              <%= link_to keyword,
+                job_posting_searches_path(job_posting_search: { full_text_search: "#{job_posting_search&.full_text_search} #{keyword}".strip}),
+                class: "btn btn-sm btn-soft-primary mb-1 job-listing-keyword", method: :post %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<h4 class="h4 mb-1">Job Description</h4>
+<div class="mb-4">
+  <p class="text-muted font-size-1">
+    Posted <%= time_ago_in_words(job_posting.start_date) %> ago
+    <% if job_posting.source == ENUMS::JOB_SOURCES::GITHUB %>
+      on <a href="https://jobs.github.com/" target="_blank">GitHub Jobs</a>
+    <% end %>
+    <% if job_posting.source == ENUMS::JOB_SOURCES::REMOTEOK %>
+      on <a href="https://remoteok.io/" target="_blank">RemoteOK</a>
+    <% end %>
+  </p>
+</div>
+
+<div class="mb-7 job-listing__description">
+  <%= job_posting.pretty_description %>
+</div>
+
+<% if job_posting.how_to_apply %>
+  <div class="mb-7 pt-3 job-listing__how-to-apply" id="how-to-apply">
+    <h4 class="h4">How to apply</h4>
+    <%= sanitize job_posting.how_to_apply, scrubber: Loofah::Scrubbers::Prune.new %>
+  </div>
+<% end %>

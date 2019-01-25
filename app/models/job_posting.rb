@@ -98,6 +98,8 @@ class JobPosting < ApplicationRecord
   tag_columns :keywords
   tag_columns :remote_country_codes
   sanitize :title, :description, :how_to_apply
+  monetize :min_annual_salary_cents, numericality: {greater_than_or_equal_to: 0}
+  monetize :max_annual_salary_cents, numericality: {greater_than_or_equal_to: 0}
 
   # class methods .............................................................
   class << self
@@ -133,10 +135,6 @@ class JobPosting < ApplicationRecord
       then { |result| country_code.blank? ? result : result << make_tsvector(country_code, weight: "D") }.
       then { |result| Country.find(country_code).blank? ? result : result << make_tsvector(Country.find(country_code).name, weight: "D") }.
       then { |result| result.compact.join " || " }
-  end
-
-  def province
-    Province.find_by_iso_code(province_code)
   end
 
   # protected instance methods ................................................
