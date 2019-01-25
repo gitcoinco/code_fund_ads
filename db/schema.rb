@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_23_180606) do
+ActiveRecord::Schema.define(version: 2019_01_25_221903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -436,15 +436,6 @@ ActiveRecord::Schema.define(version: 2019_01_23_180606) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
     t.index ["object"], name: "index_versions_on_object", using: :gin
     t.index ["object_changes"], name: "index_versions_on_object_changes", using: :gin
-  end
-
-  create_table "words", force: :cascade do |t|
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.text "word", null: false
-    t.index ["record_type", "record_id", "word"], name: "index_words_on_record_type_and_record_id_and_word", unique: true
-    t.index ["record_type", "record_id"], name: "index_words_on_record_type_and_record_id"
-    t.index ["word"], name: "index_words_on_word", opclass: :gin_trgm_ops, using: :gin
   end
 
 end
