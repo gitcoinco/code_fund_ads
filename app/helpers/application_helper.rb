@@ -96,6 +96,11 @@ module ApplicationHelper
     render("/@shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"])
   end
 
+  def codefund_analytics_tag
+    return nil unless ENV["CODEFUND_ANALYTICS_KEY"].present?
+    render("/@shared/scripts/codefund_analytics", id: ENV["CODEFUND_ANALYTICS_KEY"])
+  end
+
   def support_widget_tag
     return nil unless ENV["GROOVE_WIDGET_ID"].present?
     render("/@shared/scripts/groove", id: ENV["GROOVE_WIDGET_ID"])
