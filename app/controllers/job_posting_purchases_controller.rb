@@ -7,6 +7,7 @@ class JobPostingPurchasesController < ApplicationController
   end
 
   def create
+    binding.pry
     raise NotImplementedError
     # @token = params[:token]
 

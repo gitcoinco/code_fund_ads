@@ -1,5 +1,5 @@
-<%= simple_form_for @job_posting, url: job_posting_prospects_form_url(@job_posting),
-  wrapper: :front_form, data: { controller: "select-country-province file-picker" } do |f| %>
+<%= simple_form_for @job_posting, url: job_posting_prospects_form_path(@job_posting),
+  wrapper: :front_form, data: { controller: "job-posting-prospects-form select-country-province file-picker" } do |f| %>
 
   <%= render "/@shared/forms/error_messages", object: @job_posting %>
 
@@ -117,7 +117,7 @@
 
   <div class="media align-items-center mt-4 space-bottom-1">
     <label class="checkbox-switch mb-0 mr-3">
-      <%= f.check_box :remote, class: "checkbox-switch__input", data: { action: "change->job-posting-form#toggleRemote" } %>
+      <%= f.check_box :remote, class: "checkbox-switch__input", data: { action: "change->job-posting-prospects-form#toggleRemote" } %>
       <span class="checkbox-switch__slider"></span>
     </label>
     <%= f.label :remote, class: "media-body text-muted mb-0" do %>
@@ -125,7 +125,7 @@
     <% end %>
   </div>
 
-  <div class="mb-4" <%= "hidden" unless @job_posting.remote? %> data-target="job-posting-form.remoteCountryCodesSelector">
+  <div class="mb-4" <%= "hidden" unless @job_posting.remote? %> data-target="job-posting-prospects-form.remoteCountryCodesSelector">
     <%= f.input :remote_country_codes, collection: countries_for_select, input_html: {
         multiple: true,
         data: {

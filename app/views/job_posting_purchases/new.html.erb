@@ -1,3 +1,4 @@
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <main id="content" role="main" class="bg-light">
   <div class="container space-top-3 space-bottom-2">
     <div class="w-lg-80 mx-lg-auto">
@@ -6,15 +7,27 @@
 
         <h2 class="h4 mt-3">Purchase Details</h2>
         <p>You are about to purchase a 30 day listing on CodeFund Jobs for a one time fee of $299</p>
-        <p>This listing will auto renew at %299 every 30 days... yada yada yada</p>
+        <p>This listing will auto renew at <strong>$299 every 30 days</strong>... yada yada yada</p>
 
         <div class="space-1">
-          <input type="hidden" name="token" data-target="stripe-checkout.tokenInput" />
+          <%= simple_form_for @job_posting, url: job_posting_purchase_path(@job_posting), html: {
+            data: {
+              controller: "job-posting-purchases-form",
+              key: "#{ENV["STRIPE_PUBLISHABLE_KEY"]}",
+              image: asset_path("codefund-circle.png"),
+              name: "CodeFund",
+              description: "30 day job listing",
+              amount: Monetize.parse("$299.00 USD").cents,
+              currency: "USD",
+              email: current_user.email,
+            }} do %>
+            <input type="hidden" name="token" data-target="job-posting-purchases-form.token" />
 
-          <div class="text-center">
-            <button type="submit" class="btn btn-primary d-block mx-auto">Pay $299</button>
-            <%= link_to "Make Changes", edit_job_posting_prospect_path(@job_posting), class: "btn btn-sm text-muted btn-link" %>
-          </div>
+            <div class="text-center">
+              <%= link_to "Pay $299", "", class: "btn btn-primary d-block mx-auto", data: { action: "click->job-posting-purchases-form#showPaymentModal" } %>
+              <%= link_to "Make Changes", edit_job_posting_prospect_path(@job_posting), class: "btn btn-sm text-muted btn-link" %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
