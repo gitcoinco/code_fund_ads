@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   before_action :set_user_search, only: [:index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_organization, only: [:index], if: -> { params[:organization_id].present? }
+  skip_before_action :authenticate_user!, if: -> { params[:redir].present? }
+  skip_before_action :authenticate_administrator!, if: -> { params[:redir].present? }
 
   def index
     users = User.includes(:organization).include_image_count.order(order_by)
@@ -25,10 +27,16 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: "User was successfully created." }
+        format.html do
+          return redirect_to(params[:redir]) if params[:redir].present?
+          redirect_to success_url, notice: "User was successfully created."
+        end
         format.json { render :show, status: :created, location: @user }
       else
-        format.html { render :new }
+        format.html do
+          return redirect_to(params[:redir]) if params[:redir].present?
+          render :new
+        end
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end

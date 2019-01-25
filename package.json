@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "all-contributors-cli": "^5.4.1",
-    "prettier": "1.15.3",
+    "prettier": "1.16.1",
     "webpack-dev-server": "2.11.2"
   }
 }

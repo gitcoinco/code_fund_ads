@@ -1,5 +1,5 @@
 module Authorizers
-  module Images
+  module Image
     def can_update_image?(image)
       return true if can_admin_system?
       image.record == user

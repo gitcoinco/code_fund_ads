@@ -52,6 +52,7 @@
 #  updated_at             :datetime         not null
 #  legacy_id              :uuid
 #  organization_id        :bigint(8)
+#  stripe_customer_id     :string
 #
 
 require "test_helper"

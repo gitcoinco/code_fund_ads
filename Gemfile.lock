@@ -398,6 +398,9 @@ GEM
       nokogiri
       rack
     stopwords-filter (0.4.1)
+    stripe (4.6.0)
+      faraday (~> 0.13)
+      net-http-persistent (~> 3.0)
     tag_columns (0.1.6)
       activesupport
     teamocil (1.4.2)
@@ -514,6 +517,7 @@ DEPENDENCIES
   standard
   stimulus_reflex (~> 0.2.0)
   stopwords-filter (~> 0.4.1)
+  stripe (~> 4.6.0)
   tag_columns (~> 0.1.6)
   teamocil
   timecop

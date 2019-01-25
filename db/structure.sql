@@ -483,7 +483,10 @@ CREATE TABLE public.job_postings (
     full_text_search tsvector,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    company_email character varying
+    company_email character varying,
+    stripe_charge_id character varying,
+    session_id character varying,
+    auto_renew boolean DEFAULT true NOT NULL
 );
 
 
@@ -754,7 +757,8 @@ CREATE TABLE public.users (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     legacy_id uuid,
-    organization_id bigint
+    organization_id bigint,
+    stripe_customer_id character varying
 );
 
 
@@ -810,37 +814,6 @@ CREATE SEQUENCE public.versions_id_seq
 --
 
 ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
-
-
---
--- Name: words; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.words (
-    id bigint NOT NULL,
-    record_type character varying NOT NULL,
-    record_id bigint NOT NULL,
-    word text NOT NULL
-);
-
-
---
--- Name: words_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.words_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: words_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.words_id_seq OWNED BY public.words.id;
 
 
 --
@@ -981,13 +954,6 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
-
-
---
--- Name: words id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.words ALTER COLUMN id SET DEFAULT nextval('public.words_id_seq'::regclass);
 
 
 --
@@ -1140,14 +1106,6 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
-
-
---
--- Name: words words_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.words
-    ADD CONSTRAINT words_pkey PRIMARY KEY (id);
 
 
 --
@@ -1557,6 +1515,13 @@ CREATE INDEX index_events_on_user_id ON public.events USING btree (user_id);
 
 
 --
+-- Name: index_job_postings_on_auto_renew; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_auto_renew ON public.job_postings USING btree (auto_renew);
+
+
+--
 -- Name: index_job_postings_on_campaign_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1659,6 +1624,13 @@ CREATE INDEX index_job_postings_on_remote ON public.job_postings USING btree (re
 --
 
 CREATE INDEX index_job_postings_on_remote_country_codes ON public.job_postings USING gin (remote_country_codes);
+
+
+--
+-- Name: index_job_postings_on_session_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_session_id ON public.job_postings USING btree (session_id);
 
 
 --
@@ -1886,27 +1858,6 @@ CREATE INDEX index_versions_on_object_changes ON public.versions USING gin (obje
 
 
 --
--- Name: index_words_on_record_type_and_record_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_words_on_record_type_and_record_id ON public.words USING btree (record_type, record_id);
-
-
---
--- Name: index_words_on_record_type_and_record_id_and_word; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_words_on_record_type_and_record_id_and_word ON public.words USING btree (record_type, record_id, word);
-
-
---
--- Name: index_words_on_word; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_words_on_word ON public.words USING gin (word public.gin_trgm_ops);
-
-
---
 -- Name: impressions_default_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
 --
 
@@ -2047,6 +1998,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190118223858'),
 ('20190119154353'),
 ('20190119160341'),
-('20190120042919');
+('20190120042919'),
+('20190121220544'),
+('20190123180606'),
+('20190125221903'),
+('20190125224425');
 
 

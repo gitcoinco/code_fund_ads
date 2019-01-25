@@ -1,4 +1,4 @@
 #!/bin/bash
 
 bundle exec standardrb --fix
-prettier --loglevel silent --write app/**/*.js
+prettier --write app/**/*.js

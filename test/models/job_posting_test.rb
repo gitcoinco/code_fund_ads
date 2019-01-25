@@ -35,6 +35,9 @@
 #  created_at                 :datetime         not null
 #  updated_at                 :datetime         not null
 #  company_email              :string
+#  stripe_charge_id           :string
+#  session_id                 :string
+#  auto_renew                 :boolean          default(TRUE), not null
 #
 
 require "test_helper"

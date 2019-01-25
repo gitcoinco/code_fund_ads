@@ -1,6 +1,7 @@
-<%= simple_form_for job_posting, wrapper: :front_form, data: { controller: "job-posting-form select-country-province file-picker" } do |f| %>
+<%= simple_form_for @job_posting, url: job_posting_prospects_form_path(@job_posting),
+  wrapper: :front_form, data: { controller: "job-posting-prospects-form select-country-province file-picker" } do |f| %>
 
-  <%= render "/@shared/forms/error_messages", object: job_posting %>
+  <%= render "/@shared/forms/error_messages", object: @job_posting %>
 
   <h2 class="h4 mt-3">Job Details</h2>
 
@@ -15,9 +16,9 @@
     <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons" data-controller="radio-button-group">
       <% ENUMS::JOB_TYPES.keys.each do |val| %>
         <label class="btn btn-outline-secondary btn-custom-toggle-primary flex-fill
-          <%= "active" if val == job_posting.job_type %>" data-action="click->radio-button-group#select">
+          <%= "active" if val == @job_posting.job_type %>" data-action="click->radio-button-group#select">
           <input type="radio" id="job_posting_job_type_<%= val %>" name="job_posting[job_type]" value="<%= val %>"
-            <%= "checked" if val == job_posting.job_type %> />
+            <%= "checked" if val == @job_posting.job_type %> />
           <%= val.humanize.titleize %>
         </label>
       <% end %>
@@ -26,7 +27,7 @@
   </div>
   <!-- End Platform -->
 
-  <%= tag.div f.input(:title, label: "Job Title", required: true, input_html: { max_length: 80 },
+  <%= tag.div f.input(:title, label: "Job Title", required: true, placeholder: "Full Stack Developer", input_html: { max_length: 80 },
       hint: "Example: “Senior Designer”. Titles must describe one position"), class: "mb-4" %>
   <%= tag.div f.input(:url, as: :url, label: "Link to Apply", pattern: "https?:\/\/.*", required: true, placeholder: "https://",
     hint: "This can be a link to your job posting, application form, or website"),
@@ -35,19 +36,19 @@
   <%= tag.div class: "mb-4" do %>
     <%= f.input :description, as: :hidden %>
     <%= f.label :description, required: true, class: "form-label string" %>
-    <trix-editor class="trix-content" input="job_posting_description"></trix-editor>
+    <trix-editor class="trix-content" input="job_posting_description" placeholder="The detailed job description..."></trix-editor>
   <% end %>
 
   <%= tag.div class: "mb-4" do %>
     <%= f.input :how_to_apply, as: :hidden %>
     <%= f.label :how_to_apply, required: true, class: "form-label string" %>
-    <trix-editor class="trix-content" input="job_posting_how_to_apply"></trix-editor>
+    <trix-editor class="trix-content" input="job_posting_how_to_apply" placeholder="Instructions on how to apply..."></trix-editor>
   <% end %>
 
   <div class="row">
-    <%= tag.div f.input(:min_annual_salary_cents, placeholder: "115,000", label: "Min Annual Salary"), class: "col-sm-3 mb-4" %>
-    <%= tag.div f.input(:max_annual_salary_cents, placeholder: "115,000", label: "Max Annual Salary"), class: "col-sm-3 mb-4" %>
-    <%= tag.div f.input(:min_annual_salary_currency, collection: currencies_for_select, label: "Salary Currency", required: true,
+    <%= tag.div f.input(:min_annual_salary_cents, placeholder: "75,000", label: "Min Annual Salary"), class: "col-sm-3 mb-4" %>
+    <%= tag.div f.input(:max_annual_salary_cents, placeholder: "150,000", label: "Max Annual Salary"), class: "col-sm-3 mb-4" %>
+    <%= tag.div f.input(:min_annual_salary_currency, collection: currencies_for_select, label: "Currency", required: true,
         input_html: { data: { controller: "select" }}
       ), class: "col-sm-6 mb-4" %>
   </div>
@@ -58,7 +59,7 @@
       <span class="checkbox-switch__slider"></span>
     </label>
     <%= f.label :display_salary, class: "media-body text-muted mb-0" do %>
-      <span class="d-block text-dark">Display the salary range on the job listing</span>
+      <span class="d-block text-dark">Display the salary range on the job listing?</span>
     <% end %>
   </div>
 
@@ -83,8 +84,8 @@
         controller: "select",
         target: "select-country-province.provinceCodeSelect",
         provinces: provinces_for_stimulus,
-        selected: job_posting.province_code }},
-        hint: "Your job will be advertised to this state/province (as well as remote if selected)"), class: "mb-4" %>
+        selected: @job_posting.province_code }},
+      hint: "Your job will be advertised to this state/province (as well as remote if selected)"), class: "mb-4" %>
   <% f.hidden_field :province_name %>
 
   <%= tag.div f.input(:city, required: true), class: "mb-4" %>
@@ -93,8 +94,8 @@
     Upload your company logo <abbr title="required">*</abbr>
     <small class="d-block text-muted">we recommend using your Facebook or Twitter avatar</small>
 
-    <div data-target="file-picker.previewWrapper" class="mt-3" <%= "hidden" unless job_posting.company_logo_url %>>
-      <%= image_tag job_posting.company_logo_url.to_s,
+    <div data-target="file-picker.previewWrapper" class="mt-3" <%= "hidden" unless @job_posting.company_logo_url %>>
+      <%= image_tag @job_posting.company_logo_url.to_s,
             class: "img-responsive", style: "max-width: 300px; max-height: 300px;", data: { target: "file-picker.previewImg" } %>
       <div class="control mt-1" data-target="file-picker.filename"></div>
     </div>
@@ -116,15 +117,15 @@
 
   <div class="media align-items-center mt-4 space-bottom-1">
     <label class="checkbox-switch mb-0 mr-3">
-      <%= f.check_box :remote, class: "checkbox-switch__input", data: { action: "change->job-posting-form#toggleRemote" } %>
+      <%= f.check_box :remote, class: "checkbox-switch__input", data: { action: "change->job-posting-prospects-form#toggleRemote" } %>
       <span class="checkbox-switch__slider"></span>
     </label>
     <%= f.label :remote, class: "media-body text-muted mb-0" do %>
-      <span class="d-block text-dark">This job is available to remote-only candidates</span>
+      <span class="d-block text-dark">Remote candidates are welcome to apply?</span>
     <% end %>
   </div>
 
-  <div class="mb-4" <%= "hidden" unless job_posting.remote? %> data-target="job-posting-form.remoteCountryCodesSelector">
+  <div class="mb-4" <%= "hidden" unless @job_posting.remote? %> data-target="job-posting-prospects-form.remoteCountryCodesSelector">
     <%= f.input :remote_country_codes, collection: countries_for_select, input_html: {
         multiple: true,
         data: {

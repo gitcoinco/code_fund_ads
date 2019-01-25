@@ -1,0 +1,65 @@
+<script src="https://checkout.stripe.com/checkout.js"></script>
+<main id="content" role="main" class="bg-light">
+  <%= simple_form_for @job_posting, url: job_posting_purchase_path(@job_posting), method: :post, html: {
+    data: {
+      controller: "job-posting-purchases-form",
+      key: ENV["STRIPE_PUBLISHABLE_KEY"],
+      image: asset_path("codefund-circle.png"),
+      name: "CodeFund",
+      description: "30 day job listing",
+      amount: Monetize.parse("$299.00 USD").cents,
+      currency: "USD",
+      email: current_user.email,
+    }} do %>
+    <div class="container space-top-3 space-bottom-2">
+      <div class="w-lg-80 mx-lg-auto">
+        <div class="card shadow-sm p-7 job-listing">
+          <%= render partial: "/job_posting_prospects/nav" %>
+          <div class="space-top-2 mb-3">
+            <h2 class="h4 mb-3 alert alert-warning text-center">Your ad is $299 and will renew every 30 days, starting today.</h2>
+          </div>
+          <div class="row">
+            <div class="col-md-7">
+              <p>Your ad will be posted to the job board once you've successfully completed your payment.</p>
+              <p>We review all job postings and reserve the right to remove ads at our discretion. If we remove your ad, you will receive a full refund.</p>
+
+              <input type="hidden" name="source_id" data-target="job-posting-purchases-form.sourceId" />
+
+              <div class="text-center pt-3">
+                <%= link_to "Place Your Order", "", class: "btn btn-lg btn-success d-block mx-auto",
+                  data: {
+                    action: "click->job-posting-purchases-form#showPaymentModal",
+                    target: "job-posting-purchases-form.purchaseButton",
+                    processing_text: "Your payment is processing...",
+                } %>
+              </div>
+            </div>
+
+            <div class="col-md-5">
+              <div class="card border-0 shadow-sm mb-3">
+                <!-- Content -->
+                <div class="card-body pt-1 px-5 pb-5">
+                  <div class="text-center">
+                    <div class="mb-3 mx-auto">
+                      <%= image_tag @job_posting.company_logo_url, class: "img-fluid", width: 110, height: 110 %>
+                    </div>
+
+                    <h1 class="h5"><%= @job_posting.title %></h1>
+
+                    <ul class="list-inline text-secondary font-size-1 mb-4">
+                      <li class="list-inline-item">
+                        <%= link_to @job_posting.company_host_url, @job_posting.company_url, class: "font-weight-medium", target: "_blank" %>
+                      </li>
+                    </ul>
+                    <%= link_to "Make Changes", edit_job_posting_prospect_path(@job_posting), class: "btn btn-sm btn-soft-secondary btn-block mt-3",
+                      data: { target: "job-posting-purchases-form.editLink" } %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</main>

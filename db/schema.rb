@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_20_042919) do
+ActiveRecord::Schema.define(version: 2019_01_25_224425) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -263,6 +263,10 @@ ActiveRecord::Schema.define(version: 2019_01_20_042919) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "company_email"
+    t.string "stripe_charge_id"
+    t.string "session_id"
+    t.boolean "auto_renew", default: true, null: false
+    t.index ["auto_renew"], name: "index_job_postings_on_auto_renew"
     t.index ["campaign_id"], name: "index_job_postings_on_campaign_id"
     t.index ["city"], name: "index_job_postings_on_city"
     t.index ["company_name"], name: "index_job_postings_on_company_name"
@@ -278,6 +282,7 @@ ActiveRecord::Schema.define(version: 2019_01_20_042919) do
     t.index ["province_name"], name: "index_job_postings_on_province_name"
     t.index ["remote"], name: "index_job_postings_on_remote"
     t.index ["remote_country_codes"], name: "index_job_postings_on_remote_country_codes", using: :gin
+    t.index ["session_id"], name: "index_job_postings_on_session_id"
     t.index ["source", "source_identifier"], name: "index_job_postings_on_source_and_source_identifier", unique: true
     t.index ["start_date"], name: "index_job_postings_on_start_date"
     t.index ["title"], name: "index_job_postings_on_title"
@@ -410,6 +415,7 @@ ActiveRecord::Schema.define(version: 2019_01_20_042919) do
     t.datetime "updated_at", null: false
     t.uuid "legacy_id"
     t.bigint "organization_id"
+    t.string "stripe_customer_id"
     t.index "lower((email)::text)", name: "index_users_on_email", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
@@ -432,15 +438,6 @@ ActiveRecord::Schema.define(version: 2019_01_20_042919) do
     t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
     t.index ["object"], name: "index_versions_on_object", using: :gin
     t.index ["object_changes"], name: "index_versions_on_object_changes", using: :gin
-  end
-
-  create_table "words", force: :cascade do |t|
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.text "word", null: false
-    t.index ["record_type", "record_id", "word"], name: "index_words_on_record_type_and_record_id_and_word", unique: true
-    t.index ["record_type", "record_id"], name: "index_words_on_record_type_and_record_id"
-    t.index ["word"], name: "index_words_on_word", opclass: :gin_trgm_ops, using: :gin
   end
 
 end
