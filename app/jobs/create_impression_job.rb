@@ -57,6 +57,6 @@ class CreateImpressionJob < ApplicationJob
   private
 
   def track_event(data)
-    TrackEventJob.perform_later("Create Impression", Time.current.to_i, @ip_address, data, @event_id)
+    CodeFundAds::Events.track("Create Impression", @event_id, {ip_address: @ip_address}.merge(data))
   end
 end

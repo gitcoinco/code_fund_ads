@@ -1,7 +1,7 @@
 class TrackEventJob < ApplicationJob
   queue_as :low
 
-  def perform(name, timestamp, ip_address, segmentation = {}, device_id = SecureRandom.uuid)
+  def perform(name, timestamp, device_id, segmentation = {})
     Typhoeus.post("https://analytics.codefund.app/i",
       body: {
         events: [
@@ -10,7 +10,7 @@ class TrackEventJob < ApplicationJob
             count: 1,
             sum: 0,
             timestamp: timestamp,
-            segmentation: {ip_address: ip_address}.merge(segmentation),
+            segmentation: segmentation,
           },
         ],
       }.to_json,

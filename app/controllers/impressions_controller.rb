@@ -53,6 +53,6 @@ class ImpressionsController < ApplicationController
   end
 
   def track_event(data)
-    TrackEventJob.perform_later("Find Virtual Impression", Time.current.to_i, request.remote_ip, data, @virtual_impression_id)
+    CodeFundAds::Events.track("Find Virtual Impression", @virtual_impression_id, {ip_address: request.remote_ip}.merge(data))
   end
 end

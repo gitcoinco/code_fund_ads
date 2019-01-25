@@ -257,6 +257,6 @@ class AdvertisementsController < ApplicationController
   end
 
   def track_event(name, data)
-    TrackEventJob.perform_later(name, Time.current.to_i, ip_address, data, session.id)
+    CodeFundAds::Events.track(name, session.id, {ip_address: ip_address}.merge(data))
   end
 end
