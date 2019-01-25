@@ -13,6 +13,14 @@ class JobPostingsController < ApplicationController
     end
   end
 
+  def show
+    job_postings = JobPosting.active.order(start_date: :desc)
+    job_postings = @job_posting_search.apply(job_postings)
+    job_postings = job_postings.where.not(id: @job_posting.id)
+    @similar_job_postings_count = job_postings.reorder("").size
+    @similar_job_postings = job_postings.limit(12)
+  end
+
   def edit
     raise NotImplementedError
   end

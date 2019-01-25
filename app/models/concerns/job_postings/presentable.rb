@@ -26,7 +26,7 @@ module JobPostings
       return "" unless min_annual_salary_cents && max_annual_salary_cents
       min = number_to_human min_annual_salary_cents, units: {thousand: "K"}
       max = number_to_human max_annual_salary_cents, units: {thousand: "K"}
-      "$#{min} - $#{max}"
+      "#{min} - #{max}"
     end
 
     def company_location
