@@ -2,8 +2,8 @@ class JobPostingPurchasesController < ApplicationController
   before_action :set_job_posting
 
   def new
-    return redirect_to(new_job_posting_user_path(@job_posting)) unless current_user
     return render_forbidden unless authorized_user.can_purchase_job_posting?(@job_posting)
+    return redirect_to(new_job_posting_user_path(@job_posting)) unless current_user
   end
 
   def create
