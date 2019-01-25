@@ -261,13 +261,12 @@ The pattern in which to instrument CodeFund with is as follows:
 
 Each variable can be the following value:
 
-- `name` - the name of the event (Visit)
+- `action` - the label for the action being tracked (e.g. `find_virtual_impression`)
 - `device_id` - the session or unique ID of the visit
 - `segmentation` - hash of key value pairs that can be used to segment the data
 
 The segmentation typically includes:
 
-- `action` - the label for the action being tracked (e.g. `find_virtual_impression`)
 - `status` - the status of the action (e.g. `success` or `fail`)
 - `ip_address` - the IP address of the visitor
 - `property_id` - the Property ID
