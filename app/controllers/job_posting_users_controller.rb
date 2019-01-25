@@ -2,16 +2,15 @@ class JobPostingUsersController < ApplicationController
   before_action :set_job_posting
 
   def new
-    return render_forbidden unless authorized_user.can_purchase_job_posting?(@job_posting)
-    @user = User.find_by(email: @job_posting.company_email) || User.new(
+    return redirect_to(new_job_posting_purchase_path(@job_posting)) if User.find_by(email: @job_posting.company_email)
+    @user = User.new(
       email: @job_posting.company_email,
       company_name: @job_posting.company_name,
     )
   end
 
   def create
-    return render_forbidden unless authorized_user.can_purchase_job_posting?(@job_posting)
-    return redirect_to(new_job_posting_user_path(@job_posting)) if User.find_by(email: @job_posting.company_email)
+    return redirect_to(new_job_posting_purchase_path(@job_posting)) if User.find_by(email: @job_posting.company_email)
     @user = User.new(user_params)
     if @user.save
       sign_in @user

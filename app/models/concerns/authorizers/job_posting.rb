@@ -11,6 +11,7 @@ module Authorizers
     end
 
     def can_purchase_job_posting?(job_posting)
+      return false if new_record?
       return false unless job_posting
       job_posting.user_id == id
     end

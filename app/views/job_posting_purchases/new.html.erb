@@ -10,10 +10,10 @@
         <p>This listing will auto renew at <strong>$299 every 30 days</strong>... yada yada yada</p>
 
         <div class="space-1">
-          <%= simple_form_for @job_posting, url: job_posting_purchase_path(@job_posting), html: {
+          <%= simple_form_for @job_posting, url: job_posting_purchase_path(@job_posting), method: :post, html: {
             data: {
               controller: "job-posting-purchases-form",
-              key: "#{ENV["STRIPE_PUBLISHABLE_KEY"]}",
+              key: ENV["STRIPE_PUBLISHABLE_KEY"],
               image: asset_path("codefund-circle.png"),
               name: "CodeFund",
               description: "30 day job listing",
@@ -21,11 +21,17 @@
               currency: "USD",
               email: current_user.email,
             }} do %>
-            <input type="hidden" name="token" data-target="job-posting-purchases-form.token" />
+            <input type="hidden" name="source_id" data-target="job-posting-purchases-form.sourceId" />
 
             <div class="text-center">
-              <%= link_to "Pay $299", "", class: "btn btn-primary d-block mx-auto", data: { action: "click->job-posting-purchases-form#showPaymentModal" } %>
-              <%= link_to "Make Changes", edit_job_posting_prospect_path(@job_posting), class: "btn btn-sm text-muted btn-link" %>
+              <%= link_to "Pay $299", "", class: "btn btn-primary d-block mx-auto",
+                data: {
+                  action: "click->job-posting-purchases-form#showPaymentModal",
+                  target: "job-posting-purchases-form.purchaseButton",
+                  processing_text: "Your payment is processing...",
+              } %>
+              <%= link_to "Make Changes", edit_job_posting_prospect_path(@job_posting), class: "btn btn-sm text-muted btn-link",
+                data: { target: "job-posting-purchases-form.editLink" } %>
             </div>
           <% end %>
         </div>

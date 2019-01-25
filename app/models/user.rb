@@ -63,6 +63,7 @@ class User < ApplicationRecord
   include Users::Advertiser
   include Users::Publisher
   include Users::Presentable
+  include Users::Stripeable
   include Eventable
   include Imageable
   include Taggable

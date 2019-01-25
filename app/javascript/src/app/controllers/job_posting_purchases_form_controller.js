@@ -1,17 +1,18 @@
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
-  static targets = ['token'];
+  static targets = ['sourceId', 'purchaseButton', 'editLink'];
 
   showPaymentModal(event) {
     Rails.stopEverything(event);
 
-    let { key, image, name, description, amount, currency, email } = this.element.dataset;
+    let { processing, key, image, name, description, amount, currency, email } = this.element.dataset;
+    if (processing) return;
     let stripe = StripeCheckout.configure({
       key,
       image,
       locale: 'auto',
-      token: this.submitToken.bind(this),
+      source: this.submit.bind(this),
     });
 
     stripe.open({
@@ -23,9 +24,11 @@ export default class extends Controller {
     });
   }
 
-  submitToken(token) {
-    debugger;
-    this.tokenTarget.value = token.id;
-    // todo: submit form
+  submit(source) {
+    this.element.processing = true;
+    this.sourceIdTarget.value = source.id;
+    this.purchaseButtonTarget.innerText = this.purchaseButtonTarget.dataset.processingText;
+    this.editLinkTarget.remove();
+    this.element.submit();
   }
 }
