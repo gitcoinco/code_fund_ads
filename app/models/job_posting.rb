@@ -121,7 +121,7 @@ class JobPosting < ApplicationRecord
     Province.find_by_iso_code(province_code)
   end
 
-  def to_tsvector
+  def to_tsvectors
     [].
       then { |result| remote? ? result << make_tsvector("remote", weight: "A") : result }.
       then { |result| keywords.blank? ? result : keywords.each_with_object(result) { |tag, memo| memo << make_tsvector(tag, weight: "A") } }.
@@ -131,8 +131,7 @@ class JobPosting < ApplicationRecord
       then { |result| city.blank? ? result : result << make_tsvector(city, weight: "D") }.
       then { |result| province_name.blank? ? result : result << make_tsvector(province_name, weight: "D") }.
       then { |result| country_code.blank? ? result : result << make_tsvector(country_code, weight: "D") }.
-      then { |result| Country.find(country_code).blank? ? result : result << make_tsvector(Country.find(country_code).name, weight: "D") }.
-      then { |result| result.compact.join " || " }
+      then { |result| Country.find(country_code).blank? ? result : result << make_tsvector(Country.find(country_code).name, weight: "D") }
   end
 
   def province
