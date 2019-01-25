@@ -390,7 +390,6 @@ GEM
       sprockets (>= 3.0.0)
     standard (0.0.24)
       rubocop (>= 0.60)
-    statsd-instrument (2.3.2)
     statsd-ruby (1.4.0)
     stimulus_reflex (0.2.0)
       actioncable (>= 5.2.1)
@@ -513,7 +512,6 @@ DEPENDENCIES
   simple_form (~> 4.0)
   slack-notifier (~> 2.3.2)
   standard
-  statsd-instrument (~> 2.3.2)
   stimulus_reflex (~> 0.2.0)
   stopwords-filter (~> 0.4.1)
   tag_columns (~> 0.1.6)

@@ -2,11 +2,14 @@ class CreateImpressionJob < ApplicationJob
   queue_as :impression
 
   def perform(id, campaign_id, property_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string, uplift = "false")
+    @event_id = SecureRandom.uuid
+    @ip_address = ip_address
+
     campaign = Campaign.find_by(id: campaign_id)
     property = Property.find_by(id: property_id)
 
     unless campaign && property
-      return instrument "increment.statsd", data: statsd_data({status: "missing_campaign_and_property"})
+      track_event({status: "missing_campaign_and_property"})
     end
 
     displayed_at = Time.parse(displayed_at_string)
@@ -39,21 +42,21 @@ class CreateImpressionJob < ApplicationJob
     )
 
     IncrementImpressionsCountCacheJob.perform_now impression
-    instrument "increment.statsd",
-      data: statsd_data({
-        campaign_id: campaign.id,
-        creative_id: campaign.creative_id,
-        property_id: property.id,
-        country_code: impression.country_code,
-      })
+    track_event({
+      status: "success",
+      campaign_id: campaign.id,
+      creative_id: campaign.creative_id,
+      property_id: property.id,
+      country_code: impression.country_code.to_s,
+    })
   rescue ActiveRecord::RecordNotUnique
     # prevent reattempts when a race condition attempts to write the same record
-    instrument "increment.statsd", key: statsd_data({status: "record_not_unique"})
+    track_event({status: "record_not_unique"})
   end
 
   private
 
-  def statsd_data(data)
-    {category: "job", action: "create_impression"}.merge(data)
+  def track_event(data)
+    CodeFundAds::Events.track("Create Impression", @event_id, {ip_address: @ip_address}.merge(data))
   end
 end
