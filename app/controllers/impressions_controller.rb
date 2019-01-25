@@ -14,18 +14,16 @@ class ImpressionsController < ApplicationController
     Rails.cache.delete params[:id]
 
     if @virtual_impression.nil?
-      instrument "increment.statsd", data: {action: "find_virtual_impression", status: "not_found"}
+      track_event({status: "not_found"})
       return head(:not_found)
     end
 
     if @virtual_impression[:ip_address] != request.remote_ip
-      instrument "increment.statsd",
-        data: {
-          action: "find_virtual_impression",
-          status: "ip_mismatch",
-          campaign_id: @virtual_impression[:campaign_id],
-          property_id: @virtual_impression[:property_id],
-        }
+      track_event({
+        status: "ip_mismatch",
+        campaign_id: @virtual_impression[:campaign_id],
+        property_id: @virtual_impression[:property_id],
+      })
       Rollbar.debug("IP addresses do not match", {
         virtual_impression: @virtual_impression,
         remote_ip: request.remote_ip,
@@ -33,12 +31,11 @@ class ImpressionsController < ApplicationController
       return head(:not_found)
     end
 
-    instrument "increment.statsd",
-      data: {
-        action: "find_virtual_impression",
-        campaign_id: @virtual_impression[:campaign_id],
-        property_id: @virtual_impression[:property_id],
-      }
+    track_event({
+      status: "success",
+      campaign_id: @virtual_impression[:campaign_id],
+      property_id: @virtual_impression[:property_id],
+    })
   end
 
   def create_impression
@@ -53,5 +50,9 @@ class ImpressionsController < ApplicationController
       Time.current.iso8601,
       params[:uplift]
     )
+  end
+
+  def track_event(data)
+    CodeFundAds::Events.track("Find Virtual Impression", @virtual_impression_id, {ip_address: request.remote_ip}.merge(data))
   end
 end

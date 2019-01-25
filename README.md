@@ -253,30 +253,38 @@ DownloadAndExtractMaxmindFileJob.new.download
 
 ## Instrumentation
 
-CodeFund uses statsd to gather and analyze data. This data does not include any personal identifiable information.
+CodeFund uses a self-hosted version of [count.ly](https://count.ly/) to gather and analyze data. This data does not include any personal identifiable information.
 
 The pattern in which to instrument CodeFund with is as follows:
 
-    :application.:environment.:category.:action.:status.:property_id.:campaign_id.:creative_id.:country_code
+    CodeFundAds::Events.track(:action, :device_id, :segmentation)
 
 Each variable can be the following value:
 
-- `application` - the name of the application (codefund)
-- `environment` - the Rails environment (production, staging, etc)
-- `category` - the overall category of the stat. Can be `web`, `job`, `api`
 - `action` - the label for the action being tracked (e.g. `find_virtual_impression`)
+- `device_id` - the session or unique ID of the visit
+- `segmentation` - hash of key value pairs that can be used to segment the data
+
+The segmentation typically includes:
+
 - `status` - the status of the action (e.g. `success` or `fail`)
-- `property_id` - the Property ID (or `UNKNOWN` for none)
-- `campaign_id` - the Campaign ID (or `UNKNOWN` for none)
-- `creative_id` - the Creative ID (or `UNKNOWN` for none)
-- `country_code` - the country code (or `UNKNOWN` for none)
+- `ip_address` - the IP address of the visitor
+- `property_id` - the Property ID
+- `campaign_id` - the Campaign ID
+- `creative_id` - the Creative ID
+- `country_code` - the country code
 
 Example:
 
 ```ruby
 # Application & Environment are added by default
-instrument "increment.statsd", key: "web.find_virtual_impression.fail"
-instrument "increment.statsd", key: "web.find_fallback_campaign.success.1.UNKNOWN.UNKNOWN.US"
+CodeFundAds::Events.track("Find Virtual Impression", session.id, { status: "fail", ip_address: "127.0.0.1" })
+CodeFundAds::Events.track("Find Fallback Campaign", session.id, {
+  status: "success",
+  ip_address: "127.0.0.1",
+  property_id: 1,
+  country_code: "US"
+})
 ```
 
 ## Candidates for GEM extraction

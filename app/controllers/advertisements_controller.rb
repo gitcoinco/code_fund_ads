@@ -8,7 +8,12 @@ class AdvertisementsController < ApplicationController
   after_action :create_virtual_impression, if: -> { @campaign.present? }
 
   def show
-    instrument "increment.statsd", data: {action: "visit", property_id: property_id, campaign_id: @campaign&.id, creative_id: @campaign&.creative_id, country_code: country_code}
+    track_event("Visit", {
+      property_id: property_id,
+      campaign_id: @campaign&.id,
+      creative_id: @campaign&.creative_id,
+      country_code: country_code.to_s,
+    })
 
     # TODO: deprecate legacy support on 2019-04-01
     return render_legacy_show if request.format.json?
@@ -34,9 +39,19 @@ class AdvertisementsController < ApplicationController
     if @campaign
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
       @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
-      instrument "increment.statsd", data: {action: "render_legacy_ad", property_id: property_id, campaign_id: @campaign.id, creative_id: @campaign.creative_id, country_code: country_code}
+      track_event("Render Legacy Ad", {
+        status: "success",
+        property_id: property_id,
+        campaign_id: @campaign&.id,
+        creative_id: @campaign&.creative_id,
+        country_code: country_code.to_s,
+      })
     else
-      instrument "increment.statsd", data: {action: "render_legacy_ad", status: "not_found", property_id: property_id, country_code: country_code}
+      track_event("Render Legacy Ad", {
+        status: "not_found",
+        property_id: property_id,
+        country_code: country_code.to_s,
+      })
       response.status = :not_found
     end
 
@@ -141,16 +156,30 @@ class AdvertisementsController < ApplicationController
     @campaign ||= get_fallback_campaign(campaign_relation)
 
     unless @campaign
-      instrument "increment.statsd", data: {action: "find_campaign", status: "fail", property_id: property_id, country_code: country_code}
+      track_event("Find Campaign", {
+        status: "fail",
+        property_id: property_id,
+        country_code: country_code.to_s,
+      })
     end
   end
 
   def get_premium_campaign(campaign_relation)
     campaign = choose_campaign(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
     if campaign
-      instrument "increment.statsd", data: {action: "find_premium_campaign", status: "success", property_id: property_id, campaign_id: campaign.id, creative_id: campaign.creative_id, country_code: country_code}
+      track_event("Find Premium Campaign", {
+        status: "success",
+        property_id: property_id,
+        campaign_id: campaign.id,
+        creative_id: campaign.creative_id,
+        country_code: country_code.to_s,
+      })
     else
-      instrument "increment.statsd", data: {action: "find_premium_campaign", status: "fail", property_id: property_id, country_code: country_code}
+      track_event("Find Premium Campaign", {
+        status: "fail",
+        property_id: property_id,
+        country_code: country_code.to_s,
+      })
     end
     campaign
   end
@@ -159,9 +188,19 @@ class AdvertisementsController < ApplicationController
     campaign = choose_campaign(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords), ignore_budgets: true)
     campaign ||= choose_campaign(campaign_relation.fallback_for_property_id(property_id), ignore_budgets: true)
     if campaign
-      instrument "increment.statsd", data: {action: "find_fallback_campaign", status: "success", property_id: property_id, campaign_id: campaign.id, creative_id: campaign.creative_id, country_code: country_code}
+      track_event("Find Fallback Campaign", {
+        status: "success",
+        property_id: property_id,
+        campaign_id: campaign.id,
+        creative_id: campaign.creative_id,
+        country_code: country_code.to_s,
+      })
     else
-      instrument "increment.statsd", data: {action: "find_fallback_campaign", status: "fail", property_id: property_id, country_code: country_code}
+      track_event("Find Fallback Campaign", {
+        status: "fail",
+        property_id: property_id,
+        country_code: country_code.to_s,
+      })
     end
     campaign
   end
@@ -202,7 +241,12 @@ class AdvertisementsController < ApplicationController
       ip_address: ip_address,
     }, expires_in: 30.seconds
 
-    instrument "increment.statsd", data: {action: "create_virtual_impression", property_id: property_id, campaign_id: @campaign.id, creative_id: @campaign.creative_id, country_code: country_code}
+    track_event("Create Virtual Impression", {
+      property_id: property_id,
+      campaign_id: @campaign.id,
+      creative_id: @campaign.creative_id,
+      country_code: country_code.to_s,
+    })
   end
 
   def set_cors_headers
@@ -210,5 +254,9 @@ class AdvertisementsController < ApplicationController
     response.headers["Access-Control-Allow-Methods"] = "POST, PUT, DELETE, GET, OPTIONS"
     response.headers["Access-Control-Request-Method"] = "*"
     response.headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  end
+
+  def track_event(name, data)
+    CodeFundAds::Events.track(name, session.id, {ip_address: ip_address}.merge(data))
   end
 end

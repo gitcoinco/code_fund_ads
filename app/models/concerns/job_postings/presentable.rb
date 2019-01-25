@@ -30,6 +30,9 @@ module JobPostings
     end
 
     def company_location
+      return city unless province&.name.present?
+      return city unless country_code.present?
+
       "#{city}, #{province&.name}, #{country_code}"
     end
   end

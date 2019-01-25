@@ -18,6 +18,8 @@ class Province
     end
 
     def find_by_iso_code(val)
+      return nil unless val.present?
+
       country_code, subdivision = val.split("-")
       where(country_code: country_code, subdivision: subdivision).first
     end

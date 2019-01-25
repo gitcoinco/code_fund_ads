@@ -6,7 +6,17 @@
       <!-- Title -->
       <div class="w-md-80 w-lg-50 text-center mx-md-auto">
         <div class="mb-4">
-          <h2 class="h1">We <span class="font-weight-semi-bold text-success">fund</span> open source</h2>
+          <h2 class="h1">We <span class="font-weight-semi-bold text-success">fund</span> 
+            <span
+              class="u-text-animation u-text-animation--typing"
+              data-controller="animated-type"
+              data-type-speed="50"
+              data-loop="true"
+              data-back-speed="25"
+              data-back-delay="1500"
+              data-strings="<%= ["developers", "open source", "tech blogs", "dev tools", "maintainers"].to_json %>"
+            ></span>
+          </h2>
           <p>We help you generate passive income without sacrificing your coding time or community trust.</p>
         </div>
         <a class="js-go-to btn btn-primary transition-3d-hover" href="javascript:;"
@@ -532,9 +542,8 @@
         <div id="applyForPublisher" class="inverted-feedback">
           <!-- Title -->
           <div class="text-center mb-7">
-            <span class="u-label u-label--sm u-label--white mb-2">Join CodeFund</span>
             <h2 class="h3 text-white font-weight-normal">Become a Publisher</h2>
-            <p class="text-white">Your website must have at least 5,000 visitors per month and provide value to the open source community</p>
+            <p class="text-white">Your website must have <strong class="text-warning">at least 5,000 visitors per month</strong> and provide value to the open source community</p>
           </div>
           <!-- End Title -->
 
@@ -643,9 +652,15 @@
                 <div class="js-form-message">
                   <div class="js-focus-state input-group u-form u-form--no-brd">
                     <%= f.select :monthly_visitors,
-                      ["Less than 5,000", "5,000 - 10,000", "10,000 - 50,000", "50,000 - 250,000", "250,000+"],
-                      { required: true },
-                      class: "form-control u-form__input" %>
+                      ["Less than 5,000 (does not qualify)", "5,000 - 10,000", "10,000 - 50,000", "50,000 - 250,000", "250,000+"],
+                      { include_blank: true },
+                      required: true,
+                      class: "form-control u-form__input",
+                      data: {
+                        msg: "You must select the number of monthly visitors",
+                        error_class: "u-has-error",
+                        success_class: "u-has-success"
+                      } %>
                   </div>
                 </div>
               </div>
