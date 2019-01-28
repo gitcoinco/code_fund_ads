@@ -54,7 +54,7 @@ export default class extends Controller {
     if (isEmpty(this.inputHeadlineTarget.value)) {
       this.previewHeadlineTarget.textContent = 'Headline';
     } else {
-      this.previewHeadlineTarget.textContent = this.htmlDecode(this.inputHeadlineTarget.value);
+      this.previewHeadlineTarget.textContent = this.inputHeadlineTarget.value;
     }
 
     this.checkLimit();
@@ -65,7 +65,7 @@ export default class extends Controller {
       this.previewBodyTarget.textContent =
         '🚀 Your body will go here. You can use an emoji to help catch their eye 🤪';
     } else {
-      this.previewBodyTarget.textContent = this.htmlDecode(this.inputBodyTarget.value);
+      this.previewBodyTarget.textContent = this.inputBodyTarget.value;
     }
 
     this.checkLimit();
@@ -92,10 +92,5 @@ export default class extends Controller {
 
   setTemplateTheme() {
     console.log('setTemplateTheme');
-  }
-
-  htmlDecode(value) {
-    let doc = new DOMParser().parseFromString(value, 'text/html');
-    return doc.documentElement.textContent;
   }
 }
