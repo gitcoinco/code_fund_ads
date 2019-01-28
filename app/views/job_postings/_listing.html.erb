@@ -43,13 +43,13 @@
   </p>
 </div>
 
-<div class="mb-7 job-listing__description">
-  <%= job_posting.pretty_description %>
+<div class="mb-7 job-listing__description trix-content">
+  <%= job_posting.sanitized_description.html_safe %>
 </div>
 
 <% if job_posting.how_to_apply %>
   <div class="mb-7 pt-3 job-listing__how-to-apply" id="how-to-apply">
     <h4 class="h4">How to apply</h4>
-    <%= sanitize job_posting.how_to_apply, scrubber: Loofah::Scrubbers::Prune.new %>
+    <%= tag.div job_posting.sanitized_how_to_apply.html_safe, class: "trix-content" %>
   </div>
 <% end %>

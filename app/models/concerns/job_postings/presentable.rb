@@ -10,18 +10,6 @@ module JobPostings
       URI.parse(company_url).host
     end
 
-    def pretty_description
-      pretty_body(description)
-    end
-
-    def pretty_how_to_apply
-      pretty_body(how_to_apply)
-    end
-
-    def pretty_body(html)
-      sanitize(simple_format(html), tags: %w[p strong em a ul li], attributes: %w[href])
-    end
-
     def salary_range
       return "" unless min_annual_salary_cents && max_annual_salary_cents
       min = number_to_human min_annual_salary_cents, units: {thousand: "K"}
@@ -34,6 +22,14 @@ module JobPostings
       return city unless country_code.present?
 
       "#{city}, #{province&.name}, #{country_code}"
+    end
+
+    def sanitized_description
+      sanitize_value description
+    end
+
+    def sanitized_how_to_apply
+      sanitize_value how_to_apply
     end
   end
 end
