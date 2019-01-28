@@ -1,26 +1,3 @@
-.job-listing {
-  &__description,
-  &__how-to-apply {
-    h1 {
-      font-size: 18px;
-      font-weight: 600;
-    }
-    ul {
-      margin-left: 25px;
-      padding-left: 0px;
-      li {
-        color: #77838f !important;
-      }
-    }
-    strong {
-      color: #1e2022;
-    }
-    p {
-      color: #77838f !important;
-    }
-  }
-}
-
 .company-logo-wrapper {
   height: 150px;
   width: 150px;
