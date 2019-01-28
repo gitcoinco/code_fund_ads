@@ -219,7 +219,7 @@ class AdvertisementsController < ApplicationController
 
   def render_advertisement
     Rails.cache.fetch(advertisement_cache_key) do
-      Premailer.new(
+      formatted_code = Premailer.new(
         template,
         with_html_string: true,
         html_fragment: true,
@@ -227,6 +227,8 @@ class AdvertisementsController < ApplicationController
         output_encoding: "utf-8",
         adapter: :nokogiri_fast
       ).to_inline_css.squish
+      formatted_code = formatted_code.gsub(/\'/, "\\\\'") unless request.format.html?
+      formatted_code
     end
   end
 
