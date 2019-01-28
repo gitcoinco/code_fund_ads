@@ -125,7 +125,7 @@
     <% end %>
   </div>
 
-  <div class="mb-4" <%= "hidden" unless @job_posting.remote? %> data-target="job-posting-prospects-form.remoteCountryCodesSelector">
+  <div class="mb-4" <%= "hidden" unless @job_posting.remote? %> data-controller="select-multiple" data-target="job-posting-prospects-form.remoteCountryCodesSelector">
     <%= f.input :remote_country_codes, collection: countries_for_select, input_html: {
         multiple: true,
         data: {
