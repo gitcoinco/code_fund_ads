@@ -19,7 +19,13 @@ module Sanitizable
 
   def sanitize_attributes
     attribute_names_to_sanitize.each do |name|
-      self[name] = CGI.unescapeHTML(Loofah.fragment(self[name].to_s).scrub!(:prune).to_s.gsub(/'/, "′"))
+      self[name] = sanitize_value(self[name])
     end
+  end
+
+  def sanitize_value(value)
+    clean_html = Loofah.fragment(value.to_s).scrub!(:strip).to_s.tr("'", "′")
+    pretty_html = clean_html.gsub(/(\<br\>){3,}/i, "<br><br>").tr("\n", "")
+    CGI.unescapeHTML pretty_html
   end
 end
