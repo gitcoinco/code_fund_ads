@@ -5,7 +5,7 @@ HOST: api.condefund.app
 
 This document is hosted at Apiary: https://codefund.docs.apiary.io/
 
-# Advertisement [/properties/{property_id}/funder.html/?{template}{theme}{keywords}]
+# Advertisement HTML [/properties/{property_id}/funder.html/?{template}{theme}{keywords}]
 
 Returns an HTML fragment that you can add to your page.
 
@@ -28,7 +28,7 @@ axios.get('https://api.codefund.app/properties/1/funder.html')
   });
 ```
 
-## Fetch Ad for Property [GET]
+## Fetch Ad HTML for Property [GET]
 
   + Parameters
     + property_id (number, required) - The property id
@@ -102,11 +102,9 @@ axios.get('https://api.codefund.app/properties/1/funder.html')
 
         CodeFund does not have a advertiser for you at this time.
 
-# Advertisement API [/properties/{property_id}/funder.json/?{template}{theme}{keywords}]
+# Advertisement JSON [/properties/{property_id}/funder.json/?{template}{theme}{keywords}]
 
-When fetching
-
-## Fetch Ad data for Property [GET]
+## Fetch Ad JSON for Property [GET]
 
   + Parameters
     + property_id (number, required) - The property id
