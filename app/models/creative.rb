@@ -19,6 +19,7 @@ class Creative < ApplicationRecord
   include Eventable
   include Organizationable
   include Sanitizable
+  include Creatives::Presentable
 
   # relationships .............................................................
   belongs_to :user

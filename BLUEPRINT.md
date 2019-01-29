@@ -49,77 +49,50 @@ axios.get('https://api.codefund.app/properties/1/funder.html')
       + `unstyled` - exclude styles, only HTML
     + keywords (enum[string], optional) - Comma delimited list of property keywords used to find a matching ad
       _overrides property config_
-      + `ABAP`
-      + `Ada`
-      + `Alice`
-      + `Android Development`
-      + `Apex`
-      + `Assembly language`
-      + `Awk`
-      + `Backend Services`
-      + `Bash`
+      + `.NET`
+      + `Android`
+      + `Angular`
+      + `Backend`
       + `Blockchain`
       + `C`
-      + `C#`
-      + `C++`
-      + `COBOL`
+      + `Cryptography`
       + `CSS & Design`
-      + `Computer Science`
       + `D`
       + `Dart`
       + `Database`
-      + `Delphi/Object Pascal`
-      + `Dev Ops`
-      + `Docker`
+      + `Developer Resources`
+      + `DevOps`
       + `Erlang`
       + `F#`
-      + `Fortran`
-      + `Frontend Concepts`
-      + `Frontend Frameworks & Tools`
-      + `Frontend Workflow & Tooling`
+      + `Frontend`
       + `Game Development`
-      + `Git`
       + `Go`
       + `Groovy`
-      + `HTML5`
       + `Haskell`
       + `Hybrid & Mobile Web`
-      + `IOS Development`
+      + `iOS`
+      + `IoT`
       + `Java`
       + `JavaScript`
       + `Julia`
-      + `LabVIEW`
-      + `Ladder Logic`
-      + `Languages & Frameworks`
-      + `Lisp`
-      + `Logo`
-      + `Lua`
-      + `MATLAB`
-      + `MQL4`
+      + `Kotlin`
+      + `Machine Learning`
       + `Objective-C`
       + `Other`
       + `PHP`
       + `PL/SQL`
-      + `Perl`
-      + `Prolog`
       + `Python`
       + `Q`
       + `R`
-      + `RPG (OS/400)`
       + `React`
-      + `Resources`
       + `Ruby`
       + `Rust`
-      + `SAS`
       + `Scala`
-      + `Scheme`
-      + `Scratch`
-      + `Shell`
+      + `Security`
+      + `Serverless`
       + `Swift`
-      + `Transact-SQL`
-      + `VHDL`
-      + `Visual Basic`
-      + `Visual Basic .NET`
+      + `Virtual Reality`
+      + `VueJS`
 
 + Response 200 (text/html)
 
@@ -128,6 +101,114 @@ axios.get('https://api.codefund.app/properties/1/funder.html')
 + Response 404 (text/html)
 
         CodeFund does not have a advertiser for you at this time.
+
+# Advertisement API [/properties/{property_id}/funder.json/?{template}{theme}{keywords}]
+
+When fetching
+
+## Fetch Ad data for Property [GET]
+
+  + Parameters
+    + property_id (number, required) - The property id
+    + template (enum[string], optional) - The ad template to use
+      _overrides property config_
+      + `bottom-bar`
+      + `centered`
+      + `default`
+      + `horizontal`
+      + `image-centered`
+      + `image-only`
+      + `square`
+      + `vertical`
+    + theme (enum[string], optional) - The ad theme to apply
+      _overrides property config_
+      + `dark`
+      + `light`
+      + `unstyled` - exclude styles, only HTML
+    + keywords (enum[string], optional) - Comma delimited list of property keywords used to find a matching ad
+      _overrides property config_
+      + `.NET`
+      + `Android`
+      + `Angular`
+      + `Backend`
+      + `Blockchain`
+      + `C`
+      + `Cryptography`
+      + `CSS & Design`
+      + `D`
+      + `Dart`
+      + `Database`
+      + `Developer Resources`
+      + `DevOps`
+      + `Erlang`
+      + `F#`
+      + `Frontend`
+      + `Game Development`
+      + `Go`
+      + `Groovy`
+      + `Haskell`
+      + `Hybrid & Mobile Web`
+      + `iOS`
+      + `IoT`
+      + `Java`
+      + `JavaScript`
+      + `Julia`
+      + `Kotlin`
+      + `Machine Learning`
+      + `Objective-C`
+      + `Other`
+      + `PHP`
+      + `PL/SQL`
+      + `Python`
+      + `Q`
+      + `R`
+      + `React`
+      + `Ruby`
+      + `Rust`
+      + `Scala`
+      + `Security`
+      + `Serverless`
+      + `Swift`
+      + `Virtual Reality`
+      + `VueJS`
+
++ Response 200 (application/json)
+
+        {
+          "campaignUrl": "https://codefund.app/impressions/4737f03b-3e78-4a8c-a5ba-ba8b4f41ed80/click?campaign_id=144",
+          "impressionUrl": "https://codefund.app/display/4737f03b-3e78-4a8c-a5ba-ba8b4f41ed80.gif?template=default&theme=light",
+          "codefundUrl": "https://codefund.app",
+          "fallback": true,
+          "headline": "Why CodeFund?",
+          "body": "🍪 Because cookies should come from your grandma, not from ads",
+          "images": [
+            {
+              "url": "https://d3a2el5l1ud3kv.cloudfront.net/5hswXFgp9Mkwacdqhw5sc4cy",
+              "width": 200,
+              "height": 200,
+              "format": "small"
+            },
+            {
+              "url": "https://d3a2el5l1ud3kv.cloudfront.net/fLt4UvyyuExewym5KBoA7Yjp",
+              "width": 512,
+              "height": 320,
+              "format": "wide"
+            },
+            {
+              "url": "https://d3a2el5l1ud3kv.cloudfront.net/828gHMndjM3zyzDsuN9FdE1j",
+              "width": 260,
+              "height": 200,
+              "format": "large"
+            }
+          ],
+          "html": "<div id=\"cf\" style=\"max-width: 330px; margin: 0 auto;\"> <span> <span class=\"cf-wrapper\" style=\"border-radius: 4px; padding: 15px; display: block; overflow: hidden; font-size: 14px; line-height: 1.4; text-align: left; background-color: rgba(0, 0, 0, 0.05); font-family: Helvetica;\"> <a class=\"cf-img-wrapper\" target=\"_blank\" rel=\"noopener\" style=\"float: left; margin-right: 15px;\" href=\"https://codefund.app/impressions/4737f03b-3e78-4a8c-a5ba-ba8b4f41ed80/click?campaign_id=144\"> <img border=\"0\" height=\"100\" width=\"130\" class=\"cf-img\" src=\"https://d3a2el5l1ud3kv.cloudfront.net/828gHMndjM3zyzDsuN9FdE1j\" style=\"vertical-align: middle; max-width: 130px; border: none;\"> </a> <a class=\"cf-text\" target=\"_blank\" rel=\"noopener\" style=\"color: #333; text-decoration: none;\" href=\"https://codefund.app/impressions/4737f03b-3e78-4a8c-a5ba-ba8b4f41ed80/click?campaign_id=144\"> <strong>Why CodeFund?</strong> <span>🍪 Because cookies should come from your grandma, not from ads</span> </a> <a href=\"https://codefund.app\" class=\"cf-powered-by\" target=\"_blank\" rel=\"noopener\" style=\"margin-top: 5px; font-size: 12px; display: block; color: #777; text-decoration: none;\"> <em>ethical</em> ad by CodeFund <img src=\"https://codefund.app/display/4737f03b-3e78-4a8c-a5ba-ba8b4f41ed80.gif?template=default&amp;theme=light\"> </a> </span> </span> </div>"
+        }
+
++ Response 404 (text/html)
+
+        {
+          "message": "CodeFund does not have a advertiser for you at this time."
+        }
 
 # Legacy Impression [/api/v1/impression/{legacy_property_id}]
 

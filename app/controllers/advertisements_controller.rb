@@ -3,6 +3,7 @@ class AdvertisementsController < ApplicationController
 
   protect_from_forgery except: :show
   before_action :set_cors_headers
+  # before_action :apply_visitor_rate_limiting
   before_action :set_campaign
   before_action :set_virtual_impression_id, if: -> { @campaign.present? }
   after_action :create_virtual_impression, if: -> { @campaign.present? }
@@ -16,7 +17,7 @@ class AdvertisementsController < ApplicationController
     })
 
     # TODO: deprecate legacy support on 2019-04-01
-    return render_legacy_show if request.format.json?
+    return render_legacy_show if legacy_api_call?
 
     @target = params[:target] || "codefund_ad"
 
@@ -28,11 +29,44 @@ class AdvertisementsController < ApplicationController
 
     respond_to do |format|
       format.js
+      format.json { render "/advertisements/show", status: @advertisement_html ? :ok : :not_found, layout: false }
       format.html { render "/advertisements/show", status: @advertisement_html ? :ok : :not_found, layout: false }
     end
+
+    # cache_visitor_response
   end
 
   protected
+
+  # def visitor_cache_key
+  #   "advertisements#show/#{ip_address}"
+  # end
+
+  # def cache_visitor_response
+  #   Rails.cache.write(
+  #     visitor_cache_key, {
+  #       status: response.status,
+  #       content_type: response.content_type,
+  #       body: response.body,
+  #     },
+  #     expires_in: (ENV["VISITOR_AD_RATE_LIMIT"] || 10).to_i.seconds
+  #   )
+  # end
+
+  # def apply_visitor_rate_limiting
+  #   previous_response = Rails.cache.read(visitor_cache_key)
+  #   if previous_response
+  #     response.status = previous_response[:status]
+  #     response.content_type = previous_response[:content_type]
+  #     self.response_body = previous_response[:body]
+  #   end
+  # end
+
+  # TODO: deprecate legacy support on 2019-04-01
+  def legacy_api_call?
+    return false unless request.format.json?
+    request.path.start_with?("/api/v1/impression", "/t/s/")
+  end
 
   # TODO: deprecate legacy support on 2019-04-01
   def render_legacy_show
@@ -55,7 +89,7 @@ class AdvertisementsController < ApplicationController
       response.status = :not_found
     end
 
-    respond_to :json
+    render "/advertisements/legacy_show"
   end
 
   def set_virtual_impression_id
