@@ -14,6 +14,12 @@
 
         <div class="col-lg-4">
           <div class="pl-lg-4">
+
+            <% if authorized_user.can_update_job_posting?(@job_posting, current_user&.id) %>
+              <%= link_to "Make Changes", edit_manage_job_posting_path(@job_posting),
+                    class: "btn btn-sm btn-block btn-dark transition-3d-hover mb-3" %>
+            <% end %>
+
             <!-- Sidebar Info -->
             <div class="card border-0 shadow-sm mb-3">
               <!-- Header -->
@@ -62,7 +68,7 @@
                   </div>
                 </div>
 
-                <% if @job_posting.min_annual_salary_cents > 0 %>
+                <% if @job_posting.min_annual_salary_cents > 0 && @job_posting.display_salary? %>
                   <div class="media mb-3">
                     <div class="min-width-4 text-center text-primary mt-1 mr-3">
                       <span class="fas fa-money-bill-alt"></span>

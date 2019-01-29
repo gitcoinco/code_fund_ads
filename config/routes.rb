@@ -45,6 +45,10 @@ Rails.application.routes.draw do
 
   resources :email_templates
 
+  scope "/jobs", manage_scope: true do
+    resources :job_postings, only: [:index, :edit, :update, :destroy], path: "/manage", as: :manage_job_postings
+  end
+
   # polymorphic based on: app/models/concerns/imageable.rb
   scope "/imageables/:imageable_gid/" do
     resources :image_searches, only: [:create, :update, :destroy]

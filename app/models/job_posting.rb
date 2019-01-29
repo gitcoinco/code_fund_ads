@@ -120,6 +120,10 @@ class JobPosting < ApplicationRecord
     status == ENUMS::JOB_STATUSES::PENDING
   end
 
+  def active?
+    status == ENUMS::JOB_STATUSES::ACTIVE
+  end
+
   def province
     Province.find_by_iso_code(province_code)
   end
