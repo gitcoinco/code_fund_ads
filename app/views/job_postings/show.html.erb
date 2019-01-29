@@ -53,7 +53,13 @@
                     <span class="fas fa-map-marked-alt"></span>
                   </div>
                   <div class="media-body">
-                    <span class="d-block font-weight-medium"><%= @job_posting.city %></span>
+                    <span class="d-block font-weight-medium"><%= @job_posting.city %><% if @job_posting.remote? %>
+                      / <%= link_to "Remote", "javascript:;", class: "text-link", data: {
+                         toggle: "popover",
+                         title: "Only for applicants from:",
+                         content: @job_posting.remote_country_codes.join(", ")
+                        } %>
+                    <% end %></span>
                     <small class="d-block text-secondary">Location</small>
                   </div>
                 </div>
@@ -80,16 +86,19 @@
                   </div>
                 <% end %>
 
-                <% if @job_posting.how_to_apply %>
-                  <a class="js-go-to btn btn-sm btn-block mt-5 btn-soft-primary transition-3d-hover" href="javascript:;"
-                    data-target="#how-to-apply"
-                    data-compensation="#navBar"
-                    data-type="static">Apply Now</a>
-                <% end %>
+                <%= link_to "Apply Now", @job_posting.url,
+                      class: "btn btn-sm btn-block mt-5 btn-soft-primary transition-3d-hover" %>
               </div>
               <!-- End Content -->
             </div>
             <!-- End Sidebar Info -->
+
+            <div class="text-center mb-9">
+              <%= link_to @report_job_post_link, class: "text-muted small" do %>
+                <small class="fas fa-flag mr-1"></small>
+                Report this job
+              <% end %>
+            </div>
 
             <div id="codefund"></div>
             <script src="https://codefund.app/properties/173/funder.js?keywords=<%= @job_posting.keywords.join(',') %>" async="async"></script>

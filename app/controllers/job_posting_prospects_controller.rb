@@ -17,8 +17,8 @@ class JobPostingProspectsController < ApplicationController
       keywords: default_value(development: %w[Ruby JavaScript Database]),
       remote: default_value(development: ENUMS::JOB_TYPES::FULL_TIME),
       remote_country_codes: default_value(development: ["US", "CA", "GB"]),
-      min_annual_salary_cents: default_value(production: 75_000),
-      max_annual_salary_cents: default_value(production: 150_000),
+      min_annual_salary_cents: default_value(development: 75_000),
+      max_annual_salary_cents: default_value(development: 150_000),
       min_annual_salary_currency: default_value(production: "USD"),
       job_type: default_value(production: ENUMS::JOB_TYPES::FULL_TIME),
     )

@@ -26,8 +26,8 @@
 
 <%= tag.div f.input(:title, label: "Job Title", required: true, placeholder: "Full Stack Developer", input_html: { max_length: 80 },
     hint: "Example: “Senior Designer”. Titles must describe one position"), class: "mb-4" %>
-<%= tag.div f.input(:url, as: :url, label: "Link to Apply", pattern: "https?:\/\/.*", required: true, placeholder: "https://",
-  hint: "This can be a link to your job posting, application form, or website"),
+<%= tag.div f.input(:url, as: :string, label: "Link to Apply", required: true, placeholder: "https://",
+  hint: "This can be a link to your job posting, application form, email address or website"),
   class: "mb-4" %>
 
 <%= tag.div class: "mb-4" do %>
