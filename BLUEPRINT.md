@@ -175,33 +175,33 @@ When fetching
 + Response 200 (application/json)
 
         {
-          "html": "<div id=\"cf\" style=\"max-width: 330px; margin: 0 auto;\"> <span> <span class=\"cf-wrapper\" style=\"border-radius: 4px; padding: 15px; display: block; overflow: hidden; font-size: 14px; line-height: 1.4; text-align: left; background-color: rgba(0, 0, 0, 0.05); font-family: Helvetica;\"> <a class=\"cf-img-wrapper\" target=\"_blank\" rel=\"noopener\" style=\"float: left; margin-right: 15px;\" href=\"http://localhost:3000/impressions/8e2e47f0-3448-4239-b304-2429571f580d/click?campaign_id=147\"> <img border=\"0\" height=\"100\" width=\"130\" class=\"cf-img\" src=\"https://d3a2el5l1ud3kv.cloudfront.net/zExE6kAp7rwV7SvvkNmYECCY\" style=\"vertical-align: middle; max-width: 130px; border: none;\"> </a> <a class=\"cf-text\" target=\"_blank\" rel=\"noopener\" style=\"color: #333; text-decoration: none;\" href=\"http://localhost:3000/impressions/8e2e47f0-3448-4239-b304-2429571f580d/click?campaign_id=147\"> <strong>Gitcoin</strong> <span> 💰 Use your skills to grow Open Source while getting paid!</span> </a> <a href=\"https://codefund.app\" class=\"cf-powered-by\" target=\"_blank\" rel=\"noopener\" style=\"margin-top: 5px; font-size: 12px; display: block; color: #777; text-decoration: none;\"> <em>ethical</em> ad by CodeFund <img src=\"http://localhost:3000/display/8e2e47f0-3448-4239-b304-2429571f580d.gif?template=default&amp;theme=light\"> </a> </span> </span> </div>",
-          "headline": "Gitcoin",
-          "description": "💰 Use your skills to grow Open Source while getting paid!",
-          "campaignUrl": "http://localhost:3000/impressions/8e2e47f0-3448-4239-b304-2429571f580d/click?campaign_id=147",
-          "impressionUrl": "http://localhost:3000/display/8e2e47f0-3448-4239-b304-2429571f580d.gif?template=default&theme=light",
+          "campaignUrl": "https://codefund.app/impressions/4737f03b-3e78-4a8c-a5ba-ba8b4f41ed80/click?campaign_id=144",
+          "impressionUrl": "https://codefund.app/display/4737f03b-3e78-4a8c-a5ba-ba8b4f41ed80.gif?template=default&theme=light",
           "codefundUrl": "https://codefund.app",
           "fallback": true,
+          "headline": "Why CodeFund?",
+          "body": "🍪 Because cookies should come from your grandma, not from ads",
           "images": [
             {
-              "url": "https://d3a2el5l1ud3kv.cloudfront.net/egfCLXLg6vsU96cgPH36vVfB",
-              "width": 100,
-              "height": 100,
+              "url": "https://d3a2el5l1ud3kv.cloudfront.net/5hswXFgp9Mkwacdqhw5sc4cy",
+              "width": 200,
+              "height": 200,
               "format": "small"
             },
             {
-              "url": "https://d3a2el5l1ud3kv.cloudfront.net/zExE6kAp7rwV7SvvkNmYECCY",
-              "width": 260,
-              "height": 200,
-              "format": "large"
-            },
-            {
-              "url": "https://d3a2el5l1ud3kv.cloudfront.net/kBgM5vHc83Qa3kMVzKZAg1eq",
+              "url": "https://d3a2el5l1ud3kv.cloudfront.net/fLt4UvyyuExewym5KBoA7Yjp",
               "width": 512,
               "height": 320,
               "format": "wide"
+            },
+            {
+              "url": "https://d3a2el5l1ud3kv.cloudfront.net/828gHMndjM3zyzDsuN9FdE1j",
+              "width": 260,
+              "height": 200,
+              "format": "large"
             }
-          ]
+          ],
+          "html": "<div id=\"cf\" style=\"max-width: 330px; margin: 0 auto;\"> <span> <span class=\"cf-wrapper\" style=\"border-radius: 4px; padding: 15px; display: block; overflow: hidden; font-size: 14px; line-height: 1.4; text-align: left; background-color: rgba(0, 0, 0, 0.05); font-family: Helvetica;\"> <a class=\"cf-img-wrapper\" target=\"_blank\" rel=\"noopener\" style=\"float: left; margin-right: 15px;\" href=\"https://codefund.app/impressions/4737f03b-3e78-4a8c-a5ba-ba8b4f41ed80/click?campaign_id=144\"> <img border=\"0\" height=\"100\" width=\"130\" class=\"cf-img\" src=\"https://d3a2el5l1ud3kv.cloudfront.net/828gHMndjM3zyzDsuN9FdE1j\" style=\"vertical-align: middle; max-width: 130px; border: none;\"> </a> <a class=\"cf-text\" target=\"_blank\" rel=\"noopener\" style=\"color: #333; text-decoration: none;\" href=\"https://codefund.app/impressions/4737f03b-3e78-4a8c-a5ba-ba8b4f41ed80/click?campaign_id=144\"> <strong>Why CodeFund?</strong> <span>🍪 Because cookies should come from your grandma, not from ads</span> </a> <a href=\"https://codefund.app\" class=\"cf-powered-by\" target=\"_blank\" rel=\"noopener\" style=\"margin-top: 5px; font-size: 12px; display: block; color: #777; text-decoration: none;\"> <em>ethical</em> ad by CodeFund <img src=\"https://codefund.app/display/4737f03b-3e78-4a8c-a5ba-ba8b4f41ed80.gif?template=default&amp;theme=light\"> </a> </span> </span> </div>"
         }
 
 + Response 404 (text/html)
