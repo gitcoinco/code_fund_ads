@@ -160,6 +160,12 @@ JOB_STATUSES:
   - archived
   - abandoned
 
+JOB_STATUS_COLORS:
+  pending: warning
+  active: success
+  archived: muted
+  abandoned: danger
+
 JOB_SOURCES:
   - internal
   - remoteok
