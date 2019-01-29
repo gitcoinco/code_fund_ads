@@ -16,7 +16,7 @@ class AdvertisementsController < ApplicationController
     })
 
     # TODO: deprecate legacy support on 2019-04-01
-    return render_legacy_show if request.format.json?
+    return render_legacy_show if legacy_api_call?
 
     @target = params[:target] || "codefund_ad"
 
@@ -28,11 +28,18 @@ class AdvertisementsController < ApplicationController
 
     respond_to do |format|
       format.js
+      format.json { render "/advertisements/show", status: @advertisement_html ? :ok : :not_found, layout: false }
       format.html { render "/advertisements/show", status: @advertisement_html ? :ok : :not_found, layout: false }
     end
   end
 
   protected
+
+  # TODO: deprecate legacy support on 2019-04-01
+  def legacy_api_call?
+    return false unless request.format.json?
+    request.path.start_with?("/api/v1/impression", "/t/s/")
+  end
 
   # TODO: deprecate legacy support on 2019-04-01
   def render_legacy_show
@@ -55,7 +62,7 @@ class AdvertisementsController < ApplicationController
       response.status = :not_found
     end
 
-    respond_to :json
+    render "/advertisements/legacy_show"
   end
 
   def set_virtual_impression_id
