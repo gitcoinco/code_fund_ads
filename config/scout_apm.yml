@@ -1,4 +1,6 @@
 common: &defaults
+  key: <%= SCOUT_KEY %>
+  name: CodeFund
   monitor: true
   ignore:
     - '/okcomputer'
@@ -7,6 +9,11 @@ common: &defaults
     - '/okcomputer/all.json'
 
 development:
+  <<: *defaults
+  monitor: false
+
+test:
+  <<: *defaults
   monitor: false
 
 production:
