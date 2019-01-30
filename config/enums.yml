@@ -152,7 +152,6 @@ ORGANIZATION_SEARCH_DIRECTIONS:
 JOB_TYPES:
   - full_time
   - part_time
-  - contract
   
 JOB_STATUSES:
   - pending

@@ -28,19 +28,67 @@
   </div>
 </div>
 
-<hr>
-
-<h4 class="h4 mb-1">Job Description</h4>
-<div class="mb-4">
-  <p class="text-muted font-size-1">
-    Posted <%= time_ago_in_words(job_posting.start_date) %> ago
-    <% if job_posting.source == ENUMS::JOB_SOURCES::GITHUB %>
-      on <a href="https://jobs.github.com/" target="_blank">GitHub Jobs</a>
-    <% end %>
-    <% if job_posting.source == ENUMS::JOB_SOURCES::REMOTEOK %>
-      on <a href="https://remoteok.io/" target="_blank">RemoteOK</a>
-    <% end %>
-  </p>
+<div class="d-flex">
+  <div class="flex-fill">
+    <h4 class="h4 mb-1">Job Description</h4>
+    <div class="mb-4">
+      <p class="text-muted font-size-1">
+        Posted <%= time_ago_in_words(job_posting.start_date) %> ago
+        <% if job_posting.source == ENUMS::JOB_SOURCES::GITHUB %>
+          on <a href="https://jobs.github.com/" target="_blank">GitHub Jobs</a>
+        <% end %>
+        <% if job_posting.source == ENUMS::JOB_SOURCES::REMOTEOK %>
+          on <a href="https://remoteok.io/" target="_blank">RemoteOK</a>
+        <% end %>
+      </p>
+    </div>
+  </div>
+  <ul class="list-inline mb-0" data-controller="social-share">
+    <li class="list-inline-item">
+      <%= link_to tag.span("", class: "fab fa-facebook-f btn-icon__inner"), "#",
+          class: "btn btn-sm btn-icon btn-primary transition-3d-hover",
+          style: "background-color: #4267b2; border: 0px;",
+          data: { 
+            url: job_posting_url(@job_posting),
+            text: "#{@job_posting.company_name} is hiring for the position: #{@job_posting.title}",
+            image: @job_posting.company_logo_url,
+            action: "click->social-share#shareFacebook"
+          } %>
+    </li>
+    <li class="list-inline-item">
+      <%= link_to tag.span("", class: "fab fa-twitter btn-icon__inner"), "#",
+          class: "btn btn-sm btn-icon btn-primary transition-3d-hover",
+          style: "background-color: #4ab3f3; border: 0px;",
+          data: { 
+            url: job_posting_url(@job_posting),
+            text: "#{@job_posting.company_name} is hiring for the position: #{@job_posting.title}\n",
+            image: @job_posting.company_logo_url,
+            action: "click->social-share#shareTwitter"
+          } %>
+    </li>
+    <li class="list-inline-item">
+      <%= link_to tag.span("", class: "fab fa-linkedin btn-icon__inner"), "#",
+          class: "btn btn-sm btn-icon btn-primary transition-3d-hover",
+          style: "background-color: #0077b5; border: 0px;",
+          data: { 
+            url: job_posting_url(@job_posting),
+            text: "#{@job_posting.company_name} is hiring for the position: #{@job_posting.title}\n",
+            image: @job_posting.company_logo_url,
+            action: "click->social-share#shareLinkedIn"
+          } %>
+    </li>
+    <li class="list-inline-item">
+      <%= link_to tag.span("", class: "fas fa-envelope btn-icon__inner"), "#",
+          class: "btn btn-sm btn-icon btn-dark transition-3d-hover",
+          style: "border: 0px;",
+          data: { 
+            url: job_posting_url(@job_posting),
+            text: "#{@job_posting.company_name} is hiring for the position: #{@job_posting.title}\n",
+            image: @job_posting.company_logo_url,
+            action: "click->social-share#shareEmail"
+          } %>
+    </li>
+  </ul>
 </div>
 
 <div class="mb-7 job-listing__description trix-content">
@@ -48,8 +96,12 @@
 </div>
 
 <% if job_posting.how_to_apply %>
+  <hr class="faded" />
+
   <div class="mb-7 pt-3 job-listing__how-to-apply" id="how-to-apply">
     <h4 class="h4">How to apply</h4>
     <%= tag.div job_posting.sanitized_how_to_apply.html_safe, class: "trix-content" %>
+    <%= link_to "Apply Now", @job_posting.url,
+          class: "btn btn-sm btn-block mt-5 btn-soft-primary transition-3d-hover" %>
   </div>
 <% end %>

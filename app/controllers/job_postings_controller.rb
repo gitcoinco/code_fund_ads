@@ -28,6 +28,10 @@ class JobPostingsController < ApplicationController
     job_postings = job_postings.where.not(id: @job_posting.id)
     @similar_job_postings_count = job_postings.reorder("").size
     @similar_job_postings = job_postings.limit(12)
+    @report_job_post_link = "mailto:team@codefund.io?#{{
+      subject: "[Report Job] #{@job_posting.title}",
+      body: "Link: #{job_posting_url(@job_posting)}\n\nI am reporting this job because ...\n\n",
+    }.to_query}".gsub("+", "%20")
   end
 
   def edit
