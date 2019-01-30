@@ -25,6 +25,7 @@ class CampaignsController < ApplicationController
   # GET /campaigns/1
   # GET /campaigns/1.json
   def show
+    set_meta_tags @campaign
   end
 
   # GET /campaigns/new
@@ -38,6 +39,7 @@ class CampaignsController < ApplicationController
 
   # GET /campaigns/1/edit
   def edit
+    set_meta_tags @campaign
     @user ||= @campaign.user
   end
 

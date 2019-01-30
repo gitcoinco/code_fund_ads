@@ -10,7 +10,11 @@
       <div class="col-12 mb-3 mb-lg-0">
         <h1 class="h4 mb-1"><%= job_posting.title %></h1>
         <small class="h6 font-weight-light text-muted">
-          <%= link_to job_posting.company_name, job_posting.company_url, target: "_blank", class: "text-link" %>
+          <% if job_posting.company_url.present? %>
+            <%= link_to job_posting.company_name, job_posting.company_url, target: "_blank", class: "text-link" %>
+          <% else %>
+            <%= job_posting.company_name %>
+          <% end %>
           <span class="px-1">•</span>
           <%= job_posting.company_location %>
         </small>

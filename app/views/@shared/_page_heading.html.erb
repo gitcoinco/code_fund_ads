@@ -77,14 +77,12 @@
                       Jobs
                     </a>
 
-                    <% if FeatureFlag.enabled?(:jobs, current_user) %>
-                      <ul id="jobsDropdownMenu" class="hs-sub-menu u-header__sub-menu u-header__sub-menu--spacer" style="min-width: 230px;" aria-labelledby="jobsDropdown">
-                        <li><%= link_to "My Posted Jobs", manage_job_postings_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
-                        <li><%= link_to "Visit Job Board", job_posting_search_path(0), class: "nav-link u-header__sub-menu-nav-link", method: :delete %></li>
-                        <li class="dropdown-divider"></li>
-                        <li><%= link_to "Post a Job for $299/mo", new_job_posting_prospect_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
-                      </ul>
-                    <% end %>
+                    <ul id="jobsDropdownMenu" class="hs-sub-menu u-header__sub-menu u-header__sub-menu--spacer" style="min-width: 230px;" aria-labelledby="jobsDropdown">
+                      <li><%= link_to "My Posted Jobs", manage_job_postings_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
+                      <li><%= link_to "Visit Job Board", job_posting_search_path(0), class: "nav-link u-header__sub-menu-nav-link", method: :delete %></li>
+                      <li class="dropdown-divider"></li>
+                      <li><%= link_to "Post a Job for $299/mo", new_job_posting_prospect_path, class: "nav-link u-header__sub-menu-nav-link" %></li>
+                    </ul>
                   </li>
 
                   <li class="nav-item hs-has-sub-menu u-header__nav-item"

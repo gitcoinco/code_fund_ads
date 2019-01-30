@@ -47,6 +47,7 @@ class JobPosting < ApplicationRecord
   include Taggable
   include FullTextSearchable
   include JobPostings::Presentable
+  include ActionView::Helpers::TextHelper
 
   # relationships .............................................................
   belongs_to :campaign, optional: true
@@ -54,7 +55,7 @@ class JobPosting < ApplicationRecord
   belongs_to :user, optional: true
 
   # validations ...............................................................
-  validates :title, length: {within: 2..80}
+  validates :title, length: {within: 2..130}
   validates :description, presence: true
   validates :job_type, inclusion: {in: ENUMS::JOB_TYPES.keys}
   validates :max_annual_salary_cents, presence: true
@@ -128,6 +129,15 @@ class JobPosting < ApplicationRecord
     Province.find_by_iso_code(province_code)
   end
 
+  def to_meta_tags
+    {
+      title: "#{company_name} is hiring: #{title}",
+      keywords: ["Jobs"] + keywords,
+      description: "Job Description: #{meta_description}",
+      image_src: company_logo_url,
+    }
+  end
+
   def to_tsvectors
     [].
       then { |result| remote? ? result << make_tsvector("remote", weight: "A") : result }.
@@ -152,5 +162,9 @@ class JobPosting < ApplicationRecord
     if min_annual_salary_currency.present?
       self.max_annual_salary_currency = min_annual_salary_currency
     end
+  end
+
+  def meta_description
+    truncate(ActionView::Base.full_sanitizer.sanitize(description), length: 290)
   end
 end

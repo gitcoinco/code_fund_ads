@@ -23,10 +23,13 @@ class ImportGithubJobsJob < ApplicationJob
     sieve = Stopwords::Snowball::WordSieve.new
 
     @jobs.each do |job|
-      words = sieve.filter(lang: :en, words: "#{job["title"]} #{job["description"]} #{job["tag"]}".downcase.gsub(/,|\.\s/, "").split)
-      matching_keyword_aliases = keyword_aliases & words
+      next if job["type"] == "Contract"
 
       posting = JobPosting.github.where(source_identifier: job["id"]).first_or_initialize
+      next if posting.start_date && posting.start_date > Chronic.parse(job["created_at"]).to_date
+
+      words = sieve.filter(lang: :en, words: "#{job["title"]} #{job["description"]} #{job["tag"]}".downcase.gsub(/,|\.\s/, "").split)
+      matching_keyword_aliases = keyword_aliases & words
 
       posting.user             = user
       posting.organization     = organization
@@ -50,11 +53,14 @@ class ImportGithubJobsJob < ApplicationJob
       posting.url              = job["url"]
       posting.start_date       = Chronic.parse(job["created_at"]).to_date
       posting.end_date         = posting.start_date + 60.days
-      posting.status           = posting.start_date <= 60.days.ago ? ENUMS::JOB_STATUSES::ACTIVE : ENUMS::JOB_STATUSES::ARCHIVED
+      posting.status           = posting.start_date >= 60.days.ago ? ENUMS::JOB_STATUSES::ACTIVE : ENUMS::JOB_STATUSES::ARCHIVED
       posting.source           = ENUMS::JOB_SOURCES::GITHUB
       posting.auto_renew       = false
-      posting.save
+
       print "#{@count += 1},"
+      unless posting.save
+        puts "Unable to save: #{posting.errors.inspect}"
+      end
     end
 
     nil
@@ -87,7 +93,6 @@ class ImportGithubJobsJob < ApplicationJob
     case job_type
     when "Full Time" then ENUMS::JOB_TYPES::FULL_TIME
     when "Part Time" then ENUMS::JOB_TYPES::PART_TIME
-    when "Contract" then ENUMS::JOB_TYPES::CONTRACT
     end
   end
 

@@ -1,5 +1,5 @@
 common: &defaults
-  key: <%= SCOUT_KEY %>
+  key: <%= ENV["SCOUT_KEY"] %>
   name: CodeFund
   monitor: true
   ignore:
