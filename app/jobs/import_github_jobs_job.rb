@@ -53,17 +53,13 @@ class ImportGithubJobsJob < ApplicationJob
       posting.url              = job["url"]
       posting.start_date       = Chronic.parse(job["created_at"]).to_date
       posting.end_date         = posting.start_date + 60.days
-      posting.status           = posting.start_date <= 60.days.ago ? ENUMS::JOB_STATUSES::ACTIVE : ENUMS::JOB_STATUSES::ARCHIVED
+      posting.status           = posting.start_date >= 60.days.ago ? ENUMS::JOB_STATUSES::ACTIVE : ENUMS::JOB_STATUSES::ARCHIVED
       posting.source           = ENUMS::JOB_SOURCES::GITHUB
       posting.auto_renew       = false
-      if posting.save
-        print "#{@count += 1},"
-      else
-        Rollbar.debug("Unable to save job", {
-          job: job,
-          source: "GitHub Jobs",
-          errors: posting.errors.full_messages,
-        })
+
+      print "#{@count += 1},"
+      unless posting.save
+        puts "Unable to save: #{posting.errors.inspect}"
       end
     end
 

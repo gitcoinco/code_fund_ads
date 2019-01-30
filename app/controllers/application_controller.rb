@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
     set_meta_tags(
       site: "CodeFund",
       title: controller_name.to_s.humanize.titleize.gsub("Pages", "Home"),
-      description: "CodeFund is an open ad platform that funds developers through ethical advertising.",
+      description: "CodeFund is an open source platform that helps fund maintainers, bloggers, and builders through non-tracking ethical ads",
       keywords: ["open source", "ethical advertising", "advertising", "fund open source"],
       charset: "utf-8",
       image_src: "https://cdn2.codefund.app/assets/codefund-logo-square-512.png",

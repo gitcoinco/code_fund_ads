@@ -55,7 +55,7 @@ class JobPosting < ApplicationRecord
   belongs_to :user, optional: true
 
   # validations ...............................................................
-  validates :title, length: {within: 2..80}
+  validates :title, length: {within: 2..130}
   validates :description, presence: true
   validates :job_type, inclusion: {in: ENUMS::JOB_TYPES.keys}
   validates :max_annual_salary_cents, presence: true
@@ -131,7 +131,7 @@ class JobPosting < ApplicationRecord
 
   def to_meta_tags
     {
-      title: title,
+      title: "#{company_name} is hiring: #{title}",
       keywords: ["Jobs"] + keywords,
       description: "Job Description: #{meta_description}",
       image_src: company_logo_url,
