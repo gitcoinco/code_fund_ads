@@ -1,4 +1,6 @@
 class JobPostingSearchesController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def create
     session[:job_posting_search] = JobPostingSearch.new(job_posting_search_params).to_gid_param
     redirect_to job_postings_path

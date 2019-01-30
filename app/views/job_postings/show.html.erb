@@ -36,7 +36,7 @@
 
               <!-- Content -->
               <div class="card-body pt-1 px-5 pb-5">
-                <% if @job_posting.company_host_url %>
+                <% if @job_posting.company_host_url.present? %>
                   <div class="media mb-3">
                     <div class="min-width-4 text-center text-primary mt-1 mr-3">
                       <span class="fas fa-globe"></span>

@@ -249,6 +249,13 @@ class Campaign < ApplicationRecord
     "premium"
   end
 
+  def to_meta_tags
+    {
+      title: name,
+      keywords: keywords,
+    }
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................

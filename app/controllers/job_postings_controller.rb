@@ -23,6 +23,7 @@ class JobPostingsController < ApplicationController
   end
 
   def show
+    set_meta_tags @job_posting
     job_postings = JobPosting.active.order(start_date: :desc)
     job_postings = @job_posting_search.apply(job_postings)
     job_postings = job_postings.where.not(id: @job_posting.id)
