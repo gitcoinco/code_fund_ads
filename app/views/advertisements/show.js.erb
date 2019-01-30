@@ -10,6 +10,8 @@
     };
 
     function detectUplift(count = 1) {
+      var url = '<%= ENV["ADBLOCK_PLUS_PIXEL_URL"].to_s.strip %>';
+      if (url.length === 0) { return; }
       var xhr = new XMLHttpRequest();
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
@@ -20,7 +22,7 @@
           }
         }
       };
-      xhr.open('GET', '../res/js_inject/px.js?' + 'ch=' + ch + '&rnd=' + Math.random() * 11);
+      xhr.open('GET', url + '?ch=' + count + '&rnd=' + Math.random() * 11);
       xhr.send();
     }
 
