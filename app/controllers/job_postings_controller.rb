@@ -5,10 +5,17 @@ class JobPostingsController < ApplicationController
 
   def index
     job_postings = JobPosting.active.order(start_date: :desc)
-    job_postings = if params[:manage_scope]
-      job_postings.where(user: current_user)
+    if params[:manage_scope]
+      job_postings = job_postings.where(user: current_user)
     else
-      @job_posting_search.apply(job_postings)
+      job_postings = @job_posting_search.apply(job_postings)
+      if @job_posting_search.full_text_search
+        job_postings = job_postings.or(
+          JobPosting.active.order(start_date: :desc).
+            ranked(@job_posting_search.full_text_search).
+            search_company_name(@job_posting_search.full_text_search)
+        )
+      end
     end
     @job_postings_count = job_postings.reorder("").size
     @pagy, @job_postings = pagy(job_postings, items: 30)

@@ -33,18 +33,18 @@ module FullTextSearchable
       value = value.to_s.gsub(/\W/, " ").squeeze(" ").downcase.strip
       value.blank? ? all : begin
         value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["?", value]))
-        plainto_tsquery = Arel::Nodes::NamedFunction.new("plainto_tsquery", [Arel::Nodes::SqlLiteral.new("'english'"), value])
-        where Arel::Nodes::InfixOperation.new("@@", arel_table[:full_text_search], plainto_tsquery)
+        websearch_to_tsquery = Arel::Nodes::NamedFunction.new("websearch_to_tsquery", [Arel::Nodes::SqlLiteral.new("'english'"), value])
+        where Arel::Nodes::InfixOperation.new("@@", arel_table[:full_text_search], websearch_to_tsquery)
       end
     }
 
     scope :ranked, ->(value) {
-      rank_alias = "rank_#{SecureRandom.hex}"
+      rank_alias = "rank"
       value = value.to_s.gsub(/\W/, " ").squeeze(" ").downcase.strip
       value.blank? ? all : begin
         value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["?", value]))
-        plainto_tsquery = Arel::Nodes::NamedFunction.new("plainto_tsquery", [Arel::Nodes::SqlLiteral.new("'english'"), value])
-        ts_rank = Arel::Nodes::NamedFunction.new("ts_rank", [arel_table[:full_text_search], plainto_tsquery])
+        websearch_to_tsquery = Arel::Nodes::NamedFunction.new("websearch_to_tsquery", [Arel::Nodes::SqlLiteral.new("'english'"), value])
+        ts_rank = Arel::Nodes::NamedFunction.new("ts_rank", [arel_table[:full_text_search], websearch_to_tsquery])
         select(Arel.star).
           select(ts_rank.as(rank_alias)).
           order("#{rank_alias} desc")
@@ -90,7 +90,7 @@ module FullTextSearchable
 
   def similarity_words_tsvectors(weight: "C")
     similarity_words.each_with_object([]) { |word, memo|
-      ngrams(word).each { |ngram| memo << make_tsvector(ngram, weight: weight) }
+      ngrams(word, max: word.size).each { |ngram| memo << make_tsvector(ngram, weight: weight) }
     }.compact.uniq
   end
 
