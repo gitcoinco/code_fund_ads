@@ -61,6 +61,7 @@ gem "tag_columns",                        "~> 0.1.6"
 gem "turbolinks",                         "~> 5"
 gem "typhoeus",                           "~> 1.3.1"
 gem "uglifier",                           ">= 1.3.0"
+gem "voight_kampff",                      "~> 1.1.3"
 gem "webpacker",                          "~> 3.5"
 
 group :development, :test do

@@ -486,7 +486,9 @@ CREATE TABLE public.job_postings (
     company_email character varying,
     stripe_charge_id character varying,
     session_id character varying,
-    auto_renew boolean DEFAULT true NOT NULL
+    auto_renew boolean DEFAULT true NOT NULL,
+    list_view_count integer DEFAULT 0 NOT NULL,
+    detail_view_count integer DEFAULT 0 NOT NULL
 );
 
 
@@ -1550,6 +1552,13 @@ CREATE INDEX index_job_postings_on_country_code ON public.job_postings USING btr
 
 
 --
+-- Name: index_job_postings_on_detail_view_count; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_detail_view_count ON public.job_postings USING btree (detail_view_count);
+
+
+--
 -- Name: index_job_postings_on_end_date; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1575,6 +1584,13 @@ CREATE INDEX index_job_postings_on_job_type ON public.job_postings USING btree (
 --
 
 CREATE INDEX index_job_postings_on_keywords ON public.job_postings USING gin (keywords);
+
+
+--
+-- Name: index_job_postings_on_list_view_count; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_list_view_count ON public.job_postings USING btree (list_view_count);
 
 
 --
@@ -2002,6 +2018,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190121220544'),
 ('20190123180606'),
 ('20190125221903'),
-('20190125224425');
+('20190125224425'),
+('20190131172927');
 
 

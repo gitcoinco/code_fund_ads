@@ -20,6 +20,10 @@ class JobPostingsController < ApplicationController
     @job_postings_count = job_postings.reorder("").size
     @pagy, @job_postings = pagy(job_postings, items: 30)
 
+    unless request.bot?
+      @job_postings.reorder("").pluck(:id).each { |id| IncrementJobPostingViewsJob.perform_later(id, "list_view_count") }
+    end
+
     if params[:partial]
       return render partial: "/job_postings/list_items", locals: {job_postings: @job_postings, pagy: @pagy}, layout: false
     end
@@ -40,6 +44,7 @@ class JobPostingsController < ApplicationController
       subject: "[Report Job] #{@job_posting.title}",
       body: "Link: #{job_posting_url(@job_posting)}\n\nI am reporting this job because ...\n\n",
     }.to_query}".gsub("+", "%20")
+    IncrementJobPostingViewsJob.perform_later @job_posting.id, "detail_view_count" unless request.bot?
   end
 
   def edit

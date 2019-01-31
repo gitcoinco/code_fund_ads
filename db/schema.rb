@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_25_224425) do
+ActiveRecord::Schema.define(version: 2019_01_31_172927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -266,15 +266,19 @@ ActiveRecord::Schema.define(version: 2019_01_25_224425) do
     t.string "stripe_charge_id"
     t.string "session_id"
     t.boolean "auto_renew", default: true, null: false
+    t.integer "list_view_count", default: 0, null: false
+    t.integer "detail_view_count", default: 0, null: false
     t.index ["auto_renew"], name: "index_job_postings_on_auto_renew"
     t.index ["campaign_id"], name: "index_job_postings_on_campaign_id"
     t.index ["city"], name: "index_job_postings_on_city"
     t.index ["company_name"], name: "index_job_postings_on_company_name"
     t.index ["country_code"], name: "index_job_postings_on_country_code"
+    t.index ["detail_view_count"], name: "index_job_postings_on_detail_view_count"
     t.index ["end_date"], name: "index_job_postings_on_end_date"
     t.index ["full_text_search"], name: "index_job_postings_on_full_text_search", using: :gin
     t.index ["job_type"], name: "index_job_postings_on_job_type"
     t.index ["keywords"], name: "index_job_postings_on_keywords", using: :gin
+    t.index ["list_view_count"], name: "index_job_postings_on_list_view_count"
     t.index ["max_annual_salary_cents"], name: "index_job_postings_on_max_annual_salary_cents"
     t.index ["min_annual_salary_cents"], name: "index_job_postings_on_min_annual_salary_cents"
     t.index ["organization_id"], name: "index_job_postings_on_organization_id"

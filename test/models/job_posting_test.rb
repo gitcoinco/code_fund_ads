@@ -38,6 +38,8 @@
 #  stripe_charge_id           :string
 #  session_id                 :string
 #  auto_renew                 :boolean          default(TRUE), not null
+#  list_view_count            :integer          default(0), not null
+#  detail_view_count          :integer          default(0), not null
 #
 
 require "test_helper"
