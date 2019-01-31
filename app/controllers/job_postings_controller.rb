@@ -4,14 +4,14 @@ class JobPostingsController < ApplicationController
   before_action :set_job_posting_search, only: [:index, :show]
 
   def index
-    job_postings = JobPosting.active.order(start_date: :desc)
     if params[:manage_scope]
-      job_postings = job_postings.where(user: current_user)
+      job_postings = JobPosting.where(user: current_user).order(start_date: :desc)
     else
+      job_postings = JobPosting.active.order(start_date: :desc).ranked_by_source
       job_postings = @job_posting_search.apply(job_postings)
       if @job_posting_search.full_text_search
         job_postings = job_postings.or(
-          JobPosting.active.order(start_date: :desc).
+          JobPosting.active.order(start_date: :desc).ranked_by_source.
             ranked(@job_posting_search.full_text_search).
             search_company_name(@job_posting_search.full_text_search)
         )

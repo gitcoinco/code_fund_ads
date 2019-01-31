@@ -22,9 +22,15 @@ module FullTextSearchable
       value = value.chop while value.bytes.size > 2046
       value
     end
+
+    def make_tsvector(value, weight: "D")
+      value = fts_string(value).gsub(/\W/, " ").squeeze(" ").downcase
+      return nil if value.blank?
+      sanitize_sql ["setweight(to_tsvector('simple', ?), ?)", value, weight]
+    end
   end
 
-  delegate :ngrams, :fts_words, :fts_string, to: "self.class"
+  delegate :ngrams, :fts_words, :fts_string, :make_tsvector, to: "self.class"
 
   included do
     after_commit :update_full_text_search, on: [:create, :update]
@@ -33,7 +39,7 @@ module FullTextSearchable
       value = value.to_s.gsub(/\W/, " ").squeeze(" ").downcase.strip
       value.blank? ? all : begin
         value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["?", value]))
-        websearch_to_tsquery = Arel::Nodes::NamedFunction.new("websearch_to_tsquery", [Arel::Nodes::SqlLiteral.new("'english'"), value])
+        websearch_to_tsquery = Arel::Nodes::NamedFunction.new("websearch_to_tsquery", [Arel::Nodes::SqlLiteral.new("'simple'"), value])
         where Arel::Nodes::InfixOperation.new("@@", arel_table[:full_text_search], websearch_to_tsquery)
       end
     }
@@ -43,7 +49,7 @@ module FullTextSearchable
       value = value.to_s.gsub(/\W/, " ").squeeze(" ").downcase.strip
       value.blank? ? all : begin
         value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["?", value]))
-        websearch_to_tsquery = Arel::Nodes::NamedFunction.new("websearch_to_tsquery", [Arel::Nodes::SqlLiteral.new("'english'"), value])
+        websearch_to_tsquery = Arel::Nodes::NamedFunction.new("websearch_to_tsquery", [Arel::Nodes::SqlLiteral.new("'simple'"), value])
         ts_rank = Arel::Nodes::NamedFunction.new("ts_rank", [arel_table[:full_text_search], websearch_to_tsquery])
         select(Arel.star).
           select(ts_rank.as(rank_alias)).
@@ -92,13 +98,5 @@ module FullTextSearchable
     similarity_words.each_with_object([]) { |word, memo|
       ngrams(word, max: word.size).each { |ngram| memo << make_tsvector(ngram, weight: weight) }
     }.compact.uniq
-  end
-
-  protected
-
-  def make_tsvector(value, weight: "D")
-    value = fts_string(value).gsub(/\W/, " ").squeeze.downcase
-    return nil if value.blank?
-    self.class.sanitize_sql ["setweight(to_tsvector('english', ?), ?)", value, weight]
   end
 end
