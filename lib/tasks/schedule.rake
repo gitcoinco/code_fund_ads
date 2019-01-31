@@ -27,4 +27,13 @@ namespace :schedule do
   task create_debits_for_campaigns: :environment do
     CreateDebitsForCampaignsJob.perform_later
   end
+
+  desc <<~DESC
+    Queues job that imports Github Jobs
+    NOTE: Schedule daily
+  DESC
+  task import_github_jobs: :environment do
+    tags = ENUMS::KEYWORDS.values.flatten.uniq.sort
+    ImportGithubJobsJob.new.perform_later(*tags)
+  end
 end
