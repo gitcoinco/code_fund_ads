@@ -131,16 +131,10 @@ class JobPosting < ApplicationRecord
     Province.find_by_iso_code(province_code)
   end
 
-  def keyword_ngrams
-    keywords.each_with_object([]) do |keyword, memo|
-      memo.concat ngrams(keyword, max: keyword.size)
-    end
-  end
-
   def to_tsvectors
     [].
       then { |result| remote? ? result << make_tsvector("remote", weight: "A") : result }.
-      then { |result| keywords.blank? ? result : keyword_ngrams.each_with_object(result) { |ngram, memo| memo << make_tsvector(ngram, weight: "A") } }.
+      then { |result| keywords.blank? ? result : keywords.each_with_object(result) { |tag, memo| memo << make_tsvector(tag, weight: "A") } }.
       then { |result| job_type.blank? ? result : result << make_tsvector(job_type, weight: "B") }.
       then { |result| title.blank? ? result : result << make_tsvector(title, weight: "B") }.
       then { |result| company_name.blank? ? result : result << make_tsvector(company_name, weight: "B") }.

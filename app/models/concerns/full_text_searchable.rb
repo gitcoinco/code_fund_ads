@@ -36,7 +36,7 @@ module FullTextSearchable
     after_commit :update_full_text_search, on: [:create, :update]
 
     scope :matched, ->(value) {
-      value = value.to_s.gsub(/\W/, " ").squeeze(" ").downcase.strip
+      value = value.to_s.squeeze(" ").downcase.strip
       value.blank? ? all : begin
         value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["?", value]))
         websearch_to_tsquery = Arel::Nodes::NamedFunction.new("websearch_to_tsquery", [Arel::Nodes::SqlLiteral.new("'simple'"), value])
@@ -46,7 +46,7 @@ module FullTextSearchable
 
     scope :ranked, ->(value) {
       rank_alias = "rank"
-      value = value.to_s.gsub(/\W/, " ").squeeze(" ").downcase.strip
+      value = value.to_s.squeeze(" ").downcase.strip
       value.blank? ? all : begin
         value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["?", value]))
         websearch_to_tsquery = Arel::Nodes::NamedFunction.new("websearch_to_tsquery", [Arel::Nodes::SqlLiteral.new("'simple'"), value])
