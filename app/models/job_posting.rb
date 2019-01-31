@@ -95,6 +95,9 @@ class JobPosting < ApplicationRecord
   scope :search_remote, ->(value) { value.nil? ? all : where(remote: value) }
   scope :search_title, ->(value) { value.blank? ? all : search_column(:title, value) }
   scope :similar_to, ->(job_posting) { search_keywords(job_posting.keywords).search_remote(job_posting.remote) }
+  scope :ranked_by_source, -> {
+    order Arel::Nodes::Case.new.when(arel_table[:source].eq(ENUMS::JOB_SOURCES::INTERNAL), 1).else(2)
+  }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   tag_columns :keywords
