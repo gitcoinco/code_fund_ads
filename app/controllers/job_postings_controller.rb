@@ -9,13 +9,6 @@ class JobPostingsController < ApplicationController
     else
       job_postings = JobPosting.active.order(start_date: :desc).ranked_by_source
       job_postings = @job_posting_search.apply(job_postings)
-      if @job_posting_search.full_text_search
-        job_postings = job_postings.or(
-          JobPosting.active.order(start_date: :desc).ranked_by_source.
-            ranked(@job_posting_search.full_text_search).
-            search_company_name(@job_posting_search.full_text_search)
-        )
-      end
     end
     @job_postings_count = job_postings.reorder("").size
     @pagy, @job_postings = pagy(job_postings, items: 30)
