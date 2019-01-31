@@ -34,6 +34,6 @@ namespace :schedule do
   DESC
   task import_github_jobs: :environment do
     tags = ENUMS::KEYWORDS.values.flatten.uniq.sort
-    ImportGithubJobsJob.new.perform(*tags)
+    ImportGithubJobsJob.new.perform_later(*tags)
   end
 end
