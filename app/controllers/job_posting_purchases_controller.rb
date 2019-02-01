@@ -26,7 +26,9 @@ class JobPostingPurchasesController < ApplicationController
       stripe_charge_id: charge.id
     )
 
-    # TODO: Trigger email
+    # Send Email and slack notifications
+    JobsMailer.new_job_posting_email(@job_posting).deliver_later
+    CreateSlackNotificationJob.perform_later text: "<!channel> :party-parrot: New job posting: #{job_posting_url(@job_posting)}"
 
     redirect_to job_posting_purchase_path(@job_posting), notice: "Congratulations! Your job has been posted."
   rescue Stripe::CardError => e

@@ -105,7 +105,8 @@
   <div class="mb-7 pt-3 job-listing__how-to-apply" id="how-to-apply">
     <h4 class="h4">How to apply</h4>
     <%= tag.div job_posting.sanitized_how_to_apply.html_safe, class: "trix-content" %>
-    <%= link_to "Apply Now", @job_posting.url,
-          class: "btn btn-sm btn-block mt-5 btn-soft-primary transition-3d-hover" %>
   </div>
 <% end %>
+
+<%= link_to "Apply Now", @job_posting.url,
+          class: "btn btn-sm btn-block my-5 btn-soft-primary transition-3d-hover" %>

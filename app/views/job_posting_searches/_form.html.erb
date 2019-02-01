@@ -24,7 +24,13 @@
   </div>
 
   <div class="col-12 mt-1 pt-2 text-white-70" style="font-size: 1rem;">
-    You can search by title, keywords, company, location and
-    <%= link_to "remote", job_posting_searches_path(job_posting_search: { full_text_search: "remote" }), method: :post, class: "text-white text-link" %>
+    <div class="d-flex">
+      <div class="flex-grow-1">
+        You can search by title, keywords, company, location and
+        <%= link_to "remote", job_posting_searches_path(job_posting_search: { full_text_search: "remote" }), method: :post, class: "text-white text-link" %>
+      </div>
+      <a href="https://twitter.com/CodeFundJobs" class="twitter-follow-button" data-show-count="false"></a>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
   </div>
 <% end %>
