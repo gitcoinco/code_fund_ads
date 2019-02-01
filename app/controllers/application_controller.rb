@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_paper_trail_whodunnit
   before_action :set_meta_tag_data
+  before_action :sample_requests_for_scout
 
   impersonates :user
 
@@ -87,5 +88,21 @@ class ApplicationController < ActionController::Base
   def default_value(development: nil, production: nil)
     return production if Rails.env.production?
     development || production
+  end
+
+  def sample_requests_for_scout
+    # Method to be overridden in high-traffic controllers
+
+    # Sample rate should range from 0-1:
+    # * 0: captures no requests
+    # * 0.75: captures 75% of requests
+    # * 1: captures all requests
+
+    # sample_rate = (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
+
+    # if rand > sample_rate
+    #   Rails.logger.debug("[Scout] Ignoring request: #{request.original_url}")
+    #   ScoutApm::Transaction.ignore!
+    # end
   end
 end

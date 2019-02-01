@@ -6,6 +6,16 @@ class ImpressionsController < ApplicationController
     send_file Rails.root.join("app/assets/images/pixel.gif"), type: "image/gif", disposition: "inline"
   end
 
+  protected
+
+  def sample_requests_for_scout
+    sample_rate = (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
+    if rand > sample_rate
+      Rails.logger.debug("[Scout] Ignoring request: #{request.original_url}")
+      ScoutApm::Transaction.ignore!
+    end
+  end
+
   private
 
   def set_virtual_impression
