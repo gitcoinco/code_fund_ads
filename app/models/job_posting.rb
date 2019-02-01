@@ -159,7 +159,7 @@ class JobPosting < ApplicationRecord
   end
 
   def tweet_new_job_posting
-    return unless ENV["TWITTER_TWEET_NEW_ACTIVE_JOB_POSTING"] == "true"
+    return unless ENV["TWITTER_TWEETS_ENABLED"] == "true"
     return unless source == ENUMS::JOB_SOURCES::INTERNAL
     return unless status == ENUMS::JOB_STATUSES::ACTIVE
     return unless status_previously_changed?

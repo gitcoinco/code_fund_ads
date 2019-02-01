@@ -2,6 +2,8 @@ class TweetNewJobPostingJob < ApplicationJob
   queue_as :low
 
   def perform(job_posting, template)
+    return unless ENV["TWITTER_TWEETS_ENABLED"] == "true"
+
     client = Twitter::REST::Client.new { |config|
       config.consumer_key        = ENV["TWITTER_CONSUMER_KEY_CODE_FUND_JOBS"]
       config.consumer_secret     = ENV["TWITTER_CONSUMER_SECRET_CODE_FUND_JOBS"]
