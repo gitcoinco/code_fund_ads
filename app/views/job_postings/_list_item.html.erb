@@ -1,8 +1,7 @@
 <% cache job_posting do %>
-  <li class="list-group-item d-flex justify-content-between align-items-center py-3 px-2
+  <li class="list-group-item d-flex justify-content-between position-relative align-items-center py-3 px-2
     <% if job_posting.internal? %>bg-internal-job<% end %>">
-
-    <div class="media">
+    <div class="media flex-grow-1">
       <div class="mr-3 company-logo-wrapper company-logo-wrapper--100">
         <%= link_to image_tag(job_posting.company_logo_url.to_s, class: "img-fluid company-logo company-logo--100", style: "vertical-align: middle;"), job_posting %>
       </div>
@@ -29,6 +28,8 @@
         </span>
       </div>
     </div>
-    <div class="d-none d-sm-block" style="width: 100px; text-align: right;"><%= job_posting.start_date.to_s "bd" %></div>
+    <% if job_posting.recent? %>
+      <h4><span class="badge badge-light">New</span></h1></h4>
+    <% end %>
   </li>
 <% end %>

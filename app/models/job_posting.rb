@@ -130,6 +130,10 @@ class JobPosting < ApplicationRecord
     status == ENUMS::JOB_STATUSES::ACTIVE
   end
 
+  def recent?
+    start_date >= Date.current - 5.days
+  end
+
   def province
     Province.find_by_iso_code(province_code)
   end
