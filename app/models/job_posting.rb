@@ -81,6 +81,7 @@ class JobPosting < ApplicationRecord
 
   # callbacks .................................................................
   before_validation :set_currency
+  after_update_commit :tweet_new_active_job_posting
 
   # scopes ....................................................................
   scope :active, -> { where status: ENUMS::JOB_STATUSES::ACTIVE }
@@ -157,6 +158,16 @@ class JobPosting < ApplicationRecord
       then { |result| description.blank? ? result : result << make_tsvector(description, weight: "D") }
   end
 
+  def tweet_new_active_job_posting
+    return unless ENV["TWITTER_TWEET_NEW_ACTIVE_JOB_POSTING"] == "true"
+    return unless source == ENUMS::JOB_SOURCES::INTERNAL
+    return unless status == ENUMS::JOB_STATUSES::ACTIVE
+    return unless status_previously_changed?
+    return unless status_previous_change.first == ENUMS::JOB_STATUSES::PENDING
+    return unless status_previous_change.last == ENUMS::JOB_STATUSES::ACTIVE
+    CreateJobPostingTweetJob.perform_now self, "/job_postings/tweets/new.text"
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................
@@ -172,4 +183,5 @@ class JobPosting < ApplicationRecord
   def meta_description
     truncate(ActionView::Base.full_sanitizer.sanitize(description), length: 290)
   end
+
 end
