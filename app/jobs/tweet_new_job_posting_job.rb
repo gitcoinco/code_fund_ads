@@ -1,4 +1,4 @@
-class CreateJobPostingTweetJob < ApplicationJob
+class TweetNewJobPostingJob < ApplicationJob
   queue_as :low
 
   def perform(job_posting, template)
