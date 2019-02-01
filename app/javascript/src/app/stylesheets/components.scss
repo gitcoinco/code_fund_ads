@@ -209,3 +209,15 @@ body:after {
   transform: rotate(-45deg);
 }
 /* --- end Remove after no longer beta */
+
+.notify-badge {
+  position: absolute;
+  right: -7px;
+  top: 12px;
+  background: #e29e42;
+  text-align: center;
+  border-radius: 10px;
+  color: white;
+  padding: 2px 4px;
+  font-size: 10px
+}
