@@ -62,6 +62,14 @@ class AdvertisementsController < ApplicationController
   #   end
   # end
 
+  def sample_requests_for_scout
+    sample_rate = (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
+    if rand > sample_rate
+      Rails.logger.debug("[Scout] Ignoring request: #{request.original_url}")
+      ScoutApm::Transaction.ignore!
+    end
+  end
+
   # TODO: deprecate legacy support on 2019-04-01
   def legacy_api_call?
     return false unless request.format.json?
