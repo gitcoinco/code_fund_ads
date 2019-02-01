@@ -183,5 +183,4 @@ class JobPosting < ApplicationRecord
   def meta_description
     truncate(ActionView::Base.full_sanitizer.sanitize(description), length: 290)
   end
-
 end
