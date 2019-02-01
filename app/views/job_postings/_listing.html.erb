@@ -47,52 +47,18 @@
       </p>
     </div>
   </div>
-  <ul class="list-inline mb-0" data-controller="social-share">
-    <li class="list-inline-item">
-      <%= link_to tag.span("", class: "fab fa-facebook-f btn-icon__inner"), "#",
-          class: "btn btn-sm btn-icon btn-primary transition-3d-hover",
-          style: "background-color: #4267b2; border: 0px;",
-          data: { 
-            url: job_posting_url(@job_posting),
-            text: "#{@job_posting.company_name} is hiring for the position: #{@job_posting.title}",
-            image: @job_posting.company_logo_url,
-            action: "click->social-share#shareFacebook"
-          } %>
-    </li>
-    <li class="list-inline-item">
-      <%= link_to tag.span("", class: "fab fa-twitter btn-icon__inner"), "#",
-          class: "btn btn-sm btn-icon btn-primary transition-3d-hover",
-          style: "background-color: #4ab3f3; border: 0px;",
-          data: { 
-            url: job_posting_url(@job_posting),
-            text: "#{@job_posting.company_name} is hiring for the position: #{@job_posting.title}\n",
-            image: @job_posting.company_logo_url,
-            action: "click->social-share#shareTwitter"
-          } %>
-    </li>
-    <li class="list-inline-item">
-      <%= link_to tag.span("", class: "fab fa-linkedin btn-icon__inner"), "#",
-          class: "btn btn-sm btn-icon btn-primary transition-3d-hover",
-          style: "background-color: #0077b5; border: 0px;",
-          data: { 
-            url: job_posting_url(@job_posting),
-            text: "#{@job_posting.company_name} is hiring for the position: #{@job_posting.title}\n",
-            image: @job_posting.company_logo_url,
-            action: "click->social-share#shareLinkedIn"
-          } %>
-    </li>
-    <li class="list-inline-item">
-      <%= link_to tag.span("", class: "fas fa-envelope btn-icon__inner"), "#",
-          class: "btn btn-sm btn-icon btn-dark transition-3d-hover",
-          style: "border: 0px;",
-          data: { 
-            url: job_posting_url(@job_posting),
-            text: "#{@job_posting.company_name} is hiring for the position: #{@job_posting.title}\n",
-            image: @job_posting.company_logo_url,
-            action: "click->social-share#shareEmail"
-          } %>
-    </li>
-  </ul>
+
+  <!-- AddToAny BEGIN -->
+  <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
+    <a class="a2a_button_twitter"></a>
+    <a class="a2a_button_linkedin"></a>
+    <a class="a2a_button_facebook"></a>
+    <a class="a2a_button_wechat"></a>
+    <a class="a2a_button_email"></a>
+    <a class="a2a_dd" href="https://www.addtoany.com/share"></a>
+  </div>
+  <script async src="https://static.addtoany.com/menu/page.js"></script>
+  <!-- AddToAny END -->
 </div>
 
 <div class="mb-7 job-listing__description trix-content">
