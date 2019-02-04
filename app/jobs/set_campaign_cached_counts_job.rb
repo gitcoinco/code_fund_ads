@@ -2,7 +2,7 @@
 # Scheduled via Heroku Scheduler
 # SEE: lib/tasks/schedule.rake
 class SetCampaignCachedCountsJob < ApplicationJob
-  queue_as :default
+  queue_as :low
 
   def perform
     Campaign.active.available_on(Date.current).find_each do |campaign|

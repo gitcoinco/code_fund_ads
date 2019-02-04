@@ -2,7 +2,7 @@
 # Scheduled via Heroku Scheduler
 # SEE: lib/tasks/schedule.rake
 class SetPropertyCachedCountsJob < ApplicationJob
-  queue_as :default
+  queue_as :low
 
   def perform
     Property.active.find_each do |property|
