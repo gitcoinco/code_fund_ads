@@ -88,9 +88,10 @@ Rails.application.routes.draw do
   # but we are using `show` because it renders the pixel image that creates the impression record
   resources :impressions, only: [:show], path: "/display", constraints: ->(req) { req.format == :gif }
   scope "/impressions/:impression_id" do
-    # this action should semantically be a `create`,
-    # but we are using `show` because its also a pass through that redirects to the campaign url
+    # this action should semantically be a `create`
+    # we use `show` because it's also a pass through that redirects to the campaign url
     resource :advertisement_clicks, only: [:show], path: "/click"
+    resource :impression_uplifts, only: [:create], path: "/uplift"
   end
 
   # TODO: deprecate legacy support on 2019-04-01
