@@ -53,6 +53,7 @@
 #  legacy_id              :uuid
 #  organization_id        :bigint(8)
 #  stripe_customer_id     :string
+#  referring_user_id      :bigint(8)
 #
 
 class User < ApplicationRecord
@@ -71,6 +72,7 @@ class User < ApplicationRecord
   # relationships .............................................................
   belongs_to :organization, optional: true
   has_many :job_postings
+  belongs_to :referrer, class_name: "User", foreign_key: "referring_user_id", optional: true
 
   # validations ...............................................................
   validates :first_name, presence: true

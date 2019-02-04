@@ -31,6 +31,7 @@
       if (targetElement == null) { targetElement = document.getElementById('<%= @target %>'); }
       targetElement.innerHTML = '<%= @advertisement_html.html_safe %>';
       targetElement.querySelector('img[data-src="impression_url"]').src = '<%= @impression_url.html_safe %>';
+      targetElement.querySelector('a[data-target="powered_by_url"').href = '<%= @powered_by_url.html_safe %>';
       targetElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '<%= @campaign_url.html_safe %>'; });
       evt.detail = { status: 'ok', house: <%= @campaign.fallback? %> };
       detectUplift();

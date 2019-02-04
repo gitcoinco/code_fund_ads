@@ -53,6 +53,7 @@
 #  legacy_id              :uuid
 #  organization_id        :bigint(8)
 #  stripe_customer_id     :string
+#  referring_user_id      :bigint(8)
 #
 
 require "test_helper"
