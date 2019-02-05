@@ -118,7 +118,9 @@ class AdvertisementsController < ApplicationController
   end
 
   def country_code
-    ip_info&.country&.iso_code
+    iso_code = ip_info&.country&.iso_code
+    return nil unless iso_code
+    Country.find(iso_code)&.iso_code
   end
 
   def subdivision
@@ -127,7 +129,7 @@ class AdvertisementsController < ApplicationController
 
   def province_code
     return nil unless country_code.present? && subdivision.present?
-    "#{country_code}-#{subdivision}"
+    Province.find("#{country_code}-#{subdivision}")&.iso_code
   end
 
   def time_zone_name
@@ -177,21 +179,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def set_campaign
-    campaign_relation = Campaign.active.available_on(Date.current).
-      select(
-        :id,
-        :user_id,
-        :creative_id,
-        :ecpm_currency,
-        :ecpm_cents,
-        :daily_budget_currency,
-        :daily_budget_cents,
-        :fallback,
-        :start_date,
-        :end_date,
-        :province_codes,
-        :updated_at
-      )
+    campaign_relation = Campaign.active.available_on(Date.current)
     campaign_relation = campaign_relation.targeted_country_code(country_code) if country_code
     campaign_relation = campaign_relation.targeted_province_code(province_code) if province_code
     campaign_relation = campaign_relation.where(weekdays_only: false) if Date.current.on_weekend?
@@ -255,14 +243,16 @@ class AdvertisementsController < ApplicationController
     campaign_relation = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0))
     campaigns = campaign_relation.to_a
     campaigns.select! { |campaign| campaign.daily_budget_available? }
+    return nil if campaigns.empty?
 
-    # more likely to prefer province targeted campaigns
-    if rand(2).zero?
-      province_targeted_campaigns = campaigns.select { |campaign| campaign.province_codes.present? }
-      campaigns = province_targeted_campaigns unless province_targeted_campaigns.blank?
-    end
-
-    campaigns.max_by(&:daily_remaining_budget_percentage)
+    weights = campaigns.map { |campaign|
+      keyword_score = (campaign.keywords & property.keywords).size
+      province_score = 1 if province_code && campaign.province_codes.include?(province_code)
+      budget_score = campaign.daily_remaining_budget
+      keyword_score + province_score + budget_score
+    }
+    selector = WalkerMethod.new(campaigns, weights)
+    selector.random
   end
 
   def advertisement_cache_key
