@@ -56,6 +56,7 @@ class JobPosting < ApplicationRecord
   belongs_to :campaign, optional: true
   belongs_to :organization, optional: true
   belongs_to :user, optional: true
+  belongs_to :coupon, optional: true
 
   # validations ...............................................................
   validates :title, length: {within: 2..130}

@@ -19,7 +19,9 @@
 class Coupon < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
+
   # relationships .............................................................
+  has_many :job_postings
 
   # validations ...............................................................
   validates :code, presence: true, uniqueness: true
@@ -42,8 +44,10 @@ class Coupon < ApplicationRecord
   end
 
   def apply_discount(amount)
+    return amount unless active?
+
     case coupon_type
-    when ENUMS::COUPON_TYPES::PERCENTAGE then amount * (discount_percent.to_f / 100.0)
+    when ENUMS::COUPON_TYPES::PERCENTAGE then amount * ((100 - discount_percent).to_f / 100.0)
     when ENUMS::COUPON_TYPES::FIXED_PRICE then fixed_price
     else amount
     end
