@@ -58,7 +58,6 @@ class ImpressionsController < ApplicationController
       request.remote_ip,
       request.user_agent,
       Time.current.iso8601,
-      params[:uplift]
     )
   end
 

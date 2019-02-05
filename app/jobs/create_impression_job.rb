@@ -1,7 +1,7 @@
 class CreateImpressionJob < ApplicationJob
   queue_as :impression
 
-  def perform(id, campaign_id, property_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string, uplift = "false")
+  def perform(id, campaign_id, property_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string)
     @event_id = SecureRandom.uuid
     @ip_address = ip_address
 
@@ -28,7 +28,6 @@ class CreateImpressionJob < ApplicationJob
       property: property,
       ad_template: ad_template,
       ad_theme: ad_theme,
-      uplift: uplift.to_s == "true",
       ip_address: ip_address,
       user_agent: user_agent,
       displayed_at: displayed_at,
