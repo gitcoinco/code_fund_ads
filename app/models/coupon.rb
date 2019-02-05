@@ -23,7 +23,7 @@ class Coupon < ApplicationRecord
 
   # validations ...............................................................
   validates :code, presence: true, uniqueness: true
-  validates :coupon_type, presence: true, inclusion: { in: ENUMS::COUPON_TYPES.keys }
+  validates :coupon_type, presence: true, inclusion: {in: ENUMS::COUPON_TYPES.keys}
   validates :expires_at, null: false
 
   # callbacks .................................................................
