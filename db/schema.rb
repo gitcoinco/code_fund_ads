@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_04_215437) do
+ActiveRecord::Schema.define(version: 2019_02_05_173702) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -118,6 +118,21 @@ ActiveRecord::Schema.define(version: 2019_02_04_215437) do
     t.datetime "updated_at", null: false
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "coupons", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "description"
+    t.string "coupon_type", null: false
+    t.integer "discount_percent", default: 0, null: false
+    t.integer "fixed_price_cents", default: 0, null: false
+    t.string "fixed_price_currency", default: "USD", null: false
+    t.datetime "expires_at", null: false
+    t.integer "quantity", default: 99999, null: false
+    t.integer "claimed", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_coupons_on_code", unique: true
   end
 
   create_table "creative_images", force: :cascade do |t|
@@ -271,11 +286,13 @@ ActiveRecord::Schema.define(version: 2019_02_04_215437) do
     t.boolean "auto_renew", default: true, null: false
     t.integer "list_view_count", default: 0, null: false
     t.integer "detail_view_count", default: 0, null: false
+    t.bigint "coupon_id"
     t.index ["auto_renew"], name: "index_job_postings_on_auto_renew"
     t.index ["campaign_id"], name: "index_job_postings_on_campaign_id"
     t.index ["city"], name: "index_job_postings_on_city"
     t.index ["company_name"], name: "index_job_postings_on_company_name"
     t.index ["country_code"], name: "index_job_postings_on_country_code"
+    t.index ["coupon_id"], name: "index_job_postings_on_coupon_id"
     t.index ["detail_view_count"], name: "index_job_postings_on_detail_view_count"
     t.index ["end_date"], name: "index_job_postings_on_end_date"
     t.index ["full_text_search"], name: "index_job_postings_on_full_text_search", using: :gin

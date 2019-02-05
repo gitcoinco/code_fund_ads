@@ -6,12 +6,12 @@
 #  code                 :string           not null
 #  description          :string
 #  coupon_type          :string           not null
-#  discount_percent     :integer
+#  discount_percent     :integer          default(0), not null
 #  fixed_price_cents    :integer          default(0), not null
 #  fixed_price_currency :string           default("USD"), not null
-#  expires_at           :datetime
-#  available_count      :integer          default(99999)
-#  claimed_count        :integer          default(0)
+#  expires_at           :datetime         not null
+#  quantity             :integer          default(99999), not null
+#  claimed              :integer          default(0), not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #

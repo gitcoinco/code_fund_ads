@@ -6,12 +6,12 @@
 #  code                 :string           not null
 #  description          :string
 #  coupon_type          :string           not null
-#  discount_percent     :integer
+#  discount_percent     :integer          default(0), not null
 #  fixed_price_cents    :integer          default(0), not null
 #  fixed_price_currency :string           default("USD"), not null
-#  expires_at           :datetime
-#  available_count      :integer          default(99999)
-#  claimed_count        :integer          default(0)
+#  expires_at           :datetime         not null
+#  quantity             :integer          default(99999), not null
+#  claimed              :integer          default(0), not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
@@ -36,6 +36,18 @@ class Coupon < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def active?
+    quantity > claimed && expires_at > Time.now
+  end
+
+  def apply_discount(amount)
+    case coupon_type
+    when ENUMS::COUPON_TYPES::PERCENTAGE then amount * (discount_percent.to_f / 100.0)
+    when ENUMS::COUPON_TYPES::FIXED_PRICE then fixed_price
+    else amount
+    end
+  end
 
   # protected instance methods ................................................
 

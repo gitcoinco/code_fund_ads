@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :job_posting_prospects, except: [:index, :destroy], path: "/jobs/listings"
   scope "/jobs/listings/:job_posting_id" do
     resource :job_posting_user, only: [:new, :create], path: "/user"
-    resource :job_posting_purchase, only: [:new, :create, :show], path: "/purchase"
+    resource :job_posting_purchase, only: [:new, :create, :show, :edit, :update], path: "/purchase"
   end
   resources :job_postings, except: [:new, :create], path: "/jobs/directory"
 

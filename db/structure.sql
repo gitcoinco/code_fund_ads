@@ -272,6 +272,45 @@ ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
 
 
 --
+-- Name: coupons; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.coupons (
+    id bigint NOT NULL,
+    code character varying NOT NULL,
+    description character varying,
+    coupon_type character varying NOT NULL,
+    discount_percent integer DEFAULT 0 NOT NULL,
+    fixed_price_cents integer DEFAULT 0 NOT NULL,
+    fixed_price_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    expires_at timestamp without time zone NOT NULL,
+    quantity integer DEFAULT 99999 NOT NULL,
+    claimed integer DEFAULT 0 NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: coupons_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.coupons_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: coupons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.coupons_id_seq OWNED BY public.coupons.id;
+
+
+--
 -- Name: creative_images; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -491,7 +530,8 @@ CREATE TABLE public.job_postings (
     session_id character varying,
     auto_renew boolean DEFAULT true NOT NULL,
     list_view_count integer DEFAULT 0 NOT NULL,
-    detail_view_count integer DEFAULT 0 NOT NULL
+    detail_view_count integer DEFAULT 0 NOT NULL,
+    coupon_id bigint
 );
 
 
@@ -861,6 +901,13 @@ ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.com
 
 
 --
+-- Name: coupons id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons ALTER COLUMN id SET DEFAULT nextval('public.coupons_id_seq'::regclass);
+
+
+--
 -- Name: creative_images id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1011,6 +1058,14 @@ ALTER TABLE ONLY public.campaigns
 
 ALTER TABLE ONLY public.comments
     ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: coupons coupons_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.coupons
+    ADD CONSTRAINT coupons_pkey PRIMARY KEY (id);
 
 
 --
@@ -1482,6 +1537,13 @@ CREATE INDEX index_comments_on_user_id ON public.comments USING btree (user_id);
 
 
 --
+-- Name: index_coupons_on_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_coupons_on_code ON public.coupons USING btree (code);
+
+
+--
 -- Name: index_creative_images_on_active_storage_attachment_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1556,6 +1618,13 @@ CREATE INDEX index_job_postings_on_company_name ON public.job_postings USING btr
 --
 
 CREATE INDEX index_job_postings_on_country_code ON public.job_postings USING btree (country_code);
+
+
+--
+-- Name: index_job_postings_on_coupon_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_coupon_id ON public.job_postings USING btree (coupon_id);
 
 
 --
@@ -2034,6 +2103,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190125221903'),
 ('20190125224425'),
 ('20190131172927'),
-('20190204215437');
+('20190204215437'),
+('20190205155348'),
+('20190205173702');
 
 
