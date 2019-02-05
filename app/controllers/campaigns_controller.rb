@@ -2,7 +2,7 @@ class CampaignsController < ApplicationController
   include Sortable
 
   before_action :authenticate_user!
-  before_action :authenticate_administrator!, except: [:index, :show]
+  before_action :authenticate_administrator!, only: [:destroy]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
   before_action :set_campaign_search, only: [:index]
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
@@ -100,6 +100,7 @@ class CampaignsController < ApplicationController
   end
 
   def campaign_params
+    return advertiser_campaign_params unless authorized_user.can_admin_system?
     params.require(:campaign).permit(
       :user_id,
       :status,
@@ -118,6 +119,10 @@ class CampaignsController < ApplicationController
       negative_keywords: [],
       province_codes: [],
     )
+  end
+
+  def advertiser_campaign_params
+    params.require(:campaign).permit(:name, :url, :creative_id)
   end
 
   def sortable_columns

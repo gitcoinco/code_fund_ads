@@ -21,6 +21,8 @@ class CreativePreviewsController < ApplicationController
       adapter: :nokogiri_fast
     ).to_inline_css.squish
 
+    return render html: @preview_html.html_safe if params[:html_only].present?
+
     render layout: false
   end
 
