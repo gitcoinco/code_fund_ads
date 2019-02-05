@@ -84,6 +84,8 @@ Rails.application.routes.draw do
     resource :creative_previews, only: [:show], path: "/preview/:template/:theme"
   end
 
+  resources :coupons, except: [:show]
+
   # this action should semantically be a `create`,
   # but we are using `show` because it renders the pixel image that creates the impression record
   resources :impressions, only: [:show], path: "/display", constraints: ->(req) { req.format == :gif }

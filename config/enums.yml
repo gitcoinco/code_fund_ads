@@ -102,6 +102,10 @@ CAMPAIGN_STATUS_COLORS:
   active: success
   archived: muted
 
+COUPON_TYPES:
+  - percentage
+  - fixed_price
+
 PROPERTY_TYPES:
   - website
   - repository
