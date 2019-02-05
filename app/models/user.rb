@@ -76,6 +76,8 @@ class User < ApplicationRecord
   belongs_to :organization, optional: true
   has_many :job_postings
   belongs_to :referrer, class_name: "User", foreign_key: "referring_user_id", optional: true
+  belongs_to :referring_property, class_name: "Property", foreign_key: "referring_property_id", optional: true
+  belongs_to :referring_campaign, class_name: "Campaign", foreign_key: "referring_campaign_id", optional: true
 
   # validations ...............................................................
   validates :first_name, presence: true
