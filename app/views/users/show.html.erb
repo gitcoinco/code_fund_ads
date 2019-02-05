@@ -25,6 +25,7 @@
         <%= details_li("Login Count") { @user.sign_in_count } if authorized_user.can_admin_system? %>
         <%= details_li("Roles") { @user.roles.map(&:capitalize).join(", ") } %>
         <%= details_li("Bio") { @user.bio } %>
+        <%= details_li("Referring User") { link_to @user.referrer&.name, @user.referrer } if authorized_user.can_admin_system? && @user.referrer %>
       </ul>
     </div>
   </div>

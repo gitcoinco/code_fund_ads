@@ -25,6 +25,7 @@ class AdvertisementsController < ApplicationController
       @advertisement_html = render_advertisement
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
       @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
+      @powered_by_url = root_url(ref: @virtual_impression_id)
       @uplift_url = impression_uplifts_url(@virtual_impression_id, advertiser_id: @campaign.user_id)
     end
 

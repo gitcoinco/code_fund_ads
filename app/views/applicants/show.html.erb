@@ -12,6 +12,8 @@
         <%= details_li("Company Name") { @applicant.company_name } if @applicant.for_advertiser? %>
         <%= details_li("Monthly Budget") { @applicant.monthly_budget } if @applicant.for_advertiser? %>
         <%= details_li("Monthly Visitors") { @applicant.monthly_visitors } if @applicant.for_publisher? %>
+        <%= details_li("Referring Property") { Property.where(id: @applicant.referring_property_id).first&.name } %>
+        <%= details_li("Referring Campaign") { Campaign.where(id: @applicant.referring_campaign_id).first&.name } %>
       </ul>
     </div>
   </div>

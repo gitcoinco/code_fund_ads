@@ -5,7 +5,7 @@
       <a data-href="campaign_url" class="cf-img-wrapper" target="_blank" rel="noopener">
         <%= image_tag @campaign.creative.small_image.cloudfront_url, class: "cf-img" rescue nil %>
       </a>
-      <a href="https://codefund.app" class="cf-powered-by" target="_blank" rel="noopener">
+      <a href="https://codefund.app" data-target="powered_by_url" class="cf-powered-by" target="_blank" rel="noopener">
         <em>ethical</em> ad by CodeFund
         <img data-src="impression_url">
       </a>
