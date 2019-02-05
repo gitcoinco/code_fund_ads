@@ -40,6 +40,7 @@
 #  auto_renew                 :boolean          default(TRUE), not null
 #  list_view_count            :integer          default(0), not null
 #  detail_view_count          :integer          default(0), not null
+#  coupon_id                  :bigint(8)
 #
 
 class JobPosting < ApplicationRecord
@@ -55,6 +56,7 @@ class JobPosting < ApplicationRecord
   belongs_to :campaign, optional: true
   belongs_to :organization, optional: true
   belongs_to :user, optional: true
+  belongs_to :coupon, optional: true
 
   # validations ...............................................................
   validates :title, length: {within: 2..130}

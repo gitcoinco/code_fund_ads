@@ -7,7 +7,7 @@
       image: asset_path("codefund-circle.png"),
       name: "CodeFund",
       description: "30 day job listing",
-      amount: Monetize.parse("$299.00 USD").cents,
+      amount: @price.cents,
       currency: "USD",
       email: current_user.email,
     }} do %>
@@ -16,7 +16,7 @@
         <div class="card shadow-sm p-7 job-listing">
           <%= render partial: "/job_posting_prospects/nav" %>
           <div class="space-top-2 mb-3">
-            <h2 class="h4 mb-3 alert alert-warning text-center">Your ad is $299 and will renew every 30 days, starting today.</h2>
+            <h2 class="h4 mb-3 alert alert-warning text-center">Your ad is <%= @price.format %> and will renew every 30 days, starting today.</h2>
           </div>
           <div class="row">
             <div class="col-md-7">
@@ -25,13 +25,21 @@
 
               <input type="hidden" name="source_id" data-target="job-posting-purchases-form.sourceId" />
 
-              <div class="text-center pt-3">
+              <div class="text-center pt-3 mb-2">
                 <%= link_to "Place Your Order", "", class: "btn btn-lg btn-success d-block mx-auto",
                   data: {
                     action: "click->job-posting-purchases-form#showPaymentModal",
                     target: "job-posting-purchases-form.purchaseButton",
                     processing_text: "Your payment is processing...",
                 } %>
+              </div>
+              <div class="text-center">
+                <a data-controller="remote-modal"
+                  data-action="click->remote-modal#displayModal"
+                  data-url="<%= edit_job_posting_purchase_path(@job_posting) %>"
+                  href="#">
+                  Have a coupon code?
+                </a>
               </div>
             </div>
 

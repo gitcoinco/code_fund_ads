@@ -40,6 +40,7 @@
 #  auto_renew                 :boolean          default(TRUE), not null
 #  list_view_count            :integer          default(0), not null
 #  detail_view_count          :integer          default(0), not null
+#  coupon_id                  :bigint(8)
 #
 
 require "test_helper"
