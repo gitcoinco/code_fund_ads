@@ -163,7 +163,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def property
-    @property ||= Property.select(:id, :ad_template, :ad_theme, :updated_at).find_by(id: property_id)
+    @property ||= Property.find_by(id: property_id)
   end
 
   def template_name
@@ -239,17 +239,21 @@ class AdvertisementsController < ApplicationController
   end
 
   def choose_campaign(campaign_relation, ignore_budgets: false)
-    return campaign_relation.to_a.sample if ignore_budgets
-    campaign_relation = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0))
+    campaign_relation = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0)) unless ignore_budgets
     campaigns = campaign_relation.to_a
-    campaigns.select! { |campaign| campaign.daily_budget_available? }
+    campaigns.select! { |campaign| campaign.daily_budget_available? } unless ignore_budgets
     return nil if campaigns.empty?
 
+    ecpm_denominator = campaigns.sum(&:ecpm_cents).to_f
+    ecpm_denominator = 0.001 if ecpm_denominator.to_f.zero?
+    budget_denominator = campaigns.sum(&:daily_remaining_budget_percentage).to_f unless ignore_budgets
+    budget_denominator = 0.001 if budget_denominator.to_f.zero?
+
     weights = campaigns.map { |campaign|
-      keyword_score = (campaign.keywords & property.keywords).size
-      province_score = 1 if province_code && campaign.province_codes.include?(province_code)
-      budget_score = campaign.daily_remaining_budget
-      keyword_score + province_score + budget_score
+      province_score = province_code && campaign.province_codes.include?(province_code) ? 0.5 : 0.0
+      ecpm_score = (campaign.ecpm_cents / ecpm_denominator).round(2) + 1.0
+      budget_score = (campaign.daily_remaining_budget_percentage / budget_denominator).round(2) unless ignore_budgets
+      province_score + ecpm_score + budget_score.to_f
     }
     selector = WalkerMethod.new(campaigns, weights)
     selector.random
