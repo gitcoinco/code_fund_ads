@@ -119,7 +119,9 @@ class AdvertisementsController < ApplicationController
   end
 
   def country_code
-    ip_info&.country&.iso_code
+    iso_code = ip_info&.country&.iso_code
+    return nil unless iso_code
+    Country.find(iso_code)&.iso_code
   end
 
   def subdivision
@@ -128,7 +130,7 @@ class AdvertisementsController < ApplicationController
 
   def province_code
     return nil unless country_code.present? && subdivision.present?
-    "#{country_code}-#{subdivision}"
+    Province.find("#{country_code}-#{subdivision}")&.iso_code
   end
 
   def time_zone_name
@@ -162,7 +164,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def property
-    @property ||= Property.select(:id, :ad_template, :ad_theme, :updated_at).find_by(id: property_id)
+    @property ||= Property.find_by(id: property_id)
   end
 
   def template_name
@@ -178,20 +180,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def set_campaign
-    campaign_relation = Campaign.active.available_on(Date.current).
-      select(
-        :id,
-        :user_id,
-        :creative_id,
-        :ecpm_currency,
-        :ecpm_cents,
-        :daily_budget_currency,
-        :daily_budget_cents,
-        :fallback,
-        :start_date,
-        :end_date,
-        :updated_at
-      )
+    campaign_relation = Campaign.active.available_on(Date.current)
     campaign_relation = campaign_relation.targeted_country_code(country_code) if country_code
     campaign_relation = campaign_relation.targeted_province_code(province_code) if province_code
     campaign_relation = campaign_relation.where(weekdays_only: false) if Date.current.on_weekend?
@@ -251,11 +240,24 @@ class AdvertisementsController < ApplicationController
   end
 
   def choose_campaign(campaign_relation, ignore_budgets: false)
-    return campaign_relation.to_a.sample if ignore_budgets
-    campaign_relation = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0))
+    campaign_relation = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0)) unless ignore_budgets
     campaigns = campaign_relation.to_a
-    campaigns.select! { |campaign| campaign.daily_budget_available? }
-    campaigns.max_by(&:daily_remaining_budget_percentage)
+    campaigns.select! { |campaign| campaign.daily_budget_available? } unless ignore_budgets
+    return nil if campaigns.empty?
+
+    ecpm_denominator = campaigns.sum(&:ecpm_cents).to_f
+    ecpm_denominator = 0.001 if ecpm_denominator.to_f.zero?
+    budget_denominator = campaigns.sum(&:daily_remaining_budget_percentage).to_f unless ignore_budgets
+    budget_denominator = 0.001 if budget_denominator.to_f.zero?
+
+    weights = campaigns.map { |campaign|
+      province_score = province_code && campaign.province_codes.include?(province_code) ? 0.5 : 0.0
+      ecpm_score = (campaign.ecpm_cents / ecpm_denominator).round(2) + 1.0
+      budget_score = (campaign.daily_remaining_budget_percentage / budget_denominator).round(2) unless ignore_budgets
+      province_score + ecpm_score + budget_score.to_f
+    }
+    selector = WalkerMethod.new(campaigns, weights)
+    selector.random
   end
 
   def advertisement_cache_key
