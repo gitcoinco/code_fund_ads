@@ -5,7 +5,7 @@
       <div class="text-center mb-3 mt-5">
         <span class="u-divider u-divider--xs u-divider--text">Ad Preview</span>
       </div>
-      <iframe src="<%= creative_previews_path(@campaign.creative, template: "default", theme: "light", html_only: true) %>"
+      <iframe src="<%= creative_previews_path(@campaign.creative, template: "square", theme: "light", html_only: true) %>"
         height="270" style="height: 320px; width: 100%; border: 0; resize: horizontal;"
         frameBorder="0" scrolling="no"></iframe>
     </div>
