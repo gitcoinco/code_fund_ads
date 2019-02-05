@@ -189,6 +189,7 @@ class AdvertisementsController < ApplicationController
         :fallback,
         :start_date,
         :end_date,
+        :province_codes,
         :updated_at
       )
     campaign_relation = campaign_relation.targeted_country_code(country_code) if country_code
@@ -254,7 +255,13 @@ class AdvertisementsController < ApplicationController
     campaign_relation = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0))
     campaigns = campaign_relation.to_a
     campaigns.select! { |campaign| campaign.daily_budget_available? }
-    campaigns.max_by(&:daily_remaining_budget_percentage)
+    province_targeted_campaigns = if province_code
+      campaigns.select { |campaign| campaign.province_codes.present? }
+    else
+      []
+    end
+    province_targeted_campaigns.max_by(&:daily_remaining_budget_percentage) ||
+      campaigns.max_by(&:daily_remaining_budget_percentage)
   end
 
   def advertisement_cache_key
