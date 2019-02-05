@@ -424,6 +424,9 @@ ActiveRecord::Schema.define(version: 2019_02_04_215437) do
     t.bigint "organization_id"
     t.string "stripe_customer_id"
     t.bigint "referring_user_id"
+    t.bigint "referring_campaign_id"
+    t.bigint "referring_property_id"
+    t.uuid "referring_impression_id"
     t.index "lower((email)::text)", name: "index_users_on_email", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

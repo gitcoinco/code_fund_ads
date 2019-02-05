@@ -764,7 +764,10 @@ CREATE TABLE public.users (
     legacy_id uuid,
     organization_id bigint,
     stripe_customer_id character varying,
-    referring_user_id bigint
+    referring_user_id bigint,
+    referring_campaign_id bigint,
+    referring_property_id bigint,
+    referring_impression_id uuid
 );
 
 

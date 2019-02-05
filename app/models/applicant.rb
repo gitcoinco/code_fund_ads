@@ -112,11 +112,11 @@ class Applicant < ApplicationRecord
   end
 
   def referring_property
-    @referring_property ||= Property.where(id: referring_property_id).first
+    @referring_property ||= Property.find_by(id: referring_property_id)
   end
 
   def referring_campaign
-    @referring_campaign ||= Campaign.where(id: referring_campaign_id).first
+    @referring_campaign ||= Campaign.find_by(id: referring_campaign_id)
   end
 
   # protected instance methods ................................................
@@ -170,7 +170,10 @@ class Applicant < ApplicationRecord
       email: email,
       organization_id: organization_id,
       roles: [role],
-      referring_user_id: referring_property&.user_id
+      referring_user_id: referring_property&.user_id,
+      referring_campaign_id: referring_campaign_id,
+      referring_property_id: referring_property_id,
+      referring_impression_id: referring_impression_id
     )
 
     update_attribute(:invited_user_id, user.id)
