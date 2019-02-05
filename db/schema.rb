@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_31_172927) do
+ActiveRecord::Schema.define(version: 2019_02_04_215437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -57,6 +57,9 @@ ActiveRecord::Schema.define(version: 2019_01_31_172927) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "invited_user_id"
+    t.bigint "referring_campaign_id"
+    t.bigint "referring_property_id"
+    t.uuid "referring_impression_id"
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -420,6 +423,10 @@ ActiveRecord::Schema.define(version: 2019_01_31_172927) do
     t.uuid "legacy_id"
     t.bigint "organization_id"
     t.string "stripe_customer_id"
+    t.bigint "referring_user_id"
+    t.bigint "referring_campaign_id"
+    t.bigint "referring_property_id"
+    t.uuid "referring_impression_id"
     t.index "lower((email)::text)", name: "index_users_on_email", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
@@ -427,6 +434,7 @@ ActiveRecord::Schema.define(version: 2019_01_31_172927) do
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["organization_id"], name: "index_users_on_organization_id"
+    t.index ["referring_user_id"], name: "index_users_on_referring_user_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end

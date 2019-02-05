@@ -141,7 +141,10 @@ CREATE TABLE public.applicants (
     monthly_budget character varying,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    invited_user_id bigint
+    invited_user_id bigint,
+    referring_campaign_id bigint,
+    referring_property_id bigint,
+    referring_impression_id uuid
 );
 
 
@@ -760,7 +763,11 @@ CREATE TABLE public.users (
     updated_at timestamp without time zone NOT NULL,
     legacy_id uuid,
     organization_id bigint,
-    stripe_customer_id character varying
+    stripe_customer_id character varying,
+    referring_user_id bigint,
+    referring_campaign_id bigint,
+    referring_property_id bigint,
+    referring_impression_id uuid
 );
 
 
@@ -1839,6 +1846,13 @@ CREATE INDEX index_users_on_organization_id ON public.users USING btree (organiz
 
 
 --
+-- Name: index_users_on_referring_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_users_on_referring_user_id ON public.users USING btree (referring_user_id);
+
+
+--
 -- Name: index_users_on_reset_password_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2019,6 +2033,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190123180606'),
 ('20190125221903'),
 ('20190125224425'),
-('20190131172927');
+('20190131172927'),
+('20190204215437');
 
 
