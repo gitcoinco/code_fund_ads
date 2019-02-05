@@ -255,13 +255,14 @@ class AdvertisementsController < ApplicationController
     campaign_relation = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0))
     campaigns = campaign_relation.to_a
     campaigns.select! { |campaign| campaign.daily_budget_available? }
-    province_targeted_campaigns = if province_code
-      campaigns.select { |campaign| campaign.province_codes.present? }
-    else
-      []
+
+    # more likely to prefer province targeted campaigns
+    if rand(2).zero?
+      province_targeted_campaigns = campaigns.select { |campaign| campaign.province_codes.present? }
+      campaigns = province_targeted_campaigns unless province_targeted_campaigns.blank?
     end
-    province_targeted_campaigns.max_by(&:daily_remaining_budget_percentage) ||
-      campaigns.max_by(&:daily_remaining_budget_percentage)
+
+    campaigns.max_by(&:daily_remaining_budget_percentage)
   end
 
   def advertisement_cache_key
