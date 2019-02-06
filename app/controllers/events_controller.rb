@@ -21,26 +21,46 @@ class EventsController < ApplicationController
   private
 
   def set_user
-    @eventable = User.find(params[:user_id])
+    @eventable = if authorized_user.can_admin_system?
+      User.find(params[:user_id])
+    else
+      current_user
+    end
   end
 
   def set_organization
-    @eventable = Organization.find(params[:organization_id])
+    @eventable = if authorized_user.can_admin_system?
+      Organization.find(params[:organization_id])
+    else
+      current_user.organization
+    end
   end
 
   def set_campaign
-    @eventable = Campaign.find(params[:campaign_id])
+    @eventable = if authorized_user.can_admin_system?
+      Campaign.find(params[:campaign_id])
+    else
+      current_user.campaigns.find(params[:campaign_id])
+    end
   end
 
   def set_property
-    @eventable = Property.find(params[:property_id])
+    @eventable = if authorized_user.can_admin_system?
+      Property.find(params[:property_id])
+    else
+      current_user.properties.find(params[:property_id])
+    end
   end
 
   def set_creative
-    @eventable = Creative.find(params[:creative_id])
+    @eventable = if authorized_user.can_admin_system?
+      Creative.find(params[:creative_id])
+    else
+      current_user.creatives.find(params[:creative_id])
+    end
   end
 
   def set_applicant
-    @eventable = Applicant.find(params[:applicant_id])
+    @eventable = Applicant.find(params[:applicant_id]) if authorized_user.can_admin_system?
   end
 end

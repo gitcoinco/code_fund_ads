@@ -58,12 +58,14 @@ class JobPostingPurchasesController < ApplicationController
   end
 
   def edit
+    return render_forbidden unless authorized_user.can_update_job_posting?(@job_posting)
     render partial: "/job_posting_purchases/coupon_form",
            locals: {job_posting: @job_posting},
            layout: false
   end
 
   def update
+    return render_forbidden unless authorized_user.can_update_job_posting?(@job_posting)
     coupon = Coupon.find_by(code: params[:coupon_code])
     if coupon&.active?
       session[:coupon_id] = coupon.id

@@ -209,7 +209,8 @@ CREATE TABLE public.campaigns (
     legacy_id uuid,
     organization_id bigint,
     job_posting boolean DEFAULT false NOT NULL,
-    province_codes character varying[] DEFAULT '{}'::character varying[]
+    province_codes character varying[] DEFAULT '{}'::character varying[],
+    fixed_ecpm boolean DEFAULT true NOT NULL
 );
 
 
@@ -2105,6 +2106,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190131172927'),
 ('20190204215437'),
 ('20190205155348'),
-('20190205173702');
+('20190205173702'),
+('20190206211639');
 
 

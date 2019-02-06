@@ -7,8 +7,6 @@ class CampaignsController < ApplicationController
   before_action :set_campaign_search, only: [:index]
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
-  # GET /campaigns
-  # GET /campaigns.json
   def index
     campaigns = Campaign.order(order_by).includes(:user, :creative)
     if authorized_user.can_admin_system?
@@ -22,13 +20,10 @@ class CampaignsController < ApplicationController
     render "/campaigns/for_user/index" if @user
   end
 
-  # GET /campaigns/1
-  # GET /campaigns/1.json
   def show
     set_meta_tags @campaign
   end
 
-  # GET /campaigns/new
   def new
     @campaign = current_user.campaigns.build(
       status: "pending",
@@ -37,14 +32,11 @@ class CampaignsController < ApplicationController
     )
   end
 
-  # GET /campaigns/1/edit
   def edit
     set_meta_tags @campaign
     @user ||= @campaign.user
   end
 
-  # POST /campaigns
-  # POST /campaigns.json
   def create
     @campaign = Campaign.new(campaign_params)
 
@@ -59,8 +51,6 @@ class CampaignsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /campaigns/1
-  # PATCH/PUT /campaigns/1.json
   def update
     respond_to do |format|
       if @campaign.update(campaign_params)
@@ -73,8 +63,6 @@ class CampaignsController < ApplicationController
     end
   end
 
-  # DELETE /campaigns/1
-  # DELETE /campaigns/1.json
   def destroy
     @campaign.destroy
     respond_to do |format|
@@ -90,13 +78,20 @@ class CampaignsController < ApplicationController
     @campaign_search ||= CampaignSearch.new
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_campaign
-    @campaign = Campaign.find(params[:id])
+    @campaign = if authorized_user.can_admin_system?
+      Campaign.find(params[:id])
+    else
+      current_user.campaigns.find(params[:id])
+    end
   end
 
   def set_user
-    @user = User.find(params[:user_id])
+    @user = if authorized_user.can_admin_system?
+      User.find(params[:user_id])
+    else
+      current_user
+    end
   end
 
   def campaign_params
@@ -111,6 +106,7 @@ class CampaignsController < ApplicationController
       :core_hours_only,
       :weekdays_only,
       :ecpm,
+      :fixed_ecpm,
       :daily_budget,
       :total_budget,
       :fallback,

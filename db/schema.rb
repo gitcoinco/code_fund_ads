@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_05_173702) do
+ActiveRecord::Schema.define(version: 2019_02_06_211639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -88,6 +88,7 @@ ActiveRecord::Schema.define(version: 2019_02_05_173702) do
     t.bigint "organization_id"
     t.boolean "job_posting", default: false, null: false
     t.string "province_codes", default: [], array: true
+    t.boolean "fixed_ecpm", default: true, null: false
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
     t.index ["core_hours_only"], name: "index_campaigns_on_core_hours_only"
     t.index ["country_codes"], name: "index_campaigns_on_country_codes", using: :gin

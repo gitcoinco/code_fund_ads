@@ -28,6 +28,7 @@
 #  organization_id       :bigint(8)
 #  job_posting           :boolean          default(FALSE), not null
 #  province_codes        :string           default([]), is an Array
+#  fixed_ecpm            :boolean          default(TRUE), not null
 #
 
 class Campaign < ApplicationRecord
@@ -180,6 +181,24 @@ class Campaign < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def adjusted_ecpm(country_code)
+    return ecpm if fixed_ecpm?
+    return ecpm unless CPM_MULTIPLIERS[country_code]
+    adjusted = ecpm + (ecpm * CPM_MULTIPLIERS[country_code])
+    adjusted = Monetize.parse("$0.10 USD") if adjusted.cents < 10
+    adjusted
+  end
+
+  def ecpms
+    countries.map do |country|
+      {
+        country_iso_code: country.iso_code,
+        country_name: country.name,
+        ecpm: adjusted_ecpm(country.iso_code),
+      }
+    end
+  end
 
   def impressions
     Impression.partitioned(user_id, start_date.advance(months: -3), end_date.advance(months: 3)).where(campaign: self)
