@@ -102,7 +102,11 @@ class Impression < ApplicationRecord
   end
 
   def applicable_ecpm
-    @applicable_ecpm ||= campaign.applicable_ecpm_on(displayed_at_date)
+    @applicable_ecpm ||= begin
+      ecpm = campaign.applicable_ecpm_on(displayed_at_date)
+      ecpm += (ecpm * CPM_MULTIPLIERS[country_code]) if CPM_MULTIPLIERS[country_code]
+      ecpm
+    end
   end
 
   def calculate_estimated_gross_revenue_fractional_cents

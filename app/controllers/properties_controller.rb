@@ -83,16 +83,22 @@ class PropertiesController < ApplicationController
     @property_search ||= PropertySearch.new
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_property
-    @property = Property.find(params[:id])
+    @property = if authorized_user.can_admin_system?
+      Property.find(params[:id])
+    else
+      current_user.properties.find(params[:id])
+    end
   end
 
   def set_user
-    @user = User.find(params[:user_id])
+    @user = if authorized_user.can_admin_system?
+      User.find(params[:user_id])
+    else
+      current_user
+    end
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def property_params
     params.require(:property).permit(
       :ad_template,

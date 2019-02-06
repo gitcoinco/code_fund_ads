@@ -65,7 +65,11 @@ class CreativesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_creative
-    @creative = Creative.find(params[:id])
+    @creative = if authorized_user.can_admin_system?
+      Creative.find(params[:id])
+    else
+      current_user.creatives.find(params[:id])
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

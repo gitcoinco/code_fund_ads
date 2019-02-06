@@ -92,11 +92,19 @@ class CampaignsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_campaign
-    @campaign = Campaign.find(params[:id])
+    @campaign = if authorized_user.can_admin_system?
+      Campaign.find(params[:id])
+    else
+      current_user.campaigns.find(params[:id])
+    end
   end
 
   def set_user
-    @user = User.find(params[:user_id])
+    @user = if authorized_user.can_admin_system?
+      User.find(params[:user_id])
+    else
+      current_user
+    end
   end
 
   def campaign_params

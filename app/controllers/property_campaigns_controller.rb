@@ -10,6 +10,10 @@ class PropertyCampaignsController < ApplicationController
   private
 
   def set_property
-    @property = Property.find(params[:property_id])
+    @property = if authorized_user.can_admin_system?
+      Property.find(params[:property_id])
+    else
+      current_user.properties.find(params[:property_id])
+    end
   end
 end

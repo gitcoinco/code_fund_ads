@@ -16,7 +16,7 @@ class CreateImpressionJob < ApplicationJob
     ip_info = MMDB.lookup(ip_address)
     country_code = Country.find(ip_info&.country&.iso_code)&.iso_code
     subdivision = ip_info&.subdivisions&.first&.iso_code
-    province_code = Province.find("#{country_code}-#{subdivision}")&.iso_code if country_code.present? && subdivision.present?
+    province_code = Province.find("#{country_code}-#{subdivision}")&.iso_code
 
     impression = Impression.create!(
       id: id,

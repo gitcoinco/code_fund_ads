@@ -29,22 +29,39 @@ class VersionsController < ApplicationController
   private
 
   def set_user
-    @versionable = User.find(params[:user_id])
+    @versionable = if authorized_user.can_admin_system?
+      User.find(params[:user_id])
+    else
+      current_user
+    end
   end
 
   def set_organization
-    @versionable = Organization.find(params[:organization_id])
+    @versionable = if authorized_user.can_admin_system?
+      Organization.find(params[:organization_id])
+    else
+      current_user.organization
+    end
   end
 
   def set_campaign
-    @versionable = Campaign.find(params[:campaign_id])
+    @versionable = if authorized_user.can_admin_system?
+      Campaign.find(params[:campaign_id])
+    else
+      current_user.campaigns.find(params[:campaign_id])
+    end
   end
 
   def set_property
-    @versionable = Property.find(params[:property_id])
+    @versionable = if authorized_user.can_admin_system?
+      Property.find(params[:property_id])
+    else
+      current_user.properties.find(params[:property_id])
+    end
   end
 
   def set_versionable
+    # TODO: create authorizer and check permissions
     @versionable = GlobalID::Locator.locate_signed(params[:sgid])
   end
 

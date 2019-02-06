@@ -181,6 +181,22 @@ class Campaign < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def adjusted_ecpm(country_code)
+    return Monetize.parse("$0.00 USD") unless country_codes.include?(country_code)
+    return ecpm unless CPM_MULTIPLIERS[country_code]
+    ecpm + (ecpm * CPM_MULTIPLIERS[country_code])
+  end
+
+  def ecpms
+    countries.map do |country|
+      {
+        country_iso_code: country.iso_code,
+        country_name: country.name,
+        ecpm: adjusted_ecpm(country.iso_code),
+      }
+    end
+  end
+
   def impressions
     Impression.partitioned(user_id, start_date.advance(months: -3), end_date.advance(months: 3)).where(campaign: self)
   end
