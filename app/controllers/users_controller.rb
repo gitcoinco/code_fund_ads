@@ -69,7 +69,6 @@ class UsersController < ApplicationController
     @user_search ||= UserSearch.new
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = if authorized_user.can_admin_system? && params[:id] != "me"
       User.find(params[:id])

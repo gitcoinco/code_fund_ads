@@ -63,7 +63,6 @@ class OrganizationsController < ApplicationController
     @organization_search ||= OrganizationSearch.new
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_organization
     @organization = if authorized_user.can_admin_system?
       Organization.find(params[:id])
