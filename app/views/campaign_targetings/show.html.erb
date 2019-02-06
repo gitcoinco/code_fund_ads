@@ -20,7 +20,6 @@
       <% @campaign.countries.each do |country| %>
         <span class="btn btn-xs btn-soft-success mb-2">
           <%= country.name %>
-          <code><%= @campaign.adjusted_ecpm(country.iso_code).format %></code>
         </span>
       <% end %>
     </div>

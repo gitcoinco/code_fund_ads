@@ -28,6 +28,7 @@
 #  organization_id       :bigint(8)
 #  job_posting           :boolean          default(FALSE), not null
 #  province_codes        :string           default([]), is an Array
+#  fixed_ecpm            :boolean          default(TRUE), not null
 #
 
 class Campaign < ApplicationRecord
@@ -183,6 +184,7 @@ class Campaign < ApplicationRecord
 
   def adjusted_ecpm(country_code)
     return Monetize.parse("$0.00 USD") unless country_codes.include?(country_code)
+    return ecpm if fixed_ecpm?
     return ecpm unless CPM_MULTIPLIERS[country_code]
     ecpm + (ecpm * CPM_MULTIPLIERS[country_code])
   end

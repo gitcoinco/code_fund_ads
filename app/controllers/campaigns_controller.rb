@@ -119,6 +119,7 @@ class CampaignsController < ApplicationController
       :core_hours_only,
       :weekdays_only,
       :ecpm,
+      :fixed_ecpm,
       :daily_budget,
       :total_budget,
       :fallback,

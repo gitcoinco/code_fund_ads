@@ -104,7 +104,9 @@ class Impression < ApplicationRecord
   def applicable_ecpm
     @applicable_ecpm ||= begin
       ecpm = campaign.applicable_ecpm_on(displayed_at_date)
-      ecpm += (ecpm * CPM_MULTIPLIERS[country_code]) if CPM_MULTIPLIERS[country_code]
+      unless campaign.fixed_ecpm?
+        ecpm += (ecpm * CPM_MULTIPLIERS[country_code]) if CPM_MULTIPLIERS[country_code]
+      end
       ecpm
     end
   end
