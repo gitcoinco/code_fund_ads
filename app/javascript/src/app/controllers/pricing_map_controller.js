@@ -30,7 +30,7 @@ export default class extends Controller {
     chart.chartContainer.wheelable = false;
 
     /* Set max zoom level */
-    chart.maxZoomLevel = 6;
+    chart.maxZoomLevel = 4;
 
     /* Set map definition */
     chart.geodata = am4geodata_worldLow;
@@ -50,8 +50,8 @@ export default class extends Controller {
     polygonSeries.heatRules.push({
       property: 'fill',
       target: polygonSeries.mapPolygons.template,
-      min: mapColor.brighten(-0.4),
-      max: mapColor.brighten(0.7),
+      min: mapColor.brighten(0.2),
+      max: mapColor.brighten(-0.7),
     });
 
 
@@ -65,9 +65,10 @@ export default class extends Controller {
     polygonTemplate.togglable = false;
     polygonTemplate.tooltipText = "{name}: {price}";
     polygonTemplate.strokeWidth = 0.5;
-    polygonTemplate.strokeOpacity = 0.25;
+    polygonTemplate.strokeOpacity = 1;
+    polygonTemplate.realStroke = am4core.color('#f8f9fa');
 
-    polygonTemplate.fill = mapColor.lighten(1.2); // chart.colors.getIndex(19);
+    polygonTemplate.fill = mapColor;
 
     let hs = polygonTemplate.states.create("hover");
     hs.properties.fill = mapColor.brighten(1.2);
