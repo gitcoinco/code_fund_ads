@@ -14,18 +14,17 @@ const formatter = new Intl.NumberFormat('en-US', {
 
 export default class extends Controller {
   connect() {
-
     // Themes begin
     am4core.useTheme(am4themes_animated);
     // am4core.useTheme(am4themes_dark);
     // Themes end
 
     /* Create map instance */
-    let chart = am4core.create("chartdiv", am4maps.MapChart);
-    
+    let chart = am4core.create('chartdiv', am4maps.MapChart);
+
     const mapColor = chart.colors.getIndex(0);
     // const mapColor = am4core.color('#3c6b95');
-    
+
     /* Disable wheel scrolling */
     chart.chartContainer.wheelable = false;
 
@@ -44,8 +43,6 @@ export default class extends Controller {
     /* Make map load polygon (like country names) data from GeoJSON */
     polygonSeries.useGeodata = true;
 
-    // polygonSeries.fill = am4core.color('green');
-    
     //Set min/max fill color for each area
     polygonSeries.heatRules.push({
       property: 'fill',
@@ -53,7 +50,6 @@ export default class extends Controller {
       min: mapColor.brighten(0.2),
       max: mapColor.brighten(-0.7),
     });
-
 
     // Set heatmap values for each state
     let ecpmData = JSON.parse(this.element.dataset.ecpm);
@@ -63,18 +59,18 @@ export default class extends Controller {
     let polygonTemplate = polygonSeries.mapPolygons.template;
     polygonTemplate.applyOnClones = true;
     polygonTemplate.togglable = false;
-    polygonTemplate.tooltipText = "{name}: {price}";
+    polygonTemplate.tooltipText = '{name}: {price}';
     polygonTemplate.strokeWidth = 0.5;
     polygonTemplate.strokeOpacity = 1;
     polygonTemplate.realStroke = am4core.color('#f8f9fa');
 
     polygonTemplate.fill = mapColor;
 
-    let hs = polygonTemplate.states.create("hover");
+    let hs = polygonTemplate.states.create('hover');
     hs.properties.fill = mapColor.brighten(1.2);
 
     // Hide Antarctica
-    polygonSeries.exclude = ["AQ"];
+    polygonSeries.exclude = ['AQ'];
 
     // Small map
     chart.smallMap = new am4maps.SmallMap();
@@ -84,14 +80,14 @@ export default class extends Controller {
     chart.zoomControl = new am4maps.ZoomControl();
 
     let homeButton = new am4core.Button();
-    homeButton.events.on("hit", function () {
+    homeButton.events.on('hit', function() {
       chart.goHome();
     });
 
     homeButton.icon = new am4core.Sprite();
     homeButton.padding(7, 5, 7, 5);
     homeButton.width = 20;
-    homeButton.icon.path = "M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8";
+    homeButton.icon.path = 'M16,8 L14,8 L14,16 L10,16 L10,10 L6,10 L6,16 L2,16 L2,8 L0,8 L8,0 L16,8 Z M16,8';
     homeButton.marginBottom = 10;
     homeButton.parent = chart.zoomControl;
     homeButton.insertBefore(chart.zoomControl.plusButton);
