@@ -102,7 +102,14 @@ class Impression < ApplicationRecord
   end
 
   def applicable_ecpm
-    @applicable_ecpm ||= campaign.applicable_ecpm_on(displayed_at_date)
+    @applicable_ecpm ||= begin
+      ecpm = campaign.applicable_ecpm_on(displayed_at_date)
+      unless campaign.fixed_ecpm?
+        ecpm += (ecpm * CPM_MULTIPLIERS[country_code]) if CPM_MULTIPLIERS[country_code]
+        ecpm = Monetize.parse("$0.10 USD") if ecpm.cents < 10
+      end
+      ecpm
+    end
   end
 
   def calculate_estimated_gross_revenue_fractional_cents

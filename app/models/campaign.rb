@@ -28,6 +28,7 @@
 #  organization_id       :bigint(8)
 #  job_posting           :boolean          default(FALSE), not null
 #  province_codes        :string           default([]), is an Array
+#  fixed_ecpm            :boolean          default(TRUE), not null
 #
 
 class Campaign < ApplicationRecord
@@ -104,6 +105,8 @@ class Campaign < ApplicationRecord
       where(fallback: true).
       where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
   end
+  scope :targeted_country_code, ->(country_code) { country_code ? with_all_country_codes(country_code) : without_country_codes }
+  scope :targeted_province_code, ->(province_code) { province_code ? without_province_codes.or(with_all_province_codes(province_code)) : without_province_codes }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
@@ -175,9 +178,30 @@ class Campaign < ApplicationRecord
 
   # class methods .............................................................
   class << self
+    def pricing(base_ecpm)
+      Campaign.new(ecpm: base_ecpm, fixed_ecpm: false, country_codes: ENUMS::COUNTRIES.keys).ecpms
+    end
   end
 
   # public instance methods ...................................................
+
+  def adjusted_ecpm(country_code)
+    return ecpm if fixed_ecpm?
+    return ecpm if country_code == "US"
+    adjusted = ecpm + (ecpm * (CPM_MULTIPLIERS[country_code] || -0.95))
+    adjusted = Monetize.parse("$0.10 USD") if adjusted.cents < 10
+    adjusted
+  end
+
+  def ecpms
+    countries.map do |country|
+      {
+        country_iso_code: country.iso_code,
+        country_name: country.name,
+        ecpm: adjusted_ecpm(country.iso_code),
+      }
+    end
+  end
 
   def impressions
     Impression.partitioned(user_id, start_date.advance(months: -3), end_date.advance(months: 3)).where(campaign: self)

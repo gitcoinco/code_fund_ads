@@ -40,6 +40,7 @@
 #  auto_renew                 :boolean          default(TRUE), not null
 #  list_view_count            :integer          default(0), not null
 #  detail_view_count          :integer          default(0), not null
+#  coupon_id                  :bigint(8)
 #
 
 class JobPosting < ApplicationRecord
@@ -55,6 +56,7 @@ class JobPosting < ApplicationRecord
   belongs_to :campaign, optional: true
   belongs_to :organization, optional: true
   belongs_to :user, optional: true
+  belongs_to :coupon, optional: true
 
   # validations ...............................................................
   validates :title, length: {within: 2..130}
@@ -81,7 +83,7 @@ class JobPosting < ApplicationRecord
 
   # callbacks .................................................................
   before_validation :set_currency
-  after_update_commit :tweet_new_job_posting
+  after_update_commit :buffer_new_job_posting
 
   # scopes ....................................................................
   scope :active, -> { where status: ENUMS::JOB_STATUSES::ACTIVE }
@@ -131,6 +133,10 @@ class JobPosting < ApplicationRecord
     status == ENUMS::JOB_STATUSES::ACTIVE
   end
 
+  def recent?
+    start_date >= Date.current - 5.days
+  end
+
   def province
     Province.find_by_iso_code(province_code)
   end
@@ -158,14 +164,14 @@ class JobPosting < ApplicationRecord
       then { |result| description.blank? ? result : result << make_tsvector(description, weight: "D") }
   end
 
-  def tweet_new_job_posting
-    return unless ENV["TWITTER_TWEETS_ENABLED"] == "true"
+  def buffer_new_job_posting
+    return unless ENV["BUFFER_ENABLED"] == "true"
     return unless source == ENUMS::JOB_SOURCES::INTERNAL
     return unless status == ENUMS::JOB_STATUSES::ACTIVE
     return unless status_previously_changed?
     return unless status_previous_change.first == ENUMS::JOB_STATUSES::PENDING
     return unless status_previous_change.last == ENUMS::JOB_STATUSES::ACTIVE
-    TweetNewJobPostingJob.perform_later self, "/job_postings/tweets/new.text"
+    BufferNewJobPostingJob.perform_later self, "/job_postings/tweets/new.text"
   end
 
   # protected instance methods ................................................

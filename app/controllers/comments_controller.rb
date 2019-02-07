@@ -32,26 +32,43 @@ class CommentsController < ApplicationController
   private
 
   def set_user
-    @commentable = User.find(params[:user_id])
+    @commentable = if authorized_user.can_admin_system?
+      User.find(params[:user_id])
+    else
+      current_user
+    end
   end
 
   def set_organization
-    @commentable = Organization.find(params[:organization_id])
+    @commentable = if authorized_user.can_admin_system?
+      Organization.find(params[:organization_id])
+    else
+      current_user.organization
+    end
   end
 
   def set_campaign
-    @commentable = Campaign.find(params[:campaign_id])
+    @commentable = if authorized_user.can_admin_system?
+      Campaign.find(params[:campaign_id])
+    else
+      current_user.campaigns.find(params[:campaign_id])
+    end
   end
 
   def set_property
-    @commentable = Property.find(params[:property_id])
+    @commentable = if authorized_user.can_admin_system?
+      Property.find(params[:property_id])
+    else
+      current_user.properties.find(params[:property_id])
+    end
   end
 
   def set_applicant
-    @commentable = Applicant.find(params[:applicant_id])
+    @commentable = Applicant.find(params[:applicant_id]) if current_user.can_admin_system?
   end
 
   def set_commentable
+    # TODO: create an authorizer and check permissions
     @commentable = GlobalID::Locator.locate_signed(params[:sgid])
   end
 end

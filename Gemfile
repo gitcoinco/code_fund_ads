@@ -3,16 +3,18 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.6.0"
+ruby "2.6.1"
 
 gem "active_link_to",                     "~> 1.0.5"
 gem "acts_as_commentable_with_threading", "~> 2.0.1"
 gem "aws-sdk-s3",                         "~> 1.29.0", require: false
 gem "barnes",                             "~> 0.0.7"
 gem "bootsnap",                           ">= 1.1.0", require: false
+gem "buffer",                             "0.1.3", github: "bufferapp/buffer-ruby"
 gem "bulk_insert",                        "~> 1.7.0"
 gem "cable_ready",                        "~> 2.0.7"
 gem "chronic",                            "~> 0.10.2"
+gem "countries",                          "~> 2.1.4"
 gem "country_select",                     "~> 3.1.1"
 gem "devise",                             "~> 4.5.0"
 gem "devise_invitable",                   "~> 1.7.5"
@@ -59,7 +61,6 @@ gem "stopwords-filter",                   "~> 0.4.1", require: "stopwords"
 gem "stripe",                             "~> 4.6.0"
 gem "tag_columns",                        "~> 0.1.6"
 gem "turbolinks",                         "~> 5"
-gem "twitter",                            "~> 6.2.0"
 gem "typhoeus",                           "~> 1.3.1"
 gem "uglifier",                           ">= 1.3.0"
 gem "voight_kampff",                      "~> 1.1.3"

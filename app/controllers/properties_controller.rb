@@ -6,8 +6,6 @@ class PropertiesController < ApplicationController
   before_action :set_property, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
 
-  # GET /properties
-  # GET /properties.json
   def index
     properties = Property.order(order_by).includes(:user)
     if authorized_user.can_admin_system?
@@ -21,22 +19,16 @@ class PropertiesController < ApplicationController
     render "/properties/for_user/index" if @user
   end
 
-  # GET /properties/1
-  # GET /properties/1.json
   def show
   end
 
-  # GET /properties/new
   def new
     @property = current_user.properties.build(status: "pending", ad_template: "default", ad_theme: "light")
   end
 
-  # GET /properties/1/edit
   def edit
   end
 
-  # POST /properties
-  # POST /properties.json
   def create
     @property = current_user.properties.build(property_params)
     @property.status = "pending"
@@ -52,8 +44,6 @@ class PropertiesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /properties/1
-  # PATCH/PUT /properties/1.json
   def update
     respond_to do |format|
       if @property.update(property_params)
@@ -66,8 +56,6 @@ class PropertiesController < ApplicationController
     end
   end
 
-  # DELETE /properties/1
-  # DELETE /properties/1.json
   def destroy
     @property.destroy
     respond_to do |format|
@@ -83,16 +71,22 @@ class PropertiesController < ApplicationController
     @property_search ||= PropertySearch.new
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_property
-    @property = Property.find(params[:id])
+    @property = if authorized_user.can_admin_system?
+      Property.find(params[:id])
+    else
+      current_user.properties.find(params[:id])
+    end
   end
 
   def set_user
-    @user = User.find(params[:user_id])
+    @user = if authorized_user.can_admin_system?
+      User.find(params[:user_id])
+    else
+      current_user
+    end
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def property_params
     params.require(:property).permit(
       :ad_template,

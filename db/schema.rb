@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_31_172927) do
+ActiveRecord::Schema.define(version: 2019_02_06_211639) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -57,6 +57,9 @@ ActiveRecord::Schema.define(version: 2019_01_31_172927) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "invited_user_id"
+    t.bigint "referring_campaign_id"
+    t.bigint "referring_property_id"
+    t.uuid "referring_impression_id"
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -85,6 +88,7 @@ ActiveRecord::Schema.define(version: 2019_01_31_172927) do
     t.bigint "organization_id"
     t.boolean "job_posting", default: false, null: false
     t.string "province_codes", default: [], array: true
+    t.boolean "fixed_ecpm", default: true, null: false
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
     t.index ["core_hours_only"], name: "index_campaigns_on_core_hours_only"
     t.index ["country_codes"], name: "index_campaigns_on_country_codes", using: :gin
@@ -115,6 +119,21 @@ ActiveRecord::Schema.define(version: 2019_01_31_172927) do
     t.datetime "updated_at", null: false
     t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
     t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "coupons", force: :cascade do |t|
+    t.string "code", null: false
+    t.string "description"
+    t.string "coupon_type", null: false
+    t.integer "discount_percent", default: 0, null: false
+    t.integer "fixed_price_cents", default: 0, null: false
+    t.string "fixed_price_currency", default: "USD", null: false
+    t.datetime "expires_at", null: false
+    t.integer "quantity", default: 99999, null: false
+    t.integer "claimed", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_coupons_on_code", unique: true
   end
 
   create_table "creative_images", force: :cascade do |t|
@@ -268,11 +287,13 @@ ActiveRecord::Schema.define(version: 2019_01_31_172927) do
     t.boolean "auto_renew", default: true, null: false
     t.integer "list_view_count", default: 0, null: false
     t.integer "detail_view_count", default: 0, null: false
+    t.bigint "coupon_id"
     t.index ["auto_renew"], name: "index_job_postings_on_auto_renew"
     t.index ["campaign_id"], name: "index_job_postings_on_campaign_id"
     t.index ["city"], name: "index_job_postings_on_city"
     t.index ["company_name"], name: "index_job_postings_on_company_name"
     t.index ["country_code"], name: "index_job_postings_on_country_code"
+    t.index ["coupon_id"], name: "index_job_postings_on_coupon_id"
     t.index ["detail_view_count"], name: "index_job_postings_on_detail_view_count"
     t.index ["end_date"], name: "index_job_postings_on_end_date"
     t.index ["full_text_search"], name: "index_job_postings_on_full_text_search", using: :gin
@@ -420,6 +441,10 @@ ActiveRecord::Schema.define(version: 2019_01_31_172927) do
     t.uuid "legacy_id"
     t.bigint "organization_id"
     t.string "stripe_customer_id"
+    t.bigint "referring_user_id"
+    t.bigint "referring_campaign_id"
+    t.bigint "referring_property_id"
+    t.uuid "referring_impression_id"
     t.index "lower((email)::text)", name: "index_users_on_email", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
@@ -427,6 +452,7 @@ ActiveRecord::Schema.define(version: 2019_01_31_172927) do
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["organization_id"], name: "index_users_on_organization_id"
+    t.index ["referring_user_id"], name: "index_users_on_referring_user_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end

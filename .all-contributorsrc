@@ -62,7 +62,8 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/7039523?v=4",
       "profile": "https://github.com/arku",
       "contributions": [
-        "doc"
+        "doc",
+        "code"
       ]
     },
     {
@@ -72,6 +73,16 @@
       "profile": "http://max-si-m.github.io",
       "contributions": [
         "doc"
+      ]
+    },
+    {
+      "login": "andrewmcodes",
+      "name": "Andrew Mason",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/18423853?v=4",
+      "profile": "https://www.andrewmason.me/",
+      "contributions": [
+        "code",
+        "design"
       ]
     }
   ]

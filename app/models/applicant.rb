@@ -2,20 +2,23 @@
 #
 # Table name: applicants
 #
-#  id               :bigint(8)        not null, primary key
-#  status           :string           default("pending")
-#  role             :string           not null
-#  email            :string           not null
-#  canonical_email  :string           not null
-#  first_name       :string           not null
-#  last_name        :string           not null
-#  url              :string           not null
-#  monthly_visitors :string
-#  company_name     :string
-#  monthly_budget   :string
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
-#  invited_user_id  :bigint(8)
+#  id                      :bigint(8)        not null, primary key
+#  status                  :string           default("pending")
+#  role                    :string           not null
+#  email                   :string           not null
+#  canonical_email         :string           not null
+#  first_name              :string           not null
+#  last_name               :string           not null
+#  url                     :string           not null
+#  monthly_visitors        :string
+#  company_name            :string
+#  monthly_budget          :string
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  invited_user_id         :bigint(8)
+#  referring_campaign_id   :bigint(8)
+#  referring_property_id   :bigint(8)
+#  referring_impression_id :uuid
 #
 
 class Applicant < ApplicationRecord
@@ -108,6 +111,14 @@ class Applicant < ApplicationRecord
     @user_id ||= (User.where(email: "eric@codefund.io").first || User.administrator.first).id
   end
 
+  def referring_property
+    @referring_property ||= Property.find_by(id: referring_property_id)
+  end
+
+  def referring_campaign
+    @referring_campaign ||= Campaign.find_by(id: referring_campaign_id)
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................
@@ -127,6 +138,8 @@ class Applicant < ApplicationRecord
         *Email:*  #{email}
         *Monthly Visitors:*  #{monthly_visitors}
         *Website:*  #{url}
+        *Referring Property:* #{referring_property&.name}
+        *Referring Campaign:* #{referring_campaign&.name}
       MESSAGE
     )
   end
@@ -141,6 +154,8 @@ class Applicant < ApplicationRecord
         *Company:* #{company_name}
         *Est. Budget:* #{monthly_budget}
         *Website:* #{url}
+        *Referring Property:* #{referring_property&.name}
+        *Referring Campaign:* #{referring_campaign&.name}
       MESSAGE
     )
   end
@@ -154,7 +169,11 @@ class Applicant < ApplicationRecord
       last_name: last_name,
       email: email,
       organization_id: organization_id,
-      roles: [role]
+      roles: [role],
+      referring_user_id: referring_property&.user_id,
+      referring_campaign_id: referring_campaign_id,
+      referring_property_id: referring_property_id,
+      referring_impression_id: referring_impression_id
     )
 
     update_attribute(:invited_user_id, user.id)

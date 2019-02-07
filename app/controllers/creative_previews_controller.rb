@@ -4,7 +4,11 @@ class CreativePreviewsController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @creative = current_user.creatives.find(params[:creative_id])
+    @creative = if authorized_user.can_admin_system?
+      Creative.find(params[:creative_id])
+    else
+      current_user.creatives.find(params[:creative_id])
+    end
     @campaign = Campaign.new(creative: @creative)
 
     return render_not_found unless template_name && theme_name
@@ -20,6 +24,8 @@ class CreativePreviewsController < ApplicationController
       output_encoding: "utf-8",
       adapter: :nokogiri_fast
     ).to_inline_css.squish
+
+    return render html: @preview_html.html_safe if params[:html_only].present?
 
     render layout: false
   end

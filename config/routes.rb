@@ -17,12 +17,13 @@ Rails.application.routes.draw do
   resources :job_posting_prospects, except: [:index, :destroy], path: "/jobs/listings"
   scope "/jobs/listings/:job_posting_id" do
     resource :job_posting_user, only: [:new, :create], path: "/user"
-    resource :job_posting_purchase, only: [:new, :create, :show], path: "/purchase"
+    resource :job_posting_purchase, only: [:new, :create, :show, :edit, :update], path: "/purchase"
   end
   resources :job_postings, except: [:new, :create], path: "/jobs/directory"
 
   root to: "pages#index"
 
+  resource :pricing, only: [:show]
   resource :administrator_dashboards, only: [:show], path: "/dashboards/administrator"
   resource :advertiser_dashboards, only: [:show], path: "/dashboards/advertiser"
   resource :publisher_dashboards, only: [:show], path: "/dashboards/publisher"
@@ -84,13 +85,16 @@ Rails.application.routes.draw do
     resource :creative_previews, only: [:show], path: "/preview/:template/:theme"
   end
 
+  resources :coupons, except: [:show]
+
   # this action should semantically be a `create`,
   # but we are using `show` because it renders the pixel image that creates the impression record
   resources :impressions, only: [:show], path: "/display", constraints: ->(req) { req.format == :gif }
   scope "/impressions/:impression_id" do
-    # this action should semantically be a `create`,
-    # but we are using `show` because its also a pass through that redirects to the campaign url
+    # this action should semantically be a `create`
+    # we use `show` because it's also a pass through that redirects to the campaign url
     resource :advertisement_clicks, only: [:show], path: "/click"
+    resource :impression_uplifts, only: [:create], path: "/uplift"
   end
 
   # TODO: deprecate legacy support on 2019-04-01

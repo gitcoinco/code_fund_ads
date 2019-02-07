@@ -33,8 +33,9 @@
           </p>
 
           <div class="d-flex align-items-center flex-wrap mb-5">
-            <%= link_to "I'm a publisher", publishers_path, class: "btn btn-soft-success btn-wide transition-3d-hover mr-2 mb-1" %>
-            <%= link_to "I'm an advertiser", advertisers_path, class: "btn btn-soft-primary btn-wide transition-3d-hover mb-1" %>
+            <%= link_to "Publishers", publishers_path, class: "btn btn-soft-success transition-3d-hover mr-2 mb-1" %>
+            <%= link_to "Advertisers", advertisers_path, class: "btn btn-soft-primary transition-3d-hover mr-2 mb-1" %>
+            <%= link_to "Hiring Managers", jobs_path, class: "btn btn-soft-warning transition-3d-hover mr-2 mb-1" %>
           </div>
         </div>
       </div>
@@ -156,102 +157,9 @@
       </div>
       <!-- End Title -->
 
-      <!-- News Carousel -->
-      <div class="js-slick-carousel u-slick u-slick--equal-height u-slick--gutters-3"
-        data-slides-show="3"
-        data-infinite="true"
-        data-slides-scroll="1"
-        data-arrows-classes="d-none d-lg-inline-block u-slick__arrow u-slick__arrow--offset u-slick__arrow-centered--y rounded-circle"
-        data-arrow-left-classes="fas fa-arrow-left u-slick__arrow-inner u-slick__arrow-inner--left"
-        data-arrow-right-classes="fas fa-arrow-right u-slick__arrow-inner u-slick__arrow-inner--right"
-        data-pagi-classes="text-center u-slick__pagination mt-7 mb-0"
-        data-responsive='[{
-          "breakpoint": 992,
-          "settings": {
-            "slidesToShow": 2
-          }
-        }, {
-          "breakpoint": 768,
-          "settings": {
-            "slidesToShow": 1
-          }
-        }, {
-          "breakpoint": 554,
-          "settings": {
-            "slidesToShow": 1
-          }
-        }]'>
-        <!-- Blog News -->
-        <a class="js-slide u-bg-img-hero gradient-overlay-half-dark-v1 transition-3d-hover rounded-pseudo my-4"
-            href="https://blog.codefund.app/what-keeps-me-up-at-night/"
-            style="background-size: cover;
-    background-position-x: center; background-image: url(https://images.unsplash.com/photo-1533537841959-705741f3d3a5?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=600&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ);">
-          <article class="align-self-end w-100 text-center p-6">
-            <h3 class="h4 text-white">What Keeps Me Up At Night</h3>
-            <div class="mt-4">
-              <strong class="d-block u-text-light mb-2">Eric Berry</strong>
-              <img class="img-fluid u-sm-avatar rounded-circle mx-auto" src="https://avatars3.githubusercontent.com/u/12481?s=460&v=4" alt="Image Description">
-            </div>
-          </article>
-        </a>
-        <!-- End Blog News -->
-
-        <!-- Blog News -->
-        <div class="js-slide position-relative bg-white shadow-sm transition-3d-hover rounded my-4">
-          <article class="align-self-end w-100 text-center p-6">
-            <h3 class="h6 font-weight-normal">" Hey developer startup folks, CodeFund helps me get in front of the right audience of engaged developers and helps support valuable Open Source creators, maintainers and sustainers. Check them out! "</h3>
-            <div class="my-4">
-              <strong class="d-block mb-2">Ian Kelly</strong>
-              <img class="img-fluid u-sm-avatar rounded-circle mx-auto" src="https://pbs.twimg.com/profile_images/2163405584/h4nMVB4Q_400x400" alt="Image Description">
-            </div>
-            <a class="btn btn-sm u-btn-primary--air u-btn-wide transition-3d-hover" href="https://twitter.com/ianakelly/status/1022145428266074112?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E1022145428266074112&ref_url=https%3A%2F%2Fcodefund.app%2F">View Tweet</a>
-          </article>
-        </div>
-        <!-- End Blog News -->
-
-        <!-- Blog News -->
-        <a class="js-slide u-bg-img-hero gradient-overlay-half-dark-v1 transition-3d-hover rounded-pseudo my-4"
-            href="https://blog.codefund.app/what-ive-learned-over-the-past-year-funding-open-source/"
-            style="background-size: cover;
-    background-position-x: center; background-image: url(https://images.unsplash.com/photo-1475275166152-f1e8005f9854?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=600&fit=max&ixid=eyJhcHBfaWQiOjExNzczfQ);">
-          <article class="align-self-end w-100 text-center p-6">
-            <h3 class="h4 text-white">What I've learned over the past year funding Open Source</h3>
-            <div class="mt-4">
-              <strong class="d-block u-text-light mb-2">Eric Berry</strong>
-              <img class="img-fluid u-sm-avatar rounded-circle mx-auto" src="https://avatars3.githubusercontent.com/u/12481?s=460&v=4" alt="Image Description">
-            </div>
-          </article>
-        </a>
-        <!-- End Blog News -->
-
-        <!-- Blog News -->
-        <div class="js-slide position-relative bg-white shadow-sm transition-3d-hover rounded my-4">
-          <article class="align-self-end w-100 text-center p-6">
-            <h3 class="h6 font-weight-normal">" 📣 PSA friends. CodeFund is an amazing resource for the Open Source community. Supporting OS sustainability while generating awareness for <a href="https://rollbar.com">Rollbar</a>, was a total no-brainer decision... "</h3>
-            <div class="my-4">
-              <strong class="d-block mb-2">Mike Smith</strong>
-              <img class="img-fluid u-sm-avatar rounded-circle mx-auto" src="https://pbs.twimg.com/profile_images/870708848402735105/C6nPDVSP_400x400.jpg" alt="Image Description">
-            </div>
-            <a class="btn btn-sm u-btn-primary--air u-btn-wide transition-3d-hover" href="https://twitter.com/themlsmith/status/925843391832903680?ref_src=twsrc%5Etfw%7Ctwcamp%5Etweetembed%7Ctwterm%5E925843391832903680&ref_url=https%3A%2F%2Fcodefund.app%2F">View Tweet</a>
-          </article>
-        </div>
-        <!-- End Blog News -->
-
-        <!-- Blog News -->
-        <a class="js-slide u-bg-img-hero gradient-overlay-half-dark-v1 transition-3d-hover rounded-pseudo my-4" href="https://blog.codefund.app/codefund-integrates-with-discourse-2/"
-           style="background-size: cover;
-    background-position-x: center; background-image: url(https://blog.codefund.app/content/images/2018/12/1_iGUByEBhlKAowNNgkFqRsQ.jpeg);">
-          <article class="align-self-end w-100 text-center p-6">
-            <h3 class="h4 text-white">CodeFund integrates with Discourse</h3>
-            <div class="mt-4">
-              <strong class="d-block u-text-light mb-2">Eric Berry</strong>
-              <img class="img-fluid u-sm-avatar rounded-circle mx-auto" src="https://avatars3.githubusercontent.com/u/12481?s=460&v=4" alt="Image Description">
-            </div>
-          </article>
-        </a>
-        <!-- End Blog News -->
-      </div>
-      <!-- End News Carousel -->
+      <div class="feedgrabbr_widget" id="fgid_af9b4bcb94dc865d4ab4b56b0"></div>
+      <script>if (typeof (fg_widgets) === "undefined") fg_widgets = new Array(); fg_widgets.push("fgid_af9b4bcb94dc865d4ab4b56b0");</script>
+      <script async src="https://www.feedgrabbr.com/widget/fgwidget.js"></script>
     </div>
   </div>
   <!-- End Blog News Section -->

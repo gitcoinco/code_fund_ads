@@ -1,7 +1,7 @@
 class CreateImpressionJob < ApplicationJob
   queue_as :impression
 
-  def perform(id, campaign_id, property_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string, uplift = "false")
+  def perform(id, campaign_id, property_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string)
     @event_id = SecureRandom.uuid
     @ip_address = ip_address
 
@@ -14,9 +14,9 @@ class CreateImpressionJob < ApplicationJob
 
     displayed_at = Time.parse(displayed_at_string)
     ip_info = MMDB.lookup(ip_address)
-    country_code = ip_info&.country&.iso_code
+    country_code = Country.find(ip_info&.country&.iso_code)&.iso_code
     subdivision = ip_info&.subdivisions&.first&.iso_code
-    province_code = "#{country_code}-#{subdivision}" if country_code.present? && subdivision.present?
+    province_code = Province.find("#{country_code}-#{subdivision}")&.iso_code
 
     impression = Impression.create!(
       id: id,
@@ -28,7 +28,6 @@ class CreateImpressionJob < ApplicationJob
       property: property,
       ad_template: ad_template,
       ad_theme: ad_theme,
-      uplift: uplift.to_s == "true",
       ip_address: ip_address,
       user_agent: user_agent,
       displayed_at: displayed_at,

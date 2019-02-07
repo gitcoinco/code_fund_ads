@@ -7,11 +7,11 @@ class JobPostingsController < ApplicationController
     if params[:manage_scope]
       job_postings = JobPosting.where(user: current_user).order(start_date: :desc)
     else
-      job_postings = JobPosting.active.order(start_date: :desc).ranked_by_source
+      job_postings = JobPosting.active.ranked_by_source.order(start_date: :desc)
       job_postings = @job_posting_search.apply(job_postings)
       if @job_posting_search.full_text_search
         job_postings = job_postings.or(
-          JobPosting.active.order(start_date: :desc).ranked_by_source.
+          JobPosting.active.ranked_by_source.order(start_date: :desc).
             ranked(@job_posting_search.full_text_search).
             search_company_name(@job_posting_search.full_text_search)
         )
