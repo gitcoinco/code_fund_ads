@@ -1,0 +1,36 @@
+<div class="space-top-3 pb-2 bg-light">
+  <div class="container">
+    <%= tag.div "Loading...", id: "chartdiv", style: "width: 100%; height: 550px;", data: { controller: "pricing-map", countries: @countries } %>
+    <div class="text-center text-muted mt-2">
+      <small class="text-italic"><em>Hover over any country to see the current eCPM (price per 1,000 impressions)</em></small>
+    </div>
+  </div>
+</div>
+
+<div class="container space-2">
+  <div class="w-md-80 w-lg-50 text-center mx-md-auto mb-9">
+    <h2>CodeFund Global Pricing</h2>
+    <p>We use a <%= link_to "geo-based multiplier", "https://github.com/gitcoinco/code_fund_ads/blob/master/config/cpm_multipliers.yml" %> per county to calculate the eCPM</p>
+  </div>
+  
+  <table class="table table-condensed table-bordered">
+    <thead>
+      <tr>
+        <th>Country</th>
+        <th>Region</th>
+        <th>Subregion</th>
+        <th>eCPM</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @countries.sort_by { |c| c[:price] }.reverse.each do |country| %>
+        <tr>
+          <td><%= country[:emoji_flag] %> <%= country[:name] %> (<%= country[:iso_code] %>)</td>
+          <td><%= country[:region] %></td>
+          <td><%= country[:subregion] %></td>
+          <td><%= country[:display_price] %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

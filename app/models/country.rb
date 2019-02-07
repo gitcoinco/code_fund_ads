@@ -30,6 +30,24 @@ class Country
         }.uniq == [true]
       end
     end
+
+    def countries(base_ecpm = ENV.fetch("BASE_ECPM", 4).to_f)
+      campaign = Campaign.new(ecpm: base_ecpm, fixed_ecpm: false, country_codes: ENUMS::COUNTRIES.keys)
+      @countries ||= ISO3166::Country.all.each_with_object({}) { |country, memo|
+        data = country.data
+        memo[data["alpha2"]] = {
+          id: data["alpha2"],
+          value: campaign.adjusted_ecpm(data["alpha2"])&.to_f,
+          name: data["name"],
+          region: data["region"],
+          subregion: data["subregion"],
+          iso_code: data["alpha2"],
+          emoji_flag: country.emoji_flag,
+          price: campaign.adjusted_ecpm(data["alpha2"])&.to_f,
+          display_price: campaign.adjusted_ecpm(data["alpha2"])&.format,
+        }
+      }
+    end
   end
 
   alias id iso_code

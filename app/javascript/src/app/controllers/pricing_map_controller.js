@@ -52,14 +52,14 @@ export default class extends Controller {
     });
 
     // Set heatmap values for each state
-    let ecpmData = JSON.parse(this.element.dataset.ecpm);
-    polygonSeries.data = ecpmData;
+    let countries = JSON.parse(this.element.dataset.countries);
+    polygonSeries.data = countries;
 
     /* Configure series */
     let polygonTemplate = polygonSeries.mapPolygons.template;
     polygonTemplate.applyOnClones = true;
     polygonTemplate.togglable = false;
-    polygonTemplate.tooltipText = '{name}: {price}';
+    polygonTemplate.tooltipText = '{name}: {display_price}';
     polygonTemplate.strokeWidth = 0.5;
     polygonTemplate.strokeOpacity = 1;
     polygonTemplate.realStroke = am4core.color('#f8f9fa');

@@ -465,6 +465,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   chromedriver-helper
   chronic (~> 0.10.2)
+  countries (~> 2.1.4)
   country_select (~> 3.1.1)
   devise (~> 4.5.0)
   devise_invitable (~> 1.7.5)
