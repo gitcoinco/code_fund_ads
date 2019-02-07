@@ -149,7 +149,7 @@ bundle exec rails db:setup
 ```
 
 It is recommended to develop with Rails cache enabled. This application relies heavily
-on cacheing and may not work properly without the cache enabled.
+on caching and may not work properly without the cache enabled.
 
 ```sh
 bundle exec rails dev:cache
