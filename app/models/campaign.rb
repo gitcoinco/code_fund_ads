@@ -178,14 +178,17 @@ class Campaign < ApplicationRecord
 
   # class methods .............................................................
   class << self
+    def pricing(base_ecpm)
+      Campaign.new(ecpm: base_ecpm, fixed_ecpm: false, country_codes: ENUMS::COUNTRIES.keys).ecpms
+    end
   end
 
   # public instance methods ...................................................
 
   def adjusted_ecpm(country_code)
     return ecpm if fixed_ecpm?
-    return ecpm unless CPM_MULTIPLIERS[country_code]
-    adjusted = ecpm + (ecpm * CPM_MULTIPLIERS[country_code])
+    return ecpm if country_code == "US"
+    adjusted = ecpm + (ecpm * (CPM_MULTIPLIERS[country_code] || -0.95))
     adjusted = Monetize.parse("$0.10 USD") if adjusted.cents < 10
     adjusted
   end
