@@ -14,24 +14,32 @@ class JobPostingPurchasesController < ApplicationController
       return render(:new)
     end
 
-    @price = Monetize.parse("$299.00 USD")
-    if session[:coupon_id].present?
-      @coupon = Coupon.find_by(id: session[:coupon_id])
-      @price = @coupon.apply_discount(@price) if @coupon
+    amount = 0
+    case job_posting_params[:plan]
+    when "monthly" then amount = @monthly_plan_price.cents
+    when "prepaid" then amount = @prepaid_plan_price.cents
+    else
+      flash.now[:error] = "Unknown plan! Please try again."
+      return render(:new)
     end
+    amount += @premium_placement_offer_price.cents if job_posting_params[:offers].include?("premium_placement")
+    amount += @code_fund_ads_offer_price.cents if job_posting_params[:offers].include?("code_fund_ads")
+    amount += @read_the_docs_offer_price.cents if job_posting_params[:offers].include?("read_the_docs_ads")
 
     charge = current_user.create_stripe_charge!(
       source_id: params[:source_id],
-      amount: @price.cents,
+      amount: amount,
       currency: "usd",
       description: "CodeFund Jobs Listing",
       metadata: {job_posting_id: @job_posting.id},
     )
 
     @job_posting.update!(
+      plan: job_posting_params[:plan],
+      offers: job_posting_params[:offers],
       status: ENUMS::JOB_STATUSES::ACTIVE,
       stripe_charge_id: charge.id,
-      coupon_id: @coupon&.id
+      coupon_id: @coupon&.id,
     )
 
     @coupon&.increment!(:claimed)
@@ -73,6 +81,10 @@ class JobPostingPurchasesController < ApplicationController
 
   private
 
+  def job_posting_params
+    params.require(:job_posting).permit(:plan, offers: [])
+  end
+
   def set_job_posting
     @job_posting = JobPosting.find(params[:job_posting_id])
   end
@@ -80,13 +92,20 @@ class JobPostingPurchasesController < ApplicationController
   def set_prices
     @monthly_plan_price = Monetize.parse("$299.00 USD")
     @prepaid_plan_price = Monetize.parse("$199.00 USD") * 3
-    if session[:coupon_id].present?
-      @coupon = Coupon.find_by(id: session[:coupon_id])
-      @monthly_plan_price = @coupon.apply_discount(@monthly_plan_price) if @coupon
-      @prepaid_plan_price = @coupon.apply_discount(@prepaid_plan_price) if @coupon
-    end
     @premium_placement_offer_price = Monetize.parse("$99.00 USD")
     @code_fund_ads_offer_price = Monetize.parse("$199.00 USD")
     @read_the_docs_offer_price = Monetize.parse("$299.00 USD")
+    apply_coupon
+  end
+
+  def apply_coupon
+    return unless session[:coupon_id]
+    @coupon = Coupon.find_by(id: session[:coupon_id])
+    return unless @coupon
+    @monthly_plan_price = @coupon.apply_discount(@monthly_plan_price)
+    @prepaid_plan_price = @coupon.apply_discount(@prepaid_plan_price)
+    @premium_placement_offer_price = @coupon.apply_discount(@premium_placement_offer_price)
+    @code_fund_ads_offer_price = @coupon.apply_discount(@code_fund_ads_offer_price)
+    @read_the_docs_offer_price = @coupon.apply_discount(@read_the_docs_offer_price)
   end
 end

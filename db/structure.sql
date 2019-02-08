@@ -532,7 +532,9 @@ CREATE TABLE public.job_postings (
     auto_renew boolean DEFAULT true NOT NULL,
     list_view_count integer DEFAULT 0 NOT NULL,
     detail_view_count integer DEFAULT 0 NOT NULL,
-    coupon_id bigint
+    coupon_id bigint,
+    plan character varying,
+    offers character varying[] DEFAULT '{}'::character varying[] NOT NULL
 );
 
 
@@ -1685,10 +1687,24 @@ CREATE INDEX index_job_postings_on_min_annual_salary_cents ON public.job_posting
 
 
 --
+-- Name: index_job_postings_on_offers; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_offers ON public.job_postings USING gin (offers);
+
+
+--
 -- Name: index_job_postings_on_organization_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX index_job_postings_on_organization_id ON public.job_postings USING btree (organization_id);
+
+
+--
+-- Name: index_job_postings_on_plan; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_job_postings_on_plan ON public.job_postings USING btree (plan);
 
 
 --
@@ -2107,6 +2123,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190204215437'),
 ('20190205155348'),
 ('20190205173702'),
-('20190206211639');
+('20190206211639'),
+('20190208174416');
 
 

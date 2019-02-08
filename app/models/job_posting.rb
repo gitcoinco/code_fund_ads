@@ -41,6 +41,8 @@
 #  list_view_count            :integer          default(0), not null
 #  detail_view_count          :integer          default(0), not null
 #  coupon_id                  :bigint(8)
+#  plan                       :string
+#  offers                     :string           default([]), not null, is an Array
 #
 
 class JobPosting < ApplicationRecord
@@ -83,7 +85,8 @@ class JobPosting < ApplicationRecord
 
   # callbacks .................................................................
   before_validation :set_currency
-  after_update_commit :buffer_new_job_posting
+  before_validation :sanitize_plan
+  before_validation :sanitize_offers
 
   # scopes ....................................................................
   scope :active, -> { where status: ENUMS::JOB_STATUSES::ACTIVE }
@@ -107,6 +110,7 @@ class JobPosting < ApplicationRecord
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   tag_columns :keywords
   tag_columns :remote_country_codes
+  tag_columns :offers
   sanitize :title, :description, :how_to_apply
   monetize :min_annual_salary_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :max_annual_salary_cents, numericality: {greater_than_or_equal_to: 0}
@@ -188,5 +192,13 @@ class JobPosting < ApplicationRecord
 
   def meta_description
     truncate(ActionView::Base.full_sanitizer.sanitize(description), length: 290)
+  end
+
+  def sanitize_plan
+    self.plan = nil unless ENUMS::JOB_PLANS[plan]
+  end
+
+  def sanitize_offers
+    self.offers = offers & ENUMS::JOB_OFFERS.keys
   end
 end

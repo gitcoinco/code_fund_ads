@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_06_211639) do
+ActiveRecord::Schema.define(version: 2019_02_08_174416) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -288,6 +288,8 @@ ActiveRecord::Schema.define(version: 2019_02_06_211639) do
     t.integer "list_view_count", default: 0, null: false
     t.integer "detail_view_count", default: 0, null: false
     t.bigint "coupon_id"
+    t.string "plan"
+    t.string "offers", default: [], null: false, array: true
     t.index ["auto_renew"], name: "index_job_postings_on_auto_renew"
     t.index ["campaign_id"], name: "index_job_postings_on_campaign_id"
     t.index ["city"], name: "index_job_postings_on_city"
@@ -302,7 +304,9 @@ ActiveRecord::Schema.define(version: 2019_02_06_211639) do
     t.index ["list_view_count"], name: "index_job_postings_on_list_view_count"
     t.index ["max_annual_salary_cents"], name: "index_job_postings_on_max_annual_salary_cents"
     t.index ["min_annual_salary_cents"], name: "index_job_postings_on_min_annual_salary_cents"
+    t.index ["offers"], name: "index_job_postings_on_offers", using: :gin
     t.index ["organization_id"], name: "index_job_postings_on_organization_id"
+    t.index ["plan"], name: "index_job_postings_on_plan"
     t.index ["province_code"], name: "index_job_postings_on_province_code"
     t.index ["province_name"], name: "index_job_postings_on_province_name"
     t.index ["remote"], name: "index_job_postings_on_remote"

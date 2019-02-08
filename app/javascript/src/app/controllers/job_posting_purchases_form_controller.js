@@ -1,4 +1,5 @@
 import { Controller } from 'stimulus';
+import { toArray } from '../utils';
 
 export default class extends Controller {
   static targets = [
@@ -8,6 +9,8 @@ export default class extends Controller {
     'editLink',
     'monthlyPlan',
     'monthlyPlanListItem',
+    'offers',
+    'plan',
     'premiumPlacementOffer',
     'premiumPlacementOfferListItem',
     'prepaidPlan',
@@ -63,6 +66,7 @@ export default class extends Controller {
     this.deselectPrepaidPlan();
     this.monthlyPlanListItemTarget.hidden = false;
     this.selectElement(this.monthlyPlanTarget);
+    this.planTarget.value = 'monthly';
     this.showTotal();
   }
 
@@ -75,6 +79,7 @@ export default class extends Controller {
     this.deselectMonthlyPlan();
     this.prepaidPlanListItemTarget.hidden = false;
     this.selectElement(this.prepaidPlanTarget);
+    this.planTarget.value = 'prepaid';
     this.showTotal();
   }
 
@@ -87,9 +92,11 @@ export default class extends Controller {
     if (this.premiumPlacementOfferTarget.selected) {
       this.premiumPlacementOfferListItemTarget.hidden = true;
       this.deselectElement(this.premiumPlacementOfferTarget);
+      this.deselectOffer('premium_placement');
     } else {
       this.premiumPlacementOfferListItemTarget.hidden = false;
       this.selectElement(this.premiumPlacementOfferTarget);
+      this.selectOffer('premium_placement');
     }
     this.showTotal();
   }
@@ -98,9 +105,11 @@ export default class extends Controller {
     if (this.codeFundAdsOfferTarget.selected) {
       this.codeFundAdsOfferListItemTarget.hidden = true;
       this.deselectElement(this.codeFundAdsOfferTarget);
+      this.deselectOffer('code_fund_ads');
     } else {
       this.codeFundAdsOfferListItemTarget.hidden = false;
       this.selectElement(this.codeFundAdsOfferTarget);
+      this.selectOffer('code_fund_ads');
     }
     this.showTotal();
   }
@@ -109,11 +118,25 @@ export default class extends Controller {
     if (this.readTheDocsOfferTarget.selected) {
       this.readTheDocsOfferListItemTarget.hidden = true;
       this.deselectElement(this.readTheDocsOfferTarget);
+      this.deselectOffer('read_the_docs_ads');
     } else {
       this.readTheDocsOfferListItemTarget.hidden = false;
       this.selectElement(this.readTheDocsOfferTarget);
+      this.selectOffer('read_the_docs_ads');
     }
     this.showTotal();
+  }
+
+  selectOffer(name) {
+    toArray(this.offersTarget.options).forEach(option => {
+      if (option.value === name) option.selected = true;
+    });
+  }
+
+  deselectOffer(name) {
+    toArray(this.offersTarget.options).forEach(option => {
+      if (option.value === name) option.selected = false;
+    });
   }
 
   highlightElement(element) {

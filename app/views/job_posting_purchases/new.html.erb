@@ -9,7 +9,10 @@
       description: "30 day job listing",
       currency: "USD",
       email: current_user.email,
-    }} do %>
+    }} do |f| %>
+    <%= f.input :plan, as: "hidden", wrapper: false, input_html: { data: { target: "job-posting-purchases-form.plan" }} %>
+    <%= f.input :offers, collection: ENUMS::JOB_OFFERS.keys, label: false, wrapper: false, input_html: { multiple: true, hidden: true, data: { target: "job-posting-purchases-form.offers" }} %>
+
     <div class="container space-top-3 space-bottom-2">
       <div class="w-lg-80 mx-lg-auto">
         <div class="card shadow-sm p-7 job-listing">
