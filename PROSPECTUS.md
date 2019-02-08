@@ -12,14 +12,7 @@ Our platform follows the "ethical advertising" guidelines that ReadTheDocs estab
 
 ## Pricing
 
-Our pricing is based on an estimated cost per mille (eCPM). Campaigns can be broken down into different tiers of pricing, based on the targeting specified. Discounts are available for longer term buys (3+ months).
-
-* $4.00 eCPM for North American traffic
-* $3.00 eCPM for European traffic
-* $2.50 eCPM for broadly targeted traffic including North America or Europe
-* Other region prices are lower. Please inquire for specifics
-
-NOTE: some highly targeted subsets may incur higher prices
+Please see https://codefund.app/pricing
 
 ## Targeting
 
