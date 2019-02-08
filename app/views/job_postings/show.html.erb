@@ -4,7 +4,7 @@
       <%= render partial: "/job_posting_searches/form" %>
     </div>
   </div>
-  
+
   <div class="container">
     <div class="space-2">
       <div class="row">
@@ -15,7 +15,7 @@
         <div class="col-lg-4">
           <div class="pl-lg-4">
 
-            <% if authorized_user.can_update_job_posting?(@job_posting, current_user&.id) %>
+            <% if authorized_user.can_update_job_posting?(@job_posting, session.id) %>
               <%= link_to "Make Changes", edit_manage_job_posting_path(@job_posting),
                     class: "btn btn-sm btn-block btn-dark transition-3d-hover mb-3" %>
             <% end %>

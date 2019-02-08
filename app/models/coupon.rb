@@ -43,6 +43,14 @@ class Coupon < ApplicationRecord
     quantity > claimed && expires_at > Time.now
   end
 
+  def percentage?
+    coupon_type == ENUMS::COUPON_TYPES::PERCENTAGE
+  end
+
+  def fixed_price?
+    coupon_type == ENUMS::COUPON_TYPES::FIXED_PRICE
+  end
+
   def apply_discount(amount)
     return amount unless active?
 

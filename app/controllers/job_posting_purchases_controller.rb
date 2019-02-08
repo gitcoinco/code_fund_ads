@@ -62,14 +62,14 @@ class JobPostingPurchasesController < ApplicationController
   end
 
   def edit
-    return render_forbidden unless authorized_user.can_update_job_posting?(@job_posting)
+    return render_forbidden unless authorized_user.can_update_job_posting?(@job_posting, session.id)
     render partial: "/job_posting_purchases/coupon_form",
            locals: {job_posting: @job_posting},
            layout: false
   end
 
   def update
-    return render_forbidden unless authorized_user.can_update_job_posting?(@job_posting)
+    return render_forbidden unless authorized_user.can_update_job_posting?(@job_posting, session.id)
     coupon = Coupon.find_by(code: params[:coupon_code])
     if coupon&.active?
       session[:coupon_id] = coupon.id
@@ -104,8 +104,11 @@ class JobPostingPurchasesController < ApplicationController
     return unless @coupon
     @monthly_plan_price = @coupon.apply_discount(@monthly_plan_price)
     @prepaid_plan_price = @coupon.apply_discount(@prepaid_plan_price)
-    @premium_placement_offer_price = @coupon.apply_discount(@premium_placement_offer_price)
-    @code_fund_ads_offer_price = @coupon.apply_discount(@code_fund_ads_offer_price)
-    @read_the_docs_offer_price = @coupon.apply_discount(@read_the_docs_offer_price)
+
+    if @coupon.percentage?
+      @premium_placement_offer_price = @coupon.apply_discount(@premium_placement_offer_price)
+      @code_fund_ads_offer_price = @coupon.apply_discount(@code_fund_ads_offer_price)
+      @read_the_docs_offer_price = @coupon.apply_discount(@read_the_docs_offer_price)
+    end
   end
 end
