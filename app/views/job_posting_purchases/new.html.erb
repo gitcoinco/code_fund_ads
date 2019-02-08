@@ -6,12 +6,13 @@
       key: ENV["STRIPE_PUBLISHABLE_KEY"],
       image: asset_path("codefund-circle.png"),
       name: "CodeFund",
-      description: "30 day job listing",
+      description: "Job listing",
       currency: "USD",
       email: current_user.email,
     }} do |f| %>
     <%= f.input :plan, as: "hidden", wrapper: false, input_html: { data: { target: "job-posting-purchases-form.plan" }} %>
-    <%= f.input :offers, collection: ENUMS::JOB_OFFERS.keys, label: false, wrapper: false, input_html: { multiple: true, hidden: true, data: { target: "job-posting-purchases-form.offers" }} %>
+    <%= f.input :offers, collection: ENUMS::JOB_OFFERS.keys, label: false, wrapper: false, include_blank: false, include_hidden: false,
+      input_html: { multiple: true, hidden: true, data: { target: "job-posting-purchases-form.offers" }} %>
 
     <div class="container space-top-3 space-bottom-2">
       <div class="w-lg-80 mx-lg-auto">
@@ -38,7 +39,7 @@
 
           <div class="row mt-4">
             <div class="col-md-12">
-              <h3 class="mb-4">You are purchasing one job posting</h3>
+              <h3 class="mb-4">You are purchasing a job listing</h3>
 
               <ul class="pl-0 mb-4" style="list-style:none">
                 <li hidden data-target="job-posting-purchases-form.monthlyPlanListItem" class=""><i class="fas fa-check text-success mr-1"></i> The Monthly Plan for <%= tag.strong @monthly_plan_price.format %></li>

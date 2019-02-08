@@ -6,7 +6,6 @@ export default class extends Controller {
     'amount',
     'codeFundAdsOffer',
     'codeFundAdsOfferListItem',
-    'editLink',
     'monthlyPlan',
     'monthlyPlanListItem',
     'offers',
@@ -50,7 +49,6 @@ export default class extends Controller {
     this.element.processing = true;
     this.sourceIdTarget.value = source.id;
     this.purchaseButtonTarget.innerText = this.purchaseButtonTarget.dataset.processingText;
-    this.editLinkTarget.remove();
     this.element.submit();
   }
 
