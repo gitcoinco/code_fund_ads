@@ -10,6 +10,7 @@ gem "acts_as_commentable_with_threading", "~> 2.0.1"
 gem "aws-sdk-s3",                         "~> 1.29.0", require: false
 gem "barnes",                             "~> 0.0.7"
 gem "bootsnap",                           ">= 1.1.0", require: false
+gem "buffer",                             "0.1.3", github: "bufferapp/buffer-ruby"
 gem "bulk_insert",                        "~> 1.7.0"
 gem "cable_ready",                        "~> 2.0.7"
 gem "chronic",                            "~> 0.10.2"

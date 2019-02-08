@@ -83,6 +83,7 @@ class JobPosting < ApplicationRecord
 
   # callbacks .................................................................
   before_validation :set_currency
+  after_update_commit :buffer_new_job_posting
 
   # scopes ....................................................................
   scope :active, -> { where status: ENUMS::JOB_STATUSES::ACTIVE }
@@ -161,6 +162,16 @@ class JobPosting < ApplicationRecord
       then { |result| country_code.blank? ? result : result << make_tsvector(country_code, weight: "C") }.
       then { |result| Country.find(country_code).blank? ? result : result << make_tsvector(Country.find(country_code).name, weight: "C") }.
       then { |result| description.blank? ? result : result << make_tsvector(description, weight: "D") }
+  end
+
+  def buffer_new_job_posting
+    return unless ENV["BUFFER_ENABLED"] == "true"
+    return unless source == ENUMS::JOB_SOURCES::INTERNAL
+    return unless status == ENUMS::JOB_STATUSES::ACTIVE
+    return unless status_previously_changed?
+    return unless status_previous_change.first == ENUMS::JOB_STATUSES::PENDING
+    return unless status_previous_change.last == ENUMS::JOB_STATUSES::ACTIVE
+    BufferNewJobPostingJob.perform_later self, "/job_postings/tweets/new.text"
   end
 
   # protected instance methods ................................................
