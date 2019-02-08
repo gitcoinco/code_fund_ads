@@ -1,13 +1,9 @@
 class JobPostingPurchasesController < ApplicationController
   before_action :set_job_posting
+  before_action :set_prices, only: [:new, :create]
 
   def new
-    return redirect_to(new_job_posting_user_path(@job_posting)) unless current_user
-    @price = Monetize.parse("$299.00 USD")
-    if session[:coupon_id].present?
-      @coupon = Coupon.find_by(id: session[:coupon_id])
-      @price = @coupon.apply_discount(@price) if @coupon
-    end
+    redirect_to(new_job_posting_user_path(@job_posting)) unless current_user
   end
 
   def create
@@ -79,5 +75,18 @@ class JobPostingPurchasesController < ApplicationController
 
   def set_job_posting
     @job_posting = JobPosting.find(params[:job_posting_id])
+  end
+
+  def set_prices
+    @monthly_plan_price = Monetize.parse("$299.00 USD")
+    @prepaid_plan_price = Monetize.parse("$199.00 USD") * 3
+    if session[:coupon_id].present?
+      @coupon = Coupon.find_by(id: session[:coupon_id])
+      @monthly_plan_price = @coupon.apply_discount(@monthly_plan_price) if @coupon
+      @prepaid_plan_price = @coupon.apply_discount(@prepaid_plan_price) if @coupon
+    end
+    @premium_placement_offer_price = Monetize.parse("$99.00 USD")
+    @code_fund_ads_offer_price = Monetize.parse("$199.00 USD")
+    @read_the_docs_offer_price = Monetize.parse("$299.00 USD")
   end
 end
