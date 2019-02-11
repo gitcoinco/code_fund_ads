@@ -27,7 +27,7 @@ export default class extends Controller {
   showPaymentModal(event) {
     Rails.stopEverything(event);
 
-    let { processing, key, image, name, description, currency, email } = this.element.dataset;
+    let { processing, key, image, name, currency, email } = this.element.dataset;
     if (processing) return;
     let stripe = StripeCheckout.configure({
       key,
@@ -38,9 +38,9 @@ export default class extends Controller {
 
     stripe.open({
       name,
-      description,
       email,
       currency,
+      description: this.description,
       amount: this.amount,
     });
   }
@@ -168,6 +168,16 @@ export default class extends Controller {
     }).format(this.amount / 100);
   }
 
+  get selectedPlan() {
+    return this.planTarget.value;
+  }
+
+  get selectedOffers() {
+    toArray(this.offersTarget.options).filter(option => {
+      if (option.selected) option.value;
+    });
+  }
+
   get amount() {
     let cents = 0;
     if (this.monthlyPlanTarget.selected) cents += Number(this.monthlyPlanTarget.dataset.amount);
@@ -177,5 +187,15 @@ export default class extends Controller {
     if (this.codeFundAdsOfferTarget.selected) cents += Number(this.codeFundAdsOfferTarget.dataset.amount);
     if (this.readTheDocsOfferTarget.selected) cents += Number(this.readTheDocsOfferTarget.dataset.amount);
     return cents;
+  }
+
+  get description() {
+    let value = [];
+    if (this.monthlyPlanTarget.selected) value.push('Monthly Plan');
+    if (this.prepaidPlanTarget.selected) value.push('Prepaid Plan');
+    if (this.premiumPlacementOfferTarget.selected) value.push('Premium Placement');
+    if (this.codeFundAdsOfferTarget.selected) value.push('CodeFund Ads');
+    if (this.readTheDocsOfferTarget.selected) value.push('ReadTheDocs Ads');
+    return value.join(', ');
   }
 }
