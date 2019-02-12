@@ -36,7 +36,7 @@ class JobPostingPurchasesController < ApplicationController
 
     @job_posting.update!(
       plan: job_posting_params[:plan],
-      offers: job_posting_params[:offers],
+      offers: job_posting_params[:offers] || [],
       status: ENUMS::JOB_STATUSES::ACTIVE,
       stripe_charge_id: charge.id,
       coupon_id: @coupon&.id,
