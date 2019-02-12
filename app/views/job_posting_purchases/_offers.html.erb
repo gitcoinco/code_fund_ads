@@ -32,21 +32,20 @@
     </div>
   </div>
 
-  <% if (@job_posting.keywords & read_the_docs_keywords).present? %>
-    <div class="card card-frame cursor-pointer gradient-half-primary-v3 opacity-70"
-         data-amount="<%= @read_the_docs_offer_price.cents %>"
-         data-target="job-posting-purchases-form.readTheDocsOffer"
-         data-action="mouseenter->job-posting-purchases-form#highlight mouseleave->job-posting-purchases-form#dehighlight click->job-posting-purchases-form#toggleReadTheDocsOffer">
-      <div class="card-body">
-        <div class="mb-2">
-          <h6 class="text-primary mb-0">ReadTheDocs Ads</h6>
-          <h5><strong><%= @read_the_docs_offer_price.format no_cents: true %></strong><small class="ml-1 text-secondary">/month</small></h5>
-        </div>
-
-        <small>
-          Place <strong>100,000 impressions</strong> on the <a href="">ReadTheDocs</a> ad network to reach passive job seekers.
-        </small>
+  <div class="card card-frame cursor-pointer gradient-half-primary-v3 opacity-70"
+       <%= "hidden" unless (@job_posting.keywords & read_the_docs_keywords).present? %>
+       data-amount="<%= @read_the_docs_offer_price.cents %>"
+       data-target="job-posting-purchases-form.readTheDocsOffer"
+       data-action="mouseenter->job-posting-purchases-form#highlight mouseleave->job-posting-purchases-form#dehighlight click->job-posting-purchases-form#toggleReadTheDocsOffer">
+    <div class="card-body">
+      <div class="mb-2">
+        <h6 class="text-primary mb-0">ReadTheDocs Ads</h6>
+        <h5><strong><%= @read_the_docs_offer_price.format no_cents: true %></strong><small class="ml-1 text-secondary">/month</small></h5>
       </div>
+
+      <small>
+        Place <strong>100,000 impressions</strong> on the <a href="">ReadTheDocs</a> ad network to reach passive job seekers.
+      </small>
     </div>
-  <% end %>
+  </div>
 </div>
