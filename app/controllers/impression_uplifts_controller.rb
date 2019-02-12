@@ -1,4 +1,6 @@
 class ImpressionUpliftsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def create
     Impression.
       partitioned(params[:advertiser_id], Date.current).
