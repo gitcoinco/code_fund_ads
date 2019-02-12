@@ -34,3 +34,12 @@ hr.faded {
   height: 1px;
   background-image: linear-gradient(to right, rgba(204, 204, 204, 0), rgba(204, 204, 204, 0.75), rgba(204, 204, 204, 0));
 }
+
+li.internal-job {
+
+}
+
+li.premium-job {
+  border-left: solid 6px #377dff !important;
+  background-color: #edf4f7;
+}

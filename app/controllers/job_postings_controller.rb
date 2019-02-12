@@ -17,8 +17,9 @@ class JobPostingsController < ApplicationController
         )
       end
     end
-    @job_postings_count = job_postings.reorder("").size
-    @pagy, @job_postings = pagy(job_postings, items: 30)
+    @premium_job_postings = job_postings.with_all_offers(ENUMS::JOB_OFFERS::PREMIUM_PLACEMENT)
+    @job_postings_count = @premium_job_postings.reorder("").size + job_postings.reorder("").size
+    @pagy, @job_postings = pagy(job_postings.without_all_offers(ENUMS::JOB_OFFERS::PREMIUM_PLACEMENT), items: 30)
 
     unless request.bot?
       @job_postings.reorder("").pluck(:id).each { |id| IncrementJobPostingViewsJob.perform_later(id, "list_view_count") }

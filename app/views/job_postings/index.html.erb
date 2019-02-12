@@ -18,6 +18,7 @@
       <% end %>
     </div>
     <ul class="list-group list-group-flush" data-target="load-more.container">
+      <%= render partial: "list_item", collection: @premium_job_postings, as: :job_posting, cached: true %>
       <%= render partial: "list_items", locals: { job_postings: @job_postings, pagy: @pagy } %>
     </ul>
   <% end %>

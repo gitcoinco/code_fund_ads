@@ -141,6 +141,18 @@ class JobPosting < ApplicationRecord
     start_date >= Date.current - 5.days
   end
 
+  def premium_placement?
+    has_offer? ENUMS::JOB_OFFERS::PREMIUM_PLACEMENT
+  end
+
+  def code_fund_ads?
+    has_offer? ENUMS::JOB_OFFERS::CODE_FUND_ADS
+  end
+
+  def read_the_docs_ads?
+    has_offer? ENUMS::JOB_OFFERS::READ_THE_DOCS_ADS
+  end
+
   def province
     Province.find_by_iso_code(province_code)
   end
