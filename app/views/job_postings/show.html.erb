@@ -42,7 +42,12 @@
                       <span class="fas fa-globe"></span>
                     </div>
                     <div class="media-body">
-                      <%= link_to @job_posting.company_host_url, @job_posting.company_url, class: "font-weight-medium", target: "_blank" %>
+                      <%= link_to @job_posting.company_host_url,
+                        @job_posting.company_url,
+                        class: "font-weight-medium",
+                        target: "_blank",
+                        rel: "noreferrer"
+                      %>
                       <small class="d-block text-secondary">Website</small>
                     </div>
                   </div>
@@ -86,8 +91,12 @@
                   </div>
                 <% end %>
 
-                <%= link_to "Apply Now", @job_posting.url,
-                      class: "btn btn-sm btn-block mt-5 btn-soft-primary transition-3d-hover" %>
+                <%= link_to "Apply Now",
+                  @job_posting.url,
+                  target: "_blank",
+                  rel: "noreferrer",
+                  class: "btn btn-sm btn-block mt-5 btn-soft-primary transition-3d-hover"
+                %>
               </div>
               <!-- End Content -->
             </div>
