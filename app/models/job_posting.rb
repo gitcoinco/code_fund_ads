@@ -121,6 +121,10 @@ class JobPosting < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def paid?
+    stripe_charge_id.present?
+  end
+
   def internal?
     source == ENUMS::JOB_SOURCES::INTERNAL
   end

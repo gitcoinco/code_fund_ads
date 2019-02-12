@@ -46,7 +46,9 @@ class JobPostingPurchasesController < ApplicationController
 
     # Send Email and slack notifications
     JobsMailer.new_job_posting_email(@job_posting).deliver_later
-    CreateSlackNotificationJob.perform_later text: "<!channel> :party-parrot: New job posting: #{job_posting_url(@job_posting)}"
+    JobsMailer.new_code_fund_ads_job_posting_email(@job_posting).deliver_later if @job_posting.code_fund_ads?
+    JobsMailer.new_read_the_docs_ads_job_posting_email(@job_posting).deliver_later if @job_posting.read_the_docs_ads?
+    CreateSlackNotificationJob.perform_later text: "<!channel> :party-parrot: New job posting (#{job_posting.plan} #{offers.join ", "}): #{job_posting_url(@job_posting)}"
 
     session[:coupon_id] = nil
 
