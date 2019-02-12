@@ -104,7 +104,6 @@ CAMPAIGN_STATUS_COLORS:
 
 COUPON_TYPES:
   - percentage
-  - fixed_price
 
 PROPERTY_TYPES:
   - website
@@ -153,10 +152,19 @@ ORGANIZATION_SEARCH_DIRECTIONS:
   - negative
   - zero
 
+JOB_PLANS:
+  - monthly
+  - prepaid
+
+JOB_OFFERS:
+  - premium_placement
+  - code_fund_ads
+  - read_the_docs_ads
+
 JOB_TYPES:
   - full_time
   - part_time
-  
+
 JOB_STATUSES:
   - pending
   - active
@@ -173,7 +181,7 @@ JOB_SOURCES:
   - internal
   - remoteok
   - github
-  
+
 # SEE: https://dev.maxmind.com/geoip/legacy/codes/iso3166/
 COUNTRIES:
   #A1: Anonymous Proxy

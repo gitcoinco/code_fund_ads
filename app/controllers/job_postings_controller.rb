@@ -17,8 +17,9 @@ class JobPostingsController < ApplicationController
         )
       end
     end
-    @job_postings_count = job_postings.reorder("").size
-    @pagy, @job_postings = pagy(job_postings, items: 30)
+    @premium_job_postings = job_postings.with_all_offers(ENUMS::JOB_OFFERS::PREMIUM_PLACEMENT)
+    @job_postings_count = @premium_job_postings.reorder("").size + job_postings.reorder("").size
+    @pagy, @job_postings = pagy(job_postings.without_all_offers(ENUMS::JOB_OFFERS::PREMIUM_PLACEMENT), items: 30)
 
     unless request.bot?
       @job_postings.reorder("").pluck(:id).each { |id| IncrementJobPostingViewsJob.perform_later(id, "list_view_count") }
@@ -48,11 +49,11 @@ class JobPostingsController < ApplicationController
   end
 
   def edit
-    return render_forbidden unless authorized_user.can_update_job_posting?(@job_posting, current_user.id)
+    return render_forbidden unless authorized_user.can_update_job_posting?(@job_posting, session.id)
   end
 
   def update
-    return render_forbidden unless authorized_user.can_update_job_posting?(@job_posting, current_user.id)
+    return render_forbidden unless authorized_user.can_update_job_posting?(@job_posting, session.id)
     respond_to do |format|
       if @job_posting.update(job_posting_params)
         format.html { redirect_to job_posting_path(@job_posting), notice: "Job was successfully updated." }

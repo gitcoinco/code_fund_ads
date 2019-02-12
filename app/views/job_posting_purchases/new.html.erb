@@ -6,27 +6,70 @@
       key: ENV["STRIPE_PUBLISHABLE_KEY"],
       image: asset_path("codefund-circle.png"),
       name: "CodeFund",
-      description: "30 day job listing",
-      amount: @price.cents,
       currency: "USD",
       email: current_user.email,
-    }} do %>
+    }} do |f| %>
+    <%= f.input :plan, as: "hidden", wrapper: false, input_html: { data: { target: "job-posting-purchases-form.plan" }} %>
+    <%= f.input :offers, collection: ENUMS::JOB_OFFERS.keys, label: false, wrapper: false, include_blank: false, include_hidden: false,
+      input_html: { multiple: true, hidden: true, data: { target: "job-posting-purchases-form.offers" }} %>
+
     <div class="container space-top-3 space-bottom-2">
       <div class="w-lg-80 mx-lg-auto">
         <div class="card shadow-sm p-7 job-listing">
           <%= render partial: "/job_posting_prospects/nav" %>
-          <div class="space-top-2 mb-3">
-            <h2 class="h4 mb-3 alert alert-warning text-center">Your ad is <%= @price.format %> and will renew every 30 days, starting today.</h2>
+
+          <div class="text-center space-top-2 mb-4">
+            <span class="u-divider u-divider--xs u-divider--text">Pick your plan</span>
           </div>
+
           <div class="row">
-            <div class="col-md-7">
-              <p>Your ad will be posted to the job board once you've successfully completed your payment.</p>
-              <p>We review all job postings and reserve the right to remove ads at our discretion. If we remove your ad, you will receive a full refund.</p>
+            <%= render partial: "/job_posting_purchases/plans" %>
+          </div>
+
+          <div class="text-center mb-4">
+            <span class="u-divider u-divider--xs u-divider--text">Choose your upgrades (optional)</span>
+          </div>
+
+          <div class="row mb-5">
+            <%= render partial: "/job_posting_purchases/offers" %>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-6">
+                  <p>Your ad will be posted to the job board once you've successfully completed your payment.</p>
+                  <p>We review all job postings and reserve the right to remove ads at our discretion. If we remove your ad, you will receive a full refund.</p>
+                </div>
+                <div class="col-md-6">
+                  <div class="bg-light p-3">
+                    <ul class="pl-0 mb-0 list-unstyled">
+                      <li hidden data-target="job-posting-purchases-form.monthlyPlanListItem" class=""><i class="fas fa-check text-success mr-1"></i> The Monthly Plan for <%= tag.strong @monthly_plan_price.format, class: "float-right" %></li>
+                      <li hidden data-target="job-posting-purchases-form.prepaidPlanListItem" class=""><i class="fas fa-check text-success mr-1"></i> The Prepaid Plan for <%= tag.strong @prepaid_plan_price.format, class: "float-right" %></li>
+                      <li hidden data-target="job-posting-purchases-form.premiumPlacementOfferListItem" class=""><i class="fas fa-check text-success mr-1"></i> Premium Placement for <%= tag.strong @premium_placement_offer_price.format, class: "float-right" %></li>
+                      <li hidden data-target="job-posting-purchases-form.codeFundAdsOfferListItem" class=""><i class="fas fa-check text-success mr-1"></i> CodeFund Ads for <%= tag.strong @code_fund_ads_offer_price.format, class: "float-right" %></li>
+                      <li hidden data-target="job-posting-purchases-form.readTheDocsOfferListItem" class=""><i class="fas fa-check text-success mr-1"></i> ReadTheDocs Ads for <%= tag.strong @read_the_docs_offer_price.format, class: "float-right" %></li>
+                      <li class="border-top pt-2 mt-2">
+                        <strong>Total</strong>
+                        <%= tag.strong "$0.00", class: "float-right", data: { 
+                          target: "job-posting-purchases-form.amount"
+                        } %>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              
+
+              
+
+              
 
               <input type="hidden" name="source_id" data-target="job-posting-purchases-form.sourceId" />
 
               <div class="text-center pt-3 mb-2">
-                <%= link_to "Place Your Order", "", class: "btn btn-lg btn-success d-block mx-auto",
+                <%= link_to "Place Your Order", "", class: "btn btn-success d-block mx-auto",
                   data: {
                     action: "click->job-posting-purchases-form#showPaymentModal",
                     target: "job-posting-purchases-form.purchaseButton",
@@ -40,29 +83,6 @@
                   href="#">
                   Have a coupon code?
                 </a>
-              </div>
-            </div>
-
-            <div class="col-md-5">
-              <div class="card border-0 shadow-sm mb-3">
-                <!-- Content -->
-                <div class="card-body pt-1 px-5 pb-5">
-                  <div class="text-center">
-                    <div class="mb-3 mx-auto">
-                      <%= image_tag @job_posting.company_logo_url, class: "img-fluid", width: 110, height: 110 %>
-                    </div>
-
-                    <h1 class="h5"><%= @job_posting.title %></h1>
-
-                    <ul class="list-inline text-secondary font-size-1 mb-4">
-                      <li class="list-inline-item">
-                        <%= link_to @job_posting.company_host_url, @job_posting.company_url, class: "font-weight-medium", target: "_blank" %>
-                      </li>
-                    </ul>
-                    <%= link_to "Make Changes", edit_job_posting_prospect_path(@job_posting), class: "btn btn-sm btn-soft-secondary btn-block mt-3",
-                      data: { target: "job-posting-purchases-form.editLink" } %>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

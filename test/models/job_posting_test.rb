@@ -41,6 +41,8 @@
 #  list_view_count            :integer          default(0), not null
 #  detail_view_count          :integer          default(0), not null
 #  coupon_id                  :bigint(8)
+#  plan                       :string
+#  offers                     :string           default([]), not null, is an Array
 #
 
 require "test_helper"

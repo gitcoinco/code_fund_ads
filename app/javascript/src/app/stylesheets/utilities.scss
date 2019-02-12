@@ -10,6 +10,10 @@
 .opacity-90 { opacity: 0.9 !important; }
 .opacity-100 { opacity: 1 !important; }
 
+.cursor-pointer {
+  cursor: pointer !important;
+}
+
 @each $size in (10, 20, 30, 40, 50, 60, 70, 80, 90) {
   .min-height-lg-#{$size}vh { min-height: #{$size}vh; }
 }

@@ -14,7 +14,7 @@ class JobPostingUsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       sign_in @user
-      @job_posting.update user: @user
+      @job_posting.update! user: @user
       session[:job_posting_prospect_id] = @job_posting.id
       redirect_to new_job_posting_purchase_path(@job_posting), notice: "Your account was successfully created."
     else
