@@ -1,4 +1,5 @@
 class JobPostingPurchasesController < ApplicationController
+  before_action :authenticate_user!, except: [:new]
   before_action :set_job_posting
   before_action :set_prices, only: [:new, :create]
 
@@ -42,15 +43,19 @@ class JobPostingPurchasesController < ApplicationController
       coupon_id: @coupon&.id,
     )
 
-    @coupon&.increment!(:claimed)
+    begin
+      @coupon&.increment!(:claimed)
+      session[:coupon_id] = nil
 
-    # Send Email and slack notifications
-    JobsMailer.new_job_posting_email(@job_posting).deliver_later
-    JobsMailer.new_code_fund_ads_job_posting_email(@job_posting).deliver_later if @job_posting.code_fund_ads?
-    JobsMailer.new_read_the_docs_ads_job_posting_email(@job_posting).deliver_later if @job_posting.read_the_docs_ads?
-    CreateSlackNotificationJob.perform_later text: "<!channel> :party-parrot: New job posting (#{@job_posting.plan} #{@job_posting.offers.join ", "}): #{job_posting_url(@job_posting)}"
-
-    session[:coupon_id] = nil
+      # Send Email and slack notifications
+      JobsMailer.new_job_posting_email(@job_posting).deliver_later
+      JobsMailer.new_code_fund_ads_job_posting_email(@job_posting).deliver_later if @job_posting.code_fund_ads?
+      JobsMailer.new_read_the_docs_ads_job_posting_email(@job_posting).deliver_later if @job_posting.read_the_docs_ads?
+      CreateSlackNotificationJob.perform_later text: "<!channel> :party-parrot: New job posting (#{@job_posting.plan} #{@job_posting.offers.join ", "}): #{job_posting_url(@job_posting)}"
+    rescue => e
+      logger.error "JobPostingPurchasesController#create notifications failed! #{e}"
+      Rollbar.error e
+    end
 
     redirect_to job_posting_purchase_path(@job_posting), notice: "Congratulations! Your job has been posted."
   rescue Stripe::CardError => e
