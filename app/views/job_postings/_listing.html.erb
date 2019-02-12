@@ -74,5 +74,9 @@
   </div>
 <% end %>
 
-<%= link_to "Apply Now", @job_posting.url,
-          class: "btn btn-sm btn-block my-5 btn-soft-primary transition-3d-hover" %>
+<%= link_to "Apply Now",
+  @job_posting.url,
+  class: "btn btn-sm btn-block my-5 btn-soft-primary transition-3d-hover",
+  target: "_blank",
+  rel: "noreferrer"
+%>
