@@ -104,7 +104,6 @@ CAMPAIGN_STATUS_COLORS:
 
 COUPON_TYPES:
   - percentage
-  - fixed_price
 
 PROPERTY_TYPES:
   - website

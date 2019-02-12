@@ -1,35 +1,14 @@
 <%= simple_form_for coupon, html: { class: "js-validate" }, wrapper: :front_form do |f| %>
   <%= render "/@shared/forms/section_heading", title: "Coupon Details", subtitle: "Fill out the form below" %>
   <%= render "/@shared/forms/error_messages", object: coupon %>
-    
+
   <div class="row">
     <%= tag.div f.input(:code, as: :string, required: true, input_html: { class: "form-control" },
       data: { msg: "Please enter a valid code", error_class: "u-has-error", success_class: "u-has-success" }), class: "col-md-4 mb-3" %>
     <%= tag.div f.input(:description, as: :string, required: true, input_html: { class: "form-control" },
       data: { error_class: "u-has-error", success_class: "u-has-success" }), class: "col-md-8 mb-3" %>
 
-    <div class="col-12 mb-3">
-      <label class="form-label">
-        Coupon Type
-        <span class="text-danger">*</span>
-      </label>
-
-      <div class="btn-group btn-group-toggle d-flex" data-toggle="buttons" data-controller="radio-button-group">
-        <% ENUMS::COUPON_TYPES.keys.each do |val| %>
-          <label class="btn btn-outline-secondary btn-custom-toggle-primary flex-fill
-            <%= "active" if val == coupon.coupon_type %>" data-action="click->radio-button-group#select">
-            <input type="radio" id="coupon_coupon_type_<%= val %>" name="coupon[coupon_type]" value="<%= val %>"
-              <%= "checked" if val == coupon.coupon_type %> />
-            <%= val.humanize.titleize %>
-          </label>
-        <% end %>
-      </div>
-    </div>
-
     <%= tag.div f.input(:discount_percent, required: true, input_html: { class: "form-control" },
-      data: { error_class: "u-has-error", success_class: "u-has-success" }), class: "col-md-6 mb-3" %>
-
-    <%= tag.div f.input(:fixed_price, required: true, as: :currency, input_html: { class: "form-control" },
       data: { error_class: "u-has-error", success_class: "u-has-success" }), class: "col-md-6 mb-3" %>
 
     <div class="col-md-4 mb-3">

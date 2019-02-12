@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_08_174416) do
+ActiveRecord::Schema.define(version: 2019_02_12_171451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -126,8 +126,6 @@ ActiveRecord::Schema.define(version: 2019_02_08_174416) do
     t.string "description"
     t.string "coupon_type", null: false
     t.integer "discount_percent", default: 0, null: false
-    t.integer "fixed_price_cents", default: 0, null: false
-    t.string "fixed_price_currency", default: "USD", null: false
     t.datetime "expires_at", null: false
     t.integer "quantity", default: 99999, null: false
     t.integer "claimed", default: 0, null: false

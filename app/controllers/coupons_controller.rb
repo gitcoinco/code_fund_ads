@@ -12,7 +12,7 @@ class CouponsController < ApplicationController
   end
 
   def create
-    @coupon = Coupon.new(coupon_params)
+    @coupon = Coupon.new(coupon_params.merge(coupon_type: ENUMS::COUPON_TYPES::PERCENTAGE))
 
     respond_to do |format|
       if @coupon.save
@@ -55,9 +55,7 @@ class CouponsController < ApplicationController
     params.require(:coupon).permit(
       :code,
       :description,
-      :coupon_type,
       :discount_percent,
-      :fixed_price,
       :quantity,
       :claimed
     ).tap do |whitelisted|

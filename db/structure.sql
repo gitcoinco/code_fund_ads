@@ -282,8 +282,6 @@ CREATE TABLE public.coupons (
     description character varying,
     coupon_type character varying NOT NULL,
     discount_percent integer DEFAULT 0 NOT NULL,
-    fixed_price_cents integer DEFAULT 0 NOT NULL,
-    fixed_price_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     expires_at timestamp without time zone NOT NULL,
     quantity integer DEFAULT 99999 NOT NULL,
     claimed integer DEFAULT 0 NOT NULL,
@@ -2124,6 +2122,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190205155348'),
 ('20190205173702'),
 ('20190206211639'),
-('20190208174416');
+('20190208174416'),
+('20190212171451');
 
 
