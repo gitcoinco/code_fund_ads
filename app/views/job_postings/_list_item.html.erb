@@ -2,7 +2,10 @@
   <li class="list-group-item d-flex justify-content-between position-relative align-items-center py-3 px-2 <%= classes "internal-job" => job_posting.internal?, "premium-job" => job_posting.premium_placement? %>">
     <div class="media flex-grow-1">
       <div class="mr-3 company-logo-wrapper company-logo-wrapper--100">
-        <%= link_to image_tag(job_posting.company_logo_url.to_s, class: "img-fluid company-logo company-logo--100", style: "vertical-align: middle;"), job_posting %>
+        <%= link_to image_tag(camo(job_posting.company_logo_url.to_s), data: { 
+            controller: "fallback-image",
+            hide_on_broken_image: true
+        }, class: "img-fluid company-logo company-logo--100", style: "vertical-align: middle;"), job_posting %>
       </div>
       <div class="media-body align-self-center">
         <%= link_to sanitize(job_posting.title, scrubber: Loofah::Scrubbers::Prune.new), job_posting, class: "lead", style: "font-weight: 400; text-decoration: none;" %>

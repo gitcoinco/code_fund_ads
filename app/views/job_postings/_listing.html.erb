@@ -1,7 +1,13 @@
 <div class="media mb-2">
   <% if job_posting.company_logo_url.present? %>
     <div class="mr-4 company-logo-wrapper">
-      <%= image_tag job_posting.company_logo_url, class: "img-fluid company-logo", style: "vertical-align: middle;" %>
+      <%= image_tag camo(job_posting.company_logo_url),
+            data: { 
+              controller: "fallback-image",
+              hide_on_broken_image: true
+            },
+            class: "img-fluid company-logo",
+            style: "vertical-align: middle;" %>
     </div>
   <% end %>
 
