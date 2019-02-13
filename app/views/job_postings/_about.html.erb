@@ -9,6 +9,6 @@
     publisher network of developer-centric websites, we place your job in front of
     pre-qualified candidates based on their location and interests.
   </p>
-  <%= link_to "Post a job for $299/mo", new_job_posting_prospect_path, class: "btn btn-success btn-wide transition-3d-hover mt-3 mr-3" %>
+  <%= link_to "Post a job for #{Monetize.parse(ENV.fetch("JOBS_MONTHLY_PLAN_PRICE", "$299.00 USD")).format(no_cents: true)}/mo", new_job_posting_prospect_path, class: "btn btn-success btn-wide transition-3d-hover mt-3 mr-3" %>
   <%= link_to "Search Job Board", job_posting_search_path(0), class: "btn btn-secondary btn-wide transition-3d-hover mt-3", method: :delete %>
 </div>

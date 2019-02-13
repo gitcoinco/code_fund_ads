@@ -2,7 +2,7 @@ class JobPostingUsersController < ApplicationController
   before_action :set_job_posting
 
   def new
-    return redirect_to(new_job_posting_purchase_path(@job_posting)) if User.find_by(email: @job_posting.company_email)
+    return redirect_to(new_user_session_path(job: @job_posting.id)) if User.where(email: @job_posting.company_email).exists?
     @user = User.new(
       email: @job_posting.company_email,
       company_name: @job_posting.company_name,

@@ -28,13 +28,13 @@
     <div class="card-body p-4">
       <div class="mb-4">
         <h4 class="text-success mb-0">3 Months</h4>
-        <h3 class="mb-0"><strong><%= (@prepaid_plan_price / 3).format no_cents: true %></strong><small class="ml-1 text-secondary">/month</small></h3>
+        <h3 class="mb-0"><strong><%= @prepaid_plan_price.format no_cents: true %></strong></h3>
       </div>
 
       <ul class="pl-0 mb-4">
         <li class="list-inline-item"><i class="fas fa-check text-success mr-1"></i> One job listing</li>
         <li class="list-inline-item"><i class="fas fa-check text-success mr-1"></i> 90 days in the directory</li>
-        <li class="list-inline-item"><i class="fas fa-check text-success mr-1"></i> Cancel any time</li>
+        <li class="list-inline-item">&nbsp;</li>
       </ul>
 
       <small class="text-secondary">3 months pre-paid</small>
