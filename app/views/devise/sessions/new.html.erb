@@ -3,6 +3,7 @@
   <!-- Login Form -->
   <div class="container space-top-2 space-top-md-4 space-bottom-2">
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "js-validate w-md-75 w-lg-50 mx-md-auto" }) do |f| %>
+      <%= hidden_field_tag :job, params[:job] if params[:job] %>
       <!-- Title -->
       <div class="mb-7">
         <h2 class="h3 font-weight-normal mb-0">Welcome <span class="font-weight-semi-bold text-success">back</span></h2>
@@ -51,7 +52,7 @@
                 data: {
                   msg: "Your password is invalid. Please try again.",
                   errorClass: "u-has-error",
-                  successCass: "u-has-success"  
+                  successCass: "u-has-success"
                 } %>
       </div>
       <!-- End Form Group -->

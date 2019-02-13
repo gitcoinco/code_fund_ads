@@ -3,7 +3,7 @@
     <span class="nav-icon-action transition-3d-hover <%= classes "bg-success": @job_posting.persisted? %>">
       <span class="fas fa-check-square nav-icon-action-inner"></span>
     </span>
-    Modify
+    Details
   <% end %>
   <%= link_to @job_posting.persisted? ? job_posting_prospect_path(@job_posting) : "",
     class: "nav-item #{classes("active text-dark" => @job_posting.persisted?)}" do %>

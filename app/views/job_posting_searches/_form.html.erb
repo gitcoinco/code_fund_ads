@@ -5,7 +5,7 @@
         <span class="h4 d-block text-white font-weight-semi-bold mb-0">search jobs</span>
       </label>
       <% if controller_name != "jobs" %>
-        <%= link_to "Post a job for $299", new_job_posting_prospect_path, class: "font-size-1 p-0 mt-3", style: "text-decoration: underline; color: #ecff63 !important" %>
+        <%= link_to "Post a job for #{Monetize.parse(ENV.fetch("JOBS_MONTHLY_PLAN_PRICE", "$299.00 USD")).format(no_cents: true)}", new_job_posting_prospect_path, class: "font-size-1 p-0 mt-3", style: "text-decoration: underline; color: #ecff63 !important" %>
       <% end %>
     </div>
 
