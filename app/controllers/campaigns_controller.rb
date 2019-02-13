@@ -30,6 +30,14 @@ class CampaignsController < ApplicationController
       start_date: Date.tomorrow,
       end_date: 30.days.from_now
     )
+
+    if params[:clone].present?
+      cloned_campaign = Campaign.find(params[:clone])
+      if cloned_campaign.present?
+        @campaign.attributes = cloned_campaign.attributes
+        @campaign.status = "pending"
+      end
+    end
   end
 
   def edit

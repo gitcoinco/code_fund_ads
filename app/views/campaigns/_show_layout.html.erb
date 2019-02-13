@@ -4,7 +4,10 @@
 <% end %>
 
 <% content_for :actions do %>
-  <%= render "/@shared/actions/edit_campaign", campaign: campaign %>
+  <ul class="nav" style="width: 130px; justify-content: flex-end;">
+    <li><%= render "/@shared/actions/edit_campaign", campaign: campaign %></li>
+    <li class="ml-1"><%= render "/@shared/actions/generic", link: new_campaign_path(clone: campaign.id), icon: "fa fa-copy" %></li>
+  </ul>
 <% end %>
 
 <% content_for :page_heading do %>
