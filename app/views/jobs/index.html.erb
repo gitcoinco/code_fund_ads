@@ -79,10 +79,18 @@
 
     <!-- Clients Section -->
     <div class="row justify-content-center text-center">
-      <% JobPosting.active.where.not(company_logo_url: "").where.not(company_logo_url: nil).distinct(:company_logo_url).sample(18).each.with_index do |job_posting, index| %>
+      <% JobPosting.recent_sample(18).each.with_index do |job_posting, index| %>
         <div class="col-4 col-md-2 mb-8 align-middle">
-          <%= link_to image_tag(job_posting.company_logo_url, class: "u-clients"),
-                      job_posting_searches_path(job_posting_search: { full_text_search: job_posting.company_name }), method: :post %>
+          <%= link_to image_tag(
+                        camo(job_posting.company_logo_url.to_s),
+                        class: "u-clients",
+                        data: { 
+                          controller: "fallback-image",
+                          hide_on_broken_image: true
+                        }
+                      ),
+                      job_posting_searches_path(job_posting_search: { full_text_search: job_posting.company_name }),
+                      method: :post %>
         </div>
         <% if [4, 8, 13].include? index %>
           <div class="w-100"></div>

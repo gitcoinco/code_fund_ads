@@ -13,6 +13,7 @@ gem "bootsnap",                           ">= 1.1.0", require: false
 gem "buffer",                             "0.1.3", github: "bufferapp/buffer-ruby"
 gem "bulk_insert",                        "~> 1.7.0"
 gem "cable_ready",                        "~> 2.0.7"
+gem "camo",                               "~> 0.1.0"
 gem "chronic",                            "~> 0.10.2"
 gem "countries",                          "~> 2.1.4"
 gem "country_select",                     "~> 3.1.1"

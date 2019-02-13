@@ -116,7 +116,20 @@ class JobPosting < ApplicationRecord
   monetize :max_annual_salary_cents, numericality: {greater_than_or_equal_to: 0}
 
   # class methods .............................................................
+
   class << self
+    def recent_sample(count)
+      active.
+        ranked_by_source.
+        where.not(company_logo_url: "").
+        where.not(company_logo_url: nil).
+        where(arel_table[:start_date].gt(1.month.ago)).
+        group(:id, :company_name).
+        sample(count + 18).
+        to_a.
+        uniq { |job| job.company_name }.
+        sample(count)
+    end
   end
 
   # public instance methods ...................................................
