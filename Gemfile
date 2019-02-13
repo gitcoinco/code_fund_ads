@@ -25,6 +25,7 @@ gem "faker",                              ">= 1.9.1", require: false
 gem "gibbon",                             "~> 3.2.0"
 gem "hiredis",                            "~> 0.6.3"
 gem "inky-rb",                            "~> 1.3.7.3", require: "inky"
+gem "intercom-rails",                     "~> 0.4.0"
 gem "jbuilder",                           "~> 2.5"
 gem "liquid",                             "~> 4.0.1"
 gem "mailgun-ruby",                       "~> 1.1.11"
