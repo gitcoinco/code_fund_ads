@@ -97,8 +97,8 @@ class JobPostingPurchasesController < ApplicationController
   end
 
   def set_prices
-    @monthly_plan_price = Monetize.parse("$299.00 USD")
-    @prepaid_plan_price = Monetize.parse("$199.00 USD") * 3
+    @monthly_plan_price = Monetize.parse(ENV.fetch("JOBS_MONTHLY_PLAN_PRICE", "$299.00 USD"))
+    @prepaid_plan_price = Monetize.parse(ENV.fetch("JOBS_PREPAID_PLAN_PRICE", "$199.00 USD")) * 3
     @premium_placement_offer_price = Monetize.parse("$99.00 USD")
     @code_fund_ads_offer_price = Monetize.parse("$199.00 USD")
     @read_the_docs_offer_price = Monetize.parse("$299.00 USD")

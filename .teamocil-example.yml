@@ -27,14 +27,14 @@ windows:
       - commands:
         - asdf local ruby 2.6.1
         - asdf local nodejs 11.9.0
-        - lsof -t -i tcp:3000 | xargs kill
+        - lsof -t -i tcp:3000 | xargs kill -KILL
         - redis-cli flushall
         - sleep 4
         - bundle exec rails s
       - commands:
         - asdf local ruby 2.6.1
         - asdf local nodejs 11.9.0
-        - lsof -t -i tcp:3035 | xargs kill
+        - lsof -t -i tcp:3035 | xargs kill -KILL
         - bundle exec ./bin/webpack-dev-server
 
   - name: workers
