@@ -10,7 +10,7 @@
       </tr>
     </thead>
     <tbody>
-      <%= render partial: "/property_earnings/tr", collection: @property.probable_dates_with_impressions(@start_date, @end_date), as: :date %>
+      <%= render partial: "/property_earnings/tr", collection: (@start_date..@end_date).to_a, as: :date %>
     </tbody>
   </table>
 </div>

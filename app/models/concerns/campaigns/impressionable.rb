@@ -2,21 +2,17 @@ module Campaigns
   module Impressionable
     extend ActiveSupport::Concern
 
-    def property_impressions_count(property, start_date = nil, end_date = nil)
+    def property_impressions_count(property, start_date, end_date)
       property_id = property.is_a?(Property) ? property.id : property
-      relation = impressions.where(property: property_id)
-      relation = relation.between(start_date, end_date) if start_date
-      relation.count
+      impressions.between(start_date, end_date).where(property: property_id).count
     end
 
-    def property_clicks_count(property, start_date = nil, end_date = nil)
+    def property_clicks_count(property, start_date, end_date)
       property_id = property.is_a?(Property) ? property.id : property
-      relation = impressions.clicked.where(property_id: property_id)
-      relation = relation.between(start_date, end_date) if start_date
-      relation.count
+      impressions.clicked.between(start_date, end_date).where(property_id: property_id).count
     end
 
-    def property_click_rate(property, start_date = nil, end_date = nil)
+    def property_click_rate(property, start_date, end_date)
       impressions_count = property_impressions_count(property, start_date, end_date)
       return 0 if impressions_count.zero?
       clicks_count = property_clicks_count(property, start_date, end_date)

@@ -142,9 +142,7 @@ CREATE TABLE public.applicants (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     invited_user_id bigint,
-    referring_campaign_id bigint,
-    referring_property_id bigint,
-    referring_impression_id uuid
+    referring_user_id bigint
 );
 
 
@@ -806,9 +804,8 @@ CREATE TABLE public.users (
     organization_id bigint,
     stripe_customer_id character varying,
     referring_user_id bigint,
-    referring_campaign_id bigint,
-    referring_property_id bigint,
-    referring_impression_id uuid
+    referral_code character varying,
+    referral_click_count integer DEFAULT 0
 );
 
 
@@ -1930,6 +1927,13 @@ CREATE INDEX index_users_on_organization_id ON public.users USING btree (organiz
 
 
 --
+-- Name: index_users_on_referral_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_users_on_referral_code ON public.users USING btree (referral_code);
+
+
+--
 -- Name: index_users_on_referring_user_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2123,6 +2127,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190205173702'),
 ('20190206211639'),
 ('20190208174416'),
-('20190212171451');
+('20190212171451'),
+('20190212221227'),
+('20190213224041');
 
 

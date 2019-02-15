@@ -120,6 +120,9 @@ Rails.application.routes.draw do
     resources :events, only: [:index], as: :property_events
   end
 
+  get "/invite/:referral_code", to: "referrals#new", as: :invite
+  resources :referrals, only: [:index]
+
   resources :templates
   resources :themes
   resources :users

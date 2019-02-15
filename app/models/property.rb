@@ -154,22 +154,14 @@ class Property < ApplicationRecord
     campaigns = campaign_id ?
       Campaign.where(id: campaign_id).includes(:user) :
       displayed_campaigns(start_date, end_date).includes(:user)
-    probable_dates_with_impressions(start_date, end_date).each_with_object([]) do |date, memo|
-      campaigns.each do |campaign|
-        memo << DailyRevenueCalculator.new(date, self, campaign)
-      end
-    end
+    campaigns.map { |campaign| DailyRevenueCalculator.new(start_date, end_date, self, campaign) }
   end
 
-  def gross_revenue(start_date = nil, end_date = nil)
-    revenue_calculators(start_date, end_date).sum(&:gross_revenue)
-  end
-
-  def property_revenue(start_date = nil, end_date = nil)
+  def calculated_property_revenue(start_date, end_date)
     revenue_calculators(start_date, end_date).sum(&:property_revenue)
   end
 
-  def house_revenue(start_date = nil, end_date = nil)
+  def calculated_house_revenue(start_date, end_date)
     revenue_calculators(start_date, end_date).sum(&:house_revenue)
   end
 

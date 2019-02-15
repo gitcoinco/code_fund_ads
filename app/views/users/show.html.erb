@@ -25,11 +25,8 @@
         <%= details_li("Login Count") { @user.sign_in_count } if authorized_user.can_admin_system? %>
         <%= details_li("Roles") { @user.roles.map(&:capitalize).join(", ") } %>
         <%= details_li("Bio") { @user.bio } %>
-        <%= details_li("Referring User") { link_to @user.referrer&.name, @user.referrer } if authorized_user.can_admin_system? && @user.referrer %>
-        <%= details_li("Referring Campaign") { link_to @user.referring_campaign.name, @user.referring_campaign } if authorized_user.can_admin_system? && @user.referring_campaign %>
-        <%= details_li("Referring Property") { link_to @user.referring_property.name, @user.referring_property } if authorized_user.can_admin_system? && @user.referring_property %>
+        <%= details_li("Referring User") { link_to @user.referring_user&.full_name, @user.referring_user } if authorized_user.can_admin_system? && @user.referring_user %>
       </ul>
     </div>
   </div>
 <% end %>
-

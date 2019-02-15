@@ -28,15 +28,39 @@ module Users
       (clicks_count / impressions_count.to_f) * 100
     end
 
-    def gross_revenue(start_date = nil, end_date = nil)
+    def calculated_gross_revenue(start_date, end_date)
       return Money.new(0, "USD") unless publisher?
       total = properties.sum { |property|
-        property.gross_revenue start_date, end_date
+        property.calculated_gross_revenue start_date, end_date
       }
       Money.new total, "USD"
     end
 
-    def estimated_property_revenue(start_date = nil, end_date = nil)
+    def calculated_property_revenue(start_date, end_date)
+      return Money.new(0, "USD") unless publisher?
+      total = properties.sum { |property|
+        property.calculated_property_revenue start_date, end_date
+      }
+      Money.new total, "USD"
+    end
+
+    def calculated_house_revenue(start_date = nil, end_date = nil)
+      return Money.new(0, "USD") unless publisher?
+      total = properties.sum { |property|
+        property.calculated_house_revenue start_date, end_date
+      }
+      Money.new total, "USD"
+    end
+
+    def estimated_gross_revenue(start_date, end_date)
+      return Money.new(0, "USD") unless publisher?
+      total = properties.sum { |property|
+        property.estimated_gross_revenue start_date, end_date
+      }
+      Money.new total, "USD"
+    end
+
+    def estimated_property_revenue(start_date, end_date)
       return Money.new(0, "USD") unless publisher?
       total = properties.sum { |property|
         property.estimated_property_revenue start_date, end_date
@@ -44,18 +68,10 @@ module Users
       Money.new total, "USD"
     end
 
-    def property_revenue(start_date = nil, end_date = nil)
+    def estimated_house_revenue(start_date = nil, end_date = nil)
       return Money.new(0, "USD") unless publisher?
       total = properties.sum { |property|
-        property.property_revenue start_date, end_date
-      }
-      Money.new total, "USD"
-    end
-
-    def house_revenue(start_date = nil, end_date = nil)
-      return Money.new(0, "USD") unless publisher?
-      total = properties.sum { |property|
-        property.house_revenue start_date, end_date
+        property.estimated_house_revenue start_date, end_date
       }
       Money.new total, "USD"
     end

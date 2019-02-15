@@ -2,61 +2,60 @@
 #
 # Table name: users
 #
-#  id                      :bigint(8)        not null, primary key
-#  roles                   :string           default([]), is an Array
-#  skills                  :text             default([]), is an Array
-#  first_name              :string           not null
-#  last_name               :string           not null
-#  company_name            :string
-#  address_1               :string
-#  address_2               :string
-#  city                    :string
-#  region                  :string
-#  postal_code             :string
-#  country                 :string
-#  us_resident             :boolean          default(FALSE)
-#  api_access              :boolean          default(FALSE), not null
-#  api_key                 :string
-#  bio                     :text
-#  website_url             :string
-#  github_username         :string
-#  twitter_username        :string
-#  linkedin_username       :string
-#  paypal_email            :string
-#  email                   :string           not null
-#  encrypted_password      :string           not null
-#  reset_password_token    :string
-#  reset_password_sent_at  :datetime
-#  remember_created_at     :datetime
-#  sign_in_count           :integer          default(0), not null
-#  current_sign_in_at      :datetime
-#  last_sign_in_at         :datetime
-#  current_sign_in_ip      :inet
-#  last_sign_in_ip         :inet
-#  confirmation_token      :string
-#  confirmed_at            :datetime
-#  confirmation_sent_at    :datetime
-#  unconfirmed_email       :string
-#  failed_attempts         :integer          default(0), not null
-#  unlock_token            :string
-#  locked_at               :datetime
-#  invitation_token        :string
-#  invitation_created_at   :datetime
-#  invitation_sent_at      :datetime
-#  invitation_accepted_at  :datetime
-#  invitation_limit        :integer
-#  invited_by_type         :string
-#  invited_by_id           :bigint(8)
-#  invitations_count       :integer          default(0)
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  legacy_id               :uuid
-#  organization_id         :bigint(8)
-#  stripe_customer_id      :string
-#  referring_user_id       :bigint(8)
-#  referring_campaign_id   :bigint(8)
-#  referring_property_id   :bigint(8)
-#  referring_impression_id :uuid
+#  id                     :bigint(8)        not null, primary key
+#  roles                  :string           default([]), is an Array
+#  skills                 :text             default([]), is an Array
+#  first_name             :string           not null
+#  last_name              :string           not null
+#  company_name           :string
+#  address_1              :string
+#  address_2              :string
+#  city                   :string
+#  region                 :string
+#  postal_code            :string
+#  country                :string
+#  us_resident            :boolean          default(FALSE)
+#  api_access             :boolean          default(FALSE), not null
+#  api_key                :string
+#  bio                    :text
+#  website_url            :string
+#  github_username        :string
+#  twitter_username       :string
+#  linkedin_username      :string
+#  paypal_email           :string
+#  email                  :string           not null
+#  encrypted_password     :string           not null
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default(0), not null
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :inet
+#  last_sign_in_ip        :inet
+#  confirmation_token     :string
+#  confirmed_at           :datetime
+#  confirmation_sent_at   :datetime
+#  unconfirmed_email      :string
+#  failed_attempts        :integer          default(0), not null
+#  unlock_token           :string
+#  locked_at              :datetime
+#  invitation_token       :string
+#  invitation_created_at  :datetime
+#  invitation_sent_at     :datetime
+#  invitation_accepted_at :datetime
+#  invitation_limit       :integer
+#  invited_by_type        :string
+#  invited_by_id          :bigint(8)
+#  invitations_count      :integer          default(0)
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  legacy_id              :uuid
+#  organization_id        :bigint(8)
+#  stripe_customer_id     :string
+#  referring_user_id      :bigint(8)
+#  referral_code          :string
+#  referral_click_count   :integer          default(0)
 #
 
 class User < ApplicationRecord
@@ -74,10 +73,10 @@ class User < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :organization, optional: true
+  belongs_to :referring_user, class_name: "User", foreign_key: "referring_user_id", optional: true
   has_many :job_postings
-  belongs_to :referrer, class_name: "User", foreign_key: "referring_user_id", optional: true
-  belongs_to :referring_property, class_name: "Property", foreign_key: "referring_property_id", optional: true
-  belongs_to :referring_campaign, class_name: "Campaign", foreign_key: "referring_campaign_id", optional: true
+  has_many :referred_applicants, class_name: "Applicant", foreign_key: "referring_user_id"
+  has_many :referred_users, class_name: "User", foreign_key: "referring_user_id"
 
   # validations ...............................................................
   validates :first_name, presence: true
@@ -86,6 +85,7 @@ class User < ApplicationRecord
 
   # callbacks .................................................................
   before_save :ensure_roles
+  before_save :ensure_referral_code
 
   # scopes ....................................................................
   scope :administrators, -> { with_all_roles ENUMS::USER_ROLES::ADMINISTRATOR }
@@ -187,6 +187,10 @@ class User < ApplicationRecord
         invitation_accepted_at: Time.current
       )
     end
+
+    def referral_code(user_id)
+      where(id: user_id).limit(1).pluck(:referral_code).first
+    end
   end
 
   # public instance methods ...................................................
@@ -204,6 +208,14 @@ class User < ApplicationRecord
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
+  def estimated_referral_revenue
+    value = referred_users.publishers.sum { |user|
+      user.estimated_property_revenue(user.created_at, user.created_at.advance(months: 3)) * 0.05
+    }
+    value = Monetize.parse("$0.00 USD") unless value.is_a?(Money)
+    value
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................
@@ -211,5 +223,13 @@ class User < ApplicationRecord
 
   def ensure_roles
     self.roles = roles & ENUMS::USER_ROLES.values
+  end
+
+  def ensure_referral_code
+    self.referral_code ||= begin
+      code = SecureRandom.urlsafe_base64(8)
+      code = SecureRandom.urlsafe_base64(8) while User.where(referral_code: code).exists?
+      code
+    end
   end
 end

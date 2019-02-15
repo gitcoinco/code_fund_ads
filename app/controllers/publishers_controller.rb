@@ -6,11 +6,8 @@ class PublishersController < ApplicationController
   def create
     @applicant = Applicant.new(applicant_params)
 
-    if session[:ref].present?
-      impression = Impression.where(id: session[:ref]).first
-      @applicant.referring_campaign_id = impression&.campaign_id
-      @applicant.referring_property_id = impression&.property_id
-      @applicant.referring_impression_id = impression&.id
+    if session[:referral_code].present?
+      @applicant.referring_user = User.find_by(referral_code: session[:referral_code])
     end
 
     if @applicant.save

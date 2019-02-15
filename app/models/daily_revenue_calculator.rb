@@ -1,27 +1,32 @@
 class DailyRevenueCalculator
-  attr_reader :property, :campaign, :date
+  attr_reader :property, :campaign, :start_date, :end_date
 
-  def initialize(date, property, campaign)
-    @date = date
+  def initialize(start_date, end_date, property, campaign)
+    @start_date = start_date.to_date
+    @end_date = end_date.to_date
     @property = property
     @campaign = campaign
   end
 
-  def ecpm
-    @ecpm ||= campaign.applicable_ecpm_on(date)
+  def ecpm(date)
+    @ecpms ||= {}
+    @ecpms[date] ||= campaign.applicable_ecpm_on(date)
   end
 
   def impression_count
     @impression_count ||= property.impressions.
-      partitioned(campaign.user, date, date).where(campaign: campaign).count
+      partitioned(campaign.user, start_date, end_date).
+      where(campaign: campaign).
+      group(:displayed_at_date).
+      count
   end
 
-  def impressions_per_mille
-    @impressions_per_mille ||= impression_count / 1_000.to_f
+  def impressions_per_mille(date)
+    (impression_count[date] || 0) / 1_000.to_f
   end
 
   def gross_revenue
-    @gross_revenue ||= ecpm * impressions_per_mille
+    @gross_revenue ||= (start_date..end_date).sum { |date| ecpm(date) * impressions_per_mille(date) }
   end
 
   def property_revenue

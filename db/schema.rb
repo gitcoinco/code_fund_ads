@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_12_171451) do
+ActiveRecord::Schema.define(version: 2019_02_13_224041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -57,9 +57,7 @@ ActiveRecord::Schema.define(version: 2019_02_12_171451) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "invited_user_id"
-    t.bigint "referring_campaign_id"
-    t.bigint "referring_property_id"
-    t.uuid "referring_impression_id"
+    t.bigint "referring_user_id"
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -444,9 +442,8 @@ ActiveRecord::Schema.define(version: 2019_02_12_171451) do
     t.bigint "organization_id"
     t.string "stripe_customer_id"
     t.bigint "referring_user_id"
-    t.bigint "referring_campaign_id"
-    t.bigint "referring_property_id"
-    t.uuid "referring_impression_id"
+    t.string "referral_code"
+    t.integer "referral_click_count", default: 0
     t.index "lower((email)::text)", name: "index_users_on_email", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
@@ -454,6 +451,7 @@ ActiveRecord::Schema.define(version: 2019_02_12_171451) do
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by_type_and_invited_by_id"
     t.index ["organization_id"], name: "index_users_on_organization_id"
+    t.index ["referral_code"], name: "index_users_on_referral_code", unique: true
     t.index ["referring_user_id"], name: "index_users_on_referring_user_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true

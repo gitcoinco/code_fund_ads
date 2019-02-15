@@ -10,7 +10,6 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_paper_trail_whodunnit
   before_action :set_meta_tag_data
-  before_action :set_referrer_data
   before_action :sample_requests_for_scout
 
   impersonates :user
@@ -59,10 +58,6 @@ class ApplicationController < ActionController::Base
       },
       viewport: "width=device-width, initial-scale=1, shrink-to-fit=no"
     )
-  end
-
-  def set_referrer_data
-    session[:ref] = params[:ref] if params[:ref].present?
   end
 
   def authenticate_administrator!

@@ -24,7 +24,7 @@ module Extensions
         cast(value) || Date.current
       end
 
-      def cache_key(date, coerce: true, minutes_cached: 10)
+      def cache_key(date, coerce: true, minutes_cached: 5)
         return nil unless date || coerce
         date = Date.coerce(date)
         return date.iso8601 if date.past?
@@ -34,7 +34,7 @@ module Extensions
       end
     end
 
-    def cache_key(minutes_cached: 10)
+    def cache_key(minutes_cached: 5)
       Date.cache_key self, coerce: false, minutes_cached: minutes_cached
     end
   end
