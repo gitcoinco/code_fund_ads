@@ -2,6 +2,7 @@ class BufferNewJobPostingJob < ApplicationJob
   queue_as :low
 
   def perform(job_posting, template)
+    ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     return unless ENV["BUFFER_ENABLED"] == "true"
 
     client = Buffer::Client.new ENV["BUFFER_ACCESS_TOKEN"]

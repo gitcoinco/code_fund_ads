@@ -2,6 +2,7 @@ class ImportRemoteokJobsJob < ApplicationJob
   queue_as :default
 
   def perform(*tags)
+    ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     @count = 0
     @jobs = []
 

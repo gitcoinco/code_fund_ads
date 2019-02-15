@@ -2,6 +2,7 @@ class CreateClickJob < ApplicationJob
   queue_as :click
 
   def perform(impression_id, campaign_id, clicked_at_string)
+    ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     campaign = Campaign.find_by(id: campaign_id)
     return unless campaign
 
