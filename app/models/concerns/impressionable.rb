@@ -32,9 +32,7 @@ module Impressionable
     key = "#{cache_key}/#{__method__}/#{Date.coerce(start_date).cache_key}-#{Date.coerce(end_date).cache_key}"
     Rails.cache.fetch key do
       results = impressions.between(start_date, end_date).group(:displayed_at_date).count
-      (start_date..end_date).map do |date|
-        results[date] || 0
-      end
+      (start_date..end_date).map { |date| results[date] || 0 }
     end
   end
 
@@ -63,9 +61,7 @@ module Impressionable
     key = "#{cache_key}/#{__method__}/#{Date.coerce(start_date).cache_key}-#{Date.coerce(end_date).cache_key}"
     Rails.cache.fetch(key) {
       results = impressions.clicked.between(start_date, end_date).group(:displayed_at_date).count
-      (start_date..end_date).map do |date|
-        results[date] || 0
-      end
+      (start_date..end_date).map { |date| results[date] || 0 }
     }
   end
 
