@@ -56,7 +56,7 @@ class Impression < ApplicationRecord
   scope :clicked, -> { where.not clicked_at_date: nil }
   scope :on, ->(date) { where displayed_at_date: Date.coerce(date) }
   scope :between, ->(start_date, end_date = nil) {
-    end_date ? where(displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date)) : on(start_date)
+    where(displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date))
   }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
