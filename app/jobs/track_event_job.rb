@@ -2,6 +2,7 @@ class TrackEventJob < ApplicationJob
   queue_as :low
 
   def perform(name, timestamp, device_id, segmentation = {})
+    ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     Typhoeus.post("https://analytics.codefund.app/i",
       body: {
         events: [

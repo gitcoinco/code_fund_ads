@@ -4,6 +4,7 @@ class ImportGithubJobsJob < ApplicationJob
   queue_as :default
 
   def perform(*tags)
+    ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     @count = 0
     tags.in_groups_of(5, false).each do |tag_group|
       import_jobs(tag_group)

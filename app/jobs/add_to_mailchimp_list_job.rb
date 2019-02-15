@@ -2,6 +2,7 @@ class AddToMailchimpListJob < ApplicationJob
   queue_as :default
 
   def perform(email_address, user_id = nil)
+    ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     email = EmailAddress.normal(email_address)
     user = User.where(id: user_id).first
 

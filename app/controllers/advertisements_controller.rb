@@ -22,10 +22,11 @@ class AdvertisementsController < ApplicationController
     @target = params[:target] || "codefund_ad"
 
     if @campaign
+      referral_code = User.referral_code(property.user_id)
       @advertisement_html = render_advertisement
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
       @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
-      @powered_by_url = invite_url(User.referral_code(property.user_id))
+      @powered_by_url = referral_code ? invite_url(referral_code) : root_url
       @uplift_url = impression_uplifts_url(@virtual_impression_id, advertiser_id: @campaign.user_id)
     end
 

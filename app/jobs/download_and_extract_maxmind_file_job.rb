@@ -11,6 +11,7 @@ class DownloadAndExtractMaxmindFileJob < ApplicationJob
   queue_as :low
 
   def perform
+    ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     FileUtils.mkdir_p MAXMIND_DIR
     download
     extract
