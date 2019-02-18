@@ -2,7 +2,7 @@ module ApplicationHelper
   include Pagy::Frontend
 
   def safe_camo(url)
-    camo job_posting.company_logo_url.to_s
+    camo url.to_s
   rescue
     asset_path "pixel.gif"
   end
