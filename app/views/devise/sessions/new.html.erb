@@ -4,6 +4,8 @@
   <div class="container space-top-2 space-top-md-4 space-bottom-2">
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "js-validate w-md-75 w-lg-50 mx-md-auto" }) do |f| %>
       <%= hidden_field_tag :job, params[:job] if params[:job] %>
+      <%= hidden_field_tag :remember_me, true if devise_mapping.rememberable? %>
+      
       <!-- Title -->
       <div class="mb-7">
         <h2 class="h3 font-weight-normal mb-0">Welcome <span class="font-weight-semi-bold text-success">back</span></h2>
@@ -58,16 +60,26 @@
       <!-- End Form Group -->
 
       <!-- Button -->
-      <div class="row align-items-center mb-5">
-        <div class="col-6">
-          <%= f.input :remember_me, as: :boolean, input_html: { tabindex: 3 } if devise_mapping.rememberable? %>
-        </div>
+      <button type="submit" class="btn btn-primary btn-block transition-3d-hover" tabindex="4">Log in</button>
 
-        <div class="col-6 text-right">
-          <button type="submit" class="btn btn-primary transition-3d-hover" tabindex="4">Sign in</button>
-        </div>
+      <div class="text-center mb-3 mt-3">
+        <span class="u-divider u-divider--xs u-divider--text">or</span>
       </div>
-      <!-- End Button -->
+
+      <%= link_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
+        <%= image_tag "logos/google-logo.svg", style: "position: absolute; left: 18px; top: 14px;" %>
+        Log in with Google
+      <% end %>
+
+      <%= link_to user_github_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
+        <%= image_tag "logos/GitHub-Mark-64px.png", style: "position: absolute; left: 18px; top: 14px; width: 18px;" %>
+        Log in with GitHub
+      <% end %>
+
+      <%= link_to user_linkedin_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
+        <%= image_tag "logos/In-2C-66px-TM.png", style: "position: absolute; left: 18px; top: 14px; width: 22px;" %>
+        Log in with LinkedIn
+      <% end %>
     <% end %>
   </div>
   <!-- End Login Form -->

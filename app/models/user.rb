@@ -68,6 +68,7 @@ class User < ApplicationRecord
   include Users::Presentable
   include Users::Stripeable
   include Eventable
+  include FullNameSplitter
   include Imageable
   include Taggable
 
@@ -146,11 +147,17 @@ class User < ApplicationRecord
     :database_authenticatable,
     :invitable,
     :lockable,
+    :omniauthable,
     :recoverable,
     :rememberable,
     :timeoutable,
     :trackable,
     :validatable,
+    omniauth_providers: [
+      :github,
+      :google_oauth2,
+      :linkedin,
+    ]
   )
   has_one_attached :avatar
   acts_as_commentable
@@ -190,6 +197,23 @@ class User < ApplicationRecord
 
     def referral_code(user_id)
       where(id: user_id).limit(1).pluck(:referral_code).first
+    end
+
+    def from_omniauth(access_token, extras = {})
+      data = access_token.info
+      user = User.where(email: data["email"]).first
+      unless user
+        user = User.create({
+          email: data["email"],
+          first_name: data["first_name"],
+          last_name: data["last_name"],
+          password: Devise.friendly_token[0, 20],
+          confirmed_at: Time.current,
+        }.merge(extras))
+
+        CreateSlackNotificationJob.perform_later text: ":email: #{user.email} just registered via #{access_token[:provider]}" if user.persisted?
+      end
+      user
     end
   end
 
