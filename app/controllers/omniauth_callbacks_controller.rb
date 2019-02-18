@@ -26,11 +26,14 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.from_omniauth(access_token, extras)
 
     if @user.persisted?
-      flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Google"
+      # Confirm email unless already confirmed
+      @user.update(confirmed_at: Time.current) unless @user.confirmed_at.present?
+
+      flash[:notice] = "Successfully authenticated"
       sign_in_and_redirect @user, event: :authentication
     else
-      session["devise.google_data"] = access_token.except(:extra) # Removing extra as it can overflow some session stores
-      redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
+      session["devise.oauth_data"] = access_token.except(:extra) # Removing extra as it can overflow some session stores
+      redirect_to new_user_session_url, alert: @user.errors.full_messages.join("\n")
     end
   end
 end
