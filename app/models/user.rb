@@ -211,6 +211,7 @@ class User < ApplicationRecord
           confirmed_at: Time.current,
         }.merge(extras))
 
+        AddToMailchimpListJob.perform_later user.email
         CreateSlackNotificationJob.perform_later text: ":email: #{user.email} just registered via #{access_token[:provider]}" if user.persisted?
       end
       user
@@ -220,7 +221,11 @@ class User < ApplicationRecord
   # public instance methods ...................................................
 
   def administrator?
-    roles.include? ENUMS::USER_ROLES["administrator"]
+    roles.include? ENUMS::USER_ROLES::ADMINISTRATOR
+  end
+
+  def employer?
+    roles.include? ENUMS::USER_ROLES::EMPLOYER
   end
 
   def to_s
