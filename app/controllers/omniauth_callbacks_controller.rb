@@ -32,7 +32,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       flash[:notice] = "Successfully authenticated"
       sign_in_and_redirect @user, event: :authentication
     else
-      binding.pry
       session["devise.oauth_data"] = access_token.except(:extra) # Removing extra as it can overflow some session stores
       redirect_to new_user_session_url, alert: @user.errors.full_messages.join("\n")
     end
