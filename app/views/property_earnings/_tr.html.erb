@@ -4,6 +4,6 @@
     <td class="text-center align-middle text-secondary"><%= number_with_delimiter @property.daily_impressions_count(date) %></td>
     <td class="text-center align-middle text-secondary"><%= number_with_delimiter @property.daily_clicks_count(date) %></td>
     <td class="text-center align-middle text-secondary"><%= number_to_percentage @property.daily_click_rate(date), precision: 2 %></td>
-    <td class="text-center align-middle text-secondary"><%= @property.estimated_property_revenue(date).format %></td>
+    <td class="text-center align-middle text-secondary"><%= @property.estimated_property_revenue(date, date).format %></td>
   </tr>
 <% end %>
