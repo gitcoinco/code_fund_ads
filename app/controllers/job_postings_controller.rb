@@ -11,9 +11,9 @@ class JobPostingsController < ApplicationController
       job_postings = @job_posting_search.apply(job_postings)
       if @job_posting_search.full_text_search
         job_postings = job_postings.or(
-          JobPosting.active.ranked_by_source.order(start_date: :desc).
-            ranked(@job_posting_search.full_text_search).
-            search_company_name(@job_posting_search.full_text_search)
+          JobPosting.active.ranked_by_source.order(start_date: :desc)
+            .ranked(@job_posting_search.full_text_search)
+            .search_company_name(@job_posting_search.full_text_search)
         )
       end
     end
@@ -22,6 +22,7 @@ class JobPostingsController < ApplicationController
     @pagy, @job_postings = pagy(job_postings.without_all_offers(ENUMS::JOB_OFFERS::PREMIUM_PLACEMENT), items: 30)
 
     unless request.bot?
+      @premium_job_postings.reorder("").pluck(:id).each { |id| IncrementJobPostingViewsJob.perform_later(id, "list_view_count") }
       @job_postings.reorder("").pluck(:id).each { |id| IncrementJobPostingViewsJob.perform_later(id, "list_view_count") }
     end
 

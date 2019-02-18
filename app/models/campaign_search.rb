@@ -26,16 +26,16 @@ class CampaignSearch < ApplicationSearchRecord
   def apply(relation)
     return relation unless present?
 
-    relation.
-      then { |result| result.search_keywords(*keywords) }.
-      then { |result| result.search_negative_keywords(*negative_keywords) }.
-      then { |result| result.search_country_codes(*country_codes) }.
-      then { |result| result.search_province_codes(*province_codes) }.
-      then { |result| result.search_name(name) }.
-      then { |result| result.search_status(*statuses) }.
-      then { |result| core_hours_only ? result.search_core_hours_only(core_hours_only) : result }.
-      then { |result| result.search_user(user) }.
-      then { |result| result.search_user_id(user_id) }.
-      then { |result| weekdays_only ? result.search_weekdays_only(weekdays_only) : result }
+    relation
+      .then { |result| result.search_keywords(*keywords) }
+      .then { |result| result.search_negative_keywords(*negative_keywords) }
+      .then { |result| result.search_country_codes(*country_codes) }
+      .then { |result| result.search_province_codes(*province_codes) }
+      .then { |result| result.search_name(name) }
+      .then { |result| result.search_status(*statuses) }
+      .then { |result| core_hours_only ? result.search_core_hours_only(core_hours_only) : result }
+      .then { |result| result.search_user(user) }
+      .then { |result| result.search_user_id(user_id) }
+      .then { |result| weekdays_only ? result.search_weekdays_only(weekdays_only) : result }
   end
 end

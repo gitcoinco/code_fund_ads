@@ -13,11 +13,11 @@ class ImageSearch < ApplicationSearchRecord
 
   def apply(relation)
     return relation unless present?
-    search_relation = relation.model.all.
-      then { |result| result.search_filename(filename) }.
-      then { |result| result.search_metadata_description(description) }.
-      then { |result| result.search_metadata_format(*formats) }.
-      then { |result| result.search_metadata_name(name) }
+    search_relation = relation.model.all
+      .then { |result| result.search_filename(filename) }
+      .then { |result| result.search_metadata_description(description) }
+      .then { |result| result.search_metadata_format(*formats) }
+      .then { |result| result.search_metadata_name(name) }
     relation.merge search_relation
   end
 end

@@ -29,8 +29,8 @@ class JobPostingUsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :company_name, :email).
-      tap do |whitelisted|
+    params.require(:user).permit(:first_name, :last_name, :company_name, :email)
+      .tap do |whitelisted|
         whitelisted[:password] = SecureRandom.hex[0, 8].upcase
         whitelisted[:password_confirmation] = whitelisted[:password]
         whitelisted[:confirmed_at] = Time.current

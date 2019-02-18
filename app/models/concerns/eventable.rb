@@ -12,15 +12,15 @@ module Eventable
     # This method is equivalent to obj.events
     def find_events_for(obj)
       Event.where(eventable_id: obj.id,
-                  eventable_type: obj.class.base_class.name).
-        order(created_at: :desc)
+                  eventable_type: obj.class.base_class.name)
+        .order(created_at: :desc)
     end
   end
 
   # Helper method to sort events by date
   def events_ordered_by_submitted
-    Event.where(eventable_id: id, eventable_type: self.class.name).
-      order(created_at: :desc)
+    Event.where(eventable_id: id, eventable_type: self.class.name)
+      .order(created_at: :desc)
   end
 
   # Helper method that defaults the submitted time.

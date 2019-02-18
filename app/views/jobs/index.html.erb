@@ -82,9 +82,9 @@
       <% JobPosting.recent_sample(18).each.with_index do |job_posting, index| %>
         <div class="col-4 col-md-2 mb-8 align-middle">
           <%= link_to image_tag(
-                        camo(job_posting.company_logo_url.to_s),
+                        safe_camo(job_posting.company_logo_url.to_s),
                         class: "u-clients",
-                        data: { 
+                        data: {
                           controller: "fallback-image",
                           hide_on_broken_image: true
                         }
