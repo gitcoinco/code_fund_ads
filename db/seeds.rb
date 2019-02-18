@@ -153,44 +153,44 @@ class Seeder
 
   def add_small_image(advertiser)
     advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-200x200.png")),
-      filename: "seed-200x200.png",
-      content_type: "image/png",
-      metadata: {
-        identified: true,
-        width: 200,
-        height: 200,
-        analyzed: true,
-        name: "seed-200x200.png",
-        format: ENUMS::IMAGE_FORMATS::SMALL,
-      }
+                             filename: "seed-200x200.png",
+                             content_type: "image/png",
+                             metadata: {
+                               identified: true,
+                               width: 200,
+                               height: 200,
+                               analyzed: true,
+                               name: "seed-200x200.png",
+                               format: ENUMS::IMAGE_FORMATS::SMALL,
+                             }
   end
 
   def add_large_image(advertiser)
     advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-260x200.png")),
-      filename: "seed-260x200.png",
-      content_type: "image/png",
-      metadata: {
-        identified: true,
-        width: 260,
-        height: 200,
-        analyzed: true,
-        name: "seed-260x200.png",
-        format: ENUMS::IMAGE_FORMATS::LARGE,
-      }
+                             filename: "seed-260x200.png",
+                             content_type: "image/png",
+                             metadata: {
+                               identified: true,
+                               width: 260,
+                               height: 200,
+                               analyzed: true,
+                               name: "seed-260x200.png",
+                               format: ENUMS::IMAGE_FORMATS::LARGE,
+                             }
   end
 
   def add_wide_image(advertiser)
     advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-512x320.jpg")),
-      filename: "seed-512x320.jpg",
-      content_type: "image/jpeg",
-      metadata: {
-        identified: true,
-        width: 512,
-        height: 320,
-        analyzed: true,
-        name: "seed-512x320.jpg",
-        format: ENUMS::IMAGE_FORMATS::WIDE,
-      }
+                             filename: "seed-512x320.jpg",
+                             content_type: "image/jpeg",
+                             metadata: {
+                               identified: true,
+                               width: 512,
+                               height: 320,
+                               analyzed: true,
+                               name: "seed-512x320.jpg",
+                               format: ENUMS::IMAGE_FORMATS::WIDE,
+                             }
   end
 
   def generate_creatives(advertiser)

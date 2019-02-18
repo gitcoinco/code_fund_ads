@@ -14,11 +14,11 @@ class DailyRevenueCalculator
   end
 
   def impression_count
-    @impression_count ||= property.impressions.
-      partitioned(campaign.user, start_date, end_date).
-      where(campaign: campaign).
-      group(:displayed_at_date).
-      count
+    @impression_count ||= property.impressions
+      .partitioned(campaign.user, start_date, end_date)
+      .where(campaign: campaign)
+      .group(:displayed_at_date)
+      .count
   end
 
   def impressions_per_mille(date)

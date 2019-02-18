@@ -24,16 +24,16 @@ class JobPostingSearch < ApplicationSearchRecord
   def apply(relation)
     return relation unless present?
 
-    relation.
-      then { |result| result.matched_and_ranked(full_text_search) }.
-      then { |result| result.search_company_name(company_name) }.
-      then { |result| result.search_country_codes(*country_codes) }.
-      then { |result| result.search_description(description) }.
-      then { |result| result.search_job_types(*job_types) }.
-      then { |result| result.search_keywords(*keywords) }.
-      then { |result| result.search_organization(organization_id) }.
-      then { |result| result.search_province_codes(*province_codes) }.
-      then { |result| result.search_remote(remote) }.
-      then { |result| result.search_title(title) }
+    relation
+      .then { |result| result.matched_and_ranked(full_text_search) }
+      .then { |result| result.search_company_name(company_name) }
+      .then { |result| result.search_country_codes(*country_codes) }
+      .then { |result| result.search_description(description) }
+      .then { |result| result.search_job_types(*job_types) }
+      .then { |result| result.search_keywords(*keywords) }
+      .then { |result| result.search_organization(organization_id) }
+      .then { |result| result.search_province_codes(*province_codes) }
+      .then { |result| result.search_remote(remote) }
+      .then { |result| result.search_title(title) }
   end
 end

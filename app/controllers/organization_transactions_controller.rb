@@ -64,8 +64,8 @@ class OrganizationTransactionsController < ApplicationController
   end
 
   def organization_transaction_params
-    params.require(:organization_transaction).
-      permit(
+    params.require(:organization_transaction)
+      .permit(
         :amount,
         :description,
         :gift,

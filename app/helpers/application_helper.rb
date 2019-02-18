@@ -1,6 +1,12 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  def safe_camo(url)
+    camo job_posting.company_logo_url.to_s
+  rescue
+    asset_path "pixel.gif"
+  end
+
   def page_heading(action, subject, subtitle: nil, icon: nil)
     render "/@shared/page_heading", action: action, subject: subject, subtitle: subtitle, icon: icon
   end

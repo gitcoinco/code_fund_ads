@@ -51,9 +51,9 @@ module FullTextSearchable
         value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["?", value]))
         websearch_to_tsquery = Arel::Nodes::NamedFunction.new("websearch_to_tsquery", [Arel::Nodes::SqlLiteral.new("'simple'"), value])
         ts_rank = Arel::Nodes::NamedFunction.new("ts_rank", [arel_table[:full_text_search], websearch_to_tsquery])
-        select(Arel.star).
-          select(ts_rank.as(rank_alias)).
-          order("#{rank_alias} desc")
+        select(Arel.star)
+          .select(ts_rank.as(rank_alias))
+          .order("#{rank_alias} desc")
       end
     }
 

@@ -11,8 +11,8 @@ class MasterAnalyzer < ActiveStorage::Analyzer
   private
 
   def analyzers
-    Rails.application.config.document_analyzers.
-      select { |analyzer_class| analyzer_class.accept? @blob }.
-      collect { |analyzer_class| analyzer_class.new(@blob) }
+    Rails.application.config.document_analyzers
+      .select { |analyzer_class| analyzer_class.accept? @blob }
+      .collect { |analyzer_class| analyzer_class.new(@blob) }
   end
 end

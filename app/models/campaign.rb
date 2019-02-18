@@ -97,13 +97,13 @@ class Campaign < ApplicationRecord
     end
   end
   scope :fallback_for_property_id, ->(property_id) do
-    fallback.permitted_for_property_id(property_id).
-      where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
+    fallback.permitted_for_property_id(property_id)
+      .where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
   end
   scope :targeted_fallback_for_property_id, ->(property_id, *keywords) do
-    targeted_for_property_id(property_id, *keywords).
-      where(fallback: true).
-      where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
+    targeted_for_property_id(property_id, *keywords)
+      .where(fallback: true)
+      .where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
   end
   scope :targeted_country_code, ->(country_code) { country_code ? with_all_country_codes(country_code) : without_country_codes }
   scope :targeted_province_code, ->(province_code) { province_code ? without_province_codes.or(with_all_province_codes(province_code)) : without_province_codes }

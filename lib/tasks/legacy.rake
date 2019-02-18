@@ -22,11 +22,11 @@ namespace :legacy do
     CSV.foreach(Rails.root.join("legacy/users_20181208.csv"), headers: true, encoding: "ISO-8859-1:UTF-8") do |row|
       user = User.new
       user.legacy_id             = row["id"]
-      user.roles                 = row["roles"][1...-1].
-        gsub("admin", "administrator").
-        gsub("sponsor", "advertiser").
-        gsub("developer", "publisher").
-        split
+      user.roles                 = row["roles"][1...-1]
+        .gsub("admin", "administrator")
+        .gsub("sponsor", "advertiser")
+        .gsub("developer", "publisher")
+        .split
       user.first_name            = row["first_name"]&.strip
       user.last_name             = row["last_name"]&.strip
       user.company_name          = row["company"]&.strip
