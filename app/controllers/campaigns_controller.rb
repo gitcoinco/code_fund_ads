@@ -29,7 +29,7 @@ class CampaignsController < ApplicationController
       status: "pending",
       start_date: Date.tomorrow,
       end_date: 30.days.from_now,
-      ecpm: ENV.fetch("BASE_ECPM", 4).to_f
+      ecpm: Money.new(ENV.fetch("BASE_ECPM", 4).to_f, "USD")
     )
 
     if params[:clone].present?
