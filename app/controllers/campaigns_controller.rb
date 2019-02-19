@@ -28,7 +28,8 @@ class CampaignsController < ApplicationController
     @campaign = current_user.campaigns.build(
       status: "pending",
       start_date: Date.tomorrow,
-      end_date: 30.days.from_now
+      end_date: 30.days.from_now,
+      ecpm: Money.new(ENV.fetch("BASE_ECPM", 4).to_f, "USD")
     )
 
     if params[:clone].present?
@@ -103,7 +104,8 @@ class CampaignsController < ApplicationController
   end
 
   def campaign_params
-    return advertiser_campaign_params unless authorized_user.can_admin_system?
+    return advertiser_campaign_params if !authorized_user.can_admin_system? && @campaign.fixed_ecpm
+    return extended_advertiser_campaign_params unless authorized_user.can_admin_system?
     params.require(:campaign).permit(
       :user_id,
       :status,
@@ -127,6 +129,20 @@ class CampaignsController < ApplicationController
 
   def advertiser_campaign_params
     params.require(:campaign).permit(:name, :url, :creative_id)
+  end
+
+  def extended_advertiser_campaign_params
+    params.require(:campaign).permit(
+      :name,
+      :url,
+      :creative_id,
+      :core_hours_only,
+      :weekdays_only,
+      country_codes: [],
+      keywords: [],
+      negative_keywords: [],
+      province_codes: []
+    )
   end
 
   def sortable_columns
