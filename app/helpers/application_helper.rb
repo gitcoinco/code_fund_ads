@@ -77,6 +77,10 @@ module ApplicationHelper
     Country.all.map { |country| [country.name, country.iso_code] }
   end
 
+  def countries_with_pricing_for_select(base_ecpm)
+    Country.countries(base_ecpm).values.map { |country| ["#{country[:name]} (#{country[:display_price]})", country[:iso_code]] }
+  end
+
   def provinces_for_select
     Province.all.map { |province| [province.full_name, province.id] }
   end
