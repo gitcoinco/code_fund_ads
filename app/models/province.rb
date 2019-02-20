@@ -5,9 +5,24 @@ class Province
   class << self
     def data
       @data ||= begin
-        rows = JSON.parse(File.read(Rails.root.join("db/provinces.json")))
-        rows.each_with_object({}) do |row, memo|
-          memo["#{row["country_code"]}-#{row["subdivision"]}"] = row
+        ISO3166::Country.all.each_with_object({}) do |country, memo|
+          if country.subdivisions?
+            country.subdivisions.each do |code, subdivision|
+              memo["#{country.alpha2}-#{code}"] = {
+                country_code: country.alpha2,
+                country_name: country.name,
+                province_name: subdivision[:name],
+                subdivision: code,
+              }
+            end
+          else
+            memo[country.alpha2] = {
+              country_code: country.alpha2,
+              country_name: country.name,
+              province_name: nil,
+              subdivision: nil,
+            }
+          end
         end
       end
     end
