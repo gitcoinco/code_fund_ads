@@ -3,6 +3,7 @@ class AdvertisementsController < ApplicationController
 
   protect_from_forgery except: :show
   before_action :set_cors_headers
+  before_action :set_cache_headers
   # before_action :apply_visitor_rate_limiting
   before_action :set_campaign
   before_action :set_virtual_impression_id, if: -> { @campaign.present? }
@@ -302,6 +303,12 @@ class AdvertisementsController < ApplicationController
     response.headers["Access-Control-Allow-Methods"] = "POST, PUT, DELETE, GET, OPTIONS"
     response.headers["Access-Control-Request-Method"] = "*"
     response.headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  end
+
+  def set_cache_headers
+    response.headers["Cache-Control"] = "no-cache, no-store"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = 1.day.ago.httpdate
   end
 
   def track_event(name, data)
