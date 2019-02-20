@@ -33,5 +33,9 @@
     <%= render "/@shared/table_buttons/goto", link: images_path(user.to_gid_param), icon: "fas fa-images", title: "Manage Images" if user.advertiser? %>
     <%= render "/@shared/table_buttons/edit", link: edit_user_path(user) %>
     <%= render "/@shared/table_buttons/goto", link: user_impersonation_path(user), method: :put, icon: "fas fa-mask", title: "Log in as #{user.first_name}" if authorized_user.can_admin_system? %>
+    <% if authorized_user.can_admin_system? %>
+      <%= render "/@shared/table_buttons/goto", link: "https://metabase.codefund.io/dashboard/14?date_filter=thismonth&publisher_id=#{user.id}", target: "_blank", icon: "fas fa-chart-line", title: "View Metabase Dashboard" if user.publisher? %>
+      <%= render "/@shared/table_buttons/goto", link: "https://metabase.codefund.io/dashboard/10?date_filter=thismonth&advertiser_user_id=#{user.id}", target: "_blank", icon: "fas fa-chart-line", title: "View Metabase Dashboard" if user.advertiser? %>
+    <% end %>
   </td>
 <% end %>
