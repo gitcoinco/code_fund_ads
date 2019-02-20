@@ -11,7 +11,7 @@ module Sortable
   end
 
   def order_by
-    "#{sort_column} #{sort_direction}"
+    "#{sort_column} #{sort_direction} NULLS LAST"
   end
 
   def sort_column
