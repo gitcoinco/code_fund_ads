@@ -259,7 +259,12 @@ class AdvertisementsController < ApplicationController
       province_score + ecpm_score + budget_score.to_f
     }
     selector = WalkerMethod.new(campaigns, weights)
-    selector.random
+    campaign = selector.random
+    if campaign.nil?
+      campaign = campaigns.sample
+      logger.info "AdvertisementsController#choose_campaign WalkerMethod failed to find a winner! Choosing a random campaign."
+    end
+    campaign
   end
 
   def advertisement_cache_key
