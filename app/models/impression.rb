@@ -64,6 +64,23 @@ class Impression < ApplicationRecord
 
   # class methods .............................................................
   class << self
+    def partitioned_table_names
+      result = connection.execute <<~SQL
+        SELECT child.relname child
+        FROM pg_inherits
+        JOIN pg_class child ON pg_inherits.inhrelid = child.oid
+        JOIN pg_class parent ON pg_inherits.inhparent = parent.oid
+        WHERE parent.relname = 'impressions'
+        ORDER BY child
+      SQL
+      result.values.flatten
+    end
+
+    def detach_partitioned_table(partitioned_table_name)
+      connection.execute <<~SQL
+        ALTER TABLE impressions DETACH PARTITION #{connection.quote_table_name partitioned_table_name};
+      SQL
+    end
   end
 
   # public instance methods ...................................................
