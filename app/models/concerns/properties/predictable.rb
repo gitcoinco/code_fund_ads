@@ -11,7 +11,7 @@ module Properties
     end
 
     def estimated_house_revenue(start_date, end_date)
-      estimated_gross_revenue(start_date, end_date) - estimated_house_revenue(start_date, end_date)
+      estimated_gross_revenue(start_date, end_date) - estimated_property_revenue(start_date, end_date)
     end
 
     def estimated_campaign_gross_revenue(campaign, start_date, end_date)
