@@ -54,7 +54,7 @@
         } %>
   </div>
 
-  <% unless campaign.fixed_ecpm %>
+  <% if campaign.fixed_ecpm || authorized_user.can_admin_system? %>
     <hr class="mt-3 mb-4" />
 
     <%= render "/@shared/forms/section_heading", title: "Targeting", subtitle: "Who do you want this campaign to reach?" %>

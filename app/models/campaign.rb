@@ -179,7 +179,7 @@ class Campaign < ApplicationRecord
   # class methods .............................................................
   class << self
     def pricing(base_ecpm)
-      Campaign.new(ecpm: base_ecpm, fixed_ecpm: false, country_codes: ENUMS::COUNTRIES.keys).ecpms
+      Campaign.new(ecpm: Money.new(base_ecpm, "USD"), fixed_ecpm: false, country_codes: ENUMS::COUNTRIES.keys).ecpms
     end
   end
 
