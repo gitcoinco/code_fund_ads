@@ -31,9 +31,9 @@ class Country
       end
     end
 
-    def countries(base_ecpm = ENV.fetch("BASE_ECPM", 4).to_f)
-      campaign = Campaign.new(ecpm: base_ecpm, fixed_ecpm: false, country_codes: ENUMS::COUNTRIES.keys)
-      @countries ||= ISO3166::Country.all.each_with_object({}) { |country, memo|
+    def countries(base_ecpm = ENV.fetch("BASE_ECPM", 400).to_i)
+      campaign = Campaign.new(ecpm: Money.new(base_ecpm, "USD"), fixed_ecpm: false, country_codes: ENUMS::COUNTRIES.keys)
+      ISO3166::Country.all.each_with_object({}) { |country, memo|
         data = country.data
         memo[data["alpha2"]] = {
           id: data["alpha2"],
