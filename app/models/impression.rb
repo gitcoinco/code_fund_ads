@@ -76,10 +76,12 @@ class Impression < ApplicationRecord
       result.values.flatten
     end
 
-    def detach_partitioned_table(partitioned_table_name)
-      connection.execute <<~SQL
-        ALTER TABLE impressions DETACH PARTITION #{connection.quote_table_name partitioned_table_name};
-      SQL
+    def detach_partitioned_tables(*partitioned_table_names)
+      partitioned_table_names.each do |partitioned_table_name|
+        connection.execute <<~SQL
+          ALTER TABLE impressions DETACH PARTITION #{connection.quote_table_name partitioned_table_name};
+        SQL
+      end
     end
   end
 
