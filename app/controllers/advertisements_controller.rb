@@ -259,7 +259,7 @@ class AdvertisementsController < ApplicationController
       province_score + ecpm_score + budget_score.to_f
     }
     selector = WalkerMethod.new(campaigns, weights)
-    selector.random
+    selector.random || campaigns.sample
   end
 
   def advertisement_cache_key
