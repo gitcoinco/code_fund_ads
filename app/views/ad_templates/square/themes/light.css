@@ -6,7 +6,6 @@
   box-shadow: 0 0 0 1px hsla(0, 0%, 0%, .1);
   display: block;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: var(--font-size);
   line-height: 1.5;
   margin-bottom: 20px;
   overflow: hidden;
@@ -53,7 +52,7 @@
   font-weight: 400;
   letter-spacing: .5px;
   line-height: 2.2;
-  padding: 10px var(--font-size);
+  padding: 10px auto;
   text-transform: uppercase;
   color: hsla(0, 0%, 0%, .8);
   text-decoration: none;

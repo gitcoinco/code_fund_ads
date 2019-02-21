@@ -38,7 +38,7 @@
   font-weight: 400;
   letter-spacing: 0.5px;
   line-height: 2.2;
-  padding: 10px var(--font-size);
+  padding: 10px auto;
   text-transform: uppercase;
   color: hsla(0, 0%, 0%, 0.8);
   text-decoration: none;
