@@ -150,21 +150,6 @@ class Property < ApplicationRecord
     Campaign.where id: subquery
   end
 
-  def revenue_calculators(start_date = nil, end_date = nil, campaign_id = nil)
-    campaigns = campaign_id ?
-      Campaign.where(id: campaign_id).includes(:user) :
-      displayed_campaigns(start_date, end_date).includes(:user)
-    campaigns.map { |campaign| DailyRevenueCalculator.new(start_date, end_date, self, campaign) }
-  end
-
-  def calculated_property_revenue(start_date, end_date)
-    revenue_calculators(start_date, end_date).sum(&:property_revenue)
-  end
-
-  def calculated_house_revenue(start_date, end_date)
-    revenue_calculators(start_date, end_date).sum(&:house_revenue)
-  end
-
   # protected instance methods ................................................
 
   # private instance methods ..................................................

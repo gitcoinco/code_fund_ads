@@ -28,52 +28,16 @@ module Users
       (clicks_count / impressions_count.to_f) * 100
     end
 
-    def calculated_gross_revenue(start_date, end_date)
-      return Money.new(0, "USD") unless publisher?
-      total = properties.sum { |property|
-        property.calculated_gross_revenue start_date, end_date
-      }
-      Money.new total, "USD"
-    end
-
-    def calculated_property_revenue(start_date, end_date)
-      return Money.new(0, "USD") unless publisher?
-      total = properties.sum { |property|
-        property.calculated_property_revenue start_date, end_date
-      }
-      Money.new total, "USD"
-    end
-
-    def calculated_house_revenue(start_date = nil, end_date = nil)
-      return Money.new(0, "USD") unless publisher?
-      total = properties.sum { |property|
-        property.calculated_house_revenue start_date, end_date
-      }
-      Money.new total, "USD"
-    end
-
     def estimated_gross_revenue(start_date, end_date)
-      return Money.new(0, "USD") unless publisher?
-      total = properties.sum { |property|
-        property.estimated_gross_revenue start_date, end_date
-      }
-      Money.new total, "USD"
+      properties.active.sum { |p| p.estimated_gross_revenue(start_date, end_date) }
     end
 
     def estimated_property_revenue(start_date, end_date)
-      return Money.new(0, "USD") unless publisher?
-      total = properties.sum { |property|
-        property.estimated_property_revenue start_date, end_date
-      }
-      Money.new total, "USD"
+      properties.active.sum { |p| p.estimated_property_revenue(start_date, end_date) }
     end
 
-    def estimated_house_revenue(start_date = nil, end_date = nil)
-      return Money.new(0, "USD") unless publisher?
-      total = properties.sum { |property|
-        property.estimated_house_revenue start_date, end_date
-      }
-      Money.new total, "USD"
+    def estimated_house_revenue(start_date, end_date)
+      properties.active.sum { |p| p.estimated_house_revenue(start_date, end_date) }
     end
   end
 end
