@@ -46,16 +46,10 @@ module Campaigns
       (daily_remaining_budget(date).cents / daily_budget.cents.to_f) * 100
     end
 
-    def daily_consumed_budget_cache_key(date)
-      "#{cache_key}/daily_consumed_budget/#{date.iso8601}"
-    end
-
     # Returns a Money indicating how much budget has been spent for the passed date (or today)
     def daily_consumed_budget(date = nil)
       date = Date.coerce(date)
-      cents = Rails.cache.fetch(daily_consumed_budget_cache_key(date)) {
-        impressions.on(date).sum(:estimated_gross_revenue_fractional_cents).round
-      }
+      cents = impressions.on(date).sum(:estimated_gross_revenue_fractional_cents).round
       Money.new(cents, "USD")
     end
 
