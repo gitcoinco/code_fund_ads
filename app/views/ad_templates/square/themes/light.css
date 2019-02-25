@@ -3,9 +3,9 @@
   margin: 0 auto;
   background-color: hsl(0, 0%, 98%);
   border-radius: 4px;
-  box-shadow: 0 0 0 1px hsla(0, 0%, 0%, .1);
+  box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1);
   display: block;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: system-ui, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, Arial, sans-serif;
   line-height: 1.5;
   margin-bottom: 20px;
   overflow: hidden;
@@ -41,11 +41,11 @@
   display: block;
   padding: 0 1em 1em 1em;
   text-decoration: none;
-  color: hsla(0, 0%, 0%, .8);
+  color: hsla(0, 0%, 0%, 0.8);
 }
 
 #cf .cf-powered-by {
-  background-color: hsla(0, 0%, 0%, .05);
+  background-color: hsla(0, 0%, 0%, 0.05);
   text-align: center;
   display: block;
   font-size: 9px;
@@ -54,7 +54,7 @@
   line-height: 2.2;
   padding: 10px auto;
   text-transform: uppercase;
-  color: hsla(0, 0%, 0%, .8);
+  color: hsla(0, 0%, 0%, 0.8);
   text-decoration: none;
 }
 
