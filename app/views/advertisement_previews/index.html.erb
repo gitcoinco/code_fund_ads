@@ -2,6 +2,7 @@
 <head>
   <style>
   * { font-family: system-ui; }
+  body { background-color: #cec7c1; }
   li { margin-bottom: 5px; }
   </style>
 </head>
@@ -9,7 +10,7 @@
   <h1>Preview ads for all active campaigns</h1>
   <ul>
     <% @campaigns.each do |campaign| %>
-      <li><%= link_to "Preview ads for #{campaign.id}: #{campaign.name}", advertisement_preview_path(campaign) %></li>
+      <li><%= link_to "Preview ads for #{campaign.organization.name} - #{campaign.id}: #{campaign.name}", advertisement_preview_path(campaign) %></li>
     <% end %>
   </ul>
 </body>
