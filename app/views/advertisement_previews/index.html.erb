@@ -1,0 +1,15 @@
+<html>
+<head>
+  <style>
+  * { font-family: system-ui; }
+  li { margin-bottom: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Preview ads for all active campaigns</h1>
+  <ul>
+    <% @campaigns.each do |campaign| %>
+      <li><%= link_to "Preview ads for #{campaign.id}: #{campaign.name}", advertisement_preview_path(campaign) %></li>
+    <% end %>
+  </ul>
+</body>

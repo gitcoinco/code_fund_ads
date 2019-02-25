@@ -1,10 +1,12 @@
 class AdvertisementPreviewsController < ApplicationController
   layout false
-  before_action :set_property
+  before_action :authenticate_administrator!
 
-  private
+  def index
+    @campaigns = Campaign.active.order(:id)
+  end
 
-  def set_property
-    @property = Property.find(params[:property_id])
+  def show
+    @campaign = Campaign.find(params[:campaign_id])
   end
 end

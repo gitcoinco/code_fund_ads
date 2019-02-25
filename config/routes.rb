@@ -116,7 +116,6 @@ Rails.application.routes.draw do
     resources :property_campaigns, only: [:index], path: "/campaigns"
     resources :versions, only: [:index], as: :property_versions, path: "/revisions"
     resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { [:js, :html, :json].any? req.format }
-    resource :advertisement_previews, only: [:show], path: "/preview" if Rails.env.development?
     resources :comments, only: [:index], as: :property_comments
     resources :events, only: [:index], as: :property_events
   end
@@ -144,6 +143,8 @@ Rails.application.routes.draw do
   resource :newsletter_subscription, only: [:create]
   resources :advertisers, only: [:index, :create]
   resources :publishers, only: [:index, :create]
+
+  resources :advertisement_previews, param: :campaign_id, only: [:index, :show], path: "ad-previews"
 
   # IMPORTANT: leave as last route so it doesn't override others
   resources :pages, only: [:show], path: "/"
