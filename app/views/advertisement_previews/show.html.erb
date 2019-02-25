@@ -1,15 +1,59 @@
-<h1>Preview</h1>
-<h2><%= @property.scoped_name %></h2>
+<html>
+<head>
+  <style>
+  body { background-color: #cec7c1; }
+  h1, h2, p { font-family: system-ui; margin: 10px; }
+  .ad { border: solid 1px black; position: relative; height: 300px; width: 600px; margin: 20px; float: left; transform: translateZ(0); }
+  .error { border: solid 1px darkred; color: darkred; }
+  </style>
+</head>
+<body>
 
-<hr>
+  <h1>Previewing ads for <%= @campaign.organization.name %>: <%= @campaign.name %></h1>
+  <p>
+    <%= link_to "Back", :back %> ∙
+    <%= link_to "Edit Campaign", edit_campaign_path(@campaign) %> ∙
+    <%= link_to "Edit Creative", edit_creative_path(@campaign.creative) %>
+  </p>
 
-<div id="codefund">No ads available</div>
-<%= javascript_include_tag advertisements_path(params[:property_id]), async: true %>
-
-<hr>
-
-<ul>
-  <% Property.where(ad_template: "default", ad_theme: "light").each do |property| %>
-    <%= tag.li link_to(property.scoped_name, advertisement_previews_path(property)) %>
+  <% ENUMS::AD_TEMPLATES.keys.each do |template_name| %>
+    <% ENUMS::AD_THEMES.keys.each do |theme_name| %>
+      <%
+        @num ||= 0
+        @num += 1
+        template_path = "/ad_templates/#{template_name}/show.html.erb"
+        theme_path = "/ad_templates/#{template_name}/themes/#{theme_name}.css"
+        template = controller.render_to_string(template: template_path, layout: false) rescue nil
+        theme = theme_name == "unstyled" ? "" : controller.render_to_string(template: theme_path, layout: false) rescue nil
+      %>
+      <% if template.nil? %>
+        <div class="error">
+          <h2><%= @num %>. <%= template_name %> + <%= theme_name %></h2>
+          <p>NOT FOUND <%= template_path %></p>
+        </div>
+      <% elsif theme.nil? %>
+        <div class="ad error">
+          <h2><%= @num %>. <%= template_name %> + <%= theme_name %></h2>
+          <p>NOT FOUND <%= theme_path %></p>
+        </div>
+      <% else %>
+        <%
+          formatted_code = Premailer.new(
+            template,
+            with_html_string: true,
+            html_fragment: true,
+            css_string: theme,
+            output_encoding: "utf-8",
+            adapter: :nokogiri_fast
+          ).to_inline_css.squish
+        %>
+        <div class="ad">
+          <h2><%= @num %>. <%= template_name %> + <%= theme_name %></h2>
+          <%= formatted_code.html_safe %>
+        </div>
+      <% end %>
+    <% end %>
   <% end %>
-</ul>
+
+</body>
+</html>
