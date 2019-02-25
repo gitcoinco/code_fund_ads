@@ -47,10 +47,15 @@ module Campaigns
     end
 
     # Returns a Money indicating how much budget has been spent for the passed date (or today)
+    # Cached for 10 minutes if date is nil, yesterday, or today
+    # Cached indefinitely if date is before yesterday
     def daily_consumed_budget(date = nil)
       date = Date.coerce(date)
-      cents = impressions.on(date).sum(:estimated_gross_revenue_fractional_cents).round
-      Money.new(cents, "USD")
+      cache_key = "#{cache_key}/daily_consumed_budget/#{date.cache_key(minutes_cached: 10)}"
+      fractional_cents = Rails.cache.fetch(cache_key) {
+        impressions.on(date).sum(:estimated_gross_revenue_fractional_cents)
+      }
+      Money.new(fractional_cents.to_f.round, "USD")
     end
 
     # Returns a boolean indicating if the campaign has available budget for the passed date (or today)
