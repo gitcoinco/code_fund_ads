@@ -6,7 +6,11 @@ module Campaigns
 
     # Returns a Money indicating how much budget has been spent
     def total_consumed_budget
-      ecpm * total_impressions_per_mille
+      key = "#{cache_key}/total_consumed_budget/#{Date.current.cache_key(minutes_cached: 10)}"
+      fractional_cents = Rails.cache.fetch(key) {
+        impressions.sum(:estimated_gross_revenue_fractional_cents)
+      }
+      Money.new(fractional_cents.to_f.round, "USD")
     end
 
     # Returns a Money indicating how much budget remains
