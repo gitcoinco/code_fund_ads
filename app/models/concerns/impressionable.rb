@@ -7,7 +7,7 @@ module Impressionable
   DAILY_CLICKS_COUNT_KEY = "daily_clicks_count".freeze
 
   def total_impressions_count_cache_key
-    "#{cache_key}/#{TOTAL_IMPRESSIONS_COUNT_KEY}"
+    "#{cache_key}/#{TOTAL_IMPRESSIONS_COUNT_KEY}/#{Date.current.cache_key minutes_cached: 10}"
   end
 
   def total_impressions_count(start_date = nil, end_date = nil)
@@ -20,7 +20,7 @@ module Impressionable
   end
 
   def daily_impressions_count_cache_key(date)
-    "#{cache_key}/#{DAILY_IMPRESSIONS_COUNT_KEY}/#{date.iso8601}"
+    "#{cache_key}/#{DAILY_IMPRESSIONS_COUNT_KEY}/#{Date.coerce(date).cache_key minutes_cached: 10}"
   end
 
   def daily_impressions_count(date = nil)

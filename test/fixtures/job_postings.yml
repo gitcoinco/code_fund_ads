@@ -62,3 +62,4 @@ one:
   start_date: <%= Date.today %>
   end_date: <%= Date.today + 30.days %>
   company_email: "test@example.com"
+  job_type: full_time
