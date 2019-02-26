@@ -3,7 +3,9 @@
   <style>
   body { background-color: #cec7c1; }
   h1, h2, p { font-family: system-ui; margin: 10px; }
-  .ad { border: solid 1px black; position: relative; height: 300px; width: 600px; margin: 20px; float: left; transform: translateZ(0); }
+  .ad { border: solid 1px black; position: relative; height: 450px; width: 600px; margin: 20px; float: left; transform: translateZ(0); }
+  .ad.light { background: #f0eeec; }
+  .ad.dark { background: #96877a; }
   .error { border: solid 1px darkred; color: darkred; }
   </style>
 </head>
@@ -47,7 +49,7 @@
             adapter: :nokogiri_fast
           ).to_inline_css.squish
         %>
-        <div class="ad">
+      <div class="ad <%= theme_name %>">
           <h2><%= @num %>. <%= template_name %> + <%= theme_name %></h2>
           <%= formatted_code.html_safe %>
         </div>
