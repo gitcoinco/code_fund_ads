@@ -10,17 +10,17 @@
   <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
     <%= render "/@shared/widgets/stat_card",
       label: "Impressions",
-      value: number_with_delimiter(@campaign.total_impressions_count) %>
+      value: number_with_delimiter(@campaign.total_impressions_count(@start_date, @end_date)) %>
     <%= render "/@shared/widgets/stat_card",
       label: "Clicks",
-      value: number_with_delimiter(@campaign.total_clicks_count) %>
+      value: number_with_delimiter(@campaign.total_clicks_count(@start_date, @end_date)) %>
     <%= render "/@shared/widgets/stat_card",
       label: "CTR",
-      value: number_to_percentage(@campaign.total_click_rate, precision: 2) %>
+      value: number_to_percentage(@campaign.total_click_rate(@start_date, @end_date), precision: 2) %>
   </div>
 
   <hr>
-  
+
   <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
     <%= render "/@shared/widgets/stat_card",
       label: "Total Budget",

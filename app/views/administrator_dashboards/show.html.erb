@@ -12,57 +12,59 @@
     icon: "fas fa-tachometer" %>
 <% end %>
 
-<main id="content" role="main" class="bg-light">
-  <div class="container space-1">
-    <div class="card-deck d-block d-lg-flex card-lg-gutters-2 mb-3">
-      <%= render "/@shared/widgets/stat_card",
-        label: "Impressions",
-        value: number_with_delimiter(@impressions_count),
-        icon: "fas fa-eye",
-        color: "btn-soft-info" %>
-      <%= render "/@shared/widgets/stat_card",
-        label: "Clicks",
-        value: number_with_delimiter(@clicks_count),
-        icon: "fas fa-bullseye-pointer",
-        color: "btn-soft-primary" %>
-      <%= render "/@shared/widgets/stat_card",
-        label: "CTR",
-        value: number_to_percentage(@average_click_rate, precision: 2),
-        icon: "fas fa-percentage",
-        color: "btn-soft-warning" %>
-    </div>
+<% cache [@start_date.cache_key, @end_date.cache_key] do %>
+  <main id="content" role="main" class="bg-light">
+    <div class="container space-1">
+      <div class="card-deck d-block d-lg-flex card-lg-gutters-2 mb-3">
+        <%= render "/@shared/widgets/stat_card",
+          label: "Impressions",
+          value: number_with_delimiter(@impressions.count),
+          icon: "fas fa-eye",
+          color: "btn-soft-info" %>
+        <%= render "/@shared/widgets/stat_card",
+          label: "Clicks",
+          value: number_with_delimiter(@impressions.clicked.count),
+          icon: "fas fa-bullseye-pointer",
+          color: "btn-soft-primary" %>
+        <%= render "/@shared/widgets/stat_card",
+          label: "CTR",
+          value: number_to_percentage(click_rate(@impressions), precision: 2),
+          icon: "fas fa-percentage",
+          color: "btn-soft-warning" %>
+      </div>
 
-    <div class="card-deck d-block d-lg-flex card-lg-gutters-2 mb-3">
-      <%= render "/@shared/widgets/stat_card",
-        label: "Gross Revenue",
-        value: @total_revenue.format,
-        icon: "fas fa-file-invoice-dollar",
-        color: "btn-soft-success" %>
-      <%= render "/@shared/widgets/stat_card",
-        label: "Distributions",
-        value: @total_revenue.format,
-        icon: "fas fa-envelope-open-dollar",
-        color: "btn-soft-danger" %>
-      <%= render "/@shared/widgets/stat_card",
-        label: "Gross Profit",
-        value: @total_profit.format,
-        icon: "fas fa-piggy-bank",
-        color: "btn-soft-primary" %>
-    </div>
+      <div class="card-deck d-block d-lg-flex card-lg-gutters-2 mb-3">
+        <%= render "/@shared/widgets/stat_card",
+          label: "Gross Revenue",
+          value: Money.new(@impressions.sum(:estimated_gross_revenue_fractional_cents).round, "USD").format,
+          icon: "fas fa-file-invoice-dollar",
+          color: "btn-soft-success" %>
+        <%= render "/@shared/widgets/stat_card",
+          label: "Distributions",
+          value: Money.new(0).format,
+          icon: "fas fa-envelope-open-dollar",
+          color: "btn-soft-danger" %>
+        <%= render "/@shared/widgets/stat_card",
+          label: "Gross Profit",
+          value: Money.new(@impressions.sum(:estimated_house_revenue_fractional_cents).round, "USD").format,
+          icon: "fas fa-piggy-bank",
+          color: "btn-soft-primary" %>
+      </div>
 
-    <div class="text-center mb-3 mt-5">
-      <span class="u-divider u-divider--xs u-divider--text">Active Campaigns</span>
-    </div>
+      <div class="text-center mb-3 mt-5">
+        <span class="u-divider u-divider--xs u-divider--text">Active Premium Campaigns</span>
+      </div>
 
-    <div class="mb-7" id="dashboard-advertiser-cards">
-      <div class="card-deck d-block d-lg-flex card-lg-gutters-2">
-        <% @active_campaigns.each.with_index do |campaign, index| %>
-          <%= render "/campaigns/card", campaign: campaign %>
-          <% if (index + 1) % 3 == 0 %>
-            </div><div class="card-deck d-block d-lg-flex card-lg-gutters-2">
+      <div class="mb-7" id="dashboard-advertiser-cards">
+        <div class="card-deck d-block d-lg-flex card-lg-gutters-2">
+          <% @active_campaigns.each.with_index do |campaign, index| %>
+            <%= render "/campaigns/card", campaign: campaign %>
+            <% if (index + 1) % 3 == 0 %>
+              </div><div class="card-deck d-block d-lg-flex card-lg-gutters-2">
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
+<% end %>
