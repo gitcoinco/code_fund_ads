@@ -20,7 +20,7 @@ module Impressionable
   end
 
   def daily_impressions_count_cache_key(date)
-    "#{cache_key}/#{DAILY_IMPRESSIONS_COUNT_KEY}/#{date.cache_key}"
+    "#{cache_key}/#{DAILY_IMPRESSIONS_COUNT_KEY}/#{Date.coerce(date).cache_key minutes_cached: 10}"
   end
 
   def daily_impressions_count(date = nil)
