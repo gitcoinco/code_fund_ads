@@ -183,12 +183,14 @@ class AdvertisementsController < ApplicationController
 
   def set_campaign
     campaign_relation = Campaign.active.available_on(Date.current)
-    campaign_relation = campaign_relation.targeted_country_code(country_code)
-    campaign_relation = campaign_relation.targeted_province_code(province_code)
     campaign_relation = campaign_relation.where(weekdays_only: false) if Date.current.on_weekend?
     campaign_relation = campaign_relation.where(core_hours_only: false) if prohibited_hour?
+    geo_targeted_campaign_relation = campaign_relation
+      .targeted_country_code(country_code)
+      .targeted_province_code(province_code)
 
-    @campaign = get_premium_campaign(campaign_relation)
+    @campaign = get_premium_campaign(geo_targeted_campaign_relation)
+    @campaign ||= get_fallback_campaign(geo_targeted_campaign_relation)
     @campaign ||= get_fallback_campaign(campaign_relation)
 
     unless @campaign
