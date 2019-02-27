@@ -30,7 +30,7 @@ module Extensions
         return date.iso8601 if date < 1.day.ago.to_date
         minute_groups = (1..60).each_slice(minutes_cached).to_a
         index = minute_groups.index { |set| set.include?(Time.current.min) }
-        "#{date.iso8601}/#{Time.current.hour}#{index}"
+        "#{date.iso8601}/#{Time.current.hour}#{minutes_cached}#{index}"
       end
     end
 
