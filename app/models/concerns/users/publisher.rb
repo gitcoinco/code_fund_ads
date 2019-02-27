@@ -3,7 +3,6 @@ module Users
     extend ActiveSupport::Concern
 
     included do
-      has_many :impressions_as_publisher, class_name: "Impression", foreign_key: "publisher_id"
       has_many :properties
     end
 

@@ -5,7 +5,6 @@ module Users
     included do
       has_many :campaigns
       has_many :creatives
-      has_many :impressions_as_advertiser, class_name: "Impression", foreign_key: "advertiser_id"
     end
 
     def advertiser?
