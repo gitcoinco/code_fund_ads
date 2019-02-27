@@ -283,7 +283,7 @@ class AdvertisementsController < ApplicationController
         output_encoding: "utf-8",
         adapter: :nokogiri_fast
       ).to_inline_css.squish
-      formatted_code = formatted_code.gsub(/\'/, "\\\\'") unless request.format.html?
+      formatted_code = formatted_code.gsub(/\'/, "&quot;") unless request.format.html?
       formatted_code
     end
   end
