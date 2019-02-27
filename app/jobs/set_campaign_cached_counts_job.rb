@@ -8,11 +8,11 @@ class SetCampaignCachedCountsJob < ApplicationJob
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     Campaign.active.available_on(Date.current).find_each do |campaign|
       # impressions
-      Rails.cache.write campaign.total_impressions_count_cache_key, campaign.impressions.count
+      # Rails.cache.write campaign.total_impressions_count_cache_key, campaign.impressions.count
       Rails.cache.write campaign.daily_impressions_count_cache_key(Date.current), campaign.impressions.on(Date.current).count
 
       # clicks
-      Rails.cache.write campaign.total_clicks_count_cache_key, campaign.impressions.clicked.count
+      # Rails.cache.write campaign.total_clicks_count_cache_key, campaign.impressions.clicked.count
       Rails.cache.write campaign.daily_clicks_count_cache_key(Date.current), campaign.impressions.on(Date.current).clicked.count
     end
   end
