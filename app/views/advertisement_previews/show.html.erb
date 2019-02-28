@@ -2,7 +2,8 @@
 <head>
   <style>
   h1, h2, p { font-family: system-ui; margin: 10px; }
-  .ad { border: solid 1px black; position: relative; height: 450px; width: 600px; margin: 20px; float: left; transform: translateZ(0); }
+  iframe { border: none; margin: 0px; height: 450px; width: 600px; }
+  .ad { border: solid 1px black; margin: 20px; padding: 0; float: left; }
   .ad.light { background: #dcdcdc; }
   .ad.dark { background: #1d1d1d; }
   .ad.dark h2 { color: #fff; }
@@ -29,7 +30,7 @@
         theme = theme_name == "unstyled" ? "" : controller.render_to_string(template: theme_path, layout: false) rescue nil
       %>
       <% if template.nil? %>
-        <div class="error">
+        <div class="ad error">
           <h2><%= @num %>. <%= template_name %> + <%= theme_name %></h2>
           <p>NOT FOUND <%= template_path %></p>
         </div>
@@ -39,19 +40,9 @@
           <p>NOT FOUND <%= theme_path %></p>
         </div>
       <% else %>
-        <%
-          formatted_code = Premailer.new(
-            template,
-            with_html_string: true,
-            html_fragment: true,
-            css_string: theme,
-            output_encoding: "utf-8",
-            adapter: :nokogiri_fast
-          ).to_inline_css.squish
-        %>
-      <div class="ad <%= theme_name %>">
+        <div class="ad <%= theme_name %>">
           <h2><%= @num %>. <%= template_name %> + <%= theme_name %></h2>
-          <%= formatted_code.html_safe %>
+          <%= tag.iframe src: advertisement_preview_iframe_path(@campaign, template: template_name, theme: theme_name) %>
         </div>
       <% end %>
     <% end %>

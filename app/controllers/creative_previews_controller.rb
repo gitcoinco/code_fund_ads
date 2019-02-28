@@ -16,7 +16,7 @@ class CreativePreviewsController < ApplicationController
     @template_name = template_name
     @theme_name = theme_name
 
-    @preview_html = render_advertisement_code(template, theme, html: false)
+    @preview_html = render_advertisement_html(template, theme, html: false)
 
     return render html: @preview_html.html_safe if params[:html_only].present?
 

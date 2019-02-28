@@ -3,7 +3,7 @@ module AdRenderable
 
   protected
 
-  def render_advertisement_code(template, theme, html: false)
+  def render_advertisement_html(template, theme, html: false)
     formatted_code = Premailer.new(
       template,
       with_html_string: true,

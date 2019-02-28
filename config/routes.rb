@@ -145,6 +145,11 @@ Rails.application.routes.draw do
   resources :publishers, only: [:index, :create]
 
   resources :advertisement_previews, param: :campaign_id, only: [:index, :show], path: "ad-previews"
+  # NOTE: this is non restful and bad practice (don't do this)
+  #       this route is passable for now since it's an admin only page supporting an edge case
+  scope "/ad-previews/:campaign_id" do
+    resource :iframe, only: [:show], to: "advertisement_previews#iframe", as: :advertisement_preview_iframe
+  end
 
   # IMPORTANT: leave as last route so it doesn't override others
   resources :pages, only: [:show], path: "/"
