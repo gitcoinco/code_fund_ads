@@ -8,8 +8,8 @@
 <body>
   <h1>Preview ads for all active campaigns</h1>
   <ul>
-    <% @campaigns.each do |campaign| %>
-      <li><%= link_to "Preview ads for #{campaign.organization.name} - #{campaign.id}: #{campaign.name}", advertisement_preview_path(campaign) %></li>
+    <% @campaigns.each_with_index do |campaign, index| %>
+      <li><%= index + 1 %>. <%= link_to "#{campaign.id}: Preview ads for #{campaign.organization.name} #{campaign.name}", advertisement_preview_path(campaign) %></li>
     <% end %>
   </ul>
 </body>
