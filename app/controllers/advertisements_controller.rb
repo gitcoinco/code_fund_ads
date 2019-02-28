@@ -3,7 +3,7 @@ class AdvertisementsController < ApplicationController
 
   protect_from_forgery except: :show
   before_action :set_cors_headers
-  before_action :set_cache_headers
+  before_action :set_no_caching_headers
   # before_action :apply_visitor_rate_limiting
   before_action :set_campaign
   before_action :set_virtual_impression_id, if: -> { @campaign.present? }
@@ -275,16 +275,7 @@ class AdvertisementsController < ApplicationController
 
   def render_advertisement
     Rails.cache.fetch(advertisement_cache_key) do
-      formatted_code = Premailer.new(
-        template,
-        with_html_string: true,
-        html_fragment: true,
-        css_string: theme,
-        output_encoding: "utf-8",
-        adapter: :nokogiri_fast
-      ).to_inline_css.squish
-      formatted_code = formatted_code.gsub(/\'/, "&quot;") unless request.format.html?
-      formatted_code
+      render_advertisement_html(template, theme, html: request.format.html?)
     end
   end
 
@@ -303,19 +294,6 @@ class AdvertisementsController < ApplicationController
       creative_id: @campaign.creative_id,
       country_code: country_code.to_s,
     })
-  end
-
-  def set_cors_headers
-    response.headers["Access-Control-Allow-Origin"] = "*"
-    response.headers["Access-Control-Allow-Methods"] = "POST, PUT, DELETE, GET, OPTIONS"
-    response.headers["Access-Control-Request-Method"] = "*"
-    response.headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  end
-
-  def set_cache_headers
-    response.headers["Cache-Control"] = "no-cache, no-store"
-    response.headers["Pragma"] = "no-cache"
-    response.headers["Expires"] = 1.day.ago.httpdate
   end
 
   def track_event(name, data)

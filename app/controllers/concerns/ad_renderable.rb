@@ -3,6 +3,19 @@ module AdRenderable
 
   protected
 
+  def render_advertisement_html(template, theme, html: false)
+    formatted_code = Premailer.new(
+      template,
+      with_html_string: true,
+      html_fragment: true,
+      css_string: theme,
+      output_encoding: "utf-8",
+      adapter: :nokogiri_fast
+    ).to_inline_css.squish
+    formatted_code = formatted_code.gsub(/\'/, "&quot;") unless html
+    formatted_code
+  end
+
   # Ad Template ----------------------------------------------------------------------------------------------
 
   def template_name

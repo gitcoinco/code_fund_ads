@@ -16,14 +16,7 @@ class CreativePreviewsController < ApplicationController
     @template_name = template_name
     @theme_name = theme_name
 
-    @preview_html = Premailer.new(
-      template,
-      with_html_string: true,
-      html_fragment: true,
-      css_string: theme,
-      output_encoding: "utf-8",
-      adapter: :nokogiri_fast
-    ).to_inline_css.squish
+    @preview_html = render_advertisement_html(template, theme, html: false)
 
     return render html: @preview_html.html_safe if params[:html_only].present?
 

@@ -16,6 +16,19 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def set_cors_headers
+    response.headers["Access-Control-Allow-Origin"] = "*"
+    response.headers["Access-Control-Allow-Methods"] = "POST, PUT, DELETE, GET, OPTIONS"
+    response.headers["Access-Control-Request-Method"] = "*"
+    response.headers["Access-Control-Allow-Headers"] = "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  end
+
+  def set_no_caching_headers
+    response.headers["Cache-Control"] = "no-cache, no-store"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = 1.day.ago.httpdate
+  end
+
   # See https://github.com/kpumuk/meta-tags#allowed-options-for-display_meta_tags-and-set_meta_tags-methods
   def set_meta_tag_data
     set_meta_tags(
