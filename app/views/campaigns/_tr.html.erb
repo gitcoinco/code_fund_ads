@@ -6,18 +6,19 @@
     </td>
   <% end %>
   <td class="align-middle text-secondary"><%= campaign.end_date.strftime("%b %-d, %Y") %></td>
-  <td class="align-middle text-secondary text-right">
-    <small class="d-block"><%= campaign.daily_budget.format %> / <%= campaign.total_budget.format %></small>
-    <div class="js-hr-progress progress" style="height: 10px; background-color: #e7e7e8;">
-      <div class="js-hr-progress-bar progress-bar bg-success" role="progressbar" style="width: <%= campaign.percentage_complete_by_daily_budget %>%;" aria-valuenow="<%= campaign.percentage_complete_by_daily_budget %>" aria-valuemin="0" aria-valuemax="100"></div>
-    </div>
-  </td>
+  <%= tag.td class: "align-middle text-secondary text-right",
+    title: campaign.premium? ? "#{campaign.total_consumed_budget.format} spent out of #{campaign.total_budget.format}" : nil,
+    data: { toggle: campaign.premium? ? "tooltip" : nil } do %>
+    <% if campaign.premium? %>
+      <div class="js-hr-progress progress" style="height: 10px; background-color: #e7e7e8;">
+        <div class="js-hr-progress-bar progress-bar bg-success" role="progressbar" style="width: <%= campaign.total_consumed_budget_percentage %>%;"></div>
+      </div>
+    <% end %>
+  <% end %>
   <td class="align-middle text-<%= campaign_status_color(campaign.status) %>">
     <span class="fas fa-circle small mr-1"></span>
     <%= campaign.status.humanize %>
   </td>
-  <td><%= sparkline campaign.sparkline_impressions(@start_date, @end_date) %></td>
-  <td class="align-middle text-secondary text-right"><%= number_to_percentage campaign.click_rate(@start_date, @end_date), precision: 2 %></td>
   <td class="align-middle text-right text-secondary">
     <%= render "/@shared/table_buttons/edit", link: edit_campaign_path(campaign) %>
   </td>
