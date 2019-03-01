@@ -12,7 +12,7 @@ module AdRenderable
       output_encoding: "utf-8",
       adapter: :nokogiri_fast
     ).to_inline_css.squish
-    formatted_code = formatted_code.gsub(/\'/, "&quot;") unless html
+    formatted_code = formatted_code.gsub(/\'/, "\\\\'") unless html
     formatted_code
   end
 

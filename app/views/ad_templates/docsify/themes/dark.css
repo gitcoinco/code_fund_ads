@@ -25,7 +25,7 @@
 }
 
 #cf .cf-text {
-  color: #333;
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
 }
 
@@ -40,7 +40,7 @@
   line-height: 2.2;
   padding: 10px auto;
   text-transform: uppercase;
-  color: hsla(0, 0%, 0%, 0.8);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
 }
 
@@ -49,7 +49,7 @@
 }
 
 #cf .clearfix::after {
-  content: "";
+  content: '';
   clear: both;
   display: table;
 }
