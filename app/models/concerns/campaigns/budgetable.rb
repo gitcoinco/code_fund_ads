@@ -18,6 +18,18 @@ module Campaigns
       total_budget - total_consumed_budget
     end
 
+    # Returns a Float indicating how much total budget percentage has been consumed
+    def total_consumed_budget_percentage(date = nil)
+      return 0.0 unless total_budget > 0
+      (total_consumed_budget.cents / total_budget.cents.to_f) * 100
+    end
+
+    # Returns a Float indicating how much total budget percentage remains
+    def total_remaining_budget_percentage(date = nil)
+      return 0.0 unless total_budget > 0
+      (total_remaining_budget.cents / total_budget.cents.to_f) * 100
+    end
+
     # Returns a boolean indicating if the campaign has available budget
     def budget_available?
       total_consumed_budget < total_budget

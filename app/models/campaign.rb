@@ -203,7 +203,7 @@ class Campaign < ApplicationRecord
   end
 
   def impressions
-    Impression.partitioned(user_id, start_date.advance(months: -3), end_date.advance(months: 3)).where(campaign: self)
+    Impression.partitioned(user_id, start_date.advance(months: -1), end_date.advance(months: 1)).where(campaign: self)
   end
 
   # Returns a relation for properties that have rendered this campaign

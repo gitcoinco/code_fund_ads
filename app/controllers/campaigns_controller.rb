@@ -8,7 +8,7 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
   def index
-    campaigns = Campaign.order(order_by).includes(:user, :creative)
+    campaigns = Campaign.order(order_by).includes(:user, :creative, :organization)
     if authorized_user.can_admin_system?
       campaigns = campaigns.where(user: @user) if @user
     else
@@ -84,7 +84,7 @@ class CampaignsController < ApplicationController
 
   def set_campaign_search
     @campaign_search = GlobalID.parse(session[:campaign_search]).find if session[:campaign_search].present?
-    @campaign_search ||= CampaignSearch.new
+    @campaign_search ||= CampaignSearch.new(statuses: ["active"])
   end
 
   def set_campaign
