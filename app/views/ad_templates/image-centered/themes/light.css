@@ -2,7 +2,7 @@
   max-width: 280px;
   margin: 0 auto;
   border: none;
-  background-color: rgba(255,255,255,0.9);
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 #cf .cf-wrapper {
@@ -11,7 +11,7 @@
   font-size: 14px;
   line-height: 1.4;
   text-align: center;
-  font-family: system, 'Helvetica Neue', Helvetica, Arial;
+  font-family: Helvetica, Arial;
   margin-left: auto;
   margin-right: auto;
 }
@@ -53,7 +53,7 @@
   margin-top: 5px;
   font-size: 11px;
   display: block;
-  color: rgba(0,0,0,0.7);
+  color: rgba(0, 0, 0, 0.7);
   text-decoration: none;
   text-align: center;
 }
