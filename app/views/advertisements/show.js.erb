@@ -4,12 +4,18 @@
     <% if @advertisement_html -%>
 
     function trackUplift() {
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', '<%= @uplift_url.html_safe %>');
-      xhr.send();
+      var url = '<%= @uplift_url.html_safe %>';
+      try {
+        console.log('CodeFund is recording uplift. ' + url);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url);
+        xhr.send();
+      } catch (e) {
+        console.log('CodeFund was unable to record uplift! ' + e.message);
+      }
     };
 
-    function detectUplift(count = 1) {
+    function detectUplift(count) {
       var url = '<%= ENV["ADBLOCK_PLUS_PIXEL_URL"].to_s.strip %>';
       if (url.length === 0) { return; }
       var xhr = new XMLHttpRequest();
@@ -34,7 +40,7 @@
       targetElement.querySelector('a[data-target="powered_by_url"]').href = '<%= @powered_by_url.html_safe %>';
       targetElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '<%= @campaign_url.html_safe %>'; });
       evt.detail = { status: 'ok', house: <%= @campaign.fallback? %> };
-      detectUplift();
+      detectUplift(1);
     } catch (e) {
       console.log('CodeFund detected an error! Please verify an element exists with id="codefund". ' + e.message);
       evt.detail = { status: 'error', message: e.message };
