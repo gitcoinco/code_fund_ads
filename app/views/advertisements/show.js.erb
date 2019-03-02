@@ -4,8 +4,8 @@
     <% if @advertisement_html -%>
 
     function trackUplift() {
-      var url = '<%= @uplift_url.html_safe %>';
       try {
+        var url = '<%= @uplift_url.html_safe %>';
         console.log('CodeFund is recording uplift. ' + url);
         var xhr = new XMLHttpRequest();
         xhr.open('POST', url);
@@ -22,9 +22,11 @@
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
           if (xhr.status >= 200 && xhr.status < 300) {
-            if (count === 1) { detectUplift(2); }
-          } else {
-            if (count === 2) { trackUplift(); }
+            if (count === 1) {
+              detectUplift(2);
+            } else if (count === 2) {
+              trackUplift();
+            }
           }
         }
       };
