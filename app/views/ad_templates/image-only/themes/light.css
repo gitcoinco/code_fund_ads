@@ -22,13 +22,13 @@
 }
 
 #cf .cf-header:before {
-  content: '—';
+  content: "—";
   margin: 0 0.5em;
   opacity: 0.5;
 }
 
 #cf .cf-header:after {
-  content: '—';
+  content: "—";
   margin: 0 0.5em;
   opacity: 0.5;
 }
