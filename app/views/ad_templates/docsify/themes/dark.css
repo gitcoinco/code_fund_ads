@@ -25,13 +25,17 @@
 }
 
 #cf .cf-text {
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
+}
+
+#cf .cf-text strong {
+  color: rgba(255, 255, 255, 1);
 }
 
 #cf .cf-powered-by {
   margin-top: 8px;
-  background-color: hsla(0, 0%, 0%, 0.05);
+  background-color: rgba(255, 255, 255, 0.05);
   text-align: center;
   display: block;
   font-size: 9px;
@@ -49,7 +53,7 @@
 }
 
 #cf .clearfix::after {
-  content: '';
+  content: "";
   clear: both;
   display: table;
 }

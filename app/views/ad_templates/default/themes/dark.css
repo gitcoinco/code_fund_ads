@@ -28,8 +28,12 @@
 }
 
 #cf .cf-text {
-  color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
+}
+
+#cf .cf-text strong {
+  color: rgba(255, 255, 255, 1);
 }
 
 #cf .cf-powered-by {
