@@ -50,6 +50,7 @@ class Campaign < ApplicationRecord
   belongs_to :creative, optional: true
   belongs_to :user
   has_one :job_posting
+  has_many :impressions
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
@@ -200,10 +201,6 @@ class Campaign < ApplicationRecord
         ecpm: adjusted_ecpm(country.iso_code),
       }
     end
-  end
-
-  def impressions
-    Impression.partitioned(user_id, start_date.advance(months: -1), end_date.advance(months: 1)).where(campaign: self)
   end
 
   # Returns a relation for properties that have rendered this campaign
