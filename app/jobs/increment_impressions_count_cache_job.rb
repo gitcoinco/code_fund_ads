@@ -1,5 +1,5 @@
 class IncrementImpressionsCountCacheJob < ApplicationJob
-  queue_as :critical
+  queue_as :default
 
   # TODO: add protections to guard against multiple counts if errors occur
   def perform(impression)

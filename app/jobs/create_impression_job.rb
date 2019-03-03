@@ -41,7 +41,7 @@ class CreateImpressionJob < ApplicationJob
       longitude: ip_info&.location&.longitude
     )
 
-    IncrementImpressionsCountCacheJob.perform_now impression
+    IncrementImpressionsCountCacheJob.perform_later impression
     track_event({
       status: "success",
       campaign_id: campaign.id,
