@@ -19,6 +19,7 @@
     <%= javascript_pack_tag 'code_fund', 'data-turbolinks-track': 'reload' %>
   </head>
   <%= tag.body data: { filestack_key: ENV["FILESTACK_API_KEY"] } do %>
+    <%= content_for :render_async %>
     <%= render "/@shared/skippy" %>
     <%= render "/@shared/header" %>
 

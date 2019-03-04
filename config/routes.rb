@@ -151,6 +151,9 @@ Rails.application.routes.draw do
     resource :iframe, only: [:show], to: "advertisement_previews#iframe", as: :advertisement_preview_iframe
   end
 
+  # async content loaders
+  resource :async_remaining_budget, only: [:show]
+
   # IMPORTANT: leave as last route so it doesn't override others
   resources :pages, only: [:show], path: "/"
 end
