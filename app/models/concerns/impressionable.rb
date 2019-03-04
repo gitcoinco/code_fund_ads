@@ -1,31 +1,20 @@
 module Impressionable
   extend ActiveSupport::Concern
 
-  TOTAL_IMPRESSIONS_COUNT_KEY = "total_impressions_count".freeze
-  DAILY_IMPRESSIONS_COUNT_KEY = "daily_impressions_count".freeze
-  TOTAL_CLICKS_COUNT_KEY = "total_clicks_count".freeze
-  DAILY_CLICKS_COUNT_KEY = "daily_clicks_count".freeze
-
-  def total_impressions_count_cache_key
-    "#{cache_key}/#{TOTAL_IMPRESSIONS_COUNT_KEY}/#{Date.current.cache_key minutes_cached: 10}"
-  end
-
   def total_impressions_count(start_date = nil, end_date = nil)
     return daily_impressions_counts(start_date, end_date).sum if start_date && end_date
-    Rails.cache.fetch(total_impressions_count_cache_key) { impressions.count }.to_i
+    key = "#{cache_key}/#{__method__}/#{Date.current.cache_key minutes_cached: 15}"
+    Rails.cache.fetch(key) { impressions.count }.to_i
   end
 
   def total_impressions_per_mille
     total_impressions_count.to_i / 1_000.to_f
   end
 
-  def daily_impressions_count_cache_key(date)
-    "#{cache_key}/#{DAILY_IMPRESSIONS_COUNT_KEY}/#{Date.coerce(date).cache_key minutes_cached: 10}"
-  end
-
   def daily_impressions_count(date = nil)
     date = Date.coerce(date)
-    Rails.cache.fetch(daily_impressions_count_cache_key(date)) { impressions.on(date).count }.to_i
+    key = "#{cache_key}/#{__method__}/#{date.cache_key minutes_cached: 15}"
+    Rails.cache.fetch(key) { impressions.on(date).count }.to_i
   end
 
   def daily_impressions_counts(start_date = nil, end_date = nil)
@@ -40,21 +29,16 @@ module Impressionable
     daily_impressions_count(date).to_i / 1_000.to_f
   end
 
-  def total_clicks_count_cache_key
-    "#{cache_key}/#{TOTAL_CLICKS_COUNT_KEY}"
-  end
-
   def total_clicks_count(start_date = nil, end_date = nil)
     return daily_clicks_counts(start_date, end_date).sum if start_date && end_date
-    Rails.cache.fetch(total_clicks_count_cache_key) { impressions.clicked.count }
-  end
-
-  def daily_clicks_count_cache_key(date)
-    "#{cache_key}/#{DAILY_CLICKS_COUNT_KEY}/#{Date.coerce(date).iso8601}"
+    key = "#{cache_key}/#{__method__}/#{Date.current.cache_key minutes_cached: 15}"
+    Rails.cache.fetch(key) { impressions.clicked.count }
   end
 
   def daily_clicks_count(date = nil)
-    Rails.cache.fetch(daily_clicks_count_cache_key(date)) { impressions.on(date).clicked.count }.to_i
+    date = Date.coerce(date)
+    key = "#{cache_key}/#{__method__}/#{date.cache_key minutes_cached: 15}"
+    Rails.cache.fetch(key) { impressions.on(date).clicked.count }.to_i
   end
 
   def daily_clicks_counts(start_date = nil, end_date = nil)

@@ -19,8 +19,7 @@ class CreateClickJob < ApplicationJob
     return if impression.nil? || impression.clicked?
 
     clicked_at = Time.parse(clicked_at_string)
-    records_saved = Impression.partitioned(campaign.user, 1.day.ago, Date.current)
+    Impression.partitioned(campaign.user, 1.day.ago, Date.current)
       .where(id: impression_id).update_all(clicked_at: clicked_at, clicked_at_date: clicked_at.to_date)
-    IncrementClicksCountCacheJob.perform_now impression if records_saved > 0
   end
 end
