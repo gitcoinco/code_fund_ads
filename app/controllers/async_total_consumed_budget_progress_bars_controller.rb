@@ -1,0 +1,2 @@
+class AsyncTotalConsumedBudgetProgressBarsController < AsyncController
+end
