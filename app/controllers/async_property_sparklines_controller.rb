@@ -1,0 +1,2 @@
+class AsyncPropertySparklinesController < AsyncController
+end

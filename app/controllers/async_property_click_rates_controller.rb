@@ -1,0 +1,2 @@
+class AsyncPropertyClickRatesController < AsyncController
+end
