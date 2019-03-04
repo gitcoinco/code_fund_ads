@@ -10,9 +10,7 @@ class CreateDebitForCampaignAndDateJob < ApplicationJob
     campaign = Campaign.includes(:organization).available_on(date).find_by(id: campaign_id)
     return unless campaign
 
-    # ensure fresh numbers in the cache before running any calculations
-    Rails.cache.write campaign.daily_impressions_count_cache_key(date), campaign.impressions.on(date).count
-    amount = campaign.daily_consumed_budget(date)
+    amount = campaign.daily_consumed_budget(date, fresh: true)
     return unless amount > 0
 
     attrs = {
