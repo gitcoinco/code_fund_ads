@@ -8,11 +8,11 @@ class SetPropertyCachedCountsJob < ApplicationJob
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     Property.active.find_each do |property|
       # impressions
-      # Rails.cache.write property.total_impressions_count_cache_key, property.impressions.count
+      Rails.cache.write property.total_impressions_count_cache_key, property.impressions.count
       Rails.cache.write property.daily_impressions_count_cache_key(Date.current), property.impressions.on(Date.current).count
 
       # clicks
-      # Rails.cache.write property.total_clicks_count_cache_key, property.impressions.clicked.count
+      Rails.cache.write property.total_clicks_count_cache_key, property.impressions.clicked.count
       Rails.cache.write property.daily_clicks_count_cache_key(Date.current), property.impressions.on(Date.current).clicked.count
     end
   end
