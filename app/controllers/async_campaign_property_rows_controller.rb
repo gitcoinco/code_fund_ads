@@ -1,0 +1,2 @@
+class AsyncCampaignPropertyRowsController < AsyncController
+end
