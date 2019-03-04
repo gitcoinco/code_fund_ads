@@ -437,7 +437,7 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    standard (0.0.32)
+    standard (0.0.36)
       rubocop (>= 0.63)
     statsd-ruby (1.4.0)
     stimulus_reflex (0.2.0)
