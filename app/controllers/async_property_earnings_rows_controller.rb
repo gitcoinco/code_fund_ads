@@ -1,0 +1,2 @@
+class AsyncPropertyEarningsRowsController < AsyncController
+end
