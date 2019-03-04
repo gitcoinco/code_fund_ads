@@ -152,7 +152,9 @@ Rails.application.routes.draw do
   end
 
   # async content loaders
-  resource :async_remaining_budget, only: [:show]
+  resource :async_total_remaining_budget, only: [:show]
+  resource :async_total_remaining_budget_stat_card, only: [:show]
+  resource :async_total_consumed_budget_stat_card, only: [:show]
 
   # IMPORTANT: leave as last route so it doesn't override others
   resources :pages, only: [:show], path: "/"

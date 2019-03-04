@@ -1,0 +1,2 @@
+class AsyncTotalConsumedBudgetStatCardsController < AsyncController
+end

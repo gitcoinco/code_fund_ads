@@ -1,7 +1,7 @@
-class AsyncRemainingBudgetsController < ApplicationController
+class AsyncController < ApplicationController
   layout false
   before_action :authenticate_user!
-  before_action :set_campaign
+  before_action :set_campaign, if: -> { params[:campaign_id] }
 
   private
 

@@ -39,7 +39,6 @@ class Campaign < ApplicationRecord
   include Campaigns::Operable
   include Campaigns::Predictable
   include Campaigns::Presentable
-  include Campaigns::Recommendable
   include Eventable
   include Impressionable
   include Organizationable
