@@ -6,7 +6,7 @@ module Campaigns
 
     # Returns a Money indicating how much budget has been spent
     def total_consumed_budget
-      key = "#{cache_key}/total_consumed_budget/#{Date.current.cache_key(minutes_cached: 10)}"
+      key = "#{cache_key}/total_consumed_budget/#{Date.current.cache_key(minutes_cached: 15)}"
       fractional_cents = Rails.cache.fetch(key) {
         impressions.sum(:estimated_gross_revenue_fractional_cents)
       }
@@ -51,7 +51,7 @@ module Campaigns
     # Cached indefinitely if date is before yesterday
     def daily_consumed_budget(date = nil)
       date = Date.coerce(date)
-      key = "#{cache_key}/daily_consumed_budget/#{date.cache_key(minutes_cached: 10)}"
+      key = "#{cache_key}/daily_consumed_budget/#{date.cache_key(minutes_cached: 15)}"
       fractional_cents = Rails.cache.fetch(key) {
         impressions.on(date).sum(:estimated_gross_revenue_fractional_cents)
       }
