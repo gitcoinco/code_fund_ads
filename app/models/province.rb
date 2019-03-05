@@ -1,26 +1,45 @@
 class Province
   include ActiveModel::Model
-  attr_accessor :country_name, :country_code, :province_name, :subdivision
+  attr_accessor(
+    :region,
+    :subregion,
+    :country_name,
+    :country_code,
+    :province_name,
+    :subdivision,
+    :cpm_multiplier,
+    :emoji_flag,
+  )
 
   class << self
     def data
       @data ||= begin
+        cpm_multipliers = YAML.safe_load(File.read(Rails.root.join("config/cpm_multipliers.yml")))
+
         ISO3166::Country.all.each_with_object({}) do |country, memo|
           if country.subdivisions?
             country.subdivisions.each do |code, subdivision|
               memo["#{country.alpha2}-#{code}"] = {
+                region: country.region,
+                subregion: country.subregion,
                 country_code: country.alpha2,
                 country_name: country.name,
                 province_name: subdivision[:name],
                 subdivision: code,
+                cpm_multiplier: cpm_multipliers[country.subregion] || Country::UNKNOWN_CPM_MULTIPLER,
+                emoji_flag: country.emoji_flag,
               }
             end
           else
             memo[country.alpha2] = {
+              region: country.region,
+              subregion: country.subregion,
               country_code: country.alpha2,
               country_name: country.name,
               province_name: nil,
               subdivision: nil,
+              cpm_multiplier: cpm_multipliers[country.subregion] || Country::UNKNOWN_CPM_MULTIPLER,
+              emoji_flag: country.emoji_flag,
             }
           end
         end

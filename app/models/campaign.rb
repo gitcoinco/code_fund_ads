@@ -186,7 +186,7 @@ class Campaign < ApplicationRecord
   def adjusted_ecpm(country_code)
     return ecpm if fixed_ecpm?
     return ecpm if country_code == "US"
-    adjusted = ecpm + (ecpm * (CPM_MULTIPLIERS[country_code] || -0.95))
+    adjusted = ecpm * Country.find(country_code)&.cpm_multiplier || Country::UNKNOWN_CPM_MULTIPLER
     adjusted = Monetize.parse("$0.10 USD") if adjusted.cents < 10
     adjusted
   end
