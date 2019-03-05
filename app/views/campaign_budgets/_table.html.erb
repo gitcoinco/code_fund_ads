@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       <% (@start_date..@end_date).each do |date| %>
-        <%= render_async async_daily_budget_row_path(campaign_id: @campaign.id, date: date.iso8601), html_element_name: "tr" %>
+        <%= render_async async_campaign_budget_row_path(campaign_id: @campaign.id, date: date.iso8601), html_element_name: "tr" %>
       <% end %>
     </tbody>
   </table>

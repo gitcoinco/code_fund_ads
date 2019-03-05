@@ -1,2 +1,0 @@
-class AsyncDailyBudgetRowsController < AsyncController
-end
