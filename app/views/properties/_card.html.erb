@@ -21,6 +21,6 @@
     <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "img-fluid"), property %>
   </div>
 
-  <%= render_async async_property_card_footer_path(property_id: @property.id) %>
+  <%= render_async async_property_card_footer_path(property_id: property.id) %>
   <small class="text-muted text-center d-block mb-1 pt-1 border-top"><em>data refreshes every 15 minutes</em></small>
 </div>
