@@ -21,26 +21,6 @@
     <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "img-fluid"), property %>
   </div>
 
-  <div class="card-footer text-center">
-    <div class="row align-items-center">
-      <div class="col-4 u-ver-divider">
-        <h5 class="small font-weight-normal text-secondary mb-0">
-          <small class="d-block">Total</small>Impressions
-        </h5>
-        <div class="text-dark mt-2"><%= number_with_delimiter property.total_impressions_count(@start_date, @end_date) %></div>
-      </div>
-      <div class="col-4 u-ver-divider">
-        <h5 class="small font-weight-normal text-secondary mb-0">
-          <small class="d-block">Average</small>Click Rate
-        </h5>
-        <div class="text-dark mt-2"><%= number_to_percentage property.total_click_rate(@start_date, @end_date), precision: 2 %></div>
-      </div>
-      <div class="col-4">
-        <h5 class="small font-weight-normal text-secondary mb-0">
-          <small class="d-block">Estimated</small>Earnings</h5>
-        <div class="text-dark mt-2"><%= property.estimated_property_revenue(@start_date, @end_date).format %></div>
-      </div>
-    </div>
-  </div>
+  <%= render_async async_property_card_footer_path(property_id: @property.id) %>
   <small class="text-muted text-center d-block mb-1 pt-1 border-top"><em>data refreshes every 15 minutes</em></small>
 </div>
