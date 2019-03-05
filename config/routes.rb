@@ -161,6 +161,7 @@ Rails.application.routes.draw do
   resource :async_property_sparkline, only: [:show]
   resource :async_property_click_rate, only: [:show]
   resource :async_property_earnings_row, only: [:show]
+  resource :async_property_campaign_row, only: [:show]
 
   # IMPORTANT: leave as last route so it doesn't override others
   resources :pages, only: [:show], path: "/"
