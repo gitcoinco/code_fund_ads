@@ -14,6 +14,9 @@
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
+    <%= render partial: "/applicant_searches/form",
+               layout: "/@shared/collapsable_search_form",
+               locals: { search: @applicant_search } %>
     <div class="bg-white p-4">
       <%= render "/applicants/table", applicants: @applicants, pagy: @pagy %>
     </div>

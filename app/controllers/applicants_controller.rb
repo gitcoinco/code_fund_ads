@@ -2,10 +2,12 @@ class ApplicantsController < ApplicationController
   include Sortable
 
   before_action :authenticate_administrator!
+  before_action :set_applicant_search, only: [:index]
   before_action :set_applicant, only: [:show, :update]
 
   def index
-    applicants = Applicant.order(created_at: :asc)
+    applicants = Applicant.order(order_by)
+    applicants = @applicant_search.apply(applicants)
     @pagy, @applicants = pagy(applicants)
   end
 
@@ -22,6 +24,11 @@ class ApplicantsController < ApplicationController
   end
 
   private
+
+  def set_applicant_search
+    @applicant_search = GlobalID.parse(session[:applicant_search]).find if session[:applicant_search].present?
+    @applicant_search ||= ApplicantSearch.new
+  end
 
   def set_applicant
     @applicant = Applicant.find(params[:id])
