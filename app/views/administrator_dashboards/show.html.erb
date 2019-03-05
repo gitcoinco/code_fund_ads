@@ -12,23 +12,21 @@
     icon: "fas fa-tachometer" %>
 <% end %>
 
-<% cache [@start_date.cache_key, @end_date.cache_key] do %>
-  <main id="content" role="main" class="bg-light">
-    <div class="container space-1">
-      <div class="text-center mb-3 mt-5">
-        <span class="u-divider u-divider--xs u-divider--text">Active Premium Campaigns</span>
-      </div>
+<main id="content" role="main" class="bg-light">
+  <div class="container space-1">
+    <div class="text-center mb-3 mt-5">
+      <span class="u-divider u-divider--xs u-divider--text">Active Premium Campaigns</span>
+    </div>
 
-      <div class="mb-7" id="dashboard-advertiser-cards">
-        <div class="card-deck d-block d-lg-flex card-lg-gutters-2">
-          <% @active_campaigns.each.with_index do |campaign, index| %>
-            <%= render "/campaigns/card", campaign: campaign %>
-            <% if (index + 1) % 3 == 0 %>
-              </div><div class="card-deck d-block d-lg-flex card-lg-gutters-2">
-            <% end %>
+    <div class="mb-7" id="dashboard-advertiser-cards">
+      <div class="card-deck d-block d-lg-flex card-lg-gutters-2">
+        <% @active_campaigns.each.with_index do |campaign, index| %>
+          <%= render "/campaigns/card", campaign: campaign %>
+          <% if (index + 1) % 3 == 0 %>
+            </div><div class="card-deck d-block d-lg-flex card-lg-gutters-2">
           <% end %>
-        </div>
+        <% end %>
       </div>
     </div>
-  </main>
-<% end %>
+  </div>
+</main>

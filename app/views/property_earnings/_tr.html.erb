@@ -1,9 +1,7 @@
-<% cache [@property, date.cache_key] do %>
-  <tr <%= 'class=border-bottom' if date.saturday? %>>
-    <td class="text-left align-middle text-secondary"><%= date.to_s("abdy") %></td>
-    <td class="text-center align-middle text-secondary"><%= number_with_delimiter @property.daily_impressions_count(date) %></td>
-    <td class="text-center align-middle text-secondary"><%= number_with_delimiter @property.daily_clicks_count(date) %></td>
-    <td class="text-center align-middle text-secondary"><%= number_to_percentage @property.daily_click_rate(date), precision: 2 %></td>
-    <td class="text-center align-middle text-secondary"><%= @property.estimated_property_revenue(date, date).format %></td>
-  </tr>
-<% end %>
+<tr <%= 'class=border-bottom' if date.saturday? %>>
+  <td class="text-left align-middle text-secondary"><%= date.to_s("abdy") %></td>
+  <td class="text-center align-middle text-secondary"><%= number_with_delimiter @property.daily_impressions_count(date) %></td>
+  <td class="text-center align-middle text-secondary"><%= number_with_delimiter @property.daily_clicks_count(date) %></td>
+  <td class="text-center align-middle text-secondary"><%= number_to_percentage @property.daily_click_rate(date), precision: 2 %></td>
+  <td class="text-center align-middle text-secondary"><%= @property.estimated_property_revenue(date, date).format %></td>
+</tr>

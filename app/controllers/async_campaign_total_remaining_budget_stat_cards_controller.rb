@@ -1,0 +1,2 @@
+class AsyncCampaignTotalRemainingBudgetStatCardsController < AsyncController
+end

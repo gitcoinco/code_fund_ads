@@ -1,0 +1,2 @@
+class AsyncCampaignTotalConsumedBudgetProgressBarsController < AsyncController
+end

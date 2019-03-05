@@ -10,7 +10,9 @@
       </tr>
     </thead>
     <tbody>
-      <%= render partial: "/property_earnings/tr", collection: (@start_date..@end_date).to_a, as: :date %>
+      <% (@start_date..@end_date).each do |date| %>
+        <%= render_async async_property_earnings_row_path(property_id: @property.id, date: date.iso8601), html_element_name: "tr" %>
+      <% end %>
     </tbody>
   </table>
 </div>

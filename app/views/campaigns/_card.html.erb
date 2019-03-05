@@ -31,7 +31,7 @@
         <h4 class="small text-muted">
           Remaining<strong class="text-secondary d-block">Budget</strong>
         </h4>
-        <%= tag.span campaign.total_remaining_budget.format(no_cents: true), class: "text-danger" %>
+        <%= render_async async_campaign_total_remaining_budget_path(campaign_id: campaign.id) %>
       </div>
     </div>
   </div>

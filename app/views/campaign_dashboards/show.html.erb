@@ -25,12 +25,8 @@
     <%= render "/@shared/widgets/stat_card",
       label: "Total Budget",
       value: @campaign.total_budget.format %>
-    <%= render "/@shared/widgets/stat_card",
-      label: "Remaining Budget",
-      value: @campaign.total_remaining_budget.format %>
-    <%= render "/@shared/widgets/stat_card",
-      label: "Total Spend",
-      value: @campaign.total_consumed_budget.format %>
+    <%= render_async async_campaign_total_remaining_budget_stat_card_path(campaign_id: @campaign.id), container_class: "card" %>
+    <%= render_async async_campaign_total_consumed_budget_stat_card_path(campaign_id: @campaign.id), container_class: "card" %>
   </div>
   <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
     <%= render "/@shared/widgets/stat_card",
@@ -39,8 +35,5 @@
     <%= render "/@shared/widgets/stat_card",
       label: "Remaining Days",
       value: @campaign.remaining_operative_days %>
-    <%= render "/@shared/widgets/stat_card",
-      label: "Recommended Daily Budget",
-      value: @campaign.recommended_daily_budget.format if authorized_user.can_admin_system? %>
   </div>
 <% end %>

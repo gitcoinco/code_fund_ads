@@ -10,7 +10,9 @@
       </tr>
     </thead>
     <tbody>
-      <%= render partial: "/property_campaigns/tr", collection: @campaigns, as: :campaign %>
+      <% @campaigns.each do |campaign| %>
+        <%= render_async async_property_campaign_row_path(property_id: @property.id, campaign_id: campaign.id), html_element_name: "tr" %>
+      <% end %>
     </tbody>
   </table>
   <div class="d-flex justify-content-between align-items-center">

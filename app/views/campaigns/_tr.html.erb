@@ -10,15 +10,15 @@
     title: campaign.premium? ? "#{campaign.total_consumed_budget.format} spent out of #{campaign.total_budget.format}" : nil,
     data: { toggle: campaign.premium? ? "tooltip" : nil } do %>
     <% if campaign.premium? %>
-      <div class="js-hr-progress progress" style="height: 10px; background-color: #e7e7e8;">
-        <div class="js-hr-progress-bar progress-bar bg-success" role="progressbar" style="width: <%= campaign.total_consumed_budget_percentage %>%;"></div>
-      </div>
+      <%= render_async async_campaign_total_consumed_budget_progress_bar_path(campaign_id: campaign.id) %>
     <% end %>
   <% end %>
   <td class="align-middle text-<%= campaign_status_color(campaign.status) %>">
     <span class="fas fa-circle small mr-1"></span>
     <%= campaign.status.humanize %>
   </td>
+  <td><%= render_async async_campaign_sparkline_path(campaign_id: campaign.id) %></td>
+  <td><%= render_async async_campaign_click_rate_path(campaign_id: campaign.id) %></td>
   <td class="align-middle text-right text-secondary">
     <%= render "/@shared/table_buttons/edit", link: edit_campaign_path(campaign) %>
   </td>
