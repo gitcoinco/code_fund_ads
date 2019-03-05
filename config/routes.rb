@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   resources :job_posting_searches, only: [:create, :update, :destroy], path: "/jobs/searches"
   resources :organization_searches, only: [:create, :update, :destroy]
   resources :property_searches, only: [:create, :update, :destroy]
+  resources :applicant_searches, only: [:create, :update, :destroy]
   resources :user_searches, only: [:create, :update, :destroy]
   resource :creative_options, only: [:show]
 
