@@ -11,7 +11,7 @@
           <ul class="list-group list-group-flush list-group-borderless mb-0">
             <li><%= link_to "Advertise with Us", advertisers_path, class: "list-group-item list-group-item-action" %></li>
             <li><%= link_to "Become a Publisher", publishers_path, class: "list-group-item list-group-item-action" %></li>
-            <%= tag.li link_to("Post a Job", new_job_posting_prospect_path, class: "list-group-item list-group-item-action") if FeatureFlag.enabled?(:jobs, current_user) %></li>
+            <li><%= link_to "Post a Job", new_job_posting_prospect_path, class: "list-group-item list-group-item-action" %></li>
             <li><%= link_to "Contact", "javascript: window._grv.api.open();", class: "list-group-item list-group-item-action" %></li>
           </ul>
           <!-- End List Group -->
@@ -25,6 +25,7 @@
             <li><%= link_to "Team", page_path(:team), class: "list-group-item list-group-item-action" %></li>
             <li><a href="https://blog.codefund.app" class="list-group-item list-group-item-action">Blog</a></li>
             <li><a href="https://github.com/gitcoinco/code_fund_ads" class="list-group-item list-group-item-action">Code</a></li>
+            <li><a href="https://stackshare.io/codefund" class="list-group-item list-group-item-action">Our Stack</a></li>
           </ul>
           <!-- End List Group -->
         </div>
@@ -34,6 +35,7 @@
 
           <!-- List Group -->
           <ul class="list-group list-group-flush list-group-borderless mb-0">
+            <li><%= link_to "Pricing", pricing_path, class: "list-group-item list-group-item-action" %></li>
             <li><a href="https://status.codefund.app" class="list-group-item list-group-item-action">Status</a></li>
             <li><a href="https://www.iubenda.com/privacy-policy/47597768" class="list-group-item list-group-item-action iubenda-nostyle no-brand iubenda-embed iub-legal-only" title="Privacy Policy">Privacy Policy</a></li>
             <li><a href="https://www.iubenda.com/privacy-policy/47597768/cookie-policy" class="list-group-item list-group-item-action iubenda-nostyle no-brand iubenda-embed" title="Cookie Policy">Cookie Policy</a></li>
