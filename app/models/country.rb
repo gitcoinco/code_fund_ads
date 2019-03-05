@@ -44,6 +44,6 @@ class Country
   alias id iso_code
 
   def ecpm
-    Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD") * cpm_multiplier
+    Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD") * (cpm_multiplier || Country::UNKNOWN_CPM_MULTIPLER)
   end
 end
