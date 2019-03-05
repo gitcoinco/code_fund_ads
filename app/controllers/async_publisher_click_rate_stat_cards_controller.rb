@@ -1,0 +1,2 @@
+class AsyncPublisherClickRateStatCardsController < AsyncController
+end

@@ -14,24 +14,16 @@
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
-    
+
     <% if AuthorizedUser.new(true_user).can_admin_system? %>
       <small class="text-center d-block pb-3"><%= link_to "open metabase dashboard in new window", "https://metabase.codefund.io/dashboard/14?date_filter=thismonth&publisher_id=#{current_user.id}", class: "text-link", target: "_blank" %></small>
     <% end %>
 
     <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
-      <%= render "/@shared/widgets/stat_card",
-        label: "Impressions",
-        value: number_with_delimiter(current_user.impressions_count_as_publisher(@start_date, @end_date)) %>
-      <%= render "/@shared/widgets/stat_card",
-        label: "Clicks",
-        value: number_with_delimiter(current_user.clicks_count_as_publisher(@start_date, @end_date)) %>
-      <%= render "/@shared/widgets/stat_card",
-        label: "CTR",
-        value: number_to_percentage(current_user.click_rate_as_publisher(@start_date, @end_date), precision: 2) %>
-      <%= render "/@shared/widgets/stat_card",
-        label: "Estimated Earnings",
-        value: current_user.estimated_property_revenue(@start_date, @end_date).format %>
+      <%= render_async async_publisher_impressions_count_stat_card_path %>
+      <%= render_async async_publisher_clicks_count_stat_card_path %>
+      <%= render_async async_publisher_click_rate_stat_card_path %>
+      <%= render_async async_publisher_revenue_stat_card_path %>
     </div>
 
     <div class="text-center mb-3 mt-5">
