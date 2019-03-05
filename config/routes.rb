@@ -167,6 +167,10 @@ Rails.application.routes.draw do
   resource :async_property_campaign_row, only: [:show]
   resource :async_property_stat_card, only: [:show]
   resource :async_property_card_footer, only: [:show]
+  resource :async_publisher_impressions_count_stat_card, only: [:show]
+  resource :async_publisher_clicks_count_stat_card, only: [:show]
+  resource :async_publisher_click_rate_stat_card, only: [:show]
+  resource :async_publisher_revenue_stat_card, only: [:show]
 
   # IMPORTANT: leave as last route so it doesn't override others
   resources :pages, only: [:show], path: "/"

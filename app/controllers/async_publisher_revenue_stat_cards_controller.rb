@@ -1,0 +1,2 @@
+class AsyncPublisherRevenueStatCardsController < AsyncController
+end
