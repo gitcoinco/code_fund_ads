@@ -1,0 +1,2 @@
+class AsyncPropertyCardFootersController < AsyncController
+end

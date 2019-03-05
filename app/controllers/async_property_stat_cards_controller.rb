@@ -1,0 +1,2 @@
+class AsyncPropertyStatCardsController < AsyncController
+end
