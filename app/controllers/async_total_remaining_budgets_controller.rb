@@ -1,2 +1,0 @@
-class AsyncTotalRemainingBudgetsController < AsyncController
-end

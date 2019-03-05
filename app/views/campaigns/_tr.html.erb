@@ -10,7 +10,7 @@
     title: campaign.premium? ? "#{campaign.total_consumed_budget.format} spent out of #{campaign.total_budget.format}" : nil,
     data: { toggle: campaign.premium? ? "tooltip" : nil } do %>
     <% if campaign.premium? %>
-      <%= render_async async_total_consumed_budget_progress_bar_path(campaign_id: campaign.id) %>
+      <%= render_async async_campaign_total_consumed_budget_progress_bar_path(campaign_id: campaign.id) %>
     <% end %>
   <% end %>
   <td class="align-middle text-<%= campaign_status_color(campaign.status) %>">

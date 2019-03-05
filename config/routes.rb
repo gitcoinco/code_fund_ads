@@ -152,10 +152,10 @@ Rails.application.routes.draw do
   end
 
   # async content loaders
-  resource :async_total_remaining_budget, only: [:show]
-  resource :async_total_remaining_budget_stat_card, only: [:show]
-  resource :async_total_consumed_budget_stat_card, only: [:show]
-  resource :async_total_consumed_budget_progress_bar, only: [:show]
+  resource :async_campaign_total_remaining_budget, only: [:show]
+  resource :async_campaign_total_remaining_budget_stat_card, only: [:show]
+  resource :async_campaign_total_consumed_budget_stat_card, only: [:show]
+  resource :async_campaign_total_consumed_budget_progress_bar, only: [:show]
   resource :async_campaign_budget_row, only: [:show]
   resource :async_campaign_property_row, only: [:show]
   resource :async_property_sparkline, only: [:show]
