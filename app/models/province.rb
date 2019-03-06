@@ -7,16 +7,19 @@ class Province
     :country_code,
     :province_name,
     :subdivision,
-    :cpm_multiplier,
+    :subregion_cpm_multiplier,
+    :country_cpm_multiplier,
     :emoji_flag,
   )
 
   class << self
     def data
       @data ||= begin
-        cpm_multipliers = YAML.safe_load(File.read(Rails.root.join("config/cpm_multipliers.yml")))
+        subregion_cpm_multipliers = YAML.safe_load(File.read(Rails.root.join("config/subregion_cpm_multipliers.yml")))
+        country_cpm_multipliers = YAML.safe_load(File.read(Rails.root.join("config/country_cpm_multipliers.yml")))
 
         ISO3166::Country.all.each_with_object({}) do |country, memo|
+          next if %w[AQ BV TF HM].include? country.alpha2
           if country.subdivisions?
             country.subdivisions.each do |code, subdivision|
               memo["#{country.alpha2}-#{code}"] = {
@@ -26,7 +29,8 @@ class Province
                 country_name: country.name,
                 province_name: subdivision[:name],
                 subdivision: code,
-                cpm_multiplier: cpm_multipliers[country.subregion] || Country::UNKNOWN_CPM_MULTIPLER,
+                subregion_cpm_multiplier: subregion_cpm_multipliers[country.subregion] || Country::UNKNOWN_CPM_MULTIPLER,
+                country_cpm_multiplier: country_cpm_multipliers[country.alpha2] || Country::UNKNOWN_CPM_MULTIPLER,
                 emoji_flag: country.emoji_flag,
               }
             end
@@ -38,7 +42,8 @@ class Province
               country_name: country.name,
               province_name: nil,
               subdivision: nil,
-              cpm_multiplier: cpm_multipliers[country.subregion] || Country::UNKNOWN_CPM_MULTIPLER,
+              subregion_cpm_multiplier: subregion_cpm_multipliers[country.subregion] || Country::UNKNOWN_CPM_MULTIPLER,
+              country_cpm_multiplier: country_cpm_multipliers[country.alpha2] || Country::UNKNOWN_CPM_MULTIPLER,
               emoji_flag: country.emoji_flag,
             }
           end

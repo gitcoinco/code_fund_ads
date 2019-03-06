@@ -135,14 +135,7 @@ class Impression < ApplicationRecord
   end
 
   def applicable_ecpm
-    @applicable_ecpm ||= begin
-      ecpm = campaign.ecpm
-      unless campaign.fixed_ecpm?
-        ecpm *= country&.cpm_multiplier || Country::UNKNOWN_CPM_MULTIPLER
-        ecpm = Monetize.parse("$0.10 USD") if ecpm.cents < 10
-      end
-      ecpm
-    end
+    @applicable_ecpm ||= campaign.adjusted_ecpm(country_code)
   end
 
   def calculate_estimated_gross_revenue_fractional_cents

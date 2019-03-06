@@ -1,8 +1,16 @@
 class Country
-  UNKNOWN_CPM_MULTIPLER = 0.95
+  UNKNOWN_CPM_MULTIPLER = 0.05
 
   include ActiveModel::Model
-  attr_accessor :region, :subregion, :name, :iso_code, :cpm_multiplier, :emoji_flag
+  attr_accessor(
+    :region,
+    :subregion,
+    :name,
+    :iso_code,
+    :subregion_cpm_multiplier,
+    :country_cpm_multiplier,
+    :emoji_flag
+  )
 
   class << self
     def data
@@ -13,7 +21,8 @@ class Country
             subregion: province.subregion,
             name: province.country_name,
             iso_code: province.country_code,
-            cpm_multiplier: province.cpm_multiplier,
+            subregion_cpm_multiplier: province.subregion_cpm_multiplier,
+            country_cpm_multiplier: province.country_cpm_multiplier,
             emoji_flag: province.emoji_flag,
           }
         end
@@ -43,7 +52,11 @@ class Country
 
   alias id iso_code
 
-  def ecpm
-    Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD") * (cpm_multiplier || Country::UNKNOWN_CPM_MULTIPLER)
+  def ecpm(base: nil, multiplier: nil)
+    base = Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD") unless base.is_a?(Money)
+    value = base * subregion_cpm_multiplier
+    value = base * country_cpm_multiplier if multiplier.to_s == "country"
+    value = Monetize.parse("$0.10 USD") if value.cents < 10
+    value
   end
 end
