@@ -65,8 +65,10 @@
           input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select select-geo-targets.countryCodesSelect", action: " cf:select-batch->select-geo-targets#updateProvinceCodeOptions" }} %>
         <div class="d-block">
           <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
-          <%# link_to "Developed markets", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-countries#selectDevelopedMarkets" }  %>
-          <%# link_to "Emerging markets", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-countries#selectEmergingMarkets" }  %>
+          <% Country.all.map(&:subregion).uniq.sort.each do |subregion| %>
+            <%= link_to subregion, request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0",
+              data: { action: "click->select-multiple#selectSubset", values: Country.where(subregion: subregion).map(&:iso_code).to_json }  %>
+          <% end %>
           <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
         </div>
       </div>
@@ -119,7 +121,7 @@
       </div>
     </div>
   <% end %>
-  
+
   <% if authorized_user.can_admin_system? %>
 
     <hr class="mt-3 mb-4" />
