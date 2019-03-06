@@ -2,6 +2,7 @@
   function embed () {
     var evt = new Event('codefund');
     <% if @advertisement_html -%>
+    var uplift = {};
 
     function trackUplift() {
       try {
@@ -15,6 +16,11 @@
       }
     };
 
+    function verifyUplift() {
+      if (uplift.pixel1 === undefined || uplift.pixel2 === undefined) { return; }
+      if (uplift.pixel1 && !uplift.pixel2) { trackUplift(); }
+    }
+
     function detectUplift(count) {
       var url = '<%= ENV["ADBLOCK_PLUS_PIXEL_URL"].to_s.strip %>';
       if (url.length === 0) { return; }
@@ -22,12 +28,12 @@
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 4) {
           if (xhr.status >= 200 && xhr.status < 300) {
-            if (count === 1) {
-              detectUplift(2);
-            } else if (count === 2) {
-              trackUplift();
-            }
+            if (count === 1) { detectUplift(2); }
+            uplift['pixel' + count] = true;
+          } else {
+            uplift['pixel' + count] = false;
           }
+          verifyUplift();
         }
       };
       xhr.open('GET', url + '?ch=' + count + '&rnd=' + Math.random() * 11);
