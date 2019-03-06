@@ -15,6 +15,7 @@ class Province
   class << self
     def data
       @data ||= begin
+        # TODO: update the multiplier strategy after all campaigns with a start_date before 2019-03-07 have completed
         subregion_cpm_multipliers = YAML.safe_load(File.read(Rails.root.join("config/subregion_cpm_multipliers.yml")))
         country_cpm_multipliers = YAML.safe_load(File.read(Rails.root.join("config/country_cpm_multipliers.yml")))
 

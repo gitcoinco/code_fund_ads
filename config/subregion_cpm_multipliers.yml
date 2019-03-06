@@ -1,3 +1,5 @@
+# TODO: rename this file to config/cmp_multipliers and update the multiplier strategy in app/models/province.rb
+#       after all campaigns with a start_date before 2019-03-07 have completed
 "Australia and New Zealand": 0.9
 "Caribbean": 0.67
 "Central America": 0.5
