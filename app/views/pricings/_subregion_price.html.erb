@@ -1,0 +1,38 @@
+<div class="card">
+  <div class="card-header card-collapse" id="cardHeading--<%= subregion.parameterize %>">
+    <h5 class="mb-0">
+      <button class="btn btn-link btn-block card-btn collapsed p-3" role="button"
+              data-toggle="collapse"
+              data-target="#card--<%= subregion.parameterize %>"
+              aria-expanded="false"
+              aria-controls="card--<%= subregion.parameterize %>">
+        <span class="row align-items-center">
+          <span class="col-7">
+            <h5 class="h6 p-0 m-0"><%= region %> - <%= subregion %></h5>
+          </span>
+          <span class="col-3">
+            <h5 class="h6 p-0 m-0 text-right"><%= data[:display_price] %> <small>eCPM</small></h5>
+          </span>
+          <span class="col-2 text-right">
+            <span class="card-btn-arrow">
+              <span class="fas fa-arrow-down small"></span>
+            </span>
+          </span>
+        </span>
+      </button>
+    </h5>
+  </div>
+  <div id="card--<%= subregion.parameterize %>" class="collapse" aria-labelledby="cardHeading--<%= subregion.parameterize %>" data-parent="#pricing">
+    <div class="card-body p-0">
+      <table class="table table-condensed table-bordered m-0 border-0">
+        <tbody>
+          <% data[:countries].sort_by! { |country| country[:name] }.each do |country| %>
+            <tr>
+              <td><%= country[:emoji_flag] %> <%= country[:name] %> (<%= country[:id] %>)</td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
