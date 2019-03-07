@@ -54,8 +54,8 @@ class Country
 
   def ecpm(base: nil, multiplier: nil)
     base = Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD") unless base.is_a?(Money)
-    value = base * subregion_cpm_multiplier
-    value = base * country_cpm_multiplier if multiplier.to_s == "country"
+    value = base * (subregion_cpm_multiplier || Country::UNKNOWN_CPM_MULTIPLER)
+    value = base * (country_cpm_multiplier || Country::UNKNOWN_CPM_MULTIPLER) if multiplier.to_s == "country"
     value = Monetize.parse("$0.10 USD") if value.cents < 10
     value
   end

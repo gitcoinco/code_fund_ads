@@ -35,7 +35,7 @@ require "test_helper"
 
 class CampaignTest < ActiveSupport::TestCase
   setup do
-    @campaign = campaigns(:exclusive)
+    @campaign = campaigns(:default)
     @campaign.start_date = Date.parse("2019-01-01")
     @campaign.end_date = @campaign.start_date.advance(months: 3)
     Timecop.freeze @campaign.start_date.to_time.advance(days: 12)
@@ -48,8 +48,8 @@ class CampaignTest < ActiveSupport::TestCase
   test "initial campaign budgets" do
     assert @campaign.total_budget == Monetize.parse("$5,000.00 USD")
     assert @campaign.ecpm == Monetize.parse("$3.00 USD")
-    assert @campaign.total_impressions_count == 0
-    assert @campaign.total_impressions_per_mille == 0
+    assert @campaign.total_impressions_count == 1
+    assert @campaign.total_impressions_per_mille == 0.001
     assert @campaign.total_consumed_budget == Monetize.parse("$0.00 USD")
     assert @campaign.total_remaining_budget == @campaign.total_budget
     assert @campaign.total_operative_days == 91
@@ -69,10 +69,60 @@ class CampaignTest < ActiveSupport::TestCase
   end
 
   test "increasing total_budget impacts the numbers" do
-    @campaign.update total_budget: Monetize.parse("$8,000 USD")
+    @campaign.update total_budget: Monetize.parse("$8,000.00 USD")
   end
 
   test "decreasing daily_budget yields a budget surplus" do
-    @campaign.update daily_budget: Monetize.parse("$20 USD")
+    @campaign.update daily_budget: Monetize.parse("$20.00 USD")
+  end
+
+  test "ecpms fixed" do
+    @campaign.fixed_ecpm = true
+    assert @campaign.ecpm == Monetize.parse("$3.00 USD")
+    assert @campaign.ecpms == [
+      {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "CN", country_name: "China", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "CA", country_name: "Canada", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "FR", country_name: "France", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$3.00 USD")},
+    ]
+  end
+
+  test "ecpms old pricing based on start_date before 2019-03-07" do
+    @campaign.fixed_ecpm = false
+    @campaign.start_date = Date.parse("2019-03-06")
+    @campaign.end_date = @campaign.start_date.advance(months: 1)
+    assert @campaign.ecpm == Monetize.parse("$3.00 USD")
+
+    assert @campaign.ecpms == [
+      {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$2.61 USD")},
+      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "CN", country_name: "China", ecpm: Monetize.parse("$0.15 USD")},
+      {country_iso_code: "CA", country_name: "Canada", ecpm: Monetize.parse("$2.13 USD")},
+      {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$1.59 USD")},
+      {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$0.93 USD")},
+      {country_iso_code: "FR", country_name: "France", ecpm: Monetize.parse("$1.08 USD")},
+      {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$0.69 USD")},
+    ]
+  end
+
+  test "ecpms new pricing based on start_date after 2019-03-07" do
+    @campaign.fixed_ecpm = false
+    @campaign.start_date = Date.parse("2019-03-07")
+    @campaign.end_date = @campaign.start_date.advance(months: 1)
+    assert @campaign.ecpm == Monetize.parse("$3.00 USD")
+    assert @campaign.ecpms == [
+      {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$2.40 USD")},
+      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "CN", country_name: "China", ecpm: Monetize.parse("$0.30 USD")},
+      {country_iso_code: "CA", country_name: "Canada", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$0.30 USD")},
+      {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$0.90 USD")},
+      {country_iso_code: "FR", country_name: "France", ecpm: Monetize.parse("$2.40 USD")},
+      {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$0.30 USD")},
+    ]
   end
 end

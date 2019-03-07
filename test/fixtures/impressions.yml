@@ -29,3 +29,17 @@
 #  province_code                               :string
 #  uplift                                      :boolean          default(FALSE)
 #
+
+# IMPORTANT: Limit impressions fixtures to [1] using only the minimum required data
+#            Additional setup should be perfomed in the test suite
+
+default:
+  advertiser: advertiser
+  publisher: publisher
+  campaign: default
+  creative: default
+  property: website
+  ip_address: 127.0.0.1
+  user_agent: Rails test suite
+  displayed_at: <%= 1.hour.ago.to_s(:db) %>
+  displayed_at_date: <%= Date.current.to_s(:db) %>

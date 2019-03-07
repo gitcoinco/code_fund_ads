@@ -16,7 +16,7 @@
 # IMPORTANT: Limit creatives fixtures to [1] using only the minimum required data
 #            Additional setup should be perfomed in the test suite
 
-exclusive:
+default:
   user: advertiser
   name: CodeFund
   headline: CodeFund

@@ -57,7 +57,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
   private
 
   def active_campaign(country_codes: [])
-    campaign = campaigns(:exclusive)
+    campaign = campaigns(:default)
     campaign.update!(
       status: ENUMS::CAMPAIGN_STATUSES::ACTIVE,
       start_date: 1.month.ago,
@@ -70,7 +70,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def inactive_campaign
-    campaign = campaigns(:exclusive)
+    campaign = campaigns(:default)
     campaign.update!(
       status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED,
       start_date: 6.months.ago,
@@ -81,7 +81,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def fallback_campaign
-    campaign = campaigns(:exclusive)
+    campaign = campaigns(:default)
     campaign.update!(
       status: ENUMS::CAMPAIGN_STATUSES::ACTIVE,
       start_date: 1.month.ago,

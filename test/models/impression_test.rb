@@ -32,7 +32,63 @@
 require "test_helper"
 
 class ImpressionTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "calculated revenue with fixed ecpm campaign and unknown country" do
+    impression = impressions(:default)
+    impression.update country_code: nil
+    impression.property.update revenue_percentage: 0.65
+    impression.campaign.update fixed_ecpm: true, ecpm: Monetize.parse("$3.00 USD")
+    assert impression.applicable_ecpm == Monetize.parse("$3.00 USD")
+    assert impression.calculate_estimated_gross_revenue_fractional_cents == 0.3
+    assert impression.calculate_estimated_property_revenue_fractional_cents == 0.195
+    assert impression.calculate_estimated_house_revenue_fractional_cents == 0.105
+    assert impression.calculate_estimated_property_revenue_fractional_cents + impression.calculate_estimated_house_revenue_fractional_cents == impression.calculate_estimated_gross_revenue_fractional_cents
+  end
+
+  test "calculated revenue with unknown country" do
+    impression = impressions(:default)
+    impression.update country_code: nil
+    impression.property.update revenue_percentage: 0.65
+    impression.campaign.update fixed_ecpm: false, ecpm: Monetize.parse("$3.00 USD")
+    assert impression.applicable_ecpm == Monetize.parse("$0.15 USD")
+    assert impression.calculate_estimated_gross_revenue_fractional_cents == 0.015
+    assert impression.calculate_estimated_property_revenue_fractional_cents == 0.00975
+    assert impression.calculate_estimated_house_revenue_fractional_cents == 0.00525
+    assert impression.calculate_estimated_property_revenue_fractional_cents + impression.calculate_estimated_house_revenue_fractional_cents == impression.calculate_estimated_gross_revenue_fractional_cents
+  end
+
+  test "calculated revenue with fixed ecpm campaign and known country" do
+    impression = impressions(:default)
+    impression.update country_code: "RO"
+    impression.property.update revenue_percentage: 0.65
+    impression.campaign.update fixed_ecpm: true, ecpm: Monetize.parse("$3.00 USD")
+    assert impression.applicable_ecpm == Monetize.parse("$3.00 USD")
+    assert impression.calculate_estimated_gross_revenue_fractional_cents == 0.3
+    assert impression.calculate_estimated_property_revenue_fractional_cents == 0.195
+    assert impression.calculate_estimated_house_revenue_fractional_cents == 0.105
+    assert impression.calculate_estimated_property_revenue_fractional_cents + impression.calculate_estimated_house_revenue_fractional_cents == impression.calculate_estimated_gross_revenue_fractional_cents
+  end
+
+  test "calculated revenue with known country" do
+    impression = impressions(:default)
+    impression.update country_code: "BB"
+    impression.property.update revenue_percentage: 0.7
+    impression.campaign.update fixed_ecpm: false, ecpm: Monetize.parse("$4.50 USD"), start_date: "2019-03-07", end_date: "2019-05-01"
+    assert impression.applicable_ecpm == Monetize.parse("$3.02 USD")
+    assert impression.calculate_estimated_gross_revenue_fractional_cents == 0.302
+    assert impression.calculate_estimated_property_revenue_fractional_cents == 0.2114
+    assert impression.calculate_estimated_house_revenue_fractional_cents == 0.0906
+    assert impression.calculate_estimated_property_revenue_fractional_cents + impression.calculate_estimated_house_revenue_fractional_cents == impression.calculate_estimated_gross_revenue_fractional_cents
+  end
+
+  test "calculated revenue with known country and old pricing based on campaign start date before 2019-03-07" do
+    impression = impressions(:default)
+    impression.update country_code: "BB"
+    impression.property.update revenue_percentage: 0.7
+    impression.campaign.update fixed_ecpm: false, ecpm: Monetize.parse("$4.50 USD"), start_date: "2019-03-06", end_date: "2019-05-01"
+    assert impression.applicable_ecpm == Monetize.parse("$0.22 USD")
+    assert impression.calculate_estimated_gross_revenue_fractional_cents == 0.022
+    assert impression.calculate_estimated_property_revenue_fractional_cents == 0.0154
+    assert impression.calculate_estimated_house_revenue_fractional_cents == 0.0066
+    assert impression.calculate_estimated_property_revenue_fractional_cents + impression.calculate_estimated_house_revenue_fractional_cents == impression.calculate_estimated_gross_revenue_fractional_cents
+  end
 end

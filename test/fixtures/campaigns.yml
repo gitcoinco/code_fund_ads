@@ -34,10 +34,10 @@
 # IMPORTANT: Limit campaigns fixtures to [1] using only the minimum required data
 #            Additional setup should be perfomed in the test suite
 
-exclusive:
+default:
   organization: default
   user: advertiser
-  creative: exclusive
+  creative: default
   status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
   name: CodeFund
   url: https://advertiser.codefund.app
@@ -47,3 +47,12 @@ exclusive:
   daily_budget_currency: USD
   ecpm_cents: <%= Monetize.parse("$3 USD").cents %>
   ecpm_currency: USD
+  country_codes:
+    - CA
+    - CN
+    - FR
+    - GB
+    - IN
+    - JP
+    - RO
+    - US
