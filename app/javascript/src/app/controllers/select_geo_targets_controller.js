@@ -67,21 +67,4 @@ export default class extends Controller {
   get validProvinces() {
     return this.provinces.filter(p => this.selectedCountryCodes.find(c => c === p.countryCode));
   }
-
-  //selectDevelopedMarkets(event) {
-  //  Rails.stopEverything(event);
-  //  developedMarkets.forEach(val => {
-  //    let option = this.options.find(o => o.value === val);
-  //    if (option) option.selected = true;
-  //  });
-  //  this.selectTarget.dispatchEvent(new Event('change'));
-  //}
-  //selectEmergingMarkets(event) {
-  //  Rails.stopEverything(event);
-  //  emergingMarkets.forEach(val => {
-  //    let option = this.options.find(o => o.value === val);
-  //    if (option) option.selected = true;
-  //  });
-  //  this.selectTarget.dispatchEvent(new Event('change'));
-  //}
 }

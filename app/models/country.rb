@@ -1,12 +1,30 @@
 class Country
+  UNKNOWN_CPM_MULTIPLER = 0.05
+
   include ActiveModel::Model
-  attr_accessor :name, :iso_code
+  attr_accessor(
+    :region,
+    :subregion,
+    :name,
+    :iso_code,
+    :subregion_cpm_multiplier,
+    :country_cpm_multiplier,
+    :emoji_flag
+  )
 
   class << self
     def data
       @data ||= begin
         Province.all.each_with_object({}) do |province, memo|
-          memo[province.country_code] ||= {name: province.country_name, iso_code: province.country_code}
+          memo[province.country_code] ||= {
+            region: province.region,
+            subregion: province.subregion,
+            name: province.country_name,
+            iso_code: province.country_code,
+            subregion_cpm_multiplier: province.subregion_cpm_multiplier,
+            country_cpm_multiplier: province.country_cpm_multiplier,
+            emoji_flag: province.emoji_flag,
+          }
         end
       end
     end
@@ -30,25 +48,15 @@ class Country
         }.uniq == [true]
       end
     end
-
-    def countries(base_ecpm = ENV.fetch("BASE_ECPM", 400).to_i)
-      campaign = Campaign.new(ecpm: Money.new(base_ecpm, "USD"), fixed_ecpm: false, country_codes: ENUMS::COUNTRIES.keys)
-      ISO3166::Country.all.each_with_object({}) { |country, memo|
-        data = country.data
-        memo[data["alpha2"]] = {
-          id: data["alpha2"],
-          value: campaign.adjusted_ecpm(data["alpha2"])&.to_f,
-          name: data["name"],
-          region: data["region"],
-          subregion: data["subregion"],
-          iso_code: data["alpha2"],
-          emoji_flag: country.emoji_flag,
-          price: campaign.adjusted_ecpm(data["alpha2"])&.to_f,
-          display_price: campaign.adjusted_ecpm(data["alpha2"])&.format,
-        }
-      }
-    end
   end
 
   alias id iso_code
+
+  def ecpm(base: nil, multiplier: nil)
+    base = Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD") unless base.is_a?(Money)
+    value = base * (subregion_cpm_multiplier || Country::UNKNOWN_CPM_MULTIPLER)
+    value = base * (country_cpm_multiplier || Country::UNKNOWN_CPM_MULTIPLER) if multiplier.to_s == "country"
+    value = Monetize.parse("$0.10 USD") if value.cents < 10
+    value
+  end
 end

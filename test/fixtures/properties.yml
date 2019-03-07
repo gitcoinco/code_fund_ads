@@ -31,6 +31,7 @@ website:
   name: Publisher Website
   url: https://publisher-website.codefund.app
   language: <%= ENUMS::LANGUAGES::ENGLISH %>
+  revenue_percentage: 0.65
 
 repository:
   user: publisher

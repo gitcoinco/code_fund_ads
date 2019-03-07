@@ -176,17 +176,23 @@ class Campaign < ApplicationRecord
 
   # class methods .............................................................
   class << self
-    def pricing(base_ecpm)
-      Campaign.new(ecpm: Money.new(base_ecpm, "USD"), fixed_ecpm: false, country_codes: ENUMS::COUNTRIES.keys).ecpms
-    end
   end
 
   # public instance methods ...................................................
 
   def adjusted_ecpm(country_code)
     return ecpm if fixed_ecpm?
-    return ecpm if country_code == "US"
-    adjusted = ecpm + (ecpm * (CPM_MULTIPLIERS[country_code] || -0.95))
+
+    adjusted = ecpm * Country::UNKNOWN_CPM_MULTIPLER
+    country = Country.find(country_code)
+    if country
+      # TODO: delete logic for country multiplier after all campaigns with a start_date before 2019-03-07 have completed
+      adjusted = if start_date && start_date < Date.parse("2019-03-07")
+        country.ecpm base: ecpm, multiplier: :country
+      else
+        country.ecpm base: ecpm
+      end
+    end
     adjusted = Monetize.parse("$0.10 USD") if adjusted.cents < 10
     adjusted
   end

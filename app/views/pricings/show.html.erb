@@ -13,7 +13,7 @@
     <p class="mb-0 pb-0">We use a <%= link_to "geo-based multiplier", "https://github.com/gitcoinco/code_fund_ads/blob/master/config/cpm_multipliers.yml" %> per county to calculate the eCPM</p>
     <p class="pt-0 mt-0 text-muted"><small><em>Discounts are available for longer term buys (3+ months)</em></small></p>
   </div>
-  
+
   <table class="table table-condensed table-bordered">
     <thead>
       <tr>
@@ -24,9 +24,9 @@
       </tr>
     </thead>
     <tbody>
-      <% @countries.sort_by { |c| c[:price] }.reverse.each do |country| %>
+      <% @countries.each do |country| %>
         <tr>
-          <td><%= country[:emoji_flag] %> <%= country[:name] %> (<%= country[:iso_code] %>)</td>
+          <td><%= country[:emoji_flag] %> <%= country[:name] %> (<%= country[:id] %>)</td>
           <td><%= country[:region] %></td>
           <td><%= country[:subregion] %></td>
           <td><%= country[:display_price] %></td>

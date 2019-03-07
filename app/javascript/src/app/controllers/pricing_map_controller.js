@@ -59,7 +59,7 @@ export default class extends Controller {
     let polygonTemplate = polygonSeries.mapPolygons.template;
     polygonTemplate.applyOnClones = true;
     polygonTemplate.togglable = false;
-    polygonTemplate.tooltipText = '{name}: {display_price}';
+    polygonTemplate.tooltipText = '{emoji_flag} {name}: {display_price}';
     polygonTemplate.strokeWidth = 0.5;
     polygonTemplate.strokeOpacity = 1;
     polygonTemplate.realStroke = am4core.color('#f8f9fa');

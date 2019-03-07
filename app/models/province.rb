@@ -1,26 +1,51 @@
 class Province
   include ActiveModel::Model
-  attr_accessor :country_name, :country_code, :province_name, :subdivision
+  attr_accessor(
+    :region,
+    :subregion,
+    :country_name,
+    :country_code,
+    :province_name,
+    :subdivision,
+    :subregion_cpm_multiplier,
+    :country_cpm_multiplier,
+    :emoji_flag,
+  )
 
   class << self
     def data
       @data ||= begin
+        # TODO: update the multiplier strategy after all campaigns with a start_date before 2019-03-07 have completed
+        subregion_cpm_multipliers = YAML.safe_load(File.read(Rails.root.join("config/subregion_cpm_multipliers.yml")))
+        country_cpm_multipliers = YAML.safe_load(File.read(Rails.root.join("config/country_cpm_multipliers.yml")))
+
         ISO3166::Country.all.each_with_object({}) do |country, memo|
+          next if %w[AQ BV TF HM].include? country.alpha2
           if country.subdivisions?
             country.subdivisions.each do |code, subdivision|
               memo["#{country.alpha2}-#{code}"] = {
+                region: country.region,
+                subregion: country.subregion,
                 country_code: country.alpha2,
                 country_name: country.name,
                 province_name: subdivision[:name],
                 subdivision: code,
+                subregion_cpm_multiplier: subregion_cpm_multipliers[country.subregion] || Country::UNKNOWN_CPM_MULTIPLER,
+                country_cpm_multiplier: country_cpm_multipliers[country.alpha2] || Country::UNKNOWN_CPM_MULTIPLER,
+                emoji_flag: country.emoji_flag,
               }
             end
           else
             memo[country.alpha2] = {
+              region: country.region,
+              subregion: country.subregion,
               country_code: country.alpha2,
               country_name: country.name,
               province_name: nil,
               subdivision: nil,
+              subregion_cpm_multiplier: subregion_cpm_multipliers[country.subregion] || Country::UNKNOWN_CPM_MULTIPLER,
+              country_cpm_multiplier: country_cpm_multipliers[country.alpha2] || Country::UNKNOWN_CPM_MULTIPLER,
+              emoji_flag: country.emoji_flag,
             }
           end
         end

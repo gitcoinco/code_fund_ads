@@ -37,7 +37,7 @@ class Impression < ApplicationRecord
   belongs_to :advertiser, class_name: "User", foreign_key: "advertiser_id"
   belongs_to :publisher, class_name: "User", foreign_key: "publisher_id"
   belongs_to :campaign
-  belongs_to :distribution, optional: true
+  belongs_to :creative
   belongs_to :property
 
   # validations ...............................................................
@@ -58,6 +58,8 @@ class Impression < ApplicationRecord
   scope :between, ->(start_date, end_date = nil) {
     where(displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date))
   }
+  scope :fallback, -> { where fallback_campaign: true }
+  scope :premium, -> { where fallback_campaign: false }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   self.primary_key = "id"
@@ -86,6 +88,18 @@ class Impression < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def country
+    Country.find country_code
+  end
+
+  def fallback?
+    fallback_campaign?
+  end
+
+  def premium?
+    !fallback?
+  end
 
   def clicked?
     clicked_at.present?
@@ -121,14 +135,7 @@ class Impression < ApplicationRecord
   end
 
   def applicable_ecpm
-    @applicable_ecpm ||= begin
-      ecpm = campaign.ecpm
-      unless campaign.fixed_ecpm?
-        ecpm += (ecpm * CPM_MULTIPLIERS[country_code]) if CPM_MULTIPLIERS[country_code]
-        ecpm = Monetize.parse("$0.10 USD") if ecpm.cents < 10
-      end
-      ecpm
-    end
+    @applicable_ecpm ||= campaign.adjusted_ecpm(country_code)
   end
 
   def calculate_estimated_gross_revenue_fractional_cents

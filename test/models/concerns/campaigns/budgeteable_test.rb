@@ -2,7 +2,7 @@ require "test_helper"
 
 class Campaigns::BudgeteableTest < ActiveSupport::TestCase
   setup do
-    @campaign = campaigns(:exclusive)
+    @campaign = campaigns(:default)
   end
 
   test "daily_remaining_budget_percentage is 0% when no daily budget" do
