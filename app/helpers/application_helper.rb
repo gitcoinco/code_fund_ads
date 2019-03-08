@@ -106,6 +106,11 @@ module ApplicationHelper
     render("/@shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"])
   end
 
+  def hubspot_tag
+    return nil unless ENV["HUBSPOT_ID"].present?
+    tag.script(type: "text/javascript", id: "hs-script-loader", async: true, defer: true, src: "//js.hs-scripts.com/#{ENV["HUBSPOT_ID"]}.js")
+  end
+
   def codefund_analytics_tag
     return nil unless ENV["CODEFUND_ANALYTICS_KEY"].present?
     render("/@shared/scripts/codefund_analytics", id: ENV["CODEFUND_ANALYTICS_KEY"])
