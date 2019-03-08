@@ -29,19 +29,6 @@ class ImpressionsController < ApplicationController
       return head(:not_found)
     end
 
-    if @virtual_impression[:ip_address] != request.remote_ip
-      track_event({
-        status: "ip_mismatch",
-        campaign_id: @virtual_impression[:campaign_id],
-        property_id: @virtual_impression[:property_id],
-      })
-      Rollbar.debug("IP addresses do not match", {
-        virtual_impression: @virtual_impression,
-        remote_ip: request.remote_ip,
-      })
-      return head(:not_found)
-    end
-
     track_event({
       status: "success",
       campaign_id: @virtual_impression[:campaign_id],
