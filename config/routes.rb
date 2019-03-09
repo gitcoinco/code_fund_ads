@@ -136,6 +136,7 @@ Rails.application.routes.draw do
     resources :versions, only: [:index], as: :user_versions, path: "/revisions"
     resources :comments, only: [:index], as: :user_comments
     resources :events, only: [:index], as: :user_events
+    resources :hubspot_contacts, only: [:create], as: :user_hubspot_contacts
     resource :identicon, only: [:show], format: :png, as: :user_identicon, path: "/identicon.png"
     resource :impersonations, only: [:update], as: :user_impersonation, path: "/impersonate"
   end
