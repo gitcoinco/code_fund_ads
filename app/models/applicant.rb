@@ -17,9 +17,9 @@
 #  updated_at          :datetime         not null
 #  invited_user_id     :bigint(8)
 #  referring_user_id   :bigint(8)
-#  hubspot_deal_vid    :string
-#  hubspot_contact_vid :string
-#  hubspot_company_vid :string
+#  hubspot_deal_vid    :bigint(8)
+#  hubspot_contact_vid :bigint(8)
+#  hubspot_company_vid :bigint(8)
 #
 
 class Applicant < ApplicationRecord

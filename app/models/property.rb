@@ -39,6 +39,7 @@ class Property < ApplicationRecord
   has_many :property_advertisers
   has_many :advertisers, through: :property_advertisers, class_name: "User", foreign_key: "advertiser_id"
   has_many :impressions
+  has_many :daily_summaries, as: :record
 
   # validations ...............................................................
   # validates :ad_template, presence: true
