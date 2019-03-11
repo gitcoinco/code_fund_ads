@@ -6,13 +6,15 @@ class CreateDailySummaryJob < ApplicationJob
     return if date.today? || date.future?
     return if impressionable.daily_summaries.on(date).exists?
 
+    impressions = impressionable.impressions.on(date)
+
     DailySummary.create!(
       displayed_at_date: date,
-      impressions_count: impressionable.impressions.on(date).count,
-      clicks_count: impressionable.impressions.clicked.on(date).count,
-      estimated_gross_revenue: Money.new(impressionable.impressions.on(date).sum(:estimated_gross_revenue_fractional_cents).round, "USD"),
-      estimated_property_revenue: Money.new(impressionable.impressions.on(date).sum(:estimated_property_revenue_fractional_cents).round, "USD"),
-      estimated_house_revenue: Money.new(impressionable.impressions.on(date).sum(:estimated_house_revenue_fractional_cents).round),
+      impressions_count: impressions.count,
+      clicks_count: impressions.clicked.count,
+      estimated_gross_revenue: Money.new(impressions.sum(:estimated_gross_revenue_fractional_cents).round, "USD"),
+      estimated_property_revenue: Money.new(impressions.sum(:estimated_property_revenue_fractional_cents).round, "USD"),
+      estimated_house_revenue: Money.new(impressions.sum(:estimated_house_revenue_fractional_cents).round),
     )
   end
 end
