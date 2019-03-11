@@ -33,7 +33,12 @@ class DailySummary < ApplicationRecord
   validates :displayed_at_date, presence: true
 
   # callbacks .................................................................
+  before_save :set_click_rate
+  before_save :set_ecpm
+
   # scopes ....................................................................
+  scope :on, ->(date) { where displayed_at_date: Date.coerce(date) }
+
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
 
   # class methods .............................................................
@@ -42,7 +47,21 @@ class DailySummary < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def impressions_per_mille
+    impressions_count / 1000.to_f
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................
+
+  private
+
+  def set_click_rate
+    self.click_rate = clicks_count / impressions_count.to_f if impressions_count > 0
+  end
+
+  def set_ecpm
+    self.ecpm = estimated_gross_revenue / impressions_per_mille if impressions_count > 0
+  end
 end
