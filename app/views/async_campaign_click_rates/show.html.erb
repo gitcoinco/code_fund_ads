@@ -1,1 +1,1 @@
-<%= number_to_percentage @campaign.daily_click_rates(@start_date, @end_date).avg, precision: 2 %>
+<%= number_to_percentage @campaign.total_click_rate(@start_date, @end_date), precision: 2 %>

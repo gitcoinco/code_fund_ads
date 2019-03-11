@@ -18,6 +18,10 @@ module Impressionable
     end
   end
 
+  def total_impressions_count(start_date = nil, end_date = nil)
+    daily_impressions_counts(start_date, end_date).sum
+  end
+
   def daily_clicks_counts(start_date = nil, end_date = nil)
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
@@ -35,12 +39,14 @@ module Impressionable
     end
   end
 
-  def daily_click_rates(start_date = nil, end_date = nil)
-    icounts = daily_impressions_counts(start_date, end_date)
-    ccounts = daily_clicks_counts(start_date, end_date)
-    icounts.map.with_index do |icount, i|
-      icount.zero? ? 0 : (ccounts[i] / icount.to_f) * 100
-    end
+  def total_clicks_count(start_date = nil, end_date = nil)
+    daily_clicks_counts(start_date, end_date).sum
+  end
+
+  def total_click_rate(start_date = nil, end_date = nil)
+    icount = total_impressions_count(start_date, end_date)
+    ccount = total_clicks_count(start_date, end_date)
+    icount.zero? ? 0 : (ccount / icount.to_f) * 100
   end
 
   def estimated_gross_revenue(start_date, end_date = nil)
