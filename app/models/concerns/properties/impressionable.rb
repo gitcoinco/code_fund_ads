@@ -21,7 +21,7 @@ module Properties
 
     def campaign_estimated_property_revenue(campaign, start_date, end_date)
       campaign_id = campaign.is_a?(Campaign) ? campaign.id : campaign
-      key = "#{cache_key}/#{__method__}/#{campaign_id}/#{Date.coerce(start_date).cache_key minutes_cached: 15}-#{Date.coerce(end_date).cache_key minutes_cached: 15}"
+      key = "#{cache_key}/#{__method__}/#{campaign_id}/#{Date.coerce(start_date).cache_key}-#{Date.coerce(end_date).cache_key}"
       cents = Rails.cache.fetch(key) {
         impressions.where(campaign_id: campaign_id).between(start_date, end_date).sum(:estimated_property_revenue_fractional_cents).round
       }.to_i
