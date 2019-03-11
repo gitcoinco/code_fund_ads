@@ -8,7 +8,7 @@ class CreateDailySummaryJob < ApplicationJob
 
     impressions = impressionable.impressions.on(date)
 
-    DailySummary.create!(
+    impressionable.daily_summaries.create!(
       displayed_at_date: date,
       impressions_count: impressions.count,
       clicks_count: impressions.clicked.count,

@@ -26,10 +26,12 @@ class DailySummary < ApplicationRecord
   # includes ..................................................................
 
   # relationships .............................................................
-  belongs_to :record, polymorphic: true
+  belongs_to :impressionable, polymorphic: true
 
   # validations ...............................................................
-  validates :count, presence: true
+  validates :impressions_count, numericality: {greater_than_or_equal_to: 0}
+  validates :clicks_count, numericality: {greater_than_or_equal_to: 0}
+  validates :click_rate, numericality: {greater_than_or_equal_to: 0}
   validates :displayed_at_date, presence: true
 
   # callbacks .................................................................
@@ -40,6 +42,10 @@ class DailySummary < ApplicationRecord
   scope :on, ->(date) { where displayed_at_date: Date.coerce(date) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  monetize :ecpm_cents, numericality: {greater_than_or_equal_to: 0}
+  monetize :estimated_gross_revenue_cents, numericality: {greater_than_or_equal_to: 0}
+  monetize :estimated_property_revenue_cents, numericality: {greater_than_or_equal_to: 0}
+  monetize :estimated_house_revenue_cents, numericality: {greater_than_or_equal_to: 0}
 
   # class methods .............................................................
   class << self
