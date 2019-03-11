@@ -64,7 +64,7 @@ class DailySummary < ApplicationRecord
   private
 
   def set_click_rate
-    self.click_rate = clicks_count / impressions_count.to_f if impressions_count > 0
+    self.click_rate = (clicks_count / impressions_count.to_f) * 100 if impressions_count > 0
   end
 
   def set_ecpm

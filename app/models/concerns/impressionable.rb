@@ -14,7 +14,14 @@ module Impressionable
   def daily_impressions_count(date = nil)
     date = Date.coerce(date)
     key = "#{cache_key}/#{__method__}/#{date.cache_key minutes_cached: 15}"
-    Rails.cache.fetch(key) { impressions.on(date).count }.to_i
+    Rails.cache.fetch(key) {
+      if date.past? && daily_summaries.on(date).exists?
+        daily_summaries.on(date).limit(1).pluck(:impressions_count).first
+      else
+        CreateDailySummaryJob.perform_later self, date.iso8601 if date.past?
+        impressions.on(date).count
+      end
+    }.to_i
   end
 
   def daily_impressions_counts(start_date = nil, end_date = nil)
@@ -38,7 +45,14 @@ module Impressionable
   def daily_clicks_count(date = nil)
     date = Date.coerce(date)
     key = "#{cache_key}/#{__method__}/#{date.cache_key minutes_cached: 15}"
-    Rails.cache.fetch(key) { impressions.on(date).clicked.count }.to_i
+    Rails.cache.fetch(key) {
+      if date.past? && daily_summaries.on(date).exists?
+        daily_summaries.on(date).limit(1).pluck(:clicks_count).first
+      else
+        CreateDailySummaryJob.perform_later self, date.iso8601 if date.past?
+        impressions.clicked.on(date).count
+      end
+    }.to_i
   end
 
   def daily_clicks_counts(start_date = nil, end_date = nil)
@@ -56,6 +70,9 @@ module Impressionable
 
   def daily_click_rate(date = nil)
     date = Date.coerce(date)
+    if date.past? && daily_summaries.on(date).exists?
+      return daily_summaries.on(date).limit(1).pluck(:click_rate).first
+    end
     impressions_count = daily_impressions_count(date)
     clicks_count = daily_clicks_count(date)
     return 0 if impressions_count.zero?
@@ -75,5 +92,29 @@ module Impressionable
     return 0 if impressions.zero?
     clicks = daily_clicks_counts(start_date, end_date).sum
     (clicks / impressions.to_f) * 100
+  end
+
+  def estimated_gross_revenue(start_date, end_date)
+    key = "#{cache_key}/#{__method__}/#{Date.coerce(start_date).cache_key minutes_cached: 15}-#{Date.coerce(end_date).cache_key minutes_cached: 15}"
+    cents = Rails.cache.fetch(key) {
+      impressions.between(start_date, end_date).sum(:estimated_gross_revenue_fractional_cents).round
+    }.to_i
+    Money.new cents, "USD"
+  end
+
+  def estimated_property_revenue(start_date, end_date)
+    key = "#{cache_key}/#{__method__}/#{Date.coerce(start_date).cache_key minutes_cached: 15}-#{Date.coerce(end_date).cache_key minutes_cached: 15}"
+    cents = Rails.cache.fetch(key) {
+      impressions.between(start_date, end_date).sum(:estimated_property_revenue_fractional_cents).round
+    }.to_i
+    Money.new cents, "USD"
+  end
+
+  def estimated_house_revenue(start_date, end_date)
+    key = "#{cache_key}/#{__method__}/#{Date.coerce(start_date).cache_key minutes_cached: 15}-#{Date.coerce(end_date).cache_key minutes_cached: 15}"
+    cents = Rails.cache.fetch(key) {
+      impressions.between(start_date, end_date).sum(:estimated_house_revenue_fractional_cents).round
+    }.to_i
+    Money.new cents, "USD"
   end
 end

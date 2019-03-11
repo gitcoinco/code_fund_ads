@@ -26,7 +26,6 @@ class Property < ApplicationRecord
 
   # includes ..................................................................
   include Properties::Impressionable
-  include Properties::Predictable
   include Properties::Presentable
   include Eventable
   include Imageable
