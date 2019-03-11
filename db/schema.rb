@@ -158,11 +158,13 @@ ActiveRecord::Schema.define(version: 2019_03_11_172908) do
   end
 
   create_table "daily_summaries", force: :cascade do |t|
-    t.string "record_type", null: false
-    t.bigint "record_id", null: false
-    t.integer "count", default: 0, null: false
-    t.integer "average_ecpm_cents", default: 0, null: false
-    t.string "average_ecpm_currency", default: "USD", null: false
+    t.string "impressionable_type", null: false
+    t.bigint "impressionable_id", null: false
+    t.integer "impressions_count", default: 0, null: false
+    t.integer "clicks_count", default: 0, null: false
+    t.decimal "click_rate", default: "0.0", null: false
+    t.integer "ecpm_cents", default: 0, null: false
+    t.string "ecpm_currency", default: "USD", null: false
     t.integer "estimated_gross_revenue_cents", default: 0, null: false
     t.string "estimated_gross_revenue_currency", default: "USD", null: false
     t.integer "estimated_property_revenue_cents", default: 0, null: false
@@ -173,7 +175,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_172908) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["displayed_at_date"], name: "index_daily_summaries_on_displayed_at_date"
-    t.index ["record_type", "record_id"], name: "index_daily_summaries_on_record_type_and_record_id"
+    t.index ["impressionable_type", "impressionable_id"], name: "index_daily_summaries_on_impressionable_columns"
   end
 
   create_table "email_templates", force: :cascade do |t|

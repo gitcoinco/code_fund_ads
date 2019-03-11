@@ -7,8 +7,9 @@
 #  impressionable_id                   :bigint(8)        not null
 #  impressions_count                   :integer          default(0), not null
 #  clicks_count                        :integer          default(0), not null
-#  average_ecpm_cents                  :integer          default(0), not null
-#  average_ecpm_currency               :string           default("USD"), not null
+#  click_rate                          :decimal(, )      default(0.0), not null
+#  ecpm_cents                          :integer          default(0), not null
+#  ecpm_currency                       :string           default("USD"), not null
 #  estimated_gross_revenue_cents       :integer          default(0), not null
 #  estimated_gross_revenue_currency    :string           default("USD"), not null
 #  estimated_property_revenue_cents    :integer          default(0), not null
