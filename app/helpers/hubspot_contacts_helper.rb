@@ -1,0 +1,2 @@
+module HubspotContactsHelper
+end

@@ -56,6 +56,8 @@
 #  referring_user_id      :bigint(8)
 #  referral_code          :string
 #  referral_click_count   :integer          default(0)
+#  hubspot_contact_vid    :string
+#  hubspot_company_vid    :string
 #
 
 require "test_helper"

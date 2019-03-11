@@ -18,7 +18,10 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'code_fund', 'data-turbolinks-track': 'reload' %>
   </head>
-  <%= tag.body data: { filestack_key: ENV["FILESTACK_API_KEY"] } do %>
+  <%= tag.body data: {
+      filestack_key: ENV["FILESTACK_API_KEY"],
+      hubspot_id: ENV["HUBSPOT_ID"],
+      email: true_user&.email } do %>
     <%= render "/@shared/skippy" %>
     <%= render "/@shared/header" %>
 
@@ -32,6 +35,7 @@
 
     <%= noty_flash %>
     <%= content_for :render_async %>
+
     <%= hubspot_tag %>
     <%= ga_tag %>
   <% end %>
