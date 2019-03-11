@@ -39,7 +39,10 @@ class DailySummary < ApplicationRecord
   before_save :set_ecpm
 
   # scopes ....................................................................
-  scope :on, ->(date) { where displayed_at_date: Date.coerce(date) }
+  scope :on, ->(*dates) { where displayed_at_date: dates.map { |date| Date.coerce(date) } }
+  scope :between, ->(start_date, end_date = nil) {
+    where displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date)
+  }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   monetize :ecpm_cents, numericality: {greater_than_or_equal_to: 0}

@@ -25,10 +25,20 @@ module Impressionable
   end
 
   def daily_impressions_counts(start_date = nil, end_date = nil)
-    key = "#{cache_key}/#{__method__}/#{Date.coerce(start_date).cache_key}-#{Date.coerce(end_date).cache_key}"
+    start_date = Date.coerce(start_date)
+    end_date = Date.coerce(end_date)
+    key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}"
     Rails.cache.fetch key do
-      results = impressions.between(start_date, end_date).group(:displayed_at_date).count
-      (start_date..end_date).map { |date| results[date] || 0 }
+      results = daily_summaries.between(start_date, end_date).each_with_object({}) { |daily_summary, memo|
+        memo[daily_summary.displayed_at_date] = daily_summary.impressions_count
+      }
+      dates = (start_date..end_date).to_a
+      impressions.on(*(dates - results.keys)).group(:displayed_at_date).count.each do |date, count|
+        CreateDailySummaryJob.perform_later self, date.iso8601 if date.past?
+        results[date] ||= count
+      end
+      dates.each { |date| results[date] ||= 0 }
+      results.sort.to_h
     end
   end
 

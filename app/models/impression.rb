@@ -54,9 +54,9 @@ class Impression < ApplicationRecord
     where(advertiser_id: advertiser_id).between(start_date, end_date || start_date)
   }
   scope :clicked, -> { where.not clicked_at_date: nil }
-  scope :on, ->(date) { where displayed_at_date: Date.coerce(date) }
+  scope :on, ->(*dates) { where displayed_at_date: dates.map { |date| Date.coerce(date) } }
   scope :between, ->(start_date, end_date = nil) {
-    where(displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date))
+    where displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date)
   }
   scope :fallback, -> { where fallback_campaign: true }
   scope :premium, -> { where fallback_campaign: false }
