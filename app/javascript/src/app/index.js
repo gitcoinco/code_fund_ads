@@ -5,6 +5,7 @@ import 'moment';
 import 'trix';
 import 'bootstrap-daterangepicker';
 import './prefetch';
+import './hubspot';
 
 import { Application } from 'stimulus';
 import { definitionsFromContext } from 'stimulus/webpack-helpers';

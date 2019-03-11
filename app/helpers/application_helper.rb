@@ -108,7 +108,7 @@ module ApplicationHelper
 
   def hubspot_tag
     return nil unless ENV["HUBSPOT_ID"].present?
-    tag.script(type: "text/javascript", id: "hs-script-loader", async: true, defer: true, src: "//js.hs-scripts.com/#{ENV["HUBSPOT_ID"]}.js")
+    render("/@shared/scripts/hubspot", id: ENV["HUBSPOT_ID"])
   end
 
   def codefund_analytics_tag
