@@ -1,11 +1,13 @@
+
 # == Schema Information
 #
 # Table name: daily_summaries
 #
 #  id                                  :bigint(8)        not null, primary key
-#  record_type                         :string           not null
-#  record_id                           :bigint(8)        not null
-#  count                               :integer          default(0), not null
+#  impressionable_type                 :string           not null
+#  impressionable_id                   :bigint(8)        not null
+#  impressions_count                   :integer          default(0), not null
+#  clicks_count                        :integer          default(0), not null
 #  average_ecpm_cents                  :integer          default(0), not null
 #  average_ecpm_currency               :string           default("USD"), not null
 #  estimated_gross_revenue_cents       :integer          default(0), not null

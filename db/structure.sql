@@ -384,9 +384,10 @@ ALTER SEQUENCE public.creatives_id_seq OWNED BY public.creatives.id;
 
 CREATE TABLE public.daily_summaries (
     id bigint NOT NULL,
-    record_type character varying NOT NULL,
-    record_id bigint NOT NULL,
-    count integer DEFAULT 0 NOT NULL,
+    impressionable_type character varying NOT NULL,
+    impressionable_id bigint NOT NULL,
+    impressions_count integer DEFAULT 0 NOT NULL,
+    clicks_count integer DEFAULT 0 NOT NULL,
     average_ecpm_cents integer DEFAULT 0 NOT NULL,
     average_ecpm_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     estimated_gross_revenue_cents integer DEFAULT 0 NOT NULL,
@@ -1640,10 +1641,10 @@ CREATE INDEX index_daily_summaries_on_displayed_at_date ON public.daily_summarie
 
 
 --
--- Name: index_daily_summaries_on_record_type_and_record_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_daily_summaries_on_impressionable_columns; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_daily_summaries_on_record_type_and_record_id ON public.daily_summaries USING btree (record_type, record_id);
+CREATE INDEX index_daily_summaries_on_impressionable_columns ON public.daily_summaries USING btree (impressionable_type, impressionable_id);
 
 
 --

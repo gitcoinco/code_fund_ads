@@ -49,7 +49,7 @@ class Campaign < ApplicationRecord
   belongs_to :user
   has_one :job_posting
   has_many :impressions
-  has_many :daily_summaries, as: :record
+  has_many :daily_summaries, as: :impressionable
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
