@@ -58,6 +58,13 @@ class Impression < ApplicationRecord
   scope :between, ->(start_date, end_date = nil) {
     where displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date)
   }
+  scope :scoped_by, ->(record) {
+    case record
+    when Campaign then where campaign_id: record.id
+    when Property then where property_id: record.id
+    else all
+    end
+  }
   scope :fallback, -> { where fallback_campaign: true }
   scope :premium, -> { where fallback_campaign: false }
 

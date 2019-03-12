@@ -45,6 +45,9 @@ class DailySummary < ApplicationRecord
   scope :between, ->(start_date, end_date = nil) {
     where displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date)
   }
+  scope :scoped_by, ->(record) {
+    record ? where(scoped_by_type: record.class.name, scoped_by_id: record.id) : all
+  }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   monetize :ecpm_cents, numericality: {greater_than_or_equal_to: 0}
