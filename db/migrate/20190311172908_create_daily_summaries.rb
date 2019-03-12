@@ -6,6 +6,8 @@ class CreateDailySummaries < ActiveRecord::Migration[5.2]
       t.string :scoped_by_type
       t.bigint :scoped_by_id
       t.integer :impressions_count, null: false, default: 0
+      t.integer :fallbacks_count, null: false, default: 0
+      t.decimal :fallback_percentage, null: false, default: 0
       t.integer :clicks_count, null: false, default: 0
       t.decimal :click_rate, null: false, default: 0
       t.monetize :ecpm, null: false, default: Money.new(0, "USD")

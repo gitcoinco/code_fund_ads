@@ -163,6 +163,8 @@ ActiveRecord::Schema.define(version: 2019_03_11_172908) do
     t.string "scoped_by_type"
     t.bigint "scoped_by_id"
     t.integer "impressions_count", default: 0, null: false
+    t.integer "fallbacks_count", default: 0, null: false
+    t.decimal "fallback_percentage", default: "0.0", null: false
     t.integer "clicks_count", default: 0, null: false
     t.decimal "click_rate", default: "0.0", null: false
     t.integer "ecpm_cents", default: 0, null: false

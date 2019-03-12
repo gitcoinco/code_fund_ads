@@ -8,6 +8,8 @@
 #  scoped_by_type            :string
 #  scoped_by_id              :bigint(8)
 #  impressions_count         :integer          default(0), not null
+#  fallbacks_count           :integer          default(0), not null
+#  fallback_percentage       :decimal(, )      default(0.0), not null
 #  clicks_count              :integer          default(0), not null
 #  click_rate                :decimal(, )      default(0.0), not null
 #  ecpm_cents                :integer          default(0), not null
@@ -39,6 +41,7 @@ class DailySummary < ApplicationRecord
   validates :displayed_at_date, presence: true
 
   # callbacks .................................................................
+  before_save :set_fallback_percentage
   before_save :set_click_rate
   before_save :set_cost_per_click
   before_save :set_ecpm
@@ -70,6 +73,10 @@ class DailySummary < ApplicationRecord
   # private instance methods ..................................................
 
   private
+
+  def set_fallback_percentage
+    self.fallback_percentage = (fallbacks_count / impressions_count.to_f) * 100 if impressions_count > 0
+  end
 
   def set_click_rate
     self.click_rate = (clicks_count / impressions_count.to_f) * 100 if impressions_count > 0

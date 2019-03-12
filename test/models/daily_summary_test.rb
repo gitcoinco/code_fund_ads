@@ -8,6 +8,8 @@
 #  scoped_by_type            :string
 #  scoped_by_id              :bigint(8)
 #  impressions_count         :integer          default(0), not null
+#  fallbacks_count           :integer          default(0), not null
+#  fallback_percentage       :decimal(, )      default(0.0), not null
 #  clicks_count              :integer          default(0), not null
 #  click_rate                :decimal(, )      default(0.0), not null
 #  ecpm_cents                :integer          default(0), not null

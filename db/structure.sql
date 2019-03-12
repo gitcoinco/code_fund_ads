@@ -389,6 +389,8 @@ CREATE TABLE public.daily_summaries (
     scoped_by_type character varying,
     scoped_by_id bigint,
     impressions_count integer DEFAULT 0 NOT NULL,
+    fallbacks_count integer DEFAULT 0 NOT NULL,
+    fallback_percentage numeric DEFAULT 0 NOT NULL,
     clicks_count integer DEFAULT 0 NOT NULL,
     click_rate numeric DEFAULT 0 NOT NULL,
     ecpm_cents integer DEFAULT 0 NOT NULL,
