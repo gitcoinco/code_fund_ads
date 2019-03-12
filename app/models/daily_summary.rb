@@ -53,6 +53,7 @@ class DailySummary < ApplicationRecord
   }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  monetize :cost_per_click_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :ecpm_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :gross_revenue_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :property_revenue_cents, numericality: {greater_than_or_equal_to: 0}

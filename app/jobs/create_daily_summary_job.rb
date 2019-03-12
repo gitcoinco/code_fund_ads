@@ -8,15 +8,14 @@ class CreateDailySummaryJob < ApplicationJob
 
     impressions = impressionable.impressions.on(date).scoped_by(scoped_by)
 
-    impressionable.daily_summaries.create!(
-      displayed_at_date: date,
-      scoped_by_type: scoped_by&.class&.name,
-      scoped_by_id: scoped_by&.id,
+    impressionable.daily_summaries.on(date).scoped_by(scoped_by).first_or_create!(
       impressions_count: impressions.count,
       clicks_count: impressions.clicked.count,
       gross_revenue: Money.new(impressions.sum(:estimated_gross_revenue_fractional_cents).round, "USD"),
       property_revenue: Money.new(impressions.sum(:estimated_property_revenue_fractional_cents).round, "USD"),
       house_revenue: Money.new(impressions.sum(:estimated_house_revenue_fractional_cents).round, "USD"),
     )
+  rescue ActiveRecord::RecordNotUnique => e
+    logger.info "A race condition attempted to create the same DailySummary record more than once. #{e}"
   end
 end
