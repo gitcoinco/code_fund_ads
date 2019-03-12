@@ -386,6 +386,8 @@ CREATE TABLE public.daily_summaries (
     id bigint NOT NULL,
     impressionable_type character varying NOT NULL,
     impressionable_id bigint NOT NULL,
+    scoped_by_type character varying,
+    scoped_by_id bigint,
     impressions_count integer DEFAULT 0 NOT NULL,
     clicks_count integer DEFAULT 0 NOT NULL,
     click_rate numeric DEFAULT 0 NOT NULL,
@@ -1646,6 +1648,13 @@ CREATE INDEX index_daily_summaries_on_displayed_at_date ON public.daily_summarie
 --
 
 CREATE INDEX index_daily_summaries_on_impressionable_columns ON public.daily_summaries USING btree (impressionable_type, impressionable_id);
+
+
+--
+-- Name: index_daily_summaries_on_scoped_by_columns; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_daily_summaries_on_scoped_by_columns ON public.daily_summaries USING btree (scoped_by_type, scoped_by_id);
 
 
 --

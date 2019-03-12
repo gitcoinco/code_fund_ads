@@ -160,6 +160,8 @@ ActiveRecord::Schema.define(version: 2019_03_11_172908) do
   create_table "daily_summaries", force: :cascade do |t|
     t.string "impressionable_type", null: false
     t.bigint "impressionable_id", null: false
+    t.string "scoped_by_type"
+    t.bigint "scoped_by_id"
     t.integer "impressions_count", default: 0, null: false
     t.integer "clicks_count", default: 0, null: false
     t.decimal "click_rate", default: "0.0", null: false
@@ -176,6 +178,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_172908) do
     t.datetime "updated_at", null: false
     t.index ["displayed_at_date"], name: "index_daily_summaries_on_displayed_at_date"
     t.index ["impressionable_type", "impressionable_id"], name: "index_daily_summaries_on_impressionable_columns"
+    t.index ["scoped_by_type", "scoped_by_id"], name: "index_daily_summaries_on_scoped_by_columns"
   end
 
   create_table "email_templates", force: :cascade do |t|

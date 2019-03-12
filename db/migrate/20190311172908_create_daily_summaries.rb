@@ -3,6 +3,8 @@ class CreateDailySummaries < ActiveRecord::Migration[5.2]
     create_table :daily_summaries do |t|
       t.string :impressionable_type, null: false
       t.bigint :impressionable_id, null: false
+      t.string :scoped_by_type
+      t.bigint :scoped_by_id
       t.integer :impressions_count, null: false, default: 0
       t.integer :clicks_count, null: false, default: 0
       t.decimal :click_rate, null: false, default: 0
@@ -14,6 +16,7 @@ class CreateDailySummaries < ActiveRecord::Migration[5.2]
       t.timestamps
 
       t.index [:impressionable_type, :impressionable_id], name: "index_daily_summaries_on_impressionable_columns"
+      t.index [:scoped_by_type, :scoped_by_id], name: "index_daily_summaries_on_scoped_by_columns"
       t.index :displayed_at_date
     end
   end
