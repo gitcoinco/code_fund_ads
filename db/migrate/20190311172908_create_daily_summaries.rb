@@ -15,6 +15,7 @@ class CreateDailySummaries < ActiveRecord::Migration[5.2]
       t.date :displayed_at_date, null: false
       t.timestamps
 
+      t.index [:impressionable_type, :impressionable_id, :scoped_by_type, :scoped_by_id, :displayed_at_date], unique: true, name: "index_daily_summaries_uniqueness"
       t.index [:impressionable_type, :impressionable_id], name: "index_daily_summaries_on_impressionable_columns"
       t.index [:scoped_by_type, :scoped_by_id], name: "index_daily_summaries_on_scoped_by_columns"
       t.index :displayed_at_date

@@ -1658,6 +1658,13 @@ CREATE INDEX index_daily_summaries_on_scoped_by_columns ON public.daily_summarie
 
 
 --
+-- Name: index_daily_summaries_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_daily_summaries_uniqueness ON public.daily_summaries USING btree (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
+
+
+--
 -- Name: index_events_on_eventable_id_and_eventable_type; Type: INDEX; Schema: public; Owner: -
 --
 
