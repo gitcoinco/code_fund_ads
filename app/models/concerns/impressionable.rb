@@ -20,7 +20,7 @@ module Impressionable
     end
   end
 
-  def total_impressions_count(start_date = nil, end_date = nil, scoped_by: nil)
+  def impressions_count(start_date = nil, end_date = nil, scoped_by: nil)
     daily_impressions_counts(start_date, end_date, scoped_by: scoped_by).sum
   end
 
@@ -43,14 +43,14 @@ module Impressionable
     end
   end
 
-  def total_clicks_count(start_date = nil, end_date = nil, scoped_by: nil)
+  def clicks_count(start_date = nil, end_date = nil, scoped_by: nil)
     daily_clicks_counts(start_date, end_date, scoped_by: scoped_by).sum
   end
 
-  def total_click_rate(start_date = nil, end_date = nil, scoped_by: nil)
-    impressions_count = total_impressions_count(start_date, end_date, scoped_by: scoped_by)
-    clicks_count = total_clicks_count(start_date, end_date, scoped_by: scoped_by)
-    impressions_count.zero? ? 0 : (clicks_count / impressions_count.to_f) * 100
+  def click_rate(start_date = nil, end_date = nil, scoped_by: nil)
+    icount = impressions_count(start_date, end_date, scoped_by: scoped_by)
+    ccount = clicks_count(start_date, end_date, scoped_by: scoped_by)
+    icount.zero? ? 0 : (ccount / icount.to_f) * 100
   end
 
   def estimated_gross_revenue(start_date, end_date = nil, scoped_by: nil)
