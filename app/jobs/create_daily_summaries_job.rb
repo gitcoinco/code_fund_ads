@@ -1,5 +1,5 @@
 class CreateDailySummariesJob < ApplicationJob
-  queue_as :default
+  queue_as :low
 
   def perform(impressionable, start_date_string, end_date_string, scoped_by)
     start_date = Date.coerce(start_date_string)
