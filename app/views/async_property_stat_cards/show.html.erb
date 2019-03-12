@@ -10,5 +10,5 @@
     value: number_to_percentage(@property.click_rate(@start_date, @end_date), precision: 2) %>
   <%= render "/@shared/widgets/stat_card",
     label: "Estimated Earnings",
-    value: @property.estimated_property_revenue(@start_date, @end_date).format %>
+    value: @property.property_revenue(@start_date, @end_date).format %>
 </div>

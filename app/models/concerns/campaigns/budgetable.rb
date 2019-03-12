@@ -6,7 +6,7 @@ module Campaigns
 
     # Returns a Money indicating how much budget has been spent
     def total_consumed_budget
-      estimated_gross_revenue start_date, Date.current
+      gross_revenue start_date, Date.current
     end
 
     # Returns a Money indicating how much budget remains
@@ -44,7 +44,7 @@ module Campaigns
 
     # Returns a Money indicating how much budget has been spent for the passed date (or today)
     def daily_consumed_budget(date = nil)
-      estimated_gross_revenue date
+      gross_revenue date
     end
 
     # Returns a boolean indicating if the campaign has available budget for the passed date (or today)

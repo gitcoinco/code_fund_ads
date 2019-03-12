@@ -167,12 +167,14 @@ ActiveRecord::Schema.define(version: 2019_03_11_172908) do
     t.decimal "click_rate", default: "0.0", null: false
     t.integer "ecpm_cents", default: 0, null: false
     t.string "ecpm_currency", default: "USD", null: false
-    t.integer "estimated_gross_revenue_cents", default: 0, null: false
-    t.string "estimated_gross_revenue_currency", default: "USD", null: false
-    t.integer "estimated_property_revenue_cents", default: 0, null: false
-    t.string "estimated_property_revenue_currency", default: "USD", null: false
-    t.integer "estimated_house_revenue_cents", default: 0, null: false
-    t.string "estimated_house_revenue_currency", default: "USD", null: false
+    t.integer "cost_per_click_cents", default: 0, null: false
+    t.string "cost_per_click_currency", default: "USD", null: false
+    t.integer "gross_revenue_cents", default: 0, null: false
+    t.string "gross_revenue_currency", default: "USD", null: false
+    t.integer "property_revenue_cents", default: 0, null: false
+    t.string "property_revenue_currency", default: "USD", null: false
+    t.integer "house_revenue_cents", default: 0, null: false
+    t.string "house_revenue_currency", default: "USD", null: false
     t.date "displayed_at_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -15,7 +15,7 @@
     <div class="col-4">
       <h5 class="small font-weight-normal text-secondary mb-0">
         <small class="d-block">Estimated</small>Earnings</h5>
-      <div class="text-dark mt-2"><%= @property.estimated_property_revenue(@start_date, @end_date).format %></div>
+      <div class="text-dark mt-2"><%= @property.property_revenue(@start_date, @end_date).format %></div>
     </div>
   </div>
 </div>

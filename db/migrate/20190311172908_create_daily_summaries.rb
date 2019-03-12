@@ -9,9 +9,10 @@ class CreateDailySummaries < ActiveRecord::Migration[5.2]
       t.integer :clicks_count, null: false, default: 0
       t.decimal :click_rate, null: false, default: 0
       t.monetize :ecpm, null: false, default: Money.new(0, "USD")
-      t.monetize :estimated_gross_revenue, null: false, default: Money.new(0, "USD")
-      t.monetize :estimated_property_revenue, null: false, default: Money.new(0, "USD")
-      t.monetize :estimated_house_revenue, null: false, default: Money.new(0, "USD")
+      t.monetize :cost_per_click, null: false, default: Money.new(0, "USD")
+      t.monetize :gross_revenue, null: false, default: Money.new(0, "USD")
+      t.monetize :property_revenue, null: false, default: Money.new(0, "USD")
+      t.monetize :house_revenue, null: false, default: Money.new(0, "USD")
       t.date :displayed_at_date, null: false
       t.timestamps
 

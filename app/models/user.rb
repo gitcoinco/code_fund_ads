@@ -244,9 +244,9 @@ class User < ApplicationRecord
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
-  def estimated_referral_revenue
+  def referral_revenue
     value = referred_users.publishers.sum { |user|
-      user.estimated_property_revenue(user.created_at, user.created_at.advance(months: 3)) * 0.05
+      user.property_revenue(user.created_at, user.created_at.advance(months: 3)) * 0.05
     }
     value = Monetize.parse("$0.00 USD") unless value.is_a?(Money)
     value

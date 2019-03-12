@@ -17,9 +17,9 @@ module Properties
       click_rate start_date, end_date, scoped_by: campaign
     end
 
-    def campaign_estimated_property_revenue(campaign, start_date, end_date)
+    def campaign_property_revenue(campaign, start_date, end_date)
       campaign = Campaign.find(campaign) unless campaign.is_a?(Campaign)
-      estimated_property_revenue start_date, end_date, scoped_by: campaign
+      property_revenue start_date, end_date, scoped_by: campaign
     end
   end
 end

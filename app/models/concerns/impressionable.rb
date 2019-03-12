@@ -53,13 +53,13 @@ module Impressionable
     icount.zero? ? 0 : (ccount / icount.to_f) * 100
   end
 
-  def estimated_gross_revenue(start_date, end_date = nil, scoped_by: nil)
+  def gross_revenue(start_date, end_date = nil, scoped_by: nil)
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
     cents = Rails.cache.fetch(key) {
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
-        .pluck(:displayed_at_date, :estimated_gross_revenue_cents)
+        .pluck(:displayed_at_date, :gross_revenue_cents)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
       dates = (start_date..end_date).to_a
       missing_dates = dates - cents_by_date.keys
@@ -73,13 +73,13 @@ module Impressionable
     Money.new cents, "USD"
   end
 
-  def estimated_property_revenue(start_date, end_date = nil, scoped_by: nil)
+  def property_revenue(start_date, end_date = nil, scoped_by: nil)
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
     cents = Rails.cache.fetch(key) {
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
-        .pluck(:displayed_at_date, :estimated_property_revenue_cents)
+        .pluck(:displayed_at_date, :property_revenue_cents)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
       dates = (start_date..end_date).to_a
       missing_dates = dates - cents_by_date.keys
@@ -93,13 +93,13 @@ module Impressionable
     Money.new cents, "USD"
   end
 
-  def estimated_house_revenue(start_date, end_date = nil, scoped_by: nil)
+  def house_revenue(start_date, end_date = nil, scoped_by: nil)
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
     cents = Rails.cache.fetch(key) {
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
-        .pluck(:displayed_at_date, :estimated_house_revenue_cents)
+        .pluck(:displayed_at_date, :house_revenue_cents)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
       dates = (start_date..end_date).to_a
       missing_dates = dates - cents_by_date.keys

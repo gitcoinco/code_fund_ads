@@ -14,9 +14,9 @@ class CreateDailySummaryJob < ApplicationJob
       scoped_by_id: scoped_by&.id,
       impressions_count: impressions.count,
       clicks_count: impressions.clicked.count,
-      estimated_gross_revenue: Money.new(impressions.sum(:estimated_gross_revenue_fractional_cents).round, "USD"),
-      estimated_property_revenue: Money.new(impressions.sum(:estimated_property_revenue_fractional_cents).round, "USD"),
-      estimated_house_revenue: Money.new(impressions.sum(:estimated_house_revenue_fractional_cents).round, "USD"),
+      gross_revenue: Money.new(impressions.sum(:estimated_gross_revenue_fractional_cents).round, "USD"),
+      property_revenue: Money.new(impressions.sum(:estimated_property_revenue_fractional_cents).round, "USD"),
+      house_revenue: Money.new(impressions.sum(:estimated_house_revenue_fractional_cents).round, "USD"),
     )
   end
 end
