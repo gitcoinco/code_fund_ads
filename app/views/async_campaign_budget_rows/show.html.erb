@@ -4,12 +4,12 @@
     <%= @campaign.daily_consumed_budget(@date).format %>
   </td>
   <td class="text-center align-middle text-secondary">
-    <%= number_with_delimiter @campaign.daily_impressions_count(@date) %>
+    <%= number_with_delimiter @campaign.impressions_count(@date) %>
   </td>
   <td class="text-center align-middle text-secondary">
-    <%= number_with_delimiter @campaign.daily_clicks_count(@date) %>
+    <%= number_with_delimiter @campaign.clicks_count(@date) %>
   </td>
   <td class="text-center align-middle text-secondary">
-    <%= number_to_percentage @campaign.daily_click_rate(@date), precision: 2 %>
+    <%= number_to_percentage @campaign.click_rate(@date), precision: 2 %>
   </td>
 </tr>

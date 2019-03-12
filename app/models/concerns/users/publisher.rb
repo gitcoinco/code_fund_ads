@@ -27,16 +27,16 @@ module Users
       (clicks_count / impressions_count.to_f) * 100
     end
 
-    def estimated_gross_revenue(start_date, end_date)
-      properties.active.sum { |p| p.estimated_gross_revenue(start_date, end_date) }
+    def gross_revenue(start_date, end_date)
+      properties.active.sum { |p| p.gross_revenue(start_date, end_date) }
     end
 
-    def estimated_property_revenue(start_date, end_date)
-      properties.active.sum { |p| p.estimated_property_revenue(start_date, end_date) }
+    def property_revenue(start_date, end_date)
+      properties.active.sum { |p| p.property_revenue(start_date, end_date) }
     end
 
-    def estimated_house_revenue(start_date, end_date)
-      properties.active.sum { |p| p.estimated_house_revenue(start_date, end_date) }
+    def house_revenue(start_date, end_date)
+      properties.active.sum { |p| p.house_revenue(start_date, end_date) }
     end
   end
 end

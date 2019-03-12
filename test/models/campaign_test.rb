@@ -48,8 +48,6 @@ class CampaignTest < ActiveSupport::TestCase
   test "initial campaign budgets" do
     assert @campaign.total_budget == Monetize.parse("$5,000.00 USD")
     assert @campaign.ecpm == Monetize.parse("$3.00 USD")
-    assert @campaign.total_impressions_count == 1
-    assert @campaign.total_impressions_per_mille == 0.001
     assert @campaign.total_consumed_budget == Monetize.parse("$0.00 USD")
     assert @campaign.total_remaining_budget == @campaign.total_budget
     assert @campaign.total_operative_days == 91

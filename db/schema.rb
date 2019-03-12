@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_13_224041) do
+ActiveRecord::Schema.define(version: 2019_03_11_172908) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -58,6 +58,9 @@ ActiveRecord::Schema.define(version: 2019_02_13_224041) do
     t.datetime "updated_at", null: false
     t.bigint "invited_user_id"
     t.bigint "referring_user_id"
+    t.bigint "hubspot_deal_vid"
+    t.bigint "hubspot_contact_vid"
+    t.bigint "hubspot_company_vid"
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -152,6 +155,35 @@ ActiveRecord::Schema.define(version: 2019_02_13_224041) do
     t.bigint "organization_id"
     t.index ["organization_id"], name: "index_creatives_on_organization_id"
     t.index ["user_id"], name: "index_creatives_on_user_id"
+  end
+
+  create_table "daily_summaries", force: :cascade do |t|
+    t.string "impressionable_type", null: false
+    t.bigint "impressionable_id", null: false
+    t.string "scoped_by_type"
+    t.bigint "scoped_by_id"
+    t.integer "impressions_count", default: 0, null: false
+    t.integer "fallbacks_count", default: 0, null: false
+    t.decimal "fallback_percentage", default: "0.0", null: false
+    t.integer "clicks_count", default: 0, null: false
+    t.decimal "click_rate", default: "0.0", null: false
+    t.integer "ecpm_cents", default: 0, null: false
+    t.string "ecpm_currency", default: "USD", null: false
+    t.integer "cost_per_click_cents", default: 0, null: false
+    t.string "cost_per_click_currency", default: "USD", null: false
+    t.integer "gross_revenue_cents", default: 0, null: false
+    t.string "gross_revenue_currency", default: "USD", null: false
+    t.integer "property_revenue_cents", default: 0, null: false
+    t.string "property_revenue_currency", default: "USD", null: false
+    t.integer "house_revenue_cents", default: 0, null: false
+    t.string "house_revenue_currency", default: "USD", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["displayed_at_date"], name: "index_daily_summaries_on_displayed_at_date"
+    t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "index_daily_summaries_uniqueness", unique: true
+    t.index ["impressionable_type", "impressionable_id"], name: "index_daily_summaries_on_impressionable_columns"
+    t.index ["scoped_by_type", "scoped_by_id"], name: "index_daily_summaries_on_scoped_by_columns"
   end
 
   create_table "email_templates", force: :cascade do |t|
@@ -444,6 +476,9 @@ ActiveRecord::Schema.define(version: 2019_02_13_224041) do
     t.bigint "referring_user_id"
     t.string "referral_code"
     t.integer "referral_click_count", default: 0
+    t.bigint "hubspot_deal_vid"
+    t.bigint "hubspot_contact_vid"
+    t.bigint "hubspot_company_vid"
     t.index "lower((email)::text)", name: "index_users_on_email", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

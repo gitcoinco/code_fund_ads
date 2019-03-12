@@ -3,20 +3,18 @@ module Campaigns
     extend ActiveSupport::Concern
 
     def property_impressions_count(property, start_date, end_date)
-      property_id = property.is_a?(Property) ? property.id : property
-      impressions.between(start_date, end_date).where(property: property_id).count
+      property = Property.find(property) unless property.is_a?(Property)
+      impressions_count start_date, end_date, scoped_by: property
     end
 
     def property_clicks_count(property, start_date, end_date)
-      property_id = property.is_a?(Property) ? property.id : property
-      impressions.clicked.between(start_date, end_date).where(property_id: property_id).count
+      property = Property.find(property) unless property.is_a?(Property)
+      clicks_count start_date, end_date, scoped_by: property
     end
 
     def property_click_rate(property, start_date, end_date)
-      impressions_count = property_impressions_count(property, start_date, end_date)
-      return 0 if impressions_count.zero?
-      clicks_count = property_clicks_count(property, start_date, end_date)
-      (clicks_count / impressions_count.to_f) * 100
+      property = Property.find(property) unless property.is_a?(Property)
+      click_rate start_date, end_date, scoped_by: property
     end
   end
 end

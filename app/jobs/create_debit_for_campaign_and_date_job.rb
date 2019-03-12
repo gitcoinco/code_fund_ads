@@ -10,7 +10,7 @@ class CreateDebitForCampaignAndDateJob < ApplicationJob
     campaign = Campaign.includes(:organization).available_on(date).find_by(id: campaign_id)
     return unless campaign
 
-    amount = campaign.daily_consumed_budget(date, fresh: true)
+    amount = campaign.daily_consumed_budget(date)
     return unless amount > 0
 
     attrs = {

@@ -4,18 +4,18 @@
       <h5 class="small font-weight-normal text-secondary mb-0">
         <small class="d-block">Total</small>Impressions
       </h5>
-      <div class="text-dark mt-2"><%= number_with_delimiter @property.total_impressions_count(@start_date, @end_date) %></div>
+      <div class="text-dark mt-2"><%= number_with_delimiter @property.impressions_count(@start_date, @end_date) %></div>
     </div>
     <div class="col-4 u-ver-divider">
       <h5 class="small font-weight-normal text-secondary mb-0">
         <small class="d-block">Average</small>Click Rate
       </h5>
-      <div class="text-dark mt-2"><%= number_to_percentage @property.total_click_rate(@start_date, @end_date), precision: 2 %></div>
+      <div class="text-dark mt-2"><%= number_to_percentage @property.click_rate(@start_date, @end_date), precision: 2 %></div>
     </div>
     <div class="col-4">
       <h5 class="small font-weight-normal text-secondary mb-0">
         <small class="d-block">Estimated</small>Earnings</h5>
-      <div class="text-dark mt-2"><%= @property.estimated_property_revenue(@start_date, @end_date).format %></div>
+      <div class="text-dark mt-2"><%= @property.property_revenue(@start_date, @end_date).format %></div>
     </div>
   </div>
 </div>

@@ -1,79 +1,115 @@
 module Impressionable
   extend ActiveSupport::Concern
 
-  def total_impressions_count(start_date = nil, end_date = nil)
-    return daily_impressions_counts(start_date, end_date).sum if start_date && end_date
-    key = "#{cache_key}/#{__method__}/#{Date.current.cache_key minutes_cached: 15}"
-    Rails.cache.fetch(key) { impressions.count }.to_i
-  end
-
-  def total_impressions_per_mille
-    total_impressions_count.to_i / 1_000.to_f
-  end
-
-  def daily_impressions_count(date = nil)
-    date = Date.coerce(date)
-    key = "#{cache_key}/#{__method__}/#{date.cache_key minutes_cached: 15}"
-    Rails.cache.fetch(key) { impressions.on(date).count }.to_i
-  end
-
-  def daily_impressions_counts(start_date = nil, end_date = nil)
-    key = "#{cache_key}/#{__method__}/#{Date.coerce(start_date).cache_key}-#{Date.coerce(end_date).cache_key}"
+  def daily_impressions_counts(start_date = nil, end_date = nil, scoped_by: nil)
+    start_date = Date.coerce(start_date)
+    end_date = Date.coerce(end_date || start_date)
+    key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
     Rails.cache.fetch key do
-      results = impressions.between(start_date, end_date).group(:displayed_at_date).count
-      (start_date..end_date).map { |date| results[date] || 0 }
+      counts_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
+        .pluck(:displayed_at_date, :impressions_count)
+        .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
+      dates = (start_date..end_date).to_a
+      missing_dates = dates - counts_by_date.keys
+      if missing_dates.present?
+        CreateDailySummariesJob.perform_later self, start_date.iso8601, end_date.iso8601, scoped_by
+        impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).count
+          .each { |date, count| counts_by_date[date] ||= count }
+      end
+      dates.map { |date| counts_by_date[date] ||= 0 }
     end
   end
 
-  def daily_impressions_per_mille(date = nil)
-    daily_impressions_count(date).to_i / 1_000.to_f
+  def daily_clicks_counts(start_date = nil, end_date = nil, scoped_by: nil)
+    start_date = Date.coerce(start_date)
+    end_date = Date.coerce(end_date || start_date)
+    key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
+    Rails.cache.fetch key do
+      counts_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
+        .pluck(:displayed_at_date, :clicks_count)
+        .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
+      dates = (start_date..end_date).to_a
+      missing_dates = dates - counts_by_date.keys
+      if missing_dates.present?
+        CreateDailySummariesJob.perform_later self, start_date.iso8601, end_date.iso8601, scoped_by
+        impressions.clicked.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).count
+          .each { |date, count| counts_by_date[date] ||= count }
+      end
+      dates.map { |date| counts_by_date[date] ||= 0 }
+    end
   end
 
-  def total_clicks_count(start_date = nil, end_date = nil)
-    return daily_clicks_counts(start_date, end_date).sum if start_date && end_date
-    key = "#{cache_key}/#{__method__}/#{Date.current.cache_key minutes_cached: 15}"
-    Rails.cache.fetch(key) { impressions.clicked.count }
+  def impressions_count(start_date = nil, end_date = nil, scoped_by: nil)
+    daily_impressions_counts(start_date, end_date, scoped_by: scoped_by).sum
   end
 
-  def daily_clicks_count(date = nil)
-    date = Date.coerce(date)
-    key = "#{cache_key}/#{__method__}/#{date.cache_key minutes_cached: 15}"
-    Rails.cache.fetch(key) { impressions.on(date).clicked.count }.to_i
+  def clicks_count(start_date = nil, end_date = nil, scoped_by: nil)
+    daily_clicks_counts(start_date, end_date, scoped_by: scoped_by).sum
   end
 
-  def daily_clicks_counts(start_date = nil, end_date = nil)
-    key = "#{cache_key}/#{__method__}/#{Date.coerce(start_date).cache_key}-#{Date.coerce(end_date).cache_key}"
-    Rails.cache.fetch(key) {
-      results = impressions.clicked.between(start_date, end_date).group(:displayed_at_date).count
-      (start_date..end_date).map { |date| results[date] || 0 }
+  def click_rate(start_date = nil, end_date = nil, scoped_by: nil)
+    icount = impressions_count(start_date, end_date, scoped_by: scoped_by)
+    ccount = clicks_count(start_date, end_date, scoped_by: scoped_by)
+    icount.zero? ? 0 : (ccount / icount.to_f) * 100
+  end
+
+  def gross_revenue(start_date, end_date = nil, scoped_by: nil)
+    start_date = Date.coerce(start_date)
+    end_date = Date.coerce(end_date || start_date)
+    key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
+    cents = Rails.cache.fetch(key) {
+      cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
+        .pluck(:displayed_at_date, :gross_revenue_cents)
+        .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
+      dates = (start_date..end_date).to_a
+      missing_dates = dates - cents_by_date.keys
+      if missing_dates.present?
+        CreateDailySummariesJob.perform_later self, start_date.iso8601, end_date.iso8601, scoped_by
+        impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).sum(:estimated_gross_revenue_fractional_cents)
+          .each { |date, fractional_cents| cents_by_date[date] ||= fractional_cents.round }
+      end
+      cents_by_date.values.sum
     }
+    Money.new cents, "USD"
   end
 
-  def total_click_rate(start_date = nil, end_date = nil)
-    return 0 if total_impressions_count(start_date, end_date).zero?
-    (total_clicks_count(start_date, end_date) / total_impressions_count(start_date, end_date).to_f) * 100
+  def property_revenue(start_date, end_date = nil, scoped_by: nil)
+    start_date = Date.coerce(start_date)
+    end_date = Date.coerce(end_date || start_date)
+    key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
+    cents = Rails.cache.fetch(key) {
+      cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
+        .pluck(:displayed_at_date, :property_revenue_cents)
+        .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
+      dates = (start_date..end_date).to_a
+      missing_dates = dates - cents_by_date.keys
+      if missing_dates.present?
+        CreateDailySummariesJob.perform_later self, start_date.iso8601, end_date.iso8601, scoped_by
+        impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).sum(:estimated_property_revenue_fractional_cents)
+          .each { |date, fractional_cents| cents_by_date[date] ||= fractional_cents.round }
+      end
+      cents_by_date.values.sum
+    }.to_i
+    Money.new cents, "USD"
   end
 
-  def daily_click_rate(date = nil)
-    date = Date.coerce(date)
-    impressions_count = daily_impressions_count(date)
-    clicks_count = daily_clicks_count(date)
-    return 0 if impressions_count.zero?
-    (clicks_count / impressions_count.to_f) * 100
-  end
-
-  def daily_click_rates(start_date = nil, end_date = nil)
-    icounts = daily_impressions_counts(start_date, end_date)
-    ccounts = daily_clicks_counts(start_date, end_date)
-    icounts.map.with_index do |icount, i|
-      icount > 0 ? (ccounts[i] / icount.to_f) * 100 : 0
-    end
-  end
-
-  def click_rate(start_date = nil, end_date = nil)
-    impressions = daily_impressions_counts(start_date, end_date).sum
-    return 0 if impressions.zero?
-    clicks = daily_clicks_counts(start_date, end_date).sum
-    (clicks / impressions.to_f) * 100
+  def house_revenue(start_date, end_date = nil, scoped_by: nil)
+    start_date = Date.coerce(start_date)
+    end_date = Date.coerce(end_date || start_date)
+    key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
+    cents = Rails.cache.fetch(key) {
+      cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
+        .pluck(:displayed_at_date, :house_revenue_cents)
+        .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
+      dates = (start_date..end_date).to_a
+      missing_dates = dates - cents_by_date.keys
+      if missing_dates.present?
+        CreateDailySummariesJob.perform_later self, start_date.iso8601, end_date.iso8601, scoped_by
+        impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).sum(:estimated_house_revenue_fractional_cents)
+          .each { |date, fractional_cents| cents_by_date[date] ||= fractional_cents.round }
+      end
+      cents_by_date.values.sum
+    }.to_i
+    Money.new cents, "USD"
   end
 end
