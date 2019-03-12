@@ -20,10 +20,6 @@ module Impressionable
     end
   end
 
-  def impressions_count(start_date = nil, end_date = nil, scoped_by: nil)
-    daily_impressions_counts(start_date, end_date, scoped_by: scoped_by).sum
-  end
-
   def daily_clicks_counts(start_date = nil, end_date = nil, scoped_by: nil)
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
@@ -41,6 +37,10 @@ module Impressionable
       end
       dates.map { |date| counts_by_date[date] ||= 0 }
     end
+  end
+
+  def impressions_count(start_date = nil, end_date = nil, scoped_by: nil)
+    daily_impressions_counts(start_date, end_date, scoped_by: scoped_by).sum
   end
 
   def clicks_count(start_date = nil, end_date = nil, scoped_by: nil)
