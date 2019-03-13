@@ -11,7 +11,7 @@ class CreateHubspotContactJob < ApplicationJob
       lastname: user.last_name,
       roles: user.roles,
       company: user.company_name,
-      github_username: github_username,
+      github_username: user.github_username,
     })
 
     user.update(hubspot_contact_vid: contact.vid)
