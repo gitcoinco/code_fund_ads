@@ -11,7 +11,11 @@
     </thead>
     <tbody>
       <% @campaigns.each do |campaign| %>
-        <%= render_async async_property_campaign_row_path(property_id: @property.id, campaign_id: campaign.id), html_element_name: "tr" %>
+        <%= render_later async_property_campaign_row_path(property_id: @property.id, campaign_id: campaign.id), tag_name: "tr" do %>
+          <td colspan="5">
+            <i class="fa fa-spinner fa-spin text-primary"></i>
+          </td>
+        <% end %>
       <% end %>
     </tbody>
   </table>

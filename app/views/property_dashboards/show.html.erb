@@ -7,5 +7,7 @@
     <%= render "/@shared/date_range_picker" %>
   </div>
 
-  <%= render_async async_property_stat_card_path(property_id: @property.id) %>
+  <%= render_later async_property_stat_card_path(property_id: @property.id) do %>
+    <i class="fa fa-spinner fa-spin text-primary"></i>
+  <% end %>
 <% end %>

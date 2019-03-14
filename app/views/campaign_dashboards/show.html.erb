@@ -25,8 +25,12 @@
     <%= render "/@shared/widgets/stat_card",
       label: "Total Budget",
       value: @campaign.total_budget.format %>
-    <%= render_async async_campaign_total_remaining_budget_stat_card_path(campaign_id: @campaign.id), container_class: "card" %>
-    <%= render_async async_campaign_total_consumed_budget_stat_card_path(campaign_id: @campaign.id), container_class: "card" %>
+    <%= render_later async_campaign_total_remaining_budget_stat_card_path(campaign_id: @campaign.id), css: "card" do %>
+      <i class="fa fa-spinner fa-spin text-primary"></i>
+    <% end %>
+    <%= render_later async_campaign_total_consumed_budget_stat_card_path(campaign_id: @campaign.id), css: "card" do %>
+      <i class="fa fa-spinner fa-spin text-primary"></i>
+    <% end %>
   </div>
   <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
     <%= render "/@shared/widgets/stat_card",

@@ -5,7 +5,6 @@ module Sparklineable
     dates = (start_date..end_date).to_a
     daily_impressions_counts(start_date, end_date).map.with_index do |count, index|
       {
-        name: "Impressions",
         date: dates[index].to_s("%F"),
         value: count,
       }
@@ -16,7 +15,6 @@ module Sparklineable
     dates = (start_date..end_date).to_a
     daily_clicks_counts(start_date, end_date).map.with_index do |count, index|
       {
-        name: "Clicks",
         date: dates[index].to_s("%F"),
         value: count,
       }

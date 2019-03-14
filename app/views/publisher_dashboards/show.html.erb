@@ -20,10 +20,18 @@
     <% end %>
 
     <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
-      <%= render_async async_publisher_impressions_count_stat_card_path %>
-      <%= render_async async_publisher_clicks_count_stat_card_path %>
-      <%= render_async async_publisher_click_rate_stat_card_path %>
-      <%= render_async async_publisher_revenue_stat_card_path %>
+      <%= render_later async_publisher_impressions_count_stat_card_path do %>
+        <i class="fa fa-spinner fa-spin text-primary"></i>
+      <% end %>
+      <%= render_later async_publisher_clicks_count_stat_card_path do %>
+        <i class="fa fa-spinner fa-spin text-primary"></i>
+      <% end %>
+      <%= render_later async_publisher_click_rate_stat_card_path do %>
+        <i class="fa fa-spinner fa-spin text-primary"></i>
+      <% end %>
+      <%= render_later async_publisher_revenue_stat_card_path do %>
+        <i class="fa fa-spinner fa-spin text-primary"></i>
+      <% end %>
     </div>
 
     <div class="text-center mb-3 mt-5">
