@@ -31,7 +31,9 @@
         <h4 class="small text-muted">
           Remaining<strong class="text-secondary d-block">Budget</strong>
         </h4>
-        <%= render_async async_campaign_total_remaining_budget_path(campaign_id: campaign.id) %>
+        <%= render_later async_campaign_total_remaining_budget_path(campaign_id: campaign.id) do %>
+          <i class="fa fa-spinner fa-spin text-primary"></i>
+        <% end %>
       </div>
     </div>
   </div>

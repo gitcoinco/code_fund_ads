@@ -11,7 +11,11 @@
     </thead>
     <tbody>
       <% (@start_date..@end_date).each do |date| %>
-        <%= render_async async_property_earnings_row_path(property_id: @property.id, date: date.iso8601), html_element_name: "tr" %>
+        <%= render_later async_property_earnings_row_path(property_id: @property.id, date: date.iso8601), tag_name: "tr" do %>
+          <td colspan="5">
+            <i class="fa fa-spinner fa-spin text-primary"></i>
+          </td>
+        <% end %>
       <% end %>
     </tbody>
   </table>
