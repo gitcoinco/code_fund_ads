@@ -18,7 +18,6 @@ class AddToMailchimpListJob < ApplicationJob
     add_to_list(:newsletter, email)
   rescue => e
     Rollbar.error e
-    logger.error "Failed to add #{email_address} to Mailchimp list! #{e}"
   end
 
   private
