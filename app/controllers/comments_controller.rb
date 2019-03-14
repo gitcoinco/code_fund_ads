@@ -64,7 +64,7 @@ class CommentsController < ApplicationController
   end
 
   def set_applicant
-    @commentable = Applicant.find(params[:applicant_id]) if current_user.can_admin_system?
+    @commentable = Applicant.find(params[:applicant_id]) if authorized_user.can_admin_system?
   end
 
   def set_commentable
