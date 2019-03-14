@@ -28,15 +28,15 @@ module Users
     end
 
     def gross_revenue(start_date, end_date)
-      properties.active.sum { |p| p.gross_revenue(start_date, end_date) }
+      Monetize.parse(properties.active.sum { |p| p.gross_revenue(start_date, end_date) })
     end
 
     def property_revenue(start_date, end_date)
-      properties.active.sum { |p| p.property_revenue(start_date, end_date) }
+      Monetize.parse(properties.active.sum { |p| p.property_revenue(start_date, end_date) })
     end
 
     def house_revenue(start_date, end_date)
-      properties.active.sum { |p| p.house_revenue(start_date, end_date) }
+      Monetize.parse(properties.active.sum { |p| p.house_revenue(start_date, end_date) })
     end
   end
 end
