@@ -16,6 +16,9 @@ class AddToMailchimpListJob < ApplicationJob
     add_to_list(:advertiser, email, user) if user&.advertiser?
     add_to_list(:publisher, email, user) if user&.publisher?
     add_to_list(:newsletter, email)
+  rescue => e
+    Rollbar.error e
+    logger.error "Failed to add #{email_address} to Mailchimp list! #{e}"
   end
 
   private
