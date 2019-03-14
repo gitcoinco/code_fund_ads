@@ -15,7 +15,7 @@ class CampaignSearchesController < ApplicationController
   end
 
   def destroy
-    session[:campaign_search] = CampaignSearch.new(statuses: ["active"]).to_gid_param
+    session[:campaign_search] = CampaignSearch.new.to_gid_param
     redirect_to campaigns_path
   end
 
