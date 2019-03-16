@@ -3,33 +3,24 @@
     <thead>
       <tr class="border-bottom">
         <th class="text-left">Property</th>
-        <th class="text-center" style="width: 30%;">Matching Tags</th>
+        <th class="text-left" style="width: 30%;">Matching Tags</th>
         <th class="text-center" style="width: 10%;">Impressions</th>
         <th class="text-center" style="width: 10%;">Clicks</th>
         <th class="text-center" style="width: 10%;">CTR</th>
       </tr>
     </thead>
     <tbody>
-      <% properties.each do |property| %>
-      <tr>
-        <td class="text-left align-middle text-secondary">
-          <small class="d-block text-dark"><%= property.name %></small>
-          <small class="d-block"><%= link_to property.url, property.url, target: "_blank" %></small>
-        </td>
-        <td class="text-center align-middle text-secondary">
-          <% (property.keywords & campaign.keywords).sort.each do |keyword| %>
-            <span class="btn btn-sm btn-soft-primary mb-2 py-0 px-1"><%= keyword %></span>
-          <% end %>
-        </td>
-        <td class="text-center align-middle text-secondary">-</td>
-        <td class="text-center align-middle text-secondary">-</td>
-        <td class="text-center align-middle text-secondary">-</td>
-      </tr>
+      <% @properties.each do |property| %>
+        <%= render_later async_campaign_property_row_path(campaign_id: @campaign.id, property_id: property.id), tag_name: "tr" do %>
+          <td colspan="5">
+            <i class="fa fa-spinner fa-spin text-primary"></i>
+          </td>
+        <% end %>
       <% end %>
     </tbody>
   </table>
   <div class="d-flex justify-content-between align-items-center">
-    <span><%== pagy_nav_bootstrap(pagy) if pagy.pages > 1 %></span>
-    <%= pagy_entries(pagy) %>
+    <span><%== pagy_nav_bootstrap(@pagy) if @pagy.pages > 1 %></span>
+    <%= pagy_entries(@pagy) %>
   </div>
 </div>

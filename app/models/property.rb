@@ -25,16 +25,20 @@ class Property < ApplicationRecord
   # extends ...................................................................
 
   # includes ..................................................................
+  include Properties::Impressionable
   include Properties::Presentable
   include Eventable
-  include Taggable
   include Imageable
   include Impressionable
+  include Sparklineable
+  include Taggable
 
   # relationships .............................................................
   belongs_to :user
   has_many :property_advertisers
   has_many :advertisers, through: :property_advertisers, class_name: "User", foreign_key: "advertiser_id"
+  has_many :impressions
+  has_many :daily_summaries, as: :impressionable
 
   # validations ...............................................................
   # validates :ad_template, presence: true
@@ -43,7 +47,7 @@ class Property < ApplicationRecord
   validates :name, length: {maximum: 255, allow_blank: false}
   validates :property_type, inclusion: {in: ENUMS::PROPERTY_TYPES.values}
   validates :status, inclusion: {in: ENUMS::PROPERTY_STATUSES.values}
-  validates :url, presence: true
+  validates :url, presence: true, url: true
 
   # callbacks .................................................................
   after_save :generate_screenshot
@@ -113,13 +117,6 @@ class Property < ApplicationRecord
 
   # public instance methods ...................................................
 
-  # Intentionally override relationship to improve query performance.
-  # Query performance without joining on property_advertisers will be
-  # problematic since all partition tables would be scanned
-  def impressions
-    Impression.where(advertiser_id: property_advertisers.select(:advertiser_id))
-  end
-
   def favicon_image_url
     domain = url.gsub(/^https?:\/\//, "")
     "//www.google.com/s2/favicons?domain=#{domain}"
@@ -130,42 +127,21 @@ class Property < ApplicationRecord
   end
 
   def matching_campaigns
-    Campaign.for_property self
+    Campaign.targeted_premium_for_property self
   end
 
+  # Returns a relation for campaigns that have been rendered on this property
   def displayed_campaigns(start_date = nil, end_date = nil)
     subquery = impressions.between(start_date, end_date).distinct(:campaign_id).select(:campaign_id) if start_date
     subquery ||= impressions.distinct(:campaign_id).select(:campaign_id)
     Campaign.where id: subquery
   end
 
+  # Returns a relation for campaigns that have been clicked on this property
   def clicked_campaigns(start_date = nil, end_date = nil)
     subquery = impressions.clicked.between(start_date, end_date).distinct(:campaign_id).select(:campaign_id) if start_date
     subquery ||= impressions.clicked.distinct(:campaign_id).select(:campaign_id)
     Campaign.where id: subquery
-  end
-
-  def revenue_calculators(start_date = nil, end_date = nil, campaign_id = nil)
-    campaigns = campaign_id ?
-      Campaign.where(id: campaign_id).includes(:user) :
-      displayed_campaigns(start_date, end_date).includes(:user)
-    probable_dates_with_impressions(start_date, end_date).each_with_object([]) do |date, memo|
-      campaigns.each do |campaign|
-        memo << DailyRevenueCalculator.new(date, self, campaign)
-      end
-    end
-  end
-
-  def gross_revenue(start_date = nil, end_date = nil)
-    revenue_calculators(start_date, end_date).sum(&:gross_revenue)
-  end
-
-  def property_revenue(start_date = nil, end_date = nil)
-    revenue_calculators(start_date, end_date).sum(&:property_revenue)
-  end
-
-  def house_revenue(start_date = nil, end_date = nil)
-    revenue_calculators(start_date, end_date).sum(&:house_revenue)
   end
 
   # protected instance methods ................................................

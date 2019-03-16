@@ -1,11 +1,13 @@
 <% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/dashboard" %>
   <%= render "/@shared/breadcrumbs/campaigns" %>
   <%= render "/@shared/breadcrumbs/campaign", campaign: campaign, class: "active" %>
 <% end %>
 
 <% content_for :actions do %>
-  <%= render "/@shared/actions/edit_campaign", campaign: campaign %>
+  <ul class="nav" style="width: 130px; justify-content: flex-end;">
+    <li><%= render "/@shared/actions/edit_campaign", campaign: campaign %></li>
+    <li class="ml-1"><%= render "/@shared/actions/generic", link: new_campaign_path(clone: campaign.id), icon: "fa fa-copy" %></li>
+  </ul>
 <% end %>
 
 <% content_for :page_heading do %>
@@ -31,7 +33,7 @@
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
       <%= tag.li(active_link_to("Events", campaign_events_path(campaign),
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
-      <%= tag.li(active_link_to("Versions", campaign_versions_path(campaign),
+      <%= tag.li(active_link_to("Revisions", campaign_versions_path(campaign),
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
     </ul>
     

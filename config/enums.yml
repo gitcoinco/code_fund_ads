@@ -14,12 +14,12 @@
 #
 #   The YAML above will be converted to the following enums
 #
-#   pry>ENUMS::RATINGS::GOLD        # happy
-#   pry>ENUMS::RATINGS::HAPPY       # gold
-#   pry>ENUMS::RATINGS::SILVER      # satisfied
-#   pry>ENUMS::RATINGS::SATISFIED   # silver
-#   pry>ENUMS::RATINGS::BRONZE      # sad
-#   pry>ENUMS::RATINGS::SAD         # bronze
+#   pry>ENUMS::RATINGS::GOLD       # happy
+#   pry>ENUMS::RATINGS::HAPPY      # gold
+#   pry>ENUMS::RATINGS::SILVER     # satisfied
+#   pry>ENUMS::RATINGS::SATISFIED  # silver
+#   pry>ENUMS::RATINGS::BRONZE     # sad
+#   pry>ENUMS::RATINGS::SAD        # bronze
 #
 #   ENUMs also supports the following helper methods
 #
@@ -70,9 +70,26 @@
 #   pry>ENUMS::CAMPAIGN_STATUSES[2]          # active
 #
 
+APPLICANT_STATUSES:
+  - pending
+  - accepted
+  - rejected
+  - duplicate
+
+APPLICANT_STATUS_COLORS:
+  pending: warning
+  accepted: success
+  rejected: muted
+  duplicate: muted
+
+APPLICANT_ROLES:
+  - advertiser
+  - publisher
+
 USER_ROLES:
   - administrator
   - advertiser
+  - employer
   - publisher
 
 CAMPAIGN_STATUSES:
@@ -84,6 +101,9 @@ CAMPAIGN_STATUS_COLORS:
   pending: warning
   active: success
   archived: muted
+
+COUPON_TYPES:
+  - percentage
 
 PROPERTY_TYPES:
   - website
@@ -119,6 +139,48 @@ IMPRESSION_CODES:
   - property_inactive
   - impression_count_exceeded
   - no_possible_ads
+
+RESERVED_ORGANIZATION_NAMES:
+  - codefund
+
+ORGANIZATION_TRANSACTION_TYPES:
+  - debit
+  - credit
+
+ORGANIZATION_SEARCH_DIRECTIONS:
+  - positive
+  - negative
+  - zero
+
+JOB_PLANS:
+  - monthly
+  - prepaid
+
+JOB_OFFERS:
+  - premium_placement
+  - code_fund_ads
+  - read_the_docs_ads
+
+JOB_TYPES:
+  - full_time
+  - part_time
+
+JOB_STATUSES:
+  - pending
+  - active
+  - archived
+  - abandoned
+
+JOB_STATUS_COLORS:
+  pending: warning
+  active: success
+  archived: muted
+  abandoned: danger
+
+JOB_SOURCES:
+  - internal
+  - remoteok
+  - github
 
 # SEE: https://dev.maxmind.com/geoip/legacy/codes/iso3166/
 COUNTRIES:
@@ -292,7 +354,7 @@ COUNTRIES:
   NU: Niue
   NF: Norfolk Island
   MP: Northern Mariana Islands
-  "NO": Norway
+  'NO': Norway
   OM: Oman
   PK: Pakistan
   PW: Palau
@@ -394,7 +456,7 @@ DEVELOPED_MARKET_COUNTRIES:
   JP: Japan
   NL: Netherlands
   NZ: New Zealand
-  "NO": Norway
+  'NO': Norway
   PT: Portugal
   SG: Singapore
   ES: Spain
@@ -493,76 +555,162 @@ LANGUAGES:
 
 KEYWORDS:
   # topics
-  - Android Development
-  - Backend Services
-  - Blockchain
-  - CSS & Design
-  - Computer Science
-  - Database
-  - Dev Ops
-  - Docker
-  - Frontend Concepts
-  - Frontend Frameworks & Tools
-  - Frontend Workflow & Tooling
-  - Game Development
-  - Git
-  - HTML5
-  - Hybrid & Mobile Web
-  - IOS Development
-  - Languages & Frameworks
-  - React
-  - Resources
-  - Shell
+  'Android':
+    - android
+  'Angular':
+    - angular
+    - angularjs
+  'Backend':
+    - architecture
+    - backend
+    - full stack
+    - full-stack
+  'Blockchain':
+    - blockchain
+    - solidity
+    - cryptography
+  'CSS & Design':
+    - css
+    - design
+    - ui
+    - ux
+  'Cryptography':
+    - cryptography
+  'Database':
+    - full stack
+    - full-stack
+    - graphql
+    - mongodb
+    - postgresql
+    - postgres
+    - mysql
+  'DevOps':
+    - devops
+    - kubernetes
+    - serverless
+  'Developer Resources':
+    - technical writing
+  'Frontend':
+    - front end
+    - frontend
+    - full stack
+    - full-stack
+    - javascript
+    - vue
+    - react
+    - angular
+    - angularjs
+  'Game Development':
+    - game design
+    - game dev
+    - gaming
+    - unity
+  'Hybrid & Mobile Web':
+    - electron
+  'IoT':
+    - iot
+    - internet of things
+    - wireless
+  'Machine Learning':
+    - machine learning
+  'React':
+    - react
+    - react native
+    - reactnative
+  'Security':
+    - infosec
+    - network security
+  'Serverless':
+    - architecture
+    - cloud
+    - devops
+    - kubernetes
+    - microservices
+    - serverless
+  'Virtual Reality':
+    - virtual reality
+    - vr
+  'VueJS':
+    - vuejs
+    - vue
+  'iOS':
+    - ios
 
   # programming languages
-  - ABAP
-  - Ada
-  - Alice
-  - Apex
-  - Assembly language
-  - Awk
-  - Bash
-  - C
-  - C#
-  - C++
-  - COBOL
-  - D
-  - Dart
-  - Delphi/Object Pascal
-  - Erlang
-  - F#
-  - Fortran
-  - Go
-  - Groovy
-  - Haskell
-  - Java
-  - JavaScript
-  - Julia
-  - LabVIEW
-  - Ladder Logic
-  - Lisp
-  - Logo
-  - Lua
-  - MATLAB
-  - MQL4
-  - Objective-C
-  - Other
-  - PHP
-  - PL/SQL
-  - Perl
-  - Prolog
-  - Python
-  - Q
-  - R
-  - RPG (OS/400)
-  - Ruby
-  - Rust
-  - SAS
-  - Scala
-  - Scheme
-  - Scratch
-  - Swift
-  - Transact-SQL
-  - VHDL
-  - Visual Basic
-  - Visual Basic .NET
+  '.NET':
+    - dot net
+    - dotnet
+    - .net
+    - windows
+  'C':
+    - c
+    - c plus plus
+  'C#':
+    - c#
+  'C++':
+    - c++
+    - c plus plus
+  'D':
+    - d
+  'Dart':
+    - dart
+  'Erlang':
+    - elixir
+    - erlang
+    - phoenix
+  'F#':
+    - f sharp
+    - f#
+  'Go':
+    - go
+    - golang
+  'Groovy':
+    - groovy
+  'Haskell':
+    - haskell
+  'Java':
+    - android
+    - java
+  'JavaScript':
+    - angularjs
+    - electron
+    - es6
+    - graphql
+    - javascript
+    - meteor js
+    - node
+    - node js
+    - node.js
+  'Julia':
+    - julia
+  'Kotlin':
+    - kotlin
+  'Objective-C':
+    - objective-c
+    - objective c
+    - obj c
+  'PHP':
+    - drupal
+    - laravel
+    - php
+  'PL/SQL':
+    - pl/sql
+    - plsql
+  'Python':
+    - django
+    - python
+  'Q':
+    - q
+  'R':
+    - r
+  'Ruby':
+    - rails
+    - ruby
+  'Rust':
+    - rust
+  'Scala':
+    - scala
+  'Swift':
+    - swift
+  'Other':
+    - other

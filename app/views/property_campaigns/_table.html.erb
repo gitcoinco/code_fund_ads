@@ -2,32 +2,25 @@
   <table class="js-datatable table table-striped table-compact table-borderless u-datatable u-datatable__striped u-datatable__trigger">
     <thead>
       <tr class="border-bottom">
-        <th style="width: 40%;">Name</th>
-        <th class="text-center" style="width: 10%;"><span class="d-block small text-muted">current</span>eCPM</th>
-        <th class="text-center" style="width: 10%;">Impressions</th>
-        <th class="text-center" style="width: 10%;">Clicks</th>
-        <th class="text-center" style="width: 10%;"><span class="d-block small text-muted">average</span>CTR</th>
-        <th class="text-center" style="width: 10%;"><span class="d-block small text-muted">total</span>Earnings</th>
+        <th>Name</th>
+        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Impressions</th>
+        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Clicks</th>
+        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">average</span>CTR</th>
+        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">estimated</span>Earnings</th>
       </tr>
     </thead>
     <tbody>
-      <% campaigns.each do |campaign| %>
-      <tr>
-        <td class="text-left align-middle text-secondary"><%= campaign.name %></td>
-        <td class="text-center align-middle text-secondary"><%= number_to_currency campaign.ecpm %></td>
-        <td class="text-center align-middle text-secondary"><%= campaign.impressions.where(property: property).count %></td>
-        <td class="text-center align-middle text-secondary"><%= campaign.impressions.clicked.where(property: property).count %></td>
-        <td class="text-center align-middle text-secondary"><%= number_to_percentage(
-          (campaign.impressions.clicked.where(property: property).count.to_f /
-           campaign.impressions.where(property: property).count.to_f) * 100
-        ) %></td>
-        <td class="text-center align-middle text-secondary">TBD</td>
-      </tr>
+      <% @campaigns.each do |campaign| %>
+        <%= render_later async_property_campaign_row_path(property_id: @property.id, campaign_id: campaign.id), tag_name: "tr" do %>
+          <td colspan="5">
+            <i class="fa fa-spinner fa-spin text-primary"></i>
+          </td>
+        <% end %>
       <% end %>
     </tbody>
   </table>
   <div class="d-flex justify-content-between align-items-center">
-    <span><%== pagy_nav_bootstrap(pagy) if pagy.pages > 1 %></span>
-    <%= pagy_entries(pagy) %>
+    <span><%== pagy_nav_bootstrap(@pagy) if @pagy.pages > 1 %></span>
+    <%= pagy_entries(@pagy) %>
   </div>
 </div>

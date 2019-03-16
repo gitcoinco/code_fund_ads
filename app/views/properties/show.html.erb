@@ -1,42 +1,29 @@
 <%= render layout: "/properties/show_layout", locals: { property: @property } do %>
   <div class="row">
     <div class="col-md-6 col-lg-4">
-      <%= render "/properties/card", property: @property, start_date: Date.current.beginning_of_month, end_date: Date.current  %>
+      <%= render "/properties/card", property: @property, start_date: @start_date, end_date: @end_date  %>
     </div>
     <div class="col-md-6 col-lg-8">
-      <h4 class="h5 mb-3">
+      <h3 class="h5 mb-3 flex-grow-1">
         Details
         <small class="text-muted d-block">Basic details for this property</small>
-      </h4>
+      </h3>
 
       <ul class="list-unstyled mb-0">
         <%= details_li("Name") { @property.name } %>
         <%= details_li("User") { link_to @property.user.full_name, @property.user } %>
         <%= details_li("Status") { @property.status.humanize } %>
         <%= details_li("URL") { link_to @property.url, @property.url } %>
+        <%= details_li("Revenue Rate") { number_to_percentage(@property.revenue_percentage * 100, precision: 1) } %>
+        <%= details_li("Template") { @property.ad_template } %>
+        <%= details_li("Theme") { @property.ad_theme } %>
+        <%= details_li("Allow fallback ads?") { @property.prohibit_fallback_campaigns ? "No" : "Yes (thank you)" } %>
+        <%= details_li("Excl. Advertisers") do %>
+          <% @property.excluded_company_names.each do |company_name| -%>
+            <span class="btn btn-xs btn-soft-dark mb-1"><%= company_name %></span>
+          <% end -%>
+        <% end if authorized_user.can_admin_system? %>
       </ul>
-
-      <hr>
-
-      <h4 class="h5 my-3">
-        Embed Instructions
-        <small class="text-muted d-block">Paste the following code snippet into your web application</small>
-      </h4>
-
-      <div class="js-focus-state input-group mb-2">
-        <textarea rows="3" id="embedCode" class="form-control"><div id="codefund"><!-- fallback content --></div>
-<%= javascript_include_tag(advertisements_url(@property.id, format: :js), async: true) %></textarea>
-        <div class="input-group-append">
-          <a class="js-clipboard input-group-text" href="javascript:;"
-            data-controller="copy-to-clipboard"
-            data-content-target="#embedCode"
-            data-class-change-target="#embedIcon"
-            data-default-class="fas fa-clone"
-            data-success-class="fas fa-check">
-            <span id="embedIcon" class="fas fa-clone"></span>
-          </a>
-        </div>
-      </div>
     </div>
   </div>
 <% end %>

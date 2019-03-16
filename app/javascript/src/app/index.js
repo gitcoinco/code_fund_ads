@@ -2,8 +2,10 @@ import './stylesheets/application.scss';
 import './theme';
 import 'select2';
 import 'moment';
+import 'trix';
 import 'bootstrap-daterangepicker';
 import './prefetch';
+import './hubspot';
 
 import { Application } from 'stimulus';
 import { definitionsFromContext } from 'stimulus/webpack-helpers';

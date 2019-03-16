@@ -2,23 +2,28 @@
 #
 # Table name: creatives
 #
-#  id         :bigint(8)        not null, primary key
-#  user_id    :bigint(8)        not null
-#  name       :string           not null
-#  headline   :string           not null
-#  body       :text
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  legacy_id  :uuid
+#  id              :bigint(8)        not null, primary key
+#  user_id         :bigint(8)        not null
+#  name            :string           not null
+#  headline        :string           not null
+#  body            :text
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  legacy_id       :uuid
+#  organization_id :bigint(8)
 #
 
 class Creative < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
   include Eventable
+  include Organizationable
+  include Sanitizable
+  include Creatives::Presentable
 
   # relationships .............................................................
   belongs_to :user
+  belongs_to :organization
   has_many :campaigns
   has_many :creative_images
 
@@ -36,6 +41,7 @@ class Creative < ApplicationRecord
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  sanitize :headline, :body
 
   # class methods .............................................................
   class << self

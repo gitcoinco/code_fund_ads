@@ -1,0 +1,65 @@
+# == Schema Information
+#
+# Table name: job_postings
+#
+#  id                         :bigint(8)        not null, primary key
+#  organization_id            :bigint(8)
+#  user_id                    :bigint(8)
+#  campaign_id                :bigint(8)
+#  status                     :string           default("pending"), not null
+#  source                     :string           default("internal"), not null
+#  source_identifier          :string
+#  job_type                   :string           not null
+#  company_name               :string
+#  company_url                :string
+#  company_logo_url           :string
+#  title                      :string           not null
+#  description                :text             not null
+#  how_to_apply               :text
+#  keywords                   :string           default([]), not null, is an Array
+#  display_salary             :boolean          default(TRUE)
+#  min_annual_salary_cents    :integer          default(0), not null
+#  min_annual_salary_currency :string           default("USD"), not null
+#  max_annual_salary_cents    :integer          default(0), not null
+#  max_annual_salary_currency :string           default("USD"), not null
+#  remote                     :boolean          default(FALSE), not null
+#  remote_country_codes       :string           default([]), not null, is an Array
+#  city                       :string
+#  province_name              :string
+#  province_code              :string
+#  country_code               :string
+#  url                        :text
+#  start_date                 :date             not null
+#  end_date                   :date             not null
+#  full_text_search           :tsvector
+#  created_at                 :datetime         not null
+#  updated_at                 :datetime         not null
+#  company_email              :string
+#  stripe_charge_id           :string
+#  session_id                 :string
+#  auto_renew                 :boolean          default(TRUE), not null
+#  list_view_count            :integer          default(0), not null
+#  detail_view_count          :integer          default(0), not null
+#  coupon_id                  :bigint(8)
+#  plan                       :string
+#  offers                     :string           default([]), not null, is an Array
+#
+
+one:
+  user: advertiser
+  title: Full Stack Developer
+  description: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  keywords:
+    - JavaScript
+    - VueJS
+  min_annual_salary_cents: <%= Monetize.parse("$75,000 USD").cents %>
+  min_annual_salary_currency: USD
+  max_annual_salary_cents: <%= Monetize.parse("$95,000 USD").cents %>
+  max_annual_salary_currency: USD
+  remote: true
+  remote_country_codes:
+    - US
+  start_date: <%= Date.today %>
+  end_date: <%= Date.today + 30.days %>
+  company_email: "test@example.com"
+  job_type: full_time

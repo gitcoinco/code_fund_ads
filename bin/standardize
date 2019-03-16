@@ -1,14 +1,4 @@
 #!/bin/bash
 
-bundle exec standardrb --fix \
-  app/channels \
-  app/controllers \
-  app/helpers \
-  app/jobs \
-  app/mailers \
-  app/models \
-  config \
-  db \
-  lib \
-  test
-prettier --loglevel silent --write app/**/*.js
+bundle exec standardrb --fix
+prettier --write app/**/*.js

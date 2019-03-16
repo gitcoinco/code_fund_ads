@@ -6,6 +6,6 @@ module Authorizable
   end
 
   def authorized_user
-    @authorized_user ||= AuthorizedUser.new(current_user)
+    @authorized_user ||= AuthorizedUser.new(current_user || User.new)
   end
 end

@@ -1,0 +1,2 @@
+class AsyncPublisherClicksCountStatCardsController < AsyncController
+end

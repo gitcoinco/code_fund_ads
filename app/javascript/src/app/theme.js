@@ -14,7 +14,6 @@ import 'theme/vendor/chartist/dist/chartist.min';
 import 'theme/vendor/chartist-js-tooltip/chartist-plugin-tooltip';
 import 'theme/vendor/cubeportfolio/js/jquery.cubeportfolio.min';
 import 'theme/vendor/clipboard/dist/clipboard.min';
-// import 'theme/vendor/summernote/dist/summernote-lite';
 
 // theme scripts
 import 'theme/js/hs.core';
@@ -37,6 +36,7 @@ import 'theme/js/components/hs.chart-pie';
 import 'theme/js/components/hs.focus-state';
 import 'theme/js/components/hs.cubeportfolio';
 import 'theme/js/components/hs.clipboard';
+import 'theme/js/components/hs.step-form';
 
 // theme initialization
 document.addEventListener('turbolinks:load', () => {
@@ -50,6 +50,7 @@ document.addEventListener('turbolinks:load', () => {
   jQuery.HSCore.components.HSFancyBox.init('.js-fancybox');
   jQuery.HSCore.components.HSSlickCarousel.init('.js-slick-carousel');
   jQuery.HSCore.components.HSValidation.init('.js-validate');
+  jQuery.HSCore.components.HSStepForm.init('.js-step-form');
   jQuery.HSCore.components.HSFocusState.init();
 
   // initialization of HSMegaMenu component

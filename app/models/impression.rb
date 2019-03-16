@@ -8,8 +8,6 @@
 #  campaign_id                                 :bigint(8)        not null
 #  creative_id                                 :bigint(8)        not null
 #  property_id                                 :bigint(8)        not null
-#  campaign_name                               :string           not null
-#  property_name                               :string           not null
 #  ip_address                                  :string           not null
 #  user_agent                                  :text             not null
 #  country_code                                :string
@@ -24,6 +22,11 @@
 #  estimated_gross_revenue_fractional_cents    :float
 #  estimated_property_revenue_fractional_cents :float
 #  estimated_house_revenue_fractional_cents    :float
+#  ad_template                                 :string
+#  ad_theme                                    :string
+#  organization_id                             :bigint(8)
+#  province_code                               :string
+#  uplift                                      :boolean          default(FALSE)
 #
 
 class Impression < ApplicationRecord
@@ -34,14 +37,12 @@ class Impression < ApplicationRecord
   belongs_to :advertiser, class_name: "User", foreign_key: "advertiser_id"
   belongs_to :publisher, class_name: "User", foreign_key: "publisher_id"
   belongs_to :campaign
-  belongs_to :distribution, optional: true
+  belongs_to :creative
   belongs_to :property
 
   # validations ...............................................................
 
   # callbacks .................................................................
-  before_validation :assure_campaign_name, on: [:create]
-  before_validation :assure_property_name, on: [:create]
   before_validation :set_displayed_at, on: [:create]
   before_create :assure_partition_table!
   before_create :calculate_estimated_revenue
@@ -53,19 +54,59 @@ class Impression < ApplicationRecord
     where(advertiser_id: advertiser_id).between(start_date, end_date || start_date)
   }
   scope :clicked, -> { where.not clicked_at_date: nil }
-  scope :on, ->(date) { where displayed_at_date: date.to_date }
+  scope :on, ->(*dates) { where displayed_at_date: dates.map { |date| Date.coerce(date) } }
   scope :between, ->(start_date, end_date = nil) {
-    end_date ? where(displayed_at_date: start_date.to_date..end_date.to_date) : on(start_date)
+    where displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date)
   }
+  scope :scoped_by, ->(record) {
+    case record
+    when Campaign then where campaign_id: record.id
+    when Property then where property_id: record.id
+    else all
+    end
+  }
+  scope :fallback, -> { where fallback_campaign: true }
+  scope :premium, -> { where fallback_campaign: false }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   self.primary_key = "id"
 
   # class methods .............................................................
   class << self
+    def partitioned_table_names
+      result = connection.execute <<~SQL
+        SELECT child.relname child
+        FROM pg_inherits
+        JOIN pg_class child ON pg_inherits.inhrelid = child.oid
+        JOIN pg_class parent ON pg_inherits.inhparent = parent.oid
+        WHERE parent.relname = 'impressions'
+        ORDER BY child
+      SQL
+      result.values.flatten
+    end
+
+    def detach_partitioned_tables(*partitioned_table_names)
+      partitioned_table_names.each do |partitioned_table_name|
+        connection.execute <<~SQL
+          ALTER TABLE impressions DETACH PARTITION #{connection.quote_table_name partitioned_table_name};
+        SQL
+      end
+    end
   end
 
   # public instance methods ...................................................
+
+  def country
+    Country.find country_code
+  end
+
+  def fallback?
+    fallback_campaign?
+  end
+
+  def premium?
+    !fallback?
+  end
 
   def clicked?
     clicked_at.present?
@@ -101,7 +142,7 @@ class Impression < ApplicationRecord
   end
 
   def applicable_ecpm
-    @applicable_ecpm ||= campaign.applicable_ecpm_on(displayed_at_date)
+    @applicable_ecpm ||= campaign.adjusted_ecpm(country_code)
   end
 
   def calculate_estimated_gross_revenue_fractional_cents
@@ -112,19 +153,20 @@ class Impression < ApplicationRecord
     @calculated_estimated_property_revenue_fractional_cents ||= calculate_estimated_gross_revenue_fractional_cents * property.revenue_percentage
   end
 
-  def estimated_house_revenue_fractional_cents
+  def calculate_estimated_house_revenue_fractional_cents
     calculate_estimated_gross_revenue_fractional_cents - calculate_estimated_property_revenue_fractional_cents
   end
 
   def calculate_estimated_revenue(recalculate = false)
-    if recalculate
-      self.estimated_gross_revenue_fractional_cents ||= nil
-      self.estimated_property_revenue_fractional_cents ||= nil
-      self.estimated_house_revenue_fractional_cents ||= nil
-    end
-    self.estimated_gross_revenue_fractional_cents ||= calculate_estimated_gross_revenue_fractional_cents
-    self.estimated_property_revenue_fractional_cents ||= calculate_estimated_property_revenue_fractional_cents
-    self.estimated_house_revenue_fractional_cents ||= calculate_estimated_house_revenue_fractional_cents
+    return unless new_record? || recalculate
+    self.estimated_gross_revenue_fractional_cents = calculate_estimated_gross_revenue_fractional_cents
+    self.estimated_property_revenue_fractional_cents = calculate_estimated_property_revenue_fractional_cents
+    self.estimated_house_revenue_fractional_cents = calculate_estimated_house_revenue_fractional_cents
+  end
+
+  def calculate_estimated_revenue_and_save!(recalculate = false)
+    calculate_estimated_revenue recalculate
+    save! if changed?
   end
 
   # protected instance methods ................................................
@@ -140,13 +182,5 @@ class Impression < ApplicationRecord
   def set_displayed_at
     self.displayed_at ||= Time.current
     self.displayed_at_date ||= Date.current
-  end
-
-  def assure_campaign_name
-    self.campaign_name ||= campaign.scoped_name
-  end
-
-  def assure_property_name
-    self.property_name ||= property.scoped_name
   end
 end

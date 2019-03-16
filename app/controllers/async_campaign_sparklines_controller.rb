@@ -1,0 +1,2 @@
+class AsyncCampaignSparklinesController < AsyncController
+end

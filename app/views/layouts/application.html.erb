@@ -1,46 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>CodeFund Ads</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <!-- Meta Tags -->
+    <%= display_meta_tags site: "CodeFund" %>
+    <link rel="manifest" href="/site.webmanifest">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="https://codefund.io/favicon.ico">
-
-    <!-- Search Engine -->
-    <meta name="description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
-    <meta name="image" content="<%= asset_url "codefund-logo-square-512.png" %>">
-
     <!-- CDN Stylesheets -->
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600">
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-j8y0ITrvFafF4EkV1mPW0BKm6dp3c+J9Fky22Man50Ofxo2wNe5pT1oZejDH9/Dt" crossorigin="anonymous">
-
-    <!-- Schema.org for Google -->
-    <meta itemprop="name" content="CodeFund">
-    <meta itemprop="description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
-    <meta itemprop="image" content="<%= asset_url "codefund-logo-square-512.png" %>">
-
-    <!-- Twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:title" content="CodeFund">
-    <meta name="twitter:description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
-    <meta name="twitter:site" content="@codefundio">
-    <meta name="twitter:creator" content="@coderberry">
-    <meta name="twitter:image:src" content="<%= asset_url "twitter-preview-image.png" %>">
-
-    <!-- Open Graph general (Facebook, Pinterest & Google+) -->
-    <meta name="og:title" content="CodeFund">
-    <meta name="og:description" content="CodeFund is an open source ad platform that funds developers through ethical advertising.">
-    <meta name="og:image" content="<%= asset_url "preview-image.png" %>">
-    <meta name="og:url" content="<%= root_url %>">
-    <meta name="og:site_name" content="CodeFund">
-    <meta name="og:locale" content="en_US">
-    <meta name="fb:admins" content="801507563">
-    <meta name="og:type" content="website">
+    <link rel="stylesheet" href="/css/all.min.css">
 
     <!-- Compressed Stylesheets -->
     <%= stylesheet_pack_tag 'code_fund', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -49,7 +18,10 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'code_fund', 'data-turbolinks-track': 'reload' %>
   </head>
-  <body>
+  <%= tag.body data: {
+      filestack_key: ENV["FILESTACK_API_KEY"],
+      hubspot_id: ENV["HUBSPOT_ID"],
+      email: true_user&.email } do %>
     <%= render "/@shared/skippy" %>
     <%= render "/@shared/header" %>
 
@@ -62,7 +34,7 @@
     <div id="global-modal" class="modal fade"></div>
 
     <%= noty_flash %>
-    <%= support_widget_tag %>
+    <%= hubspot_tag %>
     <%= ga_tag %>
-  </body>
+  <% end %>
 </html>

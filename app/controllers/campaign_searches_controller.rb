@@ -24,13 +24,14 @@ class CampaignSearchesController < ApplicationController
   def campaign_search_params
     params.require(:campaign_search).permit(
       :name,
-      :us_hours_only,
+      :core_hours_only,
       :user,
       :user_id,
       :weekdays_only,
-      countries: [],
+      country_codes: [],
       keywords: [],
       negative_keywords: [],
+      province_codes: [],
       statuses: [],
     )
   end

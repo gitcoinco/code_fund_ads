@@ -51,31 +51,42 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  legacy_id              :uuid
+#  organization_id        :bigint(8)
+#  stripe_customer_id     :string
+#  referring_user_id      :bigint(8)
+#  referral_code          :string
+#  referral_click_count   :integer          default(0)
+#  hubspot_deal_vid       :bigint(8)
+#  hubspot_contact_vid    :bigint(8)
+#  hubspot_company_vid    :bigint(8)
 #
 
 # IMPORTANT: Limit users fixtures to [1] per [role] using only the minimum required data
 #            Additional setup should be perfomed in the test suite
 
 administrator:
+  organization: default
   roles:
     - <%= ENUMS::USER_ROLES::ADMINISTRATOR %>
   first_name: Test
   last_name: Administrator
-  email: administrator@codefund.io
+  email: administrator@codefund.app
   encrypted_password: <%= User.new(password: "secret").encrypted_password %>
 
 publisher:
+  organization: default
   roles:
     - <%= ENUMS::USER_ROLES::PUBLISHER %>
   first_name: Test
   last_name: Publisher
-  email: publisher@codefund.io
+  email: publisher@codefund.app
   encrypted_password: <%= User.new(password: "secret").encrypted_password %>
 
 advertiser:
+  organization: default
   roles:
     - <%= ENUMS::USER_ROLES::ADVERTISER %>
   first_name: Test
   last_name: Advertiser
-  email: advertiser@codefund.io
+  email: advertiser@codefund.app
   encrypted_password: <%= User.new(password: "secret").encrypted_password %>

@@ -8,8 +8,8 @@
 #  title            :string
 #  body             :text
 #  subject          :string
-#  user_id          :integer          not null
-#  parent_id        :integer
+#  user_id          :bigint(8)        not null
+#  parent_id        :bigint(8)
 #  lft              :integer
 #  rgt              :integer
 #  created_at       :datetime         not null

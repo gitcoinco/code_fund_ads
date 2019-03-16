@@ -22,11 +22,11 @@ namespace :legacy do
     CSV.foreach(Rails.root.join("legacy/users_20181208.csv"), headers: true, encoding: "ISO-8859-1:UTF-8") do |row|
       user = User.new
       user.legacy_id             = row["id"]
-      user.roles                 = row["roles"][1...-1].
-        gsub("admin", "administrator").
-        gsub("sponsor", "advertiser").
-        gsub("developer", "publisher").
-        split
+      user.roles                 = row["roles"][1...-1]
+        .gsub("admin", "administrator")
+        .gsub("sponsor", "advertiser")
+        .gsub("developer", "publisher")
+        .split
       user.first_name            = row["first_name"]&.strip
       user.last_name             = row["last_name"]&.strip
       user.company_name          = row["company"]&.strip
@@ -138,7 +138,7 @@ namespace :legacy do
       campaign.end_date              = row["end_date"]
       campaign.start_date            ||= 1.year.from_now
       campaign.end_date              ||= campaign.start_date + 3.months
-      campaign.us_hours_only         = row["us_hours_only"]
+      campaign.core_hours_only       = row["us_hours_only"]
       campaign.weekdays_only         = row["weekdays_only"]
       campaign.total_budget_cents    = row["total_spend"].to_f * 100
       campaign.total_budget_currency = "USD"

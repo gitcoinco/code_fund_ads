@@ -1,4 +1,4 @@
 #!/bin/sh
-production backup
-staging restore production
+heroku pg:backups:capture -a code-fund-ads
+heroku pg:backups:restore `heroku pg:backups:url -a code-fund-ads` -a code-fund-ads-staging
 heroku run rails db:migrate -a code-fund-ads-staging

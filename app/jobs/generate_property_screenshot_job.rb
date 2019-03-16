@@ -2,6 +2,7 @@ class GeneratePropertyScreenshotJob < ApplicationJob
   queue_as :default
 
   def perform(property_id)
+    ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     property = Property.find(property_id)
 
     sm = ScreenshotMachine.new(property.url)
@@ -15,5 +16,7 @@ class GeneratePropertyScreenshotJob < ApplicationJob
 
     property.screenshot = uploaded_file
     property.save!
+
+    property.add_event("Captured new screenshot", ["screenshot"])
   end
 end

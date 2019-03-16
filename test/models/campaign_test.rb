@@ -11,7 +11,7 @@
 #  url                   :text             not null
 #  start_date            :date
 #  end_date              :date
-#  us_hours_only         :boolean          default(FALSE)
+#  core_hours_only       :boolean          default(FALSE)
 #  weekdays_only         :boolean          default(FALSE)
 #  total_budget_cents    :integer          default(0), not null
 #  total_budget_currency :string           default("USD"), not null
@@ -19,71 +19,108 @@
 #  daily_budget_currency :string           default("USD"), not null
 #  ecpm_cents            :integer          default(0), not null
 #  ecpm_currency         :string           default("USD"), not null
-#  countries             :string           default([]), is an Array
+#  country_codes         :string           default([]), is an Array
 #  keywords              :string           default([]), is an Array
 #  negative_keywords     :string           default([]), is an Array
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  legacy_id             :uuid
+#  organization_id       :bigint(8)
+#  job_posting           :boolean          default(FALSE), not null
+#  province_codes        :string           default([]), is an Array
+#  fixed_ecpm            :boolean          default(TRUE), not null
 #
 
 require "test_helper"
 
 class CampaignTest < ActiveSupport::TestCase
   setup do
-    @campaign = campaigns(:exclusive)
-    @campaign.start_date = Date.parse("2018-12-01")
-    @campaign.end_date = Date.parse("2018-12-31")
-    @campaign.daily_budget = @campaign.recommended_daily_budget
+    @campaign = campaigns(:default)
+    @campaign.start_date = Date.parse("2019-01-01")
+    @campaign.end_date = @campaign.start_date.advance(months: 3)
+    Timecop.freeze @campaign.start_date.to_time.advance(days: 12)
+  end
+
+  teardown do
+    Timecop.return
   end
 
   test "initial campaign budgets" do
     assert @campaign.total_budget == Monetize.parse("$5,000.00 USD")
     assert @campaign.ecpm == Monetize.parse("$3.00 USD")
-    assert @campaign.total_impressions_count == 0
-    assert @campaign.total_impressions_per_mille == 0
     assert @campaign.total_consumed_budget == Monetize.parse("$0.00 USD")
     assert @campaign.total_remaining_budget == @campaign.total_budget
-    assert @campaign.total_operative_days == (Date.current.beginning_of_month..Date.current.end_of_month).to_a.size
-    assert @campaign.estimated_max_total_impression_count == 1_666_667
-    assert @campaign.estimated_max_daily_impression_count == 64_104
-    refute @campaign.budget_surplus?
+    assert @campaign.total_operative_days == 91
   end
 
   test "restricting to weekdays impacts the numbers" do
     @campaign.update weekdays_only: true
-    assert @campaign.total_operative_days < 90
-    assert @campaign.budget_surplus?
-    assert @campaign.recommended_daily_budget > @campaign.daily_budget
-    assert @campaign.recommended_end_date > @campaign.end_date
+    assert @campaign.total_operative_days == 65
   end
 
   test "increasing ecpm up impacts the numbers" do
     @campaign.update ecpm: Monetize.parse("$4.00 USD")
-    assert @campaign.estimated_max_total_impression_count == 1_250_000
-    assert @campaign.estimated_max_daily_impression_count == 48_078
   end
 
   test "decreasing ecpm down impacts the numbers" do
     @campaign.update ecpm: Monetize.parse("$2.00 USD")
-    assert @campaign.estimated_max_total_impression_count == 2_500_000
-    assert @campaign.estimated_max_daily_impression_count == 96_155
   end
 
   test "increasing total_budget impacts the numbers" do
-    @campaign.update total_budget: Monetize.parse("$8,000 USD")
-    assert @campaign.estimated_max_total_impression_count == 2_666_667
-    assert @campaign.budget_surplus?
-    assert @campaign.recommended_daily_budget > @campaign.daily_budget
-    assert @campaign.recommended_end_date > @campaign.end_date
+    @campaign.update total_budget: Monetize.parse("$8,000.00 USD")
   end
 
   test "decreasing daily_budget yields a budget surplus" do
-    original_count = @campaign.estimated_max_remaining_impression_count
-    @campaign.update daily_budget: Monetize.parse("$20 USD")
-    assert @campaign.estimated_max_remaining_impression_count < original_count
-    assert @campaign.budget_surplus?
-    assert @campaign.recommended_daily_budget > @campaign.daily_budget
-    assert @campaign.recommended_end_date > @campaign.end_date
+    @campaign.update daily_budget: Monetize.parse("$20.00 USD")
+  end
+
+  test "ecpms fixed" do
+    @campaign.fixed_ecpm = true
+    assert @campaign.ecpm == Monetize.parse("$3.00 USD")
+    assert @campaign.ecpms == [
+      {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "CN", country_name: "China", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "CA", country_name: "Canada", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "FR", country_name: "France", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$3.00 USD")},
+    ]
+  end
+
+  test "ecpms old pricing based on start_date before 2019-03-07" do
+    @campaign.fixed_ecpm = false
+    @campaign.start_date = Date.parse("2019-03-06")
+    @campaign.end_date = @campaign.start_date.advance(months: 1)
+    assert @campaign.ecpm == Monetize.parse("$3.00 USD")
+
+    assert @campaign.ecpms == [
+      {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$2.61 USD")},
+      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "CN", country_name: "China", ecpm: Monetize.parse("$0.15 USD")},
+      {country_iso_code: "CA", country_name: "Canada", ecpm: Monetize.parse("$2.13 USD")},
+      {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$1.59 USD")},
+      {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$0.93 USD")},
+      {country_iso_code: "FR", country_name: "France", ecpm: Monetize.parse("$1.08 USD")},
+      {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$0.69 USD")},
+    ]
+  end
+
+  test "ecpms new pricing based on start_date after 2019-03-07" do
+    @campaign.fixed_ecpm = false
+    @campaign.start_date = Date.parse("2019-03-07")
+    @campaign.end_date = @campaign.start_date.advance(months: 1)
+    assert @campaign.ecpm == Monetize.parse("$3.00 USD")
+    assert @campaign.ecpms == [
+      {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$2.40 USD")},
+      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "CN", country_name: "China", ecpm: Monetize.parse("$0.30 USD")},
+      {country_iso_code: "CA", country_name: "Canada", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$0.30 USD")},
+      {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$0.90 USD")},
+      {country_iso_code: "FR", country_name: "France", ecpm: Monetize.parse("$2.40 USD")},
+      {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$0.30 USD")},
+    ]
   end
 end

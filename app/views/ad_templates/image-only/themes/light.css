@@ -9,7 +9,7 @@
   font-size: 14px;
   line-height: 1.4;
   text-align: center;
-  font-family: system, 'Helvetica Neue', Helvetica, Arial;
+  font-family: Helvetica, Arial;
   margin-left: auto;
   margin-right: auto;
 }
@@ -22,24 +22,25 @@
 }
 
 #cf .cf-header:before {
-  content: '—';
+  content: "—";
   margin: 0 0.5em;
   opacity: 0.5;
 }
 
 #cf .cf-header:after {
-  content: '—';
+  content: "—";
   margin: 0 0.5em;
   opacity: 0.5;
 }
 
-#cf .cf-image-wrapper {
+#cf .cf-img-wrapper {
   display: block;
   margin-bottom: 8px;
 }
 
-#cf .cf-image-wrapper img {
-  width: 80%;
+#cf .cf-img-wrapper img {
+  width: 150px;
+  height: 150px;
 }
 
 #cf .cf-text {

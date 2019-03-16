@@ -1,0 +1,2 @@
+class AsyncCampaignClickRatesController < AsyncController
+end

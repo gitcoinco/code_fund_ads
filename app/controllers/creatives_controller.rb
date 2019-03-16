@@ -42,10 +42,17 @@ class CreativesController < ApplicationController
   end
 
   def destroy
-    @creative.destroy
-    respond_to do |format|
-      format.html { redirect_to creatives_url, notice: "Creative was successfully destroyed." }
-      format.json { head :no_content }
+    if @creative.campaigns.empty?
+      @creative.destroy
+      respond_to do |format|
+        format.html { redirect_to creatives_url, notice: "Creative was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to creatives_url, alert: "We are unable to delete a creative that has been used" }
+        format.json { head :no_content }
+      end
     end
   end
 
@@ -56,12 +63,14 @@ class CreativesController < ApplicationController
     @creative_search ||= CreativeSearch.new
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_creative
-    @creative = Creative.find(params[:id])
+    @creative = if authorized_user.can_admin_system?
+      Creative.find(params[:id])
+    else
+      current_user.creatives.find(params[:id])
+    end
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def creative_params
     params.require(:creative).permit(:name, :headline, :body)
   end

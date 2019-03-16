@@ -2,14 +2,13 @@ class CampaignsController < ApplicationController
   include Sortable
 
   before_action :authenticate_user!
+  before_action :authenticate_administrator!, only: [:destroy]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
   before_action :set_campaign_search, only: [:index]
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
-  # GET /campaigns
-  # GET /campaigns.json
   def index
-    campaigns = Campaign.order(order_by).includes(:user, :creative)
+    campaigns = Campaign.order(order_by).includes(:user, :creative, :organization)
     if authorized_user.can_admin_system?
       campaigns = campaigns.where(user: @user) if @user
     else
@@ -21,27 +20,32 @@ class CampaignsController < ApplicationController
     render "/campaigns/for_user/index" if @user
   end
 
-  # GET /campaigns/1
-  # GET /campaigns/1.json
   def show
+    set_meta_tags @campaign
   end
 
-  # GET /campaigns/new
   def new
     @campaign = current_user.campaigns.build(
       status: "pending",
       start_date: Date.tomorrow,
-      end_date: 30.days.from_now
+      end_date: 30.days.from_now,
+      ecpm: Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD")
     )
+
+    if params[:clone].present?
+      cloned_campaign = Campaign.find(params[:clone])
+      if cloned_campaign.present?
+        @campaign.attributes = cloned_campaign.attributes
+        @campaign.status = "pending"
+      end
+    end
   end
 
-  # GET /campaigns/1/edit
   def edit
+    set_meta_tags @campaign
     @user ||= @campaign.user
   end
 
-  # POST /campaigns
-  # POST /campaigns.json
   def create
     @campaign = Campaign.new(campaign_params)
 
@@ -56,8 +60,6 @@ class CampaignsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /campaigns/1
-  # PATCH/PUT /campaigns/1.json
   def update
     respond_to do |format|
       if @campaign.update(campaign_params)
@@ -70,8 +72,6 @@ class CampaignsController < ApplicationController
     end
   end
 
-  # DELETE /campaigns/1
-  # DELETE /campaigns/1.json
   def destroy
     @campaign.destroy
     respond_to do |format|
@@ -87,17 +87,25 @@ class CampaignsController < ApplicationController
     @campaign_search ||= CampaignSearch.new
   end
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_campaign
-    @campaign = Campaign.find(params[:id])
+    @campaign = if authorized_user.can_admin_system?
+      Campaign.find(params[:id])
+    else
+      current_user.campaigns.find(params[:id])
+    end
   end
 
   def set_user
-    @user = User.find(params[:user_id])
+    @user = if authorized_user.can_admin_system?
+      User.find(params[:user_id])
+    else
+      current_user
+    end
   end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
   def campaign_params
+    return advertiser_campaign_params if !authorized_user.can_admin_system? && @campaign.fixed_ecpm
+    return extended_advertiser_campaign_params unless authorized_user.can_admin_system?
     params.require(:campaign).permit(
       :user_id,
       :status,
@@ -105,14 +113,35 @@ class CampaignsController < ApplicationController
       :date_range,
       :url,
       :creative_id,
-      :us_hours_only,
+      :core_hours_only,
       :weekdays_only,
       :ecpm,
+      :fixed_ecpm,
       :daily_budget,
       :total_budget,
-      countries: [],
+      :fallback,
+      country_codes: [],
       keywords: [],
-      negative_keywords: []
+      negative_keywords: [],
+      province_codes: [],
+    )
+  end
+
+  def advertiser_campaign_params
+    params.require(:campaign).permit(:name, :url, :creative_id)
+  end
+
+  def extended_advertiser_campaign_params
+    params.require(:campaign).permit(
+      :name,
+      :url,
+      :creative_id,
+      :core_hours_only,
+      :weekdays_only,
+      country_codes: [],
+      keywords: [],
+      negative_keywords: [],
+      province_codes: []
     )
   end
 

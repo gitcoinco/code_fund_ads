@@ -1,0 +1,24 @@
+<% content_for :breadcrumbs do %>
+  <%= render "/@shared/breadcrumbs/organizations", class: "active" %>
+<% end %>
+
+<% content_for :actions do %>
+  <%= render "/@shared/actions/add_organization" %>
+<% end %>
+
+<% content_for :page_heading do %>
+  <%= page_heading "Viewing", "Organizations",
+    subtitle: "#{pluralize(@pagy.count, "record")} found",
+    icon: "fas fa-building" %>
+<% end %>
+
+<main id="content" role="main" class="bg-light">
+  <div class="container space-1">
+    <%= render partial: "/organization_searches/form",
+               layout: "/@shared/collapsable_search_form",
+               locals: { search: @organization_search } %>
+    <div class="bg-white p-4">
+      <%= render "/organizations/table", organizations: @organizations, pagy: @pagy %>
+    </div>
+  </div>
+</main>

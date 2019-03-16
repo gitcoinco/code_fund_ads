@@ -22,7 +22,7 @@ Devise.setup do |config|
   config.mailer = "DeviseMailer"
 
   # Configure the parent class responsible to send e-mails.
-  # config.parent_mailer = 'ActionMailer::Base'
+  config.parent_mailer = "ActionMailer::Base"
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -115,10 +115,10 @@ Devise.setup do |config|
   # config.pepper = '13972a526d77580782595b6dcc5804acd1f9f557bd88b16b463f9e28c2f924016cd0373d60ea5468d8ff0ba993633e56ad2f42ed39d7a3cdcfac9b4f0d505fe8'
 
   # Send a notification to the original email when the user's email is changed.
-  # config.send_email_changed_notification = false
+  config.send_email_changed_notification = true
 
   # Send a notification email when the user's password is changed.
-  # config.send_password_change_notification = false
+  config.send_password_change_notification = true
 
   # ==> Configuration for :invitable
   # The period the generated invitation token is valid, after
@@ -308,6 +308,10 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+
+  config.omniauth :google_oauth2, ENV["GOOGLE_CLIENT_ID"], ENV["GOOGLE_CLIENT_SECRET"], {}
+  config.omniauth :github, ENV["GITHUB_CLIENT_ID"], ENV["GITHUB_CLIENT_SECRET"], scope: "read:user,user:email"
+  config.omniauth :linkedin, ENV["LINKEDIN_KEY"], ENV["LINKEDIN_SECRET"]
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

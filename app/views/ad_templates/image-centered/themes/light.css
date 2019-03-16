@@ -1,8 +1,8 @@
 #cf {
   max-width: 280px;
   margin: 0 auto;
-  border: 1px solid #efefef;
-  background-color: #ffffff;
+  border: none;
+  background-color: rgba(255, 255, 255, 0.9);
 }
 
 #cf .cf-wrapper {
@@ -11,7 +11,7 @@
   font-size: 14px;
   line-height: 1.4;
   text-align: center;
-  font-family: system, 'Helvetica Neue', Helvetica, Arial;
+  font-family: Helvetica, Arial;
   margin-left: auto;
   margin-right: auto;
 }
@@ -24,24 +24,24 @@
 }
 
 #cf .cf-header:before {
-  content: '—';
+  content: "—";
   margin: 0 0.5em;
   opacity: 0.5;
 }
 
 #cf .cf-header:after {
-  content: '—';
+  content: "—";
   margin: 0 0.5em;
   opacity: 0.5;
 }
 
-#cf .cf-image-wrapper {
+#cf .cf-img-wrapper {
   display: block;
   margin-bottom: 8px;
 }
 
-#cf .cf-image-wrapper img {
-  max-width: 100px;
+#cf .cf-img-wrapper img {
+  max-width: 130px;
 }
 
 #cf .cf-text {
@@ -53,7 +53,7 @@
   margin-top: 5px;
   font-size: 11px;
   display: block;
-  color: #678;
+  color: rgba(0, 0, 0, 0.7);
   text-decoration: none;
   text-align: center;
 }

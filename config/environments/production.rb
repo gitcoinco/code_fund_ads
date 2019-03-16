@@ -52,23 +52,27 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
   # Use a different cache store in production.
-  config.cache_store = :redis_cache_store, {driver: :hiredis, namespace: "code_fund_ads_#{Rails.env}_cache", url: ENV["REDIS_CACHE_URL"]}
-
+  config.cache_store = :redis_cache_store, {namespace: "code_fund_ads_#{Rails.env}_cache", url: ENV["REDIS_CACHE_URL"], size: (ENV.fetch("RAILS_MAX_THREADS") { 10 }).to_i}
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "code_fund_ads_#{Rails.env}"
 
   config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_key: ENV["MAILGUN_API_KEY"],
+    domain: ENV["MAILGUN_DOMAIN"],
+  }
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
@@ -97,5 +101,5 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
-  config.action_mailer.default_url_options = {host: "codefund.io"}
+  config.action_mailer.default_url_options = {host: "codefund.app"}
 end

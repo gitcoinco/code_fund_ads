@@ -3,14 +3,17 @@ class CampaignPropertiesController < ApplicationController
   before_action :set_campaign
 
   def index
-    properties = @campaign.matching_properties
+    properties = @campaign.properties(@start_date, @end_date).order(:name)
     @pagy, @properties = pagy(properties)
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_campaign
-    @campaign = Campaign.find(params[:campaign_id])
+    @campaign = if authorized_user.can_admin_system?
+      Campaign.find(params[:campaign_id])
+    else
+      current_user.campaigns.find(params[:campaign_id])
+    end
   end
 end

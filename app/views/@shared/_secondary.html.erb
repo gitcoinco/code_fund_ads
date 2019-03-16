@@ -56,6 +56,13 @@
                   My Profile
                 <% end %>
               </li>
+              <li class="u-sidebar--account__list-item">
+                <%= link_to manage_job_postings_path, class: "u-sidebar--account__list-link" do %>
+                  <span class="fas fa-laptop-code u-sidebar--account__list-icon mr-2"></span>
+                  My Job Postings
+                  <span class="badge badge-warning float-right mt-1">New</span>
+                <% end %>
+              </li>
               <% if authorized_user.can_publish? %>
                 <li class="u-sidebar--account__list-item">
                   <%= link_to properties_path, class: "u-sidebar--account__list-link" do %>
@@ -98,6 +105,12 @@
                     Users
                   <% end %>
                 </li>
+                <li class="u-sidebar--account__list-item">
+                  <%= link_to applicants_path, class: "u-sidebar--account__list-link" do %>
+                    <span class="fas fa-person-booth u-sidebar--account__list-icon mr-2"></span>
+                    Applicants
+                  <% end %>
+                </li>
               </ul>
             <% end %>
 
@@ -138,8 +151,7 @@
 
         <!-- SVG Background Shape -->
         <div class="position-absolute right-0 bottom-0 left-0">
-          <img class="js-svg-injector" src="/assets/svg/components/wave-bottom-with-dots.svg" alt="Image Description"
-                  data-parent="#SVGwaveWithDots">
+          <%= image_tag "svg/components/wave-bottom-with-dots.svg", class: "js-svg-injector", data: { parent: "#SVGwaveWithDots" } %>
         </div>
         <!-- End SVG Background Shape -->
       </footer>

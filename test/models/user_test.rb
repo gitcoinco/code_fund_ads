@@ -51,6 +51,14 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  legacy_id              :uuid
+#  organization_id        :bigint(8)
+#  stripe_customer_id     :string
+#  referring_user_id      :bigint(8)
+#  referral_code          :string
+#  referral_click_count   :integer          default(0)
+#  hubspot_deal_vid       :bigint(8)
+#  hubspot_contact_vid    :bigint(8)
+#  hubspot_company_vid    :bigint(8)
 #
 
 require "test_helper"

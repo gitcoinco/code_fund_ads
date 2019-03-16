@@ -1,5 +1,5 @@
 #cf {
-  font-family: system, 'Helvetica Neue', Helvetica, Arial;
+  font-family: Helvetica, Arial;
   font-size: 13px;
 }
 
@@ -8,7 +8,7 @@
   position: fixed;
   bottom: 0;
   z-index: 5;
-  padding: 0.5em 1em;
+  padding: 0.8em 1em 1em;
   width: 100%;
   border-top: solid 1px #bfbfbf;
   background-color: #eeeeee;
@@ -28,7 +28,7 @@
   border-radius: 3px;
   background-color: #4caf50;
   color: #fff;
-  content: 'Supporter';
+  content: "Supporter";
 }
 
 #cf .cf-powered-by {
@@ -36,4 +36,10 @@
   text-decoration: none;
   color: #999;
   box-shadow: none;
+}
+
+#cf .cf-powered-by::before {
+  content: "•";
+  color: rgba(0, 0, 0, 0.3);
+  display: inline-block;
 }

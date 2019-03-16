@@ -11,7 +11,7 @@
 #  url                   :text             not null
 #  start_date            :date
 #  end_date              :date
-#  us_hours_only         :boolean          default(FALSE)
+#  core_hours_only       :boolean          default(FALSE)
 #  weekdays_only         :boolean          default(FALSE)
 #  total_budget_cents    :integer          default(0), not null
 #  total_budget_currency :string           default("USD"), not null
@@ -19,30 +19,37 @@
 #  daily_budget_currency :string           default("USD"), not null
 #  ecpm_cents            :integer          default(0), not null
 #  ecpm_currency         :string           default("USD"), not null
-#  countries             :string           default([]), is an Array
+#  country_codes         :string           default([]), is an Array
 #  keywords              :string           default([]), is an Array
 #  negative_keywords     :string           default([]), is an Array
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
 #  legacy_id             :uuid
+#  organization_id       :bigint(8)
+#  job_posting           :boolean          default(FALSE), not null
+#  province_codes        :string           default([]), is an Array
+#  fixed_ecpm            :boolean          default(TRUE), not null
 #
 
 class Campaign < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
-  include Eventable
-  include Taggable
-  include Impressionable
-  include Campaigns::Operable
-  include Campaigns::Predictable
   include Campaigns::Budgetable
-  include Campaigns::Recommendable
+  include Campaigns::Impressionable
+  include Campaigns::Operable
   include Campaigns::Presentable
-  include Campaigns::Versionable
+  include Eventable
+  include Impressionable
+  include Organizationable
+  include Sparklineable
+  include Taggable
 
   # relationships .............................................................
-  belongs_to :creative, optional: true
+  belongs_to :creative, -> { includes :creative_images }, optional: true
   belongs_to :user
+  has_one :job_posting
+  has_many :impressions
+  has_many :daily_summaries, as: :impressionable
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
@@ -57,56 +64,65 @@ class Campaign < ApplicationRecord
   scope :active, -> { where status: ENUMS::CAMPAIGN_STATUSES::ACTIVE }
   scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
   scope :fallback, -> { where fallback: true }
+  scope :premium, -> { where fallback: false }
+  scope :job_posting, -> { where job_posting: true }
   scope :available_on, ->(date) { where(arel_table[:start_date].lteq(date.to_date)).where(arel_table[:end_date].gteq(date.to_date)) }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
-  scope :search_countries, ->(*values) { values.blank? ? all : with_any_countries(*values) }
+  scope :search_country_codes, ->(*values) { values.blank? ? all : with_any_country_codes(*values) }
+  scope :search_province_codes, ->(*values) { values.blank? ? all : with_any_province_codes(*values) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
   scope :search_negative_keywords, ->(*values) { values.blank? ? all : with_any_negative(*values) }
   scope :search_status, ->(*values) { values.blank? ? all : where(status: values) }
-  scope :search_us_hours_only, ->(value) { value.nil? ? all : where(us_hours_only: value) }
+  scope :search_core_hours_only, ->(value) { value.nil? ? all : where(core_hours_only: value) }
   scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertisers.search_name(value).or(User.advertisers.search_company(value))) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
-  scope :for_property, ->(property) { for_property_id property.id }
-  scope :for_property_id, ->(property_id) do
-    query = <<~SQL
-      SELECT c.id FROM (SELECT keywords, prohibited_advertiser_ids FROM properties WHERE id = ?) p
-      LEFT JOIN LATERAL
-      (
-        SELECT id
-        FROM campaigns
-        WHERE NOT p.prohibited_advertiser_ids @> ARRAY[id]
-        AND p.keywords && keywords
-        AND p.keywords && negative_keywords  = false
-      ) c ON true
-    SQL
-
-    where "campaigns.id IN (#{sanitize_sql_array([query, property_id])})"
+  scope :permitted_for_property_id, ->(property_id) {
+    subquery = Property.select(:prohibited_advertiser_ids).where(id: property_id)
+    id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"user_id\"]"), subquery.arel)
+    where.not id_prohibited
+  }
+  scope :targeted_premium_for_property, ->(property, *keywords) { targeted_premium_for_property_id property.id }
+  scope :targeted_premium_for_property_id, ->(property_id, *keywords) { premium.targeted_for_property_id(property_id, *keywords) }
+  scope :targeted_for_property_id, ->(property_id, *keywords) do
+    if keywords.present?
+      permitted_for_property_id(property_id).with_any_keywords(*keywords).without_any_negative_keywords(*keywords)
+    else
+      subquery = Property.active.select(:keywords).where(id: property_id)
+      keywords_overlap = Arel::Nodes::InfixOperation.new("&&", arel_table[:keywords], subquery.arel)
+      negative_keywords_overlap = Arel::Nodes::InfixOperation.new("&&", arel_table[:negative_keywords], subquery.arel)
+      permitted_for_property_id(property_id).where(keywords_overlap).where.not(negative_keywords_overlap)
+      permitted_for_property_id(property_id).where(keywords_overlap)
+    end
   end
   scope :fallback_for_property_id, ->(property_id) do
-    query = <<~SQL
-      SELECT c.id FROM (SELECT prohibit_fallback_campaigns FROM properties WHERE id = ?) p
-      LEFT JOIN LATERAL
-      (
-        SELECT id
-        FROM campaigns
-        WHERE fallback = true
-        AND p.prohibit_fallback_campaigns = false
-      ) c ON true
-    SQL
-
-    where "campaigns.id IN (#{sanitize_sql_array([query, property_id])})"
+    fallback.permitted_for_property_id(property_id)
+      .where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
   end
+  scope :targeted_fallback_for_property_id, ->(property_id, *keywords) do
+    targeted_for_property_id(property_id, *keywords)
+      .where(fallback: true)
+      .where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
+  end
+  scope :targeted_country_code, ->(country_code) { country_code ? with_all_country_codes(country_code) : without_country_codes }
+  scope :targeted_province_code, ->(province_code) { province_code ? without_province_codes.or(with_all_province_codes(province_code)) : without_province_codes }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
   #
-  # - with_countries
-  # - without_countries
-  # - with_any_countries
-  # - without_any_countries
-  # - with_all_countries
-  # - without_all_countries
+  # - with_country_codes
+  # - without_country_codes
+  # - with_any_country_codes
+  # - without_any_country_codes
+  # - with_all_country_codes
+  # - without_all_country_codes
+  #
+  # - with_province_codes
+  # - without_province_codes
+  # - with_any_province_codes
+  # - without_any_province_codes
+  # - with_all_province_codes
+  # - without_all_province_codes
   #
   # - with_keywords
   # - without_keywords
@@ -124,7 +140,7 @@ class Campaign < ApplicationRecord
   #
   # Examples
   #
-  #   irb>Campaign.with_countries("US", "GB")
+  #   irb>Campaign.with_country_codes("US", "GB")
   #   irb>Campaign.with_keywords("Frontend Frameworks & Tools", "Ruby")
   #   irb>Campaign.without_negative_keywords("Database", "Docker", "React")
 
@@ -132,12 +148,14 @@ class Campaign < ApplicationRecord
   monetize :total_budget_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :daily_budget_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :ecpm_cents, numericality: {greater_than_or_equal_to: 0}
-  tag_columns :countries
+  tag_columns :country_codes
+  tag_columns :province_codes
   tag_columns :keywords
   tag_columns :negative_keywords
   acts_as_commentable
   has_paper_trail on: %i[create update destroy], version_limit: nil, only: %i[
-    countries
+    core_hours_only
+    country_codes
     creative_id
     daily_budget_cents
     daily_budget_currency
@@ -147,12 +165,12 @@ class Campaign < ApplicationRecord
     keywords
     name
     negative_keywords
+    province_codes
     start_date
     status
     total_budget_cents
     total_budget_currency
     url
-    us_hours_only
     user_id
     weekdays_only
   ]
@@ -163,22 +181,53 @@ class Campaign < ApplicationRecord
 
   # public instance methods ...................................................
 
-  def impressions
-    Impression.partitioned(user_id, start_date.advance(months: -3), end_date.advance(months: 3)).where(campaign: self)
+  def adjusted_ecpm(country_code)
+    return ecpm if fixed_ecpm?
+
+    adjusted = ecpm * Country::UNKNOWN_CPM_MULTIPLER
+    country = Country.find(country_code)
+    if country
+      # TODO: delete logic for country multiplier after all campaigns with a start_date before 2019-03-07 have completed
+      adjusted = if start_date && start_date < Date.parse("2019-03-07")
+        country.ecpm base: ecpm, multiplier: :country
+      else
+        country.ecpm base: ecpm
+      end
+    end
+    adjusted = Monetize.parse("$0.10 USD") if adjusted.cents < 10
+    adjusted
   end
 
-  def property_ids_with_impressions(date = nil)
-    return impressions.on(date).select(:property_id).distinct.pluck(:property_id) if date
-    impressions.select(:property_id).distinct.pluck(:property_id)
+  def ecpms
+    countries.map do |country|
+      {
+        country_iso_code: country.iso_code,
+        country_name: country.name,
+        ecpm: adjusted_ecpm(country.iso_code),
+      }
+    end
   end
 
-  def property_ids_with_clicked_impressions(date = nil)
-    return impressions.clicked.on(date).select(:property_id).distinct.pluck(:property_id) if date
-    impressions.clicked.select(:property_id).distinct.pluck(:property_id)
+  # Returns a relation for properties that have rendered this campaign
+  def properties(start_date = nil, end_date = nil)
+    subquery = impressions.between(start_date, end_date).distinct(:property_id).select(:property_id) if start_date
+    subquery ||= impressions.distinct(:property_id).select(:property_id)
+    Property.where id: subquery
+  end
+
+  # Returns a relation for properties that have produced a click for this campaign
+  def properties_with_clicks(start_date = nil, end_date = nil)
+    subquery = impressions.clicked.between(start_date, end_date).distinct(:property_id).select(:property_id) if start_date
+    subquery ||= impressions.clicked.distinct(:property_id).select(:property_id)
+    Property.where id: subquery
   end
 
   def matching_properties
     Property.for_campaign self
+  end
+
+  def matching_keywords(property)
+    keywords & property.keywords
   end
 
   def pending?
@@ -191,6 +240,10 @@ class Campaign < ApplicationRecord
 
   def archived?
     ENUMS::CAMPAIGN_STATUSES.archived? status
+  end
+
+  def premium?
+    !fallback?
   end
 
   def available_on?(date)
@@ -208,6 +261,26 @@ class Campaign < ApplicationRecord
     self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
   end
 
+  def countries
+    Country.where iso_code: country_codes
+  end
+
+  def provinces
+    Province.where iso_code: province_codes
+  end
+
+  def campaign_type
+    return "fallback" if fallback?
+    "premium"
+  end
+
+  def to_meta_tags
+    {
+      title: name,
+      keywords: keywords,
+    }
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................
@@ -215,8 +288,9 @@ class Campaign < ApplicationRecord
   private
 
   def sort_arrays
-    self.countries = countries&.sort || []
-    self.keywords = keywords&.sort || []
-    self.negative_keywords = negative_keywords&.sort || []
+    self.country_codes = country_codes&.reject(&:blank?)&.sort || []
+    self.keywords = keywords&.reject(&:blank?)&.sort || []
+    self.negative_keywords = negative_keywords&.reject(&:blank?)&.sort || []
+    self.province_codes = province_codes&.reject(&:blank?)&.sort
   end
 end

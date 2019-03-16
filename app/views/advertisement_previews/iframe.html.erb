@@ -1,0 +1,11 @@
+<html>
+<head>
+  <style>
+    html, body { margin: 0; padding: 0 }
+  </style>
+</html>
+<body>
+  <div id="codefund"></div>
+  <%= javascript_include_tag advertisement_preview_path(params[:campaign_id], template: params[:template], theme: params[:theme], format: :js) %>
+</body>
+</html>

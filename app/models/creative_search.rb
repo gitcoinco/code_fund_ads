@@ -12,9 +12,9 @@ class CreativeSearch < ApplicationSearchRecord
   def apply(relation)
     return relation unless present?
 
-    relation.
-      then { |result| result.search_name(name) }.
-      then { |result| result.search_user(user) }.
-      then { |result| result.search_user_id(user_id) }
+    relation
+      .then { |result| result.search_name(name) }
+      .then { |result| result.search_user(user) }
+      .then { |result| result.search_user_id(user_id) }
   end
 end

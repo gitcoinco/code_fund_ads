@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+   viewBox="0 0 268.1 298.3" style="enable-background:new 0 0 268.1 298.3;" xml:space="preserve">
+<linearGradient id="SVGdoubleEllipseRightBottomID1" gradientUnits="userSpaceOnUse" x1="20.7708" y1="63.0138" x2="294.8091" y2="261.3844">
+  <stop class="stop-color-primary-darker" offset="1.953869e-07" style="stop-color:#377DFF"/>
+  <stop class="stop-color-primary-lighter" offset="1" style="stop-color:#19A0FF"/>
+</linearGradient>
+<path fill="url(#SVGdoubleEllipseRightBottomID1)" d="M268.1,82.4l-41.5-45.3c0,0-90.6-87.6-190.6,6.5c0,0-65.6,64.9-19.8,154.5c0,0,11.8,22.2,38.8,48.9l47.7,51.4
+  h165.3V82.4z"/>
+<linearGradient id="SVGdoubleEllipseRightBottomID2" gradientUnits="userSpaceOnUse" x1="7.729" y1="250.3761" x2="268.9255" y2="155.3083">
+  <stop class="stop-color-primary-lighter" offset="0" style="stop-color:#377DFF"/>
+  <stop class="stop-color-primary" offset="1" style="stop-color:#19A0FF"/>
+</linearGradient>
+<path fill="url(#SVGdoubleEllipseRightBottomID2)" d="M268.1,153.1l-41.8-45.6c0,0-81.5-78.2-176.9-6.5c0,0-40,28.4-47.7,83.1S16.9,277.6,37,297.6h231.1V153.1z"/>
+</svg>

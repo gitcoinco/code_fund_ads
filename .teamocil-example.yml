@@ -6,17 +6,18 @@ windows:
     layout: main-vertical
     panes:
       - commands:
-        - asdf local ruby 2.5.3
-        - asdf local nodejs 9.11.2
+        - asdf local ruby 2.6.1
+        - asdf local nodejs 11.11.0
         - nvim
+        focus: true
 
   - name: console
     root: /path/to/project
     layout: main-vertical
     panes:
       - commands:
-        - asdf local ruby 2.5.3
-        - asdf local nodejs 9.11.2
+        - asdf local ruby 2.6.1
+        - asdf local nodejs 11.11.0
         - bundle exec rails c
 
   - name: rails
@@ -24,15 +25,16 @@ windows:
     layout: even-horizontal
     panes:
       - commands:
-        - asdf local ruby 2.5.3
-        - asdf local nodejs 9.11.2
-        - lsof -t -i tcp:3000 | xargs kill
+        - asdf local ruby 2.6.1
+        - asdf local nodejs 11.11.0
+        - lsof -t -i tcp:3000 | xargs kill -KILL
         - redis-cli flushall
+        - sleep 4
         - bundle exec rails s
       - commands:
-        - asdf local ruby 2.5.3
-        - asdf local nodejs 9.11.2
-        - lsof -t -i tcp:3035 | xargs kill
+        - asdf local ruby 2.6.1
+        - asdf local nodejs 11.11.0
+        - lsof -t -i tcp:3035 | xargs kill -KILL
         - bundle exec ./bin/webpack-dev-server
 
   - name: workers
@@ -40,7 +42,8 @@ windows:
     layout: main-vertical
     panes:
       - commands:
-        - asdf local ruby 2.5.3
-        - asdf local nodejs 9.11.2
+        - asdf local ruby 2.6.1
+        - asdf local nodejs 11.11.0
         - redis-cli flushall
+        - sleep 8
         - bundle exec sidekiq -C config/sidekiq.yml

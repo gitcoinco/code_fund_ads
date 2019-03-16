@@ -11,19 +11,20 @@
   font-size: 14px;
   line-height: 1.4;
   text-align: left;
-  font-family: 'Helvetica Neue', Helvetica, Arial;
+  font-family: Helvetica, Arial;
   font-weight: 350;
   margin-left: auto;
   margin-right: auto;
 }
 
-#cf .cf-image-wrapper {
+#cf .cf-img-wrapper {
   display: block;
   margin-bottom: 8px;
 }
 
-#cf .cf-image-wrapper img {
-  max-width: 125px;
+#cf .cf-img-wrapper img {
+  width: 125px;
+  height: 125px;
 }
 
 #cf .cf-text {
@@ -37,7 +38,6 @@
   display: block;
   color: #aaa;
   text-decoration: none;
-  text-align: left;
 }
 
 #cf .cf-powered-by:hover {

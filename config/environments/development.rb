@@ -21,7 +21,7 @@ Rails.application.configure do
   if Rails.root.join("tmp", "caching-dev.txt").exist?
     config.action_controller.perform_caching = true
 
-    config.cache_store = :redis_cache_store, {driver: :hiredis, namespace: "code_fund_ads_#{Rails.env}_cache", url: ENV["REDIS_CACHE_URL"]}
+    config.cache_store = :redis_cache_store, {namespace: "code_fund_ads_#{Rails.env}_cache", url: ENV["REDIS_CACHE_URL"], size: (ENV.fetch("RAILS_MAX_THREADS") { 10 }).to_i}
     config.public_file_server.headers = {
       "Cache-Control" => "public, max-age=#{2.days.to_i}",
     }
@@ -34,10 +34,10 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options)
   config.active_storage.service = :local
 
-  # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
-
   config.action_mailer.perform_caching = false
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

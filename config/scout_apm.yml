@@ -1,0 +1,20 @@
+common: &defaults
+  key: <%= ENV["SCOUT_KEY"] %>
+  name: CodeFund
+  monitor: true
+  ignore:
+    - '/okcomputer'
+    - '/okcomputer.json'
+    - '/okcomputer/all'
+    - '/okcomputer/all.json'
+
+development:
+  <<: *defaults
+  monitor: false
+
+test:
+  <<: *defaults
+  monitor: false
+
+production:
+  <<: *defaults

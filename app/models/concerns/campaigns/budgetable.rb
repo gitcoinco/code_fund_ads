@@ -4,33 +4,52 @@ module Campaigns
     # NOTE: Many of these formulae only work if the eCPM remains the same throughout the life of the campaign
     # TODO: Factor in changing eCPM over time
 
+    # Returns a Money indicating how much budget has been spent
     def total_consumed_budget
-      ecpm * total_impressions_per_mille
+      gross_revenue start_date, Date.current
     end
 
+    # Returns a Money indicating how much budget remains
     def total_remaining_budget
       total_budget - total_consumed_budget
     end
 
-    def total_unusable_budget
-      return Money.new(0, "USD") if ecpm.to_f.zero?
-      total_remaining_budget - total_remaining_usable_budget
+    # Returns a Float indicating how much total budget percentage has been consumed
+    def total_consumed_budget_percentage(date = nil)
+      return 0.0 unless total_budget > 0
+      (total_consumed_budget.cents / total_budget.cents.to_f) * 100
     end
 
-    def budget_surplus?
-      total_unusable_budget > Money.new(100, "USD")
+    # Returns a Float indicating how much total budget percentage remains
+    def total_remaining_budget_percentage(date = nil)
+      return 0.0 unless total_budget > 0
+      (total_remaining_budget.cents / total_budget.cents.to_f) * 100
     end
 
-    def total_remaining_usable_budget
-      (estimated_max_remaining_impression_count / 1_000.to_f) * ecpm
+    # Returns a boolean indicating if the campaign has available budget
+    def budget_available?
+      total_consumed_budget < total_budget
     end
 
-    def daily_remaining_budget
-      daily_budget - daily_consumed_budget
+    # Returns a Money indicating how much budget remains for the passed date (or today)
+    def daily_remaining_budget(date = nil)
+      daily_budget - daily_consumed_budget(date)
     end
 
-    def daily_consumed_budget
-      ecpm * daily_impressions_per_mille
+    # Returns a Float indicating how much budget percentage remains for the passed date (or today)
+    def daily_remaining_budget_percentage(date = nil)
+      return 0.0 unless daily_budget > 0
+      (daily_remaining_budget(date).cents / daily_budget.cents.to_f) * 100
+    end
+
+    # Returns a Money indicating how much budget has been spent for the passed date (or today)
+    def daily_consumed_budget(date = nil)
+      gross_revenue date
+    end
+
+    # Returns a boolean indicating if the campaign has available budget for the passed date (or today)
+    def daily_budget_available?(date = nil)
+      daily_consumed_budget(date) < daily_budget
     end
   end
 end

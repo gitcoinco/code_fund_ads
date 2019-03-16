@@ -7,12 +7,6 @@ module Campaigns
       [user.scoped_name, name, creative&.name].compact.join "・"
     end
 
-    def daily_spend_series(_days = 30)
-      # Calculate spend for x days by day
-      # TODO: Use roll-up data
-      [[10, 8, 5, 7, 6, 6, 10, 10, 8, 5, 7, 6, 6, 10, 6, 6, 10, 10, 8, 5, 7, 6, 6, 10, 6, 6, 10, 10, 8]]
-    end
-
     def duration
       return nil if total_operative_days.zero?
       distance_of_time_in_words(start_date, end_date, scope: "datetime.distance_in_words.short")
@@ -29,6 +23,14 @@ module Campaigns
     def percentage_complete_by_budget
       return 0 if total_budget.zero?
       ((total_consumed_budget.to_f / total_budget.to_f) * 100).to_i
+    end
+
+    def percentage_complete_by_daily_budget
+      return 0 if total_budget.zero?
+      return 0 if daily_budget.zero?
+      return 0 if daily_remaining_budget.zero?
+      consumed_budget_for_today = (daily_budget - daily_remaining_budget)
+      ((consumed_budget_for_today.to_f / daily_budget.to_f) * 100).to_i
     end
   end
 end

@@ -51,6 +51,14 @@
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  legacy_id              :uuid
+#  organization_id        :bigint(8)
+#  stripe_customer_id     :string
+#  referring_user_id      :bigint(8)
+#  referral_code          :string
+#  referral_click_count   :integer          default(0)
+#  hubspot_deal_vid       :bigint(8)
+#  hubspot_contact_vid    :bigint(8)
+#  hubspot_company_vid    :bigint(8)
 #
 
 class User < ApplicationRecord
@@ -58,30 +66,37 @@ class User < ApplicationRecord
 
   # includes ..................................................................
   include Users::Developable if Rails.env.development?
-  include Users::Presentable
+  include Users::Advertiser
   include Users::Publisher
+  include Users::Presentable
+  include Users::Stripeable
   include Eventable
+  include FullNameSplitter
   include Imageable
   include Taggable
 
   # relationships .............................................................
-  has_many :campaigns
-  has_many :creatives
-  has_many :impressions_as_advertiser, class_name: "Impression", foreign_key: "advertiser_id"
-  has_many :impressions_as_publisher, class_name: "Impression", foreign_key: "publisher_id"
+  belongs_to :organization, optional: true
+  belongs_to :referring_user, class_name: "User", foreign_key: "referring_user_id", optional: true
+  has_many :job_postings
+  has_many :referred_applicants, class_name: "Applicant", foreign_key: "referring_user_id"
+  has_many :referred_users, class_name: "User", foreign_key: "referring_user_id"
 
   # validations ...............................................................
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :organization_id, presence: true, if: -> { administrator? || advertiser? }
 
   # callbacks .................................................................
   before_save :ensure_roles
+  before_save :ensure_referral_code
 
   # scopes ....................................................................
   scope :administrators, -> { with_all_roles ENUMS::USER_ROLES::ADMINISTRATOR }
   scope :advertisers, -> { with_all_roles ENUMS::USER_ROLES::ADVERTISER }
   scope :publishers, -> { with_all_roles ENUMS::USER_ROLES::PUBLISHER }
   scope :search_company, ->(value) { value.blank? ? all : search_column(:company_name, value) }
+  scope :search_organization, ->(value) { value.blank? ? all : where(organization_id: value) }
   scope :search_email, ->(value) { value.blank? ? all : search_column(:email, value) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:first_name, value).or(search_column(:last_name, value)) }
   scope :search_roles, ->(*values) { values.blank? ? all : with_any_roles(*values) }
@@ -135,11 +150,17 @@ class User < ApplicationRecord
     :database_authenticatable,
     :invitable,
     :lockable,
+    :omniauthable,
     :recoverable,
     :rememberable,
     :timeoutable,
     :trackable,
     :validatable,
+    omniauth_providers: [
+      :github,
+      :google_oauth2,
+      :linkedin,
+    ]
   )
   has_one_attached :avatar
   acts_as_commentable
@@ -155,38 +176,63 @@ class User < ApplicationRecord
 
   # class methods .............................................................
   class << self
+    def authenticate(email, password)
+      user = User.find_for_authentication(email: email)
+      user&.valid_password?(password) ? user : nil
+    end
+
     def find_version_author(version)
       return unless version.terminator
       find(version.terminator)
+    end
+
+    def codefund_bot
+      pw = SecureRandom.uuid
+      where(email: "bot@codefund.io").first_or_create!(
+        first_name: "CodeFund",
+        last_name: "Bot",
+        password: pw,
+        password_confirmation: pw,
+        organization: Organization.codefund,
+        invitation_accepted_at: Time.current
+      )
+    end
+
+    def referral_code(user_id)
+      where(id: user_id).limit(1).pluck(:referral_code).first
+    end
+
+    def from_omniauth(access_token, extras = {})
+      data = access_token.info
+      user = User.where(email: data["email"]).first
+      unless user
+        user = User.create({
+          email: data["email"],
+          first_name: data["first_name"],
+          last_name: data["last_name"],
+          password: Devise.friendly_token[0, 20],
+          confirmed_at: Time.current,
+        }.merge(extras))
+
+        AddToMailchimpListJob.perform_later user.email
+
+        if user.persisted?
+          CreateSlackNotificationJob.perform_later text: ":email: #{user.email} just registered via #{access_token[:provider]}"
+          CreateHubspotContactJob.perform_later user.id if ENV["HUBSPOT_ENABLED"] == "true"
+        end
+      end
+      user
     end
   end
 
   # public instance methods ...................................................
 
   def administrator?
-    roles.include? ENUMS::USER_ROLES["administrator"]
+    roles.include? ENUMS::USER_ROLES::ADMINISTRATOR
   end
 
-  def advertiser?
-    roles.include? ENUMS::USER_ROLES["advertiser"]
-  end
-
-  def small_images(wrapped = false)
-    list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::SMALL)
-    return list unless wrapped
-    list.map { |i| Image.new(i) }
-  end
-
-  def large_images(wrapped = false)
-    list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::LARGE)
-    return list unless wrapped
-    list.map { |i| Image.new(i) }
-  end
-
-  def wide_images(wrapped = false)
-    list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::WIDE)
-    return list unless wrapped
-    list.map { |i| Image.new(i) }
+  def employer?
+    roles.include? ENUMS::USER_ROLES::EMPLOYER
   end
 
   def to_s
@@ -198,6 +244,14 @@ class User < ApplicationRecord
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
+  def referral_revenue
+    value = referred_users.publishers.sum { |user|
+      user.property_revenue(user.created_at, user.created_at.advance(months: 3)) * 0.05
+    }
+    value = Monetize.parse("$0.00 USD") unless value.is_a?(Money)
+    value
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................
@@ -205,5 +259,13 @@ class User < ApplicationRecord
 
   def ensure_roles
     self.roles = roles & ENUMS::USER_ROLES.values
+  end
+
+  def ensure_referral_code
+    self.referral_code ||= begin
+      code = SecureRandom.urlsafe_base64(8)
+      code = SecureRandom.urlsafe_base64(8) while User.where(referral_code: code).exists?
+      code
+    end
   end
 end

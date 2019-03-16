@@ -1,6 +1,12 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  def safe_camo(url)
+    camo url.to_s
+  rescue
+    asset_path "pixel.gif"
+  end
+
   def page_heading(action, subject, subtitle: nil, icon: nil)
     render "/@shared/page_heading", action: action, subject: subject, subtitle: subtitle, icon: icon
   end
@@ -33,16 +39,30 @@ module ApplicationHelper
     ENUMS::USER_ROLES.values.map { |f| [f.humanize, f] }
   end
 
+  def applicant_statuses_for_select
+    ENUMS::APPLICANT_STATUSES.values.map { |f| [f.humanize, f] }
+  end
+
   def image_formats_for_select
     ENUMS::IMAGE_FORMATS.values.map { |f| [f.humanize, f] }
   end
 
   def companies_for_select
-    User.advertisers.where.not(company_name: nil).order(User.arel_table[:company_name].lower).pluck(:company_name).uniq
+    User.advertisers.where.not(company_name: nil).order(User.arel_table[:company_name].lower).map { |user| [user.company_name, user.id] }
+  end
+
+  def organizations_for_select
+    Organization.order(Organization.arel_table[:name].lower).map { |org| [org.name, org.id] }
   end
 
   def advertisers_for_select
     User.advertisers.select(:id, :first_name, :last_name).order(:first_name).map { |user| [user.name, user.id] }
+  end
+
+  def currencies_for_select
+    Money::Currency.table.values.sort_by { |currency| currency[:name] }.map do |currency|
+      ["#{currency[:name]} (#{currency[:iso_code]})", currency[:iso_code]]
+    end
   end
 
   def ad_templates_for_select
@@ -54,7 +74,21 @@ module ApplicationHelper
   end
 
   def countries_for_select
-    ENUMS::COUNTRIES.values.zip ENUMS::COUNTRIES.keys
+    Country.all.map { |country| [country.name, country.iso_code] }
+  end
+
+  def countries_with_pricing_for_select(base_ecpm)
+    Country.all.map { |country| ["#{country.name} (#{country.ecpm(base: base_ecpm).format})", country.iso_code] }
+  end
+
+  def provinces_for_select
+    Province.all.map { |province| [province.full_name, province.id] }
+  end
+
+  def provinces_for_stimulus
+    Province.all.map { |province|
+      {id: province.id, countryCode: province.country_code, name: province.full_name}
+    }.to_json
   end
 
   def keywords_for_select
@@ -70,6 +104,16 @@ module ApplicationHelper
   def ga_tag
     return nil unless ENV["GA_TRACKING_ID"].present?
     render("/@shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"])
+  end
+
+  def hubspot_tag
+    return nil unless ENV["HUBSPOT_ID"].present?
+    render("/@shared/scripts/hubspot", id: ENV["HUBSPOT_ID"])
+  end
+
+  def codefund_analytics_tag
+    return nil unless ENV["CODEFUND_ANALYTICS_KEY"].present?
+    render("/@shared/scripts/codefund_analytics", id: ENV["CODEFUND_ANALYTICS_KEY"])
   end
 
   def support_widget_tag
@@ -155,5 +199,10 @@ module ApplicationHelper
 
   def date_range_picker
     render "/@shared/date_range_picker"
+  end
+
+  def sparkline(values, width: 100, height: 30, stroke_width: 3, color: "green", filled: true)
+    svg_class = "sparkline sparkline--#{color}#{" sparkline--filled" if filled}"
+    render "/@shared/widgets/sparkline_graph", values: values, width: width, height: height, stroke_width: stroke_width, svg_class: svg_class
   end
 end

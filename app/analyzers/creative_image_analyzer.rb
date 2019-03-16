@@ -4,9 +4,9 @@ class CreativeImageAnalyzer < ActiveStorage::Analyzer::ImageAnalyzer
     md[:name] = @blob.filename
     return md unless md[:height].present? && md[:width].present?
 
-    md[:format] = "small" if (md[:width] / md[:height].to_f) == (200 / 200.to_f)
-    md[:format] = "large" if (md[:width] / md[:height].to_f) == (260 / 200.to_f)
-    md[:format] = "wide"  if (md[:width] / md[:height].to_f) == (512 / 360.to_f)
+    md[:format] = "small" if md[:width].to_i == 200 && md[:height] == 200
+    md[:format] = "large" if md[:width].to_i == 260 && md[:height] == 200
+    md[:format] = "wide"  if md[:width].to_i == 512 && md[:height] == 320
     md
   end
 end

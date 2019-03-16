@@ -1,6 +1,6 @@
 #cf .cf-wrapper {
   z-index: 1;
-  font-family: system, 'Helvetica Neue', Helvetica, Arial;
+  font-family: Helvetica, Arial;
   font-size: 13px;
   box-sizing: border-box;
   width: 100%;
@@ -18,7 +18,7 @@
   border-radius: 3px;
   background-color: #4caf50;
   color: #fff;
-  content: 'Supporter';
+  content: "Supporter";
 }
 
 #cf .cf-wrapper .cf-text {

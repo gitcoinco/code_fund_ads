@@ -1,11 +1,13 @@
 <% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/dashboard" %>
   <%= render "/@shared/breadcrumbs/creatives" %>
   <%= render "/@shared/breadcrumbs/creative", creative: @creative, class: "active" %>
 <% end %>
 
 <% content_for :actions do %>
-  <%= render "/@shared/actions/edit_creative", creative: @creative %>
+  <ul class="nav" style="width: 130px; justify-content: flex-end;">
+    <li><%= render "/@shared/actions/edit_creative", creative: @creative %></li>
+    <li class="ml-1"><%= render "/@shared/actions/delete_creative", creative: @creative %></li>
+  </ul>
 <% end %>
 
 <% content_for :page_heading do %>
@@ -16,6 +18,16 @@
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
-    TBD .. waiting on ad rendering to be completed
+    <div class="text-center mb-3">
+      <span class="u-divider u-divider--xs u-divider--text">Ad Previews</span>
+    </div>
+
+    <div class="row">
+      <% ENUMS::AD_TEMPLATES.values.each do |template| %>
+        <% ["light", "dark"].each do |theme| %>
+          <%= render partial: "/creatives/preview_card", locals: { creative: @creative, template: template, theme: theme } %>
+        <% end %>
+      <% end %>
+    </div>
   </div>
 </main>
