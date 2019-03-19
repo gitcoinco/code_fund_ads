@@ -3,8 +3,11 @@
 <% end %>
 
 <% content_for :actions do %>
-  <%= render "/@shared/actions/add_campaign" if authorized_user.can_admin_system? %>
-  <%= render "/@shared/actions/request_campaign" unless authorized_user.can_admin_system? %>
+  <ul class="nav flex-nowrap" style="justify-content: flex-end;">
+    <li><%= render "/@shared/date_range_picker" %></li>
+    <li class="ml-1"><%= render "/@shared/actions/add_campaign" if authorized_user.can_admin_system? %></li>
+    <li class="ml-1"><%= render "/@shared/actions/request_campaign" unless authorized_user.can_admin_system? %></li>
+  </ul>
 <% end %>
 
 <% content_for :page_heading do %>
