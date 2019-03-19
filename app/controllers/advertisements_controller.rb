@@ -140,11 +140,11 @@ class AdvertisementsController < ApplicationController
   end
 
   def prohibited_hour_start
-    ENV.fetch("PROHIBITED_HOUR_START") { 0 }.to_i
+    ENV.fetch("PROHIBITED_HOUR_START", 0).to_i
   end
 
   def prohibited_hour_end
-    ENV.fetch("PROHIBITED_HOUR_END") { 5 }.to_i
+    ENV.fetch("PROHIBITED_HOUR_END", 5).to_i
   end
 
   def prohibited_hour?
