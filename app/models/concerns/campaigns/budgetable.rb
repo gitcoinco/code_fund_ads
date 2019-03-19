@@ -11,7 +11,9 @@ module Campaigns
 
     # Returns a Money indicating how much budget remains
     def total_remaining_budget
-      total_budget - total_consumed_budget
+      value = total_budget - total_consumed_budget
+      return organization.balance if organization.balance < value
+      value
     end
 
     # Returns a Float indicating how much total budget percentage has been consumed

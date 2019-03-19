@@ -2,10 +2,6 @@
   <%= render "/@shared/breadcrumbs/dashboard", class: "active" %>
 <% end %>
 
-<% content_for :actions do %>
-  <%= render "/@shared/date_range_picker" %>
-<% end %>
-
 <% content_for :page_heading do %>
   <%= page_heading "Administrator", "Dashboard",
     subtitle: "Overall view of your account",
