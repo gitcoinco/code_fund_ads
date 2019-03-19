@@ -24,4 +24,12 @@ namespace :schedule do
     tags = ENUMS::KEYWORDS.values.flatten.uniq.sort
     ImportGithubJobsJob.perform_later(*tags)
   end
+
+  desc <<~DESC
+    Queues job that ensures daily_summaries have been created for active campaigns and properties
+    NOTE: Schedule daily
+  DESC
+  task daily_summaries: :environment do
+    EnsureDailySummariesJob.perform_later
+  end
 end
