@@ -6,7 +6,7 @@ default: &default
 
 development:
   host: localhost
-  database: <%= ENV.fetch("PG_DATABASE_NAME") { "code_fund_ads_development" } %>
+  database: <%= ENV.fetch("PG_DATABASE_NAME", "code_fund_ads_development") %>
   <<: *default
 
 test:
