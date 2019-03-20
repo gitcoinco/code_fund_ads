@@ -12,12 +12,12 @@ module Users
 
     def impressions_count_as_publisher(start_date = nil, end_date = nil)
       return 0 unless publisher?
-      properties.map { |p| p.daily_impressions_counts(start_date, end_date).sum }.sum
+      properties.map { |p| p.impressions_count(start_date, end_date) }.sum
     end
 
     def clicks_count_as_publisher(start_date = nil, end_date = nil)
       return 0 unless publisher?
-      properties.map { |p| p.daily_clicks_counts(start_date, end_date).sum }.sum
+      properties.map { |p| p.clicks_count(start_date, end_date) }.sum
     end
 
     def click_rate_as_publisher(start_date = nil, end_date = nil)

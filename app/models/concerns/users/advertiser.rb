@@ -31,12 +31,12 @@ module Users
 
     def impressions_count_as_advertiser(start_date = nil, end_date = nil)
       return 0 unless advertiser?
-      campaigns.map { |c| c.daily_impressions_counts(start_date, end_date).sum }.sum
+      campaigns.map { |c| c.impressions_count(start_date, end_date) }.sum
     end
 
     def clicks_count_as_advertiser(start_date = nil, end_date = nil)
       return 0 unless advertiser?
-      campaigns.map { |c| c.daily_clicks_counts(start_date, end_date).sum }.sum
+      campaigns.map { |c| c.clicks_count(start_date, end_date) }.sum
     end
 
     def click_rate_as_advertiser(start_date = nil, end_date = nil)
