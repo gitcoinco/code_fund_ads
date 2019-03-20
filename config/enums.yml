@@ -125,6 +125,7 @@ PROPERTY_STATUS_COLORS:
   blacklisted: dark
 
 IMAGE_FORMATS:
+  - icon
   - small
   - large
   - wide

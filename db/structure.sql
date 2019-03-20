@@ -355,7 +355,8 @@ CREATE TABLE public.creatives (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     legacy_id uuid,
-    organization_id bigint
+    organization_id bigint,
+    cta character varying
 );
 
 
@@ -2230,6 +2231,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190212221227'),
 ('20190213224041'),
 ('20190308214127'),
-('20190311172908');
+('20190311172908'),
+('20190320223450');
 
 

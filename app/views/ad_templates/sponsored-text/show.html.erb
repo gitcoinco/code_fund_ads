@@ -1,0 +1,26 @@
+<% cache_if @campaign.persisted?, @campaign do %>
+  <ins id="cf">
+    <span class="cf-wrapper">
+      Sponsored:&nbsp;
+      <%= image_tag @campaign.creative.icon_image.cloudfront_url, class: "cf-img", style="width: 20px; height: 20px;" rescue nil %>
+      <b><%= @campaign.creative.headline %></b>
+      -
+      <%= @campaign.creative.body %>
+      <a href="#" data-href="campaign_url" rel="nofollow noopener" target="_blank">
+        <b><%= @campaign.creative.cta %></b>
+      </a>
+    </a>
+    <a
+      href="https://codefund.app"
+      data-target="powered_by_url"
+      class="cf-powered-by"
+      target="_blank"
+      rel="noopener"
+    >
+      - <em>ethical</em> ad by CodeFund
+    </a>
+    <div style="position: absolute; left: 0px; top: 0px; visibility: hidden;">
+      <img data-src="impression_url" width="0" height="0" alt="" style="width: 0px; height: 0px;">
+    </div>
+  </ins>
+<% end %>
