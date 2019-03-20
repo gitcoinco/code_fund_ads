@@ -11,6 +11,12 @@ module Users
       roles.include? ENUMS::USER_ROLES["advertiser"]
     end
 
+    def icon_images(wrapped = false)
+      list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::ICON)
+      return list unless wrapped
+      list.map { |i| Image.new(i) }
+    end
+
     def small_images(wrapped = false)
       list = images.search_metadata_format(ENUMS::IMAGE_FORMATS::SMALL)
       return list unless wrapped

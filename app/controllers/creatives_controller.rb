@@ -72,10 +72,10 @@ class CreativesController < ApplicationController
   end
 
   def creative_params
-    params.require(:creative).permit(:name, :headline, :body)
+    params.require(:creative).permit(:name, :headline, :body, :cta)
   end
 
   def creative_image_params
-    params.require(:creative).permit(:small_blob_id, :large_blob_id, :wide_blob_id)
+    params.require(:creative).permit(:icon_blob_id, :small_blob_id, :large_blob_id, :wide_blob_id)
   end
 end

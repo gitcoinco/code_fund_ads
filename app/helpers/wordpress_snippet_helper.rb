@@ -1,0 +1,2 @@
+module WordpressSnippetHelper
+end

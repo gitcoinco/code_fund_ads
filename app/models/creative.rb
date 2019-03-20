@@ -11,6 +11,7 @@
 #  updated_at      :datetime         not null
 #  legacy_id       :uuid
 #  organization_id :bigint(8)
+#  cta             :string
 #
 
 class Creative < ApplicationRecord
@@ -30,6 +31,7 @@ class Creative < ApplicationRecord
   # validations ...............................................................
   validates :body, length: {maximum: 255, allow_blank: false}
   validates :headline, length: {maximum: 255, allow_blank: false}
+  validates :cta, length: {maximum: 20, allow_blank: false}
   validates :name, length: {maximum: 255, allow_blank: false}
 
   # callbacks .................................................................
@@ -41,7 +43,7 @@ class Creative < ApplicationRecord
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  sanitize :headline, :body
+  sanitize :headline, :body, :cta
 
   # class methods .............................................................
   class << self
@@ -58,9 +60,21 @@ class Creative < ApplicationRecord
   end
 
   def assign_images(blob_id_list = {})
+    assign_icon_image(blob_id_list[:icon_blob_id]) if blob_id_list[:icon_blob_id].present?
     assign_small_image(blob_id_list[:small_blob_id]) if blob_id_list[:small_blob_id].present?
     assign_large_image(blob_id_list[:large_blob_id]) if blob_id_list[:large_blob_id].present?
     assign_wide_image(blob_id_list[:wide_blob_id]) if blob_id_list[:wide_blob_id].present?
+  end
+
+  def icon_image
+    images.search_metadata_format(ENUMS::IMAGE_FORMATS::ICON).first
+  end
+
+  def assign_icon_image(blob_id)
+    creative_image = creative_images.icon.first_or_initialize
+    image = user.images.where(blob_id: blob_id).first
+    creative_image.active_storage_attachment_id = image.id
+    creative_image.save!
   end
 
   def small_image

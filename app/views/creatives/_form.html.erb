@@ -18,6 +18,30 @@
             </div>
             <%= tag.div f.input(:headline, required: true, input_html: { data: { target: "creative-form.inputHeadline", action: "change->creative-form#setHeadline keyup->creative-form#setHeadline" }}), class: "col-12 mb-3" %>
             <%= tag.div f.input(:body, required: true, input_html: { rows: 2, data: { target: "creative-form.inputBody", action: "change->creative-form#setBody keyup->creative-form#setBody" }}), class: "col-12 mb-3" %>
+            <%= tag.div f.input(:cta, label: "Call to Action", required: true, placeholder: "e.g. Learn more", hint: "Only used with the `sponsored-text` template"), class: "col-12 mb-3" %>
+          </div>
+
+           <div class="col-12 mb-3">
+            <div class="js-form-message js-focus-state select required creative_icon_image u-has-success">
+              <label class="form-label select required" for="creative_icon_image">
+                Icon Image <abbr title="required">*</abbr> <small class="text-muted">(40×40)</small>
+              </label>
+              <select class="form-control select required"
+                      data-target="creative-form.inputIconBlobId"
+                      data-action="change->creative-form#setIconImage"
+                      required="required"
+                      aria-required="true"
+                      name="creative[icon_blob_id]"
+                      id="creative_icon_blob_id"
+                      required>
+                <option value="">--- select an image ---<option>
+                <% current_user.icon_images.each do |image| %>
+                  <%= tag.option(Image.new(image).display_name, value: image.blob_id,
+                        data: { image_url: polymorphic_url(image) },
+                        selected: creative.icon_image == image) %>
+                <% end %>
+              </select>
+            </div>
           </div>
 
           <div class="col-12 mb-3">

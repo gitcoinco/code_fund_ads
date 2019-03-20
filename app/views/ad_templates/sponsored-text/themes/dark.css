@@ -1,0 +1,22 @@
+#cf {
+  text-decoration: none;
+  color: #aaaaaa;
+  line-height: 1.7;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 400;
+}
+#cf .cf-wrapper a {
+  color: #3498db;
+  text-decoration: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+#cf .cf-wrapper img,
+#cf .cf-wrapper svg {
+  vertical-align: middle;
+}
+#cf a.cf-powered-by {
+  color: #6c757e;
+  text-decoration: none;
+}

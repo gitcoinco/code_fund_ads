@@ -173,6 +173,9 @@ Rails.application.routes.draw do
   resource :async_publisher_click_rate_stat_card, only: [:show]
   resource :async_publisher_revenue_stat_card, only: [:show]
 
+  resources :wordpress_snippets, only: [:show]
+
+
   # IMPORTANT: leave as last route so it doesn't override others
   resources :pages, only: [:show], path: "/"
 end

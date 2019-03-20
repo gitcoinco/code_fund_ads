@@ -11,6 +11,7 @@
 #  updated_at      :datetime         not null
 #  legacy_id       :uuid
 #  organization_id :bigint(8)
+#  cta             :string
 #
 
 # IMPORTANT: Limit creatives fixtures to [1] using only the minimum required data
