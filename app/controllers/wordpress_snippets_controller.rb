@@ -38,12 +38,12 @@ class WordpressSnippetsController < ApplicationController
       format.html { render partial: "/wordpress_snippets/pricing_table", layout: false }
       format.csv do
         column_names = @countries.first.keys
-        results = CSV.generate do |csv|
+        results = CSV.generate { |csv|
           csv << column_names
           @countries.each do |x|
             csv << x.values
           end
-        end
+        }
         send_data results, filename: "pricing-#{Date.today}.csv"
       end
     end
