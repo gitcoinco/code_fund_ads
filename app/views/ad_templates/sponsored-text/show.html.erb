@@ -2,7 +2,7 @@
   <ins id="cf">
     <span class="cf-wrapper">
       Sponsored:&nbsp;
-      <%= image_tag @campaign.creative.icon_image.cloudfront_url, class: "cf-img", style="width: 20px; height: 20px;" rescue nil %>
+      <%= image_tag @campaign.creative.icon_image.cloudfront_url, class: "cf-img", style: "width: 20px; height: 20px;" rescue nil %>
       <b><%= @campaign.creative.headline %></b>
       -
       <%= @campaign.creative.body %>
