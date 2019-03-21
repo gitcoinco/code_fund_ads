@@ -21,6 +21,10 @@ export default class extends Controller {
       closeOnSelect: !this.element.multiple,
     });
     this.element.dispatchEvent(new Event('select:created'));
+    jQuery(this.element).on(
+      'change.select2',
+      (() => this.element.dispatchEvent(new Event('cf:select:changed', { bubbles: true }))).bind(this)
+    );
   }
 
   destroy() {

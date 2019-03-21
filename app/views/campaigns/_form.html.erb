@@ -59,10 +59,10 @@
 
     <%= render "/@shared/forms/section_heading", title: "Targeting", subtitle: "Who do you want this campaign to reach?" %>
 
-    <div class="row" data-controller="select-geo-targets" data-action="click@document->select-geo-targets#updateProvinceCodeOptions keyup@document->select-geo-targets#updateProvinceCodeOptions">
+    <div class="row" data-controller="select-geo-targets" data-action="cf:select:changed->select-geo-targets#updateProvinceCodeOptions">
       <div class="col-12 mb-3" data-controller="select-multiple">
         <%= f.input :country_codes, required: true, collection: countries_with_pricing_for_select(@campaign.ecpm), label: "Targeted Counties",
-          input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select select-geo-targets.countryCodesSelect", action: " cf:select-batch->select-geo-targets#updateProvinceCodeOptions" }} %>
+          input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select select-geo-targets.countryCodesSelect" }} %>
         <div class="d-block">
           <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
           <% Country.all.map(&:subregion).uniq.sort.each do |subregion| %>
@@ -80,8 +80,18 @@
           <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
         </div>
       </div>
+      <% if authorized_user.can_admin_system? %>
+        <div class="col-12 mb-3" data-controller="select-multiple">
+          <%= f.input :assigned_property_ids, collection: properties_for_select,
+            label: "Assigned Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> prioritized over keywords</small>".html_safe,
+            input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
+          <div class="d-block">
+            <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
+          </div>
+        </div>
+      <% end %>
       <div class="col-12 mb-3" data-controller="select-multiple">
-        <%= f.input :keywords, required: true, collection: keywords_for_select, label: "Targeted Topics & Programming Languages",
+        <%= f.input :keywords, collection: keywords_for_select, label: "Targeted Keywords",
           input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
         <div class="d-block">
           <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
@@ -89,7 +99,7 @@
         </div>
       </div>
       <div class="col-12 mb-4" data-controller="select-multiple">
-        <%= f.input :negative_keywords, collection: keywords_for_select, label: "Excluded Topics or Programming Languages",
+        <%= f.input :negative_keywords, collection: keywords_for_select, label: "Negative Keywords",
           input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
         <div class="d-block">
           <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>

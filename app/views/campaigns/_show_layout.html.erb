@@ -6,8 +6,12 @@
 <% content_for :actions do %>
   <ul class="nav flex-nowrap" style="justify-content: flex-end;">
     <li><%= render "/@shared/date_range_picker" %></li>
-    <li class="ml-1"><%= render "/@shared/actions/edit_campaign", campaign: campaign %></li>
-    <li class="ml-1"><%= render "/@shared/actions/generic", link: new_campaign_path(clone: campaign.id), icon: "fa fa-copy" %></li>
+    <li class="ml-1" title="Edit Campaign" data-toggle="tooltip" data-placement="bottom">
+      <%= render "/@shared/actions/edit_campaign", campaign: campaign %>
+    </li>
+    <li class="ml-1" title="Clone Campaign" data-toggle="tooltip" data-placement="bottom">
+      <%= render "/@shared/actions/generic", link: new_campaign_path(clone: campaign.id), icon: "fa fa-copy" %>
+    </li>
   </ul>
 <% end %>
 
