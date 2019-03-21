@@ -1,4 +1,5 @@
 // theme vendored scripts
+import 'theme/vendor/popper.js/dist/popper';
 import 'theme/vendor/bootstrap/bootstrap.min';
 import 'theme/vendor/appear';
 import 'theme/vendor/circles/circles.min';
