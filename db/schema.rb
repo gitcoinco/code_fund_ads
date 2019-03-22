@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_11_172908) do
+ActiveRecord::Schema.define(version: 2019_03_22_161200) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -153,6 +153,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_172908) do
     t.datetime "updated_at", null: false
     t.uuid "legacy_id"
     t.bigint "organization_id"
+    t.string "cta"
     t.index ["organization_id"], name: "index_creatives_on_organization_id"
     t.index ["user_id"], name: "index_creatives_on_user_id"
   end
@@ -181,6 +182,7 @@ ActiveRecord::Schema.define(version: 2019_03_11_172908) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["displayed_at_date"], name: "index_daily_summaries_on_displayed_at_date"
+    t.index ["impressionable_type", "impressionable_id", "displayed_at_date"], name: "index_daily_summaries_unscoped_uniqueness", unique: true, where: "((scoped_by_type IS NULL) AND (scoped_by_id IS NULL))"
     t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "index_daily_summaries_uniqueness", unique: true
     t.index ["impressionable_type", "impressionable_id"], name: "index_daily_summaries_on_impressionable_columns"
     t.index ["scoped_by_type", "scoped_by_id"], name: "index_daily_summaries_on_scoped_by_columns"
