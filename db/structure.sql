@@ -1670,6 +1670,13 @@ CREATE UNIQUE INDEX index_daily_summaries_uniqueness ON public.daily_summaries U
 
 
 --
+-- Name: index_daily_summaries_unscoped_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_daily_summaries_unscoped_uniqueness ON public.daily_summaries USING btree (impressionable_type, impressionable_id, displayed_at_date) WHERE ((scoped_by_type IS NULL) AND (scoped_by_id IS NULL));
+
+
+--
 -- Name: index_events_on_eventable_id_and_eventable_type; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2232,6 +2239,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190213224041'),
 ('20190308214127'),
 ('20190311172908'),
-('20190320223450');
+('20190320223450'),
+('20190322161200');
 
 
