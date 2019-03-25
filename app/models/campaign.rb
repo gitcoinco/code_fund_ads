@@ -84,8 +84,8 @@ class Campaign < ApplicationRecord
     value_cast = Arel::Nodes::NamedFunction.new("CAST", [value.as("bigint[]")])
     where Arel::Nodes::InfixOperation.new("@>", arel_table[:assigned_property_ids], value_cast)
   }
-  scope :assigned_premium_for_property_id, ->(property_id) { premium.assigned_to_property_id }
-  scope :assigned_fallback_for_property_id, ->(property_id) { fallback.assigned_to_property_id }
+  scope :assigned_premium_for_property_id, ->(property_id) { premium.assigned_to_property_id property_id }
+  scope :assigned_fallback_for_property_id, ->(property_id) { fallback.assigned_to_property_id property_id }
   scope :permitted_for_property_id, ->(property_id) {
     subquery = Property.select(:prohibited_advertiser_ids).where(id: property_id)
     id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"user_id\"]"), subquery.arel)

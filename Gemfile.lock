@@ -74,22 +74,21 @@ GEM
     annotate (2.7.4)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
-    archive-zip (0.12.0)
-      io-like (~> 0.3.0)
+    ansi (1.5.0)
     arel (9.0.0)
     ast (2.4.0)
     awesome_nested_set (3.1.4)
       activerecord (>= 4.0.0, < 5.3)
     awesome_print (1.8.0)
     aws-eventstream (1.0.2)
-    aws-partitions (1.144.0)
+    aws-partitions (1.146.0)
     aws-sdk-core (3.48.2)
       aws-eventstream (~> 1.0, >= 1.0.2)
       aws-partitions (~> 1.0)
       aws-sigv4 (~> 1.1)
       jmespath (~> 1.0)
-    aws-sdk-kms (1.15.0)
-      aws-sdk-core (~> 3, >= 3.48.0)
+    aws-sdk-kms (1.16.0)
+      aws-sdk-core (~> 3, >= 3.48.2)
       aws-sigv4 (~> 1.1)
     aws-sdk-s3 (1.29.0)
       aws-sdk-core (~> 3, >= 3.39.0)
@@ -123,9 +122,6 @@ GEM
     childprocess (0.9.0)
       ffi (~> 1.0, >= 1.0.11)
     choice (0.2.0)
-    chromedriver-helper (2.1.0)
-      archive-zip (~> 0.10)
-      nokogiri (~> 1.8)
     chronic (0.10.2)
     chunky_png (1.3.11)
     coderay (1.1.2)
@@ -194,7 +190,6 @@ GEM
     inky-rb (1.3.7.4)
       foundation_emails (~> 2)
       nokogiri
-    io-like (0.3.0)
     jaro_winkler (1.5.2)
     jbuilder (2.8.0)
       activesupport (>= 4.2.0)
@@ -249,6 +244,11 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
+    minitest-reporters (1.3.6)
+      ansi
+      builder
+      minitest (>= 5.0)
+      ruby-progressbar
     model_probe (1.0.7)
     monetize (1.9.1)
       money (~> 6.12)
@@ -266,10 +266,11 @@ GEM
     net-http-digest_auth (1.4.1)
     net-http-persistent (3.0.0)
       connection_pool (~> 2.2)
+    net_http_ssl_fix (0.0.10)
     netaddr (2.0.3)
     netrc (0.11.0)
     nio4r (2.3.1)
-    nokogiri (1.10.1)
+    nokogiri (1.10.2)
       mini_portile2 (~> 2.4.0)
     ntlm-http (0.1.1)
     oauth2 (1.4.1)
@@ -300,7 +301,7 @@ GEM
     paper_trail (10.0.1)
       activerecord (>= 4.2, < 5.3)
       request_store (~> 1.1)
-    parallel (1.14.0)
+    parallel (1.15.0)
     parser (2.6.2.0)
       ast (~> 2.4.0)
     perm (1.0.2)
@@ -369,7 +370,7 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     rb-readline (0.5.5)
-    recaptcha (4.13.1)
+    recaptcha (4.13.2)
       json
     redis (4.1.0)
     refinements (6.1.0)
@@ -461,7 +462,6 @@ GEM
     thor (0.20.3)
     thread_safe (0.3.6)
     tilt (2.0.9)
-    timecop (0.9.1)
     tocer (8.1.0)
       refinements (~> 6.0)
       runcom (~> 4.0)
@@ -489,6 +489,11 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webdrivers (3.7.0)
+      net_http_ssl_fix
+      nokogiri (~> 1.6)
+      rubyzip (~> 1.0)
+      selenium-webdriver (~> 3.0)
     webpacker (3.6.0)
       activesupport (>= 4.2)
       rack-proxy (>= 0.6.1)
@@ -519,7 +524,6 @@ DEPENDENCIES
   cable_ready (~> 2.0.7)
   camo (~> 0.1.0)
   capybara (>= 2.15)
-  chromedriver-helper
   chronic (~> 0.10.2)
   countries (~> 2.1.4)
   country_select (~> 3.1.1)
@@ -546,6 +550,7 @@ DEPENDENCIES
   meta-tags (~> 2.11.1)
   meta_request
   mini_magick (~> 4.9.2)
+  minitest-reporters
   model_probe
   monetize (~> 1.9.0)
   money (~> 6.13.1)
@@ -590,7 +595,6 @@ DEPENDENCIES
   stripe (~> 4.6.0)
   tag_columns (~> 0.1.8)
   teamocil
-  timecop
   tocer
   turbolinks (~> 5)
   typhoeus (~> 1.3.1)
@@ -598,6 +602,7 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
   voight_kampff (~> 1.1.3)
   web-console (>= 3.3.0)
+  webdrivers
   webpacker (~> 3.5)
 
 RUBY VERSION

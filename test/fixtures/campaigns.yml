@@ -50,7 +50,6 @@ default:
   ecpm_currency: USD
   country_codes:
     - CA
-    - CN
     - FR
     - GB
     - IN
