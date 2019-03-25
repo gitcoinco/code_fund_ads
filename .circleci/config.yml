@@ -42,23 +42,23 @@ jobs:
       - run: bundle exec rails db:schema:load
 
       # Environment variables
-      run:
-        name: Setup Environment Variables
-        command: |
-          echo 'export AWS_S3_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE' >> $BASH_ENV
-          echo 'export AWS_S3_BUCKET=example_s3_bucket' >> $BASH_ENV
-          echo 'export AWS_S3_REGION=us-west-2' >> $BASH_ENV
-          echo 'AWS_S3_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYzEXAMPLEKEY' >> $BASH_ENV
-          echo 'export BASE_ECPM=400' >> $BASH_ENV
-          echo 'export BUFFER_ENABLED=false' >> $BASH_ENV
-          echo 'export DEFAULT_HOST=codefund.app' >> $BASH_ENV
-          echo 'export ENABLED_FEATURES=jobs' >> $BASH_ENV
-          echo 'export HUBSPOT_ENABLED=false' >> $BASH_ENV
-          echo 'export PG_TIMEOUT_IN_SECONDS=3' >> $BASH_ENV
-          echo 'export RAILS_MAX_THREADS=10' >> $BASH_ENV
-          echo 'export REDIS_CACHE_URL=redis://127.0.0.1:6379' >> $BASH_ENV
-          echo 'export REDIS_QUEUE_URL=redis://127.0.0.1:6379' >> $BASH_ENV
-          echo 'export SCOUT_SAMPLE_RATE=0.3' >> $BASH_ENV
+      - run:
+          name: Setup Environment Variables
+          command: |
+            echo 'export AWS_S3_ACCESS_KEY_ID="AKIAIOSFODNN7EXAMPLE"' >> $BASH_ENV
+            echo 'export AWS_S3_BUCKET="example_s3_bucket"' >> $BASH_ENV
+            echo 'export AWS_S3_REGION="us-west-2"' >> $BASH_ENV
+            echo 'AWS_S3_SECRET_ACCESS_KEY="wJalrXUtnFEMI/K7MDENG/bPxRfiCYzEXAMPLEKEY"' >> $BASH_ENV
+            echo 'export BASE_ECPM="400"' >> $BASH_ENV
+            echo 'export BUFFER_ENABLED="false"' >> $BASH_ENV
+            echo 'export DEFAULT_HOST="codefund.app"' >> $BASH_ENV
+            echo 'export ENABLED_FEATURES="jobs"' >> $BASH_ENV
+            echo 'export HUBSPOT_ENABLED="false"' >> $BASH_ENV
+            echo 'export PG_TIMEOUT_IN_SECONDS="3"' >> $BASH_ENV
+            echo 'export RAILS_MAX_THREADS="10"' >> $BASH_ENV
+            echo 'export REDIS_CACHE_URL="redis://127.0.0.1:6379"' >> $BASH_ENV
+            echo 'export REDIS_QUEUE_URL="redis://127.0.0.1:6379"' >> $BASH_ENV
+            echo 'export SCOUT_SAMPLE_RATE="0.3"' >> $BASH_ENV
 
       # run tests!
       - run:
