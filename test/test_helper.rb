@@ -59,9 +59,24 @@ class ActiveSupport::TestCase
     ).first
   end
 
+  # Provides factory like behavior for models/fixtures
+  # Copies the passed persisted model instance, assigns passed attrbiutes, and saves to the database
+  # Useful when additional test setup is required... i.e. isn't handled by the basic fixtures
   def copy!(source, attributes = {})
     source_attributes = HashWithIndifferentAccess.new(source.attributes.dup)
     source_attributes.delete :id
     source.class.create! source_attributes.merge(attributes)
+  end
+
+  def ip_address(country_code)
+    attempts = 0
+    ip = Faker::Internet.public_ip_v4_address
+    data = MMDB.lookup(ip) || {}
+    while data.to_hash.dig("country", "iso_code") != country_code
+      data = MMDB.lookup(ip = Faker::Internet.public_ip_v4_address) || {}
+      attempts += 1
+      puts "#{attempts} attempts to find IP address for: #{country_code}" if attempts % 50 == 0
+    end
+    ip
   end
 end

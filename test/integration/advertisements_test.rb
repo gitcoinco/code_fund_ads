@@ -102,11 +102,12 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   # ----------------------------------------------------------------------------------------------------------
 
-  test "javascript with targeted keywords and undetectable country prefers targeted fallback" do
+  test "javascript with targeted keywords and country prefers targeted fallback when premium not available" do
     campaigns(:fallback).update start_date: @campaign.start_date, end_date: @campaign.end_date
     copy! campaigns(:fallback),
       keywords: @campaign.keywords.sample(2),
       creative: copy!(campaigns(:fallback).creative, body: "This is a targeted fallback campaign")
+    @campaign.update keywords: ["No Match"]
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": "0.0.0.0"}
     assert Campaign.fallback.count == 2
     assert response.status == 200
@@ -157,17 +158,37 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     assert response.body =~ /<div id=\"cf\"/
   end
 
-  private
+  # ----------------------------------------------------------------------------------------------------------
 
-  def ip_address(country_code)
-    attempts = 0
-    ip = Faker::Internet.public_ip_v4_address
-    data = MMDB.lookup(ip) || {}
-    while data.to_hash.dig("country", "iso_code") != country_code
-      data = MMDB.lookup(ip = Faker::Internet.public_ip_v4_address) || {}
-      attempts += 1
-      puts "#{attempts} attempts to find IP address for: #{country_code}" if attempts % 20 == 0
-    end
-    ip
+  test "javascript with assigned property" do
+    copy! @campaign,
+      assigned_property_ids: [@property.id],
+      keywords: [],
+      creative: copy!(@campaign.creative, body: "This is an assigned premium campaign")
+
+    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
+    assert Campaign.premium.count == 2
+    assert response.status == 200
+    assert response.body =~ /This is an assigned premium campaign/
+    assert response.body =~ /house: false/
+  end
+
+  test "javascript with assigned property without budget shows targeted premium" do
+    user = copy! users(:advertiser),
+      email: Faker::Internet.email,
+      password: "password",
+      password_confirmation: "password",
+      organization: copy!(organizations(:default), balance: Money.new(0, "USD"))
+    copy! @campaign,
+      user: user,
+      assigned_property_ids: [@property.id],
+      keywords: [],
+      creative: copy!(@campaign.creative, body: "This is an assigned premium campaign")
+
+    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
+    assert Campaign.premium.count == 2
+    assert response.status == 200
+    assert response.body =~ /This is a premium campaign/
+    assert response.body =~ /house: false/
   end
 end
