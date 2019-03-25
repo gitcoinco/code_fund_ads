@@ -35,10 +35,10 @@
 # IMPORTANT: Limit campaigns fixtures to [1] using only the minimum required data
 #            Additional setup should be perfomed in the test suite
 
-default:
+premium:
   organization: default
   user: advertiser
-  creative: default
+  creative: premium
   status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
   name: CodeFund
   url: https://advertiser.codefund.app
@@ -56,3 +56,12 @@ default:
     - JP
     - RO
     - US
+
+fallback:
+  organization: default
+  user: advertiser
+  creative: fallback
+  status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
+  name: CodeFund
+  url: https://advertiser.codefund.app
+  fallback: true

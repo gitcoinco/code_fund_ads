@@ -17,8 +17,16 @@
 # IMPORTANT: Limit creatives fixtures to [1] using only the minimum required data
 #            Additional setup should be perfomed in the test suite
 
-default:
+premium:
   user: advertiser
-  name: CodeFund
-  headline: CodeFund
-  body: We help open source thrive. Learn how...
+  name: Premium
+  cta: Premium
+  headline: Premium
+  body: This is a premium campaign
+
+fallback:
+  user: advertiser
+  name: Fallback
+  cta: Fallback
+  headline: Fallback
+  body: This is a fallback campaign

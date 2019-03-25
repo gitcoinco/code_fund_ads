@@ -58,4 +58,10 @@ class ActiveSupport::TestCase
       }
     ).first
   end
+
+  def copy!(source, attributes = {})
+    source_attributes = HashWithIndifferentAccess.new(source.attributes.dup)
+    source_attributes.delete :id
+    source.class.create! source_attributes.merge(attributes)
+  end
 end

@@ -36,7 +36,7 @@ require "test_helper"
 
 class CampaignTest < ActiveSupport::TestCase
   setup do
-    @campaign = campaigns(:default)
+    @campaign = campaigns(:premium)
     @campaign.start_date = Date.parse("2019-01-01")
     @campaign.end_date = @campaign.start_date.advance(months: 3)
     travel_to @campaign.start_date.to_time.advance(days: 15)
