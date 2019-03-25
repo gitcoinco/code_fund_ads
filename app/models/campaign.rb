@@ -59,6 +59,7 @@ class Campaign < ApplicationRecord
 
   # callbacks .................................................................
   before_validation :sort_arrays
+  before_save :sanitize_assigned_property_ids
 
   # scopes ....................................................................
   scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
@@ -196,6 +197,11 @@ class Campaign < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def assigned_properties
+    return Property.none if assigned_property_ids.blank?
+    Property.where id: assigned_property_ids
+  end
+
   def adjusted_ecpm(country_code)
     return ecpm if fixed_ecpm?
 
@@ -307,5 +313,9 @@ class Campaign < ApplicationRecord
     self.keywords = keywords&.reject(&:blank?)&.sort || []
     self.negative_keywords = negative_keywords&.reject(&:blank?)&.sort || []
     self.province_codes = province_codes&.reject(&:blank?)&.sort
+  end
+
+  def sanitize_assigned_property_ids
+    self.assigned_property_ids = assigned_property_ids.select(&:present?)
   end
 end
