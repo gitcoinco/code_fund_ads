@@ -14,53 +14,110 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     travel_back
   end
 
-  test "advertisement javascript with undetectable country" do
+  # ----------------------------------------------------------------------------------------------------------
+
+  test "javascript with targeted keywords and undetectable country" do
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": "0.0.0.0"}
     assert response.status == 200
     assert response.body =~ /CodeFund does not have a advertiser for you at this time\./i
   end
 
-  test "advertisement json with undetectable country" do
+  test "json with targeted keywords and undetectable country" do
     get advertisements_path(@property, format: :json), headers: {"REMOTE_ADDR": "0.0.0.0"}
     assert response.status == 404
     assert response.body =~ /CodeFund does not have a advertiser for you at this time\./i
   end
 
-  test "advertisement html with undetectable country" do
+  test "html with targeted keywords and undetectable country" do
     get advertisements_path(@property, format: :html), headers: {"REMOTE_ADDR": "0.0.0.0"}
     assert response.status == 404
     assert response.body =~ /CodeFund does not have a advertiser for you at this time\./i
   end
 
-  test "advertisement javascript with targeted country" do
+  # ----------------------------------------------------------------------------------------------------------
+
+  test "javascript with targeted keywords and country" do
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /targetElement\.innerHTML =/i
   end
 
-  test "advertisement json with targeted country" do
+  test "json with targeted keywords and country" do
     get advertisements_path(@property, format: :json), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /campaignUrl/
     assert response.body =~ /impressionUrl/
   end
 
-  test "advertisement html with targeted country" do
+  test "html with targeted keywords and country" do
     get advertisements_path(@property, format: :html), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /<div id=\"cf\"/i
   end
 
-  test "advertisement javascript with untargeted country" do
+  # ----------------------------------------------------------------------------------------------------------
+
+  test "javascript with targeted country and untargeted keywords" do
+    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @campaign.keywords
+    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
+    assert response.status == 200
+    assert response.body =~ /CodeFund does not have a advertiser for you at this time\./i
+  end
+
+  test "json with targeted country and untargeted keywords" do
+    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @campaign.keywords
+    get advertisements_path(@property, format: :json), headers: {"REMOTE_ADDR": ip_address("US")}
+    assert response.status == 404
+    assert response.body =~ /CodeFund does not have a advertiser for you at this time\./i
+  end
+
+  test "html with targeted country and untargeted keywords" do
+    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @campaign.keywords
+    get advertisements_path(@property, format: :html), headers: {"REMOTE_ADDR": ip_address("US")}
+    assert response.status == 404
+    assert response.body =~ /CodeFund does not have a advertiser for you at this time\./i
+  end
+
+  # ----------------------------------------------------------------------------------------------------------
+
+  test "javascript with targeted keywords and untargeted country" do
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("CN")}
     assert response.status == 200
     assert response.body =~ /CodeFund does not have a advertiser for you at this time\./i
   end
 
-  test "advertisement javascript with $0 organization budget" do
+  test "json with targeted keywords and untargeted country" do
+    get advertisements_path(@property, format: :json), headers: {"REMOTE_ADDR": ip_address("CN")}
+    assert response.status == 404
+    assert response.body =~ /CodeFund does not have a advertiser for you at this time\./i
+  end
+
+  test "html with targeted keywords and untargeted country" do
+    get advertisements_path(@property, format: :html), headers: {"REMOTE_ADDR": ip_address("CN")}
+    assert response.status == 404
+    assert response.body =~ /CodeFund does not have a advertiser for you at this time\./i
+  end
+
+  # ----------------------------------------------------------------------------------------------------------
+
+  test "javascript with targeted keywords and country but $0 organization balance" do
     @campaign.organization.update balance: Money.new(0, "USD")
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
+    assert response.body =~ /CodeFund does not have a advertiser for you at this time\./i
+  end
+
+  test "json with targeted keywords and country but $0 organization balance" do
+    @campaign.organization.update balance: Money.new(0, "USD")
+    get advertisements_path(@property, format: :json), headers: {"REMOTE_ADDR": ip_address("US")}
+    assert response.status == 404
+    assert response.body =~ /CodeFund does not have a advertiser for you at this time\./i
+  end
+
+  test "html with targeted keywords and country but $0 organization balance" do
+    @campaign.organization.update balance: Money.new(0, "USD")
+    get advertisements_path(@property, format: :html), headers: {"REMOTE_ADDR": ip_address("US")}
+    assert response.status == 404
     assert response.body =~ /CodeFund does not have a advertiser for you at this time\./i
   end
 
@@ -73,7 +130,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     while data.to_hash.dig("country", "iso_code") != country_code
       data = MMDB.lookup(ip = Faker::Internet.public_ip_v4_address) || {}
       attempts += 1
-      puts "Generating IP address for: #{country_code}" if attempts % 10 == 0
+      puts "20th pass generating IP address for: #{country_code}" if attempts % 20 == 0
     end
     ip
   end
