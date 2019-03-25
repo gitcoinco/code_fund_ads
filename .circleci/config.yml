@@ -43,7 +43,6 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "Gemfile.lock" }}
@@ -60,14 +59,10 @@ jobs:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
 
-      # Database setup
       - run:
           name: Set up DB
-          command: |
-            bundle exec rake db:create db:schema:load
-            bundle exec rake db:migrate
+          command: bundle exec rake db:create db:schema:load
 
-      # run tests!
       - run:
           name: run tests
           command: bundle exec rails test
