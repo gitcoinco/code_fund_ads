@@ -3,14 +3,14 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.6.1"
+ruby "2.6.2"
 
 gem "active_link_to",                     "~> 1.0.5"
 gem "acts_as_commentable_with_threading", "~> 2.0.1"
 gem "addressable",                        "2.6.0"
 gem "aws-sdk-s3",                         "~> 1.29.0", require: false
 gem "barnes",                             "~> 0.0.7"
-gem "bootsnap",                           ">= 1.1.0", require: false
+gem "bootsnap",                           ">= 1.4.2", require: false
 gem "buffer",                             "0.1.3", github: "bufferapp/buffer-ruby"
 gem "bulk_insert",                        "~> 1.7.0"
 gem "cable_ready",                        "~> 2.0.7"
