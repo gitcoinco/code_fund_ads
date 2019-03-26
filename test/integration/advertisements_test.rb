@@ -3,11 +3,11 @@ require "faker"
 
 class AdvertisementsTest < ActionDispatch::IntegrationTest
   setup do
-    @campaign = campaigns(:premium)
-    @campaign.update start_date: Date.parse("2019-01-01"), end_date: Date.parse("2019-04-01"), keywords: ENUMS::KEYWORDS.keys.sample(5)
+    @premium_campaign = campaigns(:premium)
+    @premium_campaign.update start_date: Date.parse("2019-01-01"), end_date: Date.parse("2019-04-01"), keywords: ENUMS::KEYWORDS.keys.sample(5)
     @property = properties(:website)
-    @property.update keywords: @campaign.keywords.sample(2)
-    travel_to @campaign.start_date.to_time.advance(days: 15)
+    @property.update keywords: @premium_campaign.keywords.sample(3)
+    travel_to @premium_campaign.start_date.to_time.advance(days: 15)
   end
 
   teardown do
@@ -16,19 +16,19 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   # ----------------------------------------------------------------------------------------------------------
 
-  test "javascript with targeted keywords and undetectable country" do
+  test "js: campaign with matching keywords will not display when country is unknown" do
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": "0.0.0.0"}
     assert response.status == 200
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
   end
 
-  test "json with targeted keywords and undetectable country" do
+  test "json: campaign with matching keywords will not display when country is unknown" do
     get advertisements_path(@property, format: :json), headers: {"REMOTE_ADDR": "0.0.0.0"}
     assert response.status == 404
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
   end
 
-  test "html with targeted keywords and undetectable country" do
+  test "html: campaign with matching keywords will not display when country is unknown" do
     get advertisements_path(@property, format: :html), headers: {"REMOTE_ADDR": "0.0.0.0"}
     assert response.status == 404
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
@@ -36,22 +36,22 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   # ----------------------------------------------------------------------------------------------------------
 
-  test "javascript with targeted country and untargeted keywords" do
-    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @campaign.keywords
+  test "js: campaign with matching country will not display when keywords don't match" do
+    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @premium_campaign.keywords
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
   end
 
-  test "json with targeted country and untargeted keywords" do
-    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @campaign.keywords
+  test "json: campaign with matching country will not display when keywords don't match" do
+    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @premium_campaign.keywords
     get advertisements_path(@property, format: :json), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 404
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
   end
 
-  test "html with targeted country and untargeted keywords" do
-    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @campaign.keywords
+  test "html: campaign with matching country will not display when keywords don't match" do
+    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @premium_campaign.keywords
     get advertisements_path(@property, format: :html), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 404
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
@@ -59,19 +59,19 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   # ----------------------------------------------------------------------------------------------------------
 
-  test "javascript with targeted keywords and untargeted country" do
+  test "js: campaign with matching keywords will not display when country doesn't match" do
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("CN")}
     assert response.status == 200
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
   end
 
-  test "json with targeted keywords and untargeted country" do
+  test "json: campaign with matching keywords will not display when country doesn't match" do
     get advertisements_path(@property, format: :json), headers: {"REMOTE_ADDR": ip_address("CN")}
     assert response.status == 404
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
   end
 
-  test "html with targeted keywords and untargeted country" do
+  test "html: campaign with matching keywords will not display when country doesn't match" do
     get advertisements_path(@property, format: :html), headers: {"REMOTE_ADDR": ip_address("CN")}
     assert response.status == 404
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
@@ -79,22 +79,22 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   # ----------------------------------------------------------------------------------------------------------
 
-  test "javascript with targeted keywords and country but $0 organization balance" do
-    @campaign.organization.update balance: Money.new(0, "USD")
+  test "js: campaign with matching keywords and country will not display when organization has a $0 balance" do
+    @premium_campaign.organization.update balance: Money.new(0, "USD")
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
   end
 
-  test "json with targeted keywords and country but $0 organization balance" do
-    @campaign.organization.update balance: Money.new(0, "USD")
+  test "json: campaign with matching keywords and country will not display when organization has a $0 balance" do
+    @premium_campaign.organization.update balance: Money.new(0, "USD")
     get advertisements_path(@property, format: :json), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 404
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
   end
 
-  test "html with targeted keywords and country but $0 organization balance" do
-    @campaign.organization.update balance: Money.new(0, "USD")
+  test "html: campaign with matching keywords and country will not display when organization has a $0 balance" do
+    @premium_campaign.organization.update balance: Money.new(0, "USD")
     get advertisements_path(@property, format: :html), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 404
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
@@ -102,13 +102,13 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   # ----------------------------------------------------------------------------------------------------------
 
-  test "javascript with targeted keywords and country prefers targeted fallback when premium not available" do
-    campaigns(:fallback).update start_date: @campaign.start_date, end_date: @campaign.end_date
+  test "js: fallback campaign with matching keywords and country is displayed before generic fallback campaigns" do
+    campaigns(:fallback).update start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     copy! campaigns(:fallback),
-      keywords: @campaign.keywords.sample(2),
+      keywords: @property.keywords.sample(2),
       creative: copy!(campaigns(:fallback).creative, body: "This is a targeted fallback campaign")
-    @campaign.update keywords: ["No Match"]
-    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": "0.0.0.0"}
+    @premium_campaign.update keywords: ["No Match"]
+    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert Campaign.fallback.count == 2
     assert response.status == 200
     assert response.body =~ /This is a targeted fallback campaign/
@@ -117,18 +117,18 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   # ----------------------------------------------------------------------------------------------------------
 
-  test "javascript with targeted keywords and undetectable country with untargeted fallback" do
-    campaigns(:fallback).update start_date: @campaign.start_date, end_date: @campaign.end_date
+  test "js: fallback campaign is displayed even when premium campaign with matching keywords exists but country is unknown" do
+    campaigns(:fallback).update start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": "0.0.0.0"}
     assert response.status == 200
     assert response.body =~ /This is a fallback campaign/
     assert response.body =~ /house: true/
   end
 
-  test "javascript with targeted country and untargeted keywords with untargeted fallback" do
-    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @campaign.keywords
-    campaigns(:fallback).update start_date: @campaign.start_date, end_date: @campaign.end_date
-    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": "0.0.0.0"}
+  test "js: fallback campaign is displayed even when premium campaign with matching country exists but keywords don't match" do
+    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @premium_campaign.keywords
+    campaigns(:fallback).update start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
+    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /This is a fallback campaign/
     assert response.body =~ /house: true/
@@ -136,14 +136,14 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   # ----------------------------------------------------------------------------------------------------------
 
-  test "javascript with targeted keywords and country" do
+  test "js: campaign with targeted keywords and country will display" do
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /This is a premium campaign/
     assert response.body =~ /house: false/
   end
 
-  test "json with targeted keywords and country" do
+  test "json: campaign with targeted keywords and country will display" do
     get advertisements_path(@property, format: :json), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /This is a premium campaign/
@@ -151,7 +151,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     assert response.body =~ /impressionUrl/
   end
 
-  test "html with targeted keywords and country" do
+  test "html: campaign with targeted keywords and country will display" do
     get advertisements_path(@property, format: :html), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /This is a premium campaign/
@@ -160,45 +160,44 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   # ----------------------------------------------------------------------------------------------------------
 
-  test "javascript with assigned property" do
-    copy! @campaign,
-      assigned_property_ids: [@property.id],
-      keywords: [],
-      creative: copy!(@campaign.creative, body: "This is an assigned premium campaign")
-
-    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
-    assert Campaign.premium.count == 2
+  test "js: campaign with assigned property will eventually display" do
+    copy! @premium_campaign
+    @premium_campaign.update assigned_property_ids: [@property.id]
+    @premium_campaign.creative.update body: "This is a premium campaign assigned to the property"
+    100.times.each do
+      get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
+      break if response.body.include?(@premium_campaign.creative.body)
+    end
     assert response.status == 200
-    assert response.body =~ /This is an assigned premium campaign/
-    assert response.body =~ /house: false/
+    assert response.body.include?(@premium_campaign.creative.body)
   end
 
-  test "javascript with assigned property only shows for assigned properties" do
-    @campaign.update assigned_property_ids: [@property.id]
+  test "js: campaign with assigned property does not display on unassigned properties" do
+    @premium_campaign.update assigned_property_ids: [@property.id]
     property = copy!(@property)
     get advertisements_path(property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
   end
 
-  test "javascript with assigned property does not show for untargeted country" do
-    @campaign.update assigned_property_ids: [@property.id]
+  test "js: campaign with assigned property does not show for untargeted country" do
+    @premium_campaign.update assigned_property_ids: [@property.id]
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("CN")}
     assert response.status == 200
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
   end
 
-  test "javascript with assigned property without budget shows targeted premium" do
+  test "js: property will show targeted premium campaign over a zero balance campaign with assigned property" do
     user = copy! users(:advertiser),
       email: Faker::Internet.email,
       password: "password",
       password_confirmation: "password",
       organization: copy!(organizations(:default), balance: Money.new(0, "USD"))
-    copy! @campaign,
+    copy! @premium_campaign,
       user: user,
       assigned_property_ids: [@property.id],
       keywords: [],
-      creative: copy!(@campaign.creative, body: "This is an assigned premium campaign")
+      creative: copy!(@premium_campaign.creative, body: "This is an assigned premium campaign")
 
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert Campaign.premium.count == 2
