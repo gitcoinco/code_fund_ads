@@ -2,6 +2,7 @@
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors)
 [![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/codefund/codefund)
+[![CircleCI](https://circleci.com/gh/gitcoinco/code_fund_ads.svg?style=svg)](https://circleci.com/gh/gitcoinco/code_fund_ads)
 
 CodeFund Ads is an ethical and discreet ad platform that funds open-source.
 It helps your favorite projects thrive by paying maintainers the majority of all generated revenue.
@@ -69,7 +70,7 @@ On a successful embed, `evt.detail` will return:
 ```json
 { "status": "ok", "house": false }
 
-or 
+or
 
 { "status": "ok", "house": true } // Ad returned is a house ad
 ```
