@@ -173,6 +173,14 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     assert response.body =~ /house: false/
   end
 
+  test "javascript with assigned property only shows for assigned properties" do
+    @campaign.update assigned_property_ids: [@property.id]
+    property = copy!(@property)
+    get advertisements_path(property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
+    assert response.status == 200
+    assert response.body =~ /CodeFund does not have a advertiser for you at this time/
+  end
+
   test "javascript with assigned property without budget shows targeted premium" do
     user = copy! users(:advertiser),
       email: Faker::Internet.email,
