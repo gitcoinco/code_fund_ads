@@ -15,7 +15,7 @@ if @campaign
   json.house_ad @campaign.fallback?
 else
   json.small_image_url ""
-  json.reason "CodeFund does not have a advertiser for you at this time."
+  json.reason "CodeFund does not have an advertiser for you at this time."
   json.poweredByLink "https://codefund.app"
   json.pixel ""
   json.link ""

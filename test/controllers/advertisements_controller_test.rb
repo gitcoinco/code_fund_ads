@@ -26,7 +26,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("CodeFund does not have a advertiser for you at this time.")
+    assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
   end
 
   test "get advertisement with no matching campaigns" do
@@ -34,7 +34,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("CodeFund does not have a advertiser for you at this time.")
+    assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
   end
 
   test "get advertisement with fallback campaign" do
@@ -51,7 +51,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property.update! prohibit_fallback_campaigns: true
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("CodeFund does not have a advertiser for you at this time.")
+    assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
   end
 
   private
