@@ -50,9 +50,9 @@ jobs:
             - v1-dependencies-
 
       - run:
-          name: update rubygems
+          name: update bundler
           command: |
-            gem update --system
+            gem install bundler:2.0.1
 
       - run:
           name: install dependencies
