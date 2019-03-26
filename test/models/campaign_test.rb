@@ -29,20 +29,21 @@
 #  job_posting           :boolean          default(FALSE), not null
 #  province_codes        :string           default([]), is an Array
 #  fixed_ecpm            :boolean          default(TRUE), not null
+#  assigned_property_ids :bigint(8)        default([]), not null, is an Array
 #
 
 require "test_helper"
 
 class CampaignTest < ActiveSupport::TestCase
   setup do
-    @campaign = campaigns(:default)
+    @campaign = campaigns(:premium)
     @campaign.start_date = Date.parse("2019-01-01")
     @campaign.end_date = @campaign.start_date.advance(months: 3)
-    Timecop.freeze @campaign.start_date.to_time.advance(days: 12)
+    travel_to @campaign.start_date.to_time.advance(days: 15)
   end
 
   teardown do
-    Timecop.return
+    travel_back
   end
 
   test "initial campaign budgets" do
@@ -80,7 +81,6 @@ class CampaignTest < ActiveSupport::TestCase
     assert @campaign.ecpms == [
       {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$3.00 USD")},
       {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
-      {country_iso_code: "CN", country_name: "China", ecpm: Monetize.parse("$3.00 USD")},
       {country_iso_code: "CA", country_name: "Canada", ecpm: Monetize.parse("$3.00 USD")},
       {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$3.00 USD")},
       {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$3.00 USD")},
@@ -98,7 +98,6 @@ class CampaignTest < ActiveSupport::TestCase
     assert @campaign.ecpms == [
       {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$2.61 USD")},
       {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
-      {country_iso_code: "CN", country_name: "China", ecpm: Monetize.parse("$0.15 USD")},
       {country_iso_code: "CA", country_name: "Canada", ecpm: Monetize.parse("$2.13 USD")},
       {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$1.59 USD")},
       {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$0.93 USD")},
@@ -115,7 +114,6 @@ class CampaignTest < ActiveSupport::TestCase
     assert @campaign.ecpms == [
       {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$2.40 USD")},
       {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
-      {country_iso_code: "CN", country_name: "China", ecpm: Monetize.parse("$0.30 USD")},
       {country_iso_code: "CA", country_name: "Canada", ecpm: Monetize.parse("$3.00 USD")},
       {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$0.30 USD")},
       {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$0.90 USD")},

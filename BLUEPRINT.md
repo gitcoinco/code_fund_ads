@@ -100,7 +100,7 @@ axios.get('https://api.codefund.app/properties/1/funder.html')
 
 + Response 404 (text/html)
 
-        CodeFund does not have a advertiser for you at this time.
+        CodeFund does not have an advertiser for you at this time.
 
 # Advertisement JSON [/properties/{property_id}/funder.json/?{template}{theme}{keywords}]
 
@@ -205,7 +205,7 @@ axios.get('https://api.codefund.app/properties/1/funder.html')
 + Response 404 (text/html)
 
         {
-          "message": "CodeFund does not have a advertiser for you at this time."
+          "message": "CodeFund does not have an advertiser for you at this time."
         }
 
 # Legacy Impression [/api/v1/impression/{legacy_property_id}]
@@ -260,7 +260,7 @@ _An impression is only created if/when the advertisement is successfully rendere
 
         {
           "small_image_url": "",
-          "reason": "CodeFund does not have a advertiser for you at this time.",
+          "reason": "CodeFund does not have an advertiser for you at this time.",
           "poweredByLink": "https://codefund.app",
           "pixel": "",
           "link": "",

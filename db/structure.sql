@@ -211,7 +211,8 @@ CREATE TABLE public.campaigns (
     organization_id bigint,
     job_posting boolean DEFAULT false NOT NULL,
     province_codes character varying[] DEFAULT '{}'::character varying[],
-    fixed_ecpm boolean DEFAULT true NOT NULL
+    fixed_ecpm boolean DEFAULT true NOT NULL,
+    assigned_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
 );
 
 
@@ -1495,6 +1496,13 @@ CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_b
 
 
 --
+-- Name: index_campaigns_on_assigned_property_ids; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_assigned_property_ids ON public.campaigns USING gin (assigned_property_ids);
+
+
+--
 -- Name: index_campaigns_on_core_hours_only; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2240,6 +2248,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190308214127'),
 ('20190311172908'),
 ('20190320223450'),
+('20190321180846'),
 ('20190322161200');
 
 

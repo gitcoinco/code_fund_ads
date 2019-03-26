@@ -54,7 +54,7 @@
       evt.detail = { status: 'error', message: e.message };
     }
     <% else -%>
-      console.log('CodeFund does not have a advertiser for you at this time.');
+      console.log('CodeFund does not have an advertiser for you at this time.');
       evt.detail = { status: 'no-advertiser' };
     <% end -%>
     document.removeEventListener('DOMContentLoaded', embed);

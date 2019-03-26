@@ -90,7 +90,9 @@ ActiveRecord::Schema.define(version: 2019_03_22_161200) do
     t.boolean "job_posting", default: false, null: false
     t.string "province_codes", default: [], array: true
     t.boolean "fixed_ecpm", default: true, null: false
+    t.bigint "assigned_property_ids", default: [], null: false, array: true
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
+    t.index ["assigned_property_ids"], name: "index_campaigns_on_assigned_property_ids", using: :gin
     t.index ["core_hours_only"], name: "index_campaigns_on_core_hours_only"
     t.index ["country_codes"], name: "index_campaigns_on_country_codes", using: :gin
     t.index ["creative_id"], name: "index_campaigns_on_creative_id"

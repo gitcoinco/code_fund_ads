@@ -1,4 +1,8 @@
 module PropertiesHelper
+  def properties_for_select
+    Property.active.order(Property.arel_table[:name].lower).map { |p| [p.name, p.id] }
+  end
+
   def property_types_for_select
     ENUMS::PROPERTY_TYPES.values.map { |val| [val.humanize, val] }
   end

@@ -203,7 +203,8 @@ class AdvertisementsController < ApplicationController
   end
 
   def get_premium_campaign(campaign_relation)
-    campaign = choose_campaign(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
+    campaign = choose_campaign(campaign_relation.assigned_premium_for_property_id(property_id))
+    campaign ||= choose_campaign(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
     if campaign
       track_event("Find Premium Campaign", {
         status: "success",
@@ -223,7 +224,8 @@ class AdvertisementsController < ApplicationController
   end
 
   def get_fallback_campaign(campaign_relation)
-    campaign = choose_campaign(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords), ignore_budgets: true)
+    campaign = choose_campaign(campaign_relation.assigned_fallback_for_property_id(property_id), ignore_budgets: true)
+    campaign ||= choose_campaign(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords), ignore_budgets: true)
     campaign ||= choose_campaign(campaign_relation.fallback_for_property_id(property_id), ignore_budgets: true)
     if campaign
       track_event("Find Fallback Campaign", {

@@ -4,14 +4,16 @@ module AdRenderable
   protected
 
   def render_advertisement_html(template, theme, html: false)
-    formatted_code = Premailer.new(
+    formatter = Premailer.new(
       template,
       with_html_string: true,
       html_fragment: true,
       css_string: theme,
+      input_encoding: "utf-8",
       output_encoding: "utf-8",
-      adapter: :nokogiri_fast
-    ).to_inline_css.squish
+      adapter: :nokogiri_fast,
+    )
+    formatted_code = formatter.to_inline_css.squish
     formatted_code = formatted_code.gsub(/\'/, "\\\\'") unless html
     formatted_code
   end

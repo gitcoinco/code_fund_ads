@@ -32,6 +32,8 @@ website:
   url: https://publisher-website.codefund.app
   language: <%= ENUMS::LANGUAGES::ENGLISH %>
   revenue_percentage: 0.65
+  ad_template: default
+  ad_theme: light
 
 repository:
   user: publisher
@@ -40,6 +42,9 @@ repository:
   name: Publisher Repository
   url: https://publisher-repository.codefund.app
   language: <%= ENUMS::LANGUAGES::ENGLISH %>
+  revenue_percentage: 0.65
+  ad_template: default
+  ad_theme: light
 
 newsletter:
   user: publisher
@@ -48,3 +53,6 @@ newsletter:
   name: Publisher Newsletter
   url: https://publisher-newsletter.codefund.app
   language: <%= ENUMS::LANGUAGES::ENGLISH %>
+  revenue_percentage: 0.65
+  ad_template: default
+  ad_theme: light

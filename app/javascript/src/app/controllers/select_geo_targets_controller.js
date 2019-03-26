@@ -12,6 +12,12 @@ export default class extends Controller {
 
   updateProvinceCodeOptions(event) {
     if (event && event.type === 'keyup' && event.key !== 'Enter') return;
+    if (
+      event &&
+      event.type === 'cf:select:changed' &&
+      String(event.target.dataset.target).indexOf('countryCodesSelect') === -1
+    )
+      return;
 
     if (this.validProvinces.length === 0 || this.selectedCountryCodes.length > 30) {
       this.provinceCodesSelectTarget.innerHTML = '';

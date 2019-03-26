@@ -26,7 +26,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("CodeFund does not have a advertiser for you at this time.")
+    assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
   end
 
   test "get advertisement with no matching campaigns" do
@@ -34,7 +34,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("CodeFund does not have a advertiser for you at this time.")
+    assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
   end
 
   test "get advertisement with fallback campaign" do
@@ -51,13 +51,13 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property.update! prohibit_fallback_campaigns: true
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("CodeFund does not have a advertiser for you at this time.")
+    assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
   end
 
   private
 
   def active_campaign(country_codes: [])
-    campaign = campaigns(:default)
+    campaign = campaigns(:premium)
     campaign.update!(
       status: ENUMS::CAMPAIGN_STATUSES::ACTIVE,
       start_date: 1.month.ago,
@@ -70,7 +70,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def inactive_campaign
-    campaign = campaigns(:default)
+    campaign = campaigns(:premium)
     campaign.update!(
       status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED,
       start_date: 6.months.ago,
@@ -81,7 +81,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   def fallback_campaign
-    campaign = campaigns(:default)
+    campaign = campaigns(:premium)
     campaign.update!(
       status: ENUMS::CAMPAIGN_STATUSES::ACTIVE,
       start_date: 1.month.ago,

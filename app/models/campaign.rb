@@ -29,6 +29,7 @@
 #  job_posting           :boolean          default(FALSE), not null
 #  province_codes        :string           default([]), is an Array
 #  fixed_ecpm            :boolean          default(TRUE), not null
+#  assigned_property_ids :bigint(8)        default([]), not null, is an Array
 #
 
 class Campaign < ApplicationRecord
@@ -58,6 +59,7 @@ class Campaign < ApplicationRecord
 
   # callbacks .................................................................
   before_validation :sort_arrays
+  before_save :sanitize_assigned_property_ids
 
   # scopes ....................................................................
   scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
@@ -77,6 +79,14 @@ class Campaign < ApplicationRecord
   scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertisers.search_name(value).or(User.advertisers.search_company(value))) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
+  scope :without_assigned_property_ids, -> { where assigned_property_ids: [] }
+  scope :assigned_to_property_id, ->(property_id) {
+    value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["ARRAY[?]", property_id]))
+    value_cast = Arel::Nodes::NamedFunction.new("CAST", [value.as("bigint[]")])
+    where Arel::Nodes::InfixOperation.new("@>", arel_table[:assigned_property_ids], value_cast)
+  }
+  scope :assigned_premium_for_property_id, ->(property_id) { premium.assigned_to_property_id property_id }
+  scope :assigned_fallback_for_property_id, ->(property_id) { fallback.assigned_to_property_id property_id }
   scope :permitted_for_property_id, ->(property_id) {
     subquery = Property.select(:prohibited_advertiser_ids).where(id: property_id)
     id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"user_id\"]"), subquery.arel)
@@ -86,22 +96,28 @@ class Campaign < ApplicationRecord
   scope :targeted_premium_for_property_id, ->(property_id, *keywords) { premium.targeted_for_property_id(property_id, *keywords) }
   scope :targeted_for_property_id, ->(property_id, *keywords) do
     if keywords.present?
-      permitted_for_property_id(property_id).with_any_keywords(*keywords).without_any_negative_keywords(*keywords)
+      permitted_for_property_id(property_id)
+        .with_any_keywords(*keywords)
+        .without_any_negative_keywords(*keywords)
+        .without_assigned_property_ids
     else
       subquery = Property.active.select(:keywords).where(id: property_id)
       keywords_overlap = Arel::Nodes::InfixOperation.new("&&", arel_table[:keywords], subquery.arel)
       negative_keywords_overlap = Arel::Nodes::InfixOperation.new("&&", arel_table[:negative_keywords], subquery.arel)
-      permitted_for_property_id(property_id).where(keywords_overlap).where.not(negative_keywords_overlap)
-      permitted_for_property_id(property_id).where(keywords_overlap)
+      permitted_for_property_id(property_id)
+        .where(keywords_overlap)
+        .where.not(negative_keywords_overlap)
+        .without_assigned_property_ids
     end
   end
   scope :fallback_for_property_id, ->(property_id) do
-    fallback.permitted_for_property_id(property_id)
+    fallback
+      .permitted_for_property_id(property_id)
       .where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
   end
   scope :targeted_fallback_for_property_id, ->(property_id, *keywords) do
-    targeted_for_property_id(property_id, *keywords)
-      .where(fallback: true)
+    fallback
+      .targeted_for_property_id(property_id, *keywords)
       .where.not(fallback: Property.select(:prohibit_fallback_campaigns).where(id: property_id).limit(1))
   end
   scope :targeted_country_code, ->(country_code) { country_code ? with_all_country_codes(country_code) : without_country_codes }
@@ -180,6 +196,11 @@ class Campaign < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def assigned_properties
+    return Property.none if assigned_property_ids.blank?
+    Property.where id: assigned_property_ids
+  end
 
   def adjusted_ecpm(country_code)
     return ecpm if fixed_ecpm?
@@ -292,5 +313,9 @@ class Campaign < ApplicationRecord
     self.keywords = keywords&.reject(&:blank?)&.sort || []
     self.negative_keywords = negative_keywords&.reject(&:blank?)&.sort || []
     self.province_codes = province_codes&.reject(&:blank?)&.sort
+  end
+
+  def sanitize_assigned_property_ids
+    self.assigned_property_ids = assigned_property_ids.select(&:present?)
   end
 end

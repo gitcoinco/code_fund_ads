@@ -36,7 +36,7 @@
 default:
   advertiser: advertiser
   publisher: publisher
-  campaign: default
+  campaign: premium
   creative: default
   property: website
   ip_address: 127.0.0.1

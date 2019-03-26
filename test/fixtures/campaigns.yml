@@ -29,15 +29,16 @@
 #  job_posting           :boolean          default(FALSE), not null
 #  province_codes        :string           default([]), is an Array
 #  fixed_ecpm            :boolean          default(TRUE), not null
+#  assigned_property_ids :bigint(8)        default([]), not null, is an Array
 #
 
 # IMPORTANT: Limit campaigns fixtures to [1] using only the minimum required data
 #            Additional setup should be perfomed in the test suite
 
-default:
+premium:
   organization: default
   user: advertiser
-  creative: default
+  creative: premium
   status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
   name: CodeFund
   url: https://advertiser.codefund.app
@@ -49,10 +50,18 @@ default:
   ecpm_currency: USD
   country_codes:
     - CA
-    - CN
     - FR
     - GB
     - IN
     - JP
     - RO
     - US
+
+fallback:
+  organization: default
+  user: advertiser
+  creative: fallback
+  status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
+  name: CodeFund
+  url: https://advertiser.codefund.app
+  fallback: true
