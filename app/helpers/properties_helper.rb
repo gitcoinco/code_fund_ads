@@ -1,6 +1,6 @@
 module PropertiesHelper
   def properties_for_select
-    Property.active.order(Property.arel_table[:name].lower).map { |p| [p.name, p.id] }
+    Property.active.or(Property.pending).order(Property.arel_table[:name].lower).map { |p| [p.name, p.id] }
   end
 
   def property_types_for_select
