@@ -59,6 +59,7 @@ class CreativesController < ApplicationController
   private
 
   def set_creative_search
+    clear_searches except: :creative_search
     @creative_search = GlobalID.parse(session[:creative_search]).find if session[:creative_search].present?
     @creative_search ||= CreativeSearch.new
   end

@@ -45,6 +45,7 @@ class ImagesController < ApplicationController
   end
 
   def set_image_search
+    clear_searches except: :image_search
     @image_search = GlobalID.parse(session[:image_search]).find if session[:image_search].present?
     @image_search ||= ImageSearch.new
   end

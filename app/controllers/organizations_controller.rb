@@ -59,6 +59,7 @@ class OrganizationsController < ApplicationController
   private
 
   def set_organization_search
+    clear_searches except: :organization_search
     @organization_search = GlobalID.parse(session[:organization_search]).find if session[:organization_search].present?
     @organization_search ||= OrganizationSearch.new
   end

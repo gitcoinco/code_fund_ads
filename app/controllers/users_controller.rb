@@ -65,6 +65,7 @@ class UsersController < ApplicationController
   private
 
   def set_user_search
+    clear_searches except: :user_search
     @user_search = GlobalID.parse(session[:user_search]).find if session[:user_search].present?
     @user_search ||= UserSearch.new
   end

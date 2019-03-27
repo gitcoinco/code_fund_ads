@@ -26,6 +26,7 @@ class ApplicantsController < ApplicationController
   private
 
   def set_applicant_search
+    clear_searches except: :applicant_search
     @applicant_search = GlobalID.parse(session[:applicant_search]).find if session[:applicant_search].present?
     @applicant_search ||= ApplicantSearch.new
   end

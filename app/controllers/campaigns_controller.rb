@@ -83,6 +83,7 @@ class CampaignsController < ApplicationController
   private
 
   def set_campaign_search
+    clear_searches except: :campaign_search
     @campaign_search = GlobalID.parse(session[:campaign_search]).find if session[:campaign_search].present?
     @campaign_search ||= CampaignSearch.new
   end
