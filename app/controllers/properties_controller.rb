@@ -67,6 +67,7 @@ class PropertiesController < ApplicationController
   private
 
   def set_property_search
+    clear_searches except: :property_search
     @property_search = GlobalID.parse(session[:property_search]).find if session[:property_search].present?
     @property_search ||= PropertySearch.new
   end

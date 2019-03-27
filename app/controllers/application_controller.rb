@@ -16,6 +16,17 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def clear_searches(except: [])
+    except = [except] unless except.is_a?(Array)
+    except = except.map(&:to_s)
+    session.keys.each do |key|
+      key = key.to_s
+      next unless key.end_with?("_search")
+      next if except.include?(key)
+      session.delete key
+    end
+  end
+
   def set_cors_headers
     response.headers["Access-Control-Allow-Origin"] = "*"
     response.headers["Access-Control-Allow-Methods"] = "POST, PUT, DELETE, GET, OPTIONS"

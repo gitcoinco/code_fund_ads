@@ -73,6 +73,7 @@ class JobPostingsController < ApplicationController
   private
 
   def set_job_posting_search
+    clear_searches except: :job_posting_search
     @job_posting_search = GlobalID.parse(session[:job_posting_search]).find if session[:job_posting_search].present?
     @job_posting_search ||= JobPostingSearch.new
   end
