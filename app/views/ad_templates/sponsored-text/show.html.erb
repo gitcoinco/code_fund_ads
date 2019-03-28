@@ -1,5 +1,5 @@
 <% cache_if @campaign.persisted?, @campaign do %>
-  <ins id="cf">
+  <div id="cf">
     <span class="cf-wrapper">
       Sponsored:&nbsp;
       <%= image_tag @campaign.creative.icon_image.cloudfront_url, class: "cf-img", style: "width: 20px; height: 20px;" rescue nil %>
@@ -29,5 +29,5 @@
     <div style="position: absolute; left: 0px; top: 0px; visibility: hidden;">
       <img data-src="impression_url" width="0" height="0" alt="" style="width: 0px; height: 0px;">
     </div>
-  </ins>
+  </div>
 <% end %>

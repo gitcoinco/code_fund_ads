@@ -1,4 +1,5 @@
-#cf {
+#cf, #cf * {
+  all: initial;
   font-family: Helvetica, Arial;
   font-size: 13px;
 }
@@ -31,7 +32,8 @@
   content: "Supporter";
 }
 
-#cf .cf-powered-by {
+#cf .cf-powered-by,
+#cf .cf-powered-by em {
   font-size: 12px;
   text-decoration: none;
   color: #999;
@@ -42,4 +44,8 @@
   content: "•";
   color: rgba(0, 0, 0, 0.3);
   display: inline-block;
+}
+
+#cf .cf-powered-by em {
+  font-style: italic;
 }

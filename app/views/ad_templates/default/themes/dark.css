@@ -1,3 +1,7 @@
+#cf, #cf * {
+  all: initial;
+}
+
 #cf {
   margin: 0 auto;
   max-width: 330px;

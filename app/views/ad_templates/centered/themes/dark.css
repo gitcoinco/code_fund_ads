@@ -1,13 +1,17 @@
+#cf, #cf * {
+  all: initial;
+  font-family: Helvetica, Arial;
+  font-size: 14px;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #cf .cf-wrapper {
   max-width: 330px;
   display: block;
   padding: 15px;
-  font-size: 14px;
   line-height: 1.4;
-  text-align: center;
-  font-family: Helvetica, Arial;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 #cf .cf-header {
@@ -34,7 +38,8 @@
   text-decoration: none;
 }
 
-#cf .cf-powered-by {
+#cf .cf-powered-by,
+#cf .cf-powered-by em {
   margin-top: 5px;
   font-size: 11px;
   display: block;
@@ -47,4 +52,9 @@
   position: fixed;
   left: -1000px;
   top: -1000px;
+}
+
+#cf .cf-powered-by em {
+  font-style: italic;
+  text-align: auto;
 }

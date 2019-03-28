@@ -1,3 +1,7 @@
+#cf, #cf * {
+  all: initial;
+}
+
 #cf {
   width: 125px;
   margin: 0 auto;
@@ -48,4 +52,8 @@
   position: fixed;
   left: -1000px;
   top: -1000px;
+}
+
+#cf em {
+  font-style: italic;
 }
