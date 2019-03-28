@@ -2,24 +2,24 @@
 #
 # Table name: properties
 #
-#  id                          :bigint(8)        not null, primary key
-#  user_id                     :bigint(8)        not null
-#  property_type               :string           not null
-#  status                      :string           not null
-#  name                        :string           not null
-#  description                 :text
-#  url                         :text             not null
-#  ad_template                 :string
-#  ad_theme                    :string
-#  language                    :string           not null
-#  keywords                    :string           default([]), not null, is an Array
-#  prohibited_advertiser_ids   :bigint(8)        default([]), not null, is an Array
-#  prohibit_fallback_campaigns :boolean          default(FALSE), not null
-#  created_at                  :datetime         not null
-#  updated_at                  :datetime         not null
-#  legacy_id                   :uuid
-#  revenue_percentage          :decimal(, )      default(0.5), not null
-#  assigned_campaign_ids       :bigint(8)        default([]), not null, is an Array
+#  id                             :bigint(8)        not null, primary key
+#  user_id                        :bigint(8)        not null
+#  property_type                  :string           not null
+#  status                         :string           not null
+#  name                           :string           not null
+#  description                    :text
+#  url                            :text             not null
+#  ad_template                    :string
+#  ad_theme                       :string
+#  language                       :string           not null
+#  keywords                       :string           default([]), not null, is an Array
+#  prohibited_advertiser_ids      :bigint(8)        default([]), not null, is an Array
+#  prohibit_fallback_campaigns    :boolean          default(FALSE), not null
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
+#  legacy_id                      :uuid
+#  revenue_percentage             :decimal(, )      default(0.5), not null
+#  assigned_fallback_campaign_ids :bigint(8)        default([]), not null, is an Array
 #
 
 class Property < ApplicationRecord
@@ -51,7 +51,7 @@ class Property < ApplicationRecord
   validates :url, presence: true, url: true
 
   # callbacks .................................................................
-  before_save :sanitize_assigned_campaign_ids
+  before_save :sanitize_assigned_fallback_campaign_ids
   after_save :generate_screenshot
 
   # scopes ....................................................................
@@ -119,9 +119,9 @@ class Property < ApplicationRecord
 
   # public instance methods ...................................................
 
-  def assigned_campaigns
-    return Campaign.none if assigned_campaign_ids.blank?
-    Campaign.where id: assigned_property_ids
+  def assigned_fallback_campaigns
+    return Campaign.none if assigned_fallback_campaign_ids.blank?
+    Campaign.where id: assigned_fallback_campaign_ids
   end
 
   def favicon_image_url
@@ -160,7 +160,7 @@ class Property < ApplicationRecord
     GeneratePropertyScreenshotJob.perform_later(id) if saved_change_to_url?
   end
 
-  def sanitize_assigned_campaign_ids
-    self.assigned_campaign_ids = assigned_campaign_ids.select(&:present?).uniq.sort
+  def sanitize_assigned_fallback_campaign_ids
+    self.assigned_fallback_campaign_ids = assigned_fallback_campaign_ids.select(&:present?).uniq.sort
   end
 end

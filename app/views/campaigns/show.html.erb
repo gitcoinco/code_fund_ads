@@ -23,7 +23,11 @@
         <%= details_li("Core Hours Only?") { @campaign.core_hours_only? ? "Yes" : "No" } %>
         <%= details_li("Weekdays Only?") { @campaign.weekdays_only? ? "Yes" : "No" } %>
         <%= details_li("Fallback Campaign?") { "Yes" } if @campaign.fallback? %>
-        <%= details_li("Assigned Properties") { @campaign.assigned_properties.pluck(:name).join(", ") } if @campaign.assigned_property_ids.present? %>
+        <%= details_li("Assigned Properties") do %>
+          <% @campaign.assigned_properties.pluck(:name).sort.each do |property_name| -%>
+            <span class="btn btn-xs btn-soft-dark mb-1"><%= property_name %></span>
+          <% end -%>
+        <% end if @campaign.assigned_property_ids.present? %>
         <% if @campaign.fixed_ecpm? %>
           <%= details_li("eCPM <small>Fixed</small>") { @campaign.ecpm.format } %>
         <% else %>

@@ -701,7 +701,7 @@ CREATE TABLE public.properties (
     updated_at timestamp without time zone NOT NULL,
     legacy_id uuid,
     revenue_percentage numeric DEFAULT 0.5 NOT NULL,
-    assigned_campaign_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
+    assigned_fallback_campaign_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
 );
 
 
@@ -1910,10 +1910,10 @@ CREATE INDEX index_organization_transactions_on_transaction_type ON public.organ
 
 
 --
--- Name: index_properties_on_assigned_campaign_ids; Type: INDEX; Schema: public; Owner: -
+-- Name: index_properties_on_assigned_fallback_campaign_ids; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_properties_on_assigned_campaign_ids ON public.properties USING gin (assigned_campaign_ids);
+CREATE INDEX index_properties_on_assigned_fallback_campaign_ids ON public.properties USING gin (assigned_fallback_campaign_ids);
 
 
 --
