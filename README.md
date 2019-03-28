@@ -138,24 +138,35 @@ ENUMS::USER_ROLES.constants
 
 ## Development Environment
 
+###### Prerequisites
+
+- ruby version `2.6.2` via [rbenv](https://github.com/rbenv/rbenv)
+- `brew install graphviz`
+
 ```sh
 git clone https://github.com/gitcoinco/code_fund_ads.git
 cd /path/to/project
-cp .env-example .env
 
 # setup environment variables
+cp .env-example .env
 
+# install dependencies
 bundle install
 yarn install
-bundle exec rails db:setup
+
+# db setup + tests
+rails db:create db:migrate
+rails test
+
+# start app and navigate to http://localhost:3000
+rails s
 ```
 
 It is recommended to develop with Rails cache enabled. This application relies heavily
 on caching and may not work properly without the cache enabled.
 
 ```sh
-bundle exec rails dev:cache
-# => Development mode is now being cached.
+bundle exec rails dev:cache # => Development mode is now being cached.
 ```
 
 ### Database Seeds
