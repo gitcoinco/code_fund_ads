@@ -19,6 +19,7 @@
 #  updated_at                  :datetime         not null
 #  legacy_id                   :uuid
 #  revenue_percentage          :decimal(, )      default(0.5), not null
+#  assigned_campaign_ids       :bigint(8)        default([]), not null, is an Array
 #
 
 class Property < ApplicationRecord
@@ -50,6 +51,7 @@ class Property < ApplicationRecord
   validates :url, presence: true, url: true
 
   # callbacks .................................................................
+  before_save :sanitize_assigned_campaign_ids
   after_save :generate_screenshot
 
   # scopes ....................................................................
@@ -117,6 +119,11 @@ class Property < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def assigned_campaigns
+    return Campaign.none if assigned_campaign_ids.blank?
+    Campaign.where id: assigned_property_ids
+  end
+
   def favicon_image_url
     domain = url.gsub(/^https?:\/\//, "")
     "//www.google.com/s2/favicons?domain=#{domain}"
@@ -151,5 +158,9 @@ class Property < ApplicationRecord
 
   def generate_screenshot
     GeneratePropertyScreenshotJob.perform_later(id) if saved_change_to_url?
+  end
+
+  def sanitize_assigned_campaign_ids
+    self.assigned_campaign_ids = assigned_campaign_ids.select(&:present?).uniq.sort
   end
 end

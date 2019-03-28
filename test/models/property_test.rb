@@ -19,6 +19,7 @@
 #  updated_at                  :datetime         not null
 #  legacy_id                   :uuid
 #  revenue_percentage          :decimal(, )      default(0.5), not null
+#  assigned_campaign_ids       :bigint(8)        default([]), not null, is an Array
 #
 
 require "test_helper"

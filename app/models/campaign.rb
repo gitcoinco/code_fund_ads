@@ -316,6 +316,6 @@ class Campaign < ApplicationRecord
   end
 
   def sanitize_assigned_property_ids
-    self.assigned_property_ids = assigned_property_ids.select(&:present?)
+    self.assigned_property_ids = assigned_property_ids.select(&:present?).uniq.sort
   end
 end

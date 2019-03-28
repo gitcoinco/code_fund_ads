@@ -2,9 +2,12 @@ module Campaigns
   module Presentable
     extend ActiveSupport::Concern
     include ActionView::Helpers::DateHelper
+    include ActionView::Helpers::TextHelper
 
-    def scoped_name
-      [user.scoped_name, name, creative&.name].compact.join "・"
+    def scoped_name(truncate: false)
+      value = [user.scoped_name, name, creative&.name].compact.join "・"
+      value = truncate(value, length: 60) if truncate
+      value
     end
 
     def duration
