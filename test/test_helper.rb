@@ -61,12 +61,12 @@ class ActiveSupport::TestCase
   end
 
   # Factory method to find a fixture and update its attributes
-  def ammend(options = {})
+  def amend(options = {})
     fixture_class_name, fixture_name = options.shift
     send(fixture_class_name, fixture_name).tap { |instance| instance.update! options }
   end
 
-  # Factory method to copy a fixture and save it with ammended attributes
+  # Factory method to copy a fixture and save it with amended attributes
   def copy(options = {})
     fixture_class_name, fixture_name = options.shift
     instance = send(fixture_class_name, fixture_name)

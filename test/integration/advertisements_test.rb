@@ -4,11 +4,11 @@ require "faker"
 class AdvertisementsTest < ActionDispatch::IntegrationTest
   setup do
     start_date = Date.parse("2019-01-01")
-    @premium_campaign = ammend campaigns: :premium,
+    @premium_campaign = amend campaigns: :premium,
       start_date: start_date,
       end_date: start_date.advance(months: 3),
       keywords: ENUMS::KEYWORDS.keys.sample(5)
-    @property = ammend properties: :website, keywords: @premium_campaign.keywords.sample(3)
+    @property = amend properties: :website, keywords: @premium_campaign.keywords.sample(3)
     travel_to start_date.to_time.advance(days: 15)
   end
 
@@ -105,7 +105,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------------------------------------------------------
 
   test "js: fallback campaign with matching keywords and country is displayed before generic fallback campaigns" do
-    ammend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
+    amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     copy campaigns: :fallback, keywords: @property.keywords.sample(2),
       creative: copy(creatives: :fallback, body: "This is a targeted fallback campaign")
     @premium_campaign.update keywords: ["No Match"]
@@ -119,7 +119,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------------------------------------------------------
 
   test "js: fallback campaign is displayed even when premium campaign with matching keywords exists but country is unknown" do
-    ammend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
+    amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": "0.0.0.0"}
     assert response.status == 200
     assert response.body =~ /This is a fallback campaign/
@@ -128,7 +128,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   test "js: fallback campaign is displayed even when premium campaign with matching country exists but keywords don't match" do
     @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @premium_campaign.keywords
-    ammend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
+    amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /This is a fallback campaign/
@@ -213,7 +213,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   test "js: property only shows assigned fallback" do
     @premium_campaign.update status: ENUMS::CAMPAIGN_STATUSES::PENDING
 
-    ammend campaigns: :fallback,
+    amend campaigns: :fallback,
       keywords: @property.keywords,
       start_date: @premium_campaign.start_date,
       end_date: @premium_campaign.end_date,
@@ -234,7 +234,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   test "js: property prefers targeted assigned fallbacks" do
     @premium_campaign.update status: ENUMS::CAMPAIGN_STATUSES::PENDING
 
-    ammend campaigns: :fallback,
+    amend campaigns: :fallback,
       keywords: @property.keywords,
       start_date: @premium_campaign.start_date,
       end_date: @premium_campaign.end_date,
@@ -258,7 +258,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   test "js: fallback campaign with assigned property will not display on a different property even if the different property assigns the fallback campaign" do
     @premium_campaign.update status: ENUMS::CAMPAIGN_STATUSES::PENDING
 
-    fallback_campaign = ammend campaigns: :fallback,
+    fallback_campaign = amend campaigns: :fallback,
       start_date: @premium_campaign.start_date,
       end_date: @premium_campaign.end_date,
       assigned_property_ids: [@property.id],
