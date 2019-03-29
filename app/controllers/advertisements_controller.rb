@@ -229,9 +229,15 @@ class AdvertisementsController < ApplicationController
     fallback_campaign_relation = campaign_relation
       .assigned_fallback_for_property_id(property_id)
       .or(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords))
+    if property.assigned_fallback_campaign_ids.present?
+      fallback_campaign_relation = fallback_campaign_relation.where(id: property.assigned_fallback_campaign_ids)
+    end
     campaign = choose_campaign(fallback_campaign_relation, ignore_budgets: true)
     campaign ||= begin
       fallback_campaign_relation = campaign_relation.fallback_for_property_id(property_id)
+      if property.assigned_fallback_campaign_ids.present?
+        fallback_campaign_relation = fallback_campaign_relation.where(id: property.assigned_fallback_campaign_ids)
+      end
       choose_campaign(fallback_campaign_relation, ignore_budgets: true)
     end
     if campaign
