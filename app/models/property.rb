@@ -60,6 +60,7 @@ class Property < ApplicationRecord
   scope :blacklisted, -> { where status: ENUMS::PROPERTY_STATUSES::BLACKLISTED }
   scope :pending, -> { where status: ENUMS::PROPERTY_STATUSES::PENDING }
   scope :rejected, -> { where status: ENUMS::PROPERTY_STATUSES::REJECTED }
+  scope :website, -> { where property_type: ENUMS::PROPERTY_TYPES::WEBSITE }
   scope :search_ad_template, ->(*values) { values.blank? ? all : where(ad_template: values) }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :exclude_keywords, ->(*values) { values.blank? ? all : without_any_keywords(*values) }
