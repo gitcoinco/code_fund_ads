@@ -5,6 +5,7 @@ class PropertiesController < ApplicationController
   before_action :set_property_search, only: [:index]
   before_action :set_property, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
+  before_action :set_assignable_fallback_campaigns, only: [:edit]
 
   def index
     properties = Property.order(order_by).includes(:user)
@@ -19,19 +20,15 @@ class PropertiesController < ApplicationController
     render "/properties/for_user/index" if @user
   end
 
-  def show
-  end
-
   def new
     @property = current_user.properties.build(status: "pending", ad_template: "default", ad_theme: "light")
-  end
-
-  def edit
+    set_assignable_fallback_campaigns
   end
 
   def create
     @property = current_user.properties.build(property_params)
     @property.status = "pending"
+    authorize_assigned_fallback_campaign_ids @property
 
     respond_to do |format|
       if @property.save
@@ -45,8 +42,11 @@ class PropertiesController < ApplicationController
   end
 
   def update
+    @property.assign_attributes(property_params)
+    authorize_assigned_fallback_campaign_ids @property
+
     respond_to do |format|
-      if @property.update(property_params)
+      if @property.save
         format.html { redirect_to @property, notice: "Property was successfully updated." }
         format.json { render :show, status: :ok, location: @property }
       else
@@ -58,6 +58,7 @@ class PropertiesController < ApplicationController
 
   def destroy
     @property.destroy
+
     respond_to do |format|
       format.html { redirect_to properties_url, notice: "Property was successfully destroyed." }
       format.json { head :no_content }
@@ -88,6 +89,14 @@ class PropertiesController < ApplicationController
     end
   end
 
+  def set_assignable_fallback_campaigns
+    @assignable_fallback_campaigns = if authorized_user.can_admin_system?
+      Campaign.active.fallback
+    else
+      current_user.campaigns.active.fallback
+    end
+  end
+
   def property_params
     params.require(:property).permit(
       :ad_template,
@@ -100,6 +109,7 @@ class PropertiesController < ApplicationController
       :screenshot,
       :url,
       keywords: [],
+      assigned_fallback_campaign_ids: [],
     ).tap do |whitelisted|
       if authorized_user.can_admin_system?
         whitelisted[:status] = params[:property][:status]
@@ -115,5 +125,14 @@ class PropertiesController < ApplicationController
       name
       status
     ]
+  end
+
+  def authorize_assigned_fallback_campaign_ids(property)
+    return unless property.assigned_fallback_campaign_ids.present?
+    campaigns = Campaign.where(id: property.assigned_fallback_campaign_ids)
+    property.assigned_fallback_campaign_ids = campaigns.each_with_object([]) { |campaign, memo|
+      next unless authorized_user.can_assign_property_to_campaign?(property, campaign)
+      memo << campaign.id
+    }
   end
 end

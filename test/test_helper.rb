@@ -60,13 +60,18 @@ class ActiveSupport::TestCase
     ).first
   end
 
-  # Provides factory like behavior for models/fixtures
-  # Copies the passed persisted model instance, assigns passed attrbiutes, and saves to the database
-  # Useful when additional test setup is required... i.e. isn't handled by the basic fixtures
-  def copy!(source, attributes = {})
-    source_attributes = HashWithIndifferentAccess.new(source.attributes.dup)
-    source_attributes.delete :id
-    source.class.create! source_attributes.merge(attributes)
+  # Factory method to find a fixture and update its attributes
+  def amend(options = {})
+    fixture_class_name, fixture_name = options.shift
+    send(fixture_class_name, fixture_name).tap { |instance| instance.update! options }
+  end
+
+  # Factory method to copy a fixture and save it with amended attributes
+  def copy(options = {})
+    fixture_class_name, fixture_name = options.shift
+    instance = send(fixture_class_name, fixture_name)
+    attributes = instance.attributes.dup.with_indifferent_access.slice!(:id)
+    instance.class.create! attributes.merge(options)
   end
 
   def ip_address(country_code)

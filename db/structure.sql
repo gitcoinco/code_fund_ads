@@ -700,7 +700,8 @@ CREATE TABLE public.properties (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     legacy_id uuid,
-    revenue_percentage numeric DEFAULT 0.5 NOT NULL
+    revenue_percentage numeric DEFAULT 0.5 NOT NULL,
+    assigned_fallback_campaign_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
 );
 
 
@@ -1909,6 +1910,13 @@ CREATE INDEX index_organization_transactions_on_transaction_type ON public.organ
 
 
 --
+-- Name: index_properties_on_assigned_fallback_campaign_ids; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_properties_on_assigned_fallback_campaign_ids ON public.properties USING gin (assigned_fallback_campaign_ids);
+
+
+--
 -- Name: index_properties_on_keywords; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2249,6 +2257,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190311172908'),
 ('20190320223450'),
 ('20190321180846'),
-('20190322161200');
+('20190322161200'),
+('20190328185430');
 
 

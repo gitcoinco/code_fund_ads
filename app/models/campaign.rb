@@ -80,13 +80,13 @@ class Campaign < ApplicationRecord
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
   scope :without_assigned_property_ids, -> { where assigned_property_ids: [] }
-  scope :assigned_to_property_id, ->(property_id) {
+  scope :with_assigned_property_id, ->(property_id) {
     value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["ARRAY[?]", property_id]))
     value_cast = Arel::Nodes::NamedFunction.new("CAST", [value.as("bigint[]")])
     where Arel::Nodes::InfixOperation.new("@>", arel_table[:assigned_property_ids], value_cast)
   }
-  scope :assigned_premium_for_property_id, ->(property_id) { premium.assigned_to_property_id property_id }
-  scope :assigned_fallback_for_property_id, ->(property_id) { fallback.assigned_to_property_id property_id }
+  scope :premium_with_assigned_property_id, ->(property_id) { premium.with_assigned_property_id property_id }
+  scope :fallback_with_assigned_property_id, ->(property_id) { fallback.with_assigned_property_id property_id }
   scope :permitted_for_property_id, ->(property_id) {
     subquery = Property.select(:prohibited_advertiser_ids).where(id: property_id)
     id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"user_id\"]"), subquery.arel)
@@ -316,6 +316,6 @@ class Campaign < ApplicationRecord
   end
 
   def sanitize_assigned_property_ids
-    self.assigned_property_ids = assigned_property_ids.select(&:present?)
+    self.assigned_property_ids = assigned_property_ids.select(&:present?).uniq.sort
   end
 end
