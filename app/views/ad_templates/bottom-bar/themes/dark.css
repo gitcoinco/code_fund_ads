@@ -3,6 +3,10 @@
   font-size: 13px;
 }
 
+#cf a {
+  box-shadow: none !important;
+}
+
 #cf .cf-wrapper {
   box-sizing: border-box;
   position: fixed;

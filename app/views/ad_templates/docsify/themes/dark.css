@@ -3,6 +3,10 @@
   max-width: 330px;
 }
 
+#cf a {
+  box-shadow: none !important;
+}
+
 #cf .cf-wrapper {
   display: block;
   padding: 15px;
