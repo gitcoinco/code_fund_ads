@@ -1,10 +1,11 @@
 module Impressionable
   extend ActiveSupport::Concern
 
-  def daily_impressions_counts(start_date = nil, end_date = nil, scoped_by: nil)
+  def daily_impressions_counts(start_date = nil, end_date = nil, scoped_by: nil, fresh: false)
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
+    Rails.cache.delete key if fresh
     Rails.cache.fetch key do
       counts_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :impressions_count)
@@ -20,10 +21,11 @@ module Impressionable
     end
   end
 
-  def daily_clicks_counts(start_date = nil, end_date = nil, scoped_by: nil)
+  def daily_clicks_counts(start_date = nil, end_date = nil, scoped_by: nil, fresh: false)
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
+    Rails.cache.delete key if fresh
     Rails.cache.fetch key do
       counts_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :clicks_count)
@@ -53,10 +55,11 @@ module Impressionable
     icount.zero? ? 0 : (ccount / icount.to_f) * 100
   end
 
-  def gross_revenue(start_date, end_date = nil, scoped_by: nil)
+  def gross_revenue(start_date, end_date = nil, scoped_by: nil, fresh: false)
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
+    Rails.cache.delete key if fresh
     cents = Rails.cache.fetch(key) {
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :gross_revenue_cents)
@@ -73,10 +76,11 @@ module Impressionable
     Money.new cents, "USD"
   end
 
-  def property_revenue(start_date, end_date = nil, scoped_by: nil)
+  def property_revenue(start_date, end_date = nil, scoped_by: nil, fresh: false)
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
+    Rails.cache.delete key if fresh
     cents = Rails.cache.fetch(key) {
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :property_revenue_cents)
@@ -93,10 +97,11 @@ module Impressionable
     Money.new cents, "USD"
   end
 
-  def house_revenue(start_date, end_date = nil, scoped_by: nil)
+  def house_revenue(start_date, end_date = nil, scoped_by: nil, fresh: false)
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
+    Rails.cache.delete key if fresh
     cents = Rails.cache.fetch(key) {
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :house_revenue_cents)
