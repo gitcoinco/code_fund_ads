@@ -1,3 +1,7 @@
+#cf a {
+  box-shadow: none !important;
+}
+
 #cf .cf-wrapper {
   z-index: 1;
   font-family: Helvetica, Arial;

@@ -5,6 +5,10 @@
   background-color: transparent;
 }
 
+#cf a {
+  box-shadow: none !important;
+}
+
 #cf .cf-wrapper {
   display: block;
   padding: 0px;

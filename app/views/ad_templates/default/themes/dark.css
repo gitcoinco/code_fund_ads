@@ -5,6 +5,10 @@
   background-color: rgba(0, 0, 0, 0.05);
 }
 
+#cf a {
+  box-shadow: none !important;
+}
+
 #cf .cf-wrapper {
   border-radius: 4px;
   display: block;

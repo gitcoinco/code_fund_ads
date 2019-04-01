@@ -4,6 +4,11 @@
   border: none;
   background-color: rgba(0, 0, 0, 0.05);
 }
+
+#cf a {
+  box-shadow: none !important;
+}
+
 #cf .cf-wrapper {
   border-radius: 0px;
   display: block;
@@ -14,19 +19,23 @@
   text-align: left;
   font-family: Helvetica;
 }
+
 #cf .cf-img-wrapper {
   float: left;
   margin-right: 15px;
 }
+
 #cf .cf-img {
   vertical-align: middle;
   border-style: none;
   max-width: 130px;
 }
+
 #cf .cf-text {
   color: rgba(255, 255, 255, 0.8);
   text-decoration: none;
 }
+
 #cf .cf-powered-by {
   margin-top: 5px;
   font-size: 12px;

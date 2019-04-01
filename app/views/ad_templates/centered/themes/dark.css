@@ -1,3 +1,7 @@
+#cf a {
+  box-shadow: none !important;
+}
+
 #cf .cf-wrapper {
   max-width: 330px;
   display: block;

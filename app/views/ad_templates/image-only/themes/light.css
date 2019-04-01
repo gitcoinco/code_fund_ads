@@ -3,6 +3,10 @@
   margin: 0 auto;
 }
 
+#cf a {
+  box-shadow: none !important;
+}
+
 #cf .cf-wrapper {
   display: block;
   padding: 15px;
