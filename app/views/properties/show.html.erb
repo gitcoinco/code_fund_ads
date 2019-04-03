@@ -18,6 +18,11 @@
         <%= details_li("Template") { @property.ad_template } %>
         <%= details_li("Theme") { @property.ad_theme } %>
         <%= details_li("Allow fallback ads?") { @property.prohibit_fallback_campaigns ? "No" : "Yes (thank you)" } %>
+        <%= details_li("Restricted to") do %>
+          <% @property.assigner_campaigns.pluck(:name).sort.each do |campaign_name| -%>
+            <span class="btn btn-xs btn-soft-dark mb-1"><%= campaign_name %></span>
+          <% end -%>
+        <% end if @property.restrict_to_assigner_campaigns? %>
         <%= details_li("Assigned Fallback Campaigns") do %>
           <% @property.assigned_fallback_campaigns.pluck(:name).sort.each do |campaign_name| -%>
             <span class="btn btn-xs btn-soft-dark mb-1"><%= campaign_name %></span>

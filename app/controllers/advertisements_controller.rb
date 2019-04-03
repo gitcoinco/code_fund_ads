@@ -233,15 +233,9 @@ class AdvertisementsController < ApplicationController
   end
 
   def get_fallback_campaign(campaign_relation)
-    fallback_campaign_relation = if property.restrict_to_assigner_campaigns?
-      campaign_relation
-        .fallback
-        .where(id: property.assigner_campaigns)
-    else
-      campaign_relation
-        .fallback_with_assigned_property_id(property_id)
-        .or(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords))
-    end
+    fallback_campaign_relation = campaign_relation
+      .fallback_with_assigned_property_id(property_id)
+      .or(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords))
 
     if property.assigned_fallback_campaign_ids.present?
       fallback_campaign_relation = fallback_campaign_relation.where(id: property.assigned_fallback_campaign_ids)
