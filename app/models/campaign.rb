@@ -197,6 +197,11 @@ class Campaign < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def assigner_properties
+    return Property.none unless fallback?
+    Property.with_assigned_fallback_campaign_id id
+  end
+
   def assigned_properties
     return Property.none if assigned_property_ids.blank?
     Property.where id: assigned_property_ids

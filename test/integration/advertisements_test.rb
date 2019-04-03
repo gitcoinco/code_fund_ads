@@ -161,16 +161,43 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   # ----------------------------------------------------------------------------------------------------------
 
-  test "js: campaign with assigned property will eventually display" do
-    copy campaigns: :premium
+  test "js: property with assigner campaign will eventually display the assigner campaign" do
+    other_campaign = copy(campaigns: :premium, creative: copy(creatives: :premium))
     @premium_campaign.update assigned_property_ids: [@property.id]
-    @premium_campaign.creative.update body: "This is a premium campaign assigned to the property"
+    @premium_campaign.creative.update body: "This is a premium campaign that has assigned the property"
+    assert other_campaign.creative.body != @premium_campaign.creative.body
     100.times.each do
       get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
       break if response.body.include?(@premium_campaign.creative.body)
     end
     assert response.status == 200
     assert response.body.include?(@premium_campaign.creative.body)
+  end
+
+  test "js: property with assigner campaign will eventually display other matching campaigns" do
+    other_campaign = copy(campaigns: :premium, creative: copy(creatives: :premium, body: "This is a non assigner premium campaign"))
+    @premium_campaign.update assigned_property_ids: [@property.id]
+    @premium_campaign.creative.update body: "This is a premium campaign that has assigned the property"
+    assert other_campaign.creative.body != @premium_campaign.creative.body
+    100.times.each do
+      get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
+      break if response.body.include?(other_campaign.creative.body)
+    end
+    assert response.status == 200
+    assert response.body.include?(other_campaign.creative.body)
+  end
+
+  test "js: property with assigner campaign will never display other matching campaigns when restrict_to_assigner_campaigns is true" do
+    other_campaign = copy(campaigns: :premium, creative: copy(creatives: :premium))
+    @premium_campaign.update assigned_property_ids: [@property.id]
+    @premium_campaign.creative.update body: "This is a premium campaign that has assigned the property"
+    @property.update restrict_to_assigner_campaigns: true
+    assert other_campaign.creative.body != @premium_campaign.creative.body
+    100.times.each do
+      get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
+      assert response.status == 200
+      assert response.body.include?(@premium_campaign.creative.body)
+    end
   end
 
   test "js: campaign with assigned property does not display on unassigned properties" do

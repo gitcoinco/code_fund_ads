@@ -203,9 +203,16 @@ class AdvertisementsController < ApplicationController
   end
 
   def get_premium_campaign(campaign_relation)
-    premium_campaign_relation = campaign_relation
-      .premium_with_assigned_property_id(property_id)
-      .or(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
+    premium_campaign_relation = if property.restrict_to_assigner_campaigns?
+      campaign_relation
+        .premium
+        .where(id: property.assigner_campaigns)
+    else
+      campaign_relation
+        .premium_with_assigned_property_id(property_id)
+        .or(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
+    end
+
     campaign = choose_campaign(premium_campaign_relation)
     if campaign
       track_event("Find Premium Campaign", {
@@ -229,9 +236,11 @@ class AdvertisementsController < ApplicationController
     fallback_campaign_relation = campaign_relation
       .fallback_with_assigned_property_id(property_id)
       .or(campaign_relation.targeted_fallback_for_property_id(property_id, *keywords))
+
     if property.assigned_fallback_campaign_ids.present?
       fallback_campaign_relation = fallback_campaign_relation.where(id: property.assigned_fallback_campaign_ids)
     end
+
     campaign = choose_campaign(fallback_campaign_relation, ignore_budgets: true)
     campaign ||= begin
       fallback_campaign_relation = campaign_relation.fallback_with_assigned_property_id(property_id)

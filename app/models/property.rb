@@ -20,6 +20,7 @@
 #  legacy_id                      :uuid
 #  revenue_percentage             :decimal(, )      default(0.5), not null
 #  assigned_fallback_campaign_ids :bigint(8)        default([]), not null, is an Array
+#  restrict_to_assigner_campaigns :boolean          default(FALSE), not null
 #
 
 class Property < ApplicationRecord
@@ -77,6 +78,11 @@ class Property < ApplicationRecord
     relation = relation.without_all_prohibited_advertiser_ids(campaign.id)
     relation
   }
+  scope :with_assigned_fallback_campaign_id, ->(campaign_id) {
+    value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["ARRAY[?]", campaign_id]))
+    value_cast = Arel::Nodes::NamedFunction.new("CAST", [value.as("bigint[]")])
+    where Arel::Nodes::InfixOperation.new("@>", arel_table[:assigned_fallback_campaign_ids], value_cast)
+  }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
@@ -119,6 +125,10 @@ class Property < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def assigner_campaigns
+    Campaign.with_assigned_property_id id
+  end
 
   def assigned_fallback_campaigns
     return Campaign.none if assigned_fallback_campaign_ids.blank?

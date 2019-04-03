@@ -701,7 +701,8 @@ CREATE TABLE public.properties (
     updated_at timestamp without time zone NOT NULL,
     legacy_id uuid,
     revenue_percentage numeric DEFAULT 0.5 NOT NULL,
-    assigned_fallback_campaign_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
+    assigned_fallback_campaign_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
+    restrict_to_assigner_campaigns boolean DEFAULT false NOT NULL
 );
 
 
@@ -2258,6 +2259,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190320223450'),
 ('20190321180846'),
 ('20190322161200'),
-('20190328185430');
+('20190328185430'),
+('20190403154313');
 
 

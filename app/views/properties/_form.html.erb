@@ -36,6 +36,20 @@
       </div>
     <% end %>
 
+    <% if authorized_user.can_admin_system? %>
+      <div class="col-12 mb-3 mt-4">
+        <div class="media align-items-center mb-3">
+          <label class="checkbox-switch mb-0 mr-3">
+            <%= f.check_box :restrict_to_assigner_campaigns, class: "checkbox-switch__input" %>
+            <span class="checkbox-switch__slider"></span>
+          </label>
+          <label class="media-body text-muted mb-0">
+            <span class="d-block text-dark">Restrict premium campaigns to those that have explicitly assigned this property</span>
+          </label>
+        </div>
+      </div>
+    <% end %>
+
     <div class="col-12 mb-3 mt-4">
       <div class="media align-items-center mb-3">
         <label class="checkbox-switch mb-0 mr-3">
@@ -43,12 +57,14 @@
           <span class="checkbox-switch__slider"></span>
         </label>
         <label class="media-body text-muted mb-0">
-          <span class="d-block text-dark">Do not display fallback ads
-          <span class="text-link small"
-            data-toggle="popover"
-            title="Why allow fallback ads?"
-            data-content="CodeFund uses fallback ads to help subsidize revenue and display community messages.
-              This allows us to maintain the highest publisher revenue rates.">(why allow fallback ads?)</span>
+          <span class="d-block text-dark">
+            Do not display fallback ads
+            <span class="text-link small"
+              data-toggle="popover"
+              title="Why allow fallback ads?"
+              data-content="CodeFund uses fallback ads to help subsidize revenue and display community messages. This allows us to maintain the highest publisher revenue rates.">
+              (why allow fallback ads?)
+            </span>
           </span>
         </label>
       </div>
