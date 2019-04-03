@@ -20,6 +20,7 @@
 #  legacy_id                      :uuid
 #  revenue_percentage             :decimal(, )      default(0.5), not null
 #  assigned_fallback_campaign_ids :bigint(8)        default([]), not null, is an Array
+#  restrict_to_assigner_campaigns :boolean          default(FALSE), not null
 #
 
 require "test_helper"

@@ -106,6 +106,7 @@ class PropertiesController < ApplicationController
       :name,
       :prohibit_fallback_campaigns,
       :property_type,
+      :restrict_to_assigner_campaigns,
       :screenshot,
       :url,
       keywords: [],
