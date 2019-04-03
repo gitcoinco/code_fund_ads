@@ -187,7 +187,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     assert response.body.include?(other_campaign.creative.body)
   end
 
-  test "js: property with assigner campaign will never display on other matching campaigns when restrict_to_assigner_campaigns is true" do
+  test "js: property with assigner campaign will never display other matching campaigns when restrict_to_assigner_campaigns is true" do
     other_campaign = copy(campaigns: :premium, creative: copy(creatives: :premium))
     @premium_campaign.update assigned_property_ids: [@property.id]
     @premium_campaign.creative.update body: "This is a premium campaign that has assigned the property"
