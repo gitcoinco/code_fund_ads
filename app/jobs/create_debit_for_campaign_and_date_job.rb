@@ -23,17 +23,12 @@ class CreateDebitForCampaignAndDateJob < ApplicationJob
     debit = OrganizationTransaction.find_by(attrs)
     return if debit # transaction already exists
 
-    debit = OrganizationTransaction.new(attrs.merge(
+    OrganizationTransaction.create!(attrs.merge(
       description: "Daily Spend on [#{date.iso8601}] for Campaign [#{campaign.id}: #{campaign.name}]",
       amount: amount,
       posted_at: Time.current,
     ))
 
-    campaign.organization.balance = campaign.organization.balance - amount
-
-    Organization.transaction do
-      debit.save!
-      campaign.organization.save!
-    end
+    campaign.organization.update! balance: campaign.organization.balance - amount
   end
 end

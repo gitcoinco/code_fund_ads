@@ -142,15 +142,15 @@ class Impression < ApplicationRecord
   end
 
   def applicable_ecpm
-    @applicable_ecpm ||= campaign.adjusted_ecpm(country_code)
+    campaign.adjusted_ecpm country_code
   end
 
   def calculate_estimated_gross_revenue_fractional_cents
-    @calculated_estimated_gross_revenue_fractional_cents ||= applicable_ecpm.cents / 1_000.to_f
+    applicable_ecpm.cents / 1_000.to_f
   end
 
   def calculate_estimated_property_revenue_fractional_cents
-    @calculated_estimated_property_revenue_fractional_cents ||= calculate_estimated_gross_revenue_fractional_cents * property.revenue_percentage
+    calculate_estimated_gross_revenue_fractional_cents * property.revenue_percentage
   end
 
   def calculate_estimated_house_revenue_fractional_cents
