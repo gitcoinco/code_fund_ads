@@ -49,6 +49,8 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
+      - run: sudo apt install -y postgresql-client || true
+
       - run:
           name: update bundler
           command: |
@@ -66,7 +68,7 @@ jobs:
 
       - run:
           name: Set up DB
-          command: bundle exec rake db:create db:schema:load
+          command: bundle exec rake db:create db:structure:load
 
       - run:
           name: run tests
