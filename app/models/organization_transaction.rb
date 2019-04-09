@@ -34,6 +34,9 @@ class OrganizationTransaction < ApplicationRecord
   scope :debits, -> { where(transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::DEBIT) }
   scope :credits, -> { where(transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::CREDIT) }
   scope :gift, -> { where(gift: true) }
+  scope :posted_between, ->(start_date, end_date = nil) {
+    where posted_at: Date.coerce(start_date)..Date.coerce(end_date)
+  }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   monetize :amount_cents, numericality: true
