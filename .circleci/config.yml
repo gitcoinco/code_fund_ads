@@ -49,6 +49,8 @@ jobs:
             # fallback to using the latest cache if no exact match is found
             - v1-dependencies-
 
+      - run: sudo apt install -y postgresql-client || true
+
       - run:
           name: update bundler
           command: |
