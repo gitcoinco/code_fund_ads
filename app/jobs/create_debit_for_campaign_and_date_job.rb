@@ -7,6 +7,7 @@ class CreateDebitForCampaignAndDateJob < ApplicationJob
   def perform(campaign_id, date_string)
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     date = Date.parse(date_string)
+    return unless date.past?
     campaign = Campaign.includes(:organization).available_on(date).find_by(id: campaign_id)
     return unless campaign
 
