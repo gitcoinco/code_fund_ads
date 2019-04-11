@@ -19,7 +19,7 @@
   color: #3498db;
 }
 
-#cf #cf-pixel {
+#cf .cf-hidden {
   visibility: hidden;
   width: 0px;
   height: 0px;

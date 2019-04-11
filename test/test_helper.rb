@@ -2,6 +2,8 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require_relative "./mmdb_test_helper"
 require "rails/test_help"
+require "capybara/rails"
+require "capybara/minitest"
 
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 # Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new

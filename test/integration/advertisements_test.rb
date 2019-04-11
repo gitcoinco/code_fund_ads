@@ -310,11 +310,16 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: fallback ads with property preferred fallback template and fallback theme" do
-    amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
+    fallback_campaign = amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     @premium_campaign.update keywords: []
     @property.update fallback_ad_template: "text", fallback_ad_theme: "light"
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
+    campaign_url = advertisement_clicks_url(controller.instance_variable_get(:@virtual_impression_id), campaign_id: fallback_campaign.id)
+    set_campaign_url = <<~TEST
+      targetElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '#{campaign_url}'; });
+    TEST
     assert response.status == 200
+    assert response.body.include?(set_campaign_url.strip)
     assert response.body.include?("template=text&theme=light")
     assert response.body =~ /house: true/
   end
