@@ -702,7 +702,9 @@ CREATE TABLE public.properties (
     legacy_id uuid,
     revenue_percentage numeric DEFAULT 0.5 NOT NULL,
     assigned_fallback_campaign_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
-    restrict_to_assigner_campaigns boolean DEFAULT false NOT NULL
+    restrict_to_assigner_campaigns boolean DEFAULT false NOT NULL,
+    fallback_ad_template character varying,
+    fallback_ad_theme character varying
 );
 
 
@@ -2260,6 +2262,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190321180846'),
 ('20190322161200'),
 ('20190328185430'),
-('20190403154313');
+('20190403154313'),
+('20190411165915');
 
 

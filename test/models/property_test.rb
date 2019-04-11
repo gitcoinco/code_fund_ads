@@ -21,6 +21,8 @@
 #  revenue_percentage             :decimal(, )      default(0.5), not null
 #  assigned_fallback_campaign_ids :bigint(8)        default([]), not null, is an Array
 #  restrict_to_assigner_campaigns :boolean          default(FALSE), not null
+#  fallback_ad_template           :string
+#  fallback_ad_theme              :string
 #
 
 require "test_helper"

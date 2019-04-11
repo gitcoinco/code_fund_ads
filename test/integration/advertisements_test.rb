@@ -5,9 +5,9 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   setup do
     start_date = Date.parse("2019-01-01")
     @premium_campaign = amend campaigns: :premium,
-      start_date: start_date,
-      end_date: start_date.advance(months: 3),
-      keywords: ENUMS::KEYWORDS.keys.sample(5)
+                              start_date: start_date,
+                              end_date: start_date.advance(months: 3),
+                              keywords: ENUMS::KEYWORDS.keys.sample(5)
     @property = amend properties: :website, keywords: @premium_campaign.keywords.sample(3)
     travel_to start_date.to_time.advance(days: 15)
   end
@@ -107,7 +107,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   test "js: fallback campaign with matching keywords and country is displayed before generic fallback campaigns" do
     amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     copy campaigns: :fallback, keywords: @property.keywords.sample(2),
-      creative: copy(creatives: :fallback, body: "This is a targeted fallback campaign")
+         creative: copy(creatives: :fallback, body: "This is a targeted fallback campaign")
     @premium_campaign.update keywords: ["No Match"]
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert Campaign.fallback.count == 2
@@ -217,16 +217,16 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   test "js: property will show targeted premium campaign over a zero balance campaign with assigned property" do
     user = copy users: :advertiser,
-      email: Faker::Internet.email,
-      password: "password",
-      password_confirmation: "password",
-      organization: copy(organizations: :default, balance: Money.new(0, "USD"))
+                email: Faker::Internet.email,
+                password: "password",
+                password_confirmation: "password",
+                organization: copy(organizations: :default, balance: Money.new(0, "USD"))
 
     copy campaigns: :premium,
-      user: user,
-      assigned_property_ids: [@property.id],
-      keywords: [],
-      creative: copy(creatives: :premium, body: "This is an assigned premium campaign")
+         user: user,
+         assigned_property_ids: [@property.id],
+         keywords: [],
+         creative: copy(creatives: :premium, body: "This is an assigned premium campaign")
 
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert Campaign.premium.count == 2
@@ -241,13 +241,13 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     @premium_campaign.update status: ENUMS::CAMPAIGN_STATUSES::PENDING
 
     amend campaigns: :fallback,
-      keywords: @property.keywords,
-      start_date: @premium_campaign.start_date,
-      end_date: @premium_campaign.end_date,
-      creative: copy(creatives: :fallback, body: "This is a targeted fallback campaign")
+          keywords: @property.keywords,
+          start_date: @premium_campaign.start_date,
+          end_date: @premium_campaign.end_date,
+          creative: copy(creatives: :fallback, body: "This is a targeted fallback campaign")
 
     assigned = copy campaigns: :fallback, keywords: [],
-      creative: copy(creatives: :fallback, body: "This is an assigned fallback campaign")
+                    creative: copy(creatives: :fallback, body: "This is an assigned fallback campaign")
 
     @property.update assigned_fallback_campaign_ids: [assigned.id]
 
@@ -262,16 +262,16 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     @premium_campaign.update status: ENUMS::CAMPAIGN_STATUSES::PENDING
 
     amend campaigns: :fallback,
-      keywords: @property.keywords,
-      start_date: @premium_campaign.start_date,
-      end_date: @premium_campaign.end_date,
-      creative: copy(creatives: :fallback, body: "This is a targeted fallback campaign")
+          keywords: @property.keywords,
+          start_date: @premium_campaign.start_date,
+          end_date: @premium_campaign.end_date,
+          creative: copy(creatives: :fallback, body: "This is a targeted fallback campaign")
 
     assigned = copy campaigns: :fallback, keywords: [],
-      creative: copy(creatives: :fallback, body: "This is an assigned fallback campaign")
+                    creative: copy(creatives: :fallback, body: "This is an assigned fallback campaign")
 
     assigned_and_targeted = copy campaigns: :fallback, keywords: @property.keywords,
-      creative: copy(creatives: :fallback, body: "This is an assigned and targeted fallback campaign")
+                                 creative: copy(creatives: :fallback, body: "This is an assigned and targeted fallback campaign")
 
     @property.update assigned_fallback_campaign_ids: [assigned.id, assigned_and_targeted.id]
 
@@ -286,10 +286,10 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     @premium_campaign.update status: ENUMS::CAMPAIGN_STATUSES::PENDING
 
     fallback_campaign = amend campaigns: :fallback,
-      start_date: @premium_campaign.start_date,
-      end_date: @premium_campaign.end_date,
-      assigned_property_ids: [@property.id],
-      creative: copy(creatives: :fallback, body: "This is a fallback campaign assigned to a different property")
+                              start_date: @premium_campaign.start_date,
+                              end_date: @premium_campaign.end_date,
+                              assigned_property_ids: [@property.id],
+                              creative: copy(creatives: :fallback, body: "This is a fallback campaign assigned to a different property")
 
     other_property = copy properties: :website, assigned_fallback_campaign_ids: [fallback_campaign.id]
 
@@ -297,5 +297,25 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     assert Property.website.count == 2
     assert response.status == 200
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
+  end
+
+  # ----------------------------------------------------------------------------------------------------------
+
+  test "js: premium ads render with property preferred template and theme" do
+    @property.update ad_template: "horizontal", ad_theme: "dark"
+    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
+    assert response.status == 200
+    assert response.body.include?("template=horizontal&theme=dark")
+    assert response.body =~ /house: false/
+  end
+
+  test "js: fallback ads with property preferred fallback template and fallback theme" do
+    amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
+    @premium_campaign.update keywords: []
+    @property.update fallback_ad_template: "text", fallback_ad_theme: "light"
+    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
+    assert response.status == 200
+    assert response.body.include?("template=text&theme=light")
+    assert response.body =~ /house: true/
   end
 end
