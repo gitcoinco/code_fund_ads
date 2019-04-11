@@ -170,11 +170,27 @@ class AdvertisementsController < ApplicationController
   end
 
   def template_name
-    @template_name ||= ENUMS::AD_TEMPLATES[params[:template] || property&.ad_template] || "default"
+    @campaign&.fallback? ? fallback_template_name : premium_template_name
   end
 
   def theme_name
-    @theme_name ||= ENUMS::AD_THEMES[params[:theme] || property&.ad_theme] || "light"
+    @campaign&.fallback? ? fallback_theme_name : premium_theme_name
+  end
+
+  def premium_template_name
+    @premium_template_name ||= ENUMS::AD_TEMPLATES[params[:template] || property&.ad_template] || "default"
+  end
+
+  def premium_theme_name
+    @premium_theme_name ||= ENUMS::AD_THEMES[params[:theme] || property&.ad_theme] || "light"
+  end
+
+  def fallback_template_name
+    @fallback_template_name ||= ENUMS::AD_TEMPLATES[property&.fallback_ad_template] || premium_template_name
+  end
+
+  def fallback_theme_name
+    @fallback_theme_name ||= ENUMS::AD_THEMES[property&.fallback_ad_theme] || premium_theme_name
   end
 
   def keywords
@@ -294,14 +310,9 @@ class AdvertisementsController < ApplicationController
     campaign
   end
 
-  def advertisement_cache_key
-    @ad_cache_key ||= "#{@campaign.cache_key_with_version}/#{template_cache_key}/#{theme_cache_key}"
-  end
-
   def render_advertisement
-    Rails.cache.fetch(advertisement_cache_key) do
-      render_advertisement_html(template, theme, html: request.format.html?)
-    end
+    key = "#{@campaign.cache_key_with_version}/#{template_cache_key}/#{theme_cache_key}"
+    Rails.cache.fetch(key) { render_advertisement_html template, theme, html: request.format.html? }
   end
 
   def create_virtual_impression

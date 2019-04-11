@@ -102,6 +102,8 @@ class PropertiesController < ApplicationController
       :ad_template,
       :ad_theme,
       :description,
+      :fallback_ad_template,
+      :fallback_ad_theme,
       :language,
       :name,
       :prohibit_fallback_campaigns,
