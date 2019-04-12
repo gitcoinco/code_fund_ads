@@ -2,9 +2,10 @@
   <div id="cf">
     <b><%= @campaign.creative.headline %></b>
     <%= @campaign.creative.body %>
-    <a href="#" data-href="campaign_url" rel="nofollow noopener" target="_blank" onmouseenter="this.style.color='#1d6fa5'" onmouseleave="this.style.color='#3498db'">
+    <a data-href="campaign_url" rel="nofollow noopener" target="_blank" onmouseenter="this.style.color='#1d6fa5'" onmouseleave="this.style.color='#3498db'">
       <b><%= @campaign.creative.cta || "Learn more" %></b>
     </a>
-    <img id="cf-pixel" data-src="impression_url" alt="">
+    <img class="cf-hidden" data-src="impression_url" alt="">
+    <a class="cf-hidden" data-target="powered_by_url"></a>
   </div>
 <% end %>

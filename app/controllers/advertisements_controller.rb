@@ -121,6 +121,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def country_code
+    return params[:test_country_code] if Rails.env.test? && params.key?(:test_country_code)
     iso_code = ip_info&.country&.iso_code
     return nil unless iso_code
     Country.find(iso_code)&.iso_code
