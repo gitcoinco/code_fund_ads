@@ -56,13 +56,6 @@
                   My Profile
                 <% end %>
               </li>
-              <li class="u-sidebar--account__list-item">
-                <%= link_to manage_job_postings_path, class: "u-sidebar--account__list-link" do %>
-                  <span class="fas fa-laptop-code u-sidebar--account__list-icon mr-2"></span>
-                  My Job Postings
-                  <span class="badge badge-warning float-right mt-1">New</span>
-                <% end %>
-              </li>
               <% if authorized_user.can_publish? %>
                 <li class="u-sidebar--account__list-item">
                   <%= link_to properties_path, class: "u-sidebar--account__list-link" do %>
