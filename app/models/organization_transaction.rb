@@ -28,7 +28,6 @@ class OrganizationTransaction < ApplicationRecord
   validates :description, presence: true
 
   # callbacks .................................................................
-  after_commit :update_organization_balance, on: [:create, :update, :destroy]
 
   # scopes ....................................................................
   scope :debits, -> { where(transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::DEBIT) }
@@ -50,9 +49,4 @@ class OrganizationTransaction < ApplicationRecord
   # protected instance methods ................................................
 
   # private instance methods ..................................................
-  private
-
-  def update_organization_balance
-    organization.recalculate_balance!
-  end
 end

@@ -39,6 +39,7 @@ class CampaignTest < ActiveSupport::TestCase
     @campaign = campaigns(:premium)
     @campaign.start_date = Date.parse("2019-01-01")
     @campaign.end_date = @campaign.start_date.advance(months: 3)
+    @campaign.organization.update balance: Monetize.parse("$10,000 USD")
     travel_to @campaign.start_date.to_time.advance(days: 15)
   end
 

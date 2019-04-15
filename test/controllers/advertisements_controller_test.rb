@@ -66,6 +66,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
       keywords: ENUMS::KEYWORDS.keys.sample(10)
     )
     campaign.creative.add_image! attach_large_image!(campaign.user)
+    campaign.organization.update balance: Monetize.parse("$10,000 USD")
     campaign
   end
 
