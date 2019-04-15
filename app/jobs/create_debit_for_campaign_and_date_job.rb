@@ -26,8 +26,6 @@ class CreateDebitForCampaignAndDateJob < ApplicationJob
         amount: amount,
         posted_at: Time.current,
       )
-
-    campaign.organization.update! balance: campaign.organization.balance - amount
   rescue => e
     Rollbar.error e
   end
