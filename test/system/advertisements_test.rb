@@ -7,6 +7,7 @@ class AdvertisementsTest < ApplicationSystemTestCase
                               start_date: start_date,
                               end_date: start_date.advance(months: 3),
                               keywords: ENUMS::KEYWORDS.keys.sample(5)
+    @premium_campaign.organization.update balance: Monetize.parse("$10,000 USD")
     @fallback_campaign = amend campaigns: :fallback,
                                start_date: @premium_campaign.start_date,
                                end_date: @premium_campaign.end_date
