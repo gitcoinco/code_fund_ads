@@ -1,19 +1,40 @@
-const hoverTime = 300;
+const hoverTime = 400;
 const fetchers = {};
+const doc = document.implementation.createHTMLDocument('prefetch');
 
-function prefetch(url) {
-  const iframe = document.createElement('iframe');
-  iframe.hidden = true;
-  iframe.src = url;
-  iframe.addEventListener('load', () => {
-    const snapshot = Turbolinks.Snapshot.fromHTMLElement(iframe.contentDocument.documentElement);
+function fetchPage(url, success) {
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', url);
+  xhr.setRequestHeader('VND.PREFETCH', 'true');
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+    if (xhr.status !== 200) return;
+    success(xhr.responseText);
+  };
+  xhr.send();
+}
+
+function prefetchTurbolink(url) {
+  fetchPage(url, responseText => {
+    doc.open();
+    doc.write(responseText);
+    doc.close();
+    let snapshot = Turbolinks.Snapshot.fromHTMLElement(doc.documentElement);
     Turbolinks.controller.cache.put(url, snapshot);
   });
-  document.body.appendChild(iframe);
+}
+
+function prefetch(url) {
+  if (prefetched(url)) return;
+  prefetchTurbolink(url);
 }
 
 function prefetched(url) {
-  return Turbolinks.controller.cache.has(url);
+  return location.href === url || Turbolinks.controller.cache.has(url);
+}
+
+function prefetching(url) {
+  return !!fetchers[url];
 }
 
 function cleanup(event) {
@@ -26,6 +47,7 @@ document.addEventListener('mouseover', event => {
   if (!event.target.dataset.prefetch) return;
   let url = event.target.href;
   if (prefetched(url)) return;
+  if (prefetching(url)) return;
   cleanup(event);
   event.target.addEventListener('mouseleave', cleanup);
   fetchers[url] = setTimeout(() => prefetch(url), hoverTime);
