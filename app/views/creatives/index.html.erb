@@ -3,7 +3,7 @@
 <% end %>
 
 <% content_for :actions do %>
-  <%= render "/@shared/actions/add_creative" %>
+  <%= render "/@shared/actions/add_creative" if authorized_user.can_admin_system? %>
 <% end %>
 
 <% content_for :page_heading do %>

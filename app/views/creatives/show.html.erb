@@ -4,10 +4,12 @@
 <% end %>
 
 <% content_for :actions do %>
-  <ul class="nav" style="width: 130px; justify-content: flex-end;">
-    <li><%= render "/@shared/actions/edit_creative", creative: @creative %></li>
-    <li class="ml-1"><%= render "/@shared/actions/delete_creative", creative: @creative %></li>
-  </ul>
+  <% if authorized_user.can_admin_system? %>
+    <ul class="nav" style="width: 130px; justify-content: flex-end;">
+      <li><%= render "/@shared/actions/edit_creative", creative: @creative %></li>
+      <li class="ml-1"><%= render "/@shared/actions/delete_creative", creative: @creative %></li>
+    </ul>
+  <% end %>
 <% end %>
 
 <% content_for :page_heading do %>
