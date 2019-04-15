@@ -1,5 +1,6 @@
 class CreativesController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_administrator!, except: [:index, :show]
   before_action :set_creative_search, only: [:index]
   before_action :set_creative, only: [:show, :edit, :update, :destroy]
 

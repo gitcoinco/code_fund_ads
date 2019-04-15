@@ -6,11 +6,13 @@
           <%= creative.name %>
         <% end %>
       </div>
+      <% if authorized_user.can_admin_system? %>
       <div class="col-3 text-right">
         <div class="position-relative">
           <%= render "/@shared/table_buttons/edit", link: edit_creative_path(creative) %>
         </div>
       </div>
+      <% end %>
     </div>
   </div>
 
