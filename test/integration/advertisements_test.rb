@@ -8,6 +8,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
                               start_date: start_date,
                               end_date: start_date.advance(months: 3),
                               keywords: ENUMS::KEYWORDS.keys.sample(5)
+    @premium_campaign.organization.update balance: Monetize.parse("$10,000 USD")
     @property = amend properties: :website, keywords: @premium_campaign.keywords.sample(3)
     travel_to start_date.to_time.advance(days: 15)
   end

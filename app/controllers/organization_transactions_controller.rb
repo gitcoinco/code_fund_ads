@@ -19,34 +19,45 @@ class OrganizationTransactionsController < ApplicationController
     @organization_transaction = @organization.organization_transactions.build(organization_transaction_params)
 
     respond_to do |format|
-      if @organization_transaction.save
-        format.html { redirect_to organization_transaction_path(@organization, @organization_transaction), notice: "Transaction was successfully created." }
-        format.json { render :show, status: :created, location: organization_transaction_path(@organization, @organization_transaction) }
-      else
-        format.html { render :new }
-        format.json { render json: @organization_transaction.errors, status: :unprocessable_entity }
+      ActiveRecord::Base.transaction do
+        @organization_transaction.save!
+        @organization.recalculate_balance!
       end
+      format.html { redirect_to organization_transaction_path(@organization, @organization_transaction), notice: "Transaction was successfully created." }
+      format.json { render :show, status: :created, location: organization_transaction_path(@organization, @organization_transaction) }
+    rescue => e
+      Rollbar.error e
+      format.html { render :new }
+      format.json { render json: @organization_transaction.errors, status: :unprocessable_entity }
     end
   end
 
   def update
     respond_to do |format|
-      if @organization_transaction.update(organization_transaction_params)
-        format.html { redirect_to organization_transaction_path(@organization, @organization_transaction), notice: "Transaction was successfully updated." }
-        format.json { render :show, status: :ok, location: organization_transaction_path(@organization, @organization_transaction) }
-      else
-        format.html { render :edit }
-        format.json { render json: @organization_transaction.errors, status: :unprocessable_entity }
+      ActiveRecord::Base.transaction do
+        @organization_transaction.update! organization_transaction_params
+        @organization.recalculate_balance!
       end
+      format.html { redirect_to organization_transaction_path(@organization, @organization_transaction), notice: "Transaction was successfully updated." }
+      format.json { render :show, status: :ok, location: organization_transaction_path(@organization, @organization_transaction) }
+    rescue => e
+      Rollbar.error e
+      format.html { render :edit }
+      format.json { render json: @organization_transaction.errors, status: :unprocessable_entity }
     end
   end
 
   def destroy
-    @organization_transaction.destroy
+    ActiveRecord::Base.transaction do
+      @organization_transaction.destroy
+      @organization.recalculate_balance!
+    end
     respond_to do |format|
       format.html { redirect_to organization_transactions_path(@organization), notice: "Transaction was successfully destroyed." }
       format.json { head :no_content }
     end
+  rescue => e
+    Rollbar.error e
   end
 
   private

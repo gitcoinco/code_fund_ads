@@ -67,11 +67,11 @@ class Organization < ApplicationRecord
   # public instance methods ...................................................
 
   def total_debits
-    Money.new(organization_transactions.debits.sum(&:amount), "USD")
+    Money.new(organization_transactions.debits.sum(&:amount_cents), "USD")
   end
 
   def total_credits
-    Money.new(organization_transactions.credits.sum(&:amount), "USD")
+    Money.new(organization_transactions.credits.sum(&:amount_cents), "USD")
   end
 
   def recalculate_balance!

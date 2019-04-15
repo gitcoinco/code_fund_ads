@@ -15,19 +15,20 @@ class CreateDebitForCampaignAndDateJob < ApplicationJob
     return unless cents > 0
     amount = Money.new(cents, "USD")
 
-    OrganizationTransaction
-      .where(
-        organization_id: campaign.organization_id,
-        transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::DEBIT,
-        reference: [campaign.id, date.iso8601].join(":"),
-      )
-      .first_or_create!(
-        description: "Daily Spend on [#{date.iso8601}] for Campaign [#{campaign.id}: #{campaign.name}]",
-        amount: amount,
-        posted_at: Time.current,
-      )
-
-    campaign.organization.update! balance: campaign.organization.balance - amount
+    ActiveRecord::Base.transaction do
+      OrganizationTransaction
+        .where(
+          organization_id: campaign.organization_id,
+          transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::DEBIT,
+          reference: [campaign.id, date.iso8601].join(":"),
+        )
+        .first_or_create!(
+          description: "Daily Spend on [#{date.iso8601}] for Campaign [#{campaign.id}: #{campaign.name}]",
+          amount: amount,
+          posted_at: Time.current,
+        )
+      campaign.organization.recalculate_balance!
+    end
   rescue => e
     Rollbar.error e
   end

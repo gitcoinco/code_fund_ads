@@ -32,4 +32,12 @@ namespace :schedule do
   task daily_summaries: :environment do
     EnsureDailySummariesJob.perform_later
   end
+
+  desc <<~DESC
+    Queues job that recalculates all organization balances
+    NOTE: Schedule daily
+  DESC
+  task recalculate_organization_balances: :environment do
+    RecalculateOrganizataionBalancesJob.perform_later
+  end
 end
