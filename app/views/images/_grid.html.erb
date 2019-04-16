@@ -14,20 +14,13 @@
       ]'>
     <% images.each do |image| %>
       <div class="cbp-item">
-        <%= link_to_if authorized_user.can_admin_system?, edit_image_path(imageable.to_gid_param, image), class: "cbp-caption" do %>
-          <div class="cbp-caption-defaultWrap">
-            <%= image_tag image.variant(geometry: "260x200") %>
-          </div>
-          <div class="cbp-caption-activeWrap bg-dark">
-            <div class="cbp-l-caption-alignCenter">
-              <div class="cbp-l-caption-body">
-                <%= tag.h4(image.metadata['name'], class: "h5 text-white mb-0") if image.metadata['name'].present? %>
-                <h4 class="h6 text-white mb-0"><%= image.blob.filename.to_s %></h4>
-                <p class="small text-white-70 mb-0">
-                  <%= "#{image.metadata['width']}×#{image.metadata['height']}" %>
-                </p>
-              </div>
-            </div>
+        <% if authorized_user.can_admin_system? %>
+          <%= link_to edit_image_path(imageable.to_gid_param, image), class: "cbp-caption" do %>
+            <%= render "/images/image", image: image %>
+          <% end %>
+        <% else %>
+          <div class="cbp-caption">
+            <%= render "/images/image", image: image %>
           </div>
         <% end %>
       </div>
