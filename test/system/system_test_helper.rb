@@ -6,12 +6,13 @@ module SystemTestHelper
   end
 
   def assert_impression_pixel(property)
-    assert_css "img[data-src='impression_url'][src*='gif?template=#{property.ad_template}&theme=#{property.ad_theme}']"
+    assert_css "img[data-src='impression_url'][src*='/display/']"
+    assert_css "img[data-src='impression_url'][src*='template=#{property.ad_template}&theme=#{property.ad_theme}']"
   end
 
   def assert_powered_by_link
     assert_css "a[data-target='powered_by_url'][href][target='_blank'][rel='nofollow noopener']"
-    assert_text "ethical ad by CodeFund"
+    assert_text :all, "ethical ad by CodeFund"
   end
 
   def assert_creative_headline(campaign)
