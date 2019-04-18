@@ -5,8 +5,7 @@ module Impressionable
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
-    Rails.cache.delete key if fresh
-    Rails.cache.fetch key do
+    Rails.cache.fetch key, force: fresh, expires_in: 10.minutes do
       counts_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :impressions_count)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
@@ -25,8 +24,7 @@ module Impressionable
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
-    Rails.cache.delete key if fresh
-    Rails.cache.fetch key do
+    Rails.cache.fetch key, force: fresh, expires_in: 10.minutes do
       counts_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :clicks_count)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
@@ -59,8 +57,7 @@ module Impressionable
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
-    Rails.cache.delete key if fresh
-    cents = Rails.cache.fetch(key) {
+    cents = Rails.cache.fetch(key, force: fresh, expires_in: 10.minutes) {
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :gross_revenue_cents)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
@@ -80,8 +77,7 @@ module Impressionable
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
-    Rails.cache.delete key if fresh
-    cents = Rails.cache.fetch(key) {
+    cents = Rails.cache.fetch(key, force: fresh, expires_in: 10.minutes) {
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :property_revenue_cents)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
@@ -101,8 +97,7 @@ module Impressionable
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
-    Rails.cache.delete key if fresh
-    cents = Rails.cache.fetch(key) {
+    cents = Rails.cache.fetch(key, force: fresh, expires_in: 10.minutes) {
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :house_revenue_cents)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
