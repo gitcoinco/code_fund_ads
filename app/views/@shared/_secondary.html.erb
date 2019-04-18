@@ -50,12 +50,6 @@
                   Dashboard
                 <% end %>
               </li>
-              <li class="u-sidebar--account__list-item">
-                <%= link_to user_path("me"), class: "u-sidebar--account__list-link" do %>
-                  <span class="fas fa-user-circle u-sidebar--account__list-icon mr-2"></span>
-                  My Profile
-                <% end %>
-              </li>
               <% if authorized_user.can_publish? %>
                 <li class="u-sidebar--account__list-item">
                   <%= link_to properties_path, class: "u-sidebar--account__list-link" do %>
@@ -88,8 +82,6 @@
             <!-- End List Links -->
 
             <% if authorized_user.can_admin_system? %>
-              <div class="u-sidebar--account__list-divider pb-0 mt-2"></div>
-
               <!-- List Links -->
               <ul class="list-unstyled u-sidebar--account__list">
                 <li class="u-sidebar--account__list-item">
