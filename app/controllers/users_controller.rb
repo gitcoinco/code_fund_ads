@@ -121,4 +121,13 @@ class UsersController < ApplicationController
       last_sign_in_at
     ]
   end
+
+  def sort_column
+    return params[:column] if sortable_columns.include?(params[:column])
+    "last_sign_in_at"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+  end
 end

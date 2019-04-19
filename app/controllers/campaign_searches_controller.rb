@@ -24,6 +24,7 @@ class CampaignSearchesController < ApplicationController
   def campaign_search_params
     params.require(:campaign_search).permit(
       :name,
+      :fallback,
       :core_hours_only,
       :user,
       :user_id,
@@ -33,6 +34,9 @@ class CampaignSearchesController < ApplicationController
       negative_keywords: [],
       province_codes: [],
       statuses: [],
-    )
+    ).tap do |whitelisted|
+      whitelisted[:fallback] = false if whitelisted[:fallback] == "No"
+      whitelisted[:fallback] = true if whitelisted[:fallback] == "Yes"
+    end
   end
 end

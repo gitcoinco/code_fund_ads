@@ -3,6 +3,7 @@ class CampaignSearch < ApplicationSearchRecord
     core_hours_only
     country_codes
     keywords
+    fallback
     name
     negative_keywords
     province_codes
@@ -31,6 +32,7 @@ class CampaignSearch < ApplicationSearchRecord
       .then { |result| result.search_negative_keywords(*negative_keywords) }
       .then { |result| result.search_country_codes(*country_codes) }
       .then { |result| result.search_province_codes(*province_codes) }
+      .then { |result| result.search_fallback(fallback) }
       .then { |result| result.search_name(name) }
       .then { |result| result.search_status(*statuses) }
       .then { |result| core_hours_only ? result.search_core_hours_only(core_hours_only) : result }
