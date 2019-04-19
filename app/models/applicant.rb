@@ -55,7 +55,7 @@ class Applicant < ApplicationRecord
   scope :search_email, ->(value) { value.blank? ? all : search_column(:email, value) }
   scope :search_first_name, ->(value) { value.blank? ? all : search_column(:first_name, value) }
   scope :search_last_name, ->(value) { value.blank? ? all : search_column(:last_name, value) }
-  scope :search_roles, ->(*values) { values.blank? ? all : where(roles: values) }
+  scope :search_roles, ->(*values) { values.blank? ? all : where(role: values) }
   scope :search_status, ->(*values) { values.blank? ? all : where(status: values) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............

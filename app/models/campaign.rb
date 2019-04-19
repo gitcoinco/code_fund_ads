@@ -72,6 +72,7 @@ class Campaign < ApplicationRecord
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :search_country_codes, ->(*values) { values.blank? ? all : with_any_country_codes(*values) }
   scope :search_province_codes, ->(*values) { values.blank? ? all : with_any_province_codes(*values) }
+  scope :search_fallback, ->(value) { value.blank? ? all : where(fallback: value) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
   scope :search_negative_keywords, ->(*values) { values.blank? ? all : with_any_negative(*values) }
   scope :search_status, ->(*values) { values.blank? ? all : where(status: values) }
