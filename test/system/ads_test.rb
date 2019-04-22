@@ -1,6 +1,8 @@
-require "application_system_test_case"
+require_relative "system_test_helper"
 
-class AdvertisementsTest < ApplicationSystemTestCase
+class AdsTest < ApplicationSystemTestCase
+  include SystemTestHelper
+
   setup do
     start_date = Date.parse("2019-01-01")
     @premium_campaign = amend campaigns: :premium,
@@ -19,16 +21,18 @@ class AdvertisementsTest < ApplicationSystemTestCase
     travel_back
   end
 
-  test "js: premium ad sets correct urls" do
-    visit advertisement_tests_path(@property, format: :js, test_country_code: "US")
-    assert_css "a[data-href='campaign_url'][href*='click?campaign_id=#{@premium_campaign.id}']"
-    assert_css "img[data-src='impression_url'][src*='gif?template=#{@property.ad_template}']"
+  test "premium ad sets correct urls" do
+    visit advertisement_tests_path(@property, test_country_code: "US")
+    assert_campaign_link @premium_campaign
+    assert_impression_pixel @property
+    assert_powered_by_link
   end
 
-  test "js: fallback ad sets correct urls" do
+  test "fallback ad sets correct urls" do
     @premium_campaign.update keywords: []
-    visit advertisement_tests_path(@property, format: :js)
-    assert_css "a[data-href='campaign_url'][href*='click?campaign_id=#{@fallback_campaign.id}']"
-    assert_css "img[data-src='impression_url'][src*='template=#{@property.ad_template}']"
+    visit advertisement_tests_path(@property, test_country_code: "US")
+    assert_campaign_link @fallback_campaign
+    assert_impression_pixel @property
+    assert_powered_by_link
   end
 end
