@@ -206,7 +206,7 @@ class AdvertisementsController < ApplicationController
       .targeted_country_code(country_code)
       .targeted_province_code(province_code)
 
-    @campaign = get_premium_campaign(geo_targeted_campaign_relation)
+    @campaign = get_premium_campaign(geo_targeted_campaign_relation) if property.active?
     @campaign ||= get_fallback_campaign(geo_targeted_campaign_relation)
     @campaign ||= get_fallback_campaign(campaign_relation)
 

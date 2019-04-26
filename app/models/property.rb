@@ -41,8 +41,6 @@ class Property < ApplicationRecord
   belongs_to :user
   has_many :property_advertisers
   has_many :advertisers, through: :property_advertisers, class_name: "User", foreign_key: "advertiser_id"
-  has_many :impressions
-  has_many :daily_summaries, as: :impressionable
 
   # validations ...............................................................
   # validates :ad_template, presence: true
@@ -127,6 +125,10 @@ class Property < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def active?
+    status == ENUMS::PROPERTY_STATUSES::ACTIVE
+  end
 
   def assigner_campaigns
     Campaign.with_assigned_property_id id
