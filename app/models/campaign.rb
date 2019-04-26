@@ -256,15 +256,15 @@ class Campaign < ApplicationRecord
   end
 
   def pending?
-    ENUMS::CAMPAIGN_STATUSES.pending? status
+    status == ENUMS::CAMPAIGN_STATUSES::PENDING
   end
 
   def active?
-    ENUMS::CAMPAIGN_STATUSES.active? status
+    status == ENUMS::CAMPAIGN_STATUSES::ACTIVE
   end
 
   def archived?
-    ENUMS::CAMPAIGN_STATUSES.archived? status
+    status == ENUMS::CAMPAIGN_STATUSES::ARCHIVED
   end
 
   def premium?
