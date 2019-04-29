@@ -89,8 +89,8 @@ class CreatePublisherFromHubspotContactJob < ApplicationJob
     )
 
     property_urls.each do |url|
-      url = url.downcase.strip
-      user.properties.where(url: url).first_or_create!(
+      next unless url.present?
+      user.properties.where(url: url.strip).first_or_create!(
         property_type: ENUMS::PROPERTY_TYPES::WEBSITE,
         status: ENUMS::PROPERTY_STATUSES::PENDING,
         language: ENUMS::LANGUAGES::ENGLISH,
