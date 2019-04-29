@@ -147,6 +147,10 @@ Rails.application.routes.draw do
   resources :advertisers, only: [:index, :create]
   resources :publishers, only: [:index, :create]
 
+  scope "/hubspot" do
+    resources :publishers, only: [:create], to: "hubspot_publishers#create"
+  end
+
   resources :advertisement_previews, param: :campaign_id, only: [:index, :show], path: "ad-previews"
   # NOTE: this is non restful and bad practice (don't do this)
   #       this route is passable for now since it's an admin only page supporting an edge case
