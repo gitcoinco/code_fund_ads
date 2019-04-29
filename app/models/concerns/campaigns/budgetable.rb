@@ -51,6 +51,7 @@ module Campaigns
 
     # Returns a boolean indicating if the campaign has available budget for the passed date (or today)
     def daily_budget_available?(date = nil)
+      return false unless budget_available?
       daily_consumed_budget(date) < daily_budget
     end
   end

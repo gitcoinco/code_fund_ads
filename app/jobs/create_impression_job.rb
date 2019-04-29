@@ -9,9 +9,7 @@ class CreateImpressionJob < ApplicationJob
     campaign = Campaign.find_by(id: campaign_id)
     property = Property.find_by(id: property_id)
 
-    unless campaign && property
-      track_event({status: "missing_campaign_and_property"})
-    end
+    return unless campaign && property
 
     displayed_at = Time.parse(displayed_at_string)
     ip_info = MMDB.lookup(ip_address)
@@ -19,7 +17,7 @@ class CreateImpressionJob < ApplicationJob
     subdivision = ip_info&.subdivisions&.first&.iso_code
     province_code = Province.find("#{country_code}-#{subdivision}")&.iso_code
 
-    impression = Impression.create!(
+    Impression.create!(
       id: id,
       advertiser_id: campaign.user_id,
       publisher_id: property.user_id,
@@ -40,22 +38,7 @@ class CreateImpressionJob < ApplicationJob
       latitude: ip_info&.location&.latitude,
       longitude: ip_info&.location&.longitude
     )
-
-    track_event({
-      status: "success",
-      campaign_id: campaign.id,
-      creative_id: campaign.creative_id,
-      property_id: property.id,
-      country_code: impression.country_code.to_s,
-    })
   rescue ActiveRecord::RecordNotUnique
     # prevent reattempts when a race condition attempts to write the same record
-    track_event({status: "record_not_unique"})
-  end
-
-  private
-
-  def track_event(data)
-    CodeFundAds::Events.track("Create Impression", @event_id, {ip_address: @ip_address}.merge(data))
   end
 end
