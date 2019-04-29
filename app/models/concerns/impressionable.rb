@@ -118,13 +118,7 @@ module Impressionable
     Money.new cents, "USD"
   end
 
-  def confirmed?
-    min = 250
-    return true if daily_summaries.scoped_by(nil).sum(:impressions_count) > min
-    case self
-    when Property then impressions_count(1.month.ago, Date.current) > min
-    when Campaign then impressions_count(start_date, end_date) > min
-    else false
-    end
+  def operational?
+    daily_summaries.scoped_by(nil).sum(:impressions_count) > 250
   end
 end
