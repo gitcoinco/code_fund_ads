@@ -97,6 +97,7 @@ class CreatePublisherFromHubspotContactJob < ApplicationJob
         status: ENUMS::PROPERTY_STATUSES::PENDING,
         language: ENUMS::LANGUAGES::ENGLISH,
         name: url[0, 255],
+        revenue_percentage: 0.6,
       )
     rescue => e
       Rollbar.error e
