@@ -1,4 +1,4 @@
-class UpdateHubspotPublisherDealStageJob < ApplicationJob
+class UpdateHubspotPublisherDealStageFromAcceptedToIntegratedJob < ApplicationJob
   queue_as :low
 
   def perform(user)

@@ -7,7 +7,12 @@ module Users
     end
 
     def publisher?
-      roles.include? ENUMS::USER_ROLES["publisher"]
+      roles.include? ENUMS::USER_ROLES::PUBLISHER
+    end
+
+    def operational_publisher?
+      return false unless publisher?
+      properties.map(&:operational?).include? true
     end
 
     def impressions_count_as_publisher(start_date = nil, end_date = nil)

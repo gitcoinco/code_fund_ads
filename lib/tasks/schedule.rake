@@ -46,8 +46,8 @@ namespace :schedule do
       Queues job that updates Hubspot publisher deal stages from: Accepted to Integrated
       NOTE: Schedule daily
     DESC
-    task update_publisher_deal_stages: :environment do
-      UpdateHubspotPublisherDealStagesJob.perform_later
+    task update_publisher_deal_stages_from_accepted_to_integrated: :environment do
+      UpdateHubspotPublisherDealStagesFromAcceptedToIntegratedJob.perform_later
     end
   end
 end

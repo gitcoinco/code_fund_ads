@@ -253,14 +253,6 @@ class User < ApplicationRecord
     value
   end
 
-  def operational_advertiser?
-    campaigns.map(&:operational?).include? true
-  end
-
-  def operational_publisher?
-    properties.map(&:operational?).include? true
-  end
-
   # protected instance methods ................................................
 
   # private instance methods ..................................................
