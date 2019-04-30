@@ -88,6 +88,8 @@ class CreatePublisherFromHubspotContactJob < ApplicationJob
       hubspot_contact_vid: hubspot_contact_vid,
     )
 
+    UpdateHubspotContactCodefundUrlJob.perform_later user
+
     property_urls.each do |url|
       next unless url.present?
       user.properties.where(url: url.strip).first_or_create!(

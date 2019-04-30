@@ -101,13 +101,13 @@ module Hubspotable
     hubspot_publisher_deal_pipeline.stages.find { |stage| hubspot_publisher_deal["dealstage"] == stage["stageId"] }
   end
 
+  private
+
   def invitation_accepted_on_preceding_save?
     invitation_accepted_at_previously_changed? &&
       invitation_accepted_at_previous_change.first.nil? &&
       invitation_accepted_at_previous_change.last.present?
   end
-
-  private
 
   def update_hubspot_deal_stage
     if publisher? && invitation_accepted_on_preceding_save?

@@ -54,6 +54,7 @@ class Property < ApplicationRecord
   # callbacks .................................................................
   before_save :sanitize_assigned_fallback_campaign_ids
   after_save :generate_screenshot
+  after_update_commit :update_user_hubspot_deal_stage
 
   # scopes ....................................................................
   scope :active, -> { where status: ENUMS::PROPERTY_STATUSES::ACTIVE }
@@ -177,5 +178,16 @@ class Property < ApplicationRecord
 
   def sanitize_assigned_fallback_campaign_ids
     self.assigned_fallback_campaign_ids = assigned_fallback_campaign_ids.select(&:present?).uniq.sort
+  end
+
+  def status_changed_to_active_on_preceding_save?
+    return false unless active?
+    status_previously_changed? && status_previous_change.last == ENUMS::PROPERTY_STATUSES::ACTIVE
+  end
+
+  def update_user_hubspot_deal_stage
+    return unless status_changed_to_active_on_preceding_save?
+    return unless user.hubspot_contact_vid
+    UpdateHubspotPublisherDealStageFromIntegratedToActivatedJob.perform_later user
   end
 end
