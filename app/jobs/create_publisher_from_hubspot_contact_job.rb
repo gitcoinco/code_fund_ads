@@ -69,6 +69,7 @@ class CreatePublisherFromHubspotContactJob < ApplicationJob
   #   "total_revenue"
   # ]
   def perform(hubspot_contact_vid)
+    return unless ENV["HUBSPOT_PUBLISHER_AUTOMATION_ENABLED"] == "true"
     hubspot_contact = Hubspot::Contact.find_by_id(hubspot_contact_vid)
     return unless hubspot_contact
 

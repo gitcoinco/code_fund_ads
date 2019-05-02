@@ -2,6 +2,7 @@ class UpdateHubspotPublisherDealStageFromIntegratedToActivatedJob < ApplicationJ
   queue_as :low
 
   def perform(user)
+    return unless ENV["HUBSPOT_PUBLISHER_AUTOMATION_ENABLED"] == "true"
     return unless user.hubspot_contact_vid
     return unless user.operational_publisher?
     return unless user.hubspot_publisher_deal
