@@ -41,6 +41,7 @@ class Campaign < ApplicationRecord
   include Campaigns::Presentable
   include Eventable
   include Impressionable
+  include Keywordable
   include Organizationable
   include Sparklineable
   include Taggable
@@ -49,8 +50,6 @@ class Campaign < ApplicationRecord
   belongs_to :creative, -> { includes :creative_images }, optional: true
   belongs_to :user
   has_one :job_posting
-  has_many :impressions
-  has_many :daily_summaries, as: :impressionable
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
@@ -258,15 +257,15 @@ class Campaign < ApplicationRecord
   end
 
   def pending?
-    ENUMS::CAMPAIGN_STATUSES.pending? status
+    status == ENUMS::CAMPAIGN_STATUSES::PENDING
   end
 
   def active?
-    ENUMS::CAMPAIGN_STATUSES.active? status
+    status == ENUMS::CAMPAIGN_STATUSES::ACTIVE
   end
 
   def archived?
-    ENUMS::CAMPAIGN_STATUSES.archived? status
+    status == ENUMS::CAMPAIGN_STATUSES::ARCHIVED
   end
 
   def premium?

@@ -1,6 +1,11 @@
 module Impressionable
   extend ActiveSupport::Concern
 
+  included do
+    has_many :impressions
+    has_many :daily_summaries, as: :impressionable
+  end
+
   def daily_impressions_counts(start_date = nil, end_date = nil, scoped_by: nil, fresh: false)
     start_date = Date.coerce(start_date)
     end_date = Date.coerce(end_date || start_date)
@@ -111,5 +116,9 @@ module Impressionable
       cents_by_date.values.sum
     }.to_i
     Money.new cents, "USD"
+  end
+
+  def operational?
+    daily_summaries.scoped_by(nil).sum(:impressions_count) > 250
   end
 end

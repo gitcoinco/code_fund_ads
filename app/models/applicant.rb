@@ -28,6 +28,7 @@ class Applicant < ApplicationRecord
   # includes ..................................................................
   include Applicants::Presentable
   include Eventable
+  include Hubspotable
 
   # relationships .............................................................
   belongs_to :referring_user, class_name: "User", foreign_key: "referring_user_id", optional: true

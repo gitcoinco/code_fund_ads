@@ -8,7 +8,12 @@ module Users
     end
 
     def advertiser?
-      roles.include? ENUMS::USER_ROLES["advertiser"]
+      roles.include? ENUMS::USER_ROLES::ADVERTISER
+    end
+
+    def operational_advertiser?
+      return false unless advertiser?
+      campaigns.map(&:operational?).include? true
     end
 
     def icon_images(wrapped = false)

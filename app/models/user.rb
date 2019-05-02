@@ -72,6 +72,7 @@ class User < ApplicationRecord
   include Users::Stripeable
   include Eventable
   include FullNameSplitter
+  include Hubspotable
   include Imageable
   include Taggable
 
