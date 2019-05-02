@@ -25,22 +25,8 @@ class ImpressionsController < ApplicationController
     Rails.cache.delete params[:id]
 
     if @virtual_impression.nil?
-      track_event({status: "not_found"})
-      Rollbar.error(
-        StandardError.new("Virtual impression not found!"),
-        ad_template: params[:template],
-        ad_theme: params[:theme],
-        remote_ip: request.remote_ip,
-        user_agent: request.user_agent,
-      )
       return send_file(Rails.root.join("app/assets/images/pixel.gif"), type: "image/gif", disposition: "inline", status: :accepted)
     end
-
-    track_event({
-      status: "success",
-      campaign_id: @virtual_impression[:campaign_id],
-      property_id: @virtual_impression[:property_id],
-    })
   end
 
   def create_impression
@@ -54,9 +40,5 @@ class ImpressionsController < ApplicationController
       request.user_agent,
       Time.current.iso8601,
     )
-  end
-
-  def track_event(data)
-    CodeFundAds::Events.track("Find Virtual Impression", @virtual_impression_id, {ip_address: request.remote_ip}.merge(data))
   end
 end

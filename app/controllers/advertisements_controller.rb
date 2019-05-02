@@ -10,13 +10,6 @@ class AdvertisementsController < ApplicationController
   after_action :create_virtual_impression, if: -> { @campaign.present? }
 
   def show
-    track_event("Visit", {
-      property_id: property_id,
-      campaign_id: @campaign&.id,
-      creative_id: @campaign&.creative_id,
-      country_code: country_code.to_s,
-    })
-
     # TODO: deprecate legacy support on 2019-04-01
     return render_legacy_show if legacy_api_call?
 
@@ -85,19 +78,7 @@ class AdvertisementsController < ApplicationController
     if @campaign
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
       @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
-      track_event("Render Legacy Ad", {
-        status: "success",
-        property_id: property_id,
-        campaign_id: @campaign&.id,
-        creative_id: @campaign&.creative_id,
-        country_code: country_code.to_s,
-      })
     else
-      track_event("Render Legacy Ad", {
-        status: "not_found",
-        property_id: property_id,
-        country_code: country_code.to_s,
-      })
       response.status = :not_found
     end
 
@@ -209,14 +190,6 @@ class AdvertisementsController < ApplicationController
     @campaign = get_premium_campaign(geo_targeted_campaign_relation) if property.active?
     @campaign ||= get_fallback_campaign(geo_targeted_campaign_relation)
     @campaign ||= get_fallback_campaign(campaign_relation)
-
-    unless @campaign
-      track_event("Find Campaign", {
-        status: "fail",
-        property_id: property_id,
-        country_code: country_code.to_s,
-      })
-    end
   end
 
   def get_premium_campaign(campaign_relation)
@@ -230,23 +203,7 @@ class AdvertisementsController < ApplicationController
         .or(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
     end
 
-    campaign = choose_campaign(premium_campaign_relation)
-    if campaign
-      track_event("Find Premium Campaign", {
-        status: "success",
-        property_id: property_id,
-        campaign_id: campaign.id,
-        creative_id: campaign.creative_id,
-        country_code: country_code.to_s,
-      })
-    else
-      track_event("Find Premium Campaign", {
-        status: "fail",
-        property_id: property_id,
-        country_code: country_code.to_s,
-      })
-    end
-    campaign
+    choose_campaign(premium_campaign_relation)
   end
 
   def get_fallback_campaign(campaign_relation)
@@ -259,7 +216,7 @@ class AdvertisementsController < ApplicationController
     end
 
     campaign = choose_campaign(fallback_campaign_relation, ignore_budgets: true)
-    campaign ||= begin
+    campaign || begin
       fallback_campaign_relation = campaign_relation.fallback_with_assigned_property_id(property_id)
         .or(campaign_relation.without_assigned_property_ids.fallback_for_property_id(property_id))
       if property.assigned_fallback_campaign_ids.present?
@@ -267,22 +224,6 @@ class AdvertisementsController < ApplicationController
       end
       choose_campaign(fallback_campaign_relation, ignore_budgets: true)
     end
-    if campaign
-      track_event("Find Fallback Campaign", {
-        status: "success",
-        property_id: property_id,
-        campaign_id: campaign.id,
-        creative_id: campaign.creative_id,
-        country_code: country_code.to_s,
-      })
-    else
-      track_event("Find Fallback Campaign", {
-        status: "fail",
-        property_id: property_id,
-        country_code: country_code.to_s,
-      })
-    end
-    campaign
   end
 
   def choose_campaign(campaign_relation, ignore_budgets: false)
@@ -324,16 +265,5 @@ class AdvertisementsController < ApplicationController
       property_id: property_id,
       ip_address: ip_address,
     }, expires_in: 30.seconds
-
-    track_event("Create Virtual Impression", {
-      property_id: property_id,
-      campaign_id: @campaign.id,
-      creative_id: @campaign.creative_id,
-      country_code: country_code.to_s,
-    })
-  end
-
-  def track_event(name, data)
-    CodeFundAds::Events.track(name, session.id, {ip_address: ip_address}.merge(data))
   end
 end

@@ -324,4 +324,33 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     assert response.body.include?("template=text&theme=light")
     assert response.body =~ /house: true/
   end
+
+  # ----------------------------------------------------------------------------------------------------------
+
+  test "js: premium ads render when budgets available" do
+    @premium_campaign.daily_summaries.create!(displayed_at_date: @premium_campaign.start_date, gross_revenue: Monetize.parse("$2,500 USD"))
+    assert @premium_campaign.budget_available?
+    assert @premium_campaign.daily_budget_available?
+    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
+    assert response.status == 200
+    assert response.body =~ /house: false/
+  end
+
+  test "js: premium ads don't render when over budget" do
+    @premium_campaign.daily_summaries.create!(displayed_at_date: @premium_campaign.start_date, gross_revenue: Monetize.parse("$5,000 USD"))
+    refute @premium_campaign.budget_available?
+    refute @premium_campaign.daily_budget_available?
+    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
+    assert response.status == 200
+    assert response.body =~ /CodeFund does not have an advertiser for you at this time/
+  end
+
+  test "js: premium ads don't render when over daily budget" do
+    @premium_campaign.daily_summaries.create!(displayed_at_date: Date.current, gross_revenue: Monetize.parse("$55 USD"))
+    assert @premium_campaign.budget_available?
+    refute @premium_campaign.daily_budget_available?
+    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
+    assert response.status == 200
+    assert response.body =~ /CodeFund does not have an advertiser for you at this time/
+  end
 end
