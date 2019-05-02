@@ -327,7 +327,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   # ----------------------------------------------------------------------------------------------------------
 
-  test "js: premium ads don't render when budgets available" do
+  test "js: premium ads render when budgets available" do
     @premium_campaign.daily_summaries.create!(displayed_at_date: @premium_campaign.start_date, gross_revenue: Monetize.parse("$2,500 USD"))
     assert @premium_campaign.budget_available?
     assert @premium_campaign.daily_budget_available?
