@@ -75,29 +75,25 @@ class CreatePublisherFromHubspotContactJob < ApplicationJob
     email = hubspot_contact["email"].to_s.strip
     return unless email.present?
 
-    first_name = hubspot_contact["firstname"]
-    last_name = hubspot_contact["lastname"]
-    property_urls = hubspot_contact["property_urls"].to_s.split
-
     user = User.where(email: [EmailAddress.normal(email), EmailAddress.canonical(email)]).first
     user ||= User.invite!(
       email: EmailAddress.normal(email),
-      first_name: first_name,
-      last_name: last_name,
+      first_name: hubspot_contact["firstname"].to_s.strip,
+      last_name: hubspot_contact["lastname"].to_s.strip,
       roles: [ENUMS::USER_ROLES::PUBLISHER],
       hubspot_contact_vid: hubspot_contact_vid,
+      website_url: hubspot_contact["website"].to_s.strip,
     )
 
-    UpdateHubspotContactCodefundUrlJob.perform_later user
-
-    property_urls.each do |url|
-      next unless url.present?
-      user.properties.where(url: url.strip).first_or_create!(
+    begin
+      UpdateHubspotContactCodefundUrlJob.perform_later user
+      user.properties.where(url: url).first_or_create!(
         property_type: ENUMS::PROPERTY_TYPES::WEBSITE,
         status: ENUMS::PROPERTY_STATUSES::PENDING,
         language: ENUMS::LANGUAGES::ENGLISH,
         name: url[0, 255],
         revenue_percentage: 0.6,
+        keywords: hubspot_contact["website_keywords"].to_s.split(";")
       )
     rescue => e
       Rollbar.error e

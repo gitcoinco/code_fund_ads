@@ -41,6 +41,7 @@ class Campaign < ApplicationRecord
   include Campaigns::Presentable
   include Eventable
   include Impressionable
+  include Keywordable
   include Organizationable
   include Sparklineable
   include Taggable

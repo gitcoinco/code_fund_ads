@@ -34,6 +34,7 @@ class Property < ApplicationRecord
   include Eventable
   include Imageable
   include Impressionable
+  include Keywordable
   include Sparklineable
   include Taggable
 
