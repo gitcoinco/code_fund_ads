@@ -104,12 +104,14 @@ module Hubspotable
   private
 
   def invitation_accepted_on_preceding_save?
+    return unless is_a?(User)
     invitation_accepted_at_previously_changed? &&
       invitation_accepted_at_previous_change.first.nil? &&
       invitation_accepted_at_previous_change.last.present?
   end
 
   def update_hubspot_deal_stage
+    return unless is_a?(User)
     if publisher? && invitation_accepted_on_preceding_save?
       UpdateHubspotPublisherDealStageFromInvitedToAcceptedJob.perform_later self
     end
