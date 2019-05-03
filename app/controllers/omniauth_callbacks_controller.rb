@@ -20,6 +20,12 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     register(request.env["omniauth.auth"])
   end
 
+  protected
+
+  def after_sign_in_path_for(user)
+    helpers.default_dashboard_path user
+  end
+
   private
 
   def register(access_token, extras = {})
