@@ -91,6 +91,7 @@ class User < ApplicationRecord
   # callbacks .................................................................
   before_save :ensure_roles
   before_save :ensure_referral_code
+  before_destroy :destroy_paper_trail_versions
 
   # scopes ....................................................................
   scope :administrators, -> { with_all_roles ENUMS::USER_ROLES::ADMINISTRATOR }
@@ -165,7 +166,7 @@ class User < ApplicationRecord
   )
   has_one_attached :avatar
   acts_as_commentable
-  has_paper_trail on: %i[update destroy], only: %i[
+  has_paper_trail on: %i[update], only: %i[
     api_access
     api_key
     company_name
@@ -268,5 +269,9 @@ class User < ApplicationRecord
       code = SecureRandom.urlsafe_base64(8) while User.where(referral_code: code).exists?
       code
     end
+  end
+
+  def destroy_paper_trail_versions
+    PaperTrail::Version.where(id: versions.select(:id)).delete_all
   end
 end

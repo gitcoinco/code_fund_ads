@@ -40,7 +40,7 @@ class Property < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :user
-  has_many :property_advertisers
+  has_many :property_advertisers, dependent: :destroy
   has_many :advertisers, through: :property_advertisers, class_name: "User", foreign_key: "advertiser_id"
 
   # validations ...............................................................
@@ -56,6 +56,7 @@ class Property < ApplicationRecord
   before_save :sanitize_assigned_fallback_campaign_ids
   after_save :generate_screenshot
   after_update_commit :update_user_hubspot_deal_stage
+  before_destroy :destroy_paper_trail_versions
 
   # scopes ....................................................................
   scope :active, -> { where status: ENUMS::PROPERTY_STATUSES::ACTIVE }
@@ -108,7 +109,7 @@ class Property < ApplicationRecord
   tag_columns :keywords
   has_one_attached :screenshot
   acts_as_commentable
-  has_paper_trail on: %i[update destroy], only: %i[
+  has_paper_trail on: %i[update], only: %i[
     ad_template
     ad_theme
     keywords
@@ -190,5 +191,9 @@ class Property < ApplicationRecord
     return unless status_changed_to_active_on_preceding_save?
     return unless user.hubspot_contact_vid
     UpdateHubspotPublisherDealStageFromIntegratedToActivatedJob.perform_later user
+  end
+
+  def destroy_paper_trail_versions
+    PaperTrail::Version.where(id: versions.select(:id)).delete_all
   end
 end
