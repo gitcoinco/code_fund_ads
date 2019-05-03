@@ -71,6 +71,10 @@ GEM
       awesome_nested_set (>= 3.0)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
+    airbrake (9.2.1)
+      airbrake-ruby (~> 4.3)
+    airbrake-ruby (4.3.0)
+      rbtree3 (~> 0.5)
     annotate (2.7.4)
       activerecord (>= 3.2, < 6.0)
       rake (>= 10.4, < 13.0)
@@ -369,6 +373,7 @@ GEM
     rb-inotify (0.10.0)
       ffi (~> 1.0)
     rb-readline (0.5.5)
+    rbtree3 (0.5.0)
     recaptcha (4.13.2)
       json
     redis (4.1.0)
@@ -511,6 +516,7 @@ DEPENDENCIES
   active_link_to (~> 1.0.5)
   acts_as_commentable_with_threading (~> 2.0.1)
   addressable (= 2.6.0)
+  airbrake (~> 9.2)
   annotate
   awesome_print
   aws-sdk-s3 (~> 1.29.0)
