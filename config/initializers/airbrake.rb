@@ -8,6 +8,8 @@
 # Configuration details:
 # https://github.com/airbrake/airbrake-ruby#configuration
 Airbrake.configure do |c|
+  c.performance_stats = true
+
   # You must set both project_id & project_key. To find your project_id and
   # project_key navigate to your project's General Settings and copy the values
   # from the right sidebar.
