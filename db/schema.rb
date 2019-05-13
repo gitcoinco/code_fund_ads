@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_11_165915) do
+ActiveRecord::Schema.define(version: 2019_05_13_200542) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -488,6 +488,11 @@ ActiveRecord::Schema.define(version: 2019_04_11_165915) do
     t.bigint "hubspot_deal_vid"
     t.bigint "hubspot_contact_vid"
     t.bigint "hubspot_company_vid"
+    t.string "utm_source"
+    t.string "utm_medium"
+    t.string "utm_campaign"
+    t.string "utm_term"
+    t.string "utm_content"
     t.index "lower((email)::text)", name: "index_users_on_email", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

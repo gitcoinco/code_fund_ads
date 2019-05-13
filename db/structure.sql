@@ -867,7 +867,12 @@ CREATE TABLE public.users (
     referral_click_count integer DEFAULT 0,
     hubspot_deal_vid bigint,
     hubspot_contact_vid bigint,
-    hubspot_company_vid bigint
+    hubspot_company_vid bigint,
+    utm_source character varying,
+    utm_medium character varying,
+    utm_campaign character varying,
+    utm_term character varying,
+    utm_content character varying
 );
 
 
@@ -2263,6 +2268,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190322161200'),
 ('20190328185430'),
 ('20190403154313'),
-('20190411165915');
+('20190411165915'),
+('20190513200542');
 
 
