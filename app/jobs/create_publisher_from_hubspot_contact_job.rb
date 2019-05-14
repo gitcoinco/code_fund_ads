@@ -84,6 +84,12 @@ class CreatePublisherFromHubspotContactJob < ApplicationJob
       roles: [ENUMS::USER_ROLES::PUBLISHER],
       hubspot_contact_vid: hubspot_contact_vid,
       website_url: hubspot_contact["website"].to_s.strip,
+      referring_user_id: referring_user_id(hubspot_contact),
+      utm_source: hubspot_contact["utm_source"],
+      utm_medium: hubspot_contact["utm_medium"],
+      utm_campaign: hubspot_contact["utm_campaign"],
+      utm_term: hubspot_contact["utm_term"],
+      utm_content: hubspot_contact["utm_content"],
     )
 
     begin
@@ -99,5 +105,12 @@ class CreatePublisherFromHubspotContactJob < ApplicationJob
     rescue => e
       Rollbar.error e
     end
+  end
+
+  private
+
+  def referring_user_id(hubspot_contact)
+    return nil unless hubspot_contact["referral_code"].present?
+    User.find_by(referral_code: hubspot_contact["referral_code"])&.id
   end
 end

@@ -59,6 +59,11 @@
 #  hubspot_deal_vid       :bigint(8)
 #  hubspot_contact_vid    :bigint(8)
 #  hubspot_company_vid    :bigint(8)
+#  utm_source             :string
+#  utm_medium             :string
+#  utm_campaign           :string
+#  utm_term               :string
+#  utm_content            :string
 #
 
 class User < ApplicationRecord
