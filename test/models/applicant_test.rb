@@ -2,7 +2,7 @@
 #
 # Table name: applicants
 #
-#  id                  :bigint(8)        not null, primary key
+#  id                  :bigint           not null, primary key
 #  status              :string           default("pending")
 #  role                :string           not null
 #  email               :string           not null
@@ -15,11 +15,11 @@
 #  monthly_budget      :string
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
-#  invited_user_id     :bigint(8)
-#  referring_user_id   :bigint(8)
-#  hubspot_deal_vid    :bigint(8)
-#  hubspot_contact_vid :bigint(8)
-#  hubspot_company_vid :bigint(8)
+#  invited_user_id     :bigint
+#  referring_user_id   :bigint
+#  hubspot_deal_vid    :bigint
+#  hubspot_contact_vid :bigint
+#  hubspot_company_vid :bigint
 #
 
 require "test_helper"

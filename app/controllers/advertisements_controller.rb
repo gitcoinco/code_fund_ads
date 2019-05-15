@@ -231,7 +231,7 @@ class AdvertisementsController < ApplicationController
   def choose_campaign(campaign_relation, ignore_budgets: false)
     campaign_relation = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0)) unless ignore_budgets
     campaigns = campaign_relation.to_a
-    campaigns.select! { |campaign| campaign.budget_available? && campaign.daily_budget_available? } unless ignore_budgets
+    campaigns.select!(&:hourly_budget_available?) unless ignore_budgets
     return nil if campaigns.empty?
 
     if ignore_budgets

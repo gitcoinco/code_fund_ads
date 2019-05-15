@@ -54,5 +54,33 @@ module Campaigns
       return false unless budget_available?
       daily_consumed_budget(date) < daily_budget
     end
+
+    # Returns a float indicating how much budget (fractional cents) has been spent for the current hour
+    def hourly_consumed_budget_fractional_cents
+      key = "#{cache_key}/hourly_consumed_budget_fractional_cents/#{Date.current.iso8601}/#{Time.current.hour}"
+      Rails.cache.fetch(key, expires_in: 1.hour) {
+        impressions
+          .on(Date.current)
+          .time_between(Time.current.beginning_of_hour, Time.current.end_of_hour)
+          .sum(:estimated_gross_revenue_fractional_cents)
+      }.to_f
+    end
+
+    # Increments the cached value for hourly_consumed_budget_fractional_cents
+    def increment_hourly_consumed_budget_fractional_cents(amount_fractional_cents)
+      key = "#{cache_key}/hourly_consumed_budget_fractional_cents/#{Date.current.iso8601}/#{Time.current.hour}"
+      Rails.cache.write key, hourly_consumed_budget_fractional_cents + amount_fractional_cents, expires_in: 1.hour
+    end
+
+    # Returns a Money indicating how much budget has been spent for the current hour
+    def hourly_consumed_budget
+      Money.new hourly_consumed_budget_fractional_cents.round, "USD"
+    end
+
+    # Returns a boolean indicating if the campaign has available budget for the current hour
+    def hourly_budget_available?
+      return false unless daily_budget_available?(Date.current)
+      hourly_consumed_budget < hourly_budget
+    end
   end
 end
