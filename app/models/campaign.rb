@@ -329,10 +329,8 @@ class Campaign < ApplicationRecord
   end
 
   def init_hourly_budget
-    min = Monetize.parse("$0.10 USD")
-    return if hourly_budget >= min
     return unless daily_budget > 0
-    self.hourly_budget = daily_budget / 12
+    min = daily_budget / 12
     self.hourly_budget = min if hourly_budget < min
   end
 end

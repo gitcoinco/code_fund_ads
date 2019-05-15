@@ -22,19 +22,24 @@
         <%= details_li("URL") { link_to truncate(@campaign.url, length: 60), @campaign.url } %>
         <%= details_li("Core Hours Only?") { @campaign.core_hours_only? ? "Yes" : "No" } %>
         <%= details_li("Weekdays Only?") { @campaign.weekdays_only? ? "Yes" : "No" } %>
-        <%= details_li("Fallback Campaign?") { "Yes" } if @campaign.fallback? %>
         <%= details_li("Assigned Properties") do %>
           <% @campaign.assigned_properties.pluck(:name).sort.each do |property_name| -%>
             <span class="btn btn-xs btn-soft-dark mb-1"><%= property_name %></span>
           <% end -%>
         <% end if @campaign.assigned_property_ids.present? %>
-        <% if @campaign.fixed_ecpm? %>
-          <%= details_li("eCPM <small>Fixed</small>") { @campaign.ecpm.format } %>
+        <% if @campaign.fallback? %>
+          <%= details_li("Fallback Campaign?") { "Yes" } %>
         <% else %>
-          <li><hr></li>
-          <%= details_li("eCPM <small>Base</small>") { @campaign.ecpm.format } %>
-          <% @campaign.ecpms.each do |ecpm_data| %>
-            <%= details_li("eCPM <small>#{ecpm_data[:country_name]}</small>") { ecpm_data[:ecpm].format } %>
+          <%= details_li("Hourly <small>Budget Cap</small>") { @campaign.hourly_budget.format } %>
+          <%= details_li("Daily <small>Budget Cap</small>") { @campaign.daily_budget.format } %>
+          <%= details_li("Total <small>Budget Cap</small>") { @campaign.total_budget.format } %>
+          <% if @campaign.fixed_ecpm? %>
+            <%= details_li("eCPM <small>Fixed</small>") { @campaign.ecpm.format } %>
+          <% else %>
+            <%= details_li("eCPM <small>Base</small>") { @campaign.ecpm.format } %>
+            <% @campaign.ecpms.each do |ecpm_data| %>
+              <%= details_li("eCPM <small>#{ecpm_data[:country_name]}</small>") { ecpm_data[:ecpm].format } %>
+            <% end %>
           <% end %>
         <% end %>
       </ul>

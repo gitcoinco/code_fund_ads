@@ -116,6 +116,7 @@ class CampaignsController < ApplicationController
       :ecpm,
       :fallback,
       :fixed_ecpm,
+      :hourly_budget,
       :name,
       :status,
       :total_budget,
