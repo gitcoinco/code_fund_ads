@@ -119,6 +119,6 @@ module Impressionable
   end
 
   def operational?
-    daily_summaries.scoped_by(nil).sum(:impressions_count) > 250
+    daily_summaries.scoped_by(nil).sum(:impressions_count) > 100
   end
 end
