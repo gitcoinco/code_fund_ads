@@ -6,6 +6,7 @@ import 'trix';
 import 'bootstrap-daterangepicker';
 import './prefetch';
 import './hubspot';
+import './utm';
 
 import { Application } from 'stimulus';
 import { definitionsFromContext } from 'stimulus/webpack-helpers';

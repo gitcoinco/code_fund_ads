@@ -15,13 +15,18 @@
     <%= stylesheet_pack_tag 'code_fund', media: 'all', 'data-turbolinks-track': 'reload' %>
 
     <!-- Compressed JavaScripts -->
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'code_fund', 'data-turbolinks-track': 'reload' %>
   </head>
   <%= tag.body data: {
       filestack_key: ENV["FILESTACK_API_KEY"],
       hubspot_id: ENV["HUBSPOT_ID"],
-      email: true_user&.email } do %>
+      email: true_user&.email,
+      referral_code: session[:referral_code] } do %>
     <%= render "/@shared/skippy" %>
     <%= render "/@shared/header" %>
 
