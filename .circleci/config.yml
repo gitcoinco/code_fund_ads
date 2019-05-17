@@ -68,7 +68,7 @@ jobs:
 
       - run:
           name: Set up DB
-          command: bundle exec rake db:drop db:create db:structure:load
+          command: bundle exec rails db:drop db:create db:structure:load --trace
 
       - run:
           name: run tests
