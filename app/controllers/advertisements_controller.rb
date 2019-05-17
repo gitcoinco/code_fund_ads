@@ -240,13 +240,11 @@ class AdvertisementsController < ApplicationController
       budget_denominator = 0.001 if budget_denominator.to_f.zero?
 
       weights = campaigns.map { |campaign|
-        province_score = province_code && campaign.province_codes.include?(province_code) ? 0.5 : 0.0
         ecpm_score = (campaign.ecpm_cents / ecpm_denominator).round(2) + 1.0
         budget_score = (campaign.daily_remaining_budget_percentage / budget_denominator).round(2)
-        province_score + ecpm_score + budget_score.to_f
+        ecpm_score + budget_score.to_f
       }
-      selector = WalkerMethod.new(campaigns, weights)
-      selector.random || campaigns.sample
+      WalkerMethod.new(campaigns, weights).random || campaigns.sample
     end
   end
 
