@@ -58,7 +58,7 @@ module Campaigns
     # Returns a float indicating how much budget (fractional cents) has been spent for the current hour
     def hourly_consumed_budget_fractional_cents
       key = "#{cache_key}/hourly_consumed_budget_fractional_cents/#{Date.current.iso8601}/#{Time.current.hour}"
-      Rails.cache.fetch(key, expires_in: 1.hour) {
+      Rails.cache.fetch(key, expires_in: 15.minutes) {
         impressions
           .on(Date.current)
           .time_between(Time.current.beginning_of_hour, Time.current.end_of_hour)
