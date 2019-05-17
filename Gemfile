@@ -96,7 +96,6 @@ group :development do
   gem "meta_request" # RailsPanel Chrome extension
   gem "model_probe"
   gem "rails-erd"
-  gem "rubocop"
   gem "standard"
   gem "teamocil"
   gem "tocer"
