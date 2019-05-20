@@ -28,11 +28,6 @@ module Campaigns
       (total_remaining_budget.cents / total_budget.cents.to_f) * 100
     end
 
-    # Returns a boolean indicating if the campaign has available budget
-    def budget_available?
-      total_consumed_budget < total_budget
-    end
-
     # Returns a Money indicating how much budget remains for the passed date (or today)
     def daily_remaining_budget(date = nil)
       daily_budget - daily_consumed_budget(date)
@@ -47,12 +42,6 @@ module Campaigns
     # Returns a Money indicating how much budget has been spent for the passed date (or today)
     def daily_consumed_budget(date = nil)
       gross_revenue date
-    end
-
-    # Returns a boolean indicating if the campaign has available budget for the passed date (or today)
-    def daily_budget_available?(date = nil)
-      return false unless budget_available?
-      daily_consumed_budget(date) < daily_budget
     end
 
     # Returns a float indicating how much budget (fractional cents) has been spent for the current hour
@@ -77,9 +66,22 @@ module Campaigns
       Money.new hourly_consumed_budget_fractional_cents.round, "USD"
     end
 
+    # Budget availability helpers ............................................................................
+
+    # Returns a boolean indicating if the campaign has available budget
+    def budget_available?
+      total_consumed_budget < total_budget
+    end
+
+    # Returns a boolean indicating if the campaign has available budget for the passed date (or today)
+    def daily_budget_available?(date = nil)
+      return false unless budget_available?
+      daily_consumed_budget(date) < daily_budget
+    end
+
     # Returns a boolean indicating if the campaign has available budget for the current hour
     def hourly_budget_available?
-      return false unless daily_budget_available?(Date.current)
+      return false unless daily_budget_available?
       hourly_consumed_budget < hourly_budget
     end
   end
