@@ -46,12 +46,17 @@
   display: inline-block;
 }
 
-@media (max-width: 576px) {
+@media (max-width: 812px) {
   #cf {
-    font-size: 16px;
+    font-size: 14px;
+    -webkit-text-size-adjust: 100%;
+  }
+  #cf .cf-powered-by {
+    display: none;
   }
 }
-@media (min-width: 576px) {
+
+@media (min-width: 812px) {
   #cf {
     font-size: 13px;
   }

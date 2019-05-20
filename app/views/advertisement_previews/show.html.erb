@@ -42,6 +42,7 @@
       <% else %>
         <div class="ad <%= theme_name %>">
           <h2><%= @num %>. <%= template_name %> + <%= theme_name %></h2>
+          <%= link_to "View this ad on its own page", advertisement_preview_iframe_path(@campaign, template: template_name, theme: theme_name) %>
           <%= tag.iframe src: advertisement_preview_iframe_path(@campaign, template: template_name, theme: theme_name) %>
         </div>
       <% end %>
