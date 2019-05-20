@@ -20,7 +20,7 @@
   }
 
   function injectForm() {
-    if (typeof hubspt !== 'undefined') return setTimeout(injectForm, 100);
+    if (typeof hbspt === 'undefined') return setTimeout(injectForm, 100);
     hbspt.forms.create({
       portalId: '5577891',
       formId: '12871b9c-ebea-489d-9814-d1501249d70d',
