@@ -21,7 +21,8 @@
   <%= tag.body data: {
       filestack_key: ENV["FILESTACK_API_KEY"],
       hubspot_id: ENV["HUBSPOT_ID"],
-      email: true_user&.email } do %>
+      email: true_user&.email,
+      referral_code: session[:referral_code] } do %>
     <%= render "/@shared/skippy" %>
     <%= render "/@shared/header" %>
 
