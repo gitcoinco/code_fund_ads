@@ -7,21 +7,26 @@
     try {
       const form = $form.get(0);
       console.log('CodeFund is initializing the form.');
-      form.querySelector("input[name=referrer]").value = localStorage.getItem('utm_referrer');
-      form.querySelector("input[name=referral_code]").value = localStorage.getItem('referral_code');
-      form.querySelector("input[name=utm_source]").value = localStorage.getItem('utm_source');
-      form.querySelector("input[name=utm_medium]").value = localStorage.getItem('utm_medium');
-      form.querySelector("input[name=utm_campaign]").value = localStorage.getItem('utm_campaign');
-      form.querySelector("input[name=utm_term]").value = localStorage.getItem('utm_term');
-      form.querySelector("input[name=utm_content]").value = localStorage.getItem('utm_content');
+      form.querySelector('input[name=referrer]').value = localStorage.getItem('utm_referrer');
+      form.querySelector('input[name=referral_code]').value = localStorage.getItem('referral_code');
+      form.querySelector('input[name=utm_source]').value = localStorage.getItem('utm_source');
+      form.querySelector('input[name=utm_medium]').value = localStorage.getItem('utm_medium');
+      form.querySelector('input[name=utm_campaign]').value = localStorage.getItem('utm_campaign');
+      form.querySelector('input[name=utm_term]').value = localStorage.getItem('utm_term');
+      form.querySelector('input[name=utm_content]').value = localStorage.getItem('utm_content');
     } catch (e) {
       console.log('CodeFund was unable to initialize the form!', e.message);
     }
   }
 
-  hbspt.forms.create({
-    portalId: "5577891",
-    formId: "12871b9c-ebea-489d-9814-d1501249d70d",
-    onFormReady: initForm.bind(this),
-  });
+  function injectForm() {
+    if (typeof hubspt !== 'undefined') return setTimeout(injectForm, 100);
+    hbspt.forms.create({
+      portalId: '5577891',
+      formId: '12871b9c-ebea-489d-9814-d1501249d70d',
+      onFormReady: initForm.bind(this),
+    });
+  }
+
+  injectForm();
 </script>

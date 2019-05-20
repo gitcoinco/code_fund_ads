@@ -11,7 +11,7 @@ import './utm';
 import { Application } from 'stimulus';
 import { definitionsFromContext } from 'stimulus/webpack-helpers';
 import jquery from 'jquery';
-window.jQuery = window.$ = jquery;
+top.jQuery = top.$ = jquery;
 
 window.Noty = require('noty');
 window.Noty.overrideDefaults({
