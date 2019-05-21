@@ -240,7 +240,7 @@ class AdvertisementsController < ApplicationController
       budget_denominator = 0.001 if budget_denominator.to_f.zero?
 
       weights = campaigns.map { |campaign|
-        ecpm_score = (campaign.ecpm_cents / ecpm_denominator).round(2) + ENV.fetch("CAMPAIGN_SELECTION_ECPM_SUPPLEMENTAL_WEIGHT", 1).to_i
+        ecpm_score = (campaign.ecpm_cents / ecpm_denominator).round(2) + ENV.fetch("CAMPAIGN_SELECTION_ECPM_SUPPLEMENTAL_WEIGHT", 1).to_f
         budget_score = (campaign.daily_remaining_budget_percentage / budget_denominator).round(2)
         ecpm_score + budget_score.to_f
       }
