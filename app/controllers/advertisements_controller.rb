@@ -203,7 +203,7 @@ class AdvertisementsController < ApplicationController
         .or(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
     end
 
-    choose_campaign(premium_campaign_relation)
+    choose_campaign premium_campaign_relation
   end
 
   def get_fallback_campaign(campaign_relation)
@@ -215,14 +215,13 @@ class AdvertisementsController < ApplicationController
       fallback_campaign_relation = fallback_campaign_relation.where(id: property.assigned_fallback_campaign_ids)
     end
 
-    campaign = choose_campaign(fallback_campaign_relation, ignore_budgets: true)
-    campaign || begin
+    choose_campaign(fallback_campaign_relation, ignore_budgets: true) || begin
       fallback_campaign_relation = campaign_relation.fallback_with_assigned_property_id(property_id)
         .or(campaign_relation.without_assigned_property_ids.fallback_for_property_id(property_id))
       if property.assigned_fallback_campaign_ids.present?
         fallback_campaign_relation = fallback_campaign_relation.where(id: property.assigned_fallback_campaign_ids)
       end
-      choose_campaign(fallback_campaign_relation, ignore_budgets: true)
+      choose_campaign fallback_campaign_relation, ignore_budgets: true
     end
   end
 
@@ -232,24 +231,21 @@ class AdvertisementsController < ApplicationController
     campaigns.select! { |campaign| campaign.budget_available? && campaign.daily_budget_available? } unless ignore_budgets
     return nil if campaigns.empty?
 
-    ecpm_denominator = campaigns.sum(&:ecpm_cents).to_f
-    ecpm_denominator = 0.001 if ecpm_denominator.to_f.zero?
-    budget_denominator = campaigns.sum(&:daily_remaining_budget_percentage).to_f unless ignore_budgets
-    budget_denominator = 0.001 if budget_denominator.to_f.zero?
+    if ignore_budgets
+      campaigns.sample
+    else
+      ecpm_denominator = campaigns.sum(&:ecpm_cents).to_f
+      ecpm_denominator = 0.001 if ecpm_denominator.to_f.zero?
+      budget_denominator = campaigns.sum(&:daily_remaining_budget_percentage).to_f
+      budget_denominator = 0.001 if budget_denominator.to_f.zero?
 
-    weights = campaigns.map { |campaign|
-      province_score = province_code && campaign.province_codes.include?(province_code) ? 0.5 : 0.0
-      ecpm_score = (campaign.ecpm_cents / ecpm_denominator).round(2) + 1.0
-      budget_score = (campaign.daily_remaining_budget_percentage / budget_denominator).round(2) unless ignore_budgets
-      province_score + ecpm_score + budget_score.to_f
-    }
-    selector = WalkerMethod.new(campaigns, weights)
-    campaign = selector.random
-    if campaign.nil?
-      campaign = campaigns.sample
-      logger.info "AdvertisementsController#choose_campaign WalkerMethod failed to find a winner! Choosing a random campaign."
+      weights = campaigns.map { |campaign|
+        ecpm_score = (campaign.ecpm_cents / ecpm_denominator).round(2) + ENV.fetch("CAMPAIGN_SELECTION_ECPM_SUPPLEMENTAL_WEIGHT", 1).to_f
+        budget_score = (campaign.daily_remaining_budget_percentage / budget_denominator).round(2)
+        ecpm_score + budget_score.to_f
+      }
+      WalkerMethod.new(campaigns, weights).random || campaigns.sample
     end
-    campaign
   end
 
   def render_advertisement

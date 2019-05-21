@@ -3,7 +3,7 @@ module Applicants
     extend ActiveSupport::Concern
 
     def scoped_name
-      [company_name, full_name].compact.join "・"
+      [organization&.name || company_name, full_name].compact.join "・"
     end
 
     def full_name
