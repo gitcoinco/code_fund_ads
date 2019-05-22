@@ -180,6 +180,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def set_campaign
+    return nil if request.bot?
     campaign_relation = Campaign.active.available_on(Date.current)
     campaign_relation = campaign_relation.where(weekdays_only: false) if Date.current.on_weekend?
     campaign_relation = campaign_relation.where(core_hours_only: false) if prohibited_hour?
