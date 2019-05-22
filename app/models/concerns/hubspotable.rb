@@ -47,10 +47,6 @@ module Hubspotable
   delegate :hubspot_advertiser_deal_pipeline, to: "self.class"
   delegate :hubspot_publisher_deal_pipeline, to: "self.class"
 
-  included do
-    after_update_commit :update_hubspot_deal_stage
-  end
-
   def hubspot_company_vid?
     hubspot_company_vid.present?
   end
@@ -99,21 +95,5 @@ module Hubspotable
   def hubspot_publisher_deal_stage
     return nil unless hubspot_publisher_deal
     hubspot_publisher_deal_pipeline.stages.find { |stage| hubspot_publisher_deal["dealstage"] == stage["stageId"] }
-  end
-
-  private
-
-  def invitation_accepted_on_preceding_save?
-    return unless is_a?(User)
-    invitation_accepted_at_previously_changed? &&
-      invitation_accepted_at_previous_change.first.nil? &&
-      invitation_accepted_at_previous_change.last.present?
-  end
-
-  def update_hubspot_deal_stage
-    return unless is_a?(User)
-    if publisher? && invitation_accepted_on_preceding_save?
-      UpdateHubspotPublisherDealStageFromInvitedToAcceptedJob.perform_later self
-    end
   end
 end
