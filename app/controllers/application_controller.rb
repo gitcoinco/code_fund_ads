@@ -14,11 +14,6 @@ class ApplicationController < ActionController::Base
 
   impersonates :user
 
-  def after_accept_path_for(user)
-    UpdateHubspotPublisherDealStageFromInvitedToAcceptedJob.perform_later user
-    helpers.default_dashboard_path user
-  end
-
   protected
 
   def clear_searches(except: [])
