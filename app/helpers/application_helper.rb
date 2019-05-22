@@ -47,6 +47,10 @@ module ApplicationHelper
     ENUMS::IMAGE_FORMATS.values.map { |f| [f.humanize, f] }
   end
 
+  def user_statuses_for_select
+    ENUMS::USER_STATUSES.values.map { |f| [f.humanize, f] }
+  end
+
   def advertisers_for_select
     User.advertisers.sort_by(&:scoped_name).map { |user| [user.scoped_name, user.id] }
   end

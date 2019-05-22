@@ -92,6 +92,10 @@ USER_ROLES:
   - employer
   - publisher
 
+USER_STATUSES:
+  - active
+  - blacklisted
+
 CAMPAIGN_STATUSES:
   - pending
   - active

@@ -1,4 +1,4 @@
-<%= tag.tr class: classes("even": user_counter.even?, "odd": user_counter.odd?) do %>
+<%= tag.tr class: classes("even": user_counter.even?, "odd": user_counter.odd?, "table-dark": user.blacklisted?) do %>
   <td class="align-middle">
     <div class="media align-items-center">
       <span class="u-sm-avatar position-relative mr-3">
