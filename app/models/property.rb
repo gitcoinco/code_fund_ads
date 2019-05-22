@@ -133,6 +133,10 @@ class Property < ApplicationRecord
     status == ENUMS::PROPERTY_STATUSES::ACTIVE
   end
 
+  def pending?
+    status == ENUMS::PROPERTY_STATUSES::PENDING
+  end
+
   def assigner_campaigns
     Campaign.with_assigned_property_id id
   end
