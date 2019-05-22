@@ -872,7 +872,8 @@ CREATE TABLE public.users (
     utm_medium character varying,
     utm_campaign character varying,
     utm_term character varying,
-    utm_content character varying
+    utm_content character varying,
+    status character varying DEFAULT 'active'::character varying
 );
 
 
@@ -2269,6 +2270,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190328185430'),
 ('20190403154313'),
 ('20190411165915'),
-('20190513200542');
+('20190513200542'),
+('20190522214219');
 
 

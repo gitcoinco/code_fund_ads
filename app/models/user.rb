@@ -242,6 +242,10 @@ class User < ApplicationRecord
     roles.include? ENUMS::USER_ROLES::EMPLOYER
   end
 
+  def blacklisted?
+    status == ENUMS::USER_STATUSES::BLACKLISTED
+  end
+
   def to_s
     full_name
   end
@@ -260,6 +264,11 @@ class User < ApplicationRecord
   end
 
   # protected instance methods ................................................
+  protected
+
+  def active_for_authentication?
+    super && !blacklisted?
+  end
 
   # private instance methods ..................................................
   private

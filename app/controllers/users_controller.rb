@@ -108,6 +108,7 @@ class UsersController < ApplicationController
         whitelisted[:api_access] = params[:user][:api_access]
         whitelisted[:organization_id] = params[:user][:organization_id]
         whitelisted[:roles] = params[:user][:roles]
+        whitelisted[:status] = params[:user][:status]
       end
     end
   end
