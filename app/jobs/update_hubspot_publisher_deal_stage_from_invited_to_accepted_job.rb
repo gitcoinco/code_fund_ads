@@ -3,8 +3,8 @@ class UpdateHubspotPublisherDealStageFromInvitedToAcceptedJob < ApplicationJob
 
   def perform(user)
     return unless ENV["HUBSPOT_PUBLISHER_AUTOMATION_ENABLED"] == "true"
+    return unless user.invitation_accepted?
     return unless user.hubspot_contact_vid
-    return unless user.operational_publisher?
     return unless user.hubspot_publisher_deal
 
     current_stage = user.hubspot_publisher_deal_stage
