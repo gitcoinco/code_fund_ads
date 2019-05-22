@@ -92,16 +92,26 @@ class CreatePublisherFromHubspotContactJob < ApplicationJob
       utm_content: hubspot_contact["utm_content"],
     )
 
+    UpdateHubspotContactCodefundUrlJob.perform_later user
+
     begin
-      UpdateHubspotContactCodefundUrlJob.perform_later user
-      user.properties.where(url: url).first_or_create!(
-        property_type: ENUMS::PROPERTY_TYPES::WEBSITE,
-        status: ENUMS::PROPERTY_STATUSES::PENDING,
-        language: ENUMS::LANGUAGES::ENGLISH,
-        name: url[0, 255],
-        revenue_percentage: 0.6,
-        keywords: hubspot_contact["website_keywords"].to_s.split(";")
-      )
+      urls = hubspot_contact["additional_websites"].to_s.split
+      urls << hubspot_contact["website"].to_s
+
+      urls.each do |url|
+        url = url.strip
+        next unless url.present?
+        user.properties.where(url: url).first_or_create!(
+          property_type: ENUMS::PROPERTY_TYPES::WEBSITE,
+          status: ENUMS::PROPERTY_STATUSES::PENDING,
+          language: ENUMS::LANGUAGES::ENGLISH,
+          name: url[0, 255],
+          revenue_percentage: 0.6,
+          keywords: hubspot_contact["website_keywords"].to_s.split(";")
+        )
+      rescue => e
+        Rollbar.error e
+      end
     rescue => e
       Rollbar.error e
     end
