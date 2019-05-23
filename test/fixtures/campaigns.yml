@@ -48,6 +48,8 @@ premium:
   total_budget_currency: USD
   daily_budget_cents: <%= Monetize.parse("$55 USD").cents %>
   daily_budget_currency: USD
+  hourly_budget_cents: <%= Monetize.parse("$7 USD").cents %>
+  hourly_budget_currency: USD
   ecpm_cents: <%= Monetize.parse("$3 USD").cents %>
   ecpm_currency: USD
   country_codes:

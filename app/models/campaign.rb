@@ -61,7 +61,6 @@ class Campaign < ApplicationRecord
   # callbacks .................................................................
   before_validation :sort_arrays
   before_save :sanitize_assigned_property_ids
-  before_save :init_hourly_budget
 
   # scopes ....................................................................
   scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
@@ -326,11 +325,5 @@ class Campaign < ApplicationRecord
 
   def sanitize_assigned_property_ids
     self.assigned_property_ids = assigned_property_ids.select(&:present?).uniq.sort
-  end
-
-  def init_hourly_budget
-    return unless daily_budget > 0
-    min = daily_budget / 12
-    self.hourly_budget = min if hourly_budget < min
   end
 end

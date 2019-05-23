@@ -4,6 +4,10 @@ module Campaigns
     # NOTE: Many of these formulae only work if the eCPM remains the same throughout the life of the campaign
     # TODO: Factor in changing eCPM over time
 
+    included do
+      before_save :init_hourly_budget
+    end
+
     # Returns a Money indicating how much budget has been spent
     def total_consumed_budget
       gross_revenue start_date, Date.current
@@ -83,6 +87,14 @@ module Campaigns
     def hourly_budget_available?
       return false unless daily_budget_available?
       hourly_consumed_budget < hourly_budget
+    end
+
+    private
+
+    def init_hourly_budget
+      return unless daily_budget > 0
+      min = daily_budget / 12
+      self.hourly_budget = min if hourly_budget < min
     end
   end
 end
