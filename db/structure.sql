@@ -212,7 +212,9 @@ CREATE TABLE public.campaigns (
     job_posting boolean DEFAULT false NOT NULL,
     province_codes character varying[] DEFAULT '{}'::character varying[],
     fixed_ecpm boolean DEFAULT true NOT NULL,
-    assigned_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
+    assigned_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
+    hourly_budget_cents integer DEFAULT 0 NOT NULL,
+    hourly_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL
 );
 
 
@@ -2271,6 +2273,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190403154313'),
 ('20190411165915'),
 ('20190513200542'),
+('20190515193529'),
 ('20190522214219');
 
 

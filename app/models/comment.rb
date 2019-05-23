@@ -2,14 +2,14 @@
 #
 # Table name: comments
 #
-#  id               :bigint(8)        not null, primary key
-#  commentable_id   :bigint(8)        not null
+#  id               :bigint           not null, primary key
+#  commentable_id   :bigint           not null
 #  commentable_type :string           not null
 #  title            :string
 #  body             :text
 #  subject          :string
-#  user_id          :bigint(8)        not null
-#  parent_id        :bigint(8)
+#  user_id          :bigint           not null
+#  parent_id        :bigint
 #  lft              :integer
 #  rgt              :integer
 #  created_at       :datetime         not null

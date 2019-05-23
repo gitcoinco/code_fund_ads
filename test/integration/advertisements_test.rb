@@ -3,6 +3,7 @@ require "faker"
 
 class AdvertisementsTest < ActionDispatch::IntegrationTest
   setup do
+    Rails.cache.clear
     start_date = Date.parse("2019-01-01")
     @premium_campaign = amend campaigns: :premium,
                               start_date: start_date,
@@ -329,17 +330,21 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   test "js: premium ads render when budgets available" do
     @premium_campaign.daily_summaries.create!(displayed_at_date: @premium_campaign.start_date, gross_revenue: Monetize.parse("$2,500 USD"))
+    @premium_campaign.increment_hourly_consumed_budget_fractional_cents(Monetize.parse("$5.00 USD").cents)
     assert @premium_campaign.budget_available?
     assert @premium_campaign.daily_budget_available?
+    assert @premium_campaign.hourly_budget_available?
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /house: false/
   end
 
-  test "js: premium ads don't render when over budget" do
+  test "js: premium ads don't render when over total budget" do
     @premium_campaign.daily_summaries.create!(displayed_at_date: @premium_campaign.start_date, gross_revenue: Monetize.parse("$5,000 USD"))
+    @premium_campaign.increment_hourly_consumed_budget_fractional_cents(Monetize.parse("$5.00 USD").cents)
     refute @premium_campaign.budget_available?
     refute @premium_campaign.daily_budget_available?
+    refute @premium_campaign.hourly_budget_available?
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
@@ -347,8 +352,21 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   test "js: premium ads don't render when over daily budget" do
     @premium_campaign.daily_summaries.create!(displayed_at_date: Date.current, gross_revenue: Monetize.parse("$55 USD"))
+    @premium_campaign.increment_hourly_consumed_budget_fractional_cents(Monetize.parse("$5.00 USD").cents)
     assert @premium_campaign.budget_available?
     refute @premium_campaign.daily_budget_available?
+    refute @premium_campaign.hourly_budget_available?
+    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
+    assert response.status == 200
+    assert response.body =~ /CodeFund does not have an advertiser for you at this time/
+  end
+
+  test "js: premium ads don't render when over hourly budget" do
+    @premium_campaign.daily_summaries.create!(displayed_at_date: Date.current, gross_revenue: Monetize.parse("$25 USD"))
+    @premium_campaign.increment_hourly_consumed_budget_fractional_cents(Monetize.parse("$7.00 USD").cents)
+    assert @premium_campaign.budget_available?
+    assert @premium_campaign.daily_budget_available?
+    refute @premium_campaign.hourly_budget_available?
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/

@@ -2,10 +2,10 @@
 #
 # Table name: job_postings
 #
-#  id                         :bigint(8)        not null, primary key
-#  organization_id            :bigint(8)
-#  user_id                    :bigint(8)
-#  campaign_id                :bigint(8)
+#  id                         :bigint           not null, primary key
+#  organization_id            :bigint
+#  user_id                    :bigint
+#  campaign_id                :bigint
 #  status                     :string           default("pending"), not null
 #  source                     :string           default("internal"), not null
 #  source_identifier          :string
@@ -40,7 +40,7 @@
 #  auto_renew                 :boolean          default(TRUE), not null
 #  list_view_count            :integer          default(0), not null
 #  detail_view_count          :integer          default(0), not null
-#  coupon_id                  :bigint(8)
+#  coupon_id                  :bigint
 #  plan                       :string
 #  offers                     :string           default([]), not null, is an Array
 #

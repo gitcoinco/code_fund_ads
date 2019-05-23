@@ -157,14 +157,18 @@
     <%= render "/@shared/forms/section_heading", title: "Budget", subtitle: "Let's talk numbers" %>
 
     <div class="row">
-      <div class="col-md-4 mb-3">
+      <div class="col-md-6 mb-3">
         <%= f.input(:ecpm, as: :currency, currency: "$") %>
         <small id="passwordHelpBlock" class="form-text text-muted">
           Effective cost per thousand impressions
         </small>
       </div>
-      <%= tag.div f.input(:daily_budget, label: "Daily Budget", as: :currency, currency: "$"), class: "col-md-4 mb-3" %>
-      <%= tag.div f.input(:total_budget, label: "Total (MAX) Budget", as: :currency, currency: "$"), class: "col-md-4 mb-3" %>
+      <%= tag.div f.input(:total_budget, label: "Total Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
+    </div>
+
+    <div class="row">
+      <%= tag.div f.input(:hourly_budget, label: "Hourly Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
+      <%= tag.div f.input(:daily_budget, label: "Daily Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
     </div>
 
     <div class="row">

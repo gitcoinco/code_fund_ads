@@ -2,12 +2,12 @@
 #
 # Table name: events
 #
-#  id             :bigint(8)        not null, primary key
-#  eventable_id   :bigint(8)        not null
+#  id             :bigint           not null, primary key
+#  eventable_id   :bigint           not null
 #  eventable_type :string           not null
 #  tags           :string           default([]), is an Array
 #  body           :text             not null
-#  user_id        :bigint(8)        not null
+#  user_id        :bigint           not null
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #

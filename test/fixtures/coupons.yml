@@ -2,7 +2,7 @@
 #
 # Table name: coupons
 #
-#  id               :bigint(8)        not null, primary key
+#  id               :bigint           not null, primary key
 #  code             :string           not null
 #  description      :string
 #  coupon_type      :string           not null

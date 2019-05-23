@@ -2,7 +2,7 @@
 #
 # Table name: users
 #
-#  id                     :bigint(8)        not null, primary key
+#  id                     :bigint           not null, primary key
 #  roles                  :string           default([]), is an Array
 #  skills                 :text             default([]), is an Array
 #  first_name             :string           not null
@@ -46,24 +46,25 @@
 #  invitation_accepted_at :datetime
 #  invitation_limit       :integer
 #  invited_by_type        :string
-#  invited_by_id          :bigint(8)
+#  invited_by_id          :bigint
 #  invitations_count      :integer          default(0)
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  legacy_id              :uuid
-#  organization_id        :bigint(8)
+#  organization_id        :bigint
 #  stripe_customer_id     :string
-#  referring_user_id      :bigint(8)
+#  referring_user_id      :bigint
 #  referral_code          :string
 #  referral_click_count   :integer          default(0)
-#  hubspot_deal_vid       :bigint(8)
-#  hubspot_contact_vid    :bigint(8)
-#  hubspot_company_vid    :bigint(8)
+#  hubspot_deal_vid       :bigint
+#  hubspot_contact_vid    :bigint
+#  hubspot_company_vid    :bigint
 #  utm_source             :string
 #  utm_medium             :string
 #  utm_campaign           :string
 #  utm_term               :string
 #  utm_content            :string
+#  status                 :string           default("active")
 #
 
 class User < ApplicationRecord

@@ -2,7 +2,7 @@
 #
 # Table name: email_templates
 #
-#  id         :bigint(8)        not null, primary key
+#  id         :bigint           not null, primary key
 #  title      :string           not null
 #  subject    :string           not null
 #  body       :string           not null
