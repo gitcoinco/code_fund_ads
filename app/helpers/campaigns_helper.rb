@@ -20,4 +20,10 @@ module CampaignsHelper
     when "archived" then tag.span(class: "fas fa-circle text-muted", title: "Archived", data: tooltip_expando(placement: "left"))
     end
   end
+
+  def countries_with_codes_for_subregion(subregion)
+    Country.where(subregion: subregion).map do |country|
+      [country.name, country.iso_code]
+    end
+  end
 end

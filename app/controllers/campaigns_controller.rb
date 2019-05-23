@@ -48,6 +48,7 @@ class CampaignsController < ApplicationController
 
   def create
     @campaign = Campaign.new(campaign_params)
+    @campaign.country_codes = @campaign.country_codes.filter { |code| code.present? }
 
     respond_to do |format|
       if @campaign.save

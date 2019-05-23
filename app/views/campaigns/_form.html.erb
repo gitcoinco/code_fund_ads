@@ -60,16 +60,34 @@
     <%= render "/@shared/forms/section_heading", title: "Targeting", subtitle: "Who do you want this campaign to reach?" %>
 
     <div class="row" data-controller="select-geo-targets" data-action="cf:select:changed->select-geo-targets#updateProvinceCodeOptions">
-      <div class="col-12 mb-3" data-controller="select-multiple">
-        <%= f.input :country_codes, required: true, collection: countries_with_pricing_for_select(@campaign.ecpm), label: "Targeted Counties",
-          input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select select-geo-targets.countryCodesSelect" }} %>
-        <div class="d-block">
-          <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
+      <div class="col-12 mb-3">
+        <%= f.label :country_codes, label: "Targeted Countries", class: "form-label", required: true %>
+        <div class="checkbox-tree">
           <% Country.all.map(&:subregion).uniq.sort.each do |subregion| %>
-            <%= link_to subregion, request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0",
-              data: { action: "click->select-multiple#selectSubset", values: Country.where(subregion: subregion).map(&:iso_code).to_json }  %>
+            <div class="checkbox-tree__branch" data-controller="checkbox-tree-branch">
+              <i class="fa fa-caret-right"
+                 data-target="checkbox-tree-branch.toggle"
+                 data-action="click->checkbox-tree-branch#toggleBranch">
+              </i>
+              <div class="form-check">
+                <%= check_box_tag subregion.downcase,
+                  nil,
+                  false,
+                  class: 'form-check-input',
+                  data: {
+                    target: 'checkbox-tree-branch.selectAll',
+                    action: 'change->checkbox-tree-branch#toggleSelectAll'
+                  } %>
+                <%= label_tag subregion.downcase, subregion, class: 'form-check-label' %>
+              </div>
+              <div class="checkbox-tree__branch-leaves" data-target="checkbox-tree-branch.leaves">
+                <%= f.input :country_codes,
+                  as: :check_boxes,
+                  collection: countries_with_codes_for_subregion(subregion),
+                  input_html: { data: { target: 'checkbox-tree-branch.leaf', action: 'change->checkbox-tree-branch#handleLeafChange' } } %>
+              </div>
+            </div>
           <% end %>
-          <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
         </div>
       </div>
       <div class="col-12 mb-3" data-controller="select-multiple">
