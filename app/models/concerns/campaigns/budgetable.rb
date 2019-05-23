@@ -62,7 +62,7 @@ module Campaigns
     # Increments the cached value for hourly_consumed_budget_fractional_cents
     def increment_hourly_consumed_budget_fractional_cents(amount_fractional_cents)
       key = "#{cache_key}/hourly_consumed_budget_fractional_cents/#{Date.current.iso8601}/#{Time.current.hour}"
-      Rails.cache.write key, hourly_consumed_budget_fractional_cents + amount_fractional_cents, expires_in: 1.hour
+      Rails.cache.write key, hourly_consumed_budget_fractional_cents + amount_fractional_cents, expires_in: 15.minutes
     end
 
     # Returns a Money indicating how much budget has been spent for the current hour
