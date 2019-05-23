@@ -3,6 +3,10 @@ import { Controller } from 'stimulus';
 export default class extends Controller {
   static targets = ['toggle', 'selectAll', 'leaves', 'leaf'];
 
+  connect() {
+    this.handleLeafChange();
+  }
+
   toggleBranch(event) {
     this.toggleTarget.classList.toggle('open');
     this.leavesTarget.classList.toggle('open');
@@ -16,16 +20,16 @@ export default class extends Controller {
 
   handleLeafChange() {
     const allChecked = () => {
-      return this.leafTargets.every((leaf) => {
+      return this.leafTargets.every(leaf => {
         return leaf.checked;
       });
     };
 
     const anyChecked = () => {
-      return this.leafTargets.some((leaf) => {
+      return this.leafTargets.some(leaf => {
         return leaf.checked;
       });
-    }
+    };
 
     if (allChecked()) {
       this.selectAllTarget.checked = true;
