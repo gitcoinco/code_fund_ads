@@ -15,6 +15,7 @@ class CreateDailySummaryJob < ApplicationJob
         impressions_count: impressions.count,
         fallbacks_count: impressions.fallback.count,
         clicks_count: impressions.clicked.count,
+        unique_ip_addresses_count: impressions.distinct.count(:ip_address),
         gross_revenue: Money.new(impressions.sum(:estimated_gross_revenue_fractional_cents).round, "USD"),
         property_revenue: Money.new(impressions.sum(:estimated_property_revenue_fractional_cents).round, "USD"),
         house_revenue: Money.new(impressions.sum(:estimated_house_revenue_fractional_cents).round, "USD"),
