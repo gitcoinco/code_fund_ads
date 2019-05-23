@@ -263,12 +263,12 @@ class User < ApplicationRecord
     value
   end
 
-  # protected instance methods ................................................
-  protected
-
   def active_for_authentication?
     super && !blacklisted?
   end
+
+  # protected instance methods ................................................
+  protected
 
   # private instance methods ..................................................
   private
