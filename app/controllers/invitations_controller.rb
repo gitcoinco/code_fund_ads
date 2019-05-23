@@ -4,4 +4,9 @@ class InvitationsController < Devise::InvitationsController
     super
     CreateSlackNotificationJob.perform_later text: ":email: #{resource.email} just registered via invitation" if resource.errors.empty?
   end
+
+  def after_accept_path_for(user)
+    UpdateHubspotPublisherDealStageFromInvitedToAcceptedJob.perform_later user
+    helpers.default_dashboard_path user
+  end
 end
