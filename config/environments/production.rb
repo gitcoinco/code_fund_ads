@@ -67,7 +67,7 @@ Rails.application.configure do
     url: ENV["REDIS_CACHE_URL"],
     size: ENV.fetch("RAILS_MAX_THREADS", 10).to_i,
     expires_in: 7.days,
-    race_condition_ttl: 10.seconds,
+    race_condition_ttl: 30.seconds,
   }
   # Use a real queuing backend for Active Job (and separate queues per environment)
   # config.active_job.queue_adapter     = :resque
