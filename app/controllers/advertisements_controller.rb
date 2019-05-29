@@ -229,26 +229,25 @@ class AdvertisementsController < ApplicationController
   end
 
   def choose_campaign(campaign_relation, ignore_budgets: false)
-    campaign_relation = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0)) unless ignore_budgets
-    campaigns = campaign_relation.to_a
-    campaigns.select! { |campaign| campaign.budget_available? && campaign.daily_budget_available? } unless ignore_budgets
+    return campaign_relation.sample if ignore_budgets
+
+    campaigns = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0)).to_a
+    campaigns.select!(&:hourly_budget_available?)
+
     return nil if campaigns.empty?
 
-    if ignore_budgets
-      campaigns.sample
-    else
-      ecpm_denominator = campaigns.sum(&:ecpm_cents).to_f
-      ecpm_denominator = 0.001 if ecpm_denominator.to_f.zero?
-      budget_denominator = campaigns.sum(&:daily_remaining_budget_percentage).to_f
-      budget_denominator = 0.001 if budget_denominator.to_f.zero?
+    ecpm_denominator = campaigns.sum(&:ecpm_cents).to_f
+    ecpm_denominator = 0.001 if ecpm_denominator.to_f.zero?
+    budget_denominator = campaigns.sum(&:daily_remaining_budget_percentage).to_f
+    budget_denominator = 0.001 if budget_denominator.to_f.zero?
 
-      weights = campaigns.map { |campaign|
-        ecpm_score = (campaign.ecpm_cents / ecpm_denominator).round(2) + ENV.fetch("CAMPAIGN_SELECTION_ECPM_SUPPLEMENTAL_WEIGHT", 1).to_f
-        budget_score = (campaign.daily_remaining_budget_percentage / budget_denominator).round(2)
-        ecpm_score + budget_score.to_f
-      }
-      WalkerMethod.new(campaigns, weights).random || campaigns.sample
-    end
+    weights = campaigns.map { |campaign|
+      ecpm_score = (campaign.ecpm_cents / ecpm_denominator).round(2) + ENV.fetch("CAMPAIGN_SELECTION_ECPM_SUPPLEMENTAL_WEIGHT", 1).to_f
+      budget_score = (campaign.daily_remaining_budget_percentage / budget_denominator).round(2)
+      ecpm_score + budget_score.to_f
+    }
+
+    WalkerMethod.new(campaigns, weights).random || campaigns.sample
   end
 
   def render_advertisement

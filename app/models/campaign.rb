@@ -2,34 +2,36 @@
 #
 # Table name: campaigns
 #
-#  id                    :bigint(8)        not null, primary key
-#  user_id               :bigint(8)
-#  creative_id           :bigint(8)
-#  status                :string           not null
-#  fallback              :boolean          default(FALSE), not null
-#  name                  :string           not null
-#  url                   :text             not null
-#  start_date            :date
-#  end_date              :date
-#  core_hours_only       :boolean          default(FALSE)
-#  weekdays_only         :boolean          default(FALSE)
-#  total_budget_cents    :integer          default(0), not null
-#  total_budget_currency :string           default("USD"), not null
-#  daily_budget_cents    :integer          default(0), not null
-#  daily_budget_currency :string           default("USD"), not null
-#  ecpm_cents            :integer          default(0), not null
-#  ecpm_currency         :string           default("USD"), not null
-#  country_codes         :string           default([]), is an Array
-#  keywords              :string           default([]), is an Array
-#  negative_keywords     :string           default([]), is an Array
-#  created_at            :datetime         not null
-#  updated_at            :datetime         not null
-#  legacy_id             :uuid
-#  organization_id       :bigint(8)
-#  job_posting           :boolean          default(FALSE), not null
-#  province_codes        :string           default([]), is an Array
-#  fixed_ecpm            :boolean          default(TRUE), not null
-#  assigned_property_ids :bigint(8)        default([]), not null, is an Array
+#  id                     :bigint           not null, primary key
+#  user_id                :bigint
+#  creative_id            :bigint
+#  status                 :string           not null
+#  fallback               :boolean          default(FALSE), not null
+#  name                   :string           not null
+#  url                    :text             not null
+#  start_date             :date
+#  end_date               :date
+#  core_hours_only        :boolean          default(FALSE)
+#  weekdays_only          :boolean          default(FALSE)
+#  total_budget_cents     :integer          default(0), not null
+#  total_budget_currency  :string           default("USD"), not null
+#  daily_budget_cents     :integer          default(0), not null
+#  daily_budget_currency  :string           default("USD"), not null
+#  ecpm_cents             :integer          default(0), not null
+#  ecpm_currency          :string           default("USD"), not null
+#  country_codes          :string           default([]), is an Array
+#  keywords               :string           default([]), is an Array
+#  negative_keywords      :string           default([]), is an Array
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  legacy_id              :uuid
+#  organization_id        :bigint
+#  job_posting            :boolean          default(FALSE), not null
+#  province_codes         :string           default([]), is an Array
+#  fixed_ecpm             :boolean          default(TRUE), not null
+#  assigned_property_ids  :bigint           default([]), not null, is an Array
+#  hourly_budget_cents    :integer          default(0), not null
+#  hourly_budget_currency :string           default("USD"), not null
 #
 
 class Campaign < ApplicationRecord
@@ -163,6 +165,7 @@ class Campaign < ApplicationRecord
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   monetize :total_budget_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :daily_budget_cents, numericality: {greater_than_or_equal_to: 0}
+  monetize :hourly_budget_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :ecpm_cents, numericality: {greater_than_or_equal_to: 0}
   tag_columns :country_codes
   tag_columns :province_codes

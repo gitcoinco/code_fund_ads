@@ -17,7 +17,7 @@ class CreateImpressionJob < ApplicationJob
     subdivision = ip_info&.subdivisions&.first&.iso_code
     province_code = Province.find("#{country_code}-#{subdivision}")&.iso_code
 
-    Impression.create!(
+    impression = Impression.create!(
       id: id,
       advertiser_id: campaign.user_id,
       publisher_id: property.user_id,
@@ -38,6 +38,8 @@ class CreateImpressionJob < ApplicationJob
       latitude: ip_info&.location&.latitude,
       longitude: ip_info&.location&.longitude
     )
+
+    campaign.increment_hourly_consumed_budget_fractional_cents impression.estimated_gross_revenue_fractional_cents
   rescue ActiveRecord::RecordNotUnique
     # prevent reattempts when a race condition attempts to write the same record
   end

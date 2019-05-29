@@ -3,11 +3,11 @@
 # Table name: impressions
 #
 #  id                                          :uuid             not null, primary key
-#  advertiser_id                               :bigint(8)        not null
-#  publisher_id                                :bigint(8)        not null
-#  campaign_id                                 :bigint(8)        not null
-#  creative_id                                 :bigint(8)        not null
-#  property_id                                 :bigint(8)        not null
+#  advertiser_id                               :bigint           not null
+#  publisher_id                                :bigint           not null
+#  campaign_id                                 :bigint           not null
+#  creative_id                                 :bigint           not null
+#  property_id                                 :bigint           not null
 #  ip_address                                  :string           not null
 #  user_agent                                  :text             not null
 #  country_code                                :string
@@ -24,7 +24,7 @@
 #  estimated_house_revenue_fractional_cents    :float
 #  ad_template                                 :string
 #  ad_theme                                    :string
-#  organization_id                             :bigint(8)
+#  organization_id                             :bigint
 #  province_code                               :string
 #  uplift                                      :boolean          default(FALSE)
 #
@@ -57,6 +57,9 @@ class Impression < ApplicationRecord
   scope :on, ->(*dates) { where displayed_at_date: dates.map { |date| Date.coerce(date) } }
   scope :between, ->(start_date, end_date = nil) {
     where displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date)
+  }
+  scope :time_between, ->(start_time, end_time) {
+    where displayed_at: start_time.to_time..(end_time || start_time).to_time
   }
   scope :scoped_by, ->(record) {
     case record

@@ -7,6 +7,7 @@ module Extensions
       # Returns nil if the value cannot be cast
       def cast(value)
         case value
+        when nil then nil
         when Date then value
         when Time, DateTime, ActiveSupport::TimeWithZone then return value.to_date
         else begin
