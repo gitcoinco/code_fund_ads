@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.6.2"
+ruby "2.6.3"
 
 gem "active_link_to",                     "~> 1.0.5"
 gem "acts_as_commentable_with_threading", "~> 2.0.1"
@@ -51,6 +51,7 @@ gem "premailer",                          "1.11.1"
 gem "premailer-rails",                    "1.10.2"
 gem "pretender",                          "~> 0.3.3"
 gem "puma",                               "~> 3.12"
+gem "rack-attack",                        "~> 6.0.0"
 gem "rails",                              "~> 5.2.2"
 gem "recaptcha",                          "~> 4.13.1"
 gem "redis",                              "~> 4.0", require: ["redis", "redis/connection/hiredis"]
