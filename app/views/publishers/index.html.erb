@@ -65,131 +65,32 @@
               "slidesToShow": 1
             }
           }]'>
-        <div class="js-slide mb-1">
-          <!-- Testimonial -->
-          <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
-            <div class="mb-auto">
-              <p>CodeFund has hands-down beaten all my previous attempts to bring funding to a project via advertising. I'm a big fan and I love their dedication to open source projects.</p>
-            </div>
 
-            <!-- Author & Review -->
-            <div class="media">
-              <div class="d-flex mr-3">
-                <%= image_tag "avatars/remy-sharp.jpg", alt: "Remy Sharp", class: "img-fluid u-avatar rounded-circle" %>
+        <% @testimonials.each do |testimonial| %>
+          <div class="js-slide mb-1">
+            <!-- Testimonial -->
+            <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
+              <div class="mb-auto">
+                <p><%= testimonial.body %></p>
               </div>
-              <div class="media-body">
-                <h4 class="h6 mb-1">
-                  Remy Sharp<br/>
-                  <a class="small" style="color: #1464ff;" href="https://jsbin.com" target="_blank">jsbin.com</a>
-                </h4>
+
+              <!-- Author & Review -->
+              <div class="media">
+                <div class="d-flex mr-3">
+                  <%= image_tag testimonial.avatar, alt: testimonial.name, class: "img-fluid u-avatar rounded-circle" %>
+                </div>
+                <div class="media-body">
+                  <h4 class="h6 mb-1">
+                    <%= testimonial.name %><br/>
+                    <%= link_to testimonial.website_url, testimonial.website_url, target: "_blank", class: "small", style: "color: #1464ff" %>
+                  </h4>
+                </div>
               </div>
+              <!-- End Author & Review -->
             </div>
-            <!-- End Author & Review -->
+            <!-- End Testimonial -->
           </div>
-          <!-- End Testimonial -->
-        </div>
-
-        <div class="js-slide mb-1">
-          <!-- Testimonial -->
-          <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
-            <div class="mb-auto">
-              <p>CodeFund has been an absolute pleasure to work with. They have been hands on through every process and very attentive towards my questions and concerns.</p>
-            </div>
-
-            <!-- Author & Review -->
-            <div class="media">
-              <div class="d-flex mr-3">
-                <%= image_tag "avatars/john-leider.jpg", alt: "John Leider", class: "img-fluid u-avatar rounded-circle" %>
-              </div>
-              <div class="media-body">
-                <h4 class="h6 mb-1">
-                  John Leider<br/>
-                  <a class="small" style="color: #1464ff;" href="https://vuetifyjs.com" target="_blank">vuetifyjs.com</a>
-                </h4>
-              </div>
-            </div>
-            <!-- End Author & Review -->
-          </div>
-          <!-- End Testimonial -->
-        </div>
-
-        <div class="js-slide mb-1">
-          <!-- Testimonial -->
-          <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
-            <div class="mb-auto">
-              <p>
-                ✨ CodeFund is an awesome initiative! No tracking, your privacy is safe. Help connecting OSS users to solutions for their problems. Help funding OSS projects development.
-              </p>
-            </div>
-
-            <!-- Author & Review -->
-            <div class="media">
-              <div class="d-flex mr-3">
-                <%= image_tag "avatars/olivier-tassinari.jpg", alt: "Olivier Tassinari", class: "img-fluid u-avatar rounded-circle" %>
-              </div>
-              <div class="media-body">
-                <h4 class="h6 mb-1">
-                  Olivier Tassinari<br/>
-                  <a class="small" style="color: #1464ff;" href="https://material-ui.com" target="_blank">material-ui.com</a>
-                </h4>
-              </div>
-            </div>
-            <!-- End Author & Review -->
-          </div>
-          <!-- End Testimonial -->
-        </div>
-
-        <div class="js-slide mb-1">
-          <!-- Testimonial -->
-          <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
-            <div class="mb-auto">
-              <p>
-                CodeFund is providing an awesome service for developers. Keep up the good work!
-              </p>
-            </div>
-
-            <!-- Author & Review -->
-            <div class="media">
-              <div class="d-flex mr-3">
-                <%= image_tag "avatars/kenan-yusuf.jpg", alt: "Kenan Yusuf", class: "img-fluid u-avatar rounded-circle" %>
-              </div>
-              <div class="media-body">
-                <h4 class="h6 mb-1">
-                  Kenan Yusuf<br/>
-                  <a class="small" style="color: #1464ff;" href="https://codier.io" target="_blank">codier.io</a>
-                </h4>
-              </div>
-            </div>
-            <!-- End Author & Review -->
-          </div>
-          <!-- End Testimonial -->
-        </div>
-
-        <div class="js-slide mb-1">
-          <!-- Testimonial -->
-          <div class="d-flex align-items-start flex-column bg-white border rounded p-5">
-            <div class="mb-auto">
-              <p>
-                CodeFund helps us making a sustainable community while keeping our high standard UX.
-              </p>
-            </div>
-
-            <!-- Author & Review -->
-            <div class="media">
-              <div class="d-flex mr-3">
-                <%= image_tag "avatars/ido-shamun.jpg", alt: "Ido Shamun", class: "img-fluid u-avatar rounded-circle" %>
-              </div>
-              <div class="media-body">
-                <h4 class="h6 mb-1">
-                  Ido Shamun<br/>
-                  <a class="small" style="color: #1464ff;" href="https://www.dailynow.co/" target="_blank">dailynow.co</a>
-                </h4>
-              </div>
-            </div>
-            <!-- End Author & Review -->
-          </div>
-          <!-- End Testimonial -->
-        </div>
+        <% end %>
       </div>
     </div>
   </div>

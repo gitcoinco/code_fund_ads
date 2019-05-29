@@ -1,0 +1,51 @@
+.blog__article {
+  &__featured-image {
+  }
+  &__title {
+    line-height: 1.25;
+    letter-spacing: 0;
+    font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 38px;
+  }
+  &__subtitle {
+    font-size: 22px;
+    font-weight: 300;
+    margin-top: 5px;
+    margin-bottom: 22px;
+    line-height: 2rem;
+    letter-spacing: -0.012em;
+    font-style: normal;
+    color: rgba(0, 0, 0, 0.54);
+  }
+  &__body {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: rgba(0, 0, 0, 0.9);
+      font-weight: 400;
+      font-size: 1.3rem;
+      margin-top: 2rem;
+    }
+    p,
+    ul,
+    li {
+      font-size: 16px;
+      line-height: 1.58;
+      font-weight: 300;
+      color: rgba(0, 0, 0, 0.7);
+    }
+    .wp-block-image {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
