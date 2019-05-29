@@ -16,8 +16,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def bot?
-    DeviceDetector.new(request.headers["User-Agent"]).bot?
+  def device
+    @device ||= DeviceDetector.new(request.headers["User-Agent"])
+  end
+
+  def device_small?
+    device.device_type == "smartphone"
   end
 
   def clear_searches(except: [])

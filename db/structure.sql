@@ -706,7 +706,8 @@ CREATE TABLE public.properties (
     assigned_fallback_campaign_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
     restrict_to_assigner_campaigns boolean DEFAULT false NOT NULL,
     fallback_ad_template character varying,
-    fallback_ad_theme character varying
+    fallback_ad_theme character varying,
+    responsive_behavior character varying DEFAULT 'none'::character varying NOT NULL
 );
 
 
@@ -2274,6 +2275,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190411165915'),
 ('20190513200542'),
 ('20190515193529'),
-('20190522214219');
+('20190522214219'),
+('20190529215606');
 
 
