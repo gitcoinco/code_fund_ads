@@ -16,6 +16,10 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def bot?
+    DeviceDetector.new(request.headers["User-Agent"]).bot?
+  end
+
   def clear_searches(except: [])
     except = [except] unless except.is_a?(Array)
     except = except.map(&:to_s)

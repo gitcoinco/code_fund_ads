@@ -180,7 +180,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def set_campaign
-    return nil if request.bot?
+    return nil if bot?
     return nil unless property.active? || property.pending?
 
     campaign_relation = Campaign.active.available_on(Date.current)

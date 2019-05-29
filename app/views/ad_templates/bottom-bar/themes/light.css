@@ -1,5 +1,13 @@
 #cf {
   font-family: Helvetica, Arial;
+  font-size: 13px;
+}
+
+#cf a {
+  box-shadow: none !important;
+}
+
+#cf .cf-wrapper {
   box-sizing: border-box;
   position: fixed;
   bottom: 0;
@@ -10,12 +18,6 @@
   background-color: #eeeeee;
   text-align: center;
   line-height: 1.5;
-  max-height: 75px;
-  overflow: hidden;
-}
-
-#cf a {
-  box-shadow: none !important;
 }
 
 #cf .cf-text {
@@ -44,20 +46,4 @@
   content: "•";
   color: rgba(0, 0, 0, 0.3);
   display: inline-block;
-}
-
-@media (max-width: 812px) {
-  #cf {
-    font-size: 14px;
-    -webkit-text-size-adjust: 100%;
-  }
-  #cf .cf-powered-by {
-    display: none;
-  }
-}
-
-@media (min-width: 812px) {
-  #cf {
-    font-size: 13px;
-  }
 }
