@@ -42,10 +42,35 @@
   </div>
   <!-- End Description Section -->
 
-  <!-- Link to Next Post -->
-  <% if @next_post %>
-    <%= link_to @next_post.title, buttercms_post_path(@next_post.slug), :title => @next_post.title %>
-  <% end %>
+  <div class="bg-light">
+    <div class="container space-2 space-md-3">
+      <div class="w-lg-60 mx-auto">
+        <div class="card-deck d-block d-md-flex card-md-gutters-3">
+          <% if @previous_post %>
+            <div class="card border-0 mb-5 mb-md-0">
+              <%= link_to image_tag(@previous_post_image_url, class: "card-img-top"), buttercms_post_path(@previous_post.slug) %>
+              <div class="card-body p-5">
+                <h3 class="h6 mb-0">
+                  <%= link_to @previous_post.title, buttercms_post_path(@previous_post.slug) %>
+                </h3>
+              </div>
+            </div>
+          <% end %>
+          
+          <% if @next_post %>
+            <div class="card border-0 mb-5 mb-md-0">
+              <%= link_to image_tag(@next_post_image_url, class: "card-img-top"), buttercms_post_path(@next_post.slug) %>
+              <div class="card-body p-5">
+                <h3 class="h6 mb-0">
+                  <%= link_to @next_post.title, buttercms_post_path(@next_post.slug) %>
+                </h3>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </main>
 
 <script>

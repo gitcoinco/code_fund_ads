@@ -27,6 +27,15 @@ class Buttercms::PostsController < Buttercms::BaseController
     )
 
     @next_post = @post.meta.next_post
+    if @next_post
+      next_post_featured_image_slug = @next_post.featured_image.split("/").last
+      @next_post_image_url = "https://cdn.buttercms.com/resize=height:250,width:500,fit:scale/#{next_post_featured_image_slug}"
+    end
+    
     @previous_post = @post.meta.previous_post
+    if @previous_post
+      previous_post_featured_image_slug = @previous_post.featured_image.split("/").last
+      @previous_post_image_url = "https://cdn.buttercms.com/resize=height:250,width:500,fit:scale/#{previous_post_featured_image_slug}"
+    end
   end
 end
