@@ -15,6 +15,14 @@ module PropertiesHelper
     ENUMS::PROPERTY_STATUS_COLORS[status]
   end
 
+  def property_responsive_behaviors_for_select
+    [
+      ["Show ad using the configured template and theme", ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS::NONE],
+      ["Show ad using a sticky footer that can be closed by the user", ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS::FOOTER],
+      ["Do not show ads", ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS::HIDE],
+    ]
+  end
+
   def property_status_html(status)
     case ENUMS::PROPERTY_STATUSES[status]
     when "pending"     then tag.span(class: "fas fa-circle text-warning", title: "Pending",     data: tooltip_expando)
