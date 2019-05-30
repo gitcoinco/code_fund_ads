@@ -1,23 +1,22 @@
 #cf {
   font-family: Helvetica, Arial;
   font-size: 13px;
-}
-
-#cf a {
-  box-shadow: none !important;
-}
-
-#cf .cf-wrapper {
   box-sizing: border-box;
   position: fixed;
   bottom: 0;
-  z-index: 5;
-  padding: 0.8em 1em 1em;
+  left: 0;
+  z-index: 9999;
+  padding: 0.6em 2em 0.6em 2em;
   width: 100%;
+  max-height: 75px;
   border-top: solid 1px #bfbfbf;
   background-color: #eeeeee;
   text-align: center;
   line-height: 1.5;
+}
+
+#cf a {
+  box-shadow: none !important;
 }
 
 #cf .cf-text {
@@ -40,10 +39,23 @@
   text-decoration: none;
   color: #999;
   box-shadow: none;
+  white-space: nowrap;
 }
 
 #cf .cf-powered-by::before {
   content: "•";
   color: rgba(0, 0, 0, 0.3);
   display: inline-block;
+}
+
+#cf button[data-behavior='close'] {
+  color: #000;
+  background-color: #fff;
+  padding: 2px 6px 4px 6px;
+  border: solid 1px #bfbfbf;
+  border-radius: 3px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
 }

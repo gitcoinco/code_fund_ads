@@ -140,11 +140,11 @@ class Property < ApplicationRecord
   end
 
   def hide_on_responsive?
-    responsive_behavior == PROPERTY_RESPONSIVE_BEHAVIORS::HIDE
+    responsive_behavior == ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS::HIDE
   end
 
   def show_footer_on_responsive?
-    responsive_behavior == PROPERTY_RESPONSIVE_BEHAVIORS::FOOTER
+    responsive_behavior == ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS::FOOTER
   end
 
   def assigner_campaigns

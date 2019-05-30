@@ -152,7 +152,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def template_name
-    return "responsive_footer" if device_small? && property.show_footer_on_responsive?
+    return "@responsive_footer" if device_small? && property.show_footer_on_responsive?
     @campaign&.fallback? ? fallback_template_name : premium_template_name
   end
 
