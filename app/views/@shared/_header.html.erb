@@ -31,7 +31,7 @@
             <%= active_link_to "Home", root_path, active: :exact, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
             <%= active_link_to "Advertisers", advertisers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
             <%= active_link_to "Publishers", publishers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-            <li class="nav-item"><%= link_to "Blog", "https://blog.codefund.app", class: "nav-link u-header__nav-link", target: "_blank" %></li>
+            <%= active_link_to "Blog", buttercms_blog_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
 
             <% if current_user %>
               <li class="nav-item">

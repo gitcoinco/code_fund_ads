@@ -3,6 +3,7 @@ date_formats = {
   "yyyy_mm" => "%Y_%m",
   "abdy" => "%a, %b %-d, %Y",
   "bd" => "%b %-d",
+  "bdy" => "%b %-d, %Y",
 }
 
 Date::DATE_FORMATS.merge! date_formats

@@ -1,6 +1,7 @@
 class PublishersController < ApplicationController
   def index
     @applicant = Applicant.new(role: "publisher")
+    @testimonials = ButterCMS::Content.fetch([:publisher_testimonials])&.data&.publisher_testimonials || []
   end
 
   def create

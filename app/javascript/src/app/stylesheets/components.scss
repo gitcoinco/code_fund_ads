@@ -1,3 +1,4 @@
+@import './components/blog';
 @import './components/sparkline';
 @import './components/hubspot';
 @import './components/job_listing';
@@ -221,5 +222,5 @@ body:after {
   border-radius: 10px;
   color: white;
   padding: 2px 4px;
-  font-size: 10px
+  font-size: 10px;
 }
