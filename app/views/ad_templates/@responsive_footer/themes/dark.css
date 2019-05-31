@@ -7,7 +7,7 @@
   align-items: flex-start;
   max-height: 70px;
   padding: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(255, 255, 255, 0.7);
   position: fixed;
   z-index: 9999;
   bottom: 0;
@@ -31,16 +31,16 @@
 }
 
 #cf .cf-text {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.7);
 }
 
 #cf .cf-text strong {
-  color: #ffffff;
+  color: #000;
 }
 
 #cf button[data-behavior='close'] {
   flex: 1;
-  color: #ffffff;
+  color: #000;
   background-color: transparent;
   padding: 2px 6px 4px 6px;
   font-size: 1rem;
