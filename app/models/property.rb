@@ -23,6 +23,7 @@
 #  restrict_to_assigner_campaigns :boolean          default(FALSE), not null
 #  fallback_ad_template           :string
 #  fallback_ad_theme              :string
+#  responsive_behavior            :string           default("none"), not null
 #
 
 class Property < ApplicationRecord
@@ -50,6 +51,7 @@ class Property < ApplicationRecord
   validates :name, length: {maximum: 255, allow_blank: false}
   validates :property_type, inclusion: {in: ENUMS::PROPERTY_TYPES.values}
   validates :status, inclusion: {in: ENUMS::PROPERTY_STATUSES.values}
+  validates :responsive_behavior, inclusion: {in: ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS.values}
   validates :url, presence: true, url: true
 
   # callbacks .................................................................
@@ -135,6 +137,14 @@ class Property < ApplicationRecord
 
   def pending?
     status == ENUMS::PROPERTY_STATUSES::PENDING
+  end
+
+  def hide_on_responsive?
+    responsive_behavior == ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS::HIDE
+  end
+
+  def show_footer_on_responsive?
+    responsive_behavior == ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS::FOOTER
   end
 
   def assigner_campaigns

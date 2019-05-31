@@ -108,6 +108,7 @@ class PropertiesController < ApplicationController
       :name,
       :prohibit_fallback_campaigns,
       :property_type,
+      :responsive_behavior,
       :screenshot,
       :url,
       keywords: [],

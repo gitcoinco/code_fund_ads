@@ -23,6 +23,7 @@
 #  restrict_to_assigner_campaigns :boolean          default(FALSE), not null
 #  fallback_ad_template           :string
 #  fallback_ad_theme              :string
+#  responsive_behavior            :string           default("none"), not null
 #
 
 # IMPORTANT: Limit properties fixtures to [1] per [type] using only the minimum required data

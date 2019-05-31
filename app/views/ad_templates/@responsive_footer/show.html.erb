@@ -1,0 +1,15 @@
+<% cache_if @campaign.persisted?, @campaign do %>
+  <div id="cf">
+    <a data-href="campaign_url" class="cf-img-wrapper" target="_blank" rel="nofollow noopener">
+      <%= image_tag @campaign.creative.small_image.cloudfront_url, border: 0, height: 55, width: 55, class: "cf-img" rescue nil %>
+    </a>
+    <a data-href="campaign_url" class="cf-text" target="_blank" rel="nofollow noopener">
+      <strong><%= @campaign.creative.headline %></strong>
+      <span><%= @campaign.creative.body %></span>
+      <img data-src="impression_url">
+    </a>
+    <button type="button" data-behavior="close">
+      <span aria-hidden="true">✕</span>
+    </button>
+  </div>
+<% end %>

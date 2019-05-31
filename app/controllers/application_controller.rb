@@ -16,6 +16,14 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def device
+    @device ||= DeviceDetector.new(request.headers["User-Agent"])
+  end
+
+  def device_small?
+    device.device_type == "smartphone"
+  end
+
   def clear_searches(except: [])
     except = [except] unless except.is_a?(Array)
     except = except.map(&:to_s)

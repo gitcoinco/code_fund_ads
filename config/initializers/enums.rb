@@ -23,6 +23,7 @@ enums = HashWithIndifferentAccess.new(hash)
 #   ENUMS::AD_THEMES::LIGHT
 #
 enums[:ad_templates] = Dir.children(Rails.root.join("app/views/ad_templates")).sort
+enums[:ad_templates].delete "@responsive_footer"
 enums[:ad_themes] = Dir.glob(Rails.root.join("app/views/ad_templates/**/themes/*.css")).map { |path|
   File.basename(path).sub(".css", "")
 }.uniq.sort

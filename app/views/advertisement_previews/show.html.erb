@@ -2,8 +2,8 @@
 <head>
   <style>
   h1, h2, p { font-family: system-ui; margin: 10px; }
-  iframe { border: none; margin: 0px; height: 450px; width: 600px; }
-  .ad { border: solid 1px black; margin: 20px; padding: 0; float: left; }
+  iframe { border: none; margin: 0px; height: 450px; width: 100%; }
+  .ad { border: solid 1px black; margin: 0 0 10px 0; padding: 0; }
   .ad.light { background: #dcdcdc; }
   .ad.dark { background: #1d1d1d; }
   .ad.dark h2 { color: #fff; }
@@ -42,6 +42,7 @@
       <% else %>
         <div class="ad <%= theme_name %>">
           <h2><%= @num %>. <%= template_name %> + <%= theme_name %></h2>
+          <%= link_to "View this ad on its own page", advertisement_preview_iframe_path(@campaign, template: template_name, theme: theme_name) %>
           <%= tag.iframe src: advertisement_preview_iframe_path(@campaign, template: template_name, theme: theme_name) %>
         </div>
       <% end %>

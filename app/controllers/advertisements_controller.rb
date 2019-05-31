@@ -152,6 +152,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def template_name
+    return "@responsive_footer" if device_small? && property.show_footer_on_responsive?
     @campaign&.fallback? ? fallback_template_name : premium_template_name
   end
 
@@ -180,8 +181,9 @@ class AdvertisementsController < ApplicationController
   end
 
   def set_campaign
-    return nil if request.bot?
+    return nil if device.bot?
     return nil unless property.active? || property.pending?
+    return nil if device_small? && property.hide_on_responsive?
 
     campaign_relation = Campaign.active.available_on(Date.current)
     campaign_relation = campaign_relation.where(weekdays_only: false) if Date.current.on_weekend?
