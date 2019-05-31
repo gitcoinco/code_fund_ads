@@ -3,10 +3,10 @@
   font-size: 15px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   max-height: 70px;
-  padding: 10px 10px 18px 10px;
+  padding: 10px;
   background-color: rgba(0, 0, 0, 0.7);
   position: fixed;
   z-index: 9999;
@@ -22,7 +22,7 @@
 
 #cf .cf-img-wrapper {
   margin-right: 10px;
-  flex: 0 0 60px;
+  line-height: 0px;
 }
 
 #cf .cf-img-wrapper img {
