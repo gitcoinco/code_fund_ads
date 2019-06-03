@@ -235,15 +235,7 @@ class AdvertisementsController < ApplicationController
 
     campaigns = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0)).to_a
     campaigns.select!(&:hourly_budget_available?)
-
-    return nil if campaigns.empty?
-
-    weights = campaigns.map { |campaign|
-      ecpm_score = campaign.ecpm.to_f + ENV.fetch("CAMPAIGN_SELECTION_ECPM_SUPPLEMENTAL_WEIGHT", 1).to_f
-      budget_score = campaign.daily_remaining_budget_percentage
-      ecpm_score + budget_score
-    }
-    WalkerMethod.new(campaigns, weights).random || campaigns.sample
+    campaigns.sample
   end
 
   def render_advertisement
