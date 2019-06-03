@@ -238,17 +238,11 @@ class AdvertisementsController < ApplicationController
 
     return nil if campaigns.empty?
 
-    ecpm_denominator = campaigns.sum(&:ecpm_cents).to_f
-    ecpm_denominator = 0.001 if ecpm_denominator.to_f.zero?
-    budget_denominator = campaigns.sum(&:daily_remaining_budget_percentage).to_f
-    budget_denominator = 0.001 if budget_denominator.to_f.zero?
-
     weights = campaigns.map { |campaign|
-      ecpm_score = (campaign.ecpm_cents / ecpm_denominator).round(2) + ENV.fetch("CAMPAIGN_SELECTION_ECPM_SUPPLEMENTAL_WEIGHT", 1).to_f
-      budget_score = (campaign.daily_remaining_budget_percentage / budget_denominator).round(2)
-      ecpm_score + budget_score.to_f
+      ecpm_score = campaign.ecpm.to_f + ENV.fetch("CAMPAIGN_SELECTION_ECPM_SUPPLEMENTAL_WEIGHT", 1).to_f
+      budget_score = campaign.daily_remaining_budget_percentage
+      ecpm_score + budget_score
     }
-
     WalkerMethod.new(campaigns, weights).random || campaigns.sample
   end
 
