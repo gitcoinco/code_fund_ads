@@ -76,7 +76,8 @@ class Impression < ApplicationRecord
 
   # class methods .............................................................
   class << self
-    def partitioned_table_names
+    # Returns the names of all tables attached as a partition of the impressions table
+    def attached_table_names
       result = connection.execute <<~SQL
         SELECT child.relname child
         FROM pg_inherits
@@ -88,49 +89,52 @@ class Impression < ApplicationRecord
       result.values.flatten
     end
 
-    def detached_partitioned_table_names
-      result = connection.execute <<~SQL
-        SELECT table_name
-        FROM information_schema.tables
-        WHERE table_name ~ 'impressions_'
-        ORDER BY table_name
-      SQL
-      table_names = result.values.flatten
-      table_names - partitioned_table_names
-    end
-
-    def old_partitioned_table_names(months_retained: 3)
-      partitioned_table_names.select do |partitioned_table_name|
-        _, year, month, _, _ = partitioned_table_name.split("_")
+    # Returns the names of all tables attached as a partition of the impressions table
+    # that are old enough to be detached
+    def old_attached_table_names(months_retained: 3)
+      attached_table_names.select do |attached_table_name|
+        _, year, month, _, _ = attached_table_name.split("_")
         next unless year && month
         year.to_i < Date.current.year || (year.to_i == Date.current.year && month.to_i < Date.current.month - months_retained)
       end
     end
 
-    def attach_partitioned_tables(*detached_partitioned_table_names)
-      detached_partitioned_table_names.each do |detached_partitioned_table_name|
-        _, year, month, _, advertiser_id = detached_partitioned_table_name.split("_")
+    # Returns the names of all tables detached and not acting as a partition of the impressions table
+    def detached_table_names
+      result = connection.execute <<~SQL
+        SELECT table_name
+        FROM information_schema.tables
+        WHERE table_name ~ '^impressions_.*_advertiser_'
+        ORDER BY table_name
+      SQL
+      table_names = result.values.flatten
+      table_names - attached_table_names
+    end
+
+    def attach_tables(*detached_table_names)
+      detached_table_names.each do |detached_table_name|
+        _, year, month, _, advertiser_id = detached_table_name.split("_")
         displayed_at_date = Date.new(year.to_i, month.to_i)
         range_start = displayed_at_date.beginning_of_month
         range_end = range_start.end_of_month
         connection.execute <<~SQL
           ALTER TABLE impressions
-          ATTACH PARTITION #{connection.quote_table_name detached_partitioned_table_name}
+          ATTACH PARTITION #{connection.quote_table_name detached_table_name}
           FOR VALUES FROM (#{advertiser_id}, '#{range_start.iso8601}') TO (#{advertiser_id}, '#{range_end.iso8601}');
         SQL
       end
     end
 
-    def detach_partitioned_tables(*partitioned_table_names)
-      partitioned_table_names.each do |partitioned_table_name|
+    def detach_tables(*attached_table_names)
+      attached_table_names.each do |partitioned_table_name|
         connection.execute <<~SQL
           ALTER TABLE impressions DETACH PARTITION #{connection.quote_table_name partitioned_table_name};
         SQL
       end
     end
 
-    def detach_old_partitioned_tables(months_retained: 3)
-      detach_partitioned_tables(*old_partitioned_table_names(months_retained: months_retained))
+    def detach_old_tables(months_retained: 3)
+      detach_tables(*old_attached_table_names(months_retained: months_retained))
     end
   end
 
