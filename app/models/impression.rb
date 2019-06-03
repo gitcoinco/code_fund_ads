@@ -111,6 +111,7 @@ class Impression < ApplicationRecord
       table_names - attached_table_names
     end
 
+    # Attaches the list of table names as a parition of the impressions table
     def attach_tables(*detached_table_names)
       detached_table_names.each do |detached_table_name|
         _, year, month, _, advertiser_id = detached_table_name.split("_")
@@ -125,6 +126,7 @@ class Impression < ApplicationRecord
       end
     end
 
+    # Detaches the list of table names as a parition of the impressions table
     def detach_tables(*attached_table_names)
       attached_table_names.each do |partitioned_table_name|
         connection.execute <<~SQL
@@ -133,6 +135,7 @@ class Impression < ApplicationRecord
       end
     end
 
+    # Detaches old partitions of the impressions table
     def detach_old_tables(months_retained: 3)
       detach_tables(*old_attached_table_names(months_retained: months_retained))
     end
