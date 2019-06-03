@@ -318,7 +318,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     campaign_url = advertisement_clicks_url(controller.instance_variable_get(:@virtual_impression_id), campaign_id: fallback_campaign.id)
     set_campaign_url = <<~TEST
-      targetElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '#{campaign_url}'; });
+      codeFundElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '#{campaign_url}'; });
     TEST
     assert response.status == 200
     assert response.body.include?(set_campaign_url.strip)

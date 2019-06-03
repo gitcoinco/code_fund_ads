@@ -40,24 +40,42 @@
       xhr.send();
     }
 
-    function closeCodefundAd() {
-      var targetElement = document.getElementById('codefund') || document.getElementById('<%= @target %>');
-      targetElement.remove();
+    function elementVisible(element) {
+      if (!element) { return false; }
+
+      while (element) {
+        var style = getComputedStyle(element);
+        if (style.visibility === 'hidden' || style.display === 'none') { return false; }
+        element = element.parentElement;
+      }
+
+      return true;
+    }
+
+    function closeCodeFund() {
+      var codeFundElement = document.getElementById('codefund') || document.getElementById('<%= @target %>');
+      codeFundElement.remove();
       sessionStorage.setItem('codefund', 'closed');
     }
 
     try {
       if (sessionStorage.getItem('codefund') === 'closed') { return; }
-      var targetElement = document.getElementById('codefund') || document.getElementById('<%= @target %>');
-      targetElement.innerHTML = '<%= @advertisement_html.html_safe %>';
-      targetElement.querySelector('img[data-src="impression_url"]').src = '<%= @impression_url.html_safe %>';
-      targetElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '<%= @campaign_url.html_safe %>'; });
 
-      var poweredByElement = targetElement.querySelector('a[data-target="powered_by_url"]');
+      var codeFundElement = document.getElementById('codefund') || document.getElementById('<%= @target %>');
+      if (!elementVisible(codeFundElement)) {
+        console.log('CodeFund element not visible! Please verify an element exists with id="codefund" and that it is visible.');
+        return;
+      }
+
+      codeFundElement.innerHTML = '<%= @advertisement_html.html_safe %>';
+      codeFundElement.querySelector('img[data-src="impression_url"]').src = '<%= @impression_url.html_safe %>';
+      codeFundElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '<%= @campaign_url.html_safe %>'; });
+
+      var poweredByElement = codeFundElement.querySelector('a[data-target="powered_by_url"]');
       if (poweredByElement) { poweredByElement.href = '<%= @powered_by_url.html_safe %>'; }
 
-      var closeElement = targetElement.querySelector('button[data-behavior="close"]');
-      if (closeElement) { closeElement.addEventListener('click', closeCodefundAd); }
+      var closeElement = codeFundElement.querySelector('button[data-behavior="close"]');
+      if (closeElement) { closeElement.addEventListener('click', closeCodeFund); }
 
       evt.detail = { status: 'ok', house: <%= @campaign.fallback? %> };
       detectUplift(1);
