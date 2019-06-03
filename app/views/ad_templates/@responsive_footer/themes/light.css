@@ -5,7 +5,7 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-start;
-  max-height: 70px;
+  max-height: 75px;
   padding: 10px;
   background-color: rgba(0, 0, 0, 0.8);
   position: fixed;
