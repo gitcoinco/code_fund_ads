@@ -5,7 +5,7 @@
     <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "js-validate w-md-75 w-lg-50 mx-md-auto" }) do |f| %>
       <%= hidden_field_tag :job, params[:job] if params[:job] %>
       <%= hidden_field_tag :remember_me, true if devise_mapping.rememberable? %>
-      
+
       <!-- Title -->
       <div class="mb-7">
         <h2 class="h3 font-weight-normal mb-0">Welcome <span class="font-weight-semi-bold text-success">back</span></h2>
@@ -66,19 +66,30 @@
         <span class="u-divider u-divider--xs u-divider--text">or</span>
       </div>
 
-      <%= link_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
-        <%= image_tag "logos/google-logo.svg", style: "position: absolute; left: 18px; top: 14px;" %>
-        Log in with Google
-      <% end %>
+      <div class="text-center mb-3 mt-3">
+        We removed OmniAuth.
+        If you previously used Google, GitHub or LinkedIn to authenticate, you'll need to <%= link_to "reset your password", new_password_path(resource_name) %>.
+      </div>
 
-      <%= link_to user_github_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
-        <%= image_tag "logos/GitHub-Mark-64px.png", style: "position: absolute; left: 18px; top: 14px; width: 18px;" %>
-        Log in with GitHub
-      <% end %>
+      <% if false %>
+        <div class="text-center mb-3 mt-3">
+          <span class="u-divider u-divider--xs u-divider--text">or</span>
+        </div>
 
-      <%= link_to user_linkedin_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
-        <%= image_tag "logos/In-2C-66px-TM.png", style: "position: absolute; left: 18px; top: 14px; width: 22px;" %>
-        Log in with LinkedIn
+        <%= link_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
+          <%= image_tag "logos/google-logo.svg", style: "position: absolute; left: 18px; top: 14px;" %>
+          Log in with Google
+        <% end %>
+
+        <%= link_to user_github_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
+          <%= image_tag "logos/GitHub-Mark-64px.png", style: "position: absolute; left: 18px; top: 14px; width: 18px;" %>
+          Log in with GitHub
+        <% end %>
+
+        <%= link_to user_linkedin_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
+          <%= image_tag "logos/In-2C-66px-TM.png", style: "position: absolute; left: 18px; top: 14px; width: 22px;" %>
+          Log in with LinkedIn
+        <% end %>
       <% end %>
     <% end %>
   </div>
