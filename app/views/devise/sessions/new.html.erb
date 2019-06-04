@@ -62,6 +62,15 @@
       <!-- Button -->
       <button type="submit" class="btn btn-primary btn-block transition-3d-hover" tabindex="4">Log in</button>
 
+      <div class="text-center mb-3 mt-3">
+        <span class="u-divider u-divider--xs u-divider--text">or</span>
+      </div>
+
+      <div class="text-center mb-3 mt-3">
+        We removed OmniAuth.
+        If you previously used Google, GitHub or LinkedIn to authenticate, you'll need to <%= link_to "reset your password", new_password_path(resource_name) %>.
+      </div>
+
       <% if false %>
         <div class="text-center mb-3 mt-3">
           <span class="u-divider u-divider--xs u-divider--text">or</span>
