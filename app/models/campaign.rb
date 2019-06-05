@@ -2,36 +2,37 @@
 #
 # Table name: campaigns
 #
-#  id                     :bigint           not null, primary key
-#  user_id                :bigint
-#  creative_id            :bigint
-#  status                 :string           not null
-#  fallback               :boolean          default(FALSE), not null
-#  name                   :string           not null
-#  url                    :text             not null
-#  start_date             :date
-#  end_date               :date
-#  core_hours_only        :boolean          default(FALSE)
-#  weekdays_only          :boolean          default(FALSE)
-#  total_budget_cents     :integer          default(0), not null
-#  total_budget_currency  :string           default("USD"), not null
-#  daily_budget_cents     :integer          default(0), not null
-#  daily_budget_currency  :string           default("USD"), not null
-#  ecpm_cents             :integer          default(0), not null
-#  ecpm_currency          :string           default("USD"), not null
-#  country_codes          :string           default([]), is an Array
-#  keywords               :string           default([]), is an Array
-#  negative_keywords      :string           default([]), is an Array
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  legacy_id              :uuid
-#  organization_id        :bigint
-#  job_posting            :boolean          default(FALSE), not null
-#  province_codes         :string           default([]), is an Array
-#  fixed_ecpm             :boolean          default(TRUE), not null
-#  assigned_property_ids  :bigint           default([]), not null, is an Array
-#  hourly_budget_cents    :integer          default(0), not null
-#  hourly_budget_currency :string           default("USD"), not null
+#  id                      :bigint           not null, primary key
+#  user_id                 :bigint
+#  creative_id             :bigint
+#  status                  :string           not null
+#  fallback                :boolean          default(FALSE), not null
+#  name                    :string           not null
+#  url                     :text             not null
+#  start_date              :date
+#  end_date                :date
+#  core_hours_only         :boolean          default(FALSE)
+#  weekdays_only           :boolean          default(FALSE)
+#  total_budget_cents      :integer          default(0), not null
+#  total_budget_currency   :string           default("USD"), not null
+#  daily_budget_cents      :integer          default(0), not null
+#  daily_budget_currency   :string           default("USD"), not null
+#  ecpm_cents              :integer          default(0), not null
+#  ecpm_currency           :string           default("USD"), not null
+#  country_codes           :string           default([]), is an Array
+#  keywords                :string           default([]), is an Array
+#  negative_keywords       :string           default([]), is an Array
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  legacy_id               :uuid
+#  organization_id         :bigint
+#  job_posting             :boolean          default(FALSE), not null
+#  province_codes          :string           default([]), is an Array
+#  fixed_ecpm              :boolean          default(TRUE), not null
+#  assigned_property_ids   :bigint           default([]), not null, is an Array
+#  hourly_budget_cents     :integer          default(0), not null
+#  hourly_budget_currency  :string           default("USD"), not null
+#  prohibited_property_ids :bigint           default([]), not null, is an Array
 #
 
 class Campaign < ApplicationRecord
@@ -91,8 +92,10 @@ class Campaign < ApplicationRecord
   scope :fallback_with_assigned_property_id, ->(property_id) { fallback.with_assigned_property_id property_id }
   scope :permitted_for_property_id, ->(property_id) {
     subquery = Property.select(:prohibited_advertiser_ids).where(id: property_id)
-    id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"user_id\"]"), subquery.arel)
-    where.not id_prohibited
+    user_id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"user_id\"]"), subquery.arel)
+    property_id_array = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["ARRAY[?::bigint]", property_id]))
+    campaign_id_prohibited = Arel::Nodes::InfixOperation.new("@>", arel_table[:prohibited_property_ids], property_id_array)
+    where.not(user_id_prohibited).where.not(campaign_id_prohibited)
   }
   scope :targeted_premium_for_property, ->(property, *keywords) { targeted_premium_for_property_id property.id }
   scope :targeted_premium_for_property_id, ->(property_id, *keywords) { premium.targeted_for_property_id(property_id, *keywords) }
@@ -208,6 +211,11 @@ class Campaign < ApplicationRecord
   def assigned_properties
     return Property.none if assigned_property_ids.blank?
     Property.where id: assigned_property_ids
+  end
+
+  def prohibited_properties
+    return Property.none if prohibited_property_ids.blank?
+    Property.where id: prohibited_property_ids
   end
 
   def adjusted_ecpm(country_code)

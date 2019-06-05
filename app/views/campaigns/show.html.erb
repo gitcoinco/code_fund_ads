@@ -27,6 +27,11 @@
             <span class="btn btn-xs btn-soft-dark mb-1"><%= property_name %></span>
           <% end -%>
         <% end if @campaign.assigned_property_ids.present? %>
+        <%= details_li("Prohibited Properties") do %>
+          <% @campaign.prohibited_properties.pluck(:name).sort.each do |property_name| -%>
+            <span class="btn btn-xs btn-soft-dark mb-1"><%= property_name %></span>
+          <% end -%>
+        <% end if @campaign.prohibited_properties.present? %>
         <% if @campaign.fallback? %>
           <%= details_li("Fallback Campaign?") { "Yes" } %>
         <% else %>

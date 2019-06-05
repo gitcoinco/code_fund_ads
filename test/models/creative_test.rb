@@ -12,6 +12,7 @@
 #  legacy_id       :uuid
 #  organization_id :bigint
 #  cta             :string
+#  status          :string           default("pending")
 #
 
 require "test_helper"

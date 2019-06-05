@@ -214,7 +214,8 @@ CREATE TABLE public.campaigns (
     fixed_ecpm boolean DEFAULT true NOT NULL,
     assigned_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
     hourly_budget_cents integer DEFAULT 0 NOT NULL,
-    hourly_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL
+    hourly_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    prohibited_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
 );
 
 
@@ -1580,6 +1581,13 @@ CREATE INDEX index_campaigns_on_organization_id ON public.campaigns USING btree 
 
 
 --
+-- Name: index_campaigns_on_prohibited_property_ids; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_prohibited_property_ids ON public.campaigns USING gin (prohibited_property_ids);
+
+
+--
 -- Name: index_campaigns_on_province_codes; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2278,6 +2286,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190515193529'),
 ('20190522214219'),
 ('20190529215606'),
-('20190605172711');
+('20190605172711'),
+('20190605185105');
 
 

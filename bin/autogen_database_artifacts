@@ -1,0 +1,2 @@
+#!/bin/sh
+PG_DATABASE_NAME=codefund_development_alt bundle exec rails db:drop db:create db:migrate db:schema:dump; annotate
