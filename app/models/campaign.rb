@@ -91,8 +91,10 @@ class Campaign < ApplicationRecord
   scope :fallback_with_assigned_property_id, ->(property_id) { fallback.with_assigned_property_id property_id }
   scope :permitted_for_property_id, ->(property_id) {
     subquery = Property.select(:prohibited_advertiser_ids).where(id: property_id)
-    id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"user_id\"]"), subquery.arel)
-    where.not id_prohibited
+    user_id_prohibited = Arel::Nodes::InfixOperation.new("<@", Arel::Nodes::SqlLiteral.new("ARRAY[\"campaigns\".\"user_id\"]"), subquery.arel)
+    property_id_array = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["ARRAY[?::bigint]", property_id]))
+    campaign_id_prohibited = Arel::Nodes::InfixOperation.new("@>", arel_table[:prohibited_property_ids], property_id_array)
+    where.not(user_id_prohibited).where.not(campaign_id_prohibited)
   }
   scope :targeted_premium_for_property, ->(property, *keywords) { targeted_premium_for_property_id property.id }
   scope :targeted_premium_for_property_id, ->(property_id, *keywords) { premium.targeted_for_property_id(property_id, *keywords) }
@@ -208,6 +210,11 @@ class Campaign < ApplicationRecord
   def assigned_properties
     return Property.none if assigned_property_ids.blank?
     Property.where id: assigned_property_ids
+  end
+
+  def prohibited_properties
+    return Property.none if prohibited_property_ids.blank?
+    Property.where id: prohibited_property_ids
   end
 
   def adjusted_ecpm(country_code)

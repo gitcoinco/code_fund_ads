@@ -107,6 +107,14 @@
             <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
           </div>
         </div>
+        <div class="col-12 mb-3" data-controller="select-multiple">
+          <%= f.input :prohibited_property_ids, collection: properties_for_select,
+            label: "Prohibited Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> deprioritized after assigned properties</small>".html_safe,
+            input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
+          <div class="d-block">
+            <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
+          </div>
+        </div>
       <% end %>
       <div class="col-12 mb-3" data-controller="select-multiple">
         <%= f.input :keywords, collection: keywords_for_select, label: "Targeted Keywords",

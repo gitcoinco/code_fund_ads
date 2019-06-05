@@ -214,7 +214,8 @@ CREATE TABLE public.campaigns (
     fixed_ecpm boolean DEFAULT true NOT NULL,
     assigned_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
     hourly_budget_cents integer DEFAULT 0 NOT NULL,
-    hourly_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL
+    hourly_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    prohibited_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
 );
 
 
@@ -2276,6 +2277,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190513200542'),
 ('20190515193529'),
 ('20190522214219'),
-('20190529215606');
+('20190529215606'),
+('20190605185105');
 
 

@@ -124,6 +124,7 @@ class CampaignsController < ApplicationController
       :user_id,
       :weekdays_only,
       assigned_property_ids: [],
+      prohibited_property_ids: [],
       country_codes: [],
       keywords: [],
       negative_keywords: [],
