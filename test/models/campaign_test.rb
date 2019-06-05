@@ -2,36 +2,37 @@
 #
 # Table name: campaigns
 #
-#  id                     :bigint           not null, primary key
-#  user_id                :bigint
-#  creative_id            :bigint
-#  status                 :string           not null
-#  fallback               :boolean          default(FALSE), not null
-#  name                   :string           not null
-#  url                    :text             not null
-#  start_date             :date
-#  end_date               :date
-#  core_hours_only        :boolean          default(FALSE)
-#  weekdays_only          :boolean          default(FALSE)
-#  total_budget_cents     :integer          default(0), not null
-#  total_budget_currency  :string           default("USD"), not null
-#  daily_budget_cents     :integer          default(0), not null
-#  daily_budget_currency  :string           default("USD"), not null
-#  ecpm_cents             :integer          default(0), not null
-#  ecpm_currency          :string           default("USD"), not null
-#  country_codes          :string           default([]), is an Array
-#  keywords               :string           default([]), is an Array
-#  negative_keywords      :string           default([]), is an Array
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
-#  legacy_id              :uuid
-#  organization_id        :bigint
-#  job_posting            :boolean          default(FALSE), not null
-#  province_codes         :string           default([]), is an Array
-#  fixed_ecpm             :boolean          default(TRUE), not null
-#  assigned_property_ids  :bigint           default([]), not null, is an Array
-#  hourly_budget_cents    :integer          default(0), not null
-#  hourly_budget_currency :string           default("USD"), not null
+#  id                      :bigint           not null, primary key
+#  user_id                 :bigint
+#  creative_id             :bigint
+#  status                  :string           not null
+#  fallback                :boolean          default(FALSE), not null
+#  name                    :string           not null
+#  url                     :text             not null
+#  start_date              :date
+#  end_date                :date
+#  core_hours_only         :boolean          default(FALSE)
+#  weekdays_only           :boolean          default(FALSE)
+#  total_budget_cents      :integer          default(0), not null
+#  total_budget_currency   :string           default("USD"), not null
+#  daily_budget_cents      :integer          default(0), not null
+#  daily_budget_currency   :string           default("USD"), not null
+#  ecpm_cents              :integer          default(0), not null
+#  ecpm_currency           :string           default("USD"), not null
+#  country_codes           :string           default([]), is an Array
+#  keywords                :string           default([]), is an Array
+#  negative_keywords       :string           default([]), is an Array
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  legacy_id               :uuid
+#  organization_id         :bigint
+#  job_posting             :boolean          default(FALSE), not null
+#  province_codes          :string           default([]), is an Array
+#  fixed_ecpm              :boolean          default(TRUE), not null
+#  assigned_property_ids   :bigint           default([]), not null, is an Array
+#  hourly_budget_cents     :integer          default(0), not null
+#  hourly_budget_currency  :string           default("USD"), not null
+#  prohibited_property_ids :bigint           default([]), not null, is an Array
 #
 
 require "test_helper"
