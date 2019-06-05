@@ -160,6 +160,7 @@ ActiveRecord::Schema.define(version: 2019_06_05_185105) do
     t.uuid "legacy_id"
     t.bigint "organization_id"
     t.string "cta"
+    t.string "status", default: "pending"
     t.index ["organization_id"], name: "index_creatives_on_organization_id"
     t.index ["user_id"], name: "index_creatives_on_user_id"
   end

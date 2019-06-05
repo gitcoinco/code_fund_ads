@@ -4,5 +4,10 @@ module Authorizers
       return true if can_admin_system?
       user == imageable
     end
+
+    def can_upload_imageables?
+      return true if can_admin_system? || can_advertise?
+      false
+    end
   end
 end

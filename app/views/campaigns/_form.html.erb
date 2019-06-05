@@ -44,13 +44,13 @@
 
   <hr class="mt-3 mb-4" />
 
-  <%= render "/@shared/forms/section_heading", title: "Creative", subtitle: "Pick which creative you would like to use" %>
+  <%= render "/@shared/forms/section_heading", title: "Creative", subtitle: "Pick which creative you would like to use (only approved creatives are available)" %>
 
   <div class="row" data-target="campaign-form.creativesWrapper">
     <%= render partial: "/creative_options/options",
         locals: {
           selected_creative_id: campaign.creative_id,
-          creatives: campaign.user.creatives.order(name: :asc)
+          creatives: campaign.user.creatives.active.order(name: :asc)
         } %>
   </div>
 

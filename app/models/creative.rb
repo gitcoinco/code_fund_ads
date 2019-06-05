@@ -12,6 +12,7 @@
 #  legacy_id       :uuid
 #  organization_id :bigint
 #  cta             :string
+#  status          :string           default("pending")
 #
 
 class Creative < ApplicationRecord
@@ -33,11 +34,13 @@ class Creative < ApplicationRecord
   validates :headline, length: {maximum: 255, allow_blank: false}
   validates :cta, length: {maximum: 20, allow_blank: false}
   validates :name, length: {maximum: 255, allow_blank: false}
+  validates :status, inclusion: {in: ENUMS::CREATIVE_STATUSES.values}
 
   # callbacks .................................................................
   after_commit :touch_campaigns, on: [:update]
 
   # scopes ....................................................................
+  scope :active, -> { where(status: ENUMS::CREATIVE_STATUSES::ACTIVE) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
   scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertisers.search_name(value).or(User.advertisers.search_company(value))) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
@@ -50,6 +53,14 @@ class Creative < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def pending?
+    status == ENUMS::CREATIVE_STATUSES::PENDING
+  end
+
+  def locked?
+    !pending?
+  end
 
   def images
     user.images.where(id: creative_images.select(:active_storage_attachment_id))
