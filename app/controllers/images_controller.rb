@@ -1,6 +1,5 @@
 class ImagesController < ApplicationController
   before_action :authenticate_user!
-  before_action :authenticate_administrator!, except: [:index, :show]
   before_action :set_imageable
   before_action :set_image_search, only: [:index]
 
