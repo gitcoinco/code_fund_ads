@@ -1580,6 +1580,13 @@ CREATE INDEX index_campaigns_on_organization_id ON public.campaigns USING btree 
 
 
 --
+-- Name: index_campaigns_on_prohibited_property_ids; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_prohibited_property_ids ON public.campaigns USING gin (prohibited_property_ids);
+
+
+--
 -- Name: index_campaigns_on_province_codes; Type: INDEX; Schema: public; Owner: -
 --
 
