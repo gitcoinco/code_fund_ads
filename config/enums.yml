@@ -109,6 +109,11 @@ CAMPAIGN_STATUS_COLORS:
 COUPON_TYPES:
   - percentage
 
+CREATIVE_STATUSES:
+  - pending
+  - active
+  - archived
+
 PROPERTY_TYPES:
   - website
   - repository

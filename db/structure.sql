@@ -359,7 +359,8 @@ CREATE TABLE public.creatives (
     updated_at timestamp without time zone NOT NULL,
     legacy_id uuid,
     organization_id bigint,
-    cta character varying
+    cta character varying,
+    status character varying DEFAULT 'pending'::character varying
 );
 
 
@@ -2276,6 +2277,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190513200542'),
 ('20190515193529'),
 ('20190522214219'),
-('20190529215606');
+('20190529215606'),
+('20190605172711');
 
 

@@ -11,6 +11,7 @@ class AuthorizedUser < Perm::Authorized
   #   can_view_imageable?
   #
   include Authorizers::Campaign
+  include Authorizers::Creative
   include Authorizers::Image
   include Authorizers::Imageable
   include Authorizers::JobPosting

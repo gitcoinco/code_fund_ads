@@ -1,8 +1,9 @@
 class CreativesController < ApplicationController
   before_action :authenticate_user!
-  before_action :authenticate_administrator!, except: [:index, :show]
   before_action :set_creative_search, only: [:index]
   before_action :set_creative, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_creative_create_rights!, only: [:new, :create]
+  before_action :authenticate_creative_update_rights!, only: [:edit, :update]
 
   def index
     creatives = current_user.creatives.order(:name).includes(:user)
@@ -74,10 +75,20 @@ class CreativesController < ApplicationController
   end
 
   def creative_params
-    params.require(:creative).permit(:name, :headline, :body, :cta)
+    params.require(:creative).permit(:name, :headline, :body, :cta).tap do |whitelisted|
+      whitelisted[:status] = params[:creative][:status] if authorized_user.can_admin_system?
+    end
   end
 
   def creative_image_params
     params.require(:creative).permit(:icon_blob_id, :small_blob_id, :large_blob_id, :wide_blob_id)
+  end
+
+  def authenticate_creative_create_rights!
+    return render_forbidden unless authorized_user.can_create_creative?
+  end
+
+  def authenticate_creative_update_rights!
+    return render_forbidden unless authorized_user.can_edit_creative?(@creative)
   end
 end
