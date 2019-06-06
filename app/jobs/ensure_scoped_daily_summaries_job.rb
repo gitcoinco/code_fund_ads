@@ -7,7 +7,7 @@ class EnsureScopedDailySummariesJob < ApplicationJob
 
     Campaign.in_batches.each do |campaigns|
       campaigns.each do |campaign|
-        next unless Impression.between(start_date..end_date).where(campaign: campaign).exists?
+        next unless Impression.between(start_date, end_date).where(campaign: campaign).exists?
         Property.in_batches.each do |properties|
           properties.each do |property|
             next unless Impression.between(start_date..end_date).where(campaign: campaign, property: property).exists?
@@ -19,7 +19,7 @@ class EnsureScopedDailySummariesJob < ApplicationJob
 
     Property.in_batches.each do |properties|
       properties.each do |property|
-        next unless Impression.between(start_date..end_date).where(property: property).exists?
+        next unless Impression.between(start_date, end_date).where(property: property).exists?
         Campaign.in_batches.each do |campaigns|
           campaigns.each do |campaign|
             next unless Impression.between(start_date..end_date).where(property: property, campaign: campaign).exists?
