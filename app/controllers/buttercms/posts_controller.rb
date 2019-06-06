@@ -8,12 +8,16 @@ class Buttercms::PostsController < Buttercms::BaseController
 
   def show
     @post = ButterCMS::Post.find(params[:slug])
-    featured_image_slug = @post.featured_image.split("/").last
-    transformations = [
-      "resize=width:800",
-    ]
+
+    @featured_image_url = begin
+      featured_image_slug = @post.featured_image.split("/").last
+      transformations = ["resize=width:800"]
+      "https://cdn.buttercms.com/#{transformations.join("/")}/#{featured_image_slug}"
+                          rescue
+                            nil
+    end
+
     @body = @post.body
-    @featured_image_url = "https://cdn.buttercms.com/#{transformations.join("/")}/#{featured_image_slug}"
 
     set_meta_tags(
       title: @post.title,

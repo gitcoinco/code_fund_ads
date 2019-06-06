@@ -1,5 +1,6 @@
 .blog__article {
   &__featured-image {
+    @include img-fluid;
   }
   &__title {
     line-height: 1.25;
@@ -39,13 +40,25 @@
       font-weight: 300;
       color: rgba(0, 0, 0, 0.7);
     }
-    .wp-block-image {
-      margin-top: 20px;
-      margin-bottom: 20px;
-      img {
-        max-width: 100%;
-        height: auto;
-      }
+    img {
+      @include img-fluid;
+      max-width: 100%;
+      height: auto;
+      margin-top: 25px;
+      margin-bottom: 25px;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .blog__article {
+    &__title {
+      line-height: 1.25;
+      font-size: 24px;
+    }
+    &__subtitle {
+      font-size: 16px;
+      line-height: 1.6rem;
     }
   }
 }
