@@ -1,6 +1,14 @@
 desc "Tasks to be executed by Heroku Scheduler"
 namespace :schedule do
   desc <<~DESC
+    Applies the data retention policy by detaching old partition tables from impressions
+    NOTE: Schedule daily
+  DESC
+  task apply_data_retention_policy: :environment do
+    Impression.detach_old_tables
+  end
+
+  desc <<~DESC
     Queues job that marks expired campaigns as archived
     NOTE: Schedule daily
   DESC
@@ -26,11 +34,21 @@ namespace :schedule do
   end
 
   desc <<~DESC
-    Queues job that ensures daily_summaries have been created for active campaigns and properties
+    Queues job that ensures daily_summaries have been created for campaigns and properties
     NOTE: Schedule daily
   DESC
   task daily_summaries: :environment do
     EnsureDailySummariesJob.perform_later
+  end
+
+  desc <<~DESC
+    Queues job that ensures scoped daily_summaries have been created for campaigns and properties
+    - campaigns scoped by property
+    - properties scoped by campaign
+    NOTE: Schedule daily
+  DESC
+  task scoped_daily_summaries: :environment do
+    EnsureScopedDailySummariesJob.perform_later
   end
 
   desc <<~DESC
