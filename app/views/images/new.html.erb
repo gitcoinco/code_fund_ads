@@ -11,47 +11,7 @@
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
-        <%= render "/images/form_upload", imageable: @imageable %>
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-6">
-                <p>
-                  <strong class="text-dark">Icon (20x20)</strong><br/>
-                  The icon image is a 20x20 pixel transparent PNG. This image is used on websites such as
-                  <a href="https://etherscan.io" target="_blank">etherscan.io</a> and others that use text-based ad templates.
-                </p>
-              </div>
-              <div class="col-sm-6">
-                <p>
-                  <strong class="text-dark">Small (200x200)</strong><br/>
-                  The small image is a 200x200 pixel PNG or JPG. This image is typically displayed
-                  in a smaller format (as small as 50x50) and is not recommended to include text.
-                </p>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-sm-6">
-                <p>
-                  <strong class="text-dark">Large (260x200)</strong><br/>
-                  The large image is a 260x200 pixel PNG or JPG. This image is our most commonly used
-                  image size (see <a href="https://bootstrapcdn.com" target="_blank">https://bootstrapcdn.com</a>).
-                </p>
-              </div>
-              <div class="col-sm-6">
-                <p>
-                  <strong class="text-dark">Wide (512x320)</strong><br/>
-                  The wide image is a 512x30 pixel JPG (not PNG). The image should have at least 32px padding
-                  on each edge. This image size is currently only used with the <a href="https://www.dailynow.co/" target="_blank">Daily Chrome extension</a>.
-                </p>
-              </div>
-            </div>
-            <div class="text-center">
-              <a href="http://codefund.app.s3.amazonaws.com/assets/CodeFund%20Example%20Creative%20Images.zip" class="btn btn-outline-primary btn-sm mt-3">Download Examples</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render "/images/form_upload", imageable: @imageable %>
+    <%= @instructions.upload_images_html.html_safe %>
   </div>
 </main>
