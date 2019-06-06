@@ -1,11 +1,11 @@
 <%= content_for :html_title, @post.seo_title %>
 <%= content_for :meta_description, @post.meta_description %>
 
-<main id="content" class="blog__article border-bottom" role="main">
+<main id="content" class="blog__article border-bottom" role="main" data-controller="blog-post">
 
   <div class="container space-top-1 space-top-md-3">
     <div class="w-lg-60 mx-auto">
-      <%= image_tag @featured_image_url, class: "img-fluid blog__article__featured-image" %>
+      <%= image_tag @featured_image_url, class: "img-fluid blog__article__featured-image" if @featured_image_url %>
 
       <div class="mx-auto space-top-1">
         <h1 class="blog__article__title"><%= @post.title %></h1>
@@ -34,6 +34,12 @@
         <% end %>
       </ul>
       <!-- End Categories -->
+
+      <div class="text-center">
+        <div class="addthis_inline_share_toolbox"></div>
+      </div>
+
+      <hr>
 
       <div class="pt-3">
         <div id="disqus_thread"></div>

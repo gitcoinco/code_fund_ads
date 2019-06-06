@@ -9,6 +9,10 @@ class ImagesController < ApplicationController
     return redirect_to(new_image_path) if images.count == 0
     @images = @image_search.apply(images.attachments)
   end
+  
+  def new
+    @instructions = ButterCMS::Page.get('*', 'image-upload-instructions', {}).data.fields
+  end
 
   def create
     @imageable.images.attach(*imageable_params[:images])
