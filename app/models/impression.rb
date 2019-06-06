@@ -92,6 +92,7 @@ class Impression < ApplicationRecord
     # Returns the names of all tables attached as a partition of the impressions table
     # that are old enough to be detached
     def old_attached_table_names(months_retained: 3)
+      months_retained = 3 if months_retained < 3
       attached_table_names.select do |attached_table_name|
         _, year, month, _, _ = attached_table_name.split("_")
         next unless year && month
@@ -137,6 +138,7 @@ class Impression < ApplicationRecord
 
     # Detaches old partitions of the impressions table
     def detach_old_tables(months_retained: 3)
+      months_retained = 3 if months_retained < 3
       detach_tables(*old_attached_table_names(months_retained: months_retained))
     end
   end
