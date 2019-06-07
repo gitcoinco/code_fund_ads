@@ -246,17 +246,11 @@ class Campaign < ApplicationRecord
   end
 
   # Returns a relation for properties that have rendered this campaign
-  def properties(start_date = nil, end_date = nil)
-    subquery = impressions.between(start_date, end_date).distinct(:property_id).select(:property_id) if start_date
-    subquery ||= impressions.distinct(:property_id).select(:property_id)
-    Property.where id: subquery
-  end
-
-  # Returns a relation for properties that have produced a click for this campaign
-  def properties_with_clicks(start_date = nil, end_date = nil)
-    subquery = impressions.clicked.between(start_date, end_date).distinct(:property_id).select(:property_id) if start_date
-    subquery ||= impressions.clicked.distinct(:property_id).select(:property_id)
-    Property.where id: subquery
+  # NOTE: Expects scoped daily_summaries to be pre-built by EnsureScopedDailySummariesJob
+  def displaying_properties(start_date = nil, end_date = nil)
+    subquery = daily_summaries.where(scoped_by_type: "Property")
+    subquery = subquery.between(start_date, end_date) if start_date
+    Property.where id: subquery.distinct.select(:scoped_by_id)
   end
 
   def matching_properties
