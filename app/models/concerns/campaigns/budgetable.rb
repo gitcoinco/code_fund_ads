@@ -94,6 +94,7 @@ module Campaigns
     def init_hourly_budget
       return unless daily_budget > 0
       min = daily_budget / 18.to_f
+      self.hourly_budget ||= daily_budget / 8.to_f
       self.hourly_budget = min if hourly_budget < min
     end
   end
