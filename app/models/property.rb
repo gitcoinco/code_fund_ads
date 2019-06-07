@@ -172,7 +172,7 @@ class Property < ApplicationRecord
   # Returns a relation for campaigns that have been rendered on this property
   # NOTE: Expects scoped daily_summaries to be pre-built by EnsureScopedDailySummariesJob
   def displayed_campaigns(start_date = nil, end_date = nil)
-    subquery = daily_summaries.where(scoped_by_type: "Campaign")
+    subquery = daily_summaries.displayed.where(scoped_by_type: "Campaign")
     subquery = subquery.between(start_date, end_date) if start_date
     Campaign.where id: subquery.distinct.select(:scoped_by_id)
   end
