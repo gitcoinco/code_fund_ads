@@ -203,6 +203,10 @@ class Campaign < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def multivariate_test_name
+    to_gid.to_s
+  end
+
   def assigner_properties
     return Property.none unless fallback?
     Property.with_assigned_fallback_campaign_id id
