@@ -1,5 +1,5 @@
 import { Controller } from 'stimulus';
-import { getParameters } from 'codesandbox/lib/api/define';
+import { getParameters } from 'codesandbox-import-utils/lib/api/define';
 
 export default class extends Controller {
   connect() {
@@ -19,9 +19,7 @@ export default class extends Controller {
       )
       .then(
         (payload => {
-          this.element.src = `https://codesandbox.io/embed/${
-            payload.sandbox_id
-          }?hidenavigation=1&codemirror=1&highlights=12,13,14,15,16`;
+          this.element.src = `https://codesandbox.io/embed/${payload.sandbox_id}?hidenavigation=1&codemirror=1&highlights=12,13,14,15,16`;
         }).bind(this)
       )
       .catch(function(error) {
