@@ -59,7 +59,7 @@ gem "recaptcha",                          "~> 4.13.1"
 gem "redis",                              "~> 4.0", require: ["redis", "redis/connection/hiredis"]
 gem "render_later",                       "~> 0.1.1"
 gem "rinku",                              "~> 2.0.4"
-gem "rollbar",                            "~> 2.18.2"
+gem "rollbar",                            "~> 2.20.1"
 gem "ruby_identicon",                     "~> 0.0.5"
 gem "sass-rails",                         "~> 5.0"
 gem "scout_apm",                          "~> 2.4.21"
@@ -76,7 +76,7 @@ gem "tag_columns",                        "~> 0.1.8"
 gem "turbolinks",                         "~> 5"
 gem "typhoeus",                           "~> 1.3.1"
 gem "uglifier",                           ">= 1.3.0"
-gem "webpacker",                          "~> 3.5"
+gem "webpacker",                          "~> 4.0.7"
 
 group :development, :test do
   gem "awesome_print"
