@@ -67,6 +67,7 @@ gem "screenshot_machine",                 "~> 0.0.4", github: "coderberry/screen
 gem "sidekiq",                            "~> 5.2.3"
 gem "sidekiq-failures",                   "~> 1.0.0"
 gem "simple_form",                        "~> 4.0"
+gem "sitemap_generator",                  "~> 6.0.2"
 gem "slack-notifier",                     "~> 2.3.2"
 gem "stimulus_reflex",                    "~> 0.3.2"
 gem "stopwords-filter",                   "~> 0.4.1", require: "stopwords"
