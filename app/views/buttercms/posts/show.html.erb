@@ -7,9 +7,19 @@
     <div class="w-lg-60 mx-auto">
       <%= image_tag @featured_image_url, class: "img-fluid blog__article__featured-image" if @featured_image_url %>
 
-      <div class="mx-auto space-top-1">
+      <div class="mx-auto space-top-1 mb-5">
         <h1 class="blog__article__title"><%= @post.title %></h1>
         <h2 class="blog__article__subtitle"><%= @post.summary %></h2>
+      </div>
+
+      <div class="blog__article__author">
+        <div class="media">
+          <%= link_to image_tag(@post.author.profile_image, class: "mr-3 rounded-circle"), buttercms_author_path(@post.author.slug) %>
+          <div class="media-body">
+            <div class="mt-0 author-name"><%= link_to [@post.author.first_name, @post.author.last_name].join(" "), buttercms_author_path(@post.author.slug) %></div>
+            <time class="date-published" datetime="<%= @post.published %>"><%= Date.parse(@post.published).to_s("bdy") %></time>
+          </div>
+        </div>
       </div>
     </div>
   </div>
