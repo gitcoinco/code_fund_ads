@@ -5,6 +5,7 @@ export default class extends Controller {
   static targets = ['input', 'hidden', 'results'];
 
   connect() {
+    this.reset();
     this.resultsTarget.hidden = true;
 
     this.inputTarget.setAttribute('autocomplete', 'off');
@@ -25,7 +26,6 @@ export default class extends Controller {
     this.inputTarget.addEventListener('input', this.onInputChange);
     this.resultsTarget.addEventListener('mousedown', this.onResultsMouseDown);
     this.resultsTarget.addEventListener('click', this.onResultsClick);
-    console.log('HELLO');
   }
 
   disconnect() {
@@ -108,6 +108,18 @@ export default class extends Controller {
     this.resultsTarget.hidden = true;
   }
 
+  submit(event) {
+    event.preventDefault();
+    let globalId = this.hiddenTarget.value;
+    this.reset();
+    Turbolinks.visit('/search/?sgid=' + globalId);
+  }
+
+  reset() {
+    this.inputTarget.value = '';
+    this.hiddenTarget.value = '';
+  }
+
   commit(selected) {
     if (selected.getAttribute('aria-disabled') === 'true') return;
 
@@ -175,7 +187,7 @@ export default class extends Controller {
     if (!this.src) return;
 
     const url = new URL(this.src, window.location.href);
-    const params = new URLSearchParams(url.search.slice(1));
+    const params = new URLSearchParams();
     params.append('q', query);
     url.search = params.toString();
 
@@ -217,11 +229,11 @@ export default class extends Controller {
   }
 
   get src() {
-    return this.data.get('url');
+    return this.element.dataset.autocompleteUrl;
   }
 
   get minLength() {
-    const minLength = this.data.get('min-length');
+    const minLength = this.element.dataset.minLength;
     if (!minLength) {
       return 0;
     }

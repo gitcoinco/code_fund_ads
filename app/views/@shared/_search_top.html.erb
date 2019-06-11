@@ -13,11 +13,14 @@
       </button>
       <!-- End Close Button -->
 
-      <div data-controller="search-autocomplete" data-autocomplete-url="/birds/search" class="js-focus-state">
+      <form data-controller="search-autocomplete" data-action="submit->search-autocomplete#submit" data-autocomplete-url="/search" data-min-length="2" class="search-autocomplete js-focus-state input-group input-group-lg">
         <input type="search" class="form-control" placeholder="Search CodeFund" aria-label="Search CodeFund" data-target="search-autocomplete.input"/>
         <input type="hidden" name="bird_id" data-target="search-autocomplete.hidden"/>
-        <ul data-target="search-autocomplete.results"></ul>
-      </div>
+        <ul data-target="search-autocomplete.results" class="list-group"></ul>
+        <div class="input-group-append">
+          <button type="submit" class="btn btn-primary">Go</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
