@@ -19,6 +19,7 @@
 #            Additional setup should be perfomed in the test suite
 
 premium:
+  id: 1
   organization: default
   user: advertiser
   name: Premium
@@ -27,6 +28,7 @@ premium:
   body: This is a premium campaign
 
 fallback:
+  id: 2
   organization: default
   user: advertiser
   name: Fallback

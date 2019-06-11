@@ -44,7 +44,9 @@
 
   <hr class="mt-3 mb-4" />
 
-  <%= render "/@shared/forms/section_heading", title: "Creative", subtitle: "Pick which creative you would like to use (only approved creatives are available)" %>
+  <%= render "/@shared/forms/section_heading", title: "Creatives",
+    subtitle: "Pick which creatives you would like to use (only approved creatives are available)",
+    help: "Multivariate testing is used to determine the most effective creative" %>
 
   <div class="row" data-target="campaign-form.creativesWrapper">
     <%= render partial: "/creative_options/options",

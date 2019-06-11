@@ -33,7 +33,7 @@
 #  hourly_budget_cents     :integer          default(0), not null
 #  hourly_budget_currency  :string           default("USD"), not null
 #  prohibited_property_ids :bigint           default([]), not null, is an Array
-#  alternate_creative_ids  :bigint           default([]), not null, is an Array
+#  creative_ids            :bigint           default([]), not null, is an Array
 #
 
 class Campaign < ApplicationRecord
@@ -51,7 +51,7 @@ class Campaign < ApplicationRecord
   include Taggable
 
   # relationships .............................................................
-  belongs_to :creative, -> { includes :creative_images }, optional: true
+  belongs_to :creative, -> { includes :creative_images }, optional: true # control for multivariate testing
   belongs_to :user
   has_one :job_posting
 
@@ -59,10 +59,10 @@ class Campaign < ApplicationRecord
   validates :name, length: {maximum: 255, allow_blank: false}
   validates :url, presence: true
   validates :status, inclusion: {in: ENUMS::CAMPAIGN_STATUSES.values}
-  validate :validate_creative_ids
 
   # callbacks .................................................................
   before_validation :sort_arrays
+  before_save :sanitize_creative_ids
   before_save :sanitize_assigned_property_ids
 
   # scopes ....................................................................
@@ -205,8 +205,12 @@ class Campaign < ApplicationRecord
 
   # public instance methods ...................................................
 
-  def creative_ids
-    alternate_creative_ids.prepend creative_id
+  def permitted_creatives
+    Creative.where organization_id: organization_id
+  end
+
+  def creatives
+    Creative.where id: creative_ids
   end
 
   def multivariate_test_name
@@ -328,10 +332,12 @@ class Campaign < ApplicationRecord
 
   private
 
-  def validate_creative_ids
-    permitted_ids = Creative.where(organization_id: organization_id).pluck(:id)
-    errors.add(:creative_id, "is not permitted") unless permitted_ids.include?(creative_id)
-    errors.add(:alternate_creative_ids, "include unpermitted values") if (alternate_creative_ids - permitted_ids).present?
+  def sanitize_creative_ids
+    permitted_creative_ids = permitted_creatives.distinct.pluck(:id)
+    self.creative_id = ([creative_id] & permitted_creative_ids).first
+    self.creative_ids = (creative_ids & permitted_creative_ids).compact.uniq
+    self.creative_ids = [creative_id].compact if creative_ids.blank?
+    self.creative_id = creative_ids.first unless creative_ids.include?(creative_id)
   end
 
   def sort_arrays

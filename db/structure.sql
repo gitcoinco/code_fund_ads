@@ -216,7 +216,7 @@ CREATE TABLE public.campaigns (
     hourly_budget_cents integer DEFAULT 0 NOT NULL,
     hourly_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     prohibited_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
-    alternate_creative_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
+    creative_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
 );
 
 
@@ -1596,13 +1596,6 @@ CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_b
 
 
 --
--- Name: index_campaigns_on_alternate_creative_ids; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_campaigns_on_alternate_creative_ids ON public.campaigns USING gin (alternate_creative_ids);
-
-
---
 -- Name: index_campaigns_on_assigned_property_ids; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1628,6 +1621,13 @@ CREATE INDEX index_campaigns_on_country_codes ON public.campaigns USING gin (cou
 --
 
 CREATE INDEX index_campaigns_on_creative_id ON public.campaigns USING btree (creative_id);
+
+
+--
+-- Name: index_campaigns_on_creative_ids; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_creative_ids ON public.campaigns USING gin (creative_ids);
 
 
 --

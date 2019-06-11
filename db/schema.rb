@@ -94,13 +94,13 @@ ActiveRecord::Schema.define(version: 2019_06_12_154209) do
     t.integer "hourly_budget_cents", default: 0, null: false
     t.string "hourly_budget_currency", default: "USD", null: false
     t.bigint "prohibited_property_ids", default: [], null: false, array: true
-    t.bigint "alternate_creative_ids", default: [], null: false, array: true
+    t.bigint "creative_ids", default: [], null: false, array: true
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
-    t.index ["alternate_creative_ids"], name: "index_campaigns_on_alternate_creative_ids", using: :gin
     t.index ["assigned_property_ids"], name: "index_campaigns_on_assigned_property_ids", using: :gin
     t.index ["core_hours_only"], name: "index_campaigns_on_core_hours_only"
     t.index ["country_codes"], name: "index_campaigns_on_country_codes", using: :gin
     t.index ["creative_id"], name: "index_campaigns_on_creative_id"
+    t.index ["creative_ids"], name: "index_campaigns_on_creative_ids", using: :gin
     t.index ["end_date"], name: "index_campaigns_on_end_date"
     t.index ["job_posting"], name: "index_campaigns_on_job_posting"
     t.index ["keywords"], name: "index_campaigns_on_keywords", using: :gin
