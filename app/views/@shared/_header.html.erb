@@ -1,7 +1,8 @@
 <!-- ========== HEADER ========== -->
 <header id="header" class="u-header u-header--abs-top-md u-header--bg-transparent u-header--show-hide-md"
         data-header-fix-moment="500" data-header-fix-effect="slide">
-  <%= render "/@shared/tophat" %>
+  <%= render "/@shared/search_top" %>
+  <%= render "/@shared/tophat" if authorized_user.can_admin_system? %>
   <div class="u-header__section" id="logo-and-nav-wrapper">
     <div id="logoAndNav" class="container">
       <!-- Nav -->
@@ -32,10 +33,9 @@
             <%= active_link_to "Advertisers", advertisers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
             <%= active_link_to "Publishers", publishers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
             <%= active_link_to "Blog", buttercms_blog_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-
             <% if current_user %>
               <li class="nav-item">
-                <ul class="list-inline ml-2 mb-0">
+                <ul class="list-inline mx-2 mb-0">
                   <!-- Account Login -->
                   <li class="list-inline-item">
                     <!-- Account Sidebar Toggle Button -->
@@ -63,6 +63,18 @@
                   <!-- End Account Login -->
                 </ul>
               </li>
+              <% if authorized_user.can_admin_system? %>
+                <li class="list-inline-item">
+                  <a class="btn btn-xs btn-icon btn-text-secondary" href="javascript:;" role="button"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                          aria-controls="searchPushTop"
+                          data-unfold-type="jquery-slide"
+                          data-unfold-target="#searchPushTop">
+                    <span class="fas fa-search btn-icon__inner"></span>
+                  </a>
+                </li>
+              <% end %>
             <% else %>
               <li class="nav-item d-block d-sm-none"><%= link_to "Login", new_user_session_path, class: "nav-link u-header__nav-link" %></li>
               <li class="nav-item d-sm-none d-sm-block u-header__nav-last-item">
