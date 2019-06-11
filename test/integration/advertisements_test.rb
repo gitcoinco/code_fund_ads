@@ -225,10 +225,11 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
                 organization: copy(organizations: :default, balance: Money.new(0, "USD"))
 
     copy campaigns: :premium,
+         organization: user.organization,
          user: user,
          assigned_property_ids: [@property.id],
          keywords: [],
-         creative: copy(creatives: :premium, body: "This is an assigned premium campaign")
+         creative: copy(creatives: :premium, organization: user.organization, user: user, body: "This is an assigned premium campaign")
 
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert Campaign.premium.count == 2

@@ -33,6 +33,7 @@
 #  hourly_budget_cents     :integer          default(0), not null
 #  hourly_budget_currency  :string           default("USD"), not null
 #  prohibited_property_ids :bigint           default([]), not null, is an Array
+#  alternate_creative_ids  :bigint           default([]), not null, is an Array
 #
 
 class Campaign < ApplicationRecord
@@ -58,6 +59,7 @@ class Campaign < ApplicationRecord
   validates :name, length: {maximum: 255, allow_blank: false}
   validates :url, presence: true
   validates :status, inclusion: {in: ENUMS::CAMPAIGN_STATUSES.values}
+  validate :validate_creative_ids
 
   # callbacks .................................................................
   before_validation :sort_arrays
@@ -203,6 +205,10 @@ class Campaign < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def creative_ids
+    alternate_creative_ids.prepend creative_id
+  end
+
   def multivariate_test_name
     to_gid.to_s
   end
@@ -321,6 +327,12 @@ class Campaign < ApplicationRecord
   # private instance methods ..................................................
 
   private
+
+  def validate_creative_ids
+    permitted_ids = Creative.where(organization_id: organization_id).pluck(:id)
+    errors.add(:creative_id, "is not permitted") unless permitted_ids.include?(creative_id)
+    errors.add(:alternate_creative_ids, "include unpermitted values") if (alternate_creative_ids - permitted_ids).present?
+  end
 
   def sort_arrays
     self.country_codes = country_codes&.reject(&:blank?)&.sort || []
