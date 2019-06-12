@@ -1,5 +1,8 @@
 <%= tag.tr class: classes("even": property_counter.even?, "odd": property_counter.odd?, "opacity-40": %w[archived blacklisted rejected].any?(ENUMS::PROPERTY_STATUSES[property.status])) do %>
   <td class="align-middle">
+    <%= image_tag property.favicon_image_url %>
+  </td>
+  <td class="align-middle">
     <%= link_to property.name, property, title: "View Property", data: tooltip_expando %><br/>
     <small><%= link_to truncate(property.display_url, length: 30), property.url, target: "_blank" %></small>
   </td>

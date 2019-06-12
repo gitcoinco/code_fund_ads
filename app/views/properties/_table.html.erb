@@ -2,6 +2,7 @@
   <table class="table table-borderless u-datatable u-datatable__striped">
     <thead>
       <tr class="border-bottom">
+        <th>&nbsp;</th>
         <%= sortable_tr "name" %>
         <%= tag.th("Publisher", scope: "col") if authorized_user.can_admin_system? %>
         <th scope="col">Est. Traffic</th>
