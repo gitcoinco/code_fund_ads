@@ -41,8 +41,9 @@ class Property < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :user
-  has_many :property_advertisers, dependent: :destroy
   has_many :advertisers, through: :property_advertisers, class_name: "User", foreign_key: "advertiser_id"
+  has_many :property_advertisers, dependent: :destroy
+  has_many :property_traffic_estimates, dependent: :destroy
 
   # validations ...............................................................
   # validates :ad_template, presence: true
@@ -77,6 +78,10 @@ class Property < ApplicationRecord
   scope :search_url, ->(value) { value.blank? ? all : search_column(:url, value) }
   scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.publishers.search_name(value)) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
+  scope :without_estimates, -> {
+    subquery = PropertyTrafficEstimate.select(:property_id)
+    where.not(id: subquery)
+  }
   scope :for_campaign, ->(campaign) {
     relation = active.with_any_keywords(*campaign.keywords).without_any_keywords(*campaign.negative_keywords)
     relation = relation.where(prohibit_fallback_campaigns: false) if campaign.fallback?

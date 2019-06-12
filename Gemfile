@@ -110,6 +110,7 @@ group :test do
   gem "minitest-reporters", require: "minitest/reporters"
   gem "selenium-webdriver"
   gem "webdrivers"
+  gem "webmock"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

@@ -59,6 +59,16 @@ namespace :schedule do
     RecalculateOrganizataionBalancesJob.perform_later
   end
 
+  desc <<~DESC
+    Queues job that fetches traffic data for properties
+    NOTE: Schedule daily
+  DESC
+  task capture_traffic_estimates: :environment do
+    Property.without_estimates.each do |property|
+      EstimateTrafficForPropertyJob.perform_later(property.id)
+    end
+  end
+
   namespace :hubspot do
     desc <<~DESC
       Queues job that updates Hubspot publisher deal stages from: Accepted to Integrated
