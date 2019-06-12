@@ -106,6 +106,16 @@ module ApplicationHelper
     render("/@shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"])
   end
 
+  def ga_tag_manager_header
+    return nil unless ENV["GA_TAG_MANAGER_ID"].present?
+    render("/@shared/scripts/google_tag_manager_header", id: ENV["GA_TAG_MANAGER_ID"])
+  end
+
+  def ga_tag_manager_footer
+    return nil unless ENV["GA_TAG_MANAGER_ID"].present?
+    render("/@shared/scripts/google_tag_manager_footer", id: ENV["GA_TAG_MANAGER_ID"])
+  end
+
   def hubspot_tag
     return nil unless ENV["HUBSPOT_ID"].present?
     render("/@shared/scripts/hubspot", id: ENV["HUBSPOT_ID"])

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <%= ga_tag_manager_header %>
+    
     <!-- Meta Tags -->
     <%= display_meta_tags site: "CodeFund" %>
     <link rel="manifest" href="/site.webmanifest">
@@ -34,6 +36,6 @@
     <%= render "/@shared/secondary" if current_user %>
 
     <%= hubspot_tag %>
-    <%= ga_tag %>
+    <%= ga_tag_manager_footer %>
   <% end %>
 </html>

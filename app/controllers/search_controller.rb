@@ -1,6 +1,6 @@
 class SearchController < ApplicationController
   before_action :authenticate_administrator!
-  
+
   def show
     return handle_redirect if params[:sgid].present?
 
