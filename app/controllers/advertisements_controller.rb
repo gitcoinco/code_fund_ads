@@ -252,7 +252,7 @@ class AdvertisementsController < ApplicationController
     Rails.cache.write @virtual_impression_id, {
       campaign_id: @campaign.id,
       property_id: property_id,
-      creative_id: @creative_id,
+      creative_id: @creative.id,
       ad_template: template_name,
       ad_theme: theme_name,
       ip_address: ip_address,
