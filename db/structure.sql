@@ -765,6 +765,75 @@ ALTER SEQUENCE public.property_advertisers_id_seq OWNED BY public.property_adver
 
 
 --
+-- Name: property_traffic_estimates; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.property_traffic_estimates (
+    id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    site_worth_cents integer DEFAULT 0 NOT NULL,
+    site_worth_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    visitors_daily integer DEFAULT 0,
+    visitors_monthly integer DEFAULT 0,
+    visitors_yearly integer DEFAULT 0,
+    pageviews_daily integer DEFAULT 0,
+    pageviews_monthly integer DEFAULT 0,
+    pageviews_yearly integer DEFAULT 0,
+    revenue_daily_cents integer DEFAULT 0 NOT NULL,
+    revenue_daily_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    revenue_monthly_cents integer DEFAULT 0 NOT NULL,
+    revenue_monthly_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    revenue_yearly_cents integer DEFAULT 0 NOT NULL,
+    revenue_yearly_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    alexa_rank_3_months integer DEFAULT 0,
+    alexa_rank_1_month integer DEFAULT 0,
+    alexa_rank_7_days integer DEFAULT 0,
+    alexa_rank_1_day integer DEFAULT 0,
+    alexa_rank_delta_3_months integer DEFAULT 0,
+    alexa_rank_delta_1_month integer DEFAULT 0,
+    alexa_rank_delta_7_days integer DEFAULT 0,
+    alexa_rank_delta_1_day integer DEFAULT 0,
+    alexa_reach_3_months integer DEFAULT 0,
+    alexa_reach_1_month integer DEFAULT 0,
+    alexa_reach_7_days integer DEFAULT 0,
+    alexa_reach_1_day integer DEFAULT 0,
+    alexa_reach_delta_3_months integer DEFAULT 0,
+    alexa_reach_delta_1_month integer DEFAULT 0,
+    alexa_reach_delta_7_days integer DEFAULT 0,
+    alexa_reach_delta_1_day integer DEFAULT 0,
+    alexa_pageviews_3_months double precision,
+    alexa_pageviews_1_month double precision,
+    alexa_pageviews_7_days double precision,
+    alexa_pageviews_1_day double precision,
+    alexa_pageviews_delta_3_months double precision,
+    alexa_pageviews_delta_1_month double precision,
+    alexa_pageviews_delta_7_days double precision,
+    alexa_pageviews_delta_1_day double precision,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: property_traffic_estimates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.property_traffic_estimates_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: property_traffic_estimates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.property_traffic_estimates_id_seq OWNED BY public.property_traffic_estimates.id;
+
+
+--
 -- Name: publisher_invoices; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1070,6 +1139,13 @@ ALTER TABLE ONLY public.property_advertisers ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: property_traffic_estimates id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.property_traffic_estimates ALTER COLUMN id SET DEFAULT nextval('public.property_traffic_estimates_id_seq'::regclass);
+
+
+--
 -- Name: publisher_invoices id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1224,6 +1300,14 @@ ALTER TABLE ONLY public.properties
 
 ALTER TABLE ONLY public.property_advertisers
     ADD CONSTRAINT property_advertisers_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: property_traffic_estimates property_traffic_estimates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.property_traffic_estimates
+    ADD CONSTRAINT property_traffic_estimates_pkey PRIMARY KEY (id);
 
 
 --
@@ -2001,6 +2085,13 @@ CREATE UNIQUE INDEX index_property_advertisers_on_property_id_and_advertiser_id 
 
 
 --
+-- Name: index_property_traffic_estimates_on_property_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_property_traffic_estimates_on_property_id ON public.property_traffic_estimates USING btree (property_id);
+
+
+--
 -- Name: index_publisher_invoices_on_end_date; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2287,6 +2378,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190522214219'),
 ('20190529215606'),
 ('20190605172711'),
-('20190605185105');
+('20190605185105'),
+('20190612154209');
 
 
