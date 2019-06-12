@@ -1,7 +1,7 @@
 class CreateImpressionJob < ApplicationJob
   queue_as :impression
 
-  def perform(id, campaign_id, property_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string)
+  def perform(id, campaign_id, property_id, creative_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string)
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     @event_id = SecureRandom.uuid
     @ip_address = ip_address
@@ -23,7 +23,7 @@ class CreateImpressionJob < ApplicationJob
       publisher_id: property.user_id,
       organization_id: campaign.organization_id,
       campaign: campaign,
-      creative_id: campaign.creative_id,
+      creative_id: creative_id,
       property: property,
       ad_template: ad_template,
       ad_theme: ad_theme,

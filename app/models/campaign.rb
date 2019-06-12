@@ -213,8 +213,8 @@ class Campaign < ApplicationRecord
     Creative.where id: creative_ids
   end
 
-  def multivariate_test_name
-    to_gid.to_s
+  def creative_multivariate_names
+    creative_ids.map { |creative_id| Creative.new(id: creative_id).multivariate_name }
   end
 
   def assigner_properties

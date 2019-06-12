@@ -29,6 +29,6 @@ class AdvertisementClicksController < ApplicationController
       params[:campaign_id],
       Time.current.iso8601,
     )
-    ab_finished @campaign.multivariate_test_name
+    ab_finished @campaign.multivariate_name
   end
 end

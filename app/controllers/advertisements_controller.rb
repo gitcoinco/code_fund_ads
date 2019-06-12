@@ -17,12 +17,12 @@ class AdvertisementsController < ApplicationController
 
     if @campaign
       # TODO: add actual variants for multivariate creatives
-      creative_id = ab_test(@campaign.multivariate_test_name, *@campaign.creative_ids.map(&:to_s)).to_i
-      @creative = Creative.find(creative_id)
+      creative_multivariate_name = ab_test(@campaign.multivariate_name, *@campaign.creative_multivariate_names)
+      @creative = Creative.find_multivariate_name(creative_multivariate_name)
       referral_code = User.referral_code(property.user_id)
       @advertisement_html = render_advertisement
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
-      @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
+      @impression_url = impression_url(@virtual_impression_id, format: :gif)
       @powered_by_url = referral_code ? invite_url(referral_code) : root_url
       @uplift_url = impression_uplifts_url(@virtual_impression_id, advertiser_id: @campaign.user_id)
     end
@@ -242,7 +242,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def render_advertisement
-    key = "#{@campaign.cache_key_with_version}/#{template_cache_key}/#{theme_cache_key}"
+    key = "#{@campaign.cache_key_with_version}/#{@creative.cache_key_with_version}/#{template_cache_key}/#{theme_cache_key}"
     Rails.cache.fetch(key) { render_advertisement_html template, theme, html: request.format.html? }
   end
 
@@ -252,6 +252,9 @@ class AdvertisementsController < ApplicationController
     Rails.cache.write @virtual_impression_id, {
       campaign_id: @campaign.id,
       property_id: property_id,
+      creative_id: @creative_id,
+      ad_template: template_name,
+      ad_theme: theme_name,
       ip_address: ip_address,
     }, expires_in: 30.seconds
   end

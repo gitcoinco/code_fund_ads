@@ -3,7 +3,7 @@
   data: {
     controller: "campaign-form",
     target: "campaign-form.form",
-    selected_creative_id: campaign.creative_id
+    selected_creative_ids: campaign.creative_ids,
   }
 }, wrapper: :front_form do |f| %>
   <%= render "/@shared/forms/section_heading", title: "Campaign Details", subtitle: "Tell us about your campaign" %>
@@ -51,7 +51,7 @@
   <div class="row" data-target="campaign-form.creativesWrapper">
     <%= render partial: "/creative_options/options",
         locals: {
-          selected_creative_id: campaign.creative_id,
+          selected_creative_ids: campaign.creative_ids,
           creatives: campaign.user.creatives.active.order(name: :asc)
         } %>
   </div>
