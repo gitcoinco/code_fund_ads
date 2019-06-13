@@ -2,37 +2,43 @@
   <div class="row">
     <div class="col-md-6 col-lg-4">
       <%= render "/campaigns/card", campaign: @campaign %>
+      <% if @campaign.creative_ids.size > 1 %>
+        <div class="text-center mb-5">
+          <%= link_to "Restart multivariate test", nil, class: "btn btn-soft-secondary transition-3d-hover", rel: "nofollow",
+            data: { confirm: "Do you really want to restart the test?", remote: true } %>
+        </div>
+      <% end %>
       <% @campaign.creatives.each do |creative| %>
         <div class="text-center my-4">
-          <span class="u-divider u-divider--xs u-divider--text">i<%= truncate creative.name %></span>
+          <span class="u-divider u-divider--xs u-divider--text"><%= truncate creative.name, length: 24 %></span>
         </div>
         <iframe src="<%= creative_previews_path(creative, template: "square", theme: "light", html_only: true) %>"
           height="270" style="height:365px; width:100%; border:0; margin:0; padding:0; resize:horizontal;"
-          frameBorder="0" scrolling="no"></iframe>
+          frameBorder="0" scrolling="no" class=""></iframe>
         <% @campaign.split_alternative(creative).tap do |alternative| %>
           <% if alternative %>
-            <div class="text-center">
+            <div class="ml-5 pl-2">
               <% if alternative.name == @campaign.split_experiment.winner&.name %>
                 <span class="badge badge-success"><i class="fas fa-award"></i> winner</span>
-              <% else %>
-                <%= link_to "Make this winner", nil, class: "btn btn-soft-primary btn-xs transition-3d-hover mb-2", rel: "nofollow", data: { remote: true, confirm: "Are you sure?" } %>
+              <% end %>
+              <small class="d-block"><span class="opacity-50">Impressions:</span> <%= tag.strong number_with_delimiter(alternative.participant_count) %></small>
+              <small class="d-block"><span class="opacity-50">Click Rate:</span> <%= tag.strong number_to_percentage(alternative.conversion_rate * 100, precision: 2) %></small>
+              <% if alternative.name != @campaign.split_experiment.winner&.name %>
                 <small class="d-block">
-                  Odds to Win:
+                  <span class="opacity-50">Win Probability:</span>
                   <%= tag.strong number_to_percentage(alternative.p_winner * 100, precision: 1),
                     class: classes("text-danger": alternative.p_winner < 0.25, "text-success": alternative.p_winner >= 0.5) %>
                 </small>
+                <small class="d-block">
+                  <span class="opacity-50">Confidence:</span>
+                  <%= tag.strong split_experiment_confidence_level(alternative.z_score) %>
+                </small>
+                <%= link_to "Make Winner", nil, class: "btn btn-soft-success btn-xs transition-3d-hover mt-2", rel: "nofollow",
+                  data: { remote: true, confirm: "Do you really want to set this creative as the winner?" } %>
               <% end %>
-              <small class="d-block">Displayed: <%= tag.strong number_with_delimiter(alternative.participant_count) %></small>
-              <small class="d-block">CTR: <%= tag.strong number_to_percentage(alternative.conversion_rate * 100, precision: 2) %></small>
             </div>
           <% end %>
         <% end %>
-      <% end %>
-      <% if @campaign.creative_ids.size > 1 %>
-        <div class="text-center mt-5">
-          <%= link_to "Restart multivariate test", nil, class: "btn btn-soft-danger transition-3d-hover", rel: "nofollow",
-            data: { confirm: "Are you sure?", remote: true } %>
-        </div>
       <% end %>
     </div>
     <div class="col-md-6 col-lg-8">
