@@ -1,8 +1,6 @@
 class ApplicationRecord < ActiveRecord::Base
   include GlobalID::Identification
 
-  MULTIVARIATE_DELIMITER = "-"
-
   self.abstract_class = true
 
   class << self
@@ -14,10 +12,6 @@ class ApplicationRecord < ActiveRecord::Base
       model ||= self
       "#{model.quoted_table_name}.#{connection.quote_column_name name}"
     end
-
-    def find_multivariate_name(multivariate_name)
-      find multivariate_name.split(MULTIVARIATE_DELIMITER).last
-    end
   end
 
   delegate :sanitize_sql_value, to: "self.class"
@@ -27,9 +21,5 @@ class ApplicationRecord < ActiveRecord::Base
 
   scope :search_column, ->(column_name, value) do
     where arel_table[column_name].lower.matches("%#{model.send :sanitize_sql_like, value.downcase}%")
-  end
-
-  def multivariate_name
-    [self.class.name, id].join(MULTIVARIATE_DELIMITER)
   end
 end

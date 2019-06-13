@@ -16,9 +16,7 @@ class AdvertisementsController < ApplicationController
     @target = params[:target] || "codefund_ad"
 
     if @campaign
-      # TODO: add actual variants for multivariate creatives
-      creative_multivariate_name = ab_test(@campaign.multivariate_name, *@campaign.creative_multivariate_names)
-      @creative = Creative.find_multivariate_name(creative_multivariate_name)
+      @creative = Creative.find_by_split_test_name(ab_test(@campaign.split_test_name, *@campaign.split_alternative_names))
       referral_code = User.referral_code(property.user_id)
       @advertisement_html = render_advertisement
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)

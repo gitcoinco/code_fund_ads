@@ -48,10 +48,11 @@ class Campaign < ApplicationRecord
   include Keywordable
   include Organizationable
   include Sparklineable
+  include SplitTestable
   include Taggable
 
   # relationships .............................................................
-  belongs_to :creative, -> { includes :creative_images }, optional: true # control for multivariate testing
+  belongs_to :creative, -> { includes :creative_images }, optional: true
   belongs_to :user
   has_one :job_posting
 
@@ -64,6 +65,7 @@ class Campaign < ApplicationRecord
   before_validation :sort_arrays
   before_save :sanitize_creative_ids
   before_save :sanitize_assigned_property_ids
+  before_save :delete_split_experiment
 
   # scopes ....................................................................
   scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
@@ -213,8 +215,8 @@ class Campaign < ApplicationRecord
     Creative.where id: creative_ids
   end
 
-  def creative_multivariate_names
-    creative_ids.map { |creative_id| Creative.new(id: creative_id).multivariate_name }
+  def split_alternative_names
+    creative_ids.map { |creative_id| Creative.new(id: creative_id).split_test_name }
   end
 
   def assigner_properties
@@ -324,6 +326,10 @@ class Campaign < ApplicationRecord
       title: name,
       keywords: keywords,
     }
+  end
+
+  def delete_split_experiment(force)
+    split_experiment&.delete if force || creative_ids_changed?
   end
 
   # protected instance methods ................................................
