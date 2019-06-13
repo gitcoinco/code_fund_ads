@@ -1,6 +1,5 @@
 import { Controller } from 'stimulus';
 import debounce from 'lodash.debounce';
-import hotkeys from 'hotkeys-js';
 
 export default class extends Controller {
   static targets = ['input', 'hidden', 'results'];
@@ -40,15 +39,15 @@ export default class extends Controller {
   }
 
   initCommandK() {
-    hotkeys('command+k', function(event, handler) {
-      // Prevent the default refresh event under WINDOWS system
-      event.preventDefault();
-      jQuery('#btn-search-toggle')
-        .data('HSUnfold')
-        .show();
-      setTimeout(function() {
-        jQuery('#search-input').focus();
-      }, 200);
+    document.addEventListener('keydown', e => {
+      if (e.metaKey && e.code === 'KeyK') {
+        // Prevent the default refresh event under WINDOWS system
+        event.preventDefault();
+        jQuery('#btn-search-toggle')
+          .data('HSUnfold')
+          .show();
+        this.searchInputElement.focus();
+      }
     });
   }
 
@@ -126,6 +125,8 @@ export default class extends Controller {
   submit(event) {
     event.preventDefault();
     let globalId = this.hiddenTarget.value;
+    if (globalId.length === 0) return;
+
     this.reset();
     Turbolinks.visit('/search/?sgid=' + globalId);
   }
@@ -163,6 +164,8 @@ export default class extends Controller {
 
     this.inputTarget.focus();
     this.resultsTarget.hidden = true;
+
+    this.submit();
   }
 
   onResultsClick(event) {
@@ -253,5 +256,9 @@ export default class extends Controller {
       return 0;
     }
     return parseInt(minLength, 10);
+  }
+
+  get searchInputElement() {
+    return document.getElementById('search-input');
   }
 }
