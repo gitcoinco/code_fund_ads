@@ -1,10 +1,12 @@
 import { Controller } from 'stimulus';
 import debounce from 'lodash.debounce';
+import hotkeys from 'hotkeys-js';
 
 export default class extends Controller {
   static targets = ['input', 'hidden', 'results'];
 
   connect() {
+    this.initCommandK();
     this.reset();
     this.resultsTarget.hidden = true;
 
@@ -35,6 +37,19 @@ export default class extends Controller {
     this.inputTarget.removeEventListener('input', this.onInputChange);
     this.resultsTarget.removeEventListener('mousedown', this.onResultsMouseDown);
     this.resultsTarget.removeEventListener('click', this.onResultsClick);
+  }
+
+  initCommandK() {
+    hotkeys('command+k', function(event, handler) {
+      // Prevent the default refresh event under WINDOWS system
+      event.preventDefault();
+      jQuery('#btn-search-toggle')
+        .data('HSUnfold')
+        .show();
+      setTimeout(function() {
+        jQuery('#search-input').focus();
+      }, 200);
+    });
   }
 
   sibling(next) {
