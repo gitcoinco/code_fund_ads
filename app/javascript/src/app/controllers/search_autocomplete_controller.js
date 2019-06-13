@@ -5,6 +5,7 @@ export default class extends Controller {
   static targets = ['input', 'hidden', 'results'];
 
   connect() {
+    this.initCommandK();
     this.reset();
     this.resultsTarget.hidden = true;
 
@@ -35,6 +36,19 @@ export default class extends Controller {
     this.inputTarget.removeEventListener('input', this.onInputChange);
     this.resultsTarget.removeEventListener('mousedown', this.onResultsMouseDown);
     this.resultsTarget.removeEventListener('click', this.onResultsClick);
+  }
+
+  initCommandK() {
+    document.addEventListener('keydown', e => {
+      if (e.metaKey && e.code === 'KeyK') {
+        // Prevent the default refresh event under WINDOWS system
+        event.preventDefault();
+        jQuery('#btn-search-toggle')
+          .data('HSUnfold')
+          .show();
+        this.searchInputElement.focus();
+      }
+    });
   }
 
   sibling(next) {
@@ -111,6 +125,8 @@ export default class extends Controller {
   submit(event) {
     event.preventDefault();
     let globalId = this.hiddenTarget.value;
+    if (globalId.length === 0) return;
+
     this.reset();
     Turbolinks.visit('/search/?sgid=' + globalId);
   }
@@ -148,6 +164,8 @@ export default class extends Controller {
 
     this.inputTarget.focus();
     this.resultsTarget.hidden = true;
+
+    this.submit();
   }
 
   onResultsClick(event) {
@@ -238,5 +256,9 @@ export default class extends Controller {
       return 0;
     }
     return parseInt(minLength, 10);
+  }
+
+  get searchInputElement() {
+    return document.getElementById('search-input');
   }
 }
