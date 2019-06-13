@@ -4,6 +4,8 @@ require_relative "./mmdb_test_helper"
 require "rails/test_help"
 require "webmock/minitest"
 
+WebMock.allow_net_connect!
+
 Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 # Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
 

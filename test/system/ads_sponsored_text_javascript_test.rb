@@ -4,7 +4,6 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
   include SystemTestHelper
 
   setup do
-    WebMock.allow_net_connect!
     start_date = Date.parse("2019-01-01")
     @premium_campaign = amend campaigns: :premium,
                               start_date: start_date,
@@ -22,7 +21,6 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
   end
 
   teardown do
-    WebMock.disable_net_connect!
     travel_back
   end
 
