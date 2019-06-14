@@ -7,7 +7,6 @@ module SystemTestHelper
 
   def assert_impression_pixel(property)
     assert_css "img[data-src='impression_url'][src*='/display/']"
-    assert_css "img[data-src='impression_url'][src*='template=#{property.ad_template}&theme=#{property.ad_theme}']"
   end
 
   def assert_powered_by_link

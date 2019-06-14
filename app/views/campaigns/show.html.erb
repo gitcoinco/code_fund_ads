@@ -4,8 +4,9 @@
       <%= render "/campaigns/card", campaign: @campaign %>
       <% if @campaign.creative_ids.size > 1 %>
         <div class="text-center mb-5">
-          <%= link_to "Restart multivariate test", nil, class: "btn btn-soft-secondary transition-3d-hover", rel: "nofollow",
-            data: { confirm: "Do you really want to restart the test?", remote: true } %>
+          <%= link_to "Restart multivariate test", split_experiment_path(@campaign),
+            class: "btn btn-soft-secondary transition-3d-hover", rel: "nofollow",
+            data: { controller: "split-experiment", action: "click->split-experiment#restart" } %>
         </div>
       <% end %>
       <% @campaign.creatives.each do |creative| %>
@@ -18,23 +19,21 @@
         <% @campaign.split_alternative(creative).tap do |alternative| %>
           <% if alternative %>
             <div class="ml-5 pl-2">
-              <% if alternative.name == @campaign.split_experiment.winner&.name %>
+              <% if split_winner? @campaign.split_experiment, alternative %>
                 <span class="badge badge-success"><i class="fas fa-award"></i> winner</span>
+              <% elsif split_loser? @campaign.split_experiment, alternative %>
+                <span class="badge badge-danger"><i class="fas fa-thumbs-down"></i> loser</span>
               <% end %>
               <small class="d-block"><span class="opacity-50">Impressions:</span> <%= tag.strong number_with_delimiter(alternative.participant_count) %></small>
               <small class="d-block"><span class="opacity-50">Click Rate:</span> <%= tag.strong number_to_percentage(alternative.conversion_rate * 100, precision: 2) %></small>
-              <% if alternative.name != @campaign.split_experiment.winner&.name %>
-                <small class="d-block">
-                  <span class="opacity-50">Win Probability:</span>
-                  <%= tag.strong number_to_percentage(alternative.p_winner * 100, precision: 1),
-                    class: classes("text-danger": alternative.p_winner < 0.25, "text-success": alternative.p_winner >= 0.5) %>
-                </small>
+              <% unless split_winner? @campaign.split_experiment, alternative %>
                 <small class="d-block">
                   <span class="opacity-50">Confidence:</span>
                   <%= tag.strong split_experiment_confidence_level(alternative.z_score) %>
                 </small>
-                <%= link_to "Make Winner", nil, class: "btn btn-soft-success btn-xs transition-3d-hover mt-2", rel: "nofollow",
-                  data: { remote: true, confirm: "Do you really want to set this creative as the winner?" } %>
+                <%= link_to "Make Winner", split_experiment_path(@campaign, winner_name: alternative.name),
+                  class: "btn btn-soft-success btn-xs transition-3d-hover mt-2", rel: "nofollow",
+                  data: { controller: "split-experiment", action: "split-experiment#setWinner" } %>
               <% end %>
             </div>
           <% end %>

@@ -19,6 +19,7 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => "/sidekiq"
     mount Split::Dashboard, at: "/split"
   end
+  resources :split_experiments, only: [:update, :destroy]
 
   devise_for :users, controllers: {
     sessions: "sessions",

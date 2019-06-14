@@ -27,6 +27,18 @@ module CampaignsHelper
     end
   end
 
+  def split_winner?(split_experiment, split_alternative)
+    return false unless split_experiment && split_alternative
+    return false unless split_experiment.winner
+    split_alternative.name == split_experiment.winner.name
+  end
+
+  def split_loser?(split_experiment, split_alternative)
+    return false unless split_experiment && split_alternative
+    return false unless split_experiment.winner
+    split_alternative.name != split_experiment.winner.name
+  end
+
   def split_experiment_confidence_level(z_score)
     return z_score if z_score.is_a? String
 

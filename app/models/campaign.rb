@@ -63,9 +63,8 @@ class Campaign < ApplicationRecord
 
   # callbacks .................................................................
   before_validation :sort_arrays
-  before_save :sanitize_creative_ids
+  before_validation :sanitize_creative_ids
   before_save :sanitize_assigned_property_ids
-  before_save :delete_split_experiment
 
   # scopes ....................................................................
   scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
@@ -328,10 +327,6 @@ class Campaign < ApplicationRecord
     }
   end
 
-  def delete_split_experiment(force)
-    split_experiment&.delete if force || creative_ids_changed?
-  end
-
   # protected instance methods ................................................
 
   # private instance methods ..................................................
@@ -350,7 +345,8 @@ class Campaign < ApplicationRecord
     self.country_codes = country_codes&.reject(&:blank?)&.sort || []
     self.keywords = keywords&.reject(&:blank?)&.sort || []
     self.negative_keywords = negative_keywords&.reject(&:blank?)&.sort || []
-    self.province_codes = province_codes&.reject(&:blank?)&.sort
+    self.province_codes = province_codes&.reject(&:blank?)&.sort || []
+    self.creative_ids = creative_ids&.reject(&:blank?)&.sort || []
   end
 
   def sanitize_assigned_property_ids

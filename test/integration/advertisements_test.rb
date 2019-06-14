@@ -311,31 +311,6 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   # ----------------------------------------------------------------------------------------------------------
 
-  test "js: premium ads render with property preferred template and theme" do
-    @property.update ad_template: "horizontal", ad_theme: "dark"
-    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
-    assert response.status == 200
-    assert response.body.include?("template=horizontal&theme=dark")
-    assert response.body =~ /house: false/
-  end
-
-  test "js: fallback ads with property preferred fallback template and fallback theme" do
-    fallback_campaign = amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
-    @premium_campaign.update keywords: []
-    @property.update fallback_ad_template: "text", fallback_ad_theme: "light"
-    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
-    campaign_url = advertisement_clicks_url(controller.instance_variable_get(:@virtual_impression_id), campaign_id: fallback_campaign.id)
-    set_campaign_url = <<~TEST
-      codeFundElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '#{campaign_url}'; });
-    TEST
-    assert response.status == 200
-    assert response.body.include?(set_campaign_url.strip)
-    assert response.body.include?("template=text&theme=light")
-    assert response.body =~ /house: true/
-  end
-
-  # ----------------------------------------------------------------------------------------------------------
-
   test "js: premium ads render when budgets available" do
     @premium_campaign.daily_summaries.create!(displayed_at_date: @premium_campaign.start_date, gross_revenue: Monetize.parse("$2,500 USD"))
     @premium_campaign.increment_hourly_consumed_budget_fractional_cents(Monetize.parse("$5.00 USD").cents)
