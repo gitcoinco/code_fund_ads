@@ -146,12 +146,16 @@ ENUMS::USER_ROLES.constants
 - PostgreSQL 11
 - Redis
 
+You must create a (superuser) role with the name of your OS user in your postgres configuration in order to run db operations (e.g. testing and development).
+
 ```sh
 git clone https://github.com/gitcoinco/code_fund_ads.git
 cd /path/to/project
 
 # setup environment variables
 cp .env-example .env
+
+# If you need a password for your postgres role, uncomment "#export PGPASSWORD='<password>' in the .env file and replace <password> with the role's password
 
 # install dependencies
 bundle install
