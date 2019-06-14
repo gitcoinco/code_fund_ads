@@ -142,6 +142,7 @@ ENUMS::USER_ROLES.constants
 
 - ruby version `2.6.3` via [rbenv](https://github.com/rbenv/rbenv)
 - `brew install graphviz`
+- PostgreSQL headers
 
 ```sh
 git clone https://github.com/gitcoinco/code_fund_ads.git
