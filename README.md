@@ -140,7 +140,7 @@ ENUMS::USER_ROLES.constants
 
 ###### Prerequisites
 
-- ruby version `2.6.2` via [rbenv](https://github.com/rbenv/rbenv)
+- ruby version `2.6.3` via [rbenv](https://github.com/rbenv/rbenv)
 - `brew install graphviz`
 
 ```sh
