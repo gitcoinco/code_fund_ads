@@ -144,6 +144,7 @@ ENUMS::USER_ROLES.constants
 - NodeJS version `<12.0.0` via [nvm](https://github.com/nvm-sh/nvm) with yarn installed globally
 - graphviz `brew install graphviz` or `sudo apt-get install graphviz`
 - PostgreSQL 11
+- Redis
 
 ```sh
 git clone https://github.com/gitcoinco/code_fund_ads.git
