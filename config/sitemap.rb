@@ -5,6 +5,8 @@ SitemapGenerator::Sitemap.create do
   add publishers_path, priority: 0.8, changefreq: "monthly"
   add advertisers_path, priority: 0.8, changefreq: "monthly"
   add pricing_path, priority: 0.7, changefreq: "monthly"
+  add page_path("team"), priority: 0.7, changefreq: "monthly"
+  add page_path("partners/opencollective"), priority: 0.6, changefreq: "monthly"
   add buttercms_blog_rss_path, priority: 0.6, changefreq: "weekly"
   add buttercms_blog_atom_path, priority: 0.6, changefreq: "weekly"
   add buttercms_blog_path, priority: 0.6, changefreq: "weekly"
