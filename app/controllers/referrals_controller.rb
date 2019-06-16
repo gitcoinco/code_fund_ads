@@ -8,6 +8,11 @@ class ReferralsController < ApplicationController
 
     session[:referral_code] = params[:referral_code]
     IncrementReferralLinkClickCountJob.perform_later params[:referral_code]
-    redirect_to root_path
+
+    if session[:referral_code] == "opencollective"
+      redirect_to page_path("partners/opencollective")
+    else
+      redirect_to root_path
+    end
   end
 end

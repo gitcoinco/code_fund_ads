@@ -6,7 +6,7 @@
     <div class="container space-3">
       <div class="w-md-80 w-lg-60 text-center mx-auto">
         <h1 class="display-4 font-size-md-down-5">Meet <span class="font-weight-semi-bold text-success">CodeFund</span></h1>
-        <p class="lead">We have a combined 35+ years of developer experience</p>
+        <p class="lead">We are determined to make ethical advertising a standard for funding bloggers, builders and open source maintainers</p>
       </div>
     </div>
 
@@ -19,20 +19,21 @@
   <!-- End Hero Section -->
 
   <!-- Team Section -->
-  <div class="container space-2">
-    <!-- Slick Carousel -->
+  <div class="container">
+    <!-- Team Carousel -->
     <div class="js-slick-carousel u-slick u-slick--gutters-3"
-        data-slides-show="2"
+        data-slides-show="4"
         data-slides-scroll="1"
+        data-pagi-classes="d-lg-none text-center u-slick__pagination mb-7"
         data-responsive='[{
           "breakpoint": 992,
           "settings": {
-            "slidesToShow": 1
+            "slidesToShow": 3
           }
         }, {
           "breakpoint": 768,
           "settings": {
-            "slidesToShow": 1
+            "slidesToShow": 2
           }
         }, {
           "breakpoint": 554,
@@ -40,84 +41,58 @@
             "slidesToShow": 1
           }
         }]'>
-      <div class="js-slide px-3">
+      <div class="js-slide pb-4">
         <!-- Team -->
-        <div class="row">
-          <div class="col-sm-6 d-sm-flex align-content-sm-start flex-sm-column text-center text-sm-left mb-7 mb-sm-0">
-            <div class="w-100">
-              <h3 class="h5 mb-4">Eric Berry</h3>
-            </div>
-            <div class="d-inline-block">
-              <span class="badge badge-primary badge-pill badge-bigger mb-3">#bizdev</span>
-              <span class="badge badge-primary badge-pill badge-bigger mb-3">#growth</span>
-            </div>
-            <p class="font-size-1">I am passionate about finding ways to make open source more sustainable.</p>
-
-            <!-- Social Networks -->
-            <ul class="list-inline mt-auto mb-0">
-              <li class="list-inline-item mx-0">
-                <a class="btn btn-sm btn-icon btn-soft-secondary" href="https://github.com/coderberry">
-                  <span class="fab fa-github btn-icon__inner"></span>
-                </a>
-              </li>
-              <li class="list-inline-item mx-0">
-                <a class="btn btn-sm btn-icon btn-soft-secondary" href="https://www.instagram.com/coderberry">
-                  <span class="fab fa-instagram btn-icon__inner"></span>
-                </a>
-              </li>
-              <li class="list-inline-item mx-0">
-                <a class="btn btn-sm btn-icon btn-soft-secondary" href="https://twitter.com/coderberry">
-                  <span class="fab fa-twitter btn-icon__inner"></span>
-                </a>
-              </li>
-            </ul>
-            <!-- End Social Networks -->
-          </div>
-          <div class="col-sm-6">
-            <img class="img-fluid rounded mx-auto" src="https://avatars3.githubusercontent.com/u/12481?s=460&v=4" alt="Image Description">
+        <img class="img-fluid w-100 rounded" src="https://avatars3.githubusercontent.com/u/12481?s=460&v=4" alt="Eric Berry">
+        <div class="card border-0 shadow-sm mt-n6 mx-3">
+          <div class="card-body text-center p-4">
+            <h3 class="h6 mb-1">Eric Berry</h3>
+            <p class="font-size-1 mb-0"><%= link_to "@coderberry", "https://twitter.com/coderberry" %></p>
           </div>
         </div>
         <!-- End Team -->
       </div>
 
-      <div class="js-slide px-3">
+      <div class="js-slide pb-4">
         <!-- Team -->
-        <div class="row">
-          <div class="col-sm-6 d-sm-flex align-content-sm-start flex-sm-column text-center text-sm-left mb-7 mb-sm-0">
-            <div class="w-100">
-              <h3 class="h5 mb-4">Nathan Hopkins</h3>
-            </div>
-            <div class="d-inline-block">
-              <span class="badge badge-primary badge-pill badge-bigger mb-3">#ruby</span>
-              <span class="badge badge-primary badge-pill badge-bigger mb-3">#bizdev</span>
-            </div>
-            <p class="font-size-1"><%# TODO - Nate%></p>
-
-            <!-- Social Networks -->
-            <ul class="list-inline mt-auto mb-0">
-              <li class="list-inline-item mx-0">
-                <a class="btn btn-sm btn-icon btn-soft-secondary" href="https://github.com/hopsoft">
-                  <span class="fab fa-github btn-icon__inner"></span>
-                </a>
-              </li>
-              <li class="list-inline-item mx-0">
-                <a class="btn btn-sm btn-icon btn-soft-secondary" href="https://www.instagram.com/hopsoft/">
-                  <span class="fab fa-twitter btn-icon__inner"></span>
-                </a>
-              </li>
-            </ul>
-            <!-- End Social Networks -->
+        <img class="img-fluid w-100 rounded" src="https://avatars1.githubusercontent.com/u/32920?s=460&v=4" alt="Nathan Hopkins">
+        <div class="card border-0 shadow-sm mt-n6 mx-3">
+          <div class="card-body text-center p-4">
+            <h3 class="h6 mb-1">Nathan Hopkins</h3>
+            <p class="font-size-1 mb-0"><%= link_to "@hopsoft", "https://twitter.com/hopsoft" %></p>
           </div>
-          <div class="col-sm-6">
-            <img class="img-fluid rounded mx-auto" src="https://avatars1.githubusercontent.com/u/32920?s=460&v=4" alt="Nathan Hopkins">
+        </div>
+        <!-- End Team -->
+      </div>
+
+      <div class="js-slide pb-4">
+        <!-- Team -->
+        <%= image_tag "/assets/avatars/connor-oday.jpg", class: "img-fluid w-100 rounded", alt: "Connor O'Day" %>
+        <div class="card border-0 shadow-sm mt-n6 mx-3">
+          <div class="card-body text-center p-4">
+            <h3 class="h6 mb-1">Connor O'Day</h3>
+            <p class="font-size-1 mb-0"><%= link_to "@connoroday0", "https://twitter.com/connoroday0" %></p>
+          </div>
+        </div>
+        <!-- End Team -->
+      </div>
+
+      <div class="js-slide pb-4">
+        <!-- Team -->
+        <%= image_tag "/assets/avatars/kevin-owocki.jpg", class: "img-fluid w-100 rounded", alt: "Kevin Owocki" %>
+        <div class="card border-0 shadow-sm mt-n6 mx-3">
+          <div class="card-body text-center p-4">
+            <h3 class="h6 mb-1">Kevin Owocki</h3>
+            <p class="font-size-1 mb-0"><%= link_to "@owocki", "https://twitter.com/owocki" %></p>
           </div>
         </div>
         <!-- End Team -->
       </div>
     </div>
-    <!-- End Slick Carousel -->
+    <!-- End Team Carousel -->
   </div>
   <!-- End Team Section -->
+
 
   <!-- CTA Section -->
   <div class="bg-primary text-white text-center mt-9">
