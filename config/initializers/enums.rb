@@ -40,6 +40,12 @@ enums[:pages] = Dir.glob("_*rb", base: Rails.root.join("app/views/pages")).map {
   page.scan(/(?<=\A_).*(?=\.html\.erb\z)/)
 }.flatten.sort
 
+Dir.glob("_*rb", base: Rails.root.join("app/views/pages/partners")).map { |page|
+  page.scan(/(?<=\A_).*(?=\.html\.erb\z)/)
+}.flatten.sort.each do |page|
+  enums[:pages] << "partners/#{page}"
+end
+
 enums.each do |key, dictionary|
   dictionary = dictionary.zip(dictionary).to_h if dictionary.is_a?(Array)
 
