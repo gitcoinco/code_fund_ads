@@ -1,6 +1,6 @@
 <main id="content" role="main">
   <!-- Hero Section -->
-  <div id="SVGheroComponents" class="gradient-half-primary-v3 position-relative overflow-hidden" style="">
+  <div id="SVGheroComponents" class="gradient-half-primary-v3 position-relative overflow-hidden">
     <!-- Content -->
     <div class="container position-relative space-3 space-top-md-5 space-lg-4 z-index-2">
       <!-- Title -->
@@ -56,13 +56,13 @@
 
   <!-- Testimonials -->
   <div id="SVGirregularShape2Right" class="svg-preloader position-relative gradient-half-info-v1 z-index-2">
-    <div class="bg-img-hero-bottom" style="background-image: url(<%= asset_path("/img/bg-shapes/bg2.png") %>);">
+    <div class="bg-img-hero-bottom" style="background-image: url(<%= asset_path("bg-shapes/bg2.png") %>);">
       <div class="container space-top-2 space-top-md-3 space-bottom-4">
         <!-- Testimonials -->
         <div class="text-center">
           <div class="mb-4">
             <div class="u-avatar mx-auto mb-3">
-              <%= image_tag "/assets/avatars/justin-dorfman.jpg", class: "img-fluid rounded-circle", alt: "Justin Dorfman" %>
+              <%= image_tag "avatars/justin-dorfman.jpg", class: "img-fluid rounded-circle", alt: "Justin Dorfman" %>
             </div>
             <h4 class="h6 text-white">Justin Dorfman, BootstrapCDN</h4>
           </div>
@@ -88,8 +88,7 @@
       <!-- SVG Shape -->
       <div class="position-absolute top-0 right-0 left-0 z-index-n1">
         <figure class="ie-irregular-shape-2-right">
-          <img class="js-svg-injector" src="../../assets/svg/components/irregular-shape-2-right.svg" alt="Image Description"
-              data-parent="#SVGirregularShape2Right">
+          <%= image_tag "svg/components/irregular-shape-2-right.svg", class: "js-svg-injector", data: { parent: "#SVGirregularShape2Right" } %>
         </figure>
       </div>
       <!-- End SVG Shape -->
@@ -138,15 +137,15 @@
         <div class="u-browser-v1 mx-auto mb-4">
           <!-- SVG Background Shape -->
           <figure id="SVGbgShapeID1" class="svg-preloader ie-soft-triangle-shape">
-            <%= image_tag "/assets/svg/components/soft-triangle-shape.svg", class: "js-svg-injector", data: { parent: "#SVGbgShapeID1" } %>
+            <%= image_tag "svg/components/soft-triangle-shape.svg", class: "js-svg-injector", data: { parent: "#SVGbgShapeID1" } %>
           </figure>
           <!-- End SVG Background Shape -->
 
           <!-- Mockup Browser -->
           <figure id="SVGBrowserShape" class="svg-preloader ie-browser u-browser-v1__svg">
-            <%= image_tag "/assets/svg/illustrations/browser.svg", class: "js-svg-injector", alt: "bootstrapcdn.com", data: {
+            <%= image_tag "svg/illustrations/browser.svg", class: "js-svg-injector", alt: "bootstrapcdn.com", data: {
               img_paths: [
-                { targetId: "#SVGBrowserShapeImg1", newPath: asset_path("/assets/home/bootstrapcdn.jpg") }
+                { targetId: "#SVGBrowserShapeImg1", newPath: asset_path("home/bootstrapcdn.jpg") }
               ],
               parent: "#SVGBrowserShape"
             } %>
@@ -176,7 +175,7 @@
 
     <!-- SVG Top Shape -->
     <figure class="position-absolute top-0 right-0 left-0 z-index-2">
-      <%= image_tag "/assets/svg/components/wave-5-top.svg", class: "js-svg-injector", data: { parent: "#SVGwave5Top" } %>
+      <%= image_tag "svg/components/wave-5-top.svg", class: "js-svg-injector", data: { parent: "#SVGwave5Top" } %>
     </figure>
     <!-- End SVG Top Shape -->
   </div>

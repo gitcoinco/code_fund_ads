@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 270 135.5" style="enable-background:new 0 0 270 135.5;" xml:space="preserve">
+<style type="text/css">
+	.graphic-illustration-0{fill:none;}
+	.graphic-illustration-1{fill:#FFC107;}
+	.graphic-illustration-2{fill:#FFFFFF;}
+</style>
+<linearGradient id="SVGgraphicIllustration1ID1" gradientUnits="userSpaceOnUse" x1="104.849" y1="61.8361" x2="265" y2="61.8361">
+	<stop class="stop-color-white" offset="5.908129e-07" style="stop-color:#FFFFFF;stop-opacity:0"/>
+	<stop class="stop-color-warning" offset="1" style="stop-color:#FFC107"/>
+</linearGradient>
+<path class="graphic-illustration-0 fill-none" stroke="url(#SVGgraphicIllustration1ID1)" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10" opacity=".16" d="M263.5,38c0,0-30.9,1-47.9,26S173,91,150.7,77s-25.9-17.9-44.3-12"/>
+<linearGradient id="SVGgraphicIllustration1ID2" gradientUnits="userSpaceOnUse" x1="24.5" y1="66.5176" x2="270" y2="66.5176">
+	<stop class="stop-color-white" offset="5.908129e-07" style="stop-color:#FFFFFF;stop-opacity:0"/>
+	<stop class="stop-color-danger" offset="1" style="stop-color:#DE4437"/>
+</linearGradient>
+<path class="graphic-illustration-0 fill-none" stroke="url(#SVGgraphicIllustration1ID2)" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10" d="M26,128c10.1,2.1,20.6-1.1,30.5-3c8.7-1.7,17.6-2.5,26.5-3c11.6-0.6,23.2-0.1,34,4.5c0.3,0.1,0.6,0.3,0.9,0.4
+	c7.9,3.1,17.1,2.2,24.2-2.5c5.3-3.5,9.4-8.5,15.3-11.1c5.2-2.3,11-3,16.6-3.3c8.8-0.5,16.4,1.5,23,7.5c4.8,4.3,9,9.7,15.1,12.3
+	c5.7,2.4,12.2,2.2,17.9,0.2c3.9-1.4,7.2-4,9.9-7.2c10.8-12.9,12.7-33,13.8-49.1c0.7-9.9,1.3-19.9,0.3-29.8c-0.6-5.6-1-10.8,0-16.4
+	c1.8-10,7.1-19,14.4-26"/>
+<linearGradient id="SVGgraphicIllustration1ID7" gradientUnits="userSpaceOnUse" x1="0" y1="83.4264" x2="265.5" y2="83.4264">
+	<stop class="stop-color-white" offset="3.954259e-07" style="stop-color:#FFFFFF;stop-opacity:0"/>
+	<stop class="stop-color-warning" offset="1" style="stop-color:#FFC107"/>
+</linearGradient>
+<path id="SVGgraphicIllustration1ID8" class="graphic-illustration-0 fill-none" stroke="url(#SVGgraphicIllustration1ID7)" stroke-width="3" stroke-linecap="round" stroke-miterlimit="10" d="M1.5,134c21.8-0.7,44.8-4.5,63.9-18.3c10.7-7.8,18.2-18.2,24.9-30.9c6.5-12.4,15.5-23,28-24.6
+	c18.8-2.5,33.5,15.5,51.9,16.8c1.9,0.1,3.7,0.1,5.6-0.1c5.2-0.5,10.1-2.3,14.4-5.3c4.1-2.8,7.3-6.9,10.1-11
+	c6.3-9.1,14.6-16.9,24.5-21.8c7.4-3.6,15.5-5.8,23.7-6.1c5.2-0.2,10.4,0.6,15.5,1.1"/>
+<g>
+	<path class="graphic-illustration-1 fill-warning" opacity=".1" d="M236,83.8L236,83.8c-7.7,0-14-6.3-14-14v0c0-7.7,6.3-14,14-14h0c7.7,0,14,6.3,14,14v0
+		C250,77.5,243.7,83.8,236,83.8z"/>
+	<!-- Apply your (160px width to 160px height) image here -->
+	<image id="SVGgraphicIllustration1Img3" style="overflow:visible;" width="160" height="160" xlink:href="../../img/160x160/img14.png"  transform="matrix(0.1187 0 0 0.1187 226.5 60.25)"></image>
+</g>
+<g>
+	<path class="graphic-illustration-2 fill-white" d="M11,127.5L11,127.5c-4.7,0-8.5-3.8-8.5-8.5v0c0-4.7,3.8-8.5,8.5-8.5h0c4.7,0,8.5,3.8,8.5,8.5v0
+		C19.5,123.7,15.7,127.5,11,127.5z"/>
+	<!-- Apply your (160px width to 160px height) image here -->
+	<image id="SVGgraphicIllustration1Img5" style="overflow:visible;" width="160" height="160" xlink:href="../../img/160x160/img15.png"  transform="matrix(5.625000e-02 0 0 5.625000e-02 6.5 114.5)"></image>
+</g>
+<g>
+	<defs>
+		<path id="SVGgraphicIllustration1ID3" d="M56.3,86.5L56.3,86.5c-9.5,0-17.3-7.7-17.3-17.2v0C39,59.7,46.7,52,56.2,52h0c9.5,0,17.2,7.7,17.2,17.2v0
+			C73.5,78.8,65.8,86.5,56.3,86.5z"/>
+	</defs>
+	<clipPath id="SVGgraphicIllustration1ID4">
+		<use xlink:href="#SVGgraphicIllustration1ID3"  style="overflow:visible;"/>
+	</clipPath>
+	<g transform="matrix(1 0 0 1 0 -3.814697e-06)" style="clip-path:url(#SVGgraphicIllustration1ID4);">
+		<!-- Apply your (100px width to 100px height) image here -->
+		<image id="SVGgraphicIllustration1Img1" style="overflow:visible;" width="100" height="100" xlink:href="../../img/100x100/img1.jpg"  transform="matrix(0.3666 0 0 0.3666 37.9219 50.5935)"></image>
+	</g>
+	<use xlink:href="#SVGgraphicIllustration1ID3"  style="overflow:visible;fill:none;stroke:#FFFFFF;stroke-width:1.5;stroke-miterlimit:10;"/>
+</g>
+<g>
+	<path class="graphic-illustration-2 fill-white" d="M165,59.8L165,59.8c-8.3,0-15-6.7-15-15v0c0-8.3,6.7-15,15-15h0c8.3,0,15,6.7,15,15v0
+		C180,53,173.3,59.8,165,59.8z"/>
+	<!-- Apply your (160px width to 160px height) image here -->
+	<image id="SVGgraphicIllustration1Img4" style="overflow:visible;" width="160" height="160" xlink:href="../../img/160x160/img18.png"  transform="matrix(0.1063 0 0 0.1063 156.5 36.25)"></image>
+</g>
+<g>
+	<defs>
+		<path id="SVGgraphicIllustration1ID5" d="M177.8,127.5L177.8,127.5c-8.7,0-15.8-7.1-15.8-15.7v0c0-8.7,7.1-15.7,15.7-15.7h0
+			c8.7,0,15.7,7.1,15.7,15.7v0C193.5,120.4,186.4,127.5,177.8,127.5z"/>
+	</defs>
+	<clipPath id="SVGgraphicIllustration1ID6">
+		<use xlink:href="#SVGgraphicIllustration1ID5"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#SVGgraphicIllustration1ID6);">
+		<!-- Apply your (100px width to 100px height) image here -->
+		<image id="SVGgraphicIllustration1Img2" style="overflow:visible;" width="100" height="100" xlink:href="../../img/100x100/img2.jpg"  transform="matrix(0.3347 0 0 0.3347 161.0156 95.0156)"></image>
+	</g>
+	<use xlink:href="#SVGgraphicIllustration1ID5"  style="overflow:visible;fill:none;stroke:#FFFFFF;stroke-width:1.5;stroke-miterlimit:10;"/>
+</g>
+</svg>
