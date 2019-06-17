@@ -19,6 +19,7 @@
     "git": "^0.1.5",
     "github-buttons": "git+https://github.com/ntkme/github-buttons.git",
     "jquery-mousewheel": "^3.1.13",
+    "lodash.debounce": "^4.0.8",
     "medium-zoom": "^1.0.4",
     "moment": "^2.23.0",
     "moment-timezone": "^0.5.23",
