@@ -13,16 +13,7 @@ class AdvertisementsController < ApplicationController
     # TODO: deprecate legacy support on 2019-04-01
     return render_legacy_show if legacy_api_call?
 
-    @target = params[:target] || "codefund_ad"
-
-    if @campaign
-      referral_code = User.referral_code(property.user_id)
-      @advertisement_html = render_advertisement
-      @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
-      @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
-      @powered_by_url = referral_code ? invite_url(referral_code) : root_url
-      @uplift_url = impression_uplifts_url(@virtual_impression_id, advertiser_id: @campaign.user_id)
-    end
+    set_advertisement_variables
 
     respond_to do |format|
       format.js
@@ -59,6 +50,20 @@ class AdvertisementsController < ApplicationController
   #   end
   # end
 
+  def set_advertisement_variables
+    @target = params[:target] || "codefund_ad"
+    return unless @campaign
+
+    @creative = Creative.find_by_split_test_name(ab_test(@campaign.split_test_name, *@campaign.split_alternative_names))
+    return unless @creative
+
+    @advertisement_html = render_advertisement
+    @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
+    @impression_url = impression_url(@virtual_impression_id, format: :gif)
+    @powered_by_url = referral_code ? invite_url(referral_code) : root_url
+    @uplift_url = impression_uplifts_url(@virtual_impression_id, advertiser_id: @campaign.user_id)
+  end
+
   def sample_requests_for_scout
     sample_rate = (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     if rand > sample_rate
@@ -83,10 +88,6 @@ class AdvertisementsController < ApplicationController
     end
 
     render "/advertisements/legacy_show"
-  end
-
-  def set_virtual_impression_id
-    @virtual_impression_id ||= SecureRandom.uuid
   end
 
   # TODO: Wrap this IP assignment to only be allowed when API is enabled for
@@ -180,12 +181,16 @@ class AdvertisementsController < ApplicationController
     @keywords ||= params[:keywords].to_s.split(",").map(&:strip).select(&:present?)
   end
 
+  def referral_code
+    @referral_code ||= User.referral_code(property.user_id)
+  end
+
   def set_campaign
     return nil if device.bot?
     return nil unless property.active? || property.pending?
     return nil if device_small? && property.hide_on_responsive?
 
-    campaign_relation = Campaign.active.available_on(Date.current)
+    campaign_relation = Campaign.active.with_creative_ids.available_on(Date.current)
     campaign_relation = campaign_relation.where(weekdays_only: false) if Date.current.on_weekend?
     campaign_relation = campaign_relation.where(core_hours_only: false) if prohibited_hour?
     geo_targeted_campaign_relation = campaign_relation
@@ -239,8 +244,12 @@ class AdvertisementsController < ApplicationController
   end
 
   def render_advertisement
-    key = "#{@campaign.cache_key_with_version}/#{template_cache_key}/#{theme_cache_key}"
+    key = "#{@campaign.cache_key_with_version}/#{@creative.cache_key_with_version}/#{template_cache_key}/#{theme_cache_key}"
     Rails.cache.fetch(key) { render_advertisement_html template, theme, html: request.format.html? }
+  end
+
+  def set_virtual_impression_id
+    @virtual_impression_id ||= SecureRandom.uuid
   end
 
   def create_virtual_impression
@@ -249,6 +258,9 @@ class AdvertisementsController < ApplicationController
     Rails.cache.write @virtual_impression_id, {
       campaign_id: @campaign.id,
       property_id: property_id,
+      creative_id: @creative.id,
+      ad_template: template_name,
+      ad_theme: theme_name,
       ip_address: ip_address,
     }, expires_in: 30.seconds
   end

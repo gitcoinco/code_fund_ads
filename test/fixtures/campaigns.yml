@@ -33,6 +33,7 @@
 #  hourly_budget_cents     :integer          default(0), not null
 #  hourly_budget_currency  :string           default("USD"), not null
 #  prohibited_property_ids :bigint           default([]), not null, is an Array
+#  creative_ids            :bigint           default([]), not null, is an Array
 #
 
 # IMPORTANT: Limit campaigns fixtures to [1] using only the minimum required data
@@ -42,6 +43,8 @@ premium:
   organization: default
   user: advertiser
   creative: premium
+  creative_ids:
+    - 1
   status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
   name: CodeFund
   url: https://advertiser.codefund.app
@@ -66,6 +69,8 @@ fallback:
   organization: default
   user: advertiser
   creative: fallback
+  creative_ids:
+    - 2
   status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
   name: CodeFund
   url: https://advertiser.codefund.app

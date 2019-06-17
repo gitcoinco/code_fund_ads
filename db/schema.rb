@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_05_185105) do
+ActiveRecord::Schema.define(version: 2019_06_12_154209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -94,11 +94,13 @@ ActiveRecord::Schema.define(version: 2019_06_05_185105) do
     t.integer "hourly_budget_cents", default: 0, null: false
     t.string "hourly_budget_currency", default: "USD", null: false
     t.bigint "prohibited_property_ids", default: [], null: false, array: true
+    t.bigint "creative_ids", default: [], null: false, array: true
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
     t.index ["assigned_property_ids"], name: "index_campaigns_on_assigned_property_ids", using: :gin
     t.index ["core_hours_only"], name: "index_campaigns_on_core_hours_only"
     t.index ["country_codes"], name: "index_campaigns_on_country_codes", using: :gin
     t.index ["creative_id"], name: "index_campaigns_on_creative_id"
+    t.index ["creative_ids"], name: "index_campaigns_on_creative_ids", using: :gin
     t.index ["end_date"], name: "index_campaigns_on_end_date"
     t.index ["job_posting"], name: "index_campaigns_on_job_posting"
     t.index ["keywords"], name: "index_campaigns_on_keywords", using: :gin
@@ -419,6 +421,51 @@ ActiveRecord::Schema.define(version: 2019_06_05_185105) do
     t.index ["advertiser_id"], name: "index_property_advertisers_on_advertiser_id"
     t.index ["property_id", "advertiser_id"], name: "index_property_advertisers_on_property_id_and_advertiser_id", unique: true
     t.index ["property_id"], name: "index_property_advertisers_on_property_id"
+  end
+
+  create_table "property_traffic_estimates", force: :cascade do |t|
+    t.bigint "property_id", null: false
+    t.integer "site_worth_cents", default: 0, null: false
+    t.string "site_worth_currency", default: "USD", null: false
+    t.integer "visitors_daily", default: 0
+    t.integer "visitors_monthly", default: 0
+    t.integer "visitors_yearly", default: 0
+    t.integer "pageviews_daily", default: 0
+    t.integer "pageviews_monthly", default: 0
+    t.integer "pageviews_yearly", default: 0
+    t.integer "revenue_daily_cents", default: 0, null: false
+    t.string "revenue_daily_currency", default: "USD", null: false
+    t.integer "revenue_monthly_cents", default: 0, null: false
+    t.string "revenue_monthly_currency", default: "USD", null: false
+    t.integer "revenue_yearly_cents", default: 0, null: false
+    t.string "revenue_yearly_currency", default: "USD", null: false
+    t.integer "alexa_rank_3_months", default: 0
+    t.integer "alexa_rank_1_month", default: 0
+    t.integer "alexa_rank_7_days", default: 0
+    t.integer "alexa_rank_1_day", default: 0
+    t.integer "alexa_rank_delta_3_months", default: 0
+    t.integer "alexa_rank_delta_1_month", default: 0
+    t.integer "alexa_rank_delta_7_days", default: 0
+    t.integer "alexa_rank_delta_1_day", default: 0
+    t.integer "alexa_reach_3_months", default: 0
+    t.integer "alexa_reach_1_month", default: 0
+    t.integer "alexa_reach_7_days", default: 0
+    t.integer "alexa_reach_1_day", default: 0
+    t.integer "alexa_reach_delta_3_months", default: 0
+    t.integer "alexa_reach_delta_1_month", default: 0
+    t.integer "alexa_reach_delta_7_days", default: 0
+    t.integer "alexa_reach_delta_1_day", default: 0
+    t.float "alexa_pageviews_3_months"
+    t.float "alexa_pageviews_1_month"
+    t.float "alexa_pageviews_7_days"
+    t.float "alexa_pageviews_1_day"
+    t.float "alexa_pageviews_delta_3_months"
+    t.float "alexa_pageviews_delta_1_month"
+    t.float "alexa_pageviews_delta_7_days"
+    t.float "alexa_pageviews_delta_1_day"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_property_traffic_estimates_on_property_id"
   end
 
   create_table "publisher_invoices", force: :cascade do |t|

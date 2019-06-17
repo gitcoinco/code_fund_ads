@@ -215,7 +215,8 @@ CREATE TABLE public.campaigns (
     assigned_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
     hourly_budget_cents integer DEFAULT 0 NOT NULL,
     hourly_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL,
-    prohibited_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
+    prohibited_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
+    creative_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
 );
 
 
@@ -1623,6 +1624,13 @@ CREATE INDEX index_campaigns_on_creative_id ON public.campaigns USING btree (cre
 
 
 --
+-- Name: index_campaigns_on_creative_ids; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_creative_ids ON public.campaigns USING gin (creative_ids);
+
+
+--
 -- Name: index_campaigns_on_end_date; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2379,6 +2387,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190529215606'),
 ('20190605172711'),
 ('20190605185105'),
+('20190611183743'),
 ('20190612154209');
 
 

@@ -21,6 +21,7 @@ class Creative < ApplicationRecord
   include Eventable
   include Organizationable
   include Sanitizable
+  include SplitTestable
   include Creatives::Presentable
 
   # relationships .............................................................

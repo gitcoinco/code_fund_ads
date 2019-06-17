@@ -1,10 +1,10 @@
 class AdvertisementClicksController < ApplicationController
+  before_action :set_campaign
   after_action :create_click
 
   def show
     # TODO: handle missing impression/campaign/url
-    url = Campaign.where(id: params[:campaign_id]).pluck(:url).first
-    uri = URI.parse(url)
+    uri = URI.parse(@campaign.url)
     parsed_query = Rack::Utils.parse_query(uri.query)
     query = {
       "utm_campaign" => params[:campaign_id],
@@ -19,11 +19,16 @@ class AdvertisementClicksController < ApplicationController
 
   private
 
+  def set_campaign
+    @campaign = Campaign.select(:id, :url).find_by(id: params[:campaign_id])
+  end
+
   def create_click
     CreateClickJob.perform_later(
       params[:impression_id],
       params[:campaign_id],
       Time.current.iso8601,
     )
+    ab_finished @campaign.split_test_name
   end
 end

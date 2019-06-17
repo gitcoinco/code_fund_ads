@@ -1,12 +1,12 @@
-<% cache_if @campaign.persisted?, @campaign do %>
+<% cache_if @campaign.persisted? && @creative.persisted?, [@campaign, @creative] do %>
   <ins id="cf">
     <span class="cf-wrapper">
       Sponsored:&nbsp;
-      <%= image_tag @campaign.creative.icon_image.cloudfront_url, class: "cf-img", style: "width: 20px; height: 20px;" rescue nil %>
-      <b><%= @campaign.creative.headline %></b>
-      <%= @campaign.creative.body %>
+      <%= image_tag @creative.icon_image.cloudfront_url, class: "cf-img", style: "width: 20px; height: 20px;" rescue nil %>
+      <b><%= @creative.headline %></b>
+      <%= @creative.body %>
       <a href="#" data-href="campaign_url" rel="nofollow noopener" target="_blank">
-        <b><%= @campaign.creative.cta || "Learn more" %></b>
+        <b><%= @creative.cta || "Learn more" %></b>
       </a>
     </span>
     <sup>

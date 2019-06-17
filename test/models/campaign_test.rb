@@ -33,6 +33,7 @@
 #  hourly_budget_cents     :integer          default(0), not null
 #  hourly_budget_currency  :string           default("USD"), not null
 #  prohibited_property_ids :bigint           default([]), not null, is an Array
+#  creative_ids            :bigint           default([]), not null, is an Array
 #
 
 require "test_helper"
