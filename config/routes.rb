@@ -193,5 +193,5 @@ Rails.application.routes.draw do
   resources :wordpress_snippets, only: [:show]
 
   # IMPORTANT: leave as last route so it doesn't override others
-  get "/*id", to: "pages#show", as: :page
+  get "/*id", to: "pages#show", as: :page, constraints: {id: /(?!rails).*/}
 end
