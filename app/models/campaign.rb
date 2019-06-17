@@ -52,7 +52,7 @@ class Campaign < ApplicationRecord
   include Taggable
 
   # relationships .............................................................
-  belongs_to :creative, -> { includes :creative_images }, optional: true
+  belongs_to :creative, -> { includes :creative_images }
   belongs_to :user
   has_one :job_posting
 
@@ -141,6 +141,13 @@ class Campaign < ApplicationRecord
   # - with_all_country_codes
   # - without_all_country_codes
   #
+  # - with_creative_ids
+  # - without_creative_ids
+  # - with_any_creative_ids
+  # - without_any_creative_ids
+  # - with_all_creative_ids
+  # - without_all_creative_ids
+  #
   # - with_province_codes
   # - without_province_codes
   # - with_any_province_codes
@@ -174,6 +181,7 @@ class Campaign < ApplicationRecord
   monetize :hourly_budget_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :ecpm_cents, numericality: {greater_than_or_equal_to: 0}
   tag_columns :country_codes
+  tag_columns :creative_ids
   tag_columns :province_codes
   tag_columns :keywords
   tag_columns :negative_keywords
