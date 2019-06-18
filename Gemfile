@@ -80,10 +80,14 @@ gem "typhoeus",                           "~> 1.3.1"
 gem "uglifier",                           ">= 1.3.0"
 gem "webpacker",                          "~> 4.0.7"
 
+group :production do
+  gem "rails_12factor"
+end
+
 group :development, :test do
   gem "awesome_print"
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
-  gem "dotenv"
+  gem "dotenv-rails"
   gem "faker"
   gem "pry"
   gem "pry-byebug"
