@@ -161,6 +161,9 @@ GEM
     domain_name (0.5.20180417)
       unf (>= 0.0.5, < 1.0.0)
     dotenv (2.7.2)
+    dotenv-rails (2.7.2)
+      dotenv (= 2.7.2)
+      railties (>= 3.2, < 6.1)
     email_address (0.1.11)
       netaddr (~> 2.0)
       simpleidn
@@ -373,6 +376,11 @@ GEM
       ruby-graphviz (~> 1.2)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.5)
     railties (5.2.3)
       actionpack (= 5.2.3)
       activesupport (= 5.2.3)
@@ -567,7 +575,7 @@ DEPENDENCIES
   devise (~> 4.6.0)
   devise_invitable (~> 1.7.5)
   diffy (~> 3.3.0)
-  dotenv
+  dotenv-rails
   email_address (~> 0.1.11)
   faker
   full-name-splitter (~> 0.1.2)
@@ -611,6 +619,7 @@ DEPENDENCIES
   rack-attack (~> 6.0.0)
   rails (~> 5.2.2)
   rails-erd
+  rails_12factor
   rb-readline
   recaptcha (~> 4.13.1)
   redis (~> 4.0)
