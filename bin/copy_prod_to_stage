@@ -1,4 +1,0 @@
-#!/bin/sh
-./bin/copy_prod_to_local
-heroku pg:reset -a code-fund-ads-staging -c
-heroku pg:push code_fund_ads_development DATABASE_URL -a code-fund-ads-staging -c

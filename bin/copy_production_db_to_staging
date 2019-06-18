@@ -1,0 +1,9 @@
+#!/bin/sh
+app='code-fund-ads-staging'
+./bin/heroku_pg_dump_production_replica
+heroku pg:reset -a $app
+
+# TODO: push ./tmp/production.dump to S3 and expose as signed URL
+
+heroku pg:backups:restore '<SIGNED URL>' DATABASE_URL
+heroku run rails db:migrate -a $app
