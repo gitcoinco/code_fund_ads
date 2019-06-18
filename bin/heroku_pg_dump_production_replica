@@ -1,5 +1,5 @@
 #!/bin/sh
-rm -f ./tmp/production.dump
+rm -f ./tmp/production-shallow.dump
 pg_dump --verbose --no-acl --no-owner --format=c \
   --exclude-table=impressions_2018_11_advertiser_123 \
   --exclude-table=impressions_2018_11_advertiser_132 \
@@ -130,4 +130,4 @@ pg_dump --verbose --no-acl --no-owner --format=c \
   --exclude-table=impressions_2019_06_advertiser_592 \
   --exclude-table=impressions_2019_06_advertiser_593 \
   --exclude-table-data=impressions_default \
-  $PRODUCTION_DATABASE_REPLICA_URL > ./tmp/production.dump
+  $PRODUCTION_DATABASE_REPLICA_URL > ./tmp/production-shallow.dump
