@@ -1,3 +1,5 @@
+<script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
+
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
@@ -13,8 +15,44 @@
       <%= render partial: "/users/tr", collection: users, as: :user %>
     </tbody>
   </table>
+
   <div class="d-flex justify-content-between align-items-center">
     <span><%== pagy_nav_bootstrap(pagy) if pagy.pages > 1 %></span>
     <%= pagy_entries(pagy) %>
   </div>
+
+  <zing-grid
+    data='<%= raw render(:template => "users/zinggrid/index.json", :locals => { :contents => @users }) %>'
+  >
+    <zg-column index="first_name,last_name" header="Name" renderer-template="renderName"></zg-column>
+    <zg-column index="organization.name" header="Organization" renderer-template='renderOrganization'></zg-column>
+    <zg-column index="roles" header="Roles"></zg-column>
+    <zg-column index="last_sign_in_at" header="Login" type="date"></zg-column>
+    <zg-column index="actions" header="&nbsp;"></zg-column>
+  </zing-grid>
+
+  <template id="renderName">
+    <div class="media align-items-center">
+      <span class="u-sm-avatar position-relative mr-3">
+        <!-- need to add a smarter avatar_url method to user to get fallback if needed -->
+        <img src='[[record.avatar_url]]' class='img-fluid rounded-circle' />
+        <!-- add template conditional on record.accepted_or_not_invited -->
+          <span class="badge badge-md badge-outline-dark badge-pos badge-pos--bottom-right rounded-circle">
+            <!-- this needs to be hooked up with tooltip_expando -->
+            <span class='fas fa-envelope' title='Pending invitation'></span>
+          </span>
+        <!-- end conditional -->
+      </span>
+      <span>
+        <!-- this needs to be hooked up with tooltip_expando -->
+        <a href='/users/[[record.id]]' title='View User'>[[record.full_name]]</a>
+        <small class="d-block text-muted">[[record.email]]</small>
+      </span>
+    </div>
+  </template>
+
+  <template id="renderOrganization">
+    <!-- need to make tihs conditional on presence of organization -->
+    <a href='/organizations/[[record.organization.id]]'>[[record.organization.name]]</a>
+  </template>
 </div>
