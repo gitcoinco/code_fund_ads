@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Requirements
+# - aws-cli
+# - AWS environment variables
+#   * AWS_ACCESS_KEY_ID
+#   * AWS_SECRET_ACCESS_KEY
+#   * AWS_DEFAULT_REGION
+
+app='code-fund-ads-staging'
+
+./bin/heroku_pg_dump_production_replica
+heroku pg:reset DATABASE_URL -a $app
+aws s3 rm s3://codefund-backups/production-db/production-shallow.dump
+aws s3 cp ./tmp/production-shallow.dump s3://codefund-backups/production-db/
+url=$(aws s3 presign s3://codefund-backups/production-db/production-shallow.dump)
+heroku pg:backups:restore $url DATABASE_URL -a $app
+aws s3 rm s3://codefund-backups/production-db/production-shallow.dump
+heroku run rails db:migrate -a $app
