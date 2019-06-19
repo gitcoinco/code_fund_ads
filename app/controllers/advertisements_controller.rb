@@ -185,6 +185,10 @@ class AdvertisementsController < ApplicationController
     @referral_code ||= User.referral_code(property.user_id)
   end
 
+  def adtest
+    @adtest ||= params[:adtest].to_s == "true"
+  end
+
   def set_campaign
     return nil if device.bot?
     return nil unless property.active? || property.pending?
@@ -197,9 +201,14 @@ class AdvertisementsController < ApplicationController
       .targeted_country_code(country_code)
       .targeted_province_code(province_code)
 
-    @campaign = get_premium_campaign(geo_targeted_campaign_relation) if property.active?
-    @campaign ||= get_fallback_campaign(geo_targeted_campaign_relation)
-    @campaign ||= get_fallback_campaign(campaign_relation)
+    if adtest
+      @campaign = get_fallback_campaign(geo_targeted_campaign_relation)
+      @campaign ||= get_fallback_campaign(campaign_relation)
+    else
+      @campaign = get_premium_campaign(geo_targeted_campaign_relation) if property.active?
+      @campaign ||= get_fallback_campaign(geo_targeted_campaign_relation)
+      @campaign ||= get_fallback_campaign(campaign_relation)
+    end
   end
 
   def get_premium_campaign(campaign_relation)
