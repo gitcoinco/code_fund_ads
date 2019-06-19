@@ -186,7 +186,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def adtest
-    @adtest ||= params[:adtest]
+    @adtest ||= params[:adtest].to_s == "true"
   end
 
   def set_campaign
@@ -201,7 +201,7 @@ class AdvertisementsController < ApplicationController
       .targeted_country_code(country_code)
       .targeted_province_code(province_code)
 
-    if !adtest.nil?
+    if adtest
       @campaign = get_fallback_campaign(geo_targeted_campaign_relation)
       @campaign ||= get_fallback_campaign(campaign_relation)
     else
