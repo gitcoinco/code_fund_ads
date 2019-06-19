@@ -5,4 +5,4 @@ Split.configure do |config|
   config.persistence_cookie_length = 2.hours.seconds.to_i
 end
 
-Split.redis = Rails.cache.redis
+Split.redis = ENV["REDIS_CACHE_URL"]
