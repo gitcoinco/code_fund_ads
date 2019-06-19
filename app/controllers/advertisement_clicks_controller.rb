@@ -20,7 +20,7 @@ class AdvertisementClicksController < ApplicationController
   private
 
   def set_campaign
-    @campaign = Campaign.select(:id, :url).find_by(id: params[:campaign_id])
+    @campaign = Campaign.find_by(id: params[:campaign_id])
   end
 
   def create_click
@@ -30,5 +30,7 @@ class AdvertisementClicksController < ApplicationController
       Time.current.iso8601,
     )
     ab_finished @campaign.split_test_name
+  rescue => e
+    Rollbar.error e
   end
 end
