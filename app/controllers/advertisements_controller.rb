@@ -7,7 +7,7 @@ class AdvertisementsController < ApplicationController
   # before_action :apply_visitor_rate_limiting
   before_action :set_campaign
   before_action :set_virtual_impression_id, if: -> { @campaign.present? }
-  after_action :create_virtual_impression, if: -> { @campaign.present? }
+  after_action :create_virtual_impression, if: -> { @campaign.present? && @creative.present? }
 
   def show
     # TODO: deprecate legacy support on 2019-04-01
@@ -273,7 +273,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def create_virtual_impression
-    return unless @campaign
+    return unless @campaign && @creative
 
     Rails.cache.write @virtual_impression_id, {
       campaign_id: @campaign.id,
