@@ -16,6 +16,9 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def track_multivariate_conversion(impression_id)
+  end
+
   def device
     @device ||= DeviceDetector.new(request.headers["User-Agent"])
   end
