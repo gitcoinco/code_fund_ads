@@ -54,7 +54,7 @@ class AdvertisementsController < ApplicationController
     @target = params[:target] || "codefund_ad"
     return unless @campaign
 
-    @creative = Creative.find_by_split_test_name(ab_test(@campaign.split_test_name, *@campaign.split_alternative_names))
+    @creative = choose_creative(@virtual_impression_id, @campaign)
     return unless @creative
 
     @advertisement_html = render_advertisement
@@ -250,6 +250,17 @@ class AdvertisementsController < ApplicationController
     campaigns = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0)).to_a
     campaigns.select!(&:hourly_budget_available?)
     campaigns.sample
+  end
+
+  def choose_creative(impression_id, campaign)
+    return nil unless impression_id && campaign
+    return Creative.find_by(id: campaign.creative_ids.first) if campaign.creative_ids.size == 1
+    split_experiment = Split::ExperimentCatalog.find_or_create(campaign.split_test_name, *campaign.split_alternative_names)
+    split_user = Split::User.new(impression_id)
+    split_trial = Split::Trial.new(user: split_user, experiment: split_experiment)
+    split_alternative = split_trial.choose!(self)
+    return nil unless split_alternative
+    Creative.find_by_split_test_name split_alternative.name
   end
 
   def render_advertisement

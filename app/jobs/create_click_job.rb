@@ -21,5 +21,13 @@ class CreateClickJob < ApplicationJob
     clicked_at = Time.parse(clicked_at_string)
     Impression.partitioned(campaign.user, 1.day.ago, Date.current)
       .where(id: impression_id).update_all(clicked_at: clicked_at, clicked_at_date: clicked_at.to_date)
+
+    return unless campaign.creative_ids.size > 1
+    return unless impression.creative
+
+    split_experiment = Split::ExperimentCatalog.find_or_create(campaign.split_test_name, *campaign.split_alternative_names)
+    split_user = Split::User.new(impression.id)
+    split_trial = Split::Trial.new(user: split_user, experiment: split_experiment, alternative: impression.creative.split_test_name)
+    split_trial.complete!
   end
 end
