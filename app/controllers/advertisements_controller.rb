@@ -245,7 +245,7 @@ class AdvertisementsController < ApplicationController
 
   def choose_creative(impression_id, campaign)
     return nil unless impression_id && campaign
-    # return Creative.find_by(id: campaign.creative_ids.first) if campaign.creative_ids.size == 1
+    return Creative.find_by(id: campaign.creative_ids.first) if campaign.creative_ids.size == 1
     split_experiment = Split::ExperimentCatalog.find_or_create(campaign.split_test_name, *campaign.split_alternative_names)
     split_user = Split::User.new(impression_id)
     split_trial = Split::Trial.new(user: split_user, experiment: split_experiment)
