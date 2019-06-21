@@ -6,7 +6,10 @@
     </h3>
   </div>
 
-  <%= render_later async_property_stat_card_path(property_id: @property.id) do %>
-    <i class="fa fa-spinner fa-spin text-primary"></i>
-  <% end %>
+  <iframe
+    src="<%= @iframe_url %>"
+    style="width: 100%; min-height: 1500px; border: 0; resize: horizontal;"
+    height="1500"
+    scrolling="no"
+    allowtransparency>Loading...</iframe>
 <% end %>
