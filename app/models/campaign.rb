@@ -33,6 +33,7 @@
 #  hourly_budget_cents     :integer          default(0), not null
 #  hourly_budget_currency  :string           default("USD"), not null
 #  prohibited_property_ids :bigint           default([]), not null, is an Array
+#  creative_ids            :bigint           default([]), not null, is an Array
 #
 
 class Campaign < ApplicationRecord
@@ -47,10 +48,11 @@ class Campaign < ApplicationRecord
   include Keywordable
   include Organizationable
   include Sparklineable
+  include SplitTestable
   include Taggable
 
   # relationships .............................................................
-  belongs_to :creative, -> { includes :creative_images }, optional: true
+  belongs_to :creative, -> { includes :creative_images }
   belongs_to :user
   has_one :job_posting
 
@@ -61,6 +63,7 @@ class Campaign < ApplicationRecord
 
   # callbacks .................................................................
   before_validation :sort_arrays
+  before_validation :sanitize_creative_ids
   before_save :sanitize_assigned_property_ids
 
   # scopes ....................................................................
@@ -138,6 +141,13 @@ class Campaign < ApplicationRecord
   # - with_all_country_codes
   # - without_all_country_codes
   #
+  # - with_creative_ids
+  # - without_creative_ids
+  # - with_any_creative_ids
+  # - without_any_creative_ids
+  # - with_all_creative_ids
+  # - without_all_creative_ids
+  #
   # - with_province_codes
   # - without_province_codes
   # - with_any_province_codes
@@ -171,6 +181,7 @@ class Campaign < ApplicationRecord
   monetize :hourly_budget_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :ecpm_cents, numericality: {greater_than_or_equal_to: 0}
   tag_columns :country_codes
+  tag_columns :creative_ids
   tag_columns :province_codes
   tag_columns :keywords
   tag_columns :negative_keywords
@@ -202,6 +213,18 @@ class Campaign < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def permitted_creatives
+    Creative.where organization_id: organization_id
+  end
+
+  def creatives
+    Creative.where id: creative_ids
+  end
+
+  def split_alternative_names
+    creative_ids.map { |creative_id| Creative.new(id: creative_id).split_test_name }
+  end
 
   def assigner_properties
     return Property.none unless fallback?
@@ -318,11 +341,20 @@ class Campaign < ApplicationRecord
 
   private
 
+  def sanitize_creative_ids
+    permitted_creative_ids = permitted_creatives.distinct.pluck(:id)
+    self.creative_id = ([creative_id] & permitted_creative_ids).first
+    self.creative_ids = (creative_ids & permitted_creative_ids).compact.uniq
+    self.creative_ids = [creative_id].compact if creative_ids.blank?
+    self.creative_id = creative_ids.first unless creative_ids.include?(creative_id)
+  end
+
   def sort_arrays
     self.country_codes = country_codes&.reject(&:blank?)&.sort || []
     self.keywords = keywords&.reject(&:blank?)&.sort || []
     self.negative_keywords = negative_keywords&.reject(&:blank?)&.sort || []
-    self.province_codes = province_codes&.reject(&:blank?)&.sort
+    self.province_codes = province_codes&.reject(&:blank?)&.sort || []
+    self.creative_ids = creative_ids&.reject(&:blank?)&.sort || []
   end
 
   def sanitize_assigned_property_ids

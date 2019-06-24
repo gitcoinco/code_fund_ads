@@ -37,7 +37,7 @@ class Impression < ApplicationRecord
   belongs_to :advertiser, class_name: "User", foreign_key: "advertiser_id"
   belongs_to :publisher, class_name: "User", foreign_key: "publisher_id"
   belongs_to :campaign
-  belongs_to :creative
+  belongs_to :creative, optional: true
   belongs_to :property
 
   # validations ...............................................................

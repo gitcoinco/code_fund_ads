@@ -1,3 +1,0 @@
-#!/bin/sh
-bundle exec rails db:drop
-heroku pg:pull DATABASE_URL code_fund_ads_development -a code-fund-ads-staging

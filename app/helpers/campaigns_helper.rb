@@ -26,4 +26,32 @@ module CampaignsHelper
       [country.name, country.iso_code]
     end
   end
+
+  def split_winner?(split_experiment, split_alternative)
+    return false unless split_experiment && split_alternative
+    return false unless split_experiment.winner
+    split_alternative.name == split_experiment.winner.name
+  end
+
+  def split_loser?(split_experiment, split_alternative)
+    return false unless split_experiment && split_alternative
+    return false unless split_experiment.winner
+    split_alternative.name != split_experiment.winner.name
+  end
+
+  def split_experiment_confidence_level(z_score)
+    return z_score if z_score.is_a? String
+
+    z = BigDecimal(z_score.to_s).round(3).to_f.abs
+
+    if z >= 2.58
+      "99%"
+    elsif z >= 1.96
+      "95%"
+    elsif z >= 1.65
+      "90%"
+    else
+      "Insufficient"
+    end
+  end
 end

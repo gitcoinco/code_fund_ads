@@ -17,7 +17,9 @@ Rails.application.routes.draw do
 
   authenticate :user, lambda { |user| AuthorizedUser.new(user || User.new).can_admin_system? } do
     mount Sidekiq::Web => "/sidekiq"
+    mount Split::Dashboard, at: "/split"
   end
+  resources :split_experiments, only: [:update, :destroy]
 
   devise_for :users, controllers: {
     sessions: "sessions",
@@ -193,5 +195,5 @@ Rails.application.routes.draw do
   resources :wordpress_snippets, only: [:show]
 
   # IMPORTANT: leave as last route so it doesn't override others
-  resources :pages, only: [:show], path: "/"
+  get "/*id", to: "pages#show", as: :page, constraints: {id: /(?!rails).*/}
 end

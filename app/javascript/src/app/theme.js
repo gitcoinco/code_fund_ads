@@ -5,7 +5,7 @@ import 'theme/vendor/appear';
 import 'theme/vendor/circles/circles.min';
 import 'theme/vendor/bootstrap-select/dist/js/bootstrap-select';
 import 'theme/vendor/hs-megamenu/src/hs.megamenu';
-import 'theme/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min';
+import 'theme/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar';
 import 'theme/vendor/jquery-validation/dist/jquery.validate.min';
 import 'theme/vendor/fancybox/jquery.fancybox.min';
 import 'theme/vendor/typed.js/lib/typed.min';

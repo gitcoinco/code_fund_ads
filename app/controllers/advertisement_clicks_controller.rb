@@ -2,9 +2,7 @@ class AdvertisementClicksController < ApplicationController
   after_action :create_click
 
   def show
-    # TODO: handle missing impression/campaign/url
-    url = Campaign.where(id: params[:campaign_id]).pluck(:url).first
-    uri = URI.parse(url)
+    uri = URI.parse(Campaign.where(id: params[:campaign_id]).pluck(:url).first)
     parsed_query = Rack::Utils.parse_query(uri.query)
     query = {
       "utm_campaign" => params[:campaign_id],
@@ -25,5 +23,7 @@ class AdvertisementClicksController < ApplicationController
       params[:campaign_id],
       Time.current.iso8601,
     )
+  rescue => e
+    Rollbar.error e
   end
 end

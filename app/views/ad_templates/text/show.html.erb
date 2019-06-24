@@ -1,9 +1,9 @@
-<% cache_if @campaign.persisted?, @campaign do %>
+<% cache_if @campaign.persisted? && @creative.persisted?, [@campaign, @creative] do %>
   <div id="cf">
-    <b><%= @campaign.creative.headline %></b>
-    <%= @campaign.creative.body %>
+    <b><%= @creative.headline %></b>
+    <%= @creative.body %>
     <a data-href="campaign_url" rel="nofollow noopener" target="_blank" onmouseenter="this.style.color='#1d6fa5'" onmouseleave="this.style.color='#3498db'">
-      <b><%= @campaign.creative.cta || "Learn more" %></b>
+      <b><%= @creative.cta || "Learn more" %></b>
     </a>
     <img class="cf-hidden" data-src="impression_url" alt="">
     <a class="cf-hidden" data-target="powered_by_url"></a>
