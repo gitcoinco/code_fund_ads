@@ -268,6 +268,11 @@ class User < ApplicationRecord
     super && !blacklisted?
   end
 
+  def avatar_image_url
+    return self.avatar if self.avatar.attached?
+    self.gravatar_url("404")
+  end
+
   # protected instance methods ................................................
   protected
 

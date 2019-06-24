@@ -41,7 +41,9 @@ import 'theme/js/components/hs.step-form';
 
 // theme initialization
 document.addEventListener('turbolinks:load', () => {
-  jQuery('[data-toggle="tooltip"]').tooltip();
+  jQuery('body').tooltip({
+    selector: '[data-toggle="tooltip"]'
+  });
   jQuery.HSCore.components.HSHeader.init(jQuery('#header'));
   jQuery.HSCore.components.HSUnfold.init(jQuery('[data-unfold-target]'));
   jQuery.HSCore.components.HSGoTo.init('.js-go-to');
