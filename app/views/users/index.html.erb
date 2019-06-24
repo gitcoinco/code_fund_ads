@@ -8,7 +8,7 @@
 
 <% content_for :page_heading do %>
   <%= page_heading "Viewing", "Users",
-    subtitle: "#{pluralize(@pagy.count, "record")} found",
+    subtitle: "#{pluralize(@user_count, "record")} found",
     icon: "fas fa-user-circle" %>
 <% end %>
 
@@ -18,7 +18,7 @@
                layout: "/@shared/collapsable_search_form",
                locals: { search: @user_search } %>
     <div class="bg-white p-4">
-      <%= render "/users/table", users: @users, pagy: @pagy %>
+      <%= render "/users/table" %>
     </div>
   </div>
 </main>

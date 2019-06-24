@@ -10,12 +10,23 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_administrator!, if: -> { params[:redir].present? }
 
   def index
-    users = User.includes(:avatar_attachment, :organization).include_image_count.order(order_by)
-    users = @user_search.apply(users)
-    users = users.where(organization: @organization) if @organization
-    @pagy, @users = pagy(users)
+    respond_to do |format|
+      format.html do
+        users = User.includes(:avatar_attachment, :organization).include_image_count
+        users = @user_search.apply(users)
+        users = users.where(organization: @organization) if @organization
+        @user_count = users.size
 
-    render "/users/for_organization/index" if @organization
+        render "/users/for_organization/index" if @organization
+      end
+
+      format.json do
+        users = User.includes(:avatar_attachment, :organization).include_image_count.order(order_by)
+        users = @user_search.apply(users)
+        users = users.where(organization: @organization) if @organization
+        @pagy, @users = pagy(users)
+      end
+    end
   end
 
   def new

@@ -1,56 +1,50 @@
 <script src="https://cdn.zinggrid.com/zinggrid.min.js"></script>
 
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr class="border-bottom">
-        <%= sortable_tr "first_name", "Name" %>
-        <th scope="col">Organization</th>
-        <th scope="col">Roles</th>
-        <%= sortable_tr "last_sign_in_at", "Login" %>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody class="font-size-1">
-      <%= render partial: "/users/tr", collection: users, as: :user %>
-    </tbody>
-  </table>
+<zing-grid
+  sort
+  page-size='25'
+>
+  <zg-data>
+    <zg-param name='src' value='/users.json'></zg-param>
+    <zg-param name="loadByPage" value="true"></zg-param>
+    <zg-param name="pageKey" value="page"></zg-param>
+    <zg-param name="countPath" value="count"></zg-param>
+    <zg-param name="sortBy" value="column"></zg-param>
+    <zg-param name="sortDirKey" value="direction"></zg-param>
+    <zg-param name="recordPath" value="results"></zg-param>
+    <zg-param name='nextIDPath' value='pagination.next'></zg-param>
+    <zg-param name='prevIDPath' value='pagination.prev'></zg-param>
+    <zg-param name='nextIDKey' value='page'></zg-param>
+    <zg-param name='prevIDKey' value='page'></zg-param>
+    <zg-param name='countPath' value='pagination.count'></zg-param>
+  </zg-data>
+  <zg-column index="full_name" header="Name" renderer-template="renderName"></zg-column>
+  <zg-column index="organization.name" header="Organization" renderer-template='renderOrganization' sort='disabled'></zg-column>
+  <zg-column index="roles" header="Roles" sort='disabled'></zg-column>
+  <zg-column index="last_sign_in_at" header="Login" type="date"></zg-column>
+  <zg-column index="actions" header="&nbsp;" sort='disabled'></zg-column>
+  <zg-pager size-options='25'></zg-pager>
+</zing-grid>
 
-  <div class="d-flex justify-content-between align-items-center">
-    <span><%== pagy_nav_bootstrap(pagy) if pagy.pages > 1 %></span>
-    <%= pagy_entries(pagy) %>
+<template id="renderName">
+  <div class="media align-items-center">
+    <span class="u-sm-avatar position-relative mr-3">
+      <!-- need to add a smarter avatar_url method to user to get fallback if needed -->
+      <img src='[[record.avatar_image_url]]' class='img-fluid rounded-circle' alt='[[record.full_name]]' />
+      <!-- add template conditional on record.accepted_or_not_invited -->
+        <!-- <span class="badge badge-md badge-outline-dark badge-pos badge-pos--bottom-right rounded-circle">
+          <span class='fas fa-envelope' title='Pending invitation' data-original-title='Pending invitation' data-toggle='tooltip' data-placement='top'></span>
+        </span> -->
+      <!-- end conditional -->
+    </span>
+    <span>
+      <a href='/users/[[record.id]]' title='View User' data-original-title='View User' data-toggle='tooltip' data-placement='top'>[[record.full_name]]</a>
+      <small class="d-block text-muted">[[record.email]]</small>
+    </span>
   </div>
+</template>
 
-  <zing-grid
-    data='<%= @users.to_json(methods: [:full_name, :avatar_image_url, :accepted_or_not_invited?, :organization]) %>'
-  >
-    <zg-column index="full_name" header="Name" renderer-template="renderName"></zg-column>
-    <zg-column index="organization.name" header="Organization" renderer-template='renderOrganization'></zg-column>
-    <zg-column index="roles" header="Roles"></zg-column>
-    <zg-column index="last_sign_in_at" header="Login" type="date"></zg-column>
-    <zg-column index="actions" header="&nbsp;"></zg-column>
-  </zing-grid>
-
-  <template id="renderName">
-    <div class="media align-items-center">
-      <span class="u-sm-avatar position-relative mr-3">
-        <!-- need to add a smarter avatar_url method to user to get fallback if needed -->
-        <img src='[[record.avatar_image_url]]' class='img-fluid rounded-circle' />
-        <!-- add template conditional on record.accepted_or_not_invited -->
-          <span class="badge badge-md badge-outline-dark badge-pos badge-pos--bottom-right rounded-circle">
-            <span class='fas fa-envelope' title='Pending invitation' data-original-title='Pending invitation' data-toggle='tooltip' data-placement='top'></span>
-          </span>
-        <!-- end conditional -->
-      </span>
-      <span>
-        <a href='/users/[[record.id]]' title='View User' data-original-title='View User' data-toggle='tooltip' data-placement='top'>[[record.full_name]]</a>
-        <small class="d-block text-muted">[[record.email]]</small>
-      </span>
-    </div>
-  </template>
-
-  <template id="renderOrganization">
-    <!-- need to make tihs conditional on presence of organization -->
-    <a href='/organizations/[[record.organization.id]]'>[[record.organization.name]]</a>
-  </template>
-</div>
+<template id="renderOrganization">
+  <!-- need to make tihs conditional on presence of organization -->
+  <a href='/organizations/[[record.organization.id]]'>[[record.organization.name]]</a>
+</template>
