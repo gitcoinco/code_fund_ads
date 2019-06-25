@@ -145,6 +145,22 @@ class Impression < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def track_event(event_name)
+    return unless TrackImpressionAnalyticsJob.track_property?(property.analytics_key)
+    options = {
+      "property_key" => property.analytics_key,
+      "campaign_key" => campaign&.analytics_key,
+      "creative_key" => creative&.analytics_key,
+      "ad_template" => ad_template,
+      "ad_theme" => ad_theme,
+      "country_code" => country_code,
+      "gross_revenue" => estimated_gross_revenue_fractional_cents,
+    }
+    TrackImpressionAnalyticsJob.perform_later id, event_name.to_s, options
+  rescue => e
+    Rollbar.error e
+  end
+
   def country
     Country.find country_code
   end

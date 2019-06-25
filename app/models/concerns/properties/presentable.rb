@@ -6,6 +6,10 @@ module Properties
       [user.scoped_name, name].compact.join "・"
     end
 
+    def analytics_key
+      [id, name].compact.join ": "
+    end
+
     def display_url
       url.gsub(/https?:\/\//, "")
     end
