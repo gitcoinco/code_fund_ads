@@ -80,7 +80,7 @@ class AdvertisementsController < ApplicationController
 
   # TODO: deprecate legacy support on 2019-04-01
   def render_legacy_show
-    if @campaign
+    if @campaign && (@creative = choose_creative(@virtual_impression_id, @campaign))
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
       @impression_url = impression_url(@virtual_impression_id, template: template_name, theme: theme_name, format: :gif)
     else
