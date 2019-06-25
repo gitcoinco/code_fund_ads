@@ -140,8 +140,13 @@ ENUMS::USER_ROLES.constants
 
 ###### Prerequisites
 
-- ruby version `2.6.2` via [rbenv](https://github.com/rbenv/rbenv)
-- `brew install graphviz`
+- ruby version `2.6.3` via [rbenv](https://github.com/rbenv/rbenv)
+- NodeJS version `<12.0.0` via [nvm](https://github.com/nvm-sh/nvm) with yarn installed globally
+- graphviz `brew install graphviz` or `sudo apt-get install graphviz`
+- PostgreSQL 11
+- Redis
+
+You must create a (superuser) role with the name of your OS user in your postgres configuration in order to run db operations (e.g. testing and development).
 
 ```sh
 git clone https://github.com/gitcoinco/code_fund_ads.git
@@ -149,6 +154,8 @@ cd /path/to/project
 
 # setup environment variables
 cp .env-example .env
+
+# If you need a password for your postgres role, uncomment "#export PGPASSWORD='<password>' in the .env file and replace <password> with the role's password
 
 # install dependencies
 bundle install
