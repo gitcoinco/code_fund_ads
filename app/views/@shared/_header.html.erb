@@ -33,6 +33,7 @@
             <%= active_link_to "Advertisers", advertisers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
             <%= active_link_to "Publishers", publishers_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
             <%= active_link_to "Blog", buttercms_blog_path, class: "nav-link u-header__nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+            <%= tag.li "", class: "nav-item", id: "headway-changelog" if ENV["HEADWAY_ID"].present? %>
             <% if current_user %>
               <li class="nav-item">
                 <ul class="list-inline mx-2 mb-0">
