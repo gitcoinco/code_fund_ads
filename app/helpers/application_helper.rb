@@ -116,6 +116,11 @@ module ApplicationHelper
     render("/@shared/scripts/google_tag_manager_footer", id: ENV["GA_TAG_MANAGER_ID"])
   end
 
+  def headway_tag
+    return nil unless ENV["HEADWAY_ID"].present?
+    render("/@shared/scripts/headway", id: ENV["HEADWAY_ID"])
+  end
+
   def hubspot_tag
     return nil unless ENV["HUBSPOT_ID"].present?
     render("/@shared/scripts/hubspot", id: ENV["HUBSPOT_ID"])
