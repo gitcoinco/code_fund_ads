@@ -360,7 +360,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   test "js: premium ads do not render when adtest requested" do
     @premium_campaign.update assigned_property_ids: [@property.id]
     amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
-    get advertisements_path(@property, format: :js), params: {adtest: true},headers: {"REMOTE_ADDR": ip_address("US")}
+    get advertisements_path(@property, format: :js), params: {adtest: true}, headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /house: true/
   end
@@ -368,7 +368,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   test "js: premium ads render when adtest is not requested" do
     @premium_campaign.update assigned_property_ids: [@property.id]
     amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
-    get advertisements_path(@property, format: :js),headers: {"REMOTE_ADDR": ip_address("US")}
+    get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /house: false/
   end
@@ -376,7 +376,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   test "js: premium ads render when adtest is false" do
     @premium_campaign.update assigned_property_ids: [@property.id]
     amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
-    get advertisements_path(@property, format: :js),params: {adtest: false},headers: {"REMOTE_ADDR": ip_address("US")}
+    get advertisements_path(@property, format: :js), params: {adtest: false}, headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /house: false/
   end
