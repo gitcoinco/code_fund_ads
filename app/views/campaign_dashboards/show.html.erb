@@ -1,51 +1,19 @@
 <%= render layout: "/campaigns/show_layout", locals: { campaign: @campaign } do %>
-  <div class="d-flex mb-3">
+  <div class="d-flex">
     <h3 class="h5 mb-3 flex-grow-1">
-      Overview
-      <small class="text-muted d-block">A mini-dashboard specifically for this campaign</small>
+      Overview <sup><%= link_to tag.i("", class: "fas fa-external-link"), @iframe_url, target: "_blank", class: "color: blue" %></sup>
+      <small class="text-muted d-block">A mini-dashboard specifically for this campaign.</small>
     </h3>
   </div>
 
-  <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
-    <%= render "/@shared/widgets/stat_card",
-      label: "Impressions",
-      value: number_with_delimiter(@campaign.impressions_count(@start_date, @end_date)) %>
-    <%= render "/@shared/widgets/stat_card",
-      label: "Clicks",
-      value: number_with_delimiter(@campaign.clicks_count(@start_date, @end_date)) %>
-    <%= render "/@shared/widgets/stat_card",
-      label: "CTR",
-      value: number_to_percentage(@campaign.click_rate(@start_date, @end_date), precision: 2) %>
-    <%= render "/@shared/widgets/stat_card",
-      label: "Spend",
-      value: @campaign.gross_revenue(@start_date, @end_date).format %>
-  </div>
-
-  <div class="text-center mt-4 mb-4">
-    <span class="u-divider u-divider--xs u-divider--text">Campaign Summary</span>
-  </div>
-
-  <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
-    <%= render "/@shared/widgets/stat_card",
-      label: "Total Budget",
-      value: @campaign.total_budget.format %>
-    <%= render_later async_campaign_total_remaining_budget_stat_card_path(campaign_id: @campaign.id), tag_name: "div", css: "card" do %>
-      <div class="card-body p-5">
-        <i class="fa fa-spinner fa-spin text-primary"></i>
-      </div>
-    <% end %>
-    <%= render_later async_campaign_total_consumed_budget_stat_card_path(campaign_id: @campaign.id), tag_name: "div", css: "card" do %>
-      <div class="card-body p-5">
-        <i class="fa fa-spinner fa-spin text-primary"></i>
-      </div>
-    <% end %>
-  </div>
-  <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
-    <%= render "/@shared/widgets/stat_card",
-      label: "Daily Budget",
-      value: @campaign.daily_budget.format %>
-    <%= render "/@shared/widgets/stat_card",
-      label: "Remaining Days",
-      value: @campaign.remaining_operative_days %>
-  </div>
+  <small class="text-center d-block text-muted">
+    ensure ad blockers are disabled to view the overview
+  </small>
+  
+  <iframe
+    src="<%= @iframe_url %>"
+    style="width: 100%; min-height: 2000px; border: 0; resize: horizontal;"
+    height="2000"
+    scrolling="no"
+    allowtransparency></iframe>
 <% end %>
