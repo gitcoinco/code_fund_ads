@@ -2,6 +2,10 @@ module Creatives
   module Presentable
     extend ActiveSupport::Concern
 
+    def analytics_key
+      [id, name].compact.join ": "
+    end
+
     def sanitized_headline
       sanitize_value headline
     end

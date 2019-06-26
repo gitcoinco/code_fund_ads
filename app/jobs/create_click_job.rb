@@ -19,8 +19,10 @@ class CreateClickJob < ApplicationJob
     return if impression.nil? || impression.clicked?
 
     clicked_at = Time.parse(clicked_at_string)
-    Impression.partitioned(campaign.user, 1.day.ago, Date.current)
-      .where(id: impression_id).update_all(clicked_at: clicked_at, clicked_at_date: clicked_at.to_date)
+    Impression.where(id: impression_id).between(1.day.ago, Date.current)
+      .update_all(clicked_at: clicked_at, clicked_at_date: clicked_at.to_date)
+
+    impression.track_event :impression_clicked
 
     return unless campaign.creative_ids.size > 1
     return unless impression.creative

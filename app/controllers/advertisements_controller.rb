@@ -6,10 +6,12 @@ class AdvertisementsController < ApplicationController
   before_action :set_no_caching_headers
   # before_action :apply_visitor_rate_limiting
   before_action :set_campaign
-  before_action :set_virtual_impression_id, if: -> { @campaign.present? }
+  before_action :set_virtual_impression_id
   after_action :create_virtual_impression, if: -> { @campaign.present? && @creative.present? }
 
   def show
+    track_event :virtual_impression_initiated
+
     # TODO: deprecate legacy support on 2019-04-01
     return render_legacy_show if legacy_api_call?
 
@@ -272,6 +274,18 @@ class AdvertisementsController < ApplicationController
     @virtual_impression_id ||= SecureRandom.uuid
   end
 
+  def track_event(event_name)
+    Impression.new(
+      id: @virtual_impression_id,
+      property: property,
+      campaign: @campaign,
+      creative: @creative,
+      ad_template: template_name,
+      ad_theme: theme_name,
+      country_code: country_code,
+    ).track_event(event_name)
+  end
+
   def create_virtual_impression
     return unless @campaign && @creative
 
@@ -283,5 +297,7 @@ class AdvertisementsController < ApplicationController
       ad_theme: theme_name,
       ip_address: ip_address,
     }, expires_in: 30.seconds
+
+    track_event :virtual_impression_created
   end
 end

@@ -10,6 +10,10 @@ module Campaigns
       value
     end
 
+    def analytics_key
+      [id, name].compact.join ": "
+    end
+
     def duration
       return nil if total_operative_days.zero?
       distance_of_time_in_words(start_date, end_date, scope: "datetime.distance_in_words.short")
