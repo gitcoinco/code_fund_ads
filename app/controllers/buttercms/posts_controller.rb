@@ -7,7 +7,13 @@ class Buttercms::PostsController < Buttercms::BaseController
   end
 
   def show
-    @post = ButterCMS::Post.find(params[:slug])
+    @post = begin
+              ButterCMS::Post.find(params[:slug])
+            rescue
+              nil
+            end
+
+    return render_not_found unless @post
 
     @featured_image_url = begin
       featured_image_slug = @post.featured_image.split("/").last
