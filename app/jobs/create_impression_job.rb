@@ -41,7 +41,9 @@ class CreateImpressionJob < ApplicationJob
 
     campaign.increment_hourly_consumed_budget_fractional_cents impression.estimated_gross_revenue_fractional_cents
     impression.track_event :impression_created
-  rescue ActiveRecord::RecordNotUnique
+  rescue ActiveRecord::RecordNotUnique, ActiveRecord::NotNullViolation => e
     # prevent reattempts when a race condition attempts to write the same record
+    # prevent reattempts when data is invalid
+    Rollbar.error e
   end
 end
