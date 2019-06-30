@@ -3,7 +3,7 @@ class CreativeOptionsController < ApplicationController
 
   def show
     @creatives = @user.creatives.order(name: :asc)
-    @selected_creative_id = params[:selected_id]
+    @selected_creative_ids = [params[:selected_ids]].flatten.compact
     render layout: false
   end
 

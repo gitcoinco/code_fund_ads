@@ -64,7 +64,7 @@
     <div class="row" data-controller="select-geo-targets" data-action="cf:select:changed->select-geo-targets#updateProvinceCodeOptions">
       <div class="col-12 mb-3">
         <%= f.label :country_codes, label: "Targeted Countries", class: "form-label", required: true %>
-        <div class="checkbox-tree">
+        <div class="checkbox-tree" data-target="select-geo-targets.countryCodesSelect">
           <% Country.all.map(&:subregion).uniq.sort.each do |subregion| %>
             <div class="checkbox-tree__branch" data-controller="checkbox-tree-branch">
               <i class="fa fa-caret-right"

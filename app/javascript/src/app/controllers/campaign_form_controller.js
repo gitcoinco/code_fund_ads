@@ -11,9 +11,9 @@ export default class extends Controller {
   }
 
   updateCreativeOptions(event) {
-    const selectedId = this.formTarget.dataset.selectedCreativeId;
+    const selectedIds = this.formTarget.dataset.selectedCreativeIds;
     const advertiserId = this.advertiserSelectFieldTarget.value;
-    const partialUrl = `/creative_options?user_id=${advertiserId}&selected_id=${selectedId}`;
+    const partialUrl = `/creative_options?user_id=${advertiserId}&selected_ids=${selectedIds}`;
 
     fetch(partialUrl, {
       method: 'GET',

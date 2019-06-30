@@ -36,6 +36,7 @@ class CampaignsController < ApplicationController
       cloned_campaign = Campaign.find(params[:clone])
       if cloned_campaign.present?
         @campaign.attributes = cloned_campaign.attributes
+        @campaign.user = cloned_campaign.user
         @campaign.status = "pending"
       end
     end
