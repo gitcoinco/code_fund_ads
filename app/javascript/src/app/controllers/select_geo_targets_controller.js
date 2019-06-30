@@ -63,7 +63,9 @@ export default class extends Controller {
   }
 
   get selectedCountryCodes() {
-    return toArray(this.countryCodesSelectTarget.querySelectorAll('option:checked')).map(o => o.value);
+    return toArray(document.querySelectorAll("[data-target='checkbox-tree-branch.leaf']:checked")).map(
+      o => o.value
+    );
   }
 
   get provinceCodeOptions() {
