@@ -2,11 +2,10 @@
 #
 # Table name: daily_summaries
 #
-#  id                        :bigint           not null, primary key
 #  impressionable_type       :string           not null
 #  impressionable_id         :bigint           not null
 #  scoped_by_type            :string
-#  scoped_by_id              :bigint
+#  scoped_by_id              :string
 #  impressions_count         :integer          default(0), not null
 #  fallbacks_count           :integer          default(0), not null
 #  fallback_percentage       :decimal(, )      default(0.0), not null
@@ -53,7 +52,12 @@ class DailySummary < ApplicationRecord
   scope :between, ->(start_date, end_date = nil) {
     where displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date)
   }
-  scope :scoped_by, ->(record) { where(scoped_by_type: record&.class&.name, scoped_by_id: record&.id) }
+  scope :scoped_by, ->(value, type = nil) {
+    case value
+    when Campaign, Property then where(scoped_by_type: value.class.name, scoped_by_id: value.id)
+    else type.nil? ? none : where(scoped_by_type: type, scoped_by_id: value)
+    end
+  }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   monetize :cost_per_click_cents, numericality: {greater_than_or_equal_to: 0}

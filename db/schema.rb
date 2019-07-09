@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_12_154209) do
+ActiveRecord::Schema.define(version: 2019_07_01_210845) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -167,7 +167,32 @@ ActiveRecord::Schema.define(version: 2019_06_12_154209) do
     t.index ["user_id"], name: "index_creatives_on_user_id"
   end
 
-  create_table "daily_summaries", force: :cascade do |t|
+  create_table "daily_summaries", id: false, force: :cascade do |t|
+    t.string "impressionable_type", null: false
+    t.bigint "impressionable_id", null: false
+    t.string "scoped_by_type"
+    t.string "scoped_by_id"
+    t.integer "impressions_count", default: 0, null: false
+    t.integer "fallbacks_count", default: 0, null: false
+    t.decimal "fallback_percentage", default: "0.0", null: false
+    t.integer "clicks_count", default: 0, null: false
+    t.decimal "click_rate", default: "0.0", null: false
+    t.integer "ecpm_cents", default: 0, null: false
+    t.string "ecpm_currency", default: "USD", null: false
+    t.integer "cost_per_click_cents", default: 0, null: false
+    t.string "cost_per_click_currency", default: "USD", null: false
+    t.integer "gross_revenue_cents", default: 0, null: false
+    t.string "gross_revenue_currency", default: "USD", null: false
+    t.integer "property_revenue_cents", default: 0, null: false
+    t.string "property_revenue_currency", default: "USD", null: false
+    t.integer "house_revenue_cents", default: 0, null: false
+    t.string "house_revenue_currency", default: "USD", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "daily_summaries_old", force: :cascade do |t|
     t.string "impressionable_type", null: false
     t.bigint "impressionable_id", null: false
     t.string "scoped_by_type"
@@ -190,11 +215,301 @@ ActiveRecord::Schema.define(version: 2019_06_12_154209) do
     t.date "displayed_at_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["displayed_at_date"], name: "index_daily_summaries_on_displayed_at_date"
+    t.index ["displayed_at_date"], name: "index_daily_summaries_old_on_displayed_at_date"
     t.index ["impressionable_type", "impressionable_id", "displayed_at_date"], name: "index_daily_summaries_unscoped_uniqueness", unique: true, where: "((scoped_by_type IS NULL) AND (scoped_by_id IS NULL))"
     t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "index_daily_summaries_uniqueness", unique: true
     t.index ["impressionable_type", "impressionable_id"], name: "index_daily_summaries_on_impressionable_columns"
     t.index ["scoped_by_type", "scoped_by_id"], name: "index_daily_summaries_on_scoped_by_columns"
+  end
+
+  create_table "daily_summaries_p0", id: false, force: :cascade do |t|
+    t.string "impressionable_type", null: false
+    t.bigint "impressionable_id", null: false
+    t.string "scoped_by_type"
+    t.string "scoped_by_id"
+    t.integer "impressions_count", default: 0, null: false
+    t.integer "fallbacks_count", default: 0, null: false
+    t.decimal "fallback_percentage", default: "0.0", null: false
+    t.integer "clicks_count", default: 0, null: false
+    t.decimal "click_rate", default: "0.0", null: false
+    t.integer "ecpm_cents", default: 0, null: false
+    t.string "ecpm_currency", default: "USD", null: false
+    t.integer "cost_per_click_cents", default: 0, null: false
+    t.string "cost_per_click_currency", default: "USD", null: false
+    t.integer "gross_revenue_cents", default: 0, null: false
+    t.string "gross_revenue_currency", default: "USD", null: false
+    t.integer "property_revenue_cents", default: 0, null: false
+    t.string "property_revenue_currency", default: "USD", null: false
+    t.integer "house_revenue_cents", default: 0, null: false
+    t.string "house_revenue_currency", default: "USD", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["displayed_at_date"], name: "daily_summaries_p0_displayed_at_date_idx"
+    t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "daily_summaries_p0_impressionable_type_impressionable_id_sc_idx", unique: true
+    t.index ["impressionable_type", "impressionable_id"], name: "daily_summaries_p0_impressionable_type_impressionable_id_idx"
+    t.index ["scoped_by_type", "scoped_by_id"], name: "daily_summaries_p0_scoped_by_type_scoped_by_id_idx"
+  end
+
+  create_table "daily_summaries_p1", id: false, force: :cascade do |t|
+    t.string "impressionable_type", null: false
+    t.bigint "impressionable_id", null: false
+    t.string "scoped_by_type"
+    t.string "scoped_by_id"
+    t.integer "impressions_count", default: 0, null: false
+    t.integer "fallbacks_count", default: 0, null: false
+    t.decimal "fallback_percentage", default: "0.0", null: false
+    t.integer "clicks_count", default: 0, null: false
+    t.decimal "click_rate", default: "0.0", null: false
+    t.integer "ecpm_cents", default: 0, null: false
+    t.string "ecpm_currency", default: "USD", null: false
+    t.integer "cost_per_click_cents", default: 0, null: false
+    t.string "cost_per_click_currency", default: "USD", null: false
+    t.integer "gross_revenue_cents", default: 0, null: false
+    t.string "gross_revenue_currency", default: "USD", null: false
+    t.integer "property_revenue_cents", default: 0, null: false
+    t.string "property_revenue_currency", default: "USD", null: false
+    t.integer "house_revenue_cents", default: 0, null: false
+    t.string "house_revenue_currency", default: "USD", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["displayed_at_date"], name: "daily_summaries_p1_displayed_at_date_idx"
+    t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "daily_summaries_p1_impressionable_type_impressionable_id_sc_idx", unique: true
+    t.index ["impressionable_type", "impressionable_id"], name: "daily_summaries_p1_impressionable_type_impressionable_id_idx"
+    t.index ["scoped_by_type", "scoped_by_id"], name: "daily_summaries_p1_scoped_by_type_scoped_by_id_idx"
+  end
+
+  create_table "daily_summaries_p2", id: false, force: :cascade do |t|
+    t.string "impressionable_type", null: false
+    t.bigint "impressionable_id", null: false
+    t.string "scoped_by_type"
+    t.string "scoped_by_id"
+    t.integer "impressions_count", default: 0, null: false
+    t.integer "fallbacks_count", default: 0, null: false
+    t.decimal "fallback_percentage", default: "0.0", null: false
+    t.integer "clicks_count", default: 0, null: false
+    t.decimal "click_rate", default: "0.0", null: false
+    t.integer "ecpm_cents", default: 0, null: false
+    t.string "ecpm_currency", default: "USD", null: false
+    t.integer "cost_per_click_cents", default: 0, null: false
+    t.string "cost_per_click_currency", default: "USD", null: false
+    t.integer "gross_revenue_cents", default: 0, null: false
+    t.string "gross_revenue_currency", default: "USD", null: false
+    t.integer "property_revenue_cents", default: 0, null: false
+    t.string "property_revenue_currency", default: "USD", null: false
+    t.integer "house_revenue_cents", default: 0, null: false
+    t.string "house_revenue_currency", default: "USD", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["displayed_at_date"], name: "daily_summaries_p2_displayed_at_date_idx"
+    t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "daily_summaries_p2_impressionable_type_impressionable_id_sc_idx", unique: true
+    t.index ["impressionable_type", "impressionable_id"], name: "daily_summaries_p2_impressionable_type_impressionable_id_idx"
+    t.index ["scoped_by_type", "scoped_by_id"], name: "daily_summaries_p2_scoped_by_type_scoped_by_id_idx"
+  end
+
+  create_table "daily_summaries_p3", id: false, force: :cascade do |t|
+    t.string "impressionable_type", null: false
+    t.bigint "impressionable_id", null: false
+    t.string "scoped_by_type"
+    t.string "scoped_by_id"
+    t.integer "impressions_count", default: 0, null: false
+    t.integer "fallbacks_count", default: 0, null: false
+    t.decimal "fallback_percentage", default: "0.0", null: false
+    t.integer "clicks_count", default: 0, null: false
+    t.decimal "click_rate", default: "0.0", null: false
+    t.integer "ecpm_cents", default: 0, null: false
+    t.string "ecpm_currency", default: "USD", null: false
+    t.integer "cost_per_click_cents", default: 0, null: false
+    t.string "cost_per_click_currency", default: "USD", null: false
+    t.integer "gross_revenue_cents", default: 0, null: false
+    t.string "gross_revenue_currency", default: "USD", null: false
+    t.integer "property_revenue_cents", default: 0, null: false
+    t.string "property_revenue_currency", default: "USD", null: false
+    t.integer "house_revenue_cents", default: 0, null: false
+    t.string "house_revenue_currency", default: "USD", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["displayed_at_date"], name: "daily_summaries_p3_displayed_at_date_idx"
+    t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "daily_summaries_p3_impressionable_type_impressionable_id_sc_idx", unique: true
+    t.index ["impressionable_type", "impressionable_id"], name: "daily_summaries_p3_impressionable_type_impressionable_id_idx"
+    t.index ["scoped_by_type", "scoped_by_id"], name: "daily_summaries_p3_scoped_by_type_scoped_by_id_idx"
+  end
+
+  create_table "daily_summaries_p4", id: false, force: :cascade do |t|
+    t.string "impressionable_type", null: false
+    t.bigint "impressionable_id", null: false
+    t.string "scoped_by_type"
+    t.string "scoped_by_id"
+    t.integer "impressions_count", default: 0, null: false
+    t.integer "fallbacks_count", default: 0, null: false
+    t.decimal "fallback_percentage", default: "0.0", null: false
+    t.integer "clicks_count", default: 0, null: false
+    t.decimal "click_rate", default: "0.0", null: false
+    t.integer "ecpm_cents", default: 0, null: false
+    t.string "ecpm_currency", default: "USD", null: false
+    t.integer "cost_per_click_cents", default: 0, null: false
+    t.string "cost_per_click_currency", default: "USD", null: false
+    t.integer "gross_revenue_cents", default: 0, null: false
+    t.string "gross_revenue_currency", default: "USD", null: false
+    t.integer "property_revenue_cents", default: 0, null: false
+    t.string "property_revenue_currency", default: "USD", null: false
+    t.integer "house_revenue_cents", default: 0, null: false
+    t.string "house_revenue_currency", default: "USD", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["displayed_at_date"], name: "daily_summaries_p4_displayed_at_date_idx"
+    t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "daily_summaries_p4_impressionable_type_impressionable_id_sc_idx", unique: true
+    t.index ["impressionable_type", "impressionable_id"], name: "daily_summaries_p4_impressionable_type_impressionable_id_idx"
+    t.index ["scoped_by_type", "scoped_by_id"], name: "daily_summaries_p4_scoped_by_type_scoped_by_id_idx"
+  end
+
+  create_table "daily_summaries_p5", id: false, force: :cascade do |t|
+    t.string "impressionable_type", null: false
+    t.bigint "impressionable_id", null: false
+    t.string "scoped_by_type"
+    t.string "scoped_by_id"
+    t.integer "impressions_count", default: 0, null: false
+    t.integer "fallbacks_count", default: 0, null: false
+    t.decimal "fallback_percentage", default: "0.0", null: false
+    t.integer "clicks_count", default: 0, null: false
+    t.decimal "click_rate", default: "0.0", null: false
+    t.integer "ecpm_cents", default: 0, null: false
+    t.string "ecpm_currency", default: "USD", null: false
+    t.integer "cost_per_click_cents", default: 0, null: false
+    t.string "cost_per_click_currency", default: "USD", null: false
+    t.integer "gross_revenue_cents", default: 0, null: false
+    t.string "gross_revenue_currency", default: "USD", null: false
+    t.integer "property_revenue_cents", default: 0, null: false
+    t.string "property_revenue_currency", default: "USD", null: false
+    t.integer "house_revenue_cents", default: 0, null: false
+    t.string "house_revenue_currency", default: "USD", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["displayed_at_date"], name: "daily_summaries_p5_displayed_at_date_idx"
+    t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "daily_summaries_p5_impressionable_type_impressionable_id_sc_idx", unique: true
+    t.index ["impressionable_type", "impressionable_id"], name: "daily_summaries_p5_impressionable_type_impressionable_id_idx"
+    t.index ["scoped_by_type", "scoped_by_id"], name: "daily_summaries_p5_scoped_by_type_scoped_by_id_idx"
+  end
+
+  create_table "daily_summaries_p6", id: false, force: :cascade do |t|
+    t.string "impressionable_type", null: false
+    t.bigint "impressionable_id", null: false
+    t.string "scoped_by_type"
+    t.string "scoped_by_id"
+    t.integer "impressions_count", default: 0, null: false
+    t.integer "fallbacks_count", default: 0, null: false
+    t.decimal "fallback_percentage", default: "0.0", null: false
+    t.integer "clicks_count", default: 0, null: false
+    t.decimal "click_rate", default: "0.0", null: false
+    t.integer "ecpm_cents", default: 0, null: false
+    t.string "ecpm_currency", default: "USD", null: false
+    t.integer "cost_per_click_cents", default: 0, null: false
+    t.string "cost_per_click_currency", default: "USD", null: false
+    t.integer "gross_revenue_cents", default: 0, null: false
+    t.string "gross_revenue_currency", default: "USD", null: false
+    t.integer "property_revenue_cents", default: 0, null: false
+    t.string "property_revenue_currency", default: "USD", null: false
+    t.integer "house_revenue_cents", default: 0, null: false
+    t.string "house_revenue_currency", default: "USD", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["displayed_at_date"], name: "daily_summaries_p6_displayed_at_date_idx"
+    t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "daily_summaries_p6_impressionable_type_impressionable_id_sc_idx", unique: true
+    t.index ["impressionable_type", "impressionable_id"], name: "daily_summaries_p6_impressionable_type_impressionable_id_idx"
+    t.index ["scoped_by_type", "scoped_by_id"], name: "daily_summaries_p6_scoped_by_type_scoped_by_id_idx"
+  end
+
+  create_table "daily_summaries_p7", id: false, force: :cascade do |t|
+    t.string "impressionable_type", null: false
+    t.bigint "impressionable_id", null: false
+    t.string "scoped_by_type"
+    t.string "scoped_by_id"
+    t.integer "impressions_count", default: 0, null: false
+    t.integer "fallbacks_count", default: 0, null: false
+    t.decimal "fallback_percentage", default: "0.0", null: false
+    t.integer "clicks_count", default: 0, null: false
+    t.decimal "click_rate", default: "0.0", null: false
+    t.integer "ecpm_cents", default: 0, null: false
+    t.string "ecpm_currency", default: "USD", null: false
+    t.integer "cost_per_click_cents", default: 0, null: false
+    t.string "cost_per_click_currency", default: "USD", null: false
+    t.integer "gross_revenue_cents", default: 0, null: false
+    t.string "gross_revenue_currency", default: "USD", null: false
+    t.integer "property_revenue_cents", default: 0, null: false
+    t.string "property_revenue_currency", default: "USD", null: false
+    t.integer "house_revenue_cents", default: 0, null: false
+    t.string "house_revenue_currency", default: "USD", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["displayed_at_date"], name: "daily_summaries_p7_displayed_at_date_idx"
+    t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "daily_summaries_p7_impressionable_type_impressionable_id_sc_idx", unique: true
+    t.index ["impressionable_type", "impressionable_id"], name: "daily_summaries_p7_impressionable_type_impressionable_id_idx"
+    t.index ["scoped_by_type", "scoped_by_id"], name: "daily_summaries_p7_scoped_by_type_scoped_by_id_idx"
+  end
+
+  create_table "daily_summaries_p8", id: false, force: :cascade do |t|
+    t.string "impressionable_type", null: false
+    t.bigint "impressionable_id", null: false
+    t.string "scoped_by_type"
+    t.string "scoped_by_id"
+    t.integer "impressions_count", default: 0, null: false
+    t.integer "fallbacks_count", default: 0, null: false
+    t.decimal "fallback_percentage", default: "0.0", null: false
+    t.integer "clicks_count", default: 0, null: false
+    t.decimal "click_rate", default: "0.0", null: false
+    t.integer "ecpm_cents", default: 0, null: false
+    t.string "ecpm_currency", default: "USD", null: false
+    t.integer "cost_per_click_cents", default: 0, null: false
+    t.string "cost_per_click_currency", default: "USD", null: false
+    t.integer "gross_revenue_cents", default: 0, null: false
+    t.string "gross_revenue_currency", default: "USD", null: false
+    t.integer "property_revenue_cents", default: 0, null: false
+    t.string "property_revenue_currency", default: "USD", null: false
+    t.integer "house_revenue_cents", default: 0, null: false
+    t.string "house_revenue_currency", default: "USD", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["displayed_at_date"], name: "daily_summaries_p8_displayed_at_date_idx"
+    t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "daily_summaries_p8_impressionable_type_impressionable_id_sc_idx", unique: true
+    t.index ["impressionable_type", "impressionable_id"], name: "daily_summaries_p8_impressionable_type_impressionable_id_idx"
+    t.index ["scoped_by_type", "scoped_by_id"], name: "daily_summaries_p8_scoped_by_type_scoped_by_id_idx"
+  end
+
+  create_table "daily_summaries_p9", id: false, force: :cascade do |t|
+    t.string "impressionable_type", null: false
+    t.bigint "impressionable_id", null: false
+    t.string "scoped_by_type"
+    t.string "scoped_by_id"
+    t.integer "impressions_count", default: 0, null: false
+    t.integer "fallbacks_count", default: 0, null: false
+    t.decimal "fallback_percentage", default: "0.0", null: false
+    t.integer "clicks_count", default: 0, null: false
+    t.decimal "click_rate", default: "0.0", null: false
+    t.integer "ecpm_cents", default: 0, null: false
+    t.string "ecpm_currency", default: "USD", null: false
+    t.integer "cost_per_click_cents", default: 0, null: false
+    t.string "cost_per_click_currency", default: "USD", null: false
+    t.integer "gross_revenue_cents", default: 0, null: false
+    t.string "gross_revenue_currency", default: "USD", null: false
+    t.integer "property_revenue_cents", default: 0, null: false
+    t.string "property_revenue_currency", default: "USD", null: false
+    t.integer "house_revenue_cents", default: 0, null: false
+    t.string "house_revenue_currency", default: "USD", null: false
+    t.date "displayed_at_date", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["displayed_at_date"], name: "daily_summaries_p9_displayed_at_date_idx"
+    t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "daily_summaries_p9_impressionable_type_impressionable_id_sc_idx", unique: true
+    t.index ["impressionable_type", "impressionable_id"], name: "daily_summaries_p9_impressionable_type_impressionable_id_idx"
+    t.index ["scoped_by_type", "scoped_by_id"], name: "daily_summaries_p9_scoped_by_type_scoped_by_id_idx"
   end
 
   create_table "email_templates", force: :cascade do |t|

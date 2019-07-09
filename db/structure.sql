@@ -390,6 +390,37 @@ ALTER SEQUENCE public.creatives_id_seq OWNED BY public.creatives.id;
 --
 
 CREATE TABLE public.daily_summaries (
+    impressionable_type character varying NOT NULL,
+    impressionable_id bigint NOT NULL,
+    scoped_by_type character varying,
+    scoped_by_id character varying,
+    impressions_count integer DEFAULT 0 NOT NULL,
+    fallbacks_count integer DEFAULT 0 NOT NULL,
+    fallback_percentage numeric DEFAULT 0.0 NOT NULL,
+    clicks_count integer DEFAULT 0 NOT NULL,
+    click_rate numeric DEFAULT 0.0 NOT NULL,
+    ecpm_cents integer DEFAULT 0 NOT NULL,
+    ecpm_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    cost_per_click_cents integer DEFAULT 0 NOT NULL,
+    cost_per_click_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    gross_revenue_cents integer DEFAULT 0 NOT NULL,
+    gross_revenue_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    property_revenue_cents integer DEFAULT 0 NOT NULL,
+    property_revenue_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    house_revenue_cents integer DEFAULT 0 NOT NULL,
+    house_revenue_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    displayed_at_date date NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+)
+PARTITION BY HASH (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
+
+
+--
+-- Name: daily_summaries_old; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.daily_summaries_old (
     id bigint NOT NULL,
     impressionable_type character varying NOT NULL,
     impressionable_id bigint NOT NULL,
@@ -417,10 +448,10 @@ CREATE TABLE public.daily_summaries (
 
 
 --
--- Name: daily_summaries_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: daily_summaries_old_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE public.daily_summaries_id_seq
+CREATE SEQUENCE public.daily_summaries_old_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MINVALUE
@@ -429,10 +460,90 @@ CREATE SEQUENCE public.daily_summaries_id_seq
 
 
 --
--- Name: daily_summaries_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: daily_summaries_old_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE public.daily_summaries_id_seq OWNED BY public.daily_summaries.id;
+ALTER SEQUENCE public.daily_summaries_old_id_seq OWNED BY public.daily_summaries_old.id;
+
+
+--
+-- Name: daily_summaries_p0; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.daily_summaries_p0 PARTITION OF public.daily_summaries
+FOR VALUES WITH (modulus 10, remainder 0);
+
+
+--
+-- Name: daily_summaries_p1; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.daily_summaries_p1 PARTITION OF public.daily_summaries
+FOR VALUES WITH (modulus 10, remainder 1);
+
+
+--
+-- Name: daily_summaries_p2; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.daily_summaries_p2 PARTITION OF public.daily_summaries
+FOR VALUES WITH (modulus 10, remainder 2);
+
+
+--
+-- Name: daily_summaries_p3; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.daily_summaries_p3 PARTITION OF public.daily_summaries
+FOR VALUES WITH (modulus 10, remainder 3);
+
+
+--
+-- Name: daily_summaries_p4; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.daily_summaries_p4 PARTITION OF public.daily_summaries
+FOR VALUES WITH (modulus 10, remainder 4);
+
+
+--
+-- Name: daily_summaries_p5; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.daily_summaries_p5 PARTITION OF public.daily_summaries
+FOR VALUES WITH (modulus 10, remainder 5);
+
+
+--
+-- Name: daily_summaries_p6; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.daily_summaries_p6 PARTITION OF public.daily_summaries
+FOR VALUES WITH (modulus 10, remainder 6);
+
+
+--
+-- Name: daily_summaries_p7; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.daily_summaries_p7 PARTITION OF public.daily_summaries
+FOR VALUES WITH (modulus 10, remainder 7);
+
+
+--
+-- Name: daily_summaries_p8; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.daily_summaries_p8 PARTITION OF public.daily_summaries
+FOR VALUES WITH (modulus 10, remainder 8);
+
+
+--
+-- Name: daily_summaries_p9; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.daily_summaries_p9 PARTITION OF public.daily_summaries
+FOR VALUES WITH (modulus 10, remainder 9);
 
 
 --
@@ -1063,10 +1174,1060 @@ ALTER TABLE ONLY public.creatives ALTER COLUMN id SET DEFAULT nextval('public.cr
 
 
 --
--- Name: daily_summaries id; Type: DEFAULT; Schema: public; Owner: -
+-- Name: daily_summaries_old id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.daily_summaries ALTER COLUMN id SET DEFAULT nextval('public.daily_summaries_id_seq'::regclass);
+ALTER TABLE ONLY public.daily_summaries_old ALTER COLUMN id SET DEFAULT nextval('public.daily_summaries_old_id_seq'::regclass);
+
+
+--
+-- Name: daily_summaries_p0 impressions_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN impressions_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p0 fallbacks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN fallbacks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p0 fallback_percentage; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN fallback_percentage SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p0 clicks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN clicks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p0 click_rate; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN click_rate SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p0 ecpm_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN ecpm_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p0 ecpm_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN ecpm_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p0 cost_per_click_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN cost_per_click_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p0 cost_per_click_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN cost_per_click_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p0 gross_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN gross_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p0 gross_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN gross_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p0 property_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN property_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p0 property_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN property_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p0 house_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN house_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p0 house_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p0 ALTER COLUMN house_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p1 impressions_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN impressions_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p1 fallbacks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN fallbacks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p1 fallback_percentage; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN fallback_percentage SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p1 clicks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN clicks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p1 click_rate; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN click_rate SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p1 ecpm_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN ecpm_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p1 ecpm_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN ecpm_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p1 cost_per_click_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN cost_per_click_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p1 cost_per_click_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN cost_per_click_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p1 gross_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN gross_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p1 gross_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN gross_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p1 property_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN property_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p1 property_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN property_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p1 house_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN house_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p1 house_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p1 ALTER COLUMN house_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p2 impressions_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN impressions_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p2 fallbacks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN fallbacks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p2 fallback_percentage; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN fallback_percentage SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p2 clicks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN clicks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p2 click_rate; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN click_rate SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p2 ecpm_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN ecpm_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p2 ecpm_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN ecpm_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p2 cost_per_click_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN cost_per_click_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p2 cost_per_click_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN cost_per_click_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p2 gross_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN gross_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p2 gross_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN gross_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p2 property_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN property_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p2 property_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN property_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p2 house_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN house_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p2 house_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p2 ALTER COLUMN house_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p3 impressions_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN impressions_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p3 fallbacks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN fallbacks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p3 fallback_percentage; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN fallback_percentage SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p3 clicks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN clicks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p3 click_rate; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN click_rate SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p3 ecpm_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN ecpm_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p3 ecpm_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN ecpm_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p3 cost_per_click_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN cost_per_click_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p3 cost_per_click_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN cost_per_click_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p3 gross_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN gross_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p3 gross_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN gross_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p3 property_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN property_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p3 property_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN property_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p3 house_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN house_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p3 house_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p3 ALTER COLUMN house_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p4 impressions_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN impressions_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p4 fallbacks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN fallbacks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p4 fallback_percentage; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN fallback_percentage SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p4 clicks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN clicks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p4 click_rate; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN click_rate SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p4 ecpm_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN ecpm_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p4 ecpm_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN ecpm_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p4 cost_per_click_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN cost_per_click_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p4 cost_per_click_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN cost_per_click_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p4 gross_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN gross_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p4 gross_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN gross_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p4 property_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN property_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p4 property_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN property_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p4 house_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN house_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p4 house_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p4 ALTER COLUMN house_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p5 impressions_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN impressions_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p5 fallbacks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN fallbacks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p5 fallback_percentage; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN fallback_percentage SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p5 clicks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN clicks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p5 click_rate; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN click_rate SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p5 ecpm_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN ecpm_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p5 ecpm_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN ecpm_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p5 cost_per_click_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN cost_per_click_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p5 cost_per_click_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN cost_per_click_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p5 gross_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN gross_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p5 gross_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN gross_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p5 property_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN property_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p5 property_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN property_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p5 house_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN house_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p5 house_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p5 ALTER COLUMN house_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p6 impressions_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN impressions_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p6 fallbacks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN fallbacks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p6 fallback_percentage; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN fallback_percentage SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p6 clicks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN clicks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p6 click_rate; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN click_rate SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p6 ecpm_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN ecpm_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p6 ecpm_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN ecpm_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p6 cost_per_click_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN cost_per_click_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p6 cost_per_click_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN cost_per_click_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p6 gross_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN gross_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p6 gross_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN gross_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p6 property_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN property_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p6 property_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN property_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p6 house_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN house_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p6 house_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p6 ALTER COLUMN house_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p7 impressions_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN impressions_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p7 fallbacks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN fallbacks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p7 fallback_percentage; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN fallback_percentage SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p7 clicks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN clicks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p7 click_rate; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN click_rate SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p7 ecpm_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN ecpm_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p7 ecpm_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN ecpm_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p7 cost_per_click_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN cost_per_click_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p7 cost_per_click_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN cost_per_click_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p7 gross_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN gross_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p7 gross_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN gross_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p7 property_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN property_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p7 property_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN property_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p7 house_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN house_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p7 house_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p7 ALTER COLUMN house_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p8 impressions_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN impressions_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p8 fallbacks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN fallbacks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p8 fallback_percentage; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN fallback_percentage SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p8 clicks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN clicks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p8 click_rate; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN click_rate SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p8 ecpm_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN ecpm_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p8 ecpm_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN ecpm_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p8 cost_per_click_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN cost_per_click_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p8 cost_per_click_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN cost_per_click_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p8 gross_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN gross_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p8 gross_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN gross_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p8 property_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN property_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p8 property_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN property_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p8 house_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN house_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p8 house_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p8 ALTER COLUMN house_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p9 impressions_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN impressions_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p9 fallbacks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN fallbacks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p9 fallback_percentage; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN fallback_percentage SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p9 clicks_count; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN clicks_count SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p9 click_rate; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN click_rate SET DEFAULT 0.0;
+
+
+--
+-- Name: daily_summaries_p9 ecpm_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN ecpm_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p9 ecpm_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN ecpm_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p9 cost_per_click_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN cost_per_click_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p9 cost_per_click_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN cost_per_click_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p9 gross_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN gross_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p9 gross_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN gross_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p9 property_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN property_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p9 property_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN property_revenue_currency SET DEFAULT 'USD'::character varying;
+
+
+--
+-- Name: daily_summaries_p9 house_revenue_cents; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN house_revenue_cents SET DEFAULT 0;
+
+
+--
+-- Name: daily_summaries_p9 house_revenue_currency; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.daily_summaries_p9 ALTER COLUMN house_revenue_currency SET DEFAULT 'USD'::character varying;
 
 
 --
@@ -1240,11 +2401,11 @@ ALTER TABLE ONLY public.creatives
 
 
 --
--- Name: daily_summaries daily_summaries_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: daily_summaries_old daily_summaries_old_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY public.daily_summaries
-    ADD CONSTRAINT daily_summaries_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY public.daily_summaries_old
+    ADD CONSTRAINT daily_summaries_old_pkey PRIMARY KEY (id);
 
 
 --
@@ -1341,6 +2502,314 @@ ALTER TABLE ONLY public.users
 
 ALTER TABLE ONLY public.versions
     ADD CONSTRAINT versions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_pdaily_summaries_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pdaily_summaries_on_displayed_at_date ON ONLY public.daily_summaries USING btree (displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p0_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p0_displayed_at_date_idx ON public.daily_summaries_p0 USING btree (displayed_at_date);
+
+
+--
+-- Name: index_pdaily_summaries_on_impressionable_columns; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pdaily_summaries_on_impressionable_columns ON ONLY public.daily_summaries USING btree (impressionable_type, impressionable_id);
+
+
+--
+-- Name: daily_summaries_p0_impressionable_type_impressionable_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p0_impressionable_type_impressionable_id_idx ON public.daily_summaries_p0 USING btree (impressionable_type, impressionable_id);
+
+
+--
+-- Name: index_pdaily_summaries_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pdaily_summaries_uniqueness ON ONLY public.daily_summaries USING btree (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p0_impressionable_type_impressionable_id_sc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX daily_summaries_p0_impressionable_type_impressionable_id_sc_idx ON public.daily_summaries_p0 USING btree (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
+
+
+--
+-- Name: index_pdaily_summaries_on_scoped_by_columns; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pdaily_summaries_on_scoped_by_columns ON ONLY public.daily_summaries USING btree (scoped_by_type, scoped_by_id);
+
+
+--
+-- Name: daily_summaries_p0_scoped_by_type_scoped_by_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p0_scoped_by_type_scoped_by_id_idx ON public.daily_summaries_p0 USING btree (scoped_by_type, scoped_by_id);
+
+
+--
+-- Name: daily_summaries_p1_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p1_displayed_at_date_idx ON public.daily_summaries_p1 USING btree (displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p1_impressionable_type_impressionable_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p1_impressionable_type_impressionable_id_idx ON public.daily_summaries_p1 USING btree (impressionable_type, impressionable_id);
+
+
+--
+-- Name: daily_summaries_p1_impressionable_type_impressionable_id_sc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX daily_summaries_p1_impressionable_type_impressionable_id_sc_idx ON public.daily_summaries_p1 USING btree (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p1_scoped_by_type_scoped_by_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p1_scoped_by_type_scoped_by_id_idx ON public.daily_summaries_p1 USING btree (scoped_by_type, scoped_by_id);
+
+
+--
+-- Name: daily_summaries_p2_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p2_displayed_at_date_idx ON public.daily_summaries_p2 USING btree (displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p2_impressionable_type_impressionable_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p2_impressionable_type_impressionable_id_idx ON public.daily_summaries_p2 USING btree (impressionable_type, impressionable_id);
+
+
+--
+-- Name: daily_summaries_p2_impressionable_type_impressionable_id_sc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX daily_summaries_p2_impressionable_type_impressionable_id_sc_idx ON public.daily_summaries_p2 USING btree (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p2_scoped_by_type_scoped_by_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p2_scoped_by_type_scoped_by_id_idx ON public.daily_summaries_p2 USING btree (scoped_by_type, scoped_by_id);
+
+
+--
+-- Name: daily_summaries_p3_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p3_displayed_at_date_idx ON public.daily_summaries_p3 USING btree (displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p3_impressionable_type_impressionable_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p3_impressionable_type_impressionable_id_idx ON public.daily_summaries_p3 USING btree (impressionable_type, impressionable_id);
+
+
+--
+-- Name: daily_summaries_p3_impressionable_type_impressionable_id_sc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX daily_summaries_p3_impressionable_type_impressionable_id_sc_idx ON public.daily_summaries_p3 USING btree (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p3_scoped_by_type_scoped_by_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p3_scoped_by_type_scoped_by_id_idx ON public.daily_summaries_p3 USING btree (scoped_by_type, scoped_by_id);
+
+
+--
+-- Name: daily_summaries_p4_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p4_displayed_at_date_idx ON public.daily_summaries_p4 USING btree (displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p4_impressionable_type_impressionable_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p4_impressionable_type_impressionable_id_idx ON public.daily_summaries_p4 USING btree (impressionable_type, impressionable_id);
+
+
+--
+-- Name: daily_summaries_p4_impressionable_type_impressionable_id_sc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX daily_summaries_p4_impressionable_type_impressionable_id_sc_idx ON public.daily_summaries_p4 USING btree (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p4_scoped_by_type_scoped_by_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p4_scoped_by_type_scoped_by_id_idx ON public.daily_summaries_p4 USING btree (scoped_by_type, scoped_by_id);
+
+
+--
+-- Name: daily_summaries_p5_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p5_displayed_at_date_idx ON public.daily_summaries_p5 USING btree (displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p5_impressionable_type_impressionable_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p5_impressionable_type_impressionable_id_idx ON public.daily_summaries_p5 USING btree (impressionable_type, impressionable_id);
+
+
+--
+-- Name: daily_summaries_p5_impressionable_type_impressionable_id_sc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX daily_summaries_p5_impressionable_type_impressionable_id_sc_idx ON public.daily_summaries_p5 USING btree (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p5_scoped_by_type_scoped_by_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p5_scoped_by_type_scoped_by_id_idx ON public.daily_summaries_p5 USING btree (scoped_by_type, scoped_by_id);
+
+
+--
+-- Name: daily_summaries_p6_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p6_displayed_at_date_idx ON public.daily_summaries_p6 USING btree (displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p6_impressionable_type_impressionable_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p6_impressionable_type_impressionable_id_idx ON public.daily_summaries_p6 USING btree (impressionable_type, impressionable_id);
+
+
+--
+-- Name: daily_summaries_p6_impressionable_type_impressionable_id_sc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX daily_summaries_p6_impressionable_type_impressionable_id_sc_idx ON public.daily_summaries_p6 USING btree (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p6_scoped_by_type_scoped_by_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p6_scoped_by_type_scoped_by_id_idx ON public.daily_summaries_p6 USING btree (scoped_by_type, scoped_by_id);
+
+
+--
+-- Name: daily_summaries_p7_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p7_displayed_at_date_idx ON public.daily_summaries_p7 USING btree (displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p7_impressionable_type_impressionable_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p7_impressionable_type_impressionable_id_idx ON public.daily_summaries_p7 USING btree (impressionable_type, impressionable_id);
+
+
+--
+-- Name: daily_summaries_p7_impressionable_type_impressionable_id_sc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX daily_summaries_p7_impressionable_type_impressionable_id_sc_idx ON public.daily_summaries_p7 USING btree (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p7_scoped_by_type_scoped_by_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p7_scoped_by_type_scoped_by_id_idx ON public.daily_summaries_p7 USING btree (scoped_by_type, scoped_by_id);
+
+
+--
+-- Name: daily_summaries_p8_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p8_displayed_at_date_idx ON public.daily_summaries_p8 USING btree (displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p8_impressionable_type_impressionable_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p8_impressionable_type_impressionable_id_idx ON public.daily_summaries_p8 USING btree (impressionable_type, impressionable_id);
+
+
+--
+-- Name: daily_summaries_p8_impressionable_type_impressionable_id_sc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX daily_summaries_p8_impressionable_type_impressionable_id_sc_idx ON public.daily_summaries_p8 USING btree (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p8_scoped_by_type_scoped_by_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p8_scoped_by_type_scoped_by_id_idx ON public.daily_summaries_p8 USING btree (scoped_by_type, scoped_by_id);
+
+
+--
+-- Name: daily_summaries_p9_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p9_displayed_at_date_idx ON public.daily_summaries_p9 USING btree (displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p9_impressionable_type_impressionable_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p9_impressionable_type_impressionable_id_idx ON public.daily_summaries_p9 USING btree (impressionable_type, impressionable_id);
+
+
+--
+-- Name: daily_summaries_p9_impressionable_type_impressionable_id_sc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX daily_summaries_p9_impressionable_type_impressionable_id_sc_idx ON public.daily_summaries_p9 USING btree (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
+
+
+--
+-- Name: daily_summaries_p9_scoped_by_type_scoped_by_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX daily_summaries_p9_scoped_by_type_scoped_by_id_idx ON public.daily_summaries_p9 USING btree (scoped_by_type, scoped_by_id);
 
 
 --
@@ -1764,38 +3233,38 @@ CREATE INDEX index_creatives_on_user_id ON public.creatives USING btree (user_id
 
 
 --
--- Name: index_daily_summaries_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+-- Name: index_daily_summaries_old_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_daily_summaries_on_displayed_at_date ON public.daily_summaries USING btree (displayed_at_date);
+CREATE INDEX index_daily_summaries_old_on_displayed_at_date ON public.daily_summaries_old USING btree (displayed_at_date);
 
 
 --
 -- Name: index_daily_summaries_on_impressionable_columns; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_daily_summaries_on_impressionable_columns ON public.daily_summaries USING btree (impressionable_type, impressionable_id);
+CREATE INDEX index_daily_summaries_on_impressionable_columns ON public.daily_summaries_old USING btree (impressionable_type, impressionable_id);
 
 
 --
 -- Name: index_daily_summaries_on_scoped_by_columns; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_daily_summaries_on_scoped_by_columns ON public.daily_summaries USING btree (scoped_by_type, scoped_by_id);
+CREATE INDEX index_daily_summaries_on_scoped_by_columns ON public.daily_summaries_old USING btree (scoped_by_type, scoped_by_id);
 
 
 --
 -- Name: index_daily_summaries_uniqueness; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_daily_summaries_uniqueness ON public.daily_summaries USING btree (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
+CREATE UNIQUE INDEX index_daily_summaries_uniqueness ON public.daily_summaries_old USING btree (impressionable_type, impressionable_id, scoped_by_type, scoped_by_id, displayed_at_date);
 
 
 --
 -- Name: index_daily_summaries_unscoped_uniqueness; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_daily_summaries_unscoped_uniqueness ON public.daily_summaries USING btree (impressionable_type, impressionable_id, displayed_at_date) WHERE ((scoped_by_type IS NULL) AND (scoped_by_id IS NULL));
+CREATE UNIQUE INDEX index_daily_summaries_unscoped_uniqueness ON public.daily_summaries_old USING btree (impressionable_type, impressionable_id, displayed_at_date) WHERE ((scoped_by_type IS NULL) AND (scoped_by_id IS NULL));
 
 
 --
@@ -2219,6 +3688,286 @@ CREATE INDEX index_versions_on_object_changes ON public.versions USING gin (obje
 
 
 --
+-- Name: daily_summaries_p0_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_displayed_at_date ATTACH PARTITION public.daily_summaries_p0_displayed_at_date_idx;
+
+
+--
+-- Name: daily_summaries_p0_impressionable_type_impressionable_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_impressionable_columns ATTACH PARTITION public.daily_summaries_p0_impressionable_type_impressionable_id_idx;
+
+
+--
+-- Name: daily_summaries_p0_impressionable_type_impressionable_id_sc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_uniqueness ATTACH PARTITION public.daily_summaries_p0_impressionable_type_impressionable_id_sc_idx;
+
+
+--
+-- Name: daily_summaries_p0_scoped_by_type_scoped_by_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_scoped_by_columns ATTACH PARTITION public.daily_summaries_p0_scoped_by_type_scoped_by_id_idx;
+
+
+--
+-- Name: daily_summaries_p1_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_displayed_at_date ATTACH PARTITION public.daily_summaries_p1_displayed_at_date_idx;
+
+
+--
+-- Name: daily_summaries_p1_impressionable_type_impressionable_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_impressionable_columns ATTACH PARTITION public.daily_summaries_p1_impressionable_type_impressionable_id_idx;
+
+
+--
+-- Name: daily_summaries_p1_impressionable_type_impressionable_id_sc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_uniqueness ATTACH PARTITION public.daily_summaries_p1_impressionable_type_impressionable_id_sc_idx;
+
+
+--
+-- Name: daily_summaries_p1_scoped_by_type_scoped_by_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_scoped_by_columns ATTACH PARTITION public.daily_summaries_p1_scoped_by_type_scoped_by_id_idx;
+
+
+--
+-- Name: daily_summaries_p2_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_displayed_at_date ATTACH PARTITION public.daily_summaries_p2_displayed_at_date_idx;
+
+
+--
+-- Name: daily_summaries_p2_impressionable_type_impressionable_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_impressionable_columns ATTACH PARTITION public.daily_summaries_p2_impressionable_type_impressionable_id_idx;
+
+
+--
+-- Name: daily_summaries_p2_impressionable_type_impressionable_id_sc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_uniqueness ATTACH PARTITION public.daily_summaries_p2_impressionable_type_impressionable_id_sc_idx;
+
+
+--
+-- Name: daily_summaries_p2_scoped_by_type_scoped_by_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_scoped_by_columns ATTACH PARTITION public.daily_summaries_p2_scoped_by_type_scoped_by_id_idx;
+
+
+--
+-- Name: daily_summaries_p3_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_displayed_at_date ATTACH PARTITION public.daily_summaries_p3_displayed_at_date_idx;
+
+
+--
+-- Name: daily_summaries_p3_impressionable_type_impressionable_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_impressionable_columns ATTACH PARTITION public.daily_summaries_p3_impressionable_type_impressionable_id_idx;
+
+
+--
+-- Name: daily_summaries_p3_impressionable_type_impressionable_id_sc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_uniqueness ATTACH PARTITION public.daily_summaries_p3_impressionable_type_impressionable_id_sc_idx;
+
+
+--
+-- Name: daily_summaries_p3_scoped_by_type_scoped_by_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_scoped_by_columns ATTACH PARTITION public.daily_summaries_p3_scoped_by_type_scoped_by_id_idx;
+
+
+--
+-- Name: daily_summaries_p4_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_displayed_at_date ATTACH PARTITION public.daily_summaries_p4_displayed_at_date_idx;
+
+
+--
+-- Name: daily_summaries_p4_impressionable_type_impressionable_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_impressionable_columns ATTACH PARTITION public.daily_summaries_p4_impressionable_type_impressionable_id_idx;
+
+
+--
+-- Name: daily_summaries_p4_impressionable_type_impressionable_id_sc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_uniqueness ATTACH PARTITION public.daily_summaries_p4_impressionable_type_impressionable_id_sc_idx;
+
+
+--
+-- Name: daily_summaries_p4_scoped_by_type_scoped_by_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_scoped_by_columns ATTACH PARTITION public.daily_summaries_p4_scoped_by_type_scoped_by_id_idx;
+
+
+--
+-- Name: daily_summaries_p5_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_displayed_at_date ATTACH PARTITION public.daily_summaries_p5_displayed_at_date_idx;
+
+
+--
+-- Name: daily_summaries_p5_impressionable_type_impressionable_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_impressionable_columns ATTACH PARTITION public.daily_summaries_p5_impressionable_type_impressionable_id_idx;
+
+
+--
+-- Name: daily_summaries_p5_impressionable_type_impressionable_id_sc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_uniqueness ATTACH PARTITION public.daily_summaries_p5_impressionable_type_impressionable_id_sc_idx;
+
+
+--
+-- Name: daily_summaries_p5_scoped_by_type_scoped_by_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_scoped_by_columns ATTACH PARTITION public.daily_summaries_p5_scoped_by_type_scoped_by_id_idx;
+
+
+--
+-- Name: daily_summaries_p6_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_displayed_at_date ATTACH PARTITION public.daily_summaries_p6_displayed_at_date_idx;
+
+
+--
+-- Name: daily_summaries_p6_impressionable_type_impressionable_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_impressionable_columns ATTACH PARTITION public.daily_summaries_p6_impressionable_type_impressionable_id_idx;
+
+
+--
+-- Name: daily_summaries_p6_impressionable_type_impressionable_id_sc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_uniqueness ATTACH PARTITION public.daily_summaries_p6_impressionable_type_impressionable_id_sc_idx;
+
+
+--
+-- Name: daily_summaries_p6_scoped_by_type_scoped_by_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_scoped_by_columns ATTACH PARTITION public.daily_summaries_p6_scoped_by_type_scoped_by_id_idx;
+
+
+--
+-- Name: daily_summaries_p7_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_displayed_at_date ATTACH PARTITION public.daily_summaries_p7_displayed_at_date_idx;
+
+
+--
+-- Name: daily_summaries_p7_impressionable_type_impressionable_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_impressionable_columns ATTACH PARTITION public.daily_summaries_p7_impressionable_type_impressionable_id_idx;
+
+
+--
+-- Name: daily_summaries_p7_impressionable_type_impressionable_id_sc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_uniqueness ATTACH PARTITION public.daily_summaries_p7_impressionable_type_impressionable_id_sc_idx;
+
+
+--
+-- Name: daily_summaries_p7_scoped_by_type_scoped_by_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_scoped_by_columns ATTACH PARTITION public.daily_summaries_p7_scoped_by_type_scoped_by_id_idx;
+
+
+--
+-- Name: daily_summaries_p8_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_displayed_at_date ATTACH PARTITION public.daily_summaries_p8_displayed_at_date_idx;
+
+
+--
+-- Name: daily_summaries_p8_impressionable_type_impressionable_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_impressionable_columns ATTACH PARTITION public.daily_summaries_p8_impressionable_type_impressionable_id_idx;
+
+
+--
+-- Name: daily_summaries_p8_impressionable_type_impressionable_id_sc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_uniqueness ATTACH PARTITION public.daily_summaries_p8_impressionable_type_impressionable_id_sc_idx;
+
+
+--
+-- Name: daily_summaries_p8_scoped_by_type_scoped_by_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_scoped_by_columns ATTACH PARTITION public.daily_summaries_p8_scoped_by_type_scoped_by_id_idx;
+
+
+--
+-- Name: daily_summaries_p9_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_displayed_at_date ATTACH PARTITION public.daily_summaries_p9_displayed_at_date_idx;
+
+
+--
+-- Name: daily_summaries_p9_impressionable_type_impressionable_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_impressionable_columns ATTACH PARTITION public.daily_summaries_p9_impressionable_type_impressionable_id_idx;
+
+
+--
+-- Name: daily_summaries_p9_impressionable_type_impressionable_id_sc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_uniqueness ATTACH PARTITION public.daily_summaries_p9_impressionable_type_impressionable_id_sc_idx;
+
+
+--
+-- Name: daily_summaries_p9_scoped_by_type_scoped_by_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_pdaily_summaries_on_scoped_by_columns ATTACH PARTITION public.daily_summaries_p9_scoped_by_type_scoped_by_id_idx;
+
+
+--
 -- Name: impressions_default_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
 --
 
@@ -2388,6 +4137,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190605172711'),
 ('20190605185105'),
 ('20190611183743'),
-('20190612154209');
+('20190612154209'),
+('20190701210845');
 
 

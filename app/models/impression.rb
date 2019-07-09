@@ -61,11 +61,11 @@ class Impression < ApplicationRecord
   scope :time_between, ->(start_time, end_time) {
     where displayed_at: start_time.to_time..(end_time || start_time).to_time
   }
-  scope :scoped_by, ->(record) {
-    case record
-    when Campaign then where campaign_id: record.id
-    when Property then where property_id: record.id
-    else all
+  scope :scoped_by, ->(value, type = nil) {
+    case value
+    when Campaign then where campaign_id: value.id
+    when Property then where property_id: value.id
+    else columns_hash[type.to_s].nil? ? none : where(type.to_s => value)
     end
   }
   scope :fallback, -> { where fallback_campaign: true }
