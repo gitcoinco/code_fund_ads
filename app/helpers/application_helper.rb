@@ -125,6 +125,23 @@ module ApplicationHelper
     return nil unless ENV["HUBSPOT_ID"].present?
     render("/@shared/scripts/hubspot", id: ENV["HUBSPOT_ID"])
   end
+  
+  def intercom_tag
+    return nil unless ENV["INTERCOM_APP_ID"].present? && ENV["INTERCOM_SECRET_KEY"].present?
+    intercom_settings = {app_id: ENV["INTERCOM_APP_ID"]}
+    if current_user
+      user_hash = OpenSSL::HMAC.hexdigest("sha256", ENV["INTERCOM_SECRET_KEY"], current_user.id.to_s)
+
+      intercom_settings = intercom_settings.merge({
+        user_id: current_user.id.to_s,
+        user_hash: user_hash,
+        name: current_user.full_name,
+        email: current_user.email,
+        created_at: current_user.created_at.to_i,
+      })
+    end
+    render("/@shared/scripts/intercom", intercom_settings: intercom_settings)
+  end
 
   def codefund_analytics_tag
     return nil unless ENV["CODEFUND_ANALYTICS_KEY"].present?
