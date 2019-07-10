@@ -2,6 +2,7 @@
 #
 # Table name: daily_summaries
 #
+#  id                        :bigint           not null, primary key
 #  impressionable_type       :string           not null
 #  impressionable_id         :bigint           not null
 #  scoped_by_type            :string
