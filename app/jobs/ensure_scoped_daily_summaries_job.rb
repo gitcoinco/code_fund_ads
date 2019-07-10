@@ -2,7 +2,7 @@ class EnsureScopedDailySummariesJob < ApplicationJob
   queue_as :low
 
   def perform
-    start_date = 1.month.ago.beginning_of_month.to_date
+    start_date = 7.days.ago.to_date
     end_date = 1.day.ago.to_date
 
     Campaign.in_batches.each do |campaigns|
