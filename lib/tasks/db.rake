@@ -1,5 +1,5 @@
 namespace :db do
-  desc "Dumps the development database to ./tmp"
+  desc "Dumps the development database to ./tmp/..."
   task dump: [:environment] do
     return puts("Only run in the development environment!") unless Rails.env.development?
     config = ActiveRecord::Base.connection_config
@@ -12,7 +12,7 @@ namespace :db do
     end
   end
 
-  desc "Restored the development database from the dump file in ./tmp"
+  desc "Restores the development database from the dump file in ./tmp"
   task restore: [:environment] do
     return puts("Only run in the development environment!") unless Rails.env.development?
     config = ActiveRecord::Base.connection_config
