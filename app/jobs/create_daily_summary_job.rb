@@ -5,6 +5,8 @@ class CreateDailySummaryJob < ApplicationJob
     date = Date.coerce(date_string)
     return if date.today? || date.future?
     return if impressionable.daily_summaries.on(date).scoped_by(scoped_by, scoped_by_type).exists?
+    return if impressionable.is_a?(Campaign) && !impressionable.available_on?(date)
+    return unless impressionable.impressions.on(date).scoped_by(scoped_by, scoped_by_type).exists?
 
     impressions = impressionable.impressions.on(date).scoped_by(scoped_by, scoped_by_type)
 

@@ -92,6 +92,7 @@ group :development, :test do
   gem "faker"
   gem "pry"
   gem "pry-byebug"
+  gem "pry-doc"
   gem "pry-rails"
   gem "rb-readline"
 end
