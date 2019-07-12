@@ -334,8 +334,10 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: premium ads don't render when over daily budget" do
-    @premium_campaign.daily_summaries.create!(displayed_at_date: Date.current, gross_revenue: Monetize.parse("$55 USD"))
-    @premium_campaign.increment_hourly_consumed_budget_fractional_cents(Monetize.parse("$5.00 USD").cents)
+    premium_impression campaign: @premium_campaign,
+      estimated_gross_revenue_fractional_cents: @premium_campaign.daily_budget.cents,
+      displayed_at: Time.current,
+      displayed_at_date: Date.current
     assert @premium_campaign.budget_available?
     refute @premium_campaign.daily_budget_available?
     refute @premium_campaign.hourly_budget_available?
