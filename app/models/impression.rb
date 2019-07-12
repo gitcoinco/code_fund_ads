@@ -67,7 +67,14 @@ class Impression < ApplicationRecord
     case value
     when Campaign then where campaign_id: value.id
     when Property then where property_id: value.id
-    else columns_hash[type.to_s].nil? ? none : where(type.to_s => value)
+    else
+      if value.nil? && type.nil?
+        all
+      elsif columns_hash[type.to_s]
+        where type.to_s => value
+      else
+        none
+      end
     end
   }
   scope :fallback, -> { where fallback_campaign: true }
