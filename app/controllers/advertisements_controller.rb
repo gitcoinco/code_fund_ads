@@ -187,8 +187,8 @@ class AdvertisementsController < ApplicationController
     @referral_code ||= User.referral_code(property.user_id)
   end
 
-  def ad_test
-    @ad_test ||= (params[:ad_test] || params[:adtest]).to_s == "true"
+  def ad_test?
+    (params[:ad_test] || params[:adtest]).to_s == "true"
   end
 
   def set_campaign
@@ -203,7 +203,7 @@ class AdvertisementsController < ApplicationController
       .targeted_country_code(country_code)
       .targeted_province_code(province_code)
 
-    @campaign = get_premium_campaign(geo_targeted_campaign_relation) if property.active? && ad_test == false
+    @campaign = get_premium_campaign(geo_targeted_campaign_relation) if property.active? && ad_test? == false
     @campaign ||= get_fallback_campaign(geo_targeted_campaign_relation)
     @campaign ||= get_fallback_campaign(campaign_relation)
   end
