@@ -15,7 +15,7 @@ module Impressionable
         .pluck(:displayed_at_date, :impressions_count)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
       date_range = start_date..end_date
-      if date_range.include?(Date.current)
+      if date_range.cover?(Date.current)
         counts_by_date[Date.current] = impressions.on(Date.current).scoped_by(scoped_by).count
       end
       date_range.to_a.map { |date| counts_by_date[date] ||= 0 }
@@ -31,7 +31,7 @@ module Impressionable
         .pluck(:displayed_at_date, :clicks_count)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
       date_range = start_date..end_date
-      if date_range.include?(Date.current)
+      if date_range.cover?(Date.current)
         counts_by_date[Date.current] = impressions.clicked.on(Date.current).scoped_by(scoped_by).count
       end
       date_range.to_a.map { |date| counts_by_date[date] ||= 0 }

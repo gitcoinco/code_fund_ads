@@ -13,7 +13,7 @@ class ApplicationRecord < ActiveRecord::Base
       "#{model.quoted_table_name}.#{connection.quote_column_name name}"
     end
 
-    def range_boundaries(range)
+    def range_boundary(range)
       [range.first, range.last]
     end
   end

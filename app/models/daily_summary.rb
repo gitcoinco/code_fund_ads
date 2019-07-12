@@ -51,7 +51,7 @@ class DailySummary < ApplicationRecord
   scope :clicked, -> { where arel_table[:clicks_count].gt(0) }
   scope :on, ->(*dates) { where displayed_at_date: dates.map { |date| Date.coerce(date) } }
   scope :between, ->(start_date, end_date = nil) {
-    start_date, end_date = range_boundaries(start_date) if start_date.is_a?(Range)
+    start_date, end_date = range_boundary(start_date) if start_date.is_a?(Range)
     where displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date)
   }
   scope :scoped_by, ->(value, type = nil) {
