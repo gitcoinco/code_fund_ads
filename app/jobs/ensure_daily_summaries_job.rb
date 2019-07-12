@@ -4,17 +4,25 @@ class EnsureDailySummariesJob < ApplicationJob
   def perform
     start_date = 7.days.ago.to_date
     end_date = 1.day.ago.to_date
+    ensure_daily_summaries_for_campaigns start_date, end_date
+    ensure_daily_summaries_for_properties start_date, end_date
+  end
 
-    Campaign.in_batches.each do |campaigns|
+  private
+
+  def ensure_daily_summaries_for_campaigns(start_date, end_date)
+    Campaign.available_on(start_date).or(Campaign.available_on(end_date)).in_batches.each do |campaigns|
       campaigns.each do |campaign|
-        next unless Impression.between(start_date, end_date).where(campaign: campaign).exists?
+        next unless campaign.impressions.between(start_date, end_date).exists?
         CreateDailySummariesJob.perform_later campaign, start_date.iso8601, end_date.iso8601, nil
       end
     end
+  end
 
-    Property.in_batches.each do |properties|
+  def ensure_daily_summaries_for_properties(start_date, end_date)
+    Property.active.in_batches.each do |properties|
       properties.each do |property|
-        next unless Impression.between(start_date, end_date).where(property: property).exists?
+        next unless property.impressions.between(start_date, end_date).exists?
         CreateDailySummariesJob.perform_later property, start_date.iso8601, end_date.iso8601, nil
       end
     end

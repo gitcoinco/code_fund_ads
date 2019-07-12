@@ -394,7 +394,7 @@ CREATE TABLE public.daily_summaries (
     impressionable_type character varying NOT NULL,
     impressionable_id bigint NOT NULL,
     scoped_by_type character varying,
-    scoped_by_id bigint,
+    scoped_by_id character varying,
     impressions_count integer DEFAULT 0 NOT NULL,
     fallbacks_count integer DEFAULT 0 NOT NULL,
     fallback_percentage numeric DEFAULT 0 NOT NULL,
@@ -2388,6 +2388,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190605172711'),
 ('20190605185105'),
 ('20190611183743'),
-('20190612154209');
+('20190612154209'),
+('20190701210845');
 
 

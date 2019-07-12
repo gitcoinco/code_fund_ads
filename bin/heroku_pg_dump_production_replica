@@ -1,5 +1,11 @@
 #!/bin/sh
 rm -f ./tmp/production-shallow.dump
+
+if [[ -z "$PRODUCTION_DATABASE_REPLICA_URL" ]]; then
+  echo "PRODUCTION_DATABASE_REPLICA_URL environment variable not set!"
+  exit 1
+fi
+
 pg_dump --verbose --no-acl --no-owner --format=c \
   --exclude-table=impressions_2018_11_advertiser_123 \
   --exclude-table=impressions_2018_11_advertiser_132 \
@@ -129,5 +135,25 @@ pg_dump --verbose --no-acl --no-owner --format=c \
   --exclude-table=impressions_2019_06_advertiser_578 \
   --exclude-table=impressions_2019_06_advertiser_592 \
   --exclude-table=impressions_2019_06_advertiser_593 \
-  --exclude-table-data=impressions_default \
+  --exclude-table=impressions_2019_07_advertiser_123 \
+  --exclude-table=impressions_2019_07_advertiser_132 \
+  --exclude-table=impressions_2019_07_advertiser_146 \
+  --exclude-table=impressions_2019_07_advertiser_147 \
+  --exclude-table=impressions_2019_07_advertiser_185 \
+  --exclude-table=impressions_2019_07_advertiser_220 \
+  --exclude-table=impressions_2019_07_advertiser_239 \
+  --exclude-table=impressions_2019_07_advertiser_305 \
+  --exclude-table=impressions_2019_07_advertiser_365 \
+  --exclude-table=impressions_2019_07_advertiser_387 \
+  --exclude-table=impressions_2019_07_advertiser_460 \
+  --exclude-table=impressions_2019_07_advertiser_514 \
+  --exclude-table=impressions_2019_07_advertiser_515 \
+  --exclude-table=impressions_2019_07_advertiser_572 \
+  --exclude-table=impressions_2019_07_advertiser_576 \
+  --exclude-table=impressions_2019_07_advertiser_578 \
+  --exclude-table=impressions_2019_07_advertiser_592 \
+  --exclude-table=impressions_2019_07_advertiser_601 \
+  --exclude-table=impressions_2019_07_advertiser_609 \
+  --exclude-table=impressions_2019_07_advertiser_612 \
+  --exclude-table=impressions_default \
   $PRODUCTION_DATABASE_REPLICA_URL > ./tmp/production-shallow.dump

@@ -12,6 +12,10 @@ class ApplicationRecord < ActiveRecord::Base
       model ||= self
       "#{model.quoted_table_name}.#{connection.quote_column_name name}"
     end
+
+    def range_boundary(range)
+      [range.first, range.last]
+    end
   end
 
   delegate :sanitize_sql_value, to: "self.class"

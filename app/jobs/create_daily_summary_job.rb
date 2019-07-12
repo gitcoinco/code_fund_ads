@@ -1,15 +1,17 @@
 class CreateDailySummaryJob < ApplicationJob
   queue_as :low
 
-  def perform(impressionable, date_string, scoped_by)
+  def perform(impressionable, date_string, scoped_by, scoped_by_type = nil)
     date = Date.coerce(date_string)
     return if date.today? || date.future?
-    return if impressionable.daily_summaries.on(date).scoped_by(scoped_by).exists?
+    return if impressionable.daily_summaries.on(date).scoped_by(scoped_by, scoped_by_type).exists?
+    return if impressionable.is_a?(Campaign) && !impressionable.available_on?(date)
+    return unless impressionable.impressions.on(date).scoped_by(scoped_by, scoped_by_type).exists?
 
-    impressions = impressionable.impressions.on(date).scoped_by(scoped_by)
+    impressions = impressionable.impressions.on(date).scoped_by(scoped_by, scoped_by_type)
 
     DailySummary.transaction do
-      impressionable.daily_summaries.on(date).scoped_by(scoped_by).first_or_create!(
+      impressionable.daily_summaries.on(date).scoped_by(scoped_by, scoped_by_type).first_or_create!(
         impressions_count: impressions.count,
         fallbacks_count: impressions.fallback.count,
         clicks_count: impressions.clicked.count,

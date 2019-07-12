@@ -88,4 +88,38 @@ class ActiveSupport::TestCase
     end
     ip
   end
+
+  def premium_impression(params = {})
+    impression = Impression.first_or_create!(
+      advertiser: users(:advertiser),
+      publisher: users(:publisher),
+      campaign: campaigns(:premium),
+      creative: creatives(:premium),
+      property: properties(:website),
+      ip_address: "127.0.0.1",
+      user_agent: "test",
+      country_code: "US",
+      displayed_at: Time.current,
+      displayed_at_date: Date.current,
+    )
+    impression.update! params if params.present?
+    impression
+  end
+
+  def fallback_impression(params = {})
+    impression = Impression.first_or_create!(
+      advertiser: users(:advertiser),
+      publisher: users(:publisher),
+      campaign: campaigns(:fallback),
+      creative: creatives(:fallback),
+      property: properties(:website),
+      ip_address: "127.0.0.1",
+      user_agent: "test",
+      country_code: "US",
+      displayed_at: Time.current,
+      displayed_at_date: Date.current,
+    )
+    impression.update params if params.present?
+    impression
+  end
 end

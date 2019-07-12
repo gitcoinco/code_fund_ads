@@ -14,14 +14,11 @@ module Impressionable
       counts_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :impressions_count)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
-      dates = (start_date..end_date).to_a
-      missing_dates = dates - counts_by_date.keys
-      if missing_dates.present?
-        CreateDailySummariesJob.perform_later self, start_date.iso8601, end_date.iso8601, scoped_by
-        impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).count
-          .each { |date, count| counts_by_date[date] ||= count }
+      date_range = start_date..end_date
+      if date_range.cover?(Date.current)
+        counts_by_date[Date.current] = impressions.on(Date.current).scoped_by(scoped_by).count
       end
-      dates.map { |date| counts_by_date[date] ||= 0 }
+      date_range.to_a.map { |date| counts_by_date[date] ||= 0 }
     end
   end
 
@@ -33,14 +30,11 @@ module Impressionable
       counts_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :clicks_count)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
-      dates = (start_date..end_date).to_a
-      missing_dates = dates - counts_by_date.keys
-      if missing_dates.present?
-        CreateDailySummariesJob.perform_later self, start_date.iso8601, end_date.iso8601, scoped_by
-        impressions.clicked.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).count
-          .each { |date, count| counts_by_date[date] ||= count }
+      date_range = start_date..end_date
+      if date_range.cover?(Date.current)
+        counts_by_date[Date.current] = impressions.clicked.on(Date.current).scoped_by(scoped_by).count
       end
-      dates.map { |date| counts_by_date[date] ||= 0 }
+      date_range.to_a.map { |date| counts_by_date[date] ||= 0 }
     end
   end
 
@@ -66,12 +60,8 @@ module Impressionable
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :gross_revenue_cents)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
-      dates = (start_date..end_date).to_a
-      missing_dates = dates - cents_by_date.keys
-      if missing_dates.present?
-        CreateDailySummariesJob.perform_later self, start_date.iso8601, end_date.iso8601, scoped_by
-        impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).sum(:estimated_gross_revenue_fractional_cents)
-          .each { |date, fractional_cents| cents_by_date[date] ||= fractional_cents.round }
+      if (start_date..end_date).cover?(Date.current)
+        cents_by_date[Date.current] = impressions.on(Date.current).scoped_by(scoped_by).sum(:estimated_gross_revenue_fractional_cents)
       end
       cents_by_date.values.sum
     }
@@ -86,12 +76,8 @@ module Impressionable
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :property_revenue_cents)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
-      dates = (start_date..end_date).to_a
-      missing_dates = dates - cents_by_date.keys
-      if missing_dates.present?
-        CreateDailySummariesJob.perform_later self, start_date.iso8601, end_date.iso8601, scoped_by
-        impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).sum(:estimated_property_revenue_fractional_cents)
-          .each { |date, fractional_cents| cents_by_date[date] ||= fractional_cents.round }
+      if (start_date..end_date).cover?(Date.current)
+        cents_by_date[Date.current] = impressions.on(Date.current).scoped_by(scoped_by).sum(:estimated_property_revenue_fractional_cents)
       end
       cents_by_date.values.sum
     }.to_i
@@ -106,12 +92,8 @@ module Impressionable
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :house_revenue_cents)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
-      dates = (start_date..end_date).to_a
-      missing_dates = dates - cents_by_date.keys
-      if missing_dates.present?
-        CreateDailySummariesJob.perform_later self, start_date.iso8601, end_date.iso8601, scoped_by
-        impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).sum(:estimated_house_revenue_fractional_cents)
-          .each { |date, fractional_cents| cents_by_date[date] ||= fractional_cents.round }
+      if (start_date..end_date).cover?(Date.current)
+        cents_by_date[Date.current] = impressions.on(Date.current).scoped_by(scoped_by).sum(:estimated_house_revenue_fractional_cents)
       end
       cents_by_date.values.sum
     }.to_i

@@ -6,7 +6,7 @@
 #  impressionable_type       :string           not null
 #  impressionable_id         :bigint           not null
 #  scoped_by_type            :string
-#  scoped_by_id              :bigint
+#  scoped_by_id              :string
 #  impressions_count         :integer          default(0), not null
 #  fallbacks_count           :integer          default(0), not null
 #  fallback_percentage       :decimal(, )      default(0.0), not null

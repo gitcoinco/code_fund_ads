@@ -56,16 +56,25 @@ class Impression < ApplicationRecord
   scope :clicked, -> { where.not clicked_at_date: nil }
   scope :on, ->(*dates) { where displayed_at_date: dates.map { |date| Date.coerce(date) } }
   scope :between, ->(start_date, end_date = nil) {
+    start_date, end_date = range_boundary(start_date) if start_date.is_a?(Range)
     where displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date)
   }
   scope :time_between, ->(start_time, end_time) {
+    start_time, end_time = range_boundary(start_time) if start_time.is_a?(Range)
     where displayed_at: start_time.to_time..(end_time || start_time).to_time
   }
-  scope :scoped_by, ->(record) {
-    case record
-    when Campaign then where campaign_id: record.id
-    when Property then where property_id: record.id
-    else all
+  scope :scoped_by, ->(value, type = nil) {
+    case value
+    when Campaign then where campaign_id: value.id
+    when Property then where property_id: value.id
+    else
+      if value.nil? && type.nil?
+        all
+      elsif columns_hash[type.to_s]
+        where type.to_s => value
+      else
+        none
+      end
     end
   }
   scope :fallback, -> { where fallback_campaign: true }
