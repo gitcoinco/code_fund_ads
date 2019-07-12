@@ -60,7 +60,7 @@ module Impressionable
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :gross_revenue_cents)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
-      if (start_date..end_date).include?(Date.current)
+      if (start_date..end_date).cover?(Date.current)
         cents_by_date[Date.current] = impressions.on(Date.current).scoped_by(scoped_by).sum(:estimated_gross_revenue_fractional_cents)
       end
       cents_by_date.values.sum
@@ -76,7 +76,7 @@ module Impressionable
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :property_revenue_cents)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
-      if (start_date..end_date).include?(Date.current)
+      if (start_date..end_date).cover?(Date.current)
         cents_by_date[Date.current] = impressions.on(Date.current).scoped_by(scoped_by).sum(:estimated_property_revenue_fractional_cents)
       end
       cents_by_date.values.sum
@@ -92,7 +92,7 @@ module Impressionable
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :house_revenue_cents)
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
-      if (start_date..end_date).include?(Date.current)
+      if (start_date..end_date).cover?(Date.current)
         cents_by_date[Date.current] = impressions.on(Date.current).scoped_by(scoped_by).sum(:estimated_house_revenue_fractional_cents)
       end
       cents_by_date.values.sum

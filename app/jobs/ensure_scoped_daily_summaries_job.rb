@@ -2,7 +2,7 @@ class EnsureScopedDailySummariesJob < ApplicationJob
   queue_as :low
 
   def perform
-    start_date = Date.current.beginning_of_month.to_date
+    start_date = 7.days.ago.to_date
     end_date = 1.day.ago.to_date
     ensure_daily_summaries_for_campaigns start_date, end_date
     ensure_daily_summaries_for_properties start_date, end_date
