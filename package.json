@@ -36,6 +36,6 @@
   "devDependencies": {
     "all-contributors-cli": "^5.4.1",
     "prettier": "1.18.2",
-    "webpack-dev-server": "3.7.1"
+    "webpack-dev-server": "^3.7.1"
   }
 }
