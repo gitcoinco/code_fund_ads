@@ -5,6 +5,7 @@ SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
+SET xmloption = content;
 SET client_min_messages = warning;
 SET row_security = off;
 
@@ -541,8 +542,34 @@ PARTITION BY RANGE (advertiser_id, displayed_at_date);
 -- Name: impressions_default; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.impressions_default PARTITION OF public.impressions
-DEFAULT;
+CREATE TABLE public.impressions_default (
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    advertiser_id bigint NOT NULL,
+    publisher_id bigint NOT NULL,
+    campaign_id bigint NOT NULL,
+    creative_id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    ip_address character varying NOT NULL,
+    user_agent text NOT NULL,
+    country_code character varying,
+    postal_code character varying,
+    latitude numeric,
+    longitude numeric,
+    displayed_at timestamp without time zone NOT NULL,
+    displayed_at_date date NOT NULL,
+    clicked_at timestamp without time zone,
+    clicked_at_date date,
+    fallback_campaign boolean DEFAULT false NOT NULL,
+    estimated_gross_revenue_fractional_cents double precision,
+    estimated_property_revenue_fractional_cents double precision,
+    estimated_house_revenue_fractional_cents double precision,
+    ad_template character varying,
+    ad_theme character varying,
+    organization_id bigint,
+    province_code character varying,
+    uplift boolean DEFAULT false
+);
+ALTER TABLE ONLY public.impressions ATTACH PARTITION public.impressions_default DEFAULT;
 
 
 --
@@ -1081,27 +1108,6 @@ ALTER TABLE ONLY public.email_templates ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.events_id_seq'::regclass);
-
-
---
--- Name: impressions_default id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.impressions_default ALTER COLUMN id SET DEFAULT public.gen_random_uuid();
-
-
---
--- Name: impressions_default fallback_campaign; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.impressions_default ALTER COLUMN fallback_campaign SET DEFAULT false;
-
-
---
--- Name: impressions_default uplift; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.impressions_default ALTER COLUMN uplift SET DEFAULT false;
 
 
 --
@@ -2389,6 +2395,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190605185105'),
 ('20190611183743'),
 ('20190612154209'),
-('20190701210845');
+('20190701210845'),
+('20190715195353');
 
 
