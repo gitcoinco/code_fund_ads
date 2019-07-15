@@ -179,7 +179,7 @@ class Property < ApplicationRecord
   def displayed_campaigns(start_date = nil, end_date = nil)
     subquery = daily_summaries.displayed.where(scoped_by_type: "Campaign")
     subquery = subquery.between(start_date, end_date) if start_date
-    Campaign.where id: subquery.distinct.select(:scoped_by_id)
+    Campaign.where id: subquery.distinct.pluck(:scoped_by_id).map(&:to_i)
   end
 
   # protected instance methods ................................................
