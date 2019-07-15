@@ -273,7 +273,7 @@ class Campaign < ApplicationRecord
   def displaying_properties(start_date = nil, end_date = nil)
     subquery = daily_summaries.displayed.where(scoped_by_type: "Property")
     subquery = subquery.between(start_date, end_date) if start_date
-    Property.where id: subquery.distinct.select(:scoped_by_id)
+    Property.where id: subquery.distinct.pluck(:scoped_by_id).map(&:to_i)
   end
 
   def matching_properties
