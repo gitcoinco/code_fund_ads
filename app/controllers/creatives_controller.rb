@@ -13,6 +13,15 @@ class CreativesController < ApplicationController
 
   def new
     @creative = current_user.creatives.build
+
+    if params[:clone].present?
+      cloned_creative = Creative.find(params[:clone])
+      if cloned_creative.present?
+        @creative.attributes = cloned_creative.attributes
+        @creative.user = cloned_creative.user
+        @creative.status = "pending"
+      end
+    end
   end
 
   def create

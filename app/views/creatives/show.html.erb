@@ -5,9 +5,16 @@
 
 <% content_for :actions do %>
   <% if authorized_user.can_edit_creative?(@creative) %>
-    <ul class="nav" style="width: 130px; justify-content: flex-end;">
-      <li><%= render "/@shared/actions/edit_creative", creative: @creative %></li>
-      <li class="ml-1"><%= render "/@shared/actions/delete_creative", creative: @creative %></li>
+    <ul class="nav flex-nowrap" style="justify-content: flex-end;">
+      <li>
+        <%= render "/@shared/actions/edit_creative", creative: @creative %>
+      </li>
+      <li class="ml-1" title="Clone Creative" data-toggle="tooltip" data-placement="bottom">
+        <%= render "/@shared/actions/generic", link: new_creative_path(clone: @creative.id), icon: "fa fa-copy" %>
+      </li>
+      <li class="ml-1">
+        <%= render "/@shared/actions/delete_creative", creative: @creative %>
+      </li>
     </ul>
   <% end %>
 <% end %>
