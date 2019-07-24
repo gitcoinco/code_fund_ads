@@ -732,7 +732,7 @@ CREATE TABLE public.properties (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     legacy_id uuid,
-    revenue_percentage numeric DEFAULT 0.5 NOT NULL,
+    revenue_percentage numeric DEFAULT 0.6 NOT NULL,
     assigned_fallback_campaign_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
     restrict_to_assigner_campaigns boolean DEFAULT false NOT NULL,
     fallback_ad_template character varying,

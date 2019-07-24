@@ -398,7 +398,7 @@ ActiveRecord::Schema.define(version: 2019_07_15_195353) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "legacy_id"
-    t.decimal "revenue_percentage", default: "0.5", null: false
+    t.decimal "revenue_percentage", default: "0.6", null: false
     t.bigint "assigned_fallback_campaign_ids", default: [], null: false, array: true
     t.boolean "restrict_to_assigner_campaigns", default: false, null: false
     t.string "fallback_ad_template"
