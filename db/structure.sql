@@ -413,7 +413,8 @@ CREATE TABLE public.daily_summaries (
     house_revenue_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     displayed_at_date date NOT NULL,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    unique_ip_addresses_count integer DEFAULT 0 NOT NULL
 );
 
 
@@ -2390,6 +2391,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190513200542'),
 ('20190515193529'),
 ('20190522214219'),
+('20190523203336'),
 ('20190529215606'),
 ('20190605172711'),
 ('20190605185105'),

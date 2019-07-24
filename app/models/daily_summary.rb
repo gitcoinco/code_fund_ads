@@ -25,6 +25,7 @@
 #  displayed_at_date         :date             not null
 #  created_at                :datetime         not null
 #  updated_at                :datetime         not null
+#  unique_ip_addresses_count :integer          default(0), not null
 #
 
 class DailySummary < ApplicationRecord

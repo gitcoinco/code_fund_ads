@@ -17,6 +17,10 @@ class CreateImpressionJob < ApplicationJob
     subdivision = ip_info&.subdivisions&.first&.iso_code
     province_code = Province.find("#{country_code}-#{subdivision}")&.iso_code
 
+    ip_address_salt = ENV.fetch("IP_ADDRESS_SALT") {
+      "038fd0b1517a30d340838541afc0d3cea2899aa67969346d4c0d17d64644de1183033005fcceb149da61a3454f43b7a1c8cbbad4c6953117aa2f0e2a4efb42b9"
+    }
+
     impression = Impression.create!(
       id: id,
       advertiser_id: campaign.user_id,
@@ -27,7 +31,7 @@ class CreateImpressionJob < ApplicationJob
       property: property,
       ad_template: ad_template,
       ad_theme: ad_theme,
-      ip_address: ip_address,
+      ip_address: Digest::MD5.hexdigest("#{ip_address}#{ip_address_salt}"),
       user_agent: user_agent,
       displayed_at: displayed_at,
       displayed_at_date: displayed_at.to_date,
