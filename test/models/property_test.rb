@@ -18,7 +18,7 @@
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #  legacy_id                      :uuid
-#  revenue_percentage             :decimal(, )      default(0.5), not null
+#  revenue_percentage             :decimal(, )      default(0.6), not null
 #  assigned_fallback_campaign_ids :bigint           default([]), not null, is an Array
 #  restrict_to_assigner_campaigns :boolean          default(FALSE), not null
 #  fallback_ad_template           :string
