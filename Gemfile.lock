@@ -478,7 +478,7 @@ GEM
       builder (~> 3.0)
     sixarm_ruby_unaccent (1.2.0)
     slack-notifier (2.3.2)
-    solargraph (0.34.2)
+    solargraph (0.35.0)
       backport (~> 1.1)
       bundler (>= 1.17.2)
       htmlentities (~> 4.3, >= 4.3.4)
