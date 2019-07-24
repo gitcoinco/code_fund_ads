@@ -9,7 +9,7 @@ module Extensions
         case value
         when nil then nil
         when Date then value
-        when Time, DateTime, ActiveSupport::TimeWithZone then return value.to_date
+        when Time, DateTime, ActiveSupport::TimeWithZone then value.to_date
         else begin
                Date.parse(value.to_s)
              rescue

@@ -1,9 +1,9 @@
 class EnsureDailySummariesJob < ApplicationJob
   queue_as :low
 
-  def perform
-    start_date = 7.days.ago.to_date
-    end_date = 1.day.ago.to_date
+  def perform(start_date = nil, end_date = nil)
+    start_date = Date.coerce(start_date || 7.days.ago.to_date)
+    end_date = Date.coerce(end_date || 1.day.ago.to_date)
     ensure_daily_summaries_for_campaigns start_date, end_date
     ensure_daily_summaries_for_properties start_date, end_date
   end
