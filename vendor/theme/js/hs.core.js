@@ -20,7 +20,7 @@
      */
     init: function () {
 
-      $(document).ready(function (e) {
+      $(document).on('turbolinks:load', function (e) {
         // Botostrap Tootltips
         $('[data-toggle="tooltip"]').tooltip();
 
