@@ -136,6 +136,10 @@ class Property < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def to_s
+    name
+  end
+
   def active?
     status == ENUMS::PROPERTY_STATUSES::ACTIVE
   end
