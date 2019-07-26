@@ -4,6 +4,7 @@ module Impressionable
   included do
     has_many :impressions
     has_many :daily_summaries, as: :impressionable
+    has_many :daily_summary_reports, as: :impressionable
   end
 
   def daily_impressions_counts(start_date = nil, end_date = nil, scoped_by: nil, fresh: false)

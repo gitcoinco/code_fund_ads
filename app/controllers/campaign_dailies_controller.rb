@@ -1,19 +1,17 @@
-class CampaignPropertiesController < ApplicationController
+class CampaignDailiesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_campaign
 
   def index
     @summary_report = @campaign.summary_report(@start_date, @end_date)
-    @reports = @campaign.property_reports(@start_date, @end_date)
-
+    @daily_summaries = @campaign.daily_reports(@start_date, @end_date)
     respond_to do |format|
       format.html
       format.csv do
         send_data(
           CSV.generate { |csv|
             csv << [
-              "Property",
-              "Matching Tags",
+              "Date",
               "Spend",
               "Impressions",
               "Clicks",
@@ -21,16 +19,15 @@ class CampaignPropertiesController < ApplicationController
               "CPM",
               "CPC",
             ]
-            @reports.each do |report|
+            @daily_summaries.each do |daily_summary|
               csv << [
-                report.scoped_by.url,
-                @campaign.matching_keywords(report.scoped_by).join("; "),
-                report.gross_revenue,
-                report.impressions_count,
-                report.clicks_count,
-                report.click_rate.round(2),
-                report.cpm,
-                report.cpc,
+                daily_summary.displayed_at_date.iso8601,
+                daily_summary.gross_revenue,
+                daily_summary.impressions_count,
+                daily_summary.clicks_count,
+                daily_summary.click_rate.round(2),
+                daily_summary.cpm,
+                daily_summary.cpc,
               ]
             end
           }

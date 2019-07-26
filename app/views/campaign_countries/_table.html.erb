@@ -2,20 +2,18 @@
   <table class="js-datatable table table-striped table-compact table-borderless u-datatable u-datatable__striped u-datatable__trigger">
     <thead>
       <tr class="border-bottom">
-        <th class="text-left">Property</th>
-        <th class="text-left" style="width: 30%;">Matching Tags</th>
-        <th class="text-center" style="width: 10%;">Spend</th>
-        <th class="text-center" style="width: 10%;">Impressions</th>
-        <th class="text-center" style="width: 10%;">Clicks</th>
-        <th class="text-center" style="width: 10%;">CTR</th>
-        <th class="text-center" style="width: 10%;">CPM</th>
-        <th class="text-center" style="width: 10%;">CPC</th>
+        <th class="text-left">Country</th>
+        <th class="text-center" style="width: 15%;">Spend</th>
+        <th class="text-center" style="width: 15%;">Impressions</th>
+        <th class="text-center" style="width: 15%;">Clicks</th>
+        <th class="text-center" style="width: 15%;">CTR</th>
+        <th class="text-center" style="width: 15%;">CPM</th>
+        <th class="text-center" style="width: 15%;">CPC</th>
       </tr>
     </thead>
     <tbody>
       <tr class="bg-secondary opacity-50">
-        <td class="text-left align-middle text-light"><strong>Totals</strong></td>
-        <td class="text-left align-middle text-light"></td>
+        <td class="text-left align-middle text-light text-nowrap"><strong>Totals</strong></td>
         <td class="text-center align-middle text-light"><%= @summary_report.gross_revenue.format %></td>
         <td class="text-center align-middle text-light"><%= number_with_delimiter @summary_report.impressions_count %></td>
         <td class="text-center align-middle text-light"><%= number_with_delimiter @summary_report.clicks_count %></td>
@@ -23,7 +21,7 @@
         <td class="text-center align-middle text-light"><%= number_with_delimiter @summary_report.cpm.format %></td>
         <td class="text-center align-middle text-light"><%= number_with_delimiter @summary_report.cpc.format %></td>
       </tr>
-      <%= render partial: "/campaign_properties/tr", collection: @reports, as: :report %>
+      <%= render partial: "/campaign_countries/tr", collection: @reports, as: :report %>
     </tbody>
   </table>
 </div>

@@ -1,5 +1,5 @@
 require "test_helper"
 
-class CampaignBudgetControllerTest < ActionDispatch::IntegrationTest
+class CampaignDailiesControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 end

@@ -1,6 +1,12 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  def country_display_name(iso_code)
+    country = Country.find(iso_code)
+    return "#{country.emoji_flag} #{truncate country.name, length: 30} (#{iso_code})" if country
+    iso_code
+  end
+
   def safe_camo(url)
     camo url.to_s
   rescue

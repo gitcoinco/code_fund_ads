@@ -1,10 +1,10 @@
-class CampaignPropertiesController < ApplicationController
+class CampaignCountriesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_campaign
 
   def index
     @summary_report = @campaign.summary_report(@start_date, @end_date)
-    @reports = @campaign.property_reports(@start_date, @end_date)
+    @reports = @campaign.country_reports(@start_date, @end_date)
 
     respond_to do |format|
       format.html
@@ -12,8 +12,7 @@ class CampaignPropertiesController < ApplicationController
         send_data(
           CSV.generate { |csv|
             csv << [
-              "Property",
-              "Matching Tags",
+              "Country",
               "Spend",
               "Impressions",
               "Clicks",
@@ -22,9 +21,10 @@ class CampaignPropertiesController < ApplicationController
               "CPC",
             ]
             @reports.each do |report|
+              country = Country.find(report.scoped_by_id)
+              country_value = "#{country.name} (#{country.iso_code})" if country
               csv << [
-                report.scoped_by.url,
-                @campaign.matching_keywords(report.scoped_by).join("; "),
+                country_value || report.scoped_by_id,
                 report.gross_revenue,
                 report.impressions_count,
                 report.clicks_count,

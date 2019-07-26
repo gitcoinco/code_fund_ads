@@ -28,7 +28,7 @@
 #  unique_ip_addresses_count :integer          default(0), not null
 #
 
-class DailySummary < ApplicationRecord
+class DailySummaryReport < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
 
@@ -37,70 +37,84 @@ class DailySummary < ApplicationRecord
   belongs_to :scoped_by, polymorphic: true, optional: true
 
   # validations ...............................................................
-  validates :impressions_count, numericality: {greater_than_or_equal_to: 0}
-  validates :clicks_count, numericality: {greater_than_or_equal_to: 0}
-  validates :click_rate, numericality: {greater_than_or_equal_to: 0}
-  validates :displayed_at_date, presence: true
-
   # callbacks .................................................................
-  before_save :set_fallback_percentage
-  before_save :set_click_rate
-  before_save :set_cost_per_click
-  before_save :set_ecpm
 
   # scopes ....................................................................
-  scope :displayed, -> { where arel_table[:impressions_count].gt(0) }
-  scope :clicked, -> { where arel_table[:clicks_count].gt(0) }
-  scope :on, ->(*dates) { where displayed_at_date: dates.map { |date| Date.coerce(date) } }
+
+  default_scope -> {
+    paid_impressions_count = Arel::Nodes::Subtraction.new(
+      arel_table[:impressions_count].sum,
+      arel_table[:fallbacks_count].sum
+    )
+
+    select(:impressionable_type, :impressionable_id, :scoped_by_type, :scoped_by_id)
+      .select(arel_table[:unique_ip_addresses_count].sum.as("unique_ip_addresses_count"))
+      .select(arel_table[:impressions_count].sum.as("impressions_count"))
+      .select(arel_table[:fallbacks_count].sum.as("unpaid_impressions_count"))
+      .select(paid_impressions_count.as("paid_impressions_count"))
+      .select(arel_table[:clicks_count].sum.as("clicks_count"))
+      .select(arel_table[:gross_revenue_cents].sum.as("gross_revenue_cents"))
+      .select(arel_table[:property_revenue_cents].sum.as("property_revenue_cents"))
+      .select(arel_table[:house_revenue_cents].sum.as("house_revenue_cents"))
+      .group(:impressionable_type, :impressionable_id, :scoped_by_type, :scoped_by_id)
+      .order("impressions_count desc")
+  }
+
+  scope :scoped_by_type, ->(type) {
+    type.nil? ? where(scoped_by_type: nil, scoped_by_id: nil) : where(scoped_by_type: type)
+  }
+
   scope :between, ->(start_date, end_date = nil) {
     start_date, end_date = range_boundary(start_date) if start_date.is_a?(Range)
     where displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date)
   }
-  scope :scoped_by_type, ->(type) {
-    type.nil? ? where(scoped_by_type: nil, scoped_by_id: nil) : where(scoped_by_type: type)
-  }
-  scope :scoped_by, ->(value, type = nil) {
-    case value
-    when Campaign, Property then where(scoped_by_type: value.class.name, scoped_by_id: value.id)
-    else where scoped_by_type: type, scoped_by_id: value
-    end
-  }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  monetize :cost_per_click_cents, numericality: {greater_than_or_equal_to: 0}
-  monetize :ecpm_cents, numericality: {greater_than_or_equal_to: 0}
+
+  self.table_name = "daily_summaries"
+
+  attribute :impressionable_type, :string
+  attribute :impressionable_id, :integer
+  attribute :scoped_by_type, :string
+  attribute :scoped_by_id, :string
+  attribute :unique_ip_addresses_count, :integer
+  attribute :impressions_count, :integer
+  attribute :unpaid_impressions_count, :integer
+  attribute :paid_impressions_count, :integer
+  attribute :clicks_count, :integer
+  attribute :gross_revenue_cents, :integer
+  attribute :property_revenue_cents, :integer
+  attribute :house_revenue_cents, :integer
+
   monetize :gross_revenue_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :property_revenue_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :house_revenue_cents, numericality: {greater_than_or_equal_to: 0}
-  alias cpm ecpm
-  alias cpc cost_per_click
 
   # class methods .............................................................
-  class << self
-  end
 
   # public instance methods ...................................................
 
+  public
+
+  def readonly?
+    true
+  end
+
+  def click_rate
+    return 0.0 unless impressions_count > 0
+    (clicks_count / impressions_count.to_f) * 100
+  end
+
+  def cpm
+    return Money.new(0) unless impressions_count > 0
+    gross_revenue / (impressions_count / 1000.to_f)
+  end
+
+  def cpc
+    return Money.new(0) unless clicks_count > 0
+    gross_revenue / clicks_count
+  end
+
   # protected instance methods ................................................
-
   # private instance methods ..................................................
-
-  private
-
-  def set_fallback_percentage
-    self.fallback_percentage = (fallbacks_count / impressions_count.to_f) * 100 if impressions_count > 0
-  end
-
-  def set_click_rate
-    self.click_rate = (clicks_count / impressions_count.to_f) * 100 if impressions_count > 0
-  end
-
-  def set_cost_per_click
-    self.cost_per_click = gross_revenue / clicks_count.to_f if clicks_count > 0
-  end
-
-  def set_ecpm
-    impressions_per_mille = impressions_count / 1000.to_f
-    self.ecpm = gross_revenue / impressions_per_mille if impressions_per_mille > 0
-  end
 end
