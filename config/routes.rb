@@ -91,6 +91,7 @@ Rails.application.routes.draw do
     resource :campaign_dashboards, only: [:show], path: "/overview"
     resources :campaign_dailies, only: [:index], path: "/dailies"
     resources :campaign_properties, only: [:index], path: "/properties"
+    resources :campaign_countries, only: [:index], path: "/countries"
     resources :versions, only: [:index], as: :campaign_versions, path: "/revisions"
     resources :comments, only: [:index], as: :campaign_comments
     resources :events, only: [:index], as: :campaign_events

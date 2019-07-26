@@ -4,6 +4,7 @@
       <tr class="border-bottom">
         <th class="text-left">Property</th>
         <th class="text-left" style="width: 30%;">Matching Tags</th>
+        <th class="text-center" style="width: 10%;">Spend</th>
         <th class="text-center" style="width: 10%;">Impressions</th>
         <th class="text-center" style="width: 10%;">Clicks</th>
         <th class="text-center" style="width: 10%;">CTR</th>
@@ -12,6 +13,16 @@
       </tr>
     </thead>
     <tbody>
+      <tr class="bg-secondary opacity-50">
+        <td class="text-left align-middle text-light"><strong>Totals</strong></td>
+        <td class="text-left align-middle text-light"></td>
+        <td class="text-center align-middle text-light"><%= @summary_report.gross_revenue.format %></td>
+        <td class="text-center align-middle text-light"><%= number_with_delimiter @summary_report.impressions_count %></td>
+        <td class="text-center align-middle text-light"><%= number_with_delimiter @summary_report.clicks_count %></td>
+        <td class="text-center align-middle text-light"><%= number_to_percentage @summary_report.click_rate, precision: 2 %></td>
+        <td class="text-center align-middle text-light"><%= number_with_delimiter @summary_report.cpm.format %></td>
+        <td class="text-center align-middle text-light"><%= number_with_delimiter @summary_report.cpc.format %></td>
+      </tr>
       <%= render partial: "/campaign_properties/tr", collection: @reports, as: :report %>
     </tbody>
   </table>

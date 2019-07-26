@@ -3,15 +3,24 @@
     <thead>
       <tr class="border-bottom">
         <th class="text-left">Date</th>
-        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Spend</th>
-        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Impressions</th>
-        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Clicks</th>
-        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">average</span>CTR</th>
-        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">average</span>CPM</th>
-        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">average</span>CPC</th>
+        <th class="text-center" style="width: 15%;">Spend</th>
+        <th class="text-center" style="width: 15%;">Impressions</th>
+        <th class="text-center" style="width: 15%;">Clicks</th>
+        <th class="text-center" style="width: 15%;">CTR</th>
+        <th class="text-center" style="width: 15%;">CPM</th>
+        <th class="text-center" style="width: 15%;">CPC</th>
       </tr>
     </thead>
     <tbody>
+      <tr class="bg-secondary opacity-50">
+        <td class="text-left align-middle text-light"><strong>Totals</strong></td>
+        <td class="text-center align-middle text-light"><%= @summary_report.gross_revenue.format %></td>
+        <td class="text-center align-middle text-light"><%= number_with_delimiter @summary_report.impressions_count %></td>
+        <td class="text-center align-middle text-light"><%= number_with_delimiter @summary_report.clicks_count %></td>
+        <td class="text-center align-middle text-light"><%= number_to_percentage @summary_report.click_rate, precision: 2 %></td>
+        <td class="text-center align-middle text-light"><%= @summary_report.cpm.format %></td>
+        <td class="text-center align-middle text-light"><%= @summary_report.cpc.format %></td>
+      </tr>
       <%= render partial: "/campaign_dailies/tr", collection: @daily_summaries, as: :daily_summary %>
     </tbody>
   </table>

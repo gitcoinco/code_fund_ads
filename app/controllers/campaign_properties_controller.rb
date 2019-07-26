@@ -3,6 +3,7 @@ class CampaignPropertiesController < ApplicationController
   before_action :set_campaign
 
   def index
+    @summary_report = @campaign.summary_report(@start_date, @end_date)
     @reports = @campaign.property_reports(@start_date, @end_date)
 
     respond_to do |format|
@@ -13,6 +14,7 @@ class CampaignPropertiesController < ApplicationController
             csv << [
               "Property",
               "Matching Tags",
+              "Spend",
               "Impressions",
               "Clicks",
               "CTR",
@@ -23,6 +25,7 @@ class CampaignPropertiesController < ApplicationController
               csv << [
                 report.scoped_by.url,
                 @campaign.matching_keywords(report.scoped_by).join("; "),
+                report.gross_revenue,
                 report.impressions_count,
                 report.clicks_count,
                 report.click_rate.round(2),

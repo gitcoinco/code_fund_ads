@@ -3,6 +3,7 @@ class CampaignDailiesController < ApplicationController
   before_action :set_campaign
 
   def index
+    @summary_report = @campaign.summary_report(@start_date, @end_date)
     @daily_summaries = @campaign.daily_reports(@start_date, @end_date)
     respond_to do |format|
       format.html

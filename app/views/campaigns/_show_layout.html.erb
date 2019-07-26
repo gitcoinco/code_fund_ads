@@ -34,6 +34,8 @@
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
       <%= tag.li(active_link_to("Properties", campaign_properties_path(campaign),
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Countries", campaign_countries_path(campaign),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
       <%= tag.li(active_link_to("Comments", campaign_comments_path(campaign),
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
       <%= tag.li(active_link_to("Events", campaign_events_path(campaign),

@@ -8,6 +8,7 @@
       <span class="btn btn-xs btn-soft-primary mb-2 py-0 px-1"><%= keyword %></span>
     <% end %>
   </td>
+  <td class="text-center align-middle text-secondary"><%= report.gross_revenue.format %></td>
   <td class="text-center align-middle text-secondary"><%= number_with_delimiter report.impressions_count %></td>
   <td class="text-center align-middle text-secondary"><%= number_with_delimiter report.clicks_count %></td>
   <td class="text-center align-middle text-secondary"><%= number_to_percentage report.click_rate, precision: 2 %></td>
