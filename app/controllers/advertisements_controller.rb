@@ -1,5 +1,6 @@
 class AdvertisementsController < ApplicationController
   include AdRenderable
+  include Untrackable
 
   protect_from_forgery except: :show
   before_action :set_cors_headers

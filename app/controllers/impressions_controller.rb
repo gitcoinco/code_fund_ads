@@ -1,4 +1,6 @@
 class ImpressionsController < ApplicationController
+  include Untrackable
+
   before_action :set_virtual_impression
   before_action :set_cors_headers
   after_action :create_impression

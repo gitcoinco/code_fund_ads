@@ -1,4 +1,6 @@
 class AdvertisementClicksController < ApplicationController
+  include Untrackable
+
   after_action :create_click
 
   def show
