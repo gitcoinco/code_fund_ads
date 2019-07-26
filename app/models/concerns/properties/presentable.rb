@@ -10,6 +10,8 @@ module Properties
       [id, name].compact.join ": "
     end
 
+    alias to_s analytics_key
+
     def display_url
       url.gsub(/https?:\/\//, "")
     end
