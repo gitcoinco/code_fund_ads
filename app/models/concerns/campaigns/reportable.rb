@@ -1,7 +1,7 @@
 module Campaigns
   module Reportable
     def daily_reports(start = nil, stop = nil)
-      daily_summaries.scoped_by(nil).between(start || start_date, stop || end_date)
+      daily_summaries.scoped_by(nil).between(start || start_date, stop || end_date).order(:displayed_at_date)
     end
 
     def summary_report(start = nil, stop = nil)

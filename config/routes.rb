@@ -88,8 +88,8 @@ Rails.application.routes.draw do
   resources :campaigns
   scope "/campaigns/:campaign_id" do
     resource :campaign_targeting, only: [:show], path: "/targeting"
-    resource :campaign_budget, only: [:show], path: "/budget"
     resource :campaign_dashboards, only: [:show], path: "/overview"
+    resources :campaign_dailies, only: [:index], path: "/dailies"
     resources :campaign_properties, only: [:index], path: "/properties"
     resources :versions, only: [:index], as: :campaign_versions, path: "/revisions"
     resources :comments, only: [:index], as: :campaign_comments
@@ -178,7 +178,6 @@ Rails.application.routes.draw do
   resource :async_campaign_total_remaining_budget_stat_card, only: [:show]
   resource :async_campaign_total_consumed_budget_stat_card, only: [:show]
   resource :async_campaign_total_consumed_budget_progress_bar, only: [:show]
-  resource :async_campaign_budget_row, only: [:show]
   resource :async_campaign_sparkline, only: [:show]
   resource :async_campaign_click_rate, only: [:show]
   resource :async_property_sparkline, only: [:show]

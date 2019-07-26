@@ -34,7 +34,7 @@ class DailySummary < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :impressionable, polymorphic: true
-  belongs_to :scoped_by, polymorphic: true
+  belongs_to :scoped_by, polymorphic: true, optional: true
 
   # validations ...............................................................
   validates :impressions_count, numericality: {greater_than_or_equal_to: 0}

@@ -1,2 +1,0 @@
-class AsyncCampaignBudgetRowsController < AsyncController
-end
