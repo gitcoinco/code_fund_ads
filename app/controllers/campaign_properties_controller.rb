@@ -3,8 +3,37 @@ class CampaignPropertiesController < ApplicationController
   before_action :set_campaign
 
   def index
-    properties = @campaign.displaying_properties(@start_date, @end_date).order(:name)
-    @pagy, @properties = pagy(properties)
+    @reports = @campaign.property_reports(@start_date, @end_date)
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        send_data(
+          CSV.generate { |csv|
+            csv << [
+              "Property",
+              "Matching Tags",
+              "Impressions",
+              "Clicks",
+              "CTR",
+              "CPM",
+              "CPC",
+            ]
+            @reports.each do |report|
+              csv << [
+                report.scoped_by.url,
+                @campaign.matching_keywords(report.scoped_by).join("; "),
+                report.impressions_count,
+                report.clicks_count,
+                report.click_rate.round(2),
+                report.cpm,
+                report.cpc,
+              ]
+            end
+          }
+        )
+      end
+    end
   end
 
   private

@@ -4,6 +4,10 @@
       Daily Properties
       <small class="text-muted d-block">Properties that have rendered this campaign</small>
     </h3>
+    <%= link_to campaign_properties_path(@campaign, format: :csv), title: "Download this report<br>as CSV", data: { toggle: "tooltip", placement: "top", html: true } do %>
+      <i class="fas fa-download"></i>
+      Download
+    <% end %>
   </div>
 
   <%= render "/campaign_properties/table" %>

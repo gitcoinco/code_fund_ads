@@ -31,7 +31,11 @@
 class DailySummaryReport < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
+
   # relationships .............................................................
+  belongs_to :impressionable, polymorphic: true
+  belongs_to :scoped_by, polymorphic: true
+
   # validations ...............................................................
   # callbacks .................................................................
 
@@ -43,7 +47,7 @@ class DailySummaryReport < ApplicationRecord
       arel_table[:fallbacks_count].sum
     )
 
-    select(:scoped_by_type, :scoped_by_id)
+    select(:impressionable_type, :impressionable_id, :scoped_by_type, :scoped_by_id)
       .select(arel_table[:unique_ip_addresses_count].sum.as("unique_ip_addresses_count"))
       .select(arel_table[:impressions_count].sum.as("impressions_count"))
       .select(arel_table[:fallbacks_count].sum.as("unpaid_impressions_count"))
@@ -52,7 +56,8 @@ class DailySummaryReport < ApplicationRecord
       .select(arel_table[:gross_revenue_cents].sum.as("gross_revenue_cents"))
       .select(arel_table[:property_revenue_cents].sum.as("property_revenue_cents"))
       .select(arel_table[:house_revenue_cents].sum.as("house_revenue_cents"))
-      .group(:scoped_by_type, :scoped_by_id)
+      .group(:impressionable_type, :impressionable_id, :scoped_by_type, :scoped_by_id)
+      .order("impressions_count desc")
   }
 
   scope :scoped_by_type, ->(type) {
@@ -68,7 +73,6 @@ class DailySummaryReport < ApplicationRecord
 
   self.table_name = "daily_summaries"
 
-  attr_accessor :scoped_by
   attribute :scoped_by_type, :string
   attribute :scoped_by_id, :string
   attribute :unique_ip_addresses_count, :integer
@@ -95,7 +99,7 @@ class DailySummaryReport < ApplicationRecord
   end
 
   def click_rate
-    return 0 unless impressions_count > 0
+    return 0.0 unless impressions_count > 0
     (clicks_count / impressions_count.to_f) * 100
   end
 
@@ -105,7 +109,7 @@ class DailySummaryReport < ApplicationRecord
   end
 
   def cpc
-    return Money.new(0) unless impressions_count > 0
+    return Money.new(0) unless clicks_count > 0
     gross_revenue / clicks_count
   end
 
