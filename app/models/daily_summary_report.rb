@@ -73,6 +73,8 @@ class DailySummaryReport < ApplicationRecord
 
   self.table_name = "daily_summaries"
 
+  attribute :impressionable_type, :string
+  attribute :impressionable_id, :integer
   attribute :scoped_by_type, :string
   attribute :scoped_by_id, :string
   attribute :unique_ip_addresses_count, :integer
