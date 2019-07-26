@@ -55,6 +55,9 @@ class DailySummary < ApplicationRecord
     start_date, end_date = range_boundary(start_date) if start_date.is_a?(Range)
     where displayed_at_date: Date.coerce(start_date)..Date.coerce(end_date)
   }
+  scope :scoped_by_type, ->(type) {
+    type.nil? ? where(scoped_by_type: nil, scoped_by_id: nil) : where(scoped_by_type: type)
+  }
   scope :scoped_by, ->(value, type = nil) {
     case value
     when Campaign, Property then where(scoped_by_type: value.class.name, scoped_by_id: value.id)
@@ -68,6 +71,8 @@ class DailySummary < ApplicationRecord
   monetize :gross_revenue_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :property_revenue_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :house_revenue_cents, numericality: {greater_than_or_equal_to: 0}
+  alias cpm ecpm
+  alias cpc cost_per_click
 
   # class methods .............................................................
   class << self

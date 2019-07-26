@@ -43,6 +43,7 @@ class Campaign < ApplicationRecord
   include Campaigns::Impressionable
   include Campaigns::Operable
   include Campaigns::Presentable
+  include Campaigns::Reportable
   include Eventable
   include Impressionable
   include Keywordable
