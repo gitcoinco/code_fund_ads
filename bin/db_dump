@@ -1,2 +1,0 @@
-#!/bin/sh
-pg_dump -v -Fc code_fund_ads_development > db.dump

@@ -67,6 +67,7 @@ class Impression < ApplicationRecord
     case value
     when Campaign then where campaign_id: value.id
     when Property then where property_id: value.id
+    when Creative then where creative_id: value.id
     else
       if value.nil? && type.nil?
         all

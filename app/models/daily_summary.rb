@@ -61,7 +61,7 @@ class DailySummary < ApplicationRecord
   }
   scope :scoped_by, ->(value, type = nil) {
     case value
-    when Campaign, Property then where(scoped_by_type: value.class.name, scoped_by_id: value.id)
+    when Campaign, Property, Creative then where(scoped_by_type: value.class.name, scoped_by_id: value.id)
     else where scoped_by_type: type, scoped_by_id: value
     end
   }
