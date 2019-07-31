@@ -59,8 +59,8 @@ class Campaign < ApplicationRecord
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
-  validates :url, presence: true
   validates :status, inclusion: {in: ENUMS::CAMPAIGN_STATUSES.values}
+  validate :validate_url
 
   # callbacks .................................................................
   before_validation :sort_arrays
@@ -360,5 +360,19 @@ class Campaign < ApplicationRecord
 
   def sanitize_assigned_property_ids
     self.assigned_property_ids = assigned_property_ids.select(&:present?).uniq.sort
+  end
+
+  def validate_url
+    uri = begin
+            URI.parse(url)
+          rescue
+            nil
+          end
+    case uri
+    when URI::HTTP, URI::HTTPS
+      response = Typhoeus.get(uri.to_s, followlocation: true)
+      errors[:url] << "is invalid" unless response.success?
+    else errors[:url] << "is invalid"
+    end
   end
 end
