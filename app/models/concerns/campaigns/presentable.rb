@@ -18,7 +18,7 @@ module Campaigns
 
     def duration
       return nil if total_operative_days.zero?
-      distance_of_time_in_words(start_date, end_date, scope: "datetime.distance_in_words.short")
+      distance_of_time_in_words(start_date.beginning_of_day, end_date.end_of_day, scope: "datetime.distance_in_words.short")
     end
 
     def percentage_complete_by_date

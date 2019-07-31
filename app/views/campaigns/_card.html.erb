@@ -40,11 +40,11 @@
 
   <div class="card-footer text-muted">
     <% if campaign.pending? %>
-      Starts <%= distance_of_time_in_words_to_now campaign.end_date %> from now
+      Starts <%= distance_of_time_in_words_to_now campaign.start_date.beginning_of_day %> from now
     <% elsif campaign.active? %>
-      Completes <%= distance_of_time_in_words_to_now campaign.end_date %> from now
+      Completes <%= distance_of_time_in_words_to_now campaign.end_date.end_of_day %> from now
     <% elsif campaign.archived? %>
-      Completed <%= distance_of_time_in_words_to_now campaign.end_date %> ago
+      Completed <%= distance_of_time_in_words_to_now campaign.end_date.end_of_day %> ago
     <% end %>
     <small class="d-block opacity-70">on <%= campaign.end_date.to_s("mm/dd/yyyy") %></small>
   </div>
