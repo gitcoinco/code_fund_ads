@@ -46,7 +46,7 @@ class EstimateTrafficForPropertyJob < ApplicationJob
   end
 
   def str_to_number(str)
-    str.scan(/\-?\d{0,}+\.?\d{0,}/).join.to_f
+    str.to_s.scan(/\-?\d{0,}+\.?\d{0,}/).join.to_f
   end
 
   private
