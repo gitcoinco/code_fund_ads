@@ -52,7 +52,7 @@ Rollbar.configure do |config|
   handler = proc do |options|
     url = options[:exception].message[/.*"([^"]*)"/, 1]
     if options[:exception].is_a?(ActionController::RoutingError)
-      raise Rollbar::Ignore if url =~ BLACKLISTED_REGEX
+      raise Rollbar::Ignore if BLACKLISTED_REGEX.match?(url)
     end
   end
   config.before_process << handler

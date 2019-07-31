@@ -144,7 +144,7 @@ class AdvertisementsController < ApplicationController
 
   # TODO: deprecate legacy support on 2019-04-01
   def property_id
-    params[:legacy_property_id] ||= params[:property_id] if params[:property_id].to_s =~ /[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}/
+    params[:legacy_property_id] ||= params[:property_id] if /[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}/.match?(params[:property_id].to_s)
 
     @property_id ||= params[:legacy_property_id].present? ?
       Property.where(legacy_id: params[:legacy_property_id]).pluck(:id).first.to_i :
@@ -254,6 +254,7 @@ class AdvertisementsController < ApplicationController
     return nil unless impression_id && campaign
     return Creative.find_by(id: campaign.creative_ids.first) if campaign.creative_ids.size == 1
     split_experiment = Split::ExperimentCatalog.find_or_create(campaign.split_test_name, *campaign.split_alternative_names)
+    return Creative.find_by_split_test_name(split_experiment.winner.name) if split_experiment.winner
     split_user = Split::User.new(impression_id)
     split_trial = Split::Trial.new(user: split_user, experiment: split_experiment)
     split_alternative = split_trial.choose!(self)

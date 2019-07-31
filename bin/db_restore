@@ -1,2 +1,0 @@
-#!/bin/sh
-pg_restore -v -d code_fund_ads_development db.dump

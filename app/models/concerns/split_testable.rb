@@ -6,7 +6,7 @@ module SplitTestable
 
   module ClassMethods
     def find_by_split_test_name(split_test_name)
-      find split_test_name.split(NAME_DELIMITER).last
+      find_by id: split_test_name.split(NAME_DELIMITER).last
     end
   end
 

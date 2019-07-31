@@ -12,6 +12,10 @@ module Campaigns
       daily_summary_reports.scoped_by_type("Property").between(start || start_date, stop || end_date).includes(:scoped_by)
     end
 
+    def creative_reports(start = nil, stop = nil)
+      daily_summary_reports.scoped_by_type("Creative").between(start || start_date, stop || end_date).includes(:scoped_by)
+    end
+
     def country_reports(start = nil, stop = nil)
       daily_summary_reports.scoped_by_type("country_code").between(start || start_date, stop || end_date)
     end

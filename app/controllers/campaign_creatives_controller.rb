@@ -1,10 +1,10 @@
-class CampaignCountriesController < ApplicationController
+class CampaignCreativesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_campaign
 
   def index
     @summary_report = @campaign.summary_report(@start_date, @end_date)
-    @reports = @campaign.country_reports(@start_date, @end_date)
+    @reports = @campaign.creative_reports(@start_date, @end_date)
 
     respond_to do |format|
       format.html
@@ -12,7 +12,7 @@ class CampaignCountriesController < ApplicationController
         send_data(
           CSV.generate { |csv|
             csv << [
-              "Country",
+              "Creative",
               "Spend",
               "Impressions",
               "Clicks",
@@ -21,10 +21,8 @@ class CampaignCountriesController < ApplicationController
               "CPC",
             ]
             @reports.each do |report|
-              country = Country.find(report.scoped_by_id)
-              country_value = "#{country.name} (#{country.iso_code})" if country
               csv << [
-                country_value || report.scoped_by_id,
+                report.scoped_by.name,
                 report.gross_revenue,
                 report.impressions_count,
                 report.clicks_count,
@@ -34,7 +32,7 @@ class CampaignCountriesController < ApplicationController
               ]
             end
           },
-          filename: "campaign-country-report-#{@campaign.id}-#{@start_date.to_s("yyyymmdd")}-#{@end_date.to_s("yyyymmdd")}.csv"
+          filename: "campaign-creative-report-#{@campaign.id}-#{@start_date.to_s("yyyymmdd")}-#{@end_date.to_s("yyyymmdd")}.csv"
         )
       end
     end

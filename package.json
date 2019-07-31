@@ -34,7 +34,7 @@
     "trix": "^1.0.0"
   },
   "devDependencies": {
-    "all-contributors-cli": "^5.4.1",
+    "all-contributors-cli": "^6.8.1",
     "prettier": "1.18.2",
     "webpack-dev-server": "^3.7.1"
   }

@@ -1,0 +1,2 @@
+module CampaignCreativesHelper
+end
