@@ -33,7 +33,8 @@ class CampaignCountriesController < ApplicationController
                 report.cpc,
               ]
             end
-          }
+          },
+          filename: "campaign-country-report-#{@campaign.id}-#{@start_date.to_s("yyyymmdd")}-#{@end_date.to_s("yyyymmdd")}.csv"
         )
       end
     end

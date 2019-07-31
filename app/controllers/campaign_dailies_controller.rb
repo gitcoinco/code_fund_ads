@@ -30,7 +30,8 @@ class CampaignDailiesController < ApplicationController
                 daily_summary.cpc,
               ]
             end
-          }
+          },
+          filename: "campaign-daily-report-#{@campaign.id}-#{@start_date.to_s("yyyymmdd")}-#{@end_date.to_s("yyyymmdd")}.csv"
         )
       end
     end

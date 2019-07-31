@@ -33,7 +33,8 @@ class CampaignPropertiesController < ApplicationController
                 report.cpc,
               ]
             end
-          }
+          },
+          filename: "campaign-property-report-#{@campaign.id}-#{@start_date.to_s("yyyymmdd")}-#{@end_date.to_s("yyyymmdd")}.csv"
         )
       end
     end
