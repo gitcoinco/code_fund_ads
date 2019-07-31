@@ -79,7 +79,8 @@ class JobPostingsController < ApplicationController
   end
 
   def set_job_posting
-    @job_posting = JobPosting.find(params[:id])
+    @job_posting = JobPosting.find_by(id: params[:id])
+    render_not_found unless @job_posting
   end
 
   def job_posting_params
