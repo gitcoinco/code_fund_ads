@@ -34,7 +34,7 @@
     <div class="row">
       <% ENUMS::AD_TEMPLATES.values.each do |template| %>
         <% ["light", "dark"].each do |theme| %>
-          <%# render partial: "/creatives/preview_card", locals: { creative: @creative, template: template, theme: theme } %>
+          <%= render partial: "/creatives/preview_card", locals: { creative: @creative, template: template, theme: theme } %>
         <% end %>
       <% end %>
     </div>
