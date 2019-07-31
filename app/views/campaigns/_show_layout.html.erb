@@ -36,22 +36,10 @@
           active: [%w[campaign_dailies campaign_creatives campaign_properties campaign_countries]],
           data: { toggle: "dropdown" }, aria: { haspopup: true, expanded: false } %>
         <div class="dropdown-menu">
-          <%= active_link_to campaign_dailies_path(campaign), class: "dropdown-item", data: { turbolinks_persist_scroll: true, prefetch: true } do %>
-            <small class="opacity-60">Campaign performance by</small>
-            <strong>day</strong>
-          <% end %>
-          <%= active_link_to campaign_creatives_path(campaign), class: "dropdown-item", data: { turbolinks_persist_scroll: true, prefetch: true } do %>
-            <small class="opacity-60">Campaign performance by</small>
-            <strong>creative</strong>
-          <% end %>
-          <%= active_link_to campaign_properties_path(campaign), class: "dropdown-item", data: { turbolinks_persist_scroll: true, prefetch: true } do %>
-            <small class="opacity-60">Campaign performance by</small>
-            <strong>property</strong>
-          <% end %>
-          <%= active_link_to campaign_countries_path(campaign), class: "dropdown-item", data: { turbolinks_persist_scroll: true, prefetch: true } do %>
-            <small class="opacity-60">Campaign performance by</small>
-            <strong>country</strong>
-          <% end %>
+          <%= active_link_to "Daily", campaign_dailies_path(campaign), class: "dropdown-item", data: { turbolinks_persist_scroll: true, prefetch: true } %>
+          <%= active_link_to "Creative", campaign_creatives_path(campaign), class: "dropdown-item", data: { turbolinks_persist_scroll: true, prefetch: true } %>
+          <%= active_link_to "Property", campaign_properties_path(campaign), class: "dropdown-item", data: { turbolinks_persist_scroll: true, prefetch: true } %>
+          <%= active_link_to "Country", campaign_countries_path(campaign), class: "dropdown-item", data: { turbolinks_persist_scroll: true, prefetch: true } %>
         </div>
       </li>
 
