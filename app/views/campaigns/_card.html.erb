@@ -44,7 +44,7 @@
     <% elsif campaign.active? %>
       Completes <%= distance_of_time_in_words_to_now campaign.end_date.end_of_day %> from now
     <% elsif campaign.archived? %>
-      Completed <%= distance_of_time_in_words_to_now campaign.end_date.beginning_of_day %> ago
+      Completed <%= distance_of_time_in_words_to_now campaign.end_date.end_of_day %> ago
     <% end %>
     <small class="d-block opacity-70">on <%= campaign.end_date.to_s("mm/dd/yyyy") %></small>
   </div>
