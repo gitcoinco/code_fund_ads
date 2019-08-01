@@ -56,7 +56,8 @@ module Campaigns
     def creative_report(start = nil, stop = nil)
       rows = []
       rows << [
-        "Creative",
+        "ID",
+        "Name",
         "Spend",
         "Impressions",
         "Clicks",
@@ -66,6 +67,7 @@ module Campaigns
       ]
       daily_summary_reports_by_creative(start, stop).each do |report|
         rows << [
+          report.scoped_by_id,
           report.scoped_by.name,
           report.gross_revenue,
           report.impressions_count,
@@ -99,7 +101,9 @@ module Campaigns
     def property_report(start = nil, stop = nil)
       rows = []
       rows << [
-        "Property",
+        "ID",
+        "Name",
+        "URL",
         "Matching Tags",
         "Spend",
         "Impressions",
@@ -110,6 +114,8 @@ module Campaigns
       ]
       daily_summary_reports_by_property(start, stop).each do |report|
         rows << [
+          report.scoped_by_id,
+          report.scoped_by.name,
           report.scoped_by.url,
           matching_keywords(report.scoped_by).join("; "),
           report.gross_revenue,
