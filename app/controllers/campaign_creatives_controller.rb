@@ -3,35 +3,14 @@ class CampaignCreativesController < ApplicationController
   before_action :set_campaign
 
   def index
-    @summary_report = @campaign.summary_report(@start_date, @end_date)
-    @reports = @campaign.creative_reports(@start_date, @end_date)
+    @summary = @campaign.summary(@start_date, @end_date)
+    @reports = @campaign.daily_summary_reports_by_creative(@start_date, @end_date)
 
     respond_to do |format|
       format.html
       format.csv do
         send_data(
-          CSV.generate { |csv|
-            csv << [
-              "Creative",
-              "Spend",
-              "Impressions",
-              "Clicks",
-              "CTR",
-              "CPM",
-              "CPC",
-            ]
-            @reports.each do |report|
-              csv << [
-                report.scoped_by.name,
-                report.gross_revenue,
-                report.impressions_count,
-                report.clicks_count,
-                report.click_rate.round(2),
-                report.cpm,
-                report.cpc,
-              ]
-            end
-          },
+          @campaign.creative_csv(@start_date, @end_date),
           filename: "campaign-creative-report-#{@campaign.id}-#{@start_date.to_s("yyyymmdd")}-#{@end_date.to_s("yyyymmdd")}.csv"
         )
       end

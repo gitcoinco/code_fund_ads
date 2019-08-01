@@ -11,8 +11,7 @@ module Eventable
     # Helper method to lookup for events for a given object.
     # This method is equivalent to obj.events
     def find_events_for(obj)
-      Event.where(eventable_id: obj.id,
-                  eventable_type: obj.class.base_class.name)
+      Event.where(eventable_id: obj.id, eventable_type: obj.class.base_class.name)
         .order(created_at: :desc)
     end
   end

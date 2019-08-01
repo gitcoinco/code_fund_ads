@@ -12,15 +12,15 @@
       </tr>
     </thead>
     <tbody>
-      <% if @summary_report %>
+      <% if @summary %>
         <tr class="bg-secondary opacity-50">
           <td class="text-left align-middle text-light"><strong>Totals</strong></td>
-          <td class="text-center align-middle text-light"><%= @summary_report.gross_revenue.format %></td>
-          <td class="text-center align-middle text-light"><%= number_with_delimiter @summary_report.impressions_count %></td>
-          <td class="text-center align-middle text-light"><%= number_with_delimiter @summary_report.clicks_count %></td>
-          <td class="text-center align-middle text-light"><%= number_to_percentage @summary_report.click_rate, precision: 2 %></td>
-          <td class="text-center align-middle text-light"><%= number_with_delimiter @summary_report.cpm.format %></td>
-          <td class="text-center align-middle text-light"><%= number_with_delimiter @summary_report.cpc.format %></td>
+          <td class="text-center align-middle text-light"><%= @summary.gross_revenue.format %></td>
+          <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.impressions_count %></td>
+          <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.clicks_count %></td>
+          <td class="text-center align-middle text-light"><%= number_to_percentage @summary.click_rate, precision: 2 %></td>
+          <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.cpm.format %></td>
+          <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.cpc.format %></td>
         </tr>
       <% end %>
       <%= render partial: "/campaign_creatives/tr", collection: @reports, as: :report %>

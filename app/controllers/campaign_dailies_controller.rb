@@ -3,34 +3,13 @@ class CampaignDailiesController < ApplicationController
   before_action :set_campaign
 
   def index
-    @summary_report = @campaign.summary_report(@start_date, @end_date)
-    @daily_summaries = @campaign.daily_reports(@start_date, @end_date)
+    @summary = @campaign.summary(@start_date, @end_date)
+    @daily_summaries = @campaign.daily_summaries_by_day(@start_date, @end_date)
     respond_to do |format|
       format.html
       format.csv do
         send_data(
-          CSV.generate { |csv|
-            csv << [
-              "Date",
-              "Spend",
-              "Impressions",
-              "Clicks",
-              "CTR",
-              "CPM",
-              "CPC",
-            ]
-            @daily_summaries.each do |daily_summary|
-              csv << [
-                daily_summary.displayed_at_date.iso8601,
-                daily_summary.gross_revenue,
-                daily_summary.impressions_count,
-                daily_summary.clicks_count,
-                daily_summary.click_rate.round(2),
-                daily_summary.cpm,
-                daily_summary.cpc,
-              ]
-            end
-          },
+          @campaign.daily_csv(@start_date, @end_date),
           filename: "campaign-daily-report-#{@campaign.id}-#{@start_date.to_s("yyyymmdd")}-#{@end_date.to_s("yyyymmdd")}.csv"
         )
       end

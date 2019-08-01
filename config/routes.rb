@@ -89,6 +89,7 @@ Rails.application.routes.draw do
   scope "/campaigns/:campaign_id" do
     resource :campaign_targeting, only: [:show], path: "/targeting"
     resource :campaign_dashboards, only: [:show], path: "/overview"
+    resources :campaign_reports, only: [:create], path: "/reports"
     resources :campaign_dailies, only: [:index], path: "/dailies"
     resources :campaign_properties, only: [:index], path: "/properties"
     resources :campaign_countries, only: [:index], path: "/countries"

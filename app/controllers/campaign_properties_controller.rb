@@ -3,37 +3,14 @@ class CampaignPropertiesController < ApplicationController
   before_action :set_campaign
 
   def index
-    @summary_report = @campaign.summary_report(@start_date, @end_date)
-    @reports = @campaign.property_reports(@start_date, @end_date)
+    @summary = @campaign.summary(@start_date, @end_date)
+    @reports = @campaign.daily_summary_reports_by_property(@start_date, @end_date)
 
     respond_to do |format|
       format.html
       format.csv do
         send_data(
-          CSV.generate { |csv|
-            csv << [
-              "Property",
-              "Matching Tags",
-              "Spend",
-              "Impressions",
-              "Clicks",
-              "CTR",
-              "CPM",
-              "CPC",
-            ]
-            @reports.each do |report|
-              csv << [
-                report.scoped_by.url,
-                @campaign.matching_keywords(report.scoped_by).join("; "),
-                report.gross_revenue,
-                report.impressions_count,
-                report.clicks_count,
-                report.click_rate.round(2),
-                report.cpm,
-                report.cpc,
-              ]
-            end
-          },
+          @campaign.property_csv(@start_date, @end_date),
           filename: "campaign-property-report-#{@campaign.id}-#{@start_date.to_s("yyyymmdd")}-#{@end_date.to_s("yyyymmdd")}.csv"
         )
       end

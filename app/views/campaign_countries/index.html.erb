@@ -1,13 +1,16 @@
 <%= render layout: "/campaigns/show_layout", locals: { campaign: @campaign } do %>
-  <div class="d-flex mb-3">
-    <h3 class="h5 mb-3 flex-grow-1">
+  <div class="mb-3">
+    <div class="d-inline-block float-right text-right">
+      <%= render "/campaign_reports/form", email: @campaign.user.email %>
+      <%= link_to campaign_countries_path(@campaign, format: :csv), class: "d-block mt-3 mb-2" do %>
+        Download
+      <% end %>
+    </div>
+
+    <h3 class="h5 mb-3">
       Countries
       <small class="text-muted d-block">Spend and statistics by country</small>
     </h3>
-    <%= link_to campaign_countries_path(@campaign, format: :csv), title: "Download this report<br>as CSV", data: { toggle: "tooltip", placement: "top", html: true } do %>
-      <i class="fas fa-download"></i>
-      Download
-    <% end %>
   </div>
 
   <%= render "/campaign_countries/table" %>
