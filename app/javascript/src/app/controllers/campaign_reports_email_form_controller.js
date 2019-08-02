@@ -1,10 +1,6 @@
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
-  connect() {
-    console.log('connected...');
-  }
-
   success() {
     new window.Noty({ type: 'success', text: this.element.dataset.success }).show();
   }
