@@ -1,15 +1,15 @@
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
-  static targets = ['input', 'button'];
-
-  select() {
-    setTimeout((() => this.inputTarget.select()).bind(this), 10);
+  connect() {
+    console.log('connected...');
   }
 
-  submit() {
-    const text = this.buttonTarget.innerText;
-    this.buttonTarget.innerText = 'Sending email...';
-    setTimeout((() => (this.buttonTarget.innerText = text)).bind(this), 3000);
+  success() {
+    new window.Noty({ type: 'success', text: this.element.dataset.success }).show();
+  }
+
+  error() {
+    new window.Noty({ type: 'error', text: this.element.dataset.error }).show();
   }
 }

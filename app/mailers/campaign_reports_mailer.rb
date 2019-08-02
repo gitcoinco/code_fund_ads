@@ -2,10 +2,10 @@ class CampaignReportsMailer < ApplicationMailer
   default from: "team@codefund.io"
   layout "mailer"
 
-  def campaign_report_email(email, campaign, start_date_string, end_date_string)
-    @campaign = campaign
-    @start_date = Date.coerce(start_date_string)
-    @end_date = Date.coerce(end_date_string)
+  def campaign_report_email
+    @campaign = params[:campaign]
+    @start_date = Date.coerce(params[:start_date])
+    @end_date = Date.coerce(params[:end_date])
 
     workbook = create_report_workbook(@campaign, @start_date, @end_date)
     filename = "campaign-report-#{@campaign.id}-#{@start_date.to_s("yyyymmdd")}-#{@end_date.to_s("yyyymmdd")}.xls"
@@ -15,7 +15,7 @@ class CampaignReportsMailer < ApplicationMailer
       attachments[filename] = file.read
     end
 
-    mail to: email, subject: "CodeFund Campaign Report: #{@campaign.name}"
+    mail to: params[:to], subject: "CodeFund Campaign Report: #{@campaign.analytics_key}"
   end
 
   private

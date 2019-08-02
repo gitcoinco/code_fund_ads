@@ -189,7 +189,7 @@ module Campaigns
     def prepare_row_for_download(row)
       row.map do |value|
         case value
-        when Money then value.to_f
+        when Money then value > 0 ? value.to_f : nil
         else value
         end
       end
