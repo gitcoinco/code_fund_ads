@@ -7,7 +7,7 @@
 </p>
 
 <p>
-  The <strong><%= @campaign.organization.name %></strong> organization has a balance of: <%= @campaign.organization.balance.format %>
+  The <strong><%= @campaign.organization.name %></strong> organization has a balance of: <code><%= @campaign.organization.balance.format %></code>
 </p>
 
 <h1>Overview</h1>
@@ -32,7 +32,7 @@
   </p>
   <% if (@campaign.total_remaining_budget / @campaign.remaining_operative_days) > (@summary.gross_revenue / @campaign.consumed_operative_days) -%>
     <p>
-      <strong>Note</strong>: Pacing is slow based on daily spend. <em>Please consider increasing daily budget caps and/or expanding targeting.</em>
+      <strong>Note</strong>: Pacing is slow based on average daily spend. <em>Please consider increasing daily budget caps and/or expanding targeting.</em>
     </p>
   <% end -%>
 <% end -%>
