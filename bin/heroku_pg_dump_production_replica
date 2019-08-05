@@ -7,7 +7,6 @@ if [[ -z "$PRODUCTION_DATABASE_REPLICA_URL" ]]; then
 fi
 
 pg_dump --verbose --no-acl --no-owner --format=c \
-  --exclude-table=impressions_2018_11_advertiser_123 \
   --exclude-table=impressions_2018_11_advertiser_132 \
   --exclude-table=impressions_2018_11_advertiser_137 \
   --exclude-table=impressions_2018_11_advertiser_144 \
@@ -158,6 +157,27 @@ pg_dump --verbose --no-acl --no-owner --format=c \
   --exclude-table=impressions_2019_07_advertiser_609 \
   --exclude-table=impressions_2019_07_advertiser_612 \
   --exclude-table=impressions_2019_07_advertiser_619 \
+  --exclude-table=impressions_2019_07_advertiser_624 \
   --exclude-table=impressions_2019_07_advertiser_625 \
+  --exclude-table=impressions_2019_08_advertiser_123 \
+  --exclude-table=impressions_2019_08_advertiser_132 \
+  --exclude-table=impressions_2019_08_advertiser_146 \
+  --exclude-table=impressions_2019_08_advertiser_147 \
+  --exclude-table=impressions_2019_08_advertiser_185 \
+  --exclude-table=impressions_2019_08_advertiser_199 \
+  --exclude-table=impressions_2019_08_advertiser_239 \
+  --exclude-table=impressions_2019_08_advertiser_305 \
+  --exclude-table=impressions_2019_08_advertiser_365 \
+  --exclude-table=impressions_2019_08_advertiser_387 \
+  --exclude-table=impressions_2019_08_advertiser_468 \
+  --exclude-table=impressions_2019_08_advertiser_576 \
+  --exclude-table=impressions_2019_08_advertiser_578 \
+  --exclude-table=impressions_2019_08_advertiser_601 \
+  --exclude-table=impressions_2019_08_advertiser_612 \
+  --exclude-table=impressions_2019_08_advertiser_613 \
+  --exclude-table=impressions_2019_08_advertiser_624 \
+  --exclude-table=impressions_2019_08_advertiser_628 \
+  --exclude-table=impressions_2019_08_advertiser_632 \
+  --exclude-table=impressions_2019_08_advertiser_648 \
   --exclude-table=impressions_default \
   $PRODUCTION_DATABASE_REPLICA_URL > ./tmp/production-shallow.dump
