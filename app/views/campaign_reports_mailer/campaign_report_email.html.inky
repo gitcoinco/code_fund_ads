@@ -30,6 +30,11 @@
     <br>
     Estimated to be approximately <code><%= (@campaign.total_remaining_budget / @campaign.remaining_operative_days).format %></code>/per day.
   </p>
+  <% if (@campaign.total_remaining_budget / @campaign.remaining_operative_days) > (@summary.gross_revenue / @campaign.consumed_operative_days) -%>
+    <p>
+      <strong>Note</strong>: Pacing is slow based on daily spend. <em>Please consider increasing daily budget caps and/or expanding targeting.</em>
+    </p>
+  <% end -%>
 <% end -%>
 
 <br>
