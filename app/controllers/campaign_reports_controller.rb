@@ -4,7 +4,7 @@ class CampaignReportsController < ApplicationController
   before_action :validate_request
 
   def create
-    CampaignReportsMailer.with(campaign_mailer_params).campaign_report.deliver_later
+    CampaignReportsMailer.with(campaign_mailer_params).campaign_report_email.deliver_later
     head :ok
   end
 
