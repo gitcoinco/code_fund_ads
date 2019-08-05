@@ -24,7 +24,7 @@
 </ul>
 
 <p>
-  Given current pacing this campaign would spend its available budget in <strong><%= @campaign.estimated_days_until_budget_consumed -%> days</strong>.
+  Given current pacing this campaign will spend its available budget in <strong><%= @campaign.estimated_days_until_budget_consumed -%> days</strong>.
 </p>
 
 <% if @campaign.operable? -%>
@@ -33,7 +33,13 @@
     <br>
     Estimated to be approximately <code><%= @campaign.estimated_daily_spend.format %></code>/per day.
   </p>
-  <% if @campaign.pacing_too_slow? -%>
+
+  <% if @campaign.pacing_too_fast? -%>
+    <p>
+      <strong>Note</strong>: Pacing is fast based on average daily spend.
+      <em>We should either increase the total budget cap or reduce the daily &amp; hourly budget caps.</em>
+    </p>
+  <% elsif @campaign.pacing_too_slow? -%>
     <p>
       <strong>Note</strong>: Pacing is slow based on average daily spend.
       <% if @campaign.should_increase_caps? -%>
@@ -43,18 +49,18 @@
         <em>We may not have enough inventory to spend all available budget before <%= @campaign.end_date.to_s("mm/dd/yyyy") -%>.</em>
       <% end -%>
     </p>
-
-    <br>
-    <h2>Budget Caps</h2>
-
-    The campaign is currently configured with the following budget caps.
-
-    <ul>
-      <li>Total: <code><%= @campaign.total_budget.format %></code></li>
-      <li>Daily: <code><%= @campaign.daily_budget.format %></code></li>
-      <li>Hourly: <code><%= @campaign.hourly_budget.format %></code></li>
-    </ul>
   <% end -%>
+
+  <br>
+  <h2>Budget Caps</h2>
+
+  The campaign is currently configured with the following budget caps.
+
+  <ul>
+    <li>Total: <code><%= @campaign.total_budget.format %></code></li>
+    <li>Daily: <code><%= @campaign.daily_budget.format %></code></li>
+    <li>Hourly: <code><%= @campaign.hourly_budget.format %></code></li>
+  </ul>
 <% end -%>
 
 <br>

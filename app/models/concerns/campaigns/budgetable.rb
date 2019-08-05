@@ -90,6 +90,10 @@ module Campaigns
       estimated_daily_spend > average_daily_spend
     end
 
+    def pacing_too_fast?
+      estimated_days_until_budget_consumed < remaining_operative_days
+    end
+
     def should_increase_caps?
       estimated_daily_spend > daily_budget
     end
