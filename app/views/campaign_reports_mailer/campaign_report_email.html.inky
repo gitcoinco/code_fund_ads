@@ -39,6 +39,9 @@
       <% if @campaign.should_increase_caps? -%>
         <em>We'd like to adjust the budget caps with your approval.</em>
       <% end -%>
+      <% if @campaign.should_increase_inventory? -%>
+        <em>We may not have enough inventory to spend all available budget before <%= @campaign.end_date.to_s("mm/dd/yyyy") -%>.</em>
+      <% end -%>
     </p>
 
     <br>

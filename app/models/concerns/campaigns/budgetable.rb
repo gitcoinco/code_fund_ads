@@ -95,7 +95,7 @@ module Campaigns
     end
 
     def should_increase_inventory?
-      return false unless should_increase_caps?
+      return false if should_increase_caps?
       pacing_too_slow?
     end
 
