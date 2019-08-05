@@ -1,0 +1,87 @@
+<p>
+  <strong>Performance Report</strong>
+  <br>
+  <%= @start_date.to_s("mm/dd/yyyy") %> through <%= @end_date.to_s("mm/dd/yyyy") %>
+  <br>
+  <%= @campaign.analytics_key %>
+</p>
+
+<p>
+  The <strong><%= @campaign.organization.name %></strong> organization has a balance of: <code><%= @campaign.organization.balance.format %></code>
+</p>
+
+<br>
+<h1>Overview</h1>
+
+<ul>
+  <li>Spend: <code><%= @summary.gross_revenue.format %></code></li>
+  <li>Impressions: <code><%= number_with_delimiter @summary.impressions_count %></code></li>
+  <li>Clicks: <code><%= number_with_delimiter @summary.clicks_count %></code></li>
+  <li>Average CTR: <code><%= number_to_percentage @summary.click_rate, precision: 2 %></code></li>
+  <li>Average CPM: <code><%= @summary.cpm.format %></code></li>
+  <li>Average CPC: <code><%= @summary.cpc.format %></code></li>
+  <% if @campaign.consumed_operative_days > 0 -%>
+  <li>Average Daily Spend: <code><%= (@summary.gross_revenue / @campaign.consumed_operative_days).format %></code></li>
+  <% end -%>
+</ul>
+
+<% if @campaign.remaining_operative_days > 0 && @campaign.total_remaining_budget > 0 -%>
+  <p>
+    There are <strong><%= @campaign.remaining_operative_days %> days</strong> to spend the remaining <code><%= @campaign.total_remaining_budget.format %></code>
+    <br>
+    Estimated to be approximately <code><%= (@campaign.total_remaining_budget / @campaign.remaining_operative_days).format %></code>/per day.
+  </p>
+  <% if (@campaign.total_remaining_budget / @campaign.remaining_operative_days) > (@summary.gross_revenue / @campaign.consumed_operative_days) -%>
+    <p>
+      <strong>Note</strong>: Pacing is slow based on average daily spend.
+      <% if @campaign.daily_budget < (@campaign.total_remaining_budget / @campaign.remaining_operative_days) -%>
+        <em>We'd like to adjust the budget caps with your approval.</em>
+      <% end -%>
+    </p>
+
+    <br>
+    <h2>Budget Caps</h2>
+
+    The campaign is currently configured with the following budget caps.
+
+    <ul>
+      <li>Total: <code><%= @campaign.total_budget.format %></code></li>
+      <li>Daily: <code><%= @campaign.daily_budget.format %></code></li>
+      <li>Hourly: <code><%= @campaign.hourly_budget.format %></code></li>
+    </ul>
+  <% end -%>
+<% end -%>
+
+<br>
+<h2>Performance Report</h2>
+
+<p>
+  The attached spreadsheet has <strong>4 tabs</strong> to help you understand how well the campaign is performing.
+</p>
+
+<ul>
+  <li><strong>Daily</strong>: performance by day</li>
+  <li><strong>Creative</strong>: performance of multivariate creatives</li>
+  <li><strong>Property</strong>: performance by hosting website</li>
+  <li><strong>Country</strong>: performance by country</li>
+</ul>
+
+<p>
+  Please let us know if you'd like to make any changes.
+  <em>For example, changing budget caps, targeted countries, or prohibited properties, etc...</em>
+</p>
+
+<p>
+  Thank you being a CodeFund customer.
+  We look forward to hearing from you soon.
+</p>
+
+<br>
+<br>
+<p>
+  Sincerely,
+</p>
+
+<p>
+  <strong>Eric</strong> &amp; the CodeFund Team
+</p>

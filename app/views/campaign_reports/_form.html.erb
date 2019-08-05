@@ -1,0 +1,13 @@
+<%= form_for :campaign_report, url: campaign_reports_path, method: :post, remote: true,
+  data: {
+    controller: "campaign-reports-email-form",
+    action: "ajax:success->campaign-reports-email-form#success ajax:error->campaign-reports-email-form#error",
+    success: "Campaign reports were successfully emailed.",
+    error: "Failed to email campaign reports! Please verify the email address." } do |f| %>
+  <div class="input-group">
+    <%= f.email_field :email, value: email, placeholder: "Enter an email address...", class: "form-control", style: "min-width:300px;" %>
+    <div class="input-group-append">
+      <%= f.submit "Email all reports", class: "btn btn-outline-secondary" %>
+    </div>
+  </div>
+<% end %>
