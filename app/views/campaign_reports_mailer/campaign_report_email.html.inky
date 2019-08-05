@@ -32,7 +32,10 @@
   </p>
   <% if (@campaign.total_remaining_budget / @campaign.remaining_operative_days) > (@summary.gross_revenue / @campaign.consumed_operative_days) -%>
     <p>
-      <strong>Note</strong>: Pacing is slow based on average daily spend. <em>Please consider increasing daily budget caps and/or expanding targeting.</em>
+      <strong>Note</strong>: Pacing is slow based on average daily spend.
+      <% if @campaign.daily_budget < (@campaign.total_remaining_budget / @campaign.remaining_operative_days) -%>
+        <em>We'd like to adjust the budget caps with your approval.</em>
+      <% end -%>
     </p>
   <% end -%>
 <% end -%>
