@@ -10,6 +10,7 @@
   The <strong><%= @campaign.organization.name %></strong> organization has a balance of: <code><%= @campaign.organization.balance.format %></code>
 </p>
 
+<br>
 <h1>Overview</h1>
 
 <ul>
