@@ -6,6 +6,7 @@ class CampaignReportsMailer < ApplicationMailer
     @campaign = params[:campaign]
     @start_date = Date.coerce(params[:start_date])
     @end_date = Date.coerce(params[:end_date])
+    @summary = @campaign.summary(@start_date, @end_date)
 
     workbook = create_report_workbook(@campaign, @start_date, @end_date)
     filename = "campaign-report-#{@campaign.id}-#{@start_date.to_s("yyyymmdd")}-#{@end_date.to_s("yyyymmdd")}.xls"
