@@ -38,19 +38,19 @@
         <em>We'd like to adjust the budget caps with your approval.</em>
       <% end -%>
     </p>
+
+    <br>
+    <h2>Budget Caps</h2>
+
+    The campaign is currently configured with the following budget caps.
+
+    <ul>
+      <li>Total: <code><%= @campaign.total_budget.format %></code></li>
+      <li>Daily: <code><%= @campaign.daily_budget.format %></code></li>
+      <li>Hourly: <code><%= @campaign.hourly_budget.format %></code></li>
+    </ul>
   <% end -%>
 <% end -%>
-
-<br>
-<h2>Budget Caps</h2>
-
-The campaign is currently configured with the following budget caps.
-
-<ul>
-  <li>Total: <code><%= @campaign.total_budget.format %></code></li>
-  <li>Daily: <code><%= @campaign.daily_budget.format %></code></li>
-  <li>Hourly: <code><%= @campaign.hourly_budget.format %></code></li>
-</ul>
 
 <br>
 <h2>Performance Report</h2>
