@@ -29,5 +29,9 @@ module Campaigns
     def consumed_operative_days
       total_operative_days - remaining_operative_days
     end
+
+    def operable?
+      remaining_operative_days > 0 && total_remaining_budget > 0
+    end
   end
 end

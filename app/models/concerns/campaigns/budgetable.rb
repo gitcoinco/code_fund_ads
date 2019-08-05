@@ -70,6 +70,35 @@ module Campaigns
       Money.new hourly_consumed_budget_fractional_cents.round, "USD"
     end
 
+    def average_daily_spend
+      return Money.new(0) unless consumed_operative_days > 0
+      overview = summary
+      overview.gross_revenue / consumed_operative_days
+    end
+
+    def estimated_daily_spend
+      return Money.new(0) unless remaining_operative_days > 0
+      total_remaining_budget / remaining_operative_days
+    end
+
+    def estimated_days_until_budget_consumed
+      return 0 unless average_daily_spend > 0
+      (total_remaining_budget / average_daily_spend).ceil
+    end
+
+    def pacing_too_slow?
+      estimated_daily_spend > average_daily_spend
+    end
+
+    def should_increase_caps?
+      estimated_daily_spend > daily_budget
+    end
+
+    def should_increase_inventory?
+      return false unless should_increase_caps?
+      pacing_too_slow?
+    end
+
     # Budget availability helpers ............................................................................
 
     # Returns a boolean indicating if the campaign has available budget

@@ -20,21 +20,23 @@
   <li>Average CTR: <code><%= number_to_percentage @summary.click_rate, precision: 2 %></code></li>
   <li>Average CPM: <code><%= @summary.cpm.format %></code></li>
   <li>Average CPC: <code><%= @summary.cpc.format %></code></li>
-  <% if @campaign.consumed_operative_days > 0 -%>
-  <li>Average Daily Spend: <code><%= (@summary.gross_revenue / @campaign.consumed_operative_days).format %></code></li>
-  <% end -%>
+  <li>Average Daily Spend: <code><%= @campaign.average_daily_spend.format %></code></li>
 </ul>
 
-<% if @campaign.remaining_operative_days > 0 && @campaign.total_remaining_budget > 0 -%>
+<p>
+  Given current pacing this campaign would spend its available budget in <strong><%= @campaign.estimated_days_until_budget_consumed -%> days</strong>.
+</p>
+
+<% if @campaign.operable? -%>
   <p>
     There are <strong><%= @campaign.remaining_operative_days %> days</strong> to spend the remaining <code><%= @campaign.total_remaining_budget.format %></code>
     <br>
-    Estimated to be approximately <code><%= (@campaign.total_remaining_budget / @campaign.remaining_operative_days).format %></code>/per day.
+    Estimated to be approximately <code><%= @campaign.estimated_daily_spend.format %></code>/per day.
   </p>
-  <% if (@campaign.total_remaining_budget / @campaign.remaining_operative_days) > (@summary.gross_revenue / @campaign.consumed_operative_days) -%>
+  <% if @campaign.pacing_too_slow? -%>
     <p>
       <strong>Note</strong>: Pacing is slow based on average daily spend.
-      <% if @campaign.daily_budget < (@campaign.total_remaining_budget / @campaign.remaining_operative_days) -%>
+      <% if @campaign.should_increase_caps? -%>
         <em>We'd like to adjust the budget caps with your approval.</em>
       <% end -%>
     </p>
@@ -77,11 +79,11 @@
 </p>
 
 <br>
-<br>
 <p>
   Sincerely,
 </p>
 
+<br>
 <p>
-  <strong>Eric</strong> &amp; the CodeFund Team
+  The CodeFund Team
 </p>
