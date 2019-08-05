@@ -26,7 +26,7 @@
 
 <% if @campaign.remaining_operative_days > 0 && @campaign.total_remaining_budget > 0 -%>
   <p>
-    There are <strong><%= @campaign.remaining_operative_days %> days</strong> to spend the remaining: <code><%= @campaign.total_remaining_budget.format %></code>
+    There are <strong><%= @campaign.remaining_operative_days %> days</strong> to spend the remaining <code><%= @campaign.total_remaining_budget.format %></code>
     <br>
     Estimated to be approximately <code><%= (@campaign.total_remaining_budget / @campaign.remaining_operative_days).format %></code>/per day.
   </p>
