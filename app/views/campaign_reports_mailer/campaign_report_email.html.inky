@@ -1,13 +1,15 @@
 <p>
   <strong>Performance Report</strong>
-  <br>
-  <%= @start_date.to_s("mm/dd/yyyy") %> through <%= @end_date.to_s("mm/dd/yyyy") %>
-  <br>
-  <%= @campaign.analytics_key %>
 </p>
 
 <p>
-  The <strong><%= @campaign.organization.name %></strong> organization has a balance of: <code><%= @campaign.organization.balance.format %></code>
+  <%= @campaign.analytics_key %>
+  <br>
+  <%= @start_date.to_s("mm/dd/yyyy") %> through <%= @end_date.to_s("mm/dd/yyyy") %>
+</p>
+
+<p>
+  <%= link_to "Edit this campaign", edit_campaign_url(@campaign), style: "margin-top:5px;" %>
 </p>
 
 <br>
@@ -95,4 +97,6 @@
 <br>
 <p>
   The CodeFund Team
+  <br>
+  <small><em>This email is a beta feature and is subject to change.</em></small>
 </p>
