@@ -91,6 +91,7 @@ module Campaigns
     end
 
     def pacing_too_fast?
+      return false unless remaining_operative_days - estimated_days_until_budget_consumed >= 7
       estimated_days_until_budget_consumed < remaining_operative_days
     end
 
