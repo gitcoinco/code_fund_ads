@@ -60,7 +60,7 @@ class Campaign < ApplicationRecord
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
   validates :status, inclusion: {in: ENUMS::CAMPAIGN_STATUSES.values}
-  validate :validate_url
+  # validate :validate_url
 
   # callbacks .................................................................
   before_validation :sort_arrays
