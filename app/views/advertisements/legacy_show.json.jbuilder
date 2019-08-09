@@ -8,7 +8,7 @@ if @campaign && @creative
   json.images do
     json.partial! "/advertisements/legacy_image", collection: @creative.images, as: :image
   end
-  json.link  @campaign_url
+  json.link @campaign_url
   json.pixel @impression_url
   json.poweredByLink "https://codefund.app"
   json.small_image_url @creative.small_image&.cloudfront_url

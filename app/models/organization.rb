@@ -44,7 +44,7 @@ class Organization < ApplicationRecord
     case value
       when ENUMS::ORGANIZATION_SEARCH_DIRECTIONS::POSITIVE then with_positive_balance
       when ENUMS::ORGANIZATION_SEARCH_DIRECTIONS::NEGATIVE then with_negative_balance
-      when ENUMS::ORGANIZATION_SEARCH_DIRECTIONS::ZERO     then with_zero_balance
+      when ENUMS::ORGANIZATION_SEARCH_DIRECTIONS::ZERO then with_zero_balance
       else all
     end
   }

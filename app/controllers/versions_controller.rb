@@ -10,10 +10,10 @@ class VersionsController < ApplicationController
   def index
     @versions = @versionable.versions
 
-    render "/versions/for_user/index"         if @versionable.is_a? User
+    render "/versions/for_user/index" if @versionable.is_a? User
     render "/versions/for_organization/index" if @versionable.is_a? Organization
-    render "/versions/for_campaign/index"     if @versionable.is_a? Campaign
-    render "/versions/for_property/index"     if @versionable.is_a? Property
+    render "/versions/for_campaign/index" if @versionable.is_a? Campaign
+    render "/versions/for_property/index" if @versionable.is_a? Property
   end
 
   def show

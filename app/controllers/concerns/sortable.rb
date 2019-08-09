@@ -16,7 +16,7 @@ module Sortable
 
   def sort_column
     return params[:column] if sortable_columns.include?(params[:column])
-    return "name"          if sortable_columns.include?("name")
+    return "name" if sortable_columns.include?("name")
     "created_at"
   end
 

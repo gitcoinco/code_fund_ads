@@ -32,31 +32,31 @@ class ImportGithubJobsJob < ApplicationJob
       words = sieve.filter(lang: :en, words: "#{job["title"]} #{job["description"]} #{job["tag"]}".downcase.gsub(/,|\.\s/, "").split)
       matching_keyword_aliases = keyword_aliases & words
 
-      posting.user             = user
-      posting.organization     = organization
-      posting.company_name     = job["company"]
-      posting.company_url      = job["company_url"]
+      posting.user = user
+      posting.organization = organization
+      posting.company_name = job["company"]
+      posting.company_url = job["company_url"]
       posting.company_logo_url = job["company_logo"]
-      posting.job_type         = normalize_job_type(job["type"])
-      posting.title            = truncate(job["title"], length: 80)
-      posting.how_to_apply     = job["how_to_apply"]
-      posting.description      = job["description"]
+      posting.job_type = normalize_job_type(job["type"])
+      posting.title = truncate(job["title"], length: 80)
+      posting.how_to_apply = job["how_to_apply"]
+      posting.description = job["description"]
       if job["location"].downcase.include?("remote") || job["title"].downcase.include?("remote")
         posting.remote = true
       end
-      posting.keywords         = normalize_keywords(matching_keyword_aliases)
-      city, province_abbr      = parse_location(job["location"])
-      province                 = Province.find("US-#{province_abbr}")
+      posting.keywords = normalize_keywords(matching_keyword_aliases)
+      city, province_abbr = parse_location(job["location"])
+      province = Province.find("US-#{province_abbr}")
 
-      posting.city             = city
-      posting.province_code    = province&.iso_code
-      posting.country_code     = province&.country_code
-      posting.url              = job["url"]
-      posting.start_date       = Chronic.parse(job["created_at"]).to_date
-      posting.end_date         = posting.start_date + 60.days
-      posting.status           = posting.start_date >= 60.days.ago ? ENUMS::JOB_STATUSES::ACTIVE : ENUMS::JOB_STATUSES::ARCHIVED
-      posting.source           = ENUMS::JOB_SOURCES::GITHUB
-      posting.auto_renew       = false
+      posting.city = city
+      posting.province_code = province&.iso_code
+      posting.country_code = province&.country_code
+      posting.url = job["url"]
+      posting.start_date = Chronic.parse(job["created_at"]).to_date
+      posting.end_date = posting.start_date + 60.days
+      posting.status = posting.start_date >= 60.days.ago ? ENUMS::JOB_STATUSES::ACTIVE : ENUMS::JOB_STATUSES::ARCHIVED
+      posting.source = ENUMS::JOB_SOURCES::GITHUB
+      posting.auto_renew = false
 
       print "#{@count += 1},"
       unless posting.save

@@ -79,7 +79,7 @@ class Applicant < ApplicationRecord
   end
 
   def self.find_by_email(email)
-    user   = find_by(email: EmailAddress.normal(email))
+    user = find_by(email: EmailAddress.normal(email))
     user ||= find_by(canonical_email: EmailAddress.canonical(email))
     user ||= find_by(canonical_email: EmailAddress.redacted(email))
     user
@@ -87,7 +87,7 @@ class Applicant < ApplicationRecord
 
   def redact!
     self[:canonical_email] = EmailAddress.redact(canonical_email)
-    self[:email]           = self[:canonical_email]
+    self[:email] = self[:canonical_email]
   end
 
   def for_publisher?

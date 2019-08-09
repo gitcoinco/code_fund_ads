@@ -313,7 +313,7 @@ class Campaign < ApplicationRecord
   def date_range=(value)
     dates = value.split(" - ")
     self.start_date = Date.strptime(dates[0], "%m/%d/%Y")
-    self.end_date   = Date.strptime(dates[1], "%m/%d/%Y")
+    self.end_date = Date.strptime(dates[1], "%m/%d/%Y")
   end
 
   def countries
