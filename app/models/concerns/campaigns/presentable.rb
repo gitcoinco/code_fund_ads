@@ -22,8 +22,8 @@ module Campaigns
     end
 
     def percentage_complete_by_date
-      return 0   if total_operative_days.zero?
-      return 0   if start_date > Date.current
+      return 0 if total_operative_days.zero?
+      return 0 if start_date > Date.current
       return 100 if end_date < Date.current
 
       ((consumed_operative_days.to_f / total_operative_days.to_f) * 100).to_i

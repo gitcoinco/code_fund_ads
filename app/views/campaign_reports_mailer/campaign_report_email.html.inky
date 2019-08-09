@@ -16,12 +16,14 @@
 <h1>Overview</h1>
 
 <ul style="margin-top:0px;">
-  <li>Spend: <code><%= @summary.gross_revenue.format %></code></li>
-  <li>Impressions: <code><%= number_with_delimiter @summary.impressions_count %></code></li>
-  <li>Clicks: <code><%= number_with_delimiter @summary.clicks_count %></code></li>
-  <li>Average CTR: <code><%= number_to_percentage @summary.click_rate, precision: 2 %></code></li>
-  <li>Average CPM: <code><%= @summary.cpm.format %></code></li>
-  <li>Average CPC: <code><%= @summary.cpc.format %></code></li>
+  <% if @summary %>
+    <li>Spend: <code><%= @summary.gross_revenue.format %></code></li>
+    <li>Impressions: <code><%= number_with_delimiter @summary.impressions_count %></code></li>
+    <li>Clicks: <code><%= number_with_delimiter @summary.clicks_count %></code></li>
+    <li>Average CTR: <code><%= number_to_percentage @summary.click_rate, precision: 2 %></code></li>
+    <li>Average CPM: <code><%= @summary.cpm.format %></code></li>
+    <li>Average CPC: <code><%= @summary.cpc.format %></code></li>
+  <% end %>
   <li>Average Daily Spend: <code><%= @campaign.average_daily_spend.format %></code></li>
 </ul>
 

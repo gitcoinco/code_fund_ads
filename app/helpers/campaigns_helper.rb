@@ -1,4 +1,9 @@
 module CampaignsHelper
+  def campaign_reports_email_error_message(campaign)
+    return "Email not sent! Please verify that data exists for the selected dates." unless campaign.summary(@start_date, @end_date)
+    "Email not sent! Please verify the email address."
+  end
+
   def creatives_for_select
     Creative.select(:id, :user_id, :name).order(:name).map do |creative|
       [creative.name, creative.id, data: {parent_id: creative.user_id}]

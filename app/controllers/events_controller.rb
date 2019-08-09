@@ -10,12 +10,12 @@ class EventsController < ApplicationController
   def index
     @events = @eventable.events
 
-    render "/events/for_user/index"         if @eventable.is_a? User
+    render "/events/for_user/index" if @eventable.is_a? User
     render "/events/for_organization/index" if @eventable.is_a? Organization
-    render "/events/for_campaign/index"     if @eventable.is_a? Campaign
-    render "/events/for_property/index"     if @eventable.is_a? Property
-    render "/events/for_creative/index"     if @eventable.is_a? Creative
-    render "/events/for_applicant/index"    if @eventable.is_a? Applicant
+    render "/events/for_campaign/index" if @eventable.is_a? Campaign
+    render "/events/for_property/index" if @eventable.is_a? Property
+    render "/events/for_creative/index" if @eventable.is_a? Creative
+    render "/events/for_applicant/index" if @eventable.is_a? Applicant
   end
 
   private

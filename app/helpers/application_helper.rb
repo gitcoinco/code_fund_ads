@@ -189,7 +189,7 @@ module ApplicationHelper
     flash_messages = []
     flash.each do |type, message|
       type = "success" if type == "notice"
-      type = "error"   if type == "alert"
+      type = "error" if type == "alert"
       body = {
         type: type,
         text: message,
@@ -205,9 +205,9 @@ module ApplicationHelper
   end
 
   def sortable_tr(column, title = nil)
-    title   ||= column.titleize
+    title ||= column.titleize
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
-    selected  = nil
+    selected = nil
 
     if params[:column] == column
       selected = "up" if direction == "desc"

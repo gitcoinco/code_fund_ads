@@ -16,21 +16,21 @@ class ImportRemoteokJobsJob < ApplicationJob
 
       posting = JobPosting.remoteok.where(source_identifier: job["id"]).first_or_initialize
 
-      posting.user             = user
-      posting.organization     = organization
-      posting.company_name     = job["company"]
+      posting.user = user
+      posting.organization = organization
+      posting.company_name = job["company"]
       posting.company_logo_url = job["company_logo"]
-      posting.job_type         = ENUMS::JOB_TYPES::FULL_TIME
-      posting.title            = job["position"]
-      posting.description      = job["description"]
-      posting.keywords         = normalize_keywords(job["tags"])
-      posting.remote           = true
-      posting.url              = job["url"]
-      posting.start_date       = Time.at(job["epoch"].to_i).to_date
-      posting.end_date         = posting.start_date + 60.days
-      posting.status           = posting.start_date >= 60.days.ago ? ENUMS::JOB_STATUSES::ACTIVE : ENUMS::JOB_STATUSES::ARCHIVED
-      posting.source           = ENUMS::JOB_SOURCES::REMOTEOK
-      posting.auto_renew       = false
+      posting.job_type = ENUMS::JOB_TYPES::FULL_TIME
+      posting.title = job["position"]
+      posting.description = job["description"]
+      posting.keywords = normalize_keywords(job["tags"])
+      posting.remote = true
+      posting.url = job["url"]
+      posting.start_date = Time.at(job["epoch"].to_i).to_date
+      posting.end_date = posting.start_date + 60.days
+      posting.status = posting.start_date >= 60.days.ago ? ENUMS::JOB_STATUSES::ACTIVE : ENUMS::JOB_STATUSES::ARCHIVED
+      posting.source = ENUMS::JOB_SOURCES::REMOTEOK
+      posting.auto_renew = false
       print "#{@count += 1},"
       unless posting.save
         puts "Unable to save: #{posting.errors.inspect}"

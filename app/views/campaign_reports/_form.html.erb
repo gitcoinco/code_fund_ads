@@ -3,13 +3,13 @@
     controller: "campaign-reports-email-form",
     action: "ajax:success->campaign-reports-email-form#success ajax:error->campaign-reports-email-form#error",
     success: "Campaign reports were successfully emailed.",
-    error: "Failed to email campaign reports! Please verify the email address.",
+    error: campaign_reports_email_error_message(campaign),
     confirm: "Are you sure you want to email the reports?",
 } do |f| %>
   <div class="input-group">
-    <%= f.email_field :email, value: email, placeholder: "Enter an email address...", class: "form-control", style: "min-width:300px;" %>
+    <%= f.email_field :email, value: campaign.user.email, placeholder: "Enter an email address...", class: "form-control", style: "min-width:300px;" %>
     <div class="input-group-append">
-      <%= f.submit "Email all reports", class: "btn btn-outline-secondary" %>
+      <%= f.submit "Email Reports", class: "btn btn-outline-secondary" %>
     </div>
   </div>
 <% end %>

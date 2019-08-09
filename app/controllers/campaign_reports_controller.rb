@@ -34,5 +34,6 @@ class CampaignReportsController < ApplicationController
   def validate_request
     head :bad_request unless EmailAddress.valid?(campaign_report_params[:email])
     head :bad_request unless @campaign
+    head :bad_request unless @campaign.summary(@start_date, @end_date)
   end
 end

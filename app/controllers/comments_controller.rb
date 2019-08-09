@@ -10,11 +10,11 @@ class CommentsController < ApplicationController
   def index
     @comments = @commentable.comment_threads
 
-    render "/comments/for_user/index"         if @commentable.is_a? User
+    render "/comments/for_user/index" if @commentable.is_a? User
     render "/comments/for_organization/index" if @commentable.is_a? Organization
-    render "/comments/for_campaign/index"     if @commentable.is_a? Campaign
-    render "/comments/for_property/index"     if @commentable.is_a? Property
-    render "/comments/for_applicant/index"    if @commentable.is_a? Applicant
+    render "/comments/for_campaign/index" if @commentable.is_a? Campaign
+    render "/comments/for_property/index" if @commentable.is_a? Property
+    render "/comments/for_applicant/index" if @commentable.is_a? Applicant
   end
 
   def create
