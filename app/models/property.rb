@@ -54,7 +54,7 @@ class Property < ApplicationRecord
   validates :property_type, inclusion: {in: ENUMS::PROPERTY_TYPES.values}
   validates :status, inclusion: {in: ENUMS::PROPERTY_STATUSES.values}
   validates :responsive_behavior, inclusion: {in: ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS.values}
-  validates :audience, inclusion: {in: Audience.all.map(&:name)}
+  validates :audience, inclusion: {in: Audience.all.map(&:name), allow_nil: true}
   validates :url, presence: true, url: true
 
   # callbacks .................................................................
