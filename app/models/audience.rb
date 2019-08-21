@@ -138,11 +138,5 @@ class Audience
       end
       max[:audience]
     end
-
-    def match_properties!
-      Property.order(:id).each do |property|
-        property.update audience: match(property.keywords).name
-      end
-    end
   end
 end

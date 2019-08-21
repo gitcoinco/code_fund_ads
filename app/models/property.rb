@@ -54,10 +54,11 @@ class Property < ApplicationRecord
   validates :property_type, inclusion: {in: ENUMS::PROPERTY_TYPES.values}
   validates :status, inclusion: {in: ENUMS::PROPERTY_STATUSES.values}
   validates :responsive_behavior, inclusion: {in: ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS.values}
-  validates :audience, inclusion: {in: Audience.all.map(&:name), allow_nil: true}
+  validates :audience, inclusion: {in: Audience.all.map(&:name)}
   validates :url, presence: true, url: true
 
   # callbacks .................................................................
+  before_validation :assign_audience
   before_save :sanitize_assigned_fallback_campaign_ids
   after_save :generate_screenshot
   after_update_commit :update_user_hubspot_deal_stage
@@ -184,6 +185,10 @@ class Property < ApplicationRecord
     Campaign.where id: subquery.distinct.pluck(:scoped_by_id).map(&:to_i)
   end
 
+  def update_audience
+    update_columns audience: Audience.match(keywords).name
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................
@@ -210,5 +215,10 @@ class Property < ApplicationRecord
 
   def destroy_paper_trail_versions
     PaperTrail::Version.where(id: versions.select(:id)).delete_all
+  end
+
+  def assign_audience(force: false)
+    self.audience = nil if force
+    self.audience ||= Audience.match(keywords).name
   end
 end
