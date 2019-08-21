@@ -738,7 +738,8 @@ CREATE TABLE public.properties (
     restrict_to_assigner_campaigns boolean DEFAULT false NOT NULL,
     fallback_ad_template character varying,
     fallback_ad_theme character varying,
-    responsive_behavior character varying DEFAULT 'none'::character varying NOT NULL
+    responsive_behavior character varying DEFAULT 'none'::character varying NOT NULL,
+    audience character varying
 );
 
 
@@ -2037,6 +2038,13 @@ CREATE INDEX index_properties_on_assigned_fallback_campaign_ids ON public.proper
 
 
 --
+-- Name: index_properties_on_audience; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_properties_on_audience ON public.properties USING btree (audience);
+
+
+--
 -- Name: index_properties_on_keywords; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2399,6 +2407,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190612154209'),
 ('20190619201904'),
 ('20190701210845'),
-('20190715195353');
+('20190715195353'),
+('20190821192233');
 
 

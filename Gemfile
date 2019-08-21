@@ -41,7 +41,7 @@ gem "mini_magick", "~> 4.9.2" # intended for use with ActiveStorage & graphicsma
 gem "monetize", "~> 1.9.0"
 gem "money", "~> 6.13.1"
 gem "money-rails", "~> 1.13.0"
-gem "oj", "~> 3.8.1"
+gem "oj", "~> 3.9.0"
 gem "okcomputer", "~> 1.17.3"
 gem "omniauth-github", "~> 1.3.0"
 gem "omniauth-google-oauth2", "~> 0.7.0"
