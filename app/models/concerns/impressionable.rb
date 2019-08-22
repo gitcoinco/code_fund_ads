@@ -106,7 +106,6 @@ module Impressionable
       dates = (start_date..end_date).to_a
       missing_dates = dates - cents_by_date.keys
       if missing_dates.present?
-        CreateDailySummariesJob.perform_later self, start_date.iso8601, end_date.iso8601, scoped_by
         impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).sum(:estimated_house_revenue_fractional_cents)
           .each { |date, fractional_cents| cents_by_date[date] ||= fractional_cents.round }
       end
