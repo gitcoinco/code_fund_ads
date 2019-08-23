@@ -25,7 +25,7 @@ class DownloadAndExtractMaxmindFileJob < ApplicationJob
       Net::HTTP.start(MAXMIND_URI.host) do |http|
         http.open_timeout = 1
         http.read_timeout = 1
-        http.request_get("#{MAXMIND_URI.path}?#{MAXMIND_URI.query}") do |response|
+        http.request_get(MAXMIND_URI.path) do |response|
           response.read_body { |segment| file.write segment }
         end
       end
