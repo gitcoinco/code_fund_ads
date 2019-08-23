@@ -55,6 +55,7 @@ gem "premailer-rails", "1.10.2"
 gem "pretender", "~> 0.3.3"
 gem "puma", "~> 4.1"
 gem "rack-attack", "~> 6.1.0"
+gem "rack-reverse-proxy", "~> 0.12.0", require: "rack/reverse_proxy"
 gem "rails", "~> 5.2.2"
 gem "recaptcha", "~> 4.13.1"
 gem "redis", "~> 4.0", require: ["redis", "redis/connection/hiredis"]
