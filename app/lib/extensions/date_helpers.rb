@@ -19,10 +19,13 @@ module Extensions
       end
 
       # Returns a Date representation of the passed value regardless of whether or not the value is a legit date
-      # nil == Date.current
-      # "invalid" == Date.current
-      def coerce(value)
-        cast(value) || Date.current
+      # It's also possible to constrain the date to a min/max boundary
+      # Invalid date values return: Date.current
+      def coerce(value, min: nil, max: nil)
+        date = cast(value) || Date.current
+        date = coerce(min) if min && date < coerce(min)
+        date = coerce(max) if max && date > coerce(max)
+        date
       end
 
       def cache_key(date, coerce: true, minutes_cached: 10)

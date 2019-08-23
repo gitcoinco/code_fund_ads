@@ -182,4 +182,30 @@ class DateTest < ActiveSupport::TestCase
     assert time.to_date.cache_key == "2019-01-01/0105"
     travel_back
   end
+
+  test "coerce with nil" do
+    assert Date.coerce(nil) == Date.current
+  end
+
+  test "coerce with garbage" do
+    assert Date.coerce("f dkaj4.32d") == Date.current
+  end
+
+  test "coerce with valid string" do
+    assert Date.coerce("2020-07-19") == Date.parse("2020-07-19")
+  end
+
+  test "coerce with min" do
+    assert Date.coerce(30.days.ago, min: 5.days.ago) == 5.days.ago.to_date
+  end
+
+  test "coerce with max" do
+    assert Date.coerce(30.days.from_now, max: 5.days.from_now) == 5.days.from_now.to_date
+  end
+
+  test "coerce with min/max and legal values" do
+    assert Date.coerce(30.days.ago, min: 30.days.ago, max: 5.days.from_now) == 30.days.ago.to_date
+    assert Date.coerce(5.days.from_now, min: 30.days.ago, max: 5.days.from_now) == 5.days.from_now.to_date
+    assert Date.coerce(15.days.ago, min: 30.days.ago, max: 5.days.from_now) == 15.days.ago.to_date
+  end
 end

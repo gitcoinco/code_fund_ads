@@ -8,8 +8,8 @@ module Impressionable
   end
 
   def daily_impressions_counts(start_date = nil, end_date = nil, scoped_by: nil, fresh: false)
-    start_date = Date.coerce(start_date)
-    end_date = Date.coerce(end_date || start_date)
+    start_date = constrained_date(start_date)
+    end_date = constrained_date(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
     Rails.cache.fetch key, force: fresh, expires_in: 10.minutes do
       counts_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
@@ -26,8 +26,8 @@ module Impressionable
   end
 
   def daily_clicks_counts(start_date = nil, end_date = nil, scoped_by: nil, fresh: false)
-    start_date = Date.coerce(start_date)
-    end_date = Date.coerce(end_date || start_date)
+    start_date = constrained_date(start_date)
+    end_date = constrained_date(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
     Rails.cache.fetch key, force: fresh, expires_in: 10.minutes do
       counts_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
@@ -58,8 +58,8 @@ module Impressionable
   end
 
   def gross_revenue(start_date, end_date = nil, scoped_by: nil, fresh: false)
-    start_date = Date.coerce(start_date)
-    end_date = Date.coerce(end_date || start_date)
+    start_date = constrained_date(start_date)
+    end_date = constrained_date(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
     cents = Rails.cache.fetch(key, force: fresh, expires_in: 10.minutes) {
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
@@ -77,8 +77,8 @@ module Impressionable
   end
 
   def property_revenue(start_date, end_date = nil, scoped_by: nil, fresh: false)
-    start_date = Date.coerce(start_date)
-    end_date = Date.coerce(end_date || start_date)
+    start_date = constrained_date(start_date)
+    end_date = constrained_date(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
     cents = Rails.cache.fetch(key, force: fresh, expires_in: 10.minutes) {
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
@@ -96,8 +96,8 @@ module Impressionable
   end
 
   def house_revenue(start_date, end_date = nil, scoped_by: nil, fresh: false)
-    start_date = Date.coerce(start_date)
-    end_date = Date.coerce(end_date || start_date)
+    start_date = constrained_date(start_date)
+    end_date = constrained_date(end_date || start_date)
     key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
     cents = Rails.cache.fetch(key, force: fresh, expires_in: 10.minutes) {
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
@@ -116,5 +116,14 @@ module Impressionable
 
   def operational?
     daily_summaries.scoped_by(nil).sum(:impressions_count) > 100
+  end
+
+  private
+
+  def constrained_date(value)
+    return Date.coerce(value) unless is_a?(Campaign)
+    Date.coerce value,
+      min: start_date,
+      max: (end_date.future? ? Date.current : end_date)
   end
 end
