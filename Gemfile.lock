@@ -351,6 +351,9 @@ GEM
       rack
     rack-proxy (0.6.5)
       rack
+    rack-reverse-proxy (0.12.0)
+      rack (>= 1.0.0)
+      rack-proxy (~> 0.6, >= 0.6.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.3)
@@ -632,6 +635,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 4.1)
   rack-attack (~> 6.1.0)
+  rack-reverse-proxy (~> 0.12.0)
   rails (~> 5.2.2)
   rails-erd
   rails_12factor
