@@ -6,8 +6,9 @@ export default class extends Controller {
   copy(event) {
     Rails.stopEverything(event);
     const value = this.inputTarget.value;
-    const disabled = this.inputTarget.getAttribute('disabled');
+    const disabled = !!this.inputTarget.disabled;
     this.inputTarget.removeAttribute('disabled');
+    this.inputTarget.disabled = false;
     this.inputTarget.select();
     document.execCommand('copy');
     this.inputTarget.value = 'Copied...';
@@ -15,6 +16,7 @@ export default class extends Controller {
       (() => {
         this.inputTarget.selectionStart = this.inputTarget.selectionEnd;
         if (disabled) this.inputTarget.setAttribute('disabled', disabled);
+        this.inputTarget.disabled = disabled;
       }).bind(this),
       10
     );
