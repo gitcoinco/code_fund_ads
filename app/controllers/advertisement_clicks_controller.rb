@@ -8,14 +8,14 @@ class AdvertisementClicksController < ApplicationController
     url = Mustache.render(@campaign.url.to_s, mustache_params)
     uri = URI.parse(url)
     parsed_query = Rack::Utils.parse_query(uri.query)
-    query = {
+    query = HashWithIndifferentAccess.new(
+      utm_source: "CodeFund",
+      utm_medium: "display",
       utm_campaign: params[:campaign_id],
       utm_impression: params[:impression_id],
-      utm_medium: "display",
       utm_referrer: request.referer,
-      utm_source: "CodeFund",
-    }.merge(parsed_query)
-    uri.query = query.to_query
+    )
+    uri.query = query.merge(parsed_query).to_query
     redirect_to uri.to_s
   end
 
@@ -29,15 +29,15 @@ class AdvertisementClicksController < ApplicationController
 
   def mustache_params
     {
-      campaign_id: params[:campaign_id],
-      campaign_name: @campaign&.name,
-      creative_id: params[:creative_id],
-      creative_name: @creative&.name,
-      property_id: params[:property_id],
-      property_name: @property&.name,
-      property_url: @property&.url,
-      template: params[:template],
-      theme: params[:theme],
+      campaign_id: CGI.escape(params[:campaign_id].to_s),
+      campaign_name: CGI.escape(@campaign&.name.to_s),
+      creative_id: CGI.escape(params[:creative_id].to_s),
+      creative_name: CGI.escape(@creative&.name.to_s),
+      property_id: CGI.escape(params[:property_id].to_s),
+      property_name: CGI.escape(@property&.name.to_s),
+      property_url: CGI.escape(@property&.url.to_s),
+      template: CGI.escape(params[:template].to_s),
+      theme: CGI.escape(params[:theme].to_s),
     }
   end
 
