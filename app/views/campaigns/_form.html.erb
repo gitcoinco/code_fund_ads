@@ -38,8 +38,79 @@
             end_date: (campaign.end_date || 29.days.from_now).strftime("%m/%d/%Y")
           }
         }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
-    <%= tag.div f.input(:url, as: :string, placeholder: "https://", required: true, input_html: { class: "form-control" },
-      data: { msg: "Please enter a valid URL", error_class: "u-has-error", success_class: "u-has-success", rule_url: true }), class: "col-12 mb-3" %>
+
+    <div class="col-12 mb-3">
+      <%= f.input :url, as: :string, required: true, input_html: { class: "form-control" },
+        placeholder: "https://example.com/?utm_source=codefund&utm_campaign={{campaign_id}}",
+        data: { msg: "Please enter a valid URL", error_class: "u-has-error", success_class: "u-has-success", rule_url: true } %>
+      <small class="text-muted">Use any of the following variables in the URL</small>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="border-top-0"></th>
+            <th class="border-top-0">Variable</th>
+            <th class="border-top-0">Example Value</th>
+            <th class="border-top-0">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-controller="copy">
+            <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
+            <td><input type="text" class="border-0 bg-transparent code" value="{{campaign_id}}" style="border:none;" disabled data-target="copy.input"></td>
+            <td><%= campaign.id || 123 %></td>
+            <td>The campaign <code>id</code></td>
+          </tr>
+          <tr data-controller="copy">
+            <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
+            <td><input type="text" class="border-0 bg-transparent code" value="{{campaign_name}}" style="border:none;" disabled data-target="copy.input"></td>
+            <td><%= campaign.name || "Example" %></td>
+            <td>The campaign <code>name</code></td>
+          </tr>
+          <tr data-controller="copy">
+            <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
+            <td><input type="text" class="border-0 bg-transparent code" value="{{creative_id}}" style="border:none;" disabled data-target="copy.input"></td>
+            <td><%= campaign.creatives.first&.id || 123 %></td>
+            <td>The creative <code>id</code> that was rendered</td>
+          </tr>
+          <tr data-controller="copy">
+            <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
+            <td><input type="text" class="border-0 bg-transparent code" value="{{creative_name}}" style="border:none;" disabled data-target="copy.input"></td>
+            <td><%= campaign.creatives.first&.name || "Example" %></td>
+            <td>The creative <code>name</code> that was rendered</td>
+          </tr>
+          <tr data-controller="copy">
+            <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
+            <td><input type="text" class="border-0 bg-transparent code" value="{{property_id}}" style="border:none;" disabled data-target="copy.input"></td>
+            <td><%= campaign.matching_properties.first&.id || 123 %></td>
+            <td>The property <code>id</code> that displayed the ad</td>
+          </tr>
+          <tr data-controller="copy">
+            <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
+            <td><input type="text" class="border-0 bg-transparent code" value="{{property_name}}" style="border:none;" disabled data-target="copy.input"></td>
+            <td><%= campaign.matching_properties.first&.name || "Example" %></td>
+            <td>The property <code>name</code> that displayed the ad</td>
+          </tr>
+          <tr data-controller="copy">
+            <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
+            <td><input type="text" class="border-0 bg-transparent code" value="{{property_url}}" style="border:none;" disabled data-target="copy.input"></td>
+            <td><%= campaign.matching_properties.first&.url || "https://www.example.com" %></td>
+            <td>The property <code>url</code> that displayed the ad</td>
+          </tr>
+          <tr data-controller="copy">
+            <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
+            <td><input type="text" class="border-0 bg-transparent code" value="{{template}}" style="border:none;" disabled data-target="copy.input"></td>
+            <td>default</td>
+            <td>The ad <code>template</code> used to render the ad</td>
+          </tr>
+          <tr data-controller="copy">
+            <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
+            <td><input type="text" class="border-0 bg-transparent code" value="{{theme}}" style="border:none;" disabled data-target="copy.input"></td>
+            <td>light</td>
+            <td>The ad <code>theme</code> used to render the ad</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <hr class="mt-3 mb-4" />

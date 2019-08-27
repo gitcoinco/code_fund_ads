@@ -61,7 +61,14 @@ class AdvertisementsController < ApplicationController
     return unless @creative
 
     @advertisement_html = render_advertisement
-    @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
+    @campaign_url = advertisement_clicks_url(
+      @virtual_impression_id,
+      campaign_id: @campaign.id,
+      creative_id: @creative.id,
+      property_id: property.id,
+      template: template_name,
+      theme: theme_name,
+    )
     @impression_url = impression_url(@virtual_impression_id, format: :gif)
     @powered_by_url = referral_code ? invite_url(referral_code) : root_url
     @uplift_url = impression_uplifts_url(@virtual_impression_id, advertiser_id: @campaign.user_id)
