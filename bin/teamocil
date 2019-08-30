@@ -1,4 +1,5 @@
 #!/bin/sh
 # SEE: https://github.com/remiprev/teamocil
 session_name=code_fund_ads
+tmux kill-session -t $session_name
 tmux new -s $session_name "cd $(pwd) && bundle exec teamocil --layout .teamocil.yml"

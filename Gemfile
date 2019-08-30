@@ -3,7 +3,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "2.6.3"
+ruby "2.6.4"
 
 gem "active_link_to", "~> 1.0.5"
 gem "acts_as_commentable_with_threading", "~> 2.0.1"
