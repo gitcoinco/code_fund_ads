@@ -43,23 +43,6 @@ ActiveRecord::Schema.define(version: 2019_09_03_173535) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "applicants", force: :cascade do |t|
-    t.string "status", default: "pending"
-    t.string "role", null: false
-    t.string "email", null: false
-    t.string "canonical_email", null: false
-    t.string "first_name", null: false
-    t.string "last_name", null: false
-    t.string "url", null: false
-    t.string "monthly_visitors"
-    t.string "company_name"
-    t.string "monthly_budget"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "invited_user_id"
-    t.bigint "referring_user_id"
-  end
-
   create_table "campaigns", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "creative_id"
@@ -193,14 +176,6 @@ ActiveRecord::Schema.define(version: 2019_09_03_173535) do
     t.index ["impressionable_type", "impressionable_id", "scoped_by_type", "scoped_by_id", "displayed_at_date"], name: "index_daily_summaries_uniqueness", unique: true
     t.index ["impressionable_type", "impressionable_id"], name: "index_daily_summaries_on_impressionable_columns"
     t.index ["scoped_by_type", "scoped_by_id"], name: "index_daily_summaries_on_scoped_by_columns"
-  end
-
-  create_table "email_templates", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "subject", null: false
-    t.string "body", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "events", force: :cascade do |t|
