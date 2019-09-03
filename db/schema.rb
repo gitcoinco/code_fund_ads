@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_21_192233) do
+ActiveRecord::Schema.define(version: 2019_09_03_173535) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -58,9 +58,6 @@ ActiveRecord::Schema.define(version: 2019_08_21_192233) do
     t.datetime "updated_at", null: false
     t.bigint "invited_user_id"
     t.bigint "referring_user_id"
-    t.bigint "hubspot_deal_vid"
-    t.bigint "hubspot_contact_vid"
-    t.bigint "hubspot_company_vid"
   end
 
   create_table "campaigns", force: :cascade do |t|
@@ -541,9 +538,6 @@ ActiveRecord::Schema.define(version: 2019_08_21_192233) do
     t.bigint "referring_user_id"
     t.string "referral_code"
     t.integer "referral_click_count", default: 0
-    t.bigint "hubspot_deal_vid"
-    t.bigint "hubspot_contact_vid"
-    t.bigint "hubspot_company_vid"
     t.string "utm_source"
     t.string "utm_medium"
     t.string "utm_campaign"

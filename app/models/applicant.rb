@@ -2,24 +2,21 @@
 #
 # Table name: applicants
 #
-#  id                  :bigint           not null, primary key
-#  status              :string           default("pending")
-#  role                :string           not null
-#  email               :string           not null
-#  canonical_email     :string           not null
-#  first_name          :string           not null
-#  last_name           :string           not null
-#  url                 :string           not null
-#  monthly_visitors    :string
-#  company_name        :string
-#  monthly_budget      :string
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  invited_user_id     :bigint
-#  referring_user_id   :bigint
-#  hubspot_deal_vid    :bigint
-#  hubspot_contact_vid :bigint
-#  hubspot_company_vid :bigint
+#  id                :bigint           not null, primary key
+#  status            :string           default("pending")
+#  role              :string           not null
+#  email             :string           not null
+#  canonical_email   :string           not null
+#  first_name        :string           not null
+#  last_name         :string           not null
+#  url               :string           not null
+#  monthly_visitors  :string
+#  company_name      :string
+#  monthly_budget    :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  invited_user_id   :bigint
+#  referring_user_id :bigint
 #
 
 class Applicant < ApplicationRecord
@@ -28,7 +25,6 @@ class Applicant < ApplicationRecord
   # includes ..................................................................
   include Applicants::Presentable
   include Eventable
-  include Hubspotable
 
   # relationships .............................................................
   belongs_to :referring_user, class_name: "User", foreign_key: "referring_user_id", optional: true
@@ -127,12 +123,10 @@ class Applicant < ApplicationRecord
   def send_notifications
     if for_publisher?
       notify_slack_of_publisher_applicant
-      CreateHubspotPublisherDealJob.perform_later id if ENV["HUBSPOT_ENABLED"] == "true"
     end
 
     if for_advertiser?
       notify_slack_of_advertiser_applicant
-      CreateHubspotAdvertiserDealJob.perform_later id if ENV["HUBSPOT_ENABLED"] == "true"
     end
   end
 
@@ -176,18 +170,10 @@ class Applicant < ApplicationRecord
       organization_id: organization_id,
       roles: [role],
       referring_user_id: referring_user_id,
-      hubspot_deal_vid: hubspot_deal_vid,
-      hubspot_contact_vid: hubspot_contact_vid,
-      hubspot_company_vid: hubspot_company_vid,
     )
 
     update_attribute(:invited_user_id, user.id)
     add_event("Sent invitation", ["email"])
-
-    if ENV["HUBSPOT_ENABLED"] == "true"
-      UpdateHubspotDealJob.perform_later(hubspot_deal_vid, ENV["PUBLISHER_INVITED_DEALSTAGE"]) if for_publisher?
-      UpdateHubspotDealJob.perform_later(hubspot_deal_vid, ENV["ADVERTISER_INVITED_DEALSTAGE"]) if for_advertiser?
-    end
 
     AddToMailchimpListJob.perform_later email, user.id
   end

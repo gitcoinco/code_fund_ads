@@ -56,9 +56,6 @@
 #  referring_user_id      :bigint
 #  referral_code          :string
 #  referral_click_count   :integer          default(0)
-#  hubspot_deal_vid       :bigint
-#  hubspot_contact_vid    :bigint
-#  hubspot_company_vid    :bigint
 #  utm_source             :string
 #  utm_medium             :string
 #  utm_campaign           :string
@@ -78,7 +75,6 @@ class User < ApplicationRecord
   include Users::Stripeable
   include Eventable
   include FullNameSplitter
-  include Hubspotable
   include Imageable
   include Taggable
 
@@ -226,7 +222,6 @@ class User < ApplicationRecord
 
         if user.persisted?
           CreateSlackNotificationJob.perform_later text: ":email: #{user.email} just registered via #{access_token[:provider]}"
-          CreateHubspotContactJob.perform_later user.id if ENV["HUBSPOT_ENABLED"] == "true"
         end
       end
       user

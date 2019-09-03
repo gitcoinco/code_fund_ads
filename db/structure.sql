@@ -143,10 +143,7 @@ CREATE TABLE public.applicants (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     invited_user_id bigint,
-    referring_user_id bigint,
-    hubspot_deal_vid bigint,
-    hubspot_contact_vid bigint,
-    hubspot_company_vid bigint
+    referring_user_id bigint
 );
 
 
@@ -969,9 +966,6 @@ CREATE TABLE public.users (
     referring_user_id bigint,
     referral_code character varying,
     referral_click_count integer DEFAULT 0,
-    hubspot_deal_vid bigint,
-    hubspot_contact_vid bigint,
-    hubspot_company_vid bigint,
     utm_source character varying,
     utm_medium character varying,
     utm_campaign character varying,
@@ -2408,6 +2402,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190619201904'),
 ('20190701210845'),
 ('20190715195353'),
-('20190821192233');
+('20190821192233'),
+('20190903173535');
 
 

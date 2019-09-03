@@ -155,7 +155,6 @@ Rails.application.routes.draw do
     resources :versions, only: [:index], as: :user_versions, path: "/revisions"
     resources :comments, only: [:index], as: :user_comments
     resources :events, only: [:index], as: :user_events
-    resources :hubspot_contacts, only: [:create], as: :user_hubspot_contacts
     resource :identicon, only: [:show], format: :png, as: :user_identicon, path: "/identicon.png"
     resource :impersonations, only: [:update], as: :user_impersonation, path: "/impersonate"
   end
@@ -164,10 +163,6 @@ Rails.application.routes.draw do
   resource :newsletter_subscription, only: [:create]
   resources :advertisers, only: [:index, :create]
   resources :publishers, only: [:index, :create]
-
-  scope "/hubspot" do
-    resources :publishers, only: [:create], to: "hubspot_publishers#create"
-  end
 
   resources :advertisement_previews, param: :campaign_id, only: [:index, :show], path: "ad-previews"
   # NOTE: this is non restful and bad practice (don't do this)

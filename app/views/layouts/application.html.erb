@@ -22,7 +22,6 @@
   </head>
   <%= tag.body data: {
       filestack_key: ENV["FILESTACK_API_KEY"],
-      hubspot_id: ENV["HUBSPOT_ID"],
       email: true_user&.email,
       referral_code: session[:referral_code] } do %>
     <%= render "/@shared/skippy" %>
@@ -38,7 +37,6 @@
 
     <%= noty_flash %>
     <%= headway_tag %>
-    <%= hubspot_tag %>
     <%= ga_tag_manager_footer %>
   <% end %>
 </html>

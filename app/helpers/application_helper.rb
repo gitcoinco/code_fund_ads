@@ -127,11 +127,6 @@ module ApplicationHelper
     render("/@shared/scripts/headway", id: ENV["HEADWAY_ID"])
   end
 
-  def hubspot_tag
-    return nil unless ENV["HUBSPOT_ID"].present?
-    render("/@shared/scripts/hubspot", id: ENV["HUBSPOT_ID"])
-  end
-
   def intercom_tag
     return nil unless ENV["INTERCOM_APP_ID"].present? && ENV["INTERCOM_SECRET_KEY"].present?
     intercom_settings = {app_id: ENV["INTERCOM_APP_ID"]}
