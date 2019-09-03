@@ -5,7 +5,6 @@ class EventsController < ApplicationController
   before_action :set_campaign, only: [:index], if: -> { params[:campaign_id].present? }
   before_action :set_property, only: [:index], if: -> { params[:property_id].present? }
   before_action :set_creative, only: [:index], if: -> { params[:creative_id].present? }
-  before_action :set_applicant, only: [:index], if: -> { params[:applicant_id].present? }
 
   def index
     @events = @eventable.events
@@ -15,7 +14,6 @@ class EventsController < ApplicationController
     render "/events/for_campaign/index" if @eventable.is_a? Campaign
     render "/events/for_property/index" if @eventable.is_a? Property
     render "/events/for_creative/index" if @eventable.is_a? Creative
-    render "/events/for_applicant/index" if @eventable.is_a? Applicant
   end
 
   private
@@ -58,9 +56,5 @@ class EventsController < ApplicationController
     else
       current_user.creatives.find(params[:creative_id])
     end
-  end
-
-  def set_applicant
-    @eventable = Applicant.find(params[:applicant_id]) if authorized_user.can_admin_system?
   end
 end

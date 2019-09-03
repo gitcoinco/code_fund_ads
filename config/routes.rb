@@ -61,8 +61,6 @@ Rails.application.routes.draw do
     resources :versions, only: [:index], as: :organization_versions, path: "/revisions"
   end
 
-  resources :email_templates
-
   scope "/jobs", manage_scope: true do
     resources :job_postings, only: [:index, :edit, :update, :destroy], path: "/manage", as: :manage_job_postings
   end
@@ -75,15 +73,6 @@ Rails.application.routes.draw do
 
   resources :versions, only: [:show, :update]
   resources :comments, only: [:create, :destroy]
-
-  resources :applicants
-  scope "/applicants/:applicant_id" do
-    resource :applicant_results, only: [:show], path: "/results"
-    resource :applicant_email_template_preview, only: [:show], path: "/:email_template_id/preview", defaults: {format: :json}
-    resources :applicant_emails, only: [:new, :create], path: "/emails"
-    resources :comments, only: [:index], as: :applicant_comments
-    resources :events, only: [:index], as: :applicant_events
-  end
 
   resources :campaigns
   scope "/campaigns/:campaign_id" do
@@ -155,19 +144,14 @@ Rails.application.routes.draw do
     resources :versions, only: [:index], as: :user_versions, path: "/revisions"
     resources :comments, only: [:index], as: :user_comments
     resources :events, only: [:index], as: :user_events
-    resources :hubspot_contacts, only: [:create], as: :user_hubspot_contacts
     resource :identicon, only: [:show], format: :png, as: :user_identicon, path: "/identicon.png"
     resource :impersonations, only: [:update], as: :user_impersonation, path: "/impersonate"
   end
   get "/stop_user_impersonation", to: "impersonations#destroy", as: :stop_user_impersonation
 
   resource :newsletter_subscription, only: [:create]
-  resources :advertisers, only: [:index, :create]
-  resources :publishers, only: [:index, :create]
-
-  scope "/hubspot" do
-    resources :publishers, only: [:create], to: "hubspot_publishers#create"
-  end
+  resources :advertisers, only: [:index]
+  resources :publishers, only: [:index]
 
   resources :advertisement_previews, param: :campaign_id, only: [:index, :show], path: "ad-previews"
   # NOTE: this is non restful and bad practice (don't do this)

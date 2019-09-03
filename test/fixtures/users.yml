@@ -56,9 +56,6 @@
 #  referring_user_id      :bigint
 #  referral_code          :string
 #  referral_click_count   :integer          default(0)
-#  hubspot_deal_vid       :bigint
-#  hubspot_contact_vid    :bigint
-#  hubspot_company_vid    :bigint
 #  utm_source             :string
 #  utm_medium             :string
 #  utm_campaign           :string

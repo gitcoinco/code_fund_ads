@@ -1,7 +1,7 @@
 class CreateApplicants < ActiveRecord::Migration[5.2]
   def change
     create_table :applicants do |t|
-      t.string :status, default: ENUMS::APPLICANT_STATUSES::PENDING
+      t.string :status, default: "pending"
       t.string :role, null: false
       t.string :email, null: false
       t.string :canonical_email, null: false

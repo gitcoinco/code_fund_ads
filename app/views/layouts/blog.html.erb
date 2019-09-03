@@ -2,7 +2,7 @@
 <html>
   <head>
     <%= ga_tag_manager_header %>
-    
+
     <!-- Meta Tags -->
     <%= display_meta_tags site: "CodeFund" %>
     <link rel="manifest" href="/site.webmanifest">
@@ -25,7 +25,6 @@
   </head>
   <%= tag.body data: {
       filestack_key: ENV["FILESTACK_API_KEY"],
-      hubspot_id: ENV["HUBSPOT_ID"],
       referral_code: session[:referral_code] } do %>
     <%= render "/@shared/skippy" %>
     <%= render "/@shared/header" %>
@@ -36,7 +35,6 @@
     <%= render "/@shared/secondary" if current_user %>
 
     <%= headway_tag %>
-    <%= hubspot_tag %>
     <%= ga_tag_manager_footer %>
   <% end %>
 </html>

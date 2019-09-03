@@ -125,51 +125,6 @@ ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage
 
 
 --
--- Name: applicants; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.applicants (
-    id bigint NOT NULL,
-    status character varying DEFAULT 'pending'::character varying,
-    role character varying NOT NULL,
-    email character varying NOT NULL,
-    canonical_email character varying NOT NULL,
-    first_name character varying NOT NULL,
-    last_name character varying NOT NULL,
-    url character varying NOT NULL,
-    monthly_visitors character varying,
-    company_name character varying,
-    monthly_budget character varying,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL,
-    invited_user_id bigint,
-    referring_user_id bigint,
-    hubspot_deal_vid bigint,
-    hubspot_contact_vid bigint,
-    hubspot_company_vid bigint
-);
-
-
---
--- Name: applicants_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.applicants_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: applicants_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.applicants_id_seq OWNED BY public.applicants.id;
-
-
---
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -435,39 +390,6 @@ CREATE SEQUENCE public.daily_summaries_id_seq
 --
 
 ALTER SEQUENCE public.daily_summaries_id_seq OWNED BY public.daily_summaries.id;
-
-
---
--- Name: email_templates; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.email_templates (
-    id bigint NOT NULL,
-    title character varying NOT NULL,
-    subject character varying NOT NULL,
-    body character varying NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: email_templates_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.email_templates_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: email_templates_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.email_templates_id_seq OWNED BY public.email_templates.id;
 
 
 --
@@ -969,9 +891,6 @@ CREATE TABLE public.users (
     referring_user_id bigint,
     referral_code character varying,
     referral_click_count integer DEFAULT 0,
-    hubspot_deal_vid bigint,
-    hubspot_contact_vid bigint,
-    hubspot_company_vid bigint,
     utm_source character varying,
     utm_medium character varying,
     utm_campaign character varying,
@@ -1050,13 +969,6 @@ ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval
 
 
 --
--- Name: applicants id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.applicants ALTER COLUMN id SET DEFAULT nextval('public.applicants_id_seq'::regclass);
-
-
---
 -- Name: campaigns id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1096,13 +1008,6 @@ ALTER TABLE ONLY public.creatives ALTER COLUMN id SET DEFAULT nextval('public.cr
 --
 
 ALTER TABLE ONLY public.daily_summaries ALTER COLUMN id SET DEFAULT nextval('public.daily_summaries_id_seq'::regclass);
-
-
---
--- Name: email_templates id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.email_templates ALTER COLUMN id SET DEFAULT nextval('public.email_templates_id_seq'::regclass);
 
 
 --
@@ -1192,14 +1097,6 @@ ALTER TABLE ONLY public.active_storage_blobs
 
 
 --
--- Name: applicants applicants_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.applicants
-    ADD CONSTRAINT applicants_pkey PRIMARY KEY (id);
-
-
---
 -- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1253,14 +1150,6 @@ ALTER TABLE ONLY public.creatives
 
 ALTER TABLE ONLY public.daily_summaries
     ADD CONSTRAINT daily_summaries_pkey PRIMARY KEY (id);
-
-
---
--- Name: email_templates email_templates_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.email_templates
-    ADD CONSTRAINT email_templates_pkey PRIMARY KEY (id);
 
 
 --
@@ -2408,6 +2297,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190619201904'),
 ('20190701210845'),
 ('20190715195353'),
-('20190821192233');
+('20190821192233'),
+('20190903173535');
 
 

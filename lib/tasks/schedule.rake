@@ -68,14 +68,4 @@ namespace :schedule do
       EstimateTrafficForPropertyJob.perform_later(property.id)
     end
   end
-
-  namespace :hubspot do
-    desc <<~DESC
-      Queues job that updates Hubspot publisher deal stages from: Accepted to Integrated
-      NOTE: Schedule daily
-    DESC
-    task update_publisher_deal_stages_from_accepted_to_integrated: :environment do
-      UpdateHubspotPublisherDealStagesFromAcceptedToIntegratedJob.perform_later
-    end
-  end
 end

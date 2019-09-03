@@ -13,8 +13,6 @@
         <%= details_li("Status") { @user.status.humanize } %>
         <%= details_li("Name") { @user.name } %>
         <%= details_li("Email") { @user.email } %>
-        <%= details_li("HubSpot Contact") { link_to "View on HubSpot", "https://app.hubspot.com/contacts/#{ENV['HUBSPOT_ID']}/contact/#{@user.hubspot_contact_vid}/", target: "_blank" } if @user.hubspot_contact_vid && authorized_user.can_admin_system? %>
-        <%= details_li("HubSpot Contact") { link_to "Add to HubSpot", user_hubspot_contacts_path(@user), method: :post } if !@user.hubspot_contact_vid && authorized_user.can_admin_system? %>
         <%= details_li("Organization") { link_to @user.organization.name, @user.organization } if @user.organization %>
         <%= details_li("Company Name") { @user.company_name } %>
         <%= details_li("Street Address") { @user.address_1 } %>

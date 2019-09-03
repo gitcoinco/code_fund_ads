@@ -61,7 +61,6 @@ class Property < ApplicationRecord
   before_validation :assign_audience
   before_save :sanitize_assigned_fallback_campaign_ids
   after_save :generate_screenshot
-  after_update_commit :update_user_hubspot_deal_stage
   before_destroy :destroy_paper_trail_versions
 
   # scopes ....................................................................
@@ -205,12 +204,6 @@ class Property < ApplicationRecord
   def status_changed_to_active_on_preceding_save?
     return false unless active?
     status_previously_changed? && status_previous_change.last == ENUMS::PROPERTY_STATUSES::ACTIVE
-  end
-
-  def update_user_hubspot_deal_stage
-    return unless status_changed_to_active_on_preceding_save?
-    return unless user.hubspot_contact_vid
-    UpdateHubspotPublisherDealStageFromIntegratedToActivatedJob.perform_later user
   end
 
   def destroy_paper_trail_versions

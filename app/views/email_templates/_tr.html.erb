@@ -1,7 +1,0 @@
-<%= tag.tr class: classes("even": email_template_counter.even?, "odd": email_template_counter.odd?) do %>
-  <td class="align-middle text-secondary"><%= link_to email_template.title, email_template %></td>
-  <td class="align-middle text-secondary"><%= email_template.subject %></td>
-  <td class="align-middle text-secondary text-right">
-    <%= render "/@shared/table_buttons/edit", link: edit_email_template_path(email_template) %>
-  </td>
-<% end %>

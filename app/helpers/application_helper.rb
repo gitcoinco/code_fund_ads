@@ -45,10 +45,6 @@ module ApplicationHelper
     ENUMS::USER_ROLES.values.map { |f| [f.humanize, f] }
   end
 
-  def applicant_statuses_for_select
-    ENUMS::APPLICANT_STATUSES.values.map { |f| [f.humanize, f] }
-  end
-
   def image_formats_for_select
     ENUMS::IMAGE_FORMATS.values.map { |f| [f.humanize, f] }
   end
@@ -125,11 +121,6 @@ module ApplicationHelper
   def headway_tag
     return nil unless ENV["HEADWAY_ID"].present?
     render("/@shared/scripts/headway", id: ENV["HEADWAY_ID"])
-  end
-
-  def hubspot_tag
-    return nil unless ENV["HUBSPOT_ID"].present?
-    render("/@shared/scripts/hubspot", id: ENV["HUBSPOT_ID"])
   end
 
   def intercom_tag

@@ -2,11 +2,9 @@ class ReferralsController < ApplicationController
   before_action :authenticate_user!, only: [:index]
 
   def new
-    if ENV["WORDPRESS_SITE_ENABLED"] == "true"
-      return redirect_to("https://codefund.io/?referral_code=#{params[:referral_code]}")
-    end
-
     session[:referral_code] = params[:referral_code]
+    session[:referring_user_id] ||= User.where(referral_code: params[:referral_code]).pluck(:id).first if params[:referral_code].present?
+
     IncrementReferralLinkClickCountJob.perform_later params[:referral_code]
 
     if session[:referral_code] == "opencollective"
