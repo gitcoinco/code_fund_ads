@@ -3,7 +3,7 @@ class ReferralsController < ApplicationController
 
   def new
     session[:referral_code] = params[:referral_code]
-    session[:referring_user_id] ||= User.where(referral_code: referral_code).pluck(:id).first
+    session[:referring_user_id] ||= User.where(referral_code: params[:referral_code]).pluck(:id).first if params[:referral_code].present?
 
     IncrementReferralLinkClickCountJob.perform_later params[:referral_code]
 
