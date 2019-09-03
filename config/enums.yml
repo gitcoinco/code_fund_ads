@@ -70,22 +70,6 @@
 #   pry>ENUMS::CAMPAIGN_STATUSES[2]          # active
 #
 
-APPLICANT_STATUSES:
-  - pending
-  - accepted
-  - rejected
-  - duplicate
-
-APPLICANT_STATUS_COLORS:
-  pending: warning
-  accepted: success
-  rejected: muted
-  duplicate: muted
-
-APPLICANT_ROLES:
-  - advertiser
-  - publisher
-
 USER_ROLES:
   - administrator
   - advertiser
