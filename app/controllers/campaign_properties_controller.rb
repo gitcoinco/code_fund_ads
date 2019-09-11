@@ -17,6 +17,16 @@ class CampaignPropertiesController < ApplicationController
     end
   end
 
+  def update
+    property_id = params[:id]
+    if params[:campaign_property][:checked]
+      @campaign.prohibit_property!(property_id)
+    else
+      @campaign.permit_property!(property_id)
+    end
+    render json: {ok: true}, status: :ok
+  end
+
   private
 
   def set_campaign

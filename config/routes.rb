@@ -80,7 +80,7 @@ Rails.application.routes.draw do
     resource :campaign_dashboards, only: [:show], path: "/overview"
     resources :campaign_reports, only: [:create], path: "/reports"
     resources :campaign_dailies, only: [:index], path: "/dailies"
-    resources :campaign_properties, only: [:index], path: "/properties"
+    resources :campaign_properties, only: [:index, :update], path: "/properties"
     resources :campaign_countries, only: [:index], path: "/countries"
     resources :campaign_creatives, only: [:index], path: "/creatives"
     resources :versions, only: [:index], as: :campaign_versions, path: "/revisions"
