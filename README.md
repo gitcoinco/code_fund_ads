@@ -153,8 +153,10 @@ You must create a (superuser) role with the name of your OS user in your postgre
 git clone https://github.com/gitcoinco/code_fund_ads.git
 cd /path/to/project
 
-# setup environment variables
-cp .env-example .env
+# setup example files
+./bin/copy_example_files
+
+# At this point, you should setup environment variables in the newly created .env file
 
 # If you need a password for your postgres role, uncomment "#export PGPASSWORD='<password>' in the .env file and replace <password> with the role's password
 
@@ -190,7 +192,7 @@ IMPRESSIONS=10_000_000 rails db:seed
 
 You may want to create a [teamocil](https://github.com/remiprev/teamocil)/[tmux](https://github.com/tmux/tmux) config for your machine.
 
-SEE: https://github.com/gitcoinco/code_fund_ads/blob/master/.teamocil-example.yml
+SEE: https://github.com/gitcoinco/code_fund_ads/blob/master/.teamocil.yml.example
 
 ```sh
 cd /path/to/project
@@ -199,7 +201,7 @@ cd /path/to/project
 
 Alternatively, you may want to create a [mert](https://github.com/eggplanetio/mert) config for your machine to be used with iTerm.
 
-SEE: https://github.com/gitcoinco/code_fund_ads/blob/master/.mert-example.yml
+SEE: https://github.com/gitcoinco/code_fund_ads/blob/master/.mertrc.yml.example
 
 ```sh
 cd /path/to/project

@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+require "fileutils"
+include FileUtils
+
+# path to your application root.
+APP_ROOT = File.expand_path("..", __dir__)
+
+# all files to copy
+EXAMPLE_FILES = [
+  "config/storage.yml",
+  ".env",
+].freeze
+
+def system!(*args)
+  system(*args) || abort("\n== Command #{args} failed ==")
+end
+
+chdir APP_ROOT do
+  puts "\n== Copying example files =="
+
+  EXAMPLE_FILES.each do |file|
+    unless File.exist?(file)
+      cp "#{file}.example", file
+      puts file
+    end
+  end
+
+  puts "\n== Example files copied =="
+end
