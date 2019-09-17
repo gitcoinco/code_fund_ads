@@ -4,6 +4,49 @@ h1 {
 h2 {
   prince-bookmark-level: 2;
 }
+h3 {
+  prince-bookmark-level: 3;
+  font-weight: 600;
+  font-size: 12pt;
+}
+
+.changelog {
+  h4 {
+    font-weight: 400;
+    font-size: 12pt;
+    margin: 0.25in 0 0.1in;
+  }
+  ul {
+    list-style-type: square;
+    padding-left: 0.25in;
+    li {
+      color: #999;
+      margin-bottom: 0.05in;
+      strong {
+        color: #333;
+        font-weight: 600;
+      }
+    }
+  }
+  code {
+    font-family: Courier, 'New Courier', monospace;
+    font-size: 14px;
+    overflow-wrap: break-word;
+    &.before {
+      background-color: #ccc;
+      color: #000;
+    }
+    &.after {
+      background-color: #22f28a;
+      color: #000;
+    }
+  }
+}
+
+.observations {
+  list-style-type: square;
+  padding-left: 0.25in;
+}
 
 .page {
   page-break-before: always;
@@ -83,6 +126,44 @@ td a {
   color: #666666;
 }
 
+.divider {
+  width: 30%;
+  margin: 0.5in auto;
+  border-top: 1px solid #eee;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: stretch;
+}
+
+.flex-item {
+  background: #f6f6f6;
+  height: 0.75in;
+  flex: 0 0 1.25in;
+  padding-top: 0.2in;
+  border-radius: 6pt;
+
+  h4 {
+    font-size: 15pt;
+    font-weight: 700;
+    text-align: center;
+  }
+  small {
+    margin-top: -2pt;
+    display: block;
+    text-align: center;
+    color: #666;
+    text-transform: uppercase;
+    font-size: 9pt;
+  }
+}
+
+.flex-1 {
+  flex: 0 0 5.5in;
+}
+
 body {
   font-family: 'Open Sans', sans-serif;
   line-height: 1.6;
@@ -90,6 +171,7 @@ body {
 
 table {
   margin-top: 0.5in;
+  font-size: 10pt;
   width: 100%;
 }
 
@@ -138,8 +220,7 @@ tfoot th {
 
 td {
   vertical-align: middle;
-  font-size: 11pt;
-  padding: 5pt;
+  padding: 2pt 5pt;
   text-align: right;
   border: 1px solid #ccc;
 }
@@ -153,6 +234,9 @@ tr.warn td.td-color {
 }
 tr.success td.td-color {
   background-color: #22f28a;
+}
+tr.saturday td {
+  border-bottom: 2px solid #333;
 }
 
 tr:nth-child(odd) td {

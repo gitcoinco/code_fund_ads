@@ -15,7 +15,7 @@
 
 class OrganizationReport < ApplicationRecord
   # extends ...................................................................
-  
+
   # includes ..................................................................
   include Taggable
 
@@ -31,10 +31,11 @@ class OrganizationReport < ApplicationRecord
 
   # callbacks .................................................................
   # scopes ....................................................................
-  
+
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   attr_accessor :date_range
   tag_columns :campaign_ids
+  has_one_attached :pdf
 
   # class methods .............................................................
   class << self
@@ -51,4 +52,5 @@ class OrganizationReport < ApplicationRecord
 
   # private instance methods ..................................................
   private
+
 end

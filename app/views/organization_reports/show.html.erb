@@ -5,6 +5,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700' rel='stylesheet' type='text/css'>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <style>
       @page {
         size: US-Letter landscape;
@@ -13,11 +14,13 @@
         @bottom {
           font-style: italic;
           opacity: 0.75;
-          content: 'generated for <%= @organization.name %>';
+          /* content: 'generated for <%= @organization.name %> on <%= Time.current.to_s("abdy") %>'; */
+          content: "Page " counter(page) " of " counter(pages);
         }
       }
     </style>
-    <%= stylesheet_link_tag "organization_report", media: "all", "data-turbolinks-track": "reload" %>
+    <%= stylesheet_link_tag "organization_report", media: "all" %>
+    <%= javascript_include_tag "organization_report" %>
   </head>
   <body>
     <%= render "/organization_reports/pages/cover", report: @report %>
