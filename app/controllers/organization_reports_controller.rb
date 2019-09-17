@@ -33,6 +33,12 @@ class OrganizationReportsController < ApplicationController
     render layout: false
   end
 
+  def update
+    @organization_report = @organization.organization_reports.find(params[:id])
+    GenerateOrganizationReportJob.perform_later(id: @organization_report.id, report_url: organization_report_url(@organization, @organization_report))
+    redirect_to organization_reports_path(@organization), notice: "PDF generate has been re-triggered"
+  end
+
   def destroy
     @organization_report = @organization.organization_reports.find(params[:id])
     @organization_report.destroy

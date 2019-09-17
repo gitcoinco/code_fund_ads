@@ -5,6 +5,7 @@
         <th scope="col">Date</th>
         <th scope="col">Title</th>
         <th scope="col">Campaigns</th>
+        <th scope="col">Status</th>
         <th scope="col">&nbsp;</th>
       </tr>
     </thead>
@@ -14,8 +15,16 @@
         <td><%= organization_report.created_at.to_s("bdy") %></td>
         <td><%= organization_report.title %></td>
         <td><%= organization_report.campaign_ids.sort.join(", ") %></td>
+        <td><%= organization_report.status.humanize %></td>
         <td class="text-right">
-          <%= link_to "Download", organization_report_path(organization, organization_report) %>
+          <%= link_to "HTML", organization_report_path(organization, organization_report) %>
+          |
+          <% if organization_report.status == "ready" %>
+            <%= link_to "Download", url_for(organization_report.pdf), target: "_blank" %>
+          <% else %>
+            <%= link_to "Regenerate", organization_report_path(organization, organization_report), method: :patch %>
+          <% end %>
+          |
           <%= link_to "Delete", organization_report_path(organization, organization_report), method: :delete, data: { confirm: "Are you sure?" } %>
         </td>
       </tr>

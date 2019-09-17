@@ -109,11 +109,13 @@ group :development do
   gem "mechanize"
   gem "meta_request" # RailsPanel Chrome extension
   gem "model_probe"
+  gem "ngrok-tunnel"
   gem "rails-erd"
   gem "solargraph"
   gem "standard"
   gem "teamocil"
   gem "tocer"
+  gem "tty-box"
   gem "web-console", ">= 3.3.0"
 end
 
