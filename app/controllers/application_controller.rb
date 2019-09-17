@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
   before_action :set_meta_tag_data
   before_action :sample_requests_for_scout
+  before_action :set_ngrok_urls, if: -> { Rails.env.development? }
 
   impersonates :user
 
@@ -93,7 +94,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_administrator!
-    return render_forbidden unless AuthorizedUser.new(true_user || current_user || User.new).can_admin_system?
+    return render_forbidden unless AuthorizedUser.new(current_user || User.new).can_admin_system?
   end
 
   def render_not_found
@@ -136,5 +137,21 @@ class ApplicationController < ActionController::Base
     #   Rails.logger.debug("[Scout] Ignoring request: #{request.original_url}")
     #   ScoutApm::Transaction.ignore!
     # end
+  end
+
+  def set_ngrok_urls
+    if Ngrok::Tunnel.running?
+      # Getting current url
+      url = Ngrok::Tunnel.ngrok_url_https
+
+      # Variable hash
+      default_url_options = {host: url}
+
+      # Overwriting current variables
+      Rails.application.config.action_controller.asset_host = url
+      Rails.application.config.action_mailer.asset_host = url
+      Rails.application.routes.default_url_options = default_url_options
+      Rails.application.config.action_mailer.default_url_options = default_url_options
+    end
   end
 end

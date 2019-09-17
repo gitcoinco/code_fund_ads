@@ -14,11 +14,6 @@
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
-
-    <% if AuthorizedUser.new(true_user).can_admin_system? %>
-      <small class="text-center d-block pb-3"><%= link_to "open metabase dashboard in new window", "https://metabase.codefund.io/dashboard/10?date_filter=thismonth&advertiser_user_id=#{current_user.id}", class: "text-link", target: "_blank" %></small>
-    <% end %>
-
     <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
       <%= render "/@shared/widgets/stat_card",
         label: "Impressions",

@@ -21,10 +21,8 @@
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link"))  %>
       <%= tag.li(active_link_to("Transactions", organization_transactions_path(organization),
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
-      <%= tag.li(active_link_to("Comments", organization_comments_path(organization),
-        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
-      <%= tag.li(active_link_to("Events", organization_events_path(organization),
-        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
+      <%= tag.li(active_link_to("Reports", organization_reports_path(organization),
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link"))  %>
       <%= tag.li(active_link_to("Revisions", organization_versions_path(organization),
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
     </ul>

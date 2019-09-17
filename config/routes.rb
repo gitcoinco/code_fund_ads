@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:index], as: :organization_comments
     resources :events, only: [:index], as: :organization_events
     resources :versions, only: [:index], as: :organization_versions, path: "/revisions"
+    resources :organization_reports, except: [:edit], as: :organization_reports, path: "/reports"
   end
 
   scope "/jobs", manage_scope: true do
