@@ -2,7 +2,9 @@ class GenerateOrganizationReportJob < ApplicationJob
   queue_as :default
 
   def perform(id:, report_url:)
-    organization_report = OrganizationReport.find(id)
+    organization_report = OrganizationReport.find_by(id: id)
+    return unless organization_report
+
     organization_report.update(status: "generating")
     begin
       filename = "organization-report-#{organization_report.organization_id}-#{organization_report.id}.pdf"
@@ -25,6 +27,8 @@ class GenerateOrganizationReportJob < ApplicationJob
     rescue => ex
       Rails.logger.error(ex)
       organization_report.update(status: "error")
+    ensure
+      tempfile.close
     end
   end
 end
