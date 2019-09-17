@@ -1,0 +1,30 @@
+# == Schema Information
+#
+# Table name: organization_reports
+#
+#  id              :bigint           not null, primary key
+#  organization_id :bigint           not null
+#  title           :string           not null
+#  start_date      :date
+#  end_date        :date
+#  campaign_ids    :text             default([]), is an Array
+#  pdf_url         :text
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  organization_id: 
+  start_date: 2019-09-16
+  end_date: 2019-09-16
+  campaign_ids: MyText
+  title: MyString
+
+two:
+  organization_id: 
+  start_date: 2019-09-16
+  end_date: 2019-09-16
+  campaign_ids: MyText
+  title: MyString

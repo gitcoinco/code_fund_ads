@@ -1,0 +1,14 @@
+<div class="page" id="campaign-<%= campaign.id %>">
+  <div class="content">
+    <h1><%= campaign.id %> - <%= campaign.name %></h1>
+    <p class="lead">Below is a table summary of your campaigns</p>
+
+    <h2>Results by Day</h2>
+    <p class="lead">Here are your campaign impressions by date</p>
+    <%= render partial: "/organization_reports/pages/daily_table", locals: { campaign: campaign, report: report } %>
+    <h2>Results by Geography</h2>
+    <%= render partial: "/organization_reports/pages/country_table", locals: { campaign: campaign, report: report } %>
+    <h2>Property</h2>
+    <h2>Creative</h2>
+  </div>
+</div>

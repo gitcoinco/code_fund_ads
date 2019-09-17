@@ -22,6 +22,7 @@ class Organization < ApplicationRecord
   has_many :creatives
   has_many :impressions
   has_many :job_postings
+  has_many :organization_reports
   has_many :organization_transactions
   has_many :users
 
