@@ -403,6 +403,7 @@ class Campaign < ApplicationRecord
 
   def validate_assigned_properties
     return unless sponsor?
+    return unless active?
 
     conflicting_campaigns = Campaign
       .with_any_assigned_property_ids(*assigned_property_ids).available_on(start_date)
