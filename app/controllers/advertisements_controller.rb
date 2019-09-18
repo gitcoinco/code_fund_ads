@@ -5,12 +5,12 @@ class AdvertisementsController < ApplicationController
   protect_from_forgery except: :show
   before_action :set_cors_headers
   before_action :set_no_caching_headers
-  before_action :apply_visitor_rate_limiting, if: :sponsor?
+  # before_action :apply_visitor_rate_limiting
   before_action :set_campaign
   before_action :set_virtual_impression_id
   after_action :create_virtual_impression, if: :standard?
   after_action :create_impression, if: :sponsor?
-  after_action :cache_visitor_response, if: :sponsor?
+  # after_action :cache_visitor_response
 
   def show
     track_event :virtual_impression_initiated unless sponsor?
@@ -38,33 +38,29 @@ class AdvertisementsController < ApplicationController
     request.format == "svg"
   end
 
-  def camo?
-    /github-camo/i.match? request.user_agent
-  end
+  # def visitor_cache_key
+  #   "advertisements#show/#{Impression.obfuscate_ip_address(ip_address)}"
+  # end
 
-  def visitor_cache_key
-    "advertisements#show/#{Impression.obfuscate_ip_address(ip_address)}"
-  end
+  # def apply_visitor_rate_limiting
+  #   previous_response = Rails.cache.read(visitor_cache_key)
+  #   if previous_response
+  #     response.status = previous_response[:status]
+  #     response.content_type = previous_response[:content_type]
+  #     self.response_body = previous_response[:body]
+  #   end
+  # end
 
-  def apply_visitor_rate_limiting
-    previous_response = Rails.cache.read(visitor_cache_key)
-    if previous_response
-      response.status = previous_response[:status]
-      response.content_type = previous_response[:content_type]
-      self.response_body = previous_response[:body]
-    end
-  end
-
-  def cache_visitor_response
-    Rails.cache.write(
-      visitor_cache_key, {
-        status: response.status,
-        content_type: response.content_type,
-        body: response.body,
-      },
-      expires_in: (ENV["VISITOR_AD_RATE_LIMIT"] || 10).to_i.seconds
-    )
-  end
+  # def cache_visitor_response
+  #   Rails.cache.write(
+  #     visitor_cache_key, {
+  #       status: response.status,
+  #       content_type: response.content_type,
+  #       body: response.body,
+  #     },
+  #     expires_in: (ENV["VISITOR_AD_RATE_LIMIT"] || 10).to_i.seconds
+  #   )
+  # end
 
   def catch_all_sponsor_html
     key = "Creative/sponsor-catch-all"
@@ -335,7 +331,6 @@ class AdvertisementsController < ApplicationController
   def create_impression
     return unless sponsor?
     return unless @campaign && @creative
-    return if camo?
 
     CreateImpressionJob.perform_now(
       @virtual_impression_id,
