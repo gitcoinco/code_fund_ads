@@ -14,4 +14,16 @@
   <td class="text-center align-middle text-secondary"><%= number_to_percentage report.click_rate, precision: 2 %></td>
   <td class="text-center align-middle text-secondary"><%= number_with_delimiter report.cpm.format %></td>
   <td class="text-center align-middle text-secondary"><%= number_with_delimiter report.cpc.format %></td>
+  <% if authorized_user.can_admin_system? %>
+    <td class="text-center align-middle">
+      <label class="checkbox-switch" style="margin-top: 4px; margin-bottom: 0px;">
+        <input type="checkbox" class="checkbox-switch__input"
+          data-controller="inline-toggle"
+          data-action="change->inline-toggle#toggle"
+          data-url="<%= campaign_property_path(@campaign, report.scoped_by, format: :json) %>"
+          <%= "checked" if @campaign.prohibited_property_ids.include?(report.scoped_by.id) %>>
+        <span class="checkbox-switch__slider"></span>
+      </label>
+    </td>
+  <% end %>
 </tr>

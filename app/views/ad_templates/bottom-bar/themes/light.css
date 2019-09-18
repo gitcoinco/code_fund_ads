@@ -11,7 +11,7 @@
   box-sizing: border-box;
   position: fixed;
   bottom: 0;
-  z-index: 5;
+  z-index: 5000;
   padding: 0.8em 1em 1em;
   width: 100%;
   border-top: solid 1px #bfbfbf;
@@ -32,7 +32,7 @@
   border-radius: 3px;
   background-color: #4caf50;
   color: #fff;
-  content: "Supporter";
+  content: 'Supporter';
 }
 
 #cf .cf-powered-by {
@@ -43,7 +43,7 @@
 }
 
 #cf .cf-powered-by::before {
-  content: "•";
+  content: '•';
   color: rgba(0, 0, 0, 0.3);
   display: inline-block;
 }

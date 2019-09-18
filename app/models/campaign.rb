@@ -261,6 +261,16 @@ class Campaign < ApplicationRecord
     Property.where id: prohibited_property_ids
   end
 
+  def prohibit_property!(property_id)
+    ids = (prohibited_property_ids.compact << property_id.to_i).uniq.sort.compact
+    update(prohibited_property_ids: ids)
+  end
+
+  def permit_property!(property_id)
+    ids = (prohibited_property_ids.compact - [property_id.to_i]).uniq.sort.compact
+    update(prohibited_property_ids: ids)
+  end
+
   def adjusted_ecpm(country_code)
     return ecpm if fixed_ecpm?
 

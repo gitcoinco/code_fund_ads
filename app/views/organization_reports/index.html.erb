@@ -1,0 +1,14 @@
+<%= render layout: "/organizations/show_layout", locals: { organization: @organization } do %>
+  <div class="d-flex mb-3">
+    <h3 class="h5 mb-3 flex-grow-1">
+      Reports
+      <small class="text-muted d-block">Generated PDF reports</small>
+    </h3>
+    <%= link_to new_organization_report_path(@organization), class: "btn btn-sm btn-success transition-3d-hover", style: "height: 42px;" do %>
+      <span class="fa fa-plus font-size-13 mr-2"></span>
+      Build Report
+    <% end %>
+  </div>
+
+  <%= render "/organization_reports/table", organization: @organization, organization_reports: @organization_reports, pagy: @pagy %>
+<% end %>

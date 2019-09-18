@@ -3,13 +3,16 @@
     <thead>
       <tr class="border-bottom">
         <th class="text-left">Property</th>
-        <th class="text-left" style="width: 30%;">Matching Tags</th>
+        <th class="text-left">Matching Tags</th>
         <th class="text-center" style="width: 10%;">Spend</th>
         <th class="text-center" style="width: 10%;">Impressions</th>
         <th class="text-center" style="width: 10%;">Clicks</th>
         <th class="text-center" style="width: 10%;">CTR</th>
         <th class="text-center" style="width: 10%;">CPM</th>
         <th class="text-center" style="width: 10%;">CPC</th>
+        <% if authorized_user.can_admin_system? %>
+        <th class="text-center">Blacklist?</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
@@ -23,6 +26,9 @@
           <td class="text-center align-middle text-light"><%= number_to_percentage @summary.click_rate, precision: 2 %></td>
           <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.cpm.format %></td>
           <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.cpc.format %></td>
+          <% if authorized_user.can_admin_system? %>
+          <td>&nbsp;</td>
+          <% end %>
         </tr>
       <% end %>
       <%= render partial: "/campaign_properties/tr", collection: @reports, as: :report %>

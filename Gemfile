@@ -25,6 +25,7 @@ gem "device_detector", "~> 1.0.1"
 gem "devise", "~> 4.6.0"
 gem "devise_invitable", "~> 1.7.5"
 gem "diffy", "~> 3.3.0"
+gem "docraptor", "~> 1.3.0"
 gem "email_address", "~> 0.1.11"
 gem "full-name-splitter", "~> 0.1.2"
 gem "gibbon", "~> 3.2.0"
@@ -109,11 +110,13 @@ group :development do
   gem "mechanize"
   gem "meta_request" # RailsPanel Chrome extension
   gem "model_probe"
+  gem "ngrok-tunnel"
   gem "rails-erd"
   gem "solargraph"
   gem "standard"
   gem "teamocil"
   gem "tocer"
+  gem "tty-box"
   gem "web-console", ">= 3.3.0"
 end
 

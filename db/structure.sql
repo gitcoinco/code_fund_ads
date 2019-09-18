@@ -565,6 +565,43 @@ ALTER SEQUENCE public.job_postings_id_seq OWNED BY public.job_postings.id;
 
 
 --
+-- Name: organization_reports; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.organization_reports (
+    id bigint NOT NULL,
+    organization_id bigint NOT NULL,
+    title character varying NOT NULL,
+    status character varying DEFAULT 'pending'::character varying NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    campaign_ids text[] DEFAULT '{}'::text[],
+    pdf_url text,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: organization_reports_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.organization_reports_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: organization_reports_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.organization_reports_id_seq OWNED BY public.organization_reports.id;
+
+
+--
 -- Name: organization_transactions; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1026,6 +1063,13 @@ ALTER TABLE ONLY public.job_postings ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
+-- Name: organization_reports id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organization_reports ALTER COLUMN id SET DEFAULT nextval('public.organization_reports_id_seq'::regclass);
+
+
+--
 -- Name: organization_transactions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1167,6 +1211,14 @@ ALTER TABLE ONLY public.events
 
 ALTER TABLE ONLY public.job_postings
     ADD CONSTRAINT job_postings_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: organization_reports organization_reports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organization_reports
+    ADD CONSTRAINT organization_reports_pkey PRIMARY KEY (id);
 
 
 --
@@ -1914,6 +1966,13 @@ CREATE INDEX index_job_postings_on_user_id ON public.job_postings USING btree (u
 
 
 --
+-- Name: index_organization_reports_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organization_reports_on_organization_id ON public.organization_reports USING btree (organization_id);
+
+
+--
 -- Name: index_organization_transactions_on_gift; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2328,6 +2387,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190715195353'),
 ('20190821192233'),
 ('20190903173535'),
-('20190913192015');
+('20190913192015'),
+('20190916195048');
 
 

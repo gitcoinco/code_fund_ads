@@ -1,0 +1,38 @@
+<%= simple_form_for organization_report, url: url, html: { class: "js-validate" }, wrapper: :front_form do |f| %>
+  <%= render "/@shared/forms/section_heading", title: "Organization Report Details", subtitle: "Fill out the fields below" %>
+  <%= render "/@shared/forms/error_messages", object: organization_report %>
+
+  <div class="row">
+    <%= tag.div f.input(:title, required: true), class: "col-md-6 mb-3" %>
+    <%= tag.div f.input(:date_range, required: true,
+      input_html: {
+        class: "js-range-datepicker form-control bg-white rounded-right",
+        data: {
+          controller: "select-date-range",
+          start_date: Date.today.at_beginning_of_month.strftime("%m/%d/%Y"),
+          end_date: Date.today.at_end_of_month.strftime("%m/%d/%Y")
+        }
+      }), class: "col-md-6 mb-3" %>
+
+    <div class="col-12 mb-3">
+      <label class="form-label string required">Campaigns <abbr title="required">*</abbr></label>
+      <div>
+        <% organization.campaigns.each do |campaign| %>
+          <div class="form-check">
+            <input class="form-check-input" name="organization_report[campaign_ids][]" type="checkbox" value="<%= campaign.id %>" id="campaign-<%= campaign.id %>">
+            <label class="form-check-label" for="campaign-<%= campaign.id %>">
+              <span class="badge badge-<%= campaign_status_color(campaign.status) %>"><%= campaign.status.humanize %></span> <%= campaign.name %>
+            </label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <%= render "@shared/forms/button_panel" do %>
+      <%= f.submit "Generate Report", class: "btn btn-sm btn-primary transition-3d-hover mr-1" %>
+      <%= link_to "Cancel", organization_reports_path(organization), class: "btn btn-sm btn-soft-secondary transition-3d-hover" %>
+    <% end %>
+  </div>
+<% end %>
