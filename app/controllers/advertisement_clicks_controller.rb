@@ -30,10 +30,6 @@ class AdvertisementClicksController < ApplicationController
 
     if sponsor?
       @campaign = @property.current_sponsor_campaign
-      impression = @property.recent_impressions(request.remote_ip).scoped_by(@campaign).limit(1).first
-      @campaign = nil unless impression
-      @impression_id = impression&.id
-      @creative = impression&.creative
     else
       @impression_id = params[:impression_id]
       @campaign = Campaign.select(:id, :name, :url).find_by(id: params[:campaign_id])
@@ -61,6 +57,7 @@ class AdvertisementClicksController < ApplicationController
 
   def create_click
     return unless @impression_id && @campaign
+    return if sponsor? # TODO: implement click tracking... @campaign.clicks.increment
     CreateClickJob.perform_later(
       @impression_id,
       @campaign.id,
