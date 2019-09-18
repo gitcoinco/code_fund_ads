@@ -138,4 +138,48 @@ class ActiveSupport::TestCase
     impression.update params if params.present?
     impression
   end
+
+  def active_campaign(country_codes: [])
+    campaign = campaigns(:premium)
+    campaign.update!(
+      status: ENUMS::CAMPAIGN_STATUSES::ACTIVE,
+      start_date: 1.month.ago.beginning_of_month,
+      end_date: 1.month.from_now.end_of_month,
+      country_codes: country_codes,
+      keywords: ENUMS::KEYWORDS.keys.sample(10)
+    )
+    campaign.creative.add_image! attach_large_image!(campaign.user)
+    campaign.organization.update balance: Monetize.parse("$10,000 USD")
+    campaign
+  end
+
+  def inactive_campaign
+    campaign = campaigns(:premium)
+    campaign.update!(
+      status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED,
+      start_date: 6.months.ago.beginning_of_month,
+      end_date: 4.months.ago.end_of_month,
+      keywords: ENUMS::KEYWORDS.keys.sample(10)
+    )
+    campaign
+  end
+
+  def fallback_campaign
+    campaign = campaigns(:premium)
+    campaign.update!(
+      status: ENUMS::CAMPAIGN_STATUSES::ACTIVE,
+      start_date: 1.month.ago.beginning_of_month,
+      end_date: 1.month.from_now.end_of_month,
+      keywords: [],
+      fallback: true
+    )
+    campaign.creative.add_image! attach_large_image!(campaign.user)
+    campaign
+  end
+
+  def matched_property(campaign, fixture: :website)
+    property = properties(fixture)
+    property.update! keywords: campaign.keywords.sample(5)
+    property
+  end
 end

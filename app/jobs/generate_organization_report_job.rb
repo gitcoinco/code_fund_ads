@@ -1,6 +1,12 @@
 class GenerateOrganizationReportJob < ApplicationJob
   queue_as :default
 
+  def self.doc_raptor
+    @doc_raptor ||= DocRaptor::DocApi.new
+  end
+
+  delegate :doc_raptor, to: :"self.class"
+
   def perform(id:, report_url:)
     organization_report = OrganizationReport.find_by(id: id)
     return unless organization_report
@@ -9,7 +15,7 @@ class GenerateOrganizationReportJob < ApplicationJob
     begin
       filename = "organization-report-#{organization_report.organization_id}-#{organization_report.id}.pdf"
 
-      response = $docraptor.create_doc(
+      response = doc_raptor.create_doc(
         test: Rails.env.development?,
         document_url: report_url,
         name: filename,

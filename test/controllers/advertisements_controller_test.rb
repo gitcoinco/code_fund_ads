@@ -54,6 +54,17 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
   end
 
+  test "get sponsor advertisement without active campaign" do
+    property = amend(properties: :website, url: "https://github.com/gitcoinco/code_fund_ads")
+    ip = ip_address("US")
+
+    assert property.restrict_to_sponsor_campaigns?
+    get sponsor_url(property), headers: {"REMOTE_ADDR": ip, "User-Agent": "Rails/Minitest"}
+    assert_response :success
+    assert response.headers["Content-Type"] == "image/svg+xml; charset=utf-8"
+    assert response.body.include?("Sponsor this project")
+  end
+
   test "get sponsor advertisement" do
     Impression.delete_all
     campaign = active_campaign(country_codes: ["US"])
@@ -78,15 +89,6 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert response.headers["Content-Type"] == "image/svg+xml; charset=utf-8"
     assert response.body == campaign.creatives.first.sponsor_image.download
-    assert Impression.count == 1
-
-    impression = Impression.first
-
-    assert impression.campaign == campaign
-    assert impression.property == property
-    assert impression.sponsor?
-    assert impression.creative == campaign.sponsor_creatives.first
-    assert impression.ip_address == Impression.obfuscate_ip_address(ip)
   end
 
   test "get sponsor advertisement catch-all" do
@@ -102,51 +104,5 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert response.headers["Content-Type"] == "image/svg+xml; charset=utf-8"
     assert response.body == File.read(File.join("app/assets/images/sponsor-catch-all.svg"))
-  end
-
-  private
-
-  def active_campaign(country_codes: [])
-    campaign = campaigns(:premium)
-    campaign.update!(
-      status: ENUMS::CAMPAIGN_STATUSES::ACTIVE,
-      start_date: 1.month.ago.beginning_of_month,
-      end_date: 1.month.from_now.end_of_month,
-      country_codes: country_codes,
-      keywords: ENUMS::KEYWORDS.keys.sample(10)
-    )
-    campaign.creative.add_image! attach_large_image!(campaign.user)
-    campaign.organization.update balance: Monetize.parse("$10,000 USD")
-    campaign
-  end
-
-  def inactive_campaign
-    campaign = campaigns(:premium)
-    campaign.update!(
-      status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED,
-      start_date: 6.months.ago.beginning_of_month,
-      end_date: 4.months.ago.end_of_month,
-      keywords: ENUMS::KEYWORDS.keys.sample(10)
-    )
-    campaign
-  end
-
-  def fallback_campaign
-    campaign = campaigns(:premium)
-    campaign.update!(
-      status: ENUMS::CAMPAIGN_STATUSES::ACTIVE,
-      start_date: 1.month.ago.beginning_of_month,
-      end_date: 1.month.from_now.end_of_month,
-      keywords: [],
-      fallback: true
-    )
-    campaign.creative.add_image! attach_large_image!(campaign.user)
-    campaign
-  end
-
-  def matched_property(campaign, fixture: :website)
-    property = properties(fixture)
-    property.update! keywords: campaign.keywords.sample(5)
-    property
   end
 end

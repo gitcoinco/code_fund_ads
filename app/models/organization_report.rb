@@ -49,9 +49,6 @@ class OrganizationReport < ApplicationRecord
   end
 
   # protected instance methods ................................................
-  protected
 
   # private instance methods ..................................................
-  private
-
 end
