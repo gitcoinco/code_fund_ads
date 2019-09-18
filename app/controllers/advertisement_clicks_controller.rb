@@ -56,8 +56,9 @@ class AdvertisementClicksController < ApplicationController
   end
 
   def create_click
-    return unless @impression_id && @campaign
-    return if sponsor? # TODO: implement click tracking... @campaign.clicks.increment
+    return unless @campaign
+    return @campaign.increment!(:clicks) if sponsor?
+    return unless @impression_id
     CreateClickJob.perform_later(
       @impression_id,
       @campaign.id,
