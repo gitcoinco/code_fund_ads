@@ -11,7 +11,7 @@
         <% if campaign.sponsor? %>
           <div class="d-inline-block position-relative mb-4">
             <% campaign.sponsor_creatives.each do |creative| %>
-              <%= image_tag creative.sponsor_image, disposition: "inline", class: "img-fluid mb-2" %>
+              <%= image_tag creative.sponsor_image, class: "img-fluid mb-2" %>
             <% end %>
             <span class="badge badge-xs badge-outline-<%= campaign_status_color(campaign.status) %> badge-pos badge-pos--top-left rounded-circle"></span>
           </div>
