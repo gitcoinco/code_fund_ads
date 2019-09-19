@@ -12,6 +12,7 @@ gem "addressable", "2.6.0"
 gem "airbrake", "~> 9.3"
 gem "aws-sdk-s3", "~> 1.48.0", require: false
 gem "barnes", "~> 0.0.7"
+gem "bg", "~> 0.0.5"
 gem "bootsnap", ">= 1.4.2", require: false
 gem "buffer", "0.1.3", github: "bufferapp/buffer-ruby"
 gem "bulk_insert", "~> 1.7.0"

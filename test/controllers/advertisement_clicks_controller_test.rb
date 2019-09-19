@@ -2,6 +2,7 @@ require "test_helper"
 
 class AdvertisementClicksControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
+  include ActiveJob::TestHelper
 
   setup do
     @impression_id = SecureRandom.uuid
@@ -174,7 +175,9 @@ class AdvertisementClicksControllerTest < ActionDispatch::IntegrationTest
     assert campaign.creatives.size == 1
     assert campaign.sponsor_creatives.size == 1
 
-    get sponsor_visit_url(property), headers: {"REMOTE_ADDR": ip, "User-Agent": "Rails/Minitest"}
+    perform_enqueued_jobs do
+      get sponsor_visit_url(property), headers: {"REMOTE_ADDR": ip, "User-Agent": "Rails/Minitest"}
+    end
     campaign.reload
 
     assert_response :found
