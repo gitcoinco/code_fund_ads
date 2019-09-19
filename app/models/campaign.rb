@@ -236,11 +236,11 @@ class Campaign < ApplicationRecord
   end
 
   def standard_creatives
-    Creative.standard.where id: creative_ids
+    creatives.standard
   end
 
   def sponsor_creatives
-    Creative.sponsor.where id: creative_ids
+    creatives.sponsor
   end
 
   def split_alternative_names
@@ -389,7 +389,7 @@ class Campaign < ApplicationRecord
   end
 
   def sanitize_assigned_property_ids
-    self.assigned_property_ids = assigned_property_ids.select(&:present?).uniq.select(&:present?).sort
+    self.assigned_property_ids = assigned_property_ids.select(&:present?).uniq.sort
   end
 
   def validate_url
