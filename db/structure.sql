@@ -172,8 +172,7 @@ CREATE TABLE public.campaigns (
     hourly_budget_cents integer DEFAULT 0 NOT NULL,
     hourly_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     prohibited_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
-    creative_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
-    clicks integer DEFAULT 0 NOT NULL
+    creative_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
 );
 
 

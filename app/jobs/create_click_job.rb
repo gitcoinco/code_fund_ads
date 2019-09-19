@@ -4,7 +4,7 @@ class CreateClickJob < ApplicationJob
   def perform(impression_id, campaign_id, clicked_at_string)
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     campaign = Campaign.find_by(id: campaign_id)
-    return unless campaign
+    return unless campaign&.standard?
 
     clicked_at = Time.parse(clicked_at_string)
     impression = Impression.partitioned(campaign.user, clicked_at.advance(months: -1), clicked_at.advance(weeks: 1)).find_by(id: impression_id)

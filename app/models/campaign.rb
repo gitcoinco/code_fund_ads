@@ -34,7 +34,6 @@
 #  hourly_budget_currency  :string           default("USD"), not null
 #  prohibited_property_ids :bigint           default([]), not null, is an Array
 #  creative_ids            :bigint           default([]), not null, is an Array
-#  clicks                  :integer          default(0), not null
 #
 
 class Campaign < ApplicationRecord

@@ -75,7 +75,6 @@ ActiveRecord::Schema.define(version: 2019_09_16_195048) do
     t.string "hourly_budget_currency", default: "USD", null: false
     t.bigint "prohibited_property_ids", default: [], null: false, array: true
     t.bigint "creative_ids", default: [], null: false, array: true
-    t.integer "clicks", default: 0, null: false
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
     t.index ["assigned_property_ids"], name: "index_campaigns_on_assigned_property_ids", using: :gin
     t.index ["core_hours_only"], name: "index_campaigns_on_core_hours_only"

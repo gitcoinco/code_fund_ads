@@ -5,9 +5,10 @@ class CreateImpressionJob < ApplicationJob
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
 
     campaign = Campaign.find_by(id: campaign_id)
-    property = Property.find_by(id: property_id)
+    return unless campaign&.standard?
 
-    return unless campaign && property
+    property = Property.find_by(id: property_id)
+    return unless property
 
     displayed_at = Time.parse(displayed_at_string)
     ip_info = MMDB.lookup(ip_address)

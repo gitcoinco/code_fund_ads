@@ -57,8 +57,19 @@ class AdvertisementClicksController < ApplicationController
 
   def create_click
     return unless @campaign
-    return @campaign.defer.increment!(:clicks) if sponsor?
+
+    if sponsor?
+      return CreateImpressionAndClickJob.perform_later(
+        @campaign.id,
+        @property.id,
+        request.remote_ip,
+        request.user_agent,
+        Time.current.iso8601,
+      )
+    end
+
     return unless @impression_id
+
     CreateClickJob.perform_later(
       @impression_id,
       @campaign.id,
