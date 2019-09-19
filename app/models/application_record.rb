@@ -1,6 +1,5 @@
 class ApplicationRecord < ActiveRecord::Base
   include GlobalID::Identification
-  include Bg::Deferrable::Behavior
 
   self.abstract_class = true
 
