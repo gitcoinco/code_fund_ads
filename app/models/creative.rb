@@ -32,7 +32,6 @@ class Creative < ApplicationRecord
   has_many :creative_images
   has_many :images, through: :creative_images
   has_many :standard_images, -> { metadata_format CreativeImage::STANDARD_FORMATS }, through: :creative_images, source: :image
-  has_one :sponsor_image, -> { metadata_format ENUMS::IMAGE_FORMATS::SPONSOR }, through: :creative_images, source: :image
 
   # validations ...............................................................
   validates :body, length: {maximum: 255, allow_blank: false}, if: :standard?

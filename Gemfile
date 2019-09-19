@@ -124,6 +124,7 @@ group :test do
   gem "capybara", ">= 2.15"
   gem "minitest-reporters", require: "minitest/reporters"
   gem "selenium-webdriver"
+  gem "simplecov", require: false
   gem "webdrivers"
   gem "webmock"
 end

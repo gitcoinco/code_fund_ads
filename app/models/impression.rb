@@ -81,7 +81,6 @@ class Impression < ApplicationRecord
   }
   scope :fallback, -> { where fallback_campaign: true }
   scope :premium, -> { where fallback_campaign: false }
-  scope :ip_address, ->(value) { where ip_address: obfuscate_ip_address(value) }
   scope :standard, -> { where creative_id: Creative.standard }
   scope :sponsor, -> { where creative_id: Creative.sponsor }
 

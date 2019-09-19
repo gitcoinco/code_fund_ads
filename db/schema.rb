@@ -258,7 +258,6 @@ ActiveRecord::Schema.define(version: 2019_09_16_195048) do
     t.index ["creative_id"], name: "impressions_default_creative_id_idx"
     t.index ["displayed_at_date"], name: "impressions_default_displayed_at_date_idx"
     t.index ["id", "advertiser_id", "displayed_at_date"], name: "impressions_default_id_advertiser_id_displayed_at_date_idx", unique: true
-    t.index ["ip_address"], name: "impressions_default_ip_address_idx"
     t.index ["organization_id"], name: "impressions_default_organization_id_idx"
     t.index ["property_id"], name: "impressions_default_property_id_idx"
     t.index ["province_code"], name: "impressions_default_province_code_idx"
