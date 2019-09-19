@@ -9,9 +9,5 @@ module Authorizers
       return true if can_admin_system?
       image.record == user
     end
-
-    def can_create_sponsor_svg?
-      can_admin_system?
-    end
   end
 end

@@ -135,6 +135,9 @@ class Campaign < ApplicationRecord
   end
   scope :targeted_country_code, ->(country_code) { country_code ? with_all_country_codes(country_code) : without_country_codes }
   scope :targeted_province_code, ->(province_code) { province_code ? without_province_codes.or(with_all_province_codes(province_code)) : without_province_codes }
+  scope :with_active_creatives, -> {
+    where "\"campaigns\".\"creative_ids\" && (SELECT array_agg(id) FROM \"creatives\" WHERE \"creatives\".\"status\" = 'active')::bigint[]"
+  }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns

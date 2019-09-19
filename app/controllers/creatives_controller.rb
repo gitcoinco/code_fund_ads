@@ -42,7 +42,9 @@ class CreativesController < ApplicationController
   def update
     respond_to do |format|
       if @creative.update(creative_params)
-        @creative.assign_images(creative_image_params)
+        @creative.assign_images creative_image_params
+        @creative.update_columns status: ENUMS::CREATIVE_STATUSES::PENDING if @creative.active? && !authorized_user.can_admin_system?
+
         format.html { redirect_to @creative, notice: "Creative was successfully updated." }
         format.json { render :show, status: :ok, location: @creative }
       else

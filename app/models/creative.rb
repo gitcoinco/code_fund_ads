@@ -70,12 +70,20 @@ class Creative < ApplicationRecord
     creative_type == ENUMS::CREATIVE_TYPES::SPONSOR
   end
 
+  def active?
+    status == ENUMS::CREATIVE_STATUSES::ACTIVE
+  end
+
   def pending?
     status == ENUMS::CREATIVE_STATUSES::PENDING
   end
 
+  def archived?
+    status == ENUMS::CREATIVE_STATUSES::ARCHIVED
+  end
+
   def locked?
-    !pending?
+    active? || archived?
   end
 
   def add_image!(image)

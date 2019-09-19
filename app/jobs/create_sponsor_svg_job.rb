@@ -12,7 +12,6 @@ class CreateSponsorSvgJob < ApplicationJob
       file.write sponsor_svg
       users.each do |user|
         file.rewind
-        next unless AuthorizedUser.new(user).can_create_sponsor_svg?
         next if user.images.search_filename(filename).present?
         user.images.attach sponsor_svg_options(io: file, filename: filename)
       end
