@@ -107,8 +107,6 @@ Rails.application.routes.draw do
     resource :impression_uplifts, only: [:create], path: "/uplift"
   end
 
-  get "/impressions/click"
-
   # TODO: deprecate legacy support on 2019-04-01
   # Legacy embed script support
   get "/scripts/:legacy_property_id/embed.js", to: "advertisements#show"
