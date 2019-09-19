@@ -118,13 +118,6 @@ module Impressionable
     daily_summaries.scoped_by(nil).sum(:impressions_count) > 100
   end
 
-  def recent_impressions(ip_address)
-    impressions
-      .between(1.day.ago.to_date, Date.current)
-      .ip_address(ip_address)
-      .order(displayed_at: :desc)
-  end
-
   private
 
   def constrained_date(value)
