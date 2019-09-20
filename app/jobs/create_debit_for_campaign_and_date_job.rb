@@ -9,7 +9,7 @@ class CreateDebitForCampaignAndDateJob < ApplicationJob
     date = Date.parse(date_string)
     return unless date.past?
     campaign = Campaign.includes(:organization).available_on(date).find_by(id: campaign_id)
-    return unless campaign
+    return unless campaign&.standard?
 
     cents = campaign.impressions.on(date).sum(:estimated_gross_revenue_fractional_cents).round
     return unless cents > 0

@@ -8,7 +8,7 @@ class CreateDebitsForCampaignsJob < ApplicationJob
     start_date = 10.days.ago.to_date # go back 10 days to pick up any that may have been missed
     end_date = 1.day.ago.to_date
     (start_date..end_date).each do |date|
-      Campaign.select(:id).available_on(date).find_each do |campaign|
+      Campaign.standard.select(:id).available_on(date).find_each do |campaign|
         CreateDebitForCampaignAndDateJob.perform_later campaign.id, date.iso8601
       end
     end

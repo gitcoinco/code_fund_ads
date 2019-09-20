@@ -248,7 +248,7 @@ class AdvertisementsController < ApplicationController
         .or(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
     end
 
-    choose_campaign premium_campaign_relation
+    choose_campaign premium_campaign_relation, ignore_budgets: sponsor?
   end
 
   def get_fallback_campaign(campaign_relation)
