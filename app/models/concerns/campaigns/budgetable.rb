@@ -8,6 +8,17 @@ module Campaigns
       before_save :init_hourly_budget
     end
 
+    # Sponsor campaigns equate `total_budget` with `selling_price` because they are sold at a fixed price.
+    #
+    # Standard campaigns don't capture `selling_price` because the price is variable and because an
+    # organization can add funds to their balance, then run N campaigns in parallel that all have their
+    # `total_budget` set to the organization balance. In this scenario, the organization is looking to spend
+    # all the funds they've added and don't have a preference regarding which campaigns actually spend the money.
+    def selling_price
+      return total_budget if sponsor?
+      nil
+    end
+
     # Returns a Money indicating how much budget has been spent
     def total_consumed_budget
       gross_revenue start_date, Date.current
