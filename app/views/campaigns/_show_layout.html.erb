@@ -41,10 +41,6 @@
           <%= active_link_to "Country", campaign_countries_path(campaign), class: "dropdown-item", data: { turbolinks_persist_scroll: true, prefetch: true } %>
         </div>
       </li>
-      <%= tag.li(active_link_to("Comments", campaign_comments_path(campaign),
-        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
-      <%= tag.li(active_link_to("Events", campaign_events_path(campaign),
-        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
       <%= tag.li(active_link_to("Revisions", campaign_versions_path(campaign),
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
     </ul>
