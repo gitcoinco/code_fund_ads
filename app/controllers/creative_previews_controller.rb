@@ -21,6 +21,10 @@ class CreativePreviewsController < ApplicationController
       return render html: @preview_html.html_safe if params[:html_only].present?
     end
 
+    if @creative.sponsor?
+      return render html: @creative.sponsor_image.download.html_safe if params[:html_only].present?
+    end
+
     render layout: false
   end
 

@@ -25,26 +25,48 @@
 
   <div class="card-body p-4">
     <div class="row">
-      <div class="col-4 text-center">
-        <h4 class="small text-muted">
-          Total<strong class="text-secondary d-block">Budget</strong>
-        </h4>
-        <%= campaign.total_budget.format no_cents: true %>
-      </div>
-      <div class="col-4 text-center">
-        <h4 class="small text-muted">
-          Daily<strong class="text-secondary d-block">Budget</strong>
-        </h4>
-        <%= campaign.daily_budget.format no_cents: true %>
-      </div>
-      <div class="col-4 text-center">
-        <h4 class="small text-muted">
-          Remaining<strong class="text-secondary d-block">Budget</strong>
-        </h4>
-        <%= render_later async_campaign_total_remaining_budget_path(campaign_id: campaign.id) do %>
-          <i class="fa fa-spinner fa-spin text-primary"></i>
-        <% end %>
-      </div>
+      <% if campaign.standard? %>
+        <div class="col-4 text-center">
+          <h4 class="small text-muted">
+            Total<strong class="text-secondary d-block">Budget</strong>
+          </h4>
+          <%= campaign.total_budget.format no_cents: true %>
+        </div>
+        <div class="col-4 text-center">
+          <h4 class="small text-muted">
+            Daily<strong class="text-secondary d-block">Budget</strong>
+          </h4>
+          <%= campaign.daily_budget.format no_cents: true %>
+        </div>
+        <div class="col-4 text-center">
+          <h4 class="small text-muted">
+            Remaining<strong class="text-secondary d-block">Budget</strong>
+          </h4>
+          <%= render_later async_campaign_total_remaining_budget_path(campaign_id: campaign.id) do %>
+            <i class="fa fa-spinner fa-spin text-primary"></i>
+          <% end %>
+        </div>
+      <% end %>
+      <% if campaign.sponsor? %>
+        <div class="col-4 text-center">
+          <h4 class="small text-muted">
+            Total<strong class="text-secondary d-block">Price</strong>
+          </h4>
+          <%= campaign.selling_price.format no_cents: true %>
+        </div>
+        <div class="col-4 text-center">
+          <h4 class="small text-muted">
+            Targeted<strong class="text-secondary d-block">Repos</strong>
+          </h4>
+          <%= number_with_delimiter campaign.assigned_property_ids.size %>
+        </div>
+        <div class="col-4 text-center">
+          <h4 class="small text-muted">
+            Remaining<strong class="text-secondary d-block">Days</strong>
+          </h4>
+          <%= number_with_delimiter campaign.remaining_operative_days %>
+        </div>
+      <% end %>
     </div>
   </div>
 
