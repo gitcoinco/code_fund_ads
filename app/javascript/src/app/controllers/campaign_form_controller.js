@@ -47,13 +47,13 @@ export default class extends Controller {
   }
 
   enableStandardForm(event) {
-    Rails.stopEverything(event);
+    if (event) Rails.stopEverything(event);
     this.sponsorFormFields.remove();
     this.standardFormTarget.appendChild(this.standardFormFields);
   }
 
   enableSponsorForm(event) {
-    Rails.stopEverything(event);
+    if (event) Rails.stopEverything(event);
     this.standardFormFields.remove();
     this.sponsorFormTarget.appendChild(this.sponsorFormFields);
   }

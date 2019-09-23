@@ -418,9 +418,8 @@ class Campaign < ApplicationRecord
     return unless sponsor?
     return unless active?
 
-    conflicting_campaigns = Campaign
-      .with_any_assigned_property_ids(*assigned_property_ids).available_on(start_date)
-      .or(Campaign.with_any_assigned_property_ids(*assigned_property_ids).available_on(end_date))
+    conflicting_campaigns = Campaign.premium.with_any_assigned_property_ids(*assigned_property_ids).available_on(start_date)
+      .or(Campaign.premium.with_any_assigned_property_ids(*assigned_property_ids).available_on(end_date))
     if conflicting_campaigns.exists?
       conflicting_campaigns.each do |conflicting_campaign|
         next if conflicting_campaign == self

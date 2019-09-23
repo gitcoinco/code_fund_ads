@@ -212,7 +212,7 @@
 
   <nav class="mt-5">
     <div id="nav-tab" class="nav nav-tabs" role="tablist">
-      <a id="nav-standard-tab" class="nav-item nav-link <%= "active" if campaign.standard? %>"
+      <a id="nav-standard-tab" class="nav-item nav-link <%= "active" if campaign.standard? || campaign.new_record? %>"
          href="#nav-standard" role="tab" aria-controls="nav-standard" aria-selected="true"
          data-toggle="tab" data-action="mouseup->campaign-form#enableStandardForm" data-creative-type="standard">
         Standard
@@ -225,7 +225,7 @@
     </div>
   </nav>
   <div class="tab-content">
-    <div id="nav-standard" data-target="campaign-form.standardForm" class="tab-pane fade <%= "show active" if campaign.standard? %>" role="tabpanel" aria-labelledby="nav-standard-tab">
+    <div id="nav-standard" data-target="campaign-form.standardForm" class="tab-pane fade <%= "show active" if campaign.standard? || campaign.new_record? %>" role="tabpanel" aria-labelledby="nav-standard-tab">
       <div id="standard-form-fields"> <!-- NOTE: containing div used by stimulus controller -->
         <%= render "/campaigns/standard_form", f: f, campaign: campaign %>
       </div>
