@@ -3,15 +3,19 @@
     <thead>
       <tr class="border-bottom">
         <th class="text-left">Property</th>
-        <th class="text-left">Matching Tags</th>
-        <th class="text-center" style="width: 10%;">Spend</th>
-        <th class="text-center" style="width: 10%;">Impressions</th>
+        <% if @campaign.standard? %>
+          <th class="text-left">Matching Tags</th>
+          <th class="text-center" style="width: 10%;">Spend</th>
+          <th class="text-center" style="width: 10%;">Impressions</th>
+        <% end %>
         <th class="text-center" style="width: 10%;">Clicks</th>
-        <th class="text-center" style="width: 10%;">CTR</th>
-        <th class="text-center" style="width: 10%;">CPM</th>
-        <th class="text-center" style="width: 10%;">CPC</th>
-        <% if authorized_user.can_admin_system? %>
-        <th class="text-center">Blacklist?</th>
+        <% if @campaign.standard? %>
+          <th class="text-center" style="width: 10%;">CTR</th>
+          <th class="text-center" style="width: 10%;">CPM</th>
+          <th class="text-center" style="width: 10%;">CPC</th>
+          <% if authorized_user.can_admin_system? %>
+          <th class="text-center">Blacklist?</th>
+          <% end %>
         <% end %>
       </tr>
     </thead>
@@ -19,15 +23,19 @@
       <% if @summary %>
         <tr class="bg-secondary opacity-50">
           <td class="text-left align-middle text-light"><strong>Totals</strong></td>
-          <td class="text-left align-middle text-light"></td>
-          <td class="text-center align-middle text-light"><%= @summary.gross_revenue.format %></td>
-          <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.impressions_count %></td>
+          <% if @campaign.standard? %>
+            <td class="text-left align-middle text-light"></td>
+            <td class="text-center align-middle text-light"><%= @summary.gross_revenue.format %></td>
+            <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.impressions_count %></td>
+          <% end %>
           <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.clicks_count %></td>
-          <td class="text-center align-middle text-light"><%= number_to_percentage @summary.click_rate, precision: 2 %></td>
-          <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.cpm.format %></td>
-          <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.cpc.format %></td>
-          <% if authorized_user.can_admin_system? %>
-          <td>&nbsp;</td>
+          <% if @campaign.standard? %>
+            <td class="text-center align-middle text-light"><%= number_to_percentage @summary.click_rate, precision: 2 %></td>
+            <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.cpm.format %></td>
+            <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.cpc.format %></td>
+            <% if authorized_user.can_admin_system? %>
+            <td>&nbsp;</td>
+            <% end %>
           <% end %>
         </tr>
       <% end %>

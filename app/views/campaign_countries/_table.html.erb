@@ -3,24 +3,32 @@
     <thead>
       <tr class="border-bottom">
         <th class="text-left">Country</th>
-        <th class="text-center" style="width: 15%;">Spend</th>
-        <th class="text-center" style="width: 15%;">Impressions</th>
+        <% if @campaign.standard? %>
+          <th class="text-center" style="width: 15%;">Spend</th>
+          <th class="text-center" style="width: 15%;">Impressions</th>
+        <% end %>
         <th class="text-center" style="width: 15%;">Clicks</th>
-        <th class="text-center" style="width: 15%;">CTR</th>
-        <th class="text-center" style="width: 15%;">CPM</th>
-        <th class="text-center" style="width: 15%;">CPC</th>
+        <% if @campaign.standard? %>
+          <th class="text-center" style="width: 15%;">CTR</th>
+          <th class="text-center" style="width: 15%;">CPM</th>
+          <th class="text-center" style="width: 15%;">CPC</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>
       <% if @summary %>
         <tr class="bg-secondary opacity-50">
           <td class="text-left align-middle text-light text-nowrap"><strong>Totals</strong></td>
-          <td class="text-center align-middle text-light"><%= @summary.gross_revenue.format %></td>
-          <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.impressions_count %></td>
+          <% if @campaign.standard? %>
+            <td class="text-center align-middle text-light"><%= @summary.gross_revenue.format %></td>
+            <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.impressions_count %></td>
+          <% end %>
           <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.clicks_count %></td>
-          <td class="text-center align-middle text-light"><%= number_to_percentage @summary.click_rate, precision: 2 %></td>
-          <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.cpm.format %></td>
-          <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.cpc.format %></td>
+          <% if @campaign.standard? %>
+            <td class="text-center align-middle text-light"><%= number_to_percentage @summary.click_rate, precision: 2 %></td>
+            <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.cpm.format %></td>
+            <td class="text-center align-middle text-light"><%= number_with_delimiter @summary.cpc.format %></td>
+          <% end %>
         </tr>
       <% end %>
       <%= render partial: "/campaign_countries/tr", collection: @reports, as: :report %>

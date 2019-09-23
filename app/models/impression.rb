@@ -46,6 +46,7 @@ class Impression < ApplicationRecord
   before_validation :set_displayed_at, on: [:create]
   before_create :assure_partition_table!
   before_create :calculate_estimated_revenue
+  before_save :obfuscate_ip_address
   after_commit :set_property_advertiser, on: [:create]
 
   # scopes ....................................................................
@@ -80,9 +81,12 @@ class Impression < ApplicationRecord
   }
   scope :fallback, -> { where fallback_campaign: true }
   scope :premium, -> { where fallback_campaign: false }
+  scope :standard, -> { where creative_id: Creative.standard }
+  scope :sponsor, -> { where creative_id: Creative.sponsor }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   self.primary_key = "id"
+  delegate :standard?, :sponsor?, to: :creative
 
   # class methods .............................................................
   class << self
@@ -150,6 +154,14 @@ class Impression < ApplicationRecord
     def detach_old_tables(months_retained: 3)
       months_retained = 3 if months_retained < 3
       detach_tables(*old_attached_table_names(months_retained: months_retained))
+    end
+
+    def obfuscate_ip_address(ip_address)
+      return ip_address unless IPAddress.valid?(ip_address)
+      salt = ENV.fetch("IP_ADDRESS_SALT") {
+        "038fd0b1517a30d340838541afc0d3cea2899aa67969346d4c0d17d64644de1183033005fcceb149da61a3454f43b7a1c8cbbad4c6953117aa2f0e2a4efb42b9"
+      }
+      Digest::MD5.hexdigest "#{ip_address}#{salt}"
     end
   end
 
@@ -242,6 +254,10 @@ class Impression < ApplicationRecord
   def calculate_estimated_revenue_and_save!(recalculate = false)
     calculate_estimated_revenue recalculate
     save! if changed?
+  end
+
+  def obfuscate_ip_address
+    self.ip_address = self.class.obfuscate_ip_address(ip_address)
   end
 
   # protected instance methods ................................................

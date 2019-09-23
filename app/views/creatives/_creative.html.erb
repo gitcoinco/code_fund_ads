@@ -21,11 +21,16 @@
 
   <div class="card-body p-4">
     <div class="media ml-2">
-      <%= image_tag creative.small_image&.variant(geometry: "100x100") || "missing-200x200.png", class: "align-self-start mr-3", style: "width: 100px;" %>
-      <div class="media-body text-black-50 font-weight-normal">
-        <strong class="text-dark"><%= creative.headline %></strong>
-        <%= creative.body %>
-      </div>
+      <% if creative.standard? %>
+        <%= image_tag creative.small_image&.variant(geometry: "100x100") || "missing-200x200.png", class: "align-self-start mr-3", style: "width: 100px;" %>
+        <div class="media-body text-black-50 font-weight-normal">
+          <strong class="text-dark"><%= creative.headline %></strong>
+          <%= creative.body %>
+        </div>
+      <% end %>
+      <% if creative.sponsor? %>
+        <%= image_tag creative.sponsor_image, class: "align-self-start mr-3", style: "width: 100%;" %>
+      <% end %>
     </div>
   </div>
 

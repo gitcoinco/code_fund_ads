@@ -8,10 +8,11 @@ class AdvertisementsController < ApplicationController
   # before_action :apply_visitor_rate_limiting
   before_action :set_campaign
   before_action :set_virtual_impression_id
-  after_action :create_virtual_impression, if: -> { @campaign.present? && @creative.present? }
+  after_action :create_virtual_impression, if: :standard?
+  # after_action :cache_visitor_response
 
   def show
-    track_event :virtual_impression_initiated
+    track_event :virtual_impression_initiated unless sponsor?
 
     # TODO: deprecate legacy support on 2019-04-01
     return render_legacy_show if legacy_api_call?
@@ -20,28 +21,24 @@ class AdvertisementsController < ApplicationController
 
     respond_to do |format|
       format.js
+      format.svg { render inline: @advertisement_html || catch_all_sponsor_html, status: :ok, layout: false }
       format.json { render "/advertisements/show", status: @advertisement_html ? :ok : :not_found, layout: false }
       format.html { render "/advertisements/show", status: @advertisement_html ? :ok : :not_found, layout: false }
     end
-
-    # cache_visitor_response
   end
 
   protected
 
-  # def visitor_cache_key
-  #   "advertisements#show/#{ip_address}"
-  # end
+  def standard?
+    !sponsor?
+  end
 
-  # def cache_visitor_response
-  #   Rails.cache.write(
-  #     visitor_cache_key, {
-  #       status: response.status,
-  #       content_type: response.content_type,
-  #       body: response.body,
-  #     },
-  #     expires_in: (ENV["VISITOR_AD_RATE_LIMIT"] || 10).to_i.seconds
-  #   )
+  def sponsor?
+    request.format == "svg"
+  end
+
+  # def visitor_cache_key
+  #   "advertisements#show/#{Impression.obfuscate_ip_address(ip_address)}"
   # end
 
   # def apply_visitor_rate_limiting
@@ -53,12 +50,35 @@ class AdvertisementsController < ApplicationController
   #   end
   # end
 
+  # def cache_visitor_response
+  #   Rails.cache.write(
+  #     visitor_cache_key, {
+  #       status: response.status,
+  #       content_type: response.content_type,
+  #       body: response.body,
+  #     },
+  #     expires_in: (ENV["VISITOR_AD_RATE_LIMIT"] || 2).to_i.seconds
+  #   )
+  # end
+
+  def catch_all_sponsor_html
+    key = "Creative/sponsor-catch-all"
+    Rails.cache.fetch(key) { File.read(Rails.root.join("app/assets/images/sponsor-catch-all.svg")) }
+  end
+
   def set_advertisement_variables
     @target = params[:target] || "codefund_ad"
     return unless @campaign
 
     @creative = choose_creative(@virtual_impression_id, @campaign)
     return unless @creative
+
+    if sponsor?
+      return @advertisement_html = begin
+        key = "#{@creative.cache_key_with_version}/#{@creative.sponsor_image&.cache_key}"
+        Rails.cache.fetch(key) { @creative.sponsor_image.download }
+      end
+    end
 
     @advertisement_html = render_advertisement
     @campaign_url = advertisement_clicks_url(
@@ -204,7 +224,8 @@ class AdvertisementsController < ApplicationController
     return nil unless property.active? || property.pending?
     return nil if device_small? && property.hide_on_responsive?
 
-    campaign_relation = Campaign.active.with_creative_ids.available_on(Date.current)
+    campaign_relation = Campaign.active.with_active_creatives.available_on(Date.current)
+    campaign_relation = sponsor? ? campaign_relation.sponsor : campaign_relation.standard
     campaign_relation = campaign_relation.where(weekdays_only: false) if Date.current.on_weekend?
     campaign_relation = campaign_relation.where(core_hours_only: false) if prohibited_hour?
     geo_targeted_campaign_relation = campaign_relation
@@ -227,7 +248,7 @@ class AdvertisementsController < ApplicationController
         .or(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
     end
 
-    choose_campaign premium_campaign_relation
+    choose_campaign premium_campaign_relation, ignore_budgets: sponsor?
   end
 
   def get_fallback_campaign(campaign_relation)
@@ -259,14 +280,14 @@ class AdvertisementsController < ApplicationController
 
   def choose_creative(impression_id, campaign)
     return nil unless impression_id && campaign
-    return Creative.find_by(id: campaign.creative_ids.first) if campaign.creative_ids.size == 1
+    return Creative.active.find_by(id: campaign.creative_ids.first) if campaign.creative_ids.size == 1
     split_experiment = Split::ExperimentCatalog.find_or_create(campaign.split_test_name, *campaign.split_alternative_names)
-    return Creative.find_by_split_test_name(split_experiment.winner.name) if split_experiment.winner
+    return Creative.active.find_by_split_test_name(split_experiment.winner.name) if split_experiment.winner
     split_user = Split::User.new(impression_id)
     split_trial = Split::Trial.new(user: split_user, experiment: split_experiment)
     split_alternative = split_trial.choose!(self)
     return nil unless split_alternative
-    Creative.find_by_split_test_name split_alternative.name
+    Creative.active.find_by_split_test_name split_alternative.name
   end
 
   def render_advertisement
@@ -291,6 +312,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def create_virtual_impression
+    return unless standard?
     return unless @campaign && @creative
 
     Rails.cache.write @virtual_impression_id, {

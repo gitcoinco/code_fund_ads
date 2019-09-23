@@ -1,11 +1,21 @@
 <%= link_to campaign, class: "card card-frame mb-5" do %>
   <header class="card-header p-4">
     <div class="media align-items-center">
-      <div class="d-inline-block position-relative u-avatar mr-3">
-        <%= image_tag campaign.creative.small_image || "missing-200x200.png", class: "img-fluid" %>
-        <span class="badge badge-xs badge-outline-<%= campaign_status_color(campaign.status) %> badge-pos badge-pos--top-left rounded-circle"></span>
-      </div>
+      <% if campaign.standard? %>
+        <div class="d-inline-block position-relative u-avatar mr-3">
+          <%= image_tag campaign.creative.small_image || "missing-200x200.png", class: "img-fluid" %>
+          <span class="badge badge-xs badge-outline-<%= campaign_status_color(campaign.status) %> badge-pos badge-pos--top-left rounded-circle"></span>
+        </div>
+      <% end %>
       <div class="media-body">
+        <% if campaign.sponsor? %>
+          <div class="d-inline-block position-relative mb-4">
+            <% campaign.sponsor_creatives.each do |creative| %>
+              <%= image_tag creative.sponsor_image, class: "img-fluid mb-2" %>
+            <% end %>
+            <span class="badge badge-xs badge-outline-<%= campaign_status_color(campaign.status) %> badge-pos badge-pos--top-left rounded-circle"></span>
+          </div>
+        <% end %>
         <h3 class="h6 mb-0"><%= campaign.name %></h3>
         <span class="small text-success">
         </span>
@@ -15,26 +25,48 @@
 
   <div class="card-body p-4">
     <div class="row">
-      <div class="col-4 text-center">
-        <h4 class="small text-muted">
-          Total<strong class="text-secondary d-block">Budget</strong>
-        </h4>
-        <%= campaign.total_budget.format no_cents: true %>
-      </div>
-      <div class="col-4 text-center">
-        <h4 class="small text-muted">
-          Daily<strong class="text-secondary d-block">Budget</strong>
-        </h4>
-        <%= campaign.daily_budget.format no_cents: true %>
-      </div>
-      <div class="col-4 text-center">
-        <h4 class="small text-muted">
-          Remaining<strong class="text-secondary d-block">Budget</strong>
-        </h4>
-        <%= render_later async_campaign_total_remaining_budget_path(campaign_id: campaign.id) do %>
-          <i class="fa fa-spinner fa-spin text-primary"></i>
-        <% end %>
-      </div>
+      <% if campaign.standard? %>
+        <div class="col-4 text-center">
+          <h4 class="small text-muted">
+            Total<strong class="text-secondary d-block">Budget</strong>
+          </h4>
+          <%= campaign.total_budget.format no_cents: true %>
+        </div>
+        <div class="col-4 text-center">
+          <h4 class="small text-muted">
+            Daily<strong class="text-secondary d-block">Budget</strong>
+          </h4>
+          <%= campaign.daily_budget.format no_cents: true %>
+        </div>
+        <div class="col-4 text-center">
+          <h4 class="small text-muted">
+            Remaining<strong class="text-secondary d-block">Budget</strong>
+          </h4>
+          <%= render_later async_campaign_total_remaining_budget_path(campaign_id: campaign.id) do %>
+            <i class="fa fa-spinner fa-spin text-primary"></i>
+          <% end %>
+        </div>
+      <% end %>
+      <% if campaign.sponsor? %>
+        <div class="col-4 text-center">
+          <h4 class="small text-muted">
+            Total<strong class="text-secondary d-block">Price</strong>
+          </h4>
+          <%= campaign.selling_price.format no_cents: true %>
+        </div>
+        <div class="col-4 text-center">
+          <h4 class="small text-muted">
+            Targeted<strong class="text-secondary d-block">Repos</strong>
+          </h4>
+          <%= number_with_delimiter campaign.assigned_property_ids.size %>
+        </div>
+        <div class="col-4 text-center">
+          <h4 class="small text-muted">
+            Remaining<strong class="text-secondary d-block">Days</strong>
+          </h4>
+          <%= number_with_delimiter campaign.remaining_operative_days %>
+        </div>
+      <% end %>
     </div>
   </div>
 

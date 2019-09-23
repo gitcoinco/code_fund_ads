@@ -60,6 +60,9 @@ class Campaign < ApplicationRecord
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
   validates :status, inclusion: {in: ENUMS::CAMPAIGN_STATUSES.values}
+  validate :validate_creatives
+  validate :validate_assigned_properties, if: :sponsor?
+  validate :validate_dates, if: :sponsor?
   # validate :validate_url
 
   # callbacks .................................................................
@@ -68,6 +71,9 @@ class Campaign < ApplicationRecord
   before_save :sanitize_assigned_property_ids
 
   # scopes ....................................................................
+  # TODO: update standard/sponsor scopes to use arel instead of string interpolation
+  scope :standard, -> { where "\"campaigns\".\"creative_ids\" && ARRAY(#{Creative.standard.select(:id).to_sql})" }
+  scope :sponsor, -> { where "\"campaigns\".\"creative_ids\" && ARRAY(#{Creative.sponsor.select(:id).to_sql})" }
   scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
   scope :active, -> { where status: ENUMS::CAMPAIGN_STATUSES::ACTIVE }
   scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
@@ -87,11 +93,8 @@ class Campaign < ApplicationRecord
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :search_weekdays_only, ->(value) { value.nil? ? all : where(weekdays_only: value) }
   scope :without_assigned_property_ids, -> { where assigned_property_ids: [] }
-  scope :with_assigned_property_id, ->(property_id) {
-    value = Arel::Nodes::SqlLiteral.new(sanitize_sql_array(["ARRAY[?]", property_id]))
-    value_cast = Arel::Nodes::NamedFunction.new("CAST", [value.as("bigint[]")])
-    where Arel::Nodes::InfixOperation.new("@>", arel_table[:assigned_property_ids], value_cast)
-  }
+  scope :with_assigned_property_id, ->(property_id) { where "\"campaigns\".\"assigned_property_ids\" @> ?::bigint[]", "{#{property_id}}" }
+  scope :with_any_assigned_property_ids, ->(*property_ids) { where "\"campaigns\".\"assigned_property_ids\" && ?::bigint[]", "{#{property_ids.select(&:present?).join(",")}}" }
   scope :premium_with_assigned_property_id, ->(property_id) { premium.with_assigned_property_id property_id }
   scope :fallback_with_assigned_property_id, ->(property_id) { fallback.with_assigned_property_id property_id }
   scope :permitted_for_property_id, ->(property_id) {
@@ -131,6 +134,9 @@ class Campaign < ApplicationRecord
   end
   scope :targeted_country_code, ->(country_code) { country_code ? with_all_country_codes(country_code) : without_country_codes }
   scope :targeted_province_code, ->(province_code) { province_code ? without_province_codes.or(with_all_province_codes(province_code)) : without_province_codes }
+  scope :with_active_creatives, -> {
+    where "\"campaigns\".\"creative_ids\" && (SELECT array_agg(id) FROM \"creatives\" WHERE \"creatives\".\"status\" = 'active')::bigint[]"
+  }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
@@ -215,6 +221,14 @@ class Campaign < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def standard?
+    standard_creatives.exists?
+  end
+
+  def sponsor?
+    sponsor_creatives.exists?
+  end
+
   def permitted_creatives
     Creative.where organization_id: organization_id
   end
@@ -223,8 +237,16 @@ class Campaign < ApplicationRecord
     Creative.where id: creative_ids
   end
 
+  def standard_creatives
+    creatives.standard
+  end
+
+  def sponsor_creatives
+    creatives.sponsor
+  end
+
   def split_alternative_names
-    creative_ids.map { |creative_id| Creative.new(id: creative_id).split_test_name }
+    creatives.active.select(:id).map(&:split_test_name)
   end
 
   def assigner_properties
@@ -384,5 +406,39 @@ class Campaign < ApplicationRecord
       errors[:url] << "is invalid" unless response.success?
     else errors[:url] << "is invalid"
     end
+  end
+
+  def validate_creatives
+    if standard_creatives.exists? && sponsor_creatives.exists?
+      errors.add :creatives, "cannot include both standard and sponsor types"
+    end
+  end
+
+  def validate_assigned_properties
+    return unless sponsor?
+    return unless active?
+
+    conflicting_campaigns = Campaign
+      .with_any_assigned_property_ids(*assigned_property_ids).available_on(start_date)
+      .or(Campaign.with_any_assigned_property_ids(*assigned_property_ids).available_on(end_date))
+    if conflicting_campaigns.exists?
+      conflicting_campaigns.each do |conflicting_campaign|
+        next if conflicting_campaign == self
+        conflicting_properties = Property.where(id: assigned_property_ids & conflicting_campaign.assigned_property_ids)
+        conflicting_properties.each do |conflicting_property|
+          errors.add :base, "#{conflicting_property.analytics_key} is already reserved by #{conflicting_campaign.analytics_key} from #{conflicting_campaign.start_date.iso8601} through #{conflicting_campaign.start_date.iso8601}"
+        end
+      end
+    end
+
+    if assigned_properties.map(&:restrict_to_sponsor_campaigns?).uniq != [true]
+      errors.add :assigned_properties, "must be set to those restricted to sponsor campaigns i.e. GitHub properties, etc..."
+    end
+  end
+
+  def validate_dates
+    return unless sponsor?
+    errors.add :start_date, "must be set to the first day of month on sponsor campaigns" if start_date != start_date.beginning_of_month
+    errors.add :end_date, "must be set to the last day of month on sponsor campaigns" if end_date != end_date.end_of_month
   end
 end

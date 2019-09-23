@@ -42,8 +42,8 @@ class Property < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :user
-  has_many :advertisers, through: :property_advertisers, class_name: "User", foreign_key: "advertiser_id"
   has_many :property_advertisers, dependent: :destroy
+  has_many :advertisers, through: :property_advertisers, class_name: "User", foreign_key: "advertiser_id"
   has_many :property_traffic_estimates, dependent: :destroy
 
   # validations ...............................................................
@@ -59,6 +59,7 @@ class Property < ApplicationRecord
 
   # callbacks .................................................................
   before_validation :assign_audience
+  before_save :assign_restrict_to_assigner_campaigns
   before_save :sanitize_assigned_fallback_campaign_ids
   after_save :generate_screenshot
   before_destroy :destroy_paper_trail_versions
@@ -138,6 +139,14 @@ class Property < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def host
+    URI.parse(url).host
+  end
+
+  def restrict_to_sponsor_campaigns?
+    host == "github.com"
+  end
+
   def active?
     status == ENUMS::PROPERTY_STATUSES::ACTIVE
   end
@@ -156,6 +165,15 @@ class Property < ApplicationRecord
 
   def assigner_campaigns
     Campaign.with_assigned_property_id id
+  end
+
+  def sponsor_campaigns
+    assigner_campaigns.sponsor
+  end
+
+  def current_sponsor_campaign
+    return nil unless restrict_to_sponsor_campaigns?
+    sponsor_campaigns.available_on(Date.current).first
   end
 
   def assigned_fallback_campaigns
@@ -213,5 +231,9 @@ class Property < ApplicationRecord
   def assign_audience(force: false)
     self.audience = nil if force
     self.audience ||= Audience.match(keywords).name
+  end
+
+  def assign_restrict_to_assigner_campaigns
+    self.restrict_to_assigner_campaigns ||= restrict_to_sponsor_campaigns?
   end
 end

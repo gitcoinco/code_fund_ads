@@ -1,5 +1,9 @@
 <div class="cbp-caption-defaultWrap">
-  <%= image_tag image.variant(geometry: "260x200") %>
+  <% if image.blob.svg? %>
+    <%= image_tag image, disposition: "inline", style: "width:260px" %>
+  <% else %>
+    <%= image_tag image.variant(geometry: "260x200"), style: "width:260px" %>
+  <% end %>
 </div>
 <div class="cbp-caption-activeWrap bg-dark">
   <div class="cbp-l-caption-alignCenter">

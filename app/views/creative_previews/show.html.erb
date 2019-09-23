@@ -1,29 +1,35 @@
 <html>
-<body style="padding: <%= @template_name == "bottom-bar" ? "0" : "10" %>px; margin: 0px; background-color: <%= @theme_name == "dark" ? "#263238" : "#eeeeee" %>;
-             background-image: url(<%= asset_path("pie-factory.svg") %>);">
-<div id="codefund"></div>
-<script>
-(function() {
-  function embed () {
-    var evt = new Event('codefund');
+<% if @creative.standard? %>
+  <body style="padding: <%= @template_name == "bottom-bar" ? "0" : "10" %>px; margin: 0px; background-color: <%= @theme_name == "dark" ? "#263238" : "#eeeeee" %>;
+               background-image: url(<%= asset_path("pie-factory.svg") %>);">
+    <div id="codefund"></div>
+    <script>
+    (function() {
+      function embed () {
+        var evt = new Event('codefund');
 
-    try {
-      var targetElement = document.getElementById('codefund');
-      if (targetElement == null) { targetElement = document.getElementById('codefund'); }
-      targetElement.innerHTML = '<%= @preview_html.html_safe %>';
-      targetElement.querySelector('img[data-src="impression_url"]').src = '<%= asset_path("pixel.gif") %>';
-      targetElement.querySelector('a[data-target="powered_by_url"]').href = 'https://example.com';
-      targetElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = 'https://example.com'; });
-      evt.detail = { status: 'ok', house: true };
-    } catch (e) {
-      console.log('CodeFund detected an error! Please verify an element exists with id="codefund". ' + e.message);
-      evt.detail = { status: 'error', message: e.message };
-    }
-    document.removeEventListener('DOMContentLoaded', embed);
-    window.dispatchEvent(evt);
-  };
-  (document.readyState === 'loading') ? document.addEventListener('DOMContentLoaded', embed) : embed();
-})();
-</script>
-</body>
+        try {
+          var targetElement = document.getElementById('codefund');
+          if (targetElement == null) { targetElement = document.getElementById('codefund'); }
+          targetElement.innerHTML = '<%= @preview_html.html_safe %>';
+          targetElement.querySelector('img[data-src="impression_url"]').src = '<%= asset_path("pixel.gif") %>';
+          targetElement.querySelector('a[data-target="powered_by_url"]').href = 'https://example.com';
+          targetElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = 'https://example.com'; });
+          evt.detail = { status: 'ok', house: true };
+        } catch (e) {
+          console.log('CodeFund detected an error! Please verify an element exists with id="codefund". ' + e.message);
+          evt.detail = { status: 'error', message: e.message };
+        }
+        document.removeEventListener('DOMContentLoaded', embed);
+        window.dispatchEvent(evt);
+      };
+      (document.readyState === 'loading') ? document.addEventListener('DOMContentLoaded', embed) : embed();
+    })();
+    </script>
+  </body>
+<% else %>
+  <body>
+    <%= image_tag @creative.sponsor_image %>
+  </body>
+<% end %>
 </html>

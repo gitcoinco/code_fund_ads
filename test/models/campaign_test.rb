@@ -126,4 +126,19 @@ class CampaignTest < ActiveSupport::TestCase
       {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$0.30 USD")},
     ]
   end
+
+  test "standard campaign doesn't have a selling_price" do
+    assert @campaign.selling_price.nil?
+  end
+
+  test "sponsor campaigns have a selling_price that is the same as total_budget" do
+    campaign = active_campaign
+    campaign.creatives.each do |creative|
+      creative.standard_images.destroy_all
+      creative.update! creative_type: ENUMS::CREATIVE_TYPES::SPONSOR
+      CreativeImage.create! creative: creative, image: attach_sponsor_image!(campaign.user)
+    end
+    assert campaign.selling_price.present?
+    assert campaign.selling_price == campaign.total_budget
+  end
 end

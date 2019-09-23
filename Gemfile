@@ -6,10 +6,11 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby "2.6.4"
 
 gem "active_link_to", "~> 1.0.5"
+gem "active_storage_svg_sanitizer", "~> 0.1.0"
 gem "acts_as_commentable_with_threading", "~> 2.0.1"
 gem "addressable", "2.6.0"
 gem "airbrake", "~> 9.3"
-gem "aws-sdk-s3", "~> 1.46.0", require: false
+gem "aws-sdk-s3", "~> 1.48.0", require: false
 gem "barnes", "~> 0.0.7"
 gem "bootsnap", ">= 1.4.2", require: false
 gem "buffer", "0.1.3", github: "bufferapp/buffer-ruby"
@@ -30,9 +31,9 @@ gem "full-name-splitter", "~> 0.1.2"
 gem "gibbon", "~> 3.2.0"
 gem "hiredis", "~> 0.6.3"
 gem "htmlentities", "4.3.4"
-gem "hubspot-ruby", "~> 0.7.0"
 gem "image_processing", "~> 1.9.0"
 gem "inky-rb", "~> 1.3.7.3", require: "inky"
+gem "ipaddress", "~> 0.8.3"
 gem "jbuilder", "~> 2.5"
 gem "liquid", "~> 4.0.1"
 gem "mailgun-ruby", "~> 1.1.11"
@@ -123,6 +124,7 @@ group :test do
   gem "capybara", ">= 2.15"
   gem "minitest-reporters", require: "minitest/reporters"
   gem "selenium-webdriver"
+  gem "simplecov", require: false
   gem "webdrivers"
   gem "webmock"
 end

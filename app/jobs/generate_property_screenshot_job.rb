@@ -3,7 +3,10 @@ class GeneratePropertyScreenshotJob < ApplicationJob
 
   def perform(property_id)
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
-    property = Property.find(property_id)
+    return unless ENV["SCREENSHOT_MACHINE_KEY"]
+
+    property = Property.find_by(id: property_id)
+    return unless property
 
     sm = ScreenshotMachine.new(property.url)
 

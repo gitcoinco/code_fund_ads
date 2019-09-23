@@ -8,9 +8,19 @@ class CreateDebitForCampaignAndDateJob < ApplicationJob
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     date = Date.parse(date_string)
     return unless date.past?
+
     campaign = Campaign.includes(:organization).available_on(date).find_by(id: campaign_id)
     return unless campaign
 
+    create_debit_for_standard_campaign(campaign, date) if campaign.standard?
+    create_debit_for_sponsor_campaign(campaign) if campaign.sponsor?
+  rescue => e
+    Rollbar.error e
+  end
+
+  private
+
+  def create_debit_for_standard_campaign(campaign, date)
     cents = campaign.impressions.on(date).sum(:estimated_gross_revenue_fractional_cents).round
     return unless cents > 0
     amount = Money.new(cents, "USD")
@@ -29,7 +39,22 @@ class CreateDebitForCampaignAndDateJob < ApplicationJob
         )
       campaign.organization.recalculate_balance!
     end
-  rescue => e
-    Rollbar.error e
+  end
+
+  def create_debit_for_sponsor_campaign(campaign)
+    ActiveRecord::Base.transaction do
+      OrganizationTransaction
+        .where(
+          organization_id: campaign.organization_id,
+          transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::DEBIT,
+          reference: [campaign.id, "#{campaign.start_date.iso8601}--#{campaign.end_date.iso8601}"].join(":"),
+        )
+        .first_or_create!(
+          description: "Total Spend for Campaign [#{campaign.id}: #{campaign.name}]",
+          amount: campaign.selling_price,
+          posted_at: Time.current,
+        )
+      campaign.organization.recalculate_balance!
+    end
   end
 end

@@ -39,7 +39,7 @@
           }
         }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
 
-    <div class="col-12 mb-3">
+    <div class="col-12 mb-5">
       <%= f.input :url, as: :string, required: true, input_html: { class: "form-control" },
         placeholder: "https://example.com/?utm_source=codefund&utm_campaign={{campaign_id}}",
         data: { msg: "Please enter a valid URL", error_class: "u-has-error", success_class: "u-has-success", rule_url: true } %>
@@ -113,23 +113,49 @@
     </div>
   </div>
 
-  <hr class="mt-3 mb-4" />
+  <div class="row">
+    <div class="col-12 mb-2">
+      <div class="media align-items-center mb-3">
+        <label class="checkbox-switch mb-0 mr-3">
+          <%= f.check_box :fallback, class: "checkbox-switch__input" %>
+          <span class="checkbox-switch__slider"></span>
+        </label>
+        <label class="media-body text-muted mb-0">
+          <span class="d-block text-dark">Is this a fallback campaign?</span>
+        </label>
+      </div>
+    </div>
+  </div>
 
-  <%= render "/@shared/forms/section_heading", title: "Creatives",
-    subtitle: "Pick which creatives you would like to use (only approved creatives are available)",
-    help: "Multivariate testing is used to determine the most effective creative" %>
+  <div class="row">
+    <div class="col-12 mb-2">
+      <div class="media align-items-center mb-3">
+        <label class="checkbox-switch mb-0 mr-3">
+          <%= f.check_box :core_hours_only, class: "checkbox-switch__input" %>
+          <span class="checkbox-switch__slider"></span>
+        </label>
+        <label class="media-body text-muted mb-0" for="campaign_core_hours_only">
+          <span class="d-block text-dark">Only display between 5am to midnight visitor time?</span>
+        </label>
+      </div>
+    </div>
+  </div>
 
-  <div class="row" data-target="campaign-form.creativesWrapper">
-    <%= render partial: "/creative_options/options",
-        locals: {
-          selected_creative_ids: campaign.creative_ids,
-          creatives: campaign.user.creatives.active.order(name: :asc)
-        } %>
+  <div class="row">
+    <div class="col-12 mb-5">
+      <div class="media align-items-center mb-3">
+        <label class="checkbox-switch mb-0 mr-3">
+          <%= f.check_box :weekdays_only, class: "checkbox-switch__input" %>
+          <span class="checkbox-switch__slider"></span>
+        </label>
+        <label class="media-body text-muted mb-0" for="campaign_weekdays_only">
+          <span class="d-block text-dark">Only display on weekdays?</span>
+        </label>
+      </div>
+    </div>
   </div>
 
   <% if campaign.fixed_ecpm || authorized_user.can_admin_system? %>
-    <hr class="mt-3 mb-4" />
-
     <%= render "/@shared/forms/section_heading", title: "Targeting", subtitle: "Who do you want this campaign to reach?" %>
 
     <div class="row" data-controller="select-geo-targets" data-action="cf:select:changed->select-geo-targets#updateProvinceCodeOptions">
@@ -172,7 +198,7 @@
         </div>
       </div>
       <% if authorized_user.can_admin_system? %>
-        <div class="col-12 mb-3" data-controller="select-multiple">
+        <div class="col-12 mb-3 mt-5" data-controller="select-multiple">
           <%= f.input :assigned_property_ids, collection: properties_for_select,
             label: "Assigned Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> prioritized over keywords</small>".html_safe,
             input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
@@ -180,106 +206,36 @@
             <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
           </div>
         </div>
-        <div class="col-12 mb-3" data-controller="select-multiple">
-          <%= f.input :prohibited_property_ids, collection: properties_for_select,
-            label: "Prohibited Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> deprioritized after assigned properties</small>".html_safe,
-            input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
-          <div class="d-block">
-            <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
-          </div>
-        </div>
       <% end %>
-      <div class="col-12 mb-3" data-controller="select-multiple">
-        <%= f.input :keywords, collection: keywords_for_select, label: "Targeted Keywords",
-          input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
-        <div class="d-block">
-          <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
-          <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
-        </div>
-      </div>
-      <div class="col-12 mb-4" data-controller="select-multiple">
-        <%= f.input :negative_keywords, collection: keywords_for_select, label: "Negative Keywords",
-          input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
-        <div class="d-block">
-          <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
-          <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
-        </div>
-      </div>
-
-      <div class="col-md-6 mb-3">
-        <div class="media align-items-center mb-3">
-          <label class="checkbox-switch mb-0 mr-3">
-            <%= f.check_box :core_hours_only, class: "checkbox-switch__input" %>
-            <span class="checkbox-switch__slider"></span>
-          </label>
-          <label class="media-body text-muted mb-0" for="campaign_core_hours_only">
-            <span class="d-block text-dark">Only display between 5am to midnight visitor time?</span>
-          </label>
-        </div>
-      </div>
-      <div class="col-md-6 mb-3">
-        <div class="media align-items-center mb-3">
-          <label class="checkbox-switch mb-0 mr-3">
-            <%= f.check_box :weekdays_only, class: "checkbox-switch__input" %>
-            <span class="checkbox-switch__slider"></span>
-          </label>
-          <label class="media-body text-muted mb-0" for="campaign_weekdays_only">
-            <span class="d-block text-dark">Only display on weekdays?</span>
-          </label>
-        </div>
-      </div>
     </div>
   <% end %>
 
-  <% if authorized_user.can_admin_system? %>
-
-    <hr class="mt-3 mb-4" />
-
-    <%= render "/@shared/forms/section_heading", title: "Budget", subtitle: "Let's talk numbers" %>
-
-    <div class="row">
-      <div class="col-md-6 mb-3">
-        <%= f.input(:ecpm, as: :currency, currency: "$") %>
-        <small id="passwordHelpBlock" class="form-text text-muted">
-          Effective cost per thousand impressions
-        </small>
-      </div>
-      <%= tag.div f.input(:total_budget, label: "Total Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
+  <nav class="mt-5">
+    <div id="nav-tab" class="nav nav-tabs" role="tablist">
+      <a id="nav-standard-tab" class="nav-item nav-link <%= "active" if campaign.standard? %>"
+         href="#nav-standard" role="tab" aria-controls="nav-standard" aria-selected="true"
+         data-toggle="tab" data-action="mouseup->campaign-form#enableStandardForm" data-creative-type="standard">
+        Standard
+      </a>
+      <a id="nav-sponsor-tab" class="nav-item nav-link <%= "active" if campaign.sponsor? %>"
+         href="#nav-sponsor" role="tab" aria-controls="nav-sponsor" aria-selected="false"
+         data-toggle="tab" data-action="mouseup->campaign-form#enableSponsorForm" data-creative-type="sponsor">
+        Sponsor
+      </a>
     </div>
-
-    <div class="row">
-      <%= tag.div f.input(:hourly_budget, label: "Hourly Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
-      <%= tag.div f.input(:daily_budget, label: "Daily Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
-    </div>
-
-    <div class="row">
-      <div class="col-12 mb-3 mt-4">
-        <div class="media align-items-center mb-3">
-          <label class="checkbox-switch mb-0 mr-3">
-            <%= f.check_box :fixed_ecpm, class: "checkbox-switch__input" %>
-            <span class="checkbox-switch__slider"></span>
-          </label>
-          <label class="media-body text-muted mb-0">
-            <span class="d-block text-dark">Use fixed eCPM pricing? <small class="ml-2 text-muted">Do NOT adjust by country</small></span>
-          </label>
-        </div>
+  </nav>
+  <div class="tab-content">
+    <div id="nav-standard" data-target="campaign-form.standardForm" class="tab-pane fade <%= "show active" if campaign.standard? %>" role="tabpanel" aria-labelledby="nav-standard-tab">
+      <div id="standard-form-fields"> <!-- NOTE: containing div used by stimulus controller -->
+        <%= render "/campaigns/standard_form", f: f, campaign: campaign %>
       </div>
     </div>
-
-    <div class="row">
-      <div class="col-12 mb-3 mt-4">
-        <div class="media align-items-center mb-3">
-          <label class="checkbox-switch mb-0 mr-3">
-            <%= f.check_box :fallback, class: "checkbox-switch__input" %>
-            <span class="checkbox-switch__slider"></span>
-          </label>
-          <label class="media-body text-muted mb-0">
-            <span class="d-block text-dark">Is this a fallback campaign?</span>
-          </label>
-        </div>
+    <div id="nav-sponsor" data-target="campaign-form.sponsorForm" class="tab-pane fade <%= "show active" if campaign.sponsor? %>" role="tabpanel" aria-labelledby="nav-sponsor-tab">
+      <div id="sponsor-form-fields"> <!-- NOTE: containing div used by stimulus controller -->
+        <%= render "/campaigns/sponsor_form", f: f, campaign: campaign %>
       </div>
     </div>
-  <% end %>
+  </div>
 
   <%= render "@shared/forms/button_panel" do %>
     <%= f.submit "Save Campaign", class: "btn btn-sm btn-primary transition-3d-hover mr-1" %>

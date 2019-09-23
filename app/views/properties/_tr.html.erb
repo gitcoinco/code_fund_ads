@@ -16,9 +16,13 @@
     </td>
   <% end %>
   <td class="align-middle" style="font-size: 12px;">
-    <span class="text-muted">D:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_daily, units: { thousand: "K", million: "M" } %><br/>
-    <span class="text-muted">M:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_monthly, units: { thousand: "K", million: "M" } %><br/>
-    <span class="text-muted">Y:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_yearly, units: { thousand: "K", million: "M" } %><br/>
+    <% if property.restrict_to_sponsor_campaigns? %>
+      <span class="opacity-30">N/A</span>
+    <% else %>
+      <span class="text-muted">D:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_daily, units: { thousand: "K", million: "M" } %><br/>
+      <span class="text-muted">M:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_monthly, units: { thousand: "K", million: "M" } %><br/>
+      <span class="text-muted">Y:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_yearly, units: { thousand: "K", million: "M" } %><br/>
+    <% end %>
   </td>
   <td class="align-middle text-secondary">
     <small class="d-block"><%= property.created_at.strftime("%d %b, %Y") %></small>
@@ -29,13 +33,21 @@
     <%= property.status.humanize %>
   </td>
   <td>
-    <%= render_later async_property_sparkline_path(property_id: property.id) do %>
-      <i class="fa fa-spinner fa-spin text-primary"></i>
+    <% if property.restrict_to_sponsor_campaigns? %>
+      <span class="opacity-30">N/A</span>
+    <% else %>
+      <%= render_later async_property_sparkline_path(property_id: property.id) do %>
+        <i class="fa fa-spinner fa-spin text-primary"></i>
+      <% end %>
     <% end %>
   </td>
   <td class="align-middle text-secondary text-right">
-    <%= render_later async_property_click_rate_path(property_id: property.id) do %>
-      <i class="fa fa-spinner fa-spin text-primary"></i>
+    <% if property.restrict_to_sponsor_campaigns? %>
+      <span class="opacity-30">N/A</span>
+    <% else %>
+      <%= render_later async_property_click_rate_path(property_id: property.id) do %>
+        <i class="fa fa-spinner fa-spin text-primary"></i>
+      <% end %>
     <% end %>
   </td>
   <td class="align-middle text-right text-secondary">

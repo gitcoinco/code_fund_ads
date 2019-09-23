@@ -1,4 +1,6 @@
 ENV["RAILS_ENV"] ||= "test"
+require "simplecov"
+SimpleCov.start
 require_relative "../config/environment"
 require_relative "./mmdb_test_helper"
 require "rails/test_help"
@@ -63,6 +65,22 @@ class ActiveSupport::TestCase
     ).first
   end
 
+  def attach_sponsor_image!(user)
+    user.images.attach(
+      io: File.open(Rails.root.join("test/assets/images/sponsor-heroku.svg")),
+      filename: "sponsor-heroku.svg",
+      content_type: "image/svg+xml",
+      metadata: {
+        identified: true,
+        width: 400,
+        height: 40,
+        analyzed: true,
+        name: "sponsor-heroku.svg",
+        format: ENUMS::IMAGE_FORMATS::SPONSOR,
+      },
+    ).first
+  end
+
   # Factory method to find a fixture and update its attributes
   def amend(options = {})
     fixture_class_name, fixture_name = options.shift
@@ -121,5 +139,49 @@ class ActiveSupport::TestCase
     )
     impression.update params if params.present?
     impression
+  end
+
+  def active_campaign(country_codes: [])
+    campaign = campaigns(:premium)
+    campaign.update!(
+      status: ENUMS::CAMPAIGN_STATUSES::ACTIVE,
+      start_date: 1.month.ago.beginning_of_month,
+      end_date: 1.month.from_now.end_of_month,
+      country_codes: country_codes,
+      keywords: ENUMS::KEYWORDS.keys.sample(10)
+    )
+    campaign.creative.add_image! attach_large_image!(campaign.user)
+    campaign.organization.update balance: Monetize.parse("$10,000 USD")
+    campaign
+  end
+
+  def inactive_campaign
+    campaign = campaigns(:premium)
+    campaign.update!(
+      status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED,
+      start_date: 6.months.ago.beginning_of_month,
+      end_date: 4.months.ago.end_of_month,
+      keywords: ENUMS::KEYWORDS.keys.sample(10)
+    )
+    campaign
+  end
+
+  def fallback_campaign
+    campaign = campaigns(:premium)
+    campaign.update!(
+      status: ENUMS::CAMPAIGN_STATUSES::ACTIVE,
+      start_date: 1.month.ago.beginning_of_month,
+      end_date: 1.month.from_now.end_of_month,
+      keywords: [],
+      fallback: true
+    )
+    campaign.creative.add_image! attach_large_image!(campaign.user)
+    campaign
+  end
+
+  def matched_property(campaign, fixture: :website)
+    property = properties(fixture)
+    property.update! keywords: campaign.keywords.sample(5)
+    property
   end
 end

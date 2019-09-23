@@ -5,7 +5,7 @@
 #  id              :bigint           not null, primary key
 #  user_id         :bigint           not null
 #  name            :string           not null
-#  headline        :string           not null
+#  headline        :string
 #  body            :text
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
@@ -13,6 +13,7 @@
 #  organization_id :bigint
 #  cta             :string
 #  status          :string           default("pending")
+#  creative_type   :string           default("standard"), not null
 #
 
 class Creative < ApplicationRecord
@@ -29,13 +30,17 @@ class Creative < ApplicationRecord
   belongs_to :organization
   has_many :campaigns
   has_many :creative_images
+  has_many :images, through: :creative_images
+  has_many :standard_images, -> { metadata_format CreativeImage::STANDARD_FORMATS }, through: :creative_images, source: :image
 
   # validations ...............................................................
-  validates :body, length: {maximum: 255, allow_blank: false}
-  validates :headline, length: {maximum: 255, allow_blank: false}
-  validates :cta, length: {maximum: 20, allow_blank: false}
+  validates :body, length: {maximum: 255, allow_blank: false}, if: :standard?
+  validates :headline, length: {maximum: 255, allow_blank: false}, if: :standard?
+  validates :cta, length: {maximum: 20, allow_blank: false}, if: :standard?
   validates :name, length: {maximum: 255, allow_blank: false}
   validates :status, inclusion: {in: ENUMS::CREATIVE_STATUSES.values}
+  validates :creative_type, inclusion: {in: ENUMS::CREATIVE_TYPES.values}
+  validate :validate_images
 
   # callbacks .................................................................
   after_commit :touch_campaigns, on: [:update]
@@ -45,6 +50,8 @@ class Creative < ApplicationRecord
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
   scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertisers.search_name(value).or(User.advertisers.search_company(value))) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
+  scope :standard, -> { where creative_type: ENUMS::CREATIVE_TYPES::STANDARD }
+  scope :sponsor, -> { where creative_type: ENUMS::CREATIVE_TYPES::SPONSOR }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   sanitize :headline, :body, :cta
@@ -55,31 +62,44 @@ class Creative < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def standard?
+    creative_type == ENUMS::CREATIVE_TYPES::STANDARD
+  end
+
+  def sponsor?
+    creative_type == ENUMS::CREATIVE_TYPES::SPONSOR
+  end
+
+  def active?
+    status == ENUMS::CREATIVE_STATUSES::ACTIVE
+  end
+
   def pending?
     status == ENUMS::CREATIVE_STATUSES::PENDING
   end
 
-  def locked?
-    !pending?
+  def archived?
+    status == ENUMS::CREATIVE_STATUSES::ARCHIVED
   end
 
-  def images
-    user.images.where(id: creative_images.select(:active_storage_attachment_id))
+  def locked?
+    active? || archived?
   end
 
   def add_image!(image)
     CreativeImage.create! creative: self, image: image
   end
 
-  def assign_images(blob_id_list = {})
-    assign_icon_image(blob_id_list[:icon_blob_id]) if blob_id_list[:icon_blob_id].present?
-    assign_small_image(blob_id_list[:small_blob_id]) if blob_id_list[:small_blob_id].present?
-    assign_large_image(blob_id_list[:large_blob_id]) if blob_id_list[:large_blob_id].present?
-    assign_wide_image(blob_id_list[:wide_blob_id]) if blob_id_list[:wide_blob_id].present?
+  def assign_images(params = {})
+    assign_icon_image(params[:icon_blob_id]) if params[:icon_blob_id].present?
+    assign_small_image(params[:small_blob_id]) if params[:small_blob_id].present?
+    assign_large_image(params[:large_blob_id]) if params[:large_blob_id].present?
+    assign_wide_image(params[:wide_blob_id]) if params[:wide_blob_id].present?
+    assign_sponsor_image(params[:sponsor_blob_id]) if params[:sponsor_blob_id].present?
   end
 
   def icon_image
-    images.search_metadata_format(ENUMS::IMAGE_FORMATS::ICON).first
+    images.metadata_format(ENUMS::IMAGE_FORMATS::ICON).first
   end
 
   def assign_icon_image(blob_id)
@@ -90,7 +110,7 @@ class Creative < ApplicationRecord
   end
 
   def small_image
-    images.search_metadata_format(ENUMS::IMAGE_FORMATS::SMALL).first
+    images.metadata_format(ENUMS::IMAGE_FORMATS::SMALL).first
   end
 
   def assign_small_image(blob_id)
@@ -101,7 +121,7 @@ class Creative < ApplicationRecord
   end
 
   def large_image
-    images.search_metadata_format(ENUMS::IMAGE_FORMATS::LARGE).first
+    images.metadata_format(ENUMS::IMAGE_FORMATS::LARGE).first
   end
 
   def assign_large_image(blob_id)
@@ -112,11 +132,22 @@ class Creative < ApplicationRecord
   end
 
   def wide_image
-    images.search_metadata_format(ENUMS::IMAGE_FORMATS::WIDE).first
+    images.metadata_format(ENUMS::IMAGE_FORMATS::WIDE).first
   end
 
   def assign_wide_image(blob_id)
     creative_image = creative_images.wide.first_or_initialize
+    image = user.images.where(blob_id: blob_id).first
+    creative_image.active_storage_attachment_id = image.id
+    creative_image.save!
+  end
+
+  def sponsor_image
+    images.metadata_format(ENUMS::IMAGE_FORMATS::SPONSOR).first
+  end
+
+  def assign_sponsor_image(blob_id)
+    creative_image = creative_images.sponsor.first_or_initialize
     image = user.images.where(blob_id: blob_id).first
     creative_image.active_storage_attachment_id = image.id
     creative_image.save!
@@ -130,5 +161,11 @@ class Creative < ApplicationRecord
 
   def touch_campaigns
     campaigns.map(&:touch)
+  end
+
+  def validate_images
+    if standard_images.exists? && sponsor_image
+      errors.add :images, "cannot include both standard and sponsor types"
+    end
   end
 end

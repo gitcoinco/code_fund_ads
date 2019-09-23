@@ -7,17 +7,22 @@ import { isEmpty } from 'lodash';
 export default class extends Controller {
   static targets = [
     'adLength',
-    'inputHeadline',
-    'inputBody',
-    'inputSmallBlobId',
-    'inputLargeBlobId',
-    'inputWideBlobId',
-    'inputTemplateTheme',
-    'previewImageUrl',
-    'previewHeadline',
-    'previewBody',
-    'copyWrapper',
     'copyWarningWrapper',
+    'copyWrapper',
+    'creativeType',
+    'inputBody',
+    'inputHeadline',
+    'inputLargeBlobId',
+    'inputSmallBlobId',
+    'inputSponsorBlobId',
+    'inputTemplateTheme',
+    'inputWideBlobId',
+    'previewBody',
+    'previewHeadline',
+    'previewImageUrl',
+    'previewSponsorImage',
+    'sponsorForm',
+    'standardForm',
   ];
 
   initialize() {
@@ -26,8 +31,12 @@ export default class extends Controller {
     this.setSmallImage();
     this.setLargeImage();
     this.setWideImage();
+    this.setSponsorImage();
     this.setTemplateTheme();
     this.checkLimit();
+    this.standardFormFields = this.standardFormTarget.querySelector('#standard-form-fields');
+    this.sponsorFormFields = this.sponsorFormTarget.querySelector('#sponsor-form-fields');
+    this.initCreativeType();
   }
 
   checkLimit() {
@@ -90,7 +99,35 @@ export default class extends Controller {
     // Implement when we are able to display compatible templates
   }
 
+  setSponsorImage() {
+    let target = this.inputSponsorBlobIdTarget;
+    let blobId = parseInt(target.value, 10);
+    if (!isNaN(blobId)) {
+      let selectedOption = target.options[target.selectedIndex];
+      this.previewSponsorImageTarget.src = selectedOption.dataset.imageUrl;
+    } else {
+      this.previewImageUrlTarget.src = 'about:blank';
+    }
+  }
+
   setTemplateTheme() {
     console.log('setTemplateTheme');
+  }
+
+  setCreativeType(event) {
+    const { creativeType } = event.target.dataset;
+    this.creativeTypeTarget.value = creativeType;
+    this.initCreativeType();
+  }
+
+  initCreativeType() {
+    const creativeType = this.creativeTypeTarget.value;
+    if (creativeType === 'standard') {
+      this.sponsorFormFields.remove();
+      this.standardFormTarget.appendChild(this.standardFormFields);
+    } else if (creativeType === 'sponsor') {
+      this.standardFormFields.remove();
+      this.sponsorFormTarget.appendChild(this.sponsorFormFields);
+    }
   }
 }

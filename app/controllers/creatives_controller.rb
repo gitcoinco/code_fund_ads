@@ -42,7 +42,9 @@ class CreativesController < ApplicationController
   def update
     respond_to do |format|
       if @creative.update(creative_params)
-        @creative.assign_images(creative_image_params)
+        @creative.assign_images creative_image_params
+        @creative.update_columns status: ENUMS::CREATIVE_STATUSES::PENDING if @creative.active? && !authorized_user.can_admin_system?
+
         format.html { redirect_to @creative, notice: "Creative was successfully updated." }
         format.json { render :show, status: :ok, location: @creative }
       else
@@ -84,13 +86,13 @@ class CreativesController < ApplicationController
   end
 
   def creative_params
-    params.require(:creative).permit(:name, :headline, :body, :cta).tap do |whitelisted|
+    params.require(:creative).permit(:creative_type, :name, :headline, :body, :cta).tap do |whitelisted|
       whitelisted[:status] = params[:creative][:status] if authorized_user.can_admin_system?
     end
   end
 
   def creative_image_params
-    params.require(:creative).permit(:icon_blob_id, :small_blob_id, :large_blob_id, :wide_blob_id)
+    params.require(:creative).permit(:icon_blob_id, :small_blob_id, :large_blob_id, :wide_blob_id, :sponsor_blob_id)
   end
 
   def authenticate_creative_create_rights!

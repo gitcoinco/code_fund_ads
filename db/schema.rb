@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(version: 2019_09_16_195048) do
   create_table "creatives", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
-    t.string "headline", null: false
+    t.string "headline"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -143,6 +143,8 @@ ActiveRecord::Schema.define(version: 2019_09_16_195048) do
     t.bigint "organization_id"
     t.string "cta"
     t.string "status", default: "pending"
+    t.string "creative_type", default: "standard", null: false
+    t.index ["creative_type"], name: "index_creatives_on_creative_type"
     t.index ["organization_id"], name: "index_creatives_on_organization_id"
     t.index ["user_id"], name: "index_creatives_on_user_id"
   end
@@ -333,8 +335,9 @@ ActiveRecord::Schema.define(version: 2019_09_16_195048) do
   create_table "organization_reports", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.string "title", null: false
-    t.date "start_date"
-    t.date "end_date"
+    t.string "status", default: "pending", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
     t.text "campaign_ids", default: [], array: true
     t.text "pdf_url"
     t.datetime "created_at", null: false

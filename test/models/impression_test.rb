@@ -104,4 +104,14 @@ class ImpressionTest < ActiveSupport::TestCase
     assert @impression.calculate_estimated_house_revenue_fractional_cents == 0.0066
     assert @impression.calculate_estimated_property_revenue_fractional_cents + @impression.calculate_estimated_house_revenue_fractional_cents == @impression.calculate_estimated_gross_revenue_fractional_cents
   end
+
+  test "obfuscate_ip_address" do
+    orig_salt = ENV["IP_ADDRESS_SALT"]
+    ENV["IP_ADDRESS_SALT"] = "ace90a0841b3b5cb9e4f1ae8c5a8095421c2c7adaa86dbfa1bff35b812f16954b8a06bcb7f2608045ee1789550e39e8c1c660cdffaf13afbe857595f5e870447"
+    obfuscated_ip = Impression.obfuscate_ip_address("127.0.0.1")
+    assert obfuscated_ip == "598268db9860a90bef29e4e6c03aa09a"
+    assert Impression.obfuscate_ip_address(obfuscated_ip) == "598268db9860a90bef29e4e6c03aa09a"
+  ensure
+    ENV["IP_ADDRESS_SALT"] = orig_salt
+  end
 end

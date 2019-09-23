@@ -10,6 +10,7 @@ class CampaignReportsMailer < ApplicationMailer
 
     workbook = create_report_workbook(@campaign, @start_date, @end_date)
     filename = "campaign-report-#{@campaign.id}-#{@start_date.to_s("yyyymmdd")}-#{@end_date.to_s("yyyymmdd")}.xls"
+
     Tempfile.open(filename, Rails.root.join("tmp")) do |file|
       workbook.write file
       file.rewind

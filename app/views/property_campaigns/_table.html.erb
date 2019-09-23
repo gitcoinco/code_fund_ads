@@ -3,10 +3,14 @@
     <thead>
       <tr class="border-bottom">
         <th>Name</th>
-        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Impressions</th>
+        <% unless @property.restrict_to_sponsor_campaigns? %>
+          <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Impressions</th>
+        <% end %>
         <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Clicks</th>
-        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">average</span>CTR</th>
-        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">estimated</span>Earnings</th>
+        <% unless @property.restrict_to_sponsor_campaigns? %>
+          <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">average</span>CTR</th>
+          <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">estimated</span>Earnings</th>
+        <% end %>
       </tr>
     </thead>
     <tbody>

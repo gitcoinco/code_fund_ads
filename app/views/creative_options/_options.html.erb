@@ -8,11 +8,17 @@
                 <%= 'checked="checked"' if selected_creative_ids.include?(creative.id) %>/>
           <label class="custom-control-label ml-1" for="campaign_creative_id_<%= creative.id %>">
             <div class="media ml-2">
-              <%= image_tag creative.large_image || "", class: "align-self-start mr-3", style: "width: 130px;" %>
-              <div class="media-body h6 text-black-50 font-weight-normal">
-                <strong class="text-dark"><%= creative.headline %></strong>
-                <%= creative.body %>
-              </div>
+              <% if creative.standard? %>
+                <%= image_tag creative.large_image || "", class: "align-self-start mr-3", style: "width: 130px;" %>
+                <div class="media-body h6 text-black-50 font-weight-normal">
+                  <strong class="text-dark"><%= creative.headline %></strong>
+                  <%= creative.body %>
+                </div>
+              <% end %>
+
+              <% if creative.sponsor? %>
+                <%= image_tag creative.sponsor_image, class: "align-self-start mr-3", style: "width: 100%;" %>
+              <% end %>
             </div>
           </label>
         </div>

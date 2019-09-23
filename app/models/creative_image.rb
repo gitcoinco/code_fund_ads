@@ -10,6 +10,13 @@
 #
 
 class CreativeImage < ApplicationRecord
+  STANDARD_FORMATS = [
+    ENUMS::IMAGE_FORMATS::ICON,
+    ENUMS::IMAGE_FORMATS::SMALL,
+    ENUMS::IMAGE_FORMATS::LARGE,
+    ENUMS::IMAGE_FORMATS::WIDE,
+  ].freeze
+
   # extends ...................................................................
   # includes ..................................................................
 
@@ -20,10 +27,12 @@ class CreativeImage < ApplicationRecord
   # validations ...............................................................
   # callbacks .................................................................
   # scopes ....................................................................
-  scope :icon, -> { where active_storage_attachment_id: ActiveStorage::Attachment.search_metadata_format(ENUMS::IMAGE_FORMATS::ICON) }
-  scope :small, -> { where active_storage_attachment_id: ActiveStorage::Attachment.search_metadata_format(ENUMS::IMAGE_FORMATS::SMALL) }
-  scope :large, -> { where active_storage_attachment_id: ActiveStorage::Attachment.search_metadata_format(ENUMS::IMAGE_FORMATS::LARGE) }
-  scope :wide, -> { where active_storage_attachment_id: ActiveStorage::Attachment.search_metadata_format(ENUMS::IMAGE_FORMATS::WIDE) }
+  scope :icon, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::ICON) }
+  scope :small, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::SMALL) }
+  scope :large, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::LARGE) }
+  scope :wide, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::WIDE) }
+  scope :standard, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(STANDARD_FORMATS) }
+  scope :sponsor, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::SPONSOR) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
 
@@ -32,6 +41,14 @@ class CreativeImage < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  def standard?
+    STANDARD_FORMATS.include? image.metadata[:format]
+  end
+
+  def sponsor?
+    image.metadata[:format] == ENUMS::IMAGE_FORMATS::SPONSOR
+  end
 
   # protected instance methods ................................................
 

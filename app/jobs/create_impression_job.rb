@@ -3,23 +3,18 @@ class CreateImpressionJob < ApplicationJob
 
   def perform(id, campaign_id, property_id, creative_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string)
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
-    @event_id = SecureRandom.uuid
-    @ip_address = ip_address
 
     campaign = Campaign.find_by(id: campaign_id)
-    property = Property.find_by(id: property_id)
+    return unless campaign&.standard?
 
-    return unless campaign && property
+    property = Property.find_by(id: property_id)
+    return unless property
 
     displayed_at = Time.parse(displayed_at_string)
     ip_info = MMDB.lookup(ip_address)
     country_code = Country.find(ip_info&.country&.iso_code)&.iso_code
     subdivision = ip_info&.subdivisions&.first&.iso_code
     province_code = Province.find("#{country_code}-#{subdivision}")&.iso_code
-
-    ip_address_salt = ENV.fetch("IP_ADDRESS_SALT") {
-      "038fd0b1517a30d340838541afc0d3cea2899aa67969346d4c0d17d64644de1183033005fcceb149da61a3454f43b7a1c8cbbad4c6953117aa2f0e2a4efb42b9"
-    }
 
     impression = Impression.create!(
       id: id,
@@ -31,7 +26,7 @@ class CreateImpressionJob < ApplicationJob
       property: property,
       ad_template: ad_template,
       ad_theme: ad_theme,
-      ip_address: Digest::MD5.hexdigest("#{ip_address}#{ip_address_salt}"),
+      ip_address: ip_address, # NOTE: obfuscated via an Impression model callback
       user_agent: user_agent,
       displayed_at: displayed_at,
       displayed_at_date: displayed_at.to_date,

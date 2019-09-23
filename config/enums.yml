@@ -93,6 +93,10 @@ CAMPAIGN_STATUS_COLORS:
 COUPON_TYPES:
   - percentage
 
+CREATIVE_TYPES:
+  - standard
+  - sponsor
+
 CREATIVE_STATUSES:
   - pending
   - active
@@ -122,11 +126,24 @@ PROPERTY_RESPONSIVE_BEHAVIORS:
   - footer
   - hide
 
+# SEE: app/analyzers/creative_image_analyzer.rb
 IMAGE_FORMATS:
+  # 20x20, 40x40
   - icon
+
+  # 200x200
   - small
+
+  # 260x200
   - large
+
+  # 512x320
   - wide
+
+  # 400x40 svg
+  - sponsor
+
+  - unknown
 
 IMAGE_CONTENT_TYPES:
   - image/gif

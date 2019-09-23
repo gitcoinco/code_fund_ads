@@ -3,6 +3,6 @@
 # document_analyzers is a list of the analyzers that we will use
 Rails.application.config.active_storage.analyzers.delete ActiveStorage::Analyzer::ImageAnalyzer
 Rails.application.config.document_analyzers = Rails.application.config.active_storage.analyzers
-Rails.application.config.document_analyzers.append CreativeImageAnalyzer
+Rails.application.config.document_analyzers.append CodeFundAdsImageAnalyzer
 # MasterAnalyzer is the only one that we pass to active_storage
 Rails.application.config.active_storage.analyzers = [MasterAnalyzer]
