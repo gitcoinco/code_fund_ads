@@ -16,7 +16,7 @@ module Users
       Digest::MD5.hexdigest(email.downcase)
     end
 
-    def gravatar_url(d = "404")
+    def gravatar_url(d = "identicon")
       "https://www.gravatar.com/avatar/#{hashed_email}?s=300&d=#{d}"
     end
 
