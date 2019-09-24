@@ -172,7 +172,8 @@ CREATE TABLE public.campaigns (
     hourly_budget_cents integer DEFAULT 0 NOT NULL,
     hourly_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     prohibited_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
-    creative_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
+    creative_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
+    paid_fallback boolean DEFAULT false
 );
 
 
@@ -2367,6 +2368,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190821192233'),
 ('20190903173535'),
 ('20190913192015'),
-('20190916195048');
+('20190916195048'),
+('20190924203350');
 
 

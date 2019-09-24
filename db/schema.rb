@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_16_195048) do
+ActiveRecord::Schema.define(version: 2019_09_24_203350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2019_09_16_195048) do
     t.string "hourly_budget_currency", default: "USD", null: false
     t.bigint "prohibited_property_ids", default: [], null: false, array: true
     t.bigint "creative_ids", default: [], null: false, array: true
+    t.boolean "paid_fallback", default: false
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
     t.index ["assigned_property_ids"], name: "index_campaigns_on_assigned_property_ids", using: :gin
     t.index ["core_hours_only"], name: "index_campaigns_on_core_hours_only"

@@ -34,6 +34,7 @@
 #  hourly_budget_currency  :string           default("USD"), not null
 #  prohibited_property_ids :bigint           default([]), not null, is an Array
 #  creative_ids            :bigint           default([]), not null, is an Array
+#  paid_fallback           :boolean          default(FALSE)
 #
 
 class Campaign < ApplicationRecord
@@ -78,13 +79,15 @@ class Campaign < ApplicationRecord
   scope :active, -> { where status: ENUMS::CAMPAIGN_STATUSES::ACTIVE }
   scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
   scope :fallback, -> { where fallback: true }
-  scope :premium, -> { where fallback: false }
+  scope :paid_fallback, -> { where paid_fallback: true }
+  scope :premium, -> { where(fallback: false).where(paid_fallback: false) }
   scope :job_posting, -> { where job_posting: true }
   scope :available_on, ->(date) { where(arel_table[:start_date].lteq(date.to_date)).where(arel_table[:end_date].gteq(date.to_date)) }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :search_country_codes, ->(*values) { values.blank? ? all : with_any_country_codes(*values) }
   scope :search_province_codes, ->(*values) { values.blank? ? all : with_any_province_codes(*values) }
   scope :search_fallback, ->(value) { value.blank? ? all : where(fallback: value) }
+  scope :search_paid_fallback, ->(value) { value.blank? ? all : where(paid_fallback: value) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
   scope :search_negative_keywords, ->(*values) { values.blank? ? all : with_any_negative(*values) }
   scope :search_status, ->(*values) { values.blank? ? all : where(status: values) }

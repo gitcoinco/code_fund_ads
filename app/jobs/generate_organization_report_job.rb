@@ -23,7 +23,7 @@ class GenerateOrganizationReportJob < ApplicationJob
         javascript: true,
         prince_options: {
           http_user: ENV["DOCRAPTOR_HTTP_USERNAME"],
-          http_password: ENV["DOCRAPTOR_HTTP_PASSWORD"]
+          http_password: ENV["DOCRAPTOR_HTTP_PASSWORD"],
         }
       )
 

@@ -5,6 +5,7 @@
       <%= f.input(:user_id, label: "Publisher", collection: User.publishers.order(last_name: :asc).map { |u| [u.name, u.id] }, required: false, input_html: { data: { controller: "select" }}) %>
     <% end %>
 
+    <%= f.input(:property_types, collection: property_types_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}) %>
     <%= f.input(:url, label: "URL", required: false) %>
     <%= f.input(:statuses, label: "Status", collection: property_statuses_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}) %>
     <%= f.input(:keywords, collection: keywords_for_select, required: false, input_html: { multiple: true, data: { controller: "select" }}) %>

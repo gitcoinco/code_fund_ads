@@ -34,6 +34,7 @@
 #  hourly_budget_currency  :string           default("USD"), not null
 #  prohibited_property_ids :bigint           default([]), not null, is an Array
 #  creative_ids            :bigint           default([]), not null, is an Array
+#  paid_fallback           :boolean          default(FALSE)
 #
 
 require "test_helper"

@@ -1,7 +1,6 @@
 <%= simple_form_for property, html: { class: "js-validate" }, wrapper: :front_form do |f| %>
   <%= render "/@shared/forms/section_heading", title: "Property Details", subtitle: "Tell us about your property" %>
   <%= render "/@shared/forms/error_messages", object: property %>
-  <%= f.input :property_type, as: :hidden, input_html: { value: "website" } %>
 
   <div class="row">
     <%= tag.div f.input(:status, label: "Status", collection: ENUMS::PROPERTY_STATUSES.values.map { |status| [status.capitalize, status] }, required: true,
@@ -9,7 +8,9 @@
     <%= tag.div f.input(:revenue_percentage, required: true, input_html: { class: "form-control" },
         data: { msg: "Please enter a property name", error_class: "u-has-error", success_class: "u-has-success" }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
     <%= tag.div f.input(:name, required: true, input_html: { class: "form-control" },
-      data: { msg: "Please enter a property name", error_class: "u-has-error", success_class: "u-has-success" }), class: "col-12 mb-3" %>
+      data: { msg: "Please enter a property name", error_class: "u-has-error", success_class: "u-has-success" }), class: "col-md-6 mb-3" %>
+    <%= tag.div f.input(:property_type, label: "Type", collection: ENUMS::PROPERTY_TYPES.values.map { |property_type| [property_type.capitalize, property_type] }, required: true,
+      input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" %>
     <%= tag.div f.input(:description, input_html: { class: "form-control", rows: 2 }), class: "col-12 mb-3" %>
     <%= tag.div f.input(:url, as: :url, required: true, placeholder: "https://", input_html: { class: "form-control" },
       data: { msg: "Please enter a valid website URL", error_class: "u-has-error", success_class: "u-has-success", rule_url: true }), class: "col-12 mb-3" %>

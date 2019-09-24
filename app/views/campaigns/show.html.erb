@@ -65,6 +65,8 @@
         <% end if @campaign.prohibited_properties.present? %>
         <% if @campaign.fallback? %>
           <%= details_li("Fallback Campaign?") { "Yes" } %>
+        <% elsif @campaign.paid_fallback? %>
+          <%= details_li("Paid Fallback?") { "Yes" } %>
         <% else %>
           <%= details_li("Hourly <small>Budget Cap</small>") { @campaign.hourly_budget.format } %>
           <%= details_li("Daily <small>Budget Cap</small>") { @campaign.daily_budget.format } %>

@@ -62,6 +62,46 @@ export default class extends Controller {
     });
   }
 
+  selectAll() {
+    document
+      .querySelectorAll(
+        "[data-target='checkbox-tree-branch.selectAll'], [data-target='checkbox-tree-branch.leaf']"
+      )
+      .forEach(elm => {
+        elm.checked = true;
+      });
+  }
+
+  selectNone() {
+    document
+      .querySelectorAll(
+        "[data-target='checkbox-tree-branch.selectAll'], [data-target='checkbox-tree-branch.leaf']"
+      )
+      .forEach(elm => {
+        elm.checked = false;
+      });
+  }
+
+  expandAll() {
+    document
+      .querySelectorAll(
+        "[data-target='checkbox-tree-branch.toggle'], [data-target='checkbox-tree-branch.leaves']"
+      )
+      .forEach(elm => {
+        elm.classList.add('open');
+      });
+  }
+
+  collapseAll() {
+    document
+      .querySelectorAll(
+        "[data-target='checkbox-tree-branch.toggle'], [data-target='checkbox-tree-branch.leaves']"
+      )
+      .forEach(elm => {
+        elm.classList.remove('open');
+      });
+  }
+
   get selectedCountryCodes() {
     return toArray(document.querySelectorAll("[data-target='checkbox-tree-branch.leaf']:checked")).map(
       o => o.value

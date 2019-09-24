@@ -110,7 +110,6 @@ class CampaignsController < ApplicationController
     return advertiser_campaign_params if !authorized_user.can_admin_system? && @campaign.fixed_ecpm
     return extended_advertiser_campaign_params unless authorized_user.can_admin_system?
     params.require(:campaign).permit(
-      :core_hours_only,
       :daily_budget,
       :date_range,
       :ecpm,
@@ -118,11 +117,11 @@ class CampaignsController < ApplicationController
       :fixed_ecpm,
       :hourly_budget,
       :name,
+      :paid_fallback,
       :status,
       :total_budget,
       :url,
       :user_id,
-      :weekdays_only,
       assigned_property_ids: [],
       country_codes: [],
       creative_ids: [],
@@ -143,10 +142,8 @@ class CampaignsController < ApplicationController
 
   def extended_advertiser_campaign_params
     params.require(:campaign).permit(
-      :core_hours_only,
       :name,
       :url,
-      :weekdays_only,
       country_codes: [],
       creative_ids: [],
       keywords: [],
