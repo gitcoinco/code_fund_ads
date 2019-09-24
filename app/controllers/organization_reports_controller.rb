@@ -1,6 +1,7 @@
 class OrganizationReportsController < ApplicationController
   before_action :authenticate_user!, except: :show
-  before_action :set_organization
+  before_action :set_organization, except: :show
+  http_basic_authenticate_with name: ENV.fetch("DOCRAPTOR_HTTP_USERNAME", "user"), password: ENV.fetch("DOCRAPTOR_HTTP_PASSWORD", "secret"), only: :show
 
   def index
     organization_reports = @organization.organization_reports.order(created_at: :desc)
@@ -26,6 +27,7 @@ class OrganizationReportsController < ApplicationController
   end
 
   def show
+    @organization = Organization.find(params[:organization_id])
     @report = @organization.organization_reports.find(params[:id])
     @summaries = {}
     @report.campaigns.each do |campaign|
@@ -55,7 +57,7 @@ class OrganizationReportsController < ApplicationController
     @organization = if authorized_user.can_admin_system?
       Organization.find(params[:organization_id])
     else
-      current_user.organization
+      current_user&.organization
     end
   end
 
