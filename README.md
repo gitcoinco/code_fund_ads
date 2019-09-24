@@ -1,6 +1,6 @@
 <p align="center">
-  <a href="https://stage.codefund.app/properties/476/visit-sponsor">
-    <img src="https://stage.codefund.app/properties/476/sponsor" />
+  <a href="https://codefund.io/properties/444/visit-sponsor">
+    <img src="https://codefund.io/properties/444/sponsor" />
   </a>
 </p>
 
