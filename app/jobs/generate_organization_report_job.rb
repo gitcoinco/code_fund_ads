@@ -20,7 +20,11 @@ class GenerateOrganizationReportJob < ApplicationJob
         document_url: report_url,
         name: filename,
         document_type: "pdf",
-        javascript: true
+        javascript: true,
+        prince_options: {
+          http_user: ENV["DOCRAPTOR_HTTP_USERNAME"],
+          http_password: ENV["DOCRAPTOR_HTTP_PASSWORD"]
+        }
       )
 
       tempfile = Tempfile.new(filename)
@@ -34,7 +38,7 @@ class GenerateOrganizationReportJob < ApplicationJob
       Rails.logger.error(ex)
       organization_report.update(status: "error")
     ensure
-      tempfile.close
+      tempfile&.close
     end
   end
 end

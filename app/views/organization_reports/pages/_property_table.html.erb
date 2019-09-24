@@ -32,7 +32,7 @@ summaries = campaign.daily_summary_reports_by_property(report.start_date, report
       <td class="text-center"><%= row[:scoped_by_id] %></td>
       <td class="text-left">
         <%= link_to property.name, property.url %>
-        <% if campaign.prohibit_property?(property.id) %>
+        <% if campaign.prohibited_property?(property) %>
           <span class="badge-removed">Removed</span>
         <% end %>
       </td>
