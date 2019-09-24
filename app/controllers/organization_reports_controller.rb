@@ -15,6 +15,7 @@ class OrganizationReportsController < ApplicationController
     @organization_report = @organization.organization_reports.build(organization_report_params)
     respond_to do |format|
       if @organization_report.save
+        GenerateOrganizationReportJob.perform_later(id: @organization_report.id, report_url: organization_report_url(@organization, @organization_report))
         format.html { redirect_to organization_reports_path(@organization), notice: "Report was successfully requested." }
         format.json { render :ok, status: :created }
       else
@@ -51,7 +52,11 @@ class OrganizationReportsController < ApplicationController
   private
 
   def set_organization
-    @organization = Organization.find(params[:organization_id])
+    @organization = if authorized_user.can_admin_system?
+      Organization.find(params[:organization_id])
+    else
+      current_user.organization
+    end
   end
 
   def organization_report_params

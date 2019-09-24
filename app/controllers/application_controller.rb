@@ -114,6 +114,11 @@ class ApplicationController < ActionController::Base
     users_path
   end
 
+  def current_organization
+    current_user&.organization
+  end
+  helper_method :current_organization
+
   def reload_extensions
     load Rails.root.join("app/lib/extensions.rb")
   end

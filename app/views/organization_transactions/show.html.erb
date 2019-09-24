@@ -9,7 +9,7 @@
     <li><%= render "/@shared/actions/edit_organization_transaction", organization: @organization, organization_transaction: @organization_transaction %></li>
     <li class="ml-1"><%= render "/@shared/actions/delete_organization_transaction", organization: @organization, organization_transaction: @organization_transaction %></li>
   </ul>
-<% end %>
+<% end if authorized_user.can_admin_system? %>
 
 <% content_for :page_heading do %>
   <%= page_heading "Viewing", "Transaction",

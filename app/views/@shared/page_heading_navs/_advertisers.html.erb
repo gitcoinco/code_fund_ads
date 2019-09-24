@@ -2,6 +2,10 @@
   class: "nav-link u-header__nav-link",
   wrap_tag: :li,
   wrap_class: "nav-item hs-has-sub-menu u-header__nav-item" %>
+<%= active_link_to "Organization", organization_path(current_organization),
+  class: "nav-link u-header__nav-link",
+  wrap_tag: :li,
+  wrap_class: "nav-item hs-has-sub-menu u-header__nav-item" %>
 <%= active_link_to "Campaigns", campaigns_path,
   class: "nav-link u-header__nav-link",
   wrap_tag: :li,

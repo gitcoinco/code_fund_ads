@@ -1,7 +1,7 @@
 class OrganizationsController < ApplicationController
   include Sortable
 
-  before_action :authenticate_administrator!
+  before_action :authenticate_administrator!, except: [:show]
   before_action :set_organization_search, only: [:index]
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
 
