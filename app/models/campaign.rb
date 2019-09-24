@@ -269,8 +269,9 @@ class Campaign < ApplicationRecord
     update(prohibited_property_ids: ids)
   end
 
-  def prohibit_property?(property_id)
-    prohibited_property_ids.compact.include? property_id.to_i
+  def prohibited_property?(property)
+    property_id = property.is_a?(Property) ? property.id : property.to_i
+    prohibited_property_ids.compact.include? property_id
   end
 
   def permit_property!(property_id)
