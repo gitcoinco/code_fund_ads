@@ -16,6 +16,9 @@
   <div class="container space-1">
     <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
       <%= render "/@shared/widgets/stat_card",
+        label: "Remaining Balance",
+        value: current_organization.balance.format %>
+      <%= render "/@shared/widgets/stat_card",
         label: "Impressions",
         value: number_with_delimiter(current_user.impressions_count_as_advertiser(@start_date, @end_date)) %>
       <%= render "/@shared/widgets/stat_card",

@@ -78,7 +78,7 @@ class CreativesController < ApplicationController
   end
 
   def set_creative
-    @creative = if authorized_user.can_admin_system?
+    @creative = if authorized_user(true).can_admin_system?
       Creative.find(params[:id])
     else
       current_user.creatives.find(params[:id])
@@ -87,7 +87,7 @@ class CreativesController < ApplicationController
 
   def creative_params
     params.require(:creative).permit(:creative_type, :name, :headline, :body, :cta).tap do |whitelisted|
-      whitelisted[:status] = params[:creative][:status] if authorized_user.can_admin_system?
+      whitelisted[:status] = params[:creative][:status] if authorized_user(true).can_admin_system?
     end
   end
 
@@ -96,10 +96,10 @@ class CreativesController < ApplicationController
   end
 
   def authenticate_creative_create_rights!
-    return render_forbidden unless authorized_user.can_create_creative?
+    return render_forbidden unless authorized_user(true).can_create_creative?
   end
 
   def authenticate_creative_update_rights!
-    return render_forbidden unless authorized_user.can_edit_creative?(@creative)
+    return render_forbidden unless authorized_user(true).can_edit_creative?(@creative)
   end
 end

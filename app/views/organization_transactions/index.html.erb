@@ -7,6 +7,10 @@
     <%= link_to new_organization_transaction_path(@organization), class: "btn btn-sm btn-success transition-3d-hover", style: "height: 42px;" do %>
       <span class="fa fa-plus font-size-13 mr-2"></span>
       Add Transaction
+    <% end if authorized_user.can_admin_system? %>
+    <%= link_to organization_transactions_path(@organization, format: :csv), class: "btn btn-sm btn-info text-white transition-3d-hover", style: "height: 42px;" do %>
+      <span class="fa fa-download font-size-13 mr-2"></span>
+      Export to CSV
     <% end %>
   </div>
 

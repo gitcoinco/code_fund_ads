@@ -79,6 +79,34 @@ class Organization < ApplicationRecord
     update_attribute(:balance, total_credits - total_debits)
   end
 
+  def organization_transactions_csv
+    require "csv"
+    CSV.generate do |csv|
+      csv << %w[
+        id
+        organization_id
+        posted_at
+        amount
+        transaction_type
+        gift
+        description
+        reference
+      ]
+      organization_transactions.each do |record|
+        row = []
+        row << record.id
+        row << record.organization_id
+        row << record.posted_at
+        row << record.amount.format
+        row << record.transaction_type
+        row << record.gift
+        row << record.description
+        row << record.reference
+        csv << row
+      end
+    end
+  end
+
   # protected instance methods ................................................
   # private instance methods ..................................................
 end

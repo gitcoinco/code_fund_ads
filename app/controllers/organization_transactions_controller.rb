@@ -9,6 +9,16 @@ class OrganizationTransactionsController < ApplicationController
   def index
     organization_transactions = @organization.organization_transactions.order(order_by)
     @pagy, @organization_transactions = pagy(organization_transactions)
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        send_data(
+          @organization.organization_transactions_csv,
+          filename: "organization-transactions-#{@organization.id}.csv"
+        )
+      end
+    end
   end
 
   def new

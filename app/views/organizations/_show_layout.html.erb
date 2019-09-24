@@ -1,5 +1,5 @@
 <% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/organizations" %>
+  <%= render "/@shared/breadcrumbs/organizations" if authorized_user.can_admin_system? %>
   <%= render "/@shared/breadcrumbs/organization", organization: organization, class: "active" %>
 <% end %>
 
@@ -18,7 +18,7 @@
       <%= tag.li(active_link_to("Details", organization, active: :exact,
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
       <%= tag.li(active_link_to("Members", organization_users_path(organization),
-        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link"))  %>
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) if authorized_user.can_admin_system?  %>
       <%= tag.li(active_link_to("Transactions", organization_transactions_path(organization),
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
       <%= tag.li(active_link_to("Reports", organization_reports_path(organization),

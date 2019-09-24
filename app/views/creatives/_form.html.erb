@@ -9,7 +9,7 @@
         <input type="text" class="form-control" placeholder="<%= current_user.name %>" aria-label="<%= current_user.name %>" readonly>
       </div>
     </div>
-    <% if authorized_user.can_admin_system? %>
+    <% if authorized_user(true).can_admin_system? %>
       <div class="col-12 col-md-4 mb-3">
         <%= f.input(:status, label: "Status", collection: creative_statuses_for_select,
               input_html: { class: "form-control", data: { controller: "select" }}) %>

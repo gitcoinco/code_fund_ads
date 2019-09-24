@@ -30,7 +30,12 @@ summaries = campaign.daily_summary_reports_by_property(report.start_date, report
         "success": ctr >= 0.2 && impressions > 10_000
       ) do %>
       <td class="text-center"><%= row[:scoped_by_id] %></td>
-      <td class="text-left"><%= link_to property.name, property.url %></td>
+      <td class="text-left">
+        <%= link_to property.name, property.url %>
+        <% if campaign.prohibit_property?(property.id) %>
+          <span class="badge-removed">Removed</span>
+        <% end %>
+      </td>
       <td><%= number_to_currency revenue %></td>
       <td><%= number_with_delimiter impressions %></td>
       <td><%= number_with_delimiter clicks %></td>
