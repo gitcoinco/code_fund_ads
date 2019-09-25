@@ -19,7 +19,7 @@ jobs:
           AWS_S3_SECRET_ACCESS_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYzEXAMPLEKEY
           BASE_ECPM: 400
           BUFFER_ENABLED: false
-          DEFAULT_HOST: codefund.app
+          DEFAULT_HOST: codefund.io
           ENABLED_FEATURES: jobs
           HUBSPOT_ENABLED: false
           PG_TIMEOUT_IN_SECONDS: 3

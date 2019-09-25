@@ -2,7 +2,7 @@ json.key_format! camelize: :lower # TODO: remove this line in favor of global se
 if @campaign
   json.campaign_url @campaign_url
   json.impression_url @impression_url
-  json.codefund_url "https://codefund.app"
+  json.codefund_url "https://codefund.io"
   json.fallback @campaign.fallback?
   json.headline @campaign.creative.sanitized_headline
   json.body @campaign.creative.sanitized_body

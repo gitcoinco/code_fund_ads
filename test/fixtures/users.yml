@@ -73,7 +73,7 @@ administrator:
     - <%= ENUMS::USER_ROLES::ADMINISTRATOR %>
   first_name: Test
   last_name: Administrator
-  email: administrator@codefund.app
+  email: administrator@codefund.io
   encrypted_password: <%= User.new(password: "secret").encrypted_password %>
 
 publisher:
@@ -82,7 +82,7 @@ publisher:
     - <%= ENUMS::USER_ROLES::PUBLISHER %>
   first_name: Test
   last_name: Publisher
-  email: publisher@codefund.app
+  email: publisher@codefund.io
   encrypted_password: <%= User.new(password: "secret").encrypted_password %>
 
 advertiser:
@@ -91,5 +91,5 @@ advertiser:
     - <%= ENUMS::USER_ROLES::ADVERTISER %>
   first_name: Test
   last_name: Advertiser
-  email: advertiser@codefund.app
+  email: advertiser@codefund.io
   encrypted_password: <%= User.new(password: "secret").encrypted_password %>
