@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_16_195048) do
+ActiveRecord::Schema.define(version: 2019_09_24_203350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 2019_09_16_195048) do
     t.string "hourly_budget_currency", default: "USD", null: false
     t.bigint "prohibited_property_ids", default: [], null: false, array: true
     t.bigint "creative_ids", default: [], null: false, array: true
+    t.boolean "paid_fallback", default: false
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
     t.index ["assigned_property_ids"], name: "index_campaigns_on_assigned_property_ids", using: :gin
     t.index ["core_hours_only"], name: "index_campaigns_on_core_hours_only"
@@ -86,6 +87,7 @@ ActiveRecord::Schema.define(version: 2019_09_16_195048) do
     t.index ["keywords"], name: "index_campaigns_on_keywords", using: :gin
     t.index ["negative_keywords"], name: "index_campaigns_on_negative_keywords", using: :gin
     t.index ["organization_id"], name: "index_campaigns_on_organization_id"
+    t.index ["paid_fallback"], name: "index_campaigns_on_paid_fallback"
     t.index ["prohibited_property_ids"], name: "index_campaigns_on_prohibited_property_ids", using: :gin
     t.index ["province_codes"], name: "index_campaigns_on_province_codes", using: :gin
     t.index ["start_date"], name: "index_campaigns_on_start_date"

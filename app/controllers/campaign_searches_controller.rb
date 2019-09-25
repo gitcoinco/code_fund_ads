@@ -35,8 +35,14 @@ class CampaignSearchesController < ApplicationController
       province_codes: [],
       statuses: [],
     ).tap do |whitelisted|
-      whitelisted[:fallback] = false if whitelisted[:fallback] == "No"
-      whitelisted[:fallback] = true if whitelisted[:fallback] == "Yes"
+      if whitelisted[:fallback] == "paid"
+        whitelisted[:fallback] = false
+        whitelisted[:paid_fallback] = true
+      else
+        whitelisted[:paid_fallback] = false
+        whitelisted[:fallback] = false if whitelisted[:fallback] == "No"
+        whitelisted[:fallback] = true if whitelisted[:fallback] == "Yes"
+      end
     end
   end
 end

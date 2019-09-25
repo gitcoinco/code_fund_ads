@@ -172,7 +172,8 @@ CREATE TABLE public.campaigns (
     hourly_budget_cents integer DEFAULT 0 NOT NULL,
     hourly_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     prohibited_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
-    creative_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
+    creative_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
+    paid_fallback boolean DEFAULT false
 );
 
 
@@ -1623,6 +1624,13 @@ CREATE INDEX index_campaigns_on_organization_id ON public.campaigns USING btree 
 
 
 --
+-- Name: index_campaigns_on_paid_fallback; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_paid_fallback ON public.campaigns USING btree (paid_fallback);
+
+
+--
 -- Name: index_campaigns_on_prohibited_property_ids; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2367,6 +2375,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190821192233'),
 ('20190903173535'),
 ('20190913192015'),
-('20190916195048');
+('20190916195048'),
+('20190924203350');
 
 

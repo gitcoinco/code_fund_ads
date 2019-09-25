@@ -117,11 +117,11 @@
     <div class="col-12 mb-2">
       <div class="media align-items-center mb-3">
         <label class="checkbox-switch mb-0 mr-3">
-          <%= f.check_box :fallback, class: "checkbox-switch__input" %>
+          <%= f.check_box :paid_fallback, class: "checkbox-switch__input" %>
           <span class="checkbox-switch__slider"></span>
         </label>
         <label class="media-body text-muted mb-0">
-          <span class="d-block text-dark">Is this a fallback campaign?</span>
+          <span class="d-block text-dark">Is this a paid fallback campaign?</span>
         </label>
       </div>
     </div>
@@ -131,25 +131,11 @@
     <div class="col-12 mb-2">
       <div class="media align-items-center mb-3">
         <label class="checkbox-switch mb-0 mr-3">
-          <%= f.check_box :core_hours_only, class: "checkbox-switch__input" %>
+          <%= f.check_box :fallback, class: "checkbox-switch__input" %>
           <span class="checkbox-switch__slider"></span>
         </label>
-        <label class="media-body text-muted mb-0" for="campaign_core_hours_only">
-          <span class="d-block text-dark">Only display between 5am to midnight visitor time?</span>
-        </label>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-12 mb-5">
-      <div class="media align-items-center mb-3">
-        <label class="checkbox-switch mb-0 mr-3">
-          <%= f.check_box :weekdays_only, class: "checkbox-switch__input" %>
-          <span class="checkbox-switch__slider"></span>
-        </label>
-        <label class="media-body text-muted mb-0" for="campaign_weekdays_only">
-          <span class="d-block text-dark">Only display on weekdays?</span>
+        <label class="media-body text-muted mb-0">
+          <span class="d-block text-dark">Is this a fallback campaign?</span>
         </label>
       </div>
     </div>
@@ -162,6 +148,12 @@
       <div class="col-12 mb-3">
         <%= f.label :country_codes, label: "Targeted Countries", class: "form-label", required: true %>
         <div class="checkbox-tree" data-target="select-geo-targets.countryCodesSelect">
+          <div class="mb-1">
+            <%= link_to "Select All", "javascript:;", class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-geo-targets#selectAll" } %>
+            <%= link_to "Clear", "javascript:;", class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-geo-targets#selectNone" } %>
+            <%= link_to "Expand All", "javascript:;", class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-geo-targets#expandAll" } %>
+            <%= link_to "Collapse All", "javascript:;", class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: { action: "click->select-geo-targets#collapseAll" } %>
+          </div>
           <% Country.all.map(&:subregion).uniq.sort.each do |subregion| %>
             <div class="checkbox-tree__branch" data-controller="checkbox-tree-branch">
               <i class="fa fa-caret-right"
