@@ -261,18 +261,18 @@ class AdvertisementsController < ApplicationController
     end
 
     # pre-selected fallback
-    chosen_campaign = choose_campaign(fallback_campaign_relation, ignore_budgets: true)
+    campaign = choose_campaign(fallback_campaign_relation, ignore_budgets: true)
 
     # paid fallback
-    if rand < ENV.fetch("PAID_FALLBACK_PERCENT", "90").to_f / 100
-      chosen_campaign ||= begin
+    if rand < ENV.fetch("PAID_FALLBACK_PERCENT", 90).to_f / 100
+      campaign ||= begin
         fallback_campaign_relation = campaign_relation.without_assigned_property_ids.paid_fallback
         choose_campaign fallback_campaign_relation, ignore_budgets: true
       end
     end
 
     # unpaid fallback
-    chosen_campaign ||= begin
+    campaign ||= begin
       fallback_campaign_relation = campaign_relation.fallback_with_assigned_property_id(property_id)
         .or(campaign_relation.without_assigned_property_ids.fallback_for_property_id(property_id))
       if property.assigned_fallback_campaign_ids.present?
@@ -281,7 +281,7 @@ class AdvertisementsController < ApplicationController
       choose_campaign fallback_campaign_relation, ignore_budgets: true
     end
 
-    chosen_campaign
+    campaign
   end
 
   def choose_campaign(campaign_relation, ignore_budgets: false)

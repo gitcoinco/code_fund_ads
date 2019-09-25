@@ -1624,6 +1624,13 @@ CREATE INDEX index_campaigns_on_organization_id ON public.campaigns USING btree 
 
 
 --
+-- Name: index_campaigns_on_paid_fallback; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_paid_fallback ON public.campaigns USING btree (paid_fallback);
+
+
+--
 -- Name: index_campaigns_on_prohibited_property_ids; Type: INDEX; Schema: public; Owner: -
 --
 

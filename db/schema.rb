@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2019_09_24_203350) do
     t.index ["keywords"], name: "index_campaigns_on_keywords", using: :gin
     t.index ["negative_keywords"], name: "index_campaigns_on_negative_keywords", using: :gin
     t.index ["organization_id"], name: "index_campaigns_on_organization_id"
+    t.index ["paid_fallback"], name: "index_campaigns_on_paid_fallback"
     t.index ["prohibited_property_ids"], name: "index_campaigns_on_prohibited_property_ids", using: :gin
     t.index ["province_codes"], name: "index_campaigns_on_province_codes", using: :gin
     t.index ["start_date"], name: "index_campaigns_on_start_date"
