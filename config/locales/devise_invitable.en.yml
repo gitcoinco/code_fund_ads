@@ -3,6 +3,8 @@ en:
     failure:
       invited: "You have a pending invitation, accept it to finish creating your account."
     invitations:
+      pending: Pending invitation
+      not_sent: "The invitation cannot be sent, user has already accepted an invitation!"
       send_instructions: "An invitation email has been sent to %{email}."
       invitation_token_invalid: "The invitation token provided is not valid!"
       updated: "Your password was set successfully. You are now signed in."

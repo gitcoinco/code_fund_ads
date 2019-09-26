@@ -40,6 +40,7 @@ Rails.application.routes.draw do
   resource :pricing, only: [:show]
   resource :search, only: [:show], controller: :search
   resources :websites, only: [:index]
+  resources :administrator_invitations, only: [:update], path: "/administrator/invitations"
   resource :administrator_dashboards, only: [:show], path: "/dashboards/administrator"
   resource :advertiser_dashboards, only: [:show], path: "/dashboards/advertiser"
   resource :publisher_dashboards, only: [:show], path: "/dashboards/publisher"
