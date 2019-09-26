@@ -6,6 +6,7 @@ class CampaignSearch < ApplicationSearchRecord
     fallback
     name
     negative_keywords
+    paid_fallback
     province_codes
     statuses
     user
@@ -33,6 +34,7 @@ class CampaignSearch < ApplicationSearchRecord
       .then { |result| result.search_country_codes(*country_codes) }
       .then { |result| result.search_province_codes(*province_codes) }
       .then { |result| result.search_fallback(fallback) }
+      .then { |result| result.search_paid_fallback(paid_fallback) }
       .then { |result| result.search_name(name) }
       .then { |result| result.search_status(*statuses) }
       .then { |result| core_hours_only ? result.search_core_hours_only(core_hours_only) : result }
