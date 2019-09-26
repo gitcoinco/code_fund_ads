@@ -71,8 +71,8 @@ GEM
       activerecord (>= 4.0)
       activesupport (>= 4.0)
       awesome_nested_set (>= 3.0)
-    addressable (2.6.0)
-      public_suffix (>= 2.0.2, < 4.0)
+    addressable (2.7.0)
+      public_suffix (>= 2.0.2, < 5.0)
     airbrake (9.4.4)
       airbrake-ruby (~> 4.6)
     airbrake-ruby (4.6.0)
@@ -346,7 +346,7 @@ GEM
       yard (~> 0.9.11)
     pry-rails (0.3.9)
       pry (>= 0.10.4)
-    public_suffix (3.1.1)
+    public_suffix (4.0.1)
     puma (4.2.0)
       nio4r (~> 2.0)
     rack (2.0.7)
@@ -590,7 +590,6 @@ DEPENDENCIES
   active_link_to (~> 1.0.5)
   active_storage_svg_sanitizer (~> 0.1.0)
   acts_as_commentable_with_threading (~> 2.0.1)
-  addressable (= 2.6.0)
   airbrake (~> 9.3)
   annotate
   awesome_print
