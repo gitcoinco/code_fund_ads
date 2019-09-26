@@ -148,7 +148,7 @@ ENUMS::USER_ROLES.constants
 
 ###### Prerequisites
 
-- ruby version `2.6.3` via [rbenv](https://github.com/rbenv/rbenv)
+- ruby version `2.6.4` via [rbenv](https://github.com/rbenv/rbenv)
 - NodeJS version `<12.0.0` via [nvm](https://github.com/nvm-sh/nvm) with yarn installed globally
 - graphviz `brew install graphviz` or `sudo apt-get install graphviz`
 - PostgreSQL 11
