@@ -12,7 +12,7 @@ Our platform follows the "ethical advertising" guidelines that ReadTheDocs estab
 
 ## Pricing
 
-Please see https://codefund.app/pricing
+Please see https://codefund.io/pricing
 
 ## Targeting
 

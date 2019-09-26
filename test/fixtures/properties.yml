@@ -35,7 +35,7 @@ website:
   property_type: <%= ENUMS::PROPERTY_TYPES::WEBSITE %>
   status: <%= ENUMS::PROPERTY_STATUSES::ACTIVE %>
   name: Website
-  url: https://website.codefund.app
+  url: https://website.codefund.io
   language: <%= ENUMS::LANGUAGES::ENGLISH %>
   revenue_percentage: 0.65
   ad_template: default
@@ -46,7 +46,7 @@ repository:
   property_type: <%= ENUMS::PROPERTY_TYPES::REPOSITORY %>
   status: <%= ENUMS::PROPERTY_STATUSES::ACTIVE %>
   name: Repository
-  url: https://repository.codefund.app
+  url: https://repository.codefund.io
   language: <%= ENUMS::LANGUAGES::ENGLISH %>
   revenue_percentage: 0.65
   ad_template: default
@@ -57,7 +57,7 @@ newsletter:
   property_type: <%= ENUMS::PROPERTY_TYPES::NEWSLETTER %>
   status: <%= ENUMS::PROPERTY_STATUSES::ACTIVE %>
   name: Newsletter
-  url: https://newsletter.codefund.app
+  url: https://newsletter.codefund.io
   language: <%= ENUMS::LANGUAGES::ENGLISH %>
   revenue_percentage: 0.65
   ad_template: default

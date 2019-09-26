@@ -14,7 +14,7 @@ class BufferNewJobPostingJob < ApplicationJob
         now: true, # Set to false if you want to buffer the tweets instead
         media: {
           picture: job_posting.company_logo_url,
-          link: "https://codefund.app/jobs/directory/#{job_posting.id}",
+          link: "https://codefund.io/jobs/directory/#{job_posting.id}",
           title: "#{job_posting.company_name} is hiring",
           description: job_posting.title,
         },
