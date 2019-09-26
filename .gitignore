@@ -39,3 +39,4 @@ yarn-debug.log*
 *.dump
 legacy
 lib/tasks/impressions.rake
+/coverage
