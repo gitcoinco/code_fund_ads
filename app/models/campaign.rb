@@ -425,6 +425,8 @@ class Campaign < ApplicationRecord
   def validate_assigned_properties
     return unless sponsor?
     return unless active?
+    return if fallback?
+    return if paid_fallback?
 
     conflicting_campaigns = Campaign.premium.with_any_assigned_property_ids(*assigned_property_ids).available_on(start_date)
       .or(Campaign.premium.with_any_assigned_property_ids(*assigned_property_ids).available_on(end_date))
