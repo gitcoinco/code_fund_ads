@@ -76,7 +76,7 @@
           <span class="u-divider u-divider--xs u-divider--text">or</span>
         </div>
 
-        <%= link_to user_github_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
+        <%= link_to user_github_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;", method: :post do %>
           <%= image_tag "logos/GitHub-Mark-64px.png", style: "position: absolute; left: 18px; top: 14px; width: 18px;" %>
           Log in with GitHub
         <% end %>
