@@ -3,10 +3,12 @@ default: &default
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS", 10).to_i %>
   timeout: <%= ENV.fetch("PG_TIMEOUT_IN_SECONDS", 3).to_i.seconds %>
+  username: <%= ENV['PG_USERNAME'] %>
+  password: <%= ENV['PG_PASSWORD'] %>
 
 development:
   <<: *default
-  host: localhost
+  hostname: localhost
   database: <%= ENV.fetch("PG_DATABASE_NAME", "code_fund_ads_development") %>
 
 test:
