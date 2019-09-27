@@ -76,19 +76,9 @@
           <span class="u-divider u-divider--xs u-divider--text">or</span>
         </div>
 
-        <%= link_to user_google_oauth2_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
-          <%= image_tag "logos/google-logo.svg", style: "position: absolute; left: 18px; top: 14px;" %>
-          Log in with Google
-        <% end %>
-
         <%= link_to user_github_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
           <%= image_tag "logos/GitHub-Mark-64px.png", style: "position: absolute; left: 18px; top: 14px; width: 18px;" %>
           Log in with GitHub
-        <% end %>
-
-        <%= link_to user_linkedin_omniauth_authorize_path, class: "btn btn-outline-light text-dark btn-block transition-3d-hover position-relative", style: "border: 1px solid #ddd;" do %>
-          <%= image_tag "logos/In-2C-66px-TM.png", style: "position: absolute; left: 18px; top: 14px; width: 22px;" %>
-          Log in with LinkedIn
         <% end %>
       <% end %>
     <% end %>

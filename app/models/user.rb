@@ -159,11 +159,7 @@ class User < ApplicationRecord
     :timeoutable,
     :trackable,
     :validatable,
-    omniauth_providers: [
-      :github,
-      :google_oauth2,
-      :linkedin,
-    ]
+    omniauth_providers: [:github]
   )
   has_one_attached :avatar
   acts_as_commentable
