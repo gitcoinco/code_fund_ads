@@ -1,8 +1,4 @@
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
-  def linkedin
-    register(request.env["omniauth.auth"])
-  end
-
   def github
     access_token = request.env["omniauth.auth"]
     raw_info = access_token.dig(:extra, :raw_info)
@@ -14,10 +10,6 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       website_url: raw_info[:blog],
       github_username: raw_info[:login],
     })
-  end
-
-  def google_oauth2
-    register(request.env["omniauth.auth"])
   end
 
   protected
