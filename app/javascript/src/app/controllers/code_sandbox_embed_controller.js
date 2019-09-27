@@ -1,33 +1,35 @@
-import { Controller } from 'stimulus';
-import { getParameters } from 'codesandbox-import-utils/lib/api/define';
+import { Controller } from 'stimulus'
+import { getParameters } from 'codesandbox-import-utils/lib/api/define'
 
 export default class extends Controller {
-  connect() {
-    const { url } = this.element.dataset;
-    const content = this.generateIndexContent(url);
-    const params = this.generateParams(content);
-    this.createSandbox(params);
+  connect () {
+    const { url } = this.element.dataset
+    const content = this.generateIndexContent(url)
+    const params = this.generateParams(content)
+    this.createSandbox(params)
   }
 
-  createSandbox(params) {
-    const url = `https://codesandbox.io/api/v1/sandboxes/define?json=1&parameters=${params}`;
+  createSandbox (params) {
+    const url = `https://codesandbox.io/api/v1/sandboxes/define?json=1&parameters=${params}`
     return fetch(url, { method: 'GET', dataType: 'json' })
       .then(
         (response => {
-          return response.json();
+          return response.json()
         }).bind(this)
       )
       .then(
         (payload => {
-          this.element.src = `https://codesandbox.io/embed/${payload.sandbox_id}?hidenavigation=1&codemirror=1&highlights=12,13,14,15,16`;
+          this.element.src = `https://codesandbox.io/embed/${
+            payload.sandbox_id
+          }?hidenavigation=1&codemirror=1&highlights=12,13,14,15,16`
         }).bind(this)
       )
-      .catch(function(error) {
-        console.log(error);
-      });
+      .catch(function (error) {
+        console.log(error)
+      })
   }
 
-  generateIndexContent(url) {
+  generateIndexContent (url) {
     const html = `<!DOCTYPE html>
 <html>
   <body>
@@ -41,27 +43,27 @@ export default class extends Controller {
     <!-- END COPY CODEFUND EMBED -->
 
   </body>
-</html>`;
-    return html;
+</html>`
+    return html
   }
 
-  generateParams(content) {
+  generateParams (content) {
     return getParameters({
       files: {
         'index.html': {
-          content: content,
+          content: content
         },
         'package.json': {
-          content: { dependencies: {}, main: 'index.html' },
+          content: { dependencies: {}, main: 'index.html' }
         },
         'sandbox.config.json': {
           content: JSON.stringify({
             template: 'static',
             hardReloadOnChange: true,
-            infiniteLoopProtection: true,
-          }),
-        },
-      },
-    });
+            infiniteLoopProtection: true
+          })
+        }
+      }
+    })
   }
 }

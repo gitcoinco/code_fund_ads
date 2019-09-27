@@ -1,7 +1,7 @@
-import { Controller } from 'stimulus';
+import { Controller } from 'stimulus'
 
 export default class extends Controller {
-  connect() {
-    jQuery.HSCore.components.HSChartistAreaChart.init(this.element);
+  connect () {
+    jQuery.HSCore.components.HSChartistAreaChart.init(this.element)
   }
 }

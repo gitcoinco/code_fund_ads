@@ -1,12 +1,12 @@
-import { Controller } from 'stimulus';
-import CodeMirror from 'codemirror';
+import { Controller } from 'stimulus'
+import CodeMirror from 'codemirror'
 
 export default class extends Controller {
-  connect() {
+  connect () {
     CodeMirror.fromTextArea(this.element, {
       theme: 'idea',
       lineWrapping: true,
-      extraKeys: { Enter: 'newlineAndIndentContinueMarkdownList' },
-    });
+      extraKeys: { Enter: 'newlineAndIndentContinueMarkdownList' }
+    })
   }
 }

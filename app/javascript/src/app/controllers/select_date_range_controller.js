@@ -1,11 +1,11 @@
 // Boostrap requires jQuery
 // Our use of it here is simply because its already a dependency
 // The verbose use of the `jQuery` variable instead of `$` is intentional so its use is easier to identify
-import { Controller } from 'stimulus';
-import moment from 'moment';
+import { Controller } from 'stimulus'
+import moment from 'moment'
 
 export default class extends Controller {
-  connect() {
+  connect () {
     jQuery(this.element).daterangepicker({
       ranges: {
         'Next 30 Days': [moment(), moment().add(29, 'days')],
@@ -18,9 +18,9 @@ export default class extends Controller {
             .startOf('month'),
           moment()
             .add(1, 'month')
-            .endOf('month'),
-        ],
-      },
-    });
+            .endOf('month')
+        ]
+      }
+    })
   }
 }

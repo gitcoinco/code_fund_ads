@@ -1,45 +1,45 @@
-import { Controller } from 'stimulus';
+import { Controller } from 'stimulus'
 
 export default class extends Controller {
-  static targets = ['toggle', 'selectAll', 'leaves', 'leaf'];
+  static targets = ['toggle', 'selectAll', 'leaves', 'leaf']
 
-  connect() {
-    this.handleLeafChange();
+  connect () {
+    this.handleLeafChange()
   }
 
-  toggleBranch(event) {
-    this.toggleTarget.classList.toggle('open');
-    this.leavesTarget.classList.toggle('open');
+  toggleBranch (event) {
+    this.toggleTarget.classList.toggle('open')
+    this.leavesTarget.classList.toggle('open')
   }
 
-  toggleSelectAll() {
+  toggleSelectAll () {
     this.leafTargets.forEach(leaf => {
-      leaf.checked = this.selectAllTarget.checked;
-    });
+      leaf.checked = this.selectAllTarget.checked
+    })
   }
 
-  handleLeafChange() {
+  handleLeafChange () {
     const allChecked = () => {
       return this.leafTargets.every(leaf => {
-        return leaf.checked;
-      });
-    };
+        return leaf.checked
+      })
+    }
 
     const anyChecked = () => {
       return this.leafTargets.some(leaf => {
-        return leaf.checked;
-      });
-    };
+        return leaf.checked
+      })
+    }
 
     if (allChecked()) {
-      this.selectAllTarget.checked = true;
-      this.selectAllTarget.indeterminate = false;
+      this.selectAllTarget.checked = true
+      this.selectAllTarget.indeterminate = false
     } else if (anyChecked()) {
-      this.selectAllTarget.checked = true;
-      this.selectAllTarget.indeterminate = true;
+      this.selectAllTarget.checked = true
+      this.selectAllTarget.indeterminate = true
     } else {
-      this.selectAllTarget.checked = false;
-      this.selectAllTarget.indeterminate = false;
+      this.selectAllTarget.checked = false
+      this.selectAllTarget.indeterminate = false
     }
   }
 }
