@@ -1,11 +1,11 @@
-import { Controller } from 'stimulus';
-import * as typeformEmbed from '@typeform/embed';
+import { Controller } from 'stimulus'
+import * as typeformEmbed from '@typeform/embed'
 
 export default class extends Controller {
-  connect() {
+  connect () {
     typeformEmbed.makeWidget(this.element, this.element.dataset.url, {
       hideHeaders: true,
-      hideFooter: true,
-    });
+      hideFooter: true
+    })
   }
 }

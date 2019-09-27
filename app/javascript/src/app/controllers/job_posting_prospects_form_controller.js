@@ -1,9 +1,9 @@
-import { Controller } from 'stimulus';
+import { Controller } from 'stimulus'
 
 export default class extends Controller {
-  static targets = ['remoteCountryCodesSelector'];
+  static targets = ['remoteCountryCodesSelector']
 
-  toggleRemote(event) {
-    this.remoteCountryCodesSelectorTarget.hidden = !event.target.checked;
+  toggleRemote (event) {
+    this.remoteCountryCodesSelectorTarget.hidden = !event.target.checked
   }
 }
