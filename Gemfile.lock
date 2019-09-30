@@ -456,7 +456,7 @@ GEM
     sidekiq-failures (1.0.0)
       sidekiq (>= 4.0.0)
     simple-random (1.0.3)
-    simple_form (4.1.0)
+    simple_form (5.0.0)
       actionpack (>= 5.0)
       activemodel (>= 5.0)
     simplecov (0.17.1)
@@ -656,7 +656,7 @@ DEPENDENCIES
   selenium-webdriver
   sidekiq (~> 6.0.0)
   sidekiq-failures (~> 1.0.0)
-  simple_form (~> 4.0)
+  simple_form (~> 5.0)
   simplecov
   sitemap_generator (~> 6.0.2)
   slack-notifier (~> 2.3.2)
