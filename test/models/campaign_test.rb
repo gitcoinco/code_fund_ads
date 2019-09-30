@@ -84,14 +84,14 @@ class CampaignTest < ActiveSupport::TestCase
   test "ecpms fixed" do
     @campaign.fixed_ecpm = true
     assert @campaign.ecpm == Monetize.parse("$3.00 USD")
-    assert @campaign.ecpms == [
-      {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$3.00 USD")},
-      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
+    assert @campaign.ecpms.sort_by { |row| row[:country_iso_code] } == [
       {country_iso_code: "CA", country_name: "Canada", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "FR", country_name: "France", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$3.00 USD")},
       {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$3.00 USD")},
       {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$3.00 USD")},
-      {country_iso_code: "FR", country_name: "France", ecpm: Monetize.parse("$3.00 USD")},
-      {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
     ]
   end
 
@@ -101,14 +101,14 @@ class CampaignTest < ActiveSupport::TestCase
     @campaign.end_date = @campaign.start_date.advance(months: 1)
     assert @campaign.ecpm == Monetize.parse("$3.00 USD")
 
-    assert @campaign.ecpms == [
-      {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$2.61 USD")},
-      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
+    assert @campaign.ecpms.sort_by { |row| row[:country_iso_code] } == [
       {country_iso_code: "CA", country_name: "Canada", ecpm: Monetize.parse("$2.13 USD")},
+      {country_iso_code: "FR", country_name: "France", ecpm: Monetize.parse("$1.08 USD")},
+      {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$2.61 USD")},
+      {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$0.69 USD")},
       {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$1.59 USD")},
       {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$0.93 USD")},
-      {country_iso_code: "FR", country_name: "France", ecpm: Monetize.parse("$1.08 USD")},
-      {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$0.69 USD")},
+      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
     ]
   end
 
@@ -117,14 +117,14 @@ class CampaignTest < ActiveSupport::TestCase
     @campaign.start_date = Date.parse("2019-03-07")
     @campaign.end_date = @campaign.start_date.advance(months: 1)
     assert @campaign.ecpm == Monetize.parse("$3.00 USD")
-    assert @campaign.ecpms == [
-      {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$2.40 USD")},
-      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
+    assert @campaign.ecpms.sort_by { |row| row[:country_iso_code] } == [
       {country_iso_code: "CA", country_name: "Canada", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "FR", country_name: "France", ecpm: Monetize.parse("$2.40 USD")},
+      {country_iso_code: "GB", country_name: "United Kingdom of Great Britain and Northern Ireland", ecpm: Monetize.parse("$2.40 USD")},
+      {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$0.30 USD")},
       {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$0.30 USD")},
       {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$0.90 USD")},
-      {country_iso_code: "FR", country_name: "France", ecpm: Monetize.parse("$2.40 USD")},
-      {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$0.30 USD")},
+      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
     ]
   end
 

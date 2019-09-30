@@ -6,6 +6,12 @@ class CountryTest < ActiveSupport::TestCase
     @country = Country.new
   end
 
+  test "Country find by iso code" do
+    assert Country.find("US").name == "United States of America"
+    assert Country.find("GB").name == "United Kingdom of Great Britain and Northern Ireland"
+    assert Country.find("FR").name == "France"
+  end
+
   test "ecpm with default unknown multiplier" do
     assert @country.ecpm(base: @base_ecpm) == Monetize.parse("$0.20 USD")
   end
