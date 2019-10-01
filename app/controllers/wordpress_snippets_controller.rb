@@ -1,3 +1,5 @@
+require "csv"
+
 class WordpressSnippetsController < ApplicationController
   def show
     return render_property_table if params[:id] == "property_table"
