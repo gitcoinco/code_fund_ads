@@ -526,7 +526,7 @@ GEM
       unicode-display_width (~> 1.5)
       unicode_utils (~> 1.4)
     strings-ansi (0.1.0)
-    stripe (5.2.0)
+    stripe (5.4.1)
     tag_columns (0.1.8)
       activesupport
     teamocil (1.4.2)
@@ -682,7 +682,7 @@ DEPENDENCIES
   staccato (~> 0.5.1)
   standard
   stopwords-filter (~> 0.4.1)
-  stripe (~> 5.2.0)
+  stripe (~> 5.4.1)
   tag_columns (~> 0.1.8)
   teamocil
   tocer
