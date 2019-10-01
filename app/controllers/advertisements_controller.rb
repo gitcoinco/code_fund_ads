@@ -129,7 +129,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def ip_info
-    @ip_info ||= MMDB.lookup(ip_address)
+    @ip_info ||= Mmdb.lookup(ip_address)
   end
 
   def country_code

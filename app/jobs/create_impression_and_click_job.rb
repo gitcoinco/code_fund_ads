@@ -12,7 +12,7 @@ class CreateImpressionAndClickJob < ApplicationJob
     creative = campaign.sponsor_creatives.first # note: we don't know the creative that was shown
     clicked_at = Time.parse(clicked_at_string)
 
-    ip_info = MMDB.lookup(ip_address)
+    ip_info = Mmdb.lookup(ip_address)
     country_code = Country.find(ip_info&.country&.iso_code)&.iso_code
     subdivision = ip_info&.subdivisions&.first&.iso_code
     province_code = Province.find("#{country_code}-#{subdivision}")&.iso_code
