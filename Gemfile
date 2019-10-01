@@ -55,7 +55,7 @@ gem "premailer-rails", "1.10.3"
 gem "pretender", "~> 0.3.3"
 gem "puma", "~> 4.1"
 gem "rack-attack", "~> 6.1.0"
-gem "rails", "~> 5.2.2"
+gem "rails", "~> 6.0"
 gem "redis", "~> 4.0", require: ["redis", "redis/connection/hiredis"]
 gem "render_later", "~> 0.1.1"
 gem "rollbar", "~> 2.21"

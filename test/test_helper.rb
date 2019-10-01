@@ -18,6 +18,7 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 
   def attach_small_image!(user)
+    name = "seed-200x200.png"
     user.images.attach(
       io: File.open(Rails.root.join("app/assets/images/seeds/seed-200x200.png")),
       filename: "seed-200x200.png",
@@ -27,13 +28,15 @@ class ActiveSupport::TestCase
         width: 200,
         height: 200,
         analyzed: true,
-        name: "seed-200x200.png",
+        name: name,
         format: ENUMS::IMAGE_FORMATS::SMALL,
       }
-    ).first
+    )
+    user.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::SMALL).order(created_at: :desc).first
   end
 
   def attach_large_image!(user)
+    name = "seed-260x200.png"
     user.images.attach(
       io: File.open(Rails.root.join("app/assets/images/seeds/seed-260x200.png")),
       filename: "seed-260x200.png",
@@ -43,13 +46,15 @@ class ActiveSupport::TestCase
         width: 260,
         height: 200,
         analyzed: true,
-        name: "seed-260x200.png",
+        name: name,
         format: ENUMS::IMAGE_FORMATS::LARGE,
       }
-    ).first
+    )
+    user.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::LARGE).order(created_at: :desc).first
   end
 
   def attach_wide_image!(user)
+    name = "seed-512x320.jpg"
     user.images.attach(
       io: File.open(Rails.root.join("app/assets/images/seeds/seed-512x320.jpg")),
       filename: "seed-512x320.jpg",
@@ -59,13 +64,15 @@ class ActiveSupport::TestCase
         width: 512,
         height: 320,
         analyzed: true,
-        name: "seed-512x320.jpg",
+        name: name,
         format: ENUMS::IMAGE_FORMATS::WIDE,
       }
-    ).first
+    )
+    user.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::WIDE).order(created_at: :desc).first
   end
 
   def attach_sponsor_image!(user)
+    name = "sponsor-heroku.svg"
     user.images.attach(
       io: File.open(Rails.root.join("test/assets/images/sponsor-heroku.svg")),
       filename: "sponsor-heroku.svg",
@@ -75,10 +82,11 @@ class ActiveSupport::TestCase
         width: 400,
         height: 40,
         analyzed: true,
-        name: "sponsor-heroku.svg",
+        name: name,
         format: ENUMS::IMAGE_FORMATS::SPONSOR,
       },
-    ).first
+    )
+    user.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::SPONSOR).order(created_at: :desc).first
   end
 
   # Factory method to find a fixture and update its attributes
@@ -98,9 +106,9 @@ class ActiveSupport::TestCase
   def ip_address(country_code)
     attempts = 0
     ip = Faker::Internet.public_ip_v4_address
-    data = MMDB.lookup(ip) || {}
+    data = Mmdb.lookup(ip) || {}
     while data.to_hash.dig("country", "iso_code") != country_code
-      data = MMDB.lookup(ip = Faker::Internet.public_ip_v4_address) || {}
+      data = Mmdb.lookup(ip = Faker::Internet.public_ip_v4_address) || {}
       attempts += 1
       puts "#{attempts} attempts to find IP address for: #{country_code}" if attempts % 50 == 0
     end

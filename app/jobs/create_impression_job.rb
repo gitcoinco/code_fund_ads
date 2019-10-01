@@ -11,7 +11,7 @@ class CreateImpressionJob < ApplicationJob
     return unless property
 
     displayed_at = Time.parse(displayed_at_string)
-    ip_info = MMDB.lookup(ip_address)
+    ip_info = Mmdb.lookup(ip_address)
     country_code = Country.find(ip_info&.country&.iso_code)&.iso_code
     subdivision = ip_info&.subdivisions&.first&.iso_code
     province_code = Province.find("#{country_code}-#{subdivision}")&.iso_code

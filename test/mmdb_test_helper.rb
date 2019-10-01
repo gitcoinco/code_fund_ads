@@ -13,7 +13,7 @@ def us_maxminddb_result
   )
 end
 
-def MMDB.lookup(ip_address)
+def Mmdb.lookup(ip_address)
   return us_maxminddb_result if ip_address == "192.168.0.100" && Rails.env.test?
   return MaxMindDB::Result.new({}) unless mmdb
   mmdb.lookup ip_address

@@ -1,4 +1,4 @@
-module MMDB
+module Mmdb
   class << self
     def lookup(ip_address)
       return MaxMindDB::Result.new({}) unless mmdb
