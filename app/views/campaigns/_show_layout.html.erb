@@ -27,7 +27,7 @@
       <%= tag.li(active_link_to("Details", campaign_path(campaign), active: :exact,
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
       <%= tag.li(active_link_to("Overview", campaign_dashboards_path(campaign),
-        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) if @campaign.standard? %>
+        data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) if campaign.standard? %>
       <%= tag.li(active_link_to("Targeting", campaign_targeting_path(campaign),
         data: { turbolinks_persist_scroll: true, prefetch: true }, class: "nav-link")) %>
       <li class="nav-item dropdown">
