@@ -1,3 +1,5 @@
+require "csv"
+
 module Campaigns
   module Reportable
     def summary(start = nil, stop = nil)
