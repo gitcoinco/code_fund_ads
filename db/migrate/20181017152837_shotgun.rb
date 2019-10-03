@@ -162,7 +162,7 @@ class Shotgun < ActiveRecord::Migration[5.2]
       t.index :user_id
       t.index :start_date
       t.index :end_date
-      t.date :paid_at
+      t.index :paid_at
     end
 
     create_table :users do |t|

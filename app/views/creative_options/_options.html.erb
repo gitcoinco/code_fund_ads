@@ -7,6 +7,7 @@
                 name="campaign[creative_ids][]" id="campaign_creative_id_<%= creative.id %>"
                 <%= 'checked="checked"' if selected_creative_ids.include?(creative.id) %>/>
           <label class="custom-control-label ml-1" for="campaign_creative_id_<%= creative.id %>">
+            <span class="text-dark"><%= creative.name %></span>
             <div class="media ml-2">
               <% if creative.standard? %>
                 <%= image_tag creative.large_image || "", class: "align-self-start mr-3", style: "width: 130px;" %>
