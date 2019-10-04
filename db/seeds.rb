@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require "factory_bot_rails"
 require "benchmark"
+require_relative "./impression_seeder"
 
 ActionMailer::Base.perform_deliveries = false
 
@@ -8,7 +11,7 @@ unless Rails.env.development? || ENV["ALLOW_SEED"] == true
   exit 1
 end
 
-Benchmark.bm(20) do |x|
+Benchmark.bm(48) do |x|
   x.report("Organizations:") do
     FactoryBot.create :organization, name: "Code Fund"
 
@@ -41,7 +44,7 @@ Benchmark.bm(20) do |x|
 
   x.report("Campaigns:") do
     User.advertisers.each do |advertiser|
-      FactoryBot.create :campaign, user_id: advertiser.id
+      FactoryBot.create :campaign, :status_active, user_id: advertiser.id
     end
   end
 
@@ -52,7 +55,6 @@ Benchmark.bm(20) do |x|
       end
     end
   }
-
-  # x.report("Impressions:") {
-  # }
 end
+
+ImpressionSeeder.run
