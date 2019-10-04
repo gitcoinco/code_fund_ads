@@ -9,22 +9,20 @@ FactoryBot.define do
     id { SecureRandom.uuid }
     ad_template { "default" }
     ad_theme { "light" }
-    ip_address { rand(6).zero? ? Faker::Internet.ip_v6_address : Faker::Internet.pubplic_ip_v4_address }
+    ip_address { rand(6).zero? ? Faker::Internet.ip_v6_address : Faker::Internet.public_ip_v4_address }
     user_agent { Faker::Internet.user_agent }
     country_code { rand(6).zero? ? "US" : Country.all.sample.iso_code }
-    clicked_at { rand(100) <= 3 ? displayed_at : nil }
     fallback_campaign { campaign.fallback }
 
     after :build do |impression|
-      impression.advertiser_id = campaign.user.id
-      impression.publisher_id = property.user.id
-      impression.organization_id = campaign.user.organization.id
-      impression.creative_id = campaign.creative.ids.sample
+      impression.advertiser_id = impression.campaign.user.id
+      impression.publisher_id = impression.property.user.id
+      impression.organization_id = impression.campaign.user.organization.id
+      impression.creative_id = impression.campaign.creatives.ids.sample
+      impression.displayed_at_date = impression.displayed_at.to_date
+      impression.clicked_at = rand(1000) <= 4 ? impression.displayed_at : nil
+      impression.obfuscate_ip_address
+      impression.assure_partition_table!
     end
-
-    # after :create do |impression|
-    #   impression.displayed_at
-    #   impression.displayed_at_date
-    # end
   end
 end
