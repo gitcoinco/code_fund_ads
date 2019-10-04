@@ -7,6 +7,9 @@ class CodeFundAdsImageAnalyzer < ActiveStorage::Analyzer::ImageAnalyzer
     new_metadata[:format] = @blob.svg? ? analyze_svg : analyze
     new_metadata[:format] ||= ENUMS::IMAGE_FORMATS::UNKNOWN
     new_metadata
+  rescue => e
+    Rollbar.error e
+    HashWithIndifferentAccess.new
   end
 
   private

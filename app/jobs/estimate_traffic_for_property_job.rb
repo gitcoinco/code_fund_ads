@@ -4,6 +4,7 @@ class EstimateTrafficForPropertyJob < ApplicationJob
   def perform(property_id)
     property = Property.find(property_id)
     data = TrafficEstimator.lookup(property.url)[:data]
+    return if data.blank?
     estimate = PropertyTrafficEstimate.new
     estimate.property_id = property_id
     estimate.site_worth = Money.new(str_to_number(data.dig(:estimations, :site_worth)) * 100)

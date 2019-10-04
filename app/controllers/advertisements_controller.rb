@@ -221,7 +221,7 @@ class AdvertisementsController < ApplicationController
 
   def set_campaign
     return nil if device.bot?
-    return nil unless property.active? || property.pending?
+    return nil unless property&.active? || property&.pending?
     return nil if device_small? && property.hide_on_responsive?
 
     campaign_relation = Campaign.active.with_active_creatives.available_on(Date.current)
