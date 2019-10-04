@@ -12,6 +12,8 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+*.swp
+*.swo
 
 # Ignore uploaded files in development
 /storage/*
@@ -36,6 +38,7 @@ yarn-debug.log*
 .mertrc
 .tool-versions
 /db/maxmind
+/db/data/*
 *.dump
 legacy
 lib/tasks/impressions.rake
