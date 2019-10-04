@@ -10,6 +10,8 @@
 #  updated_at       :datetime         not null
 #
 
+require "csv"
+
 class Organization < ApplicationRecord
   # extends ...................................................................
 
@@ -80,7 +82,6 @@ class Organization < ApplicationRecord
   end
 
   def organization_transactions_csv
-    require "csv"
     CSV.generate do |csv|
       csv << %w[
         id
