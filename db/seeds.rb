@@ -48,13 +48,15 @@ Benchmark.bm(48) do |x|
     end
   end
 
-  x.report("Properties:") {
+  x.report("Properties:") do
     User.publishers.each do |publisher|
       rand(1..2).times do
         FactoryBot.create :property, user_id: publisher.id
       end
     end
-  }
-end
+  end
 
-ImpressionSeeder.run
+  x.report("Impressions:") do
+    ImpressionSeeder.run
+  end
+end

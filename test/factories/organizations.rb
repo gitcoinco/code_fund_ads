@@ -3,7 +3,7 @@ require "faker"
 
 FactoryBot.define do
   factory :organization do
-    name { Faker::TvShows::SiliconValley.company + " " + SecureRandom.hex.upcase[0, 6] }
+    name { "#{Faker::TvShows::SiliconValley.company} #{SecureRandom.hex.upcase[0, 6]}" }
     balance_cents { rand(0..500000) }
     balance_currency { "USD" }
     created_at { rand(5..10).days.ago }

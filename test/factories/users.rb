@@ -5,8 +5,7 @@ FactoryBot.define do
   factory :user do
     first_name { Faker::TvShows::SiliconValley.character.split.first }
     last_name { Faker::TvShows::SiliconValley.character.split.last }
-    email { Faker::Internet.email }
-    password { "password" }
+    password { "supertopsecretpassword" }
 
     trait :with_address do
       address_1 { Faker::Address.street_address }
@@ -26,26 +25,26 @@ FactoryBot.define do
 
   factory :admin, parent: :user do
     organization_id { 1 }
-    email { "admin" + SecureRandom.hex[0, 6] + "@codefund.io" }
+    email { "admin-#{SecureRandom.hex[0, 6]}@codefund.io" }
     roles { [ENUMS::USER_ROLES::ADMINISTRATOR] }
   end
 
   factory :advertiser, parent: :user do
-    organization_id { Organization.ids.sample }
-    email { "advertiser" + SecureRandom.hex[0, 6] + "@codefund.io" }
+    organization_id { Organization.where("id > 1").pluck(:id).sample }
+    email { "advertiser-#{SecureRandom.hex[0,6]}@codefund.io" }
     roles { [ENUMS::USER_ROLES::ADVERTISER] }
 
-    after :create do |advertiser|
-      advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-260x200.png")),
-                               filename: "seed-260x200.png",
+    after :build do |advertiser|
+      advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-200x200.png")),
+                               filename: "seed-200x200.png",
                                content_type: "image/png",
                                metadata: {
                                  identified: true,
-                                 width: 260,
+                                 width: 200,
                                  height: 200,
                                  analyzed: true,
-                                 name: "seed-260x200.png",
-                                 format: ENUMS::IMAGE_FORMATS::LARGE,
+                                 name: "seed-200x200.png",
+                                 format: ENUMS::IMAGE_FORMATS::SMALL,
                                }
 
       advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-260x200.png")),
@@ -53,11 +52,11 @@ FactoryBot.define do
                                 content_type: "image/png",
                                 metadata: {
                                   identified: true,
-                                 width: 260,
-                                 height: 200,
-                                 analyzed: true,
-                                 name: "seed-260x200.png",
-                                 format: ENUMS::IMAGE_FORMATS::LARGE,
+                                  width: 260,
+                                  height: 200,
+                                  analyzed: true,
+                                  name: "seed-260x200.png",
+                                  format: ENUMS::IMAGE_FORMATS::LARGE,
                                 }
 
       advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-512x320.jpg")),
@@ -75,7 +74,7 @@ FactoryBot.define do
   end
 
   factory :publisher, parent: :user do
-    email { "publisher" + SecureRandom.hex[0, 6] + +"@codefund.io" }
+    email { "publisher-#{SecureRandom.hex[0, 6]}@codefund.io" }
     roles { [ENUMS::USER_ROLES::PUBLISHER] }
   end
 end

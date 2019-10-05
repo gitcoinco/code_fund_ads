@@ -18,16 +18,8 @@ class ImpressionSeeder
 
   def call
     cleanup_all_csv_files
-
-    Benchmark.bm(48) do |x|
-      x.report("Impressions CSV:") do
-        generate_new_impressions
-      end
-
-      x.report("Impressions Copy:") do
-        bulk_copy_all_csv_files
-      end
-    end
+    generate_new_impressions
+    bulk_copy_all_csv_files
   end
 
   private
@@ -45,13 +37,26 @@ class ImpressionSeeder
 
           campaign = Campaign.active.available_on(item.first).sample
           property = Property.for_campaign(campaign).sample
+          advertiser_id = campaign.user.id
+          publisher_id = property.user.id
+          organization_id = campaign.user.organization.id
+          creative_id = campaign.creatives.ids.sample
 
           records = []
-          item.each do |timestamp|
-            impression = FactoryBot.build(:impression,
-              campaign_id: campaign.id,
-              property_id: property.id,
-              displayed_at: timestamp)
+
+          item.each_with_index do |timestamp, index|
+            impression = generate_single_impression(campaign,
+                                                    property.id,
+                                                    advertiser_id,
+                                                    publisher_id,
+                                                    organization_id,
+                                                    creative_id,
+                                                    timestamp)
+
+            if index == 0
+              impression.assure_partition_table!
+            end
+
             records << impression.attributes
           end
 
@@ -70,6 +75,27 @@ class ImpressionSeeder
 
       sleep(0.1)
     end
+  end
+
+  def generate_single_impression(campaign, property_id, advertiser_id, publisher_id, organization_id, creative_id, timestamp)
+    Impression.new(
+      id: SecureRandom.uuid,
+      campaign_id: campaign.id, 
+      property_id: property_id, 
+      advertiser_id: advertiser_id, 
+      publisher_id: publisher_id,
+      organization_id: organization_id,
+      creative_id: creative_id,
+      ad_template: "default",
+      ad_theme: "light",
+      displayed_at: timestamp,
+      displayed_at_date: timestamp.to_date,
+      clicked_at: rand(1000) <= 4 ? (timestamp + rand(86400)) : nil,
+      ip_address: rand(6).zero? ? Faker::Internet.ip_v6_address : Faker::Internet.public_ip_v4_address,
+      user_agent: Faker::Internet.user_agent,
+      country_code: rand(6).zero? ? "US" : Country.all.sample.iso_code,
+      fallback_campaign: campaign.fallback
+    )
   end
 
   def daily_impressions_count(impression_dates)
@@ -130,13 +156,13 @@ class ImpressionSeeder
     hours_of_day = generate_hourly_timestamps(date)
 
     weights = hours_of_day.map { |timestamp|
-      if business_hours?(timestamp) == true && !weekend?(timestamp) == true
+      if business_hours?(timestamp) && !weekend?(timestamp)
         10
-      elsif after_hours?(timestamp) == true && !weekend?(timestamp) == true
+      elsif after_hours?(timestamp) && !weekend?(timestamp)
         6
-      elsif weekend?(timestamp) == true && !nights?(timestamp) == true
+      elsif weekend?(timestamp) && !nights?(timestamp)
         6
-      elsif nights?(timestamp) == true
+      elsif nights?(timestamp)
         2
       else
         4
