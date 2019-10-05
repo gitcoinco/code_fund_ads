@@ -88,7 +88,6 @@ group :development, :test do
   gem "awesome_print"
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
   gem "dotenv-rails"
-  gem "factory_bot_rails"
   gem "faker"
   gem "pry"
   gem "pry-byebug"
@@ -104,6 +103,7 @@ group :development do
   gem "letter_opener_web"
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "mechanize"
+  gem "factory_bot_rails"
   gem "meta_request" # RailsPanel Chrome extension
   gem "model_probe"
   gem "ngrok-tunnel"
