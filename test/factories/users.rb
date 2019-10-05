@@ -31,7 +31,7 @@ FactoryBot.define do
 
   factory :advertiser, parent: :user do
     organization_id { Organization.where("id > 1").pluck(:id).sample }
-    email { "advertiser-#{SecureRandom.hex[0,6]}@codefund.io" }
+    email { "advertiser-#{SecureRandom.hex[0, 6]}@codefund.io" }
     roles { [ENUMS::USER_ROLES::ADVERTISER] }
 
     after :build do |advertiser|

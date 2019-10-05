@@ -46,12 +46,12 @@ class ImpressionSeeder
 
           item.each_with_index do |timestamp, index|
             impression = generate_single_impression(campaign,
-                                                    property.id,
-                                                    advertiser_id,
-                                                    publisher_id,
-                                                    organization_id,
-                                                    creative_id,
-                                                    timestamp)
+              property.id,
+              advertiser_id,
+              publisher_id,
+              organization_id,
+              creative_id,
+              timestamp)
 
             if index == 0
               impression.assure_partition_table!
@@ -80,9 +80,9 @@ class ImpressionSeeder
   def generate_single_impression(campaign, property_id, advertiser_id, publisher_id, organization_id, creative_id, timestamp)
     Impression.new(
       id: SecureRandom.uuid,
-      campaign_id: campaign.id, 
-      property_id: property_id, 
-      advertiser_id: advertiser_id, 
+      campaign_id: campaign.id,
+      property_id: property_id,
+      advertiser_id: advertiser_id,
       publisher_id: publisher_id,
       organization_id: organization_id,
       creative_id: creative_id,
