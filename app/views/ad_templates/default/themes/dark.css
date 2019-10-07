@@ -7,6 +7,7 @@
 
 #cf a {
   box-shadow: none !important;
+  text-decoration: none;
 }
 
 #cf .cf-wrapper {
@@ -33,7 +34,6 @@
 
 #cf .cf-text {
   color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
 }
 
 #cf .cf-text strong {
@@ -45,5 +45,4 @@
   font-size: 12px;
   display: block;
   color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
 }

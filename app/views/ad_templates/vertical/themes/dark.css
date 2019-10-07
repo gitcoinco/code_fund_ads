@@ -7,6 +7,7 @@
 
 #cf a {
   box-shadow: none !important;
+  text-decoration: none;
 }
 
 #cf .cf-wrapper {
@@ -33,7 +34,6 @@
 
 #cf .cf-text {
   color: rgba(255, 255, 255, 0.8);
-  text-decoration: none;
 }
 
 #cf .cf-text strong {
@@ -45,12 +45,11 @@
   font-size: 12px;
   display: block;
   color: rgba(255, 255, 255, 0.6);
-  text-decoration: none;
   text-align: left;
 }
 
 #cf .cf-powered-by:hover {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
 #cf .cf-powered-by img {
