@@ -20,6 +20,7 @@
       <tbody>
       <% @report.campaigns.each do |campaign|
           summary = summaries[campaign.id]
+          next unless summary
           revenue = summary.gross_revenue_cents / 100
           impressions = summary.impressions_count
           clicks = summary.clicks_count
