@@ -5,7 +5,7 @@ FactoryBot.define do
   factory :user do
     first_name { Faker::TvShows::SiliconValley.character.split.first }
     last_name { Faker::TvShows::SiliconValley.character.split.last }
-    password { "supertopsecretpassword" }
+    password { "secret" }
 
     trait :with_address do
       address_1 { Faker::Address.street_address }
