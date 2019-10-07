@@ -176,7 +176,8 @@ class Audience
       max = all_matches.max_by { |match| match[:ratio] }
       max_matches = all_matches.select { |match| match[:ratio] == max[:ratio] }
       if max_matches.size > 1
-        preferred = max_matches.find { |match| match[:audience] == Audience::JAVA_SCRIPT_AND_FRONTEND }
+        preferred = max_matches.find { |match| match[:audience] == Audience::WEB_DEVELOPMENT_AND_BACKEND } if max_matches.include?(Audience::WEB_DEVELOPMENT_AND_BACKEND)
+        preferred = max_matches.find { |match| match[:audience] == Audience::JAVA_SCRIPT_AND_FRONTEND } if max_matches.include?(Audience::JAVA_SCRIPT_AND_FRONTEND)
         max = preferred if preferred
       end
       if max[:ratio].zero?
