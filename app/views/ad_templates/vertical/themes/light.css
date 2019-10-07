@@ -7,6 +7,7 @@
 
 #cf a {
   box-shadow: none !important;
+  text-decoration: none;
 }
 
 #cf .cf-wrapper {
@@ -33,7 +34,6 @@
 
 #cf .cf-text {
   color: #3e3e3e;
-  text-decoration: none;
 }
 
 #cf .cf-powered-by {
@@ -45,7 +45,7 @@
 }
 
 #cf .cf-powered-by:hover {
-  text-decoration: underline;
+  text-decoration: underline !important;
 }
 
 #cf .cf-powered-by img {

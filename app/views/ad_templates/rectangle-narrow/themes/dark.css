@@ -7,6 +7,7 @@
 
 #cf a {
   box-shadow: none !important;
+  text-decoration: none;
 }
 
 #cf .cf-wrapper {
@@ -41,5 +42,4 @@
   font-size: 12px;
   display: block;
   color: #777;
-  text-decoration: none;
 }
