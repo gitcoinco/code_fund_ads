@@ -14,6 +14,7 @@
 
 #cf a {
   box-shadow: none !important;
+  text-decoration: none;
 }
 
 #cf .cf-wrapper {
@@ -44,7 +45,6 @@
 #cf .cf-text {
   display: block;
   padding: 0 1em 1em 1em;
-  text-decoration: none;
   color: hsla(0, 0%, 0%, 0.8);
 }
 
@@ -59,7 +59,6 @@
   padding: 10px auto;
   text-transform: uppercase;
   color: hsla(0, 0%, 0%, 0.8);
-  text-decoration: none;
 }
 
 #cf .cf-powered-by img {

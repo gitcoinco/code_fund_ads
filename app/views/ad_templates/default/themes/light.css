@@ -5,6 +5,7 @@
 
 #cf a {
   box-shadow: none !important;
+  text-decoration: none;
 }
 
 #cf .cf-wrapper {
@@ -32,7 +33,6 @@
 
 #cf .cf-text {
   color: #333;
-  text-decoration: none;
 }
 
 #cf .cf-powered-by {
@@ -40,5 +40,4 @@
   font-size: 12px;
   display: block;
   color: #777;
-  text-decoration: none;
 }

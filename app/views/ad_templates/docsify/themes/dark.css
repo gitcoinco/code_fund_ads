@@ -5,6 +5,7 @@
 
 #cf a {
   box-shadow: none !important;
+  text-decoration: none;
 }
 
 #cf .cf-wrapper {
@@ -30,7 +31,6 @@
 
 #cf .cf-text {
   color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
 }
 
 #cf .cf-text strong {
@@ -49,7 +49,6 @@
   padding: 10px auto;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
-  text-decoration: none;
 }
 
 #cf .clearfix {

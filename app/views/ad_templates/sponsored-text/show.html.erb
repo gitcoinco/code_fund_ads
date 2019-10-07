@@ -2,7 +2,7 @@
   <ins id="cf">
     <span class="cf-wrapper">
       Sponsored:&nbsp;
-      <%= image_tag @creative.icon_image.cloudfront_url, class: "cf-img", style: "width: 20px; height: 20px;" rescue nil %>
+      <%= image_tag @creative.icon_image.cloudfront_url, class: "cf-img", style: "width: 20px; height: 20px;", alt: @creative.name rescue nil %>
       <b><%= @creative.headline %></b>
       <%= @creative.body %>
       <a href="#" data-href="campaign_url" rel="nofollow noopener" target="_blank">
@@ -26,6 +26,6 @@
         <span class="tooltiptext"><em>ethical</em> ad by CodeFund</span>
       </a>
     </sup>
-    <img data-src="impression_url">
+    <img data-src="impression_url" alt="">
   </ins>
 <% end %>
