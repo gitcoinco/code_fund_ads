@@ -8,7 +8,8 @@ require "webmock/minitest"
 
 WebMock.allow_net_connect!
 
-Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
+Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
+# Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 # Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
 
 class ActiveSupport::TestCase
