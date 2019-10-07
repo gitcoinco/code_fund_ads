@@ -48,69 +48,115 @@ class Audience
 
   attr_accessor :name, :keywords
 
+  def initialize(*args)
+    super
+    keywords.freeze
+  end
+
   BLOCKCHAIN = new(
     name: "Blockchain",
-    keywords: ["Blockchain", "Cryptography"]
+    keywords: %w[
+      Blockchain
+      Cryptography
+    ]
   )
 
-  DATA_SCIENCE = new(
-    name: "Data Science",
-    keywords: ["Database", "Julia", "Machine Learning", "PL/SQL", "Python", "R"]
+  CSS_AND_DESIGN = new(
+    name: "CSS & Design",
+    keywords: ["CSS & Design"]
   )
 
   DEV_OPS = new(
     name: "DevOps",
-    keywords: ["Backend", "DevOps", "IoT", "Ruby", "Python", "Security", "Serverless"]
-  )
-
-  FRONT_END_DEVELOPMENT = new(
-    name: "Front End Development",
-    keywords: ["Angular", "Dart", "Frontend", "JavaScript", "React", "VueJS"]
+    keywords: %w[
+      DevOps
+      Python
+      Ruby
+      Security
+      Serverless
+    ]
   )
 
   GAME_DEVELOPMENT = new(
     name: "Game Development",
-    keywords: ["Game Development", "Virtual Reality"]
+    keywords: [
+      "Game Development",
+      "Virtual Reality",
+    ]
   )
 
-  JAVA_SCRIPT = new(
-    name: "JavaScript",
-    keywords: ["JavaScript"]
+  JAVA_SCRIPT_AND_FRONTEND = new(
+    name: "JavaScript & Frontend",
+    keywords: %w[
+      Angular
+      Dart
+      Frontend
+      JavaScript
+      React
+      VueJS
+    ]
+  )
+
+  MISCELLANEOUS = new(
+    name: "Miscellaneous",
+    keywords: [
+      "C",
+      "D",
+      "Developer Resources",
+      "Erlang",
+      "F#",
+      "Haskell",
+      "IoT",
+      "Julia",
+      "Machine Learning",
+      "Other",
+      "Python",
+      "Q",
+      "R",
+      "Rust",
+      "Scala",
+    ]
   )
 
   MOBILE_DEVELOPMENT = new(
     name: "Mobile Development",
-    keywords: ["Android", "Hybrid & Mobile Web", "iOS", "Kotlin", "Objective-C", "Swift"]
+    keywords: [
+      "Android",
+      "Hybrid & Mobile Web",
+      "Kotlin",
+      "Objective-C",
+      "Swift",
+      "iOS",
+    ]
   )
 
-  SYSTEMS_DEVELOPMENT = new(
-    name: "Systems Development",
-    keywords: [".NET", "Backend", "C", "D", "Erlang", "F#", "Go", "Haskell", "Java", "Q", "Rust", "Scala"]
-  )
-
-  USER_INTERFACE_DESIGN = new(
-    name: "User Interface Design",
-    keywords: ["CSS & Design"]
-  )
-
-  WEB_DEVELOPMENT = new(
-    name: "Web Development",
-    keywords: [".NET", "Backend", "Developer Resources", "Groovy", "JavaScript", "Other", "PHP", "Python", "Ruby"]
+  WEB_DEVELOPMENT_AND_BACKEND = new(
+    name: "Web Development & Backend",
+    keywords: %w[
+      .NET
+      Backend
+      Database
+      Go
+      Groovy
+      Java
+      PHP
+      PL/SQL
+      Python
+      Ruby
+    ]
   )
 
   class << self
     def all
       [
         BLOCKCHAIN,
-        DATA_SCIENCE,
+        CSS_AND_DESIGN,
         DEV_OPS,
-        FRONT_END_DEVELOPMENT,
         GAME_DEVELOPMENT,
-        JAVA_SCRIPT,
+        JAVA_SCRIPT_AND_FRONTEND,
+        MISCELLANEOUS,
         MOBILE_DEVELOPMENT,
-        SYSTEMS_DEVELOPMENT,
-        USER_INTERFACE_DESIGN,
-        WEB_DEVELOPMENT,
+        WEB_DEVELOPMENT_AND_BACKEND,
       ]
     end
 
@@ -130,11 +176,12 @@ class Audience
       max = all_matches.max_by { |match| match[:ratio] }
       max_matches = all_matches.select { |match| match[:ratio] == max[:ratio] }
       if max_matches.size > 1
-        preferred = max_matches.find { |match| match[:audience] == Audience::WEB_DEVELOPMENT }
+        preferred = max_matches.find { |match| match[:audience] == Audience::WEB_DEVELOPMENT_AND_BACKEND } if max_matches.include?(Audience::WEB_DEVELOPMENT_AND_BACKEND)
+        preferred = max_matches.find { |match| match[:audience] == Audience::JAVA_SCRIPT_AND_FRONTEND } if max_matches.include?(Audience::JAVA_SCRIPT_AND_FRONTEND)
         max = preferred if preferred
       end
       if max[:ratio].zero?
-        max = all_matches.find { |match| match[:audience] == Audience::WEB_DEVELOPMENT }
+        max = all_matches.find { |match| match[:audience] == Audience::MISCELLANEOUS }
       end
       max[:audience]
     end
