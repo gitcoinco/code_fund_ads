@@ -37,6 +37,24 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
   end
 
+  test "get advertisement with fallback campaign if host is localhost" do
+    self.host = "localhost"
+    campaign = fallback_campaign
+    property = matched_property(campaign)
+    get advertisements_url(property, format: :js)
+    assert_response :success
+    assert response.body.include?("codeFundElement.innerHTML = '<div id=\"cf\"")
+  end
+
+  test "get advertisement with active campaign if host is localhost" do
+    self.host = "localhost"
+    campaign = active_campaign
+    property = matched_property(campaign)
+    get advertisements_url(property, format: :js)
+    assert_response :success
+    assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
+  end
+
   test "get advertisement with fallback campaign" do
     campaign = fallback_campaign
     property = matched_property(campaign)

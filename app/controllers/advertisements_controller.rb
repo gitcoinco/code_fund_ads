@@ -216,6 +216,8 @@ class AdvertisementsController < ApplicationController
   end
 
   def ad_test?
+    return true if request.host == "localhost"
+
     (params[:ad_test] || params[:adtest]).to_s == "true"
   end
 
