@@ -23,13 +23,9 @@ module PropertiesHelper
     ]
   end
 
-  def property_status_html(status)
-    case ENUMS::PROPERTY_STATUSES[status]
-    when "pending" then tag.span(class: "fas fa-circle text-warning", title: "Pending", data: tooltip_expando)
-    when "active" then tag.span(class: "fas fa-circle text-success", title: "Active", data: tooltip_expando)
-    when "rejected" then tag.span(class: "fas fa-circle text-danger", title: "Rejected", data: tooltip_expando)
-    when "archived" then tag.span(class: "fas fa-circle text-muted", title: "Archived", data: tooltip_expando)
-    when "blacklisted" then tag.span(class: "fas fa-circle text-dark", title: "Blacklisted", data: tooltip_expando)
-    end
+  def property_status_title(status)
+    return status.humanize unless status.inquiry.pending?
+
+    "Awaiting Administrator Approval"
   end
 end

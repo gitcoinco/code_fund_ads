@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between align-items-center">
       <h4 class="h6 mb-0">
         <%= tag.span "", class: "fas fa-circle small mr-1 text-#{property_status_color(property.status)}",
-              title: property.status.humanize, data: tooltip_expando %>
+              title: property_status_title(property.status), data: tooltip_expando %>
         <%= link_to property.name, property, class: "link-muted" %>
       </h4>
       <div class="position-relative">
