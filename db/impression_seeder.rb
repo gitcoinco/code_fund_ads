@@ -6,135 +6,126 @@ require "etc"
 require "fileutils"
 
 class ImpressionSeeder
-  def self.run(count = 100000, months = 12)
-    new(count, months).call
+  def self.run
+    new.call
   end
 
-  def initialize(count = 100000, months = 12)
-    @cores = machine_cores
-    @impressions_count = count
-    @months = months
+  def initialize
+    @cores = Etc.nprocessors == 1 ? 1 : Etc.nprocessors - 1
+    @count = (ENV["IMPRESSIONS"] || 100_000).to_f
+    @months = (ENV["MONTHS"] || 12).to_i
   end
 
   def call
-    cleanup_all_csv_files
-    generate_new_impressions
-    bulk_copy_all_csv_files
-  end
+    cleanup_csv_files
 
-  private
-
-  def generate_new_impressions
-    items_to_process = generate_impressions_timestamps
+    months_to_process = generate_impressions_months
     pids_being_processed = []
 
-    while !items_to_process.empty? || !pids_being_processed.empty?
-      while items_to_process.size < @cores && !items_to_process.size.zero?
-        item = items_to_process.pop
+    while !months_to_process.empty? || !pids_being_processed.empty?
+      while !months_to_process.empty? && pids_being_processed.size < @cores
+        month = months_to_process.pop
 
-        pid = fork_process_with_db_connection {
-          ActiveRecord::Base.connection.reconnect!
+        pid = fork_process_with_db_connection do
+          monthly_dates = generate_impressions_dates(month)
+          daily_timestamps = generate_daily_timestamps(monthly_dates)
 
-          campaign = Campaign.active.available_on(item.first).sample
-          property = Property.for_campaign(campaign).sample
-          advertiser_id = campaign.user.id
-          publisher_id = property.user.id
-          organization_id = campaign.user.organization.id
-          creative_id = campaign.creatives.ids.sample
+          campaigns = Campaign.active.available_on(daily_timestamps.first)
+          properties = []
 
+          campaigns.each do |campaign|
+            properties[campaign.id] ||= Property.for_campaign(campaign)
+          end
+
+          advertisers = []
           records = []
 
-          item.each_with_index do |timestamp, index|
-            impression = generate_single_impression(campaign,
-              property.id,
-              advertiser_id,
-              publisher_id,
-              organization_id,
-              creative_id,
-              timestamp)
+          daily_timestamps.each do |timestamp|
+            campaign = campaigns.sample
+            property = properties[campaign.id].sample
 
-            if index == 0
+            impression = Impression.new(
+              id: SecureRandom.uuid,
+              campaign_id: campaign.id,
+              property_id: property.id,
+              advertiser_id: campaign.user_id,
+              publisher_id: property.user_id,
+              organization_id: campaign.organization_id,
+              creative_id: campaign.creative_id,
+              ad_template: "default",
+              ad_theme: "light",
+              displayed_at: timestamp,
+              displayed_at_date: timestamp.to_date,
+              clicked_at: rand(1000) <= 4 ? (timestamp + rand(86400)) : nil,
+              ip_address: rand(6).zero? ? Faker::Internet.ip_v6_address : Faker::Internet.public_ip_v4_address,
+              user_agent: Faker::Internet.user_agent,
+              country_code: rand(6).zero? ? "US" : Country.all.sample.iso_code,
+              fallback_campaign: campaign.fallback
+            )
+
+            if !advertisers.include? impression.advertiser_id 
+              advertisers << impression.advertiser_id
               impression.assure_partition_table!
             end
 
             records << impression.attributes
           end
 
-          csv_path = csv_file_name(item.first)
+          csv_path = csv_file_name(daily_timestamps.first)
           CSV.open(csv_path, "wb") do |csv|
             records.each { |record| csv << record.values }
           end
-        }
+        end
 
         pids_being_processed << pid
       end
 
-      if (done = Process.waitpid(0, Process::WNOHANG))
-        pids_being_processed.delete(done)
+      if (completed_pid = Process.waitpid(0, Process::WNOHANG))
+        pids_being_processed.delete(completed_pid)
       end
-
-      sleep(0.1)
     end
+
+    bulk_copy_csv_files
   end
 
-  def generate_single_impression(campaign, property_id, advertiser_id, publisher_id, organization_id, creative_id, timestamp)
-    Impression.new(
-      id: SecureRandom.uuid,
-      campaign_id: campaign.id,
-      property_id: property_id,
-      advertiser_id: advertiser_id,
-      publisher_id: publisher_id,
-      organization_id: organization_id,
-      creative_id: creative_id,
-      ad_template: "default",
-      ad_theme: "light",
-      displayed_at: timestamp,
-      displayed_at_date: timestamp.to_date,
-      clicked_at: rand(1000) <= 4 ? (timestamp + rand(86400)) : nil,
-      ip_address: rand(6).zero? ? Faker::Internet.ip_v6_address : Faker::Internet.public_ip_v4_address,
-      user_agent: Faker::Internet.user_agent,
-      country_code: rand(6).zero? ? "US" : Country.all.sample.iso_code,
-      fallback_campaign: campaign.fallback
-    )
-  end
+  private
 
-  def daily_impressions_count(impression_dates)
-    (@impressions_count.to_f / impression_dates.flatten.count.to_f).ceil
-  end
-
-  def generate_impressions_timestamps
-    impression_dates = generate_impressions_dates
-
-    daily_impression_count = daily_impressions_count(impression_dates)
-
-    impression_dates.each_with_index.map do |days, index|
-      impression_timestamps = []
-
-      days.each do |day|
-        daily_weights = random_weighted_freq(day)
-
-        daily_impression_count.times do
-          sampled_hour = random_weighted_sample(daily_weights)
-          impression_timestamps << generate_random_minute_timestamp(sampled_hour)
-        end
-      end
-
-      impression_timestamps
-    end
-  end
-
-  def generate_impressions_dates
+  def generate_impressions_months
     months = [Date.current.beginning_of_month]
     (@months - 1).times { months << months.last.advance(months: -1) }
+    months
+  end
 
-    months.each_with_index.map do |interval, index|
-      days = []
-      days << interval.beginning_of_month
-      (interval.end_of_month.day - 1).times do
-        days << days.last.advance(days: 1)
-      end
-      days
+  def generate_impressions_dates(month)
+    days = []
+    days << month.beginning_of_month
+
+    (month.end_of_month.day - 1).times do
+      days << days.last.advance(days: 1)
     end
+
+    days
+  end
+
+  def daily_impression_count(dates)
+    monthly_count = (@count / @months.to_f).ceil
+    daily_count = (monthly_count.to_f / dates.count.to_f).ceil
+    daily_count
+  end
+
+  def generate_daily_timestamps(dates)
+    timestamps = []
+
+    dates.each do |day|
+      daily_weights = random_weighted_freq(day)
+
+      daily_impression_count(dates).times do
+        sampled_hour = random_weighted_sample(daily_weights)
+        timestamps << generate_minute_timestamp(sampled_hour)
+      end
+    end
+
+    timestamps
   end
 
   def generate_hourly_timestamps(date)
@@ -148,8 +139,24 @@ class ImpressionSeeder
     hours_of_day
   end
 
-  def generate_random_minute_timestamp(hour)
+  def generate_minute_timestamp(hour)
     hour + rand(3600)
+  end
+
+  def after_hours?(timestamp)
+    timestamp.hour.between?(17, 21)
+  end
+
+  def business_hours?(timestamp)
+    timestamp.hour.between?(8, 17)
+  end
+
+  def nights?(timestamp)
+    timestamp.hour.between?(0, 6)
+  end
+
+  def weekend?(timestamp)
+    timestamp.saturday? || timestamp.sunday?
   end
 
   def random_weighted_freq(date)
@@ -176,33 +183,35 @@ class ImpressionSeeder
     daily_weights.max_by { |_, weight| rand**(1.0 / weight) }.first
   end
 
-  def after_hours?(timestamp)
-    timestamp.hour.between?(17, 21)
-  end
+  def fork_process_with_db_connection
+    ActiveRecord::Base.remove_connection
 
-  def business_hours?(timestamp)
-    timestamp.hour.between?(8, 17)
-  end
+    pid = Process.fork {
+      begin
+        ActiveRecord::Base.establish_connection
+        yield
+      rescue => e
+        puts "FAILED: Forked process failed with error - #{e}"
+      ensure
+        ActiveRecord::Base.remove_connection
+      end
+    }
 
-  def nights?(timestamp)
-    timestamp.hour.between?(0, 6)
-  end
-
-  def weekend?(timestamp)
-    timestamp.saturday? || timestamp.sunday?
+    ActiveRecord::Base.establish_connection
+    pid
   end
 
   def csv_file_name(timestamp)
-    "db/data/impressions_#{timestamp.strftime("%B").downcase}_#{timestamp.year}.csv"
+    "db/data/Impressions_#{timestamp.strftime("%B")}_#{timestamp.year}.csv"
   end
 
-  def cleanup_all_csv_files
+  def cleanup_csv_files
     Dir.glob(Rails.root.join("db", "data", "*.csv")).each do |file|
       FileUtils.rm_f file
     end
   end
 
-  def bulk_copy_all_csv_files
+  def bulk_copy_csv_files
     raw_conn = ActiveRecord::Base.connection.raw_connection
 
     begin
@@ -213,34 +222,8 @@ class ImpressionSeeder
           end
         end
       end
-    rescue => e
+    rescue Error => e
       puts "FAILED: bulk copy of csv files with error - #{e}"
     end
-  end
-
-  def fork_process_with_db_connection
-    config = ActiveRecord::Base.remove_connection
-
-    pid = Process.fork {
-      success = true
-
-      begin
-        ActiveRecord::Base.establish_connection(config)
-        yield
-      rescue => e
-        puts "FAILED: Forked process failed with error - #{e}"
-        success = false
-      ensure
-        ActiveRecord::Base.remove_connection
-        Process.exit! success
-      end
-    }
-
-    ActiveRecord::Base.establish_connection(config)
-    pid
-  end
-
-  def machine_cores
-    Etc.nprocessors == 1 ? 1 : Etc.nprocessors - 1
   end
 end

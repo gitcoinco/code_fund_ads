@@ -11,8 +11,8 @@ unless Rails.env.development? || ENV["ALLOW_SEED"] == true
   exit 1
 end
 
-Benchmark.bm(48) do |x|
-  x.report("Organizations:") do
+Benchmark.bm(24) do |benchmark|
+  benchmark.report("Organizations:") do
     FactoryBot.create :organization, name: "Code Fund"
 
     150.times do
@@ -20,21 +20,21 @@ Benchmark.bm(48) do |x|
     end
   end
 
-  x.report("Admin:") { FactoryBot.create :admin }
+  benchmark.report("Admin:") { FactoryBot.create :admin }
 
-  x.report("Advertisers:") do
+  benchmark.report("Advertisers:") do
     175.times do
       FactoryBot.create :advertiser
     end
   end
 
-  x.report("Publishers:") do
+  benchmark.report("Publishers:") do
     1000.times do
       FactoryBot.create :publisher
     end
   end
 
-  x.report("Creatives:") do
+  benchmark.report("Creatives:") do
     User.advertisers.each do |advertiser|
       5.times do
         FactoryBot.create :creative, user_id: advertiser.id
@@ -42,13 +42,13 @@ Benchmark.bm(48) do |x|
     end
   end
 
-  x.report("Campaigns:") do
+  benchmark.report("Campaigns:") do
     User.advertisers.each do |advertiser|
       FactoryBot.create :campaign, :status_active, user_id: advertiser.id
     end
   end
 
-  x.report("Properties:") do
+  benchmark.report("Properties:") do
     User.publishers.each do |publisher|
       rand(1..2).times do
         FactoryBot.create :property, user_id: publisher.id
@@ -56,7 +56,7 @@ Benchmark.bm(48) do |x|
     end
   end
 
-  x.report("Impressions:") do
+  benchmark.report("Impressions:") do
     ImpressionSeeder.run
   end
 end
