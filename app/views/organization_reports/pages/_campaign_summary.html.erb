@@ -45,19 +45,22 @@
         <% end %>
       <% end %>
       </tbody>
-      <tfoot>
-        <tr>
-          <th class="text-left">&nbsp;</th>
-          <th><%= number_to_currency @report.campaigns.sum(&:total_budget) %></th>
-          <th><%= number_to_currency (summaries.values.sum(&:gross_revenue_cents) / 100) %></th>
-          <th><%= number_to_currency (@report.campaigns.sum(&:total_budget).to_f - (summaries.values.sum(&:gross_revenue_cents) / 100).to_f) %></th>
-          <th><%= number_with_delimiter summaries.values.sum(&:impressions_count) %></th>
-          <th><%= number_with_delimiter summaries.values.sum(&:clicks_count) %></th>
-          <th><%= number_to_percentage (summaries.values.sum(&:clicks_count).to_f / summaries.values.sum(&:impressions_count).to_f) * 100, precision: 2 %></th>
-          <th><%= number_to_currency ((summaries.values.sum(&:gross_revenue_cents) / 100).to_f / summaries.values.sum(&:impressions_count).to_f) * 1000 %></th>
-          <th><%= number_to_currency ((summaries.values.sum(&:gross_revenue_cents) / 100).to_f / summaries.values.sum(&:clicks_count).to_f) %></th>
-        </tr>
-      </tfoot>
+      <% # HACK: ugly hack to get around the condition where summaries.values is null... we need to identify the root of the issue and fix properly %>
+      <% if summaries.values %>
+        <tfoot>
+          <tr>
+            <th class="text-left">&nbsp;</th>
+            <th><%= number_to_currency @report.campaigns.sum(&:total_budget) %></th>
+            <th><%= number_to_currency (summaries.values.sum(&:gross_revenue_cents) / 100) %></th>
+            <th><%= number_to_currency (@report.campaigns.sum(&:total_budget).to_f - (summaries.values.sum(&:gross_revenue_cents) / 100).to_f) %></th>
+            <th><%= number_with_delimiter summaries.values.sum(&:impressions_count) %></th>
+            <th><%= number_with_delimiter summaries.values.sum(&:clicks_count) %></th>
+            <th><%= number_to_percentage (summaries.values.sum(&:clicks_count).to_f / summaries.values.sum(&:impressions_count).to_f) * 100, precision: 2 %></th>
+            <th><%= number_to_currency ((summaries.values.sum(&:gross_revenue_cents) / 100).to_f / summaries.values.sum(&:impressions_count).to_f) * 1000 %></th>
+            <th><%= number_to_currency ((summaries.values.sum(&:gross_revenue_cents) / 100).to_f / summaries.values.sum(&:clicks_count).to_f) %></th>
+          </tr>
+        </tfoot>
+      <% end %>
     </table>
 
     <ul style="margin-top: 0.25in;">
