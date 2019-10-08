@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_24_203350) do
+ActiveRecord::Schema.define(version: 2019_10_08_153346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -340,10 +340,10 @@ ActiveRecord::Schema.define(version: 2019_09_24_203350) do
     t.string "status", default: "pending", null: false
     t.date "start_date", null: false
     t.date "end_date", null: false
-    t.text "campaign_ids", default: [], array: true
     t.text "pdf_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "campaign_ids", default: [], null: false, array: true
     t.index ["organization_id"], name: "index_organization_reports_on_organization_id"
   end
 
