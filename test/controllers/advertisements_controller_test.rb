@@ -4,6 +4,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   test "get advertisement with active & matching campaign" do
+    self.remote_addr = "192.168.0.1"
     campaign = active_campaign
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
