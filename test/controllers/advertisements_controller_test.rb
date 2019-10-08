@@ -13,18 +13,18 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "get advertisement with active & geo matching campaign" do
-    self.remote_addr = "192.168.0.100"
     campaign = active_campaign(country_codes: ["US"])
     property = matched_property(campaign)
+    self.remote_addr = ip_address(campaign.country_codes.sample)
     get advertisements_url(property, format: :js)
     assert_response :success
     assert response.body.include?("codeFundElement.innerHTML = '<div id=\"cf\"")
   end
 
   test "get advertisement with active but no geo matching campaigns" do
-    self.remote_addr = "192.168.0.100"
     campaign = active_campaign(country_codes: ["CA"])
     property = matched_property(campaign)
+    self.remote_addr = ip_address("US")
     get advertisements_url(property, format: :js)
     assert_response :success
     assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
