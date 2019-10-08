@@ -4,7 +4,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
   test "get advertisement with active & matching campaign" do
-    self.remote_addr = "192.168.0.1"
+    AdvertisementsController.any_instance.stubs(ad_test?: false)
     campaign = active_campaign
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
@@ -38,8 +38,8 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
   end
 
-  test "get advertisement with fallback campaign if host is localhost" do
-    self.host = "localhost"
+  test "get advertisement with fallback campaign if request is local" do
+    self.remote_addr = "127.0.0.1"
     campaign = fallback_campaign
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
@@ -47,8 +47,8 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     assert response.body.include?("codeFundElement.innerHTML = '<div id=\"cf\"")
   end
 
-  test "get advertisement with active campaign if host is localhost" do
-    self.host = "localhost"
+  test "get advertisement with active campaign if request is local" do
+    self.remote_addr = "127.0.0.1"
     campaign = active_campaign
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)

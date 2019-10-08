@@ -216,9 +216,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def ad_test?
-    return true if request.local? == 0
-
-    (params[:ad_test] || params[:adtest]).to_s == "true"
+    (params[:ad_test] || params[:adtest]).to_s == "true" || request.local? == 0
   end
 
   def set_campaign
