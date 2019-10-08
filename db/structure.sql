@@ -576,10 +576,10 @@ CREATE TABLE public.organization_reports (
     status character varying DEFAULT 'pending'::character varying NOT NULL,
     start_date date NOT NULL,
     end_date date NOT NULL,
-    campaign_ids text[] DEFAULT '{}'::text[],
     pdf_url text,
     created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    updated_at timestamp without time zone NOT NULL,
+    campaign_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
 );
 
 
@@ -2383,6 +2383,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190903173535'),
 ('20190913192015'),
 ('20190916195048'),
-('20190924203350');
+('20190924203350'),
+('20191008153346');
 
 
