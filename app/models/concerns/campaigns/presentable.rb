@@ -5,7 +5,7 @@ module Campaigns
     include ActionView::Helpers::TextHelper
 
     def scoped_name(truncate: false)
-      value = [user.scoped_name, name, creative&.name].compact.join "・"
+      value = [organization&.name, user.name, name, creative&.name].compact.join "・"
       value = truncate(value, length: 60) if truncate
       value
     end
