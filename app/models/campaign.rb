@@ -232,20 +232,20 @@ class Campaign < ApplicationRecord
     sponsor_creatives.exists?
   end
 
-  def permitted_creatives
-    Creative.where organization_id: organization_id
+  def creatives
+    @creatives ||= Creative.where(id: creative_ids)
   end
 
-  def creatives
-    Creative.where id: creative_ids
+  def permitted_creatives
+    @permitted_creatives ||= Creative.where(organization_id: organization_id)
   end
 
   def standard_creatives
-    creatives.standard
+    @standard_creatives ||= creatives.standard
   end
 
   def sponsor_creatives
-    creatives.sponsor
+    @sponsor_creatives ||= creatives.sponsor
   end
 
   def split_alternative_names
