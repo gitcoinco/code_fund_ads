@@ -31,7 +31,12 @@ class OrganizationReportsController < ApplicationController
     @report = @organization.organization_reports.find(params[:id])
     @summaries = {}
     @report.campaigns.each do |campaign|
-      @summaries[campaign.id] = campaign.summary(@report.start_date, @report.end_date)
+      summary = campaign.summary(@report.start_date, @report.end_date)
+      if summary
+        @summaries[campaign.id] = summary
+      else
+        @report.campaign_ids.delete campaign.id
+      end
     end
     render layout: false
   end
