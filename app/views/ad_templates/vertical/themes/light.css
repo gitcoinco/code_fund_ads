@@ -30,6 +30,7 @@
 #cf .cf-img-wrapper img {
   width: 125px;
   height: 125px;
+  position: relative;
 }
 
 #cf .cf-text {
