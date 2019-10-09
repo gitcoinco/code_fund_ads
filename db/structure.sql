@@ -863,6 +863,72 @@ ALTER SEQUENCE public.publisher_invoices_id_seq OWNED BY public.publisher_invoic
 
 
 --
+-- Name: regions; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.regions AS
+ SELECT 1 AS id,
+    'United States and Candada'::text AS name,
+    'USD'::text AS blockchain_ecpm_currency,
+    1000 AS blockchain_ecpm_cents,
+    'USD'::text AS css_and_design_ecpm_currency,
+    450 AS css_and_design_ecpm_cents,
+    'USD'::text AS dev_ops_ecpm_currency,
+    650 AS dev_ops_ecpm_cents,
+    'USD'::text AS game_development_ecpm_currency,
+    425 AS game_development_ecpm_cents,
+    'USD'::text AS javascript_and_frontend_ecpm_currency,
+    625 AS javascript_and_frontend_ecpm_cents,
+    'USD'::text AS miscellaneous_ecpm_currency,
+    425 AS miscellaneous_ecpm_cents,
+    'USD'::text AS mobile_development_ecpm_currency,
+    450 AS mobile_development_ecpm_cents,
+    'USD'::text AS web_development_and_backend_ecpm_currency,
+    500 AS web_development_and_backend_ecpm_cents,
+    '{US,CA}'::text[] AS country_codes
+UNION ALL
+ SELECT 2 AS id,
+    'Europe, Australia and New Zealand'::text AS name,
+    'USD'::text AS blockchain_ecpm_currency,
+    900 AS blockchain_ecpm_cents,
+    'USD'::text AS css_and_design_ecpm_currency,
+    350 AS css_and_design_ecpm_cents,
+    'USD'::text AS dev_ops_ecpm_currency,
+    550 AS dev_ops_ecpm_cents,
+    'USD'::text AS game_development_ecpm_currency,
+    325 AS game_development_ecpm_cents,
+    'USD'::text AS javascript_and_frontend_ecpm_currency,
+    525 AS javascript_and_frontend_ecpm_cents,
+    'USD'::text AS miscellaneous_ecpm_currency,
+    325 AS miscellaneous_ecpm_cents,
+    'USD'::text AS mobile_development_ecpm_currency,
+    350 AS mobile_development_ecpm_cents,
+    'USD'::text AS web_development_and_backend_ecpm_currency,
+    400 AS web_development_and_backend_ecpm_cents,
+    '{AD,AL,AT,AU,AX,BA,BE,BG,BY,CC,CH,CX,CZ,DE,DK,EE,ES,FI,FO,FR,GB,GG,GI,GR,HR,HU,IE,IM,IS,IT,JE,LI,LT,LU,LV,MC,MD,ME,MK,MT,NF,NL,NO,NZ,PL,PT,RO,RS,SE,SI,SJ,SK,SM,UA,VA}'::text[] AS country_codes
+UNION ALL
+ SELECT 3 AS id,
+    'Other'::text AS name,
+    'USD'::text AS blockchain_ecpm_currency,
+    600 AS blockchain_ecpm_cents,
+    'USD'::text AS css_and_design_ecpm_currency,
+    50 AS css_and_design_ecpm_cents,
+    'USD'::text AS dev_ops_ecpm_currency,
+    250 AS dev_ops_ecpm_cents,
+    'USD'::text AS game_development_ecpm_currency,
+    25 AS game_development_ecpm_cents,
+    'USD'::text AS javascript_and_frontend_ecpm_currency,
+    225 AS javascript_and_frontend_ecpm_cents,
+    'USD'::text AS miscellaneous_ecpm_currency,
+    25 AS miscellaneous_ecpm_cents,
+    'USD'::text AS mobile_development_ecpm_currency,
+    50 AS mobile_development_ecpm_cents,
+    'USD'::text AS web_development_and_backend_ecpm_currency,
+    100 AS web_development_and_backend_ecpm_cents,
+    '{AE,AF,AG,AI,AM,AO,AR,AS,AW,AZ,BB,BD,BF,BH,BI,BJ,BL,BM,BN,BO,BQ,BR,BS,BT,BW,BZ,CD,CF,CG,CI,CK,CL,CM,CN,CO,CR,CU,CV,CW,CY,DJ,DM,DO,DZ,EC,EG,EH,ER,ET,FJ,FK,FM,GA,GD,GE,GF,GH,GL,GM,GN,GP,GQ,GS,GT,GU,GW,GY,HK,HN,HT,ID,IL,IN,IO,IQ,IR,JM,JO,JP,KE,KG,KH,KI,KM,KN,KP,KR,KW,KY,KZ,LA,LB,LC,LK,LR,LS,LY,MA,MF,MG,MH,ML,MM,MN,MO,MP,MQ,MR,MS,MU,MV,MW,MX,MY,MZ,NA,NC,NE,NG,NI,NP,NR,NU,OM,PA,PE,PF,PG,PH,PK,PM,PN,PR,PS,PW,PY,QA,RE,RU,RW,SA,SB,SC,SD,SG,SH,SL,SN,SO,SR,SS,ST,SV,SX,SY,SZ,TC,TD,TG,TH,TJ,TK,TL,TM,TN,TO,TR,TT,TV,TW,TZ,UG,UM,UY,UZ,VC,VE,VG,VI,VN,VU,WF,WS,YE,YT,ZA,ZM,ZW}'::text[] AS country_codes;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2384,6 +2450,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190913192015'),
 ('20190916195048'),
 ('20190924203350'),
-('20191008153346');
+('20191008153346'),
+('20191009151545');
 
 

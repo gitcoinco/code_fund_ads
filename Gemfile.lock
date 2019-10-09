@@ -463,6 +463,9 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    scenic (1.5.1)
+      activerecord (>= 4.0.0)
+      railties (>= 4.0.0)
     scout_apm (2.6.2)
       parser
     selenium-webdriver (3.142.6)
@@ -676,6 +679,7 @@ DEPENDENCIES
   rollbar (~> 2.21)
   ruby_identicon (~> 0.0.5)
   sass-rails (~> 6.0)
+  scenic (~> 1.5.1)
   scout_apm (~> 2.5)
   screenshot_machine (~> 0.0.4)!
   selenium-webdriver
