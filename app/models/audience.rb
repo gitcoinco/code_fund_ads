@@ -195,11 +195,6 @@ class Audience
     end
   end
 
-  def ecpm(region: nil, country: nil)
-    return ecpm_for_region if region
-    ecpm_for_country country
-  end
-
   def ecpm_for_region(region)
     region ||= Region.find(3)
     region.ecpm self
