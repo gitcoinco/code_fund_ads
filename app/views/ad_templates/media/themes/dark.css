@@ -17,6 +17,7 @@
 
 #cf .cf-img-wrapper img {
   border-radius: 5px;
+  position: relative;
 }
 
 #cf a {

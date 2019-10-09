@@ -12,7 +12,7 @@
 
 #cf .cf-wrapper {
   display: block;
-  padding: 0px;
+  padding: 0;
   font-size: 14px;
   line-height: 1.4;
   text-align: left;
@@ -30,6 +30,7 @@
 #cf .cf-img-wrapper img {
   width: 125px;
   height: 125px;
+  position: relative;
 }
 
 #cf .cf-text {
