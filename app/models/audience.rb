@@ -46,7 +46,7 @@
 class Audience
   include ActiveModel::Model
 
-  attr_accessor :name, :keywords
+  attr_accessor :key, :name, :keywords
 
   def initialize(*args)
     super
@@ -54,6 +54,7 @@ class Audience
   end
 
   BLOCKCHAIN = new(
+    key: "blockchain",
     name: "Blockchain",
     keywords: %w[
       Blockchain
@@ -62,11 +63,13 @@ class Audience
   )
 
   CSS_AND_DESIGN = new(
+    key: "css_and_design",
     name: "CSS & Design",
     keywords: ["CSS & Design"]
   )
 
   DEV_OPS = new(
+    key: "dev_ops",
     name: "DevOps",
     keywords: %w[
       DevOps
@@ -78,6 +81,7 @@ class Audience
   )
 
   GAME_DEVELOPMENT = new(
+    key: "game_development",
     name: "Game Development",
     keywords: [
       "Game Development",
@@ -85,7 +89,8 @@ class Audience
     ]
   )
 
-  JAVA_SCRIPT_AND_FRONTEND = new(
+  JAVASCRIPT_AND_FRONTEND = new(
+    key: "javascript_and_frontend",
     name: "JavaScript & Frontend",
     keywords: %w[
       Angular
@@ -98,6 +103,7 @@ class Audience
   )
 
   MISCELLANEOUS = new(
+    key: "miscellaneous",
     name: "Miscellaneous",
     keywords: [
       "C",
@@ -119,6 +125,7 @@ class Audience
   )
 
   MOBILE_DEVELOPMENT = new(
+    key: "mobile_development",
     name: "Mobile Development",
     keywords: [
       "Android",
@@ -131,6 +138,7 @@ class Audience
   )
 
   WEB_DEVELOPMENT_AND_BACKEND = new(
+    key: "web_development_and_backend",
     name: "Web Development & Backend",
     keywords: %w[
       .NET
@@ -153,7 +161,7 @@ class Audience
         CSS_AND_DESIGN,
         DEV_OPS,
         GAME_DEVELOPMENT,
-        JAVA_SCRIPT_AND_FRONTEND,
+        JAVASCRIPT_AND_FRONTEND,
         MISCELLANEOUS,
         MOBILE_DEVELOPMENT,
         WEB_DEVELOPMENT_AND_BACKEND,
@@ -177,7 +185,7 @@ class Audience
       max_matches = all_matches.select { |match| match[:ratio] == max[:ratio] }
       if max_matches.size > 1
         preferred = max_matches.find { |match| match[:audience] == Audience::WEB_DEVELOPMENT_AND_BACKEND } if max_matches.include?(Audience::WEB_DEVELOPMENT_AND_BACKEND)
-        preferred = max_matches.find { |match| match[:audience] == Audience::JAVA_SCRIPT_AND_FRONTEND } if max_matches.include?(Audience::JAVA_SCRIPT_AND_FRONTEND)
+        preferred = max_matches.find { |match| match[:audience] == Audience::JAVASCRIPT_AND_FRONTEND } if max_matches.include?(Audience::JAVASCRIPT_AND_FRONTEND)
         max = preferred if preferred
       end
       if max[:ratio].zero?
@@ -185,5 +193,23 @@ class Audience
       end
       max[:audience]
     end
+  end
+
+  def ecpm(region: nil, country: nil)
+    return ecpm_for_region if region
+    ecpm_for_country country
+  end
+
+  def ecpm_for_region(region)
+    region ||= Region.find(3)
+    region.ecpm self
+  end
+
+  def ecpm_for_country(country)
+    ecpm_for_region Region.with_all_country_codes(country&.iso_code).first
+  end
+
+  def ecpm_for_country_code(country_code)
+    ecpm_for_country Country.find(country_code)
   end
 end
