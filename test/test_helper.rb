@@ -5,6 +5,7 @@ require_relative "../config/environment"
 require_relative "./mmdb_test_helper"
 require "rails/test_help"
 require "webmock/minitest"
+require "mocha/minitest"
 
 WebMock.allow_net_connect!
 

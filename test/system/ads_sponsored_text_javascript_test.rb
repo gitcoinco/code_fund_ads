@@ -4,6 +4,8 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
   include SystemTestHelper
 
   setup do
+    AdvertisementsController.any_instance.stubs(ad_test?: false)
+
     start_date = Date.parse("2019-01-01")
     @premium_campaign = amend campaigns: :premium,
                               start_date: start_date,
