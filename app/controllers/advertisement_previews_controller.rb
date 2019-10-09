@@ -6,6 +6,7 @@ class AdvertisementPreviewsController < ApplicationController
   before_action :set_cors_headers
   before_action :set_no_caching_headers
   before_action :set_campaign, only: [:show]
+  before_action :set_creative, only: [:show]
 
   def index
     @campaigns = Campaign.active.order(:id)
@@ -32,6 +33,10 @@ class AdvertisementPreviewsController < ApplicationController
   private
 
   def set_campaign
-    @campaign = Campaign.find(params[:campaign_id])
+    @campaign ||= Campaign.find(params[:campaign_id])
+  end
+
+  def set_creative
+    @creative = @campaign.creatives.last
   end
 end
