@@ -14,34 +14,24 @@ class CouponsController < ApplicationController
   def create
     @coupon = Coupon.new(coupon_params.merge(coupon_type: ENUMS::COUPON_TYPES::PERCENTAGE))
 
-    respond_to do |format|
-      if @coupon.save
-        format.html { redirect_to coupons_path, notice: "Coupon was successfully created." }
-        format.json { render :show, status: :created, location: @coupon }
-      else
-        format.html { render :new }
-        format.json { render json: @coupon.errors, status: :unprocessable_entity }
-      end
+    if @coupon.save
+      redirect_to coupons_path, notice: "Coupon was successfully created."
+    else
+      render :new, notice: @coupon.errors
     end
   end
 
   def update
-    respond_to do |format|
-      if @coupon.update(coupon_params)
-        format.html { redirect_to @coupon, notice: "Coupon was successfully updated." }
-        format.json { render :show, status: :ok, location: @coupon }
-      else
-        format.html { render :edit }
-        format.json { render json: @coupon.errors, status: :unprocessable_entity }
-      end
+    if @coupon.update(coupon_params)
+      redirect_to coupons_path, notice: "Coupon was successfully updated."
+    else
+      render :edit, notice: @coupon.errors
     end
   end
 
   def destroy
-    @coupon.destroy
-    respond_to do |format|
-      format.html { redirect_to coupons_path, notice: "Coupon was successfully destroyed." }
-      format.json { head :no_content }
+    if @coupon.destroy
+      redirect_to coupons_path, notice: "Coupon was successfully destroyed."
     end
   end
 
@@ -57,7 +47,8 @@ class CouponsController < ApplicationController
       :description,
       :discount_percent,
       :quantity,
-      :claimed
+      :claimed,
+      :expires_at
     ).tap do |whitelisted|
       whitelisted[:expires_at] = Chronic.parse(params[:coupon][:expires_at])
     end
