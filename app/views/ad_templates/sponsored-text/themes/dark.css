@@ -18,6 +18,7 @@
 #cf .cf-wrapper img,
 #cf .cf-wrapper svg {
   vertical-align: middle;
+  position: relative;
 }
 
 #cf a.cf-powered-by {

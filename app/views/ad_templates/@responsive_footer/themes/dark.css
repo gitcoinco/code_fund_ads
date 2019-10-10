@@ -22,7 +22,7 @@
 
 #cf .cf-img-wrapper {
   margin-right: 10px;
-  line-height: 0px;
+  line-height: 0;
 }
 
 #cf .cf-img-wrapper img {

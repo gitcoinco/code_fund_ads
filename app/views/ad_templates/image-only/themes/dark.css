@@ -45,6 +45,7 @@
 #cf .cf-img-wrapper img {
   width: 150px;
   height: 150px;
+  position: relative;
 }
 
 #cf .cf-text {

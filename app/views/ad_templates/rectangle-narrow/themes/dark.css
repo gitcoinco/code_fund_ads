@@ -11,7 +11,7 @@
 }
 
 #cf .cf-wrapper {
-  border-radius: 0px;
+  border-radius: 0;
   display: block;
   padding: 14px 10px;
   overflow: hidden;
@@ -30,6 +30,7 @@
   vertical-align: middle;
   border-style: none;
   max-width: 130px;
+  position: relative;
 }
 
 #cf .cf-text {

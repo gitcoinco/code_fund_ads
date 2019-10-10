@@ -19,7 +19,7 @@
 
 #cf .cf-wrapper {
   display: block;
-  padding: 0px;
+  padding: 0;
   font-size: 14px;
   line-height: 1.4;
   text-align: left;
@@ -40,6 +40,7 @@
   vertical-align: middle;
   border-style: none;
   width: 100%;
+  position: relative;
 }
 
 #cf .cf-text {

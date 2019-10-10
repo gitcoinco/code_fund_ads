@@ -224,28 +224,38 @@ class Campaign < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def metadata
+    key = "#{cache_key_with_version}/metadata"
+    Rails.cache.fetch key do
+      {
+        standard: standard_creatives.exists?,
+        sponsor: sponsor_creatives.exists?,
+      }
+    end
+  end
+
   def standard?
-    standard_creatives.exists?
+    metadata[:standard]
   end
 
   def sponsor?
-    sponsor_creatives.exists?
-  end
-
-  def permitted_creatives
-    Creative.where organization_id: organization_id
+    metadata[:sponsor]
   end
 
   def creatives
-    Creative.where id: creative_ids
+    @creatives ||= Creative.where(id: creative_ids)
+  end
+
+  def permitted_creatives
+    @permitted_creatives ||= Creative.where(organization_id: organization_id)
   end
 
   def standard_creatives
-    creatives.standard
+    @standard_creatives ||= creatives.standard
   end
 
   def sponsor_creatives
-    creatives.sponsor
+    @sponsor_creatives ||= creatives.sponsor
   end
 
   def split_alternative_names

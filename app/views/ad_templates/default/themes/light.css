@@ -29,6 +29,7 @@
   vertical-align: middle;
   border-style: none;
   max-width: 130px;
+  position: relative;
 }
 
 #cf .cf-text {
