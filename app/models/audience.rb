@@ -4,6 +4,8 @@ class Audience < ApplicationRecord
   include Taggable
 
   # relationships .............................................................
+  has_many :properties
+
   # validations ...............................................................
   # callbacks .................................................................
   # scopes ....................................................................
@@ -14,6 +16,38 @@ class Audience < ApplicationRecord
 
   # class methods .............................................................
   class << self
+    def blockchain
+      find 1
+    end
+
+    def css_and_design
+      find 2
+    end
+
+    def dev_ops
+      find 3
+    end
+
+    def game_development
+      find 4
+    end
+
+    def javascript_and_frontend
+      find 5
+    end
+
+    def miscellaneous
+      find 6
+    end
+
+    def mobile_development
+      find 7
+    end
+
+    def web_development_and_backend
+      find 8
+    end
+
     def matches(keywords = [])
       all.map do |audience|
         matched_keywords = audience.keywords & keywords
@@ -26,8 +60,6 @@ class Audience < ApplicationRecord
     end
 
     def match(keywords = [])
-      web_development_and_backend = Audience.find(8)
-      javascript_and_frontend = Audience.find(5)
       all_matches = matches(keywords)
       max = all_matches.max_by { |match| match[:ratio] }
       max_matches = all_matches.select { |match| match[:ratio] == max[:ratio] }
@@ -36,9 +68,7 @@ class Audience < ApplicationRecord
         preferred = max_matches.find { |match| match[:audience] == javascript_and_frontend } if max_matches.include?(javascript_and_frontend)
         max = preferred if preferred
       end
-      if max[:ratio].zero?
-        max = all_matches.find { |match| match[:audience] == Audience::MISCELLANEOUS }
-      end
+      max = all_matches.find { |match| match[:audience] == miscellaneous } if max[:ratio].zero?
       max[:audience]
     end
   end
@@ -51,7 +81,7 @@ class Audience < ApplicationRecord
 
   def ecpm_for_region(region)
     region ||= Region.find(3)
-    region.public_send ecpm_column_name
+    region.public_send ecpm_column_name.delete_suffix("_cents")
   end
 
   def ecpm_for_country(country)

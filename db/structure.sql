@@ -746,7 +746,7 @@ CREATE TABLE public.properties (
     fallback_ad_template character varying,
     fallback_ad_theme character varying,
     responsive_behavior character varying DEFAULT 'none'::character varying NOT NULL,
-    audience character varying
+    audience_id bigint
 );
 
 
@@ -2114,10 +2114,10 @@ CREATE INDEX index_properties_on_assigned_fallback_campaign_ids ON public.proper
 
 
 --
--- Name: index_properties_on_audience; Type: INDEX; Schema: public; Owner: -
+-- Name: index_properties_on_audience_id; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX index_properties_on_audience ON public.properties USING btree (audience);
+CREATE INDEX index_properties_on_audience_id ON public.properties USING btree (audience_id);
 
 
 --
@@ -2498,6 +2498,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190924203350'),
 ('20191008153346'),
 ('20191009151545'),
-('20191010203902');
+('20191010203902'),
+('20191010214024');
 
 
