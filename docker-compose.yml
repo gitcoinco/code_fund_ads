@@ -1,70 +1,83 @@
 version: '3.6'
 
+x-app_base: &x-app_base
+  tty: true
+  stdin_open: true
+  env_file: .env-docker
+  working_dir: /app
+  environment:
+    - COMPOSE_HTTP_TIMEOUT=300
+    - DEPENDENCY_TIMEOUT=${DEPENDENCY_TIMEOUT:-1000}
+  networks:
+    - internal_network
+    - external_network
+  volumes:
+    - app_assets:/app/public
+    - app_gems:/app/vendor/cache
+    - bundle:/usr/local/bundle
+
 services:
+  # Base container to build for all other services
   base: &base
+    <<: *x-app_base
     build:
       context: .
-    tty: true
-    stdin_open: true
-    env_file: .env
+    container_name: code_fund_ads_base
     depends_on:
       - postgres
       - redis
-    volumes:
-      - ./:/var/www/code_fund_ads
-      - /var/www/code_fund_ads/tmp/
-      - bundle:/usr/local/bundle
-      - node_modules:/var/www/code_fund_ads/node_modules
-      - /dev/shm:/dev/shm
+
+  migration:
+    <<: *x-app_base
+    image: code_fund_ads_base:latest
+    command: >
+      bash -c "bundle exec rails db:create &&
+      bundle exec rails db:migrate &&
+      bundle exec rails db:setup &&
+      bundle exec rails db:seed"
+    depends_on:
+      - postgres
+      - redis
+      - base
 
   # App container
   app:
-    <<: *base
-    container_name: 'code_fund_ads-app'
+    <<: *x-app_base
     image: code_fund_ads_base:latest
-    command: dockerize -wait http://bundler:23480 -wait http://yarn:23480 -timeout ${DEPENDENCY_TIMEOUT} bin/docker/start_development_web_server
+    command: >
+      bash -c "bundle exec rails tmp:clear &&
+      bundle exec rails s -p 3000 -b 0.0.0.0"
     ports:
-      - '3000:3000'
+      - 3000:3000
+    depends_on:
+      - migration
+      - postgres
+      - redis
+      - base
+      # - webpacker
 
-  # Test container
-  test:
-    <<: *base
-    container_name: 'code_fund_ads-test'
-    image: code_fund_ads_base:latest
-    command: dockerize -wait http://bundler:23480 -wait http://yarn:23480 -timeout ${DEPENDENCY_TIMEOUT} bin/docker/setup_test_env
-    environment:
-      - NODE_ENV=test
-      - RAILS_ENV=test
-
-  # Sidekiq container
-  sidekiq:
-    <<: *base
-    container_name: 'code_fund_ads-sidekiq'
-    image: code_fund_ads_base:latest
-    command: dockerize -wait http://bundler:23480 -timeout ${DEPENDENCY_TIMEOUT} bin/docker/start_sidekiq
-
-  # Webpack container
   webpacker:
-    <<: *base
-    container_name: 'code_fund_ads-webpacker'
+    <<: *x-app_base
     image: code_fund_ads_base:latest
-    command: dockerize -wait http://bundler:23480 -wait http://yarn:23480 -timeout ${DEPENDENCY_TIMEOUT} bin/docker/start_docker_webpacker_server
+    command: >
+      bash -c "./bin/webpack-dev-server"
     ports:
       - '3035:3035'
+    depends_on:
+      - postgres
+      - redis
+      - base
 
-  # Handles bundling prior to any dependent containers starting
-  bundler:
-    <<: *base
-    container_name: 'code_fund_ads-bundler'
+  sidekiq:
+    <<: *x-app_base
     image: code_fund_ads_base:latest
-    command: bin/docker/update_bundle
-
-  # Handles yarning prior to any dependent containers starting
-  yarn:
-    <<: *base
-    container_name: 'code_fund_ads-yarn'
-    image: code_fund_ads_base:latest
-    command: bin/docker/update_yarn
+    command: bash -c 'bundle exec sidekiq'
+    environment:
+      - RAILS_ENV=test
+    depends_on:
+      - postgres
+      - redis
+      - base
 
   # Postgres
   postgres:
@@ -72,17 +85,20 @@ services:
     image: postgres:11.3
     command: postgres -c max_locks_per_transaction=1024
     shm_size: '256mb'
-    env_file: .env
-    environment:
-      - POSTGRES_PASSWORD=${PG_PASSWORD}
-      - POSTGRES_USER=${PG_USERNAME}
+    env_file: .env-docker
     ports:
       - "5432:5432"
     volumes:
       - postgresdata:/var/lib/postgresql/data
       - postgresconfig:/etc/postgresql
       - postgreslog:/var/log/postgresql
-      - ./:/var/www/code_fund_ads
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+    networks:
+      - internal_network
 
   # Redis
   redis:
@@ -90,30 +106,28 @@ services:
     image: redis:alpine
     ports:
       - "6379:6379"
-
-  # selenium
-  selenium-hub:
-    image: selenium/hub:3.141.59-vanadium
-    container_name: 'code_fund_ads-selenium-hub'
-    ports:
-      - "4444:4444"
-
-  # firefox
-  firefox:
-    image: selenium/node-firefox:3.141.59-vanadium
-    container_name: 'code_fund_ads-firefox'
+    networks:
+      - internal_network
     volumes:
-      - /dev/shm:/dev/shm
-    depends_on:
-      - selenium-hub
-    environment:
-      - HUB_HOST=selenium-hub
-      - HUB_PORT=4444
+      - 'redis:/data'
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+    sysctls:
+      # https://github.com/docker-library/redis/issues/35
+      net.core.somaxconn: '511'
+
+networks:
+  external_network:
+  internal_network:
+    internal: true
 
 # persists the data in case you destroy your container
+# Don't share node_modules because some packages a post_install call that has different results if installed with MacOS or Linux
 volumes:
+  app_assets:
+  app_gems:
   bundle:
-  node_modules:
   postgresconfig:
   postgresdata:
   postgreslog:
+  redis:

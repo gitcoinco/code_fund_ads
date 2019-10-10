@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-# frozen_string_literal: true
-
-system "bin/update_bundle"
-system "bin/update_yarn"
-
-system "bash"

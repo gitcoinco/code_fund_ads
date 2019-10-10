@@ -32,6 +32,7 @@ It helps your favorite projects thrive by paying maintainers the majority of all
     - [Preboot](#preboot)
     - [Scheduler](#scheduler)
     - [Database](#database)
+  - [Docker](#docker)
   - [Maxmind](#maxmind)
   - [Candidates for GEM extraction](#candidates-for-gem-extraction)
   - [Contributors](#contributors)
@@ -277,6 +278,23 @@ rails maxmind:download
 
 ```ruby
 DownloadAndExtractMaxmindFileJob.new.download
+```
+
+## Docker
+
+If start fresh or needing to apply a bunch of changes I'd suggest using the build tag so your base docker image isn't built from a bunch of cached layers.
+
+```shell
+docker-compose up --build`
+```
+
+If you've already built the docker image and just wanting to just give the application a test ru;, you just need to bring up all required docker services with the following command:
+`docker-compose up`
+
+In order to run the applications tests in docker you still require a number of services (redis, postgres, database migrations, etc.). To run your application tests, run the following command:
+
+```shell
+docker-compose -f docker-test.yml up
 ```
 
 ## Instrumentation

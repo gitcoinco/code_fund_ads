@@ -1,0 +1,124 @@
+version: '3.6'
+
+x-app_base: &x-app_base
+  tty: true
+  stdin_open: true
+  env_file: .env-docker
+  working_dir: /app
+  environment:
+    - COMPOSE_HTTP_TIMEOUT=300
+    - DEPENDENCY_TIMEOUT=${DEPENDENCY_TIMEOUT:-1000}
+  networks:
+    - internal_network
+    - external_network
+  volumes:
+    - app_assets:/app/public
+    - app_gems:/app/vendor/cache
+    - app_modules:/app/node_modules
+    - app_tmp:/app/tmp
+    - bundle:/usr/local/bundle
+
+services:
+  # Base container to build for all other services
+  base: &base
+    <<: *x-app_base
+    build:
+      context: .
+    container_name: code_fund_ads_base
+    depends_on:
+      - postgres
+      - redis
+
+  migration:
+    <<: *x-app_base
+    image: code_fund_ads_base:latest
+    command: >
+      bash -c "bundle exec rails db:create &&
+      bundle exec rails db:migrate &&
+      bundle exec rails db:setup &&
+      bundle exec rails db:seed"
+    depends_on:
+      - postgres
+      - redis
+      - base
+
+  test:
+    <<: *x-app_base
+    image: code_fund_ads_base:latest
+    command: >
+      bash -c "bundle exec rails db:create &&
+      bundle exec rails db:migrate &&
+      bundle exec rails test"
+    environment:
+      - NODE_ENV=test
+      - RAILS_ENV=test
+      - SELENIUM_HOST=selenium
+      - SELENIUM_PORT=4444
+    depends_on:
+      - migration
+      - postgres
+      - redis
+      - base
+      - selenium
+
+  # Postgres
+  postgres:
+    container_name: 'code_fund_ads-postgres'
+    image: postgres:11.3
+    command: postgres -c max_locks_per_transaction=1024
+    shm_size: '256mb'
+    env_file: .env-docker
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+      - postgresconfig:/etc/postgresql
+      - postgreslog:/var/log/postgresql
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+    networks:
+      - internal_network
+
+  # Redis
+  redis:
+    container_name: 'code_fund_ads-redis'
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - internal_network
+    volumes:
+      - 'redis:/data'
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+    sysctls:
+      # https://github.com/docker-library/redis/issues/35
+      net.core.somaxconn: '511'
+
+  selenium:
+    image: selenium/standalone-chrome-debug:3.0.1-germanium
+    ports: ['4444:4444', '5900:5900']
+      # Bind selenium port & VNC port
+    logging:
+      driver: none
+      # Disable noisy logs.
+
+networks:
+  external_network:
+  internal_network:
+    internal: true
+
+# persists the data in case you destroy your container
+volumes:
+  app_assets:
+  app_gems:
+  app_modules:
+  app_tmp:
+  bundle:
+  postgresconfig:
+  postgresdata:
+  postgreslog:
+  redis:

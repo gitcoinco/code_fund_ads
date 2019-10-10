@@ -1,5 +1,16 @@
 .git
 .dockerignore
 .byebug_history
+coverage
+docs/
 log/*
+node_modules/
+storage/
 tmp/*
+vendor/bundle
+
+# Ignore because we don't have a masterkey in the container, so it'll cause issues
+config/credentials.yml.enc
+# config/database.yml.example
+# config/storage.yml.example
+.env-example

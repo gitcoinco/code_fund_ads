@@ -1,6 +1,0 @@
-#!/usr/bin/env ruby
-# frozen_string_literal: true
-
-system "rm -rf public/packs"
-
-system "bin/webpack-dev-server"

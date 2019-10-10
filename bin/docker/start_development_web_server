@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-# frozen_string_literal: true
-
-system "rm -f tmp/pids/server.pid"
-system "bin/docker/start_web_server"
