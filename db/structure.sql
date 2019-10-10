@@ -137,6 +137,52 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: audiences; Type: VIEW; Schema: public; Owner: -
+--
+
+CREATE VIEW public.audiences AS
+ SELECT 1 AS id,
+    'Blockchain'::text AS name,
+    'blockchain_ecpm_cents'::text AS ecpm_column_name,
+    '{Blockchain,Cryptography}'::text[] AS keywords
+UNION ALL
+ SELECT 2 AS id,
+    'CSS & Design'::text AS name,
+    'css_and_design_ecpm_cents'::text AS ecpm_column_name,
+    '{"CSS & Design"}'::text[] AS keywords
+UNION ALL
+ SELECT 3 AS id,
+    'DevOps'::text AS name,
+    'dev_ops_ecpm_cents'::text AS ecpm_column_name,
+    '{DevOps,Python,Ruby,Security,Serverless}'::text[] AS keywords
+UNION ALL
+ SELECT 4 AS id,
+    'Game Development'::text AS name,
+    'game_development_ecpm_cents'::text AS ecpm_column_name,
+    '{"Game Development","Virtual Reality"}'::text[] AS keywords
+UNION ALL
+ SELECT 5 AS id,
+    'JavaScript & Frontend'::text AS name,
+    'javascript_and_frontend_ecpm_cents'::text AS ecpm_column_name,
+    '{Angular,Dart,Frontend,JavaScript,React,VueJS}'::text[] AS keywords
+UNION ALL
+ SELECT 6 AS id,
+    'Miscellaneous'::text AS name,
+    'miscellaneous_ecpm_cents'::text AS ecpm_column_name,
+    '{C,D,"Developer Resources",Erlang,F#,Haskell,IoT,Julia,"Machine Learning",Other,Python,Q,R,Rust,Scala}'::text[] AS keywords
+UNION ALL
+ SELECT 7 AS id,
+    'Mobile Development'::text AS name,
+    'mobile_development_ecpm_cents'::text AS ecpm_column_name,
+    '{Android,"Hybrid & Mobile Web",Kotlin,Objective-C,Swift,iOS}'::text[] AS keywords
+UNION ALL
+ SELECT 8 AS id,
+    'Web Development & Backend'::text AS name,
+    'web_development_and_backend_ecpm_cents'::text AS ecpm_column_name,
+    '{.NET,Backend,Database,Go,Groovy,Java,PHP,PL/SQL,Python,Ruby}'::text[] AS keywords;
+
+
+--
 -- Name: campaigns; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -2451,6 +2497,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20190916195048'),
 ('20190924203350'),
 ('20191008153346'),
-('20191009151545');
+('20191009151545'),
+('20191010203902');
 
 

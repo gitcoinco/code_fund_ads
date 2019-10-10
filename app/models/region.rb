@@ -32,7 +32,7 @@ class Region < ApplicationRecord
   end
 
   def ecpm(audience)
-    public_send "#{audience.key}_ecpm"
+    public_send audience.ecpm_column_name
   end
 
   # protected instance methods ................................................
