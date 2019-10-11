@@ -5,6 +5,8 @@ FactoryBot.define do
   factory :user do
     first_name { Faker::TvShows::SiliconValley.character.split.first }
     last_name { Faker::TvShows::SiliconValley.character.split.last }
+    confirmation_sent_at { Time.current }
+    confirmed_at { Time.current }
     password { "secret" }
 
     trait :with_address do
