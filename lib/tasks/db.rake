@@ -25,4 +25,11 @@ namespace :db do
       exec "pg_restore --verbose --clean --no-acl --no-owner -h #{config[:host]} -d #{config[:database]} #{path}"
     end
   end
+
+  desc "Reset postgres pk sequence id's on all tables"
+  task seq_ids_reset: [:environment] do
+    ActiveRecord::Base.connection.tables.each do |t|
+      ActiveRecord::Base.connection.reset_pk_sequence!(t)
+    end
+  end
 end

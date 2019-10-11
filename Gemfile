@@ -104,6 +104,7 @@ group :development do
   gem "letter_opener_web"
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "mechanize"
+  gem "factory_bot_rails"
   gem "meta_request" # RailsPanel Chrome extension
   gem "model_probe"
   gem "ngrok-tunnel"
