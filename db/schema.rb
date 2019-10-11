@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_09_151545) do
+ActiveRecord::Schema.define(version: 2019_10_10_214024) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -394,10 +394,10 @@ ActiveRecord::Schema.define(version: 2019_10_09_151545) do
     t.string "fallback_ad_template"
     t.string "fallback_ad_theme"
     t.string "responsive_behavior", default: "none", null: false
-    t.string "audience"
+    t.bigint "audience_id"
     t.index "lower((name)::text)", name: "index_properties_on_name"
     t.index ["assigned_fallback_campaign_ids"], name: "index_properties_on_assigned_fallback_campaign_ids", using: :gin
-    t.index ["audience"], name: "index_properties_on_audience"
+    t.index ["audience_id"], name: "index_properties_on_audience_id"
     t.index ["keywords"], name: "index_properties_on_keywords", using: :gin
     t.index ["prohibited_advertiser_ids"], name: "index_properties_on_prohibited_advertiser_ids", using: :gin
     t.index ["property_type"], name: "index_properties_on_property_type"
@@ -624,5 +624,46 @@ ActiveRecord::Schema.define(version: 2019_10_09_151545) do
       'USD'::text AS web_development_and_backend_ecpm_currency,
       100 AS web_development_and_backend_ecpm_cents,
       '{AE,AF,AG,AI,AM,AO,AR,AS,AW,AZ,BB,BD,BF,BH,BI,BJ,BL,BM,BN,BO,BQ,BR,BS,BT,BW,BZ,CD,CF,CG,CI,CK,CL,CM,CN,CO,CR,CU,CV,CW,CY,DJ,DM,DO,DZ,EC,EG,EH,ER,ET,FJ,FK,FM,GA,GD,GE,GF,GH,GL,GM,GN,GP,GQ,GS,GT,GU,GW,GY,HK,HN,HT,ID,IL,IN,IO,IQ,IR,JM,JO,JP,KE,KG,KH,KI,KM,KN,KP,KR,KW,KY,KZ,LA,LB,LC,LK,LR,LS,LY,MA,MF,MG,MH,ML,MM,MN,MO,MP,MQ,MR,MS,MU,MV,MW,MX,MY,MZ,NA,NC,NE,NG,NI,NP,NR,NU,OM,PA,PE,PF,PG,PH,PK,PM,PN,PR,PS,PW,PY,QA,RE,RU,RW,SA,SB,SC,SD,SG,SH,SL,SN,SO,SR,SS,ST,SV,SX,SY,SZ,TC,TD,TG,TH,TJ,TK,TL,TM,TN,TO,TR,TT,TV,TW,TZ,UG,UM,UY,UZ,VC,VE,VG,VI,VN,VU,WF,WS,YE,YT,ZA,ZM,ZW}'::text[] AS country_codes;
+  SQL
+  create_view "audiences", sql_definition: <<-SQL
+      SELECT 1 AS id,
+      'Blockchain'::text AS name,
+      'blockchain_ecpm_cents'::text AS ecpm_column_name,
+      '{Blockchain,Cryptography}'::text[] AS keywords
+  UNION ALL
+   SELECT 2 AS id,
+      'CSS & Design'::text AS name,
+      'css_and_design_ecpm_cents'::text AS ecpm_column_name,
+      '{"CSS & Design"}'::text[] AS keywords
+  UNION ALL
+   SELECT 3 AS id,
+      'DevOps'::text AS name,
+      'dev_ops_ecpm_cents'::text AS ecpm_column_name,
+      '{DevOps,Python,Ruby,Security,Serverless}'::text[] AS keywords
+  UNION ALL
+   SELECT 4 AS id,
+      'Game Development'::text AS name,
+      'game_development_ecpm_cents'::text AS ecpm_column_name,
+      '{"Game Development","Virtual Reality"}'::text[] AS keywords
+  UNION ALL
+   SELECT 5 AS id,
+      'JavaScript & Frontend'::text AS name,
+      'javascript_and_frontend_ecpm_cents'::text AS ecpm_column_name,
+      '{Angular,Dart,Frontend,JavaScript,React,VueJS}'::text[] AS keywords
+  UNION ALL
+   SELECT 6 AS id,
+      'Miscellaneous'::text AS name,
+      'miscellaneous_ecpm_cents'::text AS ecpm_column_name,
+      '{C,D,"Developer Resources",Erlang,F#,Haskell,IoT,Julia,"Machine Learning",Other,Python,Q,R,Rust,Scala}'::text[] AS keywords
+  UNION ALL
+   SELECT 7 AS id,
+      'Mobile Development'::text AS name,
+      'mobile_development_ecpm_cents'::text AS ecpm_column_name,
+      '{Android,"Hybrid & Mobile Web",Kotlin,Objective-C,Swift,iOS}'::text[] AS keywords
+  UNION ALL
+   SELECT 8 AS id,
+      'Web Development & Backend'::text AS name,
+      'web_development_and_backend_ecpm_cents'::text AS ecpm_column_name,
+      '{.NET,Backend,Database,Go,Groovy,Java,PHP,PL/SQL,Python,Ruby}'::text[] AS keywords;
   SQL
 end

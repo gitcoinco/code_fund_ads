@@ -42,6 +42,7 @@ class Property < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :user
+  belongs_to :audience, optional: true
   has_many :property_advertisers, dependent: :destroy
   has_many :advertisers, through: :property_advertisers, class_name: "User", foreign_key: "advertiser_id"
   has_many :property_traffic_estimates, dependent: :destroy
@@ -54,7 +55,6 @@ class Property < ApplicationRecord
   validates :property_type, inclusion: {in: ENUMS::PROPERTY_TYPES.values}
   validates :status, inclusion: {in: ENUMS::PROPERTY_STATUSES.values}
   validates :responsive_behavior, inclusion: {in: ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS.values}
-  validates :audience, inclusion: {in: Audience.all.map(&:name)}
   validates :url, presence: true, url: true
 
   # callbacks .................................................................
@@ -203,7 +203,7 @@ class Property < ApplicationRecord
   end
 
   def update_audience
-    update_columns audience: Audience.match(keywords).name
+    update_columns audience_id: Audience.match(keywords)&.id
   end
 
   # protected instance methods ................................................
@@ -230,7 +230,7 @@ class Property < ApplicationRecord
 
   def assign_audience(force: false)
     self.audience = nil if force
-    self.audience ||= Audience.match(keywords).name
+    self.audience ||= Audience.match(keywords)
   end
 
   def assign_restrict_to_assigner_campaigns
