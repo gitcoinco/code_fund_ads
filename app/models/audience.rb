@@ -1,171 +1,51 @@
-# Supported Keywords
-# - .NET
-# - Android
-# - Angular
-# - Backend
-# - Blockchain
-# - C
-# - CSS & Design
-# - Cryptography
-# - D
-# - Dart
-# - Database
-# - DevOps
-# - Developer Resources
-# - Erlang
-# - F#
-# - Frontend
-# - Game Development
-# - Go
-# - Groovy
-# - Haskell
-# - Hybrid & Mobile Web
-# - iOS
-# - IoT
-# - Java
-# - JavaScript
-# - Julia
-# - Kotlin
-# - Machine Learning
-# - Objective-C
-# - Other
-# - PHP
-# - PL/SQL
-# - Python
-# - Q
-# - R
-# - React
-# - Ruby
-# - Rust
-# - Scala
-# - Security
-# - Serverless
-# - Swift
-# - Virtual Reality
-# - VueJS
-class Audience
-  include ActiveModel::Model
+class Audience < ApplicationRecord
+  # extends ...................................................................
+  # includes ..................................................................
+  include Taggable
 
-  attr_accessor :key, :name, :keywords
+  # relationships .............................................................
+  has_many :properties
 
-  def initialize(*args)
-    super
-    keywords.freeze
-  end
+  # validations ...............................................................
+  # callbacks .................................................................
+  # scopes ....................................................................
 
-  BLOCKCHAIN = new(
-    key: "blockchain",
-    name: "Blockchain",
-    keywords: %w[
-      Blockchain
-      Cryptography
-    ]
-  )
+  # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  self.primary_key = :id
+  tag_columns :keywords
 
-  CSS_AND_DESIGN = new(
-    key: "css_and_design",
-    name: "CSS & Design",
-    keywords: ["CSS & Design"]
-  )
-
-  DEV_OPS = new(
-    key: "dev_ops",
-    name: "DevOps",
-    keywords: %w[
-      DevOps
-      Python
-      Ruby
-      Security
-      Serverless
-    ]
-  )
-
-  GAME_DEVELOPMENT = new(
-    key: "game_development",
-    name: "Game Development",
-    keywords: [
-      "Game Development",
-      "Virtual Reality",
-    ]
-  )
-
-  JAVASCRIPT_AND_FRONTEND = new(
-    key: "javascript_and_frontend",
-    name: "JavaScript & Frontend",
-    keywords: %w[
-      Angular
-      Dart
-      Frontend
-      JavaScript
-      React
-      VueJS
-    ]
-  )
-
-  MISCELLANEOUS = new(
-    key: "miscellaneous",
-    name: "Miscellaneous",
-    keywords: [
-      "C",
-      "D",
-      "Developer Resources",
-      "Erlang",
-      "F#",
-      "Haskell",
-      "IoT",
-      "Julia",
-      "Machine Learning",
-      "Other",
-      "Python",
-      "Q",
-      "R",
-      "Rust",
-      "Scala",
-    ]
-  )
-
-  MOBILE_DEVELOPMENT = new(
-    key: "mobile_development",
-    name: "Mobile Development",
-    keywords: [
-      "Android",
-      "Hybrid & Mobile Web",
-      "Kotlin",
-      "Objective-C",
-      "Swift",
-      "iOS",
-    ]
-  )
-
-  WEB_DEVELOPMENT_AND_BACKEND = new(
-    key: "web_development_and_backend",
-    name: "Web Development & Backend",
-    keywords: %w[
-      .NET
-      Backend
-      Database
-      Go
-      Groovy
-      Java
-      PHP
-      PL/SQL
-      Python
-      Ruby
-    ]
-  )
-
+  # class methods .............................................................
   class << self
-    def all
-      [
-        BLOCKCHAIN,
-        CSS_AND_DESIGN,
-        DEV_OPS,
-        GAME_DEVELOPMENT,
-        JAVASCRIPT_AND_FRONTEND,
-        MISCELLANEOUS,
-        MOBILE_DEVELOPMENT,
-        WEB_DEVELOPMENT_AND_BACKEND,
-      ]
+    def blockchain
+      find 1
+    end
+
+    def css_and_design
+      find 2
+    end
+
+    def dev_ops
+      find 3
+    end
+
+    def game_development
+      find 4
+    end
+
+    def javascript_and_frontend
+      find 5
+    end
+
+    def miscellaneous
+      find 6
+    end
+
+    def mobile_development
+      find 7
+    end
+
+    def web_development_and_backend
+      find 8
     end
 
     def matches(keywords = [])
@@ -184,20 +64,24 @@ class Audience
       max = all_matches.max_by { |match| match[:ratio] }
       max_matches = all_matches.select { |match| match[:ratio] == max[:ratio] }
       if max_matches.size > 1
-        preferred = max_matches.find { |match| match[:audience] == Audience::WEB_DEVELOPMENT_AND_BACKEND } if max_matches.include?(Audience::WEB_DEVELOPMENT_AND_BACKEND)
-        preferred = max_matches.find { |match| match[:audience] == Audience::JAVASCRIPT_AND_FRONTEND } if max_matches.include?(Audience::JAVASCRIPT_AND_FRONTEND)
+        preferred = max_matches.find { |match| match[:audience] == web_development_and_backend } if max_matches.include?(web_development_and_backend)
+        preferred = max_matches.find { |match| match[:audience] == javascript_and_frontend } if max_matches.include?(javascript_and_frontend)
         max = preferred if preferred
       end
-      if max[:ratio].zero?
-        max = all_matches.find { |match| match[:audience] == Audience::MISCELLANEOUS }
-      end
+      max = all_matches.find { |match| match[:audience] == miscellaneous } if max[:ratio].zero?
       max[:audience]
     end
   end
 
+  # public instance methods ...................................................
+
+  def read_only?
+    true
+  end
+
   def ecpm_for_region(region)
     region ||= Region.find(3)
-    region.ecpm self
+    region.public_send ecpm_column_name.delete_suffix("_cents")
   end
 
   def ecpm_for_country(country)
@@ -207,4 +91,8 @@ class Audience
   def ecpm_for_country_code(country_code)
     ecpm_for_country Country.find(country_code)
   end
+
+  # protected instance methods ................................................
+
+  # private instance methods ..................................................
 end

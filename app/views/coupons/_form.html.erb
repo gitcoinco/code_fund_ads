@@ -26,6 +26,9 @@
     <%= render "@shared/forms/button_panel" do %>
       <%= f.submit "Save Coupon", class: "btn btn-sm btn-primary transition-3d-hover mr-1" %>
       <%= link_to "Cancel", coupons_path, class: "btn btn-sm btn-soft-secondary transition-3d-hover" %>
+      <% if coupon.persisted? %>
+        <%= link_to "Delete", coupons_path(coupon), method: :delete, class: "btn btn-sm btn-soft-secondary transition-3d-hover" %>
+      <% end %>
     <% end %>
   </div>
 <% end %>

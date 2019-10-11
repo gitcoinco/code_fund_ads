@@ -2,9 +2,9 @@ require "test_helper"
 
 class RegionTest < ActiveSupport::TestCase
   test "ecpm pricing for audience" do
-    assert Region.find(1).ecpm(Audience::BLOCKCHAIN).format == "$10.00"
-    assert Region.find(2).ecpm(Audience::MOBILE_DEVELOPMENT).format == "$3.50"
-    assert Region.find(3).ecpm(Audience::DEV_OPS).format == "$2.50"
+    assert Region.find(1).ecpm(Audience.blockchain).format == "$10.00"
+    assert Region.find(2).ecpm(Audience.mobile_development).format == "$3.50"
+    assert Region.find(3).ecpm(Audience.dev_ops).format == "$2.50"
   end
 
   test "region one pricing" do
