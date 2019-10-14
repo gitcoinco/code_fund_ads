@@ -91,10 +91,10 @@ export default class extends Controller {
   }
 
   setLargeImage () {
-    let target = this.inputLargeBlobIdTarget
-    let blobId = parseInt(target.value, 10)
+    const target = this.inputLargeBlobIdTarget
+    const blobId = parseInt(target.value, 10)
     if (!isNaN(blobId)) {
-      let selectedOption = target.options[target.selectedIndex]
+      const selectedOption = target.options[target.selectedIndex]
       this.previewImageUrlTarget.src = selectedOption.dataset.imageUrl
     } else {
       this.previewImageUrlTarget.src = this.previewImageUrlTarget.dataset.defaultImageUrl
@@ -106,10 +106,10 @@ export default class extends Controller {
   }
 
   setSponsorImage () {
-    let target = this.inputSponsorBlobIdTarget
-    let blobId = parseInt(target.value, 10)
+    const target = this.inputSponsorBlobIdTarget
+    const blobId = parseInt(target.value, 10)
     if (!isNaN(blobId)) {
-      let selectedOption = target.options[target.selectedIndex]
+      const selectedOption = target.options[target.selectedIndex]
       this.previewSponsorImageTarget.src = selectedOption.dataset.imageUrl
     } else {
       this.previewImageUrlTarget.src = 'about:blank'

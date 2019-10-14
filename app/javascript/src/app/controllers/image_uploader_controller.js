@@ -19,9 +19,9 @@ export default class extends Controller {
   }
 
   showUploadProgress (event) {
-    let { file, progress } = event.detail
+    const { file, progress } = event.detail
     this.chooseButtonTarget.innerHTML = this.chooseButtonTarget.dataset.disableWith
-    let innerBar = this.progressBars[file.name].querySelector('.progress-bar')
+    const innerBar = this.progressBars[file.name].querySelector('.progress-bar')
     innerBar.innerText = `${file.name} ${Math.floor(event.detail.progress)}%`
     innerBar.style.width = `${progress}%`
   }
@@ -36,13 +36,13 @@ export default class extends Controller {
   }
 
   upload (event) {
-    let files = toArray(event.target.files).reverse()
+    const files = toArray(event.target.files).reverse()
     files.forEach(file => this.showProgressBar(file))
     this.submitButtonTarget.click()
   }
 
   showProgressBar (file) {
-    let bar = this.progressBarTemplateTarget.cloneNode(true)
+    const bar = this.progressBarTemplateTarget.cloneNode(true)
     bar.hidden = false
     bar.querySelector('.progress-bar').innerText = file.name
     this.progressBars[file.name] = bar

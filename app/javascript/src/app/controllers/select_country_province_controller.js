@@ -1,6 +1,5 @@
 import 'select2'
 import { Controller } from 'stimulus'
-import { toArray } from '../utils'
 
 export default class extends Controller {
   static targets = ['countryCodeSelect', 'provinceCodeSelect']
@@ -22,16 +21,17 @@ export default class extends Controller {
   createProvinceCodeOptions () {
     this.provinceCodeSelectTarget.appendChild(this.createOption(null, ''))
     this.validProvinces.forEach(p => {
-      let option = this.createOption(p.id, p.name)
+      const option = this.createOption(p.id, p.name)
       option.dataset.countryCode = p.countryCode
-      if (this.provinceCodeSelectTarget.dataset.selected === p.id)
+      if (this.provinceCodeSelectTarget.dataset.selected === p.id) {
         option.selected = true
+      }
       this.provinceCodeSelectTarget.appendChild(option)
     })
   }
 
   createOption (value, text) {
-    let option = document.createElement('option')
+    const option = document.createElement('option')
     option.value = value
     option.text = text
     return option

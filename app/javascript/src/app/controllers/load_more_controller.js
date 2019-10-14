@@ -12,7 +12,7 @@ export default class extends Controller {
       .get(nextUrl)
       .then(response => {
         target.remove()
-        let items = document.createElement('div')
+        const items = document.createElement('div')
         items.innerHTML = response.data
         while (items.firstChild) {
           if (items.firstChild.outerHTML) {

@@ -18,8 +18,9 @@ export default class extends Controller {
       event &&
       event.type === 'cf:select:changed' &&
       String(event.target.dataset.target).indexOf('countryCodesSelect') === -1
-    )
+    ) {
       return
+    }
 
     if (
       this.validProvinces.length === 0 ||
@@ -44,19 +45,19 @@ export default class extends Controller {
   }
 
   removeInvalidProvinceCodeOptions () {
-    let valid = this.validProvinces
+    const valid = this.validProvinces
     this.provinceCodeOptions.forEach(o => {
-      let match = valid.find(p => p.countryCode === o.dataset.countryCode)
+      const match = valid.find(p => p.countryCode === o.dataset.countryCode)
       if (!match) o.remove()
     })
   }
 
   addMissingProvinceCodeOptions () {
-    let options = this.provinceCodeOptions
+    const options = this.provinceCodeOptions
     this.validProvinces.forEach(p => {
-      let match = options.find(o => o.dataset.countryCode === p.countryCode)
+      const match = options.find(o => o.dataset.countryCode === p.countryCode)
       if (!match) {
-        let option = document.createElement('option')
+        const option = document.createElement('option')
         option.value = p.id
         option.text = p.name
         option.dataset.countryCode = p.countryCode
@@ -67,8 +68,11 @@ export default class extends Controller {
 
   preselectProvinceCodeOptions () {
     this.provinceCodeOptions.forEach(o => {
-      if (this.provinceCodesSelectTarget.dataset.selected.indexOf(o.value) > 0)
+      if (
+        this.provinceCodesSelectTarget.dataset.selected.indexOf(o.value) > 0
+      ) {
         o.selected = true
+      }
     })
   }
 

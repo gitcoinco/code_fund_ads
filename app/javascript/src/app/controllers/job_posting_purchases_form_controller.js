@@ -27,9 +27,16 @@ export default class extends Controller {
   showPaymentModal (event) {
     Rails.stopEverything(event)
 
-    let { processing, key, image, name, currency, email } = this.element.dataset
+    const {
+      processing,
+      key,
+      image,
+      name,
+      currency,
+      email
+    } = this.element.dataset
     if (processing) return
-    let stripe = StripeCheckout.configure({
+    const stripe = StripeCheckout.configure({
       key,
       image,
       locale: 'auto',
@@ -174,31 +181,37 @@ export default class extends Controller {
 
   get selectedOffers () {
     toArray(this.offersTarget.options).filter(option => {
-      if (option.selected) option.value
+      if (option.selected) return option.value
     })
   }
 
   get amount () {
     let cents = 0
-    if (this.monthlyPlanTarget.selected)
+    if (this.monthlyPlanTarget.selected) {
       cents += Number(this.monthlyPlanTarget.dataset.amount)
-    if (this.prepaidPlanTarget.selected)
+    }
+    if (this.prepaidPlanTarget.selected) {
       cents += Number(this.prepaidPlanTarget.dataset.amount)
-    if (this.premiumPlacementOfferTarget.selected)
+    }
+    if (this.premiumPlacementOfferTarget.selected) {
       cents += Number(this.premiumPlacementOfferTarget.dataset.amount)
-    if (this.codeFundAdsOfferTarget.selected)
+    }
+    if (this.codeFundAdsOfferTarget.selected) {
       cents += Number(this.codeFundAdsOfferTarget.dataset.amount)
-    if (this.readTheDocsOfferTarget.selected)
+    }
+    if (this.readTheDocsOfferTarget.selected) {
       cents += Number(this.readTheDocsOfferTarget.dataset.amount)
+    }
     return cents
   }
 
   get description () {
-    let value = []
+    const value = []
     if (this.monthlyPlanTarget.selected) value.push('Monthly Plan')
     if (this.prepaidPlanTarget.selected) value.push('Prepaid Plan')
-    if (this.premiumPlacementOfferTarget.selected)
+    if (this.premiumPlacementOfferTarget.selected) {
       value.push('Premium Placement')
+    }
     if (this.codeFundAdsOfferTarget.selected) value.push('CodeFund Ads')
     if (this.readTheDocsOfferTarget.selected) value.push('ReadTheDocs Ads')
     return value.join(', ')

@@ -12,7 +12,7 @@ export default class extends Controller {
 
   selectSubset (event) {
     Rails.stopEverything(event)
-    let values = JSON.parse(event.target.dataset.values)
+    const values = JSON.parse(event.target.dataset.values)
     this.options.forEach(o => {
       if (!o.selected) {
         o.selected = values.indexOf(o.value) >= 0

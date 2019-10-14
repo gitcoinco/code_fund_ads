@@ -18,7 +18,7 @@ export default class extends Controller {
   }
 
   request (method, url) {
-    let xhr = new XMLHttpRequest()
+    const xhr = new XMLHttpRequest()
     xhr.open(url, method)
     xhr.onreadystatechange = () => {
       if (xhr.readyState === XMLHttpRequest.DONE) {

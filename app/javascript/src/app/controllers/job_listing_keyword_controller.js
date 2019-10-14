@@ -3,7 +3,7 @@ import { Controller } from 'stimulus'
 export default class extends Controller {
   appendToSearch (event) {
     Rails.stopEverything(event)
-    let terms = Array.from(
+    const terms = Array.from(
       new Set(
         `${this.inputTarget.value} ${this.element.innerText}`
           .split(' ')

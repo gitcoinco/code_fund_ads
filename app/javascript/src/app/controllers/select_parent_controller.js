@@ -58,8 +58,8 @@ export default class extends Controller {
   }
 
   get childSelectTarget () {
-    let id = this.element.dataset.child
-    let element = document.getElementById(id)
+    const id = this.element.dataset.child
+    const element = document.getElementById(id)
     if (!element)
       console.log(
         `select-parent-controller: Unable to find a child with the id '${id}'`

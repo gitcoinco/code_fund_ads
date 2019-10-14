@@ -132,7 +132,7 @@ export default class extends Controller {
 
   submit (event) {
     event.preventDefault()
-    let globalId = this.hiddenTarget.value
+    const globalId = this.hiddenTarget.value
     if (globalId.length === 0) return
 
     this.reset()

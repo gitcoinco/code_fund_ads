@@ -1,0 +1,4 @@
+#!/bin/bash
+
+bundle exec standardrb
+yarn run prettier-standard --lint 'app/javascript/**/*.js'

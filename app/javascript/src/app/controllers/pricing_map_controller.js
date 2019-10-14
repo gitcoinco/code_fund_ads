@@ -1,16 +1,9 @@
 import { Controller } from 'stimulus'
-import { reduce } from 'lodash'
 import * as am4core from '@amcharts/amcharts4/core'
 import * as am4maps from '@amcharts/amcharts4/maps'
-import am4themes_animated from '@amcharts/amcharts4/themes/animated'
-import am4themes_dark from '@amcharts/amcharts4/themes/dark'
-import am4geodata_worldLow from '@amcharts/amcharts4-geodata/worldLow'
-
-const formatter = new Intl.NumberFormat('en-US', {
-  style: 'currency',
-  currency: 'USD',
-  minimumFractionDigits: 2
-})
+import am4themes_animated from '@amcharts/amcharts4/themes/animated' // eslint-disable-line camelcase
+// import am4themes_dark from '@amcharts/amcharts4/themes/dark' // eslint-disable-line camelcase
+import am4geodata_worldLow from '@amcharts/amcharts4-geodata/worldLow' // eslint-disable-line camelcase
 
 export default class extends Controller {
   connect () {
@@ -20,7 +13,7 @@ export default class extends Controller {
     // Themes end
 
     /* Create map instance */
-    let chart = am4core.create('chartdiv', am4maps.MapChart)
+    const chart = am4core.create('chartdiv', am4maps.MapChart)
 
     const mapColor = chart.colors.getIndex(0)
     // const mapColor = am4core.color('#3c6b95');
@@ -32,18 +25,18 @@ export default class extends Controller {
     chart.maxZoomLevel = 4
 
     /* Set map definition */
-    chart.geodata = am4geodata_worldLow
+    chart.geodata = am4geodata_worldLow // eslint-disable-line camelcase
 
     /* Set projection */
     chart.projection = new am4maps.projections.Miller()
 
     /* Create map polygon series */
-    let polygonSeries = chart.series.push(new am4maps.MapPolygonSeries())
+    const polygonSeries = chart.series.push(new am4maps.MapPolygonSeries())
 
     /* Make map load polygon (like country names) data from GeoJSON */
     polygonSeries.useGeodata = true
 
-    //Set min/max fill color for each area
+    // Set min/max fill color for each area
     polygonSeries.heatRules.push({
       property: 'fill',
       target: polygonSeries.mapPolygons.template,
@@ -52,11 +45,11 @@ export default class extends Controller {
     })
 
     // Set heatmap values for each state
-    let countries = JSON.parse(this.element.dataset.countries)
+    const countries = JSON.parse(this.element.dataset.countries)
     polygonSeries.data = countries
 
     /* Configure series */
-    let polygonTemplate = polygonSeries.mapPolygons.template
+    const polygonTemplate = polygonSeries.mapPolygons.template
     polygonTemplate.applyOnClones = true
     polygonTemplate.togglable = false
     polygonTemplate.tooltipText = '{emoji_flag} {name}: {display_price}'
@@ -66,7 +59,7 @@ export default class extends Controller {
 
     polygonTemplate.fill = mapColor
 
-    let hs = polygonTemplate.states.create('hover')
+    const hs = polygonTemplate.states.create('hover')
     hs.properties.fill = mapColor.brighten(1.2)
 
     // Hide Antarctica
@@ -79,7 +72,7 @@ export default class extends Controller {
     // Zoom control
     chart.zoomControl = new am4maps.ZoomControl()
 
-    let homeButton = new am4core.Button()
+    const homeButton = new am4core.Button()
     homeButton.events.on('hit', function () {
       chart.goHome()
     })
