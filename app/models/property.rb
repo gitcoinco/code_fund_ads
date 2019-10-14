@@ -24,7 +24,7 @@
 #  fallback_ad_template           :string
 #  fallback_ad_theme              :string
 #  responsive_behavior            :string           default("none"), not null
-#  audience                       :string
+#  audience_id                    :bigint
 #
 
 class Property < ApplicationRecord

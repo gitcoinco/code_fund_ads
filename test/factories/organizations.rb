@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: organizations
+#
+#  id               :bigint           not null, primary key
+#  name             :string           not null
+#  balance_cents    :integer          default(0), not null
+#  balance_currency :string           default("USD"), not null
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+
 require "factory_bot_rails"
 require "faker"
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_10_214024) do
+ActiveRecord::Schema.define(version: 2019_10_14_171135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -420,33 +420,33 @@ ActiveRecord::Schema.define(version: 2019_10_10_214024) do
     t.integer "site_worth_cents", default: 0, null: false
     t.string "site_worth_currency", default: "USD", null: false
     t.integer "visitors_daily", default: 0
-    t.integer "visitors_monthly", default: 0
-    t.integer "visitors_yearly", default: 0
-    t.integer "pageviews_daily", default: 0
-    t.integer "pageviews_monthly", default: 0
-    t.integer "pageviews_yearly", default: 0
+    t.bigint "visitors_monthly", default: 0
+    t.bigint "visitors_yearly", default: 0
+    t.bigint "pageviews_daily", default: 0
+    t.bigint "pageviews_monthly", default: 0
+    t.bigint "pageviews_yearly", default: 0
     t.integer "revenue_daily_cents", default: 0, null: false
     t.string "revenue_daily_currency", default: "USD", null: false
     t.integer "revenue_monthly_cents", default: 0, null: false
     t.string "revenue_monthly_currency", default: "USD", null: false
     t.integer "revenue_yearly_cents", default: 0, null: false
     t.string "revenue_yearly_currency", default: "USD", null: false
-    t.integer "alexa_rank_3_months", default: 0
-    t.integer "alexa_rank_1_month", default: 0
-    t.integer "alexa_rank_7_days", default: 0
-    t.integer "alexa_rank_1_day", default: 0
-    t.integer "alexa_rank_delta_3_months", default: 0
-    t.integer "alexa_rank_delta_1_month", default: 0
-    t.integer "alexa_rank_delta_7_days", default: 0
-    t.integer "alexa_rank_delta_1_day", default: 0
-    t.integer "alexa_reach_3_months", default: 0
-    t.integer "alexa_reach_1_month", default: 0
-    t.integer "alexa_reach_7_days", default: 0
-    t.integer "alexa_reach_1_day", default: 0
-    t.integer "alexa_reach_delta_3_months", default: 0
-    t.integer "alexa_reach_delta_1_month", default: 0
-    t.integer "alexa_reach_delta_7_days", default: 0
-    t.integer "alexa_reach_delta_1_day", default: 0
+    t.bigint "alexa_rank_3_months", default: 0
+    t.bigint "alexa_rank_1_month", default: 0
+    t.bigint "alexa_rank_7_days", default: 0
+    t.bigint "alexa_rank_1_day", default: 0
+    t.bigint "alexa_rank_delta_3_months", default: 0
+    t.bigint "alexa_rank_delta_1_month", default: 0
+    t.bigint "alexa_rank_delta_7_days", default: 0
+    t.bigint "alexa_rank_delta_1_day", default: 0
+    t.bigint "alexa_reach_3_months", default: 0
+    t.bigint "alexa_reach_1_month", default: 0
+    t.bigint "alexa_reach_7_days", default: 0
+    t.bigint "alexa_reach_1_day", default: 0
+    t.bigint "alexa_reach_delta_3_months", default: 0
+    t.bigint "alexa_reach_delta_1_month", default: 0
+    t.bigint "alexa_reach_delta_7_days", default: 0
+    t.bigint "alexa_reach_delta_1_day", default: 0
     t.float "alexa_pageviews_3_months"
     t.float "alexa_pageviews_1_month"
     t.float "alexa_pageviews_7_days"

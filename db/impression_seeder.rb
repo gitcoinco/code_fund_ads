@@ -26,7 +26,7 @@ class ImpressionSeeder
       while !months_to_process.empty? && pids_being_processed.size < @cores
         month = months_to_process.pop
 
-        pid = fork_process_with_db_connection do
+        pid = fork_process_with_db_connection {
           monthly_dates = generate_impressions_dates(month)
           daily_timestamps = generate_daily_timestamps(monthly_dates)
 
@@ -63,7 +63,7 @@ class ImpressionSeeder
               fallback_campaign: campaign.fallback
             )
 
-            if !advertisers.include? impression.advertiser_id 
+            unless advertisers.include? impression.advertiser_id
               advertisers << impression.advertiser_id
               impression.assure_partition_table!
             end
@@ -75,7 +75,7 @@ class ImpressionSeeder
           CSV.open(csv_path, "wb") do |csv|
             records.each { |record| csv << record.values }
           end
-        end
+        }
 
         pids_being_processed << pid
       end
