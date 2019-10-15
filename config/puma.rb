@@ -34,7 +34,9 @@ workers ENV.fetch("WEB_CONCURRENCY", 2).to_i
 plugin :tmp_restart
 
 # See https://dev.to/sabatesduran/ngrok-for-rails-development-5f9k
-if ENV["IS_DEV_ENV"]
+if Rails.env.development?
+  return if ENV["NGROK_SUBDOMAIN"].blank?
+
   begin
     options = {
       # App port
@@ -43,11 +45,7 @@ if ENV["IS_DEV_ENV"]
       config: File.join(ENV["HOME"], ".ngrok2", "ngrok.yml"),
     }
 
-    # In case that you have a pay plan you can create
-    # tunnels with custom subdomains
-    options[:subdomain] = ENV["NGROK_SUBDOMAIN"] if ENV["NGROK_SUBDOMAIN"]
-
-    # Region (since I only work in the EU is hardcoded)
+    options[:subdomain] = ENV["NGROK_SUBDOMAIN"]
     options[:region] = "us"
 
     # Create tunnel
