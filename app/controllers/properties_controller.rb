@@ -116,6 +116,7 @@ class PropertiesController < ApplicationController
     ).tap do |whitelisted|
       if authorized_user.can_admin_system?
         whitelisted.merge! params.require(:property).permit(
+          :audience_id,
           :restrict_to_assigner_campaigns,
           :revenue_percentage,
           :status,
