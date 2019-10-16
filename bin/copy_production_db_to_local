@@ -1,4 +1,5 @@
 #!/bin/sh
+source .env
 export RAILS_ENV=development
 bundle exec rails db:migrate db:drop db:create
 ./bin/heroku_pg_dump_production_replica
