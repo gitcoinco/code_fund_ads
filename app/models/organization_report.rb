@@ -34,7 +34,7 @@ class OrganizationReport < ApplicationRecord
   # scopes ....................................................................
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  attr_accessor :date_range
+  attr_accessor :date_range, :recipients
   tag_columns :campaign_ids
   has_one_attached :pdf
 

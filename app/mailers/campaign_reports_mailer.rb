@@ -2,6 +2,15 @@ class CampaignReportsMailer < ApplicationMailer
   default from: "team@codefund.io"
   layout "mailer"
 
+  def organization_report_email
+    @organization_report = OrganizationReport.find(params[:organization_report_id])
+    @scheduled_organization_report = ScheduledOrganizationReport.find(params[:scheduled_organization_report_id])
+
+    attachments[@organization_report.pdf.filename] = @organization_report.pdf.read
+
+    mail to: @scheduled_organization_report.recipients, subject: @scheduled_organization_report.subject
+  end
+
   def campaign_report_email
     @campaign = params[:campaign]
     @start_date = Date.coerce(params[:start_date])

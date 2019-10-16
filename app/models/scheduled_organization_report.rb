@@ -1,0 +1,36 @@
+class ScheduledOrganizationReport < ApplicationRecord
+  # extends ...................................................................
+  # includes ..................................................................
+
+  # relationships .............................................................
+  belongs_to :organization
+
+  # validations ...............................................................
+  validates :campaign_ids, presence: true
+  validates :subject, presence: true
+  validates :dataset, inclusion: {in: ENUMS::SCHEDULED_ORGANIZATION_REPORT_DATASETS.values}
+  validates :start_date, presence: true
+  validates :end_date, presence: true
+  validates :frequency, inclusion: {in: ENUMS::SCHEDULED_ORGANIZATION_REPORT_FREQUENCIES.values}
+  validates :recipients, presence: true
+
+  # callbacks .................................................................
+  # scopes ....................................................................
+  
+  # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  attr_accessor :date_range
+
+  # class methods .............................................................
+  class << self
+  end
+
+  # public instance methods ...................................................
+  
+  def expired?
+    end_date < Date.today
+  end
+
+  # protected instance methods ................................................
+
+  # private instance methods ..................................................
+end

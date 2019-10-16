@@ -1,0 +1,60 @@
+class ScheduleOrganizationReportJob < ApplicationJob
+  queue_as :default
+
+def perform(id:, ts: nil)
+    scheduled_report = ScheduledOrganizationReport.find(id)
+    return unless scheduled_report
+    return if scheduled_report.expired?
+    return schedule_first_report(scheduled_report) if ts.nil?
+    generate_organization_report(scheduled_report)
+    schedule_next_report(scheduled_report, ts)
+  end
+
+  private
+
+  def schedule_first_report(scheduled_report)
+    ts = if scheduled_report.start_date <= Date.today
+      DateTime.now.midnight
+    else
+      scheduled_report.start_date.midnight
+    end
+
+    ScheduleOrganizationReportJob.set(wait_until: ts).perform_later(id: scheduled_report.id, ts: ts)
+    nil
+  end
+
+  def schedule_next_report(scheduled_report, ts)
+    new_ts = case scheduled_report.frequency
+      when "daily" then ts + 1.day
+      when "weekly" then ts + 7.days
+    end
+
+    return if new_ts > scheduled_report.end_date.midnight
+
+    ScheduleOrganizationReportJob.set(wait_until: new_ts).perform_later(id: scheduled_report.id, ts: new_ts)
+    nil
+  end
+
+  def generate_organization_report(scheduled_report)
+    start_date, end_date = case scheduled_report.dataset
+      when "current_month" then [Date.today.beginning_of_month, Date.today.end_of_month]
+      when "past_7_days" then [8.days.ago, Date.yesterday]
+      when "past_30_days" then [31.days.ago, Date.yesterday]
+      when "yesterday" then [Date.yesterday, Date.yesterday]
+    end
+
+    report = OrganizationReport.create!(
+      organization_id: scheduled_report.organization_id,
+      title: "#{scheduled_report.id} at #{Time.current}",
+      campaign_ids: scheduled_report.campaign_ids,
+      start_date: start_date,
+      end_date: end_date
+    )
+
+    GenerateOrganizationReportJob.perform_later(
+      id: report.id,
+      report_url: Rails.application.routes.url_helpers.organization_report_url(organization_id: scheduled_report.organization_id, id: report.id, host: ENV["DEFAULT_HOST"]),
+      scheduled_organization_report_id: scheduled_report.id
+    )
+  end
+end

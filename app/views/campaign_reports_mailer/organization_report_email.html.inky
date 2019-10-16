@@ -1,0 +1,19 @@
+<p>
+  <strong><%= @scheduled_organization_report.subject %></strong>
+</p>
+
+<p>
+  Please let us know if you would like to add more funds or make any adjustments to this campaign.
+</p>
+
+<br>
+<p>
+  Sincerely,
+</p>
+
+<br>
+<p>
+  The CodeFund Team
+  <br>
+  <small><em>This email is a beta feature and is subject to change.</em></small>
+</p>
