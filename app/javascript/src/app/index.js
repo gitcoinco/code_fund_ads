@@ -1,3 +1,4 @@
+import 'bootstrap'
 import './stylesheets/application.scss'
 import './themes/current'
 import 'select2'

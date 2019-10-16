@@ -5,15 +5,7 @@ const webpack = require('webpack');
 environment.config.merge({
   resolve: {
     alias: {
-      jquery: 'themes/current/vendor/jquery/dist/jquery',
-      $: 'themes/current/vendor/jquery/dist/jquery',
-      'popper.js': 'themes/current/vendor/popper.js/dist/popper',
-      Chartist: 'themes/current/vendor/chartist/dist/chartist.min',
-      Typed: 'themes/current/vendor/typed.js/lib/typed.min',
-      SVGInjector: 'themes/current/vendor/svg-injector/dist/svg-injector.min',
-      Noty: 'node_modules/noty/lib/noty.min',
       Circles: 'themes/current/vendor/circles/circles.min',
-      ClipboardJS: 'themes/current/vendor/clipboard/dist/clipboard.min',
     },
   },
 });
@@ -24,13 +16,13 @@ environment.plugins.prepend(
     jQuery: 'jquery',
     '$': 'jquery',
     'window.jQuery': 'jquery',
-    Popper: 'popper.js',
-    Chartist: 'Chartist',
-    Typed: 'Typed',
-    SVGInjector: 'SVGInjector',
-    Noty: 'Noty',
+    Popper: ['popper.js', 'default'],
+    Chartist: 'chartist',
+    Typed: 'typed.js',
+    SVGInjector: 'svg-injector',
+    Noty: 'noty',
     Circles: 'Circles',
-    ClipboardJS: 'ClipboardJS',
+    ClipboardJS: 'clipboard',
   })
 );
 
