@@ -34,9 +34,7 @@ workers ENV.fetch("WEB_CONCURRENCY", 2).to_i
 plugin :tmp_restart
 
 # See https://dev.to/sabatesduran/ngrok-for-rails-development-5f9k
-if Rails.env.development?
-  return if ENV["NGROK_SUBDOMAIN"].blank?
-
+if ENV["RAILS_ENV"] == "development" && ENV["NGROK_SUBDOMAIN"].present?
   begin
     options = {
       # App port
