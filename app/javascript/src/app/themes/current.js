@@ -1,13 +1,13 @@
 // =========== Webpack ===========
-import 'slick-carousel'
 import 'bootstrap-select'
+import 'slick-carousel'
+import 'jquery-validation'
 
 // =========== Vendor ===========
 import 'themes/current/vendor/appear'
 import 'themes/current/vendor/circles/circles.min'
 import 'themes/current/vendor/hs-megamenu/src/hs.megamenu'
 import 'themes/current/vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar'
-import 'themes/current/vendor/jquery-validation/dist/jquery.validate.min'
 import 'themes/current/vendor/fancybox/jquery.fancybox.min'
 import 'themes/current/vendor/chartist-js-tooltip/chartist-plugin-tooltip'
 import 'themes/current/vendor/cubeportfolio/js/jquery.cubeportfolio.min'
