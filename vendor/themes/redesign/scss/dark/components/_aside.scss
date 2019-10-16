@@ -1,0 +1,306 @@
+.app-aside {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding: 0;
+  width: calc(100vw - 3.5rem);
+  max-width: calc(#{$app-aside-width} + 1.5rem);
+  z-index: $zindex-modal;
+  transform: translate3d(-100%, 0, 0);
+  backface-visibility: hidden; // avoid webkit bug render
+  @include transition(transform 200ms ease-in-out);
+
+  &.show .aside-header > .hamburger {
+    display: block;
+  }
+
+  &.show {
+    transform: translate3d(0, 0, 0);
+  }
+
+  + .app-main {
+    padding-left: 0;
+  }
+
+  .top-bar-brand {
+    width: auto;
+  }
+}
+
+
+.aside-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba($black, .8);
+  z-index: $zindex-modal-backdrop;
+
+  &.show {
+    display: block;
+    animation: fadeInBackdrop 260ms ease forwards;
+  }
+}
+
+
+.aside-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+
+.aside-header {
+  position: relative;
+  display: block;
+  box-shadow: $app-header-shadow;
+  z-index: 3;
+
+  > .hamburger {
+    display: none;
+    position: absolute;
+    top: .75rem;
+    right: -3rem;
+  }
+
+  .btn-account {
+    padding: 1rem;
+    width: 100%;
+    justify-content: flex-start;
+
+    &:focus,
+    &.focus {
+      background-color: inherit;
+    }
+
+    &:active {
+      color: $body-color;
+      background-color: rgba($primary, $subtle-level);
+    }
+
+    &[aria-expanded="true"]::before {
+      content: '';
+      height: 1px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 2;
+    }
+
+    .account-name {
+      font-size: 1.125rem;
+      line-height: 1.5rem;
+    }
+    .account-description {
+      font-size: .875em;
+    }
+  }
+}
+
+.dropdown-aside {
+  position: absolute;
+  width: 100%;
+  box-shadow: $app-header-shadow;
+  z-index: 1;
+
+  &.show {
+    max-height: calc(100vh - 4.5rem);
+    overflow: auto;
+  }
+
+  .dropdown-icon {
+    text-align: center;
+    width: 1.5rem;
+    margin-right: .5em;
+  }
+}
+
+
+.aside-menu {
+  position: relative;
+  flex: 1;
+  overflow-y: auto;
+}
+
+// Generate series of `.aside-expand-*` responsive classes for configuring
+// responsive collapsing aside.
+.app-aside-expand {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($next, $grid-breakpoints);
+
+    &#{$infix} {
+      top: auto;
+      transform: translate3d(0, 0, 0);
+      z-index: $zindex-fixed;
+
+      @include media-breakpoint-down($breakpoint) {
+        top: 0;
+        transform: translate3d(-100%, 0, 0);
+        z-index: $zindex-modal;
+        border-right: 0;
+
+        &.show {
+          transform: translate3d(0, 0, 0);
+        }
+      }
+
+      @include media-breakpoint-up($next) {
+        top: $app-header-height;
+        width: $app-aside-width;
+        z-index: 5;
+      }
+
+      + .app-main {
+        @include media-breakpoint-up($next) {
+          padding-left: $app-aside-width;
+        }
+      }
+
+      ~ .aside-backdrop {
+        @include media-breakpoint-down($breakpoint) {
+          display: none;
+
+          &.show {
+            display: block;
+            animation: fadeInBackdrop 260ms ease forwards;
+          }
+        }
+
+        @include media-breakpoint-up($next) {
+          &.show {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// App aside themes
+//
+// Styles for switching between aside with light or dark background.
+
+// Dark links against a light background
+.app-aside-light {
+  color: $app-aside-light-color;
+  background-color: $app-aside-light-bg;
+
+  @include media-breakpoint-up(md) {
+    border-right: $border-width solid $app-aside-light-border-color;
+  }
+
+  .aside-header {
+    background-color: $gray-200;
+
+    .btn-account[aria-expanded="true"]::before {
+      background-color: $gray-200;
+    }
+  }
+
+  .dropdown-aside {
+    background-color: $gray-200;
+
+    .dropdown-divider {
+      border-top-color: rgba($white, .05);
+    }
+  }
+}
+
+// White links against a dark background
+.app-aside-dark {
+  color: $app-aside-dark-color;
+  background-color: $app-aside-dark-bg;
+
+  @include media-breakpoint-up(md) {
+    border-right: $border-width solid $app-aside-dark-border-color;
+  }
+
+  .aside-header {
+    color: $light;
+    background-color: $white;
+
+    .btn-account[aria-expanded="true"]::before {
+      background-color: $white;
+    }
+  }
+
+  .dropdown-aside {
+    background-color: $white;
+
+    .dropdown-item {
+      color: $light;
+
+      @include hover-focus {
+        color: $white;
+      }
+    }
+
+    .dropdown-divider {
+      border-top-color: rgba($black, .05);
+    }
+  }
+
+  .stacked-menu {
+    > .menu > .menu-item {
+      &.has-active > .menu-link {
+        background-color: rgba($white, .025);
+      }
+
+      > .menu-link {
+        color: rgba($black, .6);
+
+        @include hover-focus {
+          color: rgba($black, .8);
+        }
+      }
+    }
+
+    .menu-link {
+      color: rgba($black, .6);
+
+      > .menu-icon {
+        color: rgba($black, .38);
+      }
+
+      @include hover-focus {
+        color: rgba($black, .8);
+
+        > .menu-icon {
+          color: rgba($black, .8);
+        }
+      }
+    }
+
+    .menu-item.has-active {
+      &.has-child > .menu-link {
+        color: rgba($black, 1);
+      }
+
+      > .menu-link {
+        &,
+        .menu-icon {
+          color: rgba($black, 1);
+        }
+      }
+    }
+
+    .menu-item.has-open:not(.has-active) > .menu-link {
+      &,
+      .menu-icon {
+        color: rgba($black, 1);
+      }
+    }
+  }
+
+  .stacked-menu-has-collapsible .has-child {
+    > .menu-link::after {
+      background: $stacked-collapsible-icon-dark center no-repeat;
+    }
+  }
+}

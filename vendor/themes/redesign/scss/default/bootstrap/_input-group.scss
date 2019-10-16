@@ -1,0 +1,411 @@
+@include media-breakpoint-up(md) {
+  .input-group-lg > .form-control,
+  .input-group-lg > .input-group-prepend > .input-group-text,
+  .input-group-lg > .input-group-append > .input-group-text,
+  .input-group-lg > .input-group-prepend > .btn,
+  .input-group-lg > .input-group-append > .btn {
+    font-size: $font-size-base;
+  }
+
+  .input-group-sm > .form-control,
+  .input-group-sm > .input-group-prepend > .input-group-text,
+  .input-group-sm > .input-group-append > .input-group-text,
+  .input-group-sm > .input-group-prepend > .btn,
+  .input-group-sm > .input-group-append > .btn {
+    font-size: 0.8125rem;
+  }
+
+  .input-group-text {
+    font-size: $font-size-sm;
+  }
+}
+
+
+.input-group:not(.input-group-alt) {
+  height: $input-height;
+  border: 1px solid $input-border-color;
+  border-radius: $input-border-radius;
+  background-color: $input-bg;
+  box-shadow: $input-box-shadow;
+  backface-visibility: hidden; // avoid webkit bug render
+  @include transition(all 200ms ease-in-out);
+
+  &.input-group-sm {
+    height: $input-height-sm;
+  }
+
+  &.input-group-lg {
+    height: $input-height-lg;
+  }
+
+  // control height
+  @include media-breakpoint-up(md) {
+    height: $input-height-mq;
+
+    &.input-group-sm {
+      height: $input-height-mq-sm;
+    }
+
+    &.input-group-lg {
+      height: $input-height-mq-lg;
+    }
+  }
+
+  &.focus {
+    border-color: $input-focus-border-color;
+    box-shadow: $input-focus-box-shadow;
+    z-index: 3;
+
+    .input-group-append,
+    .input-group-prepend {
+      .badge {
+        color: $component-active-color;
+        background-color: $component-active-bg;
+      }
+    }
+  }
+
+  &.is-valid {
+    border-color: $form-feedback-valid-color;
+
+    .form-control {
+      background-image: $form-feedback-icon-valid;
+    }
+
+    &.focus {
+      box-shadow: 0 0 0 1px $form-feedback-valid-color;
+
+      .input-group-append,
+      .input-group-prepend {
+        .badge {
+          color: color-yiq($form-feedback-valid-color);
+          background-color: $form-feedback-valid-color;
+        }
+      }
+    }
+  }
+
+  &.is-invalid {
+    border-color: $form-feedback-invalid-color;
+
+    .form-control {
+      background-image: $form-feedback-icon-invalid;
+    }
+
+    &.focus {
+      box-shadow: 0 0 0 1px $form-feedback-invalid-color;
+
+      .input-group-append,
+      .input-group-prepend {
+        .badge {
+          color: color-yiq($form-feedback-invalid-color);
+          background-color: $form-feedback-invalid-color;
+        }
+      }
+    }
+  }
+
+  &.is-valid,
+  &.is-invalid {
+    .form-control {
+      background-repeat: no-repeat;
+      background-position: calc(100% - #{$input-padding-x}) calc(.375em + .1875rem + 2px) !important;
+      background-size: calc(.75em + .375rem) calc(.75em + .375rem);
+    }
+
+    + .valid-feedback,
+    + .invalid-feedback,
+    + .valid-tooltip,
+    + .invalid-tooltip {
+      display: block;
+    }
+  }
+
+  .form-control,
+  .input-group-text {
+    border: 0;
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .form-control {
+    top: -1px;
+    height: inherit;
+
+    &:focus,
+    &.focus {
+      box-shadow: none;
+    }
+  }
+
+  .input-group-prepend {
+    .input-group-text {
+      padding-right: 1px;
+    }
+
+    .badge {
+      margin-left: $input-padding-x / 2;
+    }
+
+    .spinner-border,
+    .spinner-grow {
+      margin-left: $input-padding-x;
+    }
+  }
+
+  .input-group-append {
+    .input-group-text {
+      padding-left: 1px;
+    }
+
+    .badge {
+      margin-right: $input-padding-x / 2;
+    }
+
+    .spinner-border,
+    .spinner-grow {
+      margin-right: $input-padding-x;
+    }
+  }
+
+  .input-group-append,
+  .input-group-prepend {
+    .btn {
+      height: calc(100% - 2px);
+      border: 0;
+    }
+
+    .spinner-border,
+    .spinner-grow {
+      align-self: center;
+    }
+
+    .badge {
+      padding: .25rem .5rem;
+      align-self: center;
+      font-size: inherit;
+      color: $input-placeholder-color;
+      font-weight: normal;
+      background: $gray-200;
+      transition: all 150ms;
+    }
+  }
+
+  &.input-group-sm {
+    border-radius: $input-border-radius-sm;
+  }
+
+  &.input-group-lg {
+    border-radius: $input-border-radius-lg;
+  }
+
+  .valid-feedback,
+  .invalid-feedback {
+    margin-left: .75rem;
+    margin-top: -.375rem;
+    margin-bottom: .25rem;
+  }
+}
+
+.input-group-alt {
+  .input-group-text {
+    color: $body-color;
+    box-shadow: none;
+  }
+}
+
+.input-group-reflow {
+  &,
+  &.focus,
+  .form-control,
+  .form-control:focus,
+  .input-group-prepend,
+  .input-group-append {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .input-group-prepend > .input-group-text {
+    padding-right: 0;
+  }
+  .input-group-append > .input-group-text {
+    padding-left: 0;
+  }
+}
+
+.input-group-alt {
+  > .input-group {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    margin-bottom: 0;
+
+    &:first-child {
+      @include border-right-radius(0);
+    }
+
+    &:last-child {
+      @include border-left-radius(0);
+    }
+
+    &:not(:first-child):not(:last-child) {
+      @include border-radius(0);
+    }
+
+    .form-control {
+      height: $input-height-mq;
+
+      @include media-breakpoint-up(md) {
+        height: calc(#{$input-height-mq} - 2px);
+      }
+
+      &.form-control-sm {
+        height: $input-height-mq-sm;
+
+        @include media-breakpoint-up(md) {
+          height: calc(#{$input-height-mq-sm} - 2px);
+        }
+      }
+
+      &.form-control-lg {
+        height: $input-height-mq-lg;
+
+        @include media-breakpoint-up(md) {
+          height: calc(#{$input-height-mq-lg} - 2px);
+        }
+      }
+    }
+  }
+}
+
+
+.input-group-prepend,
+.input-group-append {
+  .custom-select {
+    position: relative;
+    z-index: 2;
+  }
+
+  .btn:focus {
+    z-index: 3
+  }
+}
+
+.input-group > .input-group-prepend > .custom-select,
+.input-group > .input-group-append:not(:last-child) > .custom-select,
+.input-group > .input-group-append:last-child > .custom-select:not(:last-child) {
+  @include border-right-radius(0);
+}
+
+.input-group > .input-group-append > .custom-select,
+.input-group > .input-group-prepend:not(:first-child) > .custom-select,
+.input-group > .input-group-prepend:first-child > .custom-select:not(:first-child) {
+  @include border-left-radius(0);
+}
+
+.input-group-text {
+  color: $input-placeholder-color;
+  box-shadow: $input-box-shadow;
+
+  > .oi {
+    top: 0;
+  }
+}
+
+
+// Spinner
+
+.has-spinner {
+  position: relative;
+
+  .spinner-border,
+  .spinner-grow {
+    position: absolute;
+    top: .125rem;
+    right: $input-padding-x;
+    opacity: 0;
+
+    &.show {
+      opacity: 1;
+
+      ~ .input-group-append,
+      ~ .close {
+        display: none;
+      }
+    }
+  }
+
+  .spinner-border-sm,
+  .spinner-grow-sm {
+    top: .6875rem;
+  }
+
+  &.form-label-group {
+    .spinner-border,
+    .spinner-grow {
+      top: .5rem;
+    }
+
+    .spinner-border-sm,
+    .spinner-grow-sm {
+      top: 1rem;
+    }
+  }
+}
+
+
+// clearable
+
+.has-clearable {
+  position: relative;
+
+  &.input-group > .close.show ~ .input-group-append {
+    margin-right: $input-padding-x * 2.5;
+  }
+
+  .form-control {
+    padding-right: 30px;
+  }
+
+  .close {
+    display: none;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    right: 0;
+    padding: $input-padding-y $input-padding-x;
+    font-size: 1rem;
+    line-height: 1;
+    color: $input-placeholder-color;
+    z-index: 4;
+    transform: translate3d(0, -50%, 0);
+
+    &:hover {
+      color: $gray-700;
+    }
+
+    &.show {
+      display: block;
+    }
+  }
+
+   &.has-spinner .close,
+   &.has-spinner .close.show {
+    display: none;
+  }
+}
+
+.has-clearable .close.show ~ .form-control.is-valid,
+.has-clearable .close.show ~ .form-control.is-invalid,
+.was-validated .has-clearable .close.show ~ .form-control:valid,
+.was-validated .has-clearable .close.show ~ .form-control:invalid {
+  background-position: calc(100% - (#{$input-padding-x} * 3)) calc(.375em + .1875rem);
+}
+
+.form-label-group.has-clearable > .close.show ~ .form-control.is-valid,
+.was-validated .form-label-group.has-clearable > .close.show ~ .form-control:valid,
+.form-label-group.has-clearable > .close.show ~ .form-control.is-invalid,
+.was-validated .form-label-group.has-clearable > .close.show ~ .form-control:invalid {
+  background-position: calc(100% - (#{$input-padding-x} * 3)) calc(.75em + .1875rem);
+}

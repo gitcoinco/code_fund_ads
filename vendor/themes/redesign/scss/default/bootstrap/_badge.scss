@@ -1,0 +1,110 @@
+.badge {
+  @include media-breakpoint-up(md) {
+    font-size: 80%;
+  }
+
+  > a {
+    color: inherit;
+    font-weight: 600;
+
+    &:hover {
+      color: inherit;
+      text-decoration: none;
+    }
+  }
+}
+
+.badge-lg {
+  padding: .375rem .5rem;
+}
+
+// Subtle badge
+
+.badge-subtle {
+  @each $color, $value in $theme-colors {
+    &.badge-#{$color} {
+      $text: darken($value, 5%);
+
+      @if $color == 'light' OR $color == 'dark' {
+        $text: $body-color;
+      } @else if $color == 'secondary' {
+        $text: $text-muted;
+      }
+
+      @include badge-subtle-variant($value, $text);
+    }
+  }
+}
+
+
+// floating avatars nor tiles (eg. avatar w/ tile, tile w/ avatar) as a badge
+.has-badge {
+  position: relative;
+  display: inline-block;
+
+  > .badge:last-child {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transform: translate3d(-50%, 0, 0);
+  }
+
+  > .tile:last-child,
+  > .user-avatar:last-child {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    transform: translate3d(-50%, 0, 0);
+    line-height: 1.25;
+    border: 3px solid $card-bg;
+    box-shadow: none;
+  }
+
+  > .tile-circle + .tile,
+  > .tile-circle + .user-avatar,
+  > .user-avatar + .tile,
+  > .user-avatar + .user-avatar {
+    transform: translate3d(-75%, 0, 0);
+  }
+
+  > .tile-xl.tile-circle + .tile,
+  > .tile-xl.tile-circle + .user-avatar,
+  > .user-avatar-xl.user-avatar + .tile,
+  > .user-avatar-xl.user-avatar + .user-avatar {
+    top: .5rem;
+    transform: translate3d(-1.125rem, 0, 0);
+  }
+
+  > .tile-xxl.tile-circle + .tile,
+  > .tile-xxl.tile-circle + .user-avatar,
+  > .user-avatar-xxl.user-avatar + .tile,
+  > .user-avatar-xxl.user-avatar + .user-avatar {
+    top: 1rem;
+    transform: translate3d(-1.5rem, 0, 0);
+  }
+}
+
+.has-badge-bottom {
+  > .badge:last-child,
+  > .tile:last-child,
+  > .user-avatar:last-child {
+    top: auto;
+    bottom: 0;
+  }
+
+  > .tile-xl.tile-circle + .tile,
+  > .tile-xl.tile-circle + .user-avatar,
+  > .user-avatar-xl.user-avatar + .tile,
+  > .user-avatar-xl.user-avatar + .user-avatar {
+    top: auto;
+    bottom: .5rem;
+  }
+
+  > .tile-xxl.tile-circle + .tile,
+  > .tile-xxl.tile-circle + .user-avatar,
+  > .user-avatar-xxl.user-avatar + .tile,
+  > .user-avatar-xxl.user-avatar + .user-avatar {
+    top: auto;
+    bottom: 1rem;
+  }
+}

@@ -1,0 +1,44 @@
+pre {
+  // padding: .75rem 1rem;
+  // background-color: $gray-100;
+  // border-radius: $border-radius;
+
+  > .hljs {
+    padding: 1rem;
+    border-radius: $border-radius-sm;
+  }
+
+  .card > & {
+    > .hljs {
+      border-radius: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+
+      > .hljs {
+        @include border-bottom-radius($border-radius);
+      }
+    }
+  }
+}
+
+/* for block of numbers */
+.hljs {
+  // background: $gray-200;
+}
+
+td.hljs-ln-numbers {
+  padding-right: 10px!important;
+  padding-left: 5px!important;
+  text-align: center;
+  color: $gray-700;
+  background: $gray-200;
+  vertical-align: top;
+  user-select: none;
+}
+
+/* for block of code */
+td.hljs-ln-code {
+  padding-left: 10px;
+}

@@ -1,0 +1,182 @@
+// Generate badge subtle
+
+@mixin badge-subtle-variant($bg, $color) {
+  color: $color;
+  background-color: rgba($bg, $subtle-level);
+
+  &[href] {
+    @include hover-focus {
+      color: $color;
+      text-decoration: none;
+      background-color: rgba($bg, $subtle-level-hover);
+    }
+  }
+}
+
+
+// Generate button subtle
+
+@mixin button-subtle-variant($bg, $color) {
+  color: $color;
+  background-color: rgba($bg, $subtle-level);
+  border-color: transparent;
+
+  &:hover,
+  &:focus,
+  &.focus {
+    color: $color;
+    background-color: rgba($bg, $subtle-level-hover);
+    box-shadow: none;
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    background-color: rgba($bg, $subtle-level);
+  }
+
+  &:not(:disabled):not(.disabled).active,
+  &:not(:disabled):not(.disabled):active,
+  .show > &.dropdown-toggle {
+    background-color: rgba($bg, $subtle-level-active);
+  }
+}
+
+
+// Generate contextual nouislider
+
+@mixin nouislider-variant($color) {
+  .noUi-connect {
+    background-color: $color;
+  }
+  .noUi-handle {
+    border-color: $color;
+    &:hover,
+    &:focus,
+    &:active {
+      box-shadow: 0 0 0 4px rgba($color, .26);
+    }
+  }
+}
+
+
+// Generate progress-list states
+
+@mixin progress-list-state($background, $color: $card-bg) {
+  &::before {
+    background-color: $background;
+  }
+
+  > button {
+    color: $background;
+    background-color: $color;
+    border-color: $color;
+
+    &:focus,
+    &:active {
+      box-shadow: 0 0 0 2px $background;
+    }
+  }
+
+  .progress-indicator {
+    color: $background;
+  }
+}
+
+
+// Generate contextual rating
+
+@mixin rating-variant ($color: $primary) {
+  > label {
+    &:hover {
+      color: lighten($color, 16%);
+
+      ~ label {
+        color: $color;
+      }
+    }
+  }
+
+  > input[type="radio"],
+  > input[type="checkbox"] {
+    &:checked {
+      ~ label {
+        color: $color;
+      }
+    }
+  }
+}
+
+
+// Generate step states
+
+@mixin step-state($background, $color: #fff) {
+  + li:before {
+    background-color: $background;
+  }
+
+  a {
+    background-color: $background;
+    color: $color;
+  }
+
+  .step-indicator {
+    color: $color;
+  }
+
+  &:hover {
+    + li:before {
+      background-color: darken($background, 3%);
+    }
+
+    a {
+      background-color: darken($background, 3%);
+      color: $color;
+    }
+  }
+}
+
+
+// Generate switcher variant
+
+@mixin switcher-variant($color) {
+  .switcher-input:checked {
+    + .switcher-indicator,
+    + .switcher-indicator:before {
+      border-color: $color;
+    }
+
+    + .switcher-indicator {
+      background-color: $color;
+    }
+  }
+
+  .switcher-label-on {
+    color: color-yiq($color);
+  }
+}
+
+// Generate switcher height
+
+@mixin switcher-height($height) {
+  $width: $height * 2.125;
+  width: $width;
+
+  .switcher-indicator {
+    height: $height;
+    line-height: $height;
+    border-radius: $height;
+
+    &:before {
+      right: ($width / 2) + .125;
+      width: $height;
+      border-radius: $height;
+    }
+  }
+
+  .switcher-label-on,
+  .switcher-label-off {
+    width: calc(100% - #{$height - .25});
+    line-height: $height;
+  }
+}

@@ -1,0 +1,125 @@
+// Include parts of Bootstrap, Plugins & Theme Components
+//
+// Required
+
+@import "default/variable-bs-overrides";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+@import "default/variables";
+@import "default/mixins";
+// your own variables
+@import "custom/variable-custom";
+
+
+// Bootstrap default
+// ==================================================
+
+@import "node_modules/bootstrap/scss/root";
+@import "node_modules/bootstrap/scss/reboot";
+@import "node_modules/bootstrap/scss/type";
+@import "node_modules/bootstrap/scss/images";
+@import "node_modules/bootstrap/scss/code";
+@import "node_modules/bootstrap/scss/grid";
+@import "node_modules/bootstrap/scss/tables";
+@import "node_modules/bootstrap/scss/forms";
+@import "node_modules/bootstrap/scss/buttons";
+@import "node_modules/bootstrap/scss/transitions";
+@import "node_modules/bootstrap/scss/dropdown";
+@import "node_modules/bootstrap/scss/button-group";
+@import "node_modules/bootstrap/scss/input-group";
+@import "node_modules/bootstrap/scss/custom-forms";
+@import "node_modules/bootstrap/scss/nav";
+@import "node_modules/bootstrap/scss/navbar";
+@import "node_modules/bootstrap/scss/card";
+@import "node_modules/bootstrap/scss/breadcrumb";
+@import "node_modules/bootstrap/scss/pagination";
+@import "node_modules/bootstrap/scss/badge";
+@import "node_modules/bootstrap/scss/jumbotron";
+@import "node_modules/bootstrap/scss/alert";
+@import "node_modules/bootstrap/scss/progress";
+@import "node_modules/bootstrap/scss/media";
+@import "node_modules/bootstrap/scss/list-group";
+@import "node_modules/bootstrap/scss/close";
+@import "node_modules/bootstrap/scss/toasts";
+@import "node_modules/bootstrap/scss/modal";
+@import "node_modules/bootstrap/scss/tooltip";
+@import "node_modules/bootstrap/scss/popover";
+@import "node_modules/bootstrap/scss/carousel";
+@import "node_modules/bootstrap/scss/spinners";
+@import "node_modules/bootstrap/scss/utilities";
+@import "node_modules/bootstrap/scss/print";
+
+
+// Bootstrap components overrides
+// ==================================================
+
+@import "default/bootstrap/type";
+@import "default/bootstrap/images";
+@import "default/bootstrap/code";
+@import "default/bootstrap/grid";
+@import "default/bootstrap/embed-responsive";
+@import "default/bootstrap/tables";
+@import "default/bootstrap/buttons";
+@import "default/bootstrap/alerts";
+@import "default/bootstrap/badge";
+@import "default/bootstrap/forms";
+@import "default/bootstrap/input-group";
+@import "default/bootstrap/custom-forms";
+@import "default/bootstrap/list-group";
+@import "default/bootstrap/cards";
+@import "default/bootstrap/dropdowns";
+@import "default/bootstrap/progress";
+@import "default/bootstrap/breadcrumb";
+@import "default/bootstrap/paginations";
+@import "default/bootstrap/navs";
+@import "default/bootstrap/modals";
+@import "default/bootstrap/popovers";
+@import "default/bootstrap/utilities";
+
+
+// Theme components
+// ==================================================
+// app plugins
+@import "node_modules/stacked-menu/dist/scss/stacked-menu";
+// replace plugins
+@import "default/components/plugins";
+
+// app layout
+@import "default/components/base";
+@import "default/components/header";
+@import "default/components/aside";
+@import "default/components/page";
+@import "default/components/sidebar";
+@import "default/components/footer";
+
+// app components
+@import "default/components/rating";
+@import "default/components/switchers";
+@import "default/components/icons";
+@import "default/components/tiles";
+@import "default/components/avatar";
+@import "default/components/mention";
+@import "default/components/event";
+@import "default/components/hamburger";
+@import "default/components/figure";
+@import "default/components/outbound-link";
+@import "default/components/steps";
+@import "default/components/todos";
+@import "default/components/progress-list";
+@import "default/components/visual-picker";
+@import "default/components/publisher";
+@import "default/components/timeline";
+@import "default/components/conversations";
+@import "default/components/feeds";
+@import "default/components/tasks";
+@import "default/components/metrics";
+@import "default/components/countdown";
+@import "default/components/empty-state";
+@import "default/components/invoice";
+@import "default/components/sticker";
+
+// pages
+@import "default/components/auth";
+@import "default/components/message";
+@import "default/components/site";

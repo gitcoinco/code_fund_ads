@@ -1,0 +1,96 @@
+$invoice-padding-x:       3rem !default; // 8 inches with 96 dpi
+$invoice-padding-y:       4rem !default; // 8 inches with 96 dpi
+$invoice-width:           768px !default; // 8 inches with 96 dpi
+$invoice-height:          1120px !default; // 10.5 inches with 96 dpi
+$invoice-brand-size:      6rem !default;
+
+.invoice-wrapper {
+  position: relative;
+  padding: $spacer;
+  width: 100%;
+  background-color: $gray-300;
+  overflow: hidden;
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+  }
+
+  > .invoice-img {
+    position: relative;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+    cursor: not-allowed;
+    user-select: none;
+    z-index: 1;
+    box-shadow: .5rem .5rem 1rem rgba($black, .05),
+      .5rem -.5rem 1rem rgba($black, .05),
+      -.5rem .5rem 1rem rgba($black, .05),
+      -.5rem -.5rem 1rem rgba($black, .05);
+  }
+}
+
+.invoice-actions {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: $spacer / 2;
+  opacity: .86;
+  z-index: 2;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.invoice {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: $invoice-padding-x $invoice-padding-y;
+  width: $invoice-width;
+  min-height: $invoice-height;
+  background-color: $white;
+  color: $gray-300;
+  z-index: -1;
+
+  .table thead th,
+  .table td,
+  .table th {
+    border-color: lighten($gray-700, 7.5%);
+  }
+}
+
+.invoice-header {
+  margin-bottom: $invoice-padding-x;
+}
+
+.invoice-body {
+  > .table {
+    margin-top: $invoice-padding-x;
+  }
+}
+
+.invoice-title {
+  color: $gray-300;
+  font-size: 1.125rem;
+  font-weight: 500;
+  caption-side: top;
+}
+
+.invoice-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 $invoice-padding-y;
+  padding: $spacer 0;
+  border-top: 1px solid $border-color;
+}

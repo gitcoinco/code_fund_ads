@@ -1,0 +1,323 @@
+legend {
+  margin-bottom: map-get($spacers, 4);
+  font-size: $font-size-base;
+  font-weight: 600;
+
+  .form-group & {
+    margin-bottom: .5rem;
+  }
+}
+
+label {
+  > abbr {
+    color: $danger;
+  }
+
+  > abbr,
+  > .badge {
+    margin-left: .125rem;
+  }
+
+  > a:hover {
+    text-decoration: none;
+  }
+
+  &.input-group-append,
+  &.input-group-prepend {
+    margin-bottom: 0;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .form-control {
+    height: $input-height-mq;
+    font-size: $font-size-sm;
+
+    &.form-control-sm {
+      height: $input-height-mq-sm;
+      font-size: 0.8125rem;
+    }
+
+    &.form-control-lg {
+      height: $input-height-mq-lg;
+      font-size: 1rem;
+    }
+  }
+
+  .form-check {
+    font-size: $font-size-sm;
+  }
+
+  .col-form-label-lg {
+    font-size: 1rem;
+  }
+}
+
+select {
+  option {
+    color: color-yiq($input-color);
+  }
+}
+
+
+// form group
+
+.form-group {
+  small,
+  .small,
+  .valid-feedback,
+  .invalid-feedback {
+    @include media-breakpoint-up(md) {
+      font-size: 85%;
+    }
+  }
+}
+
+.form-control {
+  box-shadow: $input-box-shadow;
+  backface-visibility: hidden; // avoid webkit bug render
+
+  &[readonly] {
+    background-color: $input-bg;
+
+    &:hover ~ .input-group-prepend {
+      .input-group-text {
+        color: $input-color;
+      }
+    }
+  }
+
+  &-reflow {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+
+    &:hover {
+      background-color: $gray-200;
+    }
+
+    &:focus {
+      background-color: $input-bg;
+      border-color: $input-focus-border-color;
+    }
+  }
+}
+
+
+// Form actions
+
+.form-actions {
+  display: flex;
+  padding-top: .5rem;
+
+  .btn + .btn,
+  .btn + .btn-group,
+  .btn-group + .btn,
+  .btn-group + .btn-group {
+    margin-left: .125rem;
+  }
+}
+
+
+// Floating label
+
+$input-floating-padding-y: .75rem !default;
+
+.form-label-group {
+  position: relative;
+
+  > input,
+  > label {
+    padding: 0 $input-padding-x;
+  }
+
+  input,
+  select {
+    padding-top: calc(#{$input-floating-padding-y} + #{$input-floating-padding-y} * (2 / 3));
+    padding-bottom: calc(#{$input-floating-padding-y} / 3);
+    height: auto;
+  }
+
+  > label {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding-top: calc(#{$input-floating-padding-y} / 3);
+    padding-bottom: calc(#{$input-floating-padding-y} / 3);
+    width: 100%;
+    margin-bottom: 0; /* Override default `<label>` margin */
+    line-height: 1.5;
+    text-align: left;
+    font-size: .75rem;
+    color: $text-muted;
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+    transition: all .1s ease-in-out;
+    pointer-events: none;
+  }
+
+  input::placeholder {
+    color: transparent;
+  }
+
+  input:placeholder-shown:not(:-webkit-autofill) {
+    padding-top: $input-floating-padding-y;
+    padding-bottom: $input-floating-padding-y;
+
+    ~ label {
+      padding-top: $input-floating-padding-y;
+      padding-bottom: $input-floating-padding-y;
+      color: $input-placeholder-color;
+      font-size: inherit;
+    }
+  }
+
+  // separate this style to avoid :placeholder-shown bug in IE
+  input.placeholder-shown:not(:-webkit-autofill) {
+    padding-top: $input-floating-padding-y;
+    padding-bottom: $input-floating-padding-y;
+
+    ~ label {
+      padding-top: $input-floating-padding-y;
+      padding-bottom: $input-floating-padding-y;
+      color: $input-placeholder-color;
+      font-size: inherit;
+    }
+  }
+}
+
+
+// Validations
+
+.form-control.is-valid,
+.was-validated .form-control:valid,
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+  background-position: calc(100% - #{$input-padding-x}) calc(.375em + .1875rem);
+}
+
+.form-label-group > .form-control.is-valid,
+.was-validated .form-label-group > .form-control:valid,
+.form-label-group > .form-control.is-invalid,
+.was-validated .form-label-group > .form-control:invalid {
+  background-position: calc(100% - #{$input-padding-x}) calc(.75em + .1875rem);
+}
+
+.custom-select.is-invalid,
+.form-control.is-invalid,
+.was-validated .custom-select:invalid,
+.was-validated .form-control:invalid {
+  &:focus {
+    box-shadow: 0 0 0 1px $form-feedback-invalid-color;
+  }
+}
+
+.custom-select.is-valid,
+.form-control.is-valid,
+.was-validated .custom-select:valid,
+.was-validated .form-control:valid {
+  &:focus {
+    box-shadow: 0 0 0 1px $form-feedback-valid-color;
+  }
+}
+
+.custom-control-input.is-invalid,
+.was-validated .custom-control-input:invalid {
+  ~ .custom-control-label:before {
+    border-color: $form-feedback-invalid-color;
+  }
+}
+
+.custom-control-input.is-valid,
+.was-validated .custom-control-input:valid {
+  ~ .custom-control-label:before {
+    border-color: $form-feedback-valid-color;
+  }
+}
+
+.custom-file-input.is-invalid,
+.was-validated .custom-file-input:invalid {
+  & ~ .custom-file-label::after {
+    border-color: $form-feedback-invalid-color;
+  }
+
+  &:focus ~ .custom-file-label {
+    border-color: $form-feedback-invalid-color;
+    box-shadow: 0 0 0 1px $form-feedback-invalid-color;
+
+    &::after {
+      border-color: $form-feedback-invalid-color;
+    }
+  }
+}
+
+.custom-file-input.is-valid,
+.was-validated .custom-file-input:valid {
+  & ~ .custom-file-label::after {
+    border-color: $form-feedback-valid-color;
+  }
+
+  &:focus ~ .custom-file-label {
+    border-color: $form-feedback-valid-color;
+    box-shadow: 0 0 0 1px $form-feedback-valid-color;
+
+    &::after {
+      border-color: $form-feedback-valid-color;
+    }
+  }
+}
+
+// make form elements fluid
+// inherit the parent style to support inline editable
+
+.inline-editable {
+  position: relative;
+  width: 100%;
+
+  &:hover {
+    .inline-editable-actions {
+      display: block;
+    }
+  }
+
+  &-actions {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: none;
+  }
+
+  .form-control {
+    padding: 0;
+    width: inherit;
+    height: auto;
+    color: inherit;
+    background-color: transparent;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    transition: none;
+    resize: none;
+
+    @include hover-focus {
+      color: $input-color;
+      box-shadow: 0 0 0 .5rem rgba($black, .1);
+    }
+
+    &:hover {
+      background-color: rgba($black, .1);
+    }
+
+    &:focus {
+      background-color: $input-bg;
+
+      + .inline-editable-actions {
+        display: block;
+      }
+    }
+  }
+}

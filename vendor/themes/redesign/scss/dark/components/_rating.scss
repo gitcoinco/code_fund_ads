@@ -1,0 +1,82 @@
+// rating container
+.rating-block {
+  display: block;
+}
+
+.rating {
+  position: relative;
+  display: inline-block;
+  font-size: 1.25rem;
+  vertical-align: middle;
+
+  &-xs {
+    font-size: .875rem;
+  }
+
+  &-sm {
+    font-size: 1rem;
+  }
+
+  &-lg {
+    font-size: 1.5rem;
+  }
+
+  > label,
+  > input[type="radio"],
+  > input[type="checkbox"] {
+    float: right;
+    cursor: pointer;
+  }
+
+  > label {
+    margin-bottom: 0;
+    display: inline;
+    color: $rating-color;
+    line-height: 1;
+
+    &:hover {
+      color: lighten($rating-color-checked, 16%);
+
+      ~ label {
+        color: $rating-color-checked;
+      }
+    }
+  }
+
+  &.has-readonly {
+    > label:hover {
+      color: $rating-color;
+      ~ label {
+        color: $rating-color;
+      }
+    }
+  }
+
+  > input[type="radio"],
+  > input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+
+    &:checked {
+      ~ label {
+        color: $rating-color-checked;
+      }
+    }
+
+    // &:focus {
+    //   ~ label {
+    //     color: $rating-color-checked;
+    //   }
+    // }
+  }
+}
+
+
+// Alternate ratings
+
+@each $color, $value in $colors {
+  .rating-#{$color} {
+    @include rating-variant($value);
+  }
+}

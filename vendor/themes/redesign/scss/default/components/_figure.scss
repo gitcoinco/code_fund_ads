@@ -1,0 +1,168 @@
+.card-figure {
+  position: relative;
+  padding: 10px;
+  border-radius: 2px;
+
+  &.is-hoverable {
+    transition: transform 200ms, box-shadow 200ms;
+
+    @include hover-focus {
+      transform: translate3d(0, -.25rem, 0);
+      box-shadow: 0 5px 15px 0 rgba($black, .15);
+    }
+  }
+
+  &:hover {
+    .img-link {
+      opacity: 1;
+    }
+
+    .figure-action {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+      z-index: 2;
+    }
+  }
+
+  .figure {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0px;
+  }
+
+  .figure-caption {
+    display: block;
+    margin-top: 10px;
+    font-size: $font-size-sm;
+    color: inherit;
+
+    @include media-breakpoint-up(md) {
+      font-size: $font-size-xs;
+    }
+  }
+}
+
+.figure-title {
+  margin: 0 0 .125rem;
+  text-transform: capitalize;
+  @include text-truncate;
+
+  @include media-breakpoint-up(md) {
+    font-size: $font-size-sm;
+  }
+
+  a {
+    @include hover-focus {
+      color: $body-color;
+      text-decoration: none;
+    }
+  }
+}
+
+.figure-img {
+  position: relative;
+  margin-bottom: 0;
+  overflow: hidden;
+
+  .img-link {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba($card-bg, .96);
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 200ms ease;
+
+    .tile {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -1rem;
+      margin-left: -1rem;
+    }
+
+    @include hover-focus {
+      opacity: 1;
+      outline: 0;
+    }
+  }
+}
+
+.figure-tools {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: flex-start;
+  padding: .5rem;
+  opacity: 0;
+  z-index: 2;
+  transition: opacity 300ms ease;
+
+  .tile {
+    background-color: $card-bg;
+
+    @include hover-focus {
+      background-color: $light;
+    }
+  }
+
+  .card-figure:hover & {
+    opacity: 1;
+  }
+}
+
+.figure-attachment {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 8rem;
+  background-color: gray("100");
+  overflow: hidden;
+
+  > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.figure-action {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  opacity: 0;
+  transform: translate3d(0, 100%, 0);
+  transition: all 300ms ease;
+
+  .btn-block {
+    border-radius: 0;
+  }
+}
+
+.figure-description {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 2.25rem .5rem;
+  background-color: rgba($card-bg, .96);
+  opacity: 0;
+  transition: all 300ms ease;
+  z-index: 1;
+
+  .card-figure:hover & {
+    opacity: 1;
+  }
+}

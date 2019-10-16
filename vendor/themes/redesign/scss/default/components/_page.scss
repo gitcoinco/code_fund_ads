@@ -1,0 +1,287 @@
+.page {
+  min-height: 646px;
+
+  @media (max-height: map-get($grid-breakpoints, "lg")) {
+    min-height: calc(100vh - #{$app-header-height});
+  }
+
+  &-expanded {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: $gray-100;
+    z-index: $zindex-fixed;
+
+    .page-inner-fill {
+      height: 100vh;
+    }
+  }
+}
+
+.page-navs {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding-right: $page-inner-padding/2;
+  padding-left: $page-inner-padding/2;
+  height: $app-header-height;
+  background-color: $card-bg;
+  box-shadow: 0 1px 0 $border-color;
+  z-index: 5;
+
+  @include media-breakpoint-up(lg) {
+    padding-right: $page-inner-padding;
+    padding-left: $page-inner-padding;
+  }
+
+  > .navbar {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  > .nav-scroller,
+  > .nav {
+    flex-grow: 1;
+    align-self: flex-start;
+  }
+
+  > .nav-scroller .nav-tabs,
+  > .nav-tabs {
+    border-bottom: 0;
+  }
+}
+
+.page-cover {
+  position: relative;
+  padding: 2rem 1rem 1rem;
+  display: flex;
+  min-height: 16rem;
+  flex-direction: column;
+  background-color: $gray-200;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 1px 0 $border-color;
+
+  @include media-breakpoint-up(sm) {
+    padding-right: $page-inner-padding/2;
+    padding-left: $page-inner-padding/2;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding-right: $page-inner-padding;
+    padding-left: $page-inner-padding;
+  }
+
+  .cover-controls {
+    margin-bottom: 1.25rem;
+    display: flex;
+
+    &:last-child {
+      margin-bottom: 0px;
+    }
+
+    .btn {
+      flex: 1;
+
+      + .btn {
+        margin-left: .5rem;
+      }
+    }
+
+    @include media-breakpoint-up(lg) {
+      margin-bottom: 0;
+      display: block;
+      position: absolute;
+      top: 2rem;
+      right: 1rem;
+
+      &-bottom {
+        top: auto;
+        bottom: .5rem;
+      }
+
+      .btn + .btn {
+        margin-left: 0;
+      }
+    }
+  }
+}
+
+.cover-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+.page-message {
+  position: fixed;
+  top: $app-header-height;
+  left: 50%;
+  padding: .5rem 1rem;
+  display: inline-table;
+  width: 100%;
+  max-width: 100%;
+  color: color-yiq($yellow);
+  background-color: $warning;
+  text-align: center;
+  z-index: $zindex-fixed;
+  box-shadow: $box-shadow-lg;
+  transform: translate3d(-50%, 0, 0);
+  cursor: pointer;
+
+  @include media-breakpoint-up(md) {
+    top: 4.25rem;
+    width: auto;
+    max-width: 47rem;
+    border-radius: 4rem;
+  }
+
+  a:not(.btn) {
+    text-decoration: underline;
+  }
+}
+
+.page-inner {
+  padding: 1.5rem 0;
+
+  @include media-breakpoint-up(sm) {
+    padding-right: $page-inner-padding/2;
+    padding-left: $page-inner-padding/2;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding-right: $page-inner-padding;
+    padding-left: $page-inner-padding;
+  }
+
+  &-fill {
+    display: flex;
+    padding: 0;
+    flex-direction: column;
+    height: calc(100vh - 3.5rem);
+
+    > .page-section {
+      overflow-y: auto;
+    }
+  }
+
+  > .page-cover {
+    margin-top: -1.5rem;
+
+    @include media-breakpoint-up("sm") {
+      margin-top: 0;
+      border-radius: $border-radius;
+
+      .cover-img {
+        border-radius: $border-radius;
+      }
+    }
+  }
+}
+
+.page-title-bar,
+.page-section {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+
+.page-title-bar {
+  margin-bottom: 1.5rem;
+  padding: 0 ($page-inner-padding/2);
+
+  @include media-breakpoint-up(sm) {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .btn-toolbar {
+    margin-left: -.75rem;
+  }
+}
+
+.page-title {
+  margin-top: 0;
+  font-size: $h3-font-size;
+
+  > small {
+    font-size: $font-size-base;
+    color: $text-muted;
+
+    @include media-breakpoint-up("md") {
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+.page-section {
+  padding-right: 0;
+  padding-left: 0;
+
+  > .card {
+    @include media-breakpoint-down(xs) {
+      border-radius: 0;
+      border-width: 1px 0;
+    }
+  }
+}
+
+.section-title {
+  margin-top: 0;
+  padding: 1rem 0px;
+  font-size: $h6-font-size;
+}
+
+.section-block {
+  margin: $spacer 0;
+
+  @include media-breakpoint-down(xs) {
+    padding-right: $page-inner-padding/2;
+    padding-left: $page-inner-padding/2;
+  }
+}
+
+// DEPRECATED – will remove on next release
+.section-deck {
+  display: flex;
+  flex-direction: column;
+
+  @include media-breakpoint-up(xl) {
+    flex-flow: row wrap;
+    margin-right: -$card-deck-margin;
+    margin-left: -$card-deck-margin;
+
+    .card {
+      display: flex;
+      // Flexbugs #4: https://github.com/philipwalton/flexbugs#4-flex-shorthand-declarations-with-unitless-flex-basis-values-are-ignored
+      flex: 1 0 0%;
+      flex-direction: column;
+      margin-right: $card-deck-margin;
+      margin-left: $card-deck-margin;
+    }
+  }
+}
+
+// NOTE: css multi columns are not recomended for complex UI
+// Please use masonry layout if you've any bug with your workflow
+.section-columns {
+  @include media-breakpoint-up(lg) {
+    column-count: 2;
+    column-gap: $grid-gutter-width;
+
+    > .section-item {
+      display: inline-block;
+      width: 100%;
+      transform: translate3d(0, 0, 0); /* fix animations */
+      -webkit-column-break-inside: avoid; /* fix columns */
+    }
+  }
+}

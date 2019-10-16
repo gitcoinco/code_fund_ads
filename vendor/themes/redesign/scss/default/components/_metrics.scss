@@ -1,0 +1,147 @@
+.metric-row {
+  margin-bottom: 1.25rem;
+  border-radius: $border-radius;
+  align-items: stretch;
+  @include make-row();
+
+  .metric {
+    margin: .5rem 0;
+    min-height: 8.5rem;
+  }
+}
+
+.metric-flush {
+  margin: .5rem -1px .5rem 1px;
+
+  @include media-breakpoint-down(xs) {
+    display: block;
+
+    > .col,
+    > [class="col-*"] {
+      margin-top: -1px;
+    }
+  }
+
+  .metric {
+    margin: 0;
+    border-radius: 0;
+  }
+
+  > .col,
+  > [class="col-*"] {
+    margin-left: -1px;
+    padding-right: 0;
+    padding-left: 0;
+
+    &:first-child {
+      > .metric {
+        @include border-top-radius($border-radius);
+      }
+    }
+    &:last-child {
+      > .metric {
+        @include border-bottom-radius($border-radius);
+      }
+    }
+
+    @include media-breakpoint-up(sm) {
+      &:first-child {
+        > .metric {
+          border-top-right-radius: 0;
+          @include border-left-radius($border-radius);
+        }
+      }
+      &:last-child {
+        > .metric {
+          border-bottom-left-radius: 0;
+          @include border-right-radius($border-radius);
+        }
+      }
+    }
+  }
+}
+
+.metric {
+  position: relative;
+  padding: 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
+  max-width: 100%;
+  border-radius: $border-radius;
+  cursor: default;
+
+  @include media-breakpoint-up(sm) {
+    flex-basis: 0;
+  }
+}
+
+a.metric,
+.metric-hoverable {
+  color: inherit;
+  outline: 0;
+  cursor: pointer;
+
+  @include hover-focus {
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid $gray-300;
+  }
+}
+
+.metric-bordered {
+  border: 1px solid $gray-300;
+}
+
+.metric-label {
+  font-size: $font-size-sm;
+  font-weight: 500;
+  color: $text-muted;
+  white-space: nowrap;
+
+  &:first-child {
+    margin-bottom: .5rem;
+  }
+  &:last-child {
+    margin-top: .5rem;
+    margin-bottom: 0;
+  }
+}
+
+.metric-value {
+  margin-bottom: 0;
+  line-height: 1;
+  white-space: nowrap;
+
+  .value {
+    vertical-align: middle;
+  }
+
+  > sup,
+  > sub {
+    color: $gray-500;
+    font-size: .5em;
+  }
+
+  > sup {
+    top: -.75em;
+  }
+
+  > sub {
+    bottom: 0;
+  }
+}
+
+.metric-badge {
+  position: relative;
+  top: -.5rem;
+}
+
+.card-metric {
+  text-align: center;
+  background-color: $card-bg;
+  border: none;
+  border-radius: $border-radius;
+  box-shadow: 0 0 0 1px rgba($black, .05), 0 1px 3px 0 rgba($black, .15);
+}

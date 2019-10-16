@@ -1,0 +1,177 @@
+.modal.modal-alert {
+  .modal-dialog {
+    opacity: 0;
+    transform: scale(1.2);
+    transition: transform 150ms ease-in-out, opacity 150ms ease-in-out;
+  }
+
+  &.show .modal-dialog {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.modal-dialog-centered {
+  margin: 0 auto;
+}
+
+.modal-header,
+.modal-footer {
+  flex: 0 0 auto;
+}
+
+.modal-body {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+
+// Modal Scrollable
+// ==================================================
+
+.modal-dialog-scrollable {
+  .modal-header,
+  .modal-footer {
+    z-index: 2;
+  }
+}
+
+
+// Modal Drawer
+// adding classes .modal-{right,left}
+// ==================================================
+
+.modal-drawer {
+  .modal-dialog {
+    margin-top: 0;
+    margin-bottom: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+
+    // Give the modal drawers max width on xsmall screen
+    @include media-breakpoint-down(xs) {
+      margin: 0;
+      max-width: 100%;
+    }
+  }
+
+  .modal-header,
+  .modal-content,
+  .modal-footer {
+    border-radius: 0;
+  }
+
+  .modal-content {
+    height: 100%;
+  }
+
+  .modal-body {
+    overflow: auto;
+  }
+}
+
+.modal-drawer-right {
+  right: 0;
+  box-shadow: -1px 0 3px 0 rgba($black, .15);
+
+  .modal.fade & {
+    transform: translate3d(100%, 0, 0);
+  }
+
+  .modal-content {
+    border-width: 0 0 0 $border-width;
+  }
+}
+
+.modal-drawer-left {
+  left: 0;
+  box-shadow: 1px 0 3px 0 rgba($black, .15);
+
+  .modal.fade & {
+    transform: translate3d(-100%, 0, 0);
+  }
+
+  .modal-content {
+    border-width: 0 $border-width 0 0;
+  }
+}
+
+.modal.show {
+  &.show .modal-drawer-right,
+  &.show .modal-drawer-left {
+    transform: translate(0);
+  }
+}
+
+
+// Modal Docked
+// adding classes .modal-docked
+// ==================================================
+
+.modal-docked {
+  .modal-dialog {
+    margin: 0;
+    position: fixed;
+    bottom: 6.125rem;
+    right: 1.25rem;
+    width: 100%;
+    height: calc(100vh - 7.125rem);
+  }
+
+  &.fade .modal-dialog {
+    transform: translateY(1.25rem);
+  }
+
+  &.show .modal-dialog {
+    transform: translateY(0);
+  }
+
+  .modal-content {
+    position: absolute;
+    bottom: 0;
+    max-height: 100%;
+    border: 0;
+    box-shadow: 0 5px 40px rgba($black, 0.15);
+  }
+
+  .modal-body {
+    overflow-y: auto;
+  }
+
+  .close {
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: .125rem;
+    bottom: -4.6125rem;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 2rem;
+    opacity: 1;
+
+    @include hover-focus {
+      &:not(.disabled) {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+
+// modal scrollable behaviour
+
+.modal-dialog-scrollable,
+.modal-drawer {
+  .modal-header {
+    box-shadow: 0 2px 0 0 rgba($black, .125);
+  }
+
+  .modal-footer {
+    box-shadow: 0 -2px 0 0 rgba($black, .125);
+  }
+
+  .modal-body-scrolled {
+    box-shadow: none;
+  }
+}

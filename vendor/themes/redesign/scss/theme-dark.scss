@@ -1,0 +1,123 @@
+// Include parts of Bootstrap, Plugins & Theme Components
+//
+// Required
+
+@import "dark/variable-bs-overrides";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+@import "dark/variables";
+@import "dark/mixins";
+// your own variables
+@import "custom/variable-custom-dark";
+
+
+// Bootstrap default
+// ==================================================
+
+@import "node_modules/bootstrap/scss/root";
+@import "node_modules/bootstrap/scss/reboot";
+@import "node_modules/bootstrap/scss/type";
+@import "node_modules/bootstrap/scss/images";
+@import "node_modules/bootstrap/scss/code";
+@import "node_modules/bootstrap/scss/grid";
+@import "node_modules/bootstrap/scss/tables";
+@import "node_modules/bootstrap/scss/forms";
+@import "node_modules/bootstrap/scss/buttons";
+@import "node_modules/bootstrap/scss/transitions";
+@import "node_modules/bootstrap/scss/dropdown";
+@import "node_modules/bootstrap/scss/button-group";
+@import "node_modules/bootstrap/scss/input-group";
+@import "node_modules/bootstrap/scss/custom-forms";
+@import "node_modules/bootstrap/scss/nav";
+@import "node_modules/bootstrap/scss/navbar";
+@import "node_modules/bootstrap/scss/card";
+@import "node_modules/bootstrap/scss/breadcrumb";
+@import "node_modules/bootstrap/scss/pagination";
+@import "node_modules/bootstrap/scss/badge";
+@import "node_modules/bootstrap/scss/jumbotron";
+@import "node_modules/bootstrap/scss/alert";
+@import "node_modules/bootstrap/scss/progress";
+@import "node_modules/bootstrap/scss/media";
+@import "node_modules/bootstrap/scss/list-group";
+@import "node_modules/bootstrap/scss/close";
+@import "node_modules/bootstrap/scss/toasts";
+@import "node_modules/bootstrap/scss/modal";
+@import "node_modules/bootstrap/scss/tooltip";
+@import "node_modules/bootstrap/scss/popover";
+@import "node_modules/bootstrap/scss/carousel";
+@import "node_modules/bootstrap/scss/spinners";
+@import "node_modules/bootstrap/scss/utilities";
+@import "node_modules/bootstrap/scss/print";
+
+
+// Bootstrap components overrides
+// ==================================================
+
+@import "dark/bootstrap/type";
+@import "dark/bootstrap/images";
+@import "dark/bootstrap/code";
+@import "dark/bootstrap/embed-responsive";
+@import "dark/bootstrap/tables";
+@import "dark/bootstrap/buttons";
+@import "dark/bootstrap/alerts";
+@import "dark/bootstrap/badge";
+@import "dark/bootstrap/forms";
+@import "dark/bootstrap/input-group";
+@import "dark/bootstrap/custom-forms";
+@import "dark/bootstrap/list-group";
+@import "dark/bootstrap/cards";
+@import "dark/bootstrap/dropdowns";
+@import "dark/bootstrap/progress";
+@import "dark/bootstrap/breadcrumb";
+@import "dark/bootstrap/paginations";
+@import "dark/bootstrap/navs";
+@import "dark/bootstrap/modals";
+@import "dark/bootstrap/popovers";
+@import "dark/bootstrap/utilities";
+
+
+// Theme components
+// ==================================================
+// app plugins
+@import "node_modules/stacked-menu/dist/scss/stacked-menu";
+// replace plugins
+@import "dark/components/plugins";
+
+// app layout
+@import "dark/components/base";
+@import "dark/components/header";
+@import "dark/components/aside";
+@import "dark/components/page";
+@import "dark/components/sidebar";
+@import "dark/components/footer";
+
+// app components
+@import "dark/components/rating";
+@import "dark/components/switchers";
+@import "dark/components/icons";
+@import "dark/components/tiles";
+@import "dark/components/avatar";
+@import "dark/components/mention";
+@import "default/components/event";
+@import "dark/components/hamburger";
+@import "dark/components/figure";
+@import "dark/components/outbound-link";
+@import "dark/components/steps";
+@import "dark/components/todos";
+@import "dark/components/progress-list";
+@import "dark/components/visual-picker";
+@import "dark/components/publisher";
+@import "dark/components/timeline";
+@import "dark/components/conversations";
+@import "dark/components/feeds";
+@import "dark/components/tasks";
+@import "dark/components/metrics";
+@import "dark/components/countdown";
+@import "dark/components/empty-state";
+@import "dark/components/invoice";
+@import "default/components/sticker";
+
+// pages
+@import "dark/components/auth";
+@import "dark/components/message";

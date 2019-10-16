@@ -1,0 +1,117 @@
+.switcher-control {
+  margin-bottom: 0;
+  position: relative;
+  vertical-align: middle;
+  font-weight: bold;
+  font-size: .625rem;
+  user-select:none;
+
+  @include switcher-height($switcher-height);
+}
+
+.switcher-control-lg {
+  @include switcher-height($switcher-height-lg);
+}
+
+.switcher-input {
+  position: absolute;
+  height: 0;
+  width: 0;
+  z-index: -1;
+  opacity: 0;
+
+  &:focus {
+    + .switcher-indicator {
+      box-shadow: $box-shadow;
+    }
+  }
+}
+
+.switcher-indicator {
+  margin-bottom: 0;
+  display: block;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0;
+  border: 2px solid $switcher-color;
+  background-color: $switcher-color;
+  transition: all 150ms linear;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    display: block;
+    margin: 0px;
+    background: $switcher-indicator-color;
+    border: 2px solid $switcher-color;
+    transition: all 150ms ease-in-out;
+  }
+}
+
+.switcher-input:checked {
+  + .switcher-indicator,
+  + .switcher-indicator:before {
+    border-color: $switcher-active-color;
+  }
+
+  + .switcher-indicator {
+    background-color: $switcher-active-color;
+  }
+
+  + .switcher-indicator:before {
+    right: 0px;
+    box-shadow: none;
+  }
+}
+
+.disabled > .switcher-input,
+.switcher-input:disabled {
+  pointer-events: none;
+
+  + .switcher-indicator {
+    opacity: .38;
+    cursor: default;
+  }
+}
+
+// switcher label
+.switcher-label-on,
+.switcher-label-off {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  text-align: center;
+}
+
+.switcher-label-on {
+  display: none;
+  left: 0;
+  color: color-yiq($switcher-active-color);
+
+  .switcher-input:checked ~ & {
+    display: block;
+  }
+}
+
+.switcher-label-off {
+  display: block;
+  right: 0;
+  color: $text-muted;
+
+  .switcher-input:checked ~ & {
+    display: none;
+  }
+}
+
+
+// Alternate ratings (only success and danger)
+
+@each $color, $value in $theme-colors {
+  @if ($color == "success") or ($color == "danger") {
+    .switcher-control-#{$color} {
+      @include switcher-variant($value);
+    }
+  }
+}

@@ -1,0 +1,38 @@
+blockquote,
+.blockquote {
+  padding-left: $spacer;
+  font-size: 1.25em;
+  color: $body-color;
+  border-left: 4px solid $border-color;
+
+  &.text-right {
+    padding-right: $spacer;
+    padding-left: 0;
+    border-left: 0;
+    border-right: 4px solid $border-color;
+  }
+
+  > footer {
+    display: block;
+    font-size: 80%; // back to default font-size
+    color: $blockquote-small-color;
+
+    &::before {
+      content: "\2014 \00A0"; // em dash, nbsp
+    }
+  }
+}
+
+dl {
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+@include media-breakpoint-down("xl") {
+  .display-1 { font-size: calc(1.56rem + 3.72vw); }
+  .display-2 { font-size: calc(1.5056rem + 3.0672vw); }
+  .display-3 { font-size: calc(1.458rem + 2.496vw); }
+  .display-4 { font-size: calc(1.4163rem + 1.9956vw); }
+  .lead { font-size: $font-size-base * 1.125;}
+}

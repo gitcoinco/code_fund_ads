@@ -1,0 +1,391 @@
+.btn {
+  height: $input-height;
+  backface-visibility: hidden; // avoid webkit bug render after transition
+
+  &-sm {
+    height: $input-height-sm;
+  }
+
+  &-lg {
+    height: $input-height-lg;
+  }
+
+  @include media-breakpoint-up(md) {
+    height: $input-height-mq;
+    font-size: $font-size-sm;
+
+    &.btn-sm {
+      height: $input-height-mq-sm;
+      font-size: 0.8125rem;
+    }
+    &.btn-lg {
+      height: $input-height-mq-lg;
+      font-size: 1rem;
+    }
+  }
+
+  &-xs {
+    font-size: 0.8125rem;
+    padding: .125rem .5rem;
+    height: auto;
+  }
+
+  .hamburger {
+    padding: 0;
+    width: auto;
+    height: auto;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+
+// floating button
+
+.btn-floated {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 4rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: $font-size-lg;
+  line-height: 1;
+  border-radius: 3rem;
+  border: 0;
+  z-index: 5;
+  box-shadow: 0 3px 5px -1px rgba($black, .2), 0 6px 10px 0 rgba($black, .14), 0 1px 18px 0 rgba($black, .12);
+
+  @include media-breakpoint-up("md") {
+    bottom: 1.25rem;
+  }
+
+  &.btn-lg {
+    width: 4rem;
+    height: 4rem;
+    font-size: $font-size-lg;
+    line-height: 1;
+  }
+
+  &.btn-sm {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: $font-size-base;
+    line-height: 1;
+  }
+
+  @include hover-focus {
+    box-shadow: 0 3px 5px -1px rgba($black, .2), 0 6px 10px 0 rgba($black, .14), 0 1px 18px 0 rgba($black, .12) !important;
+  }
+
+  &:active {
+    box-shadow: 0 7px 8px -4px rgba($black, .2), 0 12px 17px 2px rgba($black, .14), 0 5px 22px 4px rgba($black, .12) !important;
+  }
+}
+
+
+// override buttons styles
+
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+    @if $color == "light" {
+      color: $text-muted;
+      background-color: transparent;
+      border-color: transparent;
+    } @else if $color == "dark" {
+      color: $light;
+    } @else {
+      border-color: darken($value, 7.5%);
+    }
+
+    &:hover {
+      @if $color == "light" {
+        background-color: $gray-200;
+        color: color-yiq($gray-200);
+        border-color: $gray-200;
+        box-shadow: none;
+      } @else {
+        box-shadow: none;
+      }
+    }
+
+    &:focus,
+    &.focus {
+      @if $color == "light" {
+        background-color: $gray-200;
+        color: color-yiq($gray-200);
+        border-color: $gray-200;
+        box-shadow: none;
+      } @else {
+        border-color: darken($value, 12.5%);
+        box-shadow:  inset 0 1px 0 0 lighten($value, 7.5%), 0 0 0 1px darken($value, 12.5%);
+      }
+    }
+
+    // Disabled comes first so active can properly restyle
+    &.disabled,
+    &:disabled {
+      @if $color == "dark" {
+        color: $light;
+      }
+    }
+
+    &:not(:disabled):not(.disabled).active,
+    &:not(:disabled):not(.disabled):active,
+    .show > &.dropdown-toggle {
+      @if $color == "light" {
+        color: darken($primary, 5%);
+        border-color: transparent;
+        background-color: rgba($primary, $subtle-level);
+        box-shadow: 0 0 0 1px rgba($primary, 0);
+      } @else if $color == "dark" {
+        color: $light;
+      }
+    }
+  }
+}
+
+.btn-secondary {
+  color: $body-color;
+  box-shadow: 0 1px 0 0 rgba($black, .05);
+  background: linear-gradient(to bottom, $secondary, $gray-200);
+  border-color: $input-border-color;
+
+  @include hover {
+    background: linear-gradient(to bottom, $secondary, $secondary);
+    border-color: $input-border-color;
+  }
+
+  &:focus,
+  &.focus {
+    background: linear-gradient(to bottom, $secondary, $gray-200);
+    border-color: $input-btn-focus-color;
+    box-shadow: $input-btn-focus-box-shadow;
+  }
+
+  // Disabled comes first so active can properly restyle
+  &.disabled,
+  &:disabled {
+    background: linear-gradient(to bottom, $secondary, $secondary);
+    border-color: $input-border-color;
+  }
+
+  &:not(:disabled):not(.disabled):active,
+  &:not(:disabled):not(.disabled).active,
+  .show > &.dropdown-toggle {
+    background: linear-gradient(to bottom, $gray-200, $gray-200);
+    box-shadow: inset 0 1px 1px 0 rgba($black, .1), inset 0 1px 4px 0 rgba($black, .2);
+    border-color: $input-border-color;
+
+    &:focus {
+      box-shadow: inset 0 1px 1px 0 rgba($black, .1), inset 0 1px 4px 0 rgba($black, .2);
+    }
+  }
+}
+
+.btn-outline-secondary {
+  color: $text-muted;
+  border-color: $gray-500;
+
+  &:hover,
+  &:focus,
+  &.focus,
+  &:not(:disabled):not(.disabled).active,
+  &:not(:disabled):not(.disabled):active,
+  .show > &.dropdown-toggle {
+    color: $body-color;
+    border-color: $gray-500;
+  }
+}
+
+
+// Button subtle
+// ==================================================
+
+@each $color, $value in $theme-colors {
+  .btn-subtle-#{$color} {
+    $text: darken($value, 5%);
+
+    @if $color == 'light' OR $color == 'dark' {
+      $text: $body-color;
+    } @else if $color == 'secondary' {
+      $text: $text-muted;
+    }
+
+    @include button-subtle-variant($value, $text);
+  }
+}
+
+
+// Button reset
+// ==================================================
+
+.btn-reset {
+  padding: 0 2px;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+
+  &.btn,
+  &.btn-sm,
+  &.btn-lg {
+    height: auto;
+  }
+
+  @include hover-focus {
+    color: inherit;
+    text-decoration: inherit;
+    box-shadow: none;
+  }
+
+  &.text-muted {
+    &:hover,
+    &:focus,
+    &.focus,
+    &.active,
+    &.show {
+      color: $body-color !important;
+    }
+  }
+}
+
+
+// Button icon
+// ==================================================
+
+.btn-icon {
+  padding: 0;
+  line-height: $input-height;
+  border-radius: $input-height-mq;
+  width: $input-height;
+  height: $input-height;
+
+  &.btn-sm {
+    line-height: $input-height-sm;
+    width: $input-height-sm;
+    height: $input-height-sm;
+  }
+
+  &.btn-lg {
+    line-height: $input-height-lg;
+    width: $input-height-lg;
+    height: $input-height-lg;
+  }
+
+  @include media-breakpoint-up(md) {
+    line-height: calc(#{$input-height} - 2px);
+    width: $input-height-mq;
+    height: $input-height-mq;
+
+    &.btn-sm {
+      line-height: calc(#{$input-height-sm} - 2px);
+      width: $input-height-mq-sm;
+      height: $input-height-mq-sm;
+    }
+
+    &.btn-lg {
+      line-height: calc(#{$input-height-lg} - 2px);
+      width: $input-height-mq-lg;
+      height: $input-height-mq-lg;
+    }
+  }
+}
+
+
+// Button account
+// ==================================================
+
+.btn-account {
+  position: relative;
+  display: flex;
+  margin: 0;
+  border: 0;
+  flex-wrap: none;
+  align-items: center;
+  background: none;
+  color: inherit;
+  appearance: none;
+  cursor: pointer;
+  transition: background-color 150ms;
+  outline: 0;
+
+  @include hover-focus {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  &:active,
+  &:focus,
+  &.focus,
+  &.show {
+    outline: 0;
+  }
+
+  > .user-avatar,
+  > .has-badge {
+    margin-right: $input-padding-x;
+  }
+
+  .account-summary {
+    margin-right: $input-padding-x;
+    display: block;
+    text-align: left;
+    flex: 1;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+  }
+
+  .account-name,
+  .account-description {
+    margin: 0;
+    display: block;
+    @include text-truncate;
+    font-weight: 500;
+    line-height: 1rem;
+  }
+
+  .account-description {
+    font-size: $font-size-xs;
+    font-weight: 400;
+    opacity: .7;
+  }
+
+  .caret {
+    border-top-width: 6px;
+    border-right-width: 5px;
+    border-left-width: 5px;
+  }
+
+  .account-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    font-size: $font-size-sm;
+    transform: translateY(-50%);
+    opacity: .7;
+
+    .caret,
+    .fa-caret-down {
+      transition: transform 200ms ease-in-out;
+    }
+  }
+
+  &[aria-expanded="true"] > .account-icon > .caret,
+  &[aria-expanded="true"] > .account-icon > .fa-caret-down {
+    transform: rotate(180deg);
+  }
+}
+
+
+// close
+
+.close {
+  &:focus {
+    outline: 0;
+  }
+}

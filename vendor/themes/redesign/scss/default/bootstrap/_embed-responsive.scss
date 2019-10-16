@@ -1,0 +1,8 @@
+.embed-responsive img.embed-responsive-item {
+  top: 50%;
+  left: 50%;
+  bottom: auto;
+  height: auto;
+  transform: translate3d(-50%,-50%,0);
+  max-width: 200%;
+}

@@ -1,0 +1,139 @@
+.visual-picker {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1rem;
+
+  // small
+  &-sm {
+    .visual-picker-figure {
+      width: 4rem;
+      height: 4rem;
+
+      &:after {
+        content: '';
+      }
+    }
+  }
+
+  // large
+  &-lg {
+    .visual-picker-figure {
+      width: 12rem;
+      height: 12rem;
+
+      &:after {
+        top: 1rem;
+        right: 1rem;
+        font-size: $font-size-lg;
+      }
+    }
+  }
+
+  &-fluid {
+    width: 100%;
+
+    .visual-picker-figure {
+      width: 100%;
+    }
+  }
+
+  &.has-peek {
+    padding-bottom: 1.5rem;
+
+    .visual-picker-figure {
+      margin-bottom: .5em;
+    }
+  }
+
+  @include hover-focus {
+    .visual-picker-figure {
+      box-shadow: inset 0 0 0 2px $component-active-bg, 0 0 0 1px rgba($black, .05), 0 1px 3px 0 rgba($black, .15);
+    }
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    width: 1px;
+    height: 1px;
+    border: 0;
+    clip: rect(0 0 0 0);
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+
+    &:checked ~ .visual-picker-figure {
+      box-shadow: inset 0 0 0 2px $component-active-bg, 0 0 0 1px rgba($black, .05), 0 1px 3px 0 rgba($black, .15);
+
+      &:after {
+        opacity: 1;
+      }
+    }
+
+    &:focus ~ .visual-picker-figure {
+      box-shadow: inset 0 0 0 2px $component-active-bg, 0 0 0 1px rgba($black, .05), 0 1px 3px 0 rgba($black, .15);
+    }
+  }
+}
+
+
+.visual-picker-figure {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 8rem;
+  height: 8rem;
+  color: $input-color;
+  background-color: $input-bg;
+  border-radius: $border-radius;
+  cursor: pointer;
+  box-shadow: 0 0 0 1px rgba($black, .05), 0 1px 3px 0 rgba($black, .15);
+  transition: box-shadow 200ms;
+
+  &:after {
+    font-family: 'Font Awesome 5 Free';
+    content: '\f058';
+    position: absolute;
+    top: .5rem;
+    right: .5rem;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    display: inline-block;
+    font-style: normal;
+    font-weight: 900;
+    font-size: 1rem;
+    font-variant: normal;
+    color: $component-active-bg;
+    text-rendering: auto;
+    line-height: 1;
+    opacity: 0;
+    transition: opacity 200ms;
+  }
+}
+
+.visual-picker-content {
+  display: block;
+  padding: 0 .5rem;
+  font-size: $font-size-xs;
+  text-align: center;
+}
+
+.visual-picker-peek {
+  position: absolute;
+  left: 0;
+  right: 0;
+  display: block;
+  text-align: center;
+  @include text-truncate;
+}
+
+a.visual-picker {
+  color: $body-color;
+
+  @include hover-focus {
+    outline: 0;
+    color: $body-color;
+    text-decoration: none;
+  }
+}

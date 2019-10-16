@@ -1,0 +1,25 @@
+.list-icons {
+  padding-left: 0;
+  margin-left: $list-icon-width;
+  list-style-type: none;
+
+  > li {
+    position: relative;
+
+    &:not(:last-child) {
+      margin-bottom: .25rem;
+    }
+  }
+
+  .list-icon {
+    position: absolute;
+    left: -$list-icon-width;
+    width: 1rem;
+    font-size: 1em;
+    text-align: center;
+
+    > img {
+      margin-top: -.25rem;
+    }
+  }
+}

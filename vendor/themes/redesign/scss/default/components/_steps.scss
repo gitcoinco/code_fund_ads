@@ -1,0 +1,166 @@
+.steps {
+  display: flex;
+  margin: 1.25rem 0;
+  font-weight: normal;
+
+  ul {
+    display: flex;
+    margin: 0 auto;
+    padding-left: 0;
+    list-style: none;
+    background-color: $step-bg;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    border-radius: 999px;
+  }
+
+  li {
+    position: relative;
+    overflow: hidden;
+    max-width: 100%;
+
+    &:first-child:before {
+      display: none;
+    }
+
+    &:first-child a {
+      @include border-left-radius(999px);
+    }
+
+    &:last-child a {
+      @include border-right-radius(999px);
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: -($step-divider-width/2);
+      z-index: 1;
+      display: block;
+      height: $step-divider-width;
+      width: $step-divider-width;
+      border: $step-divider-border-width solid $step-divider-color;
+      border-top-right-radius: .5rem;
+      background-color: $step-bg;
+      transform: rotate(45deg);
+    }
+
+    &:hover {
+      + li:before {
+        background-color: $step-item-hover-bg;
+      }
+      a {
+        background-color: $step-item-hover-bg;
+        text-decoration: none;
+      }
+    }
+  }
+
+  a {
+    display: block;
+    padding: $step-padding ($step-divider-width/2) ($step-padding+1) $step-divider-width;
+    text-align: center;
+    color: $step-color;
+    line-height: $step-indicator-size;
+    @include text-truncate();
+
+    @include hover-focus {
+      text-decoration: none;
+    }
+
+    > span:last-child {
+      margin-left: 5px;
+    }
+  }
+}
+
+// step indicator
+.step-indicator {
+  display: inline-block;
+  width: $step-indicator-size;
+  height: $step-indicator-size;
+  font-size: $font-size-base;
+  color: $white;
+  text-align: center;
+  background-color: $step-indicator-color;
+  line-height: $step-indicator-size;
+  border-radius: $step-indicator-size;
+
+  &-icon {
+    background-color: transparent;
+    color: $text-muted;
+
+    > .fa {
+      margin-top: 2px;
+    }
+  }
+}
+
+// steps states
+.steps .active {
+  @include step-state($component-active-bg);
+}
+.steps .success {
+  @include step-state($teal);
+}
+.steps .error {
+  @include step-state($red);
+}
+
+
+// floating steps
+
+.steps-float {
+  margin: 0;
+  transform: translate3d(0, -50%, 0);
+}
+
+
+// steps content
+
+.bs-stepper {
+  .content {
+    &.dstepper-block {
+      display: block;
+    }
+
+    &.dstepper-none {
+      display: none;
+    }
+
+    &:not(.fade) {
+      display: none;
+    }
+
+    &.active:not(.fade) {
+      display: block;
+    }
+
+    &.fade {
+      visibility: hidden;
+      transition-duration: .3s;
+      transition-property: opacity;
+    }
+
+    &.fade.active {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+
+  &.vertical {
+    .content {
+      visibility: hidden;
+      display: inherit;
+
+      &.fade.dstepper-none {
+        visibility: hidden;
+      }
+
+      &.active {
+        visibility: visible;
+      }
+    }
+  }
+}

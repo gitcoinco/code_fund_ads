@@ -1,5 +1,5 @@
 import './stylesheets/application.scss'
-import './theme'
+import './themes/current'
 import 'select2'
 import 'moment'
 import 'trix'

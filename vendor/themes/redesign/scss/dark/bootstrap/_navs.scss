@@ -1,0 +1,125 @@
+.nav-link {
+  outline: 0;
+  color: $text-muted;
+
+  .active > &,
+  &.active {
+    color: $link-color;
+  }
+
+  &.has-badge {
+    > .badge {
+      position: absolute;
+      top: .25rem;
+      left: calc(100% - 1.25rem);
+    }
+  }
+
+  @include hover-focus {
+    color: $link-color;
+  }
+
+  @include media-breakpoint-up(md) {
+    font-size: $font-size-sm;
+  }
+}
+
+.nav-tabs {
+
+  .nav-link {
+    padding: 1rem;
+    border-width: 0 0 3px;
+
+    @include hover-focus {
+      color: $nav-tabs-link-active-color;
+    }
+  }
+
+  &.flex-column {
+    .nav-link {
+      border-width: 0 0 0 3px;
+      border-radius: 0;
+    }
+  }
+
+  .dropdown-menu {
+    margin-top: 10px;
+  }
+}
+
+
+// nav scroller
+.nav-scroller {
+  position: relative;
+  z-index: 2;
+  overflow-y: hidden;
+  height: $app-header-height + .125rem;
+
+  @include media-breakpoint-up(md) {
+    height: $app-header-height;
+  }
+
+  > .nav {
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+
+    @include media-breakpoint-up(md) {
+      margin-top: 0;
+    }
+
+    &:not(.nav-tabs) {
+      margin-top: .5rem;
+
+      @include media-breakpoint-up(md) {
+        margin-top: calc(.625rem + 1px);
+      }
+    }
+  }
+
+  > .card-header-tabs {
+    margin-top: calc(-1rem - 1px);
+  }
+}
+
+
+// due to limitation on justify-content:center property when overflow shown
+// we need to use display:block instead of flex to make nav-links centered.
+
+.nav-center {
+  display: block;
+  text-align: center;
+
+  > .nav-item,
+  > .nav-link {
+    display: inline-block;
+  }
+}
+
+
+// Notification indicator
+
+.nav-item,
+.nav-link {
+  &.has-notified {
+    position: relative;
+
+    &::before {
+      position: absolute;
+      top: .5rem;
+      right: .75rem;
+      content: '';
+      display: block;
+      width: 6px;
+      height: 6px;
+      border-radius: 3px;
+      background-color: $yellow;
+      pointer-events: none;
+      user-select: none;
+    }
+  }
+}

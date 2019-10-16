@@ -1,0 +1,35 @@
+.countdown {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  font-weight: 600;
+
+  @include media-breakpoint-down (xs) {
+    font-size: 3rem;
+    border-radius: $border-radius;
+  }
+
+  &-item {
+    padding: $card-spacer-y $card-spacer-x;
+    display: flex;
+    flex-basis: 0;
+    flex-grow: 1;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    > small {
+      font-size: $font-size-sm;
+      line-height: $font-size-sm;
+      font-weight: inherit;
+    }
+
+    @include media-breakpoint-down (xs) {
+      padding: 1rem;
+      flex-basis: auto;
+      width: 50%;
+    }
+  }
+}

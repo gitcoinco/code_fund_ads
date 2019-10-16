@@ -1,0 +1,22 @@
+.mention {
+  padding: 0 .125rem;
+  font-size: $mention-font-size;
+  font-weight: $mention-font-weight;
+  color: $mention-color;
+  background-color: $mention-bg;
+  border-radius: $border-radius;
+  word-break: break-word;
+}
+
+a.mention {
+  color: $mention-color;
+
+  &:hover {
+    color: darken($mention-color, 10%);
+    text-decoration: none;
+  }
+}
+
+.hashtag {
+  font-weight: 500;
+}

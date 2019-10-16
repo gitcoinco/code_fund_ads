@@ -1,0 +1,95 @@
+// Responsive container
+
+@if $enable-grid-classes {
+  [class^="container-"] {
+    @include make-container();
+  }
+
+  @each $breakpoint, $container-max-width in $container-max-widths {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    $index: index($container-max-widths, $breakpoint $container-max-width);
+    $breakpoints: map-keys($grid-breakpoints);
+    $maxwidths: map-keys($container-max-widths);
+
+    @for $i from 1 through length($grid-breakpoints) {
+      @if $i > $index {
+        @include media-breakpoint-up(nth($breakpoints, $i), $grid-breakpoints) {
+          .container#{$infix} {
+            max-width: map-get($container-max-widths, nth($breakpoints, $i));
+          }
+          .container-fluid#{$infix} {
+            max-width: 100%;
+          }
+        }
+      }
+    }
+
+    .navbar > .container#{$infix},
+    .navbar > .container-fluid#{$infix} {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+}
+
+
+// make columns fix width
+
+@if $enable-grid-classes {
+  $grid-max-width: map-get($container-max-widths, "xl");
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+      @for $i from 1 through $grid-columns {
+        .col#{$infix}-#{$i} {
+          > .col-fix {
+            max-width: $grid-max-width / ($grid-columns / $i);
+          }
+        }
+      }
+    }
+  }
+}
+
+
+// row border
+
+.row-border,
+.row-dashed {
+  overflow: hidden;
+
+  > [class^=col-] {
+    &:before {
+      position: absolute;
+      content: " ";
+      height: 100%;
+      top: 0;
+      left: -1px;
+    }
+
+    &:after {
+      position: absolute;
+      content: " ";
+      width: 100%;
+      height: 0;
+      top: auto;
+      left: 0;
+      bottom: -1px;
+    }
+  }
+}
+
+.row-border > [class^=col-] {
+  &:before { border-left: 1px solid $border-color; }
+  &:after { border-bottom: 1px solid $border-color; }
+}
+
+.row-dashed > [class^=col-] {
+  &:before { border-left: 1px dashed $border-color; }
+  &:after { border-bottom: 1px dashed $border-color; }
+}
+

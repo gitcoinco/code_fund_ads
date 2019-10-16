@@ -1,0 +1,69 @@
+.todo-list-bordered {
+  > .todo-header:not(:first-child),
+  > .todo:not(:first-child) {
+    border-top: 1px solid $list-group-border-color;
+  }
+
+  .todo {
+    border-radius: 0;
+    padding: .5rem .25rem;
+  }
+
+  .todo-header + .todo {
+    border-top: 0;
+  }
+}
+
+.todo-header {
+  padding: 1rem 0;
+  font-size: $font-size-xs;
+  font-weight: 600;
+  color: $text-muted;
+
+  &:first-child {
+    padding-top: 0;
+  }
+}
+
+.todo {
+  display: flex;
+  min-height: $input-height;
+  align-items: center;
+  @include border-radius($border-radius);
+
+  @include media-breakpoint-up("md") {
+    min-height: $input-height-mq;
+  }
+
+  &:hover {
+    background-color: $list-group-hover-bg;
+
+    .todo-actions {
+      display: block;
+    }
+  }
+
+  .custom-control {
+    padding-left: 2rem;
+    flex: 1;
+  }
+
+  .custom-control-label {
+    display: block;
+
+    &::before,
+    &::after {
+      left: -2rem;
+    }
+  }
+
+  .custom-control-input:checked + .custom-control-label {
+    color: $text-muted;
+    text-decoration: line-through;
+  }
+}
+
+.todo-actions {
+  margin-left: auto;
+  display: none;
+}

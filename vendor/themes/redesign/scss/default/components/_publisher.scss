@@ -1,0 +1,112 @@
+.publisher {
+  display: flex;
+  width: 100%;
+
+  .publisher-label,
+  .publisher-tools {
+    display: none;
+  }
+
+  &.focus {
+    display: flex;
+    flex-direction: column;
+
+    .publisher-input,
+    .publisher-label,
+    .publisher-tools {
+      display: block;
+    }
+
+    .publisher-input {
+      margin-bottom: .5em;
+      padding-right: 0;
+      width: 100%;
+
+      .form-control {
+        height: auto;
+      }
+    }
+  }
+
+  .btn-link {
+    color: $text-muted;
+
+    @include hover-focus {
+      color: $dark;
+    }
+  }
+
+  .user-avatar {
+    width: $input-height-mq;
+    height: $input-height-mq;
+
+    @include media-breakpoint-up(md) {
+      width: $input-height-mq;
+      height: $input-height-mq;
+    }
+  }
+}
+
+.publisher-input {
+  padding-right: 12px;
+  width: 100%;
+
+  .form-control {
+    height: $input-height-mq;
+    resize: none;
+
+    @include media-breakpoint-up(md) {
+      height: $input-height-mq;
+    }
+  }
+}
+
+.publisher-actions {
+  display: flex;
+}
+
+
+.publisher-alt {
+  border: 1px solid $input-border-color;
+  border-radius: $border-radius;
+  background-color: $input-bg;
+
+  .publisher-input {
+    margin-bottom: 0;
+  }
+
+  .publisher-input {
+    padding-right: 0;
+
+    .form-control {
+      border: 0;
+
+      &:focus {
+        box-shadow: none;
+      }
+    }
+  }
+
+  .publisher-actions {
+    display: none;
+    padding: 0 $input-padding-x 0 0;
+    align-items: center
+  }
+
+  .publisher-tools {
+    padding: 0 .5em .75em;
+  }
+
+  &.focus {
+    border-color: $input-focus-border-color;
+    box-shadow: $input-focus-box-shadow;
+
+    .publisher-input {
+      margin-top: 0;
+    }
+
+    .publisher-actions {
+      display: flex;
+    }
+  }
+}

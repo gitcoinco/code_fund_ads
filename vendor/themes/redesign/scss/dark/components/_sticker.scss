@@ -1,0 +1,86 @@
+.sticker {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+  // overflow: hidden;
+
+  &-item {
+    position: absolute;
+  }
+
+ // control alpha level
+  &-soft { opacity: .54; }
+  &-soften { opacity: .12; }
+
+  // positioning
+  &-middle {
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+  }
+
+  &-middle-right {
+    top: 50%;
+    right: 0;
+    transform: translate3d(0, -50%, 0);
+    transform-origin: right center;
+  }
+
+  &-middle-left {
+    top: 50%;
+    left: 0;
+    transform: translate3d(0, -50%, 0);
+    transform-origin: left center;
+  }
+
+  &-top-right {
+    top: 0;
+    right: 0;
+    transform-origin: right top;
+  }
+
+  &-top-center {
+    top: 0;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    transform-origin: center top;
+  }
+
+  &-top-left {
+    top: 0;
+    left: 0;
+    transform-origin: left top;
+  }
+
+  &-bottom-right {
+    bottom: 0;
+    right: 0;
+    transform-origin: right bottom;
+  }
+
+  &-bottom-center {
+    bottom: 0;
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+    transform-origin: center bottom;
+  }
+
+  &-bottom-left {
+    bottom: 0;
+    left: 0;
+    transform-origin: left bottom;
+  }
+
+  &-bottom-right {
+    bottom: 0;
+    right: 0;
+    transform-origin: right bottom;
+  }
+}

@@ -1,0 +1,41 @@
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+
+  &-fullpage {
+    min-height: 100%;
+  }
+
+  &-container {
+    position: relative;
+    padding: 0 1rem;
+    max-width: 640px;
+    text-align: center;
+    z-index: 1;
+  }
+}
+
+.state-figure {
+  margin-bottom: 1.5rem;
+  pointer-events: none;
+  user-select: none;
+}
+
+.state-header {
+  margin-top: 0;
+  margin-bottom: 1.25rem;
+}
+
+.state-description {
+  margin-bottom: 1.25rem;
+}
+
+.state-action {
+  margin-bottom: .5rem;
+}

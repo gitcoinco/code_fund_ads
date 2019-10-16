@@ -1,0 +1,149 @@
+.tile-wrapper {
+  display: inline-block;
+  text-align: center;
+
+  .tile {
+    margin-bottom: .25rem;
+  }
+
+  .tile-peek {
+    display: block;
+    font-size: $font-size-sm;
+  }
+}
+
+a.tile-wrapper {
+  .tile-peek {
+    color: $text-muted;
+  }
+
+  @include hover-focus {
+    text-decoration: none;
+
+    .tile-peek {
+      color: $body-color;
+    }
+  }
+}
+
+
+.tile {
+  display: inline-block;
+  width: $tile-size;
+  height: $tile-size;
+  color: $tile-color;
+  font-weight: 600;
+  font-size: $font-size-base;
+  background-color: $tile-bg;
+  line-height: $tile-size;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: $border-radius;
+
+  &-img {
+    position: relative;
+    background-color: transparent;
+    overflow: hidden;
+  }
+
+  @each $color, $value in $theme-colors {
+    &.bg-#{$color} {
+      color: color-yiq($value);
+    }
+  }
+
+  &-xxl {
+    width: $tile-size-xxl;
+    height: $tile-size-xxl;
+    line-height: $tile-size-xxl;
+    font-size: 3rem;
+  }
+
+  &-xl {
+    width: $tile-size-xl;
+    height: $tile-size-xl;
+    line-height: $tile-size-xl;
+    font-size: 2rem;
+  }
+
+  &-lg {
+    width: $tile-size-lg;
+    height: $tile-size-lg;
+    line-height: $tile-size-lg;
+    font-size: $font-size-lg;
+  }
+
+  &-md {
+    width: $tile-size-md;
+    height: $tile-size-md;
+    line-height: $tile-size-md;
+  }
+
+  &-sm {
+    width: $tile-size-sm;
+    height: $tile-size-sm;
+    font-size: $font-size-xs;
+    line-height: $tile-size-sm;
+  }
+
+  &-xs {
+    width: $tile-size-xs;
+    height: $tile-size-xs;
+    font-size: $font-size-xs;
+    line-height: $tile-size-xs;
+  }
+
+  &-xxl,
+  &-xl,
+  &-lg {
+    border-radius: $border-radius-lg;
+  }
+
+  &-circle {
+    border-radius: ($tile-size-xxl / 2);
+  }
+
+  > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+  }
+}
+
+a.tile {
+  outline: 0;
+  background-color: lighten($tile-bg, 5%);
+
+  @include hover-focus {
+    color: $body-color;
+    text-decoration: none;
+  }
+
+  @each $color, $value in $theme-colors {
+    &.bg-#{$color} {
+      @include hover-focus {
+        color: color-yiq($value);
+      }
+    }
+  }
+}
+
+@each $color, $value in $colors {
+  .tile {
+    &.bg-#{$color} {
+      color: color-yiq($value);
+    }
+  }
+
+  a.tile {
+    &.bg-#{$color} {
+      @include hover-focus {
+        color: color-yiq($value);
+      }
+    }
+  }
+}

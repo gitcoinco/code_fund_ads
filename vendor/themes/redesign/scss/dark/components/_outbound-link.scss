@@ -1,0 +1,25 @@
+.outbound-link {
+  margin-bottom: 1.25rem;
+  padding: 1.25rem;
+  display: block;
+  color: $body-color;
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+
+  @include hover-focus {
+    color: $body-color;
+    text-decoration: none;
+    border-color: $gray-500;
+  }
+
+  .outbound-title {
+    margin: 0;
+    font-size: $font-size-base;
+    font-weight: normal;
+  }
+
+  .outbound-text {
+    margin-bottom: 0;
+    font-size: $font-size-sm;
+  }
+}

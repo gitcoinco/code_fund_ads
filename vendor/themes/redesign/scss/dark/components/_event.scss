@@ -1,0 +1,43 @@
+.event {
+  padding: .25rem .5rem;
+  border-radius: 0;
+  background-color: rgba($secondary, $subtle-level);
+  border-color: $secondary;
+  border-width: 0 0 0 3px;
+  border-style: solid;
+}
+
+a.event {
+  @include hover-focus {
+    background-color: rgba($secondary, $subtle-level-hover);
+    text-decoration: none;
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .event.event-#{$color} {
+    color: darken($value, 5%);
+    background-color: rgba($value, $subtle-level);
+    border-color: $value;
+  }
+
+  a.event.event-#{$color} {
+    @include hover-focus {
+      background-color: rgba($value, $subtle-level-hover);
+    }
+  }
+}
+
+@each $color, $value in $colors {
+  .event-#{$color} {
+    color: darken($value, 5%);
+    background-color: rgba($value, $subtle-level);
+    border-color: $value;
+  }
+
+  a.event-#{$color} {
+    @include hover-focus {
+      background-color: rgba($value, $subtle-level-hover);
+    }
+  }
+}

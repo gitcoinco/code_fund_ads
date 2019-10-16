@@ -1,0 +1,129 @@
+.progress-list {
+  display: flex;
+  position: relative;
+  margin-bottom: 1.25rem;
+  margin-left: 0;
+  padding-left: 0;
+  list-style: none;
+  font-weight: normal;
+
+  > li {
+    position: relative;
+    width: 100%;
+    text-align: center;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -1px;
+      width: 100%;
+      height: 3px;
+      background-color: $progress-list-line-color;
+    }
+
+    &:last-child {
+      &::before {
+        display: none;
+      }
+    }
+
+    > button {
+      padding: 0;
+      position: relative;
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      background-color: $progress-indicator-bg;
+      color: $progress-list-line-color;
+      border: 4px solid $progress-indicator-border;
+      vertical-align: middle;
+      border-radius: 1rem;
+      line-height: 1;
+      user-select: none;
+      white-space: normal;
+      z-index: 1;
+
+      &:focus,
+      &:active {
+        outline: 0;
+        box-shadow: 0 0 0 2px $component-active-bg;
+      }
+    }
+  }
+
+  > .error,
+  > .success {
+    > button {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
+  .progress-indicator {
+    display: none;
+    width: 1rem;
+    height: 1rem;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .progress-label {
+    display: inline-block;
+    position: absolute;
+    top: 1.75rem;
+    left: 50%;
+    transform: translate3d(-50%,0,0);
+    font-size: $font-size-sm;
+    color: $text-muted;
+  }
+
+  > .active {
+    @include progress-list-state($progress-list-active-color, $progress-list-active-color);
+
+    &::before {
+      background-color: $progress-list-line-color;
+    }
+
+    > button {
+      background-color: $white;
+    }
+
+    .progress-label {
+      color: $body-color;
+    }
+  }
+
+  > .success {
+    @include progress-list-state($progress-list-completed-color);
+
+    .progress-label {
+      color: $body-color;
+    }
+  }
+
+  > .error {
+    @include progress-list-state($progress-list-error-color);
+
+    &::before {
+      background-color: $progress-list-line-color;
+    }
+  }
+
+  > .active,
+  > .success,
+  > .error {
+    .progress-indicator {
+      display: inline-block;
+    }
+  }
+
+  > .success .progress-indicator {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%2300A28A' viewBox='0 0 24 24'%3e%3cpath d='M12 .9C5.9.9.9 5.9.9 12s5 11.1 11.1 11.1 11.1-5 11.1-11.1S18.1.9 12 .9zm6.2 8.3l-7.1 7.2c-.3.3-.7.3-1 0l-3.9-3.9c-.2-.3-.2-.8 0-1.1l1-1c.3-.2.8-.2 1.1 0l2 2.1c.2.2.5.2.7 0l5.2-5.3c.2-.3.7-.3 1 0l1 1c.3.2.3.7 0 1z'%3e%3c/path%3e%3c/svg%3e");
+  }
+
+  > .error .progress-indicator {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23EA6759' viewBox='0 0 24 24'%3e%3cpath xmlns='http://www.w3.org/2000/svg' d='M12 .9C5.9.9.9 5.9.9 12s5 11.1 11.1 11.1 11.1-5 11.1-11.1S18.1.9 12 .9zm2.3 11.5l3.6 3.6c.1.2.1.4 0 .6l-1.3 1.3c-.2.2-.5.2-.7 0l-3.6-3.6c-.2-.2-.4-.2-.6 0l-3.6 3.6c-.2.2-.5.2-.7 0l-1.3-1.3c-.1-.2-.1-.4 0-.6l3.6-3.6c.2-.2.2-.5 0-.7L6.1 8.1c-.2-.2-.2-.5 0-.7l1.3-1.3c.2-.1.4-.1.6 0l3.7 3.7c.2.2.4.2.6 0l3.6-3.6c.2-.2.5-.2.7 0l1.3 1.3c.1.2.1.4 0 .6l-3.6 3.6c-.2.2-.2.5 0 .7z'%3e%3c/path%3e%3c/svg%3e");
+  }
+}

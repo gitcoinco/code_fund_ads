@@ -1,0 +1,346 @@
+.app-header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: $app-header-height;
+  z-index: $zindex-fixed;
+  box-shadow: $app-header-shadow;
+
+  .navbar {
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+  }
+
+  .btn-account {
+    padding: 0 $spacer;
+    min-width: $app-header-height;
+    min-height: $app-header-height;
+
+    .account-summary {
+      max-width: 10rem;
+    }
+  }
+
+  body.ie & {
+    .btn-account {
+      @include media-breakpoint-up("lg") {
+        min-width: ($app-header-height * 4);
+      }
+    }
+  }
+}
+
+.top-bar {
+  display: flex;
+  width: 100%;
+  height: $app-header-height;
+  align-items: stretch;
+}
+
+// Branding
+// ==================================================
+
+.top-bar-brand {
+  margin-bottom: 0;
+  padding: 0 .5rem 0 1rem;
+  display: none;
+  height: $app-header-height;
+  width: $app-aside-width;
+  font-size: $navbar-brand-font-size;
+  align-items: center;
+
+  > a {
+
+    @include hover-focus {
+      text-decoration: none;
+    }
+  }
+
+  @include media-breakpoint-up("md") {
+    display: flex;
+  }
+}
+
+// Header List
+// ==================================================
+
+.top-bar-list {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.top-bar-item {
+  display: flex;
+  align-items: center;
+  padding: 0;
+
+  @include media-breakpoint-up("md") {
+    padding-right: $page-inner-padding/2;
+    padding-left: $page-inner-padding/2;
+  }
+
+  @include media-breakpoint-up("lg") {
+    padding-left: $page-inner-padding;
+  }
+
+  &-full {
+    flex: 1;
+  }
+
+  &-right {
+    margin-left: auto;
+  }
+}
+
+.top-bar-search {
+  width: 100%;
+
+  @include media-breakpoint-down("sm") {
+    padding-right: $spacer;
+    padding-left: $spacer/2;
+  }
+
+  .input-group-search {
+    box-shadow: none;
+
+    &.focus {
+      box-shadow: none;
+    }
+  }
+
+  .input-group {
+    width: 100%;
+  }
+}
+
+// Header Nav
+// ==================================================
+
+.header-nav {
+  padding: 0 .5rem;
+
+  .nav-link {
+    margin: 0 .25rem;
+    padding-right: .75rem;
+    padding-left: .75rem;
+    height: calc(#{$input-height-mq} + 2px);
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+
+    @include media-breakpoint-up("md") {
+      height: $input-height-mq;
+    }
+  }
+}
+
+.header-nav-dropdown {
+  position: static;
+
+  @include media-breakpoint-up("sm") {
+    position: relative;
+  }
+
+  .dropdown-arrow {
+    @include media-breakpoint-down("xs") {
+      top: auto;
+      left: auto;
+      margin-left: .75rem;
+    }
+  }
+
+  .dropdown-menu {
+    @include border-top-radius(0);
+
+    @include media-breakpoint-down("xs") {
+      margin-top: 0;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100%;
+      border-radius: 0;
+    }
+  }
+}
+
+
+// App header themes
+//
+// Styles for switching between header with light or dark background.
+
+// Dark links against a light background
+.app-header-light {
+  background-color: $app-header-light-bg;
+  color: $app-header-light-color;
+
+  .btn-account {
+    color: $gray-300;
+    border-left: 1px solid rgba($black, .1);
+
+    @include hover {
+      color: $gray-300;
+      background-color: rgba($black, .025);
+    }
+
+    &:active,
+    &:focus,
+    &.focus,
+    &.show {
+      color: $gray-300;
+      background-color: rgba($black, .075);
+    }
+  }
+
+  .top-bar-brand {
+    > a {
+      color: $app-header-light-active-color;
+
+      @include hover-focus {
+        color: $app-header-light-active-color;
+      }
+    }
+  }
+
+  .top-bar-search {
+    @include media-breakpoint-up("md") {
+      margin-left: -1rem;
+    }
+
+    .input-group-search {
+      background-color: rgba($black, .06);
+      border-color: transparent;
+
+      &.focus {
+        background-color: rgba($black, .08);
+      }
+
+      .form-control:focus {
+        color: $gray-200;
+      }
+
+      &:not(.focus) {
+        // Placeholder
+        .input-group-text,
+        .form-control,
+        .form-control::placeholder {
+          color: $app-header-light-disabled-color;
+        }
+      }
+    }
+  }
+
+  .header-nav {
+    .nav-link {
+      color: $app-header-light-color;
+
+      @include hover-focus {
+        color: $app-header-light-hover-color;
+      }
+
+      &.disabled {
+        color: $app-header-light-disabled-color;
+      }
+    }
+
+    .show > .nav-link,
+    .active > .nav-link,
+    .nav-link.show,
+    .nav-link.active {
+      color: $app-header-light-active-color;
+    }
+  }
+
+  .hamburger {
+    .hamburger-inner {
+      &,
+      &:after,
+      &:before {
+        background-color: $app-header-light-toggler-border-color;
+      }
+    }
+  }
+}
+
+// White links against a dark background
+.app-header-dark {
+  background-color: $app-header-dark-bg;
+  color: $app-header-dark-color;
+
+  .btn-account {
+    color: $app-header-dark-active-color;
+    border-left: 1px solid rgba($dark, .12);
+
+    @include hover {
+      background-color: rgba($white, .12);
+    }
+
+    &:active,
+    &:focus,
+    &.focus,
+    &.show {
+      background-color: rgba($black, .12);
+    }
+  }
+
+  .top-bar-brand {
+    background-color: $app-header-accent-color;
+
+    > a {
+      color: $app-header-dark-active-color;
+
+      @include hover-focus {
+        color: $app-header-dark-active-color;
+      }
+    }
+  }
+
+  .top-bar-search {
+    .input-group {
+      border-color: transparent;
+    }
+
+    .input-group-search {
+      background-color: rgba($white, .12);
+
+      &.focus {
+        background-color: $white;
+      }
+
+      .form-control {
+        color: $gray-200;
+      }
+
+      &:not(.focus) {
+        // Placeholder
+        .input-group-text,
+        .form-control,
+        .form-control::placeholder {
+          color: $app-header-dark-disabled-color;
+        }
+      }
+    }
+  }
+
+  .header-nav {
+    .nav-link {
+      color: $app-header-dark-color;
+
+      @include hover-focus {
+        color: $app-header-dark-hover-color;
+        background-color: rgba($white, .12);
+      }
+
+      &.disabled {
+        color: $app-header-dark-disabled-color;
+      }
+    }
+
+    .show > .nav-link,
+    .active > .nav-link,
+    .nav-link.show,
+    .nav-link.active {
+      color: $app-header-dark-active-color;
+      background-color: rgba($black, .12);
+    }
+  }
+}

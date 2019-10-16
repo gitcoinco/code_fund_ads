@@ -1,0 +1,119 @@
+.auth {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+  background-color: $body-bg;
+}
+
+.auth-header {
+  position: relative;
+  padding: 2rem 1.25rem 0;
+  width: 100%;
+  background-color: $primary;
+  color: $white;
+  text-align: center;
+  background-size: cover;
+
+  @include media-breakpoint-up(md) {
+    margin-bottom: -3rem;
+    padding-top: 6rem;
+    padding-bottom: 3rem;
+
+    .container {
+      padding: 0;
+      max-width: 420px;
+    }
+  }
+
+  a {
+    color: $yellow;
+    text-decoration: underline;
+
+    @include hover-focus {
+      color: theme-color-level('warning', 2);
+    }
+  }
+
+  canvas {
+    user-select: none;
+    pointer-events: none;
+  }
+}
+
+.auth-form {
+  position: relative;
+  padding: 2rem 1.25rem 0;
+  width: 100%;
+  z-index: 1;
+
+  @include media-breakpoint-up(md) {
+    padding: 3rem 2rem 1rem;
+    max-width: 420px;
+    border-radius: $border-radius;
+    background-color: $card-bg;
+    box-shadow: 0 0 0 1px rgba($black, .05), 0 1px 3px 0 rgba($black, .15);
+  }
+
+  &-reflow {
+    padding: 2rem 1rem 0;
+    background-color: transparent;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .link {
+    text-decoration: underline;
+  }
+}
+
+.auth-floated {
+  flex-direction: row;
+  align-items: stretch;
+
+  .auth-form {
+    max-width: 100%;
+    border-radius: 0;
+    padding-top: 2rem;
+    text-align: center;
+    z-index: 2;
+
+    @include media-breakpoint-up(lg) {
+      max-width: (100%/3);
+    }
+  }
+
+  .auth-announcement {
+    display: none;
+    padding: 6rem 3rem;
+    flex: 1;
+    text-align: center;
+    color: $white;
+    background-color: $primary;
+    background-size: cover;
+
+    @include media-breakpoint-up(lg) {
+      display: block;
+    }
+  }
+
+  .announcement-title {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .announcement-body {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.auth-footer {
+  padding: 1rem;
+  color: $text-muted;
+
+  @include media-breakpoint-up(md) {
+    max-width: 420px;
+  }
+}

@@ -1,0 +1,15 @@
+.app-footer {
+  margin: 1.5rem 0;
+  padding: 0 $page-inner-padding/2;
+  text-align: center;
+
+  @include media-breakpoint-up(lg) {
+    padding-right: $page-inner-padding;
+    padding-left: $page-inner-padding;
+  }
+
+  .page-inner > & {
+    margin-top: 3rem;
+    margin-bottom: 0;
+  }
+}

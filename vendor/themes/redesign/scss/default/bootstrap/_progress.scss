@@ -1,0 +1,29 @@
+.progress {
+  font-weight: 600;
+
+  .card > & {
+    border-radius: 0;
+  }
+}
+
+.progress-xs {
+  height: 3px;
+}
+
+.progress-sm {
+  height: .5rem;
+}
+
+.progress-lg {
+  height: 1.5rem;
+}
+
+.progress-animated {
+  animation: progressAnimated 1s;
+}
+
+/* progress animation */
+@keyframes progressAnimated {
+  from { width: 0; }
+  to { width: 100%; }
+}

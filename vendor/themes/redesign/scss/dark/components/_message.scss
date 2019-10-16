@@ -1,0 +1,100 @@
+.list-group-messages {
+  &.list-group-bordered .list-group-item {
+    border-color: rgba($dark, .075);
+  }
+
+  .list-group-item {
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    background-color: transparent;
+  }
+
+
+  .list-group-item-figure,
+  .list-group-item-body {
+    align-self: flex-start;
+  }
+
+  .unread {
+    .list-group-item-subtitle,
+    .list-group-item-title {
+      font-weight: 600;
+    }
+  }
+
+  .read {
+    .list-group-item-subtitle,
+    .list-group-item-title {
+      color: $text-muted;
+    }
+  }
+}
+
+
+.message {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.message-header {
+  position: relative;
+  padding: .5rem .5rem .5rem .25rem;
+  display: flex;
+  align-items: center;
+  height: $app-header-height;
+  background-color: $card-bg;
+  box-shadow: 0 1px 0 0 rgba($black, .075);
+  z-index: 5;
+
+  @include media-breakpoint-up(md) {
+    padding: .5rem;
+  }
+}
+
+.message-header-actions {
+  margin-left: auto;
+  min-width: 92px;
+  text-align: right;
+}
+
+.message-title {
+  margin: 0 .5rem;
+  font-size: $font-size-base;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.message-body {
+  padding: 0;
+  flex: 1;
+  overflow-y: auto;
+
+  @include media-breakpoint-up(sm) {
+    padding: 1.5rem $page-inner-padding/2;
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding-right: $page-inner-padding;
+    padding-left: $page-inner-padding;
+  }
+}
+
+.message-publisher {
+  position: relative;
+  padding: .5rem;
+  background-color: $input-bg;
+  box-shadow: 0 -1px 0 0 rgba($black, .075);
+  z-index: 1;
+
+  .input-group {
+    border: 0;
+    background-color: transparent;
+    box-shadow: none;
+
+    &.focus {
+      box-shadow: none;
+    }
+  }
+}

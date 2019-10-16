@@ -1,0 +1,158 @@
+.board {
+  display: block;
+  padding: 1.5rem $page-inner-padding/2;
+  white-space: nowrap;
+  overflow-x: scroll;
+  height: calc(100vh - 7rem);
+
+  .page-expanded & {
+    height: calc(100vh - 3.5rem);
+  }
+
+  @include media-breakpoint-up(lg) {
+    padding-right: $page-inner-padding;
+    padding-left: $page-inner-padding;
+  }
+}
+
+.board-list {
+  margin: 0;
+  padding: 0;
+  white-space: auto;
+  overflow-x: visible;
+
+  &,
+  .page-expanded & {
+    height: auto;
+  }
+
+  .tasks {
+    display: block;
+    margin: 0;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+
+  .task-header {
+    background-color: transparent;
+    box-shadow: none;
+  }
+
+  .task-issue > .card {
+    @include media-breakpoint-up(sm) {
+      flex-direction: row;
+
+      > .card-header {
+        width: 240px;
+      }
+
+      > .card-footer {
+        border-top: 0;
+      }
+    }
+  }
+}
+
+.tasks {
+  display: inline-flex;
+  flex-direction: column;
+  width: 20rem;
+  height: 100%;
+  vertical-align: top;
+  background-color: $tasks-bg;
+  box-shadow: 0 0 0 1px rgba($black, .05), 0 1px 3px 0 rgba($black, .15);
+  border-radius: $border-radius;
+
+  &:not(:last-child) {
+    margin-right: 1.25rem;
+  }
+
+  &.hover {
+    background-color: $tasks-hover-bg;
+  }
+}
+
+.tasks-action {
+  display: inline-block;
+  width: 18rem;
+  padding: .5rem;
+  vertical-align: top;
+  background-color: $tasks-bg;
+  box-shadow: 0 0 0 1px rgba($black, .05), 0 1px 3px 0 rgba($black, .15);
+  border-radius: $border-radius;
+
+  &:not(:last-child) {
+    margin-right: 1.25rem;
+  }
+}
+
+.task-header {
+  padding: .5rem .75rem 0;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+
+  .btn-reset {
+    padding: .5rem;
+  }
+}
+
+.task-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.task-body {
+  padding: .5rem;
+  min-height: 2rem;
+  flex: 1;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.task-issue {
+  border-radius: $border-radius;
+
+  &:not(:last-child) {
+    margin-bottom: .5rem;
+  }
+
+  > .card {
+    margin-bottom: 0;
+
+    >  .card-header {
+      border: 0;
+      white-space: normal;
+
+      > a {
+        color: inherit;
+
+        @include hover-focus {
+          color: inherit;
+          text-decoration: none;
+        }
+      }
+    }
+
+    .list-group {
+      border: 1px solid $border-color;
+    }
+  }
+}
+
+.task-label-group {
+  margin: .125rem 0;
+  display: block;
+  line-height: 1;
+  white-space: normal;
+}
+
+.task-label {
+  margin-right: .125rem;
+  display: inline-block;
+  width: 2rem;
+  height: .5rem;
+  border-radius: .5rem;
+  background-color: $primary;
+}

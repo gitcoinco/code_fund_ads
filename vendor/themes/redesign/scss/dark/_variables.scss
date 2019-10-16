@@ -1,0 +1,213 @@
+// Layout
+// ==================================================
+
+$app-header-height:                       3.5rem !default;
+
+$app-header-light-bg:                       $white !default;
+$app-header-light-color:                    rgba($black, .6) !default;
+$app-header-light-hover-color:              $black !default;
+$app-header-light-active-color:             $primary !default;
+$app-header-light-disabled-color:           $gray-500 !default;
+$app-header-light-toggler-border-color:     $app-header-light-color !default;
+
+$app-header-dark-bg:                      $primary !default;
+$app-header-dark-color:                   rgba($white, .8) !default;
+$app-header-dark-hover-color:             $white !default;
+$app-header-dark-active-color:            $white !default;
+$app-header-dark-disabled-color:          rgba($white, .6) !default;
+$app-header-dark-toggler-border-color:    $white !default;
+
+$app-header-accent-color:   rgba($black, .12) !default; // only for dark header
+$app-header-shadow:         0 0 0 1px rgba($black, .05), 0 1px 3px 0 rgba($black, .15) !default;
+
+$app-aside-width:         15rem !default;
+
+$app-aside-light-bg:            $body-bg !default;
+$app-aside-light-color:         inherit !default;
+$app-aside-light-border-color:  rgba($white, .038) !default;
+
+$app-aside-dark-bg:            $gray-800 !default;
+$app-aside-dark-color:         inherit !default;
+$app-aside-dark-border-color:  rgba($white, .05) !default;
+
+$page-inner-padding:     2rem !default;
+$page-inner-bg:          $gray-100 !default;
+
+$page-sidebar-width:       22.5rem !default;
+$page-sidebar-shadow:      none !default;
+$page-sidebar-bg:          $page-inner-bg !default;
+
+
+// Hamburger
+// ==================================================
+
+$hamburger-padding-x                       : .5rem !default;
+$hamburger-padding-y                       : .5rem !default;
+$hamburger-size                            : $input-height-mq !default;
+$hamburger-layer-width                     : 1.25rem !default;
+$hamburger-layer-height                    : 2px !default;
+$hamburger-layer-spacing                   : 4px !default;
+$hamburger-layer-color                     : #fff !default;
+$hamburger-layer-border-radius             : 2px !default;
+$hamburger-hover-opacity                   : 0.7 !default;
+$hamburger-hover-transition-duration       : 300ms !default;
+$hamburger-hover-transition-timing-function: linear !default;
+
+
+// Stacked Menu
+// ==================================================
+
+$stacked-menu-class-prefix:         'stacked-menu';
+$stacked-menu-breakpoint:           map-get($grid-breakpoints, 'md');
+$stacked-menu-padder:               .5rem;
+$stacked-menu-border-radius:        0;
+$stacked-menu-bg:                   transparent;
+$stacked-menu-child-bg:             transparent;
+$stacked-menu-accent-color:         $primary;
+// nav menu
+$stacked-menu-font-size:          $font-size-sm;
+$stacked-menu-header-font-size:   .8125rem;
+$stacked-menu-padding:            $stacked-menu-padder ($stacked-menu-padder * 2);
+
+$stacked-menu-icon-size:            1.125rem;
+
+// themes
+$stacked-menu-hover-bg:           $stacked-menu-bg;
+$stacked-menu-active-bg:          $stacked-menu-bg;
+$stacked-menu-color:              $body-color;
+$stacked-menu-hover-color:        $dark;
+$stacked-menu-active-color:       $stacked-menu-accent-color;
+$stacked-menu-color-disabled:     $text-muted;
+
+// icon
+$stacked-menu-icon-color:          $gray-500;
+$stacked-menu-icon-hover-color:    $text-muted;
+$stacked-menu-icon-active-color:   $stacked-menu-accent-color;
+
+$stacked-collapsible-icon-light:   url("data:image/svg+xml,%3Csvg aria-hidden='true' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 512'%3E%3Cpath fill='%23a6abbd' d='M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z'%3E%3C/path%3E%3C/svg%3E");
+$stacked-collapsible-icon-dark:   url("data:image/svg+xml,%3csvg aria-hidden='true' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 256 512'%3e%3cpath fill='currentColor' d='M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z'%3e%3c/path%3e%3c/svg%3e");
+
+// child
+$stacked-menu-child-hover-bg:           transparent;
+$stacked-menu-child-active-bg:          transparent;
+$stacked-menu-child-color:              $text-muted;
+$stacked-menu-child-hover-color:        $stacked-menu-accent-color;
+$stacked-menu-child-active-color:       $stacked-menu-accent-color;
+
+
+// Activity
+// ==================================================
+
+$activity-border-color:       $border-color !default;
+
+
+// Conversations
+// ==================================================
+
+$conversation-padding:              1rem !default;
+$conversation-gap:                  1rem !default;
+$conversation-gap-faux:             .375rem !default;
+$conversation-attachment-width:     15rem !default;
+
+$conversation-inbound-bg:           $gray-100 !default;
+$conversation-inbound-color:        color-yiq($conversation-inbound-bg) !default;
+
+$conversation-outbound-bg:          $primary !default;
+$conversation-outbound-color:       color-yiq($conversation-outbound-bg) !default;
+
+
+// Icons
+// ==================================================
+
+$list-icon-width:   1.5rem !default;
+
+
+// Avatar
+// ==================================================
+
+$avatar-size:        2rem !default;
+$avatar-size-xxl:    8rem !default;
+$avatar-size-xl:     5rem !default;
+$avatar-size-lg:     3rem !default;
+$avatar-size-md:     $input-height-mq !default;
+$avatar-size-sm:     1.5rem !default;
+$avatar-size-xs:     1.25rem !default;
+
+
+// Icons tiles
+// ==================================================
+
+$tile-color:       $text-muted !default;
+$tile-bg:          $gray-300 !default;
+$tile-size:        $avatar-size !default;
+$tile-size-xxl:    $avatar-size-xxl !default;
+$tile-size-xl:     $avatar-size-xl !default;
+$tile-size-lg:     $avatar-size-lg !default;
+$tile-size-md:     $avatar-size-md !default;
+$tile-size-sm:     $avatar-size-sm !default;
+$tile-size-xs:     $avatar-size-xs !default;
+
+
+// Tasks
+// ==================================================
+
+$tasks-bg:            $secondary !default;
+$tasks-hover-bg:      darken($tasks-bg, 2%) !default;
+
+
+// Progress Lists
+// ==================================================
+
+$progress-list-line-color:     $border-color !default;
+
+$progress-list-active-color:        $component-active-bg !default;
+$progress-list-completed-color:     $primary !default;
+$progress-list-error-color:         $red !default;
+
+$progress-indicator-color:     $border-color !default;
+$progress-indicator-bg:        $gray-400 !default;
+$progress-indicator-border:    $card-bg !default;
+
+
+// Switcher
+// ==================================================
+
+$switcher-color:              $input-border-color !default;
+$switcher-indicator-color:    $white !default;
+$switcher-active-color:       $primary !default;
+
+$switcher-height:     1rem !default;
+$switcher-height-lg:  1.5rem !default;
+
+
+// Ratings
+// ==================================================
+
+$rating-color:          $switcher-color !default;
+$rating-color-checked:  $yellow !default;
+
+
+// Steps
+// ==================================================
+
+$step-bg:                     $gray-300 !default;
+$step-color:                  $body-color !default;
+$step-indicator-color:        $gray-500 !default;
+$step-item-hover-bg:          darken($step-bg, 3%) !default;
+
+$step-padding:                5px !default;
+$step-indicator-size:         1.25rem !default;
+
+$step-divider-width:          1.75rem !default;
+$step-divider-color:          $input-border-color !default;
+$step-divider-border-width:   2px !default;
+
+
+// Mention
+// ==================================================
+
+$mention-font-size:                    87.5%;
+$mention-font-weight:                  500;
+$mention-color:                        $primary;
+$mention-bg:                           rgba($primary, $subtle-level);
+$mention-bg-hover:                     rgba($primary, $subtle-level-hover);

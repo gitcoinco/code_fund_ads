@@ -1,0 +1,183 @@
+$content-space: $app-aside-width + $page-sidebar-width !default;
+
+.page-sidebar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  width: $page-sidebar-width;
+  max-width: $page-sidebar-width;
+  background-color: $card-bg;
+  border-left: $border-width solid $border-color;
+  box-shadow: $page-sidebar-shadow;
+  overflow: auto;
+  z-index: ($zindex-fixed - 1);
+  transform: translate3d(100%, 0, 0);
+  @include transition(transform 200ms ease-in-out);
+
+  @include media-breakpoint-down(xs) {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  &-fixed {
+    position: fixed;
+    top: $app-header-height;
+    overflow: auto;
+  }
+
+  .has-sidebar-fluid & {
+    width: 100%;
+    max-width: 100%;
+
+    @include media-breakpoint-up("md") {
+      width: calc(100vw - #{$app-aside-width});
+      max-width: calc(100vw - #{$app-aside-width});
+    }
+
+    @include media-breakpoint-up("xl") {
+      width: calc(100vw - #{$content-space});
+      max-width: calc(100vw - #{$content-space});
+    }
+  }
+}
+
+.sidebar-backdrop {
+  display: none;
+  position: fixed;
+  top: $app-header-height;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba($black, .38);
+  z-index: ($zindex-fixed - 2);
+}
+
+.has-sidebar-open {
+  .page-sidebar {
+    position: fixed;
+    top: $app-header-height;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .sidebar-backdrop {
+    display: block;
+    animation: fadeInBackdrop 260ms ease forwards;
+  }
+}
+
+// Generate series of `.has-sidebar-expand-*` responsive classes for configuring
+// where your sidebar collapses handle by parents element.
+.has-sidebar-expand {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $next: breakpoint-next($breakpoint, $grid-breakpoints);
+    $infix: breakpoint-infix($next, $grid-breakpoints);
+
+    &#{$infix} {
+      .page-sidebar {
+        position: absolute;
+        top: 0;
+        transform: translate3d(100%, 0, 0);
+      }
+
+      .page-sidebar-fixed {
+        position: fixed;
+        top: $app-header-height;
+      }
+
+      .sidebar-backdrop {
+        display: none;
+      }
+
+      @include media-breakpoint-down($breakpoint) {
+        &.has-sidebar-open {
+          .page-sidebar {
+            position: fixed;
+            top: $app-header-height;
+            transform: translate3d(0, 0, 0);
+          }
+
+          .sidebar-backdrop {
+            display: block;
+          }
+        }
+      }
+
+      @include media-breakpoint-up($next) {
+        .app-main > .app-footer,
+        .page-inner {
+          margin-right: $page-sidebar-width;
+        }
+
+        .page-sidebar {
+          transform: translate3d(0, 0, 0);
+
+          .has-sidebar-open & {
+            position: absolute;
+            top: 0;
+            transform: translate3d(100%, 0, 0);
+          }
+        }
+
+        &.has-sidebar-fluid {
+          .page-inner {
+            margin-right: calc(100vw - #{$content-space});
+          }
+
+          .page-sidebar {
+            width: calc(100vw - #{$content-space});
+            max-width: calc(100vw - #{$content-space});
+          }
+        }
+      }
+    }
+  }
+}
+
+.sidebar-header {
+  position: relative;
+  padding: .5rem 1rem;
+  display: flex;
+  align-items: center;
+  height: 3.5rem;
+  background-color: $card-bg;
+  box-shadow: 0 0 0 1px rgba($black, .05), 0 1px 3px 0 rgba($black, .15);
+  z-index: 2;
+
+  .breadcrumb {
+    margin-bottom: 0;
+  }
+}
+
+.sidebar-title {
+  margin: 1rem 0;
+  font-size: $font-size-xs;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.sidebar-section {
+  padding: $grid-gutter-width;
+}
+
+.sidebar-section-fill {
+  flex: 1;
+  overflow-y: auto;
+
+  &:not(.sidebar-section) {
+    > .sidebar-title {
+      margin-left: 1rem;
+    }
+  }
+}
+
+.sidebar-footer {
+  position: relative;
+  padding: .5rem;
+  background-color: $white;
+  box-shadow: 0 0 0 1px rgba($black, .05), 0 -1px 3px 0 rgba($black, .15);
+  z-index: 1;
+}

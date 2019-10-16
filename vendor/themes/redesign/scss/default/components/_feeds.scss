@@ -1,0 +1,156 @@
+.feed {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  background-color: $card-bg;
+  box-shadow: 0 0 0 1px rgba($black, .05), 0 1px 3px 0 rgba($black, .15);
+
+  @include media-breakpoint-up(xs) {
+    border-radius: $border-radius;
+  }
+
+  > .feed-post {
+    .card-footer-item {
+      flex: 0;
+    }
+  }
+
+  > .feed-post,
+  > .feed-comments {
+    margin-bottom: 0;
+    box-shadow: none;
+
+    + .card {
+      @include border-top-radius(0);
+    }
+
+    .card-footer {
+      font-size: $font-size-sm;
+    }
+  }
+}
+
+.feed-publisher {
+  margin-bottom: $grid-gutter-width;
+  padding: $card-spacer-y $card-spacer-x;
+  background-color: $card-bg;
+  box-shadow: 0 0 0 1px rgba($black, .05), 0 1px 3px 0 rgba($black, .15);
+
+  @include media-breakpoint-up(sm) {
+    border-radius: $border-radius;
+  }
+
+  .form-control,
+  .form-control:focus,
+  .publisher,
+  .publisher-alt,
+  .publisher.focus,
+  .publisher-alt.focus {
+    background-color: transparent;
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  .publisher-actions {
+    padding: 0;
+  }
+}
+
+.feed-post {
+  &:first-child:not(:last-child) {
+    @include border-bottom-radius(0);
+  }
+
+  .card-header {
+    padding-right: 0;
+    padding-left: 0;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .card-header {
+    margin: 0 $card-spacer-x;
+  }
+
+  .account-summary {
+    align-self: flex-start;
+
+    .account-name {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+  }
+}
+
+.feed-attachments {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+
+  .card-figure {
+    min-width: 300px;
+    max-width: 43%;
+
+    &:not(:last-child) {
+      margin-right: .5rem;
+    }
+  }
+}
+
+.feed-summary {
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  font-size: $font-size-xs;
+}
+
+.feed-summary-item {
+  color: $body-color;
+
+  &:not(:last-child) {
+    margin-right: .5rem;
+  }
+
+  @include hover-focus {
+    text-decoration: none;
+  }
+}
+
+
+.feed-comments {
+  border-top: 1px solid $card-border-color;
+  @include border-top-radius(0);
+
+  .card-header {
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    font-size: $font-size-xs;
+    font-weight: normal;
+    border-bottom: 0;
+  }
+
+  .conversation-message-text {
+    padding-top: 0;
+    padding-bottom: 0;
+    max-width: 100%;
+    min-height: auto;
+    background-color: transparent;
+    box-shadow: none;
+
+    + .conversation-meta {
+      margin-top: .5rem;
+    }
+  }
+
+  .conversation-meta {
+    font-size: inherit;
+
+    &:first-child {
+      margin-top: 0;
+      margin-bottom: .5rem;
+    }
+  }
+}

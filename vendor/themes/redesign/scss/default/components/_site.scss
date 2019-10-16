@@ -1,0 +1,40 @@
+.site {
+  background-color: $white;
+
+  .app {
+    background-color: inherit;
+  }
+}
+
+.section {
+  position: relative;
+
+  &-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    user-select: none;
+    pointer-events: none;
+
+    svg {
+      fill: currentColor;
+    }
+  }
+
+  &-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .app-header + & {
+    margin-top: $app-header-height;
+    transition: all 200ms linear;
+  }
+
+  .app-header.position-relative + & {
+    margin-top: 0;
+    padding-top: $app-header-height + 3rem;
+  }
+}

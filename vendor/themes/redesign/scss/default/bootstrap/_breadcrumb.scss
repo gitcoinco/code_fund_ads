@@ -1,0 +1,26 @@
+.breadcrumb-item {
+  > a {
+    color: inherit;
+    border-radius: 1px;
+
+    &:hover {
+      text-decoration: none;
+    }
+
+    &:focus,
+    &.focus,
+    &:active {
+      color: darken($primary, 5%);
+      background-color: rgba($primary, $subtle-level);
+      box-shadow: 0 0 0 4px rgba($primary, $subtle-level), 0 0 0 5px rgba($gray-100, .5);
+      outline: 0;
+    }
+  }
+
+  &.active > a {
+    @include hover {
+      // color: $dark;
+      text-decoration: none;
+    }
+  }
+}

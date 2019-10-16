@@ -1,0 +1,345 @@
+// Font size helper
+// ==================================================
+
+.font-size-lg {
+  font-size: 1.143em;
+}
+
+.font-size-sm {
+  font-size: 0.875em;
+}
+
+// Text colors
+// ==================================================
+
+@each $color, $value in $colors {
+  @include text-emphasis-variant(".text-#{$color}", $value);
+}
+
+@include text-emphasis-variant(".text-white", #e6e8ed);
+@include text-emphasis-variant(".text-black", #363642);
+
+.text-muted-light {
+  color: rgba($white, .6) !important;
+}
+
+a.text-muted-light {
+  @include hover-focus {
+    color: rgba($white, .8) !important;
+  }
+}
+
+.text-muted-dark {
+  color: rgba($black, .6) !important;
+}
+
+a.text-muted-dark {
+  @include hover-focus {
+    color: rgba($black, .8) !important;
+  }
+}
+
+
+// Background colors
+// ==================================================
+
+@each $color, $value in $colors {
+  @include bg-variant(".bg-#{$color}", $value);
+}
+
+@include bg-variant(".bg-white", $white);
+@include bg-variant(".bg-muted", $gray-300);
+@include bg-variant(".bg-black", $black);
+
+
+// Fill color
+// ==================================================
+
+@each $color, $value in $colors {
+  .fill-#{$color} { fill: $value !important; }
+}
+
+@each $color, $value in $theme-colors {
+  .fill-#{$color} { fill: $value !important; }
+}
+
+.fill-white { fill: $white !important; }
+.fill-muted { fill: $gray-300 !important; }
+.fill-black { fill: $black !important; }
+
+
+// Socials colors
+// ==================================================
+
+@each $color, $value in $socials {
+  // background color
+  @include bg-variant(".bg-#{$color}", $value);
+  .bg-#{$color} {
+    color: color-yiq($value) !important;
+  }
+
+  // text colors
+  @include text-emphasis-variant(".text-#{$color}", $value);
+}
+
+
+// Link
+// ==================================================
+
+.link-text {
+  color: $body-color;
+
+  &:hover {
+    color: $body-color;
+    text-decoration: none;
+  }
+}
+
+
+// overflow
+// ==================================================
+
+.overflow-y-auto { overflow-y: auto !important }
+.overflow-y-hidden { overflow-y: hidden !important }
+.overflow-x-auto { overflow-x: auto !important }
+.overflow-x-hidden { overflow-x: hidden !important }
+
+
+// scale from original size
+// ==================================================
+
+.scale-25 { transform: scale(.25) !important; }
+.scale-50 { transform: scale(.5) !important; }
+.scale-75 { transform: scale(.75) !important; }
+.scale-100 { transform: scale(1) !important; }
+.scale-125 { transform: scale(1.25) !important; }
+.scale-150 { transform: scale(1.5) !important; }
+.scale-175 { transform: scale(1.75) !important; }
+.scale-200 { transform: scale(2) !important; }
+
+
+// translate from original position
+// ==================================================
+
+.translate-x-25 { transform: translate3d(25%, 0, 0) !important; }
+.translate-x-50 { transform: translate3d(50%, 0, 0) !important; }
+.translate-x-75 { transform: translate3d(75%, 0, 0) !important; }
+.translate-x-100 { transform: translate3d(100%, 0, 0) !important; }
+.translate-x-n25 { transform: translate3d(-25%, 0, 0) !important; }
+.translate-x-n50 { transform: translate3d(-50%, 0, 0) !important; }
+.translate-x-n75 { transform: translate3d(-75%, 0, 0) !important; }
+.translate-x-n100 { transform: translate3d(-100%, 0, 0) !important; }
+
+.translate-y-25 { transform: translate3d(0, 25%, 0) !important; }
+.translate-y-50 { transform: translate3d(0, 50%, 0) !important; }
+.translate-y-75 { transform: translate3d(0, 75%, 0) !important; }
+.translate-y-100 { transform: translate3d(0, 100%, 0) !important; }
+.translate-y-n25 { transform: translate3d(0, -25%, 0) !important; }
+.translate-y-n50 { transform: translate3d(0, -50%, 0) !important; }
+.translate-y-n75 { transform: translate3d(0, -75%, 0) !important; }
+.translate-y-n100 { transform: translate3d(0, -100%, 0) !important; }
+
+.translate-both-25 { transform: translate3d(25%, -25%, 0) !important; }
+.translate-both-50 { transform: translate3d(50%, -50%, 0) !important; }
+.translate-both-75 { transform: translate3d(75%, -75%, 0) !important; }
+.translate-both-100 { transform: translate3d(100%, -100%, 0) !important; }
+.translate-both-n25 { transform: translate3d(-25%, 25%, 0) !important; }
+.translate-both-n50 { transform: translate3d(-50%, 50%, 0) !important; }
+.translate-both-n75 { transform: translate3d(-75%, 75%, 0) !important; }
+.translate-both-n100 { transform: translate3d(-100%, 100%, 0) !important; }
+
+
+// Rotated & Flipped Icons
+// ==================================================
+
+.rotate-90  {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
+  transform: rotate(90deg) !important;
+}
+.rotate-180  {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
+  transform: rotate(180deg) !important;
+}
+.rotate-270  {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
+  transform: rotate(270deg) !important;
+}
+
+.flip-x {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)";
+  transform: scale(-1, 1) !important;
+}
+.flip-y {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+  transform: scale(1, -1) !important;
+}
+.flip-both,
+.flip-x.flip-y {
+  -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)";
+  transform: scale(-1, -1) !important;
+}
+
+
+// Image Filter
+// ==================================================
+
+.grayscale {
+  filter: grayscale(100%);
+}
+
+
+// Animations
+// ==================================================
+
+.notransition {
+  transition: none !important;
+}
+
+@keyframes pulse {
+  from { opacity: 1; }
+  50% { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.pulse {
+  animation: pulse 2.5s ease infinite;
+}
+
+
+// Caret
+// ==================================================
+
+.caret {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 4px;
+  vertical-align: middle;
+  border-top: 4px dashed;
+  border-top: 4px solid\9;
+  border-right: 4px solid transparent;
+  border-left: 4px solid transparent;
+}
+
+
+// Log Divider
+// ==================================================
+
+.log-divider {
+  position: relative;
+  margin: 1.25rem 0;
+  height: 2em;
+  text-align: center;
+
+  &::before {
+    content: '';
+    position: relative;
+    display: block;
+    top: 1em;
+    border-top: 1px solid $border-color;
+    z-index: 1;
+  }
+
+  > span {
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    border-radius: 50px;
+    background: $card-bg;
+    padding: 0 1em;
+    color: $text-muted;
+    line-height: 2em;
+  }
+}
+
+
+// drag indicator
+// ==================================================
+
+.has-dragable {
+  .drag-indicator {
+    opacity: 0;
+  }
+
+  &:hover {
+    .drag-indicator {
+      opacity: 1;
+    }
+  }
+}
+
+.drag-handle {
+  cursor: move !important; /* fallback if grab cursor is unsupported */
+  cursor: grab !important;
+}
+
+.drag-indicator {
+  display: inline-block;
+  margin: 0 .5em;
+  height: 8px;
+  width: 6px;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAMAAAADCAYAAABWKLW/AAAAGUlEQVR42mNgAIJz507/Z4AxVqxYAuEgAwD26QnApt++GwAAAABJRU5ErkJggg==);
+  transform: translate3d(-.5em, 0, 0);
+  cursor: move; /* fallback if grab cursor is unsupported */
+  cursor: grab;
+  user-select: none;
+
+  &-lg {
+    height: 14px;
+    width: 8px;
+  }
+
+  &-tall {
+    height: 20px;
+    width: 8px;
+  }
+}
+
+
+// Typing indicator
+// ==================================================
+
+.typing {
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  line-height: inherit;
+  user-select: none;
+
+  .dot {
+    margin-bottom: .125em;
+    position: relative;
+    display: inline-block;
+    border-radius: 50%;
+    width: .375rem;
+    height: .375rem;
+    background-color: $gray-500;
+    backface-visibility: hidden; // avoid webkit bug render
+    animation: typing 1.2s infinite ease;
+
+    &:nth-child(2) {
+      animation-delay: 150ms;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 300ms;
+    }
+  }
+}
+
+@keyframes typing {
+  50%, 100%, 0% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-150%);
+  }
+}
+
+
+// Circle everything
+// ==================================================
+
+.circle {
+  border-radius: 9999px !important;
+}

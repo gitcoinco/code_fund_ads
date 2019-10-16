@@ -1,0 +1,26 @@
+// Responsive floating image refer to grid column size as the parent
+// Note: You should use .img-fluid along with it
+// @example
+// <div class="row">
+//   <div class="col-md-6">
+//     <img src="path/to/image.png" class="img-fluid img-float-md-4" alt="">
+//   </div>
+//   <div class="col-md-6"></div>
+// </div>
+
+@if $enable-grid-classes {
+  $grid-max-width: map-get($container-max-widths, "xl");
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+      @for $i from 1 through $grid-columns {
+        .img-float#{$infix}-#{$i} {
+          margin-left: -($grid-gutter-width);
+          max-width: calc(100vw / (#{$grid-columns} / #{$i}));
+        }
+      }
+    }
+  }
+}

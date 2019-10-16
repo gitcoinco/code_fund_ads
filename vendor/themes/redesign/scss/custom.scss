@@ -1,0 +1,15 @@
+// Include required parts of theme
+//
+// Adjust the `default/` path with theme folder that you used (e.g. dark/variables)
+
+@import "default/variable-bs-overrides";
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+@import "default/variables";
+@import "default/mixins";
+// your own variables
+@import "custom/variable-custom";
+
+
+/* put your own styles to customize and override the theme */

@@ -1,0 +1,99 @@
+* {
+  &:focus {
+    outline-color: $primary;
+  }
+
+  &::selection {
+    background: $yellow;
+    color: color-yiq($yellow);
+    text-shadow: none;
+  }
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+body {
+  @include media-breakpoint-up(md) {
+    font-size: $font-size-sm;
+  }
+
+  &.is-loaded {
+    display: block !important;
+  }
+}
+
+iframe {
+  margin-bottom: 1rem;
+}
+
+.app {
+  width: 100%;
+  min-height: 100%;
+  background-color: $body-bg;
+  overflow-x: hidden;
+
+  &-site {
+    background-color: inherit;
+
+    .app-header {
+      height: auto;
+    }
+  }
+
+  &.has-clipped-header {
+    .app-header {
+      @include media-breakpoint-up(md) {
+        left: $app-aside-width;
+      }
+    }
+
+    .top-bar-brand {
+      width: auto;
+      background-color: transparent;
+    }
+
+    .app-aside {
+      top: 0;
+    }
+  }
+}
+
+.app-main {
+  position: relative;
+  padding-top: $app-header-height;
+  padding-right: 0;
+  padding-left: 0;
+  overflow: hidden;
+}
+
+.wrapper {
+  position: relative;
+  margin: 0 auto;
+}
+
+@keyframes fadeInBackdrop {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+// Demo
+// ==================================================
+
+.el-example {
+  > .btn,
+  > .btn-group {
+    margin: 4px 2px;
+  }
+}
