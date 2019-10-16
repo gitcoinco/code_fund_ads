@@ -1,13 +1,13 @@
-@import url('https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Nanum+Myeongjo&display=swap");
 
 .blog__article {
   &__featured-image {
-    @include img-fluid;
+    // @include img-fluid;
   }
   &__title {
     line-height: 1.25;
     letter-spacing: 0;
-    font-family: Georgia, Cambria, 'Times New Roman', Times, serif;
+    font-family: Georgia, Cambria, "Times New Roman", Times, serif;
     font-style: normal;
     font-weight: 400;
     font-size: 38px;
@@ -26,7 +26,8 @@
     font-weight: 400;
     font-size: 16px;
     font-style: normal;
-    font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Arial, sans-serif !important;
+    font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva,
+      Arial, sans-serif !important;
     img.rounded-circle {
       max-width: 50px !important;
       max-height: 50px !important;
@@ -60,7 +61,7 @@
     p,
     ul,
     li {
-      font-family: 'Nanum Myeongjo', serif;
+      font-family: "Nanum Myeongjo", serif;
       font-weight: 300;
       color: rgba(0, 0, 0, 0.7);
       font-style: normal;
@@ -69,7 +70,7 @@
       letter-spacing: -0.003em;
     }
     img {
-      @include img-fluid;
+      // @include img-fluid;
       max-width: 100%;
       height: auto;
       margin-top: 25px;
