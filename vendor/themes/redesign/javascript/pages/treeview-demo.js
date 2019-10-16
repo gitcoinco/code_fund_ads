@@ -1,23 +1,18 @@
+"use strict";
+
 // Treeview Demo
 // =============================================================
-
-const treeviewDemo = {
-
-  init () {
-
-    this.bindUIActions()
-
+var treeviewDemo = {
+  init: function init() {
+    this.bindUIActions();
   },
-
-  bindUIActions () {
-
+  bindUIActions: function bindUIActions() {
     // event handlers
-    this.handleTreeview()
+    this.handleTreeview();
   },
-
-  handleTreeview () {
+  handleTreeview: function handleTreeview() {
     // sample data
-    const sampleData = [{
+    var sampleData = [{
       text: 'Parent 1',
       href: '#parent1',
       nodes: [{
@@ -49,9 +44,8 @@ const treeviewDemo = {
       text: 'Parent 5',
       href: '#parent5',
       tags: ['New']
-    }]
+    }]; // init treeview
 
-    // init treeview
     $('#treeview01').treeview({
       data: sampleData,
       showBorder: false,
@@ -63,8 +57,7 @@ const treeviewDemo = {
       selectedColor: 'inherit',
       selectedBackColor: '#f5f5f5',
       onhoverColor: '#f5f5f5'
-    })
-
+    });
     $('#treeview02').treeview({
       data: sampleData,
       showBorder: false,
@@ -80,8 +73,7 @@ const treeviewDemo = {
       selectedColor: 'inherit',
       selectedBackColor: '#f5f5f5',
       onhoverColor: '#f5f5f5'
-    })
+    });
   }
-}
-
-treeviewDemo.init()
+};
+treeviewDemo.init();

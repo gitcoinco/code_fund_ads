@@ -1,1 +1,2 @@
-import '../src/app'
+import '../src'
+import '../themes/current'

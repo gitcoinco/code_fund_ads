@@ -22,6 +22,7 @@
     "codemirror": "^5.42.2",
     "codesandbox": "^2.1.10",
     "filestack-js": "^1.10.0",
+    "flatpickr": "^4.6.3",
     "git": "^0.1.5",
     "github-buttons": "git+https://github.com/ntkme/github-buttons.git",
     "jquery": "^3.4.1",
