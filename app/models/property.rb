@@ -173,7 +173,9 @@ class Property < ApplicationRecord
 
   def current_sponsor_campaign
     return nil unless restrict_to_sponsor_campaigns?
-    sponsor_campaigns.premium.available_on(Date.current).first || sponsor_campaigns.available_on(Date.current).first
+    sponsor_campaigns.premium.available_on(Date.current).first ||
+      Campaign.sponsor.fallback_with_assigned_property_id(id).available_on(Date.current).first ||
+      Campaign.sponsor.fallback.permitted_for_property_id(id).available_on(Date.current).first
   end
 
   def assigned_fallback_campaigns
