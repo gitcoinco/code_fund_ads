@@ -81,7 +81,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     get sponsor_url(property), headers: {"REMOTE_ADDR": ip, "User-Agent": "Rails/Minitest"}
     assert_response :success
     assert response.headers["Content-Type"] == "image/svg+xml; charset=utf-8"
-    assert response.body.include?("Sponsor this project")
+    assert response.body.include?("viewBox=\"0 0 400 40\"")
   end
 
   test "get sponsor advertisement" do
