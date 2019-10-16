@@ -11,6 +11,7 @@
 
       <ul class="list-unstyled mb-0">
         <%= details_li("Name") { @property.name } %>
+        <%= details_li("Audience") { @property&.audience&.name } if authorized_user.can_admin_system? %>
         <%= details_li("User") { link_to @property.user.full_name, @property.user } %>
         <%= details_li("Status") { @property.status.humanize } %>
         <%= details_li("URL") { link_to @property.url, @property.url } %>
