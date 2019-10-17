@@ -94,11 +94,11 @@ module ApplicationHelper
   end
 
   def scheduled_organization_report_datasets_for_select
-    ENUMS::SCHEDULED_ORGANIZATION_REPORT_DATASETS.values.map { |val| [val.humanize.titleize,val] }
+    ENUMS::SCHEDULED_ORGANIZATION_REPORT_DATASETS.values.map { |val| [val.humanize.titleize, val] }
   end
 
   def scheduled_organization_report_frequencies_for_select
-    ENUMS::SCHEDULED_ORGANIZATION_REPORT_FREQUENCIES.values.map { |val| [val.humanize.titleize,val] }
+    ENUMS::SCHEDULED_ORGANIZATION_REPORT_FREQUENCIES.values.map { |val| [val.humanize.titleize, val] }
   end
 
   def keywords_for_select

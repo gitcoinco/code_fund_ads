@@ -113,33 +113,35 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-12 mb-2">
-      <div class="media align-items-center mb-3">
-        <label class="checkbox-switch mb-0 mr-3">
-          <%= f.check_box :paid_fallback, class: "checkbox-switch__input" %>
-          <span class="checkbox-switch__slider"></span>
-        </label>
-        <label class="media-body text-muted mb-0">
-          <span class="d-block text-dark">Is this a paid fallback campaign?</span>
-        </label>
+  <% if authorized_user.can_admin_system? %>
+    <div class="row">
+      <div class="col-12 mb-2">
+        <div class="media align-items-center mb-3">
+          <label class="checkbox-switch mb-0 mr-3">
+            <%= f.check_box :paid_fallback, class: "checkbox-switch__input" %>
+            <span class="checkbox-switch__slider"></span>
+          </label>
+          <label class="media-body text-muted mb-0">
+            <span class="d-block text-dark">Is this a paid fallback campaign?</span>
+          </label>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-12 mb-2">
-      <div class="media align-items-center mb-3">
-        <label class="checkbox-switch mb-0 mr-3">
-          <%= f.check_box :fallback, class: "checkbox-switch__input" %>
-          <span class="checkbox-switch__slider"></span>
-        </label>
-        <label class="media-body text-muted mb-0">
-          <span class="d-block text-dark">Is this a fallback campaign?</span>
-        </label>
+    <div class="row">
+      <div class="col-12 mb-2">
+        <div class="media align-items-center mb-3">
+          <label class="checkbox-switch mb-0 mr-3">
+            <%= f.check_box :fallback, class: "checkbox-switch__input" %>
+            <span class="checkbox-switch__slider"></span>
+          </label>
+          <label class="media-body text-muted mb-0">
+            <span class="d-block text-dark">Is this a fallback campaign?</span>
+          </label>
+        </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
   <% if campaign.fixed_ecpm || authorized_user.can_admin_system? %>
     <%= render "/@shared/forms/section_heading", title: "Targeting", subtitle: "Who do you want this campaign to reach?" %>

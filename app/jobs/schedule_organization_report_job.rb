@@ -1,7 +1,7 @@
 class ScheduleOrganizationReportJob < ApplicationJob
   queue_as :default
 
-def perform(id:, ts: nil)
+  def perform(id:, ts: nil)
     scheduled_report = ScheduledOrganizationReport.find(id)
     return unless scheduled_report
     return if scheduled_report.expired?
@@ -14,7 +14,7 @@ def perform(id:, ts: nil)
 
   def schedule_first_report(scheduled_report)
     ts = if scheduled_report.start_date <= Date.today
-      DateTime.now.midnight
+      DateTime.current
     else
       scheduled_report.start_date.midnight
     end
@@ -45,7 +45,7 @@ def perform(id:, ts: nil)
 
     report = OrganizationReport.create!(
       organization_id: scheduled_report.organization_id,
-      title: "#{scheduled_report.id} at #{Time.current}",
+      title: scheduled_report.subject,
       campaign_ids: scheduled_report.campaign_ids,
       start_date: start_date,
       end_date: end_date
@@ -54,7 +54,7 @@ def perform(id:, ts: nil)
     GenerateOrganizationReportJob.perform_later(
       id: report.id,
       report_url: Rails.application.routes.url_helpers.organization_report_url(organization_id: scheduled_report.organization_id, id: report.id, host: ENV["DEFAULT_HOST"]),
-      scheduled_organization_report_id: scheduled_report.id
+      recipients: scheduled_report.recipients
     )
   end
 end

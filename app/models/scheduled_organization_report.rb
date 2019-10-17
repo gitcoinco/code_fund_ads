@@ -16,7 +16,7 @@ class ScheduledOrganizationReport < ApplicationRecord
 
   # callbacks .................................................................
   # scopes ....................................................................
-  
+
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   attr_accessor :date_range
 
@@ -25,7 +25,7 @@ class ScheduledOrganizationReport < ApplicationRecord
   end
 
   # public instance methods ...................................................
-  
+
   def expired?
     end_date < Date.today
   end

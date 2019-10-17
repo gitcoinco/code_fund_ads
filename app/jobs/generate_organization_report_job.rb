@@ -7,9 +7,8 @@ class GenerateOrganizationReportJob < ApplicationJob
 
   delegate :doc_raptor, to: :"self.class"
 
-  def perform(id:, report_url:, scheduled_organization_report_id: nil)
+  def perform(id:, report_url:, recipients: [])
     organization_report = OrganizationReport.find_by(id: id)
-    scheduled_organization_report = ScheduledOrganizationReport.find_by(id: scheduled_organization_report_id)
     return unless organization_report
 
     organization_report.update(status: "generating")
@@ -36,10 +35,9 @@ class GenerateOrganizationReportJob < ApplicationJob
       organization_report.pdf.attach(io: tempfile, filename: filename, content_type: "application/pdf")
       organization_report.update(status: "ready")
 
-      if scheduled_organization_report
-        CampaignReportsMailer.with(organization_report_id: organization_report.id, scheduled_organization_report_id: scheduled_organization_report.id).organization_report_email.deliver_now
+      if recipients.present?
+        CampaignReportsMailer.with(organization_report_id: organization_report.id, recipients: recipients).organization_report_email.deliver_now
       end
-
     rescue => ex
       Rails.logger.error(ex)
       organization_report.update(status: "error")

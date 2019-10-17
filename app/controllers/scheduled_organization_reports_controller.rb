@@ -47,7 +47,7 @@ class ScheduledOrganizationReportsController < ApplicationController
       dates = params[:scheduled_organization_report][:date_range].split(" - ")
       whitelisted[:start_date] = Date.strptime(dates[0], "%m/%d/%Y")
       whitelisted[:end_date] = Date.strptime(dates[1], "%m/%d/%Y")
-      whitelisted[:recipients] = params[:scheduled_organization_report][:recipients].split(/\r\n+/)
+      whitelisted[:recipients] = params[:scheduled_organization_report][:recipients].split(/\r\n+/).compact
     end
   end
 end
