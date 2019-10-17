@@ -6,7 +6,7 @@ class ScheduledOrganizationReportsController < ApplicationController
     @report = @organization.scheduled_organization_reports.build(scheduled_organization_report_params)
     respond_to do |format|
       if @report.save
-        ScheduledOrganizationReportJob.perform_later(id: @report.id, ts: nil)
+        ScheduleOrganizationReportJob.perform_later(id: @report.id, ts: nil)
         format.html { redirect_to organization_reports_path(@organization), notice: "Report was successfully scheduled." }
         format.json { render :ok, status: :created }
       else

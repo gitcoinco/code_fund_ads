@@ -9,6 +9,7 @@ class GenerateOrganizationReportJob < ApplicationJob
 
   def perform(id:, report_url:, scheduled_organization_report_id: nil)
     organization_report = OrganizationReport.find_by(id: id)
+    scheduled_organization_report = ScheduledOrganizationReport.find_by(id: scheduled_organization_report_id)
     return unless organization_report
 
     organization_report.update(status: "generating")
@@ -36,7 +37,7 @@ class GenerateOrganizationReportJob < ApplicationJob
       organization_report.update(status: "ready")
 
       if scheduled_organization_report
-        CampaignReportsMailer.with(organization_report_id: organization_report.id, scheduled_organization_report_id: scheduled_organization_report.id).campaign_report_pdf_email.deliver_now
+        CampaignReportsMailer.with(organization_report_id: organization_report.id, scheduled_organization_report_id: scheduled_organization_report.id).organization_report_email.deliver_now
       end
 
     rescue => ex

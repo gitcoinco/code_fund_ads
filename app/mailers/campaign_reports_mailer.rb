@@ -6,7 +6,9 @@ class CampaignReportsMailer < ApplicationMailer
     @organization_report = OrganizationReport.find(params[:organization_report_id])
     @scheduled_organization_report = ScheduledOrganizationReport.find(params[:scheduled_organization_report_id])
 
-    attachments[@organization_report.pdf.filename] = @organization_report.pdf.read
+    @organization_report.pdf.attachment.open do |pdf|
+      attachments[@organization_report.pdf.filename.to_s] = pdf.read
+    end
 
     mail to: @scheduled_organization_report.recipients, subject: @scheduled_organization_report.subject
   end

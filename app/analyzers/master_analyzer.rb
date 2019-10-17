@@ -5,7 +5,7 @@ class MasterAnalyzer < ActiveStorage::Analyzer
 
   # Collect metadata from all of the other analyzers to add to the blob
   def metadata
-    analyzers.collect(&:metadata).compact.reduce(:merge)
+    analyzers.collect(&:metadata).compact.reduce(:merge) || HashWithIndifferentAccess.new
   rescue => e
     Rollbar.error e
     HashWithIndifferentAccess.new

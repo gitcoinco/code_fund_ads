@@ -33,6 +33,9 @@
 yarn-debug.log*
 .yarn-integrity
 
+# If you want to use `heroku local`, create the following file with the content `exec "$@"`
+/bin/start-pgbouncer-stunnel
+
 .env
 .teamocil.yml
 .mertrc

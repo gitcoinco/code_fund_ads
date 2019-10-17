@@ -18,7 +18,7 @@
       </tr>
     <% end %>
     <% organization_reports.each do |organization_report| %>
-      <tr>
+      <tr data-organization-report-id="<%= organization_report.id %>">
         <td><%= organization_report.created_at.to_s("bdy") %></td>
         <td><%= organization_report.title %></td>
         <td class="text-right">
