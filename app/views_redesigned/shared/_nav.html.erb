@@ -1,0 +1,83 @@
+<header class="app-header app-header-light">
+  <!-- .top-bar -->
+  <div class="top-bar">
+    <!-- .top-bar-brand -->
+    <div class="top-bar-brand bg-transparent">
+      <!-- Logo -->
+      <%= link_to root_path, class: "navbar-brand u-header__navbar-brand u-header__navbar-brand-center " do %>
+        <%= image_tag "codefund-w.svg", alt: "CodeFund", class: "js-svg-injector" %>
+      <% end %>
+      <!-- End Logo -->
+    </div><!-- /.top-bar-brand -->
+    <!-- .top-bar-list -->
+    <div class="top-bar-list">
+      <!-- .top-bar-item -->
+      <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
+        <!-- toggle menu -->
+        <button class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="Menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button> <!-- /toggle menu -->
+      </div><!-- /.top-bar-item -->
+      <!-- .top-bar-item -->
+      <div class="top-bar-item top-bar-item-full">
+        <!-- .top-bar-search -->
+        <form class="top-bar-search">
+          <div class="input-group input-group-search">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
+            </div><input type="text" class="form-control" aria-label="Search" placeholder="Search">
+          </div>
+        </form><!-- /.top-bar-search -->
+      </div><!-- /.top-bar-item -->
+      <!-- .top-bar-item -->
+      <div class="top-bar-item top-bar-item-right px-0 d-none d-sm-flex">
+        <!-- .nav -->
+        <ul class="header-nav nav">
+          <%= active_link_to "Home", root_path, active: :exact, class: "nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Advertisers", advertisers_path, class: "nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Publishers", publishers_path, class: "nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+          <%= active_link_to "Blog", buttercms_blog_path, class: "nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+
+          <% if current_user %>
+            <% if authorized_user.can_admin_system? %>
+              <li class="">
+                <a id="btn-search-toggle" class="" href="javascript:;" role="button"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        aria-controls="searchPushTop"
+                        data-unfold-type="jquery-slide"
+                        data-unfold-target="#searchPushTop">
+                  <span class=""></span>
+                </a>
+              </li>
+            <% else %>
+              <li class=""><%= link_to "Login", new_user_session_path, class: "" %></li>
+              <li class="">
+                <%= link_to "Login", new_user_session_path, class: "" unless current_user %>
+              </li>
+            <% end %>
+          </ul>
+          <div class="dropdown d-flex">
+            <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= tag.span class: "user-avatar user-avatar-md #{classes "border border-danger": true_user != current_user}" do %>
+                <%= user_avatar_image_tag(current_user, "") %>
+              <% end %>
+              <span class="account-summary pr-lg-4 d-none d-lg-block">
+                <span class="account-name">
+                  <%= current_user.name %>
+                </span>
+              </span>
+            </button>
+            <div class="dropdown-menu">
+              <div class="dropdown-arrow ml-3"></div>
+              <li><%= link_to "View Profile", user_path(current_user), class: "dropdown-item" %></li>
+              <li><%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item" %></li>
+              <li><%= link_to "Change password", edit_user_passwords_path, class: "dropdown-item" %></li>
+              <li><%= link_to "Referrals", referrals_path, class: "dropdown-item" %></li>
+              <div class="dropdown-divider"></div>
+              <li><%= link_to "Logout", destroy_user_session_path, class: "dropdown-item" %></li>
+            </div><!-- /.dropdown-menu -->
+          </div><!-- /.btn-account -->
+        <% end %>
+      </div><!-- /.top-bar-item -->
+    </div><!-- /.top-bar-list -->
+  </div><!-- /.top-bar -->
+</header><!-- /.app-header -->
