@@ -25,6 +25,10 @@ export default class extends Controller {
     'standardForm'
   ]
 
+  connect () {
+    this.setLargeImage()
+  }
+
   initialize () {
     this.setHeadline()
     this.setBody()
