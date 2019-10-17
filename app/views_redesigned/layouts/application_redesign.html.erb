@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= ga_tag_manager_header %>
+
+    <!-- Meta Tags -->
+    <%= display_meta_tags site: "CodeFund" %>
+    <link rel="manifest" href="/site.webmanifest">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= action_cable_meta_tag %>
+
+    <!-- Compressed Stylesheets -->
+    <%= stylesheet_pack_tag 'code_fund_redesign', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Compressed JavaScripts -->
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'code_fund_redesign', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+    <h1>Hello from redesign</h1>
+    <%= yield %>
+  </body>
+</html>

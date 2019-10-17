@@ -15,6 +15,15 @@ class ApplicationController < ActionController::Base
 
   impersonates :user
 
+  if Rails.env.development?
+    prepend_view_path Rails.root.join("app/views_redesigned").to_s
+
+    layout -> {
+      filepath = Rails.root.join("app/views_redesigned", controller_name, "#{action_name}.html.erb")
+      File.exist?(filepath) ? "application_redesign" : "application"
+    }
+  end
+
   protected
 
   def device
