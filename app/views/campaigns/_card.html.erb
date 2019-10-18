@@ -1,4 +1,4 @@
-<%= link_to campaign, class: "card card-frame mb-5" do %>
+<div class="card card-frame mb-5">
   <header class="card-header p-4">
     <div class="media align-items-center">
       <% if campaign.standard? %>
@@ -16,7 +16,10 @@
             <span class="badge badge-xs badge-outline-<%= campaign_status_color(campaign.status) %> badge-pos badge-pos--top-left rounded-circle"></span>
           </div>
         <% end %>
-        <h3 class="h6 mb-0"><%= campaign.name %></h3>
+        <h3 class="h6 mb-0">
+          <%= link_to campaign.name, campaign %>
+          <small class="d-block"><%= link_to campaign.organization.name, campaign.organization %></small>
+        </h3>
         <span class="small text-success">
         </span>
       </div>
@@ -80,4 +83,4 @@
     <% end %>
     <small class="d-block opacity-70">on <%= campaign.end_date.to_s("mm/dd/yyyy") %></small>
   </div>
-<% end %>
+</div>

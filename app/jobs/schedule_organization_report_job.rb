@@ -1,37 +1,37 @@
 class ScheduleOrganizationReportJob < ApplicationJob
   queue_as :default
 
-  def perform(id:, ts: nil)
+  def perform(id:, deliver_at: nil)
     scheduled_report = ScheduledOrganizationReport.find(id)
     return unless scheduled_report
     return if scheduled_report.expired?
-    return schedule_first_report(scheduled_report) if ts.nil?
+    return schedule_first_report(scheduled_report) if deliver_at.nil?
     generate_organization_report(scheduled_report)
-    schedule_next_report(scheduled_report, ts)
+    schedule_next_report(scheduled_report, deliver_at)
   end
 
   private
 
   def schedule_first_report(scheduled_report)
-    ts = if scheduled_report.start_date <= Date.today
+    deliver_at = if scheduled_report.start_date <= Date.today
       DateTime.current
     else
       scheduled_report.start_date.midnight
     end
 
-    ScheduleOrganizationReportJob.set(wait_until: ts).perform_later(id: scheduled_report.id, ts: ts)
+    ScheduleOrganizationReportJob.set(wait_until: deliver_at).perform_later(id: scheduled_report.id, deliver_at: deliver_at)
     nil
   end
 
-  def schedule_next_report(scheduled_report, ts)
-    new_ts = case scheduled_report.frequency
-      when "daily" then ts + 1.day
-      when "weekly" then ts + 7.days
+  def schedule_next_report(scheduled_report, deliver_at)
+    new_deliver_at = case scheduled_report.frequency
+      when "daily" then deliver_at + 1.day
+      when "weekly" then deliver_at + 7.days
     end
 
-    return if new_ts > scheduled_report.end_date.midnight
+    return if new_deliver_at > scheduled_report.end_date.midnight
 
-    ScheduleOrganizationReportJob.set(wait_until: new_ts).perform_later(id: scheduled_report.id, ts: new_ts)
+    ScheduleOrganizationReportJob.set(wait_until: new_deliver_at).perform_later(id: scheduled_report.id, deliver_at: new_deliver_at)
     nil
   end
 

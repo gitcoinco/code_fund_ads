@@ -9,11 +9,11 @@ class ScheduleOrganizationReportJobTest < ActiveJob::TestCase
     freeze_time do
       expected_args = ->(job_args) do
         assert job_args.first[:id] == scheduled_report.id
-        assert job_args.first[:ts] == Time.current
+        assert job_args.first[:deliver_at] == Time.current
       end
 
       assert_enqueued_with(job: ScheduleOrganizationReportJob, args: expected_args) do
-        ScheduleOrganizationReportJob.perform_now(id: scheduled_report.id, ts: nil)
+        ScheduleOrganizationReportJob.perform_now(id: scheduled_report.id, deliver_at: nil)
       end
     end
   end
@@ -29,11 +29,11 @@ class ScheduleOrganizationReportJobTest < ActiveJob::TestCase
     freeze_time do
       expected_args = ->(job_args) do
         assert job_args.first[:id] == scheduled_report.id
-        assert job_args.first[:ts] == start_date.midnight
+        assert job_args.first[:deliver_at] == start_date.midnight
       end
 
       assert_enqueued_with(job: ScheduleOrganizationReportJob, args: expected_args) do
-        ScheduleOrganizationReportJob.perform_now(id: scheduled_report.id, ts: nil)
+        ScheduleOrganizationReportJob.perform_now(id: scheduled_report.id, deliver_at: nil)
       end
     end
   end
@@ -46,7 +46,7 @@ class ScheduleOrganizationReportJobTest < ActiveJob::TestCase
       organization: campaign.organization)
 
     assert_no_enqueued_jobs do
-      ScheduleOrganizationReportJob.perform_now(id: scheduled_report.id, ts: Time.now)
+      ScheduleOrganizationReportJob.perform_now(id: scheduled_report.id, deliver_at: Time.now)
     end
   end
 
@@ -69,7 +69,7 @@ class ScheduleOrganizationReportJobTest < ActiveJob::TestCase
       end
 
       assert_enqueued_with(job: GenerateOrganizationReportJob, args: expected_args) do
-        ScheduleOrganizationReportJob.perform_now(id: scheduled_report.id, ts: Time.now)
+        ScheduleOrganizationReportJob.perform_now(id: scheduled_report.id, deliver_at: Time.now)
         report = campaign.organization.organization_reports.first
         assert_equal report.campaign_ids.sort, campaign.organization.campaigns.map(&:id).sort
         assert_equal 8.days.ago.to_date, report.start_date

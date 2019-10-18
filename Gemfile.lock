@@ -634,7 +634,6 @@ DEPENDENCIES
   email_address (~> 0.1.11)
   factory_bot_rails
   faker
-  foundation_emails
   full-name-splitter (~> 0.1.2)
   gibbon (~> 3.3.0)
   hiredis (~> 0.6.3)
