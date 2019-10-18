@@ -2,6 +2,17 @@ class CampaignReportsMailer < ApplicationMailer
   default from: "team@codefund.io"
   layout "mailer"
 
+  def organization_report_email
+    @organization_report = OrganizationReport.find(params[:organization_report_id])
+    recipients = params[:recipients]
+
+    @organization_report.pdf.attachment.open do |pdf|
+      attachments[@organization_report.pdf.filename.to_s] = pdf.read
+    end
+
+    mail to: recipients, subject: "CodeFund Campaign Report"
+  end
+
   def campaign_report_email
     @campaign = params[:campaign]
     @start_date = Date.coerce(params[:start_date])

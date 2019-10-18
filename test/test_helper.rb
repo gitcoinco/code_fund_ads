@@ -1,5 +1,6 @@
 ENV["RAILS_ENV"] ||= "test"
 require "simplecov"
+require "factory_bot_rails"
 SimpleCov.start
 require_relative "../config/environment"
 require_relative "./mmdb_test_helper"
@@ -14,6 +15,8 @@ Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
 # Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
 
 class ActiveSupport::TestCase
+  include FactoryBot::Syntax::Methods
+
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 

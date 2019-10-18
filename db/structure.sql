@@ -975,6 +975,44 @@ UNION ALL
 
 
 --
+-- Name: scheduled_organization_reports; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.scheduled_organization_reports (
+    id bigint NOT NULL,
+    organization_id bigint NOT NULL,
+    subject text NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
+    frequency character varying NOT NULL,
+    dataset character varying NOT NULL,
+    campaign_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
+    recipients character varying[] DEFAULT '{}'::character varying[] NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: scheduled_organization_reports_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.scheduled_organization_reports_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: scheduled_organization_reports_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.scheduled_organization_reports_id_seq OWNED BY public.scheduled_organization_reports.id;
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1225,6 +1263,13 @@ ALTER TABLE ONLY public.publisher_invoices ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: scheduled_organization_reports id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.scheduled_organization_reports ALTER COLUMN id SET DEFAULT nextval('public.scheduled_organization_reports_id_seq'::regclass);
+
+
+--
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1380,6 +1425,14 @@ ALTER TABLE ONLY public.property_traffic_estimates
 
 ALTER TABLE ONLY public.publisher_invoices
     ADD CONSTRAINT publisher_invoices_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: scheduled_organization_reports scheduled_organization_reports_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.scheduled_organization_reports
+    ADD CONSTRAINT scheduled_organization_reports_pkey PRIMARY KEY (id);
 
 
 --
@@ -2219,6 +2272,13 @@ CREATE INDEX index_publisher_invoices_on_user_id ON public.publisher_invoices US
 
 
 --
+-- Name: index_scheduled_organization_reports_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_scheduled_organization_reports_on_organization_id ON public.scheduled_organization_reports USING btree (organization_id);
+
+
+--
 -- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2500,6 +2560,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191009151545'),
 ('20191010203902'),
 ('20191010214024'),
-('20191014171135');
+('20191014171135'),
+('20191014205953');
 
 

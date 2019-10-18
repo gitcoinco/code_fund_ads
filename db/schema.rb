@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_14_171135) do
+ActiveRecord::Schema.define(version: 2019_10_14_205953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -475,6 +475,20 @@ ActiveRecord::Schema.define(version: 2019_10_14_171135) do
     t.index ["paid_at"], name: "index_publisher_invoices_on_paid_at"
     t.index ["start_date"], name: "index_publisher_invoices_on_start_date"
     t.index ["user_id"], name: "index_publisher_invoices_on_user_id"
+  end
+
+  create_table "scheduled_organization_reports", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.text "subject", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
+    t.string "frequency", null: false
+    t.string "dataset", null: false
+    t.bigint "campaign_ids", default: [], null: false, array: true
+    t.string "recipients", default: [], null: false, array: true
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_scheduled_organization_reports_on_organization_id"
   end
 
   create_table "users", force: :cascade do |t|

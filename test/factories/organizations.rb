@@ -32,5 +32,15 @@ FactoryBot.define do
     trait :with_large_balance do
       balance_cents { rand(250000..500000) }
     end
+
+    factory :organization_with_campaigns do
+      transient do
+        campaigns_count { 3 }
+      end
+
+      after(:create) do |organization, evaluator|
+        create_list(:campaign, evaluator.campaigns_count, organization: organization)
+      end
+    end
   end
 end

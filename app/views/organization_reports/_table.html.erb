@@ -1,32 +1,31 @@
 <div class="table-responsive">
-  <table class="table table-striped">
+  <table class="table table-bordered table-condensed table-striped table-dark">
     <thead>
       <tr class="border-bottom">
         <th scope="col">Date</th>
         <th scope="col">Title</th>
-        <th scope="col">Campaigns</th>
-        <th scope="col">Status</th>
-        <th scope="col">&nbsp;</th>
+        <th scope="col">Download</th>
       </tr>
     </thead>
     <tbody class="font-size-1">
+    <% scheduled_organization_reports.each do |scheduled_report| %>
+      <tr class="bg-success">
+        <td><%= scheduled_report.start_date.to_s("bdy") %></td>
+        <td><%= scheduled_report.subject %></td>
+        <td class="text-right">
+          <%= link_to "Delete", scheduled_organization_report_path(@organization, scheduled_report), method: :delete, data: { confirm: "Are you sure?" }, class: "text-white" %>
+        </td>
+      </tr>
+    <% end %>
     <% organization_reports.each do |organization_report| %>
-      <tr>
+      <tr data-organization-report-id="<%= organization_report.id %>">
         <td><%= organization_report.created_at.to_s("bdy") %></td>
         <td><%= organization_report.title %></td>
-        <td><%= organization_report.campaign_ids.sort.join(", ") %></td>
-        <td><%= organization_report.status.humanize %></td>
         <td class="text-right">
           <% if organization_report.status == "ready" %>
-            <%= link_to "Download", url_for(organization_report.pdf), target: "_blank" %>
+            <%= link_to "PDF", url_for(organization_report.pdf), target: "_blank", class: "text-white" %>
           <% else %>
-            <%= link_to "Regenerate", organization_report_path(organization, organization_report), method: :patch %>
-          <% end %>
-          <% if authorized_user.can_admin_system? %>
-            |
-            <%= link_to "HTML", organization_report_path(organization, organization_report) %>
-            |
-            <%= link_to "Delete", organization_report_path(organization, organization_report), method: :delete, data: { confirm: "Are you sure?" } %>
+            <%= link_to "Regenerate", organization_report_path(organization, organization_report), method: :patch, class: "text-white" %>
           <% end %>
         </td>
       </tr>

@@ -61,6 +61,7 @@ Rails.application.routes.draw do
     resources :events, only: [:index], as: :organization_events
     resources :versions, only: [:index], as: :organization_versions, path: "/revisions"
     resources :organization_reports, except: [:edit], as: :organization_reports, path: "/reports"
+    resources :scheduled_organization_reports, only: [:create, :destroy], as: :scheduled_organization_reports, path: "/scheduled_reports"
   end
 
   scope "/jobs", manage_scope: true do

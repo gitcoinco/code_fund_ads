@@ -4,7 +4,10 @@ class OrganizationReportsController < ApplicationController
   http_basic_authenticate_with name: ENV.fetch("DOCRAPTOR_HTTP_USERNAME", "user"), password: ENV.fetch("DOCRAPTOR_HTTP_PASSWORD", "secret"), only: :show
 
   def index
+    @scheduled_organization_reports = @organization.scheduled_organization_reports.order(created_at: :desc)
     organization_reports = @organization.organization_reports.order(created_at: :desc)
+    @organization_report = @organization.organization_reports.build
+    @scheduled_organization_report = @organization.scheduled_organization_reports.build
     @pagy, @organization_reports = pagy(organization_reports)
   end
 
@@ -16,7 +19,11 @@ class OrganizationReportsController < ApplicationController
     @organization_report = @organization.organization_reports.build(organization_report_params)
     respond_to do |format|
       if @organization_report.save
-        GenerateOrganizationReportJob.perform_later(id: @organization_report.id, report_url: organization_report_url(@organization, @organization_report))
+        GenerateOrganizationReportJob.perform_later(
+          id: @organization_report.id,
+          report_url: organization_report_url(@organization, @organization_report),
+          recipients: @organization_report.recipients
+        )
         format.html { redirect_to organization_reports_path(@organization), notice: "Report was successfully requested." }
         format.json { render :ok, status: :created }
       else
@@ -43,7 +50,11 @@ class OrganizationReportsController < ApplicationController
 
   def update
     @organization_report = @organization.organization_reports.find(params[:id])
-    GenerateOrganizationReportJob.perform_later(id: @organization_report.id, report_url: organization_report_url(@organization, @organization_report))
+    GenerateOrganizationReportJob.perform_later(
+      id: @organization_report.id,
+      report_url: organization_report_url(@organization, @organization_report),
+      recipients: @organization_report.recipients
+    )
     redirect_to organization_reports_path(@organization), notice: "PDF generate has been re-triggered"
   end
 
@@ -69,11 +80,13 @@ class OrganizationReportsController < ApplicationController
   def organization_report_params
     params.require(:organization_report).permit(
       :title,
+      :recipients,
       campaign_ids: [],
     ).tap do |whitelisted|
       dates = params[:organization_report][:date_range].split(" - ")
       whitelisted[:start_date] = Date.strptime(dates[0], "%m/%d/%Y")
       whitelisted[:end_date] = Date.strptime(dates[1], "%m/%d/%Y")
+      whitelisted[:recipients] = params[:organization_report][:recipients].split(/\r\n+/).compact
     end
   end
 end

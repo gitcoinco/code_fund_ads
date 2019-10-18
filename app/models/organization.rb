@@ -26,6 +26,7 @@ class Organization < ApplicationRecord
   has_many :job_postings
   has_many :organization_reports
   has_many :organization_transactions
+  has_many :scheduled_organization_reports
   has_many :users
 
   # validations ...............................................................
