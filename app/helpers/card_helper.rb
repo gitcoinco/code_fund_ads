@@ -8,7 +8,7 @@ module CardHelper
   end
 
   def card_body(id: nil, add_class: "", &block)
-    content_tag(:div, nil, id: id, class: "card-body p-2 #{add_class}", &block)
+    content_tag(:div, nil, id: id, class: "card-body p-4 #{add_class}", &block)
   end
 
   def card_title(id: nil, add_class: "", &block)

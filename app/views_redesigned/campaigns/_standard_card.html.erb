@@ -1,0 +1,58 @@
+<%= card do %>
+  <%= card_header do %>
+    <%= card_title do %>
+      <%= tag.span(truncate(@campaign.name, length: 36), title: @campaign.name, "data-toggle": "tooltip") %>
+    <% end %>
+    <%= card_subtitle do %>
+      <%= @campaign.organization.name %>: <%= tag.span(@campaign.organization.balance.format, title: "Organization Balance", "data-toggle": "tooltip") %>
+    <% end %>
+  <% end %>
+  <figure class="figure mx-auto mt-4">
+    <%= image_tag @campaign.creative.wide_image || "missing-200x200.png", height: 124, class: "mw-100" %>
+  </figure>
+  <%= card_body do %>
+    <div class="d-flex justify-content-around text-center">
+      <div class="d-flex flex-column text-center" data-toggle="tooltip" title="Available Funds: <%= @campaign.total_remaining_budget.format %>">
+        <h6 class="text-muted mb-0">Total Spent</h6>
+        <div class="easypiechart"
+            data-toggle="easypiechart"
+            data-percent=<%= @campaign.total_consumed_budget_percentage %>
+            data-bar-color="#F9AC2F"
+            data-track-color="#FEF7EC"
+            data-scale-color="false"
+            data-size="100">
+            <span class="text-sm"><%= number_to_percentage(@campaign.total_consumed_budget_percentage, precision: 0) %></span>
+        </div>
+        <div class="position-relative" style="top:-8px;">
+          <span class="border-bottom">
+            <%= @campaign.total_consumed_budget.format %>
+          </span>
+          <small class="d-block text-muted">
+            <%= @campaign.total_budget.format %>
+          </small>
+        </div>
+      </div>
+
+      <div class="d-flex flex-column text-center" data-toggle="tooltip" title="<%= remaining_days_label(@campaign)%>">
+        <h6 class="text-muted mb-0">Days Left</h6>
+        <div class="easypiechart"
+            data-toggle="easypiechart"
+            data-percent=<%= calc_percentage(@campaign.remaining_operative_days, @campaign.total_operative_days) %>
+            data-bar-color="#F9AC2F"
+            data-track-color="#FEF7EC"
+            data-scale-color="false"
+            data-size="100">
+            <span class="text-sm"><%= number_to_percentage(calc_percentage(@campaign.remaining_operative_days, @campaign.total_operative_days), precision: 0) %></span>
+        </div>
+        <div class="position-relative" style="top:-8px;">
+          <span class="border-bottom">
+            <%= @campaign.remaining_operative_days %>
+          </span>
+          <small class="d-block text-muted">
+            <%= @campaign.total_operative_days %>
+          </small>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
