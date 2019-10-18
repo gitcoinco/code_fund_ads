@@ -235,4 +235,9 @@ module ApplicationHelper
     svg_class = "sparkline sparkline--#{color}#{" sparkline--filled" if filled}"
     render "/@shared/widgets/sparkline_graph", values: values, width: width, height: height, stroke_width: stroke_width, svg_class: svg_class
   end
+
+  def calc_percentage(numerator, denominator)
+    return 0 if denominator.zero?
+    numerator / denominator
+  end
 end

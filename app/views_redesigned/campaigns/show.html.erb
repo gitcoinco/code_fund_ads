@@ -1,1 +1,9 @@
-Campaigns go here
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-4">
+      <% if @campaign.standard? %>
+        <%= render "campaigns/standard_card" %>
+      <% end %>
+    </div>
+  </div>
+</div>

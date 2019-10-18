@@ -59,4 +59,14 @@ module CampaignsHelper
       "Insufficient"
     end
   end
+
+  def remaining_days_label(campaign)
+    if campaign.pending?
+      "Starts #{distance_of_time_in_words_to_now campaign.start_date.beginning_of_day} from now"
+    elsif campaign.active?
+      "Completes #{distance_of_time_in_words_to_now campaign.end_date.end_of_day} from now"
+    elsif campaign.archived?
+      "Completed #{distance_of_time_in_words_to_now campaign.end_date.end_of_day} ago"
+    end
+  end
 end
