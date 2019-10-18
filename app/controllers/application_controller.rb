@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   impersonates :user
 
-  if Rails.env.development?
+  if Rails.env.development? && ENV["REDESIGN"]
     prepend_view_path Rails.root.join("app/views_redesigned").to_s
 
     layout -> {
