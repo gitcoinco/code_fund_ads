@@ -17,6 +17,7 @@
           <% end %>
         </dd>
       </dl>
+      <spacer size="16"></spacer>
       <p>Please let us know if you would like us to make any revisions or if you have any questions.</p>
       <spacer size="8"></spacer>
       <p>Thanks for being part of the CodeFund family!</p>
