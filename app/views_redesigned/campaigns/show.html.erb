@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-4">
       <% if @campaign.standard? %>
-        <%= render "campaigns/standard_card" %>
+        <%= render "campaigns/standard_card", campaign: @campaign %>
       <% end %>
     </div>
   </div>
