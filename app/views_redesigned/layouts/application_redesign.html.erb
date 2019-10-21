@@ -11,6 +11,7 @@
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
 
+    <link rel="stylesheet" href="/css/all.min.css">
     <!-- Compressed Stylesheets -->
     <%= stylesheet_pack_tag 'code_fund_redesign', media: 'all', 'data-turbolinks-track': 'reload' %>
 
@@ -23,5 +24,8 @@
     <h1>Hello from redesign</h1>
     <%= yield %>
     <%= render 'shared/footer' %>
+
+    <!-- Target for dynamically generated modals -->
+    <div id="global-modal" class="modal fade"></div>
   </body>
 </html>

@@ -1,5 +1,4 @@
-<div class="container mt-4">
-  <%= render "campaigns/tabs", campaign: @campaign %>
+<%= render layout: "/campaigns/show_layout", locals: { campaign: @campaign } do %>
   <%= card do %>
     <%= card_header do %>
       <%= card_title do %>
@@ -36,4 +35,4 @@
       <% end %>
     <% end %>
   <% end %>
-</div>
+<% end %>

@@ -1,0 +1,15 @@
+<%= render layout: "/campaigns/show_layout", locals: { campaign: @versionable } do %>
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Campaign Revisions
+      <% end %>
+      <%= card_subtitle do %>
+        List of revisions to this campaign
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <%= render "/versions/table", versionable: @versionable %>
+    <% end %>
+  <% end %>
+<% end %>
