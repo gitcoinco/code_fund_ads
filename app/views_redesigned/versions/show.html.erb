@@ -24,37 +24,9 @@
         data: {
           confirm: "Are you sure you want to roll this change back?"
         },
-        class: 'btn btn-sm btn-primary transition-3d-hover mr-1',
+        class: 'btn btn-sm btn-primary mr-1',
         method: :put) if @version.next %>
-      <button data-dismiss="modal" type="button" class="btn btn-sm btn-soft-secondary transition-3d-hover">Close</button>
+      <button data-dismiss="modal" type="button" class="btn btn-sm btn-light">Close</button>
     </div>
   </div>
 </div>
-<%
-=begin%>
- <div class="el-example">
-  <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModal">Open: normal</button> <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalLg">Open: large</button> <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalSm">Open: small</button> <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalCenter">Open: center</button> <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalLong">Open: long</button> <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#exampleModalScrollable">Open: scrollable</button>
-</div><!-- Normal modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <!-- .modal-dialog -->
-  <div class="modal-dialog" role="document">
-    <!-- .modal-content -->
-    <div class="modal-content">
-      <!-- .modal-header -->
-      <div class="modal-header">
-        <h5 id="exampleModalLabel" class="modal-title"> Modal title </h5>
-      </div><!-- /.modal-header -->
-      <!-- .modal-body -->
-      <div class="modal-body">
-        <p> Laudantium praesentium similique natus consequuntur, quae amet, sequi non velit placeat distinctio excepturi tempore quos expedita veritatis at corporis beatae maiores iste. </p>
-        <p> Omnis velit praesentium, incidunt voluptatibus voluptatem iure corporis minima error ipsum itaque magnam vero laborum molestiae vel. Saepe modi atque, iure dolores nulla dolor quia, eius libero ullam dicta explicabo! </p>
-      </div><!-- /.modal-body -->
-      <!-- .modal-footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Click Me</button> <button type="button" class="btn btn-light">Secondary Action</button>
-      </div><!-- /.modal-footer -->
-    </div><!-- /.modal-content -->
-  </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-<%
-=end%>
