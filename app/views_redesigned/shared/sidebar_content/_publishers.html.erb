@@ -1,0 +1,14 @@
+<li class="menu-header">
+  <i class="fas fa-user fa-lg"></i>
+  Publisher
+</li>
+<%= active_link_to "Dashboard", default_dashboard_path(current_user),
+  class: "menu-link",
+  class_active: 'has-active',
+  wrap_tag: :li,
+  wrap_class: "menu-item" %>
+<%= active_link_to "Properties", properties_path,
+  class: "menu-link",
+  class_active: 'has-active',
+  wrap_tag: :li,
+  wrap_class: "menu-item" %>

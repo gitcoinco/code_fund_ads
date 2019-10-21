@@ -1,17 +1,20 @@
-<main id="content" role="main" class="bg-light">
-  <div class="container">
-    <div class="log-divider">
-      <span class="bg-light">Active Premium Campaigns</span>
-    </div>
-    <div class="mb-4" id="dashboard-advertiser-cards">
-      <div class="card-deck d-block d-lg-flex">
-        <% @active_campaigns.each.with_index do |campaign, index| %>
-          <%= render "/campaigns/standard_card", campaign: campaign %>
-          <% if (index + 1) % 3 == 0 %>
-            </div><div class="card-deck d-block d-lg-flex">
+<div class="d-flex">
+  <%= render "shared/sidebar" %>
+  <main id="content" role="main" class="bg-light">
+    <div class="container">
+      <div class="log-divider">
+        <span class="bg-light">Active Premium Campaigns</span>
+      </div>
+      <div class="mb-4" id="dashboard-advertiser-cards">
+        <div class="card-deck d-block d-lg-flex">
+          <% @active_campaigns.each.with_index do |campaign, index| %>
+            <%= render "/campaigns/standard_card", campaign: campaign %>
+            <% if (index + 1) % 3 == 0 %>
+              </div><div class="card-deck d-block d-lg-flex">
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
+</div>

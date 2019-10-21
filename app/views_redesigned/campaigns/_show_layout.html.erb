@@ -1,4 +1,7 @@
-<div class="container mt-4">
-  <%= render "campaigns/tabs", campaign: campaign %>
-  <%= yield %>
+<div class="d-flex">
+  <%= render "shared/sidebar" %>
+  <div class="container mt-4">
+    <%= render "campaigns/tabs", campaign: campaign %>
+    <%= yield %>
+  </div>
 </div>
