@@ -21,5 +21,16 @@ module CodeFundAds
     config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
     config.active_record.schema_format = :sql
     config.active_job.queue_adapter = :sidekiq
+
+    # https://github.com/plataformatec/devise/wiki/How-To:-Create-custom-layouts
+    config.to_prepare do
+      [Devise::SessionsController,
+       Devise::RegistrationsController,
+       Devise::ConfirmationsController,
+       Devise::UnlocksController,
+       Devise::PasswordsController,].each do |views|
+         views.layout proc { |controller| Rails.env.development? && ENV["REDESIGN"] == "true" ? "application_redesign" : "application" }
+       end
+    end
   end
 end
