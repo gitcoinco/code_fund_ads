@@ -1,0 +1,13 @@
+<tr>
+  <td class="text-left align-middle text-nowrap"><%= country_display_name report.scoped_by_id %></td>
+  <% if @campaign.standard? %>
+    <td class="text-center align-middle"><%= report.gross_revenue.format %></td>
+    <td class="text-center align-middle"><%= number_with_delimiter report.impressions_count %></td>
+  <% end %>
+  <td class="text-center align-middle"><%= number_with_delimiter report.clicks_count %></td>
+  <% if @campaign.standard? %>
+    <td class="text-center align-middle"><%= number_to_percentage report.click_rate, precision: 2 %></td>
+    <td class="text-center align-middle"><%= number_with_delimiter report.cpm.format %></td>
+    <td class="text-center align-middle"><%= number_with_delimiter report.cpc.format %></td>
+  <% end %>
+</tr>

@@ -19,16 +19,13 @@
     <td class="text-center align-middle"><%= number_with_delimiter report.cpc.format %></td>
     <% if authorized_user.can_admin_system? %>
       <td class="text-center align-middle">
-      <div class="form-group">
-        <div class="custom-control custom-checkbox">
-          <label class="custom-control-label">Yes, this is a block checkbox</label>
-        </div>
-          <input type="checkbox" class="custom-control-input"
+        <div class="custom-control custom-control-nolabel custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="ckb-blacklist"
             data-controller="inline-toggle"
             data-action="change->inline-toggle#toggle"
             data-url="<%= campaign_property_path(@campaign, report.scoped_by, format: :json) %>"
             <%= "checked" if @campaign.prohibited_property_ids.include?(report.scoped_by.id) %>>
-          <span class="checkbox-switch__slider"></span>
+          <label class="custom-control-label" for="ckb-blacklist"></label>
         </div>
       </td>
     <% end %>
