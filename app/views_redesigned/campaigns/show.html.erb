@@ -1,9 +1,14 @@
 <div class="container mt-4">
+  <%= render "campaigns/tabs", campaign: @campaign %>
   <div class="row">
-    <div class="col-4">
+    <div class="col-md-6 col-lg-4">
       <% if @campaign.standard? %>
         <%= render "campaigns/standard_card", campaign: @campaign %>
       <% end %>
+      <%= render "campaigns/creative_previews", campaign: @campaign %>
+    </div>
+    <div class="col-md-6 col-lg-8">
+      <%= render "campaigns/details_card" %>
     </div>
   </div>
 </div>

@@ -1,0 +1,19 @@
+<div class="d-flex">
+  <%= nav_tabs do %>
+    <%= nav_item_link(name: "Details", path: campaign_path(campaign), active: :exact) %>
+    <%= nav_item_link(name: "Overview", path: campaign_dashboards_path(campaign)) %>
+    <%= nav_item_link(name: "Targeting", path: campaign_targeting_path(campaign)) if campaign.standard? %>
+    <li class="nav-item dropdown">
+      <%= active_link_to("Reports", "#",  class: "nav-link", role: "button",
+        active: [%w[campaign_dailies campaign_creatives campaign_properties campaign_countries]],
+        data: { toggle: "dropdown" }, aria: { haspopup: true, expanded: false }) %>
+      <div class="dropdown-menu">
+        <%= active_link_to "Daily", campaign_dailies_path(campaign), class: "dropdown-item", data: { turbolinks_persist_scroll: true, prefetch: true } %>
+        <%= active_link_to "Creative", campaign_creatives_path(campaign), class: "dropdown-item", data: { turbolinks_persist_scroll: true, prefetch: true } %>
+        <%= active_link_to "Property", campaign_properties_path(campaign), class: "dropdown-item", data: { turbolinks_persist_scroll: true, prefetch: true } %>
+        <%= active_link_to "Country", campaign_countries_path(campaign), class: "dropdown-item", data: { turbolinks_persist_scroll: true, prefetch: true } %>
+      </div>
+    </li>
+    <%= nav_item_link(name: "Revisions", path: campaign_versions_path(campaign)) %>
+  <% end %>
+</div>

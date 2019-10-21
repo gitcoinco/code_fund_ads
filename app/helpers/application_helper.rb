@@ -1,6 +1,7 @@
 module ApplicationHelper
   include Pagy::Frontend
   include CardHelper
+  include NavTabsHelper
 
   def country_display_name(iso_code)
     country = Country.find(iso_code)
@@ -201,7 +202,9 @@ module ApplicationHelper
   end
 
   def details_li(label, &block)
-    render partial: "/@shared/details_li", locals: {label: label, block: block}
+    return render partial: "/@shared/details_li", locals: {label: label, block: block} unless ENV["REDESIGN"]
+
+    render partial: "shared/details_li", locals: {label: label, block: block}
   end
 
   def sortable_tr(column, title = nil)

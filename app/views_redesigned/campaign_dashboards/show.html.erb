@@ -1,0 +1,24 @@
+<div class="container mt-4">
+  <%= render "campaigns/tabs", campaign: @campaign %>
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Overview <sup><%= link_to tag.i("", class: "fas fa-external-link"), @iframe_url, target: "_blank", class: "color: blue" %></sup>
+      <% end %>
+      <%= card_subtitle do %>
+        A mini-dashboard specifically for this campaign.
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+    <small class="text-center d-block text-muted">
+      ensure ad blockers are disabled to view the overview
+    </small>
+    <iframe
+      src="<%= @iframe_url %>"
+      style="width: 100%; min-height: 2000px; border: 0; resize: horizontal;"
+      height="2000"
+      scrolling="no"
+      allowtransparency></iframe>
+    <% end %>
+  <% end %>
+</div>

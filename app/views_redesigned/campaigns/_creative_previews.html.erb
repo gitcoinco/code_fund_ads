@@ -1,0 +1,30 @@
+<% campaign.creatives.each do |creative| %>
+  <div class="log-divider">
+    <span class="bg-light"><%= truncate creative.name, length: 24 %></span>
+  </div>
+  <iframe src="<%= creative_previews_path(creative, template: "square", theme: "light", html_only: true) %>"
+    height="270" style="height:365px; width:100%; border:0; margin:0; padding:0; resize:horizontal;"
+    frameBorder="0" scrolling="no" class=""></iframe>
+  <% campaign.split_alternative(creative).tap do |alternative| %>
+    <% if alternative %>
+      <div class="ml-5 pl-2">
+        <% if split_winner? campaign.split_experiment, alternative %>
+          <span class="badge badge-success"><i class="fas fa-award"></i> winner</span>
+        <% elsif split_loser? campaign.split_experiment, alternative %>
+          <span class="badge badge-danger"><i class="fas fa-thumbs-down"></i> loser</span>
+        <% end %>
+        <small class="d-block"><span class="opacity-50">Impressions:</span> <%= tag.strong number_with_delimiter(alternative.participant_count) %></small>
+        <small class="d-block"><span class="opacity-50">Click Rate:</span> <%= tag.strong number_to_percentage(alternative.conversion_rate * 100, precision: 2) %></small>
+        <% unless split_winner? campaign.split_experiment, alternative %>
+          <small class="d-block">
+            <span class="opacity-50">Confidence:</span>
+            <%= tag.strong split_experiment_confidence_level(alternative.z_score) %>
+          </small>
+          <%= link_to "Make Winner", split_experiment_path(campaign, winner_name: alternative.name),
+            class: "btn btn-soft-success btn-xs transition-3d-hover mt-2", rel: "nofollow",
+            data: { controller: "split-experiment", action: "split-experiment#setWinner" } %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

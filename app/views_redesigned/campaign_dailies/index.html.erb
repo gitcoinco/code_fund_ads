@@ -1,0 +1,28 @@
+<div class="container mt-4">
+  <%= render "campaigns/tabs", campaign: @campaign %>
+  <%= card do %>
+    <%= card_header add_class: "d-flex justify-content-between" do %>
+      <div class="d-flex flex-column">
+        <%= card_title do %>
+          Dailies
+        <% end %>
+        <%= card_subtitle do %>
+          Stats by day
+        <% end %>
+      </div>
+      <div class="d-flex flex-column">
+        <% if @campaign.standard? %>
+          <div class="d-inline-block float-right text-right">
+            <%= render "/campaign_reports/form", campaign: @campaign %>
+            <%= link_to campaign_dailies_path(@campaign, format: :csv), class: "d-block mt-3 mb-2" do %>
+              Download
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+    <%= card_body do %>
+      <%= render "/campaign_dailies/table", campaign: @campaign %>
+    <% end %>
+  <% end %>
+</div>

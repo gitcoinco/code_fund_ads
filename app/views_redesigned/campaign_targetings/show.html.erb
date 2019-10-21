@@ -1,0 +1,39 @@
+<div class="container mt-4">
+  <%= render "campaigns/tabs", campaign: @campaign %>
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Keywords
+      <% end %>
+      <%= card_subtitle do %>
+        Keywords and negative keywords for property matching
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <% @campaign.keywords.sort.each do |keyword| %>
+        <span class="btn btn-xs btn-info mb-2"><%= keyword %></span>
+      <% end %>
+      <% @campaign.negative_keywords.sort.each do |keyword| %>
+        <span class="btn btn-xs btn-danger mb-2"><%= keyword %></span>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Countries
+      <% end %>
+      <%= card_subtitle do %>
+        Targeted Countries
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <% @campaign.countries.each do |country| %>
+        <span class="btn btn-xs btn-success mb-2">
+          <%= country.name %>
+        </span>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>

@@ -1,0 +1,37 @@
+<div class="table-responsive">
+  <table class="js-datatable table table-striped table-compact table-borderless">
+    <thead>
+      <tr class="border-bottom">
+        <th class="text-left">Date</th>
+        <% if @campaign.standard? %>
+          <th class="text-center" style="width: 15%;">Spend</th>
+          <th class="text-center" style="width: 15%;">Impressions</th>
+        <% end %>
+        <th class="text-center" style="width: 15%;">Clicks</th>
+        <% if @campaign.standard? %>
+          <th class="text-center" style="width: 15%;">CTR</th>
+          <th class="text-center" style="width: 15%;">CPM</th>
+          <th class="text-center" style="width: 15%;">CPC</th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @summary %>
+        <tr class="bg-secondary">
+          <td class="text-left align-middle"><strong>Totals</strong></td>
+          <% if @campaign.standard? %>
+            <td class="text-center align-middle"><%= @summary.gross_revenue.format %></td>
+            <td class="text-center align-middle"><%= number_with_delimiter @summary.impressions_count %></td>
+          <% end %>
+          <td class="text-center align-middle"><%= number_with_delimiter @summary.clicks_count %></td>
+          <% if @campaign.standard? %>
+            <td class="text-center align-middle"><%= number_to_percentage @summary.click_rate, precision: 2 %></td>
+            <td class="text-center align-middle"><%= @summary.cpm.format %></td>
+            <td class="text-center align-middle"><%= @summary.cpc.format %></td>
+          <% end %>
+        </tr>
+      <% end %>
+      <%= render partial: "/campaign_dailies/tr", collection: @daily_summaries, as: :daily_summary %>
+    </tbody>
+  </table>
+</div>
