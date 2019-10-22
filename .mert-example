@@ -4,15 +4,15 @@ layout:
     -
       layout:
         -
-          - asdf local ruby 2.6.4; asdf local nodejs 11.9.0; code .; clear
-          - asdf local ruby 2.6.4; asdf local nodejs 11.9.0; clear; bundle exec rails c
+          - asdf local ruby 2.6.5; asdf local nodejs 11.9.0; code .; clear
+          - asdf local ruby 2.6.5; asdf local nodejs 11.9.0; clear; bundle exec rails c
     -
       layout:
         -
-          - asdf local ruby 2.6.4; asdf local nodejs 11.9.0; lsof -t -i tcp:3000 | xargs kill; redis-cli flushall; clear; bundle exec rails s
-          - asdf local ruby 2.6.4; asdf local nodejs 11.9.0; lsof -t -i tcp:3035 | xargs kill; clear; bundle exec ./bin/webpack-dev-server
+          - asdf local ruby 2.6.5; asdf local nodejs 11.9.0; lsof -t -i tcp:3000 | xargs kill; redis-cli flushall; clear; bundle exec rails s
+          - asdf local ruby 2.6.5; asdf local nodejs 11.9.0; lsof -t -i tcp:3035 | xargs kill; clear; bundle exec ./bin/webpack-dev-server
     -
       layout:
         -
-          - asdf local ruby 2.6.4; asdf local nodejs 11.9.0; redis-cli flushall; clear; bundle exec sidekiq -C config/sidekiq.yml
-          - asdf local ruby 2.6.4; asdf local nodejs 11.9.0; clear; bundle exec sidekiq -C config/sidekiq_counters.yml
+          - asdf local ruby 2.6.5; asdf local nodejs 11.9.0; redis-cli flushall; clear; bundle exec sidekiq -C config/sidekiq.yml
+          - asdf local ruby 2.6.5; asdf local nodejs 11.9.0; clear; bundle exec sidekiq -C config/sidekiq_counters.yml

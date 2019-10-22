@@ -17,6 +17,11 @@ Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
+  if ENV["PARALLEL_TESTS"] == "true" && (workers = Concurrent.processor_count / 2) > 1
+    puts "Running tests with #{workers} worker processes..."
+    parallelize workers: workers
+  end
+
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
 
