@@ -1,0 +1,30 @@
+<div id="filter-accordian" class="card-expansion">
+  <%= card add_class: "card-expansion" do %>
+    <%= card_header id: "filters-heading", add_class: "card-collapse bg-white border-0" do %>
+      <h5 class="mb-0">
+        <button class="btn btn-link btn-block d-flex justify-content-between card-btn collapsed"
+                data-toggle="collapse"
+                data-target="#filters"
+                aria-expanded="true"
+                aria-controls="filters">
+          <span><i class="fas fa-search mr-3"></i>
+            <% search.searched_keys.each do |search_key| %>
+              <%= link_to search_key.humanize.titleize,
+                    url_for(controller: search.class.name.underscore.pluralize, action: "update", id: "current", params: { remove: search_key }),
+                    method: :put, class: "badge filter-badge mr-1" %>
+            <% end %>
+          </span>
+
+          <span class="card-btn-arrow">
+            <span class="fas fa-arrow-down small"></span>
+          </span>
+        </button>
+      </h5>
+    <% end %>
+    <div id="filters" class="collapse" aria-labelledby="filters-heading" data-parent="#filters-heading">
+      <%= card_body do %>
+        <%= yield %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,11 @@
+<div class="d-flex">
+  <%= render "shared/sidebar" %>
+  <div class="container mt-4">
+    <%= render partial: "/campaign_searches/form",
+              layout: "/shared/collapsible_search_form",
+              locals: { search: @campaign_search } %>
+    <div class="bg-white p-4">
+      <%= render "/campaigns/table", campaigns: @campaigns, pagy: @pagy %>
+    </div>
+  </div>
+</div>
