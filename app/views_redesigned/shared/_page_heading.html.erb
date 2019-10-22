@@ -1,0 +1,17 @@
+<header class="page-title-bar">
+  <div class="row text-center text-sm-left">
+    <% if local_assigns[:icon] %>
+      <div class="col-sm-auto col-12 mb-2">
+        <span class="tile tile-xl bg-blue"><i class="<%= icon %> opacity-20"></i></span>
+      </div>
+    <% end %>
+    <div class="col">
+      <h1 class="page-title"><%= "#{action} #{subject}" %></h1>
+      <% if local_assigns[:icon] %>
+        <p>
+          <%= subtitle %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+</header>
