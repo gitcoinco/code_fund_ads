@@ -1,0 +1,29 @@
+<li class="menu-header">
+  <i class="fas fa-ad fa-lg"></i>
+  Advertiser
+</li>
+<%= active_link_to "Dashboard", default_dashboard_path(current_user),
+  class: "menu-link",
+  class_active: 'has-active',
+  wrap_tag: :li,
+  wrap_class: "menu-item" %>
+<%= active_link_to "Organization", organization_path(current_organization),
+  class: "menu-link",
+  class_active: 'has-active',
+  wrap_tag: :li,
+  wrap_class: "menu-item" %>
+<%= active_link_to "Campaigns", campaigns_path,
+  class: "menu-link",
+  class_active: 'has-active',
+  wrap_tag: :li,
+  wrap_class: "menu-item" %>
+<%= active_link_to "Creatives", creatives_path,
+  class: "menu-link",
+  class_active: 'has-active',
+  wrap_tag: :li,
+  wrap_class: "menu-item" %>
+<%= active_link_to "Images", images_path(current_user.to_gid_param),
+  class: "menu-link",
+  class_active: 'has-active',
+  wrap_tag: :li,
+  wrap_class: "menu-item" %>
