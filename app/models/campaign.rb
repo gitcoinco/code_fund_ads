@@ -63,7 +63,6 @@ class Campaign < ApplicationRecord
   validates :status, inclusion: {in: ENUMS::CAMPAIGN_STATUSES.values}
   validate :validate_creatives
   validate :validate_assigned_properties, if: :sponsor?
-  validate :validate_dates, if: :sponsor?
   # validate :validate_url
 
   # callbacks .................................................................
@@ -453,11 +452,5 @@ class Campaign < ApplicationRecord
     if assigned_properties.present? && assigned_properties.map(&:restrict_to_sponsor_campaigns?).uniq != [true]
       errors.add :assigned_properties, "must be set to those restricted to sponsor campaigns i.e. GitHub properties, etc..."
     end
-  end
-
-  def validate_dates
-    return unless sponsor?
-    errors.add :start_date, "must be set to the first day of month on sponsor campaigns" if start_date != start_date.beginning_of_month
-    errors.add :end_date, "must be set to the last day of month on sponsor campaigns" if end_date != end_date.end_of_month
   end
 end
