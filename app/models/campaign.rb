@@ -450,7 +450,7 @@ class Campaign < ApplicationRecord
       end
     end
 
-    if assigned_properties.map(&:restrict_to_sponsor_campaigns?).uniq != [true]
+    if assigned_properties.present? && assigned_properties.map(&:restrict_to_sponsor_campaigns?).uniq != [true]
       errors.add :assigned_properties, "must be set to those restricted to sponsor campaigns i.e. GitHub properties, etc..."
     end
   end
