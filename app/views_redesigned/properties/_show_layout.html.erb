@@ -1,0 +1,7 @@
+<div class="d-flex">
+  <%= render "shared/sidebar" %>
+  <div class="container mt-5">
+    <%= render "properties/tabs", property: property %>
+    <%= yield %>
+  </div>
+</div>
