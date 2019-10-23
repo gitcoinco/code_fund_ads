@@ -8,6 +8,7 @@
   ],
   "imageSize": 100,
   "commit": false,
+  "contributorsPerLine": 7,
   "contributors": [
     {
       "login": "hopsoft",
@@ -20,7 +21,11 @@
         "ideas",
         "infra",
         "platform",
-        "review"
+        "plugin",
+        "projectManagement",
+        "review",
+        "test",
+        "tool"
       ]
     },
     {
@@ -30,11 +35,14 @@
       "profile": "https://codefund.io",
       "contributions": [
         "code",
+        "design",
         "doc",
         "ideas",
         "infra",
         "platform",
-        "review"
+        "projectManagement",
+        "review",
+        "test"
       ]
     },
     {
@@ -62,8 +70,8 @@
       "avatar_url": "https://avatars2.githubusercontent.com/u/7039523?v=4",
       "profile": "https://github.com/arku",
       "contributions": [
-        "doc",
-        "code"
+        "code",
+        "doc"
       ]
     },
     {
@@ -82,8 +90,71 @@
       "profile": "https://www.andrewmason.me/",
       "contributions": [
         "code",
+        "design",
+        "doc",
+        "infra",
+        "review",
+        "test",
+        "tool"
+      ]
+    },
+    {
+      "login": "mglaman",
+      "name": "Matt Glaman",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3698644?v=4",
+      "profile": "http://glamanate.com",
+      "contributions": [
+        "code",
+        "test"
+      ]
+    },
+    {
+      "login": "thelostone-mc",
+      "name": "Aditya Anand M C",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/5358146?v=4",
+      "profile": "https://github.com/thelostone-mc",
+      "contributions": [
+        "doc"
+      ]
+    },
+    {
+      "login": "dcd018",
+      "name": "dcd018",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/13059244?v=4",
+      "profile": "https://github.com/dcd018",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "dahal",
+      "name": "Puru Dahal",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/3684236?v=4",
+      "profile": "http://dahal.github.io",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "cmckee-dev",
+      "name": "Curtis Mckee",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/7895798?v=4",
+      "profile": "http://blog.curtis-mckee.com",
+      "contributions": [
+        "test",
+        "code",
         "design"
       ]
+    },
+    {
+      "login": "JeremiGendron",
+      "name": "jeremiG",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/23587429?v=4",
+      "profile": "https://github.com/jeremigendron/contract",
+      "contributions": [
+        "doc"
+      ]
     }
-  ]
+  ],
+  "commitConvention": "none"
 }
