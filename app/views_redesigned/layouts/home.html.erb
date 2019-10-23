@@ -24,7 +24,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'code_fund_redesign', 'data-turbolinks-track': 'reload' %>
 
-    <title>Landkit</title>
+    <title><%= @butter&.seo_title || "CodeFund" %></title>
   </head>
   <body class="bg-light">
     <%= render "/shared/landkit/modals" %>
