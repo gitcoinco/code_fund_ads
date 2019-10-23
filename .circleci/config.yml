@@ -21,7 +21,6 @@ jobs:
           BUFFER_ENABLED: false
           DEFAULT_HOST: codefund.io
           ENABLED_FEATURES: jobs
-          FONTAWESOME_NPM_AUTH_TOKEN: ""
           HUBSPOT_ENABLED: false
           PARALLEL_WORKERS: 1
           PG_TIMEOUT_IN_SECONDS: 3
@@ -52,7 +51,7 @@ jobs:
             - cf-bundler-
 
       - restore_cache:
-          name: restore bundler cache
+          name: restore yarn cache
           keys:
             - cf-yarn-{{ checksum "yarn.lock" }}
             - cf-yarn-
@@ -71,16 +70,16 @@ jobs:
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
 
-      - run:
-          name: install yarn dependencies
-          command: |
-            yarn install --frozen-lockfile
-
       - save_cache:
           name: save bundler cache
           paths:
             - ./vendor/bundle
           key: cf-bundler-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: install yarn dependencies
+          command: |
+            yarn install --frozen-lockfile
 
       - save_cache:
           name: save yarn cache
