@@ -1,1 +1,1 @@
-UpdateBrowserImpressionStatsJob.set(wait: 10.seconds).perform_later if Sidekiq.server?
+UpdateBrowserImpressionStatsJob.set(wait: 30.seconds).perform_later if Sidekiq.server?
