@@ -21,6 +21,7 @@ jobs:
           BUFFER_ENABLED: false
           DEFAULT_HOST: codefund.io
           ENABLED_FEATURES: jobs
+          FONTAWESOME_NPM_AUTH_TOKEN: ""
           HUBSPOT_ENABLED: false
           PARALLEL_WORKERS: 1
           PG_TIMEOUT_IN_SECONDS: 3
