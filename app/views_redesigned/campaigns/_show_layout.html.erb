@@ -1,7 +1,12 @@
 <div class="d-flex">
   <%= render "shared/sidebar" %>
   <div class="container mt-4">
-    <%= render "campaigns/tabs", campaign: campaign %>
+    <header class="page-title-bar">
+      <%= page_heading "Viewing", "Campaign",
+          subtitle: campaign.name,
+          icon: "fas fa-ad" %>
+      <%= render "campaigns/tabs", campaign: campaign %>
+    </header>
     <%= yield %>
   </div>
 </div>
