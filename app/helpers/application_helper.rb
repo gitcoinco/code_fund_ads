@@ -18,7 +18,7 @@ module ApplicationHelper
   def page_heading(action, subject, subtitle: nil, icon: nil)
     render("/@shared/page_heading", action: action, subject: subject, subtitle: subtitle, icon: icon) unless ENV["REDESIGN"] == "true"
 
-    render partial: "shared/page_heading", locals: {action: action, subject: subject, subtitle: subtitle, icon: icon}
+    render partial: "/shared/page_heading", locals: {action: action, subject: subject, subtitle: subtitle, icon: icon}
   end
 
   def breadcrumbs
