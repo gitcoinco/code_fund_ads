@@ -1,11 +1,11 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
-    identified_by :example_id
+    identified_by :cable_id
 
     def connect
-      example_id = cookies.encrypted[:example_id]
-      return reject_unauthorized_connection if example_id.nil?
-      self.example_id = example_id
+      cable_id = cookies.encrypted[:cable_id]
+      return reject_unauthorized_connection if cable_id.nil?
+      self.cable_id = cable_id
     end
   end
 end

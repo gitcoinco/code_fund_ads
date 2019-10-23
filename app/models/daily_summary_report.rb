@@ -93,27 +93,6 @@ class DailySummaryReport < ApplicationRecord
 
   # class methods .............................................................
   class << self
-    def total_impressions(start_date, end_date: nil)
-      key = "daily_summary_report/total_impressions/#{start_date.iso8601}/#{end_date&.iso8601}/#{Date.current.iso8601}"
-      Rails.cache.fetch(key, expires_in: 5.seconds) {
-        between(start_date, end_date)
-          .scoped_by_type(nil)
-          .where(impressionable_type: "Property")
-          .map(&:impressions_count)
-          .sum
-      }.to_i
-    end
-
-    def total_clicks(start_date, end_date: nil)
-      key = "daily_summary_report/total_clicks/#{start_date.iso8601}/#{end_date&.iso8601}/#{Date.current.iso8601}"
-      Rails.cache.fetch(key, expires_in: 5.seconds) {
-        ctrs = between(start_date, end_date)
-                .scoped_by_type(nil)
-                .where(impressionable_type: "Property")
-          .map(&:clicks_count)
-          .sum
-      }.to_i
-    end
   end
 
   # public instance methods ...................................................

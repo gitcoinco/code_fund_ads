@@ -8,12 +8,12 @@
       <path d="M703.969 241.602L703.963 241.599C716.081 262.97 723 287.677 723 314C723 382.917 675.575 440.757 611.58 456.665L246.7 556.937C226.465 564.729 204.481 569 181.5 569C81.2603 569 0 487.74 0 387.5C0 353.244 9.49023 321.204 25.985 293.867L25.9688 293.875L141.512 77.5476C162.753 33.3052 207.123 2.2726 258.951 0.119583L258.959 0H264.719H390.999H508.5H509.999L510.002 0.00999319C551.85 0.567328 588.083 24.388 606.358 59.1292L606.359 59.125L703.969 241.602Z" fill="currentColor"/>
     </svg>
   </div>
-  
+
   <!-- Content -->
   <div class="container">
     <div class="row align-items-center">
       <div class="col-12 col-md-6 order-md-2">
-        
+
         <!-- Image -->
         <div class="img-skewed img-skewed-left mb-8 mb-md-0">
           <img src="/landkit/img/screenshots/desktop/dashkit.jpg" alt="..." class="screenshot img-fluid mw-md-130" data-aos="img-skewed-item-left" data-aos-delay="100">
@@ -21,7 +21,7 @@
 
       </div>
       <div class="col-12 col-md-6 order-md-1" data-aos="fade-up">
-        
+
         <!-- Heading -->
         <h1 class="display-3">
           Reach your technical audience
@@ -53,7 +53,7 @@
   <div class="container">
     <div class="row justify-content-between">
       <div class="col-12 col-md">
-        
+
         <!-- Blockquote -->
         <blockquote class="blockquote mb-8 mb-md-0">
 
@@ -61,7 +61,7 @@
           <div class="img-fluid mb-5 mb-md-6 svg-shim" style="max-width: 120px; color: #FF5A5F;">
             <%= image_tag "logos/segment-logo.svg", style: "max-width: 120px;" %>
           </div>
-          
+
           <!-- Text -->
           <p class="lead text-gray-700 mb-5 mb-md-7">
             "CodeFund has quickly become one of our highest converting channels. If you want to reach a technical audiences look no further than CodeFund!"
@@ -80,7 +80,7 @@
       <div class="col-1"></div>
       <div class="col-1 border-left"></div>
       <div class="col-12 col-md">
-        
+
         <!-- Blockquote -->
         <blockquote class="blockquote mb-0">
 
@@ -88,7 +88,7 @@
           <div class="img-fluid mb-5 mb-md-6 svg-shim" style="max-width: 120px; color: #0081C9;">
             <%= image_tag "logos/daily-logo.svg", style: "max-width: 120px;" %>
           </div>
-          
+
           <!-- Text -->
           <p class="lead text-gray-700 mb-5 mb-md-7">
             "CodeFund helps us making a sustainable community while keeping our high standard UX."
@@ -115,7 +115,7 @@
   <div class="container">
     <div class="row align-items-center justify-content-between">
       <div class="col-12 col-md-6">
-        
+
         <!-- Image -->
         <div class="img-skewed img-skewed-right mb-10 mb-md-0">
           <img src="/landkit/img/screenshots/ui/dashkit-layered.png" alt="..." class="img-fluid" data-aos="img-skewed-item-right">
@@ -123,7 +123,7 @@
 
       </div>
       <div class="col-12 col-md-6 col-lg-5">
-        
+
         <!-- Heading -->
         <h2>
           Reach your target audience<br>
@@ -132,14 +132,14 @@
 
         <!-- Text -->
         <p class="font-size-lg text-gray-700 mb-6">
-          CodeFund provides ethical targeting via geolocation, context of the website, language, and even time of day! 
+          CodeFund provides ethical targeting via geolocation, context of the website, language, and even time of day!
         </p>
 
         <!-- Stats -->
         <div class="d-flex">
           <div class="pr-5 text-center">
             <h3 class="mb-0">
-              <span data-toggle="countup" data-from="0" data-to="<%= Property.active.count %>" data-aos data-aos-id="countup:in">0</span>
+              <span id="global-properties-count" data-toggle="countup" data-from="0" data-to="<%= Property.active.count %>" data-aos data-aos-id="countup:in">0</span>
             </h3>
             <p class="text-gray-700 mb-0">
               Active Properties
@@ -148,7 +148,7 @@
           <div class="border-left border-gray-300"></div>
           <div class="px-5 text-center">
             <h3 class="mb-0">
-                <span data-toggle="countup" data-from="0.0" data-to="<%= @average_ctr * 100 %>" data-decimals="3" data-aos data-aos-id="countup:in">0.0</span>%
+              <span id="global-click-rate" data-toggle="countup" data-from="0.0" data-to="<%= ImpressionStats.click_rate %>" data-decimals="3" data-aos data-aos-id="countup:in">0</span>%
             </h3>
             <p class="text-gray-700 mb-0">
               Average Click Rate
@@ -157,7 +157,7 @@
           <div class="border-left border-gray-300"></div>
           <div class="pl-5 text-center">
             <h3 class="mb-0">
-              <span data-toggle="countup" data-from="0" data-to="<%= @total_impressions %>" data-aos data-aos-id="countup:in">0</span>
+              <span id="global-impressions-count" data-toggle="countup" data-from="0" data-to="<%= ImpressionStats.count %>" data-aos data-aos-id="countup:in">0</span>
             </h3>
             <p class="text-gray-700 mb-0">
               Ad Impressions since Jan 1, 2019
@@ -186,7 +186,7 @@
   <div class="container">
     <div class="row align-items-center justify-content-between">
       <div class="col-12 col-md-6 col-lg-5">
-        
+
         <!-- Badge -->
         <span class="badge badge-pill badge-success-soft mb-3">
           <span class="h6 text-uppercase">Support</span>
@@ -206,7 +206,7 @@
         <!-- List -->
         <div class="row">
           <div class="col-12 col-lg-6">
-            
+
             <!-- Item -->
             <div class="d-flex">
 
@@ -214,7 +214,7 @@
               <div class="badge badge-rounded-circle badge-success-soft mt-1 mr-4">
                 <i class="fe fe-check"></i>
               </div>
-              
+
               <!-- Text -->
               <p class="text-success">
                 Speedy
@@ -229,7 +229,7 @@
               <div class="badge badge-rounded-circle badge-success-soft mt-1 mr-4">
                 <i class="fe fe-check"></i>
               </div>
-              
+
               <p class="text-success mb-lg-0">
                 Global team
               </p>
@@ -246,7 +246,7 @@
               <span class="badge badge-rounded-circle badge-success-soft mt-1 mr-4">
                 <i class="fe fe-check"></i>
               </span>
-              
+
               <!-- Text -->
               <p class="text-success">
                 5-star reviews
@@ -261,7 +261,7 @@
               <div class="badge badge-rounded-circle badge-success-soft mr-1 mr-4">
                 <i class="fe fe-check"></i>
               </div>
-              
+
               <!-- Text -->
               <p class="text-success mb-0">
                 Good looking
@@ -274,18 +274,18 @@
 
       </div>
       <div class="col-12 col-md-6">
-        
+
         <!-- Images -->
         <div class="row">
           <div class="col-6 mt-8 mr-n5" data-aos="fade-up">
-            
+
             <img src="/landkit/img/photos/photo-10.jpg" alt="..." class="img-fluid mb-4 rounded">
 
             <img src="/landkit/img/photos/photo-12.jpg" alt="..." class="img-fluid rounded">
 
           </div>
           <div class="col-6" data-aos="fade-up" data-aos-delay="100">
-            
+
             <img src="/landkit/img/photos/photo-9.jpg" alt="..." class="img-fluid mb-4 rounded">
 
             <img src="/landkit/img/photos/photo-11.jpg" alt="..." class="img-fluid rounded">
@@ -314,7 +314,7 @@
   <div class="container">
     <div class="row align-items-center justify-content-between">
       <div class="col-12 col-md-6 col-lg-5 order-md-2">
-    
+
         <!-- Badge -->
         <span class="badge badge-pill badge-primary-soft mb-3">
           <span class="h6 text-uppercase">Customize</span>
@@ -352,7 +352,7 @@
           </div>
 
         </div>
-        
+
       </div>
     </div> <!-- / .row -->
   </div> <!-- / .container -->
@@ -364,7 +364,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 col-md-10 col-lg-8 text-center">
-        
+
         <!-- Badge -->
         <span class="badge badge-pill badge-success-soft mb-3">
           <span class="h6 text-uppercase">
@@ -384,25 +384,25 @@
 
         <!-- Form -->
         <form class="d-flex align-items-center justify-content-center mb-7 mb-md-9">
-              
+
           <!-- Label -->
           <span class="text-muted">
             Annual
           </span>
-          
+
           <!-- Switch -->
           <div class="custom-control custom-switch mx-3">
             <input type="checkbox" class="custom-control-input" id="billingSwitch" data-toggle="price" data-target=".price">
             <label class="custom-control-label" for="billingSwitch"></label>
           </div>
-          
+
           <!-- Label -->
           <span class="text-muted">
             Monthly
           </span>
 
         </form>
-        
+
       </div>
     </div> <!-- / .row -->
     <div class="row justify-content-center">
@@ -429,12 +429,12 @@
 
             <!-- List -->
             <div class="d-flex">
-                
+
               <!-- Badge -->
               <span class="badge badge-rounded-circle badge-success-soft mt-1 mr-4">
                 <i class="fe fe-check"></i>
               </span>
-              
+
               <!-- Text -->
               <p>
                 Single project use
@@ -442,12 +442,12 @@
 
             </div>
             <div class="d-flex">
-                
+
               <!-- Badge -->
               <span class="badge badge-rounded-circle badge-success-soft mt-1 mr-4">
                 <i class="fe fe-check"></i>
               </span>
-              
+
               <!-- Text -->
               <p>
                 All components included
@@ -455,12 +455,12 @@
 
             </div>
             <div class="d-flex">
-                
+
               <!-- Badge -->
               <span class="badge badge-rounded-circle badge-success-soft mt-1 mr-4">
                 <i class="fe fe-check"></i>
               </span>
-              
+
               <!-- Text -->
               <p>
                 All pages included
@@ -468,19 +468,19 @@
 
             </div>
             <div class="d-flex">
-                
+
               <!-- Badge -->
               <span class="badge badge-rounded-circle badge-success-soft mt-1 mr-4">
                 <i class="fe fe-check"></i>
               </span>
-              
+
               <!-- Text -->
               <p class="mb-0">
                 6 months of support
               </p>
 
             </div>
-            
+
           </div>
         </div>
 
@@ -508,12 +508,12 @@
 
             <!-- List -->
             <div class="d-flex">
-                
+
               <!-- Badge -->
               <span class="badge badge-rounded-circle badge-success-soft mt-1 mr-4">
                 <i class="fe fe-check"></i>
               </span>
-              
+
               <!-- Text -->
               <p>
                 Single project use
@@ -521,12 +521,12 @@
 
             </div>
             <div class="d-flex">
-                
+
               <!-- Badge -->
               <span class="badge badge-rounded-circle badge-success-soft mt-1 mr-4">
                 <i class="fe fe-check"></i>
               </span>
-              
+
               <!-- Text -->
               <p>
                 All components included
@@ -534,12 +534,12 @@
 
             </div>
             <div class="d-flex">
-                
+
               <!-- Badge -->
               <span class="badge badge-rounded-circle badge-success-soft mt-1 mr-4">
                 <i class="fe fe-check"></i>
               </span>
-              
+
               <!-- Text -->
               <p>
                 All pages included
@@ -547,12 +547,12 @@
 
             </div>
             <div class="d-flex">
-                
+
               <!-- Badge -->
               <span class="badge badge-rounded-circle badge-success-soft mt-1 mr-4">
                 <i class="fe fe-check"></i>
               </span>
-              
+
               <!-- Text -->
               <p>
                 6 months of support
@@ -560,12 +560,12 @@
 
             </div>
             <div class="d-flex">
-                
+
               <!-- Badge -->
               <span class="badge badge-rounded-circle badge-success-soft mt-1 mr-4">
                 <i class="fe fe-check"></i>
               </span>
-              
+
               <!-- Text -->
               <p>
                 Unlimited users
@@ -573,19 +573,19 @@
 
             </div>
             <div class="d-flex">
-                
+
               <!-- Badge -->
               <span class="badge badge-rounded-circle badge-success-soft mt-1 mr-4">
                 <i class="fe fe-check"></i>
               </span>
-              
+
               <!-- Text -->
               <p class="mb-0">
                 Free hugs
               </p>
 
             </div>
-            
+
           </div>
         </div>
 
@@ -600,7 +600,7 @@
   <div class="container">
     <div class="flickity-viewport-visible" data-flickity='{"imagesLoaded": true, "initialIndex": 6, "pageDots": false, "prevNextButtons": false, "contain": true}'>
       <div class="col-4 col-md-3 col-lg-2">
-        
+
         <!-- Brand -->
         <div class="img-fluid svg-shim text-white">
           <svg viewBox="0 0 2761 991" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -614,7 +614,7 @@
 
       </div>
       <div class="col-4 col-md-3 col-lg-2">
-        
+
         <!-- Brand -->
         <div class="img-fluid svg-shim text-white">
           <svg viewBox="0 0 2761 991" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -628,7 +628,7 @@
 
       </div>
       <div class="col-4 col-md-3 col-lg-2">
-        
+
         <!-- Brand -->
         <div class="img-fluid svg-shim text-white">
           <svg viewBox="0 0 2761 991" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -642,7 +642,7 @@
 
       </div>
       <div class="col-4 col-md-3 col-lg-2">
-        
+
         <!-- Brand -->
         <div class="img-fluid svg-shim text-white">
           <svg viewBox="0 0 2761 991" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -656,7 +656,7 @@
 
       </div>
       <div class="col-4 col-md-3 col-lg-2">
-        
+
         <!-- Brand -->
         <div class="img-fluid svg-shim text-white">
           <svg viewBox="0 0 2761 991" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -670,7 +670,7 @@
 
       </div>
       <div class="col-4 col-md-3 col-lg-2">
-        
+
         <!-- Brand -->
         <div class="img-fluid svg-shim text-white">
           <svg viewBox="0 0 2761 991" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -684,7 +684,7 @@
 
       </div>
       <div class="col-4 col-md-3 col-lg-2">
-      
+
         <!-- Brand -->
         <div class="img-fluid svg-shim text-white">
           <svg viewBox="0 0 2761 991" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -698,7 +698,7 @@
 
       </div>
       <div class="col-4 col-md-3 col-lg-2">
-        
+
         <!-- Brand -->
         <div class="img-fluid svg-shim text-white">
           <svg viewBox="0 0 2761 991" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -712,7 +712,7 @@
 
       </div>
       <div class="col-4 col-md-3 col-lg-2">
-        
+
         <!-- Brand -->
         <div class="img-fluid svg-shim text-white">
           <svg viewBox="0 0 2761 991" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -726,7 +726,7 @@
 
       </div>
       <div class="col-4 col-md-3 col-lg-2">
-        
+
         <!-- Brand -->
         <div class="img-fluid svg-shim text-white">
           <svg viewBox="0 0 2761 991" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -740,7 +740,7 @@
 
       </div>
       <div class="col-4 col-md-3 col-lg-2">
-        
+
         <!-- Brand -->
         <div class="img-fluid svg-shim text-white">
           <svg viewBox="0 0 2761 991" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -754,7 +754,7 @@
 
       </div>
       <div class="col-4 col-md-3 col-lg-2">
-        
+
         <!-- Brand -->
         <div class="img-fluid svg-shim text-white">
           <svg viewBox="0 0 2761 991" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -777,7 +777,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-12 col-md-10 col-lg-8 text-center">
-        
+
         <!-- Badge -->
         <span class="badge badge-pill badge-gray-700-soft mb-3">
           <span class="h6 text-uppercase">Get it done</span>
