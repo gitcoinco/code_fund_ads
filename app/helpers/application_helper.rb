@@ -206,7 +206,7 @@ module ApplicationHelper
   def details_li(label, &block)
     return render partial: "/@shared/details_li", locals: {label: label, block: block} unless ENV["REDESIGN"] == "true"
 
-    render partial: "shared/details_li", locals: {label: label, block: block}
+    render partial: "/shared/details_li", locals: {label: label, block: block}
   end
 
   def sortable_tr(column, title = nil)
