@@ -1,3 +1,4 @@
+import '../channels'
 import 'bootstrap'
 import 'select2'
 import 'moment'
