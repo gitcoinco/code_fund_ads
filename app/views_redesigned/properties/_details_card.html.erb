@@ -1,15 +1,12 @@
 <%= card do %>
   <%= card_header do %>
-
     <%= card_title do %>
       Details
     <% end %>
-
     <%= card_subtitle do %>
       Basic details for this property
     <% end %>
   <% end %>
-
   <%= card_body do %>
     <ul class="list-unstyled mb-0">
       <%= details_li("Name") { property.name } %>
@@ -40,6 +37,5 @@
       <% end if authorized_user.can_admin_system? %>
     </ul>
   <% end %>
-
 <% end %>
 

@@ -1,6 +1,5 @@
 <%= card do %>
   <%= card_header do %>
-
     <%= card_title add_class: "mb-0" do %>
       <div class="d-flex justify-content-between align-items-center">
         <h6 class="mb-0">
@@ -19,18 +18,16 @@
       </div>
     <% end %>
   <% end %>
-
   <%= card_body do %>
     <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "img-fluid"), property %>
     <%= render_later async_property_card_footer_path(property_id: property.id) do %>
       <i class="fa fa-spinner fa-spin text-center d-block"></i>
     <% end %>
   <% end %>
-
   <%= card_footer do %>
     <% card_footer_content do %>
       <small class="text-center d-block"><em>data refreshes every 15 minutes</em></small>
     <% end %>
   <% end %>
-
 <% end %>
+
