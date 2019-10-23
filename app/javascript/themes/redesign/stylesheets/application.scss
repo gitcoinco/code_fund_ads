@@ -1,3 +1,11 @@
+$fa-font-path: "~@fortawesome/fontawesome-pro/webfonts";
+
+@import "~@fortawesome/fontawesome-pro/scss/fontawesome";
+// @import "~@fortawesome/fontawesome-pro/scss/regular"; // far
+@import "~@fortawesome/fontawesome-pro/scss/solid"; // fas
+// @import "~@fortawesome/fontawesome-pro/scss/brands"; //fab
+// @import "~@fortawesome/fontawesome-pro/scss/light"; //fal
+// @import "~@fortawesome/fontawesome-pro/scss/duotone"; //fad
 @import "~select2/dist/css/select2";
 @import "~select2-bootstrap-theme/dist/select2-bootstrap";
 @import "~noty/src/noty";
