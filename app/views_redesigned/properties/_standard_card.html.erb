@@ -18,8 +18,10 @@
       </div>
     <% end %>
   <% end %>
-  <%= card_body do %>
+  <figure class="figure mx-auto">
     <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "img-fluid"), property %>
+  </figure>
+  <%= card_body do %>
     <%= render_later async_property_card_footer_path(property_id: property.id) do %>
       <i class="fa fa-spinner fa-spin text-center d-block"></i>
     <% end %>
