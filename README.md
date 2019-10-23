@@ -148,7 +148,7 @@ ENUMS::USER_ROLES.constants
 
 ###### Prerequisites
 
-- ruby version `2.6.4` via [rbenv](https://github.com/rbenv/rbenv)
+- ruby version `2.6.5` via [rbenv](https://github.com/rbenv/rbenv)
 - NodeJS version `<12.0.0` via [nvm](https://github.com/nvm-sh/nvm) with yarn installed globally
 - graphviz `brew install graphviz` or `sudo apt-get install graphviz`
 - PostgreSQL 11
@@ -218,7 +218,7 @@ cd /path/to/project
 We avoid [bike shedding](https://en.wikipedia.org/wiki/Law_of_triviality) by enforcing coding standards through tooling.
 
 - Ruby - [standard](https://github.com/testdouble/standard)
-- JavaScript - [prettier](https://github.com/prettier/prettier)
+- JavaScript - [prettier-standard](https://github.com/sheerun/prettier-standard)
 
 Ensure the code has been standardized by running the following before you commit.
 
