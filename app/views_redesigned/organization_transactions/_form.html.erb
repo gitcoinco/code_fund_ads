@@ -13,7 +13,7 @@
     <%= card_body do %>
       <div class="row">
         <div class="col-md-4 mb-3">
-          <%= f.input :posted_at, as: :string, label: "Type", required: true,
+          <%= f.input :posted_at, as: :string, label: "Post Date", required: true,
                 input_html: { class: "form-control", data: { controller: "select-date" },
                 value: organization_transaction.posted_at.to_s("mm/dd/yyyy") } %>
         </div>
