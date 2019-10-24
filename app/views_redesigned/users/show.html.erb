@@ -1,0 +1,10 @@
+<%= render layout: "/users/layout", locals: { user: @user } do %>
+  <div class="row">
+    <div class="col-md-6 col-lg-4">
+      <%= render "/users/card", user: @user %>
+    </div>
+    <div class="col-md-6 col-lg-8">
+      <%= render "/users/details_card", user: @user %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,205 @@
+<%= simple_form_for @user, html: { class: "media align-items-center" } do |f| %>
+  <%= card add_class: "mx-auto" do %>
+    <%= card_body do %>
+      <div class="row">
+        <div class="col-12 d-flex align-items-center">
+          <div class="d-flex justify-content-center mr-4">
+            <div class="user-avatar user-avatar-lg">
+              <%= user_avatar_image_tag(@user, "img-fluid rounded-circle") %>
+            </div>
+          </div>
+          <div class="d-flex">
+            <div class="custom-file">
+              <%= f.file_field :avatar, class: "custom-file-input" %>
+              <label class="custom-file-label" for="fileAttachmentBtn">
+                Upload New Avatar
+              </label>
+            </div>
+            <div class="justify-content-end">
+              <button type="submit" class="btn btn-primary ml-2">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
+
+<%= simple_form_for @user, html: { class: "js-validate" } do |f| %>
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Personal
+      <% end %>
+      <%= card_subtitle do %>
+        How can we contact you?
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <div class="row">
+        <%= tag.div f.input(:status, collection: user_statuses_for_select,
+          input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-2" if authorized_user.can_admin_system? %>
+        <%= tag.div f.input(:organization_id, label: "Organization", collection: organizations_for_select, include_blank: "None",
+          input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
+        <%= tag.div f.input(:first_name, required: true), class: "col-sm-6 col-md-4 mb-2" %>
+        <%= tag.div f.input(:last_name, required: true), class: "col-sm-6 col-md-4 mb-2" %>
+        <%= tag.div f.input(:email, required: true), class: "col-sm-6 col-md-4 mb-2" %>
+        <%= tag.div f.input(:company_name), class: "col-sm-6 mb-2" %>
+        <%= tag.div f.input(:website_url, placeholder: "https://"), class: "col-sm-6 mb-2" %>
+        <%= tag.div f.input(:address_1, label: "Street Address"), class: "col-md-8 col-sm-6 mb-2" %>
+        <%= tag.div f.input(:address_2, label: "Apt/Suite"), class: "col-md-4 col-sm-6 mb-2" %>
+        <%= tag.div f.input(:city), class: "col-sm-6 mb-2" %>
+        <%= tag.div f.input(:region, label: "State / Region"), class: "col-sm-6 mb-2" %>
+        <%= tag.div f.input(:postal_code), class: "col-sm-6 mb-2" %>
+        <%= tag.div f.input(:country, input_html: { data: { controller: "select" }}), class: "col-sm-6 mb-2" %>
+      </div>
+
+      <div class="media align-items-center">
+        <label class="switcher-control mb-0 mr-3">
+          <%= f.check_box :us_resident, class: "switcher-input" %>
+          <span class="switcher-indicator"></span>
+        </label>
+
+        <label class="media-body text-muted mb-0">
+          <span class="d-block text-dark">Are you a US Resident?</span>
+          <small class="d-block">We need to know if you are a US resident for tax purposes</small>
+        </label>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        About
+      <% end %>
+      <%= card_subtitle do %>
+        Tell about yourself in two sentences.
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <div class="row">
+        <%= tag.div f.input(:bio, input_html: { class: "js-summernote-editor", rows: 6 }), class: "col-12 mb-2" %>
+        <%= tag.div f.input(:skills, collection: ENUMS::KEYWORDS.keys, required: false, input_html: { class: "form-control", multiple: true, data: { controller: "select" }}), class: "col-12" %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Social Profiles
+      <% end %>
+      <%= card_subtitle do %>
+        Where can we find you out in the wild?
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <div class="row d-flex flex-column">
+        <div class="col-md-6">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend bg-primary">
+              <span class="input-group-text text-white pr-3" id="inputGroup-sizing-default">https://twitter.com/</span>
+            </div>
+            <%= f.text_field :twitter_username, class: "form-control", placeholder: "Twitter username" %>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend bg-primary">
+              <span class="input-group-text text-white pr-3" id="inputGroup-sizing-default">https://github.com/</span>
+            </div>
+            <%= f.text_field :github_username, class: "form-control", placeholder: "GitHub username" %>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend bg-primary">
+              <span class="input-group-text text-white pr-3" id="inputGroup-sizing-default">https://www.linkedin.com/in/</span>
+            </div>
+            <%= f.text_field :linkedin_username, class: "form-control", placeholder: "LinkedIn username" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% if authorized_user.can_admin_system? %>
+    <%= card do %>
+      <%= card_header do %>
+        <%= card_title do %>
+          Security
+        <% end %>
+        <%= card_subtitle do %>
+          Admin-only settings for user
+        <% end %>
+      <% end %>
+      <%= card_body do %>
+        <div class="media align-items-center mb-3">
+          <label class="switcher-control mb-0 mr-3">
+            <%= f.check_box :api_access, class: "switcher-input", id: "checkboxSwitch2" %>
+            <span class="switcher-indicator"></span>
+          </label>
+          <label class="media-body text-muted mb-0">
+            <span class="d-block text-dark">Enable API Access?</span>
+          </label>
+        </div>
+
+        <div class="media align-items-center mb-3">
+          <label class="switcher-control mb-0 mr-3">
+            <input class="switcher-input" type="checkbox"
+              value="administrator" name="user[roles][]" id="user_roles_administrator"
+              <%= 'checked="checked"' if @user.administrator? %>>
+            <span class="switcher-indicator"></span>
+          </label>
+          <label class="media-body text-muted mb-0">
+            <span class="d-block text-dark">Administrator?</span>
+          </label>
+        </div>
+
+        <div class="media align-items-center mb-3">
+          <label class="switcher-control mb-0 mr-3">
+            <input class="switcher-input" type="checkbox"
+              value="advertiser" name="user[roles][]" id="user_roles_advertiser"
+              <%= 'checked="checked"' if @user.advertiser? %>>
+            <span class="switcher-indicator"></span>
+          </label>
+          <label class="media-body text-muted mb-0" for="checkboxSwitch6">
+            <span class="d-block text-dark">Advertiser?</span>
+          </label>
+        </div>
+
+        <div class="media align-items-center mb-3">
+          <label class="switcher-control mb-0 mr-3">
+            <input class="switcher-input" type="checkbox"
+              value="publisher" name="user[roles][]" id="user_roles_publisher"
+              <%= 'checked="checked"' if @user.publisher? %>>
+            <span class="switcher-indicator"></span>
+          </label>
+          <label class="media-body text-muted mb-0" for="checkboxSwitch7">
+            <span class="d-block text-dark">Publisher?</span>
+          </label>
+        </div>
+
+        <div class="media align-items-center mb-3">
+          <label class="switcher-control mb-0 mr-3">
+            <input class="switcher-input" type="checkbox"
+              value="employer" name="user[roles][]" id="user_roles_employer"
+              <%= 'checked="checked"' if @user.employer? %>>
+            <span class="switcher-indicator"></span>
+          </label>
+          <label class="media-body text-muted mb-0" for="checkboxSwitch8">
+            <span class="d-block text-dark">Employer?</span>
+          </label>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= button_panel do %>
+      <button type="submit" class="btn btn-sm btn-primary mr-1">Update Profile</button>
+      <button type="submit" class="btn btn-sm btn-soft-secondary transition-3d-hover">Cancel</button>
+  <% end %>
+<% end %>
