@@ -1,4 +1,4 @@
-<%= render layout: "/properties/show_layout", locals: { property: @property } do %>
+<%= render layout: "/properties/layout", locals: { property: @property } do %>
   <article class="instructions-tab">
     <%= card do %>
       <%= card_header do %>
@@ -29,7 +29,7 @@
                 <% end %>
               </textarea>
               <div class="input-group-append">
-                <a class="js-clipboard input-group-text" href="javascript:;"
+                <a class="js-clipboard input-group-text text-primary text-decoration-none" href="javascript:;"
                   data-controller="copy-to-clipboard"
                   data-content-target="#embedCode"
                   data-class-change-target="#embedIcon"
@@ -41,10 +41,17 @@
             </div>
           </div>
         </section>
-        <section class="docs-reference">
-          <p>For API documentation, visit <a href="https://codefund.docs.apiary.io" target="_blank">https://codefund.docs.apiary.io</a></p>
+        <section class="docs-reference row mt-4">
+          <div class="col-12 col-md-6 offset-md-3">
+            <div class="alert alert-primary has-icon" role="alert">
+              <div class="alert-icon">
+                <span class="fas fa-info"></span>
+              </div>
+              For API documentation, visit <a href="https://codefund.docs.apiary.io" class="alert-link" target="_blank">https://codefund.docs.apiary.io</a>.
+            </div>
+          </div>
         </section>
-        <section class="code-sandbox-example">
+        <section class="code-sandbox-example mt-4">
           <% unless @property.restrict_to_sponsor_campaigns? %>
             <%= tag.iframe("Loading...",
               src: nil,
@@ -60,4 +67,3 @@
     <% end %>
   </article>
 <% end %>
-

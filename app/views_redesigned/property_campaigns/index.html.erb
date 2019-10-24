@@ -1,5 +1,15 @@
-<%= render layout: "/properties/show_layout", locals: { property: @property } do %>
+<%= render layout: "/properties/layout", locals: { property: @property } do %>
   <%= card do %>
-    <%= render "/property_campaigns/table" %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Campaigns
+      <% end %>
+      <%= card_subtitle do %>
+        List of campaigns that have been advertised on this property
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <%= render "/property_campaigns/table" %>
+    <% end %>
   <% end %>
 <% end %>

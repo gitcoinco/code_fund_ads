@@ -1,11 +1,17 @@
-<div class="d-flex">
-  <%= render 'shared/sidebar' %>
-  <div class="container mt-5">
-    <header class="page-title-bar">
-      <%= page_heading "Editing", "Property",
-          subtitle: @property.name,
-          icon: "fas fa-browser" %>
-    </header>
-    <%= render "properties/form", property: @property %>
-  </div>
-</div>
+<% content_for :page_heading do %>
+  <%= page_heading "Editing", "Property",
+      subtitle: @property.name,
+      icon: "fas fa-browser" %>
+<% end %>
+
+<% content_for :actions do %>
+  <%= actions_list do %>
+    <%= actions_list_item title: "Show Property" do %>
+      <%= render 'shared/actions/show_property', property: @property %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= render layout: "/properties/layout", locals: { property: @property, override: [:page_heading, :actions] } do %>
+  <%= render "properties/form", property: @property %>
+<% end %>

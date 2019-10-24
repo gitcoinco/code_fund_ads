@@ -1,33 +1,22 @@
-<%= card_body do %>
-  <div class="row mb-4">
-    <div class="col-sm-12 col-md-6">
-      <h6>Estimated Earnings</h6>
-      <p class="text-muted">
-        Estimated earnings by day for this property
-      </p>
-    </div>
-  </div>
-  <div class="table-responsive">
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Impressions</th>
-          <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Clicks</th>
-          <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">average</span>CTR</th>
-          <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">estimated</span>Earnings</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% (@start_date..@end_date).each do |date| %>
-          <%= render_later async_property_earnings_row_path(property_id: @property.id, date: date.iso8601), tag_name: "tr" do %>
-            <td colspan="5">
-              <i class="fa fa-spinner fa-spin text-primary"></i>
-            </td>
-          <% end %>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Impressions</th>
+        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Clicks</th>
+        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">average</span>CTR</th>
+        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">estimated</span>Earnings</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% (@start_date..@end_date).each do |date| %>
+        <%= render_later async_property_earnings_row_path(property_id: @property.id, date: date.iso8601), tag_name: "tr" do %>
+          <td colspan="5">
+            <i class="fa fa-spinner fa-spin text-primary"></i>
+          </td>
         <% end %>
-      </tbody>
-    </table>
-  </div>
-<% end %>
-
+      <% end %>
+    </tbody>
+  </table>
+</div>
