@@ -23,6 +23,9 @@ Rails.application.routes.draw do
 
   root to: "pages#index"
 
+  # Temporary until we replace Pages with Home
+  resources :home, path: "/home", only: [:index, :show]
+
   devise_for :users, controllers: {
     sessions: "sessions",
     invitations: "invitations",
@@ -155,8 +158,8 @@ Rails.application.routes.draw do
   get "/stop_user_impersonation", to: "impersonations#destroy", as: :stop_user_impersonation
 
   resource :newsletter_subscription, only: [:create]
-  # resources :advertisers, only: [:index]
-  # resources :publishers, only: [:index]
+  resources :advertisers, only: [:index]
+  resources :publishers, only: [:index]
 
   resources :advertisement_previews, param: :campaign_id, only: [:index, :show], path: "ad-previews"
   # NOTE: this is non restful and bad practice (don't do this)
@@ -187,5 +190,4 @@ Rails.application.routes.draw do
 
   # IMPORTANT: leave as last route so it doesn't override others
   get "/*id", to: "pages#show", as: :page, constraints: {id: /(?!rails).*/}
-
 end

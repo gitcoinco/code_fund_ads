@@ -22,9 +22,11 @@
 
       <!-- Navigation -->
       <ul class="navbar-nav ml-auto">
-        <% ButterCMS::Content.fetch([:menu_item]).data.menu_item.each do |menu_item| %>
-          <%= active_link_to menu_item.label, menu_item.url, class: "nav-link", wrap_tag: :li, wrap_class: "nav-item", active: :exact %>
-        <% end %>
+        <%= active_link_to "Home", home_index_path, class: "nav-link", wrap_tag: :li, wrap_class: "nav-item", active: :exact %>
+        <%= active_link_to "Advertisers", home_path(:advertisers), class: "nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+        <%= active_link_to "Publishers", home_path(:publishers), class: "nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+        <%= active_link_to "Mission", home_path(:mission), class: "nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+        <%= active_link_to "Blog", buttercms_blog_path, class: "nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
       </ul>
 
       <!-- Button -->
