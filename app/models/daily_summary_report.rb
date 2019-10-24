@@ -92,8 +92,6 @@ class DailySummaryReport < ApplicationRecord
   monetize :house_revenue_cents, numericality: {greater_than_or_equal_to: 0}
 
   # class methods .............................................................
-  class << self
-  end
 
   # public instance methods ...................................................
 
