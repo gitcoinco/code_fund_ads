@@ -15,6 +15,10 @@ module CardHelper
     content_tag(:h4, nil, id: id, class: "card-title #{add_class}", &block)
   end
 
+  def card_title_link(path: nil, id: nil, add_class: "", &block)
+    link_to(path, id: id, class: "card-title h4 text-decoration-none mb-4 d-block #{add_class}", &block)
+  end
+
   def card_subtitle(id: nil, add_class: "", &block)
     content_tag(:h6, nil, id: id, class: "card-subtitle text-muted #{add_class}", &block)
   end

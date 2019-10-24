@@ -1,6 +1,6 @@
 <%= card do %>
   <%= card_header do %>
-    <%= card_title do %>
+    <%= card_title_link path: campaign_path(campaign) do %>
       <%= tag.span(truncate(campaign.name, length: 36), title: campaign.name, "data-toggle": "tooltip") %>
     <% end %>
     <%= card_subtitle do %>
