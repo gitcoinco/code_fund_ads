@@ -1,9 +1,5 @@
 module ApplicationHelper
   include Pagy::Frontend
-  include CardHelper
-  include NavTabsHelper
-  include ActionsHelper
-  include ButtonHelper
 
   def country_display_name(iso_code)
     country = Country.find(iso_code)
