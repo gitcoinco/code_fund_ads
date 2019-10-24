@@ -103,10 +103,10 @@ group :development do
   # gem 'spring'
   # gem 'spring-watcher-listen', '~> 2.0.0'
   gem "annotate"
+  gem "factory_bot_rails"
   gem "letter_opener_web"
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "mechanize"
-  gem "factory_bot_rails"
   gem "meta_request" # RailsPanel Chrome extension
   gem "model_probe"
   gem "ngrok-tunnel"

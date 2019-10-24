@@ -1,13 +1,13 @@
-<%= @butter.welcome_section.html_safe %>
-<%= @butter.testimonials_section.html_safe %>
-<%= @butter.client_bar.html_safe %>
-<%= butter_render(@butter.stats_section, {
+<%= render "/home/index/hero" %>
+<%= render "/home/index/testimonials" %>
+<%= render "/home/@shared/clients_bar" %>
+<%= render "/home/index/stats",
   from_date: @report_from_date.to_s("bdy"),
   property_count: Property.active.count,
   impressions_count: ImpressionStats.count(@report_from_date),
   click_rate: ImpressionStats.click_rate(@report_from_date)
-}) %>
-<%= @curves.down_curve_left.html_safe %>
-<%= @butter.reporting_section.html_safe %>
-<%= @butter.sign_up_form_section.html_safe %>
-<%= @curves.bottom_curve.html_safe %>
+%>
+<%= render "/home/@shared/down_curve_left" %>
+<%= render "/home/index/reporting" %>
+<%= render "/home/@shared/sign_up_form" %>
+<%= render "/home/@shared/bottom_curve" %>

@@ -1,38 +1,38 @@
 <!-- NAVBAR
-    ================================================== -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <!-- Brand -->
-        <%= link_to root_path, class: "navbar-brand" do %>
-          <%= image_tag "codefund-w.svg", alt: "CodeFund", class: "navbar-brand-img" %>
+================================================== -->
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container">
+    <!-- Brand -->
+    <%= link_to root_path, class: "navbar-brand" do %>
+      <%= image_tag "codefund-w.svg", alt: "CodeFund", class: "navbar-brand-img" %>
+    <% end %>
+
+    <!-- Toggler -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapse -->
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+
+      <!-- Toggler -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fe fe-x"></i>
+      </button>
+
+      <!-- Navigation -->
+      <ul class="navbar-nav ml-auto">
+        <% ButterCMS::Content.fetch([:menu_item]).data.menu_item.each do |menu_item| %>
+          <%= active_link_to menu_item.label, menu_item.url, class: "nav-link", wrap_tag: :li, wrap_class: "nav-item", active: :exact %>
         <% end %>
+      </ul>
 
-        <!-- Toggler -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-    
-        <!-- Collapse -->
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-
-          <!-- Toggler -->
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fe fe-x"></i>
-          </button>
-
-          <!-- Navigation -->
-          <ul class="navbar-nav ml-auto">
-            <% ButterCMS::Content.fetch([:menu_item]).data.menu_item.each do |menu_item| %>
-              <%= active_link_to menu_item.label, menu_item.url, class: "nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-            <% end %>
-          </ul>
-
-          <!-- Button -->
-          <% if current_user %>
-            <%= link_to "Dashboard", "#", class: "navbar-btn btn btn-sm btn-primary lift ml-auto" %>
-          <% else %>
-            <%= link_to "Login", new_user_session_path, class: "navbar-btn btn btn-sm btn-primary lift ml-auto" %>
-          <% end %>
-        </div>
-  
-      
-    </nav>
+      <!-- Button -->
+      <% if current_user %>
+        <%= link_to "Dashboard", "#", class: "navbar-btn btn btn-sm btn-primary lift ml-auto" %>
+      <% else %>
+        <%= link_to "Login", new_user_session_path, class: "navbar-btn btn btn-sm btn-primary lift ml-auto" %>
+      <% end %>
+    </div>
+  </div>
+</nav>
