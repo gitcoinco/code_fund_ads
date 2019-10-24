@@ -5,9 +5,11 @@ module ImpressionStats
       end_date = Date.coerce(end_date || Date.current, max: Date.current)
       include_today = Date.current.between?(start_date, end_date)
       Rails.cache.fetch "ImpressionStats#count/#{start_date.iso8601}/#{end_date.iso8601}", expires_in: include_today ? 5.seconds : 1.day do
-        count = DailySummary.where(impressionable_type: "Property").scoped_by(nil).between(start_date, end_date).sum(:impressions_count)
-        count += Impression.on(Date.current).count if include_today
-        count
+        ActiveRecord::Base.connected_to(role: :reading) do
+          count = DailySummary.where(impressionable_type: "Property").scoped_by(nil).between(start_date, end_date).sum(:impressions_count)
+          count += Impression.on(Date.current).count if include_today
+          count
+        end
       end
     end
 
@@ -16,9 +18,11 @@ module ImpressionStats
       end_date = Date.coerce(end_date || Date.current, max: Date.current)
       include_today = Date.current.between?(start_date, end_date)
       Rails.cache.fetch "ImpressionsStats#clicks_count/#{start_date.iso8601}/#{end_date.iso8601}", expires_in: include_today ? 5.seconds : 1.day do
-        count = DailySummary.where(impressionable_type: "Property").scoped_by(nil).between(start_date, end_date).sum(:clicks_count)
-        count += Impression.on(Date.current).clicked.count if include_today
-        count
+        ActiveRecord::Base.connected_to(role: :reading) do
+          count = DailySummary.where(impressionable_type: "Property").scoped_by(nil).between(start_date, end_date).sum(:clicks_count)
+          count += Impression.on(Date.current).clicked.count if include_today
+          count
+        end
       end
     end
 
