@@ -1,0 +1,27 @@
+<%= render layout: "/organizations/layout", locals: { organization: @organization } do %>
+  <%= card do %>
+    <%= card_header add_class: "d-flex justify-content-between" do %>
+      <div class="d-flex flex-column">
+        <%= card_title do %>
+          Transactions
+        <% end %>
+        <%= card_subtitle do %>
+          Financial ledger for <%= @organization.name %>
+        <% end %>
+      </div>
+      <div class="d-flex">
+        <%= link_to new_organization_transaction_path(@organization), class: "btn btn-sm btn-success" do %>
+          <span class="fa fa-plus mr-2"></span>
+          Add Transaction
+        <% end if authorized_user.can_admin_system? %>
+        <%= link_to organization_transactions_path(@organization, format: :csv), class: "btn btn-sm btn-info ml-2" do %>
+          <span class="fa fa-download mr-2"></span>
+          Export to CSV
+        <% end %>
+      </div>
+    <% end %>
+    <%= card_body do %>
+      <%= render "/organization_transactions/table", organization: @organization, organization_transactions: @organization_transactions, pagy: @pagy %>
+    <% end %>
+  <% end %>
+<% end %>

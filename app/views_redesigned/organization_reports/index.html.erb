@@ -1,0 +1,14 @@
+<%= render layout: "/organizations/layout", locals: { organization: @organization } do %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= render "organization_reports/card" %>
+    </div>
+    <div class="col-md-6">
+      <%= render "/organization_reports/table",
+          organization: @organization,
+          organization_reports: @organization_reports,
+          scheduled_organization_reports: @scheduled_organization_reports,
+          pagy: @pagy %>
+    </div>
+  </div>
+<% end %>

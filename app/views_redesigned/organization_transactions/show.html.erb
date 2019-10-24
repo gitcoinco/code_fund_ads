@@ -1,0 +1,42 @@
+<% content_for :actions do %>
+  <%= actions_list add_class: "w-100 flex-row-reverse" do %>
+    <%= actions_list_item title: "Delete Organization Transaction" do %>
+      <%= render "/shared/actions/delete_organization_transaction", organization: @organization, organization_transaction: @organization_transaction %>
+    <% end %>
+    <%= actions_list_item title: "Edit Organization Transaction" do %>
+      <%= render "/shared/actions/edit_organization_transaction", organization: @organization, organization_transaction: @organization_transaction %>
+    <% end %>
+  <% end %>
+<% end if authorized_user.can_admin_system? %>
+
+<% content_for :page_heading do %>
+  <%= page_heading "Viewing", "Transaction",
+    icon: "fas fa-file-invoice-dollar" %>
+<% end %>
+
+<%= render layout: "/organization_transactions/layout" do %>
+  <div class="row">
+    <div class="col-12">
+      <%= card do %>
+        <%= card_header do %>
+          <%= card_title do %>
+            Transaction Details
+          <% end %>
+          <%= card_subtitle do %>
+            Organization: <%= @organization&.name %>
+          <% end %>
+        <% end %>
+        <%= card_body do %>
+          <ul class="list-unstyled mb-0">
+            <%= details_li("Post Date") { @organization_transaction.posted_at.to_s("mm/dd/yyyy") } %>
+            <%= details_li("Amount") { @organization_transaction.amount.format } %>
+            <%= details_li("Type") { @organization_transaction.transaction_type.capitalize } %>
+            <%= details_li("Gift?") { @organization_transaction.gift? ? "Yes" : "No" } %>
+            <%= details_li("Reference") { @organization_transaction.reference } %>
+            <%= details_li("Description") { @organization_transaction.description } %>
+          </ul>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
