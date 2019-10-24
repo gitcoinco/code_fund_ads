@@ -1,0 +1,35 @@
+<%= card do %>
+  <%= card_header do %>
+    <%= card_title add_class: "mb-0" do %>
+      <div class="d-flex justify-content-between align-items-center">
+        <h6 class="mb-0">
+          <%= tag.span "", class: "fas fa-circle small mr-1 text-#{property_status_color(property.status)}",
+            title: property_status_title(property.status), data: tooltip_expando %>
+          <%= link_to property.name, property, class: "link-muted" %>
+        </h6>
+        <div class="position-relative">
+          <%= link_to property_property_screenshots_path(property), method: :put, class: "btn btn-xs btn-icon btn-light transition-3d-hover" do %>
+            <span class="fas fa-camera btn-icon__inner"></span>
+          <% end if authorized_user.can_admin_system? %>
+          <%= link_to property.url, class: "btn btn-xs btn-icon btn-light", target: "_blank" do %>
+            <span class="fas fa-external-link btn-icon__inner"></span>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <figure class="figure mx-auto">
+    <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "img-fluid"), property %>
+  </figure>
+  <%= card_body do %>
+    <%= render_later async_property_card_footer_path(property_id: property.id) do %>
+      <i class="fa fa-spinner fa-spin text-center d-block"></i>
+    <% end %>
+  <% end %>
+  <%= card_footer do %>
+    <% card_footer_content do %>
+      <small class="text-center d-block"><em>data refreshes every 15 minutes</em></small>
+    <% end %>
+  <% end %>
+<% end %>
+

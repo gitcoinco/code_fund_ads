@@ -9,6 +9,7 @@
 [![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/codefund/codefund)
 [![CircleCI](https://circleci.com/gh/gitcoinco/code_fund_ads.svg?style=svg)](https://circleci.com/gh/gitcoinco/code_fund_ads)
 [![Join the conversation](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/code_fund_ads/community)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgitcoinco%2Fcode_fund_ads.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgitcoinco%2Fcode_fund_ads?ref=badge_shield)
 
 # CodeFund Ads
 
@@ -148,7 +149,7 @@ ENUMS::USER_ROLES.constants
 
 ###### Prerequisites
 
-- ruby version `2.6.4` via [rbenv](https://github.com/rbenv/rbenv)
+- ruby version `2.6.5` via [rbenv](https://github.com/rbenv/rbenv)
 - NodeJS version `<12.0.0` via [nvm](https://github.com/nvm-sh/nvm) with yarn installed globally
 - graphviz `brew install graphviz` or `sudo apt-get install graphviz`
 - PostgreSQL 11
@@ -218,7 +219,7 @@ cd /path/to/project
 We avoid [bike shedding](https://en.wikipedia.org/wiki/Law_of_triviality) by enforcing coding standards through tooling.
 
 - Ruby - [standard](https://github.com/testdouble/standard)
-- JavaScript - [prettier](https://github.com/prettier/prettier)
+- JavaScript - [prettier-standard](https://github.com/sheerun/prettier-standard)
 
 Ensure the code has been standardized by running the following before you commit.
 
@@ -331,3 +332,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgitcoinco%2Fcode_fund_ads.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgitcoinco%2Fcode_fund_ads?ref=badge_large)

@@ -22,6 +22,7 @@ jobs:
           DEFAULT_HOST: codefund.io
           ENABLED_FEATURES: jobs
           HUBSPOT_ENABLED: false
+          PARALLEL_WORKERS: 1
           PG_TIMEOUT_IN_SECONDS: 3
           RAILS_MAX_THREADS: 10
           REDIS_CACHE_URL: redis://127.0.0.1:6379
@@ -44,13 +45,20 @@ jobs:
       - checkout
 
       - restore_cache:
+          name: restore bundler cache
           keys:
-            - v1-dependencies-{{ checksum "Gemfile.lock" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - cf-bundler-{{ checksum "Gemfile.lock" }}
+            - cf-bundler-
+
+      - restore_cache:
+          name: restore yarn cache
+          keys:
+            - cf-yarn-{{ checksum "yarn.lock" }}
+            - cf-yarn-
 
       - run: sudo apt-get update
       - run: sudo apt-get install -y postgresql-client
+      - run: curl -o- -L https://yarnpkg.com/install.sh | bash
 
       - run:
           name: update bundler
@@ -58,14 +66,26 @@ jobs:
             gem install bundler:2.0.1
 
       - run:
-          name: install dependencies
+          name: install gem dependencies
           command: |
             bundle install --jobs=4 --retry=3 --path vendor/bundle
 
       - save_cache:
+          name: save bundler cache
           paths:
             - ./vendor/bundle
-          key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+          key: cf-bundler-{{ checksum "Gemfile.lock" }}
+
+      - run:
+          name: install yarn dependencies
+          command: |
+            yarn install --frozen-lockfile
+
+      - save_cache:
+          name: save yarn cache
+          paths:
+            - ~/.cache/yarn
+          key: cf-yarn-{{ checksum "yarn.lock" }}
 
       - run:
           name: Set up DB
@@ -78,3 +98,11 @@ jobs:
       - run:
           name: run system tests
           command: bundle exec rails test:system
+
+      - run:
+          name: run standardrb check
+          command: bundle exec standardrb --format progress
+
+      - run:
+          name: run prettier-standard check
+          command: yarn run prettier-standard --check 'app/**/*.js'

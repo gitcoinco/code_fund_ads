@@ -1,0 +1,11 @@
+<%= render layout: "/properties/show_layout", locals: { property: @property } do %>
+  <div class="row mx-n2">
+    <div class="col-md-6 col-lg-4 px-2">
+      <%= render "/properties/standard_card", property: @property, start_date: @start_date, end_date: @end_date  %>
+    </div>
+    <div class="col-md-6 col-lg-8 px-2">
+      <%= render "/properties/details_card", property: @property %>
+    </div>
+  </div>
+<% end %>
+
