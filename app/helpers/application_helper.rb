@@ -2,6 +2,7 @@ module ApplicationHelper
   include Pagy::Frontend
   include CardHelper
   include NavTabsHelper
+  include ButtonHelper
 
   def country_display_name(iso_code)
     country = Country.find(iso_code)
@@ -163,6 +164,8 @@ module ApplicationHelper
   end
 
   def badge_for_role(role, wrap_class: "")
+    return redesigned_badge_for_role(role, wrap_class.to_s) if ENV["REDESIGN"] == "true"
+
     case role
     when "administrator"
       tag.span(
@@ -254,5 +257,33 @@ module ApplicationHelper
   def calc_percentage(numerator, denominator)
     return 0 if denominator.zero?
     numerator / denominator
+  end
+
+  private
+
+  def redesigned_badge_for_role(role, wrap_class)
+    case role
+    when "administrator"
+      tag.div(
+        tag.span("", class: "fas fa-key content-centered"),
+        class: "tile tile-circle tile-sm bg-dark #{wrap_class}",
+        title: "Administrator",
+        data: tooltip_expando
+      )
+    when "advertiser"
+      tag.div(
+        tag.span("", class: "fas fa-ad content-centered"),
+        class: "tile tile-circle tile-sm bg-success #{wrap_class}",
+        title: "Advertiser",
+        data: tooltip_expando
+      )
+    when "publisher"
+      tag.div(
+        tag.span("", class: "fas fa-code content-centered"),
+        class: "tile tile-circle tile-sm bg-primary #{wrap_class}",
+        title: "Publisher",
+        data: tooltip_expando
+      )
+    end
   end
 end
