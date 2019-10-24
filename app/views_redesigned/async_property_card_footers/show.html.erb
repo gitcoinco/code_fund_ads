@@ -1,10 +1,10 @@
 <div class="row align-items-center text-center">
   <% if @property.restrict_to_sponsor_campaigns? %>
     <div class="col-4">
-      <h5 class="small font-weight-normal mb-0">
+      <p class="mb-0">
         <span class="d-block">Total</span>
         <span class="d-block">Clicks</span>
-      </h5>
+      </p>
       <div class="text-dark mt-2"><%= number_with_delimiter @property.clicks_count(@start_date, @end_date) %></div>
     </div>
     <div class="col-4">
