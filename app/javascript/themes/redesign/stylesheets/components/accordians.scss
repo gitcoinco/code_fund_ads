@@ -1,0 +1,29 @@
+#filter-accordian {
+  .filter-badge {
+    padding: 0.5rem 0.5rem 0.5rem;
+    font-size: 80%;
+    font-weight: 400;
+    line-height: 1rem;
+    margin-bottom: -4px;
+    color: #77838f;
+    background: rgba(119, 131, 143, 0.1);
+    border-color: transparent;
+
+    &:before {
+      font-family: "Font Awesome 5 Pro";
+      font-weight: 400;
+      content: "\f00c  ";
+    }
+
+    &:hover {
+      color: #fff;
+      background: #77838f;
+      box-shadow: 0 4px 11px #77838f59;
+
+      &:before {
+        padding: 0 2px;
+        content: "\f00d  ";
+      }
+    }
+  }
+}
