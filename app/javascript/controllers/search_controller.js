@@ -8,7 +8,7 @@ export default class extends ApplicationController {
     this.deboucedPerform = debounce(this.perform.bind(this), 250)
   }
 
-  focus (event) {
+  cmdK (event) {
     if (event.metaKey && event.code === 'KeyK') {
       Rails.stopEverything(event)
       this.element.focus()
