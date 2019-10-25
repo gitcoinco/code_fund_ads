@@ -7,7 +7,7 @@
       icon: "fas fa-browser" %>
     </header>
     <%= render partial: "/property_searches/form",
-                 layout: "/@shared/collapsable_search_form",
+                 layout: "/shared/collapsible_search_form",
                  locals: { search: @property_search } %>
     <div class="bg-white p-4">
       <%= render "/properties/table", properties: @properties, pagy: @pagy %>
