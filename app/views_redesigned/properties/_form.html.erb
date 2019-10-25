@@ -6,7 +6,9 @@
         <p class="mb-0">Tell us about your property</p>
       </div>
       <div class="col-sm-12 col-md-6 text-right">
-        <%= render 'shared/actions/show_property', property: property %>
+        <% unless current_page?(controller: "properties", action: "new") %>
+          <%= render 'shared/actions/show_property', property: property %>
+        <% end %>
       </div>
     </div>
 
