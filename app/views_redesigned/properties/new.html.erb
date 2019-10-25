@@ -1,0 +1,12 @@
+<div class="d-flex">
+  <%= render 'shared/sidebar' %>
+  <div class="container mt-5">
+    <header class="page-title-bar">
+      <%= page_heading "Adding", "Property",
+          subtitle: (@property.name ? !@property.name.nil? : "Fill out form below"),
+          icon: "fas fa-browser" %>
+    </header>
+    <%= render "properties/form", property: @property %>
+  </div>
+</div>
+
