@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width" />
+
+  <title>basic flickity fade</title>
+
+  <link rel="stylesheet" href="../bower_components/flickity/css/flickity.css" />
+  <link rel="stylesheet" href="../flickity-fade.css" />
+
+  <style>
+    .carousel {
+      background: #EA0;
+      padding: 20px 0;
+      margin-bottom: 40px;
+    }
+
+    .carousel-cell {
+      height: 280px;
+      background: black;
+      margin: 0 10px;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .carousel-cell img {
+      display: block;
+      max-height: 100%;
+    }
+
+    .carousel-cell:hover {
+      background: white;
+    }
+
+  </style>
+
+</head>
+<body>
+
+<h1>basic flickity fade</h1>
+
+<h2>groupCells</h2>
+
+<div class="carousel carousel1">
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=517" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/540/720/?image=696" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=56" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/800/500/?image=1084" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=1080" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/640/640/?image=1074" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=1069" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/800/500/?image=1062" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=1002" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/640/640/?image=935" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=855" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/640/640/?image=824" /></div>
+</div>
+
+<h2>groupCells, wrapAround</h2>
+
+<div class="carousel carousel2">
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=517" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/540/720/?image=696" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=56" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/800/500/?image=1084" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=1080" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/640/640/?image=1074" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=1069" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/800/500/?image=1062" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=1002" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/640/640/?image=935" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=855" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/640/640/?image=824" /></div>
+</div>
+
+<h2>Lazyload</h2>
+
+<div class="carousel carousel--lazyload">
+  <div class="carousel-cell"><img data-flickity-lazyload="https://picsum.photos/720/540/?image=517" /></div>
+  <div class="carousel-cell"><img data-flickity-lazyload="https://picsum.photos/540/720/?image=696" /></div>
+  <div class="carousel-cell"><img data-flickity-lazyload="https://picsum.photos/720/540/?image=56" /></div>
+  <div class="carousel-cell"><img data-flickity-lazyload="https://picsum.photos/800/500/?image=1084" /></div>
+  <div class="carousel-cell"><img data-flickity-lazyload="https://picsum.photos/720/540/?image=1080" /></div>
+  <div class="carousel-cell"><img data-flickity-lazyload="https://picsum.photos/640/640/?image=1074" /></div>
+  <div class="carousel-cell"><img data-flickity-lazyload="https://picsum.photos/720/540/?image=1069" /></div>
+  <div class="carousel-cell"><img data-flickity-lazyload="https://picsum.photos/800/500/?image=1062" /></div>
+  <div class="carousel-cell"><img data-flickity-lazyload="https://picsum.photos/720/540/?image=1002" /></div>
+  <div class="carousel-cell"><img data-flickity-lazyload="https://picsum.photos/640/640/?image=935" /></div>
+  <div class="carousel-cell"><img data-flickity-lazyload="https://picsum.photos/720/540/?image=855" /></div>
+  <div class="carousel-cell"><img data-flickity-lazyload="https://picsum.photos/640/640/?image=824" /></div>
+</div>
+
+<h2>No fade</h2>
+
+<div class="carousel carousel--no-fade">
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=517" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/540/720/?image=696" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=56" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/800/500/?image=1084" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=1080" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/640/640/?image=1074" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=1069" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/800/500/?image=1062" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=1002" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/640/640/?image=935" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/720/540/?image=855" /></div>
+  <div class="carousel-cell"><img src="https://picsum.photos/640/640/?image=824" /></div>
+</div>
+
+<script src="../bower_components/get-size/get-size.js"></script>
+<script src="../bower_components/desandro-matches-selector/matches-selector.js"></script>
+<script src="../bower_components/ev-emitter/ev-emitter.js"></script>
+<script src="../bower_components/unipointer/unipointer.js"></script>
+<script src="../bower_components/unidragger/unidragger.js"></script>
+<script src="../bower_components/fizzy-ui-utils/utils.js"></script>
+<script src="../bower_components/imagesloaded/imagesloaded.js"></script>
+
+<script src="../bower_components/flickity/js/cell.js"></script>
+<script src="../bower_components/flickity/js/slide.js"></script>
+<script src="../bower_components/flickity/js/animate.js"></script>
+<script src="../bower_components/flickity/js/flickity.js"></script>
+<script src="../bower_components/flickity/js/drag.js"></script>
+<script src="../bower_components/flickity/js/prev-next-button.js"></script>
+<script src="../bower_components/flickity/js/page-dots.js"></script>
+<script src="../bower_components/flickity/js/add-remove-cell.js"></script>
+<script src="../bower_components/flickity/js/lazyload.js"></script>
+
+<script src="../bower_components/flickity-imagesloaded/flickity-imagesloaded.js"></script>
+
+<script src="../flickity-fade.js"></script>
+
+<script>
+var flkty1 = new Flickity( '.carousel1', {
+  fade: true,
+  groupCells: true,
+  // wrapAround: true,
+  // cellAlign: 'left',
+  imagesLoaded: true,
+});
+
+var flkty2 = new Flickity( '.carousel2', {
+  fade: true,
+  groupCells: true,
+  wrapAround: true,
+  imagesLoaded: true,
+});
+
+
+var flktyLazyload = new Flickity( '.carousel--lazyload', {
+  fade: true,
+  lazyLoad: true,
+});
+
+var flktyNoFade = new Flickity( '.carousel--no-fade', {
+  imagesLoaded: true,
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+<%= render "/home/index/hero" %>
+<%= render "/home/index/testimonials" %>
+<%= render "/home/@shared/clients_bar" %>
+<%= render "/home/index/stats",
+  from_date: "Jan 1, 2019",
+  property_count: Property.active.count,
+  impressions_count: ImpressionStats.count(Date.parse("2019-01-01")),
+  click_rate: ImpressionStats.click_rate(Date.parse("2019-01-01"))
+%>
+<%= render "/home/@shared/down_curve_left" %>
+<%= render "/home/index/reporting" %>
+<%= render "/home/@shared/sign_up_form" %>
+<%= render "/home/@shared/bottom_curve" %>

@@ -21,6 +21,11 @@ Rails.application.routes.draw do
   end
   resources :split_experiments, only: [:update, :destroy]
 
+  root to: "pages#index"
+
+  # Temporary until we replace Pages with Home
+  resources :home, path: "/home", only: [:index, :show]
+
   devise_for :users, controllers: {
     sessions: "sessions",
     invitations: "invitations",
@@ -34,8 +39,6 @@ Rails.application.routes.draw do
     resource :job_posting_purchase, only: [:new, :create, :show, :edit, :update], path: "/purchase"
   end
   resources :job_postings, except: [:new, :create], path: "/jobs/directory"
-
-  root to: "pages#index"
 
   resource :pricing, only: [:show]
   resource :search, only: [:show], controller: :search

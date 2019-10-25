@@ -5,8 +5,8 @@ class ApplicationController < ActionController::Base
 
   delegate :instrument, to: ActiveSupport::Notifications
 
+  before_action :store_ids
   before_action :reload_extensions, unless: -> { Rails.env.production? }
-  before_action -> { cookies.encrypted[:example_id] ||= SecureRandom.uuid }
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_paper_trail_whodunnit
   before_action :set_meta_tag_data
@@ -25,6 +25,12 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def store_ids
+    cookies.encrypted[:cuid] = current_user&.id
+    cookies.encrypted[:tuid] = true_user&.id
+    cookies.encrypted[:sid] = session&.id
+  end
 
   def device
     @device ||= DeviceDetector.new(request.headers["User-Agent"])

@@ -1,0 +1,11 @@
+<div class="d-flex">
+  <%= render 'shared/sidebar' %>
+  <div class="container mt-5">
+    <header class="page-title-bar">
+      <%= page_heading "Editing", "Property",
+          subtitle: @property.name,
+          icon: "fas fa-browser" %>
+    </header>
+    <%= render "properties/form", property: @property %>
+  </div>
+</div>

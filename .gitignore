@@ -38,6 +38,7 @@ yarn-debug.log*
 
 .env
 .teamocil.yml
+.tmuxinator.yml
 .mertrc
 .tool-versions
 /db/maxmind

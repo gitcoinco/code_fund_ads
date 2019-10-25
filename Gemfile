@@ -15,6 +15,7 @@ gem "bootsnap", ">= 1.4.2", require: false
 gem "buffer", "0.1.3", github: "bufferapp/buffer-ruby"
 gem "bulk_insert", "~> 1.7.0"
 gem "buttercms-rails", "~> 1.2.1"
+gem "cable_ready", "~> 4.0.7"
 gem "camo", "~> 0.1.0"
 gem "chronic", "~> 0.10.2"
 gem "countries", "~> 3.0.0"
@@ -73,6 +74,7 @@ gem "slack-notifier", "~> 2.3.2"
 gem "split", "~> 3.3.2", require: "split/dashboard"
 gem "spreadsheet", "~> 1.2.4"
 gem "staccato", "~> 0.5.1"
+gem "stimulus_reflex", "~> 2.1.4"
 gem "stopwords-filter", "~> 0.4.1", require: "stopwords"
 gem "stripe", "~> 5.4.1"
 gem "tag_columns", "~> 0.1.8"
@@ -101,10 +103,10 @@ group :development do
   # gem 'spring'
   # gem 'spring-watcher-listen', '~> 2.0.0'
   gem "annotate"
+  gem "factory_bot_rails"
   gem "letter_opener_web"
   gem "listen", ">= 3.0.5", "< 3.2"
   gem "mechanize"
-  gem "factory_bot_rails"
   gem "meta_request" # RailsPanel Chrome extension
   gem "model_probe"
   gem "ngrok-tunnel"
