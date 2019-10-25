@@ -2,6 +2,7 @@ class ApplicationRecord < ActiveRecord::Base
   include GlobalID::Identification
 
   self.abstract_class = true
+  connects_to database: {writing: :primary, reading: :primary_replica}
 
   class << self
     def sanitize_sql_value(value)
