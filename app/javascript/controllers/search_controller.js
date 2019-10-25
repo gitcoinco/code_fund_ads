@@ -8,15 +8,22 @@ export default class extends ApplicationController {
     this.deboucedPerform = debounce(this.perform.bind(this), 250)
   }
 
-  perform (event) {
-    Rails.stopEverything(event)
-    this.stimulate('SearchReflex#perform', this.element.value)
+  focus (event) {
+    if (event.metaKey && event.code === 'KeyK') {
+      Rails.stopEverything(event)
+      this.element.focus()
+    }
   }
 
-  afterPerform () {
-    document
-      .querySelector('ul#search-results')
-      .querySelector('a')
-      .setAttribute('tabindex', 0)
+  hideResults (event) {
+    if (event.target.closest('#search-results')) return
+    const results = document.getElementById('search-results')
+    results.remove()
+  }
+
+  perform (event) {
+    Rails.stopEverything(event)
+    const query = this.element.value.trim()
+    if (query.length > 2) this.stimulate('SearchReflex#perform', query)
   }
 }

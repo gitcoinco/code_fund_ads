@@ -5,7 +5,8 @@ consumer.subscriptions.create(
   { channel: 'GeneralChannel', room: 'home#show' },
   {
     received (data) {
-      if (data.cableReady) CableReady.perform(data.operations)
+      if (data.cableReady && document.getElementById('global-properties-count'))
+        CableReady.perform(data.operations)
     }
   }
 )

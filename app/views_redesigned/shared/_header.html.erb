@@ -23,7 +23,9 @@
           <div class="input-group input-group-search">
             <div class="input-group-prepend">
               <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
-            </div><input autofocus type="text" class="form-control" aria-label="Search" placeholder="Search" data-controller="search" data-action="keyup->search#deboucedPerform" data-reflex-permanent>
+            </div>
+            <input autofocus type="text" class="form-control" aria-label="Search" placeholder="Search"
+              data-controller="search" data-action="keydown@document->search#focus click@document->search#hideResults keyup->search#deboucedPerform" data-reflex-permanent value="<%= @search_query %>">
           </div>
         </form><!-- /.top-bar-search -->
       </div><!-- /.top-bar-item -->
