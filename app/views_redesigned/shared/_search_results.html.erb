@@ -1,0 +1,36 @@
+<ul id="search-results" class="my-3">
+  <% @search_results[:users].each do |user| %>
+    <li class="">
+      <%= link_to user_path(user) do %>
+        <%= user.name %>
+        <small>(<%= user.email %>)</small>
+      <% end %>
+    </li>
+  <% end %>
+
+  <% @search_results[:properties].each do |property| %>
+    <li class="">
+      <%= link_to property_path(property) do %>
+        <%= property.name %>
+        <small>(<%= property.user.email %>)</small>
+      <% end %>
+    </li>
+  <% end %>
+
+  <% @search_results[:campaigns].each do |campaign| %>
+    <li class="">
+      <%= link_to campaign_path(campaign) do %>
+        <%= campaign.name %>
+        <small>(<%= campaign.user.email %>)</small>
+      <% end %>
+    </li>
+  <% end %>
+
+  <% @search_results[:organizations].each do |organization| %>
+    <li class="">
+      <%= link_to organization_path(organization) do %>
+        <%= organization.name %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

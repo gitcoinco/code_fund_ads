@@ -11,8 +11,6 @@ import 'bootstrap-daterangepicker'
 import './prefetch'
 import './utm'
 
-import { Application } from 'stimulus'
-import { definitionsFromContext } from 'stimulus/webpack-helpers'
 import jquery from 'jquery'
 window.jQuery = window.$ = jquery
 top.jQuery = top.$ = jquery
@@ -29,7 +27,3 @@ window.Noty.overrideDefaults({
     close: 'animated fadeOutRight'
   }
 })
-
-const application = Application.start()
-const context = require.context('../controllers', true, /\.js$/)
-application.load(definitionsFromContext(context))
