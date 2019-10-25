@@ -219,7 +219,9 @@ module ApplicationHelper
       selected = "down" if direction == "asc"
     end
 
-    render "/@shared/sortable_tr", title: title, selected: selected, column: column
+    return render "/@shared/sortable_tr", title: title, selected: selected, column: column unless ENV["REDESIGN"] == "true"
+
+    render "/shared/sortable_tr", title: title, selected: selected, column: column
   end
 
   def pagy_entries(pagy)
