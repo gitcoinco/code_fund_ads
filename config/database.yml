@@ -7,16 +7,30 @@ default: &default
   password: <%= ENV['PG_PASSWORD'] %>
 
 development:
-  <<: *default
-  host: localhost
-  database: <%= ENV.fetch("PG_DATABASE_NAME", "code_fund_ads_development") %>
+  primary: &development_primary
+    <<: *default
+    host: localhost
+    database: <%= ENV.fetch("PG_DATABASE_NAME", "code_fund_ads_development") %>
+  primary_replica:
+    <<: *development_primary
+    replica: true
 
 test:
-  <<: *default
-  host: localhost
-  database: code_fund_ads_test
+  primary: &test_primary
+    <<: *default
+    host: localhost
+    database: code_fund_ads_test
+  primary_replica:
+    <<: *test_primary
+    replica: true
 
 production:
-  <<: *default
-  prepared_statements: false # See https://edgeguides.rubyonrails.org/configuring.html#configuring-a-postgresql-database
-  url: <%= ENV["DATABASE_URL"] %>
+  primary:
+    <<: *default
+    prepared_statements: false # See https://edgeguides.rubyonrails.org/configuring.html#configuring-a-postgresql-database
+    url: <%= ENV["DATABASE_URL"] %>
+  primary_replica:
+    <<: *default
+    prepared_statements: false
+    url: <%= ENV["METABASE_URL"] %>
+    replica: true

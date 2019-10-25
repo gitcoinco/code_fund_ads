@@ -1,0 +1,24 @@
+<svg viewBox="0 0 1000 1000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs>
+    <radialGradient cx="170.277901%" cy="15.2806003%" fx="170.277901%" fy="15.2806003%" r="646.075565%" gradientTransform="translate(1.702779,0.152806),scale(0.365280,1.000000),rotate(30.020657),translate(-1.702779,-0.152806)" id="radialGradient-1">
+      <stop stop-color="#4387FD" offset="0%"></stop>
+      <stop stop-color="#3078F0" offset="65%"></stop>
+      <stop stop-color="#2B72EA" offset="90.99%"></stop>
+      <stop stop-color="#286EE6" offset="100%"></stop>
+    </radialGradient>
+    <radialGradient cx="186.108971%" cy="108.164821%" fx="186.108971%" fy="108.164821%" r="344.825531%" gradientTransform="translate(1.861090,1.081648),scale(0.838462,1.000000),rotate(30.020657),translate(-1.861090,-1.081648)" id="radialGradient-2">
+      <stop stop-color="#FFD24D" offset="0%"></stop>
+      <stop stop-color="#F6C338" offset="100%"></stop>
+    </radialGradient>
+  </defs>
+  <g id="google-drive" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="drive" transform="translate(104.000000, 156.000000)" fill-rule="nonzero">
+      <polygon id="Path" fill="#0DA960" points="137.88777 686.578512 0 447.644628 258.11223 0 396 238.933884"></polygon>
+      <polygon id="Path" fill="url(#radialGradient-1)" points="137.88777 686.578512 275.77554 447.644628 792 447.644628 654.11223 686.578512"></polygon>
+      <polygon id="Path" fill="url(#radialGradient-2)" points="792 447.644628 516.22446 447.644628 258.11223 0 533.88777 0"></polygon>
+      <polygon id="Path" fill="#2D6FDD" points="396 447.644628 275.77554 447.644628 335.602878 343.289256 137.88777 686.578512"></polygon>
+      <polygon id="Path" fill="#E5B93C" points="516.22446 447.644628 792 447.644628 456.397122 343.289256"></polygon>
+      <polygon id="Path" fill="#0C9B57" points="335.602878 343.289256 396 238.933884 258.11223 7.10542736e-15"></polygon>
+    </g>
+  </g>
+</svg>

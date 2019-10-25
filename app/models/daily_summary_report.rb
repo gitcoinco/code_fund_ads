@@ -56,6 +56,7 @@ class DailySummaryReport < ApplicationRecord
       .select(arel_table[:gross_revenue_cents].sum.as("gross_revenue_cents"))
       .select(arel_table[:property_revenue_cents].sum.as("property_revenue_cents"))
       .select(arel_table[:house_revenue_cents].sum.as("house_revenue_cents"))
+      .select(arel_table[:click_rate].average.as("click_rate"))
       .group(:impressionable_type, :impressionable_id, :scoped_by_type, :scoped_by_id)
       .order("impressions_count desc")
   }
