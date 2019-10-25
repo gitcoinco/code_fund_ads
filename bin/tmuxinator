@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# SEE: https://github.com/tmuxinator/tmuxinator
+tmux kill-session -t tmp
+tmux new -d -s tmp
+sleep 1 && tmux kill-session -t tmp &
+tmux kill-session -t code_fund_ads
+tmuxinator start -p .tmuxinator.yml
