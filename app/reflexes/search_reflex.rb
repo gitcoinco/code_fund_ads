@@ -3,7 +3,7 @@
 class SearchReflex < ApplicationReflex
   def perform(query = "")
     @search_query = query
-    @search_results = if authorized_user(true).can_admin_system?
+    @search_results = if authorized_user.can_admin_system?
       {
         users: User.search_name(query).or(User.search_email(query)).limit(5),
         properties: Property.search_name(query).limit(5),
