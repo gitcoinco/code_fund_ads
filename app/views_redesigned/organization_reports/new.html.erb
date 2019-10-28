@@ -1,0 +1,18 @@
+<% content_for :page_heading do %>
+  <%= page_heading "Generate", "Report",
+    subtitle: "Fill out the form below",
+    icon: "fas fa-chart" %>
+<% end %>
+
+<div class="d-flex">
+  <%= render "shared/sidebar" %>
+  <div class="container mt-4">
+    <header class="page-title-bar">
+      <%= yield :page_heading %>
+    </header>
+    <%= render "/organization_reports/form",
+        organization: @organization,
+        organization_report: @organization_report,
+        url: organization_reports_path(@organization) %>
+  </div>
+</div>

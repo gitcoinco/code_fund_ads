@@ -22,20 +22,19 @@
       <%= details_li("Allow fallback ads?") { property.prohibit_fallback_campaigns ? "No" : "Yes (thank you)" } %>
       <%= details_li("Restricted to") do %>
         <% property.assigner_campaigns.pluck(:name).sort.each do |campaign_name| -%>
-          <span class="btn btn-xs btn-soft-dark mb-1"><%= campaign_name %></span>
+          <span class="btn btn-xs btn-subtle-dark mb-1"><%= campaign_name %></span>
         <% end -%>
       <% end if property.restrict_to_assigner_campaigns? %>
       <%= details_li("Assigned Fallback Campaigns") do %>
         <% property.assigned_fallback_campaigns.pluck(:name).sort.each do |campaign_name| -%>
-          <span class="btn btn-xs btn-soft-dark mb-1"><%= campaign_name %></span>
+          <span class="btn btn-xs btn-subtle-dark mb-1"><%= campaign_name %></span>
         <% end -%>
       <% end if property.assigned_fallback_campaign_ids.present? %>
       <%= details_li("Excluded Advertisers") do %>
         <% property.excluded_company_names.each do |company_name| -%>
-          <span class="btn btn-xs btn-soft-dark mb-1"><%= company_name %></span>
+          <span class="btn btn-xs btn-subtle-dark mb-1"><%= company_name %></span>
         <% end -%>
       <% end if authorized_user.can_admin_system? %>
     </ul>
   <% end %>
 <% end %>
-

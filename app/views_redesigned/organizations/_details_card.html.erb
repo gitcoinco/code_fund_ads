@@ -1,0 +1,18 @@
+<%= card do %>
+  <%= card_header do %>
+    <%= card_title do %>
+      Details
+    <% end %>
+    <%= card_subtitle do %>
+      Basic organization details
+    <% end %>
+  <% end %>
+  <%= card_body do %>
+    <ul class="list-group list-group-flush list-group-bordered">
+      <%= details_li("Name") { @organization.name } %>
+      <%= details_li("Credits") { @organization.total_credits.format } %>
+      <%= details_li("Debits") { @organization.total_debits.format } %>
+      <%= details_li("Balance") { link_to @organization.balance.format, organization_transactions_path(@organization) } %>
+    </ul>
+  <% end %>
+<% end %>

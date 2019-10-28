@@ -1,0 +1,15 @@
+<%= render layout: "/organizations/layout", locals: { organization: @organization } do %>
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Members
+      <% end %>
+      <%= card_subtitle do %>
+        Members of the organization
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <%= render "/users/table", users: @users, pagy: @pagy %>
+    <% end %>
+  <% end %>
+<% end %>

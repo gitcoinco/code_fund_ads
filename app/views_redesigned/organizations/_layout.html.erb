@@ -1,0 +1,30 @@
+<% unless local_assigns[:override]&.include? :page_heading %>
+  <% content_for :page_heading do %>
+    <%= page_heading "", organization.name,
+      icon: "fas fa-building" %>
+  <% end %>
+ <% end %>
+
+  <% unless local_assigns[:override]&.include? :actions %>
+   <% content_for :actions do %>
+     <%= actions_list do %>
+       <%= actions_list_item title: "Edit Organization" do %>
+         <%= render "/shared/actions/edit_organization", organization: organization %>
+       <% end %>
+     <% end %>
+   <% end %>
+ <% end %>
+
+<div class="d-flex">
+   <%= render "shared/sidebar" %>
+   <div class="container mt-4">
+     <header class="page-title-bar">
+       <%= yield :page_heading %>
+       <div class="d-flex border-bottom">
+         <%= render "organizations/tabs", organization: organization %>
+         <%= yield :actions %>
+       </div>
+     </header>
+     <%= yield %>
+   </div>
+ </div>

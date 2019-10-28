@@ -228,7 +228,8 @@ module ApplicationHelper
     start = pagy.offset + 1
     finish = start + pagy.items - 1
     count = pagy.count
-    tag.small("Showing #{start} to #{finish} of #{count} Entries", class: "text-secondary").html_safe
+    classes = ENV["REDESIGN"] == "true" ? "text-muted" : "text-secondary"
+    tag.small("Showing #{start} to #{finish} of #{count} Entries", class: classes).html_safe
   end
 
   def find_version_author(version)

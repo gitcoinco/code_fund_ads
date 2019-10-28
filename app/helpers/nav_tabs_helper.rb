@@ -3,10 +3,17 @@ module NavTabsHelper
     content_tag(:ul, nil, id: id, class: "nav nav-tabs #{add_class}", &block)
   end
 
-  def nav_item_link(name: nil, path: nil, active: nil)
-    tag.li(active_link_to(name, path, active: active, data: {
-      turbolinks_persist_scroll: true,
-      prefetch: true,
-    }, class: "nav-link"))
+  def nav_item_link(name: nil, id: nil, path: nil, active: nil, type: "link")
+    tag.li(active_link_to(name, path, id: id, active: active, data: nav_item_link_data(type), class: "nav-link"))
+  end
+
+  private
+
+  def nav_item_link_data(type)
+    if type.inquiry.tab?
+      {toggle: "tab"}
+    else
+      {turbolinks_persist_scroll: true, prefetch: true}
+    end
   end
 end
