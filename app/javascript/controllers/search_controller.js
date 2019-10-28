@@ -1,3 +1,4 @@
+import attempt from 'lodash.attempt'
 import debounce from 'lodash.debounce'
 import ApplicationController from './application_controller'
 
@@ -18,7 +19,7 @@ export default class extends ApplicationController {
       return
     this.element.value = ''
     this.element.focus()
-    this.searchResultsTarget.remove()
+    attempt(() => this.searchResultsTarget.remove())
   }
 
   perform (event) {

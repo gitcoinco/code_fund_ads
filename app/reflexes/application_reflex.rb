@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
 class ApplicationReflex < StimulusReflex::Reflex
-  # Put application wide Reflex behavior in this file.
-  #
-  # Example:
-  #
-  #   # If your ActionCable connection is: `identified_by :current_user`
-  #   delegate :current_user, to: :channel
-  #
-  # Learn more at: https://docs.stimulusreflex.com
+  delegate :current_user, :true_user, to: :connection
+
+  def authorized_user(include_true_user = false)
+    @authorized_user = if include_true_user
+      AuthorizedUser.new(true_user || current_user || User.new)
+    else
+      AuthorizedUser.new(current_user || User.new)
+    end
+  end
 end
