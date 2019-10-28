@@ -1,6 +1,9 @@
 <div id="search-results" class="dropdown-menu dropdown-menu-rich dropdown-menu-xl ml-n4 show" x-placement="bottom-start" style="position:fixed; left; top:40px; left:275px; z-index:99999;">
   <div class="dropdown-arrow ml-3"></div>
   <div class="list-group list-group-flush list-group-reflow mb-2" style="max-height:360px; overflow-y:scroll;">
+      <% if @search_results&.values&.flatten.blank? %>
+        <h6 class="list-group-header d-flex justify-content-between text-muted">No results found...</h6>
+      <% end %>
 
       <% if @search_results[:users].present? %>
         <h6 class="list-group-header d-flex justify-content-between text-primary">Users</h6>
