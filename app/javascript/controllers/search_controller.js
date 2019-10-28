@@ -9,16 +9,13 @@ export default class extends ApplicationController {
   }
 
   cmdK (event) {
-    if (!event.metaKey || event.code !== 'KeyK') return
-    this.element.focus()
+    if (event.metaKey && event.code === 'KeyK') this.element.focus()
   }
 
   hideResults (event) {
     if (event.type === 'keyup' && event.key !== 'Escape') return
     if (event.type === 'click' && event.target.closest('#search-results'))
       return
-    this.element.value = ''
-    this.element.focus()
     attempt(() => this.searchResultsTarget.remove())
   }
 
