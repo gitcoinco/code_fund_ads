@@ -1,0 +1,23 @@
+<%= render "/creatives/layout", locals: { creative: @creative } do %>
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Ad Previews
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <div class="row">
+        <% if @creative.standard? %>
+          <% ENUMS::AD_TEMPLATES.values.each do |template| %>
+            <% ["light", "dark"].each do |theme| %>
+              <%= render partial: "/creatives/preview_card", locals: { creative: @creative, template: template, theme: theme } %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <% if @creative.sponsor? %>
+          <%= image_tag @creative.sponsor_image %>
+        <% end %>
+      <% end %>
+    <% end %>
+<% end %>
+
