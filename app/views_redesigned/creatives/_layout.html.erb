@@ -1,0 +1,22 @@
+<% unless local_assigns[:override]&.include? :page_heading %>
+  <% content_for :page_heading do %>
+    <%= page_heading "Viewing", "Creative",
+        subtitle: @creative.name,
+        icon: "fas fa-palette" %>
+  <% end %>
+<% end %>
+
+<% unless local_assigns[:override]&.include? :actions %>
+  <% content_for :actions do %>
+  <% end %>
+<% end %>
+
+<section class="creative d-flex">
+  <%= render "shared/sidebar" %>
+  <article class="container mt-4">
+    <header class="page-title-bar">
+      <%= yield :page_heading%>
+    </header>
+    <%= yield %>
+  </article>
+</section>
