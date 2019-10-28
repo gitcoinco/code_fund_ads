@@ -1,18 +1,14 @@
-<%= card do %>
-  <%= card_body do %>
-    <div class="row mb-5">
-      <div class="col-sm-12 col-md-6">
-        <h6>Property Details</h6>
-        <p class="mb-0">Tell us about your property</p>
-      </div>
-      <div class="col-sm-12 col-md-6 text-right">
-        <% unless current_page?(controller: "properties", action: "new") %>
-          <%= render 'shared/actions/show_property', property: property %>
-        <% end %>
-      </div>
-    </div>
-
-    <%= simple_form_for property, html: { class: "js-validate" }, wrapper: :front_form do |f| %>
+<%= simple_form_for property, html: { class: "js-validate" }, wrapper: :front_form do |f| %>
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Property Details
+      <% end %>
+      <%= card_subtitle do %>
+        Tell us about your property
+      <% end %>
+    <% end %>
+    <%= card_body do %>
       <div class="row">
         <%= tag.div f.input(:status, label: "Status", collection: ENUMS::PROPERTY_STATUSES.values.map { |status| [status.capitalize, status] }, required: true,
                             input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>

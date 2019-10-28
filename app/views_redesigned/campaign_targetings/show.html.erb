@@ -10,10 +10,10 @@
     <% end %>
     <%= card_body do %>
       <% @campaign.keywords.sort.each do |keyword| %>
-        <span class="btn btn-xs btn-info mb-2"><%= keyword %></span>
+        <span class="badge badge-subtle badge-primary p-3 m-1"><%= keyword %></span>
       <% end %>
       <% @campaign.negative_keywords.sort.each do |keyword| %>
-        <span class="btn btn-xs btn-danger mb-2"><%= keyword %></span>
+        <span class="badge badge-subtle badge-danger p-3 m-1"><%= keyword %></span>
       <% end %>
     <% end %>
   <% end %>
@@ -29,7 +29,7 @@
     <% end %>
     <%= card_body do %>
       <% @campaign.countries.each do |country| %>
-        <span class="btn btn-xs btn-success mb-2">
+        <span class="badge badge-subtle badge-success p-3 m-1">
           <%= country.name %>
         </span>
       <% end %>

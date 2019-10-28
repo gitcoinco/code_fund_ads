@@ -1,4 +1,4 @@
-<%= render layout: "/properties/show_layout", locals: { property: @property } do %>
+<%= render layout: "/properties/layout", locals: { property: @property } do %>
   <div class="row mx-n2">
     <div class="col-md-6 col-lg-4 px-2">
       <%= render "/properties/standard_card", property: @property, start_date: @start_date, end_date: @end_date  %>
@@ -8,4 +8,3 @@
     </div>
   </div>
 <% end %>
-

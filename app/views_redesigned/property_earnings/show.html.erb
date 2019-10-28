@@ -1,5 +1,15 @@
-<%= render layout: "/properties/show_layout", locals: { property: @property } do %>
+<%= render layout: "/properties/layout", locals: { property: @property } do %>
   <%= card do %>
-    <%= render "/property_earnings/table", property: @property %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Estimated Earnings
+      <% end %>
+      <%= card_subtitle do %>
+        Estimated earnings by day for this property
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <%= render "/property_earnings/table", property: @property %>
+    <% end %>
   <% end %>
 <% end %>

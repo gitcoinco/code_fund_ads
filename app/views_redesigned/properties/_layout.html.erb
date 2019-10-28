@@ -1,8 +1,8 @@
 <% unless local_assigns[:override]&.include? :page_heading %>
   <% content_for :page_heading do %>
-    <%= page_heading "Viewing", "Campaign",
-      subtitle: @campaign.name,
-      icon: "fas fa-ad" %>
+    <%= page_heading "Viewing", "Properties",
+        subtitle: property.name,
+        icon: "fas fa-browser" %>
   <% end %>
 <% end %>
 
@@ -10,11 +10,8 @@
   <% content_for :actions do %>
     <%= actions_list do %>
       <%= actions_date_range_picker %>
-      <%= actions_list_item title: "Edit Campaign" do %>
-        <%= render "/shared/actions/edit_campaign", campaign: @campaign %>
-      <% end %>
-      <%= actions_list_item title: "Clone Campaign" do %>
-        <%= render "/shared/actions/generic", link: new_campaign_path(clone: @campaign.id), icon: "fa fa-copy" %>
+      <%= actions_list_item title: "Edit Property" do %>
+        <%= render "/shared/actions/edit_property", property: property %>
       <% end %>
     <% end %>
   <% end %>
@@ -26,7 +23,7 @@
     <header class="page-title-bar">
       <%= yield :page_heading %>
       <div class="d-flex border-bottom">
-        <%= render("campaigns/tabs", campaign: campaign) if campaign.persisted? %>
+        <%= render("properties/tabs", property: property) if property.persisted? %>
         <%= yield :actions %>
       </div>
     </header>

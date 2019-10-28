@@ -21,7 +21,7 @@
      <header class="page-title-bar">
        <%= yield :page_heading %>
        <div class="d-flex border-bottom">
-         <%= render "organizations/tabs", organization: organization %>
+         <%= render("organizations/tabs", organization: organization) if organization.persisted? %>
          <%= yield :actions %>
        </div>
      </header>
