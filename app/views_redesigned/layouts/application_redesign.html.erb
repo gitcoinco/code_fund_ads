@@ -23,7 +23,7 @@
   </head>
   <body>
     <%= render 'shared/header' %>
-    <h1>Hello from redesign</h1>
+    <%= render 'shared/search_results' if @search_results %>
     <%= yield %>
     <%= render 'shared/footer' %>
 
