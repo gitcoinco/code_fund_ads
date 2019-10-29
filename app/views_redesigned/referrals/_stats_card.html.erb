@@ -1,0 +1,23 @@
+<%= card do %>
+  <%= card_header do %>
+    <%= card_title add_class: "mb-0" do %>
+      Referral Stats
+    <% end %>
+  <% end %>
+  <%= card_body do %>
+    <ul class="list-group list-group-borderless list-group-flush">
+      <li class="list-group-item d-flex justify-content-between align-items-center p-0 mb-4">
+        Referral Clicks
+        <span><%= current_user.referral_click_count %></span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center p-0 mb-4">
+        Referrals
+        <span><%= current_user.referred_users.count %></span>
+      </li>
+      <li class="list-group-item d-flex justify-content-between align-items-center p-0">
+        Earned
+        <span><%= current_user.referral_revenue.format %></span>
+      </li>
+    </ul>
+  <% end %>
+<% end %>
