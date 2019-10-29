@@ -28,7 +28,7 @@ module Extensions
         date
       end
 
-      def cache_key(date, coerce: true, minutes_cached: 10)
+      def cache_key(date, coerce: true, minutes_cached: 15)
         return nil unless date || coerce
         date = Date.coerce(date)
         return date.iso8601 if date < 1.day.ago.to_date
@@ -38,7 +38,7 @@ module Extensions
       end
     end
 
-    def cache_key(minutes_cached: 10)
+    def cache_key(minutes_cached: 15)
       Date.cache_key self, coerce: false, minutes_cached: minutes_cached
     end
   end

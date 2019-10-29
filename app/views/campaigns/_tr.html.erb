@@ -1,4 +1,4 @@
-<%= tag.tr class: classes("even": campaign_counter.even?, "odd": campaign_counter.odd?, "opacity-40": ENUMS::CAMPAIGN_STATUSES[campaign.status] == "archived") do %>
+<%= tag.tr class: classes("even": campaign_counter.even?, "odd": campaign_counter.odd?, "opacity-40": campaign.archived?) do %>
   <td class="align-middle text-secondary"><%= link_to campaign.name, campaign %></td>
   <% if authorized_user.can_admin_system? %>
     <td class="align-middle">
