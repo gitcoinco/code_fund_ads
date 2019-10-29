@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
     prepend_view_path Rails.root.join("app/views_redesigned").to_s
 
     layout -> {
-      filepath = Rails.root.join("app/views_redesigned", controller_name, "#{action_name}.html.erb")
+      filepath = Rails.root.join("app/views_redesigned", controller_name, "#{partial_name(action_name)}.html.erb")
       File.exist?(filepath) ? "application_redesign" : "application"
     }
   end
@@ -172,6 +172,19 @@ class ApplicationController < ActionController::Base
       Rails.application.config.action_mailer.asset_host = url
       Rails.application.routes.default_url_options = default_url_options
       Rails.application.config.action_mailer.default_url_options = default_url_options
+    end
+  end
+
+  private
+
+  def partial_name(action_name)
+    case action_name
+    when "update"
+      "edit"
+    when "create"
+      "new"
+    else
+      action_name
     end
   end
 end
