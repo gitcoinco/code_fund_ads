@@ -1,0 +1,9 @@
+<%= tag.tr class: classes("even": coupon_counter.even?, "odd": coupon_counter.odd?) do %>
+  <td class="align-middle"><%= coupon.code %></td>
+  <td class="align-middle"><%= coupon.coupon_type %></td>
+  <td class="align-middle"><%= coupon.discount_percent %>%</td>
+  <td class="align-middle"><%= coupon.expires_at.to_s("mm/dd/yyyy") %></td>
+  <td class="align-middle"><%= coupon.quantity %></td>
+  <td class="align-middle"><%= coupon.claimed %></td>
+  <td class="align-middle text-right"><%= edit_button(link: edit_coupon_path(coupon)) %></td>
+<% end %>
