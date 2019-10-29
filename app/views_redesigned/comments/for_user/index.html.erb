@@ -8,8 +8,6 @@
         Comments and notes for this user
       <% end %>
     <% end %>
-    <%= card_body do %>
-      <%= render "/comments/table", commentable: @commentable, comments: @comments %>
-    <% end %>
+    <%= render "/comments/table", commentable: @commentable, comments: @comments %>
   <% end %>
 <% end %>
