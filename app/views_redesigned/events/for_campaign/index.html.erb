@@ -1,0 +1,15 @@
+<%= render layout: "/campaigns/layout", locals: { campaign: @eventable } do %>
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Events
+      <% end %>
+      <%= card_subtitle do %>
+        List of events related to this campaign
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <%= render "/events/table", eventable: @eventable, events: @events %>
+    <% end %>
+  <% end %>
+<% end %>
