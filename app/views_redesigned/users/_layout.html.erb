@@ -26,10 +26,19 @@
   <div class="container mt-4">
     <header class="page-title-bar">
       <%= yield :page_heading %>
-      <div class="d-flex border-bottom">
-        <%= render("users/tabs", user: user) if authorized_user.can_admin_system? %>
-        <%= yield :actions %>
-      </div>
+
+      <% if authorized_user.can_admin_system? %>
+        <div class="d-flex border-bottom">
+          <%= render("users/tabs", user: user) %>
+          <%= yield :actions %>
+        </div>
+      <% else %>
+        <div class="d-flex flex-row-reverse border-bottom">
+          <div class="mb-2">
+            <%= yield :actions %>
+          </div>
+        </div>
+      <% end %>
     </header>
     <%= yield %>
   </div>
