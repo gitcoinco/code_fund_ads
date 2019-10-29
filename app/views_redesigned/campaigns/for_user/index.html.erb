@@ -1,7 +1,7 @@
 <%= render layout: "/users/layout", locals: { user: @user } do %>
   <%= card do %>
     <%= card_body do %>
-      <%= render "/properties/table", properties: @properties, pagy: @pagy %>
+      <%= render "/campaigns/table", campaigns: @campaigns, pagy: @pagy %>
     <% end %>
   <% end %>
 <% end %>

@@ -1,0 +1,37 @@
+<%= card do %>
+  <%= card_body add_class: "mx-auto text-center" do %>
+    <%= user_avatar_image_tag(user, "img-fluid w-100 rounded") %>
+    <h6 class="mt-2 mb-1"><%= link_to user.name, user %></h6>
+    <p class="font-size-1 mb-3"><%= user.company_name || user.email %></p>
+  <% end %>
+  <%= card_footer do %>
+    <% if user.website_url.present? %>
+      <%= card_footer_item do %>
+        <%= link_to user.website_url, class: "tile tile-md tile-circle bg-subtle", target: "_blank" do %>
+          <span class="far fa-browser"></span>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if user.linkedin_username.present? %>
+      <%= card_footer_item do %>
+        <%= link_to "https://linkedin.com/in/#{user.linkedin_username}", class: "tile tile-md tile-circle bg-subtle", target: "_blank" do %>
+          <span class="fab fa-linkedin"></span>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if user.twitter_username.present? %>
+      <%= card_footer_item do %>
+        <%= link_to "https://twitter.com/#{user.twitter_username}", class: "tile tile-md tile-circle bg-subtle", target: "_blank" do %>
+          <span class="fab fa-twitter"></span>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if user.github_username.present? %>
+      <%= card_footer_item do %>
+        <%= link_to "https://github.com/#{user.github_username}", class: "tile tile-md tile-circle bg-subtle", target: "_blank" do %>
+          <span class="fab fa-github"></span>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
