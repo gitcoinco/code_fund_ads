@@ -1,4 +1,4 @@
-<%= simple_form_for organization, html: { class: "js-validate" }, wrapper: :front_form do |f| %>
+<%= simple_form_for organization, wrapper: :front_form do |f| %>
   <%= render "/shared/forms/error_messages", object: organization %>
   <%= card do %>
     <%= card_header do %>
@@ -11,8 +11,7 @@
     <% end %>
     <%= card_body do %>
       <div class="row">
-        <%= tag.div f.input(:name, as: :string, required: true, input_html: { class: "form-control" },
-          data: { msg: "Please enter a valid name", error_class: "u-has-error", success_class: "u-has-success" }), class: "col-12 mb-3" %>
+        <%= tag.div f.input(:name, as: :string, required: true, input_html: { class: "form-control" }), class: "col-12 mb-3" %>
 
         <%= button_panel do %>
           <%= f.submit "Save Organization", class: "btn btn-sm btn-primary mr-1" %>
