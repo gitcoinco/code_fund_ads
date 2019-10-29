@@ -1,7 +1,7 @@
 <% unless local_assigns[:override]&.include? :page_heading %>
   <% content_for :page_heading do %>
     <%= page_heading "Viewing", "Creative",
-        subtitle: @creative.name,
+        subtitle: creative.name,
         icon: "fas fa-palette" %>
   <% end %>
 <% end %>
