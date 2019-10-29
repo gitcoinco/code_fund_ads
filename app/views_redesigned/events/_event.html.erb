@@ -1,0 +1,19 @@
+<li class="timeline-item">
+  <div class="timeline-figure">
+    <span class="tile tile-circle"><i class="far fa-calendar-edit fa-lg"></i></span>
+  </div>
+  <div class="timeline-body">
+    <div class="media">
+      <div class="media-body">
+        <h6 class="timeline-heading">
+          <%= event.eventable %>
+        </h6>
+        <p class="mb-0">
+          <%= simple_format event.body %>
+      </div>
+      <div class="d-none d-sm-block">
+        <span class="timeline-date"><%= time_ago_in_words event.created_at %> ago by <%= event.user %></span>
+      </div>
+    </div>
+  </div>
+</li>
