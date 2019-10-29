@@ -65,3 +65,16 @@
     display: none;
   }
 }
+
+.grid {
+  display: grid;
+  grid-gap: 10px;
+}
+
+.grid-tcolumns-400 {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.grid-trows-200 {
+  grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
+}
