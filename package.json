@@ -2,6 +2,10 @@
   "name": "code_fund_ads",
   "private": true,
   "license": "CC BY-NC-SA 4.0",
+  "engines": {
+    "node": "^13.0.1",
+    "npm": "^6.12.1"
+  },
   "scripts": {
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate"
