@@ -5,7 +5,7 @@
 </p>
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/eee4d09c1a37d23e8990/maintainability)](https://codeclimate.com/github/gitcoinco/code_fund_ads/maintainability)
-[![All Contributors](https://img.shields.io/badge/all_contributors-13-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors)
 [![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/codefund/codefund)
 [![CircleCI](https://circleci.com/gh/gitcoinco/code_fund_ads.svg?style=svg)](https://circleci.com/gh/gitcoinco/code_fund_ads)
 [![Join the conversation](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/code_fund_ads/community)
@@ -326,8 +326,7 @@ CodeFundAds::Events.track("Find Fallback Campaign", session.id, {
 Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds/all-contributors#emoji-key)):
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
+<!-- prettier-ignore -->
 <table>
   <tr>
     <td align="center"><a href="https://twitter.com/@hopsoft"><img src="https://avatars2.githubusercontent.com/u/32920?v=4" width="100px;" alt="Nathan Hopkins"/><br /><sub><b>Nathan Hopkins</b></sub></a><br /><a href="https://github.com/gitcoinco/code_fund_ads/commits?author=hopsoft" title="Code">💻</a> <a href="https://github.com/gitcoinco/code_fund_ads/commits?author=hopsoft" title="Documentation">📖</a> <a href="#ideas-hopsoft" title="Ideas, Planning, & Feedback">🤔</a> <a href="#infra-hopsoft" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a> <a href="#platform-hopsoft" title="Packaging/porting to new platform">📦</a> <a href="#plugin-hopsoft" title="Plugin/utility libraries">🔌</a> <a href="#projectManagement-hopsoft" title="Project Management">📆</a> <a href="#review-hopsoft" title="Reviewed Pull Requests">👀</a> <a href="https://github.com/gitcoinco/code_fund_ads/commits?author=hopsoft" title="Tests">⚠️</a> <a href="#tool-hopsoft" title="Tools">🔧</a></td>
@@ -345,11 +344,10 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="http://dahal.github.io"><img src="https://avatars0.githubusercontent.com/u/3684236?v=4" width="100px;" alt="Puru Dahal"/><br /><sub><b>Puru Dahal</b></sub></a><br /><a href="https://github.com/gitcoinco/code_fund_ads/commits?author=dahal" title="Code">💻</a></td>
     <td align="center"><a href="http://blog.curtis-mckee.com"><img src="https://avatars0.githubusercontent.com/u/7895798?v=4" width="100px;" alt="Curtis Mckee"/><br /><sub><b>Curtis Mckee</b></sub></a><br /><a href="https://github.com/gitcoinco/code_fund_ads/commits?author=cmckee-dev" title="Tests">⚠️</a> <a href="https://github.com/gitcoinco/code_fund_ads/commits?author=cmckee-dev" title="Code">💻</a> <a href="#design-cmckee-dev" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/jeremigendron/contract"><img src="https://avatars2.githubusercontent.com/u/23587429?v=4" width="100px;" alt="jeremiG"/><br /><sub><b>jeremiG</b></sub></a><br /><a href="https://github.com/gitcoinco/code_fund_ads/commits?author=JeremiGendron" title="Documentation">📖</a></td>
+    <td align="center"><a href="http://logichub.co.uk"><img src="https://avatars0.githubusercontent.com/u/6245858?v=4" width="100px;" alt="Kashif Rafique"/><br /><sub><b>Kashif Rafique</b></sub></a><br /><a href="https://github.com/gitcoinco/code_fund_ads/commits?author=logichub" title="Code">💻</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
-<!-- prettier-ignore-end -->
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
