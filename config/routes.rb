@@ -23,11 +23,6 @@ Rails.application.routes.draw do
 
   root to: "pages#index"
 
-  # Temporary until we replace Pages with Home
-  if ENV["REDESIGN"] == "true"
-    resources :home, path: "/home", only: [:index, :show]
-  end
-
   devise_for :users, controllers: {
     sessions: "sessions",
     invitations: "invitations",
