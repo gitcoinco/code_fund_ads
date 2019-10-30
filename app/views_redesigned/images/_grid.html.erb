@@ -1,0 +1,5 @@
+<div class="row">
+  <% images.each do |image| %>
+    <%= render "/images/image", imageable: imageable, image: image %>
+  <% end %>
+</div>

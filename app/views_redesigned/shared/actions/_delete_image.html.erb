@@ -1,0 +1,7 @@
+<%= link_to image_path(imageable.to_gid_param, image),
+            method: :delete, 
+            class: "btn btn-xs btn-subtle-secondary",
+            data: { confirm: I18n.t("images.destroy.confirm") } do %>
+  <span class="fas fa-trash"></span>
+<% end if authorized_user.can_destroy_image?(image) %>
+
