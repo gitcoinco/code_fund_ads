@@ -1,5 +1,5 @@
+import Rails from '@rails/ujs'
 import { Controller } from 'stimulus'
-// import Rails from 'rails-ujs';
 // import { Binding } from '@stimulus/core/dist/src/binding'
 
 export default class extends Controller {

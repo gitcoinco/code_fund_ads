@@ -1,3 +1,5 @@
+import Turbolinks from 'turbolinks'
+
 const hoverTime = 400
 const fetchers = {}
 const doc = document.implementation.createHTMLDocument('prefetch')

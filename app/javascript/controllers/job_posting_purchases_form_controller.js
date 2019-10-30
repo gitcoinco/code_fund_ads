@@ -1,3 +1,4 @@
+import Rails from '@rails/ujs'
 import { Controller } from 'stimulus'
 import { toArray } from '../src/utils'
 
