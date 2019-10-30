@@ -1,8 +1,13 @@
 <%= form_tag nil,
       data: { controller: "dashboard-date-range", target: "dashboard-date-range.form" },
       method: :get, autocomplete: "off",
-      style: "width: 170px;" do%>
-  <div class="w-auto input-group input-group-sm opacity-90 border">
+      style: "width: 190px;" do %>
+  <div class="w-auto input-group input-group-sm">
+    <div class="input-group-prepend">
+      <span class="input-group-text border-0 text-primary">
+        <span class="fas fa-calendar"></span>
+      </span>
+    </div>
     <input type="text"
       name="date_range"
       class="js-range-datepicker form-control border-0 text-primary"

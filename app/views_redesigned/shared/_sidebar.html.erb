@@ -2,14 +2,9 @@
   <div class="aside-menu overflow-auto">
     <nav id="stacked-menu" class="stacked-menu">
       <ul class="menu">
-        <li class="menu-header mb-2">
-          <i class="fas fa-calendar fa-lg"></i>
-          Date Range
-        </li>
         <li class="menu-item">
-          <%= actions_date_range_picker %>
+          <%= render "/shared/date_range_picker" %>
         </li>
-        <li class="log-divider"></li>
         <% if authorized_user.can_advertise_and_publish? %>
           <%= render "/shared/sidebar_content/advertisers_publishers" %>
         <% elsif authorized_user.can_advertise? %>

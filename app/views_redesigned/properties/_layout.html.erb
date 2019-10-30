@@ -9,7 +9,6 @@
 <% unless local_assigns[:override]&.include? :actions %>
   <% content_for :actions do %>
     <%= actions_list do %>
-      <%= actions_date_range_picker %>
       <%= actions_list_item title: "Edit Property" do %>
         <%= render "/shared/actions/edit_property", property: property %>
       <% end %>
