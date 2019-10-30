@@ -1,0 +1,7 @@
+<svg viewBox="0 0 1000 1000" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g id="dropbox" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+    <g id="dropbox-1" transform="translate(81.000000, 143.000000)" fill="#0062FF" fill-rule="nonzero">
+      <path d="M209.75,0 L0,134.493075 L209.75,267.00831 L419.5,134.493075 L209.75,0 Z M629.25,0 L419.5,134.493075 L629.25,267.00831 L839,134.493075 L629.25,0 Z M0,401.501385 L209.75,535.99446 L419.5,401.501385 L209.75,267.00831 L0,401.501385 Z M629.25,267.00831 L419.5,401.501385 L629.25,535.99446 L839,401.501385 L629.25,267.00831 Z M209.75,579.506925 L419.5,714 L629.25,579.506925 L419.5,446.99169 L209.75,579.506925 Z" id="Shape"></path>
+    </g>
+  </g>
+</svg>

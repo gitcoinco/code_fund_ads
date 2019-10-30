@@ -6,32 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <%= action_cable_meta_tag %>
 
-    <!-- Libs CSS -->
-    <link rel="stylesheet" href="/landkit/fonts/Feather/feather.css">
-    <link rel="stylesheet" href="/landkit/libs/flickity/dist/flickity.min.css">
-    <link rel="stylesheet" href="/landkit/libs/flickity-fade/flickity-fade.css">
-    <link rel="stylesheet" href="/landkit/libs/aos/dist/aos.css">
-    <link rel="stylesheet" href="/landkit/libs/jarallax/dist/jarallax.css">
-    <link rel="stylesheet" href="/landkit/libs/highlightjs/styles/vs2015.css">
-    <link rel="stylesheet" href="/landkit/libs/@fancyapps/fancybox/dist/jquery.fancybox.min.css">
+    <!-- CDN Stylesheets -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-zrnmn8R8KkWl12rAZFt4yKjxplaDaT7/EUkKm7AovijfrQItFWR7O/JJn4DAa/gx" crossorigin="anonymous">
+    <!-- Compressed Stylesheets -->
+    <%= stylesheet_pack_tag 'code_fund_marketing', media: 'all', 'data-turbolinks-track': 'reload' %>
 
     <!-- Map -->
     <link href='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.css' rel='stylesheet' />
 
-    <!-- Theme CSS -->
-    <link rel="stylesheet" href="/landkit/css/theme.min.css">
-
     <!-- Compressed JavaScripts -->
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'code_fund_redesign', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'code_fund_marketing', 'data-turbolinks-track': 'reload' %>
 
     <title><%= @butter&.seo_title || "CodeFund" %></title>
   </head>
   <body class="bg-light">
-    <%= render "/shared/landkit/modals" %>
-    <%= render "/shared/landkit/navbar" %>
+    <%= render "/shared/marketing/modals" %>
+    <%= render "/shared/marketing/navbar" %>
     <%= yield %>
-    <%= render "/shared/landkit/footer" %>
-    <%= render "/shared/landkit/scripts" %>
+    <%= render "/shared/marketing/footer" %>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.53.0/mapbox-gl.js'></script>
   </body>
 </html>
