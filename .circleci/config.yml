@@ -79,7 +79,7 @@ jobs:
       - run:
           name: install yarn dependencies
           command: |
-            yarn install --frozen-lockfile
+            yarn install --ignore-engines --frozen-lockfile
 
       - save_cache:
           name: save yarn cache
@@ -105,4 +105,4 @@ jobs:
 
       - run:
           name: run prettier-standard check
-          command: yarn run prettier-standard --check 'app/**/*.js'
+          command: yarn run --ignore-engines prettier-standard --check 'app/**/*.js'
