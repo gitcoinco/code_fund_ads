@@ -1,18 +1,18 @@
 <% cache_if @campaign.persisted? && @creative.persisted?, [@campaign, @creative] do %>
   <div id="cf">
     <span class="cf-wrapper">
-      <a data-href="campaign_url" class="cf-img-wrapper" target="_blank" rel="nofollow noopener">
+      <a data-href="campaign_url" class="cf-img-wrapper" target="_blank" rel="sponsored noopener">
         <%= image_tag @creative.small_image.cloudfront_url, border: 0, height: 48, width: 48, class: "cf-img", alt: @creative.name rescue nil %>
       </a>
       <div class="cf-media-body">
-        <a data-href="campaign_url" class="cf-text" target="_blank" rel="nofollow noopener">
+        <a data-href="campaign_url" class="cf-text" target="_blank" rel="sponsored noopener">
           <strong><%= @creative.headline %></strong>
           <span>
             <%= @creative.body %>
             <span class="cf-link"><%= @creative.cta %></span>
           </span>
         </a>
-        <a href="https://codefund.io" data-target="powered_by_url" class="cf-powered-by" target="_blank" rel="nofollow noopener">
+        <a href="https://codefund.io" data-target="powered_by_url" class="cf-powered-by" target="_blank" rel="sponsored noopener">
           <em>ethical</em> ad by CodeFund
         </a>
         <img data-src="impression_url" alt="">

@@ -5,7 +5,7 @@
       <%= image_tag @creative.icon_image.cloudfront_url, height: 20, width: 20, class: "cf-img", style: "width: 20px; height: 20px;", alt: @creative.name rescue nil %>
       <b><%= @creative.headline %></b>
       <%= @creative.body %>
-      <a href="#" data-href="campaign_url" rel="nofollow noopener" target="_blank">
+      <a href="#" data-href="campaign_url" rel="sponsored noopener" target="_blank">
         <b><%= @creative.cta || "Learn more" %></b>
       </a>
     </span>
@@ -15,7 +15,7 @@
         data-target="powered_by_url"
         class="cf-powered-by"
         target="_blank"
-        rel="nofollow noopener"
+        rel="sponsored noopener"
         title="Ethical ads by CodeFund"
       >
         <svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">

@@ -2,7 +2,7 @@
   <div id="cf">
     <div class="cf-wrapper">
       <div class="clearfix">
-        <a data-href="campaign_url" target="_blank" rel="nofollow noopener">
+        <a data-href="campaign_url" target="_blank" rel="sponsored noopener">
           <span class="cf-img-wrapper">
             <%= image_tag @creative.small_image.cloudfront_url, width: 65, height: 65, class: "cf-img", alt: @creative.name rescue nil %>
           </span>
@@ -12,7 +12,7 @@
           </span>
         </a>
       </div>
-      <a href="https://codefund.io" data-target="powered_by_url" class="cf-powered-by" target="_blank" rel="nofollow noopener">
+      <a href="https://codefund.io" data-target="powered_by_url" class="cf-powered-by" target="_blank" rel="sponsored noopener">
         <em>ethical</em> ad by CodeFund
         <img data-src="impression_url" alt="">
       </a>
