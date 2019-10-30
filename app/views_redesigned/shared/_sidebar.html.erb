@@ -2,6 +2,9 @@
   <div class="aside-menu overflow-auto">
     <nav id="stacked-menu" class="stacked-menu">
       <ul class="menu">
+        <li class="menu-item">
+          <%= render "/shared/date_range_picker" %>
+        </li>
         <% if authorized_user.can_advertise_and_publish? %>
           <%= render "/shared/sidebar_content/advertisers_publishers" %>
         <% elsif authorized_user.can_advertise? %>

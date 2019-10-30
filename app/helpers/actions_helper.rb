@@ -13,10 +13,4 @@ module ActionsHelper
       "data-placement": "bottom",
       &block)
   end
-
-  def actions_date_range_picker(id: nil, add_class: "")
-    content_tag :li, nil, id: id, class: add_class do
-      render "/shared/date_range_picker"
-    end
-  end
 end
