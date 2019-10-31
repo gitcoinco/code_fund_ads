@@ -11,10 +11,6 @@ module CardHelper
     content_tag(:div, nil, id: id, class: "card-body p-4 #{add_class}", &block)
   end
 
-  def card_figure(id: nil, add_class: "", &block)
-    content_tag(:div, nil, id: id, class: "card card-figure #{add_class}", &block)
-  end
-
   def card_title(id: nil, add_class: "", &block)
     content_tag(:h4, nil, id: id, class: "card-title #{add_class}", &block)
   end

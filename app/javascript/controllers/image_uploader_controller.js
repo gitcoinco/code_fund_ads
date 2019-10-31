@@ -13,7 +13,6 @@ export default class extends Controller {
 
   connect () {
     this.progressBars = {}
-    console.log("Test");
   }
 
   showUploadsStarted (event) {
@@ -34,7 +33,6 @@ export default class extends Controller {
   }
 
   choose (event) {
-    console.log("Test 2");
     Rails.stopEverything(event)
     this.inputTarget.click()
   }

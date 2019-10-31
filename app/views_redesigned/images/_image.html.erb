@@ -1,23 +1,21 @@
-<div class="col-md-4">
-  <div class="card card-figure">
-    <figure class="figure">
-      <%= image_tag image, class: "img-fluid" %>
-      <figcaption class="figure-caption">
-        <ul class="list-inline d-flex text-muted align-items-center mb-0">
-          <li class="list-inline-item text-truncate mr-auto">
-            <%= image.blob.filename.to_s %>
-          </li>
-          <% if authorized_user.can_admin_system? %>
-            <li class="list-inline-item">
-              <%= render "/shared/actions/edit_image", imageable: imageable, image: image %>
-            </li>
-            <li class="list-inline-item">
-              <%= render "/shared/actions/delete_image", imageable: imageable, image: image %>
-            </li>
-          <% end %>
-        </ul>
-      </figcaption>
-    </figure>
+<div class="card">
+  <div class="card-img-top d-flex justify-content-center align-items-center p-4" style="min-height:200px">
+    <%= image_tag image, class: "img-thumbnail mw-100" %>
+  </div>
+  <div class="card-body">
+    <ul class="list-inline d-flex text-muted align-items-center mb-0">
+      <li class="list-inline-item text-truncate mr-auto">
+        <%= image.blob.filename.to_s %>
+      </li>
+      <% if authorized_user.can_admin_system? %>
+        <li class="list-inline-item">
+          <%= render "/shared/actions/edit_image", imageable: imageable, image: image %>
+        </li>
+        <li class="list-inline-item">
+          <%= render "/shared/actions/delete_image", imageable: imageable, image: image %>
+        </li>
+      <% end %>
+    </ul>
   </div>
 </div>
 
