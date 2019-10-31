@@ -50,11 +50,12 @@ class Property < ApplicationRecord
   # validations ...............................................................
   # validates :ad_template, presence: true
   # validates :ad_theme, presence: true
-  validates :language, length: {maximum: 255, allow_blank: false}
-  validates :name, length: {maximum: 255, allow_blank: false}
+  validates :language, length: {maximum: 255}, allow_blank: false
+  validates :name, length: {maximum: 255}, allow_blank: false
   validates :property_type, inclusion: {in: ENUMS::PROPERTY_TYPES.values}
-  validates :status, inclusion: {in: ENUMS::PROPERTY_STATUSES.values}
   validates :responsive_behavior, inclusion: {in: ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS.values}
+  validates :revenue_percentage, numericality: {less_than_or_equal_to: 1.0, greater_than_or_equal_to: 0}
+  validates :status, inclusion: {in: ENUMS::PROPERTY_STATUSES.values}
   validates :url, presence: true, url: true
 
   # callbacks .................................................................
