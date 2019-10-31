@@ -29,7 +29,7 @@ http {
 
   server {
     listen <%= ENV["PORT"] %>;
-    server_name codefund.io;
+    server_name <%= ENV["CMS_SUBDOMAIN"] ? "#{ENV["CMS_SUBDOMAIN"]}." : "" %>codefund.io;
     keepalive_timeout 5;
     client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
 
@@ -68,7 +68,7 @@ http {
 
   server {
     listen <%= ENV["PORT"] %>;
-    server_name <%= ENV["SUBDOMAIN"] || "app" %>.codefund.io;
+    server_name <%= ENV["APP_SUBDOMAIN"] || "app" %>.codefund.io;
     keepalive_timeout 5;
     client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
 

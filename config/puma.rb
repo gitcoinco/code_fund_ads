@@ -30,8 +30,12 @@ workers ENV.fetch("WEB_CONCURRENCY", 2).to_i
 #
 # preload_app!
 
+on_worker_fork do
+  FileUtils.touch "/tmp/app-initialized"
+end
+
 # Allow puma to be restarted by `rails restart` command.
-plugin :tmp_restart
+# plugin :tmp_restart
 
 # See https://dev.to/sabatesduran/ngrok-for-rails-development-5f9k
 if ENV["RAILS_ENV"] == "development" && ENV["NGROK_SUBDOMAIN"].present?
