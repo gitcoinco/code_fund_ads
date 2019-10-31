@@ -1,122 +1,62 @@
 <!-- ========== FOOTER ========== -->
-<!-- call to action -->
-<section class="py-5 position-relative bg-light">
-  <!-- .sticker -->
-  <div class="sticker">
-    <div class="sticker-item sticker-bottom-left w-100">
-      <!-- wave1.svg -->
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="120" viewbox="0 0 1440 240" preserveaspectratio="none">
-        <path class="fill-black" fill-rule="evenodd" d="M1070.39 25.041c107.898 11.22 244.461 20.779 369.477 51.164L1440 240H0L.133 72.135C350.236-17.816 721.61-11.228 1070.391 25.04z"></path>
-      </svg>
-    </div>
-  </div><!-- /.sticker -->
-  <!-- .container -->
+<footer class="py-2 bg-black text-light">
   <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-8 offset-md-2">
-        <!-- .card -->
-        <div class="card bg-success text-light position-relative overflow-hidden shadow rounded-lg p-4 mb-0" data-aos="fade-up">
-          <!-- .card-body -->
-          <div class="card-body d-md-flex justify-content-between align-items-center position-relative">
-            <div class="d-flex flex-column mx-auto">
-              <h3 class="font-weight-normal mb-3 mb-md-0 mr-md-3"> Get our weekly newsletter! </h3>
-              <p>Get weekly updates on our progress. Never spam.</p>
-              <%= form_tag newsletter_subscription_path, method: :post, class: "js-validate js-form-message", data: {
-                controller: "event-track",
-                action: "submit->event-track#logEvent",
-                ga_event_category: "website",
-                ga_event_action: "subscribe",
-                ga_event_label: "newsletter",
-                ga_event_value: ""
-              } do %>
-                <div class="js-focus-state form-group d-flex">
-                  <input type="email" class="form-control u-form__input mr-1" name="email" required
-                        placeholder="Enter your email address"
-                        aria-label="Enter your email address"
-                        data-msg="Please enter your email address"
-                        data-error-class="u-has-error"
-                        data-success-class="u-has-success"
-                        data-rule-email="true">
-                  <button type="submit" class="btn btn-dark">Subscribe</button>
-                </div>
-              <% end %>
-            </div>
-          </div><!-- /.card-body -->
-        </div><!-- /.card -->
+    <div class="row my-4">
+      <div class="col-6 col-md-3">
+        <%= image_tag "codefund-w.svg", class: "mb-4 position-relative", style: "left:-15px; height:24px;" %>
+        <ul class="list-inline mb-5 mb-md-0">
+          <li class="list-inline-item mr-3">
+            <a href="https://twitter.com/codefundio/" class="tile tile-circle bg-primary text-light text-decoration-none" title="twitter"><i class="fab fa-twitter"></i></a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-3 mb-3 mb-md-0">
+        <h6 class="mb-3 text-muted"> About </h6>
+        <ul class="list-unstyled">
+          <li class="mb-3">
+            <%= link_to "Advertise with Us", advertisers_path, class: "text-light" %>
+          </li>
+          <li class="mb-3">
+            <%= link_to "Become a Publisher", publishers_path, class: "text-light" %>
+          </li>
+          <li class="mb-3">
+            <a href="https://codefund.io/blog/" class="text-light">Blog</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-3 mb-3 mb-md-0">
+        <h6 class="mb-3 text-muted"> Company </h6>
+        <ul class="list-unstyled">
+          <li class="mb-3">
+            <%= link_to "Team", page_path(:team), class: "text-light" %>
+          </li>
+          <li class="mb-3">
+            <a href="https://github.com/gitcoinco/code_fund_ads" class="text-light">Code</a>
+          </li>
+          <li class="mb-3">
+            <a href="https://stackshare.io/codefund" class="text-light">Our Stack</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col-6 col-md-3 mb-3 mb-md-0">
+        <h6 class="mb-3 text-muted"> Resources </h6>
+        <ul class="list-unstyled">
+          <li class="mb-3">
+            <a href="https://status.codefund.io" class="text-light">Status</a>
+          </li>
+          <li class="mb-3">
+            <a href="https://www.iubenda.com/privacy-policy/47597768" class="text-light">Privacy Policy</a>
+          </li>
+          <li class="mb-3">
+            <a href="https://www.iubenda.com/privacy-policy/47597768/cookie-policy" class="text-light">Cookie Policy</a>
+          </li>
+        </ul>
       </div>
     </div>
-  </div><!-- /.container -->
-</section><!-- /call to action -->
-
-<footer class="py-5 bg-black text-light">
-  <!-- .container -->
+  </div>
+  <hr class="border-light opacity-20" />
   <div class="container">
-    <!-- .row -->
-    <div class="row mb-4">
-      <!-- .col -->
-      <div class="col-6 col-md-4 mb-3 mb-md-0">
-        <!-- Heading -->
-        <h6 class="mb-4"> About </h6><!-- links -->
-        <ul class="list-unstyled">
-          <li class="mb-3">
-            <%= link_to "Advertise with Us", advertisers_path, class: "text-muted" %>
-          </li>
-          <li class="mb-3">
-            <%= link_to "Become a Publisher", publishers_path, class: "text-muted" %>
-          </li>
-          <li class="mb-3">
-            <a href="https://codefund.io/blog/" class="text-muted">Blog</a>
-          </li>
-        </ul>
-      </div><!-- /.col -->
-      <!-- .col -->
-      <div class="col-6 col-md-4 mb-3 mb-md-0">
-        <!-- Heading -->
-        <h6 class="mb-4"> Company </h6><!-- links -->
-        <ul class="list-unstyled">
-          <li class="mb-3">
-            <%= link_to "Team", page_path(:team), class: "text-muted" %>
-          </li>
-          <li class="mb-3">
-            <a href="https://github.com/gitcoinco/code_fund_ads" class="text-muted">Code</a>
-          </li>
-          <li class="mb-3">
-            <a href="https://stackshare.io/codefund" class="text-muted">Our Stack</a>
-          </li>
-        </ul>
-      </div><!-- /.col -->
-      <!-- .col -->
-      <div class="col-6 col-md-4 mb-3 mb-md-0">
-        <!-- Heading -->
-        <h6 class="mb-4"> Resources </h6><!-- links -->
-        <ul class="list-unstyled">
-          <li class="mb-3">
-            <a href="https://status.codefund.io" class="text-muted">Status</a>
-          </li>
-          <li class="mb-3">
-            <a href="https://www.iubenda.com/privacy-policy/47597768" class="text-muted">Privacy Policy</a>
-          </li>
-          <li class="mb-3">
-            <a href="https://www.iubenda.com/privacy-policy/47597768/cookie-policy" class="text-muted">Cookie Policy</a>
-          </li>
-        </ul>
-      </div><!-- /.col -->
-    </div><!-- /.row -->
-    <!-- .row -->
-    <div class="row">
-        <!-- .col -->
-      <div class="col-12 col-md-6">
-        <!-- Brand -->
-        <%= image_tag "codefund-w.svg", class: "mb-3 position-relative", style: "left:-15px; height:24px;" %>
-        <p class="text-muted mb-2">Connect with Us</p>
-        <ul class="list-inline mb-5 mb-md-0">
-          <li class="list-inline-item mr-3" data-aos="fade-in" data-aos-delay="0">
-            <a href="https://twitter.com/codefundio/" class="text-muted text-decoration-none" title="twitter"><%= image_tag asset_pack_path("media/logo/twitter.svg"), width: 24 %></a>
-          </li>
-        </ul>
-      </div><!-- /.col -->
-    </div>
-    <p class="text-muted text-center mt-5">Copyright &copy; 2017-2019 ConsenSys, AG. All rights reserved.</p>
-  </div><!-- /.container -->
+    <p class="text-muted text-center mt-4">Copyright &copy; 2017-2019 ConsenSys, AG. All rights reserved.</p>
+  </div>
 </footer>
 <!-- ========== END FOOTER ========== -->
