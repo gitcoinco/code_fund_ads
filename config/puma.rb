@@ -9,8 +9,11 @@ threads threads_count, threads_count
 
 # Specifies the `port` that Puma will listen on to receive requests; default is 3000.
 #
-# port ENV.fetch("PORT", 3000).to_i
-bind "unix:///tmp/nginx.socket"
+if ENV["RAILS_ENV"] == "production"
+  bind "unix:///tmp/nginx.socket"
+else
+  port ENV.fetch("PORT", 3000).to_i
+end
 
 # Specifies the `environment` that Puma will run in.
 #
