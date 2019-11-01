@@ -84,6 +84,12 @@ http {
       proxy_pass http://unix:///tmp/nginx.socket:;
     }
 
+    location /cable {
+      proxy_pass http://unix:///tmp/nginx.socket:;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
+    }
+
     location ~ /(assets|packs)/ {
       gzip_static on;
       expires max;
