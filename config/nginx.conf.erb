@@ -82,7 +82,7 @@ http {
     root /app/public;
 
     location / {
-      proxy_pass unix:///tmp/nginx.socket;
+      proxy_pass http://unix:///tmp/nginx.socket:;
     }
 
     location ~ /(assets|packs)/ {
