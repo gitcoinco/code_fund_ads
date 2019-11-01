@@ -6,7 +6,7 @@
         <label class="form-label select required" for="creative_icon_image">
           Sponsor Image <abbr title="required">*</abbr> <small class="text-muted">(400×40 svg)</small>
         </label>
-        <select class="form-control select required"
+        <select class="form-control custom-select required"
                 data-target="creative-form.inputSponsorBlobId"
                 data-action="change->creative-form#setSponsorImage"
                 required="required"
@@ -27,8 +27,14 @@
       <label class="form-label select text-muted" for="preview-sponsor-image">
         Preview
       </label>
-      <%= image_tag asset_path("sponsor-placeholder.svg"),
-        data: { target: "creative-form.previewSponsorImage", default_image_url: asset_path("sponsor-placeholder.svg") } %>
+      <div class="d-flex justify-content-center align-items-center mw-100" style="min-height:200px">
+        <%= image_tag asset_path("sponsor-placeholder.svg"),
+            class: "img-thumbnail",
+            data: { 
+              target: "creative-form.previewSponsorImage", 
+              default_image_url: asset_path("sponsor-placeholder.svg") 
+            } %>
+      </div>
     </div>
   </div>
 </div>
