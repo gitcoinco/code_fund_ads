@@ -32,6 +32,7 @@ http {
     server_name <%= ENV["CMS_SUBDOMAIN"] ? "#{ENV["CMS_SUBDOMAIN"]}." : "" %>codefund.io;
     keepalive_timeout 5;
     client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
+    proxy_set_header X-Forwarded-Proto $scheme;
 
     location ~ \/scripts\/.+\/embed\.js {
       root /app/public;
@@ -71,6 +72,7 @@ http {
     server_name <%= ENV["APP_SUBDOMAIN"] || "app" %>.codefund.io;
     keepalive_timeout 5;
     client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
+    proxy_set_header X-Forwarded-Proto $scheme;
 
     root /app/public;
   }
