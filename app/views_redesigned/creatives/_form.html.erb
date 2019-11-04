@@ -3,9 +3,7 @@
   class: "js-validate", 
   data: { controller: "creative-form" }},
   wrapper: :front_form do |f| %>
-
   <%= f.hidden_field :creative_type, data: { target: "creative-form.creativeType" } %>
-
   <%= card do %>
     <%= card_header do %>
       <%= card_title do %>
@@ -15,7 +13,6 @@
         Tell us about the creative
       <% end %>
     <% end %>
-
     <%= card_body do %>
       <div class="row">
         <%= tag.div f.input(:name, required: true), class: "col-12 col-md-4 mb-3" %>
@@ -32,7 +29,6 @@
           </div>
         <% end %>
       </div>
-
       <div class="row mt-3">
         <div class="col">
           <nav>
@@ -61,7 +57,6 @@
               </div>
             </div>
           </div>
-
           <div class="container p-5">
             <div class="row">
               <div class="col">
