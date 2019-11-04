@@ -1,0 +1,27 @@
+<%= render "devise/layout" do %>
+  <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { class: "auth-form mx-auto", method: :post }) do |f| %>
+    <div class="text-center mb-2">
+      <h4 class="font-weight-normal">Resend <span class="text-success">Confirmation</span>?</h4>
+      <p>Enter your email and let's get you back on track.</p>
+    </div>
+    <div class="form-group">
+      <div class="form-label-group">
+        <label class="form-label">Email address</label>
+        <%= f.input :email,
+                required: true,
+                label: false,
+                autofocus: true,
+                value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
+                input_html: { autocomplete: "email" },
+                placeholder: "Email address",
+                data: {
+                  rule_email: true,
+                  msg: "Please enter a valid email address."
+                } %>
+      </div>
+    </div>
+    <%= f.button :submit, "Resend Confirmation", class: "btn btn-primary btn-block" %>
+    <%= render "devise/links" %>
+  <% end %>
+<% end %>
+

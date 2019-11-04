@@ -1,0 +1,51 @@
+<%= render "devise/layout" do %>
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form mx-auto" }) do |f| %>
+    <%= hidden_field_tag :job, params[:job] if params[:job] %>
+    <%= hidden_field_tag :remember_me, true if devise_mapping.rememberable? %>
+    <div class="text-center mb-2">
+      <h4 class="font-weight-normal">Welcome <span class="text-success">Back</span></h4>
+      <p>Sign In to manage your account.</p>
+    </div>
+    <div class="form-group">
+      <div class="form-label-group">
+      <label class="form-label" for="signinSrEmail">Email address</label>
+      <%= f.input :email,
+              label: false, required: true,
+              autofocus: true,
+              placeholder: "Email",
+              input_html: {
+                class: "form-control",
+                autocomplete: "email",
+                tabindex: 1,
+              },
+              data: {
+                rule_email: true,
+                msg: "Please enter a valid email address."
+              } %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="form-label-group">
+        <label class="form-label" for="signinSrPassword">Password</label>
+        <%= f.input :password,
+                label: false,
+                required: true,
+                input_html: {
+                  class: "form-control",
+                  autocomplete: "current-password",
+                  tabindex: 2,
+                },
+                data: {
+                  msg: "Your password is invalid. Please try again."
+                } %>
+      </div>
+    </div>
+    <%= f.button :submit, "Sign In", class: "btn btn-primary btn-block" %>
+    <%= render "devise/links" %>
+    <div class="alert alert-primary has-icon text-center mb-3 mt-3">
+      <span class="alert-icon fas fa-info"></span>
+      We removed OmniAuth. If you previously used Google, GitHub or LinkedIn to authenticate, you'll need to reset your password.
+    </div>
+  <% end %>
+<% end %>
+

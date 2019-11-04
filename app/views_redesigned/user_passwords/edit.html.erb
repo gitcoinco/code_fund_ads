@@ -1,0 +1,11 @@
+<% content_for :page_heading do %>
+  <header class="page-title-bar">
+    <%= page_heading "Changing", "Password",
+        subtitle: "Enter your new password below",
+        icon: "fas fa-key" %>
+  </header>
+<% end %>
+
+<%= render layout: "devise/layout", locals: { override: [ :page_heading ] } do %>
+  <%= render "/user_passwords/form" %>
+<% end %>
