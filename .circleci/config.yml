@@ -92,6 +92,10 @@ jobs:
           command: bundle exec rails db:drop db:create db:structure:load --trace
 
       - run:
+          name: run zeitwerk:check
+          command: bundle exec rails zeitwerk:check
+
+      - run:
           name: run tests
           command: bundle exec rails test
 
