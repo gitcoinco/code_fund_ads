@@ -1,0 +1,18 @@
+<% unless local_assigns[:override]&.include? :page_heading %>
+  <% content_for :page_heading do %>
+    <header class="auth-header" style="background-color:#f6f7f9">
+      <%= image_tag "codefund-w.svg", class: "mb-4", style: "height:60px" %>
+    </header>
+  <% end %>
+<% end %>
+
+<section class="d-flex">
+  <% if user_signed_in? %>
+    <%= render "shared/sidebar" %>
+  <% end %>
+  <article class="container my-4">
+    <%= yield :page_heading %>
+    <%= yield %>
+  </article>
+</section>
+
