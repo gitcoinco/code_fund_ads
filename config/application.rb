@@ -22,6 +22,11 @@ module CodeFundAds
     config.active_record.schema_format = :sql
     config.active_job.queue_adapter = :sidekiq
 
+    config.generators do |g|
+      g.assets false
+      g.stylesheets false
+    end
+
     # https://github.com/plataformatec/devise/wiki/How-To:-Create-custom-layouts
     config.to_prepare do
       [Devise::SessionsController,
