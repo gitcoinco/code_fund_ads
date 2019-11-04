@@ -1,5 +1,5 @@
 <%= render "devise/layout" do %>
-  <%= simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { class: "auth-form mx-auto", method: :post }) do |f| %>
+  <%= simple_form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { class: "auth-form js-validate mx-auto", method: :post }) do |f| %>
     <%= f.error_notification %>
     <%= f.full_error :unlock_token %>
     <div class="text-center mb-2">
@@ -12,12 +12,10 @@
                   label: false,
                   required: true,
                   autofocus: true,
-                  input_html: {
-                    autocomplete: "email",
-                    class: "form-control"
-                  } %>
+                  input_html: { autocomplete: "email" } %>
     </div>
     <%= f.button :submit, "Resend Unlock", class: "btn btn-primary btn-block" %>
     <%= render "devise/links" %>
   <% end %>
 <% end %>
+
