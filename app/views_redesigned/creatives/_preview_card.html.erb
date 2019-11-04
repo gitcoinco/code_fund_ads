@@ -1,10 +1,10 @@
 <div class="col-12">
   <div class="mb-4">
     <div class="d-flex justify-content-between align-items-center">
-      <h4 class="h6 mb-0"><%= template %> (<%= theme %>)</h4>
+      <h4 class="mb-0"><%= template %> (<%= theme %>)</h4>
       <div class="position-relative">
         <%= link_to creative_previews_path(creative, template: template, theme: theme),
-          class: "btn btn-xs btn-icon btn-soft-secondary btn-subtle-secondary", target: "_blank" do %>
+          class: "btn btn-xs btn-icon btn-subtle-secondary", target: "_blank" do %>
           <i class="fas fa-external-link btn-icon__inner"></i>
         <% end %>
       </div>
@@ -16,3 +16,4 @@
       frameBorder="0" scrolling="no"></iframe>
   </div>
 </div>
+

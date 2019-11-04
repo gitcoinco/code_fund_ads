@@ -1,0 +1,23 @@
+<% content_for :page_heading do %>
+  <%= page_heading "Viewing", "Creatives",
+    subtitle: "#{pluralize(@pagy.count, "record")} found",
+    icon: "fas fa-palette" %>
+<% end %>
+
+<%= render layout: "/creatives/layout", locals: { creatives: @creatives, override: [ :page_heading ] } do %>
+    <%= render partial: "/creative_searches/form",
+              layout: "/shared/collapsible_search_form",
+              locals: { search: @creative_search } %>
+    <div class="mb-2">
+      <div class="card-columns">
+          <%= render partial: "/creatives/creative", collection: @creatives, as: :creative %>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+      <span><%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %></span>
+      <%= pagy_entries(@pagy) %>
+    </div>
+  </div>
+<% end %>
+
