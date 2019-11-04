@@ -32,16 +32,16 @@ http {
     keepalive_timeout 5;
     client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
 
-    root /app/public;
+    #root /app/public;
 
-    location ~ /scripts/.+/embed.js {
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-Proto https;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header Host $http_host;
-      proxy_redirect off;
-      proxy_pass http://unix:///tmp/nginx.socket:;
-    }
+    #location ~ /scripts/.+/embed.js {
+    #  proxy_set_header X-Real-IP $remote_addr;
+    #  proxy_set_header X-Forwarded-Proto https;
+    #  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #  proxy_set_header Host $http_host;
+    #  proxy_redirect off;
+    #  proxy_pass http://unix:///tmp/nginx.socket:;
+    #}
 
     #location ~ \/api\/v1\/impression\/.+ {
     #  root /app/public;
