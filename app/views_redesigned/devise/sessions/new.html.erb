@@ -1,12 +1,12 @@
 <%= render "devise/layout" do %>
-  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form js-validate mx-auto" }) do |f| %>
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form mx-auto" }) do |f| %>
     <%= hidden_field_tag :job, params[:job] if params[:job] %>
     <%= hidden_field_tag :remember_me, true if devise_mapping.rememberable? %>
     <div class="text-center mb-2">
       <h4 class="font-weight-normal">Welcome <span class="text-success">Back</span></h4>
       <p>Sign In to manage your account.</p>
     </div>
-    <div class="js-form-message form-group">
+    <div class="form-group">
       <div class="form-label-group">
       <label class="form-label" for="signinSrEmail">Email address</label>
       <%= f.input :email,
@@ -20,13 +20,11 @@
               },
               data: {
                 rule_email: true,
-                msg: "Please enter a valid email address.",
-                errorClass: "u-has-error",
-                successCass: "u-has-success"
+                msg: "Please enter a valid email address."
               } %>
       </div>
     </div>
-    <div class="js-form-message form-group">
+    <div class="form-group">
       <div class="form-label-group">
         <label class="form-label" for="signinSrPassword">Password</label>
         <%= f.input :password,
@@ -38,9 +36,7 @@
                   tabindex: 2,
                 },
                 data: {
-                  msg: "Your password is invalid. Please try again.",
-                  errorClass: "u-has-error",
-                  successCass: "u-has-success"
+                  msg: "Your password is invalid. Please try again."
                 } %>
       </div>
     </div>
