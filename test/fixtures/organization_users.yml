@@ -10,9 +10,17 @@
 #  updated_at      :datetime         not null
 #
 
-FactoryBot.define do
-  factory :organization_user do
-    belongs_to { "" }
-    belongs_to { "" }
-  end
-end
+owner:
+  organization: default
+  user: advertiser
+  role: owner
+
+member:
+  organization: default
+  user: advertiser
+  role: member
+
+administrator:
+  organization: default
+  user: advertiser
+  role: administrator
