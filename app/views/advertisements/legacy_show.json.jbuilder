@@ -10,13 +10,13 @@ if @campaign && @creative
   end
   json.link @campaign_url
   json.pixel @impression_url
-  json.poweredByLink "https://codefund.io"
+  json.poweredByLink "https://app.codefund.io"
   json.small_image_url @creative.small_image&.cloudfront_url
   json.house_ad @campaign.fallback?
 else
   json.small_image_url ""
   json.reason "CodeFund does not have an advertiser for you at this time."
-  json.poweredByLink "https://codefund.io"
+  json.poweredByLink "https://app.codefund.io"
   json.pixel ""
   json.link ""
   json.large_image_url ""
