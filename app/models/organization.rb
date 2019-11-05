@@ -26,9 +26,9 @@ class Organization < ApplicationRecord
   has_many :job_postings
   has_many :organization_reports
   has_many :organization_transactions
+  has_many :organization_users, dependent: :destroy
   has_many :scheduled_organization_reports
   has_many :users
-
   # validations ...............................................................
   validates :name, presence: true
   validates_each :name, unless: :skip_validation do |record, attr, value|
