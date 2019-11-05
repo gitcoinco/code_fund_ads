@@ -16,15 +16,13 @@
    <% end %>
  <% end %>
 
-<div class="d-flex">
-   <%= render "shared/sidebar" %>
-   <div class="container mt-4">
-     <header class="page-title-bar">
-       <%= yield :page_heading %>
-       <div class="d-flex flex-row-reverse border-bottom">
-         <%= yield :actions %>
-       </div>
-     </header>
-     <%= yield %>
-   </div>
- </div>
+
+<section class="container mt-4">
+  <header class="page-title-bar">
+    <%= yield :page_heading %>
+    <div class="d-flex flex-row-reverse border-bottom">
+      <%= yield :actions %>
+    </div>
+  </header>
+  <%= yield %>
+</section>

@@ -16,3 +16,8 @@ body {
 .main {
   min-height: calc(100vh - 328px);
 }
+
+footer {
+  z-index: 9999;
+  position: relative;
+}

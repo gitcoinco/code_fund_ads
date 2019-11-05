@@ -24,9 +24,12 @@
   <body>
     <%= render 'shared/header' %>
     <%= render 'shared/search_results' if @search_results %>
-    <main class="main">
-      <%= yield %>
-    </main>
+    <div class="main">
+      <%= render 'shared/sidebar' %>
+      <main class="app-main">
+        <%= yield %>
+      </main>
+    </div>
     <%= render 'shared/footer' %>
 
     <!-- Target for dynamically generated modals -->

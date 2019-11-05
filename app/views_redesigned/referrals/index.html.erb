@@ -4,16 +4,13 @@
     icon: "fas fa-browser" %>
 <% end %>
 
-<div class="d-flex">
-  <%= render "shared/sidebar" %>
-  <div class="container mt-4">
-    <header class="page-title-bar border-bottom">
-      <%= yield :page_heading %>
-    </header>
+<section class="container mt-4">
+  <header class="page-title-bar border-bottom">
+    <%= yield :page_heading %>
+  </header>
 
-    <div class="grid grid-tcolumns-400 grid-trows-200">
-      <%= render "/referrals/share_card" %>
-      <%= render "/referrals/stats_card" %>
-    </div>
-  </div>
-</div>
+  <article class="grid grid-tcolumns-400 grid-trows-200">
+    <%= render "/referrals/share_card" %>
+    <%= render "/referrals/stats_card" %>
+  </article>
+</section>
