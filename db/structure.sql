@@ -808,19 +808,19 @@ ALTER SEQUENCE public.property_advertisers_id_seq OWNED BY public.property_adver
 CREATE TABLE public.property_traffic_estimates (
     id bigint NOT NULL,
     property_id bigint NOT NULL,
-    site_worth_cents integer DEFAULT 0 NOT NULL,
+    site_worth_cents bigint DEFAULT 0 NOT NULL,
     site_worth_currency character varying DEFAULT 'USD'::character varying NOT NULL,
-    visitors_daily integer DEFAULT 0,
+    visitors_daily bigint DEFAULT 0,
     visitors_monthly bigint DEFAULT 0,
     visitors_yearly bigint DEFAULT 0,
     pageviews_daily bigint DEFAULT 0,
     pageviews_monthly bigint DEFAULT 0,
     pageviews_yearly bigint DEFAULT 0,
-    revenue_daily_cents integer DEFAULT 0 NOT NULL,
+    revenue_daily_cents bigint DEFAULT 0 NOT NULL,
     revenue_daily_currency character varying DEFAULT 'USD'::character varying NOT NULL,
-    revenue_monthly_cents integer DEFAULT 0 NOT NULL,
+    revenue_monthly_cents bigint DEFAULT 0 NOT NULL,
     revenue_monthly_currency character varying DEFAULT 'USD'::character varying NOT NULL,
-    revenue_yearly_cents integer DEFAULT 0 NOT NULL,
+    revenue_yearly_cents bigint DEFAULT 0 NOT NULL,
     revenue_yearly_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     alexa_rank_3_months bigint DEFAULT 0,
     alexa_rank_1_month bigint DEFAULT 0,
@@ -2561,6 +2561,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191010203902'),
 ('20191010214024'),
 ('20191014171135'),
-('20191014205953');
+('20191014205953'),
+('20191105141709');
 
 
