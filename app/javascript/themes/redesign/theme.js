@@ -18,4 +18,4 @@ import 'themes/redesign/images/decoration/bubble4.svg'
 
 document.addEventListener('turbolinks:before-cache', function () {
   $('[data-toggle="tooltip"]').tooltip('hide')
-});
+})
