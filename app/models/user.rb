@@ -83,6 +83,10 @@ class User < ApplicationRecord
   belongs_to :referring_user, class_name: "User", foreign_key: "referring_user_id", optional: true
   has_many :job_postings
   has_many :organization_users, dependent: :destroy
+  has_many :organizations_as_administrator, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::ADMINISTRATOR} }, through: :organization_users, source: "organization"
+  has_many :organizations_as_member, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::MEMBER} }, through: :organization_users, source: "organization"
+  has_many :organizations_as_owner, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::OWNER} }, through: :organization_users, source: "organization"
+  has_many :organizations, through: :organization_users
   has_many :referred_users, class_name: "User", foreign_key: "referring_user_id"
 
   # validations ...............................................................

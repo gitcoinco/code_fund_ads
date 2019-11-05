@@ -29,6 +29,10 @@ class Organization < ApplicationRecord
   has_many :organization_users, dependent: :destroy
   has_many :scheduled_organization_reports
   has_many :users
+  has_many :administrators, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::ADMINISTRATOR} }, through: :organization_users, source: "user"
+  has_many :members, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::MEMBER} }, through: :organization_users, source: "user"
+  has_many :owners, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::OWNER} }, through: :organization_users, source: "user"
+
   # validations ...............................................................
   validates :name, presence: true
   validates_each :name, unless: :skip_validation do |record, attr, value|

@@ -74,6 +74,11 @@ BLOCK_LIST:
   - cstream1.com
   - blockedurl.test
 
+ORGANIZATION_ROLES:
+  - administrator
+  - member
+  - owner
+
 USER_ROLES:
   - administrator
   - advertiser
