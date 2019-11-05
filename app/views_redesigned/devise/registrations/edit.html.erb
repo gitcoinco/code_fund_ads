@@ -6,34 +6,43 @@
     </div>
     <div class="form-group">
       <div class="form-label-group">
-        <label class="form-label">Email</label>
         <%= f.input :email, required: true, label: false, autofocus: true %>
+        <label class="form-label">Email</label>
       </div>
       <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
         <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
       <% end %>
       <div class="form-label-group">
-        <label class="form-label">Password</label>
         <%= f.input :password,
                     hint: "leave it blank if you don't want to change it",
                     required: false,
                     label: false,
-                    input_html: { autocomplete: "new-password" } %>
+                    input_html: {
+                      autocomplete: "new-password",
+                      class: "form-control"
+                    } %>
+        <label class="form-label">Password</label>
       </div>
       <div class="form-label-group">
-        <label class="form-label">Password Confirmation</label>
         <%= f.input :password_confirmation,
                     required: false,
                     label: false,
-                    input_html: { autocomplete: "new-password" } %>
+                    input_html: {
+                      autocomplete: "new-password",
+                      class: "form-control"
+                    } %>
+        <label class="form-label">Password Confirmation</label>
       </div>
       <div class="form-label-group">
-        <label class="form-label">Current Password</label>
         <%= f.input :current_password,
                     hint: "we need your current password to confirm your changes",
                     required: true,
                     label: false,
-                    input_html: { autocomplete: "current-password" } %>
+                    input_html: { auto
+                    complete: "current-password",
+                    class: "form-control"
+                  } %>
+        <label class="form-label">Current Password</label>
       </div>
     </div>
     <%= f.button :submit, "Update", class: "btn btn-primary btn-block" %>
@@ -44,4 +53,3 @@
     </div>
   <% end %>
 <% end %>
-

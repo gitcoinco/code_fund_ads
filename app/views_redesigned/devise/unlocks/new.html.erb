@@ -12,10 +12,12 @@
                   label: false,
                   required: true,
                   autofocus: true,
-                  input_html: { autocomplete: "email" } %>
+                  input_html: {
+                    autocomplete: "email",
+                    class: "form-control"
+                  } %>
     </div>
     <%= f.button :submit, "Resend Unlock", class: "btn btn-primary btn-block" %>
     <%= render "devise/links" %>
   <% end %>
 <% end %>
-
