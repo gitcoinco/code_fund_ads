@@ -11,6 +11,7 @@ module Untrackable
   def prevent_tracking
     return if current_user&.persisted? # do not kick authenticated users off when previewing ads
     session.clear
+    request.session_options[:skip] = true
     cookies.clear
   end
 end
