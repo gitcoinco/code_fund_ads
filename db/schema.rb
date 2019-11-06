@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_14_205953) do
+ActiveRecord::Schema.define(version: 2019_11_05_141709) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -417,19 +417,19 @@ ActiveRecord::Schema.define(version: 2019_10_14_205953) do
 
   create_table "property_traffic_estimates", force: :cascade do |t|
     t.bigint "property_id", null: false
-    t.integer "site_worth_cents", default: 0, null: false
+    t.bigint "site_worth_cents", default: 0, null: false
     t.string "site_worth_currency", default: "USD", null: false
-    t.integer "visitors_daily", default: 0
+    t.bigint "visitors_daily", default: 0
     t.bigint "visitors_monthly", default: 0
     t.bigint "visitors_yearly", default: 0
     t.bigint "pageviews_daily", default: 0
     t.bigint "pageviews_monthly", default: 0
     t.bigint "pageviews_yearly", default: 0
-    t.integer "revenue_daily_cents", default: 0, null: false
+    t.bigint "revenue_daily_cents", default: 0, null: false
     t.string "revenue_daily_currency", default: "USD", null: false
-    t.integer "revenue_monthly_cents", default: 0, null: false
+    t.bigint "revenue_monthly_cents", default: 0, null: false
     t.string "revenue_monthly_currency", default: "USD", null: false
-    t.integer "revenue_yearly_cents", default: 0, null: false
+    t.bigint "revenue_yearly_cents", default: 0, null: false
     t.string "revenue_yearly_currency", default: "USD", null: false
     t.bigint "alexa_rank_3_months", default: 0
     t.bigint "alexa_rank_1_month", default: 0
