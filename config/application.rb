@@ -1,6 +1,7 @@
 require_relative "boot"
 
 require "rails/all"
+require_relative "../app/middlewares/untrackable_middleware"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -17,8 +18,10 @@ module CodeFundAds
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    config.middleware.use Rack::Attack
     config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
+    config.middleware.insert_after Warden::Manager, Rack::Attack
+    config.middleware.insert_after Rack::Attack, UntrackableMiddleware
+
     config.active_record.schema_format = :sql
     config.active_job.queue_adapter = :sidekiq
 
