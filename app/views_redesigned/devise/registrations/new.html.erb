@@ -6,31 +6,39 @@
     </div>
     <div class="form-group">
       <div class="form-label-group">
-        <label class="form-label">Email</label>
         <%= f.input :email,
                     required: true,
                     label: false,
                     autofocus: true,
-                    input_html: { autocomplete: "email" }%>
+                    input_html: {
+                      autocomplete: "email",
+                      class: "form-control"
+                    } %>
+        <label class="form-label">Email</label>
       </div>
       <div class="form-label-group">
-        <label class="form-label">Password</label>
         <%= f.input :password,
                     required: true,
                     label: false,
                     hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                    input_html: { autocomplete: "new-password" } %>
+                    input_html: {
+                      autocomplete: "new-password",
+                      class: "form-control"
+                    } %>
+        <label class="form-label">Password</label>
       </div>
       <div class="form-label-group">
-        <label class="form-label">Password Confirmation</label>
         <%= f.input :password_confirmation,
                     required: true,
                     label: false,
-                    input_html: { autocomplete: "new-password" } %>
+                    input_html: {
+                      autocomplete: "new-password",
+                      class: "form-control"
+                    } %>
+        <label class="form-label">Password Confirmation</label>
       </div>
     </div>
     <%= f.button :submit, "Sign up", class: "btn btn-primary btn-block" %>
     <%= render "devise/links" %>
   <% end %>
 <% end %>
-

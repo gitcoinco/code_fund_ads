@@ -11,14 +11,11 @@
   <% end %>
 <% end %>
 
-<section class="d-flex">
-  <%= render "shared/sidebar" %>
-  <article class="images container mt-4">
-    <header class="page-title-bar">
-      <%= yield :page_heading%>
-      <%= yield :actions %>
-    </header>
-    <%= yield %>
-  </article>
-</section>
 
+<section class="images container mt-4">
+  <header class="page-title-bar">
+    <%= yield :page_heading%>
+    <%= yield :actions %>
+  </header>
+  <%= yield %>
+</section>

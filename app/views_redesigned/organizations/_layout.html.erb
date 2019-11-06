@@ -15,16 +15,14 @@
    <% end %>
  <% end %>
 
-<div class="d-flex">
-   <%= render "shared/sidebar" %>
-   <div class="container mt-4">
-     <header class="page-title-bar">
-       <%= yield :page_heading %>
-       <div class="d-flex border-bottom">
-         <%= render("organizations/tabs", organization: organization) if organization.persisted? %>
-         <%= yield :actions %>
-       </div>
-     </header>
-     <%= yield %>
-   </div>
- </div>
+
+<section class="container mt-4">
+  <header class="page-title-bar">
+    <%= yield :page_heading %>
+    <div class="d-flex border-bottom">
+      <%= render("organizations/tabs", organization: organization) if organization.persisted? %>
+      <%= yield :actions %>
+    </div>
+  </header>
+  <%= yield %>
+</section>

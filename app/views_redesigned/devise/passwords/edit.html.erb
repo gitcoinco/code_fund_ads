@@ -9,21 +9,23 @@
     </div>
     <div class="form-group">
       <div class="form-label-group">
-        <label class="form-label">Password</label>
         <%= f.input :password,
                 required: true,
                 label: false,
                 autofocus: true,
                 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
+                input_html: {
+                  autocomplete: "new-password",
+                  class: "form-control"
+                } %>
+        <label class="form-label">Password</label>
       </div>
       <div class="form-label-group">
-        <label class="form-label">Password Confirmation</label>
         <%= f.input :password_confirmation, label: false, required: true %>
+        <label class="form-label">Password Confirmation</label>
       </div>
     </div>
     <%= f.button :submit, "Change my Password", class: "btn btn-primary btn-block" %>
     <%= render "devise/links" %>
   <% end %>
 <% end %>
-

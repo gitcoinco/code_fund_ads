@@ -1,17 +1,14 @@
-<div class="d-flex">
-  <%= render "shared/sidebar" %>
-  <div class="container mt-4">
-    <header class="page-title-bar">
-      <%= page_heading "Viewing", "Organizations",
-        subtitle: "#{pluralize(@pagy.count, "record")} found",
-        icon: "fas fa-building" %>
-    </header>
+<section class="container mt-4">
+  <header class="page-title-bar">
+    <%= page_heading "Viewing", "Organizations",
+      subtitle: "#{pluralize(@pagy.count, "record")} found",
+      icon: "fas fa-building" %>
+  </header>
 
-    <%= render partial: "/organization_searches/form",
-              layout: "/shared/collapsible_search_form",
-              locals: { search: @organization_search } %>
-    <div class="bg-white p-4">
-      <%= render "/organizations/table", organizations: @organizations, pagy: @pagy %>
-    </div>
-  </div>
-</div>
+  <%= render partial: "/organization_searches/form",
+            layout: "/shared/collapsible_search_form",
+            locals: { search: @organization_search } %>
+  <article class="bg-white p-4">
+    <%= render "/organizations/table", organizations: @organizations, pagy: @pagy %>
+  </article>
+</section>

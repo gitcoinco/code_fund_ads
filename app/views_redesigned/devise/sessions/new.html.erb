@@ -8,36 +8,37 @@
     </div>
     <div class="form-group">
       <div class="form-label-group">
-      <label class="form-label" for="signinSrEmail">Email address</label>
-      <%= f.input :email,
-              label: false, required: true,
-              autofocus: true,
-              placeholder: "Email",
-              input_html: {
-                class: "form-control",
-                autocomplete: "email",
-                tabindex: 1,
-              },
-              data: {
-                rule_email: true,
-                msg: "Please enter a valid email address."
-              } %>
+        <%= f.input :email,
+                label: false, required: true,
+                autofocus: true,
+                input_html: {
+                  class: "form-control",
+                  id: "signinSrEmail",
+                  autocomplete: "email",
+                  tabindex: 1,
+                },
+                data: {
+                  rule_email: true,
+                  msg: "Please enter a valid email address."
+                } %>
+        <label class="form-label" for="signinSrEmail">Email address</label>
       </div>
     </div>
     <div class="form-group">
       <div class="form-label-group">
-        <label class="form-label" for="signinSrPassword">Password</label>
         <%= f.input :password,
                 label: false,
                 required: true,
                 input_html: {
                   class: "form-control",
+                  id: "signinSrPassword",
                   autocomplete: "current-password",
                   tabindex: 2,
                 },
                 data: {
                   msg: "Your password is invalid. Please try again."
                 } %>
+        <label class="form-label" for="signinSrPassword">Password</label>
       </div>
     </div>
     <%= f.button :submit, "Sign In", class: "btn btn-primary btn-block" %>
@@ -48,4 +49,3 @@
     </div>
   <% end %>
 <% end %>
-
