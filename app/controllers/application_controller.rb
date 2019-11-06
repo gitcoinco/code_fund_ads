@@ -27,6 +27,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def store_ids
+    return if is_a?(Untrackable)
     cookies.encrypted[:cuid] = current_user&.id
     cookies.encrypted[:tuid] = true_user&.id
     cookies.encrypted[:sid] = session&.id

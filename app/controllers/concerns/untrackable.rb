@@ -2,7 +2,7 @@ module Untrackable
   extend ActiveSupport::Concern
 
   included do
-    before_action :prevent_tracking
+    prepend_before_action :prevent_tracking
     after_action :prevent_tracking
   end
 
@@ -10,7 +10,8 @@ module Untrackable
 
   def prevent_tracking
     return if current_user&.persisted? # do not kick authenticated users off when previewing ads
-    cookies.clear
     session.clear
+    request.session_options[:skip] = true
+    cookies.clear
   end
 end
