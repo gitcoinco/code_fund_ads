@@ -2,7 +2,8 @@ module Untrackable
   extend ActiveSupport::Concern
 
   included do
-    around_action :prevent_tracking
+    prepend_before_action :prevent_tracking
+    after_action :prevent_tracking
   end
 
   protected
