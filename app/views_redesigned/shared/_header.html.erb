@@ -14,7 +14,7 @@
       <!-- .top-bar-item -->
       <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
         <!-- toggle menu -->
-        <button class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="Menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button> <!-- /toggle menu -->
+        <button data-controller="sidebar" data-action="click->sidebar#toggle click@window->sidebar#hide" class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="Menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button> <!-- /toggle menu -->
       </div><!-- /.top-bar-item -->
       <!-- .top-bar-item -->
       <div class="top-bar-item top-bar-item-full">
@@ -58,7 +58,7 @@
             <% end %>
           </ul>
           <div class="dropdown d-flex">
-            <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button id="avatarDropdown" class="btn-account d-none d-md-flex dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <%= tag.span class: "user-avatar user-avatar-md #{classes "border border-danger": true_user != current_user}" do %>
                 <%= user_avatar_image_tag(current_user, "") %>
               <% end %>
@@ -68,7 +68,7 @@
                 </span>
               </span>
             </button>
-            <div class="dropdown-menu">
+            <div class="dropdown-menu" aria-labelledby="avatarDropdown">
               <div class="dropdown-arrow ml-3"></div>
               <li><%= link_to "View Profile", user_path(current_user), class: "dropdown-item" %></li>
               <li><%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item" %></li>

@@ -14,7 +14,7 @@
     <div class="d-flex justify-content-around text-center">
       <div class="d-flex flex-column text-center" data-toggle="tooltip" title="Available Funds: <%= campaign.total_remaining_budget.format %>">
         <h6 class="text-muted mb-0">Total Spent</h6>
-        <div class="easypiechart"
+        <div data-controller="easy-pie-chart" class="easypiechart" data-target="easy-pie-chart.chart"
             data-toggle="easypiechart"
             data-percent=<%= campaign.total_consumed_budget_percentage %>
             data-bar-color="#F9AC2F"
@@ -35,7 +35,7 @@
 
       <div class="d-flex flex-column text-center" data-toggle="tooltip" title="<%= remaining_days_label(campaign)%>">
         <h6 class="text-muted mb-0">Days Left</h6>
-        <div class="easypiechart"
+        <div data-controller="easy-pie-chart" class="easypiechart" data-target="easy-pie-chart.chart"
             data-toggle="easypiechart"
             data-percent=<%= calc_percentage(campaign.remaining_operative_days, campaign.total_operative_days) %>
             data-bar-color="#F9AC2F"
