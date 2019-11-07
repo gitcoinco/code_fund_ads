@@ -10,10 +10,6 @@ We have over 10 million monthly pageviews and are growing at approx 20% per mont
 
 Our platform follows the "ethical advertising" guidelines that ReadTheDocs established. We will not track or profile the ad viewers, and we only show ads that are relevant to the audience. This document describes how we can help you reach a broader audience. We look forward to working with you!
 
-## Pricing
-
-Please see https://codefund.io/pricing
-
 ## Targeting
 
 We offer targeting based on programming language and geographic segmentation. We

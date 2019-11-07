@@ -9,7 +9,7 @@ namespace :benchmark do
       puts(
         Benchmark.measure {
           10.times do
-            url = "https://codefund.io/properties/#{property_ids.sample}/funder.js"
+            url = "https://app.codefund.io/properties/#{property_ids.sample}/funder.js"
             puts "GET: #{url}"
             response = Typhoeus.get(url)
             server_times << response.headers["X-Runtime"].to_f

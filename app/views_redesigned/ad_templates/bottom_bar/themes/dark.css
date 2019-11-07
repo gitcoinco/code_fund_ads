@@ -1,6 +1,6 @@
 #cf {
-  font-family: Helvetica, Arial;
-  font-size: 13px;
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 14px;
 }
 
 #cf a {
@@ -14,8 +14,8 @@
   z-index: 5000;
   padding: 0.8em 1em 1em;
   width: 100%;
-  border-top: solid 1px #bfbfbf;
-  background-color: #eeeeee;
+  border-top: solid 2px #4caf50;
+  background-color: #efefef;
   text-align: center;
   line-height: 1.5;
 }
