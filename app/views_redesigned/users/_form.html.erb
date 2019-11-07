@@ -68,65 +68,72 @@
       </div>
     <% end %>
   <% end %>
-
-  <%= card do %>
-    <%= card_header do %>
-      <%= card_title do %>
-        About
-      <% end %>
-      <%= card_subtitle do %>
-        Tell about yourself in two sentences.
-      <% end %>
-    <% end %>
-    <%= card_body do %>
-      <div class="row">
-        <%= tag.div f.input(:bio, input_html: { class: "js-summernote-editor", rows: 6 }), class: "col-12 mb-2" %>
-        <%= tag.div f.input(:skills, collection: ENUMS::KEYWORDS.keys, required: false, input_html: { class: "form-control", multiple: true, data: { controller: "select" }}), class: "col-12" %>
-      </div>
-    <% end %>
-  <% end %>
-
-  <%= card do %>
-    <%= card_header do %>
-      <%= card_title do %>
-        Social Profiles
-      <% end %>
-      <%= card_subtitle do %>
-        Where can we find you out in the wild?
-      <% end %>
-    <% end %>
-    <%= card_body do %>
-      <div class="row d-flex flex-column">
-        <div class="col-md-6">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend bg-primary">
-              <span class="input-group-text text-white pr-3" id="inputGroup-sizing-default">https://twitter.com/</span>
-            </div>
-            <%= f.text_field :twitter_username, class: "form-control", placeholder: "Twitter username" %>
+  <div class="row">
+    <div class="col-md-6">
+      <%= card do %>
+        <%= card_header do %>
+          <%= card_title do %>
+            About
+          <% end %>
+          <%= card_subtitle do %>
+            Tell about yourself in two sentences.
+          <% end %>
+        <% end %>
+        <%= card_body do %>
+          <div class="row">
+            <%= tag.div f.input(:bio, input_html: { class: "js-summernote-editor", rows: 6 }), class: "col-12 mb-2" %>
+            <%= tag.div f.input(:skills, collection: ENUMS::KEYWORDS.keys, required: false, input_html: { class: "form-control", multiple: true, data: { controller: "select" }}), class: "col-12" %>
           </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend bg-primary">
-              <span class="input-group-text text-white pr-3" id="inputGroup-sizing-default">https://github.com/</span>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <%= card do %>
+        <%= card_header do %>
+          <%= card_title do %>
+            Social Profiles
+          <% end %>
+          <%= card_subtitle do %>
+            Where can we find you out in the wild?
+          <% end %>
+        <% end %>
+        <%= card_body do %>
+          <div class="d-flex flex-column">
+            <div class="list-group-item">
+              <div class="list-group-item-figure">
+                <div class="tile tile-md bg-twitter">
+                  <i class="fab fa-twitter"></i>
+                </div>
+              </div>
+              <div class="list-group-item-body">
+                <%= f.text_field :twitter_username, class: "form-control", placeholder: "Twitter username" %>
+              </div>
             </div>
-            <%= f.text_field :github_username, class: "form-control", placeholder: "GitHub username" %>
-          </div>
-        </div>
-
-        <div class="col-md-6">
-          <div class="input-group mb-3">
-            <div class="input-group-prepend bg-primary">
-              <span class="input-group-text text-white pr-3" id="inputGroup-sizing-default">https://www.linkedin.com/in/</span>
+            <div class="list-group-item">
+              <div class="list-group-item-figure">
+                <div class="tile tile-md bg-github">
+                  <i class="fab fa-github"></i>
+                </div>
+              </div>
+              <div class="list-group-item-body">
+                <%= f.text_field :github_username, class: "form-control", placeholder: "GitHub username" %>
+              </div>
             </div>
-            <%= f.text_field :linkedin_username, class: "form-control", placeholder: "LinkedIn username" %>
+            <div class="list-group-item">
+              <div class="list-group-item-figure">
+                <div class="tile tile-md bg-linkedin">
+                  <i class="fab fa-linkedin"></i>
+                </div>
+              </div>
+              <div class="list-group-item-body">
+                <%= f.text_field :linkedin_username, class: "form-control", placeholder: "LinkedIn username" %>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-    <% end %>
-  <% end %>
-
+        <% end %>
+      <% end %>
+    </div>
+  </div>
   <% if authorized_user.can_admin_system? %>
     <%= card do %>
       <%= card_header do %>
