@@ -1,45 +1,47 @@
-<div class="table-responsive">
-  <table class="js-datatable table table-striped table-compact table-borderless">
-    <thead>
-      <tr class="border-bottom">
-        <th class="text-left">Property</th>
-        <% if @campaign.standard? %>
-          <th class="text-left">Matching Tags</th>
-          <th class="text-center" style="width: 10%;">Spend</th>
-          <th class="text-center" style="width: 10%;">Impressions</th>
+<%= table compact: true do %>
+  <%= table_head do %>
+    <%= table_row header: true do %>
+      <%= table_column { "Property" } %>
+      <% if @campaign.standard? %>
+        <%= table_column { "Matching Tags" } %>
+        <%= table_column { "Spend" } %>
+        <%= table_column { "Impressions" } %>
+      <% end %>
+      <%= table_column { "Clicks" } %>
+      <% if @campaign.standard? %>
+        <%= table_column { "CTR" } %>
+        <%= table_column { "CPM" } %>
+        <%= table_column { "CPC" } %>
+        <% if authorized_user.can_admin_system? %>
+          <%= table_column { "Blacklist?" } %>
         <% end %>
-        <th class="text-center" style="width: 10%;">Clicks</th>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= table_body do %>
+    <% if @summary %>
+      <%= table_row do %>
+        <%= table_data do %>
+          <strong>Totals</strong>
+        <% end %>
         <% if @campaign.standard? %>
-          <th class="text-center" style="width: 10%;">CTR</th>
-          <th class="text-center" style="width: 10%;">CPM</th>
-          <th class="text-center" style="width: 10%;">CPC</th>
+          <%= table_data do %><% end %>
+          <%= table_data_value @summary.gross_revenue.format %>
+          <%= table_data_value number_with_delimiter(@summary.impressions_count) %>
+        <% end %>
+        <%= table_data_value number_with_delimiter(@summary.clicks_count) %>
+        <% if @campaign.standard? %>
+          <%= table_data_value number_to_percentage(@summary.click_rate, precision: 2) %>
+          <%= table_data_value number_with_delimiter(@summary.cpm.format) %>
+          <%= table_data_value number_with_delimiter(@summary.cpc.format) %>
           <% if authorized_user.can_admin_system? %>
-          <th class="text-center">Blacklist?</th>
-          <% end %>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-      <% if @summary %>
-        <tr class="bg-secondary">
-          <td class="text-left align-middle"><strong>Totals</strong></td>
-          <% if @campaign.standard? %>
-            <td class="text-left align-middle"></td>
-            <td class="text-center align-middle"><%= @summary.gross_revenue.format %></td>
-            <td class="text-center align-middle"><%= number_with_delimiter @summary.impressions_count %></td>
-          <% end %>
-          <td class="text-center align-middle"><%= number_with_delimiter @summary.clicks_count %></td>
-          <% if @campaign.standard? %>
-            <td class="text-center align-middle"><%= number_to_percentage @summary.click_rate, precision: 2 %></td>
-            <td class="text-center align-middle"><%= number_with_delimiter @summary.cpm.format %></td>
-            <td class="text-center align-middle"><%= number_with_delimiter @summary.cpc.format %></td>
-            <% if authorized_user.can_admin_system? %>
-            <td>&nbsp;</td>
+            <%= table_data do %>
+              &nbsp;
             <% end %>
           <% end %>
-        </tr>
+        <% end %>
       <% end %>
-      <%= render partial: "/campaign_properties/tr", collection: @reports, as: :report %>
-    </tbody>
-  </table>
-</div>
+    <% end %>
+    <%= render partial: "/campaign_properties/tr", collection: @reports, as: :report %>
+  <% end %>
+<% end %>

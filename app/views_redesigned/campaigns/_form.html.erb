@@ -53,72 +53,80 @@
             placeholder: "https://example.com/?utm_source=codefund&utm_campaign={{campaign_id}}",
             data: { msg: "Please enter a valid URL", error_class: "u-has-error", success_class: "u-has-success", rule_url: true } %>
           <small class="text-muted">Use any of the following variables in the URL</small>
-          <table class="table">
-            <thead>
-              <tr>
-                <th class="border-top-0"></th>
-                <th class="border-top-0">Variable</th>
-                <th class="border-top-0">Example Value</th>
-                <th class="border-top-0">Description</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr data-controller="copy">
-                <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
-                <td><input type="text" class="border-0 bg-transparent code" value="{{campaign_id}}" style="border:none;" disabled data-target="copy.input"></td>
-                <td><%= campaign.id || 123 %></td>
-                <td>The campaign <code class="code">id</code></td>
-              </tr>
-              <tr data-controller="copy">
-                <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
-                <td><input type="text" class="border-0 bg-transparent code" value="{{campaign_name}}" style="border:none;" disabled data-target="copy.input"></td>
-                <td><%= campaign.name || "Example" %></td>
-                <td>The campaign <code class="code">name</code></td>
-              </tr>
-              <tr data-controller="copy">
-                <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
-                <td><input type="text" class="border-0 bg-transparent code" value="{{creative_id}}" style="border:none;" disabled data-target="copy.input"></td>
-                <td><%= campaign.creatives.first&.id || 123 %></td>
-                <td>The creative <code class="code">id</code> that was rendered</td>
-              </tr>
-              <tr data-controller="copy">
-                <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
-                <td><input type="text" class="border-0 bg-transparent code" value="{{creative_name}}" style="border:none;" disabled data-target="copy.input"></td>
-                <td><%= campaign.creatives.first&.name || "Example" %></td>
-                <td>The creative <code class="code">name</code> that was rendered</td>
-              </tr>
-              <tr data-controller="copy">
-                <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
-                <td><input type="text" class="border-0 bg-transparent code" value="{{property_id}}" style="border:none;" disabled data-target="copy.input"></td>
-                <td><%= campaign.matching_properties.first&.id || 123 %></td>
-                <td>The property <code class="code">id</code> that displayed the ad</td>
-              </tr>
-              <tr data-controller="copy">
-                <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
-                <td><input type="text" class="border-0 bg-transparent code" value="{{property_name}}" style="border:none;" disabled data-target="copy.input"></td>
-                <td><%= campaign.matching_properties.first&.name || "Example" %></td>
-                <td>The property <code class="code">name</code> that displayed the ad</td>
-              </tr>
-              <tr data-controller="copy">
-                <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
-                <td><input type="text" class="border-0 bg-transparent code" value="{{property_url}}" style="border:none;" disabled data-target="copy.input"></td>
-                <td><%= campaign.matching_properties.first&.url || "https://www.example.com" %></td>
-                <td>The property <code class="code">url</code> that displayed the ad</td>
-              </tr>
-              <tr data-controller="copy">
-                <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
-                <td><input type="text" class="border-0 bg-transparent code" value="{{template}}" style="border:none;" disabled data-target="copy.input"></td>
-                <td>default</td>
-                <td>The ad <code class="code">template</code> used to render the ad</td>
-              </tr>
-              <tr data-controller="copy">
-                <td><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span></td>
-                <td><input type="text" class="border-0 bg-transparent code" value="{{theme}}" style="border:none;" disabled data-target="copy.input"></td>
-                <td>light</td>
-                <td>The ad <code class="code">theme</code> used to render the ad</td>
-              </tr>
-            </tbody>
-          </table>
+          <%= table compact: true do %>
+            <%= table_head do %>
+              <%= table_row header: true do %>
+                <%= table_column do %>
+                  &nbsp;
+                <% end %>
+                <%= table_column do %>
+                  Variable
+                <% end %>
+                <%= table_column do %>
+                  Example Value
+                <% end %>
+                <%= table_column do %>
+                  Description
+                <% end %>
+              <% end %>
+            <% end %>
+            <%= table_body do %>
+              <%= table_row_controller("copy") do %>
+                <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{campaign_id}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><%= campaign.id || 123 %><% end %>
+                <%= table_data do %>The campaign <code class="code">id</code><% end %>
+              <% end %>
+              <%= table_row_controller("copy") do %>
+                <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{campaign_name}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><%= campaign.name || "Example" %><% end %>
+                <%= table_data do %>The campaign <code class="code">name</code><% end %>
+              <% end %>
+              <%= table_row_controller("copy") do %>
+                <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{creative_id}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><%= campaign.creatives.first&.id || 123 %><% end %>
+                <%= table_data do %>The creative <code class="code">id</code> that was rendered<% end %>
+              <% end %>
+              <%= table_row_controller("copy") do %>
+                <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{creative_name}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><%= campaign.creatives.first&.name || "Example" %><% end %>
+                <%= table_data do %>The creative <code class="code">name</code> that was rendered<% end %>
+              <% end %>
+              <%= table_row_controller("copy") do %>
+                <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_id}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><%= campaign.matching_properties.first&.id || 123 %><% end %>
+                <%= table_data do %>The property <code class="code">id</code> that displayed the ad<% end %>
+              <% end %>
+              <%= table_row_controller("copy") do %>
+                <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_name}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><%= campaign.matching_properties.first&.name || "Example" %><% end %>
+                <%= table_data do %>The property <code class="code">name</code> that displayed the ad<% end %>
+              <% end %>
+              <%= table_row_controller("copy") do %>
+                <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_url}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><%= campaign.matching_properties.first&.url || "https://www.example.com" %><% end %>
+                <%= table_data do %>The property <code class="code">url</code> that displayed the ad<% end %>
+              <% end %>
+              <%= table_row_controller("copy") do %>
+                <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{template}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %>default<% end %>
+                <%= table_data do %>The ad <code class="code">template</code> used to render the ad<% end %>
+              <% end %>
+              <%= table_row_controller("copy") do %>
+                <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{theme}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %>light<% end %>
+                <%= table_data do %>The ad <code class="code">theme</code> used to render the ad<% end %>
+              <% end %>
+            <% end %>
+          <% end %>
         </div>
       </div>
 
