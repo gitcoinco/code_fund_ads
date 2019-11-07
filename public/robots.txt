@@ -1,1 +1,1 @@
-Sitemap: https://codefund.io/sitemap.xml.gz
+Sitemap: https://app.codefund.io/sitemap.xml.gz
