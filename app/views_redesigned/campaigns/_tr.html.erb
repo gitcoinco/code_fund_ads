@@ -1,22 +1,15 @@
-<%= tag.tr class: classes("even": campaign_counter.even?, "odd": campaign_counter.odd?, "opacity-40": campaign.archived?) do %>
-  <!-- Name -->
-  <td class="align-middle text-secondary">
+<%= table_row add_class: classes("even": campaign_counter.even?, "odd": campaign_counter.odd?, "opacity-40": campaign.archived?) do %>
+  <%= table_data do %>
     <%= link_to campaign.name, campaign %>
-
-  </td>
-  <!-- Advertiser -->
-  <% if authorized_user.can_admin_system? %>
-    <td class="align-middle">
-      <%= link_to campaign.organization.name, user_path(campaign.user) %>
-    </td>
   <% end %>
-
-  <!-- Expires -->
-  <td class="align-middle text-muted">
+  <% if authorized_user.can_admin_system? %>
+    <%= table_data do %>
+      <%= link_to campaign.organization.name, user_path(campaign.user) %>
+    <% end %>
+  <% end %>
+  <%= table_data do %>
     <%= campaign.end_date.strftime("%b %-d, %Y") %>
-  </td>
-
-  <!-- Budget -->
+  <% end %>
   <% if campaign.standard? %>
     <%= tag.td class: "align-middle text-secondary text-right",
       title: campaign.premium? ? "#{campaign.total_consumed_budget.format} spent out of #{campaign.total_budget.format}" : nil,
@@ -28,17 +21,15 @@
       <% end %>
     <% end %>
   <% else %>
-    <td class="align-middle"><span class="opacity-30">N/A</span></td>
+    <%= table_data do %>
+      <span class="opacity-30">N/A</span>
+    <% end %>
   <% end %>
-
-  <!-- Status -->
-  <td class="align-middle text-<%= campaign_status_color(campaign.status) %>">
+  <%= table_data add_class: "text-#{campaign_status_color(campaign.status)}" do %>
     <span class="fas fa-sm fa-circle mr-1"></span>
     <%= campaign.status.humanize %>
-  </td>
-
-  <!-- Impressions -->
-  <td>
+  <% end %>
+  <%= table_data do %>
     <% if campaign.standard? %>
       <%= render_later async_campaign_sparkline_path(campaign_id: campaign.id) do %>
         <i class="fa fa-spinner fa-spin text-primary"></i>
@@ -46,10 +37,8 @@
     <% else %>
       <span class="opacity-30">N/A</span>
     <% end %>
-  </td>
-
-  <!-- CTR -->
-  <td>
+  <% end %>
+  <%= table_data do %>
     <% if campaign.standard? %>
       <%= render_later async_campaign_click_rate_path(campaign_id: campaign.id) do %>
         <i class="fa fa-spinner fa-spin text-primary"></i>
@@ -57,10 +46,8 @@
     <% else %>
       <span class="opacity-30">N/A</span>
     <% end %>
-  </td>
-
-  <!-- Edit -->
-  <td class="align-middle text-right text-secondary">
+  <% end %>
+  <%= table_data do %>
     <%= edit_button(link: edit_campaign_path(campaign)) %>
-  </td>
+  <% end %>
 <% end %>

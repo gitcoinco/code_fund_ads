@@ -7,7 +7,7 @@
   <%= render partial: "/property_searches/form",
                 layout: "/shared/collapsible_search_form",
                 locals: { search: @property_search } %>
-  <article class="bg-white p-4">
+  <article class="bg-white p-4 mb-4">
     <%= render "/properties/table", properties: @properties, pagy: @pagy %>
   </article>
 </section>

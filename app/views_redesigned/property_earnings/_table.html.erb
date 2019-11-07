@@ -1,22 +1,21 @@
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Impressions</th>
-        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Clicks</th>
-        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">average</span>CTR</th>
-        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">estimated</span>Earnings</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% (@start_date..@end_date).each do |date| %>
-        <%= render_later async_property_earnings_row_path(property_id: @property.id, date: date.iso8601), tag_name: "tr" do %>
-          <td colspan="5">
-            <i class="fa fa-spinner fa-spin text-primary"></i>
-          </td>
+<%= table compact: true do %>
+  <%= table_head do %>
+    <%= table_row header: true do %>
+      <%= table_column do %>Date<% end %>
+      <%= table_column add_style: "width: 15%;" do %><span class="d-block small text-muted">total</span>Impressions<% end %>
+      <%= table_column add_style: "width: 15%;" do %><span class="d-block small text-muted">total</span>Clicks<% end %>
+      <%= table_column add_style: "width: 15%;" do %><span class="d-block small text-muted">average</span>CTR<% end %>
+      <%= table_column add_style: "width: 15%;" do %><span class="d-block small text-muted">estimated</span>Earnings<% end %>
+    <% end %>
+  <% end %>
+
+  <%= table_body do %>
+    <% (@start_date..@end_date).each do |date| %>
+      <%= render_later async_property_earnings_row_path(property_id: @property.id, date: date.iso8601), tag_name: "tr" do %>
+        <%= table_data colspan: "5" do %>
+          <i class="fa fa-spinner fa-spin text-primary"></i>
         <% end %>
       <% end %>
-    </tbody>
-  </table>
-</div>
+    <% end %>
+  <% end %>
+<% end %>

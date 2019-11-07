@@ -1,7 +1,7 @@
-<tr <%= 'class=border-bottom' if @date.saturday? %>>
-  <td class="text-left align-middle text-muted"><%= @date.to_s("abdy") %></td>
-  <td class="text-center align-middle text-muted"><%= number_with_delimiter @property.impressions_count(@date) %></td>
-  <td class="text-center align-middle text-muted"><%= number_with_delimiter @property.clicks_count(@date) %></td>
-  <td class="text-center align-middle text-muted"><%= number_to_percentage @property.click_rate(@date), precision: 2 %></td>
-  <td class="text-center align-middle text-muted"><%= @property.property_revenue(@date).format %></td>
-</tr>
+<%= table_row add_class: ("border-bottom" if @date.saturday?) do %>
+  <%= table_data_value @date.to_s("abdy") %>
+  <%= table_data_value number_with_delimiter(@property.impressions_count(@date)) %>
+  <%= table_data_value number_with_delimiter(@property.clicks_count(@date)) %>
+  <%= table_data_value number_to_percentage(@property.click_rate(@date), precision: 2) %>
+  <%= table_data_value @property.property_revenue(@date).format %>
+<% end %>
