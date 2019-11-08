@@ -1,5 +1,5 @@
 FORMAT: 1A9
-HOST: api.condefund.app
+HOST: api.codefund.app
 
 # CodeFund Ads
 
