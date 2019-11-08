@@ -5,7 +5,7 @@
 </p>
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/eee4d09c1a37d23e8990/maintainability)](https://codeclimate.com/github/gitcoinco/code_fund_ads/maintainability)
-[![All Contributors](https://img.shields.io/badge/all_contributors-14-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors)
 [![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/codefund/codefund)
 [![CircleCI](https://circleci.com/gh/gitcoinco/code_fund_ads.svg?style=svg)](https://circleci.com/gh/gitcoinco/code_fund_ads)
 [![Join the conversation](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/code_fund_ads/community)
@@ -345,6 +345,9 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="http://blog.curtis-mckee.com"><img src="https://avatars0.githubusercontent.com/u/7895798?v=4" width="100px;" alt="Curtis Mckee"/><br /><sub><b>Curtis Mckee</b></sub></a><br /><a href="https://github.com/gitcoinco/code_fund_ads/commits?author=cmckee-dev" title="Tests">⚠️</a> <a href="https://github.com/gitcoinco/code_fund_ads/commits?author=cmckee-dev" title="Code">💻</a> <a href="#design-cmckee-dev" title="Design">🎨</a></td>
     <td align="center"><a href="https://github.com/jeremigendron/contract"><img src="https://avatars2.githubusercontent.com/u/23587429?v=4" width="100px;" alt="jeremiG"/><br /><sub><b>jeremiG</b></sub></a><br /><a href="https://github.com/gitcoinco/code_fund_ads/commits?author=JeremiGendron" title="Documentation">📖</a></td>
     <td align="center"><a href="http://logichub.co.uk"><img src="https://avatars0.githubusercontent.com/u/6245858?v=4" width="100px;" alt="Kashif Rafique"/><br /><sub><b>Kashif Rafique</b></sub></a><br /><a href="https://github.com/gitcoinco/code_fund_ads/commits?author=logichub" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://ethan.link"><img src="https://avatars1.githubusercontent.com/u/14034891?v=4" width="100px;" alt="Ethan"/><br /><sub><b>Ethan</b></sub></a><br /><a href="https://github.com/gitcoinco/code_fund_ads/commits?author=Booligoosh" title="Documentation">📖</a></td>
   </tr>
 </table>
 
