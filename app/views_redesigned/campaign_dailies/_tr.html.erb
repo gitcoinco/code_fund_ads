@@ -1,13 +1,13 @@
-<tr <%= "class=border-bottom" if daily_summary.displayed_at_date.saturday? %>>
-  <td class="text-left align-middle text-nowrap"><%= daily_summary.displayed_at_date.to_s("abdy") %></td>
+<%= table_row add_class: ("class=border-bottom" if daily_summary.displayed_at_date.saturday?) do %>
+  <%= table_data_value daily_summary.displayed_at_date.to_s("abdy"), add_class: "no-wrap" %>
   <% if @campaign.standard? %>
-    <td class="text-center align-middle"><%= daily_summary.gross_revenue.format %></td>
-    <td class="text-center align-middle"><%= number_with_delimiter daily_summary.impressions_count %></td>
+    <%= table_data_value daily_summary.gross_revenue.format %>
+    <%= table_data_value number_with_delimiter(daily_summary.impressions_count) %>
   <% end %>
-  <td class="text-center align-middle"><%= number_with_delimiter daily_summary.clicks_count %></td>
+  <%= table_data_value number_with_delimiter(daily_summary.clicks_count) %>
   <% if @campaign.standard? %>
-    <td class="text-center align-middle"><%= number_to_percentage daily_summary.click_rate, precision: 2 %></td>
-    <td class="text-center align-middle"><%= daily_summary.cpm.format %></td>
-    <td class="text-center align-middle"><%= daily_summary.cpc.format %></td>
+    <%= table_data_value number_to_percentage(daily_summary.click_rate, precision: 2) %>
+    <%= table_data_value(daily_summary.cpm.format) %>
+    <%= table_data_value(daily_summary.cpc.format) %>
   <% end %>
-</tr>
+<% end %>

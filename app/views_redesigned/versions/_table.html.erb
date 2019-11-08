@@ -1,31 +1,42 @@
-<div class="table-responsive">
-  <table class="js-datatable table table-striped table-compact table-borderless">
-    <thead>
-      <tr class="border-bottom">
-        <th>Index</th>
-        <th>Date</th>
-        <th>Author</th>
-        <th>Event</th>
-        <th>&nbsp;</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% versionable.versions.reverse.each do |version| %>
-      <tr>
-        <td><%= version.index %></td>
-        <td><%= version.created_at %></td>
-        <td><%= link_to find_version_author(version), user_path(find_version_author(version)) rescue "Not Assigned" %></td>
-        <td><%= version.event.humanize %></td>
-        <td class="text-right">
+<%= table compact: true do %>
+  <%= table_head do %>
+    <%= table_row header: true do %>
+      <%= table_column do %>
+         Index
+      <% end %>
+      <%= table_column do %>
+         Date
+      <% end %>
+      <%= table_column do %>
+         Author
+      <% end %>
+      <%= table_column do %>
+         Event
+      <% end %>
+      <%= table_column do %>
+
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <%= table_body do %>
+    <% versionable.versions.reverse.each do |version| %>
+      <%= table_row do %>
+        <%= table_data_value version.index %>
+        <%= table_data_value version.created_at %>
+        <%= table_data do %>
+          <%= link_to find_version_author(version), user_path(find_version_author(version)) rescue "Not Assigned" %>
+        <% end %>
+        <%= table_data_value version.event.humanize %>
+        <%= table_data do %>
           <a data-controller="remote-modal"
             data-action="click->remote-modal#displayModal"
             data-url="<%= version_path(version, sgid: versionable.to_sgid) %>"
             href="#">
             <i class="fas fa-exchange"></i> Diff
           </a>
-        </td>
-      </tr>
+        <% end %>
       <% end %>
-    </tbody>
-  </table>
-</div>
+    <% end %>
+  <% end %>
+<% end %>

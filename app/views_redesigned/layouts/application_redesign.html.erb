@@ -22,15 +22,17 @@
     <%= javascript_pack_tag 'code_fund_redesign', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
-    <%= render 'shared/header' %>
-    <%= render 'shared/search_results' if @search_results %>
-    <div class="main">
-      <%= render 'shared/sidebar' %>
-      <main class="app-main">
-        <%= yield %>
-      </main>
+    <div class="app">
+      <%= render 'shared/header' %>
+      <%= render 'shared/search_results' if @search_results %>
+      <div class="main">
+        <%= render 'shared/sidebar' if current_user %>
+        <main class="app-main">
+          <%= yield %>
+        </main>
+      </div>
+      <%= render 'shared/footer' %>
     </div>
-    <%= render 'shared/footer' %>
 
     <!-- Target for dynamically generated modals -->
     <div id="global-modal" class="modal fade"></div>

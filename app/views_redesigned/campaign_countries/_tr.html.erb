@@ -1,13 +1,13 @@
-<tr>
-  <td class="text-left align-middle text-nowrap"><%= country_display_name report.scoped_by_id %></td>
+<%= table_row do %>
+  <%= table_data_value country_display_name(report.scoped_by_id), add_class: "text-nowrap" %>
   <% if @campaign.standard? %>
-    <td class="text-center align-middle"><%= report.gross_revenue.format %></td>
-    <td class="text-center align-middle"><%= number_with_delimiter report.impressions_count %></td>
+    <%= table_data_value report.gross_revenue.format %>
+    <%= table_data_value number_with_delimiter(report.impressions_count) %>
   <% end %>
-  <td class="text-center align-middle"><%= number_with_delimiter report.clicks_count %></td>
+  <%= table_data_value number_with_delimiter(report.clicks_count) %>
   <% if @campaign.standard? %>
-    <td class="text-center align-middle"><%= number_to_percentage report.click_rate, precision: 2 %></td>
-    <td class="text-center align-middle"><%= number_with_delimiter report.cpm.format %></td>
-    <td class="text-center align-middle"><%= number_with_delimiter report.cpc.format %></td>
+    <%= table_data_value number_to_percentage(report.click_rate, precision: 2) %>
+    <%= table_data_value number_with_delimiter(report.cpm.format) %>
+    <%= table_data_value number_with_delimiter(report.cpc.format) %>
   <% end %>
-</tr>
+<% end %>

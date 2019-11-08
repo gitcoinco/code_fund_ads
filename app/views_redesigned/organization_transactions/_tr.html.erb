@@ -1,8 +1,8 @@
-<%= tag.tr class: classes("even": organization_transaction_counter.even?, "odd": organization_transaction_counter.odd?) do %>
-  <td class="align-middle text-muted" style="width: 150px;">
+<%= table_row add_class: classes("even": organization_transaction_counter.even?, "odd": organization_transaction_counter.odd?) do %>
+  <%= table_data add_style: "width: 150px;" do %>
     <%= organization_transaction.posted_at.to_s("mm/dd/yyyy") %>
-  </td>
-  <td class="align-middle text-muted" style="width: 150px;">
+  <% end %>
+  <%= table_data add_style: "width: 150px;" do %>
     <%= link_to (
       organization_transaction.transaction_type == ENUMS::ORGANIZATION_TRANSACTION_TYPES::CREDIT ?
       organization_transaction.amount.format :
@@ -15,6 +15,6 @@
      <% if organization_transaction.gift? %>
       <span class="fas fa-gift"></span>
      <% end %>
-  </td>
-  <td class="align-middle text-muted"><%= organization_transaction.reference %></td>
+  <% end %>
+  <%= table_data_value organization_transaction.reference %>
 <% end %>

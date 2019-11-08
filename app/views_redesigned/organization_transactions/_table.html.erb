@@ -1,18 +1,18 @@
-<div class="table-responsive">
-  <table class="table table-striped">
-    <thead>
-      <tr class="border-bottom">
+<%= table_wrapper do %>
+  <%= paginated_table do %>
+    <%= table_head do %>
+      <%= table_row header: true do %>
         <%= sortable_tr "posted_at", "Date" %>
         <%= sortable_tr "amount_cents", "Amount" %>
-        <th scope="col">Reference</th>
-      </tr>
-    </thead>
-    <tbody>
+        <%= table_column add_scope: "col" do %>Reference<% end %>
+      <% end %>
+    <% end %>
+    <%= table_body do %>
       <%= render partial: "/organization_transactions/tr", locals: { organization: @organization }, collection: organization_transactions, as: :organization_transaction %>
-    </tbody>
-  </table>
-  <div class="d-flex justify-content-between align-items-center">
+    <% end %>
+  <% end %>
+  <%= pagination_wrapper do %>
     <span><%== pagy_bootstrap_nav(pagy) if pagy.pages > 1 %></span>
     <%= pagy_entries(pagy) %>
-  </div>
-</div>
+  <% end %>
+<% end %>

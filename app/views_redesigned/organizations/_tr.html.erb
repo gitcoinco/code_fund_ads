@@ -1,5 +1,5 @@
-<%= tag.tr class: classes("even": organization_counter.even?, "odd": organization_counter.odd?) do %>
-  <td class="align-middle text-muted">
+<%= table_row add_class: classes("even": organization_counter.even?, "odd": organization_counter.odd?) do %>
+  <%= table_data do %>
     <% if organization.balance > 0 %>
       <span class="text-success fas fa-plus-circle"></span>
     <% elsif organization.balance < 0 %>
@@ -7,19 +7,25 @@
     <% else %>
       <span class="text-muted fas fa-empty-set"></span>
     <% end %>
-  </td>
-  <td class="align-middle text-muted"><%= link_to organization.name, organization, class: "text-link" %></td>
-  <td class="align-middle text-success" style="width: 175px;"><%= organization.total_credits.format %></td>
-  <td class="align-middle text-danger" style="width: 175px;">- <%= organization.total_debits.format %></td>
-  <td class="align-middle" style="width: 175px;">
+  <% end %>
+  <%= table_data do %>
+    <%= link_to organization.name, organization, class: "text-link" %>
+  <% end %>
+  <%= table_data add_class: "text-success", add_style: "width: 175px;" do %>
+    <%= organization.total_credits.format %>
+  <% end %>
+  <%= table_data add_class: "text-danger", add_style: "width: 175px;" do %>
+    - <%= organization.total_debits.format %>
+  <% end %>
+  <%= table_data add_style: "width: 175px;" do %>
     <%= link_to organization.balance.format, organization_transactions_path(organization),
       class: classes(
         "text-link text-success": organization.balance > 0,
         "text-link text-danger": organization.balance < 0,
         "text-link text-muted": organization.balance.zero?
       ) %>
-  </td>
-  <td class="align-middle text-muted text-right">
+  <% end %>
+  <%= table_data do %>
     <%= edit_button(link: edit_organization_path(organization)) %>
-  </td>
+  <% end %>
 <% end %>

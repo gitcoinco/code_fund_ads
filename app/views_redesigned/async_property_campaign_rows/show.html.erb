@@ -1,11 +1,11 @@
-<tr>
-  <td class="text-left align-middle text-muted"><%= @campaign.name %></td>
+<%= table_row do %>
+  <%= table_data_value @campaign.name %>
   <% unless @property.restrict_to_sponsor_campaigns? %>
-    <td class="text-center align-middle text-muted"><%= number_with_delimiter @property.campaign_impressions_count(@campaign, @start_date, @end_date) %></td>
+    <%= table_data_value number_with_delimiter(@property.campaign_impressions_count(@campaign, @start_date, @end_date)) %>
   <% end %>
-  <td class="text-center align-middle text-muted"><%= number_with_delimiter @property.campaign_clicks_count(@campaign, @start_date, @end_date) %></td>
+  <%= table_data_value number_with_delimiter(@property.campaign_clicks_count(@campaign, @start_date, @end_date)) %>
   <% unless @property.restrict_to_sponsor_campaigns? %>
-    <td class="text-center align-middle text-muted"><%= number_to_percentage @property.campaign_click_rate(@campaign, @start_date, @end_date), precision: 2 %></td>
-    <td class="text-center align-middle text-muted"><%= @property.campaign_property_revenue(@campaign, @start_date, @end_date).format %></td>
+    <%= table_data_value number_to_percentage(@property.campaign_click_rate(@campaign, @start_date, @end_date), precision: 2) %>
+    <%= table_data_value(@property.campaign_property_revenue(@campaign, @start_date, @end_date).format) %>
   <% end %>
 </tr>
