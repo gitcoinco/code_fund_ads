@@ -2,8 +2,10 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   include Authorizable
   include Dateable
+  include Teamable
 
   delegate :instrument, to: ActiveSupport::Notifications
+  delegate :current_team, to: :current_organization
 
   before_action :store_ids
   before_action :reload_extensions, unless: -> { Rails.env.production? }
@@ -137,7 +139,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_organization
-    current_user&.organization
+    @team
   end
   helper_method :current_organization
 
