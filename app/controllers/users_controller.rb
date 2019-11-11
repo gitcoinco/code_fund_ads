@@ -74,7 +74,7 @@ class UsersController < ApplicationController
   end
 
   def set_organization
-    @organization = Organization.find(params[:organization_id])
+    @organization = Organization.find(session[:organization_id])
   end
 
   def user_params

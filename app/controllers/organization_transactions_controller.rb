@@ -76,7 +76,8 @@ class OrganizationTransactionsController < ApplicationController
     @organization = if authorized_user.can_admin_system?
       Organization.find(params[:organization_id])
     else
-      current_user.organization
+      @current_org
+      # current_user.organization
     end
   end
 

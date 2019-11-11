@@ -58,10 +58,11 @@ class OrganizationsController < ApplicationController
   private
 
   def set_organization
-    @organization = if authorized_user.can_admin_system?
+    @organization ||= if authorized_user.can_admin_system?
       Organization.find(params[:id])
     else
-      current_user.organization
+      @current_org
+      # current_user.organization
     end
   end
 
