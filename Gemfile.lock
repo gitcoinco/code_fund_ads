@@ -225,7 +225,7 @@ GEM
       foundation_emails (~> 2)
       nokogiri
     ipaddress (0.8.3)
-    jaro_winkler (1.5.3)
+    jaro_winkler (1.5.4)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
     jmespath (1.4.0)
