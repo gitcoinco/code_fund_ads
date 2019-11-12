@@ -1,7 +1,7 @@
 fix: false
 parallel: true
 format: progress
-ruby_version: 2.5.3
+ruby_version: 2.6.5
 ignore:
   - 'bin/**/*'
   - 'db/schema.rb'
