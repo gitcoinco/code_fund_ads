@@ -64,6 +64,15 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     assert response.body.include?("codeFundElement.innerHTML = '<div id=\"cf\"")
   end
 
+  test "get advertisement with paid fallback campaign" do
+    campaign = fallback_campaign
+    campaign.update fallback: false, paid_fallback: true
+    property = properties(:website)
+    get advertisements_url(property, format: :js)
+    assert_response :success
+    assert response.body.include?("codeFundElement.innerHTML = '<div id=\"cf\"")
+  end
+
   test "get advertisement with fallback campaign when property doesn't allow fallbacks" do
     campaign = fallback_campaign
     property = matched_property(campaign)
