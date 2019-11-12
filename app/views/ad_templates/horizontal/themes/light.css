@@ -3,8 +3,8 @@
 }
 
 #cf .cf-wrapper {
-  z-index: 1;
-  font-family: Helvetica, Arial;
+  z-index: 5000;
+  font-family: Helvetica, Arial, sans-serif;
   font-size: 13px;
   box-sizing: border-box;
   width: 100%;
