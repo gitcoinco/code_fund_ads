@@ -13,3 +13,5 @@ ignore:
   - 'vendor/**/*'
   - 'test/**/*':
     - Layout/AlignHash
+  - 'app/**/*':
+    - Naming/AccessorMethodName
