@@ -84,5 +84,6 @@ Rails.application.configure do
   config.session_store :cache_store, {
     key: "_code_fund_ads_#{Rails.env}_session",
     expire_after: ActiveSupport::Duration.build(ENV.fetch("USER_SESSION_DURATION_IN_SECONDS", 2.weeks).to_i * 2),
+    domain: :all,
   }
 end
