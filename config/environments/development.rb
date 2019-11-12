@@ -81,7 +81,8 @@ Rails.application.configure do
     Bullet.rails_logger = true
   end
 
-  config.session_store ActionDispatch::Session::CacheStore,
-    key: "_code_fund_ads_session",
-    expire_after: ActiveSupport::Duration.build(ENV.fetch("USER_SESSION_DURATION_IN_SECONDS", 2.weeks).to_i * 2)
+  config.session_store :cache_store, {
+    key: "_code_fund_ads_#{Rails.env}_session",
+    expire_after: ActiveSupport::Duration.build(ENV.fetch("USER_SESSION_DURATION_IN_SECONDS", 2.weeks).to_i * 2),
+  }
 end
