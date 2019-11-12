@@ -268,8 +268,9 @@ class AdvertisementsController < ApplicationController
 
     # paid fallback
     if rand < ENV.fetch("PAID_FALLBACK_PERCENT", 90).to_f / 100
-      campaign ||= begin
-        fallback_campaign_relation = campaign_relation.without_assigned_property_ids.paid_fallback
+      campaign = begin
+        fallback_campaign_relation = Campaign.active.paid_fallback.available_on(Date.current)
+          .permitted_for_property_id(property_id).without_assigned_property_ids
         choose_campaign fallback_campaign_relation, ignore_budgets: true
       end
     end
