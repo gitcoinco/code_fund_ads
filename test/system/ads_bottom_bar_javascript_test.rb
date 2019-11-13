@@ -33,8 +33,8 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
                                                            "text-align": "center",
                                                            "line-height": "19.5px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
-                                                     "color": "rgba(0, 0, 0, 1)",
-                                                     "text-decoration": "none solid rgb(0, 0, 0)",)
+                                                     "color": "rgba(0, 0, 0, 0.8)",
+                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.8)",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "font-size": "12px",
                                                            "text-decoration": "none solid rgb(153, 153, 153)",
@@ -64,8 +64,8 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
                                                            "text-align": "center",
                                                            "line-height": "19.5px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
-                                                     "color": "rgba(0, 0, 0, 1)",
-                                                     "text-decoration": "none solid rgb(0, 0, 0)",)
+                                                     "color": "rgba(0, 0, 0, 0.8)",
+                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.8)",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "font-size": "12px",
                                                            "text-decoration": "none solid rgb(153, 153, 153)",
@@ -96,8 +96,8 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
                                                            "text-align": "center",
                                                            "line-height": "19.5px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
-                                                     "color": "rgba(0, 0, 0, 1)",
-                                                     "text-decoration": "none solid rgb(0, 0, 0)",)
+                                                     "color": "rgba(0, 0, 0, 0.8)",
+                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.8)",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "font-size": "12px",
                                                            "text-decoration": "none solid rgb(153, 153, 153)",
@@ -128,8 +128,8 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
                                                            "text-align": "center",
                                                            "line-height": "19.5px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
-                                                     "color": "rgba(0, 0, 0, 1)",
-                                                     "text-decoration": "none solid rgb(0, 0, 0)",)
+                                                     "color": "rgba(0, 0, 0, 0.8)",
+                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.8)",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "font-size": "12px",
                                                            "text-decoration": "none solid rgb(153, 153, 153)",
