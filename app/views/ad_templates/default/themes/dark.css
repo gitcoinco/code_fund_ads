@@ -1,52 +1,49 @@
 #cf {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  margin: 0 auto;
+  max-width: 330px;
+  border: none;
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 #cf a {
   box-shadow: none !important;
   text-decoration: none;
-  color: inherit;
 }
 
 #cf .cf-wrapper {
-  box-sizing: border-box;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  z-index: 5000;
-  padding: 0.8em 1em 1em;
-  width: 100%;
-  border-top: solid 2px #4caf50;
-  background-color: #efefef;
-  text-align: center;
-  line-height: 1.5;
+  border-radius: 4px;
+  display: block;
+  padding: 15px;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.4;
+  text-align: left;
+  font-family: Helvetica;
+}
+
+#cf .cf-img-wrapper {
+  float: left;
+  margin-right: 15px;
+}
+
+#cf .cf-img {
+  vertical-align: middle;
+  border-style: none;
+  max-width: 130px;
+  position: relative;
 }
 
 #cf .cf-text {
-  color: inherit;
-  text-decoration: none;
-  box-shadow: none;
+  color: rgba(255, 255, 255, 0.7);
 }
 
-#cf .cf-text:before {
-  margin-right: 4px;
-  padding: 2px 6px;
-  border-radius: 3px;
-  background-color: #4caf50;
-  color: #fff;
-  content: 'Supporter';
+#cf .cf-text strong {
+  color: rgba(255, 255, 255, 1);
 }
 
 #cf .cf-powered-by {
+  margin-top: 5px;
   font-size: 12px;
-  text-decoration: none;
-  color: #999;
-  box-shadow: none;
-}
-
-#cf .cf-powered-by::before {
-  content: '•';
-  color: rgba(0, 0, 0, 0.3);
-  display: inline-block;
+  display: block;
+  color: rgba(255, 255, 255, 0.7);
 }
