@@ -35,7 +35,6 @@ class ApplicationController < ActionController::Base
     cookies.encrypted[:cuid] = current_user&.id
     cookies.encrypted[:tuid] = true_user&.id
     cookies.encrypted[:sid] = session&.id
-    cookies.encrypted[:coid] = current_organization&.id
   end
 
   def device

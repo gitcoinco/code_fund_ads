@@ -2,7 +2,7 @@ module ApplicationCable
   class Connection < ActionCable::Connection::Base
     identified_by :ids
 
-    attr_reader :current_user, :current_user_id, :current_organization, :current_organization_id, :session_id, :true_user, :true_user_id
+    attr_reader :current_user, :current_user_id, :session_id, :true_user, :true_user_id
 
     def connect
       @current_user_id = cookies.encrypted[:cuid]

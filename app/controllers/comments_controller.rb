@@ -42,7 +42,6 @@ class CommentsController < ApplicationController
       Organization.find(params[:organization_id])
     else
       current_organization
-      # current_user.organization
     end
   end
 
