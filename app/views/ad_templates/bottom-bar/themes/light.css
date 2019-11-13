@@ -22,7 +22,7 @@
 }
 
 #cf .cf-text {
-  color: inherit;
+  color: rgba(0, 0, 0, 0.8);
   text-decoration: none;
   box-shadow: none;
 }
