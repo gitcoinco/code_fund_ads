@@ -3,9 +3,6 @@
     <span>
       <span class="cf-wrapper">
         <a data-href="campaign_url" target="_blank" rel="sponsored noopener">
-          <span class="cf-img-wrapper">
-            <%= image_tag @creative.large_image.cloudfront_url, border: 0, height: 100, width: 130, class: "cf-img", alt: @creative.name rescue nil %>
-          </span>
           <span class="cf-text">
             <strong><%= @creative.headline %></strong>
             <span><%= @creative.body %></span>
