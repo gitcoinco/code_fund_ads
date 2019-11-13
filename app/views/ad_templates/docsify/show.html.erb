@@ -2,7 +2,7 @@
   <div id="cf">
     <div class="cf-wrapper">
       <div class="clearfix">
-        <a data-href="campaign_url" target="_blank" rel="sponsored noopener">
+        <a class="cf-sponsored-by" data-href="campaign_url" target="_blank" rel="sponsored noopener">
           <span class="cf-img-wrapper">
             <%= image_tag @creative.small_image.cloudfront_url, width: 65, height: 65, class: "cf-img", alt: @creative.name rescue nil %>
           </span>
