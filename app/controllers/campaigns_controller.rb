@@ -133,11 +133,13 @@ class CampaignsController < ApplicationController
   end
 
   def advertiser_campaign_params
-    params.require(:campaign).permit(
+    permitted = params.require(:campaign).permit(
       :name,
       :url,
       creative_ids: [],
     )
+    permitted[:url] = URI.parse(permitted[:url].to_s.strip)
+    permitted
   end
 
   def extended_advertiser_campaign_params
