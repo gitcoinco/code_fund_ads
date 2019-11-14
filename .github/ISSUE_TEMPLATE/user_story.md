@@ -1,6 +1,6 @@
 ---
 name: User story
-about: User requirements for a new feature
+about: User requirements for a new feature/enhancement that have been relayed over a different medium (like email or twitter).
 title: ''
 labels: 'feature request'
 assignees: 'andrewmcodes'

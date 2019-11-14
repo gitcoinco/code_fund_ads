@@ -1,6 +1,6 @@
 ---
 name: Question
-about: Ask any question about CodeFund
+about: Ask any question about CodeFund or the app.
 title: ''
 labels: 'question'
 assignees: 'andrewmcodes'
