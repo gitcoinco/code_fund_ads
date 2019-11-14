@@ -74,7 +74,7 @@ class UsersController < ApplicationController
   end
 
   def set_organization
-    @organization ||= current_organization
+    @organization ||= Current.organization
   end
 
   def user_params

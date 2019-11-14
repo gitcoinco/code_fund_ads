@@ -23,7 +23,13 @@
       <% end %>
       <%= details_li("Name") { @user.name } %>
       <%= details_li("Email") { @user.email } %>
-      <%= details_li("Organization") { link_to @user.organization.name, @user.organization } if @user.organization %>
+      <% if @user.organizations.empty? %>
+        <%= details_li("Organization") { link_to @user.organization.name, @user.organization } if @user.organization %>
+      <% else %>
+        <% @user.organizations.pluck(:name).sort.each do |organization_name| -%>
+          <span class="btn btn-xs btn-subtle-dark mb-1"><%= organization_name %></span>
+        <% end -%>
+      <% end %>
       <%= details_li("Company Name") { @user.company_name } %>
       <%= details_li("Street Address") { @user.address_1 } %>
       <%= details_li("City") { @user.city } %>

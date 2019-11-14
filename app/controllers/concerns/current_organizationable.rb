@@ -20,6 +20,8 @@ module CurrentOrganizationable
 
     session[:organization_id] = current_organization&.id
 
+    Current.organization = current_organization
+
     current_organization
   end
 

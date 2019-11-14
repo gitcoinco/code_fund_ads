@@ -15,7 +15,6 @@
       </span>
     </div>
   <% end %>
-  <%= table_data do %><%= link_to user.organization.name, user.organization if user.organization %><% end %>
   <%= table_data do %>
     <% user.roles.each do |role| %>
       <%= badge_for_role(role) %>
@@ -33,6 +32,7 @@
     <%= goto_button(link: images_path(user.to_gid_param), icon: "fas fa-images", title: "Manage Images") if user.advertiser? %>
     <%= edit_button(link: edit_user_path(user)) %>
     <%= goto_button(link: user_impersonation_path(user), method: :put, icon: "fas fa-mask", title: "Log in as #{user.first_name}") if authorized_user.can_admin_system? %>
+    <!-- TODO: add link to page to see a user and the orgs they belong to -->
     <% if authorized_user.can_admin_system? %>
       <%= goto_button(link: "https://metabase.codefund.io/dashboard/14?date_filter=thismonth&publisher_id=#{user.id}", target: "_blank", icon: "fas fa-chart-line", title: "View Publisher Dashboard") if user.publisher? %>
       <%= goto_button(link: "https://metabase.codefund.io/dashboard/10?date_filter=thismonth&advertiser_user_id=#{user.id}", target: "_blank", icon: "fas fa-chart-line", title: "View Advertiser Dashboard") if user.advertiser? %>

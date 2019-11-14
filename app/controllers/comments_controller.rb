@@ -41,7 +41,7 @@ class CommentsController < ApplicationController
     @commentable = if authorized_user.can_admin_system?
       Organization.find(params[:organization_id])
     else
-      current_organization
+      Current.organization
     end
   end
 

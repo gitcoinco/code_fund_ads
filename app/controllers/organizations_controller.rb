@@ -61,7 +61,7 @@ class OrganizationsController < ApplicationController
     @organization ||= if authorized_user.can_admin_system?
       Organization.find(params[:id])
     else
-      current_organization
+      Current.organization
     end
   end
 
