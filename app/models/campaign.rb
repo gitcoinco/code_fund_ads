@@ -63,7 +63,7 @@ class Campaign < ApplicationRecord
   validates :status, inclusion: {in: ENUMS::CAMPAIGN_STATUSES.values}
   validate :validate_creatives
   validate :validate_assigned_properties, if: :sponsor?
-  # validate :validate_url
+  validate :validate_url
 
   # callbacks .................................................................
   before_validation :sort_arrays
@@ -412,17 +412,10 @@ class Campaign < ApplicationRecord
   end
 
   def validate_url
-    uri = begin
-            URI.parse(url)
-          rescue
-            nil
-          end
-    case uri
-    when URI::HTTP, URI::HTTPS
-      response = Typhoeus.get(uri.to_s, followlocation: true)
-      errors[:url] << "is invalid" unless response.success?
-    else errors[:url] << "is invalid"
-    end
+    self.url = url.to_s.strip
+    URI.parse(url)
+  rescue
+    errors[:url] << "is invalid"
   end
 
   def validate_creatives

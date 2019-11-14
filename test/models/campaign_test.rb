@@ -142,4 +142,14 @@ class CampaignTest < ActiveSupport::TestCase
     assert campaign.selling_price.present?
     assert campaign.selling_price == campaign.total_budget
   end
+
+  test "url's have whitespace stripped prior to saving" do
+    assert @campaign.update(url: " https://app.codefund.io")
+    assert_equal "https://app.codefund.io", @campaign.url
+  end
+
+  test "URI must be valid in order to be saved" do
+    assert_not @campaign.update(url: "<E2><80><8B>https://app.codefund.io")
+    assert_equal ["is invalid"], @campaign.errors.messages[:url]
+  end
 end
