@@ -27,11 +27,7 @@ class EventsController < ApplicationController
   end
 
   def set_organization
-    @eventable = if authorized_user.can_admin_system?
-      Organization.find(params[:organization_id])
-    else
-      Current.organization
-    end
+    @eventable = Current.organization
   end
 
   def set_campaign

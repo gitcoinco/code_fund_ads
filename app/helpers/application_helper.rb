@@ -273,6 +273,14 @@ module ApplicationHelper
     numerator / denominator.to_f
   end
 
+  def available_organizations
+    @available_organizations ||= if authorized_user.can_admin_system?
+      Organization.all.sort_by(&:name)
+    else
+      current_user.organizations.sort_by(&:name)
+    end
+  end
+
   private
 
   def redesigned_badge_for_role(role, wrap_class)

@@ -37,11 +37,7 @@ class VersionsController < ApplicationController
   end
 
   def set_organization
-    @versionable = if authorized_user.can_admin_system?
-      Organization.find(params[:organization_id])
-    else
-      Current.organization
-    end
+    @versionable = Current.organization
   end
 
   def set_campaign
