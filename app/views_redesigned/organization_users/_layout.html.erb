@@ -1,0 +1,9 @@
+<section class="container mt-4">
+  <header class="page-title-bar">
+    <%= yield :page_heading %>
+    <div class="d-flex border-bottom">
+      <%= yield :actions %>
+    </div>
+  </header>
+  <%= yield %>
+</section>

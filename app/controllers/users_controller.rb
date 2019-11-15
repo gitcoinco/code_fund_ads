@@ -16,7 +16,7 @@ class UsersController < ApplicationController
     max = (users.size / Pagy::VARS[:items].to_f).ceil
     @pagy, @users = pagy(users, page: current_page(max: max))
 
-    render "/users/for_organization/index" if @organization
+    # render "/users/for_organization/index" if @organization
   end
 
   def new

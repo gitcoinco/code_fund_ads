@@ -1,0 +1,17 @@
+<%= render layout: "/organizations/layout", locals: { organization: @organization } do %>
+  <%= card do %>
+    <%= card_header add_class: "d-flex justify-content-between" do %>
+      <div class="d-flex flex-column">
+        <%= card_title do %>
+          Members
+        <% end %>
+        <%= card_subtitle do %>
+          Members of <%= @organization.name %>
+        <% end %>
+      </div>
+    <% end %>
+    <%= card_body do %>
+      <%= render "/organization_users/table", organization: @organization, organization_users: @organization_users, pagy: @pagy %>
+    <% end %>
+  <% end %>
+<% end %>
