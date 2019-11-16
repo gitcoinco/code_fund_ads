@@ -1,0 +1,30 @@
+<%= simple_form_for organization_user, url: url, html: { class: "js-validate" }, wrapper: :front_form do |f| %>
+  <%= render "/shared/forms/error_messages", object: organization_user %>
+
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Membership Details for <%= organization_user.user.name %>
+      <% end %>
+      <%= card_subtitle do %>
+        Fill out the fields below
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <%= f.input :role, label: "Role", required: true,
+                collection: ENUMS::ORGANIZATION_ROLES.values.map { |role| [role.capitalize, role] },
+                input_html: { class: "form-control", data: { controller: "select" }} %>
+        </div>
+      </div>
+
+      <div class="row">
+        <%= button_panel do %>
+          <%= f.submit "Save Membership", class: "btn btn-sm btn-primary mr-1" %>
+          <%= link_to "Cancel", organization_users_path(organization), class: "btn btn-sm btn-subtle-secondary" %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

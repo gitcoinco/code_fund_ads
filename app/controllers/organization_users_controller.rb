@@ -7,6 +7,14 @@ class OrganizationUsersController < ApplicationController
     @pagy, @organization_users = pagy(organization_users)
   end
 
+  def edit
+
+  end
+
+  def update
+
+  end
+
   private
 
   def set_organization

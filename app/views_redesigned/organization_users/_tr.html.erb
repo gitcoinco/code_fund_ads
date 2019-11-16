@@ -11,4 +11,7 @@
     </div>
   <% end %>
   <%= table_data { organization_user.role } %>
+  <%= table_data add_class: "text-right" do %>
+    <%= edit_button(link: edit_organization_user_path(organization, organization_user)) %>
+  <% end %>
 <% end %>
