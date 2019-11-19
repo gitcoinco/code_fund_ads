@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @title || "CodeFund ❤️ Open Source" %></title>
+    <%= ga_tag_manager_header %>
+
+    <!-- Meta Tags -->
+    <%= display_meta_tags site: "CodeFund" %>
+    <link rel="manifest" href="/site.webmanifest">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= action_cable_meta_tag %>
+
+    <!-- CDN Stylesheets -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-zrnmn8R8KkWl12rAZFt4yKjxplaDaT7/EUkKm7AovijfrQItFWR7O/JJn4DAa/gx" crossorigin="anonymous">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600">
+
+    <!-- Compressed Stylesheets -->
+    <%= stylesheet_pack_tag 'code_fund_redesign', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Compressed JavaScripts -->
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'code_fund', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body class="p-0 m-0">
+    <main class="d-flex flex-column align-items-center pt-6">
+      <section class="auth">
+        <header class="mb-3">
+          <%= link_to root_path do %>
+            <%= image_tag "codefund-w.svg", style: "height:60px" %>
+          <% end %>
+        </header>
+        <article class="auth-dialog">
+          <%= yield %>
+        </article>
+        <footer class="mt-3 text-center" style="color:#b6b6b6">
+          <p>Copyright © 2017-2019 ConsenSys, AG. All rights reserved.</p>
+        </footer>
+      </section>
+    </main>
+  </body>
+</html>
