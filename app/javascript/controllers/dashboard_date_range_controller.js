@@ -69,7 +69,7 @@ export default class extends Controller {
       .on(
         'apply.daterangepicker',
         function (ev, picker) {
-          debugger;
+          debugger
           this.formTarget.submit()
         }.bind(this)
       )
