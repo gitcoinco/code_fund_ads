@@ -4,6 +4,7 @@ require "faker"
 class AdvertisementsTest < ActionDispatch::IntegrationTest
   setup do
     Rails.cache.clear
+    Current.organization = organizations(:default)
     start_date = Date.parse("2019-01-01")
     @premium_campaign = amend campaigns: :premium,
                               start_date: start_date,
@@ -224,19 +225,22 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: property will show targeted premium campaign over a zero balance campaign with assigned property" do
+    organization = copy(organizations: :default, balance: Money.new(0, "USD"))
+
+    Current.organization = organization
+
     user = copy users: :advertiser,
                 email: Faker::Internet.email,
                 password: "password",
-                password_confirmation: "password",
-                organization: copy(organizations: :default, balance: Money.new(0, "USD"))
+                password_confirmation: "password"
 
     creative = copy creatives: :premium,
-                    organization: user.organization,
+                    organization: organization,
                     user: user,
                     body: "This is an assigned premium campaign"
 
     copy campaigns: :premium,
-         organization: user.organization,
+         organization: organization,
          user: user,
          assigned_property_ids: [@property.id],
          keywords: [],

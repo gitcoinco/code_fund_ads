@@ -34,6 +34,7 @@ require "test_helper"
 class ImpressionTest < ActiveSupport::TestCase
   setup do
     property = properties(:website)
+    Current.organization = organizations(:default)
     campaign = amend(campaigns: :premium, start_date: 1.month.ago.to_date, end_date: 1.month.from_now.to_date)
     @impression = campaign.impressions.create!(
       advertiser: campaign.user,

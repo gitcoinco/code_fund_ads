@@ -133,6 +133,7 @@ class CampaignTest < ActiveSupport::TestCase
   end
 
   test "sponsor campaigns have a selling_price that is the same as total_budget" do
+    Current.organization = organizations(:default)
     campaign = active_campaign
     campaign.creatives.each do |creative|
       creative.standard_images.destroy_all

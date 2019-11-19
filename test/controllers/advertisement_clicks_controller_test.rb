@@ -5,6 +5,7 @@ class AdvertisementClicksControllerTest < ActionDispatch::IntegrationTest
   include ActiveJob::TestHelper
 
   setup do
+    Current.organization = organizations(:default)
     @impression_id = SecureRandom.uuid
     @campaign = amend(campaigns: :premium, url: "https://example.com")
     @creative = @campaign.creatives.first

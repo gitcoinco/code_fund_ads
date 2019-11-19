@@ -112,7 +112,6 @@ class User < ApplicationRecord
     advertisers.distinct.joins(:campaigns).where(campaigns: {status: ENUMS::CAMPAIGN_STATUSES::ACTIVE})
   }
 
-
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
   #
@@ -209,6 +208,11 @@ class User < ApplicationRecord
  end
 
   # public instance methods ...................................................
+
+  def organization
+    ActiveSupport::Deprecation.warn("User#organization is being deprecated and should not be used")
+    super
+  end
 
   def administrator?
     roles.include? ENUMS::USER_ROLES::ADMINISTRATOR
