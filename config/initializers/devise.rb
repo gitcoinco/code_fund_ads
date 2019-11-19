@@ -67,4 +67,3 @@ Rails.application.config.to_prepare do
   Devise::UnlocksController.layout "authentication"
   Devise::PasswordsController.layout "authentication"
 end
-
