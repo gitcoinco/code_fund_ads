@@ -34,6 +34,13 @@ Rails.application.routes.draw do
     invitations: "invitations",
   }
 
+  scope "/api", module: :api, defaults: {format: :json} do
+    get "/all_global_stats", to: "global_stats#all_global_stats"
+    get "/impressions_total_count", to: "global_stats#impressions_total_count"
+    get "/impressions_click_count", to: "global_stats#impressions_click_count"
+    get "/impressions_click_rate", to: "global_stats#impressions_click_rate"
+  end
+
   resources :jobs, only: [:index]
   resources :job_posting_prospects, except: [:index, :destroy], path: "/jobs/listings"
   scope "/jobs/listings/:job_posting_id" do
