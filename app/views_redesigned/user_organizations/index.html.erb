@@ -1,17 +1,13 @@
-<%= render layout: "/user/layout", locals: { user: @user } do %>
-  <%= card do %>
-    <%= card_header add_class: "d-flex justify-content-between" do %>
-      <div class="d-flex flex-column">
-        <%= card_title do %>
-          Organizations
-        <% end %>
-        <%= card_subtitle do %>
-          Organizations that you are a member of
-        <% end %>
-      </div>
-    <% end %>
-    <%= card_body do %>
-      <%= render "/user_organizations/table", user: @user, user_organizations: @user_organizations, pagy: @pagy %>
-    <% end %>
+<%= render layout: "/users/layout", locals: { user: @user } do %>
+  <% if @organizations_as_owner.present? %>
+    <%= render "/user_organizations/list", list_header: "Owner", organizations: @organizations_as_owner %>
+  <% end %>
+
+  <% if @organizations_as_administrator.present? %>
+    <%= render "/user_organizations/list", list_header: "Administrator", organizations: @organizations_as_administrator %>
+  <% end %>
+
+  <% if @organizations_as_member.present? %>
+    <%= render "/user_organizations/list", list_header: "Member", organizations: @organizations_as_member %>
   <% end %>
 <% end %>

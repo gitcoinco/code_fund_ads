@@ -1,0 +1,6 @@
+<ul class="list-group mb-3">
+  <li class="list-group-header"><%= list_header %></li>
+  <% organizations.each do |organization| %>
+    <%= link_to organization.name, organization_path(organization), class: "list-group-item list-group-item-action" %>
+  <% end %>
+</ul>
