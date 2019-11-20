@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     invitations: "invitations",
   }
 
-  scope "/api", module: :api, defaults: {format: :json} do
+  scope "/api", defaults: {format: :json} do
     resource :global_stats, only: [:show]
   end
 
