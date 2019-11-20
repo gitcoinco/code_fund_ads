@@ -1,7 +1,6 @@
 require "test_helper"
 
 class Api::GlobalStatsControllerTest < ActionDispatch::IntegrationTest
-  # Test Successful Responses
   test "should return success for all global stats" do
     get all_global_stats_path
     assert_response :success

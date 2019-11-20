@@ -35,10 +35,7 @@ Rails.application.routes.draw do
   }
 
   scope "/api", module: :api, defaults: {format: :json} do
-    get "/all_global_stats", to: "global_stats#all_global_stats"
-    get "/impressions_total_count", to: "global_stats#impressions_total_count"
-    get "/impressions_click_count", to: "global_stats#impressions_click_count"
-    get "/impressions_click_rate", to: "global_stats#impressions_click_rate"
+    resource :global_stats, only: [:show]
   end
 
   resources :jobs, only: [:index]
