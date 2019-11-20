@@ -35,7 +35,7 @@ module Api
                                      scoped_by_type: nil,
                                      scoped_by_id: nil).sum(:impressions_count)
 
-          count += Impression.on(Date.current).count
+          count + Impression.on(Date.current).count
         end
       end
     end
@@ -46,7 +46,7 @@ module Api
           count = DailySummary.where(impressionable_type: "Property",
                                      scoped_by_type: nil,
                                      scoped_by_id: nil).sum(:clicks_count)
-          count += Impression.on(Date.current).clicked.count
+          count + Impression.on(Date.current).clicked.count
         end
       end
     end
