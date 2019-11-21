@@ -96,9 +96,27 @@ class CodeFundAd {
       el.addEventListener('click', this.close.bind(this))
     })
     templates[this.template].initialize(this)
+    this.applyStickyBehavior()
 
     this.dispatch({ status: 'ok', house: this.fallback })
     if (!preview) this.detectUplift(1)
+  }
+
+  applyStickyBehavior () {
+    if (this.container.dataset.behavior !== 'sticky') return
+
+    const containerStyle = getComputedStyle(this.container)
+    const elementStyle = getComputedStyle(this.element)
+
+    if (containerStyle.position === 'fixed') return
+    if (elementStyle.position === 'fixed') return
+
+    this.container.style.position = 'sticky'
+    if (this.container.hasAttribute('data-bottom')) {
+      this.container.style.bottom = this.container.dataset.bottom
+    } else {
+      this.container.style.top = this.container.dataset.top || 0
+    }
   }
 
   trackUplift () {

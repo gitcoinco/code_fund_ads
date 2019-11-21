@@ -1,7 +1,0 @@
-export default {
-  mustache: '<%= File.read(Rails.root.join("app/javascript/advertisements/horizontal/template.html.mustache"), encoding: "UTF-8").squish %>',
-  initialize: ad => {
-    ad.container.style.position = 'sticky'
-    ad.container.style.top = 0
-  }
-}
