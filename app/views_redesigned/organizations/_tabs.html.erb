@@ -1,4 +1,4 @@
-<div class="flex-grow-1">
+<div class="nav-tabs-wrapper">
   <%= nav_tabs do %>
     <%= nav_item_link(name: "Details", path: organization, active: :exact) %>
     <%= nav_item_link(name: "Members", path: organization_users_path(organization)) if authorized_user.can_admin_system?%>

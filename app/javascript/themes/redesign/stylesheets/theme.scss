@@ -1,6 +1,7 @@
 @import "./theme_variables";
 
 // =========== Webpack ===========
+@import "~bootstrap/scss/bootstrap";
 @import "~animate.css/animate";
 @import "~slick-carousel/slick/slick";
 @import "~bootstrap-select/dist/css/bootstrap-select.min";
@@ -33,16 +34,4 @@ footer {
 
 .app-header-dark {
   background-color: #222230 !important;
-}
-
-.menu-item > .menu-link > i {
-  opacity: 0.4;
-}
-
-.menu-item.has-active > .menu-link > i {
-  opacity: 1;
-}
-
-.pagination {
-  margin-bottom: 0 !important;
 }

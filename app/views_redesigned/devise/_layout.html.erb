@@ -6,7 +6,7 @@
         background-size: initial;
         background-repeat: repeat;">
       <h1>
-        <%= link_to image_tag("codefund-wg-full-256.svg", class: "mb-4", style: "height: 64px;"), "https://codefund.io" %>
+        <%= link_to image_tag("codefund-wg-full-256.svg", class: "mb-4 img-fluid", style: "height: 64px;"), "https://codefund.io" %>
         <span class="sr-only">Sign In</span>
       </h1>
       <p>Don't have a account? <a href="https://codefund.io/">Apply Now</a></p>
@@ -16,10 +16,12 @@
 
 <% unless local_assigns[:override]&.include? :footer %>
   <% content_for :footer do %>
-    <footer class="auth-footer">
+    <footer class="auth-footer text-center">
       &copy; <%= Time.now.year %> All Rights Reserved.
-      <a href="https://www.iubenda.com/privacy-policy/47597768" target="_blank">Privacy</a> and
-      <a href="https://www.iubenda.com/privacy-policy/47597768/cookie-policy" target="_blank">Cookie</a> Policy
+      <div class="d-block">
+        <a href="https://www.iubenda.com/privacy-policy/47597768" target="_blank">Privacy</a> and
+        <a href="https://www.iubenda.com/privacy-policy/47597768/cookie-policy" target="_blank">Cookie</a> Policy
+      </div>
     </footer>
   <% end %>
 <% end %>

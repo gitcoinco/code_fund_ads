@@ -1,10 +1,10 @@
-<div class="flex-grow-1">
+<div class="nav-tabs-wrapper">
   <%= nav_tabs do %>
     <%= nav_item_link(name: "Details", path: campaign_path(campaign), active: :exact) %>
     <%= nav_item_link(name: "Overview", path: campaign_dashboards_path(campaign)) %>
     <%= nav_item_link(name: "Targeting", path: campaign_targeting_path(campaign)) if campaign.standard? %>
     <li class="nav-item dropdown">
-      <%= active_link_to("Reports", class: "nav-link",
+      <%= active_link_to("Reports", class: "nav-link ",
                          role: "button",
                          active: [%w[campaign_dailies campaign_creatives campaign_properties campaign_countries]],
                          data: { toggle: "dropdown" },

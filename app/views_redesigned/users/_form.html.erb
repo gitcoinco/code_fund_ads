@@ -1,25 +1,23 @@
 <%= simple_form_for @user, html: { class: "media align-items-center" } do |f| %>
   <%= card add_class: "mx-auto" do %>
     <%= card_body do %>
-      <div class="row">
-        <div class="col-12 d-flex align-items-center">
-          <div class="d-flex justify-content-center mr-4">
+        <div class="d-flex flex-column flex-md-row align-items-center">
+          <div class="d-flex justify-content-center md:mr-4">
             <div class="user-avatar user-avatar-lg">
               <%= user_avatar_image_tag(@user, "img-fluid rounded-circle") %>
             </div>
           </div>
-          <div class="d-flex">
-            <div class="custom-file">
+          <div class="d-flex flex-column flex-md-row">
+            <div class="custom-file my-4 md-my-0">
               <%= f.file_field :avatar, class: "custom-file-input" %>
               <label class="custom-file-label" for="fileAttachmentBtn">
                 Upload New Avatar
               </label>
             </div>
             <div class="justify-content-end">
-              <button type="submit" class="btn btn-primary ml-2">Save</button>
+              <button type="submit" class="btn btn-primary btn-block-sm-only md:ml-2">Save</button>
             </div>
           </div>
-        </div>
       </div>
     <% end %>
   <% end %>
@@ -69,7 +67,7 @@
     <% end %>
   <% end %>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-12 col-md-6">
       <%= card do %>
         <%= card_header do %>
           <%= card_title do %>
@@ -87,7 +85,7 @@
         <% end %>
       <% end %>
     </div>
-    <div class="col-md-6">
+    <div class="col-12 col-md-6">
       <%= card do %>
         <%= card_header do %>
           <%= card_title do %>
@@ -207,6 +205,6 @@
   <% end %>
   <%= button_panel do %>
       <button type="submit" class="btn btn-sm btn-primary mr-1">Update Profile</button>
-      <button type="submit" class="btn btn-sm btn-soft-secondary transition-3d-hover">Cancel</button>
+      <button type="submit" class="btn btn-sm btn-soft-secondary">Cancel</button>
   <% end %>
 <% end %>

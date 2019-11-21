@@ -18,7 +18,9 @@ class PagesController < ApplicationController
   private
 
   def redirect_to_wordpress
-    redirect_to "https://codefund.io"
+    return redirect_to "https://codefund.io" unless Rails.env.development?
+
+    redirect_to current_user ? helpers.default_dashboard_path(current_user) : new_user_session_path
   end
 
   def verify_page
