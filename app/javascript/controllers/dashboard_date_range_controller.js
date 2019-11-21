@@ -15,7 +15,6 @@ export default class extends Controller {
     jQuery(this.datePickerTarget)
       .daterangepicker({
         opens: 'left',
-        maxDate: moment().utc(),
         maxSpan: {
           months: 1
         },
@@ -36,7 +35,14 @@ export default class extends Controller {
               .add(-1, 'week')
               .endOf('week')
           ],
-          'This Month': [moment().startOf('month'), moment()],
+          'Last 30 days': [
+            moment()
+              .utc()
+              .add(-30, 'days'),
+            moment()
+              .utc()
+              .add(-1, 'day')
+          ],
           'Last Month': [
             moment()
               .utc()
@@ -46,6 +52,17 @@ export default class extends Controller {
               .utc()
               .add(-1, 'month')
               .endOf('month')
+          ],
+          'This Month': [moment().startOf('month'), moment()],
+          'Next Month': [
+            moment()
+            .utc()
+            .add(1, 'month')
+            .startOf('month'),
+          moment()
+            .utc()
+            .add(1, 'month')
+            .endOf('month')
           ]
         }
       })

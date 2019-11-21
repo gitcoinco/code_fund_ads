@@ -7,3 +7,11 @@
 .collapsed .card-btn-arrow {
   transform: rotate(-90deg);
 }
+.card-body {
+  .table > thead tr:first-child > th:first-child {
+    padding-left: 1rem !important;
+  }
+  .table > tbody tr > td:first-child {
+    padding-left: 1rem !important;
+  }
+}

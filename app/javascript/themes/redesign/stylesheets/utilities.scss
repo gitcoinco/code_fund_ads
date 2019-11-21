@@ -59,13 +59,6 @@
   font-size: 1.25em;
 }
 
-.select2-container--bootstrap {
-  .select2-results__option[aria-selected="true"],
-  .select2-results__option[aria-disabled="true"] {
-    display: none;
-  }
-}
-
 .grid {
   display: grid;
   grid-gap: 10px;

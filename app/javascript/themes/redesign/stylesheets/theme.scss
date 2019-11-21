@@ -17,7 +17,32 @@ body {
   min-height: calc(100vh - 328px);
 }
 
+.navbar-brand img,
+.navbar-brand svg {
+  max-height: 30px;
+  max-width: 210px;
+  position: relative;
+  top: -2px;
+  left: 12px;
+}
+
 footer {
   z-index: 9999;
   position: relative;
+}
+
+.app-header-dark {
+  background-color: #222230 !important;
+}
+
+.menu-item > .menu-link > i {
+  opacity: 0.4;
+}
+
+.menu-item.has-active > .menu-link > i {
+  opacity: 1;
+}
+
+.pagination {
+  margin-bottom: 0 !important;
 }

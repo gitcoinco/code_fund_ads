@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  before_action :redirect_to_wordpress
   before_action :verify_page, only: [:show]
 
   def index
@@ -15,6 +16,10 @@ class PagesController < ApplicationController
   end
 
   private
+
+  def redirect_to_wordpress
+    redirect_to "https://codefund.io"
+  end
 
   def verify_page
     render_not_found unless ENUMS::PAGES.values.any?(params[:id])

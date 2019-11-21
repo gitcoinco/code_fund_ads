@@ -1,0 +1,48 @@
+form.top-bar-search {
+  ul.list-group {
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px black;
+    position: absolute;
+    z-index: 50;
+    background-color: white;
+    width: 100%;
+    list-style: none;
+    top: 38px;
+    border-radius: 0px;
+    padding: 0px;
+
+    li {
+      line-height: 2rem;
+      border-bottom: 1px solid #efefef;
+      padding: 5px 10px;
+      color: #000000;
+
+      &.search-results--user {
+        border-left: 3px solid #4b8aff;
+      }
+
+      &.search-results--property {
+        border-left: 3px solid #ef8c41;
+      }
+
+      &.search-results--campaign {
+        border-left: 3px solid #00cf7a;
+      }
+
+      &.search-results--organization {
+        border-left: 3px solid #061e23;
+      }
+
+      &:hover {
+        background-color: #efefef;
+        cursor: pointer;
+      }
+
+      &.active {
+        background-color: #efefef;
+        color: #000000;
+      }
+    }
+  }
+}
