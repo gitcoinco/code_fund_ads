@@ -9,7 +9,7 @@
       timeout = setTimeout(function () { init(attempts + 1) }, 350)
       return
     }
-    new CodeFundAd(<%= render("/advertisements/options.json").html_safe %>)
+    new CodeFundAd(<%= advertisement_mustache_template_options.to_json.html_safe %>)
   }
 
   const codefundStylesheetId = 'codefund-style'

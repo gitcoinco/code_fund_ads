@@ -1,13 +1,36 @@
 module AdvertisementsHelper
   def interpolated_advertisement_html
-    template_path = Rails.root.join("app/javascript/advertisements/#{template_name}/template.html.mustache")
-    template_cache_key = "templates/#{template_name}/#{File.mtime(template_path).iso8601}"
-    template = Rails.cache.fetch(template_cache_key, expires_in: 7.days) {
-      File.read(Rails.root.join("app/javascript/advertisements/#{template_name}/template.html.mustache"), encoding: "UTF-8").squish
-    }
-    options = JSON.parse(render("/advertisements/options.json"))
+    template = Rails.application.config.ad_templates[template_name]
     stylesheet = stylesheet_pack_tag("code_fund_ad", media: "all")
-    html = Mustache.render(template, options)
+    html = Mustache.render(template, advertisement_mustache_template_options)
     [stylesheet, html].join
+  end
+
+  def advertisement_mustache_template_options
+    {
+      selector: @target || "codefund",
+      template: template_name,
+      theme: theme_name,
+      fallback: !!@campaign&.fallback?,
+      urls: {
+        impression: @impression_url.to_s.strip,
+        campaign: @campaign_url.to_s.strip,
+        poweredBy: @powered_by_url.to_s.strip,
+        adblock: ENV["ADBLOCK_PLUS_PIXEL_URL"].to_s.strip,
+        uplift: @uplift_url.to_s.strip,
+      },
+      creative: {
+        name: @creative&.name,
+        headline: @creative&.headline,
+        body: @creative&.body,
+        cta: @creative&.cta || "Learn more",
+        imageUrls: {
+          icon: @creative&.icon_image&.cloudfront_url,
+          small: @creative&.small_image&.cloudfront_url,
+          large: @creative&.large_image&.cloudfront_url,
+          wide: @creative&.wide_image&.cloudfront_url,
+        },
+      },
+    }
   end
 end
