@@ -1,27 +1,25 @@
-<%= render "devise/layout" do %>
-  <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "auth-form mx-auto" }) do |f| %>
-    <div class="text-center mb-2">
-      <h4 class="font-weight-normal">Forgot your <span class="text-success">Password</span>?</h4>
-      <p>Enter your email and let's get you back on track.</p>
+<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "auth-form mx-auto" }) do |f| %>
+  <div class="text-center mb-2">
+    <h4 class="font-weight-normal">Forgot your <span class="text-success">Password</span>?</h4>
+    <p>Enter your email and let's get you back on track.</p>
+  </div>
+  <div class="form-group">
+    <div class="form-label-group">
+      <%= f.input :email,
+                  label: false,
+                  required: true,
+                  autofocus: true,
+                  input_html: {
+                    autocomplete: "email",
+                    class: "form-control"
+                  },
+                  data: {
+                    rule_email: true,
+                    msg: "Please enter a valid email address."
+                  } %>
+      <label class="form-label">Email address</label>
     </div>
-    <div class="form-group">
-      <div class="form-label-group">
-        <%= f.input :email,
-                    label: false,
-                    required: true,
-                    autofocus: true,
-                    input_html: {
-                      autocomplete: "email",
-                      class: "form-control"
-                    },
-                    data: {
-                      rule_email: true,
-                      msg: "Please enter a valid email address."
-                    } %>
-        <label class="form-label">Email address</label>
-      </div>
-    </div>
-    <%= f.button :submit, "Request Password",  class: "btn btn-primary btn-block" %>
-    <%= render "devise/links" %>
-  <% end %>
+  </div>
+  <%= f.button :submit, "Request Password",  class: "btn btn-primary btn-block" %>
+  <%= render "devise/links" %>
 <% end %>

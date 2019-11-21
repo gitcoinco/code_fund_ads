@@ -9,20 +9,17 @@
     </div>
     <div class="form-group">
       <div class="form-label-group">
+        <label class="form-label">Password</label>
         <%= f.input :password,
                 required: true,
                 label: false,
                 autofocus: true,
                 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: {
-                  autocomplete: "new-password",
-                  class: "form-control"
-                } %>
-        <label class="form-label">Password</label>
+                input_html: { autocomplete: "new-password" } %>
       </div>
       <div class="form-label-group">
-        <%= f.input :password_confirmation, label: false, required: true %>
         <label class="form-label">Password Confirmation</label>
+        <%= f.input :password_confirmation, label: false, required: true %>
       </div>
     </div>
     <%= f.button :submit, "Change my Password", class: "btn btn-primary btn-block" %>

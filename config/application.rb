@@ -27,16 +27,9 @@ module CodeFundAds
       g.stylesheets false
     end
 
-    # https://github.com/plataformatec/devise/wiki/How-To:-Create-custom-layouts
     config.to_prepare do
-      [Devise::SessionsController,
-       Devise::RegistrationsController,
-       Devise::ConfirmationsController,
-       Devise::UnlocksController,
-       Devise::InvitationsController,
-       Devise::PasswordsController,
-       UserPasswordsController,].each do |views|
-        views.layout proc { |controller| Rails.env.development? && ENV["REDESIGN"] == "true" ? "application_redesign" : "authentication" }
+      if Rails.env.development? && ENV["REDESIGN"]
+        ApplicationController.layout "application_redesign"
       end
     end
   end
