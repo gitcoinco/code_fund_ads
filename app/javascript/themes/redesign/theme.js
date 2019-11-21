@@ -15,7 +15,7 @@ document.addEventListener('turbolinks:before-cache', function () {
   $('[data-toggle="tooltip"]').tooltip('hide')
 })
 
-document.addEventListener('turbolinks:load', function() {
-   var mySVGsToInject = document.querySelectorAll('img.js-svg-injector');
-   SVGInjector(mySVGsToInject);
+document.addEventListener('turbolinks:load', function () {
+  var mySVGsToInject = document.querySelectorAll('img.js-svg-injector')
+  SVGInjector(mySVGsToInject)
 })
