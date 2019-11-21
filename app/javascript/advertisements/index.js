@@ -90,7 +90,10 @@ class CodeFundAd {
       this
     )
     this.container.querySelectorAll('img').forEach(el => {
-      el.addEventListener('error', event => (event.target.src = pixel))
+      el.addEventListener('error', event => {
+        event.target.setAttribute('data-src-with-error', event.target.src)
+        event.target.src = pixel
+      })
     })
     this.container.querySelectorAll('[data-behavior="close"]').forEach(el => {
       el.addEventListener('click', this.close.bind(this))

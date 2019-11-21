@@ -5,29 +5,37 @@
   &[data-theme='light'] {
   }
 
-  position: fixed;
-  z-index: 999 !important;
-  display: flex;
-  width: 360px;
-  padding: 10px 10px 11px 10px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
   background: rgba(255,255,255,.98);
+  border-radius: 3px;
+  border: 1px solid #ccc;
   box-shadow: rgba(0,0,0,.15) 2px 2px 12px 0;
+  display: flex;
+  font-family: Helvetica, Arial, sans-serif;
+  padding: 10px 10px 11px 10px;
+  position: fixed;
+  width: 360px;
+  z-index: 999 !important;
+
+  a {
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 
   .cf-powered-by {
-    position: absolute;
-    bottom: 57px;
-    left: -18px;
-    display: block;
-    padding: 2px 0;
-    width: 18px;
-    border-radius: 2px 0 0 2px;
     background: #ccc;
+    border-radius: 2px 0 0 2px;
+    bottom: 57px;
     color: #6e6e6e;
+    display: block;
+    font-size: 11px;
+    left: -18px;
+    padding: 2px 0;
+    position: absolute;
     text-align: center;
     text-decoration: none;
-    font-size: 11px;
+    width: 18px;
 
     &:hover {
       color: #000;
@@ -35,13 +43,13 @@
   }
 
   .cf-sponsored-by {
-    padding: 0;
     margin: 0;
+    padding: 0;
 
     .cf-img {
-      border: 1px solid #efefef;
-      border-radius: 3px;
       background-color: #efefef;
+      border-radius: 3px;
+      border: 1px solid #efefef;
       float: left;
       margin: 0 10px 0 0;
     }
@@ -49,17 +57,17 @@
     .cf-text {
       .cf-headline {
         display: block;
-        line-height: 1.5;
-        font-weight: 600;
         font-size: 14px;
+        font-weight: 600;
+        line-height: 1.5;
       }
 
       .cf-body {
-        display: block;
-        max-width: 350px;
         color: #414141;
-        line-height: 1.35;
+        display: block;
         font-size: 13px;
+        line-height: 1.35;
+        max-width: 350px;
         &:hover {
           color: #111;
         }
@@ -68,22 +76,22 @@
   }
 
   [data-behavior="close"] {
-    position: absolute;
-    top: 7px;
-    right: 7px;
+    background: rgba(0,0,0,.1);
+    border-radius: 50px;
+    color: #fff;
+    cursor: pointer;
     display: block;
     float: right;
-    width: 18px;
+    font-size: 12px;
+    font-weight: bold;
     height: 18px;
-    border-radius: 50px;
-    background: rgba(0,0,0,.1);
-    color: #fff;
+    line-height: 150%;
+    position: absolute;
+    right: 7px;
     text-align: center;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 12px;
-    line-height: 150%;
-    cursor: pointer;
+    top: 7px;
+    width: 18px;
 
     &:hover {
       background: rgba(0,0,0,.3);
