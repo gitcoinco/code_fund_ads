@@ -8,7 +8,7 @@ module AdvertisementsHelper
 
   def advertisement_mustache_template_options
     {
-      selector: @target || "codefund",
+      selector: "##{@target || "codefund"}",
       template: template_name,
       theme: theme_name,
       fallback: !!@campaign&.fallback?,
