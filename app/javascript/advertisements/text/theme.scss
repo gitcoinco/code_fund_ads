@@ -20,13 +20,6 @@
     font-size: 13px;
     line-height: 22px;
   }
-
-  .cf-hidden {
-    visibility: hidden;
-    width: 0;
-    height: 0;
-    border-style: none;
-  }
 }
 
 #cf[data-template='text'][data-theme='light'] {
@@ -50,12 +43,5 @@
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-size: 13px;
     line-height: 22px;
-  }
-
-  .cf-hidden {
-    visibility: hidden;
-    width: 0;
-    height: 0;
-    border-style: none;
   }
 }

@@ -11,10 +11,9 @@ export default {
       if (ad.closed) return;
       if (scrollY >= 100 && !visible) {
         TinyAnimate.animateCSS(ad.element, 'top', 'px', -60, 0, 600, 'easeInOutQuart')
-        <%#Velocity(ad.element, { top: "0px" }, 600)%>
+        ad.trackImpression()
         visible = true
       } else if (scrollY < 100 && visible) {
-        <%#Velocity(ad.element, { top: "-60px" }, 300)%>
         TinyAnimate.animateCSS(ad.element, 'top', 'px', 0, -60, 300, 'easeInOutQuart')
         visible = false
       }

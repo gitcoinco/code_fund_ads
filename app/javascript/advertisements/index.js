@@ -66,7 +66,7 @@ class CodeFundAd {
     window.dispatchEvent(evt)
   }
 
-  perform (preview) {
+  perform () {
     if (!this.visible) {
       console.log(
         `CodeFund container element not visible! Please verify an element exists (and is visible) that matches the CSS selector "${
@@ -101,9 +101,6 @@ class CodeFundAd {
     })
     templates[this.template].initialize(this)
     this.applyStickyBehavior()
-
-    this.dispatch({ status: 'ok', house: this.fallback })
-    if (!preview) this.detectUplift(1)
   }
 
   applyStickyBehavior () {
@@ -121,6 +118,17 @@ class CodeFundAd {
     } else {
       this.container.style.top = this.container.dataset.top || 0
     }
+  }
+
+  // defer impression tracking so each individual ad template can apply custom rules for when this should happen
+  trackImpression () {
+    if (this.impressionTracked) return
+    this.impressionTracked = true
+    this.element.querySelectorAll('.cf-impression').forEach(el => {
+      el.src = el.dataset.src
+    })
+    this.dispatch({ status: 'ok', house: this.fallback })
+    this.detectUplift(1)
   }
 
   trackUplift () {

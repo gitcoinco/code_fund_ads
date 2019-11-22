@@ -13,5 +13,6 @@ export default {
       .addEventListener('mouseleave', event => {
         event.target.style.color = '#3498db'
       })
+    if (ad.visible) ad.trackImpression()
   }
 }
