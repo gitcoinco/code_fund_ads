@@ -1,5 +1,5 @@
 // default styles for all ads
-#cf[data-template][data-theme] {
+#cf[data-template][data-theme]:not([data-theme="unstyled"]) {
   &,
   * {
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
