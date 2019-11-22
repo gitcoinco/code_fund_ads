@@ -1,3 +1,4 @@
+import './index.scss'
 import Mustache from 'mustache'
 const templates = {}
 const requireTemplates = context => {
