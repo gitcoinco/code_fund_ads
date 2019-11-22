@@ -41,7 +41,7 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                                "border-bottom-width": "1px",
                                                                "border-bottom-color": "rgba(250, 250, 250, 1)",
                                                                "border-bottom-style": "solid",)
-    find("img", class: "cf-img").assert_matches_style("width": "72.0156px",
+    find("img", class: "cf-img").assert_matches_style("width": "255px",
                                                       "position": "relative",
                                                       "vertical-align": "middle",)
     find("span", class: "cf-text").assert_matches_style("color": "rgba(0, 0, 0, 0.8)",
@@ -89,7 +89,7 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                                "border-bottom-width": "1px",
                                                                "border-bottom-color": "rgba(250, 250, 250, 1)",
                                                                "border-bottom-style": "solid",)
-    find("img", class: "cf-img").assert_matches_style("width": "72.0156px",
+    find("img", class: "cf-img").assert_matches_style("width": "255px",
                                                       "position": "relative",
                                                       "vertical-align": "middle",)
     find("span", class: "cf-text").assert_matches_style("color": "rgba(0, 0, 0, 0.8)",
@@ -137,7 +137,7 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                                "border-bottom-width": "1px",
                                                                "border-bottom-color": "rgba(250, 250, 250, 1)",
                                                                "border-bottom-style": "solid",)
-    find("img", class: "cf-img").assert_matches_style("width": "68.1406px",
+    find("img", class: "cf-img").assert_matches_style("width": "255px",
                                                       "position": "relative",
                                                       "vertical-align": "middle",)
     find("span", class: "cf-text").assert_matches_style("color": "rgba(0, 0, 0, 0.8)",
@@ -185,7 +185,7 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                                "border-bottom-width": "1px",
                                                                "border-bottom-color": "rgba(250, 250, 250, 1)",
                                                                "border-bottom-style": "solid",)
-    find("img", class: "cf-img").assert_matches_style("width": "68.1406px",
+    find("img", class: "cf-img").assert_matches_style("width": "255px",
                                                       "position": "relative",
                                                       "vertical-align": "middle",)
     find("span", class: "cf-text").assert_matches_style("color": "rgba(0, 0, 0, 0.8)",

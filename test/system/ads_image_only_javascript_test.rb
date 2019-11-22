@@ -27,8 +27,8 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-img-wrapper").assert_matches_style("display": "block",
                                                             "margin-bottom": "8px",
                                                             "box-shadow": "none",)
-    find("img", class: "cf-img").assert_matches_style("width": "72.0156px",
-                                                      "height": "19px",
+    find("img", class: "cf-img").assert_matches_style("width": "150px",
+                                                      "height": "150px",
                                                       "position": "relative",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "padding": "0px",
@@ -59,8 +59,8 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-img-wrapper").assert_matches_style("display": "block",
                                                             "margin-bottom": "8px",
                                                             "box-shadow": "none",)
-    find("img", class: "cf-img").assert_matches_style("width": "72.0156px",
-                                                      "height": "19px",
+    find("img", class: "cf-img").assert_matches_style("width": "150px",
+                                                      "height": "150px",
                                                       "position": "relative",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "padding": "0px",
@@ -91,8 +91,8 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-img-wrapper").assert_matches_style("display": "block",
                                                             "margin-bottom": "8px",
                                                             "box-shadow": "none",)
-    find("img", class: "cf-img").assert_matches_style("width": "68.1406px",
-                                                      "height": "19px",
+    find("img", class: "cf-img").assert_matches_style("width": "150px",
+                                                      "height": "150px",
                                                       "position": "relative",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "padding": "0px",
@@ -123,8 +123,8 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-img-wrapper").assert_matches_style("display": "block",
                                                             "margin-bottom": "8px",
                                                             "box-shadow": "none",)
-    find("img", class: "cf-img").assert_matches_style("width": "68.1406px",
-                                                      "height": "19px",
+    find("img", class: "cf-img").assert_matches_style("width": "150px",
+                                                      "height": "150px",
                                                       "position": "relative",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "padding": "0px",

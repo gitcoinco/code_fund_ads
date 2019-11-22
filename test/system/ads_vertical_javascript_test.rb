@@ -33,9 +33,9 @@ class AdsVerticalJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("display": "block",
                                                                "margin-bottom": "8px",)
-    find("img", class: "cf-img").assert_matches_style("width": "72.0156px",
+    find("img", class: "cf-img").assert_matches_style("width": "125px",
                                                       "position": "relative",
-                                                      "height": "19px",)
+                                                      "height": "125px",)
     find("span", class: "cf-text").assert_matches_style("color": "rgba(62, 62, 62, 1)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "text-decoration": "none solid rgb(170, 170, 170)",
@@ -67,9 +67,9 @@ class AdsVerticalJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("display": "block",
                                                                "margin-bottom": "8px",)
-    find("img", class: "cf-img").assert_matches_style("width": "72.0156px",
+    find("img", class: "cf-img").assert_matches_style("width": "125px",
                                                       "position": "relative",
-                                                      "height": "19px",)
+                                                      "height": "125px",)
     find("span", class: "cf-text").assert_matches_style("color": "rgba(255, 255, 255, 0.8)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "text-decoration": "none solid rgba(255, 255, 255, 0.6)",
@@ -101,9 +101,9 @@ class AdsVerticalJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("display": "block",
                                                                "margin-bottom": "8px",)
-    find("img", class: "cf-img").assert_matches_style("width": "68.1406px",
+    find("img", class: "cf-img").assert_matches_style("width": "125px",
                                                       "position": "relative",
-                                                      "height": "19px",)
+                                                      "height": "125px",)
     find("span", class: "cf-text").assert_matches_style("color": "rgba(62, 62, 62, 1)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "text-decoration": "none solid rgb(170, 170, 170)",
@@ -135,9 +135,9 @@ class AdsVerticalJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("display": "block",
                                                                "margin-bottom": "8px",)
-    find("img", class: "cf-img").assert_matches_style("width": "68.1406px",
+    find("img", class: "cf-img").assert_matches_style("width": "125px",
                                                       "position": "relative",
-                                                      "height": "19px",)
+                                                      "height": "125px",)
     find("span", class: "cf-text").assert_matches_style("color": "rgba(255, 255, 255, 0.8)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "text-decoration": "none solid rgba(255, 255, 255, 0.6)",
