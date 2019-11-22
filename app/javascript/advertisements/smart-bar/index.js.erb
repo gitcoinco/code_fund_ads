@@ -1,0 +1,23 @@
+import './theme.scss'
+import TinyAnimate from 'TinyAnimate'
+
+export default {
+  mustache: '<%= File.read(Rails.root.join("app/javascript/advertisements/smart-bar/template.html.mustache"), encoding: "UTF-8").squish %>',
+  initialize: ad => {
+    document.body.prepend(ad.container)
+    let visible = false
+
+    addEventListener('scroll', event => {
+      if (ad.closed) return;
+      if (scrollY >= 100 && !visible) {
+        TinyAnimate.animateCSS(ad.element, 'top', 'px', -60, 0, 600, 'easeInOutQuart')
+        <%#Velocity(ad.element, { top: "0px" }, 600)%>
+        visible = true
+      } else if (scrollY < 100 && visible) {
+        <%#Velocity(ad.element, { top: "-60px" }, 300)%>
+        TinyAnimate.animateCSS(ad.element, 'top', 'px', 0, -60, 300, 'easeInOutQuart')
+        visible = false
+      }
+    })
+  }
+}
