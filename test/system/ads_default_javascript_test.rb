@@ -19,7 +19,8 @@ class AdsDefaultJavascriptTest < ApplicationSystemTestCase
     assert_impression_pixel @property
     assert_powered_by_link
 
-    find("div", id: "cf").assert_matches_style("font-family": "\"Times New Roman\"", "font-size": "16px")
+    find("div", id: "cf").assert_matches_style("font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                               "font-size": "16px",)
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "content-box",
                                                            "padding": "15px",
                                                            "position": "static",
@@ -48,7 +49,8 @@ class AdsDefaultJavascriptTest < ApplicationSystemTestCase
     assert_impression_pixel @property
     assert_powered_by_link
 
-    find("div", id: "cf").assert_matches_style("font-family": "\"Times New Roman\"", "font-size": "16px")
+    find("div", id: "cf").assert_matches_style("font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                               "font-size": "16px",)
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "content-box",
                                                            "padding": "15px",
                                                            "position": "static",
@@ -77,7 +79,8 @@ class AdsDefaultJavascriptTest < ApplicationSystemTestCase
     assert_impression_pixel @property
     assert_powered_by_link
 
-    find("div", id: "cf").assert_matches_style("font-family": "\"Times New Roman\"", "font-size": "16px")
+    find("div", id: "cf").assert_matches_style("font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                               "font-size": "16px",)
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "content-box",
                                                            "padding": "15px",
                                                            "position": "static",
@@ -106,7 +109,8 @@ class AdsDefaultJavascriptTest < ApplicationSystemTestCase
     assert_impression_pixel @property
     assert_powered_by_link
 
-    find("div", id: "cf").assert_matches_style("font-family": "\"Times New Roman\"", "font-size": "16px")
+    find("div", id: "cf").assert_matches_style("font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                               "font-size": "16px",)
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "content-box",
                                                            "padding": "15px",
                                                            "position": "static",
