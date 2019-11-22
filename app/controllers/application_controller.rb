@@ -114,11 +114,11 @@ class ApplicationController < ActionController::Base
   end
 
   def render_not_found
-    render file: Rails.public_path.join("404.html"), status: :not_found, layout: false
+    render "errors/404", status: :not_found
   end
 
   def render_forbidden
-    render file: Rails.public_path.join("403.html"), status: :forbidden, layout: false
+    render "errors/403", status: :forbidden
   end
 
   def configure_permitted_parameters
