@@ -19,7 +19,6 @@ class AdvertisementPreviewsController < ApplicationController
     return render("/advertisement_previews/show") if request.format.html?
 
     # 2. Second it renders the JavaScript to preview the ad
-
     @campaign ||= current_user.campaigns.build(
       id: 0,
       name: "Unsaved Preview Campaign",
