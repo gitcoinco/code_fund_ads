@@ -8,7 +8,9 @@
   <%= render partial: "/user_searches/form",
             layout: "/shared/collapsible_search_form",
             locals: { search: @user_search } %>
-  <article class="bg-white p-4">
-    <%= render "/users/table", users: @users, pagy: @pagy %>
+  <article class="mb-4">
+    <div class="bg-white shadow-sm">
+      <%= render "/users/table", users: @users, pagy: @pagy %>
+    <div>
   </article>
 </section>

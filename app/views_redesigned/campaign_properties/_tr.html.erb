@@ -6,7 +6,7 @@
   <% if @campaign.standard? %>
     <%= table_data do %>
       <% @campaign.matching_keywords(report.scoped_by).each do |keyword| %>
-        <span class="btn btn-xs btn-subtle-primary mb-2 py-0 px-1"><%= keyword %></span>
+        <span class="badge badge-subtle badge-primary p-2"><%= keyword %></span>
       <% end %>
     <% end %>
     <%= table_data_value report.gross_revenue.format %>

@@ -1,14 +1,3 @@
-<li class="menu-header">
-  <i class="fas fa-user fa-lg"></i>
-  Publisher
-</li>
-<%= active_link_to "Dashboard", default_dashboard_path(current_user),
-  class: "menu-link",
-  class_active: 'has-active',
-  wrap_tag: :li,
-  wrap_class: "menu-item" %>
-<%= active_link_to "Properties", properties_path,
-  class: "menu-link",
-  class_active: 'has-active',
-  wrap_tag: :li,
-  wrap_class: "menu-item" %>
+<li class="menu-header">Publisher</li>
+<%= icon_active_link(link: default_dashboard_path(current_user), icon: "fas fa-industry", text: "Dashboard", active: :exact) %>
+<%= icon_active_link(link: properties_path, icon: "fas fa-browser", text: "Properties") %>

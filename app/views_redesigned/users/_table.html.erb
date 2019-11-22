@@ -1,6 +1,6 @@
 <%= table_wrapper do %>
   <%= paginated_table do %>
-    <%= table_head do %>
+    <%= table_head bg_color: "thead-dark" do %>
       <%= table_row header: true do %>
         <%= sortable_tr "first_name", "Name" %>
         <%= table_column add_scope: "col" do %>Organization<% end %>

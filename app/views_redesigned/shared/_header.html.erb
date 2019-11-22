@@ -1,85 +1,91 @@
-<header class="app-header app-header-light">
-  <!-- .top-bar -->
+<header class="app-header app-header-dark">
   <div class="top-bar">
-    <!-- .top-bar-brand -->
-    <div class="top-bar-brand bg-transparent">
-      <!-- Logo -->
-      <%= link_to root_path, class: "navbar-brand u-header__navbar-brand u-header__navbar-brand-center " do %>
-        <%= image_tag "codefund-w.svg", alt: "CodeFund", class: "js-svg-injector" %>
+    <div class="top-bar-brand">
+      <%= link_to root_path, class: "navbar-brand" do %>
+        <%= image_tag "codefund-wg-full-256.svg", alt: "CodeFund" %>
       <% end %>
-      <!-- End Logo -->
-    </div><!-- /.top-bar-brand -->
-    <!-- .top-bar-list -->
-    <div class="top-bar-list">
-      <!-- .top-bar-item -->
-      <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
-        <!-- toggle menu -->
-        <button data-controller="sidebar" data-action="click->sidebar#toggle click@window->sidebar#hide" class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="Menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button> <!-- /toggle menu -->
-      </div><!-- /.top-bar-item -->
-      <!-- .top-bar-item -->
-      <div class="top-bar-item top-bar-item-full">
-        <!-- .top-bar-search -->
-        <form class="top-bar-search">
-          <div class="input-group input-group-search">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><span class="oi oi-magnifying-glass"></span></span>
-            </div>
-            <input autofocus type="text" class="form-control" aria-label="Search" placeholder="Search"
-              data-controller="search" data-action="keydown@document->search#cmdK keyup@document->search#hideResults click@document->search#hideResults input->search#deboucedPerform" data-reflex-permanent value="<%= @search_query %>">
-          </div>
-        </form><!-- /.top-bar-search -->
-      </div><!-- /.top-bar-item -->
-      <!-- .top-bar-item -->
-      <div class="top-bar-item top-bar-item-right px-0 d-none d-sm-flex">
-        <!-- .nav -->
-        <ul class="header-nav nav">
-          <%= active_link_to "Home", root_path, active: :exact, class: "nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-          <%= active_link_to "Advertisers", advertisers_path, class: "nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-          <%= active_link_to "Publishers", publishers_path, class: "nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
-          <%= active_link_to "Blog", buttercms_blog_path, class: "nav-link", wrap_tag: :li, wrap_class: "nav-item" %>
+    </div>
 
-          <% if current_user %>
-            <% if authorized_user.can_admin_system? %>
-              <li class="">
-                <a id="btn-search-toggle" class="" href="javascript:;" role="button"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                        aria-controls="searchPushTop"
-                        data-unfold-type="jquery-slide"
-                        data-unfold-target="#searchPushTop">
-                  <span class=""></span>
-                </a>
-              </li>
-            <% else %>
-              <li class=""><%= link_to "Login", new_user_session_path, class: "" %></li>
-              <li class="">
-                <%= link_to "Login", new_user_session_path, class: "" unless current_user %>
-              </li>
+    <div class="top-bar-list">
+      <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
+        <button data-controller="sidebar" data-action="click->sidebar#toggle click@window->sidebar#hide" class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="Menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button>
+      </div>
+
+      <div class="top-bar-item top-bar-item-full">
+        <form class="top-bar-search"
+            data-controller="search-autocomplete"
+            data-action="submit->search-autocomplete#submit"
+          data-autocomplete-url="/search"
+          data-min-length="2"
+          class="search-autocomplete js-focus-state input-group input-group-lg">
+          <div class="input-group input-group-search dropdown">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><span class="fas fa-search"></span></span>
+            </div>
+            <input type="hidden" name="bird_id" data-target="search-autocomplete.hidden"/>
+            <input type="search" id="search-input" class="form-control" placeholder="Search" aria-label="Search" data-target="search-autocomplete.input"/>
+            <ul data-target="search-autocomplete.results" class="list-group"></ul>
+          </div>
+        </form>
+      </div>
+
+      <div class="top-bar-item top-bar-item-right px-0 d-none d-sm-flex">
+        <ul class="header-nav nav">
+          <li class="nav-item dropdown header-nav-dropdown">
+            <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="fas fa-th"></span>
+              </a>
+            <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
+              <div class="dropdown-arrow"></div>
+              <div class="dropdown-sheets">
+                <% {
+                  "CodeFund": { image: "codefund-logo.svg", url: "https://codefund.io", color: "dfeaff", top: 7, left: 7 },
+                  "Bounties": { image: "tophat/gitcoin-symbol.svg", url: "https://gitcoin.co", color: "29086a", top: 4, left: 5 },
+                  "Grants": { image: "tophat/grants-symbol.svg", url: "https://gitcoin.co/grants", color: "00a55e", top: 8, left: 6 },
+                  "Quests": { image: "tophat/quests-symbol.svg", url: "https://gitcoin.co/quests", color: "ffffff", top: 4, left: 5 },
+                  "Kudos": { image: "tophat/kudos-symbol.svg", url: "https://gitcoin.co/kudos", color: "3e00ff", top: 4, left: 5 },
+                  "Hackathons": { image: "tophat/gitcoin-symbol.svg", url: "https://gitcoin.co/hackathons", color: "55508e", top: 4, left: 5 }
+                }.each do |title, data| %>
+                  <div class="dropdown-sheet-item">
+                    <%= link_to data[:url], target: "_blank", class: "tile-wrapper" do %>
+                      <span class="tile tile-lg" style="background-color: #<%= data[:color] %>; position: relative;">
+                        <%= image_tag data[:image], style: "width: 35px; height: 35px; top: #{data[:top]}px; left: #{data[:left]}px;" %>
+                      </span>
+                      <span class="tile-peek"><%= title %></span>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="dropdown d-flex">
+        <button class="btn-account d-none d-md-flex <%= "bg-danger" if true_user != current_user %>" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <%= tag.span class: "user-avatar user-avatar-md" do %>
+            <%= user_avatar_image_tag(current_user, "") %>
+          <% end %>
+          <span class="account-summary pr-lg-4 d-none d-lg-block">
+            <span class="account-name"><%= current_user.name %></span>
+          </span></button>
+        <div class="dropdown-menu">
+          <div class="dropdown-arrow ml-3"></div>
+          <h6 class="dropdown-header d-none d-md-block d-lg-none"> <%= current_user.name %> </h6>
+          <%= link_to edit_user_path(current_user), class: "dropdown-item" do %>
+            <span class="dropdown-icon fas fa-user"></span> Profile
+          <% end %>
+          <%= link_to destroy_user_session_path, class: "dropdown-item" do %>
+            <span class="dropdown-icon fas fa-sign-out"></span>
+            Logout
+          <% end %>
+          <% if current_user != true_user %>
+            <%= link_to stop_user_impersonation_path, class: "dropdown-item" do %>
+              <span class="dropdown-icon fas fa-undo"></span>
+              Back to <%= true_user.first_name %>
             <% end %>
-          </ul>
-          <div class="dropdown d-flex">
-            <button id="avatarDropdown" class="btn-account d-none d-md-flex dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <%= tag.span class: "user-avatar user-avatar-md #{classes "border border-danger": true_user != current_user}" do %>
-                <%= user_avatar_image_tag(current_user, "") %>
-              <% end %>
-              <span class="account-summary pr-lg-4 d-none d-lg-block">
-                <span class="account-name">
-                  <%= current_user.name %>
-                </span>
-              </span>
-            </button>
-            <div class="dropdown-menu" aria-labelledby="avatarDropdown">
-              <div class="dropdown-arrow ml-3"></div>
-              <li><%= link_to "View Profile", user_path(current_user), class: "dropdown-item" %></li>
-              <li><%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item" %></li>
-              <li><%= link_to "Change password", edit_user_passwords_path, class: "dropdown-item" %></li>
-              <li><%= link_to "Referrals", referrals_path, class: "dropdown-item" %></li>
-              <div class="dropdown-divider"></div>
-              <li><%= link_to "Logout", destroy_user_session_path, class: "dropdown-item" %></li>
-            </div><!-- /.dropdown-menu -->
-          </div><!-- /.btn-account -->
-        <% end %>
-      </div><!-- /.top-bar-item -->
-    </div><!-- /.top-bar-list -->
-  </div><!-- /.top-bar -->
-</header><!-- /.app-header -->
+          <% end %>
+      </div>
+    </div>
+  </div>
+</header>

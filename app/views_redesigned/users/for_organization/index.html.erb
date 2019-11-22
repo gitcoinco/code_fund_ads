@@ -8,7 +8,7 @@
         Members of the organization
       <% end %>
     <% end %>
-    <%= card_body do %>
+    <%= card_body padding: "p-0" do %>
       <%= render "/users/table", users: @users, pagy: @pagy %>
     <% end %>
   <% end %>

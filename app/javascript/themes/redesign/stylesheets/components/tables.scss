@@ -1,11 +1,28 @@
+// =========== Base ===========
 th[scope="col"] a {
   color: #1e2022;
   text-decoration: none;
 }
 
+// =========== Datatable ===========
 .datatable-thead-icon {
   display: block;
   line-height: 0.7;
   cursor: pointer;
   color: #bdc5d1;
+}
+
+// =========== Pagination ===========
+.pagination {
+  margin-bottom: 0 !important;
+}
+
+// =========== Cards ===========
+.card-body {
+  .table > thead tr:first-child > th:first-child {
+    padding-left: 1rem !important;
+  }
+  .table > tbody tr > td:first-child {
+    padding-left: 1rem !important;
+  }
 }

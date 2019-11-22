@@ -1,3 +1,6 @@
+@import "~bootstrap/scss/_media.scss";
+
+// =========== Opacity ===========
 .opacity-0 {
   opacity: 0 !important;
 }
@@ -32,16 +35,19 @@
   opacity: 1 !important;
 }
 
+// =========== Cursor ===========
 .cursor-pointer {
   cursor: pointer !important;
 }
 
+// =========== Sizing ===========
 @each $size in (10, 20, 30, 40, 50, 60, 70, 80, 90) {
   .min-height-lg-#{$size}vh {
     min-height: #{$size}vh;
   }
 }
 
+// =========== Text ===========
 @each $opacity in (10, 20, 30, 40, 50, 60, 70, 80, 90) {
   .text-black-#{$opacity} {
     color: rgba(0, 0, 0, ($opacity/100));
@@ -59,13 +65,7 @@
   font-size: 1.25em;
 }
 
-.select2-container--bootstrap {
-  .select2-results__option[aria-selected="true"],
-  .select2-results__option[aria-disabled="true"] {
-    display: none;
-  }
-}
-
+// =========== Grid ===========
 .grid {
   display: grid;
   grid-gap: 10px;
@@ -81,4 +81,12 @@
 
 .grid-trows-200 {
   grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+// =========== Buttons ===========
+@include media-breakpoint-down(sm) {
+  .btn-block-sm-only {
+    display: block;
+    width: 100%;
+  }
 }

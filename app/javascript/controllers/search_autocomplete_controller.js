@@ -26,6 +26,7 @@ export default class extends Controller {
     this.inputTarget.addEventListener('focus', this.onInputFocus)
     this.inputTarget.addEventListener('blur', this.onInputBlur)
     this.inputTarget.addEventListener('input', this.onInputChange)
+    this.resultsTarget.addEventListener('mouseover', this.onResultsMouseOver)
     this.resultsTarget.addEventListener('mousedown', this.onResultsMouseDown)
     this.resultsTarget.addEventListener('click', this.onResultsClick)
   }
@@ -44,9 +45,6 @@ export default class extends Controller {
       if (e.metaKey && e.code === 'KeyK') {
         // Prevent the default refresh event under WINDOWS system
         event.preventDefault()
-        jQuery('#btn-search-toggle')
-          .data('HSUnfold')
-          .show()
         this.searchInputElement.focus()
       }
     })
@@ -132,7 +130,7 @@ export default class extends Controller {
   }
 
   submit (event) {
-    event.preventDefault()
+    if (event) event.preventDefault()
     const globalId = this.hiddenTarget.value
     if (globalId.length === 0) return
 

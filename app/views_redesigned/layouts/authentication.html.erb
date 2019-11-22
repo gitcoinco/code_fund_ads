@@ -7,12 +7,12 @@
     <!-- Meta Tags -->
     <%= display_meta_tags site: "CodeFund" %>
     <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#3063A0">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
 
     <!-- CDN Stylesheets -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-zrnmn8R8KkWl12rAZFt4yKjxplaDaT7/EUkKm7AovijfrQItFWR7O/JJn4DAa/gx" crossorigin="anonymous">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600">
 
     <!-- Compressed Stylesheets -->
@@ -22,21 +22,13 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'code_fund', 'data-turbolinks-track': 'reload' %>
   </head>
-  <body class="p-0 m-0">
-    <main class="d-flex flex-column align-items-center pt-6">
-      <section class="auth">
-        <header class="mb-3">
-          <%= link_to root_path do %>
-            <%= image_tag "codefund-w.svg", style: "height:60px" %>
-          <% end %>
-        </header>
-        <article class="auth-dialog">
-          <%= yield %>
-        </article>
-        <footer class="mt-3 text-center" style="color:#b6b6b6">
-          <p>Copyright © 2017-2019 ConsenSys, AG. All rights reserved.</p>
-        </footer>
-      </section>
+  <body style="padding-top: 0px !important;" data-referral-code="<%= session[:referral_code] %>">
+    <main class="auth">
+      <%= yield %>
     </main>
+
+    <%= noty_flash %>
+    <%= headway_tag %>
+    <%= ga_tag_manager_footer %>
   </body>
 </html>

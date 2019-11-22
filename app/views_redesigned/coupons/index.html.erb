@@ -1,7 +1,7 @@
 <%= render layout: "/coupons/layout", locals: { pagy: @pagy } do %>
-  <%= card do %>
-    <%= card_body do %>
+  <article class="mb-4">
+    <div class="bg-white shadow-sm">
       <%= render "/coupons/table", coupons: @coupons, pagy: @pagy %>
-    <% end %>
-  <% end %>
+    </div>
+  </article>
 <% end %>

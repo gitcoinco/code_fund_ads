@@ -1,5 +1,9 @@
 <% content_for :actions do %>
-  <%= render "/shared/actions/show_user", user: @user %>
+  <%= actions_list do %>
+    <%= actions_list_item title: "View User" do %>
+      <%= render "/shared/actions/show_user", user: @user %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <% content_for :page_heading do %>

@@ -1,17 +1,38 @@
 <% unless local_assigns[:override]&.include? :page_heading %>
   <% content_for :page_heading do %>
-    <header class="auth-header" style="background-color:#f6f7f9">
-      <%= image_tag "codefund-w.svg", class: "mb-4", style: "height:60px" %>
+    <header id="auth-header" class="auth-header" style="
+        background-color: #15003e;
+        background-image: url(<%= asset_path("bg-shapes/pattern2.svg") %>);
+        background-size: initial;
+        background-repeat: repeat;">
+      <h1>
+        <%= link_to image_tag("codefund-wg-full-256.svg", class: "mb-4 img-fluid", style: "height: 64px;"), "https://codefund.io" %>
+        <span class="sr-only">Sign In</span>
+      </h1>
+      <p>Don't have a account? <a href="https://codefund.io/">Apply Now</a></p>
     </header>
   <% end %>
 <% end %>
 
-<section class="d-flex">
+<% unless local_assigns[:override]&.include? :footer %>
+  <% content_for :footer do %>
+    <footer class="auth-footer text-center">
+      &copy; <%= Time.now.year %> All Rights Reserved.
+      <div class="d-block">
+        <a href="https://www.iubenda.com/privacy-policy/47597768" target="_blank">Privacy</a> and
+        <a href="https://www.iubenda.com/privacy-policy/47597768/cookie-policy" target="_blank">Cookie</a> Policy
+      </div>
+    </footer>
+  <% end %>
+<% end %>
+
+<section class="d-flex flex-column <%= "vw-100" unless user_signed_in? %>">
   <% if user_signed_in? %>
     <%= render "shared/sidebar" %>
   <% end %>
+  <%= yield :page_heading %>
   <article class="container my-4">
-    <%= yield :page_heading %>
     <%= yield %>
   </article>
 </section>
+<%= yield :footer %>

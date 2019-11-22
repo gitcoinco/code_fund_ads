@@ -1,8 +1,8 @@
 <%= table_row add_class: classes("even": organization_transaction_counter.even?, "odd": organization_transaction_counter.odd?) do %>
-  <%= table_data add_style: "width: 150px;" do %>
+  <%= table_data add_style: "width: 33.3%;" do %>
     <%= organization_transaction.posted_at.to_s("mm/dd/yyyy") %>
   <% end %>
-  <%= table_data add_style: "width: 150px;" do %>
+  <%= table_data add_style: "width: 33.3%;" do %>
     <%= link_to (
       organization_transaction.transaction_type == ENUMS::ORGANIZATION_TRANSACTION_TYPES::CREDIT ?
       organization_transaction.amount.format :
@@ -16,5 +16,7 @@
       <span class="fas fa-gift"></span>
      <% end %>
   <% end %>
-  <%= table_data_value organization_transaction.reference %>
+  <%= table_data add_style: "width: 33.3%;" do %>
+    <%= organization_transaction.reference %>
+  <% end %>
 <% end %>

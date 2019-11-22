@@ -20,6 +20,8 @@
         <% end %>
       </div>
     <% end %>
-    <%= render "/campaign_countries/table", campaign: @campaign %>
+    <%= card_body padding: "p-0" do %>
+      <%= render "/campaign_countries/table", campaign: @campaign %>
+    <% end %>
   <% end %>
 <% end %>

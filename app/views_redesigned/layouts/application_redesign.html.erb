@@ -7,6 +7,7 @@
     <!-- Meta Tags -->
     <%= display_meta_tags site: "CodeFund" %>
     <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#3063A0">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
@@ -23,6 +24,9 @@
   </head>
   <body>
     <div class="app">
+      <!--[if lt IE 10]>
+        <div class="page-message" role="alert">You are using an <strong>outdated</strong> browser. Please <a class="alert-link" href="http://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</div>
+      <![endif]-->
       <%= render 'shared/header' %>
       <%= render 'shared/search_results' if @search_results %>
       <div class="main">
