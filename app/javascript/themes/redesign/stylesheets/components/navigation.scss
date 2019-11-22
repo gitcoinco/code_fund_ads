@@ -1,4 +1,4 @@
-// Main nav
+// =========== Top Navbar ===========
 .menu-item > .menu-link > i {
   opacity: 0.4;
 }
@@ -7,8 +7,9 @@
   opacity: 1;
 }
 
-// broken on mobile
+// =========== Tabs ===========
 @media (max-width: 768px) {
+  // TODO: issue on mobile
   .nav-tabs-wrapper {
     overflow-x: scroll;
     overflow-y: visible;
@@ -16,7 +17,6 @@
     -webkit-overflow-scrolling: touch;
     .nav-tabs {
       overflow-y: visible;
-      // overflow-x: scroll;
       z-index: 1001;
     }
   }
@@ -27,11 +27,7 @@
   flex-grow: 1 !important;
 }
 
-// Table nav
-.pagination {
-  margin-bottom: 0 !important;
-}
-
+// =========== Sidebar ===========
 @media (max-width: 768px) {
   .app-aside {
     z-index: 10000;

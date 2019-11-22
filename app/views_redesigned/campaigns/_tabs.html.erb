@@ -4,7 +4,7 @@
     <%= nav_item_link(name: "Overview", path: campaign_dashboards_path(campaign)) %>
     <%= nav_item_link(name: "Targeting", path: campaign_targeting_path(campaign)) if campaign.standard? %>
     <li class="nav-item dropdown">
-      <%= active_link_to("Reports", class: "nav-link ",
+      <%= active_link_to("Reports", class: "nav-link",
                          role: "button",
                          active: [%w[campaign_dailies campaign_creatives campaign_properties campaign_countries]],
                          data: { toggle: "dropdown" },

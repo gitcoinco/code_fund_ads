@@ -1,4 +1,4 @@
-// header user dropdown
+// =========== Navbar User Dropdown ===========
 .app-header,
 .nav-tabs-wrapper {
   .dropdown-menu.show {
@@ -6,18 +6,17 @@
   }
 }
 
-// header tiled dropdown
+// =========== Navbar Tiled Dropdown ===========
 .dropdown-menu-rich.dropdown-menu-right.show {
   right: 0 !important;
   left: auto !important;
 }
 
-// sidebar dropdown
+// =========== Sidebar Dropdown ===========
 .dropdown-aside {
   top: 80px;
 }
 
-// sidebar dropdown show
 .dropdown-aside.show {
   top: 100%;
 }
