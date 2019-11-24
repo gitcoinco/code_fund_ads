@@ -1,46 +1,93 @@
-#cf[data-template='horizontal'][data-theme='dark'] {
-  a {
-    box-shadow: none !important;
+$label-text: 'Ad';
+
+#cf[data-template='horizontal'] {
+  &[data-theme='dark'] {
+    $bg-color: rgba(255, 255, 255, 0.2);
+    $text-color: rgba(255, 255, 255, 0.7);
+    $border-color: #bfbfbf;
+    $label-bg-color: #4caf50;
+    $label-text-color: #ffffff;
+    $link-color: #ffffff;
+    $powered-by-color: rgba(255, 255, 255, 0.5);
+
+    .cf-wrapper {
+      background-color: $bg-color;
+    }
+
+    .cf-text {
+      color: $text-color;
+      &:before {
+        background-color: $label-bg-color;
+        color: $label-text-color;
+      }
+    }
+
+    .cf-cta {
+      color: $link-color;
+    }
+    
+    .cf-powered-by {
+      color: $powered-by-color;
+    }
+  }
+
+  &[data-theme='light'] {
+    $bg-color: rgba(246, 252, 220, 0.6);
+    $text-color: rgba(0, 0, 0, 0.6);
+    $border-color: #bfbfbf;
+    $label-bg-color: #4caf50;
+    $label-text-color: #ffffff;
+    $link-color: #2c6ac7;
+    $powered-by-color: rgba(0, 0, 0, 0.5);
+
+    .cf-wrapper {
+      background-color: $bg-color;
+    }
+
+    .cf-text {
+      color: $text-color;
+      &:before {
+        background-color: $label-bg-color;
+        color: $label-text-color;
+      }
+    }
+
+    .cf-cta {
+      color: $link-color;
+    }
+    
+    .cf-powered-by {
+      color: $powered-by-color;
+    }
   }
 
   .cf-wrapper {
-    z-index: 5000;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-size: 14px;
     box-sizing: border-box;
     width: 100%;
     line-height: 1.5;
     display: block;
-    background-color: rgba(255, 255, 255, 0.2);
     padding: 12px 11px;
     text-align: left;
     margin: 12px 0;
   }
 
-  .cf-wrapper .cf-text:before {
+  .cf-text:before {
     margin-right: 4px;
     padding: 2px 6px;
     border-radius: 3px;
-    background-color: #4caf50;
-    color: #fff;
-    content: "Supporter";
+    content: $label-text;
   }
 
-  .cf-wrapper .cf-text {
-    color: rgba(255, 255, 255, 0.9);
+  .cf-text {
     text-decoration: none;
-    cursor: pointer;
   }
 
-  .cf-wrapper .cf-text:hover {
+  .cf-cta {
     text-decoration: underline;
   }
 
-  .cf-wrapper .cf-text strong {
-    color: #ffffff;
-  }
-
-  .cf-wrapper .cf-label {
+  .cf-label {
     margin-right: 4px;
     padding: 2px 6px;
     border-radius: 3px;
@@ -48,104 +95,21 @@
     color: #fafafa;
   }
 
-  .cf-wrapper .cf-label:hover {
-    text-decoration: none !important;
-  }
-
-  .cf-wrapper .cf-powered-by {
+  .cf-powered-by {
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.7);
     float: right;
-    font-size: 12px;
+    font-size: 11px;
+    line-height: 22px;
   }
 
-  .cf-wrapper .cf-powered-by:hover {
+  .cf-powered-by:hover {
     text-decoration: underline;
     cursor: pointer;
-  }
-
-  .cf-wrapper.cf-post-bottom {
-    width: 757px;
-    text-align: center;
   }
 }
 
-#cf[data-template='horizontal'][data-theme='light'] {
-  a {
-    box-shadow: none !important;
-  }
-
-  .cf-wrapper {
-    z-index: 5000;
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    box-sizing: border-box;
-    width: 100%;
-    line-height: 1.5;
-    display: block;
-    background-color: #f8f8f8;
-    padding: 12px 11px;
-    text-align: left;
-    margin: 12px 0;
-  }
-
-  .cf-wrapper .cf-text:before {
-    margin-right: 4px;
-    padding: 2px 6px;
-    border-radius: 3px;
-    background-color: #4caf50;
-    color: #fff;
-    content: "Supporter";
-  }
-
-  .cf-wrapper .cf-text {
-    color: #777777;
-    text-decoration: none;
-    cursor: pointer;
-  }
-
-  .cf-wrapper .cf-text:hover {
-    text-decoration: underline;
-  }
-
-  .cf-wrapper .cf-text strong {
-    color: #212121;
-  }
-
-  .cf-wrapper .cf-label {
-    margin-right: 4px;
-    padding: 2px 6px;
-    border-radius: 3px;
-    background-color: #08c;
-    color: #fafafa;
-  }
-
-  .cf-wrapper .cf-label:hover {
-    text-decoration: none !important;
-  }
-
-  .cf-wrapper .cf-powered-by {
-    text-decoration: none;
-    color: #909090;
-    float: right;
-    font-size: 12px;
-  }
-
-  .cf-wrapper .cf-powered-by:hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-
-  .cf-wrapper.cf-post-bottom {
-    width: 757px;
-    text-align: center;
-  }
-}
-
-@media screen and (max-width: 576px) {
-  #cf .cf-wrapper .cf-powered-by {
-    display: block;
-    float: none;
-    text-align: right;
+@media screen and (max-width: 859px) {
+  .cf-powered-by {
+    display: none;
   }
 }

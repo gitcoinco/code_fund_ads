@@ -3,10 +3,13 @@
     <a href="{{urls.campaign}}" class="cf-text" target="_blank" rel="sponsored noopener">
       <strong>{{creative.headline}}</strong>
       <span>{{creative.body}}</span>
+      <span class="cf-cta">{{creative.cta}}</span>
     </a>
-    <a href="{{urls.poweredBy}}" class="cf-powered-by" target="_blank" rel="sponsored noopener">
-      <em>ethical</em> ad by CodeFund
+    <div class="cf-footer">
       <img data-src="{{urls.impression}}" class="cf-impression" alt="">
-    </a>
+      <a class="cf-powered-by" href="{{urls.poweredBy}}"><em>ethical</em> ads by CodeFund</a>
+      •
+      <span class="cf-close" data-behavior="close">Close</span>
+    </div>
   </span>
 </div>

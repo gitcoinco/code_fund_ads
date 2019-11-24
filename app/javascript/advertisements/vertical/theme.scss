@@ -40,9 +40,14 @@
     color: #ffffff;
   }
 
+  .cf-cta {
+    text-decoration: underline;
+    color: #ffffff;
+  }
+
   .cf-powered-by {
     margin-top: 10px;
-    font-size: 12px;
+    font-size: 11px;
     display: block;
     color: rgba(255, 255, 255, 0.6);
     text-align: left;
@@ -97,15 +102,21 @@
     color: #3e3e3e;
   }
 
+  .cf-cta {
+    text-decoration: underline;
+    color: #2c6ac7;;
+  }
+
   .cf-powered-by {
     margin-top: 10px;
-    font-size: 12px;
+    font-size: 11px;
     display: block;
     color: #aaa;
     text-decoration: none;
   }
 
   .cf-powered-by:hover {
+    color: #888;
     text-decoration: underline !important;
   }
 

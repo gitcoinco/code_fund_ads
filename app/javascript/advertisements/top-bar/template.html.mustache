@@ -1,15 +1,24 @@
 <div id="cf" data-template="top-bar" data-theme="{{theme}}">
-  <a href="{{urls.campaign}}" class="cf-sponsored-by" target="_blank" rel="noopener sponsored">
-    <img src="{{creative.imageUrls.wide}}" alt="{{creative.name}}" border="0" height="50" class="cf-img">
-    <span class="cf-text">
-      <strong class="cf-headline">{{creative.headline}}</strong>
-      <span class="cf-body">{{creative.body}}</span>
-    <span>
-    <span class="cf-cta">{{creative.cta}}</span>
+  <a href="{{urls.campaign}}" class="cf-wrapper" target="_blank" rel="noopener sponsored">
+    <span class="cf-smartbar-left">
+      <span class="cf-img-wrapper">
+        <img src="{{creative.imageUrls.logo}}" alt="{{creative.name}}" width="100" height="40" class="cf-img">
+      </span>
+      <span class="cf-text">
+        <span class="cf-body">
+          <strong>{{creative.headline}}</strong>
+          {{creative.body}}
+        </span>
+      </span>
+    </span>
+    <span class="cf-smartbar-right">
+      <span class="cf-cta">{{creative.cta}}</span>
+    </span>
   </a>
-  <span class="cf-footer">
-    <a href="{{urls.poweredBy}}" class="cf-powered-by" rel="noopener sponsored" target="_blank">Ethical ad by CodeFund</a>
-    <span data-behavior="close">Close</span>
+  <div class="cf-footer">
     <img data-src="{{urls.impression}}" class="cf-impression" alt="">
-  </span>
+    <span class="cf-close" data-behavior="close">Close Ad</span>
+    •
+    <a class="cf-powered-by" href="{{urls.poweredBy}}"><em>Ethical</em> ads by CodeFund</a>
+  </div>
 </div>

@@ -3,7 +3,7 @@
   color: #aaaaaa;
   line-height: 1.7;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 0.8125rem;
+  font-size: 14px;
   font-weight: 400;
 
   .cf-wrapper a {
@@ -20,8 +20,13 @@
     position: relative;
   }
 
+  .cf-cta b {
+    text-decoration: underline;
+  }
+
   a.cf-powered-by {
     color: #6c757e;
+    font-size: 12px;
     text-decoration: none !important;
     position: relative;
     display: inline-block;
@@ -33,11 +38,10 @@
     width: 140px;
     color: #cccccc;
     text-align: center;
-    padding: 5px 0;
+    padding: 0;
 
     /* Position the tooltip text - see examples below! */
     position: absolute;
-    top: -4px;
     left: 4px;
     z-index: 1;
   }
@@ -53,7 +57,7 @@
   color: #6c757e;
   line-height: 1.7;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-size: 0.8125rem;
+  font-size: 14px;
   font-weight: 400;
 
   .cf-wrapper a {
@@ -70,11 +74,16 @@
     position: relative;
   }
 
+  .cf-cta b {
+    text-decoration: underline;
+  }
+
   a.cf-powered-by {
     color: #aaaaaa;
     text-decoration: none !important;
     position: relative;
     display: inline-block;
+    font-size: 12px;
   }
 
   /* Tooltip text */

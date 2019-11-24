@@ -1,9 +1,118 @@
-#cf[data-template='bottom-bar'][data-theme='dark'] {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 13px;
+$label-text: 'Ad';
 
-  a {
-    box-shadow: none !important;
+#cf[data-template='bottom-bar'] {
+  &[data-theme='dark'] {
+    $bg-color: #eeeeee;
+    $text-color: rgba(0, 0, 0, 0.8);
+    $border-color: #bfbfbf;
+    $label-bg-color: #4caf50;
+    $label-text-color: #ffffff;
+    $powered-by-color: rgba(0, 0, 0, 0.5);
+
+    .cf-wrapper {
+      border-color: $border-color;
+      background-color: $bg-color;
+    }
+
+    .cf-text {
+      color: $text-color;
+      &:before {
+        background-color: $label-bg-color;
+        color: $label-text-color;
+      }
+    }
+
+    .cf-footer {
+      color: $powered-by-color;
+      .cf-close {
+        color: $powered-by-color;
+        &:hover {
+          color: $text-color;
+        }
+      }
+      .cf-powered-by {
+        color: $powered-by-color;
+        &:hover {
+          color: $text-color;
+        }
+      }
+    }
+  }
+
+  &[data-theme='light'] {
+    $bg-color: #eeeeee;
+    $text-color: rgba(0, 0, 0, 0.6);
+    $border-color: #bfbfbf;
+    $label-bg-color: #4caf50;
+    $label-text-color: #ffffff;
+    $powered-by-color: rgba(0, 0, 0, 0.5);
+
+    .cf-wrapper {
+      border-color: $border-color;
+      background-color: $bg-color;
+    }
+    
+    .cf-text {
+      color: $text-color;
+      &:before {
+        background-color: $label-bg-color;
+        color: $label-text-color;
+      }
+    }
+
+    .cf-footer {
+      color: $powered-by-color;
+      .cf-close {
+        color: $powered-by-color;
+        &:hover {
+          color: $text-color;
+        }
+      }
+      .cf-powered-by {
+        color: $powered-by-color;
+        &:hover {
+          color: $text-color;
+        }
+      }
+    }
+  }
+
+  &[data-theme='blue'] {
+    $bg-color: #2c6ac7;
+    $text-color: #ffffff;
+    $border-color: #1c1565;
+    $label-bg-color: #1c1565;
+    $label-text-color: #ffffff;
+    $powered-by-color: rgba(255, 255, 255, 0.5);
+
+    .cf-wrapper {
+      border-color: $border-color;
+      background-color: $bg-color;
+    }
+    
+    .cf-text {
+      color: $text-color;
+      &:before {
+        background-color: $label-bg-color;
+        color: $label-text-color;
+      }
+    }
+
+    .cf-footer {
+      color: $powered-by-color;
+      .cf-close {
+        color: $powered-by-color;
+        &:hover {
+          color: $text-color;
+        }
+      }
+      .cf-powered-by {
+        color: $powered-by-color;
+        &:hover {
+          color: $text-color;
+        }
+      }
+    }
   }
 
   .cf-wrapper {
@@ -12,90 +121,64 @@
     bottom: 0;
     left: 0;
     z-index: 5000;
-    padding: 0.8em 1em 1em;
+    padding: 10px 20px 12px 20px;
     width: 100%;
-    border-top: solid 1px #bfbfbf;
-    background-color: #eeeeee;
-    text-align: center;
+    border-top: solid 1px;
     line-height: 1.5;
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
   }
 
   .cf-text {
-    color: rgba(0, 0, 0, 0.8);
     text-decoration: none;
     box-shadow: none;
+    font-size: 14px;
   }
 
   .cf-text:before {
     margin-right: 4px;
     padding: 2px 6px;
     border-radius: 3px;
-    background-color: #4caf50;
-    color: #fff;
-    content: 'Supporter';
+    content: $label-text;
   }
 
-  .cf-powered-by {
-    font-size: 12px;
-    text-decoration: none;
-    color: #999;
-    box-shadow: none;
+  .cf-cta {
+    text-decoration: underline;
   }
 
-  .cf-powered-by::before {
-    content: '•';
-    color: rgba(0, 0, 0, 0.3);
-    display: inline-block;
-  }
-}
-
-#cf[data-template='bottom-bar'][data-theme='light'] {
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 13px;
-
-  a {
-    box-shadow: none !important;
-  }
-
-  .cf-wrapper {
-    box-sizing: border-box;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 5000;
-    padding: 0.8em 1em 1em;
-    width: 100%;
-    border-top: solid 1px #bfbfbf;
-    background-color: #eeeeee;
-    text-align: center;
-    line-height: 1.5;
-  }
-
-  .cf-text {
-    color: rgba(0, 0, 0, 0.8);
+  .cf-footer {
+    font-size: 11px;
+    line-height: 22px;
     text-decoration: none;
     box-shadow: none;
+
+    .cf-close {
+      cursor: pointer;
+    }
+
+    .cf-powered-by {
+      text-decoration: none;
+    }
   }
 
-  .cf-text:before {
-    margin-right: 4px;
-    padding: 2px 6px;
-    border-radius: 3px;
-    background-color: #4caf50;
-    color: #fff;
-    content: 'Supporter';
+  @media only screen and (min-width: 480px) and (max-width: 859px) {
+    .cf-text {
+      font-size: 14px;
+      margin-right: 0;
+    }
+    .cf-footer {
+      display: none;
+    }
   }
 
-  .cf-powered-by {
-    font-size: 12px;
-    text-decoration: none;
-    color: #999;
-    box-shadow: none;
-  }
-
-  .cf-powered-by::before {
-    content: '•';
-    color: rgba(0, 0, 0, 0.3);
-    display: inline-block;
+  @media only screen and (min-width: 320px) and (max-width: 479px) {
+    .cf-text {
+      font-size: 12px;
+      margin-right: 0;
+    }
+    .cf-footer {
+      display: none;
+    }
   }
 }

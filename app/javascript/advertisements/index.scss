@@ -5,18 +5,14 @@
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
+  a {
+    box-shadow: none;
+  }
+
   .cf-impression {
     visibility: hidden;
     width: 0;
     height: 0;
     border-style: none;
-  }
-
-  .cf-headline {
-    font-weight: bold;
-  }
-  
-  .cf-body {
-    font-weight: normal;
   }
 }

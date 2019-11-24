@@ -14,7 +14,7 @@
     padding: 15px;
     font-size: 14px;
     line-height: 1.4;
-    text-align: center;
+    text-align: left;
     font-family: Helvetica, Arial, sans-serif;
     margin-left: auto;
     margin-right: auto;
@@ -41,6 +41,7 @@
 
   .cf-img-wrapper {
     display: block;
+    text-align: center;
     margin-bottom: 8px;
   }
 
@@ -54,7 +55,11 @@
   }
 
   .cf-text strong {
-    color: #4caf50;
+    color: #ffffff;
+  }
+  
+  .cf-cta {
+    text-decoration: underline;
   }
 
   .cf-powered-by {
@@ -124,7 +129,16 @@
   }
 
   .cf-text {
-    color: #333;
+    color: rgba(0,0,0,0.6);
+
+    strong {
+      color: #111111;
+    }
+  }
+  
+  .cf-cta {
+    text-decoration: underline;
+    color: #2c6ac7;
   }
 
   .cf-powered-by {

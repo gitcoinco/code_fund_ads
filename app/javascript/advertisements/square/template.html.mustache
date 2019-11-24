@@ -7,11 +7,16 @@
       <span class="cf-text">
         <strong>{{creative.headline}}</strong>
         <span>{{creative.body}}</span>
+        <span class="cf-cta">{{creative.cta}}</span>
       </span>
     </a>
-    <a href="{{urls.poweredBy}}" class="cf-powered-by" target="_blank" rel="sponsored noopener">
-      <em>ethical</em> ad by CodeFund
+    <div class="cf-footer">
+      <a href="{{urls.poweredBy}}" class="cf-powered-by" target="_blank" rel="sponsored noopener">
+        <em>ethical</em> ad by CodeFund
+      </a>
+      •
+      <span class="cf-close" data-behavior="close">Close Ad</span>
       <img data-src="{{urls.impression}}" class="cf-impression" alt="">
-    </a>
+    </div>
   </span>
 </div>
