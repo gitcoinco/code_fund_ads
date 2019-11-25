@@ -6,7 +6,7 @@ module SystemTestHelper
   end
 
   def assert_impression_pixel(property)
-    assert_css "img[src*='/display/']"
+    assert_selector("img.cf-impression")
   end
 
   def assert_powered_by_link(text: "ethical ad by CodeFund")
@@ -25,6 +25,7 @@ module SystemTestHelper
   end
 
   def ad_template_setup(ad_template: "default", ad_theme: "light")
+    Capybara.ignore_hidden_elements = false
     AdvertisementsController.any_instance.stubs(ad_test?: false)
 
     start_date = Date.parse("2019-01-01")

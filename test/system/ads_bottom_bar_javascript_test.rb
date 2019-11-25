@@ -18,7 +18,7 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
     assert_impression_pixel @property
     assert_powered_by_link
 
-    find("div", id: "cf").assert_matches_style('font-family': "Helvetica, Arial, sans-serif", "font-size": "13px")
+    find("div", id: "cf").assert_matches_style('font-family': "\"Helvetica Neue\", Helvetica, Arial, sans-serif", "font-size": "13px")
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "border-box",
                                                            "padding": "10.4px 13px 13px",
                                                            "position": "fixed",
@@ -49,7 +49,7 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
     assert_impression_pixel @property
     assert_powered_by_link
 
-    find("div", id: "cf").assert_matches_style('font-family': "Helvetica, Arial, sans-serif", "font-size": "13px")
+    find("div", id: "cf").assert_matches_style('font-family': "\"Helvetica Neue\", Helvetica, Arial, sans-serif", "font-size": "13px")
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "border-box",
                                                            "padding": "10.4px 13px 13px",
                                                            "position": "fixed",
@@ -81,7 +81,7 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
     assert_impression_pixel @property
     assert_powered_by_link
 
-    find("div", id: "cf").assert_matches_style('font-family': "Helvetica, Arial, sans-serif", "font-size": "13px")
+    find("div", id: "cf").assert_matches_style('font-family': "\"Helvetica Neue\", Helvetica, Arial, sans-serif", "font-size": "13px")
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "border-box",
                                                            "padding": "10.4px 13px 13px",
                                                            "position": "fixed",
@@ -113,7 +113,7 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
     assert_impression_pixel @property
     assert_powered_by_link
 
-    find("div", id: "cf").assert_matches_style('font-family': "Helvetica, Arial, sans-serif", "font-size": "13px")
+    find("div", id: "cf").assert_matches_style('font-family': "\"Helvetica Neue\", Helvetica, Arial, sans-serif", "font-size": "13px")
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "border-box",
                                                            "padding": "10.4px 13px 13px",
                                                            "position": "fixed",
