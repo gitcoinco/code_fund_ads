@@ -1,19 +1,22 @@
 class GlobalStatsController < ApplicationController
   def show
-    count = impression_count_query
+    imp_count = impression_count_query
+    prop_count = properties_count_query
+    camp_count = campaigns_count_query
     clicks = clicks_count_query
-    rate = ((clicks / Impression.count.to_f) * 100).round 2
+    click_rate = ((clicks / Impression.count.to_f) * 100).round 2
 
-    render json: {impressions_total_count: count,
-                  impressions_click_count: clicks,
-                  impressions_click_rate: rate,},
+    render json: {impressions_count: imp_count,
+                  properties_count: prop_count,
+                  campaigns_count: camp_count,
+                  click_rate: click_rate,},
            status: :ok
   end
 
   private
 
   def impression_count_query
-    Rails.cache.fetch "ImpressionStats#impressions_count/#{Date.current.iso8601}", expires_in: 5.minute do
+    Rails.cache.fetch "GlobalStats#impressions_count/#{Date.current.iso8601}", expires_in: 5.minute do
       ActiveRecord::Base.connected_to(role: :reading) do
         count = DailySummary.where(impressionable_type: "Property",
                                    scoped_by_type: nil,
@@ -24,8 +27,24 @@ class GlobalStatsController < ApplicationController
     end
   end
 
+  def properties_count_query
+    Rails.cache.fetch "GlobalStats#properties_count/#{Date.current.iso8601}", expires_in: 24.hour do
+      ActiveRecord::Base.connected_to(role: :reading) do
+        Property.all.count
+      end
+    end
+  end
+
+  def campaigns_count_query
+    Rails.cache.fetch "GlobalStats#campaigns_count/#{Date.current.iso8601}", expires_in: 24.hour do
+      ActiveRecord::Base.connected_to(role: :reading) do
+        Campaign.all.count
+      end
+    end
+  end
+
   def clicks_count_query
-    Rails.cache.fetch "ImpressionStats#clicks_count/#{Date.current.iso8601}", expires_in: 5.minute do
+    Rails.cache.fetch "GlobalStats#clicks_rate/#{Date.current.iso8601}", expires_in: 5.minute do
       ActiveRecord::Base.connected_to(role: :reading) do
         count = DailySummary.where(impressionable_type: "Property",
                                    scoped_by_type: nil,
