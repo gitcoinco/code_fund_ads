@@ -1,5 +1,4 @@
 class AdvertisementsController < ApplicationController
-  include AdRenderable
   include Untrackable
 
   protect_from_forgery except: :show
@@ -10,6 +9,8 @@ class AdvertisementsController < ApplicationController
   before_action :set_virtual_impression_id
   after_action :create_virtual_impression, if: :standard?
   # after_action :cache_visitor_response
+
+  helper_method :template_name, :theme_name
 
   def show
     track_event :virtual_impression_initiated unless sponsor?
@@ -22,8 +23,8 @@ class AdvertisementsController < ApplicationController
     respond_to do |format|
       format.js
       format.svg { render inline: @advertisement_html || catch_all_sponsor_html, status: :ok, layout: false }
-      format.json { render "/advertisements/show", status: @advertisement_html ? :ok : :not_found, layout: false }
-      format.html { render "/advertisements/show", status: @advertisement_html ? :ok : :not_found, layout: false }
+      format.json { render "/advertisements/show", status: @creative ? :ok : :not_found, layout: false }
+      format.html { render "/advertisements/show", status: @creative ? :ok : :not_found, layout: false }
     end
   end
 
@@ -80,7 +81,6 @@ class AdvertisementsController < ApplicationController
       end
     end
 
-    @advertisement_html = render_advertisement
     @campaign_url = advertisement_clicks_url(
       @virtual_impression_id,
       campaign_id: @campaign.id,
@@ -200,11 +200,11 @@ class AdvertisementsController < ApplicationController
   end
 
   def fallback_template_name
-    @fallback_template_name ||= ENUMS::AD_TEMPLATES[property&.fallback_ad_template] || premium_template_name
+    @fallback_template_name ||= ENUMS::AD_TEMPLATES[params[:template] || property&.fallback_ad_template] || premium_template_name
   end
 
   def fallback_theme_name
-    @fallback_theme_name ||= ENUMS::AD_THEMES[property&.fallback_ad_theme] || premium_theme_name
+    @fallback_theme_name ||= ENUMS::AD_THEMES[params[:theme] || property&.fallback_ad_theme] || premium_theme_name
   end
 
   def keywords
@@ -239,6 +239,7 @@ class AdvertisementsController < ApplicationController
     @campaign ||= get_paid_fallback_campaign if rand < ENV.fetch("PAID_FALLBACK_PERCENT", 90).to_f / 100
     @campaign ||= get_fallback_campaign(geo_targeted_campaign_relation)
     @campaign ||= get_fallback_campaign(campaign_relation)
+    @campaign ||= get_paid_fallback_campaign
   end
 
   def get_premium_campaign(campaign_relation)
@@ -304,11 +305,6 @@ class AdvertisementsController < ApplicationController
     split_alternative = split_trial.choose!(self)
     return nil unless split_alternative
     Creative.active.find_by_split_test_name split_alternative.name
-  end
-
-  def render_advertisement
-    key = "#{@campaign.cache_key_with_version}/#{@creative.cache_key_with_version}/#{template_cache_key}/#{theme_cache_key}"
-    Rails.cache.fetch(key) { render_advertisement_html template, theme, html: request.format.html? }
   end
 
   def set_virtual_impression_id

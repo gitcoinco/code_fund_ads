@@ -22,12 +22,11 @@ enums = HashWithIndifferentAccess.new(hash)
 #   ENUMS::AD_TEMPLATES::DEFAULT
 #   ENUMS::AD_THEMES::LIGHT
 #
-enums[:ad_templates] = Dir.children(Rails.root.join("app/views/ad_templates")).sort
+enums[:ad_templates] = Dir[Rails.root.join("app/javascript/advertisements/**")].each_with_object([]) { |path, memo|
+  memo << path.split("/").last if File.directory?(path)
+}.sort
 enums[:ad_templates].delete "@responsive_footer"
-enums[:ad_themes] = Dir.glob(Rails.root.join("app/views/ad_templates/**/themes/*.css")).map { |path|
-  File.basename(path).sub(".css", "")
-}.uniq.sort
-enums[:ad_themes] << "unstyled"
+enums[:ad_themes] = %w[dark light unstyled]
 
 # Exposes pages for the partials living under: app/views/pages
 #

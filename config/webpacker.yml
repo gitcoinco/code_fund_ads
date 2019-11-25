@@ -34,7 +34,9 @@ default: &default
     - .woff2
 
   extensions:
+    - .erb
     - .mjs
+    - .js.erb
     - .js
     - .sass
     - .scss
@@ -71,6 +73,7 @@ development:
     quiet: false
     headers:
       'Access-Control-Allow-Origin': '*'
+    watch_content_base: true
     watch_options:
       ignored: '**/node_modules/**'
 

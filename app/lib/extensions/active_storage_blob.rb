@@ -44,10 +44,19 @@ module Extensions
 
     def cloudfront_url
       return service_url unless cloudfront_host
+      return service_url unless defined?(ActiveStorage::Service::S3Service)
       return service_url unless service.is_a?(ActiveStorage::Service::S3Service)
       uri = URI(service_url)
       path = uri.path.gsub("/#{service.bucket.name}", "")
       "https://#{cloudfront_host}#{path}"
+    rescue => e1
+      Rollbar.error e1
+      begin
+        service_url
+      rescue => e2
+        Rollbar.error e2
+        ""
+      end
     end
   end
 end

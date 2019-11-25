@@ -9,7 +9,7 @@ if @campaign
   json.images do
     json.partial! "/advertisements/image", collection: @campaign.creative.images, as: :image
   end
-  json.html interpolated_advertisement_html(@advertisement_html, @impression_url, @campaign_url)
+  json.html interpolated_advertisement_html
 else
   json.message "CodeFund does not have an advertiser for you at this time."
 end

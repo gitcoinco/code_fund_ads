@@ -17,9 +17,10 @@ class AdsDefaultJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @premium_campaign
     assert_campaign_link @premium_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a premium campaign ethical ad by CodeFund")
 
-    find("div", id: "cf").assert_matches_style("font-family": "\"Times New Roman\"", "font-size": "16px")
+    find("div", id: "cf").assert_matches_style("font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                               "font-size": "16px",)
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "content-box",
                                                            "padding": "15px",
                                                            "position": "static",
@@ -46,9 +47,10 @@ class AdsDefaultJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @premium_campaign
     assert_campaign_link @premium_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a premium campaign ethical ad by CodeFund")
 
-    find("div", id: "cf").assert_matches_style("font-family": "\"Times New Roman\"", "font-size": "16px")
+    find("div", id: "cf").assert_matches_style("font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                               "font-size": "16px",)
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "content-box",
                                                            "padding": "15px",
                                                            "position": "static",
@@ -75,9 +77,10 @@ class AdsDefaultJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @fallback_campaign
     assert_campaign_link @fallback_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a fallback campaign ethical ad by CodeFund")
 
-    find("div", id: "cf").assert_matches_style("font-family": "\"Times New Roman\"", "font-size": "16px")
+    find("div", id: "cf").assert_matches_style("font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                               "font-size": "16px",)
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "content-box",
                                                            "padding": "15px",
                                                            "position": "static",
@@ -104,9 +107,10 @@ class AdsDefaultJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @fallback_campaign
     assert_campaign_link @fallback_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a fallback campaign ethical ad by CodeFund")
 
-    find("div", id: "cf").assert_matches_style("font-family": "\"Times New Roman\"", "font-size": "16px")
+    find("div", id: "cf").assert_matches_style("font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                               "font-size": "16px",)
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "content-box",
                                                            "padding": "15px",
                                                            "position": "static",

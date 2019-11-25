@@ -1,0 +1,18 @@
+import './theme.scss'
+export default {
+  mustache: '<%= File.read(Rails.root.join("app/javascript/advertisements/text/template.html.mustache"), encoding: "UTF-8").squish %>',
+  initialize: ad => {
+    ad.element
+      .querySelector('a.cf-cta')
+      .addEventListener('mouseenter', event => {
+        event.target.style.color = '#1d6fa5'
+      })
+
+    ad.element
+      .querySelector('a.cf-cta')
+      .addEventListener('mouseleave', event => {
+        event.target.style.color = '#3498db'
+      })
+    if (ad.visible) ad.trackImpression()
+  }
+}

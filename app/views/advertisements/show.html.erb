@@ -1,5 +1,5 @@
-<% if @advertisement_html %>
-  <%= raw interpolated_advertisement_html(@advertisement_html, @impression_url, @campaign_url) %>
+<% if @campaign && @creative %>
+  <%= raw interpolated_advertisement_html %>
 <% else %>
   CodeFund does not have an advertiser for you at this time.
 <% end %>

@@ -29,7 +29,6 @@ windows:
         - asdf local nodejs 13.0.1
         - lsof -t -i tcp:3000 | xargs kill -KILL
         - redis-cli flushall
-        - sleep 4
         - bundle exec rails s
       - commands:
         - asdf local ruby 2.6.5
@@ -45,5 +44,4 @@ windows:
         - asdf local ruby 2.6.5
         - asdf local nodejs 13.0.1
         - redis-cli flushall
-        - sleep 8
         - bundle exec sidekiq -C config/sidekiq.yml

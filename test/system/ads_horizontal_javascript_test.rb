@@ -17,13 +17,13 @@ class AdsHorizontalJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @premium_campaign
     assert_campaign_link @premium_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a premium campaign Premium ethical ad by CodeFund")
 
     assert_selector("div#cf")
-    find("span", class: "cf-wrapper").assert_matches_style("background-color": "rgba(248, 248, 248, 1)",
-                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                           "font-size": "13px",
-                                                           "line-height": "19.5px",
+    find("span", class: "cf-wrapper").assert_matches_style("background-color": "rgba(246, 252, 220, 0.6)",
+                                                           "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                                           "font-size": "14px",
+                                                           "line-height": "21px",
                                                            "padding": "12px 11px",
                                                            "text-align": "left",
                                                            "width": "1384px",
@@ -32,13 +32,13 @@ class AdsHorizontalJavascriptTest < ApplicationSystemTestCase
                                                            "display": "block",
                                                            "margin": "12px 0px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
-                                                     "color": "rgba(119, 119, 119, 1)",
-                                                     "text-decoration": "none solid rgb(119, 119, 119)",
+                                                     "color": "rgba(0, 0, 0, 0.6)",
+                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.6)",
                                                      "cursor": "pointer",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
-                                                           "font-size": "12px",
-                                                           "text-decoration": "none solid rgb(144, 144, 144)",
-                                                           "color": "rgba(144, 144, 144, 1)",
+                                                           "font-size": "11px",
+                                                           "text-decoration": "none solid rgba(0, 0, 0, 0.5)",
+                                                           "color": "rgba(0, 0, 0, 0.5)",
                                                            "float": "right",)
   end
 
@@ -49,13 +49,13 @@ class AdsHorizontalJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @premium_campaign
     assert_campaign_link @premium_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a premium campaign Premium ethical ad by CodeFund")
 
     assert_selector("div#cf")
     find("span", class: "cf-wrapper").assert_matches_style("background-color": "rgba(255, 255, 255, 0.2)",
-                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                           "font-size": "13px",
-                                                           "line-height": "19.5px",
+                                                           "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                                           "font-size": "14px",
+                                                           "line-height": "21px",
                                                            "padding": "12px 11px",
                                                            "text-align": "left",
                                                            "width": "1384px",
@@ -64,13 +64,13 @@ class AdsHorizontalJavascriptTest < ApplicationSystemTestCase
                                                            "display": "block",
                                                            "margin": "12px 0px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
-                                                     "color": "rgba(255, 255, 255, 0.9)",
-                                                     "text-decoration": "none solid rgba(255, 255, 255, 0.9)",
+                                                     "color": "rgba(255, 255, 255, 0.7)",
+                                                     "text-decoration": "none solid rgba(255, 255, 255, 0.7)",
                                                      "cursor": "pointer",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
-                                                           "font-size": "12px",
-                                                           "text-decoration": "none solid rgba(255, 255, 255, 0.7)",
-                                                           "color": "rgba(255, 255, 255, 0.7)",
+                                                           "font-size": "11px",
+                                                           "text-decoration": "none solid rgba(255, 255, 255, 0.5)",
+                                                           "color": "rgba(255, 255, 255, 0.5)",
                                                            "float": "right",)
   end
 
@@ -81,13 +81,13 @@ class AdsHorizontalJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @fallback_campaign
     assert_campaign_link @fallback_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a fallback campaign Fallback ethical ad by CodeFund")
 
     assert_selector("div#cf")
-    find("span", class: "cf-wrapper").assert_matches_style("background-color": "rgba(248, 248, 248, 1)",
-                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                           "font-size": "13px",
-                                                           "line-height": "19.5px",
+    find("span", class: "cf-wrapper").assert_matches_style("background-color": "rgba(246, 252, 220, 0.6)",
+                                                           "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                                           "font-size": "14px",
+                                                           "line-height": "21px",
                                                            "padding": "12px 11px",
                                                            "text-align": "left",
                                                            "width": "1384px",
@@ -96,13 +96,13 @@ class AdsHorizontalJavascriptTest < ApplicationSystemTestCase
                                                            "display": "block",
                                                            "margin": "12px 0px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
-                                                     "color": "rgba(119, 119, 119, 1)",
-                                                     "text-decoration": "none solid rgb(119, 119, 119)",
+                                                     "color": "rgba(0, 0, 0, 0.6)",
+                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.6)",
                                                      "cursor": "pointer",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
-                                                           "font-size": "12px",
-                                                           "text-decoration": "none solid rgb(144, 144, 144)",
-                                                           "color": "rgba(144, 144, 144, 1)",
+                                                           "font-size": "11px",
+                                                           "text-decoration": "none solid rgba(0, 0, 0, 0.5)",
+                                                           "color": "rgba(0, 0, 0, 0.5)",
                                                            "float": "right",)
   end
 
@@ -113,13 +113,13 @@ class AdsHorizontalJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @fallback_campaign
     assert_campaign_link @fallback_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a fallback campaign Fallback ethical ad by CodeFund")
 
     assert_selector("div#cf")
     find("span", class: "cf-wrapper").assert_matches_style("background-color": "rgba(255, 255, 255, 0.2)",
-                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                           "font-size": "13px",
-                                                           "line-height": "19.5px",
+                                                           "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                                           "font-size": "14px",
+                                                           "line-height": "21px",
                                                            "padding": "12px 11px",
                                                            "text-align": "left",
                                                            "width": "1384px",
@@ -128,13 +128,13 @@ class AdsHorizontalJavascriptTest < ApplicationSystemTestCase
                                                            "display": "block",
                                                            "margin": "12px 0px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
-                                                     "color": "rgba(255, 255, 255, 0.9)",
-                                                     "text-decoration": "none solid rgba(255, 255, 255, 0.9)",
+                                                     "color": "rgba(255, 255, 255, 0.7)",
+                                                     "text-decoration": "none solid rgba(255, 255, 255, 0.7)",
                                                      "cursor": "pointer",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
-                                                           "font-size": "12px",
-                                                           "text-decoration": "none solid rgba(255, 255, 255, 0.7)",
-                                                           "color": "rgba(255, 255, 255, 0.7)",
+                                                           "font-size": "11px",
+                                                           "text-decoration": "none solid rgba(255, 255, 255, 0.5)",
+                                                           "color": "rgba(255, 255, 255, 0.5)",
                                                            "float": "right",)
   end
 end

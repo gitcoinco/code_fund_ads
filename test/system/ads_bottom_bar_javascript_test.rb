@@ -18,9 +18,9 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
     assert_impression_pixel @property
     assert_powered_by_link
 
-    find("div", id: "cf").assert_matches_style('font-family': "Helvetica, Arial, sans-serif", "font-size": "13px")
+    find("div", id: "cf").assert_matches_style('font-family': "\"Helvetica Neue\", Helvetica, Arial, sans-serif", "font-size": "16px")
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "border-box",
-                                                           "padding": "10.4px 13px 13px",
+                                                           "padding": "10px 20px 12px",
                                                            "position": "fixed",
                                                            "bottom": "0px",
                                                            "left": "0px",
@@ -30,15 +30,15 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
                                                            "border-top-color": "rgba(191, 191, 191, 1)",
                                                            "border-top-style": "solid",
                                                            "background-color": "rgba(238, 238, 238, 1)",
-                                                           "text-align": "center",
-                                                           "line-height": "19.5px",)
+                                                           "text-align": "left",
+                                                           "line-height": "24px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
-                                                     "color": "rgba(0, 0, 0, 0.8)",
-                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.8)",)
+                                                     "color": "rgba(0, 0, 0, 0.6)",
+                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.6)",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
-                                                           "font-size": "12px",
-                                                           "text-decoration": "none solid rgb(153, 153, 153)",
-                                                           "color": "rgba(153, 153, 153, 1)",)
+                                                           "font-size": "11px",
+                                                           "text-decoration": "none solid rgba(0, 0, 0, 0.5)",
+                                                           "color": "rgba(0, 0, 0, 0.5)",)
   end
 
   test "bottom bar - premium ad with dark theme" do
@@ -49,9 +49,9 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
     assert_impression_pixel @property
     assert_powered_by_link
 
-    find("div", id: "cf").assert_matches_style('font-family': "Helvetica, Arial, sans-serif", "font-size": "13px")
+    find("div", id: "cf").assert_matches_style('font-family': "\"Helvetica Neue\", Helvetica, Arial, sans-serif", "font-size": "16px")
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "border-box",
-                                                           "padding": "10.4px 13px 13px",
+                                                           "padding": "10px 20px 12px",
                                                            "position": "fixed",
                                                            "bottom": "0px",
                                                            "left": "0px",
@@ -61,15 +61,15 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
                                                            "border-top-color": "rgba(191, 191, 191, 1)",
                                                            "border-top-style": "solid",
                                                            "background-color": "rgba(238, 238, 238, 1)",
-                                                           "text-align": "center",
-                                                           "line-height": "19.5px",)
+                                                           "text-align": "left",
+                                                           "line-height": "24px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
                                                      "color": "rgba(0, 0, 0, 0.8)",
                                                      "text-decoration": "none solid rgba(0, 0, 0, 0.8)",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
-                                                           "font-size": "12px",
-                                                           "text-decoration": "none solid rgb(153, 153, 153)",
-                                                           "color": "rgba(153, 153, 153, 1)",)
+                                                           "font-size": "11px",
+                                                           "text-decoration": "none solid rgba(0, 0, 0, 0.5)",
+                                                           "color": "rgba(0, 0, 0, 0.5)",)
   end
 
   test "bottom bar - fallback ad with light theme" do
@@ -81,9 +81,9 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
     assert_impression_pixel @property
     assert_powered_by_link
 
-    find("div", id: "cf").assert_matches_style('font-family': "Helvetica, Arial, sans-serif", "font-size": "13px")
+    find("div", id: "cf").assert_matches_style('font-family': "\"Helvetica Neue\", Helvetica, Arial, sans-serif", "font-size": "16px")
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "border-box",
-                                                           "padding": "10.4px 13px 13px",
+                                                           "padding": "10px 20px 12px",
                                                            "position": "fixed",
                                                            "bottom": "0px",
                                                            "left": "0px",
@@ -93,15 +93,15 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
                                                            "border-top-color": "rgba(191, 191, 191, 1)",
                                                            "border-top-style": "solid",
                                                            "background-color": "rgba(238, 238, 238, 1)",
-                                                           "text-align": "center",
-                                                           "line-height": "19.5px",)
+                                                           "text-align": "left",
+                                                           "line-height": "24px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
-                                                     "color": "rgba(0, 0, 0, 0.8)",
-                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.8)",)
+                                                     "color": "rgba(0, 0, 0, 0.6)",
+                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.6)",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
-                                                           "font-size": "12px",
-                                                           "text-decoration": "none solid rgb(153, 153, 153)",
-                                                           "color": "rgba(153, 153, 153, 1)",)
+                                                           "font-size": "11px",
+                                                           "text-decoration": "none solid rgba(0, 0, 0, 0.5)",
+                                                           "color": "rgba(0, 0, 0, 0.5)",)
   end
 
   test "bottom bar - fallback ad with dark theme" do
@@ -113,9 +113,9 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
     assert_impression_pixel @property
     assert_powered_by_link
 
-    find("div", id: "cf").assert_matches_style('font-family': "Helvetica, Arial, sans-serif", "font-size": "13px")
+    find("div", id: "cf").assert_matches_style('font-family': "\"Helvetica Neue\", Helvetica, Arial, sans-serif", "font-size": "16px")
     find("span", class: "cf-wrapper").assert_matches_style("box-sizing": "border-box",
-                                                           "padding": "10.4px 13px 13px",
+                                                           "padding": "10px 20px 12px",
                                                            "position": "fixed",
                                                            "bottom": "0px",
                                                            "left": "0px",
@@ -125,14 +125,14 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
                                                            "border-top-color": "rgba(191, 191, 191, 1)",
                                                            "border-top-style": "solid",
                                                            "background-color": "rgba(238, 238, 238, 1)",
-                                                           "text-align": "center",
-                                                           "line-height": "19.5px",)
+                                                           "text-align": "left",
+                                                           "line-height": "24px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
                                                      "color": "rgba(0, 0, 0, 0.8)",
                                                      "text-decoration": "none solid rgba(0, 0, 0, 0.8)",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
-                                                           "font-size": "12px",
-                                                           "text-decoration": "none solid rgb(153, 153, 153)",
-                                                           "color": "rgba(153, 153, 153, 1)",)
+                                                           "font-size": "11px",
+                                                           "text-decoration": "none solid rgba(0, 0, 0, 0.5)",
+                                                           "color": "rgba(0, 0, 0, 0.5)",)
   end
 end

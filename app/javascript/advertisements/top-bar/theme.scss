@@ -1,0 +1,152 @@
+$bg-color: #2c6ac7;
+$text-color: #ffffff;
+$button-bg-color: #ffffff;
+$button-text-color: #2c6ac7;
+$button-hover-bg-color: #1c1565;
+$button-hover-text-color: #ffffff;
+
+#cf[data-template='top-bar'] {
+  &[data-theme='dark'] {
+    // No changes
+  }
+
+  &[data-theme='light'] {
+    // No changes
+  }
+
+  position: relative;
+  z-index: 999999;
+  margin: 0 auto;
+  background-color: $bg-color;
+  box-shadow: 0 1px 10px hsla(0, 0%, 0%, 0.25);
+  font-weight: 300;
+  letter-spacing: 1px;
+  backface-visibility: hidden;
+
+  .cf-wrapper {
+    display: flex;
+    box-sizing: border-box;
+    padding: 14px 20px;
+    text-align: left;
+    text-decoration: none;
+    justify-content: space-between;
+  }
+
+  a:hover {
+    background: $bg-color;
+  }
+
+  .cf-smartbar-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .cf-smartbar-right {
+    display: flex;
+    align-items: center;
+  }
+
+  .cf-cta {
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background-color: $button-bg-color;
+    color: $button-text-color;
+    text-transform: uppercase;
+    white-space: nowrap;
+    letter-spacing: 1px;
+    line-height: 1;
+    font-weight: 600;
+    font-size: 12px;
+  }
+
+  a:hover .cf-cta {
+    background-color: $button-hover-bg-color;
+    color: $button-hover-text-color;
+  }
+
+  .cf-img-wrapper {
+    line-height: 0;
+  }
+
+  .cf-img-wrapper img {
+    margin-right: 20px;
+    width: 100px;
+    height: 40px;
+  }
+
+  a .cf-text {
+    display: flex;
+    flex-direction: column;
+    margin-right: 20px;
+    color: $text-color;
+    font-size: 16px;
+    line-height: 1.5;
+
+    strong {
+      font-weight: 400;
+    }
+  }
+
+  a:hover .cf-text {
+    color: $text-color;
+  }
+
+  .cf-footer {
+    position: absolute;
+    right: 20px;
+    bottom: 5px;
+    border-top: 0;
+    border-top-left-radius: 3px;
+    color: $text-color;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 1;
+    font-weight: 300;
+    font-size: 8px;
+
+    .cf-close {
+      color: $text-color;
+      cursor: pointer;
+    }
+
+    .cf-close:hover {
+      color: $text-color;
+    }
+
+    .cf-powered-by {
+      color: $text-color;
+      font-size: 8px;
+      text-decoration: none;
+    }
+
+    .cf-powered-by:hover {
+      color: $text-color;
+    }
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 759px) {
+    a .cf-text {
+      font-size: 14px;
+      margin-right: 0;
+    }
+    .cf-smartbar-right {
+      display: none;
+    }
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 479px) {
+    a .cf-text {
+      font-size: 12px;
+      margin-right: 0;
+    }
+    .cf-smartbar-right {
+      display: none;
+    }
+    .cf-img-wrapper img {
+      margin-right: 10px;
+      width: 80px;
+    }
+  }
+}

@@ -30,21 +30,6 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
                                                  "font-size": "13px",
                                                  "line-height": "22px",
                                                  "box-shadow": "none",)
-    find("img", class: "cf-hidden", visible: false).assert_matches_style("text-decoration": "none solid rgb(119, 131, 143)",
-                                                                         "box-shadow": "none",
-                                                                         "visibility": "hidden",
-                                                                         "height": "0px",
-                                                                         "width": "0px",)
-    find("a", class: "cf-hidden", visible: false).assert_matches_style("color": "rgba(52, 152, 219, 1)",
-                                                                       "cursor": "pointer",
-                                                                       "text-decoration": "none solid rgb(52, 152, 219)",
-                                                                       "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
-                                                                       "font-size": "13px",
-                                                                       "line-height": "22px",
-                                                                       "box-shadow": "none",
-                                                                       "visibility": "hidden",
-                                                                       "height": "0px",
-                                                                       "width": "0px",)
   end
 
   test "text - premium ad with dark theme" do
@@ -67,21 +52,6 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
                                                  "font-size": "13px",
                                                  "line-height": "22px",
                                                  "box-shadow": "none",)
-    find("img", class: "cf-hidden", visible: false).assert_matches_style("text-decoration": "none solid rgb(119, 131, 143)",
-                                                                         "box-shadow": "none",
-                                                                         "visibility": "hidden",
-                                                                         "height": "0px",
-                                                                         "width": "0px",)
-    find("a", class: "cf-hidden", visible: false).assert_matches_style("color": "rgba(52, 152, 219, 1)",
-                                                                       "cursor": "pointer",
-                                                                       "text-decoration": "none solid rgb(52, 152, 219)",
-                                                                       "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
-                                                                       "font-size": "13px",
-                                                                       "line-height": "22px",
-                                                                       "box-shadow": "none",
-                                                                       "visibility": "hidden",
-                                                                       "height": "0px",
-                                                                       "width": "0px",)
   end
 
   test "text - fallback ad with light theme" do
@@ -104,21 +74,6 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
                                                  "font-size": "13px",
                                                  "line-height": "22px",
                                                  "box-shadow": "none",)
-    find("img", class: "cf-hidden", visible: false).assert_matches_style("text-decoration": "none solid rgb(119, 131, 143)",
-                                                                         "box-shadow": "none",
-                                                                         "visibility": "hidden",
-                                                                         "height": "0px",
-                                                                         "width": "0px",)
-    find("a", class: "cf-hidden", visible: false).assert_matches_style("color": "rgba(52, 152, 219, 1)",
-                                                                       "cursor": "pointer",
-                                                                       "text-decoration": "none solid rgb(52, 152, 219)",
-                                                                       "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
-                                                                       "font-size": "13px",
-                                                                       "line-height": "22px",
-                                                                       "box-shadow": "none",
-                                                                       "visibility": "hidden",
-                                                                       "height": "0px",
-                                                                       "width": "0px",)
   end
 
   test "text - fallback ad with dark theme" do
@@ -141,20 +96,5 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
                                                  "font-size": "13px",
                                                  "line-height": "22px",
                                                  "box-shadow": "none",)
-    find("img", class: "cf-hidden", visible: false).assert_matches_style("text-decoration": "none solid rgb(119, 131, 143)",
-                                                                         "box-shadow": "none",
-                                                                         "visibility": "hidden",
-                                                                         "height": "0px",
-                                                                         "width": "0px",)
-    find("a", class: "cf-hidden", visible: false).assert_matches_style("color": "rgba(52, 152, 219, 1)",
-                                                                       "cursor": "pointer",
-                                                                       "text-decoration": "none solid rgb(52, 152, 219)",
-                                                                       "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
-                                                                       "font-size": "13px",
-                                                                       "line-height": "22px",
-                                                                       "box-shadow": "none",
-                                                                       "visibility": "hidden",
-                                                                       "height": "0px",
-                                                                       "width": "0px",)
   end
 end

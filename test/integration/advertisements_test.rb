@@ -23,7 +23,8 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   test "js: campaign with matching keywords will not display when country is unknown" do
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": "0.0.0.0"}
     assert response.status == 200
-    assert response.body =~ /CodeFund does not have an advertiser for you at this time/
+    assert response.body =~ /"creative":{"name":null/
+    assert response.body =~ /"urls":{"impression":"","campaign":""/
   end
 
   test "json: campaign with matching keywords will not display when country is unknown" do
@@ -44,7 +45,8 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @premium_campaign.keywords
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
-    assert response.body =~ /CodeFund does not have an advertiser for you at this time/
+    assert response.body =~ /"creative":{"name":null/
+    assert response.body =~ /"urls":{"impression":"","campaign":""/
   end
 
   test "json: campaign with matching country will not display when keywords don't match" do
@@ -66,7 +68,8 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   test "js: campaign with matching keywords will not display when country doesn't match" do
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("CN")}
     assert response.status == 200
-    assert response.body =~ /CodeFund does not have an advertiser for you at this time/
+    assert response.body =~ /"creative":{"name":null/
+    assert response.body =~ /"urls":{"impression":"","campaign":""/
   end
 
   test "json: campaign with matching keywords will not display when country doesn't match" do
@@ -87,7 +90,8 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     @premium_campaign.organization.update balance: Money.new(0, "USD")
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
-    assert response.body =~ /CodeFund does not have an advertiser for you at this time/
+    assert response.body =~ /"creative":{"name":null/
+    assert response.body =~ /"urls":{"impression":"","campaign":""/
   end
 
   test "json: campaign with matching keywords and country will not display when organization has a $0 balance" do
@@ -115,7 +119,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     assert Campaign.fallback.count == 2
     assert response.status == 200
     assert response.body =~ /This is a targeted fallback campaign/
-    assert response.body =~ /house: true/
+    assert response.body =~ /"fallback":true/
   end
 
   # ----------------------------------------------------------------------------------------------------------
@@ -125,7 +129,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": "0.0.0.0"}
     assert response.status == 200
     assert response.body =~ /This is a fallback campaign/
-    assert response.body =~ /house: true/
+    assert response.body =~ /"fallback":true/
   end
 
   test "js: fallback campaign is displayed even when premium campaign with matching country exists but keywords don't match" do
@@ -134,7 +138,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /This is a fallback campaign/
-    assert response.body =~ /house: true/
+    assert response.body =~ /"fallback":true/
   end
 
   # ----------------------------------------------------------------------------------------------------------
@@ -143,7 +147,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /This is a premium campaign/
-    assert response.body =~ /house: false/
+    assert response.body =~ /"fallback":false/
   end
 
   test "json: campaign with targeted keywords and country will display" do
@@ -207,14 +211,16 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     property = copy(properties: :website)
     get advertisements_path(property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
-    assert response.body =~ /CodeFund does not have an advertiser for you at this time/
+    assert response.body =~ /"creative":{"name":null/
+    assert response.body =~ /"urls":{"impression":"","campaign":""/
   end
 
   test "js: campaign with assigned property does not show for untargeted country" do
     @premium_campaign.update assigned_property_ids: [@property.id]
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("CN")}
     assert response.status == 200
-    assert response.body =~ /CodeFund does not have an advertiser for you at this time/
+    assert response.body =~ /"creative":{"name":null/
+    assert response.body =~ /"urls":{"impression":"","campaign":""/
   end
 
   test "js: property will show targeted premium campaign over a zero balance campaign with assigned property" do
@@ -241,7 +247,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     assert Campaign.premium.count == 2
     assert response.status == 200
     assert response.body =~ /This is a premium campaign/
-    assert response.body =~ /house: false/
+    assert response.body =~ /"fallback":false/
   end
 
   # ----------------------------------------------------------------------------------------------------------
@@ -264,7 +270,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     assert Campaign.fallback.count == 2
     assert response.status == 200
     assert response.body =~ /This is an assigned fallback campaign/
-    assert response.body =~ /house: true/
+    assert response.body =~ /"fallback":true/
   end
 
   test "js: property prefers targeted assigned fallbacks" do
@@ -289,7 +295,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     assert Campaign.fallback.count == 3
     assert response.status == 200
     assert response.body =~ /This is an assigned and targeted fallback campaign/
-    assert response.body =~ /house: true/
+    assert response.body =~ /"fallback":true/
   end
 
   test "js: fallback campaign with assigned property will not display on a different property even if the different property assigns the fallback campaign" do
@@ -306,7 +312,8 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     get advertisements_path(other_property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert Property.website.count == 2
     assert response.status == 200
-    assert response.body =~ /CodeFund does not have an advertiser for you at this time/
+    assert response.body =~ /"creative":{"name":null/
+    assert response.body =~ /"urls":{"impression":"","campaign":""/
   end
 
   # ----------------------------------------------------------------------------------------------------------
@@ -319,7 +326,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     assert @premium_campaign.hourly_budget_available?
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
-    assert response.body =~ /house: false/
+    assert response.body =~ /"fallback":false/
   end
 
   test "js: premium ads don't render when over total budget" do
@@ -330,20 +337,22 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     refute @premium_campaign.hourly_budget_available?
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
-    assert response.body =~ /CodeFund does not have an advertiser for you at this time/
+    assert response.body =~ /"creative":{"name":null/
+    assert response.body =~ /"urls":{"impression":"","campaign":""/
   end
 
   test "js: premium ads don't render when over daily budget" do
     premium_impression campaign: @premium_campaign,
-      estimated_gross_revenue_fractional_cents: @premium_campaign.daily_budget.cents,
-      displayed_at: Time.current,
-      displayed_at_date: Date.current
+                       estimated_gross_revenue_fractional_cents: @premium_campaign.daily_budget.cents,
+                       displayed_at: Time.current,
+                       displayed_at_date: Date.current
     assert @premium_campaign.budget_available?
     refute @premium_campaign.daily_budget_available?
     refute @premium_campaign.hourly_budget_available?
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
-    assert response.body =~ /CodeFund does not have an advertiser for you at this time/
+    assert response.body =~ /"creative":{"name":null/
+    assert response.body =~ /"urls":{"impression":"","campaign":""/
   end
 
   test "js: premium ads don't render when over hourly budget" do
@@ -354,7 +363,8 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     refute @premium_campaign.hourly_budget_available?
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
-    assert response.body =~ /CodeFund does not have an advertiser for you at this time/
+    assert response.body =~ /"creative":{"name":null/
+    assert response.body =~ /"urls":{"impression":"","campaign":""/
   end
 
   # ----------------------------------------------------------------------------------------------------------
@@ -364,7 +374,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     get advertisements_path(@property, format: :js), params: {adtest: true}, headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
-    assert response.body =~ /house: true/
+    assert response.body =~ /"fallback":true/
   end
 
   test "js: premium ads render when adtest is not requested" do
@@ -372,7 +382,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
-    assert response.body =~ /house: false/
+    assert response.body =~ /"fallback":false/
   end
 
   test "js: premium ads render when adtest is false" do
@@ -380,6 +390,6 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     get advertisements_path(@property, format: :js), params: {adtest: false}, headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
-    assert response.body =~ /house: false/
+    assert response.body =~ /"fallback":false/
   end
 end

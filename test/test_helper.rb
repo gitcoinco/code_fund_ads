@@ -17,7 +17,7 @@ Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
-  if (workers = Concurrent.processor_count / 2) > 1
+  if (workers = (Concurrent.processor_count / 3.to_f).round) > 1
     puts "Running tests with #{workers} worker processes..."
     parallelize workers: workers
   end

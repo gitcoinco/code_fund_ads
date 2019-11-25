@@ -15,7 +15,7 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
   test "image only - premium ad with light theme" do
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_campaign_link @premium_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "supported by ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "280px", "margin": "0px 552px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "block",
@@ -27,8 +27,8 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-img-wrapper").assert_matches_style("display": "block",
                                                             "margin-bottom": "8px",
                                                             "box-shadow": "none",)
-    find("img", class: "cf-img").assert_matches_style("width": "72.0156px",
-                                                      "height": "19px",
+    find("img", class: "cf-img").assert_matches_style("width": "150px",
+                                                      "height": "150px",
                                                       "position": "relative",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "padding": "0px",
@@ -47,7 +47,7 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
     @property.update ad_theme: "dark"
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_campaign_link @premium_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "supported by ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "280px", "margin": "0px 552px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "block",
@@ -59,8 +59,8 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-img-wrapper").assert_matches_style("display": "block",
                                                             "margin-bottom": "8px",
                                                             "box-shadow": "none",)
-    find("img", class: "cf-img").assert_matches_style("width": "72.0156px",
-                                                      "height": "19px",
+    find("img", class: "cf-img").assert_matches_style("width": "150px",
+                                                      "height": "150px",
                                                       "position": "relative",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "padding": "0px",
@@ -79,7 +79,7 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
     @premium_campaign.update keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_campaign_link @fallback_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "supported by ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "280px", "margin": "0px 552px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "block",
@@ -91,8 +91,8 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-img-wrapper").assert_matches_style("display": "block",
                                                             "margin-bottom": "8px",
                                                             "box-shadow": "none",)
-    find("img", class: "cf-img").assert_matches_style("width": "68.1406px",
-                                                      "height": "19px",
+    find("img", class: "cf-img").assert_matches_style("width": "150px",
+                                                      "height": "150px",
                                                       "position": "relative",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "padding": "0px",
@@ -111,7 +111,7 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
     @property.update keywords: [], ad_theme: "dark"
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_campaign_link @fallback_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "supported by ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "280px", "margin": "0px 552px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "block",
@@ -123,8 +123,8 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-img-wrapper").assert_matches_style("display": "block",
                                                             "margin-bottom": "8px",
                                                             "box-shadow": "none",)
-    find("img", class: "cf-img").assert_matches_style("width": "68.1406px",
-                                                      "height": "19px",
+    find("img", class: "cf-img").assert_matches_style("width": "150px",
+                                                      "height": "150px",
                                                       "position": "relative",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "padding": "0px",

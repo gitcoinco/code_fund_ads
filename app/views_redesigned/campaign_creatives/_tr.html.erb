@@ -2,8 +2,8 @@
   <%= table_data add_class: ("text-center align-middle" if @campaign.standard?) do %>
     <% if @campaign.standard? %>
       <small class="d-block text-dark"><%= authorized_user.can_admin_system? ? link_to(report.scoped_by.name, report.scoped_by) : report.scoped_by.name %></small>
-      <iframe src="<%= creative_previews_path(report.scoped_by, template: "square", theme: "light", html_only: true) %>"
-        height="270" style="height:365px; width:100%; border:0; margin:0; padding:0; resize:horizontal;"
+      <iframe src="<%= advertisement_preview_iframe_path(@campaign, creative_id: report.scoped_by.id, template: "square", theme: "light") %>"
+        style="height:375px; width:100%; border:0; margin:0; padding:0; resize:horizontal;"
         frameBorder="0" scrolling="no" class=""></iframe>
     <% end %>
     <% if @campaign.sponsor? %>

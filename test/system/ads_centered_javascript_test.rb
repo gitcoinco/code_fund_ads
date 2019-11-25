@@ -16,7 +16,7 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
     assert_creative_headline @premium_campaign
     assert_creative_body @premium_campaign
     assert_campaign_link @premium_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a premium campaign ethical ad by CodeFund")
 
     assert_selector("div#cf")
     find("div", class: "cf-wrapper").assert_matches_style("max-width": "330px",
@@ -48,7 +48,7 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
     assert_creative_headline @premium_campaign
     assert_creative_body @premium_campaign
     assert_campaign_link @premium_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a premium campaign ethical ad by CodeFund")
 
     assert_selector("div#cf")
     find("div", class: "cf-wrapper").assert_matches_style("max-width": "330px",
@@ -80,7 +80,7 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
     assert_campaign_link @fallback_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a fallback campaign ethical ad by CodeFund")
 
     assert_selector("div#cf")
     find("div", class: "cf-wrapper").assert_matches_style("max-width": "330px",
@@ -112,7 +112,7 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
     assert_campaign_link @fallback_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a fallback campaign ethical ad by CodeFund")
 
     assert_selector("div#cf")
     find("div", class: "cf-wrapper").assert_matches_style("max-width": "330px",

@@ -63,6 +63,6 @@ class DownloadAndExtractMaxmindFileJob < ApplicationJob
         end
       end
     end
-    FileUtils.rm_rf tarred_path
+    # FileUtils.rm_rf tarred_path
   end
 end

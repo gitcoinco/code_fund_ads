@@ -1,0 +1,8 @@
+import './theme.scss'
+export default {
+  mustache: '<%= File.read(Rails.root.join("app/javascript/advertisements/top-bar/template.html.mustache"), encoding: "UTF-8").squish %>',
+  initialize: ad => {
+    document.body.prepend(ad.container)
+    if (ad.visible) ad.trackImpression()
+  }
+}

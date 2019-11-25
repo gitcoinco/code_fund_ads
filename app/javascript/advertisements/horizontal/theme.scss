@@ -1,0 +1,115 @@
+$label-text: 'Ad';
+
+#cf[data-template='horizontal'] {
+  &[data-theme='dark'] {
+    $bg-color: rgba(255, 255, 255, 0.2);
+    $text-color: rgba(255, 255, 255, 0.7);
+    $border-color: #bfbfbf;
+    $label-bg-color: #4caf50;
+    $label-text-color: #ffffff;
+    $link-color: #ffffff;
+    $powered-by-color: rgba(255, 255, 255, 0.5);
+
+    .cf-wrapper {
+      background-color: $bg-color;
+    }
+
+    .cf-text {
+      color: $text-color;
+      &:before {
+        background-color: $label-bg-color;
+        color: $label-text-color;
+      }
+    }
+
+    .cf-cta {
+      color: $link-color;
+    }
+    
+    .cf-powered-by {
+      color: $powered-by-color;
+    }
+  }
+
+  &[data-theme='light'] {
+    $bg-color: rgba(246, 252, 220, 0.6);
+    $text-color: rgba(0, 0, 0, 0.6);
+    $border-color: #bfbfbf;
+    $label-bg-color: #4caf50;
+    $label-text-color: #ffffff;
+    $link-color: #2c6ac7;
+    $powered-by-color: rgba(0, 0, 0, 0.5);
+
+    .cf-wrapper {
+      background-color: $bg-color;
+    }
+
+    .cf-text {
+      color: $text-color;
+      &:before {
+        background-color: $label-bg-color;
+        color: $label-text-color;
+      }
+    }
+
+    .cf-cta {
+      color: $link-color;
+    }
+    
+    .cf-powered-by {
+      color: $powered-by-color;
+    }
+  }
+
+  .cf-wrapper {
+    font-size: 14px;
+    box-sizing: border-box;
+    width: 100%;
+    line-height: 1.5;
+    display: block;
+    padding: 12px 11px;
+    text-align: left;
+    margin: 12px 0;
+  }
+
+  .cf-text:before {
+    margin-right: 4px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    content: $label-text;
+  }
+
+  .cf-text {
+    text-decoration: none;
+  }
+
+  .cf-cta {
+    text-decoration: underline;
+  }
+
+  .cf-label {
+    margin-right: 4px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    background-color: #08c;
+    color: #fafafa;
+  }
+
+  .cf-powered-by {
+    text-decoration: none;
+    float: right;
+    font-size: 11px;
+    line-height: 22px;
+  }
+
+  .cf-powered-by:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 859px) {
+  .cf-powered-by {
+    display: none;
+  }
+}

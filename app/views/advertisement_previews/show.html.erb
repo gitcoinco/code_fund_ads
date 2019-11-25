@@ -16,7 +16,6 @@
   <p>
     <%= link_to "Back", :back %> ∙
     <%= link_to "Edit Campaign", edit_campaign_path(@campaign) %> ∙
-    <%= link_to "Edit Creative", edit_creative_path(@campaign.creative) %>
   </p>
 
   <% ENUMS::AD_TEMPLATES.keys.each do |template_name| %>
@@ -24,28 +23,12 @@
       <%
         @num ||= 0
         @num += 1
-        template_path = "/ad_templates/#{template_name}/show.html.erb"
-        theme_path = "/ad_templates/#{template_name}/themes/#{theme_name}.css"
-        template = controller.render_to_string(template: template_path, layout: false) rescue nil
-        theme = theme_name == "unstyled" ? "" : controller.render_to_string(template: theme_path, layout: false) rescue nil
       %>
-      <% if template.nil? %>
-        <div class="ad error">
-          <h2><%= @num %>. <%= template_name %> + <%= theme_name %></h2>
-          <p>NOT FOUND <%= template_path %></p>
-        </div>
-      <% elsif theme.nil? %>
-        <div class="ad error">
-          <h2><%= @num %>. <%= template_name %> + <%= theme_name %></h2>
-          <p>NOT FOUND <%= theme_path %></p>
-        </div>
-      <% else %>
-        <div class="ad <%= theme_name %>">
-          <h2><%= @num %>. <%= template_name %> + <%= theme_name %></h2>
-          <%= link_to "View this ad on its own page", advertisement_preview_iframe_path(@campaign, template: template_name, theme: theme_name) %>
-          <%= tag.iframe src: advertisement_preview_iframe_path(@campaign, template: template_name, theme: theme_name) %>
-        </div>
-      <% end %>
+      <div class="ad <%= theme_name %>">
+        <h2><%= @num %>. <%= template_name %> + <%= theme_name %></h2>
+        <%= link_to "View this ad on its own page", advertisement_preview_iframe_path(@campaign, template: template_name, theme: theme_name) %>
+        <%= tag.iframe src: advertisement_preview_iframe_path(@campaign, template: template_name, theme: theme_name) %>
+      </div>
     <% end %>
   <% end %>
 

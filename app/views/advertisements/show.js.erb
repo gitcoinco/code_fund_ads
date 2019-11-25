@@ -1,94 +1,38 @@
-(function() {
-  function embed () {
-    var evt = new Event('codefund');
-    <% if @advertisement_html -%>
-    var uplift = {};
+(function () {
+  let timeout;
 
-    function trackUplift() {
-      try {
-        var url = '<%= @uplift_url.html_safe %>';
-        console.log('CodeFund is recording uplift. ' + url);
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', url);
-        xhr.send();
-      } catch (e) {
-        console.log('CodeFund was unable to record uplift! ' + e.message);
-      }
-    };
-
-    function verifyUplift() {
-      if (uplift.pixel1 === undefined || uplift.pixel2 === undefined) { return; }
-      if (uplift.pixel1 && !uplift.pixel2) { trackUplift(); }
+  function init(attempts) {
+    clearTimeout(timeout)
+    attempts = attempts || 1
+    if (attempts > 3) return
+    if (typeof CodeFundAd === 'undefined') {
+      timeout = setTimeout(function () { init(attempts + 1) }, 350)
+      return
     }
+    new CodeFundAd(<%= advertisement_mustache_template_options.to_json.html_safe %>)
+  }
 
-    function detectUplift(count) {
-      var url = '<%= ENV["ADBLOCK_PLUS_PIXEL_URL"].to_s.strip %>';
-      if (url.length === 0) { return; }
-      var xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 4) {
-          if (xhr.status >= 200 && xhr.status < 300) {
-            if (count === 1) { detectUplift(2); }
-            uplift['pixel' + count] = true;
-          } else {
-            uplift['pixel' + count] = false;
-          }
-          verifyUplift();
-        }
-      };
-      xhr.open('GET', url + '?ch=' + count + '&rnd=' + Math.random() * 11);
-      xhr.send();
-    }
+  const codefundStylesheetId = 'codefund-style'
+  const codefundScriptId = 'codefund-script'
 
-    function elementVisible(element) {
-      if (!element) { return false; }
+  if (!document.getElementById(codefundStylesheetId)) {
+    const stylesheet = document.createElement('link')
+    stylesheet.setAttribute('id', codefundStylesheetId)
+    stylesheet.setAttribute('rel', 'stylesheet')
+    stylesheet.setAttribute('media', 'all')
+    stylesheet.setAttribute('href', '<%= asset_pack_url "code_fund_ad.css" %>')
+    stylesheet.addEventListener('load', init)
+    document.head.appendChild(stylesheet)
+  }
 
-      while (element) {
-        var style = getComputedStyle(element);
-        if (style.visibility === 'hidden' || style.display === 'none') { return false; }
-        element = element.parentElement;
-      }
-
-      return true;
-    }
-
-    function closeCodeFund() {
-      var codeFundElement = document.getElementById('codefund') || document.getElementById('<%= @target %>');
-      codeFundElement.remove();
-      sessionStorage.setItem('codefund', 'closed');
-    }
-
-    try {
-      if (sessionStorage.getItem('codefund') === 'closed') { return; }
-
-      var codeFundElement = document.getElementById('codefund') || document.getElementById('<%= @target %>');
-      if (!elementVisible(codeFundElement)) {
-        console.log('CodeFund element not visible! Please verify an element exists with id="codefund" and that it is visible.');
-        return;
-      }
-
-      codeFundElement.innerHTML = '<%= @advertisement_html.html_safe %>';
-      codeFundElement.querySelector('img[data-src="impression_url"]').src = '<%= @impression_url.html_safe %>';
-      codeFundElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '<%= @campaign_url.html_safe %>'; });
-
-      var poweredByElement = codeFundElement.querySelector('a[data-target="powered_by_url"]');
-      if (poweredByElement) { poweredByElement.href = '<%= @powered_by_url.html_safe %>'; }
-
-      var closeElement = codeFundElement.querySelector('button[data-behavior="close"]');
-      if (closeElement) { closeElement.addEventListener('click', closeCodeFund); }
-
-      evt.detail = { status: 'ok', house: <%= @campaign.fallback? %> };
-      detectUplift(1);
-    } catch (e) {
-      console.log('CodeFund detected an error! Please verify an element exists with id="codefund". ' + e.message);
-      evt.detail = { status: 'error', message: e.message };
-    }
-    <% else -%>
-      console.log('CodeFund does not have an advertiser for you at this time.');
-      evt.detail = { status: 'no-advertiser' };
-    <% end -%>
-    document.removeEventListener('DOMContentLoaded', embed);
-    window.dispatchEvent(evt);
-  };
-  (document.readyState === 'loading') ? document.addEventListener('DOMContentLoaded', embed) : embed();
-})();
+  if (document.getElementById(codefundScriptId)) {
+    init()
+  } else {
+    const script = document.createElement('script')
+    script.setAttribute('id', codefundScriptId)
+    script.setAttribute('type', 'text/javascript')
+    script.setAttribute('src', '<%= asset_pack_url "code_fund_ad.js" %>')
+    script.addEventListener('load', init)
+    document.head.appendChild(script)
+  }
+})()

@@ -7,10 +7,10 @@ pre_window: asdf local ruby 2.6.5; asdf local nodejs 13.0.1;
 
 windows:
   - editor: nvim
-  - console: sleep 10; bundle exec rails c
+  - console: bundle exec rails c
   - server:
       layout: main-vertical
       panes:
         - bundle exec rails s
         - bundle exec ./bin/webpack-dev-server
-  - workers: sleep 5; bundle exec sidekiq -C config/sidekiq.yml
+  - workers: bundle exec sidekiq -C config/sidekiq.yml

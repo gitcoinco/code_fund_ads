@@ -1,0 +1,20 @@
+<div id="cf" data-template="media" data-theme="{{theme}}">
+  <span class="cf-wrapper">
+    <a href="{{urls.campaign}}" class="cf-img-wrapper" target="_blank" rel="sponsored noopener">
+      <img src="{{creative.imageUrls.small}}" alt="{{creative.name}}" border="0" height="48" width="48" class="cf-img">
+    </a>
+    <div class="cf-media-body">
+      <a href="{{urls.campaign}}" class="cf-text" target="_blank" rel="sponsored noopener">
+        <strong>{{creative.headline}}</strong>
+        <span>
+          {{creative.body}}
+          <span class="cf-link">{{creative.cta}}</span>
+        </span>
+      </a>
+      <a href="{{urls.poweredBy}}" class="cf-powered-by" target="_blank" rel="sponsored noopener">
+        <em>ethical</em> ad by CodeFund
+      </a>
+      <img data-src="{{urls.impression}}" data-behavior="trackImpression" class="cf-impression" alt="">
+    </div>
+  </span>
+</div>

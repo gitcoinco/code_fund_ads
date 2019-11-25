@@ -1,0 +1,15 @@
+<div id="cf" data-template="sticky-box" data-theme="{{theme}}">
+  <a href="{{urls.poweredBy}}" class="cf-powered-by" rel="noopener sponsored" target="_blank">ad</a>
+  <a href="{{urls.campaign}}" class="cf-sponsored-by" target="_blank" rel="sponsored noopener">
+    <img src="{{creative.imageUrls.small}}" alt="{{creative.name}}" border="0" height="65" width="65" class="cf-img">
+    <span class="cf-text">
+      <strong class="cf-headline">{{creative.headline}}</strong>
+      <span class="cf-body">
+        {{creative.body}}
+        <span class="cf-link">{{creative.cta}}</span>
+      </span>
+    </span>
+    <img data-src="{{urls.impression}}" data-behavior="trackImpression" class="cf-impression" alt="">
+  </a>
+  <span data-behavior="close">✕</span>
+</div>

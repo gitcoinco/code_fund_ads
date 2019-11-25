@@ -1,0 +1,24 @@
+import './theme.scss'
+export default {
+  mustache: '<%= File.read(Rails.root.join("app/javascript/advertisements/sticky-box/template.html.mustache"), encoding: "UTF-8").squish %>',
+  initialize: ad => {
+    switch (ad.container.dataset.position) {
+      case 'top left':
+        ad.element.style.top = "20px"
+        ad.element.style.left = "20px"
+        break
+      case 'top right':
+        ad.element.style.top = "20px"
+        ad.element.style.right = "20px"
+        break
+      case 'bottom left':
+        ad.element.style.bottom = "20px"
+        ad.element.style.left = "20px"
+        break
+      default:
+        ad.element.style.bottom = "20px"
+        ad.element.style.right = "20px"
+    }
+    if (ad.visible) ad.trackImpression()
+  }
+}

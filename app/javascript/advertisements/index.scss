@@ -1,0 +1,20 @@
+// default styles for all ads
+#cf[data-template] {
+  &[data-theme='dark'], &[data-theme='light'] {
+    &,
+    * {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    }
+
+    a {
+      box-shadow: none;
+    }
+
+    .cf-impression {
+      visibility: hidden;
+      width: 0;
+      height: 0;
+      border-style: none;
+    }
+  }
+}

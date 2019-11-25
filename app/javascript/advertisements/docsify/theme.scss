@@ -1,0 +1,123 @@
+#cf[data-template='docsify'][data-theme='dark'] {
+  margin: 0 auto;
+  max-width: 330px;
+
+  a {
+    box-shadow: none !important;
+    text-decoration: none;
+  }
+
+  .cf-wrapper {
+    display: block;
+    padding: 15px;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  .cf-img-wrapper {
+    float: left;
+    margin-right: 15px;
+  }
+
+  .cf-img {
+    vertical-align: middle;
+    border-style: none;
+    max-width: 65px;
+    position: relative;
+  }
+
+  .cf-text {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .cf-text strong {
+    color: rgba(255, 255, 255, 1);
+  }
+
+  .cf-powered-by {
+    margin-top: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+    text-align: center;
+    display: block;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 2.2;
+    padding: 10px auto;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .clearfix {
+    overflow: auto;
+  }
+
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}
+
+#cf[data-template='docsify'][data-theme='light'] {
+  margin: 0 auto;
+  max-width: 330px;
+
+  a {
+    box-shadow: none !important;
+    text-decoration: none;
+  }
+
+  .cf-wrapper {
+    display: block;
+    padding: 15px;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 1.4;
+    text-align: left;
+    font-family: Helvetica, Arial, sans-serif;
+  }
+
+  .cf-img-wrapper {
+    float: left;
+    margin-right: 15px;
+  }
+
+  .cf-img {
+    vertical-align: middle;
+    border-style: none;
+    max-width: 65px;
+    position: relative;
+  }
+
+  .cf-text {
+    color: #333;
+  }
+
+  .cf-powered-by {
+    margin-top: 8px;
+    background-color: hsla(0, 0%, 0%, 0.05);
+    text-align: center;
+    display: block;
+    font-size: 9px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    line-height: 2.2;
+    padding: 10px auto;
+    text-transform: uppercase;
+    color: hsla(0, 0%, 0%, 0.8);
+  }
+
+  .clearfix {
+    overflow: auto;
+  }
+
+  .clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+}

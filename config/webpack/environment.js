@@ -1,20 +1,20 @@
-const { environment } = require('@rails/webpacker');
-const erb = require('./loaders/erb');
-const webpack = require('webpack');
+const { environment } = require('@rails/webpacker')
+const erb = require('./loaders/erb')
+const webpack = require('webpack')
 
 environment.config.merge({
   resolve: {
     alias: {
-      Circles: 'themes/current/vendor/circles/circles.min',
-    },
-  },
-});
+      Circles: 'themes/current/vendor/circles/circles.min'
+    }
+  }
+})
 
 environment.plugins.prepend(
   'Provide',
   new webpack.ProvidePlugin({
     jQuery: 'jquery',
-    '$': 'jquery',
+    $: 'jquery',
     'window.jQuery': 'jquery',
     Popper: ['popper.js', 'default'],
     Chartist: 'chartist',
@@ -22,9 +22,9 @@ environment.plugins.prepend(
     SVGInjector: 'svg-injector',
     Noty: 'noty',
     Circles: 'Circles',
-    ClipboardJS: 'clipboard',
+    ClipboardJS: 'clipboard'
   })
-);
+)
 
-environment.loaders.append('erb', erb);
-module.exports = environment;
+environment.loaders.prepend('erb', erb)
+module.exports = environment

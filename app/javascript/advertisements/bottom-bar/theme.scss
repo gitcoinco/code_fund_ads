@@ -1,0 +1,184 @@
+$label-text: 'Ad';
+
+#cf[data-template='bottom-bar'] {
+  &[data-theme='dark'] {
+    $bg-color: #eeeeee;
+    $text-color: rgba(0, 0, 0, 0.8);
+    $border-color: #bfbfbf;
+    $label-bg-color: #4caf50;
+    $label-text-color: #ffffff;
+    $powered-by-color: rgba(0, 0, 0, 0.5);
+
+    .cf-wrapper {
+      border-color: $border-color;
+      background-color: $bg-color;
+    }
+
+    .cf-text {
+      color: $text-color;
+      &:before {
+        background-color: $label-bg-color;
+        color: $label-text-color;
+      }
+    }
+
+    .cf-footer {
+      color: $powered-by-color;
+      .cf-close {
+        color: $powered-by-color;
+        &:hover {
+          color: $text-color;
+        }
+      }
+      .cf-powered-by {
+        color: $powered-by-color;
+        &:hover {
+          color: $text-color;
+        }
+      }
+    }
+  }
+
+  &[data-theme='light'] {
+    $bg-color: #eeeeee;
+    $text-color: rgba(0, 0, 0, 0.6);
+    $border-color: #bfbfbf;
+    $label-bg-color: #4caf50;
+    $label-text-color: #ffffff;
+    $powered-by-color: rgba(0, 0, 0, 0.5);
+
+    .cf-wrapper {
+      border-color: $border-color;
+      background-color: $bg-color;
+    }
+    
+    .cf-text {
+      color: $text-color;
+      &:before {
+        background-color: $label-bg-color;
+        color: $label-text-color;
+      }
+    }
+
+    .cf-footer {
+      color: $powered-by-color;
+      .cf-close {
+        color: $powered-by-color;
+        &:hover {
+          color: $text-color;
+        }
+      }
+      .cf-powered-by {
+        color: $powered-by-color;
+        &:hover {
+          color: $text-color;
+        }
+      }
+    }
+  }
+
+  &[data-theme='blue'] {
+    $bg-color: #2c6ac7;
+    $text-color: #ffffff;
+    $border-color: #1c1565;
+    $label-bg-color: #1c1565;
+    $label-text-color: #ffffff;
+    $powered-by-color: rgba(255, 255, 255, 0.5);
+
+    .cf-wrapper {
+      border-color: $border-color;
+      background-color: $bg-color;
+    }
+    
+    .cf-text {
+      color: $text-color;
+      &:before {
+        background-color: $label-bg-color;
+        color: $label-text-color;
+      }
+    }
+
+    .cf-footer {
+      color: $powered-by-color;
+      .cf-close {
+        color: $powered-by-color;
+        &:hover {
+          color: $text-color;
+        }
+      }
+      .cf-powered-by {
+        color: $powered-by-color;
+        &:hover {
+          color: $text-color;
+        }
+      }
+    }
+  }
+
+  .cf-wrapper {
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 5000;
+    padding: 10px 20px 12px 20px;
+    width: 100%;
+    border-top: solid 1px;
+    line-height: 1.5;
+    display: flex;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .cf-text {
+    text-decoration: none;
+    box-shadow: none;
+    font-size: 14px;
+  }
+
+  .cf-text:before {
+    margin-right: 4px;
+    padding: 2px 6px;
+    border-radius: 3px;
+    content: $label-text;
+  }
+
+  .cf-cta {
+    text-decoration: underline;
+  }
+
+  .cf-footer {
+    font-size: 11px;
+    line-height: 22px;
+    text-decoration: none;
+    box-shadow: none;
+
+    .cf-close {
+      cursor: pointer;
+    }
+
+    .cf-powered-by {
+      text-decoration: none;
+    }
+  }
+
+  @media only screen and (min-width: 480px) and (max-width: 859px) {
+    .cf-text {
+      font-size: 14px;
+      margin-right: 0;
+    }
+    .cf-footer {
+      display: none;
+    }
+  }
+
+  @media only screen and (min-width: 320px) and (max-width: 479px) {
+    .cf-text {
+      font-size: 12px;
+      margin-right: 0;
+    }
+    .cf-footer {
+      display: none;
+    }
+  }
+}

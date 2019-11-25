@@ -9,7 +9,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("codeFundElement.innerHTML = '<div id=\"cf\"")
+    assert response.body.include?("click?campaign_id=#{campaign.id}")
   end
 
   test "get advertisement with active & geo matching campaign" do
@@ -18,7 +18,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     self.remote_addr = ip_address(campaign.country_codes.sample)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("codeFundElement.innerHTML = '<div id=\"cf\"")
+    assert response.body.include?("click?campaign_id=#{campaign.id}")
   end
 
   test "get advertisement with active but no geo matching campaigns" do
@@ -27,7 +27,8 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     self.remote_addr = ip_address("US")
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
+    assert response.body =~ /"creative":{"name":null/
+    assert response.body =~ /"urls":{"impression":"","campaign":""/
   end
 
   test "get advertisement with no matching campaigns" do
@@ -35,7 +36,8 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
+    assert response.body =~ /"creative":{"name":null/
+    assert response.body =~ /"urls":{"impression":"","campaign":""/
   end
 
   test "get advertisement with fallback campaign if request is local" do
@@ -44,7 +46,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("codeFundElement.innerHTML = '<div id=\"cf\"")
+    assert response.body.include?("click?campaign_id=#{campaign.id}")
   end
 
   test "get advertisement with active campaign if request is local" do
@@ -53,7 +55,8 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
+    assert response.body =~ /"creative":{"name":null/
+    assert response.body =~ /"urls":{"impression":"","campaign":""/
   end
 
   test "get advertisement with fallback campaign" do
@@ -61,7 +64,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("codeFundElement.innerHTML = '<div id=\"cf\"")
+    assert response.body.include?("click?campaign_id=#{campaign.id}")
   end
 
   test "get advertisement with paid fallback campaign" do
@@ -70,7 +73,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property = properties(:website)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("codeFundElement.innerHTML = '<div id=\"cf\"")
+    assert response.body.include?("click?campaign_id=#{campaign.id}")
   end
 
   test "get advertisement with fallback campaign when property doesn't allow fallbacks" do
@@ -79,7 +82,8 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property.update! prohibit_fallback_campaigns: true
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body.include?("CodeFund does not have an advertiser for you at this time.")
+    assert response.body =~ /"creative":{"name":null/
+    assert response.body =~ /"urls":{"impression":"","campaign":""/
   end
 
   test "get sponsor advertisement without active campaign" do
