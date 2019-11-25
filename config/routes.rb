@@ -2,6 +2,12 @@ require "sidekiq/web"
 Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
 
 Rails.application.routes.draw do
+  if ENV["REDESIGN"] == "true"
+    %w[403 404 422 500].each do |code|
+      get code, controller: :errors, action: :error, code: code
+    end
+  end
+
   scope module: "buttercms" do
     get "/categories/:slug" => "categories#show", :as => :buttercms_category
     get "/author/:slug" => "authors#show", :as => :buttercms_author
@@ -26,7 +32,6 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     sessions: "sessions",
     invitations: "invitations",
-    omniauth_callbacks: "omniauth_callbacks",
   }
 
   resources :jobs, only: [:index]

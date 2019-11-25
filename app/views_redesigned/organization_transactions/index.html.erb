@@ -20,7 +20,7 @@
         <% end %>
       </div>
     <% end %>
-    <%= card_body do %>
+    <%= card_body padding: "p-0" do %>
       <%= render "/organization_transactions/table", organization: @organization, organization_transactions: @organization_transactions, pagy: @pagy %>
     <% end %>
   <% end %>

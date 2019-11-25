@@ -1,15 +1,12 @@
-
-<svg width="34px" height="54px" viewBox="0 0 34 54" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
-    <desc>Kudos</desc>
-    <defs>
-    </defs>
-    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="symbol" transform="translate(-1.000000, 2.000000)">
-            <path d="M9.35153846,3 L1,17.1728802 L9.35153846,31.3452632 L26.0548692,31.3452632 L34.4061538,17.1728802 L26.0548692,3 L9.35153846,3 Z M1.29311213,17.1728802 L9.49822141,3.24864266 L25.9081862,3.24864266 L34.1132955,17.1728802 L25.9081862,31.0966205 L9.49822141,31.0966205 L1.29311213,17.1728802 Z" id="Fill-1" stroke="#0ECF7C" stroke-width="3.61999989" transform="translate(17.703077, 17.172632) rotate(-270.000000) translate(-17.703077, -17.172632) "></path>
-            <text id="Kudos" font-family="Muli-SemiBold, Muli, sans-serif" font-size="12" font-weight="500" fill="#FFFFFF">
-                <tspan x="0" y="51">Kudos</tspan>
-            </text>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>Artboard Copy</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Artboard-Copy" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="svg16" transform="translate(2.000000, 1.000000)">
+            <path d="M-0.381185185,4.45185 L1.79214815,0.62745 L6.13851852,0.62745 L8.31155556,4.45185 L6.13851852,8.27595 L1.79185185,8.27595 L-0.381185185,4.45185 Z M1.79214815,0.62745 L-0.381185185,4.45185 L1.79214815,8.27595 L6.13851852,8.27595 L8.31155556,4.45185 L6.13851852,0.62745 L1.79214815,0.62745 Z" id="Shape" stroke="#FFFFFF" transform="translate(3.965185, 4.451700) rotate(90.000000) translate(-3.965185, -4.451700) "></path>
+            <path d="M0.706074074,4.7496 L2.3357037,2.0178 L5.59585185,2.0178 L7.22548148,4.7496 L5.59585185,7.4811 L2.3357037,7.4811 L0.706074074,4.7496 Z M2.3357037,2.0178 L0.706074074,4.7496 L2.3357037,7.4811 L5.59585185,7.4811 L7.22548148,4.7496 L5.59585185,2.0178 L2.3357037,2.0178 Z" id="Shape" stroke="#25E899" transform="translate(3.965778, 4.749450) rotate(90.000000) translate(-3.965778, -4.749450) "></path>
         </g>
     </g>
 </svg>

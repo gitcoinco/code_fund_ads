@@ -1,0 +1,39 @@
+// =========== Top Navbar ===========
+.menu-item > .menu-link > i {
+  opacity: 0.4;
+}
+
+.menu-item.has-active > .menu-link > i {
+  opacity: 1;
+}
+
+// =========== Tabs ===========
+@media (max-width: 768px) {
+  // TODO: issue on mobile
+  .nav-tabs-wrapper {
+    overflow-x: scroll;
+    overflow-y: visible;
+    z-index: 1000;
+    -webkit-overflow-scrolling: touch;
+    .nav-tabs {
+      overflow-y: visible;
+      z-index: 1001;
+    }
+  }
+}
+
+.nav.nav-tabs {
+  flex-wrap: nowrap !important;
+  flex-grow: 1 !important;
+}
+
+// =========== Sidebar ===========
+@media (max-width: 768px) {
+  .app-aside {
+    z-index: 10000;
+  }
+  .aside-menu {
+    height: 100vh;
+    overflow-y: auto;
+  }
+}

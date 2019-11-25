@@ -1,5 +1,5 @@
 <%= table_row add_class: classes("even": user_counter.even?, "odd": user_counter.odd?, "table-dark": user.blacklisted?) do %>
-  <%= table_data do %>
+  <%= table_data add_style: "width:20%;" do %>
     <div class="media align-items-center">
       <span class="user-avatar user-avatar-sm bg-muted position-relative mr-3">
         <%= user_avatar_image_tag(user, "img-fluid rounded-circle") %>

@@ -21,22 +21,16 @@ module CodeFundAds
     config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
     config.active_record.schema_format = :sql
     config.active_job.queue_adapter = :sidekiq
+    config.exceptions_app = routes
 
     config.generators do |g|
       g.assets false
       g.stylesheets false
     end
 
-    # https://github.com/plataformatec/devise/wiki/How-To:-Create-custom-layouts
     config.to_prepare do
-      [Devise::SessionsController,
-       Devise::RegistrationsController,
-       Devise::ConfirmationsController,
-       Devise::UnlocksController,
-       Devise::InvitationsController,
-       Devise::PasswordsController,
-       UserPasswordsController,].each do |views|
-        views.layout proc { |controller| Rails.env.development? && ENV["REDESIGN"] == "true" ? "application_redesign" : "authentication" }
+      if Rails.env.development? && ENV["REDESIGN"] == "true"
+        ApplicationController.layout "application_redesign"
       end
     end
   end

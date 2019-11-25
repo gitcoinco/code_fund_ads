@@ -1,8 +1,38 @@
 <aside class="app-aside app-aside-expand-md app-aside-light" data-controller="sidebar">
   <div class="aside-content">
-    <div class="aside-menu overflow-hidden">
+    <header class="aside-header d-flex d-md-none">
+      <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside">
+        <span class="user-avatar user-avatar-lg">
+          <%= user_avatar_image_tag(current_user, "") %>
+        </span>
+        <span class="account-icon">
+          <span class="fa fa-caret-down fa-lg"></span>
+        </span> <span class="account-summary">
+          <span class="account-name"><%= current_user.name %></span>
+        </span>
+      </button>
+      <div id="dropdown-aside" class="dropdown-aside collapse">
+        <div class="pb-3">
+          <%= link_to edit_user_path(current_user), class: "dropdown-item" do %>
+            <span class="dropdown-icon fas fa-user"></span> Profile
+          <% end %>
+          <%= link_to destroy_user_session_path, class: "dropdown-item" do %>
+            <span class="dropdown-icon fas fa-sign-out"></span>
+            Logout
+          <% end %>
+          <% if current_user != true_user %>
+            <%= link_to stop_user_impersonation_path, class: "dropdown-item" do %>
+              <span class="dropdown-icon fas fa-undo"></span>
+              Back to <%= true_user.first_name %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </header>
+    <div class="aside-menu">
       <nav id="stacked-menu" class="stacked-menu">
         <ul class="menu">
+          <li class="menu-header" style="margin-top: 0px;">Report Dates</li>
           <li class="menu-item">
             <%= render "/shared/date_range_picker" %>
           </li>
@@ -19,5 +49,8 @@
         </ul>
       </nav>
     </div>
+    <footer class="aside-footer border-top p-3 text-center">
+      You earned <a href="#" class="text-dark" style="font-weight: bold;">$3,251</a>
+    </footer>
   </div>
 </aside>

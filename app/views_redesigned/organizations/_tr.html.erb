@@ -11,13 +11,13 @@
   <%= table_data do %>
     <%= link_to organization.name, organization, class: "text-link" %>
   <% end %>
-  <%= table_data add_class: "text-success", add_style: "width: 175px;" do %>
+  <%= table_data add_class: "text-success", add_style: "width:15%;" do %>
     <%= organization.total_credits.format %>
   <% end %>
-  <%= table_data add_class: "text-danger", add_style: "width: 175px;" do %>
+  <%= table_data add_class: "text-danger", add_style: "width:15%;" do %>
     - <%= organization.total_debits.format %>
   <% end %>
-  <%= table_data add_style: "width: 175px;" do %>
+  <%= table_data add_style: "width:15%;" do %>
     <%= link_to organization.balance.format, organization_transactions_path(organization),
       class: classes(
         "text-link text-success": organization.balance > 0,
@@ -25,7 +25,7 @@
         "text-link text-muted": organization.balance.zero?
       ) %>
   <% end %>
-  <%= table_data do %>
+  <%= table_data add_class: "text-right" do %>
     <%= edit_button(link: edit_organization_path(organization)) %>
   <% end %>
 <% end %>

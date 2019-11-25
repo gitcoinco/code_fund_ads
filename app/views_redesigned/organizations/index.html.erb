@@ -8,7 +8,9 @@
   <%= render partial: "/organization_searches/form",
             layout: "/shared/collapsible_search_form",
             locals: { search: @organization_search } %>
-  <article class="bg-white p-4 mb-4">
-    <%= render "/organizations/table", organizations: @organizations, pagy: @pagy %>
+  <article class="mb-4">
+    <div class="bg-white shadow-sm">
+      <%= render "/organizations/table", organizations: @organizations, pagy: @pagy %>
+    </div>
   </article>
 </section>

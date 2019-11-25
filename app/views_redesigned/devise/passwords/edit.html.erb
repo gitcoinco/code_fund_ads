@@ -3,26 +3,22 @@
     <%= f.error_notification %>
     <%= f.input :reset_password_token, as: :hidden %>
     <%= f.full_error :reset_password_token %>
-    <div class="text-center mb-2">
-      <h1 class="font-weight-normal">Change your <span class="text-success">Password</span></h1>
-      <p>Enter your new password below.</p>
+    <div class="text-center mb-4">
+      <h4 class="font-weight-normal">Change your password</h4>
     </div>
     <div class="form-group">
       <div class="form-label-group">
+        <label class="form-label">Password</label>
         <%= f.input :password,
                 required: true,
                 label: false,
                 autofocus: true,
                 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: {
-                  autocomplete: "new-password",
-                  class: "form-control"
-                } %>
-        <label class="form-label">Password</label>
+                input_html: { autocomplete: "new-password" } %>
       </div>
       <div class="form-label-group">
-        <%= f.input :password_confirmation, label: false, required: true %>
         <label class="form-label">Password Confirmation</label>
+        <%= f.input :password_confirmation, label: false, required: true %>
       </div>
     </div>
     <%= f.button :submit, "Change my Password", class: "btn btn-primary btn-block" %>

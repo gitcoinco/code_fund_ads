@@ -32,6 +32,17 @@
 en:
   hello: 'Hello world'
 
+  errors:
+    not_found:
+      title: "Page Not Found"
+      message: "Sorry, we've misplaced that URL or it's pointing to something that doesn't exist."
+    unacceptable:
+      title: "The change you wanted was rejected."
+      message: "Maybe you tried to change something you didn't have access to?"
+    internal_error:
+      title: "Sorry, but something seems to have gone wrong."
+      message: "The team has been notified of this error and are hard at work on a fix!"
+
   images:
     destroy:
       confirm: 'Are you sure you want to delete this image?'
