@@ -19,10 +19,10 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
 
     find("div", id: "cf").assert_matches_style("max-width": "330px", "margin-top": "0px", "margin-left": "527px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "flex",
-                                                           "font-size": "13px",
+                                                           "font-size": "14px",
                                                            "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                            "text-align": "left",
-                                                           "line-height": "16.9px",)
+                                                           "line-height": "17px",)
     find("a", class: "cf-img-wrapper").assert_matches_style("text-decoration": "none solid rgb(0, 0, 238)", "flex-basis": "60px")
     find("img", class: "cf-img").assert_matches_style("border-bottom-left-radius": "5px",
                                                       "border-bottom-right-radius": "5px",
@@ -31,15 +31,15 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
                                                       "position": "relative",)
     assert_selector("div.cf-media-body")
     find("a", class: "cf-text").assert_matches_style("text-decoration": "none solid rgba(0, 0, 0, 0.8)",
-                                                      "font-weight": "350",
-                                                      "font-size": "13px",
-                                                      "color": "rgba(0, 0, 0, 0.8)",)
-    find("a", class: "cf-powered-by").assert_matches_style("text-decoration": "none solid rgba(0, 0, 0, 0.5)",
+                                                     "font-weight": "350",
+                                                     "font-size": "14px",
+                                                     "color": "rgba(0, 0, 0, 0.8)",)
+    find("a", class: "cf-powered-by").assert_matches_style("text-decoration": "none solid rgb(170, 170, 170)",
                                                            "margin-top": "5px",
                                                            "font-size": "11px",
                                                            "display": "block",
-                                                           "font-weight": "400",
-                                                           "color": "rgba(0, 0, 0, 0.5)",)
+                                                           "font-weight": "350",
+                                                           "color": "rgba(170, 170, 170, 1)",)
   end
 
   test "media - premium ad with dark theme" do
@@ -50,10 +50,10 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
 
     find("div", id: "cf").assert_matches_style("max-width": "330px", "margin-top": "0px", "margin-left": "527px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "flex",
-                                                           "font-size": "13px",
+                                                           "font-size": "14px",
                                                            "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                            "text-align": "left",
-                                                           "line-height": "16.9px",)
+                                                           "line-height": "17px",)
     find("a", class: "cf-img-wrapper").assert_matches_style("text-decoration": "none solid rgb(0, 0, 238)", "flex-basis": "60px")
     find("img", class: "cf-img").assert_matches_style("border-bottom-left-radius": "5px",
                                                       "border-bottom-right-radius": "5px",
@@ -62,14 +62,14 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
                                                       "position": "relative",)
     assert_selector("div.cf-media-body")
     find("a", class: "cf-text").assert_matches_style("text-decoration": "none solid rgba(255, 255, 255, 0.8)",
-                                                      "font-weight": "350",
-                                                      "font-size": "13px",
-                                                      "color": "rgba(255, 255, 255, 0.8)",)
+                                                     "font-weight": "350",
+                                                     "font-size": "14px",
+                                                     "color": "rgba(255, 255, 255, 0.8)",)
     find("a", class: "cf-powered-by").assert_matches_style("text-decoration": "none solid rgba(255, 255, 255, 0.5)",
                                                            "margin-top": "5px",
                                                            "font-size": "11px",
                                                            "display": "block",
-                                                           "font-weight": "400",
+                                                           "font-weight": "350",
                                                            "color": "rgba(255, 255, 255, 0.5)",)
   end
 
@@ -81,10 +81,10 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
 
     find("div", id: "cf").assert_matches_style("max-width": "330px", "margin-top": "0px", "margin-left": "527px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "flex",
-                                                           "font-size": "13px",
+                                                           "font-size": "14px",
                                                            "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                            "text-align": "left",
-                                                           "line-height": "16.9px",)
+                                                           "line-height": "17px",)
     find("a", class: "cf-img-wrapper").assert_matches_style("text-decoration": "none solid rgb(0, 0, 238)", "flex-basis": "60px")
     find("img", class: "cf-img").assert_matches_style("border-bottom-left-radius": "5px",
                                                       "border-bottom-right-radius": "5px",
@@ -93,15 +93,15 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
                                                       "position": "relative",)
     assert_selector("div.cf-media-body")
     find("a", class: "cf-text").assert_matches_style("text-decoration": "none solid rgba(0, 0, 0, 0.8)",
-                                                      "font-weight": "350",
-                                                      "font-size": "13px",
-                                                      "color": "rgba(0, 0, 0, 0.8)",)
-    find("a", class: "cf-powered-by").assert_matches_style("text-decoration": "none solid rgba(0, 0, 0, 0.5)",
+                                                     "font-weight": "350",
+                                                     "font-size": "14px",
+                                                     "color": "rgba(0, 0, 0, 0.8)",)
+    find("a", class: "cf-powered-by").assert_matches_style("text-decoration": "none solid rgb(170, 170, 170)",
                                                            "margin-top": "5px",
                                                            "font-size": "11px",
                                                            "display": "block",
-                                                           "font-weight": "400",
-                                                           "color": "rgba(0, 0, 0, 0.5)",)
+                                                           "font-weight": "350",
+                                                           "color": "rgba(170, 170, 170, 1)",)
   end
 
   test "media - fallback ad with dark theme" do
@@ -112,10 +112,10 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
 
     find("div", id: "cf").assert_matches_style("max-width": "330px", "margin-top": "0px", "margin-left": "527px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "flex",
-                                                           "font-size": "13px",
+                                                           "font-size": "14px",
                                                            "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                            "text-align": "left",
-                                                           "line-height": "16.9px",)
+                                                           "line-height": "17px",)
     find("a", class: "cf-img-wrapper").assert_matches_style("text-decoration": "none solid rgb(0, 0, 238)", "flex-basis": "60px")
     find("img", class: "cf-img").assert_matches_style("border-bottom-left-radius": "5px",
                                                       "border-bottom-right-radius": "5px",
@@ -124,14 +124,14 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
                                                       "position": "relative",)
     assert_selector("div.cf-media-body")
     find("a", class: "cf-text").assert_matches_style("text-decoration": "none solid rgba(255, 255, 255, 0.8)",
-                                                      "font-weight": "350",
-                                                      "font-size": "13px",
-                                                      "color": "rgba(255, 255, 255, 0.8)",)
+                                                     "font-weight": "350",
+                                                     "font-size": "14px",
+                                                     "color": "rgba(255, 255, 255, 0.8)",)
     find("a", class: "cf-powered-by").assert_matches_style("text-decoration": "none solid rgba(255, 255, 255, 0.5)",
                                                            "margin-top": "5px",
                                                            "font-size": "11px",
                                                            "display": "block",
-                                                           "font-weight": "400",
+                                                           "font-weight": "350",
                                                            "color": "rgba(255, 255, 255, 0.5)",)
   end
 end
