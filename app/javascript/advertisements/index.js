@@ -124,9 +124,11 @@ class CodeFundAd {
   trackImpression () {
     if (this.impressionTracked) return
     this.impressionTracked = true
-    this.element.querySelectorAll('.cf-impression').forEach(el => {
-      el.src = el.dataset.src
-    })
+    this.element
+      .querySelectorAll('img[data-behavior="trackImpression"]')
+      .forEach(el => {
+        el.src = el.dataset.src
+      })
     this.dispatch({ status: 'ok', house: this.fallback })
     this.detectUplift(1)
   }
