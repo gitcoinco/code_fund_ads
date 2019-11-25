@@ -34,7 +34,7 @@ Rails.application.routes.draw do
     invitations: "invitations",
   }
 
-  get "/api/global_stats" => "global_stats#show", :defaults => {format: :json}
+  resource :global_stats, only: [:show], defaults: {format: :json}
 
   resources :jobs, only: [:index]
   resources :job_posting_prospects, except: [:index, :destroy], path: "/jobs/listings"
