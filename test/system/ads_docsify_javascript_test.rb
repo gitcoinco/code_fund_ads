@@ -18,7 +18,7 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @premium_campaign
     assert_campaign_link @premium_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a premium campaign ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "330px", "margin": "0px 527px")
     find("div", class: "cf-wrapper").assert_matches_style("display": "block",
@@ -57,7 +57,7 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @premium_campaign
     assert_campaign_link @premium_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a premium campaign ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "330px", "margin": "0px 527px")
     find("div", class: "cf-wrapper").assert_matches_style("display": "block",
@@ -96,7 +96,7 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @fallback_campaign
     assert_campaign_link @fallback_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a fallback campaign ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "330px", "margin": "0px 527px")
     find("div", class: "cf-wrapper").assert_matches_style("display": "block",
@@ -135,7 +135,7 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @fallback_campaign
     assert_campaign_link @fallback_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a fallback campaign ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "330px", "margin": "0px 527px")
     find("div", class: "cf-wrapper").assert_matches_style("display": "block",

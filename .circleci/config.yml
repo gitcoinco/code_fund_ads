@@ -56,6 +56,12 @@ jobs:
             - cf-yarn-{{ checksum "yarn.lock" }}
             - cf-yarn-
 
+      - restore_cache:
+          name: restore assets cache
+          keys:
+            - cf-assets-{{ arch }}-{{ .Branch }}
+            - cf-assets-
+
       - run: sudo apt-get update
       - run: sudo apt-get install -y postgresql-client
       - run: curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -86,6 +92,21 @@ jobs:
           paths:
             - ~/.cache/yarn
           key: cf-yarn-{{ checksum "yarn.lock" }}
+
+      - run:
+          name: precompile assets
+          command: |
+            RAILS_ENV=test bundle exec rails webpacker:compile
+
+      - save_cache:
+          name: save assets cache
+          key: cf-assets-{{ arch }}-{{ .Branch }}
+          paths:
+            - public/assets
+            - public/packs-test
+            - tmp/cache/bootsnap-load-path-cache
+            - tmp/cache/bootsnap-compile-cache
+            - tmp/cache/webpacker
 
       - run:
           name: Set up DB

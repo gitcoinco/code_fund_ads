@@ -17,13 +17,13 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @premium_campaign
     assert_campaign_link @premium_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a premium campaign Premium ethical ad by CodeFund")
 
     find("ins", id: "cf").assert_matches_style("text-decoration": "none solid rgb(108, 117, 126)",
                                                "color": "rgba(108, 117, 126, 1)",
-                                               "line-height": "22.1px",
+                                               "line-height": "23.8px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
-                                               "font-size": "13px",
+                                               "font-size": "14px",
                                                "font-weight": "400",)
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
@@ -40,13 +40,13 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @premium_campaign
     assert_campaign_link @premium_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a premium campaign Premium ethical ad by CodeFund")
 
     find("ins", id: "cf").assert_matches_style("text-decoration": "none solid rgb(170, 170, 170)",
                                                "color": "rgba(170, 170, 170, 1)",
-                                               "line-height": "22.1px",
+                                               "line-height": "23.8px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
-                                               "font-size": "13px",
+                                               "font-size": "14px",
                                                "font-weight": "400",)
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
@@ -63,13 +63,13 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @fallback_campaign
     assert_campaign_link @fallback_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a fallback campaign Fallback ethical ad by CodeFund")
 
     find("ins", id: "cf").assert_matches_style("text-decoration": "none solid rgb(108, 117, 126)",
                                                "color": "rgba(108, 117, 126, 1)",
-                                               "line-height": "22.1px",
+                                               "line-height": "23.8px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
-                                               "font-size": "13px",
+                                               "font-size": "14px",
                                                "font-weight": "400",)
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
@@ -86,13 +86,13 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
     assert_creative_body @fallback_campaign
     assert_campaign_link @fallback_campaign
     assert_impression_pixel @property
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a fallback campaign Fallback ethical ad by CodeFund")
 
     find("ins", id: "cf").assert_matches_style("text-decoration": "none solid rgb(170, 170, 170)",
                                                "color": "rgba(170, 170, 170, 1)",
-                                               "line-height": "22.1px",
+                                               "line-height": "23.8px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
-                                               "font-size": "13px",
+                                               "font-size": "14px",
                                                "font-weight": "400",)
     assert_selector("span.cf-wrapper")
     assert_selector("sup")

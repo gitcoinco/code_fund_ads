@@ -15,7 +15,7 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
   test "image only - premium ad with light theme" do
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_campaign_link @premium_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "supported by ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "280px", "margin": "0px 552px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "block",
@@ -47,7 +47,7 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
     @property.update ad_theme: "dark"
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_campaign_link @premium_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "supported by ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "280px", "margin": "0px 552px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "block",
@@ -79,7 +79,7 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
     @premium_campaign.update keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_campaign_link @fallback_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "supported by ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "280px", "margin": "0px 552px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "block",
@@ -111,7 +111,7 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
     @property.update keywords: [], ad_theme: "dark"
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_campaign_link @fallback_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "supported by ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "280px", "margin": "0px 552px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "block",

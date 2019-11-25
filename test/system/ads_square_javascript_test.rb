@@ -17,7 +17,7 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
     assert_creative_headline @premium_campaign
     assert_creative_body @premium_campaign
     assert_campaign_link @premium_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a premium campaign Premium ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "255px",
                                                "margin-top": "0px",
@@ -48,11 +48,11 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                         "padding-top": "0px",
                                                         "padding-left": "14px",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
-                                                           "text-decoration": "none solid rgba(0, 0, 0, 0.8)",
+                                                           "text-decoration": "none solid rgba(0, 0, 0, 0.6)",
                                                            "font-size": "9px",
-                                                           "display": "block",
-                                                           "color": "rgba(0, 0, 0, 0.8)",
-                                                           "background-color": "rgba(0, 0, 0, 0.05)",
+                                                           "display": "inline",
+                                                           "color": "rgba(0, 0, 0, 0.6)",
+                                                           "background-color": "rgba(0, 0, 0, 0)",
                                                            "font-weight": "400",
                                                            "line-height": "19.8px",
                                                            "text-transform": "uppercase",
@@ -65,7 +65,7 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
     assert_creative_headline @premium_campaign
     assert_creative_body @premium_campaign
     assert_campaign_link @premium_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a premium campaign Premium ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "255px",
                                                "margin-top": "0px",
@@ -96,11 +96,11 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                         "padding-top": "0px",
                                                         "padding-left": "14px",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
-                                                           "text-decoration": "none solid rgba(0, 0, 0, 0.8)",
+                                                           "text-decoration": "none solid rgba(0, 0, 0, 0.6)",
                                                            "font-size": "9px",
-                                                           "display": "block",
-                                                           "color": "rgba(0, 0, 0, 0.8)",
-                                                           "background-color": "rgba(0, 0, 0, 0.05)",
+                                                           "display": "inline",
+                                                           "color": "rgba(0, 0, 0, 0.6)",
+                                                           "background-color": "rgba(0, 0, 0, 0)",
                                                            "font-weight": "400",
                                                            "line-height": "19.8px",
                                                            "text-transform": "uppercase",
@@ -113,7 +113,7 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
     assert_campaign_link @fallback_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a fallback campaign Fallback ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "255px",
                                                "margin-top": "0px",
@@ -144,11 +144,11 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                         "padding-top": "0px",
                                                         "padding-left": "14px",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
-                                                           "text-decoration": "none solid rgba(0, 0, 0, 0.8)",
+                                                           "text-decoration": "none solid rgba(0, 0, 0, 0.6)",
                                                            "font-size": "9px",
-                                                           "display": "block",
-                                                           "color": "rgba(0, 0, 0, 0.8)",
-                                                           "background-color": "rgba(0, 0, 0, 0.05)",
+                                                           "display": "inline",
+                                                           "color": "rgba(0, 0, 0, 0.6)",
+                                                           "background-color": "rgba(0, 0, 0, 0)",
                                                            "font-weight": "400",
                                                            "line-height": "19.8px",
                                                            "text-transform": "uppercase",
@@ -161,7 +161,7 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
     assert_campaign_link @fallback_campaign
-    assert_powered_by_link
+    assert_powered_by_link(text: "This is a fallback campaign Fallback ethical ad by CodeFund")
 
     find("div", id: "cf").assert_matches_style("max-width": "255px",
                                                "margin-top": "0px",
@@ -192,11 +192,11 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                         "padding-top": "0px",
                                                         "padding-left": "14px",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
-                                                           "text-decoration": "none solid rgba(0, 0, 0, 0.8)",
+                                                           "text-decoration": "none solid rgba(0, 0, 0, 0.6)",
                                                            "font-size": "9px",
-                                                           "display": "block",
-                                                           "color": "rgba(0, 0, 0, 0.8)",
-                                                           "background-color": "rgba(0, 0, 0, 0.05)",
+                                                           "display": "inline",
+                                                           "color": "rgba(0, 0, 0, 0.6)",
+                                                           "background-color": "rgba(0, 0, 0, 0)",
                                                            "font-weight": "400",
                                                            "line-height": "19.8px",
                                                            "text-transform": "uppercase",

@@ -9,7 +9,7 @@ module SystemTestHelper
     assert_selector("img.cf-impression")
   end
 
-  def assert_powered_by_link(text: "ethical ad by CodeFund")
+  def assert_powered_by_link(text: "ethical ads by CodeFund")
     assert_css "a[href][class='cf-powered-by'][target='_blank'][rel='sponsored noopener']"
     assert_text :all, text
   end
