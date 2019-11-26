@@ -12,6 +12,7 @@ class ApplicationController < ActionController::Base
   before_action :set_meta_tag_data
   before_action :sample_requests_for_scout
   before_action :set_ngrok_urls, if: -> { Rails.env.development? }
+  before_action :allow_cors_requests, unless: -> { Rails.env.production? }
 
   impersonates :user
 
@@ -50,6 +51,11 @@ class ApplicationController < ActionController::Base
       next if except.include?(key)
       session.delete key
     end
+  end
+
+  def allow_cors_requests
+    headers["Access-Control-Allow-Origin"] = "*"
+    headers["Access-Control-Request-Method"] = "GET, PUT, POST, UPDATE, DELETE"
   end
 
   def set_cors_headers

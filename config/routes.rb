@@ -34,6 +34,8 @@ Rails.application.routes.draw do
     invitations: "invitations",
   }
 
+  resource :global_stats, only: [:show], defaults: {format: :json}
+
   resources :jobs, only: [:index]
   resources :job_posting_prospects, except: [:index, :destroy], path: "/jobs/listings"
   scope "/jobs/listings/:job_posting_id" do
