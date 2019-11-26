@@ -20,7 +20,7 @@ class AdsHorizontalJavascriptTest < ApplicationSystemTestCase
     assert_powered_by_link(text: "This is a premium campaign Premium ethical ad by CodeFund")
 
     assert_selector("div#cf")
-    find("span", class: "cf-wrapper").assert_matches_style("background-color": "rgba(246, 252, 220, 0.6)",
+    find("span", class: "cf-wrapper").assert_matches_style("background-color": "rgba(248, 248, 248, 1)",
                                                            "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                            "font-size": "14px",
                                                            "line-height": "21px",
@@ -84,7 +84,7 @@ class AdsHorizontalJavascriptTest < ApplicationSystemTestCase
     assert_powered_by_link(text: "This is a fallback campaign Fallback ethical ad by CodeFund")
 
     assert_selector("div#cf")
-    find("span", class: "cf-wrapper").assert_matches_style("background-color": "rgba(246, 252, 220, 0.6)",
+    find("span", class: "cf-wrapper").assert_matches_style("background-color": "rgba(248, 248, 248, 1)",
                                                            "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                            "font-size": "14px",
                                                            "line-height": "21px",
