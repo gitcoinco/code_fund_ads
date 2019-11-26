@@ -42,7 +42,7 @@ class AdvertisementsController < ApplicationController
   def valid_referer?
     return true unless Rails.env.production?
 
-    ENUMS::BLOCK_LIST.values.exclude? request.referer
+    ENUMS::BLOCK_LIST.values.exclude? URI.parse(request.referer)&.host
   end
 
   # def visitor_cache_key

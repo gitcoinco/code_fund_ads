@@ -71,8 +71,8 @@
 #
 
 BLOCK_LIST:
-  - https://cstream1.com/
-  - https://blockedurl.test/
+  - cstream1.com
+  - blockedurl.test
 
 USER_ROLES:
   - administrator
