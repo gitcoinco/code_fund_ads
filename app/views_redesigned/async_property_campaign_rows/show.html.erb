@@ -8,4 +8,4 @@
     <%= table_data_value number_to_percentage(@property.campaign_click_rate(@campaign, @start_date, @end_date), precision: 2) %>
     <%= table_data_value(@property.campaign_property_revenue(@campaign, @start_date, @end_date).format) %>
   <% end %>
-</tr>
+<% end %>>
