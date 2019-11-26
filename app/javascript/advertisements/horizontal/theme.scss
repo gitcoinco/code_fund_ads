@@ -1,6 +1,44 @@
 $label-text: 'Ad';
 
-#cf[data-template='horizontal'] {
+div#cf[data-template='horizontal'] {
+  span.cf-wrapper {
+    font-size: 14px;
+    box-sizing: border-box;
+    width: 100%;
+    line-height: 1.5;
+    display: block;
+    padding: 12px 11px;
+    text-align: left;
+    margin: 12px 0;
+
+    a.cf-text {
+      text-decoration: none;
+
+      &:before {
+        margin-right: 4px;
+        padding: 2px 6px;
+        border-radius: 3px;
+        content: $label-text;
+      }
+
+      span.cf-cta {
+        text-decoration: underline;
+      }
+    }
+
+    a.cf-powered-by {
+      text-decoration: none;
+      float: right;
+      font-size: 11px;
+      line-height: 22px;
+
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+
   &[data-theme='dark'] {
     $bg-color: rgba(255, 255, 255, 0.2);
     $text-color: rgba(255, 255, 255, 0.7);
@@ -10,24 +48,25 @@ $label-text: 'Ad';
     $link-color: #ffffff;
     $powered-by-color: rgba(255, 255, 255, 0.5);
 
-    .cf-wrapper {
+    span.cf-wrapper {
       background-color: $bg-color;
-    }
 
-    .cf-text {
-      color: $text-color;
-      &:before {
-        background-color: $label-bg-color;
-        color: $label-text-color;
+      a.cf-text {
+        color: $text-color;
+
+        &:before {
+          background-color: $label-bg-color;
+          color: $label-text-color;
+        }
+
+        span.cf-cta {
+          color: $link-color;
+        }
       }
-    }
 
-    .cf-cta {
-      color: $link-color;
-    }
-
-    .cf-powered-by {
-      color: $powered-by-color;
+      a.cf-powered-by {
+        color: $powered-by-color;
+      }
     }
   }
 
@@ -40,76 +79,31 @@ $label-text: 'Ad';
     $link-color: #2c6ac7;
     $powered-by-color: rgba(0, 0, 0, 0.5);
 
-    .cf-wrapper {
+    span.cf-wrapper {
       background-color: $bg-color;
-    }
 
-    .cf-text {
-      color: $text-color;
-      &:before {
-        background-color: $label-bg-color;
-        color: $label-text-color;
+      a.cf-text {
+        color: $text-color;
+
+        &:before {
+          background-color: $label-bg-color;
+          color: $label-text-color;
+        }
+
+        span.cf-cta {
+          color: $link-color;
+        }
+      }
+
+      a.cf-powered-by {
+        color: $powered-by-color;
       }
     }
+  }
 
-    .cf-cta {
-      color: $link-color;
+  @media screen and (max-width: 859px) {
+    a.cf-powered-by {
+      display: none;
     }
-
-    .cf-powered-by {
-      color: $powered-by-color;
-    }
-  }
-
-  .cf-wrapper {
-    font-size: 14px;
-    box-sizing: border-box;
-    width: 100%;
-    line-height: 1.5;
-    display: block;
-    padding: 12px 11px;
-    text-align: left;
-    margin: 12px 0;
-  }
-
-  .cf-text:before {
-    margin-right: 4px;
-    padding: 2px 6px;
-    border-radius: 3px;
-    content: $label-text;
-  }
-
-  .cf-text {
-    text-decoration: none;
-  }
-
-  .cf-cta {
-    text-decoration: underline;
-  }
-
-  .cf-label {
-    margin-right: 4px;
-    padding: 2px 6px;
-    border-radius: 3px;
-    background-color: #08c;
-    color: #fafafa;
-  }
-
-  .cf-powered-by {
-    text-decoration: none;
-    float: right;
-    font-size: 11px;
-    line-height: 22px;
-  }
-
-  .cf-powered-by:hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-}
-
-@media screen and (max-width: 859px) {
-  .cf-powered-by {
-    display: none;
   }
 }
