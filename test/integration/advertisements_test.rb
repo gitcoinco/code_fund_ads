@@ -199,7 +199,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     @premium_campaign.creative.update body: "This is a premium campaign that has assigned the property"
     @property.update restrict_to_assigner_campaigns: true
     assert other_campaign.creative.body != @premium_campaign.creative.body
-    100.times.each do
+    10.times.each do
       get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
       assert response.status == 200
       assert response.body.include?(@premium_campaign.creative.body)

@@ -10,14 +10,19 @@ require "mocha/minitest"
 
 WebMock.allow_net_connect!
 
-Minitest::Reporters.use! Minitest::Reporters::DefaultReporter.new
-# Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
-# Minitest::Reporters.use! Minitest::Reporters::ProgressReporter.new
+Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(color: true)]
+
+unless Webpacker.compiler.fresh?
+  puts "== Webpack compiling =="
+  Webpacker.compiler.compile
+  puts "== Webpack compiled =="
+end
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
 
-  if (workers = (Concurrent.processor_count / 3.to_f).round) > 1
+  workers = ENV["TEST_CONCURRENCY"].present? ? ENV["TEST_CONCURRENCY"].to_i : (Concurrent.processor_count / 3.to_f).round
+  if workers > 1
     puts "Running tests with #{workers} worker processes..."
     parallelize workers: workers
   end
