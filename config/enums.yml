@@ -70,6 +70,10 @@
 #   pry>ENUMS::CAMPAIGN_STATUSES[2]          # active
 #
 
+BLOCK_LIST:
+  - https://cstream1.com/
+  - https://blockedurl.test/
+
 USER_ROLES:
   - administrator
   - advertiser

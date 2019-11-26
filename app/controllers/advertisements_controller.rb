@@ -12,7 +12,8 @@ class AdvertisementsController < ApplicationController
   # after_action :cache_visitor_response
 
   def show
-    return nil unless valid_referer?
+    return head(:forbidden) unless valid_referer?
+
     track_event :virtual_impression_initiated unless sponsor?
 
     # TODO: deprecate legacy support on 2019-04-01
@@ -41,7 +42,7 @@ class AdvertisementsController < ApplicationController
   def valid_referer?
     return true unless Rails.env.production?
 
-    false if request.referer.match(property&.url).nil?
+    ENUMS::BLOCK_LIST.values.exclude? request.referer
   end
 
   # def visitor_cache_key
