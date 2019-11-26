@@ -1,6 +1,6 @@
 $label-text: 'Ad';
 
-#cf[data-template='bottom-bar'] {
+div#cf[data-template='bottom-bar'] {
   span.cf-wrapper {
     box-sizing: border-box;
     position: fixed;
@@ -153,7 +153,7 @@ $label-text: 'Ad';
             color: $text-color;
           }
         }
-        .cf-powered-by {
+        a.cf-powered-by {
           color: $powered-by-color;
           &:hover {
             color: $text-color;
