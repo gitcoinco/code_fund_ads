@@ -1,3 +1,4 @@
+// === Vendor === //
 @import "~select2/dist/css/select2";
 @import "~select2-bootstrap-theme/dist/select2-bootstrap";
 @import "~noty/src/noty";
@@ -6,7 +7,53 @@
 @import "~codemirror/lib/codemirror";
 @import "~codemirror/theme/idea";
 @import "~trix/dist/trix";
-@import "mixins";
-@import "theme";
-@import "utilities";
-@import "components";
+@import "~animate.css/animate";
+@import "~slick-carousel/slick/slick";
+@import "~bootstrap-select/dist/css/bootstrap-select.min";
+@import "~flatpickr/dist/flatpickr.min";
+
+// === theme === //
+@import "~themes/redesign/stylesheets/theme.min";
+
+// === Modules === //
+@import "modules/breakpoints.scss";
+@import "modules/colors.scss";
+@import "modules/modifiers.scss";
+
+// === Components === //
+@import "components/accordians";
+@import "components/autocomplete";
+@import "components/cards";
+@import "components/checkbox_tree";
+@import "components/creative_preview";
+@import "components/dropdown";
+@import "components/navigation";
+@import "components/select2";
+@import "components/sparkline";
+@import "components/tables";
+
+body {
+  padding-top: 56px;
+}
+
+.main {
+  min-height: calc(100vh - 328px);
+}
+
+.navbar-brand img,
+.navbar-brand svg {
+  max-height: 30px;
+  max-width: 210px;
+  position: relative;
+  top: -2px;
+  left: 12px;
+}
+
+footer {
+  z-index: 9999;
+  position: relative;
+}
+
+.app-header-dark {
+  background-color: #222230 !important;
+}
