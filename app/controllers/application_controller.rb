@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
 
   delegate :instrument, to: ActiveSupport::Notifications
 
-  before_action :allow_cors_requests
   before_action :store_ids
   before_action :reload_extensions, unless: -> { Rails.env.production? }
   before_action :configure_permitted_parameters, if: :devise_controller?
@@ -52,6 +51,11 @@ class ApplicationController < ActionController::Base
       next if except.include?(key)
       session.delete key
     end
+  end
+
+  def allow_cors_requests
+    headers["Access-Control-Allow-Origin"] = "*"
+    headers["Access-Control-Request-Method"] = "GET, PUT, POST, UPDATE, DELETE"
   end
 
   def set_cors_headers
