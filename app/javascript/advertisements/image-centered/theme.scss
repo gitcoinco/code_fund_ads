@@ -1,157 +1,109 @@
-#cf[data-template='image-centered'][data-theme='dark'] {
-  max-width: 280px;
-  margin: 0 auto;
-  border: none;
-  background-color: rgba(0, 0, 0, 0.05);
+div#cf[data-template='image-centered'] {
+  &[data-theme='dark'] {
+    max-width: 280px;
+    margin: 0 auto;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.05);
 
-  a {
-    box-shadow: none !important;
-    text-decoration: none;
-  }
+    a {
+      box-shadow: none !important;
+      text-decoration: none;
+    }
 
-  .cf-wrapper {
-    display: block;
-    padding: 15px;
-    font-size: 14px;
-    line-height: 1.4;
-    text-align: left;
-    font-family: Helvetica, Arial, sans-serif;
-    margin-left: auto;
-    margin-right: auto;
-  }
+    span.cf-wrapper {
+      display: block;
+      padding: 15px;
+      font-size: 14px;
+      line-height: 1.4;
+      text-align: left;
+      font-family: Helvetica, Arial, sans-serif;
+      margin-left: auto;
+      margin-right: auto;
 
-  .cf-header {
-    font-size: 12px;
-    color: #678;
-    display: block;
-    margin-bottom: 8px;
-  }
+      span.cf-img-wrapper {
+        display: block;
+        text-align: center;
+        margin-bottom: 8px;
 
-  .cf-header:before {
-    content: "—";
-    margin: 0 0.5em;
-    opacity: 0.5;
-  }
+        img.cf-img {
+          max-width: 130px;
+          position: relative;
+        }
+      }
 
-  .cf-header:after {
-    content: "—";
-    margin: 0 0.5em;
-    opacity: 0.5;
-  }
+      span.cf-text {
+        color: rgba(255, 255, 255, 0.8);
 
-  .cf-img-wrapper {
-    display: block;
-    text-align: center;
-    margin-bottom: 8px;
-  }
+        strong {
+          color: #ffffff;
+        }
 
-  .cf-img-wrapper img {
-    max-width: 130px;
-    position: relative;
-  }
+        span.cf-cta {
+          text-decoration: underline;
+        }
+      }
 
-  .cf-text {
-    color: rgba(255, 255, 255, 0.8);
-  }
-
-  .cf-text strong {
-    color: #ffffff;
-  }
-  
-  .cf-cta {
-    text-decoration: underline;
-  }
-
-  .cf-powered-by {
-    margin-top: 5px;
-    font-size: 11px;
-    display: block;
-    color: rgba(255, 255, 255, 0.7);
-    text-align: center;
-  }
-
-  .cf-powered-by img {
-    position: fixed;
-    left: -1000px;
-    top: -1000px;
-  }
-}
-
-#cf[data-template='image-centered'][data-theme='light'] {
-  max-width: 280px;
-  margin: 0 auto;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.9);
-
-  a {
-    box-shadow: none !important;
-    text-decoration: none;
-  }
-
-  .cf-wrapper {
-    display: block;
-    padding: 15px;
-    font-size: 14px;
-    line-height: 1.4;
-    text-align: center;
-    font-family: Helvetica, Arial, sans-serif;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .cf-header {
-    font-size: 12px;
-    color: #678;
-    display: block;
-    margin-bottom: 8px;
-  }
-
-  .cf-header:before {
-    content: "—";
-    margin: 0 0.5em;
-    opacity: 0.5;
-  }
-
-  .cf-header:after {
-    content: "—";
-    margin: 0 0.5em;
-    opacity: 0.5;
-  }
-
-  .cf-img-wrapper {
-    display: block;
-    margin-bottom: 8px;
-  }
-
-  .cf-img-wrapper img {
-    max-width: 130px;
-    position: relative;
-  }
-
-  .cf-text {
-    color: rgba(0,0,0,0.6);
-
-    strong {
-      color: #111111;
+      a.cf-powered-by {
+        margin-top: 5px;
+        font-size: 11px;
+        display: block;
+        color: rgba(255, 255, 255, 0.7);
+        text-align: center;
+      }
     }
   }
-  
-  .cf-cta {
-    text-decoration: underline;
-    color: #2c6ac7;
-  }
 
-  .cf-powered-by {
-    margin-top: 5px;
-    font-size: 11px;
-    display: block;
-    color: rgba(0, 0, 0, 0.7);
-    text-align: center;
-  }
+  &[data-theme='light'] {
+    max-width: 280px;
+    margin: 0 auto;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.9);
 
-  .cf-powered-by img {
-    position: fixed;
-    left: -1000px;
-    top: -1000px;
+    a {
+      box-shadow: none !important;
+      text-decoration: none;
+    }
+
+    span.cf-wrapper {
+      display: block;
+      padding: 15px;
+      font-size: 14px;
+      line-height: 1.4;
+      text-align: center;
+      font-family: Helvetica, Arial, sans-serif;
+      margin-left: auto;
+      margin-right: auto;
+
+      span.cf-img-wrapper {
+        display: block;
+        margin-bottom: 8px;
+
+        img.cf-img {
+          max-width: 130px;
+          position: relative;
+        }
+      }
+
+      span.cf-text {
+        color: rgba(0,0,0,0.6);
+
+        strong {
+          color: #111111;
+        }
+
+        span.cf-cta {
+          text-decoration: underline;
+          color: #2c6ac7;
+        }
+      }
+
+      a.cf-powered-by {
+        margin-top: 5px;
+        font-size: 11px;
+        display: block;
+        color: rgba(0, 0, 0, 0.7);
+        text-align: center;
+      }
+    }
   }
 }

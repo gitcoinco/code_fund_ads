@@ -1,4 +1,4 @@
-#cf[data-template='text'][data-theme='dark'] {
+div#cf[data-template="text"][data-theme="dark"] {
   color: #77838f;
   text-decoration: none !important;
   box-shadow: none !important;
@@ -11,19 +11,13 @@
     box-shadow: none !important;
   }
 
-  a {
+  a.cf-cta {
     color: #3498db;
-  }
-
-  a, b {
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    line-height: 22px;
   }
 }
 
-#cf[data-template='text'][data-theme='light'] {
-    color: #77838f;
+div#cf[data-template="text"][data-theme="light"] {
+  color: #77838f;
   text-decoration: none !important;
   box-shadow: none !important;
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -35,13 +29,7 @@
     box-shadow: none !important;
   }
 
-  a {
+  a.cf-cta {
     color: #3498db;
-  }
-
-  a, b {
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 13px;
-    line-height: 22px;
   }
 }

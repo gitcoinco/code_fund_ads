@@ -1,4 +1,4 @@
-#cf[data-template='rectangle-narrow'][data-theme='dark'] {
+div#cf[data-template="rectangle-narrow"][data-theme="dark"] {
   margin: 0 auto;
   max-width: 330px;
   border: none;
@@ -9,7 +9,7 @@
     text-decoration: none;
   }
 
-  .cf-wrapper {
+  span.cf-wrapper {
     border-radius: 0;
     display: block;
     padding: 14px 10px;
@@ -18,34 +18,34 @@
     line-height: 1.4;
     text-align: left;
     font-family: Helvetica, Arial, sans-serif;
-  }
 
-  .cf-img-wrapper {
-    float: left;
-    margin-right: 15px;
-  }
+    span.cf-img-wrapper {
+      float: left;
+      margin-right: 15px;
+    }
 
-  .cf-img {
-    vertical-align: middle;
-    border-style: none;
-    max-width: 130px;
-    position: relative;
-  }
+    img.cf-img {
+      vertical-align: middle;
+      border-style: none;
+      max-width: 130px;
+      position: relative;
+    }
 
-  .cf-text {
-    color: rgba(255, 255, 255, 0.8);
-    text-decoration: none;
-  }
+    span.cf-text {
+      color: rgba(255, 255, 255, 0.8);
+      text-decoration: none;
+    }
 
-  .cf-powered-by {
-    margin-top: 5px;
-    font-size: 12px;
-    display: block;
-    color: #777;
+    a.cf-powered-by {
+      margin-top: 5px;
+      font-size: 12px;
+      display: block;
+      color: #777;
+    }
   }
 }
 
-#cf[data-template='rectangle-narrow'][data-theme='light'] {
+div#cf[data-template="rectangle-narrow"][data-theme="light"] {
   margin: 0 auto;
   max-width: 330px;
   border: none;
@@ -56,7 +56,7 @@
     text-decoration: none;
   }
 
-  .cf-wrapper {
+  span.cf-wrapper {
     border-radius: 0;
     display: block;
     padding: 14px 10px;
@@ -65,28 +65,28 @@
     line-height: 1.4;
     text-align: left;
     font-family: Helvetica, Arial, sans-serif;
-  }
 
-  .cf-img-wrapper {
-    float: left;
-    margin-right: 15px;
-  }
+    span.cf-img-wrapper {
+      float: left;
+      margin-right: 15px;
 
-  .cf-img {
-    vertical-align: middle;
-    border-style: none;
-    max-width: 130px;
-    position: relative;
-  }
+      img.cf-img {
+        vertical-align: middle;
+        border-style: none;
+        max-width: 130px;
+        position: relative;
+      }
+    }
 
-  .cf-text {
-    color: rgba(0, 0, 0, 0.8);
-  }
+    span.cf-text {
+      color: rgba(0, 0, 0, 0.8);
+    }
 
-  .cf-powered-by {
-    margin-top: 5px;
-    font-size: 11px;
-    display: block;
-    color: #777;
+    a.cf-powered-by {
+      margin-top: 5px;
+      font-size: 11px;
+      display: block;
+      color: #777;
+    }
   }
 }

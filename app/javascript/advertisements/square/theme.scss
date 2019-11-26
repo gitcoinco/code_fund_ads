@@ -1,4 +1,4 @@
-#cf[data-template='square'] {
+div#cf[data-template="square"] {
   max-width: 255px;
   margin: 0 auto;
   background-color: hsl(0, 0%, 98%);
@@ -15,7 +15,7 @@
     text-decoration: none;
   }
 
-  .cf-wrapper {
+  span.cf-wrapper {
     display: block;
     padding: 0;
     font-size: 14px;
@@ -25,58 +25,61 @@
     font-weight: 350;
     margin-left: auto;
     margin-right: auto;
-  }
 
-  .cf-img-wrapper {
-    display: block;
-    line-height: 1;
-    margin-bottom: 8px;
-    border-bottom: 1px solid hsl(0, 0%, 98%);
-  }
+    span.cf-img-wrapper {
+      display: block;
+      line-height: 1;
+      margin-bottom: 8px;
+      border-bottom: 1px solid hsl(0, 0%, 98%);
 
-  .cf-img-wrapper img {
-    vertical-align: middle;
-    border-style: none;
-    width: 100%;
-    position: relative;
-  }
-
-  .cf-text {
-    display: block;
-    padding: 0 1em 1em 1em;
-    color: hsla(0, 0%, 0%, 0.8);
-  }
-
-  .cf-cta {
-    color: #2c6ac7;
-    text-decoration: underline;
-  }
-
-  .cf-footer {
-    background-color: hsla(0, 0%, 0%, 0.05);
-    text-align: center;
-    display: block;
-    font-size: 9px;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    line-height: 2.2;
-    padding: 10px auto;
-    text-transform: uppercase;
-    color: hsla(0, 0%, 0%, 0.8);
-  }
-
-  .cf-powered-by {
-    color: hsla(0, 0%, 0%, 0.6);
-    &:hover {
-      color: #000;
+      img {
+        vertical-align: middle;
+        border-style: none;
+        width: 100%;
+        position: relative;
+      }
     }
-    cursor: pointer;
-  }
-  .cf-close {
-    color: hsla(0, 0%, 0%, 0.6);
-    &:hover {
-      color: #000;
+
+    span.cf-text {
+      display: block;
+      padding: 0 1em 1em 1em;
+      color: hsla(0, 0%, 0%, 0.8);
+
+      span.cf-cta {
+        color: #2c6ac7;
+        text-decoration: underline;
+      }
     }
-    cursor: pointer;
+
+    div.cf-footer {
+      background-color: hsla(0, 0%, 0%, 0.05);
+      text-align: center;
+      display: block;
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      line-height: 2.2;
+      padding: 10px auto;
+      text-transform: uppercase;
+      color: hsla(0, 0%, 0%, 0.8);
+
+      a.cf-powered-by {
+        color: hsla(0, 0%, 0%, 0.6);
+        cursor: pointer;
+
+        &:hover {
+          color: #000;
+        }
+      }
+
+      span.cf-close {
+        color: hsla(0, 0%, 0%, 0.6);
+        cursor: pointer;
+
+        &:hover {
+          color: #000;
+        }
+      }
+    }
   }
 }
