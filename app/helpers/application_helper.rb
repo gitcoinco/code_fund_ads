@@ -24,7 +24,7 @@ module ApplicationHelper
   end
 
   def pseudo_row_divider
-    @pseudo_row_divider ||= render("/@shared/forms/pseudo_row_divider")
+    @pseudo_row_divider ||= render("/shared/forms/pseudo_row_divider")
   end
 
   def classes(options = {})
@@ -152,12 +152,12 @@ module ApplicationHelper
 
   def codefund_analytics_tag
     return nil unless ENV["CODEFUND_ANALYTICS_KEY"].present?
-    render("/@shared/scripts/codefund_analytics", id: ENV["CODEFUND_ANALYTICS_KEY"])
+    render("/shared/scripts/codefund_analytics", id: ENV["CODEFUND_ANALYTICS_KEY"])
   end
 
   def support_widget_tag
     return nil unless ENV["GROOVE_WIDGET_ID"].present?
-    render("/@shared/scripts/groove", id: ENV["GROOVE_WIDGET_ID"])
+    render("/shared/scripts/groove", id: ENV["GROOVE_WIDGET_ID"])
   end
 
   def badge_for_role(role, wrap_class: "")
@@ -244,12 +244,12 @@ module ApplicationHelper
   end
 
   def date_range_picker
-    render "/@shared/date_range_picker"
+    render "/shared/date_range_picker"
   end
 
   def sparkline(values, width: 100, height: 30, stroke_width: 3, color: "green", filled: true)
     svg_class = "sparkline sparkline--#{color}#{" sparkline--filled" if filled}"
-    render "/@shared/widgets/sparkline_graph", values: values, width: width, height: height, stroke_width: stroke_width, svg_class: svg_class
+    render "/shared/widgets/sparkline_graph", values: values, width: width, height: height, stroke_width: stroke_width, svg_class: svg_class
   end
 
   def calc_percentage(numerator, denominator)
