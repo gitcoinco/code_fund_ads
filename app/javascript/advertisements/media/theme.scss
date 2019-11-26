@@ -1,18 +1,74 @@
-#cf[data-template='media'] {
+div#cf[data-template='media'] {
+  margin: 0 auto;
+  max-width: 330px;
+
+  span.cf-wrapper {
+    display: flex;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: left;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+    a {
+      text-decoration: none;
+    }
+
+    a.cf-img-wrapper {
+      flex: 0 0 60px;
+
+      img.cf-img {
+        border-radius: 5px;
+        position: relative;
+      }
+    }
+
+    a.cf-text {
+      font-weight: 350;
+      letter-spacing: 0.5px;
+
+      strong {
+        font-weight: bold;
+        display: block;
+        font-weight: 500;
+        letter-spacing: -0.1px;
+        margin-bottom: 2px;
+      }
+
+      span.cf-link {
+        text-decoration: underline;
+        font-weight: 400;
+      }
+    }
+
+    a.cf-powered-by {
+      display: block;
+      font-size: 11px;
+      margin-top: 5px;
+      font-weight: 350;
+    }
+  }
+
   &[data-theme='dark'] {
     $text-color: rgba(255, 255, 255, 0.8);
     $bold-text-color: #ffffff;
     $link-color: #ffffff;
     $powered-by-color: rgba(255, 255, 255, 0.5);
 
-    .cf-text {
-      color: $text-color;
-      strong {
-        color: $bold-text-color
+    span.cf-wrapper {
+      a.cf-text {
+        color: $text-color;
+        strong {
+          color: $bold-text-color
+        }
+        span.cf-link {
+          color: $link-color;
+        }
+      }
+
+      a.cf-powered-by {
+        color: $powered-by-color;
       }
     }
-    .cf-link { color: $link-color; }
-    .cf-powered-by { color: $powered-by-color; }
   }
 
   &[data-theme='light'] {
@@ -21,105 +77,20 @@
     $link-color: #2c6ac7;
     $powered-by-color: rgba(0, 0, 0, 0.5);
 
-    .cf-text {
-      color: $text-color;
-      strong {
-        color: $bold-text-color
+    span.cf-wrapper {
+      a.cf-text {
+        color: $text-color;
+        strong {
+          color: $bold-text-color
+        }
+        span.cf-link {
+          color: $link-color;
+        }
+      }
+
+      a.cf-powered-by {
+        color: $powered-by-color;
       }
     }
-    .cf-link { color: $link-color; }
-    .cf-powered-by { color: $powered-by-color; }
-  }
-
-  margin: 0 auto;
-  max-width: 330px;
-
-  .cf-wrapper {
-    display: flex;
-    font-size: 14px;
-    line-height: 17px;
-    text-align: left;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  }
-
-  .cf-img-wrapper {
-    flex: 0 0 60px;
-  }
-
-  .cf-img-wrapper img {
-    border-radius: 5px;
-    position: relative;
-  }
-
-  a {
-    text-decoration: none;
-  }
-
-  .cf-text {
-    font-weight: 350;
-    letter-spacing: 0.5px;
-  }
-
-  .cf-text strong {
-    font-weight: bold;
-  }
-
-  .cf-link {
-    text-decoration: underline;
-    font-weight: 400;
-  }
-
-  .cf-powered-by {
-    display: block;
-    font-size: 11px;
-    margin-top: 5px;
-    font-weight: 350;
   }
 }
-
- #cf[data-template='media'][data-theme='light'] {
-   margin: 0 auto;
-   max-width: 330px;
-
-   .cf-wrapper {
-     display: flex;
-     text-align: left;
-   }
-
-   .cf-img-wrapper {
-     flex: 0 0 60px;
-   }
-
-   .cf-img-wrapper img {
-     border-radius: 5px;
-     position: relative;
-   }
-
-   a {
-     text-decoration: none;
-   }
-
-   .cf-text {
-     color: rgba(0, 0, 0, 0.8);
-   }
-
-   .cf-text strong {
-     font-weight: 500;
-     color: #000;
-     display: block;
-     letter-spacing: -0.1px;
-     margin-bottom: 2px;
-   }
-
-   .cf-link {
-     text-decoration: underline;
-     color: #5c37e0;
-     font-weight: 400;
-   }
-
-   .cf-powered-by {
-     display: block;
-     color: #aaa;
-     margin-top: 5px;
-   }
- }

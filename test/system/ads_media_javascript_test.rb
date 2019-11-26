@@ -34,12 +34,12 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
                                                      "font-weight": "350",
                                                      "font-size": "14px",
                                                      "color": "rgba(0, 0, 0, 0.8)",)
-    find("a", class: "cf-powered-by").assert_matches_style("text-decoration": "none solid rgb(170, 170, 170)",
+    find("a", class: "cf-powered-by").assert_matches_style("text-decoration": "none solid rgba(0, 0, 0, 0.5)",
                                                            "margin-top": "5px",
                                                            "font-size": "11px",
                                                            "display": "block",
                                                            "font-weight": "350",
-                                                           "color": "rgba(170, 170, 170, 1)",)
+                                                           "color": "rgba(0, 0, 0, 0.5)",)
   end
 
   test "media - premium ad with dark theme" do
@@ -96,12 +96,12 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
                                                      "font-weight": "350",
                                                      "font-size": "14px",
                                                      "color": "rgba(0, 0, 0, 0.8)",)
-    find("a", class: "cf-powered-by").assert_matches_style("text-decoration": "none solid rgb(170, 170, 170)",
+    find("a", class: "cf-powered-by").assert_matches_style("text-decoration": "none solid rgba(0, 0, 0, 0.5)",
                                                            "margin-top": "5px",
                                                            "font-size": "11px",
                                                            "display": "block",
                                                            "font-weight": "350",
-                                                           "color": "rgba(170, 170, 170, 1)",)
+                                                           "color": "rgba(0, 0, 0, 0.5)",)
   end
 
   test "media - fallback ad with dark theme" do
