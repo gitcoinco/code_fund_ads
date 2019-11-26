@@ -13,6 +13,16 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     assert_response :forbidden
   end
 
+  test "get advertisement with no referer url" do
+    AdvertisementsController.any_instance.stubs(ad_test?: false)
+    Rails.env.stubs(production?: true)
+    campaign = active_campaign
+    property = matched_property(campaign)
+    get advertisements_url(property, format: :js)
+    assert_response :success
+    assert response.body.include?("click?campaign_id=#{campaign.id}")
+  end
+
   test "get advertisement with active & matching campaign" do
     AdvertisementsController.any_instance.stubs(ad_test?: false)
     campaign = active_campaign

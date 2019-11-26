@@ -43,6 +43,8 @@ class AdvertisementsController < ApplicationController
   def valid_referer?
     return true unless Rails.env.production?
 
+    return true if request.referer.nil?
+
     ENUMS::BLOCK_LIST.values.exclude? URI.parse(request.referer)&.host
   end
 
