@@ -32,5 +32,5 @@ production:
   primary_replica:
     <<: *default
     prepared_statements: false
-    url: <%= ENV["METABASE_URL"] %>
+    url: <%= ENV["HEROKU_ENV"] == "staging" ? ENV["DATABASE_URL"] : ENV["METABASE_URL"] %>
     replica: true
