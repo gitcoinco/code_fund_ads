@@ -731,6 +731,11 @@
   resolved "https://registry.yarnpkg.com/@fnando/sparkline/-/sparkline-0.3.10.tgz#0cb6549a232af0f19f75b33d38fddd4f5ed9f086"
   integrity sha512-Rwz2swatdSU5F4sCOvYG8EOWdjtLgq5d8nmnqlZ3PXdWJI9Zq9BRUvJ/9ygjajJG8qOyNpMFX3GEVFjZIuB1Jg==
 
+"@fortawesome/fontawesome-free@^5.11.2":
+  version "5.11.2"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.11.2.tgz#8644bc25b19475779a7b7c1fc104bc0a794f4465"
+  integrity sha512-XiUPoS79r1G7PcpnNtq85TJ7inJWe0v+b5oZJZKb0pGHNIV6+UiNeQWiFGmuQ0aj7GEhnD/v9iqxIsjuRKtEnQ==
+
 "@nodelib/fs.scandir@2.1.2":
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.2.tgz#1f981cd5b83e85cfdeb386fc693d4baab392fa54"
@@ -8739,6 +8744,11 @@ stable@^0.1.8:
   version "0.1.8"
   resolved "https://registry.yarnpkg.com/stable/-/stable-0.1.8.tgz#836eb3c8382fe2936feaf544631017ce7d47a3cf"
   integrity sha512-ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w==
+
+stacked-menu@^1.1.12:
+  version "1.1.12"
+  resolved "https://registry.yarnpkg.com/stacked-menu/-/stacked-menu-1.1.12.tgz#8d3dfc64a05665737b3265060a5d1f41d63df856"
+  integrity sha512-43pm9b9kGXg7NSIfuKgT3b7vzZS6pzygNcV+YAzlt7CGxpQw1SOtSduVXy5s8igH36Mvv0tJSI//vlOFl4TClA==
 
 standalone-react-addons-pure-render-mixin@^0.1.1:
   version "0.1.1"

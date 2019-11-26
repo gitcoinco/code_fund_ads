@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
+    "@fortawesome/fontawesome-free": "^5.11.2",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",
@@ -50,6 +51,7 @@
     "select2": "^4.0.6-rc.1",
     "select2-bootstrap-theme": "^0.1.0-beta.10",
     "slick-carousel": "^1.8.1",
+    "stacked-menu": "^1.1.12",
     "stimulus": "^1.1.1",
     "stimulus_reflex": "^2.1.4",
     "svg-injector": "^1.1.3",

@@ -36,6 +36,41 @@
           <li class="menu-item">
             <%= render "/shared/date_range_picker" %>
           </li>
+
+          <li class="menu-item has-child">
+            <a href="#" class="menu-link"><span class="menu-icon oi oi-puzzle-piece"></span> <span class="menu-text">Components</span></a> <!-- child menu -->
+            <ul class="menu"><li class="menu-subhead">Components</li>
+              <li class="menu-item">
+                <a href="component-general.html" class="menu-link" tabindex="-1">General</a>
+              </li>
+              <li class="menu-item">
+                <a href="component-icons.html" class="menu-link" tabindex="-1">Icons</a>
+              </li>
+              <li class="menu-item">
+                <a href="component-rich-media.html" class="menu-link" tabindex="-1">Rich Media</a>
+              </li>
+              <li class="menu-item">
+                <a href="component-list-views.html" class="menu-link" tabindex="-1">List Views</a>
+              </li>
+              <li class="menu-item">
+                <a href="component-sortable-nestable.html" class="menu-link" tabindex="-1">Sortable &amp; Nestable</a>
+              </li>
+              <li class="menu-item">
+                <a href="component-activity.html" class="menu-link" tabindex="-1">Activity</a>
+              </li>
+              <li class="menu-item">
+                <a href="component-steps.html" class="menu-link" tabindex="-1">Steps</a>
+              </li>
+              <li class="menu-item">
+                <a href="component-tasks.html" class="menu-link" tabindex="-1">Tasks</a>
+              </li>
+              <li class="menu-item">
+                <a href="component-metrics.html" class="menu-link" tabindex="-1">Metrics</a>
+              </li>
+            </ul><!-- /child menu -->
+          </li>
+
+
           <% if authorized_user.can_advertise_and_publish? %>
             <%= render "/shared/sidebar_content/advertisers_publishers" %>
           <% elsif authorized_user.can_advertise? %>
