@@ -15,3 +15,5 @@ ignore:
     - Layout/AlignHash
   - 'app/**/*':
     - Naming/AccessorMethodName
+  - 'app/controllers/advertisements_controller.rb':
+    - Performance/InefficientHashSearch

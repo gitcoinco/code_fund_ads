@@ -13,6 +13,8 @@ class AdvertisementsController < ApplicationController
   helper_method :template_name, :theme_name
 
   def show
+    return head(:forbidden) unless valid_referer?
+
     track_event :virtual_impression_initiated unless sponsor?
 
     # TODO: deprecate legacy support on 2019-04-01
@@ -36,6 +38,12 @@ class AdvertisementsController < ApplicationController
 
   def sponsor?
     request.format == "svg"
+  end
+
+  def valid_referer?
+    return true unless Rails.env.production?
+
+    ENUMS::BLOCK_LIST.values.exclude? URI.parse(request.referer)&.host
   end
 
   # def visitor_cache_key
