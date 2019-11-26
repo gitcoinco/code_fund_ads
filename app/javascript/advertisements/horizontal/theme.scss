@@ -25,14 +25,14 @@ $label-text: 'Ad';
     .cf-cta {
       color: $link-color;
     }
-    
+
     .cf-powered-by {
       color: $powered-by-color;
     }
   }
 
   &[data-theme='light'] {
-    $bg-color: rgba(246, 252, 220, 0.6);
+    $bg-color: #f8f8f8;
     $text-color: rgba(0, 0, 0, 0.6);
     $border-color: #bfbfbf;
     $label-bg-color: #4caf50;
@@ -55,7 +55,7 @@ $label-text: 'Ad';
     .cf-cta {
       color: $link-color;
     }
-    
+
     .cf-powered-by {
       color: $powered-by-color;
     }
