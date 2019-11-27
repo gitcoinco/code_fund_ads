@@ -7,8 +7,10 @@
         </span>
         <span class="account-icon">
           <span class="fa fa-caret-down fa-lg"></span>
-        </span> <span class="account-summary">
+        </span>
+        <span class="account-summary">
           <span class="account-name"><%= current_user.name %></span>
+          <span class="account-description"><%= current_user.organization&.name %></span>
         </span>
       </button>
       <div id="dropdown-aside" class="dropdown-aside collapse">
@@ -33,59 +35,30 @@
       <nav id="stacked-menu" class="stacked-menu">
         <ul class="menu">
           <li class="menu-header" style="margin-top: 0px;">Report Dates</li>
-          <li class="menu-item">
+          <li class="mb-3" style="padding-right: 30px;">
             <%= render "/shared/date_range_picker" %>
           </li>
-
-          <li class="menu-item has-child">
-            <a href="#" class="menu-link"><span class="menu-icon oi oi-puzzle-piece"></span> <span class="menu-text">Components</span></a> <!-- child menu -->
-            <ul class="menu"><li class="menu-subhead">Components</li>
-              <li class="menu-item">
-                <a href="component-general.html" class="menu-link" tabindex="-1">General</a>
-              </li>
-              <li class="menu-item">
-                <a href="component-icons.html" class="menu-link" tabindex="-1">Icons</a>
-              </li>
-              <li class="menu-item">
-                <a href="component-rich-media.html" class="menu-link" tabindex="-1">Rich Media</a>
-              </li>
-              <li class="menu-item">
-                <a href="component-list-views.html" class="menu-link" tabindex="-1">List Views</a>
-              </li>
-              <li class="menu-item">
-                <a href="component-sortable-nestable.html" class="menu-link" tabindex="-1">Sortable &amp; Nestable</a>
-              </li>
-              <li class="menu-item">
-                <a href="component-activity.html" class="menu-link" tabindex="-1">Activity</a>
-              </li>
-              <li class="menu-item">
-                <a href="component-steps.html" class="menu-link" tabindex="-1">Steps</a>
-              </li>
-              <li class="menu-item">
-                <a href="component-tasks.html" class="menu-link" tabindex="-1">Tasks</a>
-              </li>
-              <li class="menu-item">
-                <a href="component-metrics.html" class="menu-link" tabindex="-1">Metrics</a>
-              </li>
-            </ul><!-- /child menu -->
-          </li>
-
-
-          <% if authorized_user.can_advertise_and_publish? %>
-            <%= render "/shared/sidebar_content/advertisers_publishers" %>
-          <% elsif authorized_user.can_advertise? %>
-            <%= render "/shared/sidebar_content/advertisers" %>
-          <% elsif authorized_user.can_publish? %>
-            <%= render "/shared/sidebar_content/publishers" %>
-          <% end %>
-          <% if authorized_user.can_admin_system? %>
-            <%= render "/shared/sidebar_content/administrators" %>
-          <% end %>
+          <%= render "/shared/sidebar_content/dashboard" unless authorized_user.can_advertise_and_publish? %>
+          <%= render "/shared/sidebar_content/dashboards" if authorized_user.can_advertise_and_publish? %>
+          <%= render "/shared/sidebar_content/teams" %>
+          <%= render "/shared/sidebar_content/campaigns" %>
+          <%= render "/shared/sidebar_content/creatives" %>
+          <%= render "/shared/sidebar_content/images" %>
+          <%= render "/shared/sidebar_content/properties" %>
+          <%= render "/shared/sidebar_content/profile" %>
+          <%= render "/shared/sidebar_content/admin" if authorized_user.can_admin_system? %>
         </ul>
       </nav>
     </div>
-    <footer class="aside-footer border-top p-3 text-center">
-      You earned <a href="#" class="text-dark" style="font-weight: bold;">$3,251</a>
-    </footer>
+
+    <% if authorized_user.can_admin_system? %>
+      <%= render "/shared/sidebar_content/footer_admin" %>
+    <% elsif authorized_user.can_advertise_and_publish? %>
+      <%= render "/shared/sidebar_content/footer_advertiser_publisher" %>
+    <% elsif authorized_user.can_advertise? %>
+      <%= render "/shared/sidebar_content/footer_advertiser" %>
+    <% elsif authorized_user.can_publish? %>
+      <%= render "/shared/sidebar_content/footer_publisher" %>
+    <% end %>
   </div>
 </aside>

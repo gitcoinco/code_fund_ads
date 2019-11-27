@@ -1,0 +1,12 @@
+<li class="menu-item has-child">
+  <a href="#" class="menu-link">
+    <span class="menu-icon fad fa-user-crown"></span>
+    <span class="menu-text">Admin</span>
+  </a>
+  <ul class="menu">
+    <li class="menu-subhead">Admin</li>
+    <%= active_link_to "Teams", "#", class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Users", "#", class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Invite User", "#", class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item" %>
+  </ul>
+</li>

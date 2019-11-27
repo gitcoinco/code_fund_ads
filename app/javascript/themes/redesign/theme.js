@@ -4,7 +4,7 @@ import 'slick-carousel'
 import 'jquery-validation'
 // =========== Vendor ===========
 
-import 'themes/redesign/javascript/theme.min'
+import Theme from './components/theme'
 
 // TODO: Remove the hs.core and hs.clipboard in favor of stimulus
 import 'themes/redesign/javascript/hs.core'
@@ -17,5 +17,8 @@ document.addEventListener('turbolinks:before-cache', function () {
 document.addEventListener('turbolinks:load', function () {
   var mySVGsToInject = document.querySelectorAll('img.js-svg-injector')
   SVGInjector(mySVGsToInject)
-  window['StackedMenu'] = require('./components/stacked-menu')
+  var CodeFundTheme = (function () {
+    const CodeFundTheme = new Theme()
+    return CodeFundTheme
+  })()
 })

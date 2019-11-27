@@ -1,0 +1,12 @@
+<li class="menu-item has-child">
+  <a href="#" class="menu-link">
+    <span class="menu-icon fad fa-tachometer-fast"></span>
+    <span class="menu-text">Dashboards</span>
+  </a>
+  <ul class="menu">
+    <li class="menu-subhead">Dashboards</li>
+    <%= active_link_to "Admin", "#", class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_admin_system? %>
+    <%= active_link_to "Advertiser", "#", class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_advertise? %>
+    <%= active_link_to "Publisher", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_publish? %>
+  </ul>
+</li>

@@ -1,0 +1,37 @@
+<li class="menu-item has-child">
+  <a href="#" class="menu-link">
+    <span class="menu-icon fad fa-ad"></span>
+    <span class="menu-text">Campaigns</span>
+  </a>
+  <ul class="menu">
+    <li class="menu-subhead">Campaigns</li>
+    <%= active_link_to "Overview", "#", class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item" %>
+    <li class="menu-item has-child">
+      <a href="#" class="menu-link">
+        <span class="menu-text">List</span>
+      </a>
+      <ul class="menu">
+        <% current_user.campaigns.active.order(name: :asc).each do |campaign| %>
+          <li class="menu-item has-child">
+            <a href="#" class="menu-link">
+              <span class="menu-text"><%= campaign.name %></span>
+            </a>
+            <ul class="menu">
+              <%= active_link_to "Overview", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Targeting", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Daily Spend", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Properties", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Countries", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Changelog", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Clone Campaign", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+    <%= active_link_to "Board View", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Gantt View", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Calendar View", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Create Campaign", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+  </ul>
+</li>
