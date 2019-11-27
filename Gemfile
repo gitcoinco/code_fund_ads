@@ -33,6 +33,7 @@ gem "heroku-deflater", "~> 0.6.3", group: :production
 gem "hiredis", "~> 0.6.3"
 gem "htmlentities", "4.3.4"
 gem "image_processing", "~> 1.9.0"
+gem "import_export", "~> 0.0.1", github: "andrewmcodes/import_export"
 gem "inky-rb", "~> 1.3.7.3", require: "inky"
 gem "ipaddress", "~> 0.8.3"
 gem "jbuilder", "~> 2.5"
