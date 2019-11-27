@@ -84,10 +84,16 @@ class AdvertisementsController < ApplicationController
     @creative = choose_creative(@virtual_impression_id, @campaign)
     return unless @creative
 
-    if sponsor?
+    if sponsor? && @creative.sponsor_image
       return @advertisement_html = begin
         key = "#{@creative.cache_key_with_version}/#{@creative.sponsor_image&.cache_key}"
-        Rails.cache.fetch(key) { @creative.sponsor_image.download }
+        Rails.cache.fetch(key) {
+          begin
+            @creative.sponsor_image.download
+          rescue
+            nil
+          end
+        }
       end
     end
 
