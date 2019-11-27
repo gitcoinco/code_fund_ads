@@ -5,7 +5,7 @@ $button-text-color: #2c6ac7;
 $button-hover-bg-color: #1c1565;
 $button-hover-text-color: #ffffff;
 
-#cf[data-template="smart-bar"] {
+div#cf[data-template="smart-bar"] {
   &[data-theme="dark"] {
     // No changes
   }
@@ -161,5 +161,11 @@ $button-hover-text-color: #ffffff;
         width: 80px;
       }
     }
+  }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 648px) {
+  div#cf[data-template="smart-bar"] {
+    top: -196px;
   }
 }

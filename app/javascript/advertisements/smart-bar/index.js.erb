@@ -6,15 +6,16 @@ export default {
   initialize: ad => {
     document.body.prepend(ad.container)
     let visible = false
+    let top = window.innerWidth >= 648 ? -80 : -196
 
     addEventListener('scroll', event => {
       if (ad.closed) return;
       if (scrollY >= 100 && !visible) {
-        TinyAnimate.animateCSS(ad.element, 'top', 'px', -80, 0, 600, 'easeInOutQuart')
+        TinyAnimate.animateCSS(ad.element, 'top', 'px', top, 0, 600, 'easeInOutQuart')
         ad.trackImpression()
         visible = true
       } else if (scrollY < 100 && visible) {
-        TinyAnimate.animateCSS(ad.element, 'top', 'px', 0, -80, 300, 'easeInOutQuart')
+        TinyAnimate.animateCSS(ad.element, 'top', 'px', 0, top, 300, 'easeInOutQuart')
         visible = false
       }
     })
