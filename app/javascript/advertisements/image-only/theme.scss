@@ -1,5 +1,5 @@
-div#cf[data-template='image-only'] {
-  &[data-theme='dark'] {
+div#cf[data-template="image-only"] {
+  &[data-theme="dark"] {
     max-width: 280px;
     margin: 0 auto;
 
@@ -44,6 +44,7 @@ div#cf[data-template='image-only'] {
           width: 150px;
           height: 150px;
           position: relative;
+          margin: 0 auto;
         }
       }
 
@@ -58,7 +59,7 @@ div#cf[data-template='image-only'] {
     }
   }
 
-  &[data-theme='light'] {
+  &[data-theme="light"] {
     max-width: 280px;
     margin: 0 auto;
 
@@ -103,6 +104,7 @@ div#cf[data-template='image-only'] {
           width: 150px;
           height: 150px;
           position: relative;
+          margin: 0 auto;
         }
       }
 
