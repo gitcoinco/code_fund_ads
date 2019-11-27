@@ -17,7 +17,7 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
     assert_campaign_link @premium_campaign
     assert_powered_by_link(text: "This is a premium campaign Premium ethical ad by CodeFund")
 
-    find("div", id: "cf").assert_matches_style("max-width": "330px", "margin-top": "0px", "margin-left": "527px")
+    find("div", id: "cf").assert_matches_style("max-width": "none", "margin-top": "0px", "margin-left": "0px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "flex",
                                                            "font-size": "14px",
                                                            "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
@@ -48,7 +48,7 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
     assert_campaign_link @premium_campaign
     assert_powered_by_link(text: "This is a premium campaign Premium ethical ad by CodeFund")
 
-    find("div", id: "cf").assert_matches_style("max-width": "330px", "margin-top": "0px", "margin-left": "527px")
+    find("div", id: "cf").assert_matches_style("max-width": "none", "margin-top": "0px", "margin-left": "0px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "flex",
                                                            "font-size": "14px",
                                                            "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
@@ -79,7 +79,7 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
     assert_campaign_link @fallback_campaign
     assert_powered_by_link(text: "This is a fallback campaign Fallback ethical ad by CodeFund")
 
-    find("div", id: "cf").assert_matches_style("max-width": "330px", "margin-top": "0px", "margin-left": "527px")
+    find("div", id: "cf").assert_matches_style("max-width": "none", "margin-top": "0px", "margin-left": "0px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "flex",
                                                            "font-size": "14px",
                                                            "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
@@ -110,7 +110,7 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
     assert_campaign_link @fallback_campaign
     assert_powered_by_link(text: "This is a fallback campaign Fallback ethical ad by CodeFund")
 
-    find("div", id: "cf").assert_matches_style("max-width": "330px", "margin-top": "0px", "margin-left": "527px")
+    find("div", id: "cf").assert_matches_style("max-width": "none", "margin-top": "0px", "margin-left": "0px")
     find("span", class: "cf-wrapper").assert_matches_style("display": "flex",
                                                            "font-size": "14px",
                                                            "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
