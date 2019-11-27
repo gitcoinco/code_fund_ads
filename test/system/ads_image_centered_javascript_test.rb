@@ -29,7 +29,11 @@ class AdsImageCenteredJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("display": "block", "margin-bottom": "8px")
     find("img", class: "cf-img").assert_matches_style("max-width": "130px",
-                                                      "position": "relative",)
+                                                      "position": "relative",
+                                                      "margin-top": "0px",
+                                                      "margin-right": "0px",
+                                                      "margin-left": "0px",
+                                                      "margin-bottom": "0px",)
     find("span", class: "cf-text").assert_matches_style("color": "rgba(0, 0, 0, 0.6)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "padding": "0px",
@@ -64,7 +68,11 @@ class AdsImageCenteredJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("display": "block", "margin-bottom": "8px")
     find("img", class: "cf-img").assert_matches_style("max-width": "130px",
-                                                      "position": "relative",)
+                                                      "position": "relative",
+                                                      "margin-top": "0px",
+                                                      "margin-right": "0px",
+                                                      "margin-left": "0px",
+                                                      "margin-bottom": "0px",)
     find("span", class: "cf-text").assert_matches_style("color": "rgba(255, 255, 255, 0.8)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "padding": "0px",
@@ -96,7 +104,11 @@ class AdsImageCenteredJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("display": "block", "margin-bottom": "8px")
     find("img", class: "cf-img").assert_matches_style("max-width": "130px",
-                                                      "position": "relative",)
+                                                      "position": "relative",
+                                                      "margin-top": "0px",
+                                                      "margin-right": "0px",
+                                                      "margin-left": "0px",
+                                                      "margin-bottom": "0px",)
     find("span", class: "cf-text").assert_matches_style("color": "rgba(0, 0, 0, 0.6)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "padding": "0px",
@@ -131,7 +143,11 @@ class AdsImageCenteredJavascriptTest < ApplicationSystemTestCase
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("display": "block", "margin-bottom": "8px")
     find("img", class: "cf-img").assert_matches_style("max-width": "130px",
-                                                      "position": "relative",)
+                                                      "position": "relative",
+                                                      "margin-top": "0px",
+                                                      "margin-right": "0px",
+                                                      "margin-left": "0px",
+                                                      "margin-bottom": "0px",)
     find("span", class: "cf-text").assert_matches_style("color": "rgba(255, 255, 255, 0.8)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "padding": "0px",

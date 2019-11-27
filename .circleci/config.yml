@@ -59,8 +59,8 @@ jobs:
       - restore_cache:
           name: restore assets cache
           keys:
-            - cf-assets-{{ arch }}-{{ .Branch }}
-            - cf-assets-
+            - cf-assets-v1-{{ arch }}-{{ .Branch }}
+            - cf-assets-v1
 
       - run: sudo apt-get update
       - run: sudo apt-get install -y postgresql-client
@@ -100,7 +100,7 @@ jobs:
 
       - save_cache:
           name: save assets cache
-          key: cf-assets-{{ arch }}-{{ .Branch }}
+          key: cf-assets-v1-{{ arch }}-{{ .Branch }}
           paths:
             - public/assets
             - public/packs-test
