@@ -1,16 +1,468 @@
-<section class="container mt-4">
-  <header class="page-title-bar">
-    <%= page_heading "Viewing", "Campaigns",
-      subtitle: "#{pluralize(@pagy.count, "record")} found",
-      icon: "fas fa-ad" %>
-  </header>
+<div class="wrapper">
+  <div class="page has-sidebar">
+    <%= render "/shared/page_titlebar", title: "Campaigns", subtitle: "53 days left · Last update 1h" %>
 
-  <%= render partial: "/campaign_searches/form",
-            layout: "/shared/collapsible_search_form",
-            locals: {search: @campaign_search} %>
-  <article class="mb-4">
-    <div class="bg-white shadow-sm">
-      <%= render "/campaigns/table", campaigns: @campaigns, pagy: @pagy %>
-    </div>
-  </article>
-</section>
+    <!-- .page-inner -->
+    <div class="page-inner">
+      <!-- .page-section -->
+      <div class="page-section">
+        <%= render "/campaigns/table", campaigns: @campaigns, pagy: @pagy %>
+      </div><!-- /.page-section -->
+    </div><!-- /.page-inner -->
+    <!-- .page-sidebar -->
+    <div class="page-sidebar">
+      <!-- .sidebar-header -->
+      <header class="sidebar-header d-sm-none">
+        <ol class="breadcrumb mb-0">
+          <li class="breadcrumb-item">
+            <a class="prevent-default" href="#" onclick="Looper.toggleSidebar()"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Back</a>
+          </li>
+        </ol>
+      </header><!-- /.sidebar-header -->
+      <!-- .nav-tabs -->
+      <ul class="nav nav-tabs nav-fill" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#team-profile" role="tab" aria-controls="team-profile" aria-selected="true">Contributors</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#message-files" role="tab" aria-controls="message-files" aria-selected="false">Files</a>
+        </li>
+      </ul><!-- /.nav-tabs -->
+      <!-- .sidebar-section-fill -->
+      <div class="sidebar-section-fill">
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <!-- #team-profile -->
+          <div id="team-profile" class="tab-pane fade show active" role="tabpanel" aria-labelledby="team-profile">
+            <!-- .list-group -->
+            <div class="list-group list-group-reflow list-group-flush list-group-divider">
+              <!-- .list-group-header -->
+              <div class="list-group-header"> 8 Members </div><!-- /.list-group-header -->
+              <!-- .list-group-item -->
+              <div class="list-group-item">
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <a href="#" class="user-avatar"><img src="assets/images/avatars/uifaces11.jpg" alt="Brenda Griffin"> <span class="avatar-badge online" title="online"></span></a>
+                </div><!-- /.list-group-item-figure -->
+                <!-- .list-group-item-body -->
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title">
+                    <a href="#">Brenda Griffin</a>
+                  </h4>
+                  <p class="list-group-item-text"> Medical Assistant </p>
+                </div><!-- /.list-group-item-body -->
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Message</button> <button type="button" class="dropdown-item">Invite to a team</button> <button type="button" class="dropdown-item">Copy member ID</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div><!-- /.list-group-item-figure -->
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-item -->
+              <div class="list-group-item">
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <a href="#" class="user-avatar"><img src="assets/images/avatars/uifaces12.jpg" alt="Ryan Jimenez"> <span class="avatar-badge online" title="online"></span></a>
+                </div><!-- /.list-group-item-figure -->
+                <!-- .list-group-item-body -->
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title">
+                    <a href="#">Ryan Jimenez</a>
+                  </h4>
+                  <p class="list-group-item-text"> Photographer </p>
+                </div><!-- /.list-group-item-body -->
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Message</button> <button type="button" class="dropdown-item">Invite to a team</button> <button type="button" class="dropdown-item">Copy member ID</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div><!-- /.list-group-item-figure -->
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-item -->
+              <div class="list-group-item">
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <a href="#" class="user-avatar"><img src="assets/images/avatars/uifaces13.jpg" alt="Bryan Hayes"> <span class="avatar-badge busy" title="busy"></span></a>
+                </div><!-- /.list-group-item-figure -->
+                <!-- .list-group-item-body -->
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title">
+                    <a href="#">Bryan Hayes</a>
+                  </h4>
+                  <p class="list-group-item-text"> Computer Systems Analyst </p>
+                </div><!-- /.list-group-item-body -->
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Message</button> <button type="button" class="dropdown-item">Invite to a team</button> <button type="button" class="dropdown-item">Copy member ID</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div><!-- /.list-group-item-figure -->
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-item -->
+              <div class="list-group-item">
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <a href="#" class="user-avatar"><img src="assets/images/avatars/uifaces14.jpg" alt="Cynthia Clark"> <span class="avatar-badge idle" title="idle"></span></a>
+                </div><!-- /.list-group-item-figure -->
+                <!-- .list-group-item-body -->
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title">
+                    <a href="#">Cynthia Clark</a>
+                  </h4>
+                  <p class="list-group-item-text"> Web Developer </p>
+                </div><!-- /.list-group-item-body -->
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Message</button> <button type="button" class="dropdown-item">Invite to a team</button> <button type="button" class="dropdown-item">Copy member ID</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div><!-- /.list-group-item-figure -->
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-item -->
+              <div class="list-group-item">
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <a href="#" class="user-avatar"><img src="assets/images/avatars/uifaces16.jpg" alt="Martha Myers"> <span class="avatar-badge online" title="online"></span></a>
+                </div><!-- /.list-group-item-figure -->
+                <!-- .list-group-item-body -->
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title">
+                    <a href="#">Martha Myers</a>
+                  </h4>
+                  <p class="list-group-item-text"> Writer </p>
+                </div><!-- /.list-group-item-body -->
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Message</button> <button type="button" class="dropdown-item">Invite to a team</button> <button type="button" class="dropdown-item">Copy member ID</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div><!-- /.list-group-item-figure -->
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-item -->
+              <div class="list-group-item">
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <a href="#" class="user-avatar"><img src="assets/images/avatars/uifaces15.jpg" alt="Tammy Beck"> <span class="avatar-badge online" title="online"></span></a>
+                </div><!-- /.list-group-item-figure -->
+                <!-- .list-group-item-body -->
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title">
+                    <a href="#">Tammy Beck</a>
+                  </h4>
+                  <p class="list-group-item-text"> Designer </p>
+                </div><!-- /.list-group-item-body -->
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Message</button> <button type="button" class="dropdown-item">Invite to a team</button> <button type="button" class="dropdown-item">Copy member ID</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div><!-- /.list-group-item-figure -->
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-item -->
+              <div class="list-group-item">
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <a href="#" class="user-avatar"><img src="assets/images/avatars/uifaces17.jpg" alt="Susan Kelley"> <span class="avatar-badge busy" title="busy"></span></a>
+                </div><!-- /.list-group-item-figure -->
+                <!-- .list-group-item-body -->
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title">
+                    <a href="#">Susan Kelley</a>
+                  </h4>
+                  <p class="list-group-item-text"> Web Developer </p>
+                </div><!-- /.list-group-item-body -->
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Message</button> <button type="button" class="dropdown-item">Invite to a team</button> <button type="button" class="dropdown-item">Copy member ID</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div><!-- /.list-group-item-figure -->
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-item -->
+              <div class="list-group-item">
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <a href="#" class="user-avatar"><img src="assets/images/avatars/uifaces18.jpg" alt="Albert Newman"> <span class="avatar-badge offline" title="offline"></span></a>
+                </div><!-- /.list-group-item-figure -->
+                <!-- .list-group-item-body -->
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title">
+                    <a href="#">Albert Newman</a>
+                  </h4>
+                  <p class="list-group-item-text"> Web Developer </p>
+                </div><!-- /.list-group-item-body -->
+                <!-- .list-group-item-figure -->
+                <div class="list-group-item-figure align-items-start">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Message</button> <button type="button" class="dropdown-item">Invite to a team</button> <button type="button" class="dropdown-item">Copy member ID</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div><!-- /.list-group-item-figure -->
+              </div><!-- /.list-group-item -->
+            </div><!-- /.list-group -->
+          </div><!-- /#team-profile -->
+          <!-- #message-files -->
+          <div id="message-files" class="tab-pane fade" role="tabpanel" aria-labelledby="message-files">
+            <!-- .list-group -->
+            <div class="list-group list-group-reflow list-group-flush list-group-divider">
+              <!-- .list-group-header -->
+              <div class="list-group-header"> Today </div><!-- /.list-group-header -->
+              <!-- .list-group-item -->
+              <div class="list-group-item align-items-start">
+                <div class="list-group-item-figure">
+                  <a href="#" class="tile tile-circle bg-teal"><span class="fa fa-file-pdf"></span></a>
+                </div>
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title text-truncate">
+                    <a href="#">double-broccoli-quinoa.pdf</a>
+                  </h4>
+                  <p class="list-group-item-text"> 1.07 MB by Emma Griffin </p>
+                  <p class="list-group-item-text small"> 12:20pm </p>
+                </div>
+                <div class="list-group-item-figure">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Download</button> <button type="button" class="dropdown-item">View details</button> <button type="button" class="dropdown-item">Share file</button> <button type="button" class="dropdown-item">Copy link file</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div>
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-item -->
+              <div class="list-group-item align-items-start">
+                <div class="list-group-item-figure">
+                  <a href="#" class="tile tile-circle bg-teal"><span class="fa fa-file-pdf"></span></a>
+                </div>
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title text-truncate">
+                    <a href="#">Baked-Chicken-and-Spinach-Flautas.pdf</a>
+                  </h4>
+                  <p class="list-group-item-text"> 0.39 MB by Peter Willis </p>
+                  <p class="list-group-item-text small"> 5:22pm </p>
+                </div>
+                <div class="list-group-item-figure">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Download</button> <button type="button" class="dropdown-item">View details</button> <button type="button" class="dropdown-item">Share file</button> <button type="button" class="dropdown-item">Copy link file</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div>
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-item -->
+              <div class="list-group-item align-items-start">
+                <div class="list-group-item-figure">
+                  <a href="#" class="tile tile-circle bg-pink"><span class="fa fa-file-image"></span></a>
+                </div>
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title text-truncate">
+                    <a href="#">Cajun Chicken Egg Pasta.jpg</a>
+                  </h4>
+                  <p class="list-group-item-text"> 0.93 MB by Danielle Garza </p>
+                  <p class="list-group-item-text small"> 9:32pm </p>
+                </div>
+                <div class="list-group-item-figure">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Download</button> <button type="button" class="dropdown-item">View details</button> <button type="button" class="dropdown-item">Share file</button> <button type="button" class="dropdown-item">Copy link file</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div>
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-header -->
+              <div class="list-group-header"> Jan 28, 2018 </div><!-- /.list-group-header -->
+              <!-- .list-group-item -->
+              <div class="list-group-item align-items-start">
+                <div class="list-group-item-figure">
+                  <a href="#" class="tile tile-circle bg-purple"><span class="fa fa-file-archive"></span></a>
+                </div>
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title text-truncate">
+                    <a href="#">looper_build-1209.zip</a>
+                  </h4>
+                  <p class="list-group-item-text"> 0.53 MB by Rose McCoy </p>
+                  <p class="list-group-item-text small"> 3:13am </p>
+                </div>
+                <div class="list-group-item-figure">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Download</button> <button type="button" class="dropdown-item">View details</button> <button type="button" class="dropdown-item">Share file</button> <button type="button" class="dropdown-item">Copy link file</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div>
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-item -->
+              <div class="list-group-item align-items-start">
+                <div class="list-group-item-figure">
+                  <a href="#" class="tile tile-circle bg-purple"><span class="fa fa-file-archive"></span></a>
+                </div>
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title text-truncate">
+                    <a href="#">looper_design-brief.zip</a>
+                  </h4>
+                  <p class="list-group-item-text"> 2.04 MB by Rose McCoy </p>
+                  <p class="list-group-item-text small"> 11:27pm </p>
+                </div>
+                <div class="list-group-item-figure">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Download</button> <button type="button" class="dropdown-item">View details</button> <button type="button" class="dropdown-item">Share file</button> <button type="button" class="dropdown-item">Copy link file</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div>
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-header -->
+              <div class="list-group-header"> Jan 21, 2018 </div><!-- /.list-group-header -->
+              <!-- .list-group-item -->
+              <div class="list-group-item align-items-start">
+                <div class="list-group-item-figure">
+                  <a href="#" class="tile tile-circle bg-teal"><span class="fa fa-file-pdf"></span></a>
+                </div>
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title text-truncate">
+                    <a href="#">Usulan Beasiswa Tahun 2018.pdf</a>
+                  </h4>
+                  <p class="list-group-item-text"> 1.1 MB by Peter Willis </p>
+                  <p class="list-group-item-text small"> 6:20pm </p>
+                </div>
+                <div class="list-group-item-figure">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Download</button> <button type="button" class="dropdown-item">View details</button> <button type="button" class="dropdown-item">Share file</button> <button type="button" class="dropdown-item">Copy link file</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div>
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-item -->
+              <div class="list-group-item align-items-start">
+                <div class="list-group-item-figure">
+                  <a href="#" class="tile tile-circle bg-green"><span class="fa fa-file-excel"></span></a>
+                </div>
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title text-truncate">
+                    <a href="#">Daftar Peserta Ujian.xlsx</a>
+                  </h4>
+                  <p class="list-group-item-text"> 0.37 MB by Peter Willis </p>
+                  <p class="list-group-item-text small"> 1:32pm </p>
+                </div>
+                <div class="list-group-item-figure">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Download</button> <button type="button" class="dropdown-item">View details</button> <button type="button" class="dropdown-item">Share file</button> <button type="button" class="dropdown-item">Copy link file</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div>
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-item -->
+              <div class="list-group-item align-items-start">
+                <div class="list-group-item-figure">
+                  <a href="#" class="tile tile-circle bg-blue"><span class="fa fa-file-word"></span></a>
+                </div>
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title text-truncate">
+                    <a href="#">data_not_verified.docx</a>
+                  </h4>
+                  <p class="list-group-item-text"> 0.94 MB by Kathryn Black </p>
+                  <p class="list-group-item-text small"> 5:11am </p>
+                </div>
+                <div class="list-group-item-figure">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Download</button> <button type="button" class="dropdown-item">View details</button> <button type="button" class="dropdown-item">Share file</button> <button type="button" class="dropdown-item">Copy link file</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div>
+              </div><!-- /.list-group-item -->
+              <!-- .list-group-header -->
+              <div class="list-group-header"> Jan 19, 2018 </div><!-- /.list-group-header -->
+              <!-- .list-group-item -->
+              <div class="list-group-item align-items-start">
+                <div class="list-group-item-figure">
+                  <a href="#" class="tile tile-circle bg-red"><span class="fa fa-file-powerpoint"></span></a>
+                </div>
+                <div class="list-group-item-body">
+                  <h4 class="list-group-item-title text-truncate">
+                    <a href="#">mockup-presentation.pptx</a>
+                  </h4>
+                  <p class="list-group-item-text"> 0.59 MB by Kathryn Black </p>
+                  <p class="list-group-item-text small"> 6:50am </p>
+                </div>
+                <div class="list-group-item-figure">
+                  <!-- .dropdown -->
+                  <div class="dropdown">
+                    <button class="btn btn-sm btn-icon btn-light" data-toggle="dropdown"><i class="fa fa-fw fa-ellipsis-v"></i></button>
+                    <div class="dropdown-menu dropdown-menu-right">
+                      <div class="dropdown-arrow mr-n1"></div><button type="button" class="dropdown-item">Download</button> <button type="button" class="dropdown-item">View details</button> <button type="button" class="dropdown-item">Share file</button> <button type="button" class="dropdown-item">Copy link file</button>
+                      <div class="dropdown-divider"></div><button type="button" class="dropdown-item">Remove</button>
+                    </div>
+                  </div><!-- /.dropdown -->
+                </div>
+              </div><!-- /.list-group-item -->
+            </div><!-- /.list-group -->
+          </div><!-- /#message-files -->
+        </div><!-- /Tab panes -->
+      </div><!-- /.sidebar-section-fill -->
+    </div><!-- /.page-sidebar -->
+  </div>
+</div>

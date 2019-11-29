@@ -17,7 +17,8 @@ document.addEventListener('turbolinks:before-cache', function () {
 document.addEventListener('turbolinks:load', function () {
   var mySVGsToInject = document.querySelectorAll('img.js-svg-injector')
   SVGInjector(mySVGsToInject)
-  var CodeFundTheme = (function () {
+
+  window.CodeFundTheme = (function () {
     const CodeFundTheme = new Theme()
     return CodeFundTheme
   })()
