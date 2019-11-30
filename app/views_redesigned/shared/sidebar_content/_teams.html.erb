@@ -1,22 +1,28 @@
-<li class="menu-item has-child">
+<%= tag.li class: classes(
+  "menu-item has-child": true,
+  "has-open": [
+    request.path =~ /\/organizations\/\d{1,}/
+  ].any?
+) do %>
   <a href="#" class="menu-link">
     <span class="menu-icon fad fa-users"></span>
     <span class="menu-text">Teams</span>
   </a>
   <ul class="menu">
     <li class="menu-subhead">Teams</li>
-    <%= active_link_to "Overview", "#", class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item" %>
-    <li class="menu-item has-child">
-      <a href="#" class="menu-link">
-        <span class="menu-text">Team 1</span>
-      </a>
-      <ul class="menu">
-        <%= active_link_to "Overview", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
-        <%= active_link_to "Members", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
-        <%= active_link_to "Billing", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
-        <%= active_link_to "Invoices", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
-      </ul>
-    </li>
-    <%= active_link_to "Add Team", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <% current_user.organizations.each do |organization| %>
+      <li class="menu-item has-child">
+        <a href="#" class="menu-link">
+          <span class="menu-text"><%= organization.name %></span>
+        </a>
+        <ul class="menu">
+          <%= active_link_to "Overview", organization_path(organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
+          <%= active_link_to "Members", organization_users_path(organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+          <%= active_link_to "Billing", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+          <%= active_link_to "Invoices", organization_transactions_path(organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+        </ul>
+      </li>
+    <% end %>
+    <%= active_link_to "Add Team", new_organization_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_admin_system? %>
   </ul>
-</li>
+<% end %>

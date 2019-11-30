@@ -31,8 +31,10 @@ class Property < ApplicationRecord
   # extends ...................................................................
 
   # includes ..................................................................
+  include Properties::Chartable
   include Properties::Impressionable
   include Properties::Presentable
+  include Properties::Reportable
   include Eventable
   include Imageable
   include Impressionable

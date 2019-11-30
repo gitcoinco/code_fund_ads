@@ -901,7 +901,7 @@ class Theme {
    * Handle ChartJS default options
    */
   chartjs () {
-    if (window.Chart) {
+    if (Chart) {
       const colors = this.colors
       const skin = this.skin
       const isDarkSkin = skin === 'dark'

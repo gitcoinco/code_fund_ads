@@ -86,6 +86,7 @@
           <% if current_user != true_user %>
             <div class="dropdown-divider"></div>
             <%= link_to stop_user_impersonation_path, class: "dropdown-item" do %>
+              <span class="dropdown-icon fas fa-sign-in"></span>
               Back to <%= true_user.first_name %>
             <% end %>
           <% end %>

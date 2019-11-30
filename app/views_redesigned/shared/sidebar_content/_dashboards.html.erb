@@ -1,4 +1,7 @@
-<li class="menu-item has-child">
+<%= tag.li class: classes(
+  "menu-item has-child": true,
+  "has-open": ["administrator_dashboards", "advertiser_dashboards", "publisher_dashboards"].include?(controller_name)
+) do %>
   <a href="#" class="menu-link">
     <span class="menu-icon fad fa-tachometer-fast"></span>
     <span class="menu-text">Dashboards</span>
@@ -9,4 +12,4 @@
     <%= active_link_to "Advertiser", advertiser_dashboards_path, class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_advertise? %>
     <%= active_link_to "Publisher", publisher_dashboards_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_publish? %>
   </ul>
-</li>
+<% end %>

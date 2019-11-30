@@ -5,6 +5,7 @@
 @import "~slick-carousel/slick/slick";
 @import "~bootstrap-select/dist/css/bootstrap-select.min";
 @import "~flatpickr/dist/flatpickr.min";
+@import "~chartist/dist/scss/chartist";
 
 // =========== Vendor ===========
 @import "~themes/redesign/stylesheets/theme.min";
@@ -33,4 +34,17 @@ footer {
 
 .app-header-dark {
   background-color: #222230 !important;
+}
+
+li.menu-item.active {
+  // background-color: #ffffff;
+  // font-weight: bold;
+  a.menu-link {
+    color: #222230;
+    background-color: #ffffff;
+  }
+}
+
+.app-main {
+  padding-top: 0px;
 }

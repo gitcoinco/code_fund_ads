@@ -40,11 +40,11 @@
           </li>
           <%= render "/shared/sidebar_content/dashboard" unless authorized_user.can_advertise_and_publish? %>
           <%= render "/shared/sidebar_content/dashboards" if authorized_user.can_advertise_and_publish? %>
-          <%= render "/shared/sidebar_content/teams" %>
-          <%= render "/shared/sidebar_content/campaigns" %>
-          <%= render "/shared/sidebar_content/creatives" %>
-          <%= render "/shared/sidebar_content/images" %>
-          <%= render "/shared/sidebar_content/properties" %>
+          <%= render "/shared/sidebar_content/teams" if authorized_user.can_advertise_and_publish? || authorized_user.can_admin_system? %>
+          <%= render "/shared/sidebar_content/campaigns" if authorized_user.can_advertise? %>
+          <%= render "/shared/sidebar_content/creatives" if authorized_user.can_advertise? %>
+          <%= render "/shared/sidebar_content/images" if authorized_user.can_advertise? %>
+          <%= render "/shared/sidebar_content/properties" if authorized_user.can_publish? %>
           <%= render "/shared/sidebar_content/profile" %>
           <%= render "/shared/sidebar_content/admin" if authorized_user.can_admin_system? %>
         </ul>
