@@ -2,10 +2,8 @@
   <div class="nav nav-tabs">
     <%= active_link_to "Overview", property_path(property), class: "nav-link", active: :exact %>
     <%= active_link_to "Instructions", property_instructions_path(property), class: "nav-link" %>
-    <%= active_link_to "Overview", property_dashboards_path(property), class: "nav-link" %>
-    <%= active_link_to "Keywords", property_keywords_path(property), class: "nav-link" %>
     <%= active_link_to "Earnings", property_earnings_path(property), class: "nav-link" %>
     <%= active_link_to "Campaigns", property_campaigns_path(property), class: "nav-link" %>
-    <%= active_link_to "Revisions", property_versions_path(property), class: "nav-link" %>
+    <%= active_link_to "Settings", edit_property_path(property), class: "nav-link" %>
   </div>
 </div>

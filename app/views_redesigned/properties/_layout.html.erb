@@ -16,7 +16,7 @@
   <% end %>
 <% end %>
 
-<div class="page <%= "has-sidebar has-sidebar-expand-xl" unless @property.new_record? %>">
+<div class="page <%= "has-sidebar has-sidebar-expand-xl" unless property.new_record? %>">
   <div class="page-inner" data-controller="auto-height">
     <header class="page-title-bar">
       <div class="d-flex justify-content-between align-items-center">
@@ -53,5 +53,5 @@
     </div>
   </div>
 
-  <%= render "/properties/for_user/sidebar", property: @property unless @property.new_record? %>
+  <%= render "/properties/for_user/sidebar", property: property unless property.new_record? %>
 </div>

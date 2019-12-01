@@ -20,6 +20,7 @@ document.addEventListener('turbolinks:load', function () {
 
   window.CodeFundTheme = (function () {
     const CodeFundTheme = new Theme()
+    window['CodeFundTheme'] = CodeFundTheme
     return CodeFundTheme
   })()
 })

@@ -1,0 +1,21 @@
+<% versionable.versions.order(created_at: :desc).each do |version| %>
+  <li class="timeline-item">
+    <div class="timeline-figure">
+      <span class="tile tile-circle tile-sm"><i class="fad fa-calendar-alt fa-lg"></i></span>
+    </div>
+    <div class="timeline-body">
+      <div class="media">
+        <div class="media-body">
+          <p class="mb-0">
+            <%= find_version_author(version) || "Unknown" %> made
+            <a data-controller="remote-modal"
+              data-action="click->remote-modal#displayModal"
+              data-url="<%= version_path(version, sgid: versionable.to_sgid) %>"
+              href="#">changes</a>
+          </p>
+          <span class="timeline-date"><%= time_ago_in_words version.created_at %> ago</span>
+        </div>
+      </div>
+    </div>
+  </li>
+<% end %>
