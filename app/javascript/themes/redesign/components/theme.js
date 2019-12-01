@@ -1,4 +1,6 @@
-import StackedMenu from './stacked-menu';
+import StackedMenu from './stacked-menu'
+import PerfectScrollbar from 'perfect-scrollbar'
+import lozad from 'lozad'
 
 class Theme {
   constructor () {
@@ -96,7 +98,7 @@ class Theme {
     this.hamburger()
     this.publisher()
     this.tasksStyle()
-    this.filterList()
+    // this.filterList()
     this.radioList()
     this.checkboxList()
     this.smoothScroll()
@@ -106,6 +108,7 @@ class Theme {
     // =============================================================
 
     this.perfectScrollbar()
+    this.initLozad()
     this.masonry()
     this.chartjs()
     this.sparkline()
@@ -624,14 +627,14 @@ class Theme {
       $(this.asideMenu.selector).on('menu:open menu:close', () => {
         // wait until translation done
         setTimeout(() => {
-          if (window.PerfectScrollbar) {
+          if (PerfectScrollbar) {
             ps.update()
           }
         }, 300)
       })
 
       // perfect scrollbar for aside menu
-      if (window.PerfectScrollbar) {
+      if (PerfectScrollbar) {
         ps = new PerfectScrollbar('.aside-menu', {
           suppressScrollX: true
         })
@@ -873,12 +876,23 @@ class Theme {
    */
   perfectScrollbar () {
     // initialization for any components
-    if (window.PerfectScrollbar && this.isExists('.perfect-scrollbar')) {
+    if (PerfectScrollbar && this.isExists('.perfect-scrollbar')) {
       $('.perfect-scrollbar:not(".aside-menu")').each(function () {
         new PerfectScrollbar(this, {
           suppressScrollX: true
         })
       })
+    }
+  }
+
+  /**
+   * Handle lozad
+   */
+  initLozad () {
+    // initialization for any components
+    if (lozad && this.isExists('.lozad')) {
+      const observer = lozad();
+      observer.observe();
     }
   }
 

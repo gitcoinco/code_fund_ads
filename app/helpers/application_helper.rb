@@ -13,10 +13,10 @@ module ApplicationHelper
     asset_path "pixel.gif"
   end
 
-  def page_heading(action, subject, subtitle: nil, icon: nil)
-    return render("/@shared/page_heading", action: action, subject: subject, subtitle: subtitle, icon: icon) unless ENV["REDESIGN"] == "true"
+  def page_heading(action, subject, title: nil, subtitle: nil, icon: nil, datepicker: false)
+    return render("/@shared/page_heading", action: action, subject: subject, title: title, subtitle: subtitle, icon: icon, datepicker: datepicker) unless ENV["REDESIGN"] == "true"
 
-    render partial: "/shared/page_heading", locals: {action: action, subject: subject, subtitle: subtitle, icon: icon}
+    render partial: "/shared/page_heading", locals: {action: action, subject: subject, title: title, subtitle: subtitle, icon: icon, datepicker: datepicker}
   end
 
   def breadcrumbs
