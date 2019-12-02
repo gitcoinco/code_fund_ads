@@ -18,7 +18,6 @@ module CodeFundAds
     # the framework and any gems in your application.
 
     config.middleware.use Rack::Attack
-    config.middleware.insert_after ActionDispatch::Static, Rack::Deflater
     config.active_record.schema_format = :sql
     config.active_job.queue_adapter = :sidekiq
     config.exceptions_app = routes
