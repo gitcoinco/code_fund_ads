@@ -13,7 +13,7 @@
           <%= table_data_value scheduled_report.start_date.to_s("bdy") %>
           <%= table_data_value scheduled_report.subject %>
           <%= table_data do %>
-            <%= link_to "Delete", scheduled_organization_report_path(@organization, scheduled_report), method: :delete, data: { confirm: "Are you sure?" }, class: "text-white" %>
+            <%= link_to "Delete", scheduled_organization_report_path(@organization, scheduled_report), method: :delete, data: {confirm: "Are you sure?"}, class: "text-white" %>
           <% end %>
         <% end %>
       <% end %>

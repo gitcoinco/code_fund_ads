@@ -7,7 +7,7 @@
 
   <%= render partial: "/campaign_searches/form",
             layout: "/shared/collapsible_search_form",
-            locals: { search: @campaign_search } %>
+            locals: {search: @campaign_search} %>
   <article class="mb-4">
     <div class="bg-white shadow-sm">
       <%= render "/campaigns/table", campaigns: @campaigns, pagy: @pagy %>

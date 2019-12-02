@@ -26,7 +26,7 @@
     <%= render "/organization_reports/pages/toc", report: @report %>
     <%= render "/organization_reports/pages/campaign_summary", report: @report, summaries: @summaries %>
     <% @report.campaigns.order(name: :asc).each do |campaign| %>
-      <%= render partial: "/organization_reports/pages/campaign", locals: { report: @report, campaign: campaign, summary: @summaries[campaign.id] } %>
+      <%= render partial: "/organization_reports/pages/campaign", locals: {report: @report, campaign: campaign, summary: @summaries[campaign.id]} %>
     <% end %>
   </body>
 </html>

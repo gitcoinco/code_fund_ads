@@ -1,9 +1,9 @@
 <%= render "/shared/forms/error_messages", object: creative %>
 <%= simple_form_for creative, html: {
   class: "js-validate",
-  data: { controller: "creative-form" }},
+  data: {controller: "creative-form"}},
   wrapper: :front_form do |f| %>
-  <%= f.hidden_field :creative_type, data: { target: "creative-form.creativeType" } %>
+  <%= f.hidden_field :creative_type, data: {target: "creative-form.creativeType"} %>
   <%= card do %>
     <%= card_header do %>
       <%= card_title do %>
@@ -25,7 +25,7 @@
         <% if authorized_user(true).can_admin_system? %>
           <div class="col-12 col-md-4 mb-3">
             <%= f.input(:status, label: "Status", collection: creative_statuses_for_select,
-                  input_html: { class: "form-control", data: { controller: "select" }}) %>
+                  input_html: {class: "form-control", data: {controller: "select"}}) %>
           </div>
         <% end %>
       </div>

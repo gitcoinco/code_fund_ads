@@ -23,9 +23,9 @@
     <% if property.restrict_to_sponsor_campaigns? %>
       <span class="opacity-30">N/A</span>
     <% else %>
-      <span class="text-muted">D:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_daily, units: { thousand: "K", million: "M" } %><br />
-      <span class="text-muted">M:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_monthly, units: { thousand: "K", million: "M" } %><br />
-      <span class="text-muted">Y:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_yearly, units: { thousand: "K", million: "M" } %><br />
+      <span class="text-muted">D:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_daily, units: {thousand: "K", million: "M"} %><br />
+      <span class="text-muted">M:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_monthly, units: {thousand: "K", million: "M"} %><br />
+      <span class="text-muted">Y:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_yearly, units: {thousand: "K", million: "M"} %><br />
     <% end %>
   </td>
 

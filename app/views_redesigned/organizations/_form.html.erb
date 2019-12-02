@@ -11,7 +11,7 @@
     <% end %>
     <%= card_body do %>
       <div class="row">
-        <%= tag.div f.input(:name, as: :string, required: true, input_html: { class: "form-control" }), class: "col-12 mb-3" %>
+        <%= tag.div f.input(:name, as: :string, required: true, input_html: {class: "form-control"}), class: "col-12 mb-3" %>
 
         <%= button_panel do %>
           <%= f.submit "Save Organization", class: "btn btn-sm btn-primary mr-1" %>

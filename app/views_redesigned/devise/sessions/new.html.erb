@@ -1,5 +1,5 @@
 <%= render "devise/layout" do %>
-  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form mx-auto" }) do |f| %>
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "auth-form mx-auto"}) do |f| %>
     <%= hidden_field_tag :job, params[:job] if params[:job] %>
     <%= hidden_field_tag :remember_me, true if devise_mapping.rememberable? %>
     <div class="text-center mb-4">

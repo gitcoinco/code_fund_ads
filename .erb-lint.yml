@@ -2,8 +2,6 @@
 linters:
   ErbSafety:
     enabled: false
-  Rubocop:
-    enabled: false
   SelfClosingTag:
     enabled: true
     enforced_style: 'always'
@@ -13,3 +11,16 @@ linters:
     enabled: true
     rule_set:
       - deprecated: ['u-[-_\w]*']
+  Rubocop:
+    enabled: true
+    rubocop_config:
+      AllCops:
+        DisabledByDefault: true
+      Style/StringLiterals:
+        EnforcedStyle: double_quotes
+      Layout/SpaceInsideHashLiteralBraces:
+        Enabled: true
+        EnforcedStyle: no_space
+        EnforcedStyleForEmptyBraces: no_space
+      Layout/InitialIndentation:
+        Enabled: true

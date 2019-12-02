@@ -6,7 +6,7 @@
   </header>
   <%= render partial: "/property_searches/form",
                 layout: "/shared/collapsible_search_form",
-                locals: { search: @property_search } %>
+                locals: {search: @property_search} %>
   <article class="mb-4">
     <div class="bg-white shadow-sm">
       <%= render "/properties/table", properties: @properties, pagy: @pagy %>

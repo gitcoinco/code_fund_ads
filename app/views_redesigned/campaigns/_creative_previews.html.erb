@@ -22,7 +22,7 @@
           </small>
           <%= link_to "Make Winner", split_experiment_path(campaign, winner_name: alternative.name),
             class: "btn btn-subtle-success btn-xs transition-3d-hover mt-2", rel: "nofollow",
-            data: { controller: "split-experiment", action: "split-experiment#setWinner" } %>
+            data: {controller: "split-experiment", action: "split-experiment#setWinner"} %>
         <% end %>
       </div>
     <% end %>

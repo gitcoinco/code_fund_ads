@@ -12,6 +12,6 @@
     icon: "fas fa-user-circle" %>
 <% end %>
 
-<%= render layout: "/users/layout", locals: { user: @user, override: [:page_heading, :actions] } do %>
+<%= render layout: "/users/layout", locals: {user: @user, override: [:page_heading, :actions]} do %>
   <%= render "/users/form", user: @user %>
 <% end %>

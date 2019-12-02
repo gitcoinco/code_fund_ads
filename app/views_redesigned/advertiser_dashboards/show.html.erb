@@ -31,7 +31,7 @@
     <div class="card-deck d-block d-lg-flex card-lg-gutters-3">
       <% @active_campaigns.each.with_index do |campaign, index| %>
         <%= render partial: "/campaigns/standard_card",
-          locals: { campaign: campaign, start_date: @start_date, end_date: @end_date }, as: :campaign %>
+          locals: {campaign: campaign, start_date: @start_date, end_date: @end_date}, as: :campaign %>
         <% if (index + 1) % 3 == 0 %>
           </div><div class="card-deck d-block d-lg-flex card-lg-gutters-3">
         <% end %>

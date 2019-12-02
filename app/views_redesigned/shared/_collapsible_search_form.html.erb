@@ -10,7 +10,7 @@
           <span><i class="fas fa-search mr-3"></i>
             <% search.searched_keys.each do |search_key| %>
               <%= link_to search_key.humanize.titleize,
-                    url_for(controller: search.class.name.underscore.pluralize, action: "update", id: "current", params: { remove: search_key }),
+                    url_for(controller: search.class.name.underscore.pluralize, action: "update", id: "current", params: {remove: search_key}),
                     method: :put, class: "badge filter-badge mr-1" %>
             <% end %>
           </span>

@@ -2,7 +2,7 @@
   <%= f.input(:name, required: false) %>
 
   <% if authorized_user.can_admin_system? %>
-    <%= f.input(:user_id, label: "Advertiser", collection: advertisers_for_select, required: false, input_html: { data: { controller: "select" }}) %>
+    <%= f.input(:user_id, label: "Advertiser", collection: advertisers_for_select, required: false, input_html: {data: {controller: "select"}}) %>
   <% end %>
 
   <div class="text-right">

@@ -4,6 +4,6 @@
     icon: "fas fa-ad" %>
 <% end %>
 
-<%= render layout: "/campaigns/layout", locals: { campaign: @campaign, override: [:page_heading, :actions] } do %>
+<%= render layout: "/campaigns/layout", locals: {campaign: @campaign, override: [:page_heading, :actions]} do %>
   <%= render "/campaigns/form", campaign: @campaign %>
 <% end %>
