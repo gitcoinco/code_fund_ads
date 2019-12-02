@@ -38,13 +38,22 @@
     </header>
 
     <div class="sidebar-section sidebar-section-fill">
-      <h1 class="page-title">
-        <figure class="user-avatar mr-2">
-          <%= image_tag "", class: "lozad", data: { src: avatar_image_url(user) }, alt: "" %>
-        </figure>
-        <%= user.first_name %> <strong><%= user.last_name %></strong>
-      </h1>
-      <p class="text-muted"><%= user.email %></p>
+      <header class="page-title-bar">
+        <div class="d-flex justify-content-between">
+          <h1 class="page-title">
+            <figure class="user-avatar mr-2">
+              <%= image_tag "", class: "lozad", data: { src: avatar_image_url(user) }, alt: "" %>
+            </figure>
+            <%= user.first_name %> <strong><%= user.last_name %></strong>
+          </h1>
+          <div class="btn-toolbar">
+            <%= render "/shared/actions/edit_user", user: user %>
+            <%= render "/shared/actions/masquerade_as_user", user: user if user != current_user %>
+          </div>
+        </div>
+      </header>
+      
+      
 
       <div class="nav-scroller border-bottom">
         <ul class="nav nav-tabs">
