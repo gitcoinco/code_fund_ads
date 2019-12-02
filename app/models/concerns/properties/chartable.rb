@@ -1,6 +1,5 @@
 module Properties
   module Chartable
-
     def chart_payload(start_date, end_date)
       dailies = daily_summaries_by_day(start_date, end_date)
       labels = dailies.map { |d| d.displayed_at_date.strftime("%m/%-d") }
@@ -10,9 +9,8 @@ module Properties
       # series << dailies.map { |daily| daily.property_revenue_cents.to_f / 100 } if values.include?(:revenue)
       {
         labels: labels,
-        series: series
+        series: series,
       }
     end
-
   end
 end

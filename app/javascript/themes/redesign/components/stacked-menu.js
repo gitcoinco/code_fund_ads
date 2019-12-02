@@ -19,13 +19,12 @@
  * var menus = new StackedMenu();
  */
 export default class StackedMenu {
-
   /**
    * Create a StackedMenu.
    * @constructor
    * @param  {Object} options - An object containing key:value that representing the current StackedMenu.
    */
-  constructor(options) {
+  constructor (options) {
     /**
      * The StackedMenu options.
      * @type {Object}
@@ -65,16 +64,19 @@ export default class StackedMenu {
      * The StackedMenu items.
      * @type {Element}
      */
-    this.items = this.selector ? this.selector.querySelectorAll('.menu-item') : null
+    this.items = this.selector
+      ? this.selector.querySelectorAll('.menu-item')
+      : null
 
     // forEach fallback
     if (!Array.prototype.forEach) {
-      Array.prototype.forEach = function forEach(cb, arg) {
-        if(typeof cb !== 'function') throw new TypeError(`${cb} is not a function`)
+      Array.prototype.forEach = function forEach (cb, arg) {
+        if (typeof cb !== 'function')
+          throw new TypeError(`${cb} is not a function`)
 
         let array = this
         arg = arg || this
-        for(let i = 0; i < array.length; i++) {
+        for (let i = 0; i < array.length; i++) {
           cb.call(arg, array[i], i, array)
         }
       }
@@ -113,7 +115,8 @@ export default class StackedMenu {
      * The StackedMenu element.
      * @type {Boolean}
      */
-    this.turbolinksAvailable = typeof window.Turbolinks === 'object' && window.Turbolinks.supported
+    this.turbolinksAvailable =
+      typeof window.Turbolinks === 'object' && window.Turbolinks.supported
 
     /** event handlers */
     this.handlerClickDoc = []
@@ -132,8 +135,8 @@ export default class StackedMenu {
    * @param  {Function} handler - The callback function when page is ready.
    * @return {void}
    */
-  _onReady(handler) {
-    if(document.readyState != 'loading') {
+  _onReady (handler) {
+    if (document.readyState != 'loading') {
       handler()
     } else {
       document.addEventListener('DOMContentLoaded', handler, false)
@@ -146,9 +149,9 @@ export default class StackedMenu {
    * @param  {Object} self - The StackedMenu self instance.
    * @return {void}
    */
-  _handleNavigation(self) {
-    self.each.call(this.items, (el) => {
-      self._on(el, 'click', function(e) {
+  _handleNavigation (self) {
+    self.each.call(this.items, el => {
+      self._on(el, 'click', function (e) {
         // Stop propagating the event to parent links
         e.stopPropagation()
         // if Turbolinks are available preventDefault immediatelly.
@@ -158,12 +161,13 @@ export default class StackedMenu {
         if (self._hasChild(el)) {
           self.turbolinksAvailable ? null : e.preventDefault()
         } else {
-          self.turbolinksAvailable ? window.Turbolinks.visit(el.firstElementChild.href) : null
+          self.turbolinksAvailable
+            ? window.Turbolinks.visit(el.firstElementChild.href)
+            : null
         }
       })
     })
   }
-
 
   /**
    * Merge the contents of two or more objects together into the first object.
@@ -171,14 +175,13 @@ export default class StackedMenu {
    * @param  {Object} obj - An object containing additional properties to merge in.
    * @return {Object} The merged object.
    */
-  _extend(obj) {
+  _extend (obj) {
     obj = obj || {}
     const args = arguments
     for (let i = 1; i < args.length; i++) {
       if (!args[i]) continue
       for (let key in args[i]) {
-        if (args[i].hasOwnProperty(key))
-          obj[key] = args[i][key]
+        if (args[i].hasOwnProperty(key)) obj[key] = args[i][key]
       }
     }
     return obj
@@ -191,7 +194,7 @@ export default class StackedMenu {
    * @param  {(Boolean|Number|String|Array|Object)} data - The custom data that will be added to event.
    * @return {void}
    */
-  _emit(type, data) {
+  _emit (type, data) {
     let e
     if (document.createEvent) {
       e = document.createEvent('Event')
@@ -216,7 +219,7 @@ export default class StackedMenu {
    * @param  {Function} handlerOut  - A function to execute when the mouse pointer leaves the element.
    * @return {void}
    */
-  _hover(el, handlerOver, handlerOut) {
+  _hover (el, handlerOver, handlerOut) {
     if (el.tagName === 'A') {
       this._on(el, 'focus', handlerOver)
       this._on(el, 'blur', handlerOut)
@@ -234,10 +237,14 @@ export default class StackedMenu {
    * @param  {Function} handler - The callback function when event type is fired.
    * @return {void}
    */
-  _on(el, type, handler) {
+  _on (el, type, handler) {
     let types = type.split(' ')
     for (let i = 0; i < types.length; i++) {
-      el[window.addEventListener ? 'addEventListener' : 'attachEvent']( window.addEventListener ? types[i] : `on${types[i]}` , handler, false)
+      el[window.addEventListener ? 'addEventListener' : 'attachEvent'](
+        window.addEventListener ? types[i] : `on${types[i]}`,
+        handler,
+        false
+      )
     }
   }
 
@@ -249,10 +256,14 @@ export default class StackedMenu {
    * @param  {Function} handler - The callback function when event type is fired.
    * @return {void}
    */
-  _off(el, type, handler) {
+  _off (el, type, handler) {
     let types = type.split(' ')
     for (let i = 0; i < types.length; i++) {
-      el[window.removeEventListener ? 'removeEventListener' : 'detachEvent']( window.removeEventListener ? types[i] : `on${types[i]}` , handler, false)
+      el[window.removeEventListener ? 'removeEventListener' : 'detachEvent'](
+        window.removeEventListener ? types[i] : `on${types[i]}`,
+        handler,
+        false
+      )
     }
   }
 
@@ -263,7 +274,7 @@ export default class StackedMenu {
    * @param {String} className - Specifies one or more class names to be added.
    * @return {void}
    */
-  _addClass(el, className) {
+  _addClass (el, className) {
     let classes = className.split(' ')
     for (let i = 0; i < classes.length; i++) {
       if (el.classList) el.classList.add(classes[i])
@@ -278,11 +289,18 @@ export default class StackedMenu {
    * @param {String} className - Specifies one or more class names to be added.
    * @return {void}
    */
-  _removeClass(el, className) {
+  _removeClass (el, className) {
     let classes = className.split(' ')
     for (let i = 0; i < classes.length; i++) {
       if (el.classList) el.classList.remove(classes[i])
-      else el.classes[i] = el.classes[i].replace(new RegExp('(^|\\b)' + classes[i].split(' ').join('|') + '(\\b|$)', 'gi'), ' ')
+      else
+        el.classes[i] = el.classes[i].replace(
+          new RegExp(
+            '(^|\\b)' + classes[i].split(' ').join('|') + '(\\b|$)',
+            'gi'
+          ),
+          ' '
+        )
     }
   }
 
@@ -293,7 +311,7 @@ export default class StackedMenu {
    * @param {String} className - The class name to search for.
    * @return {Boolean} is has className.
    */
-  _hasClass(el, className) {
+  _hasClass (el, className) {
     if (el.classList) return el.classList.contains(className)
     return new RegExp('(^| )' + className + '( |$)', 'gi').test(el.className)
   }
@@ -304,7 +322,7 @@ export default class StackedMenu {
    * @param {Element} el - The target element.
    * @return {Boolean} is has child.
    */
-  _hasChild(el) {
+  _hasChild (el) {
     return this._hasClass(el, this.classes.hasChild)
   }
 
@@ -314,7 +332,7 @@ export default class StackedMenu {
    * @param {Element} el - The target element.
    * @return {Boolean} is has active state.
    */
-  _hasActive(el) {
+  _hasActive (el) {
     return this._hasClass(el, this.classes.hasActive)
   }
 
@@ -324,7 +342,7 @@ export default class StackedMenu {
    * @param {Element} el - The target element.
    * @return {Boolean} is has open state.
    */
-  _hasOpen(el) {
+  _hasOpen (el) {
     return this._hasClass(el, this.classes.hasOpen)
   }
 
@@ -345,7 +363,7 @@ export default class StackedMenu {
    * @param {Number} index - An array index from each menu item use to detach the current event.
    * @return {void}
    */
-  _menuTrigger(el, index) {
+  _menuTrigger (el, index) {
     let elHover = el.querySelector('a')
 
     // remove exist listener
@@ -377,7 +395,7 @@ export default class StackedMenu {
    * @param {Element} items - The element of menu items.
    * @return {void}
    */
-  _handleInteractions(items) {
+  _handleInteractions (items) {
     const self = this
 
     this.each.call(items, (el, i) => {
@@ -385,7 +403,7 @@ export default class StackedMenu {
         self._menuTrigger(el, i)
       }
 
-      if(self._hasActive(el)) self.active =  el
+      if (self._hasActive(el)) self.active = el
     })
   }
 
@@ -395,7 +413,7 @@ export default class StackedMenu {
    * @param {Element} el - The target element.
    * @return {void}
    */
-  _getSubhead(el) {
+  _getSubhead (el) {
     return el.querySelector('.menu-text').textContent
   }
 
@@ -404,7 +422,7 @@ export default class StackedMenu {
    * @private
    * @return {void}
    */
-  _generateSubhead() {
+  _generateSubhead () {
     const self = this
     let menus = this.selector.children
     let link, menu, subhead, label
@@ -412,7 +430,7 @@ export default class StackedMenu {
       self.each.call(el.children, child => {
         if (self._hasChild(child)) {
           self.each.call(child.children, cc => {
-            if(self._hasClass(cc, 'menu-link')) link = cc
+            if (self._hasClass(cc, 'menu-link')) link = cc
           })
 
           menu = link.nextElementSibling
@@ -453,7 +471,7 @@ export default class StackedMenu {
    * @param  {String} easing - CSS Animation effect.
    * @return {Promise} resolve
    */
-  _slide(el, direction, speed, easing) {
+  _slide (el, direction, speed, easing) {
     speed = speed || 300
     easing = easing || 'ease'
     let self = this
@@ -464,7 +482,8 @@ export default class StackedMenu {
     // wait to clean style attribute
     let clearSpeed = walkSpeed + 100
 
-    menu.style.transition = `height ${speed}ms ${easing}, opacity ${speed/2}ms ${easing}, visibility ${speed/2}ms ${easing}`
+    menu.style.transition = `height ${speed}ms ${easing}, opacity ${speed /
+      2}ms ${easing}, visibility ${speed / 2}ms ${easing}`
 
     // slideDown
     if (direction === 'down') {
@@ -482,7 +501,7 @@ export default class StackedMenu {
       el.style.overflow = ''
       el.style.height = ''
 
-      setTimeout(function() {
+      setTimeout(function () {
         menu.style.height = height
         menu.style.opacity = 1
         menu.style.visibility = 'visible'
@@ -494,16 +513,16 @@ export default class StackedMenu {
       menu.style.visibility = 'visible'
       menu.style.opacity = 1
 
-      setTimeout(function() {
+      setTimeout(function () {
         menu.style.height = 0
         menu.style.visibility = 'hidden'
         menu.style.opacity = 0
       }, 0)
     }
 
-    let done = new Promise(function(resolve) {
+    let done = new Promise(function (resolve) {
       // remove the temporary styles
-      setTimeout(function() {
+      setTimeout(function () {
         resolve(el)
         // emit event
         self._emit('menu:slide' + direction)
@@ -511,7 +530,7 @@ export default class StackedMenu {
     })
 
     // remove styles after done has resolve
-    setTimeout(function() {
+    setTimeout(function () {
       menu.removeAttribute('style')
     }, clearSpeed)
 
@@ -525,7 +544,7 @@ export default class StackedMenu {
    * @fires StackedMenu#menu:init
    * @return {void}
    */
-  init() {
+  init () {
     const self = this
     let opts = this.options
 
@@ -555,7 +574,6 @@ export default class StackedMenu {
 
     // on ready state
     this._onReady(() => {
-
       /**
        * This event is fired when the Menu has completed init.
        *
@@ -588,9 +606,9 @@ export default class StackedMenu {
    * var menuItem2 = menu.querySelectorAll('.menu-item.has-child')[1];
    * menu.openMenu(menuItem2);
    */
-  openMenu(el, emiter = true) {
+  openMenu (el, emiter = true) {
     // prevent open on active item if not on compact mode
-    if(this._hasActive(el) && !this.isCompact()) return
+    if (this._hasActive(el) && !this.isCompact()) return
     const self = this
     let blockedSlide = this._isLevelMenu(el) && this.isCompact()
 
@@ -601,7 +619,7 @@ export default class StackedMenu {
       this._handleTabIndex()
     } else {
       // slide down
-      this._slide(el, 'down', 150, 'linear').then(function() {
+      this._slide(el, 'down', 150, 'linear').then(function () {
         self._addClass(el, self.classes.hasOpen)
         // handle tabindex
         self._handleTabIndex()
@@ -661,7 +679,7 @@ export default class StackedMenu {
    * var menuItem2 = menu.querySelectorAll('.menu-item.has-child')[1];
    * menu.closeMenu(menuItem2);
    */
-  closeMenu(el, emiter = true) {
+  closeMenu (el, emiter = true) {
     const self = this
     let blockedSlide = this._isLevelMenu(el) && this.isCompact()
     // open menu
@@ -672,7 +690,7 @@ export default class StackedMenu {
     } else {
       if (!this._hasActive(el)) {
         // slide up
-        this._slide(el, 'up', 150, 'linear').then(function() {
+        this._slide(el, 'up', 150, 'linear').then(function () {
           self._removeClass(el, self.classes.hasOpen)
           // handle tabindex
           self._handleTabIndex()
@@ -725,7 +743,7 @@ export default class StackedMenu {
    * @example
    * menu.closeAllMenu();
    */
-  closeAllMenu() {
+  closeAllMenu () {
     const self = this
     this.each.call(this.items, el => {
       if (self._hasOpen(el)) {
@@ -748,21 +766,28 @@ export default class StackedMenu {
    * var menuItem2 = menu.querySelectorAll('.menu-item.has-child')[1];
    * menu.toggleMenu(menuItem2);
    */
-  toggleMenu(el) {
-    const method = this._hasOpen(el) ? 'closeMenu': 'openMenu'
+  toggleMenu (el) {
+    const method = this._hasOpen(el) ? 'closeMenu' : 'openMenu'
     const self = this
     let itemParent, elParent
 
     // close other
     this.each.call(this.items, item => {
       itemParent = item.parentNode.parentNode
-      itemParent = self._hasClass(itemParent, 'menu-item') ? itemParent : itemParent.parentNode
+      itemParent = self._hasClass(itemParent, 'menu-item')
+        ? itemParent
+        : itemParent.parentNode
       elParent = el.parentNode.parentNode
-      elParent = self._hasClass(elParent, 'menu-item') ? elParent : elParent.parentNode
+      elParent = self._hasClass(elParent, 'menu-item')
+        ? elParent
+        : elParent.parentNode
 
       // close other except parents that has open state and an active item
-      if(!self._hasOpen(elParent) && self._hasChild(itemParent)) {
-        if (self.options.closeOther || (!self.options.closeOther && self.isCompact())) {
+      if (!self._hasOpen(elParent) && self._hasChild(itemParent)) {
+        if (
+          self.options.closeOther ||
+          (!self.options.closeOther && self.isCompact())
+        ) {
           if (self._hasOpen(itemParent)) {
             self.closeMenu(itemParent, false)
           }
@@ -785,8 +810,8 @@ export default class StackedMenu {
    * @example
    * menu.align('left');
    */
-  align(position) {
-    const method = (position === 'left') ? '_addClass': '_removeClass'
+  align (position) {
+    const method = position === 'left' ? '_addClass' : '_removeClass'
     const classes = this.classes
 
     this[method](this.selector, classes.alignLeft)
@@ -822,7 +847,7 @@ export default class StackedMenu {
    * @example
    * var isCompact = menu.isCompact();
    */
-  isCompact() {
+  isCompact () {
     return this.options.compact
   }
 
@@ -836,8 +861,8 @@ export default class StackedMenu {
    * @example
    * menu.compact(true);
    */
-  compact(isCompact) {
-    const method = (isCompact) ? '_addClass': '_removeClass'
+  compact (isCompact) {
+    const method = isCompact ? '_addClass' : '_removeClass'
     const classes = this.classes
 
     this[method](this.selector, classes.compact)
@@ -875,7 +900,7 @@ export default class StackedMenu {
    * @example
    * var isHoverable = menu.isHoverable();
    */
-  isHoverable() {
+  isHoverable () {
     return this.options.hoverable
   }
 
@@ -889,7 +914,7 @@ export default class StackedMenu {
    * @example
    * menu.hoverable(true);
    */
-  hoverable(isHoverable) {
+  hoverable (isHoverable) {
     const classes = this.classes
 
     if (isHoverable) {

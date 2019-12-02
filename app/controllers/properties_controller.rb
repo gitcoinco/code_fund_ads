@@ -58,10 +58,10 @@ class PropertiesController < ApplicationController
 
   def destroy
     @property.destroy
-    redir = params[:redir] || properties_url
+    redirect_url = params[:redir] || properties_url
 
     respond_to do |format|
-      format.html { redirect_to redir, notice: "Property was successfully destroyed." }
+      format.html { redirect_to redirect_url, notice: "Property was successfully destroyed." }
       format.json { head :no_content }
     end
   end

@@ -55,7 +55,6 @@ class Theme {
     this.placeholderShown()
     this.objectFitFallback()
 
-
     // handle bootstrap components
     // =============================================================
 
@@ -72,7 +71,6 @@ class Theme {
     this.modalScrollable()
     this.autofocusInputBehaviour()
 
-
     // handle theme skins (default, dark)
     // =============================================================
 
@@ -80,7 +78,6 @@ class Theme {
     if (this.skin === 'dark') {
       this.invertGrays()
     }
-
 
     // handle theme layouts
     // =============================================================
@@ -90,7 +87,6 @@ class Theme {
     this.asideMenu()
     this.sidebar()
     this.pageExpander()
-
 
     // handle theme components
     // =============================================================
@@ -103,14 +99,13 @@ class Theme {
     this.checkboxList()
     this.smoothScroll()
 
-
     // handle plugins initialization
     // =============================================================
 
     this.perfectScrollbar()
     this.initLozad()
     this.masonry()
-    this.chartjs()
+    // this.chartjs()
     this.sparkline()
     this.easypie()
     this.knob()
@@ -133,14 +128,12 @@ class Theme {
     this.zxcvbn()
     this.aos()
 
-
     // handle events – how our components should react on events?
     // =============================================================
 
     this.eventProps()
     this.watchMQ()
     this.watchIE()
-
 
     // utilities
     // =============================================================
@@ -151,7 +144,6 @@ class Theme {
     // trigger the document
     $(document).trigger('theme:init', this)
   }
-
 
   // Polifyll
   // =============================================================
@@ -170,12 +162,16 @@ class Theme {
    * used by floating label input
    */
   placeholderShown () {
-    $(document).on('focus blur keyup change', '.form-label-group > input', function () {
-      this.classList[this.value ? 'remove' : 'add']('placeholder-shown')
-      setTimeout(() => {
-        console.log(this.autofill)
-      }, 2000)
-    })
+    $(document).on(
+      'focus blur keyup change',
+      '.form-label-group > input',
+      function () {
+        this.classList[this.value ? 'remove' : 'add']('placeholder-shown')
+        setTimeout(() => {
+          console.log(this.autofill)
+        }, 2000)
+      }
+    )
 
     // toggle .placeholder-shown onload
     $('.form-label-group > input').trigger('change')
@@ -187,11 +183,11 @@ class Theme {
   objectFitFallback () {
     if (this.isIE() || this.isEdge()) {
       const selectors = [
-       '.user-avatar img',
-       '.tile > img',
-       '.figure-attachment > img',
-       '.page-cover > .cover-img',
-       '.list-group-item-figure > img'
+        '.user-avatar img',
+        '.tile > img',
+        '.figure-attachment > img',
+        '.page-cover > .cover-img',
+        '.list-group-item-figure > img'
       ]
 
       $(selectors.toString()).each(function () {
@@ -212,17 +208,19 @@ class Theme {
             backgroundPosition: 'center center'
           })
 
-          if ($container.hasClass('user-avatar') || $container.hasClass('user-avatar')) {
+          if (
+            $container.hasClass('user-avatar') ||
+            $container.hasClass('user-avatar')
+          ) {
             $container.css('background-position', 'top center')
           }
 
           // hide the image
-          $img.css('opacity', 0);
+          $img.css('opacity', 0)
         }
       })
     }
   }
-
 
   // Bootstrap Components
   // =============================================================
@@ -251,7 +249,9 @@ class Theme {
     // hide/show due to input value
     const toggleClear = input => {
       const isEmpty = !$(input).val()
-      const clearable = $(input).parent().children('.close')
+      const clearable = $(input)
+        .parent()
+        .children('.close')
 
       clearable.toggleClass('show', !isEmpty)
     }
@@ -268,7 +268,9 @@ class Theme {
         toggleClear(this)
       })
       .on('click', '.has-clearable > .close', function () {
-        const $input = $(this).parent().children('.form-control')
+        const $input = $(this)
+          .parent()
+          .children('.form-control')
 
         $input.val('').focus()
         toggleClear($input[0])
@@ -282,8 +284,10 @@ class Theme {
    */
   inputGroup () {
     // handle input group events
-    $(document)
-      .on('focusin focusout', '.input-group:not(.input-group-alt) .form-control', function (e) {
+    $(document).on(
+      'focusin focusout',
+      '.input-group:not(.input-group-alt) .form-control',
+      function (e) {
         const $parent = $(this).parent()
         const hasInputGroup = $parent.has('.input-group')
         const hasFocus = e.type === 'focusin'
@@ -291,7 +295,8 @@ class Theme {
         if (hasInputGroup) {
           $parent.toggleClass('focus', hasFocus)
         }
-      })
+      }
+    )
   }
 
   /**
@@ -308,31 +313,26 @@ class Theme {
 
       const controls = $('<div class="custom-number-controls"></div>')
       const btnUp = $('<div class="custom-number-btn custom-number-up">+</div>')
-      const btnDown = $('<div class="custom-number-btn custom-number-down">-</div>')
+      const btnDown = $(
+        '<div class="custom-number-btn custom-number-down">-</div>'
+      )
 
-      controls
-        .prepend(btnUp)
-        .append(btnDown)
+      controls.prepend(btnUp).append(btnDown)
 
-      spinner
-        .append(controls)
+      spinner.append(controls)
 
       btnUp.on('click', function () {
         const oldValue = parseFloat(input.val()) || 0
-        newVal = (oldValue >= max) ? oldValue : (oldValue + step)
+        newVal = oldValue >= max ? oldValue : oldValue + step
 
-        input
-          .val(newVal)
-          .trigger('change')
+        input.val(newVal).trigger('change')
       })
 
       btnDown.on('click', function () {
         const oldValue = parseFloat(input.val()) || 0
-        newVal = (oldValue <= min) ? oldValue : (oldValue - step)
+        newVal = oldValue <= min ? oldValue : oldValue - step
 
-        input
-          .val(newVal)
-          .trigger('change')
+        input.val(newVal).trigger('change')
       })
     })
   }
@@ -386,9 +386,14 @@ class Theme {
       const triggerText = isPassword ? 'Hide' : 'Show'
 
       // toggle icon
-      $(this).children('.fa, .far').toggleClass('fa-eye fa-eye-slash', hasFa)
+      $(this)
+        .children('.fa, .far')
+        .toggleClass('fa-eye fa-eye-slash', hasFa)
       // toggle trigger text
-      $(this).children().last().text(triggerText)
+      $(this)
+        .children()
+        .last()
+        .text(triggerText)
       // toggle input type
       $input.prop('type', inputType)
     })
@@ -398,8 +403,9 @@ class Theme {
    * Add indeterminate state in custom checkbox
    */
   indeterminateCheckboxes () {
-    $('input[type="checkbox"][indeterminate], input[type="checkbox"][data-indeterminate="true"]')
-      .prop('indeterminate', true)
+    $(
+      'input[type="checkbox"][indeterminate], input[type="checkbox"][data-indeterminate="true"]'
+    ).prop('indeterminate', true)
   }
 
   /**
@@ -426,12 +432,16 @@ class Theme {
    * Toggle card expansion like accordion
    */
   cardExpansion () {
-    $(document).on('show.bs.collapse hide.bs.collapse', '.card-expansion-item > .collapse', function (e) {
-      const $item = $(this).parent()
-      const isShown = e.type === 'show'
+    $(document).on(
+      'show.bs.collapse hide.bs.collapse',
+      '.card-expansion-item > .collapse',
+      function (e) {
+        const $item = $(this).parent()
+        const isShown = e.type === 'show'
 
-      $item.toggleClass('expanded', isShown)
-    })
+        $item.toggleClass('expanded', isShown)
+      }
+    )
   }
 
   /**
@@ -445,30 +455,37 @@ class Theme {
         .trigger('scroll')
     })
 
-    $('.modal-dialog-scrollable .modal-body, .modal-drawer .modal-body').on('scroll', function () {
-      const $elem = $(this)
-      const elem = $elem[0]
-      const isTop = $elem.scrollTop() === 0
-      const isBottom = elem.scrollHeight - $elem.scrollTop() === $elem.outerHeight()
+    $('.modal-dialog-scrollable .modal-body, .modal-drawer .modal-body').on(
+      'scroll',
+      function () {
+        const $elem = $(this)
+        const elem = $elem[0]
+        const isTop = $elem.scrollTop() === 0
+        const isBottom =
+          elem.scrollHeight - $elem.scrollTop() === $elem.outerHeight()
 
-      $elem.prev().toggleClass('modal-body-scrolled', isTop)
-      $elem.next().toggleClass('modal-body-scrolled', isBottom)
-    })
+        $elem.prev().toggleClass('modal-body-scrolled', isTop)
+        $elem.next().toggleClass('modal-body-scrolled', isBottom)
+      }
+    )
   }
 
   /**
    * Make input with [autofocus] attribute in modal and dropdown work as native [autofocus]
    */
   autofocusInputBehaviour () {
-    $(document).on('shown.bs.modal shown.bs.dropdown', '.modal, .dropdown', e => {
-      const $modal = $(e.target)
+    $(document).on(
+      'shown.bs.modal shown.bs.dropdown',
+      '.modal, .dropdown',
+      e => {
+        const $modal = $(e.target)
 
-      $modal
-        .find('input[autofocus]:first, input[data-autofocus="true"]:first')
-        .focus()
-    })
+        $modal
+          .find('input[autofocus]:first, input[data-autofocus="true"]:first')
+          .focus()
+      }
+    )
   }
-
 
   // Theme Skins
   // =============================================================
@@ -540,7 +557,6 @@ class Theme {
     })
   }
 
-
   // Theme Layout
   // =============================================================
 
@@ -608,10 +624,8 @@ class Theme {
 
       $trigger.toggleClass('active', !isShown)
 
-      if (isShown)
-        this.hideAside()
-      else
-        this.showAside()
+      if (isShown) this.hideAside()
+      else this.showAside()
     })
   }
 
@@ -703,21 +717,25 @@ class Theme {
     // handle sidebar
     this.sidebarBackdrop()
 
-    $(document).on('click', '[data-toggle="sidebar"], .sidebar-backdrop', function (e) {
-      e.preventDefault()
+    $(document).on(
+      'click',
+      '[data-toggle="sidebar"], .sidebar-backdrop',
+      function (e) {
+        e.preventDefault()
 
-      const state = $(this).data('sidebar')
-      switch (state) {
-        case 'show':
-          self.showSidebar(this)
-          break;
-        case 'hide':
-          self.hideSidebar(this)
-          break;
-        default:
-          self.toggleSidebar(this)
+        const state = $(this).data('sidebar')
+        switch (state) {
+          case 'show':
+            self.showSidebar(this)
+            break
+          case 'hide':
+            self.hideSidebar(this)
+            break
+          default:
+            self.toggleSidebar(this)
+        }
       }
-    })
+    )
   }
 
   /**
@@ -730,7 +748,6 @@ class Theme {
       $('.page').toggleClass('page-expanded')
     })
   }
-
 
   // Theme Components
   // =============================================================
@@ -754,11 +771,15 @@ class Theme {
 
         // normalize all empty publisher
         $('.publisher').each(function () {
-          const hasEmpty = !$(this).find('.form-control').val()
+          const hasEmpty = !$(this)
+            .find('.form-control')
+            .val()
 
           if (hasEmpty) {
             $(this).removeClass('active')
-            $(this).not('.keep-focus').removeClass('focus')
+            $(this)
+              .not('.keep-focus')
+              .removeClass('focus')
           }
         })
 
@@ -788,7 +809,9 @@ class Theme {
   tasksStyle () {
     $(document).on('mouseenter mouseleave', '.task-header', function (e) {
       const isHover = e.type === 'mouseenter'
-      $(this).parent().toggleClass('hover', isHover)
+      $(this)
+        .parent()
+        .toggleClass('hover', isHover)
     })
   }
 
@@ -798,10 +821,14 @@ class Theme {
   filterList () {
     $(document).on('keyup', '[data-filter]', function () {
       const target = $(this).data('filter')
-      const value = $(this).val().toLowerCase()
+      const value = $(this)
+        .val()
+        .toLowerCase()
 
       $(target).filter(function () {
-        const text = $(this).text().toLowerCase()
+        const text = $(this)
+          .text()
+          .toLowerCase()
         $(this).toggle(text.indexOf(value) > -1)
       })
     })
@@ -861,12 +888,14 @@ class Theme {
       const headerHeight = $('.app-header').height() + 20
       const offset = target.offset().top - headerHeight
 
-      $('html, body').animate({
-        scrollTop: (offset < 0) ? 0 : offset
-      }, 700)
+      $('html, body').animate(
+        {
+          scrollTop: offset < 0 ? 0 : offset
+        },
+        700
+      )
     })
   }
-
 
   // Theme Plugins
   // =============================================================
@@ -891,8 +920,8 @@ class Theme {
   initLozad () {
     // initialization for any components
     if (lozad && this.isExists('.lozad')) {
-      const observer = lozad();
-      observer.observe();
+      const observer = lozad()
+      observer.observe()
     }
   }
 
@@ -914,52 +943,52 @@ class Theme {
   /**
    * Handle ChartJS default options
    */
-  chartjs () {
-    if (Chart) {
-      const colors = this.colors
-      const skin = this.skin
-      const isDarkSkin = skin === 'dark'
-      const gray = this.getColors('gray')
+  // chartjs () {
+  //   if (Chart) {
+  //     const colors = this.colors
+  //     const skin = this.skin
+  //     const isDarkSkin = skin === 'dark'
+  //     const gray = this.getColors('gray')
 
-      // our settings for Chart JS
-      const settings = {
-        global: {
-          responsive: true,
-          maintainAspectRatio: false,
-          defaultColor: isDarkSkin ? this.hexToRgba(colors.white, .08) : this.hexToRgba(colors.black, .1),
-          defaultFontColor: isDarkSkin ? gray[400] : gray[600],
-          fontFamily: '-apple-system, BlinkMacSystemFont, "Fira Sans", "Helvetica Neue", "Apple Color Emoji", sans-serif',
-          tooltips: {
-            backgroundColor: isDarkSkin ? this.hexToRgba(colors.white, .98) : this.hexToRgba(colors.black, .98),
-            xPadding: 8,
-            yPadding: 8,
-            titleMarginBottom: 8,
-            footerMarginTop: 8,
-            titleFontColor: gray[200],
-            bodyFontColor: gray[200],
-            footerFontColor: gray[200],
-            multiKeyBackground: gray[200]
-          },
-          title: {
-            fontColor: gray[700],
-            fontStyle: 500
-          },
-          legend: {
-            display: false
-          }
-        },
-        scale: {
-          gridLines: {
-            color: isDarkSkin ? this.hexToRgba(colors.white, .08) : this.hexToRgba(colors.black, .1),
-            zeroLineColor: isDarkSkin ? this.hexToRgba(colors.white, .08) : this.hexToRgba(colors.black, .1)
-          }
-        }
-      }
+  //     // our settings for Chart JS
+  //     const settings = {
+  //       global: {
+  //         responsive: true,
+  //         maintainAspectRatio: false,
+  //         defaultColor: isDarkSkin ? this.hexToRgba(colors.white, .08) : this.hexToRgba(colors.black, .1),
+  //         defaultFontColor: isDarkSkin ? gray[400] : gray[600],
+  //         fontFamily: '-apple-system, BlinkMacSystemFont, "Fira Sans", "Helvetica Neue", "Apple Color Emoji", sans-serif',
+  //         tooltips: {
+  //           backgroundColor: isDarkSkin ? this.hexToRgba(colors.white, .98) : this.hexToRgba(colors.black, .98),
+  //           xPadding: 8,
+  //           yPadding: 8,
+  //           titleMarginBottom: 8,
+  //           footerMarginTop: 8,
+  //           titleFontColor: gray[200],
+  //           bodyFontColor: gray[200],
+  //           footerFontColor: gray[200],
+  //           multiKeyBackground: gray[200]
+  //         },
+  //         title: {
+  //           fontColor: gray[700],
+  //           fontStyle: 500
+  //         },
+  //         legend: {
+  //           display: false
+  //         }
+  //       },
+  //       scale: {
+  //         gridLines: {
+  //           color: isDarkSkin ? this.hexToRgba(colors.white, .08) : this.hexToRgba(colors.black, .1),
+  //           zeroLineColor: isDarkSkin ? this.hexToRgba(colors.white, .08) : this.hexToRgba(colors.black, .1)
+  //         }
+  //       }
+  //     }
 
-      // Merge settings to Chart JS default options
-      $.extend(true, Chart.defaults, settings)
-    }
-  }
+  //     // Merge settings to Chart JS default options
+  //     $.extend(true, Chart.defaults, settings)
+  //   }
+  // }
 
   /**
    * Handle Flot default options
@@ -973,11 +1002,15 @@ class Theme {
     // our setting to merge with flot default options
     return {
       xaxis: {
-        tickColor: isDarkSkin ? this.hexToRgba(colors.white, .08) : this.hexToRgba(colors.black, .1),
+        tickColor: isDarkSkin
+          ? this.hexToRgba(colors.white, 0.08)
+          : this.hexToRgba(colors.black, 0.1),
         color: isDarkSkin ? gray[400] : gray[600]
       },
       yaxis: {
-        tickColor: isDarkSkin ? this.hexToRgba(colors.white, .08) : this.hexToRgba(colors.black, .1),
+        tickColor: isDarkSkin
+          ? this.hexToRgba(colors.white, 0.08)
+          : this.hexToRgba(colors.black, 0.1),
         color: isDarkSkin ? gray[400] : gray[600]
       }
     }
@@ -1011,14 +1044,23 @@ class Theme {
 
         // default for undefined
         options.barColor = options.barColor || self.colors.brand.teal
-        options.trackColor = options.trackColor || self.skin === 'dark' ? self.getColors('gray')[200] : self.colors.white
+        options.trackColor =
+          options.trackColor || self.skin === 'dark'
+            ? self.getColors('gray')[200]
+            : self.colors.white
         options.scaleColor = options.scaleColor || 'transparent'
-        options.lineWidth = (options.lineWidth) ? parseInt(options.lineWidth) : 8
-        options.size = (options.size) ? parseInt(options.size) : 120
-        options.rotate = (options.rotate) ? parseInt(options.rotate) : 0
+        options.lineWidth = options.lineWidth ? parseInt(options.lineWidth) : 8
+        options.size = options.size ? parseInt(options.size) : 120
+        options.rotate = options.rotate ? parseInt(options.rotate) : 0
 
-        options.trackColor = (options.trackColor == 'false' || options.trackColor == '') ? false : options.trackColor
-        options.scaleColor = (options.scaleColor == 'false' || options.scaleColor == '') ? false : options.scaleColor
+        options.trackColor =
+          options.trackColor == 'false' || options.trackColor == ''
+            ? false
+            : options.trackColor
+        options.scaleColor =
+          options.scaleColor == 'false' || options.scaleColor == ''
+            ? false
+            : options.scaleColor
 
         $(selector).easyPieChart(options)
       })
@@ -1052,19 +1094,40 @@ class Theme {
               pa = this.arc(this.v)
               this.g.beginPath()
               this.g.strokeStyle = this.pColor
-              this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, pa.s, pa.e, pa.d)
+              this.g.arc(
+                this.xy,
+                this.xy,
+                this.radius - this.lineWidth,
+                pa.s,
+                pa.e,
+                pa.d
+              )
               this.g.stroke()
             }
 
             this.g.beginPath()
             this.g.strokeStyle = r ? this.o.fgColor : this.fgColor
-            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, a.s, a.e, a.d)
+            this.g.arc(
+              this.xy,
+              this.xy,
+              this.radius - this.lineWidth,
+              a.s,
+              a.e,
+              a.d
+            )
             this.g.stroke()
 
             this.g.lineWidth = 2
             this.g.beginPath()
             this.g.strokeStyle = this.o.fgColor
-            this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false)
+            this.g.arc(
+              this.xy,
+              this.xy,
+              this.radius - this.lineWidth + 1 + (this.lineWidth * 2) / 3,
+              0,
+              2 * Math.PI,
+              false
+            )
             this.g.stroke()
 
             return false
@@ -1125,18 +1188,18 @@ class Theme {
    */
   jsTreeTypes () {
     return {
-      '#' : {
-        max_children : 1,
-        max_depth : 4,
+      '#': {
+        max_children: 1,
+        max_depth: 4,
         valid_children: ['root']
       },
-      'root': {
+      root: {
         icon: 'fa fa-hdd text-yellow',
         valid_children: ['default', 'file']
       },
-      default : {
+      default: {
         icon: 'fa fa-folder text-yellow',
-        valid_children : ['default','file']
+        valid_children: ['default', 'file']
       },
       file: {
         icon: 'fa fa-file',
@@ -1191,7 +1254,8 @@ class Theme {
       $.fn.selectpicker.Constructor.DEFAULTS.style = ''
       $.fn.selectpicker.Constructor.DEFAULTS.styleBase = 'custom-select'
       $.fn.selectpicker.Constructor.DEFAULTS.iconBase = 'fa'
-      $.fn.selectpicker.Constructor.DEFAULTS.tickIcon = 'fa-check font-size-sm mt-2'
+      $.fn.selectpicker.Constructor.DEFAULTS.tickIcon =
+        'fa-check font-size-sm mt-2'
 
       $('[data-toggle="selectpicker"]').each(function () {
         const selector = this
@@ -1253,12 +1317,15 @@ class Theme {
         const selector = this
         const options = $(selector).data()
 
-        options.menuContainer = document.querySelector(options.menuContainer) || false
+        options.menuContainer =
+          document.querySelector(options.menuContainer) || false
 
         // define custom template
         if (options.itemTemplate == true) {
           options.menuItemTemplate = item => {
-            return `<span class="user-avatar user-avatar-sm mr-2"><img src="${item.original.avatar}"></span> ${item.string}`
+            return `<span class="user-avatar user-avatar-sm mr-2"><img src="${
+              item.original.avatar
+            }"></span> ${item.string}`
           }
         }
 
@@ -1305,19 +1372,23 @@ class Theme {
         options.defaultDate = options.defaultDates || null
         // flatpickr plugins
         if (options.confirmdate) {
-          options.plugins.push(new confirmDatePlugin({
-            showAlways: true
-          }))
+          options.plugins.push(
+            new confirmDatePlugin({
+              showAlways: true
+            })
+          )
         }
         if (options.weekselect) {
           options.plugins.push(new weekSelect({}))
         }
         if (options.monthselect) {
-          options.plugins.push(new monthSelectPlugin({
-            shorthand: true, //defaults to false
-            dateFormat: 'm/y', //defaults to 'F Y'
-            altFormat: 'F Y' //defaults to 'F Y'
-          }))
+          options.plugins.push(
+            new monthSelectPlugin({
+              shorthand: true, //defaults to false
+              dateFormat: 'm/y', //defaults to 'F Y'
+              altFormat: 'F Y' //defaults to 'F Y'
+            })
+          )
         }
         if (options.rangeplugin) {
           options.plugins.push(new range({ input: `#${options.secondInput}` }))
@@ -1396,7 +1467,8 @@ class Theme {
           // fix broken checkbox on link modal
           onInit: function (e) {
             const editor = $(e.editor)
-            editor.find('.custom-control-description')
+            editor
+              .find('.custom-control-description')
               .addClass('custom-control-label d-block')
               .parent()
               .removeAttr('for')
@@ -1419,19 +1491,28 @@ class Theme {
 
         if (options.modules == null) {
           options.modules = {
-            'formula': true,
-            'syntax': true,
-            'toolbar': [
-              [{ 'font': [] }, { 'size': [] }],
-              [ 'bold', 'italic', 'underline', 'strike' ],
-              [{ 'color': [] }, { 'background': [] }],
-              [{ 'script': 'super' }, { 'script': 'sub' }],
-              [{ 'header': [false,1,2,3,4,5,6] }, 'blockquote', 'code-block' ],
-              [{ 'list': 'ordered' }, { 'list': 'bullet'}, { 'indent': '-1' }, { 'indent': '+1' }],
-              [ 'direction', { 'align': [] }],
-              [ 'link', 'image', 'video', 'formula' ],
-              [ 'clean' ]
-            ],
+            formula: true,
+            syntax: true,
+            toolbar: [
+              [{ font: [] }, { size: [] }],
+              ['bold', 'italic', 'underline', 'strike'],
+              [{ color: [] }, { background: [] }],
+              [{ script: 'super' }, { script: 'sub' }],
+              [
+                { header: [false, 1, 2, 3, 4, 5, 6] },
+                'blockquote',
+                'code-block'
+              ],
+              [
+                { list: 'ordered' },
+                { list: 'bullet' },
+                { indent: '-1' },
+                { indent: '+1' }
+              ],
+              ['direction', { align: [] }],
+              ['link', 'image', 'video', 'formula'],
+              ['clean']
+            ]
           }
         }
 
@@ -1468,11 +1549,64 @@ class Theme {
         const options = $(selector).data()
         const patterns = {
           date: [/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/],
-          usphone: ['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
-          usphonecode: ['+', '1', ' ', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/],
+          usphone: [
+            '(',
+            /[1-9]/,
+            /\d/,
+            /\d/,
+            ')',
+            ' ',
+            /\d/,
+            /\d/,
+            /\d/,
+            '-',
+            /\d/,
+            /\d/,
+            /\d/,
+            /\d/
+          ],
+          usphonecode: [
+            '+',
+            '1',
+            ' ',
+            '(',
+            /[1-9]/,
+            /\d/,
+            /\d/,
+            ')',
+            ' ',
+            /\d/,
+            /\d/,
+            /\d/,
+            '-',
+            /\d/,
+            /\d/,
+            /\d/,
+            /\d/
+          ],
           uszip: [/\d/, /\d/, /\d/, /\d/, /\d/],
           cazip: [/[A-Z]/i, /\d/, /[A-Z]/i, ' ', /\d/, /[A-Z]/i, /\d/],
-          cc: [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/],
+          cc: [
+            /\d/,
+            /\d/,
+            /\d/,
+            /\d/,
+            ' ',
+            /\d/,
+            /\d/,
+            /\d/,
+            /\d/,
+            ' ',
+            /\d/,
+            /\d/,
+            /\d/,
+            /\d/,
+            ' ',
+            /\d/,
+            /\d/,
+            /\d/,
+            /\d/
+          ],
           expdatecc: [/\d/, /\d/, '/', /\d/, /\d/],
           cvc: [/\d/, /\d/, /\d/]
         }
@@ -1488,15 +1622,23 @@ class Theme {
           options.mask = textMaskAddons.emailMask || []
         } else if (pattern == 'currency') {
           options.prefix = options.prefix || ''
-          options.mask = textMaskAddons.createNumberMask ? textMaskAddons.createNumberMask(options) : []
+          options.mask = textMaskAddons.createNumberMask
+            ? textMaskAddons.createNumberMask(options)
+            : []
         } else if (pattern == 'percentage') {
           options.prefix = ''
           options.suffix = '%'
-          options.mask = textMaskAddons.createNumberMask ? textMaskAddons.createNumberMask(options) : []
+          options.mask = textMaskAddons.createNumberMask
+            ? textMaskAddons.createNumberMask(options)
+            : []
         }
 
         if (options.autoCorrectDate) {
-          const autoCorrectedDatePipe = textMaskAddons.createAutoCorrectedDatePipe ? textMaskAddons.createAutoCorrectedDatePipe(options.autoCorrectDate) : null
+          const autoCorrectedDatePipe = textMaskAddons.createAutoCorrectedDatePipe
+            ? textMaskAddons.createAutoCorrectedDatePipe(
+                options.autoCorrectDate
+              )
+            : null
           options.pipe = autoCorrectedDatePipe
         }
 
@@ -1512,7 +1654,7 @@ class Theme {
     if (window.Headroom) {
       $('[data-toggle="headroom"]').each(function () {
         const options = $(this).data()
-        const headroom  = new Headroom(this, options)
+        const headroom = new Headroom(this, options)
         // initialise
         headroom.init()
       })
@@ -1528,12 +1670,19 @@ class Theme {
         const input = this
         const indicator = $(this).data('indicator')
         const feedback = $(this).data('indicatorFeedback')
-        const strength = ['bg-red', 'bg-orange', 'bg-yellow', 'bg-teal', 'bg-indigo']
+        const strength = [
+          'bg-red',
+          'bg-orange',
+          'bg-yellow',
+          'bg-teal',
+          'bg-indigo'
+        ]
 
         $(input).on('keyup', function () {
           const val = input.value
           const result = zxcvbn(val)
-          const indicatorWidth = `${(result.score + 1) / strength.length * 100}%`
+          const indicatorWidth = `${((result.score + 1) / strength.length) *
+            100}%`
 
           // Update the password strength meter
           if (val !== '') {
@@ -1541,7 +1690,11 @@ class Theme {
               .removeClass(`d-none ${strength.join(' ')}`)
               .addClass(`${strength[result.score]}`)
               .css('width', indicatorWidth)
-            $(feedback).html(`<strong>${result.feedback.warning}</strong> ${result.feedback.suggestions}`)
+            $(feedback).html(
+              `<strong>${result.feedback.warning}</strong> ${
+                result.feedback.suggestions
+              }`
+            )
           } else {
             $(indicator).addClass('d-none')
             $(feedback).html('')
@@ -1562,7 +1715,6 @@ class Theme {
       })
     }
   }
-
 
   // Events
   // =============================================================
@@ -1586,7 +1738,11 @@ class Theme {
   watchMQ () {
     $(window).on('resize', () => {
       // force close aside on toggle screen up
-      if (this.isToggleScreenUp() && $('.app-aside').hasClass('has-open') && !$('.app').hasClass('has-fullwidth')) {
+      if (
+        this.isToggleScreenUp() &&
+        $('.app-aside').hasClass('has-open') &&
+        !$('.app').hasClass('has-fullwidth')
+      ) {
         this.closeAside()
       }
 
@@ -1618,7 +1774,11 @@ class Theme {
    * @return {Boolean}
    */
   isOpera () {
-    return (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0
+    return (
+      (!!window.opr && !!opr.addons) ||
+      !!window.opera ||
+      navigator.userAgent.indexOf(' OPR/') >= 0
+    )
   }
 
   /**
@@ -1635,7 +1795,15 @@ class Theme {
    */
   isSafari () {
     // Safari 3.0+ "[object HTMLElementConstructor]"
-    return /constructor/i.test(window.HTMLElement) || (function (p) { return p.toString() === '[object SafariRemoteNotification]'; })(!window['safari'] || (typeof safari !== 'undefined' && safari.pushNotification))
+    return (
+      /constructor/i.test(window.HTMLElement) ||
+      (function (p) {
+        return p.toString() === '[object SafariRemoteNotification]'
+      })(
+        !window['safari'] ||
+          (typeof safari !== 'undefined' && safari.pushNotification)
+      )
+    )
   }
 
   /**
@@ -1643,7 +1811,7 @@ class Theme {
    * @return {Boolean}
    */
   isIE () {
-    return /*@cc_on!@*/false || !!document.documentMode
+    return /*@cc_on!@*/ false || !!document.documentMode
   }
 
   /**
@@ -1742,7 +1910,7 @@ class Theme {
    * Credit: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb?rq=1
    */
   rgbToHex (r, g, b) {
-    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
+    return '#' + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)
   }
 
   /**
@@ -1756,7 +1924,10 @@ class Theme {
 
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
     return result
-      ? `rgb(${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)})`
+      ? `rgb(${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(
+          result[3],
+          16
+        )})`
       : null
   }
 
@@ -1770,9 +1941,12 @@ class Theme {
 
     const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
     return result
-      ? `rgba(${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}, ${alpha})`
+      ? `rgba(${parseInt(result[1], 16)}, ${parseInt(
+          result[2],
+          16
+        )}, ${parseInt(result[3], 16)}, ${alpha})`
       : null
   }
 }
 
-export default Theme;
+export default Theme

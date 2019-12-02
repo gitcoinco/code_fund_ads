@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
-    "@fortawesome/fontawesome-free": "^5.11.2",
     "@fullcalendar/bootstrap": "^4.3.0",
     "@fullcalendar/core": "^4.3.1",
     "@fullcalendar/daygrid": "^4.3.0",
@@ -28,7 +27,6 @@
     "bootstrap-daterangepicker": "^3.0.3",
     "bootstrap-select": "^1.13.12",
     "cable_ready": "^4.0.7",
-    "chart.js": "^2.9.3",
     "chartist": "^0.11.4",
     "clipboard": "^2.0.4",
     "codemirror": "^5.42.2",
@@ -58,7 +56,6 @@
     "select2-bootstrap-theme": "^0.1.0-beta.10",
     "slick-carousel": "^1.8.1",
     "sortablejs": "^1.10.1",
-    "stacked-menu": "^1.1.12",
     "stimulus": "^1.1.1",
     "stimulus_reflex": "^2.1.4",
     "svg-injector": "^1.1.3",

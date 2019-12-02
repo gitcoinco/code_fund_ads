@@ -10,50 +10,61 @@ export default class extends Controller {
       seriesBarDistance: 15
     }
     const responsiveOptions = [
-      ['screen and (min-width: 641px) and (max-width: 1024px)', {
-        seriesBarDistance: 10,
-        axisX: {
-          labelInterpolationFnc: function (value) {
-            return value;
+      [
+        'screen and (min-width: 641px) and (max-width: 1024px)',
+        {
+          seriesBarDistance: 10,
+          axisX: {
+            labelInterpolationFnc: function (value) {
+              return value
+            }
           }
         }
-      }],
-      ['screen and (max-width: 640px)', {
-        seriesBarDistance: 5,
-        axisX: {
-          labelInterpolationFnc: function (value) {
-            return value[0];
+      ],
+      [
+        'screen and (max-width: 640px)',
+        {
+          seriesBarDistance: 5,
+          axisX: {
+            labelInterpolationFnc: function (value) {
+              return value[0]
+            }
           }
         }
-      }]
+      ]
     ]
 
-    switch(chartType) {
+    switch (chartType) {
       case 'bar':
         this.barChart(target, data, options, responsiveOptions)
-        break;
+        break
       case 'pie':
         this.pieChart(target, data, options, responsiveOptions)
-        break;
+        break
       default:
         this.lineChart(target, data, options, responsiveOptions)
     }
   }
 
-  lineChart(target, data, options, responsiveOptions) {
-    new Chartist.Line(target, data, options, responsiveOptions);
+  lineChart (target, data, options, responsiveOptions) {
+    new Chartist.Line(target, data, options, responsiveOptions)
   }
 
-  barChart(target, data, options, responsiveOptions) {
-    new Chartist.Bar(target, data, options, responsiveOptions);
+  barChart (target, data, options, responsiveOptions) {
+    new Chartist.Bar(target, data, options, responsiveOptions)
   }
 
-  barChart(target, data, options, responsiveOptions) {
-    new Chartist.Pie(target, data, {
-      donut: true,
-      donutWidth: 20,
-      startAngle: 270,
-      total: 200
-    }, responsiveOptions);
+  barChart (target, data, options, responsiveOptions) {
+    new Chartist.Pie(
+      target,
+      data,
+      {
+        donut: true,
+        donutWidth: 20,
+        startAngle: 270,
+        total: 200
+      },
+      responsiveOptions
+    )
   }
 }
