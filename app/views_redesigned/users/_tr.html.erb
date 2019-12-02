@@ -24,7 +24,7 @@
   <%= table_data do %>
     <% if user.last_sign_in_at %>
       <small class="d-block"><%= user.last_sign_in_at.strftime("%d %b, %Y") %></small>
-      <small class="d-block"><%= user.last_sign_in_at.strftime("%I:%M %p")  %></small>
+      <small class="d-block"><%= user.last_sign_in_at.strftime("%I:%M %p") %></small>
     <% else %>
       <small class="d-block">Never</small>
     <% end %>

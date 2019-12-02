@@ -69,7 +69,7 @@
               label: "Assigned Fallback Campaigns <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> restricts fallback campaigns to this list</small>".html_safe,
               input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
             <div class="d-block">
-              <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
+              <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" } %>
             </div>
           </div>
         <% end %>

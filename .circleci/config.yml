@@ -129,5 +129,9 @@ jobs:
           command: bundle exec standardrb --format progress
 
       - run:
+          name: run ERB lint check
+          command: bundle exec erblint app/views_redesigned/**/*.html.erb
+
+      - run:
           name: run prettier-standard check
           command: yarn run --ignore-engines prettier-standard --check 'app/**/*.js'

@@ -30,7 +30,7 @@
           <div class="col-md-6 mb-3">
             <div class="js-form-message js-focus-state string required property_name">
               <label class="form-label string required" for="property_name">Advertiser <abbr title="required">*</abbr></label>
-              <input type="text" class="form-control" placeholder="<%= current_user.name %>" aria-label="<%= current_user.name %>" readonly>
+              <input type="text" class="form-control" placeholder="<%= current_user.name %>" aria-label="<%= current_user.name %>" readonly />
             </div>
           </div>
         <% end %>
@@ -73,55 +73,55 @@
             <%= table_body do %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
-                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{campaign_id}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{campaign_id}}" style="border:none;" disabled data-target="copy.input" /><% end %>
                 <%= table_data do %><%= campaign.id || 123 %><% end %>
                 <%= table_data do %>The campaign <code class="code">id</code><% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
-                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{campaign_name}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{campaign_name}}" style="border:none;" disabled data-target="copy.input" /><% end %>
                 <%= table_data do %><%= campaign.name || "Example" %><% end %>
                 <%= table_data do %>The campaign <code class="code">name</code><% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
-                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{creative_id}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{creative_id}}" style="border:none;" disabled data-target="copy.input" /><% end %>
                 <%= table_data do %><%= campaign.creatives.first&.id || 123 %><% end %>
                 <%= table_data do %>The creative <code class="code">id</code> that was rendered<% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
-                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{creative_name}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{creative_name}}" style="border:none;" disabled data-target="copy.input" /><% end %>
                 <%= table_data do %><%= campaign.creatives.first&.name || "Example" %><% end %>
                 <%= table_data do %>The creative <code class="code">name</code> that was rendered<% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
-                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_id}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_id}}" style="border:none;" disabled data-target="copy.input" /><% end %>
                 <%= table_data do %><%= campaign.matching_properties.first&.id || 123 %><% end %>
                 <%= table_data do %>The property <code class="code">id</code> that displayed the ad<% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
-                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_name}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_name}}" style="border:none;" disabled data-target="copy.input" /><% end %>
                 <%= table_data do %><%= campaign.matching_properties.first&.name || "Example" %><% end %>
                 <%= table_data do %>The property <code class="code">name</code> that displayed the ad<% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
-                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_url}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_url}}" style="border:none;" disabled data-target="copy.input" /><% end %>
                 <%= table_data do %><%= campaign.matching_properties.first&.url || "https://www.example.com" %><% end %>
                 <%= table_data do %>The property <code class="code">url</code> that displayed the ad<% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
-                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{template}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{template}}" style="border:none;" disabled data-target="copy.input" /><% end %>
                 <%= table_data do %>default<% end %>
                 <%= table_data do %>The ad <code class="code">template</code> used to render the ad<% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
-                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{theme}}" style="border:none;" disabled data-target="copy.input"><% end %>
+                <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{theme}}" style="border:none;" disabled data-target="copy.input" /><% end %>
                 <%= table_data do %>light<% end %>
                 <%= table_data do %>The ad <code class="code">theme</code> used to render the ad<% end %>
               <% end %>
@@ -215,8 +215,8 @@
             <%= f.input :province_codes, required: false, collection: [], label: "Targeted States/Provinces",
               input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select select-geo-targets.provinceCodesSelect", provinces: provinces_for_stimulus, selected: @campaign.province_codes }} %>
             <div class="d-block mt-1">
-              <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
-              <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
+              <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#selectAll" } %>
+              <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#clearSelections" } %>
             </div>
           </div>
           <% if authorized_user.can_admin_system? %>
@@ -225,7 +225,7 @@
                 label: "Assigned Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> prioritized over keywords</small>".html_safe,
                 input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
               <div class="d-block mt-1">
-                <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
+                <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#clearSelections" } %>
               </div>
             </div>
           <% end %>

@@ -24,7 +24,7 @@
             data-controller="inline-toggle"
             data-action="change->inline-toggle#toggle"
             data-url="<%= campaign_property_path(@campaign, report.scoped_by, format: :json) %>"
-            <%= "checked" if @campaign.prohibited_property_ids.include?(report.scoped_by.id) %>>
+            <%= "checked" if @campaign.prohibited_property_ids.include?(report.scoped_by.id) %> />
           <label class="custom-control-label" for="ckb-blacklist"></label>
         </div>
       <% end %>

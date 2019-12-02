@@ -99,6 +99,7 @@ group :development do
   # gem 'spring'
   # gem 'spring-watcher-listen', '~> 2.0.0'
   gem "annotate"
+  gem "erb_lint"
   gem "factory_bot_rails"
   gem "letter_opener_web"
   gem "listen", ">= 3.0.5", "< 3.2"

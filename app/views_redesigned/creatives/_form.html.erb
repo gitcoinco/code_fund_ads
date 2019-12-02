@@ -1,6 +1,6 @@
 <%= render "/shared/forms/error_messages", object: creative %>
-<%= simple_form_for creative, html: { 
-  class: "js-validate", 
+<%= simple_form_for creative, html: {
+  class: "js-validate",
   data: { controller: "creative-form" }},
   wrapper: :front_form do |f| %>
   <%= f.hidden_field :creative_type, data: { target: "creative-form.creativeType" } %>
@@ -19,7 +19,7 @@
         <div class="col-12 col-md-4 mb-3">
           <div class="js-form-message js-focus-state string required property_name">
             <label class="form-label string required" for="property_name">Advertiser <abbr title="required">*</abbr></label>
-            <input type="text" class="form-control" placeholder="<%= current_user.name %>" aria-label="<%= current_user.name %>" readonly>
+            <input type="text" class="form-control" placeholder="<%= current_user.name %>" aria-label="<%= current_user.name %>" readonly />
           </div>
         </div>
         <% if authorized_user(true).can_admin_system? %>
@@ -70,4 +70,3 @@
     <% end %>
   <% end %>
 <% end %>
-

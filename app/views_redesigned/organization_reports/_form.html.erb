@@ -18,7 +18,7 @@
       <div>
         <% organization.campaigns.order(end_date: :desc).each do |campaign| %>
           <div class="form-check">
-            <input class="form-check-input" name="organization_report[campaign_ids][]" type="checkbox" value="<%= campaign.id %>" id="campaign-<%= campaign.id %>">
+            <input class="form-check-input" name="organization_report[campaign_ids][]" type="checkbox" value="<%= campaign.id %>" id="campaign-<%= campaign.id %>" />
             <label class="form-check-label" for="campaign-<%= campaign.id %>" style="font-size: 12px;">
               <%= campaign.id %> - <%= campaign.name %>
               <% if campaign.active? %>

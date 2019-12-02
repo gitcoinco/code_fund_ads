@@ -37,8 +37,8 @@
           <%= f.input :keywords, collection: keywords_for_select, label: "Targeted Keywords",
             input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
           <div class="d-block mt-1">
-            <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
-            <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
+            <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#selectAll" } %>
+            <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#clearSelections" } %>
           </div>
         </div>
       </div>
@@ -48,8 +48,8 @@
           <%= f.input :negative_keywords, collection: keywords_for_select, label: "Negative Keywords",
             input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
           <div class="d-block mt-1">
-            <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#selectAll" }  %>
-            <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
+            <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#selectAll" } %>
+            <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#clearSelections" } %>
           </div>
         </div>
       </div>
@@ -60,7 +60,7 @@
             label: "Prohibited Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> deprioritized after assigned properties</small>".html_safe,
             input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
           <div class="d-block mt-1">
-            <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
+            <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: { action: "click->select-multiple#clearSelections" } %>
           </div>
         </div>
       </div>
