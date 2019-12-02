@@ -23,6 +23,17 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     assert response.body.include?("click?campaign_id=#{campaign.id}")
   end
 
+  test "get advertisement with non-ascii url" do
+    AdvertisementsController.any_instance.stubs(ad_test?: false)
+    Rails.env.stubs(production?: true)
+    ActionDispatch::Request.any_instance.stubs(referer: "https://non-ascii.test/\xE4\xB8\x8B\xE8\xBD\xBD\xE5\x8A\xA9\xE6\x89\x8B")
+    campaign = active_campaign
+    property = matched_property(campaign)
+    get advertisements_url(property, format: :js)
+    assert_response :success
+    assert response.body.include?("click?campaign_id=#{campaign.id}")
+  end
+
   test "get advertisement with active & matching campaign" do
     AdvertisementsController.any_instance.stubs(ad_test?: false)
     campaign = active_campaign
