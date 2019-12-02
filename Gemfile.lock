@@ -211,6 +211,8 @@ GEM
       activesupport (>= 4.2.0)
     hashdiff (1.0.0)
     hashie (3.6.0)
+    heroku-deflater (0.6.3)
+      rack (>= 1.4.5)
     hiredis (0.6.3)
     htmlentities (4.3.4)
     http-cookie (1.0.3)
@@ -620,6 +622,7 @@ DEPENDENCIES
   faker
   full-name-splitter (~> 0.1.2)
   gibbon (~> 3.3.0)
+  heroku-deflater (~> 0.6.3)
   hiredis (~> 0.6.3)
   htmlentities (= 4.3.4)
   image_processing (~> 1.9.0)
