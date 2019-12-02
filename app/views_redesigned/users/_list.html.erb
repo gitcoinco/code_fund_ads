@@ -5,10 +5,7 @@
         data-filter-key='<%= "#{user.status} #{user.first_name} #{user.roles.join(" ")} #{user.last_name} #{user.email}".downcase %>'>
       <%= link_to "", user, class: "stretched-link" %>
       <div class="list-group-item-figure">
-        <figure class="user-avatar">
-          <%= image_tag "", class: "lozad", data: { src: avatar_image_url(user) }, alt: "" %>
-          <span class="avatar-badge bg-<%= user_status_color(user.status) %>"></span>
-        </figure>
+        <div class="tile tile-circle bg-blue"><%= user.initials %></div>
       </div>
       <div class="list-group-item-body">
         <h4 class="list-group-item-title"><%= user.first_name %> <strong><%= user.last_name %></strong></h4>

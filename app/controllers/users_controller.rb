@@ -15,13 +15,7 @@ class UsersController < ApplicationController
     # users = users.where(organization: @organization) if @organization
     # @pagy, @users = pagy(users)
 
-    @users = User.all.includes(:avatar_attachment).order(last_name: :asc)
-
     render "/users/for_organization/index" if @organization
-  end
-
-  def show
-    @users = User.all.includes(:avatar_attachment).order(last_name: :asc)
   end
 
   def new

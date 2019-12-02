@@ -1,7 +1,48 @@
-<%= render layout: "/users/layout", locals: {user: @user} do %>
-  <article class="mb-4">
-    <div class="bg-white shadow-sm">
-      <%= render "/properties/table", properties: @properties, pagy: @pagy %>
+<%= render layout: "/users/layout", locals: { user: @user } do %>
+  <div class="card mt-3" data-controller="filterable-list">
+    <div class="card-header d-flex">
+      <%= link_to "Add property", new_property_path, class: "btn btn-primary ml-auto" %>
     </div>
-  </article>
+
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th style="min-width: 260px">Property</th>
+            <th>URL</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody data-target="filterable-list.wrapper">
+          <% @properties.each do |property| %>
+            <tr data-target="filterable-list.filterable" data-filter-key='all <%= property.status %>'>
+              <td class="align-middle text-truncate">
+                <%= link_to image_tag("", class: "mr-2 lozad", style: "width: 16px; height: 16px;", data: { src: property.favicon_image_url }) %>
+                <%= link_to property.name, property %>
+              </td>
+              <td class="align-middle"><%= link_to property.pretty_url, property.url, target: "_blank" %></td>
+              <td class="align-middle"><%= property.property_type.humanize %></td>
+              <td class="align-middle"><span class="badge badge-<%= property_status_color(property.status) %>"><%= property.status.humanize %></td>
+              <td class="align-middle text-right">
+                <div class="dropdown">
+                  <button type="button" class="btn btn-sm btn-icon btn-secondary" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
+                    <i class="fa fa-ellipsis-h"></i>
+                    <span class="sr-only">Actions</span>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-right">
+                    <div class="dropdown-arrow mr-n1"></div>
+                    <%= link_to "Edit", edit_property_path(property), class: "dropdown-item" %>
+                    <%= link_to "Delete", property_path(property, redir: user_properties_path(@user)), method: :delete,
+                      data: { confirm: "Are you sure?" }, class: "dropdown-item" %>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 <% end %>

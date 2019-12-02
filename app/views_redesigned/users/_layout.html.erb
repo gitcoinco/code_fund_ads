@@ -20,7 +20,7 @@
       <i class="fa fa-plus"></i>
     </button>
     <div class="board p-0 perfect-scrollbar bg-white" data-target="filterable-list.wrapper" data-turbolinks-persist-scroll>
-      <%= render "/users/list", users: users %>
+      <%= render "/users/list", users: User.all.order(last_name: :asc) %>
     </div>
   </div>
 
@@ -63,3 +63,5 @@
     </div>
   </div>
 </div>
+
+<%= render "/shared/modals/user_new_modal" %>
