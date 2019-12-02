@@ -6,7 +6,6 @@
   <%= render "/versions/table", versionable: @versionable, versions: @versions %>
 <% end %>
 
-
 <%= render layout: "/users/layout", locals: { user: @versionable } do %>
   <div class="card mt-3" data-controller="filterable-list">
     <div class="card-header d-flex">

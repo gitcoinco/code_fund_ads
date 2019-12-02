@@ -17,41 +17,41 @@
         <div class="row">
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= Money.new(property.summary(@start_date, @end_date).property_revenue_cents).format %></h6>
+              <h6 class="metric-value"><%= Money.new(property.summary(@start_date, @end_date)&.property_revenue_cents)&.format %></h6>
               <p class="metric-label mt-1">Earnings</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= number_to_percentage property.summary(@start_date, @end_date).click_rate, precision: 3 %></h6>
+              <h6 class="metric-value"><%= number_to_percentage property.summary(@start_date, @end_date)&.click_rate, precision: 3 %></h6>
               <p class="metric-label mt-1">Avg. CTR</p>
             </div>
           </div>
 
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= Money.new(property.summary(@start_date, @end_date).publisher_cpm).format %></h6>
+              <h6 class="metric-value"><%= Money.new(property.summary(@start_date, @end_date)&.publisher_cpm)&.format %></h6>
               <p class="metric-label mt-1">Avg. CPM</p>
             </div>
           </div>
 
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= number_to_percentage property.summary(@start_date, @end_date).paid_percent, precision: 3 %></h6>
+              <h6 class="metric-value"><%= number_to_percentage property.summary(@start_date, @end_date)&.paid_percent, precision: 3 %></h6>
               <p class="metric-label mt-1">Paid vs Fallback</p>
             </div>
           </div>
 
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= number_with_delimiter property.summary(@start_date, @end_date).paid_impressions_count %></h6>
+              <h6 class="metric-value"><%= number_with_delimiter property.summary(@start_date, @end_date)&.paid_impressions_count %></h6>
               <p class="metric-label mt-1">Total Paid</p>
             </div>
           </div>
 
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= number_with_delimiter property.summary(@start_date, @end_date).unpaid_impressions_count %></h6>
+              <h6 class="metric-value"><%= number_with_delimiter property.summary(@start_date, @end_date)&.unpaid_impressions_count %></h6>
               <p class="metric-label mt-1">Total Fallback</p>
             </div>
           </div>
