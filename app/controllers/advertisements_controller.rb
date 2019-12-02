@@ -43,9 +43,12 @@ class AdvertisementsController < ApplicationController
   def valid_referer?
     return true unless Rails.env.production?
 
-    return true if request.referer.nil?
-
-    ENUMS::BLOCK_LIST.values.exclude? URI.parse(request.referer)&.host
+    begin
+      return true if request.referer.nil?
+      ENUMS::BLOCK_LIST.values.exclude? URI.parse(request.referer)&.host
+    rescue URI::InvalidURIError
+      return true
+    end
   end
 
   # def visitor_cache_key
