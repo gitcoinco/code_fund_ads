@@ -1,7 +1,7 @@
 module AdvertisementsHelper
   def interpolated_advertisement_html
     template = Rails.application.config.ad_templates[template_name]
-    stylesheet = stylesheet_pack_tag("code_fund_ad", media: "all")
+    stylesheet = tag.link(href: asset_pack_url("code_fund_ad.css"), rel: "stylesheet", media: "all")
     html = Mustache.render(template, advertisement_mustache_template_options)
     [stylesheet, html].join
   end
