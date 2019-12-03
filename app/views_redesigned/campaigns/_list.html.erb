@@ -31,27 +31,27 @@
               <div class="dropdown-arrow"></div>
               <h6 class="dropdown-header"> Sort By </h6>
               <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="0" data-reflex="click->SortableReflex#sort" data-column-name="name" data-direction="asc" >
+                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="0" data-reflex="click->SortableReflex#sort" data-column-name="name" data-direction="asc" />
                   <span class="custom-control-label">Name</span>
               </label>
               <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="1" data-reflex="click->SortableReflex#sort" data-column-name="name" data-direction="desc">
+                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="1" data-reflex="click->SortableReflex#sort" data-column-name="name" data-direction="desc" />
                   <span class="custom-control-label">Name <span class="text-muted">(Decs)</span></span>
               </label>
               <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="2" data-reflex="click->SortableReflex#sort" data-column-name="updated_at" data-direction="asc">
+                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="2" data-reflex="click->SortableReflex#sort" data-column-name="updated_at" data-direction="asc" />
                   <span class="custom-control-label">Last updated</span>
               </label>
               <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="3" data-reflex="click->SortableReflex#sort" data-column-name="updated_at" data-direction="desc">
+                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="3" data-reflex="click->SortableReflex#sort" data-column-name="updated_at" data-direction="desc" />
                   <span class="custom-control-label">Oldest updated</span>
               </label>
               <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="4" data-reflex="click->SortableReflex#sort" data-column-name="created_at" data-direction="asc">
+                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="4" data-reflex="click->SortableReflex#sort" data-column-name="created_at" data-direction="asc" />
                   <span class="custom-control-label">Last created</span>
               </label>
               <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="5" data-reflex="click->SortableReflex#sort" data-column-name="created_at" data-direction="desc">
+                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="5" data-reflex="click->SortableReflex#sort" data-column-name="created_at" data-direction="desc" />
                   <span class="custom-control-label">Oldest created</span>
               </label>
             </div>
@@ -69,7 +69,7 @@
         <div class="list-group list-group-flush list-group-divider" data-target="filterable-list.wrapper">
           <%= render partial: "/campaigns/list_group_item", collection: campaigns, as: :campaign %>
         </div>
-        <% if pagy.pages > 1  %>
+        <% if pagy.pages > 1 %>
           <ul class="pagination justify-content-center mt-4">
             <%= render "/shared/paginator" %>
           </ul>

@@ -42,7 +42,7 @@
         <div class="d-flex justify-content-between">
           <h1 class="page-title">
             <figure class="user-avatar mr-2">
-              <%= image_tag "", class: "lozad", data: { src: avatar_image_url(user) }, alt: "" %>
+              <%= image_tag "", class: "lozad", data: {src: avatar_image_url(user)}, alt: "" %>
             </figure>
             <%= user.first_name %> <strong><%= user.last_name %></strong>
           </h1>
@@ -52,19 +52,17 @@
           </div>
         </div>
       </header>
-      
-      
 
       <div class="nav-scroller border-bottom">
         <ul class="nav nav-tabs">
           <%= tag.li(active_link_to("Details", user_path(user), active: :exact,
-            data: { turbolinks_persist_scroll: true }, class: "nav-link")) %>
+            data: {turbolinks_persist_scroll: true}, class: "nav-link")) %>
           <%= tag.li(active_link_to("Properties", user_properties_path(user),
-            data: { turbolinks_persist_scroll: true }, class: "nav-link"))  %>
+            data: {turbolinks_persist_scroll: true}, class: "nav-link")) %>
           <%= tag.li(active_link_to("Campaigns", user_campaigns_path(user),
-            data: { turbolinks_persist_scroll: true }, class: "nav-link")) %>
+            data: {turbolinks_persist_scroll: true}, class: "nav-link")) %>
           <%= tag.li(active_link_to("Revisions", user_versions_path(user),
-            data: { turbolinks_persist_scroll: true }, class: "nav-link")) %>
+            data: {turbolinks_persist_scroll: true}, class: "nav-link")) %>
         </ul>
       </div>
 

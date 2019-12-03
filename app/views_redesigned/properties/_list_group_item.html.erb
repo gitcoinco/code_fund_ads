@@ -1,4 +1,4 @@
-<div class="list-group-item"  data-target="filterable-list.filterable" data-filter-key='all <%= property.status %>'>
+<div class="list-group-item" data-target="filterable-list.filterable" data-filter-key='all <%= property.status %>'>
   <div class="list-group-item-figure">
     <%= link_to property_path(property), class: "user-avatar user-avatar-md" do %>
       <%= image_tag property.favicon_image_url %>
@@ -8,7 +8,7 @@
     <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
       <div class="team d-flex">
         <h4 class="list-group-item-title">
-          <%= link_to property.name, property, title: "View Property", data: tooltip_expando %><br/>
+          <%= link_to property.name, property, title: "View Property", data: tooltip_expando %><br />
           <small><%= link_to truncate(property.display_url, length: 30), property.url, target: "_blank" %></small>
         </h4>
       </div>

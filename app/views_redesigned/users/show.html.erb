@@ -1,12 +1,12 @@
-<%= render layout: "/users/layout", locals: { users: @users, user: @user } do %>
+<%= render layout: "/users/layout", locals: {users: @users, user: @user} do %>
   <div class="card-deck-xl mt-3">
     <div class="card card-fluid">
       <ul class="list-group list-group-bordered mb-0">
         <% if !@user.accepted_or_not_invited? && authorized_user.can_admin_system? %>
           <%= details_li("Status") do %>
-            <mark><%= t('devise.invitations.pending') %></mark>
+            <mark><%= t("devise.invitations.pending") %></mark>
             <%= render "/@shared/table_buttons/goto",
-              method: 'PUT',
+              method: "PUT",
               link: administrator_invitation_path(@user.id),
               icon: "fas fa-paper-plane",
               title: "Re-invite #{@user.full_name || 'User'}" %>
