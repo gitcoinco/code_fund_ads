@@ -3,6 +3,7 @@ module Sortable
 
   included do
     helper_method :sort_column, :sort_direction
+    before_action :reset_current_page
   end
 
   # Abstract method that should be overridden in including controllers
@@ -24,13 +25,19 @@ module Sortable
     @sort_direction ||= %w[asc desc].include?(direction) ? direction : "asc"
   end
 
-  # For Paginator
   def sort_by
     @sort_by ||= sort_column
   end
 
   def query
     @query ||= order_by
+  end
+
+  def current_page(max: nil)
+    page = session[:current_page].to_i
+    page = 1 if page <= 0
+    page = max if max && page > max
+    page
   end
 
   private
@@ -41,5 +48,10 @@ module Sortable
 
   def direction
     params[:direction] || session[:sort_direction]
+  end
+
+  def reset_current_page
+    session[:current_page] = 1 if session[:last_controller_name] != controller_name
+    session[:last_controller_name] = controller_name
   end
 end

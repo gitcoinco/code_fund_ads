@@ -14,11 +14,7 @@ import './stylesheets/application.scss'
 // =========== Theme ===========
 import Theme from './components/theme'
 
-document.addEventListener('turbolinks:before-cache', function () {
-  $('[data-toggle="tooltip"]').tooltip('hide')
-})
-
-document.addEventListener('turbolinks:load', function () {
+function initTheme () {
   var mySVGsToInject = document.querySelectorAll('img.js-svg-injector')
   SVGInjector(mySVGsToInject)
 
@@ -27,4 +23,10 @@ document.addEventListener('turbolinks:load', function () {
     window['CodeFundTheme'] = CodeFundTheme
     return CodeFundTheme
   })()
+}
+
+document.addEventListener('turbolinks:before-cache', function () {
+  $('[data-toggle="tooltip"]').tooltip('hide')
 })
+document.addEventListener('turbolinks:load', initTheme)
+document.addEventListener('cable-ready:after-morph', initTheme)

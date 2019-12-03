@@ -19,10 +19,34 @@
         </div>
         <div class="col-auto d-none d-sm-flex">
           <div class="dropdown">
-            <button class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Last updated <span class="fa fa-caret-down"></span></button>
+            <button class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= session[:sort_by]&.humanize || "Name" %> <span class="fa fa-caret-down"></span></button>
             <div class="dropdown-menu dropdown-menu-right stop-propagation">
               <div class="dropdown-arrow"></div>
-              <h6 class="dropdown-header"> Sort By </h6><label class="custom-control custom-radio"><input type="radio" class="custom-control-input" name="sortTeamsBy" value="0"> <span class="custom-control-label">Name</span></label> <label class="custom-control custom-radio"><input type="radio" class="custom-control-input" name="sortTeamsBy" value="1"> <span class="custom-control-label">Name <span class="text-muted">(Decs)</span></span></label> <label class="custom-control custom-radio"><input type="radio" class="custom-control-input" name="sortTeamsBy" value="2" checked=""> <span class="custom-control-label">Last updated</span></label> <label class="custom-control custom-radio"><input type="radio" class="custom-control-input" name="sortTeamsBy" value="3"> <span class="custom-control-label">Oldest updated</span></label> <label class="custom-control custom-radio"><input type="radio" class="custom-control-input" name="sortTeamsBy" value="4"> <span class="custom-control-label">Last created</span></label> <label class="custom-control custom-radio"><input type="radio" class="custom-control-input" name="sortTeamsBy" value="5"> <span class="custom-control-label">Oldest created</span></label>
+              <h6 class="dropdown-header"> Sort By </h6>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sortPropertiesBy" value="0" data-reflex="click->SortableReflex#sort" data-column-name="name" data-direction="asc" >
+                  <span class="custom-control-label">Name</span>
+              </label>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sortPropertiesBy" value="1" data-reflex="click->SortableReflex#sort" data-column-name="name" data-direction="desc">
+                  <span class="custom-control-label">Name <span class="text-muted">(Decs)</span></span>
+              </label>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sortPropertiesBy" value="2" data-reflex="click->SortableReflex#sort" data-column-name="updated_at" data-direction="asc">
+                  <span class="custom-control-label">Last updated</span>
+              </label>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sortPropertiesBy" value="3" data-reflex="click->SortableReflex#sort" data-column-name="updated_at" data-direction="desc">
+                  <span class="custom-control-label">Oldest updated</span>
+              </label>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sortPropertiesBy" value="4" data-reflex="click->SortableReflex#sort" data-column-name="created_at" data-direction="asc">
+                  <span class="custom-control-label">Last created</span>
+              </label>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sortPropertiesBy" value="5" data-reflex="click->SortableReflex#sort" data-column-name="created_at" data-direction="desc">
+                  <span class="custom-control-label">Oldest created</span>
+              </label>
             </div>
           </div>
         </div>
@@ -33,14 +57,16 @@
       <%= pagy_entries(pagy) %>
     </div>
 
-    <div class="tab-content pb-3">
+    <div class="tab-content pb-3" data-reflex-root=".class">
       <div class="tab-pane fade show active" role="tabpanel">
         <div class="list-group list-group-flush list-group-divider" data-target="filterable-list.wrapper">
           <%= render partial: "/properties/list_group_item", collection: properties, as: :property %>
         </div>
-        <ul class="pagination justify-content-center mt-4">
-          <span><%== pagy_bootstrap_nav(pagy) if pagy.pages > 1 %></span>
-        </ul>
+        <% if pagy.pages > 1  %>
+          <ul class="pagination justify-content-center mt-4">
+            <%= render "/shared/paginator" %>
+          </ul>
+        <% end %>
       </div>
       <div class="tab-pane fade" id="project-explore-teams" role="tabpanel">
         <div class="alert alert-warning mx-3"> You can search for public teams only! </div>

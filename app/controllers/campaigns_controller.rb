@@ -9,18 +9,17 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
   def index
-    @page = (session[:page] || 1).to_i
     campaigns = Campaign.order(order_by).includes(:user, :creative, :organization)
+
     if authorized_user.can_admin_system?
       campaigns = campaigns.where(user: @user) if @user
     else
       campaigns = campaigns.where(user: current_user)
     end
-    pages = (campaigns.count / Pagy::VARS[:items].to_f).ceil
-    @page = 1 if @page > pages
-    campaigns = @campaign_search.apply(campaigns)
 
-    @pagy, @campaigns = pagy(campaigns)
+    campaigns = @campaign_search.apply(campaigns)
+    max = (campaigns.count / Pagy::VARS[:items].to_f).ceil
+    @pagy, @campaigns = pagy(campaigns, page: current_page(max: max))
 
     render "/campaigns/for_user/index" if @user
   end
@@ -159,11 +158,11 @@ class CampaignsController < ApplicationController
 
   def sortable_columns
     %w[
-      name
-      end_date
-      total_budget_cents
-      status
       created_at
+      end_date
+      name
+      status
+      total_budget_cents
       updated_at
       user.first_name
     ]
