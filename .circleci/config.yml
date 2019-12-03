@@ -21,49 +21,54 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y postgresql-client
           curl -o- -L https://yarnpkg.com/install.sh | bash
+
       - restore_cache:
-          name: restore bundler cache
+          name: restore gem cache
           keys:
-            - cf-bundler-{{ checksum "Gemfile.lock" }}
-            - cf-bundler-
+            - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-v1-{{ arch }}-{{ .Branch }}
+            - gem-cache-v1
       - restore_cache:
           name: restore yarn cache
           keys:
-            - cf-yarn-{{ checksum "yarn.lock" }}
-            - cf-yarn-
+            - yarn-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache-v1-{{ arch }}-{{ .Branch }}
+            - yarn-cache-v1
       - restore_cache:
           name: restore assets cache
           keys:
-            - cf-assets-v1-{{ arch }}-{{ .Branch }}
-            - cf-assets-v1
+            - asset-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - asset-cache-v1-{{ arch }}-{{ .Branch }}
+            - asset-cache-v1
+
       - run:
           name: install gem dependencies
           command: |
             gem install bundler:2.0.1
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
+            bundle check || bundle install --jobs=4 --retry=3 --path vendor/bundle
       - run:
           name: install yarn dependencies
-          command: |
-            yarn install --ignore-engines --frozen-lockfile
+          command: yarn check || yarn install --ignore-engines --frozen-lockfile
+      - run:
+          name: precompile assets
+          command: bundle exec rails webpacker:compile webpacker:clean
+
       - save_cache:
-          name: save bundler cache
+          name: save gem cache
           paths:
-            - ./vendor/bundle
-          key: cf-bundler-{{ checksum "Gemfile.lock" }}
+            - vendor/bundle
+          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
       - save_cache:
           name: save yarn cache
           paths:
             - ~/.cache/yarn
-          key: cf-yarn-{{ checksum "yarn.lock" }}
-      - run:
-          name: precompile assets
-          command: |
-            RAILS_ENV=test bundle exec rails webpacker:compile
+          key: yarn-cache-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - save_cache:
           name: save assets cache
-          key: cf-assets-v1-{{ arch }}-{{ .Branch }}
+          key: assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - public/packs-test
+
       - run:
           name: Set up DB
           command: bundle exec rails db:drop db:create db:structure:load --trace
