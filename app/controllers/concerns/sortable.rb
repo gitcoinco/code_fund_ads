@@ -21,7 +21,16 @@ module Sortable
   end
 
   def sort_direction
-    %w[asc desc].include?(direction) ? direction : "asc"
+    @sort_direction ||= %w[asc desc].include?(direction) ? direction : "asc"
+  end
+
+  # For Paginator
+  def sort_by
+    @sort_by ||= sort_column
+  end
+
+  def query
+    @query ||= order_by
   end
 
   private

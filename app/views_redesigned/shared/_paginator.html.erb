@@ -1,0 +1,15 @@
+<nav class="pagy-bootstrap-nav pagination" role="navigation" aria-label="pager">
+  <ul class="pagination">
+    <li class="page-item"><a href="#" class="page-link" data-reflex="click->PaginationReflex#paginate" data-page="<%= @pagy.prev %>">←</a></li>
+    <% @pagy.series.each do |item| %>
+      <% if item == :gap %>
+        <li class="page-item disabled"><a class="page-link">...</a></li>
+      <% else %>
+        <li class="page-item <%= "active" if item.is_a?(String) %>">
+          <a href="#" class="page-link" data-reflex="click->PaginationReflex#paginate" data-page="<%= item %>"><%= item %></a>
+        </li>
+      <% end %>
+    <% end %>
+    <li class="page-item"><a href="#" class="page-link" data-reflex="click->PaginationReflex#paginate" data-page="<%= @pagy.next %>">→</a></li>
+  </ul>
+</nav>

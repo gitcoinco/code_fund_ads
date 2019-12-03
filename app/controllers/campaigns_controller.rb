@@ -1,5 +1,6 @@
 class CampaignsController < ApplicationController
   include Sortable
+  include Pagy::Backend
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!, only: [:destroy]
@@ -8,13 +9,17 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
   def index
+    @page = (session[:page] || 1).to_i
     campaigns = Campaign.order(order_by).includes(:user, :creative, :organization)
     if authorized_user.can_admin_system?
       campaigns = campaigns.where(user: @user) if @user
     else
       campaigns = campaigns.where(user: current_user)
     end
+    pages = (campaigns.count / Pagy::VARS[:items].to_f).ceil
+    @page = 1 if @page > pages
     campaigns = @campaign_search.apply(campaigns)
+
     @pagy, @campaigns = pagy(campaigns)
 
     render "/campaigns/for_user/index" if @user

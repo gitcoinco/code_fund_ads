@@ -1,6 +1,7 @@
 class SortableReflex < ApplicationReflex
   def sort
-    session[:sort_by] = element.dataset["sort-name"]
-    session[:sort_direction] = element.dataset["direction"]
+    session[:sort_by] = element.attributes["data-column-name"]
+    session[:sort_direction] = element.attributes["data-direction"]
+    element[:checked] == "true"
   end
 end
