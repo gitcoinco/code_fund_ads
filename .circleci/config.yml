@@ -1,13 +1,69 @@
 version: 2
 
 anchors:
-  - &install_dependencies
-    name: Install gem package dependencies
+  - &install_pg_dependencies
+    name: Install pg dependencies
     command: |
       sudo apt-get update
       sudo apt-get install -y postgresql-client
-      curl -o- -L https://yarnpkg.com/install.sh | bash
-      gem install bundler:2.0.1
+
+  - &install_bundler
+    name: Install bundler
+    command: gem install bundler:2.0.1
+
+  - &install_yarn
+    name: Install yarn
+    command: curl -o- -L https://yarnpkg.com/install.sh | bash
+
+  - &wait_for_db
+    name: Wait for DB
+    command: dockerize -wait tcp://localhost:5432 -timeout 1m
+
+  - &db_setup
+    name: Database setup
+    command: bundle exec rails db:schema:load --trace
+
+  - &restore_bundler_cache
+    keys:
+      - codefund-bundler-cache-{{ checksum "Gemfile.lock" }}
+      - codefund-bundler-cache-
+
+  - &bundle
+    name: Bundle Install
+    command: bundle check --path=vendor/bundle || bundle install --deployment --jobs 4 --retry 3
+
+  - &save_bundler_cache
+    key: codefund-bundler-cache-{{ checksum "Gemfile.lock" }}
+    paths:
+      - vendor/bundle
+
+  - &restore_yarn_cache
+    keys:
+      - codefund-yarn-cache-{{ checksum "yarn.lock" }}
+      - codefund-yarn-cache-
+
+  - &yarn
+    name: Yarn Install
+    command: yarn install --ignore-engines --frozen-lockfile --cache-folder ~/.cache/yarn
+
+  - &save_yarn_cache
+    key: codefund-yarn-{{ checksum "yarn.lock" }}
+    paths:
+      - ~/.cache/yarn
+
+  - &restore_webpacker_cache
+    keys:
+      - codefund-webpacker-cache-{{ arch }}-{{ .Branch }}
+      - codefund-webpacker-cache-
+
+  - &precompile
+    name: Precompile Webpacker Assets
+    command: RAILS_ENV=test bundle exec rails webpacker:compile
+
+  - &save_webpacker_cache
+    key: codefund-webpacker-cache-{{ arch }}-{{ .Branch }}-{{ epoch }}
+    paths:
+      - public/packs-test
 
 references:
   default_docker_ruby_executor: &default_docker_ruby_executor
@@ -50,56 +106,34 @@ jobs:
       - *default_docker_ruby_executor
     steps:
       - checkout
-      - run: *install_dependencies
-      - restore_cache:
-          keys:
-            - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
-            - codefund-bundle-v1-
-      - run:
-          name: Bundle Install
-          command: bundle check || bundle install
-      - save_cache:
-          key: codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
-          paths:
-            - vendor/bundle
-      - restore_cache:
-          keys:
-            - codefund-yarn-{{ checksum "yarn.lock" }}
-            - codefund-yarn-
-      - run:
-          name: Yarn Install
-          command: yarn install --cache-folder ~/.cache/yarn
-      - save_cache:
-          key: codefund-yarn-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
+      - run: *install_pg_dependencies
+      - run: *install_yarn
+      - run: *install_bundler
+      - restore_cache: *restore_bundler_cache
+      - run: *bundle
+      - save_cache: *save_bundler_cache
+      - restore_cache: *restore_yarn_cache
+      - run: *yarn
+      - save_cache: *save_yarn_cache
+      - restore_cache: *restore_webpacker_cache
+      - run: *precompile
+      - save_cache: *save_webpacker_cache
+      - run: *wait_for_db
+      - run: *db_setup
+
 
   test:
     parallelism: 3
     docker:
       - *default_docker_ruby_executor
       - *postgres
-      - *redis
     steps:
       - checkout
-      - run: *install_dependencies
-      - restore_cache:
-          keys:
-            - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
-            - codefund-bundle-v1-
-      - run:
-          name: Bundle Install
-          command: bundle check || bundle install
-      - restore_cache:
-          keys:
-            - codefund-yarn-{{ checksum "yarn.lock" }}
-            - codefund-yarn-
-      - run:
-          name: Wait for DB
-          command: dockerize -wait tcp://localhost:5432 -timeout 1m
-      - run:
-          name: Database setup
-          command: bundle exec rails db:schema:load --trace
+      - restore_cache: *restore_bundler_cache
+      - run: *bundle
+      - restore_cache: *restore_yarn_cache
+      - run: *wait_for_db
+      - run: *db_setup
       - run:
           command: |
             TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
@@ -109,21 +143,13 @@ jobs:
     docker:
       - *default_docker_ruby_executor
       - *postgres
-      - *redis
     steps:
       - checkout
-      - run: *install_dependencies
-      - restore_cache:
-          keys:
-            - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
-            - codefund-bundle-v1-
-      - run:
-          name: Bundle Install
-          command: bundle check || bundle install
-      - restore_cache:
-          keys:
-            - codefund-yarn-{{ checksum "yarn.lock" }}
-            - codefund-yarn-
+      - restore_cache: *restore_bundler_cache
+      - run: *bundle
+      - restore_cache: *restore_yarn_cache
+      - run: *wait_for_db
+      - run: *db_setup
       - run:
           command: bundle exec rails zeitwerk:check
 
@@ -134,18 +160,11 @@ jobs:
       - *redis
     steps:
       - checkout
-      - run: *install_dependencies
-      - restore_cache:
-          keys:
-            - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
-            - codefund-bundle-v1-
-      - run:
-          name: Bundle Install
-          command: bundle check || bundle install
-      - restore_cache:
-          keys:
-            - codefund-yarn-{{ checksum "yarn.lock" }}
-            - codefund-yarn-
+      - restore_cache: *restore_bundler_cache
+      - run: *bundle
+      - restore_cache: *restore_yarn_cache
+      - run: *wait_for_db
+      - run: *db_setup
       - run:
           command: bundle exec standardrb --format progress
 
@@ -156,18 +175,11 @@ jobs:
       - *redis
     steps:
       - checkout
-      - run: *install_dependencies
-      - restore_cache:
-          keys:
-            - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
-            - codefund-bundle-v1-
-      - run:
-          name: Bundle Install
-          command: bundle check || bundle install
-      - restore_cache:
-          keys:
-            - codefund-yarn-{{ checksum "yarn.lock" }}
-            - codefund-yarn-
+      - restore_cache: *restore_bundler_cache
+      - run: *bundle
+      - restore_cache: *restore_yarn_cache
+      - run: *wait_for_db
+      - run: *db_setup
       - run:
           command: bundle exec erblint app/views_redesigned/**/*.html.erb
 
@@ -178,18 +190,10 @@ jobs:
       - *redis
     steps:
       - checkout
-      - run: *install_dependencies
-      - restore_cache:
-          keys:
-            - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
-            - codefund-bundle-v1-
-      - run:
-          name: Bundle Install
-          command: bundle check || bundle install
-      - restore_cache:
-          keys:
-            - codefund-yarn-{{ checksum "yarn.lock" }}
-            - codefund-yarn-
+      - restore_cache: *restore_yarn_cache
+      - run: *yarn
+      - run: *wait_for_db
+      - run: *db_setup
       - run:
           command: yarn run --ignore-engines prettier-standard --check 'app/**/*.js'
 
