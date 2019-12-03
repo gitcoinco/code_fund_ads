@@ -4,15 +4,26 @@ jobs:
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
-          DATABASE_URL: "postgres://ubuntu@localhost:5432/code_fund_ads_test"
-          DEFAULT_HOST: codefund.io
-          NODE_ENV: test
           PG_HOST: localhost
           PG_USERNAME: ubuntu
-          RACK_ENV: test
           RAILS_ENV: test
+          RACK_ENV: test
+          AWS_S3_ACCESS_KEY_ID: AKIAIOSFODNN7EXAMPLE
+          AWS_S3_BUCKET: example_s3_bucket
+          AWS_S3_REGION: us-west-2
+          AWS_S3_SECRET_ACCESS_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYzEXAMPLEKEY
+          BASE_ECPM: 400
+          BUFFER_ENABLED: false
+          DEFAULT_HOST: codefund.io
+          ENABLED_FEATURES: jobs
+          HUBSPOT_ENABLED: false
+          PARALLEL_WORKERS: 1
+          PG_TIMEOUT_IN_SECONDS: 3
+          RAILS_MAX_THREADS: 10
           REDIS_CACHE_URL: redis://127.0.0.1:6379
           REDIS_QUEUE_URL: redis://127.0.0.1:6379
+          SCOUT_SAMPLE_RATE: 0.3
+          DATABASE_URL: "postgres://ubuntu@localhost:5432/code_fund_ads_test"
       - image: circleci/postgres:11.2
         environment:
           POSTGRES_USER: ubuntu
