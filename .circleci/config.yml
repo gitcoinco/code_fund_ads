@@ -4,11 +4,13 @@ jobs:
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
+          DEFAULT_HOST: codefund.io
           PG_HOST: localhost
           PG_USER: ubuntu
-          RAILS_ENV: test
           RACK_ENV: test
-          DEFAULT_HOST: codefund.io
+          RAILS_ENV: test
+          REDIS_CACHE_URL: redis://127.0.0.1:6379
+          REDIS_QUEUE_URL: redis://127.0.0.1:6379
       - image: circleci/postgres:11.2
         environment:
           POSTGRES_USER: ubuntu
