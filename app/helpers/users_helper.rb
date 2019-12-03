@@ -22,6 +22,6 @@ module UsersHelper
   end
 
   def user_status_color(status)
-    ENUMS::USER_STATUS_COLORS[status]
+    ENUMS::USER_STATUS_COLORS[status] || "muted"
   end
 end
