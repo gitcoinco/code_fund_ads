@@ -31,12 +31,11 @@ jobs:
           keys:
             - cf-yarn-{{ checksum "yarn.lock" }}
             - cf-yarn-
-      # Restore Assets Cache
-      # - restore_cache:
-      #     name: restore assets cache
-      #     keys:
-      #       - cf-assets-v1-{{ arch }}-{{ .Branch }}
-      #       - cf-assets-v1
+      - restore_cache:
+          name: restore assets cache
+          keys:
+            - cf-assets-v1-{{ arch }}-{{ .Branch }}
+            - cf-assets-v1
       - run:
           name: install gem dependencies
           command: |
