@@ -1,137 +1,200 @@
-# Ruby CircleCI 2.0 configuration file
-#
-# Check https://circleci.com/docs/2.0/language-ruby/ for more details
-#
 version: 2
+
+references:
+  default_docker_ruby_executor: &default_docker_ruby_executor
+    image: circleci/ruby:2.6.5-node-browsers
+    environment:
+      BUNDLE_JOBS: 3
+      BUNDLE_RETRY: 3
+      BUNDLE_PATH: vendor/bundle
+      PG_HOST: localhost
+      PG_USER: ubuntu
+      RAILS_ENV: test
+      RACK_ENV: test
+      AWS_S3_ACCESS_KEY_ID: AKIAIOSFODNN7EXAMPLE
+      AWS_S3_BUCKET: example_s3_bucket
+      AWS_S3_REGION: us-west-2
+      AWS_S3_SECRET_ACCESS_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYzEXAMPLEKEY
+      BASE_ECPM: 400
+      BUFFER_ENABLED: false
+      DEFAULT_HOST: codefund.io
+      ENABLED_FEATURES: jobs
+      HUBSPOT_ENABLED: false
+      PARALLEL_WORKERS: 1
+      PG_TIMEOUT_IN_SECONDS: 3
+      RAILS_MAX_THREADS: 10
+      REDIS_CACHE_URL: redis://127.0.0.1:6379
+      REDIS_QUEUE_URL: redis://127.0.0.1:6379
+      SCOUT_SAMPLE_RATE: 0.3
+      DATABASE_URL: "postgres://ubuntu@localhost:5432/code_fund_ads_test"
+  postgres: &postgres
+    image: circleci/postgres:11.2
+    environment:
+      POSTGRES_USER: ubuntu
+      POSTGRES_DB: code_fund_ads_test
+  redis: &redis
+    image: circleci/redis:5.0.4
+
 jobs:
   build:
     docker:
-      # specify the version you desire here
-      - image: circleci/ruby:2.6.5-node-browsers
-        environment:
-          PG_HOST: localhost
-          PG_USER: ubuntu
-          RAILS_ENV: test
-          RACK_ENV: test
-          AWS_S3_ACCESS_KEY_ID: AKIAIOSFODNN7EXAMPLE
-          AWS_S3_BUCKET: example_s3_bucket
-          AWS_S3_REGION: us-west-2
-          AWS_S3_SECRET_ACCESS_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYzEXAMPLEKEY
-          BASE_ECPM: 400
-          BUFFER_ENABLED: false
-          DEFAULT_HOST: codefund.io
-          ENABLED_FEATURES: jobs
-          HUBSPOT_ENABLED: false
-          PARALLEL_WORKERS: 1
-          PG_TIMEOUT_IN_SECONDS: 3
-          RAILS_MAX_THREADS: 10
-          REDIS_CACHE_URL: redis://127.0.0.1:6379
-          REDIS_QUEUE_URL: redis://127.0.0.1:6379
-          SCOUT_SAMPLE_RATE: 0.3
-          DATABASE_URL: "postgres://ubuntu@localhost:5432/code_fund_ads_test"
-
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      - image: circleci/postgres:11.2
-        environment:
-          POSTGRES_USER: ubuntu
-          POSTGRES_DB: code_fund_ads_test
-      - image: circleci/redis:5.0.4
-
-    working_directory: ~/repo
-
+      - *default_docker_ruby_executor
     steps:
       - checkout
-
       - restore_cache:
-          name: restore bundler cache
           keys:
-            - cf-bundler-{{ checksum "Gemfile.lock" }}
-            - cf-bundler-
-
-      - restore_cache:
-          name: restore yarn cache
-          keys:
-            - cf-yarn-{{ checksum "yarn.lock" }}
-            - cf-yarn-
-
-      - restore_cache:
-          name: restore assets cache
-          keys:
-            - cf-assets-v1-{{ arch }}-{{ .Branch }}
-            - cf-assets-v1
-
-      - run: sudo apt-get update
-      - run: sudo apt-get install -y postgresql-client
-      - run: curl -o- -L https://yarnpkg.com/install.sh | bash
-
+            - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
+            - codefund-bundle-v1-
       - run:
-          name: update bundler
-          command: |
-            gem install bundler:2.0.1
-
-      - run:
-          name: install gem dependencies
-          command: |
-            bundle install --jobs=4 --retry=3 --path vendor/bundle
-
+          name: Bundle Install
+          command: bundle check || bundle install
       - save_cache:
-          name: save bundler cache
+          key: codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
           paths:
-            - ./vendor/bundle
-          key: cf-bundler-{{ checksum "Gemfile.lock" }}
-
+            - vendor/bundle
+      - restore_cache:
+          keys:
+            - codefund-yarn-{{ checksum "yarn.lock" }}
+            - codefund-yarn-
       - run:
-          name: install yarn dependencies
-          command: |
-            yarn install --ignore-engines --frozen-lockfile
-
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
       - save_cache:
-          name: save yarn cache
+          key: codefund-yarn-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-          key: cf-yarn-{{ checksum "yarn.lock" }}
 
+  test:
+    parallelism: 3
+    docker:
+      - *default_docker_ruby_executor
+      - *postgres
+      - *redis
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
+            - codefund-bundle-v1-
       - run:
-          name: precompile assets
+          name: Bundle Install
+          command: bundle check || bundle install
+      - restore_cache:
+          keys:
+            - codefund-yarn-{{ checksum "yarn.lock" }}
+            - codefund-yarn-
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
+      - run:
           command: |
-            RAILS_ENV=test bundle exec rails webpacker:compile
+            TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
+            bin/rails test $TESTFILES
 
-      - save_cache:
-          name: save assets cache
-          key: cf-assets-v1-{{ arch }}-{{ .Branch }}
-          paths:
-            - public/assets
-            - public/packs-test
-            - tmp/cache/bootsnap-load-path-cache
-            - tmp/cache/bootsnap-compile-cache
-            - tmp/cache/webpacker
-
+  zeitwerk:
+    docker:
+      - *default_docker_ruby_executor
+      - *postgres
+      - *redis
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
+            - codefund-bundle-v1-
       - run:
-          name: Set up DB
-          command: bundle exec rails db:drop db:create db:structure:load --trace
-
+          name: Bundle Install
+          command: bundle check || bundle install
+      - restore_cache:
+          keys:
+            - codefund-yarn-{{ checksum "yarn.lock" }}
+            - codefund-yarn-
       - run:
-          name: run zeitwerk:check
           command: bundle exec rails zeitwerk:check
 
+  standardrb:
+    docker:
+      - *default_docker_ruby_executor
+      - *postgres
+      - *redis
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
+            - codefund-bundle-v1-
       - run:
-          name: run tests
-          command: bundle exec rails test
-
+          name: Bundle Install
+          command: bundle check || bundle install
+      - restore_cache:
+          keys:
+            - codefund-yarn-{{ checksum "yarn.lock" }}
+            - codefund-yarn-
       - run:
-          name: run system tests
-          command: bundle exec rails test:system
-
-      - run:
-          name: run standardrb check
           command: bundle exec standardrb --format progress
 
+  erb_lint:
+    docker:
+      - *default_docker_ruby_executor
+      - *postgres
+      - *redis
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
+            - codefund-bundle-v1-
       - run:
-          name: run ERB lint check
+          name: Bundle Install
+          command: bundle check || bundle install
+      - restore_cache:
+          keys:
+            - codefund-yarn-{{ checksum "yarn.lock" }}
+            - codefund-yarn-
+      - run:
           command: bundle exec erblint app/views_redesigned/**/*.html.erb
 
+  prettier_standard:
+    docker:
+      - *default_docker_ruby_executor
+      - *postgres
+      - *redis
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
+            - codefund-bundle-v1-
       - run:
-          name: run prettier-standard check
+          name: Bundle Install
+          command: bundle check || bundle install
+      - restore_cache:
+          keys:
+            - codefund-yarn-{{ checksum "yarn.lock" }}
+            - codefund-yarn-
+      - run:
           command: yarn run --ignore-engines prettier-standard --check 'app/**/*.js'
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - zeitwerk:
+          requires:
+            - build
+      - standardrb:
+          requires:
+            - build
+      - erb_lint:
+          requires:
+            - build
+      - prettier_standard:
+          requires:
+            - build
