@@ -6,21 +6,21 @@
 
     <!-- Meta Tags -->
     <%= display_meta_tags site: "CodeFund" %>
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#3063A0">
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#3063A0" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
 
     <!-- CDN Stylesheets -->
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600" />
 
     <!-- Compressed Stylesheets -->
-    <%= stylesheet_pack_tag 'code_fund_redesign', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag "code_fund_redesign", media: "all", 'data-turbolinks-track': "reload" %>
 
     <!-- Compressed JavaScripts -->
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'code_fund', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track': "reload" %>
+    <%= javascript_pack_tag "code_fund", 'data-turbolinks-track': "reload" %>
   </head>
   <body style="padding-top: 0px !important;" data-referral-code="<%= session[:referral_code] %>">
     <main class="auth">

@@ -4,10 +4,10 @@
     icon: "fas fa-palette" %>
 <% end %>
 
-<%= render layout: "/creatives/layout", locals: { creatives: @creatives, override: [ :page_heading ] } do %>
+<%= render layout: "/creatives/layout", locals: {creatives: @creatives, override: [ :page_heading ]} do %>
     <%= render partial: "/creative_searches/form",
               layout: "/shared/collapsible_search_form",
-              locals: { search: @creative_search } %>
+              locals: {search: @creative_search} %>
     <div class="mb-2">
       <div class="card-columns">
           <%= render partial: "/creatives/creative", collection: @creatives, as: :creative %>
@@ -20,4 +20,3 @@
     </div>
   </div>
 <% end %>
-

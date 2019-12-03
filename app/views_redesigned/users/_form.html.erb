@@ -1,4 +1,4 @@
-<%= simple_form_for @user, html: { class: "media align-items-center" } do |f| %>
+<%= simple_form_for @user, html: {class: "media align-items-center"} do |f| %>
   <%= card add_class: "mx-auto" do %>
     <%= card_body do %>
         <div class="d-flex flex-column flex-md-row align-items-center">
@@ -23,8 +23,7 @@
   <% end %>
 <% end %>
 
-
-<%= simple_form_for @user, html: { class: "js-validate" } do |f| %>
+<%= simple_form_for @user, html: {class: "js-validate"} do |f| %>
   <%= card do %>
     <%= card_header do %>
       <%= card_title do %>
@@ -37,9 +36,9 @@
     <%= card_body do %>
       <div class="row">
         <%= tag.div f.input(:status, collection: user_statuses_for_select,
-          input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-2" if authorized_user.can_admin_system? %>
+          input_html: {class: "form-control", data: {controller: "select"}}), class: "col-md-6 mb-2" if authorized_user.can_admin_system? %>
         <%= tag.div f.input(:organization_id, label: "Organization", collection: organizations_for_select, include_blank: "None",
-          input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
+          input_html: {class: "form-control", data: {controller: "select"}}), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
         <%= tag.div f.input(:first_name, required: true), class: "col-sm-6 col-md-4 mb-2" %>
         <%= tag.div f.input(:last_name, required: true), class: "col-sm-6 col-md-4 mb-2" %>
         <%= tag.div f.input(:email, required: true), class: "col-sm-6 col-md-4 mb-2" %>
@@ -50,7 +49,7 @@
         <%= tag.div f.input(:city), class: "col-sm-6 mb-2" %>
         <%= tag.div f.input(:region, label: "State / Region"), class: "col-sm-6 mb-2" %>
         <%= tag.div f.input(:postal_code), class: "col-sm-6 mb-2" %>
-        <%= tag.div f.input(:country, input_html: { data: { controller: "select" }}), class: "col-sm-6 mb-2" %>
+        <%= tag.div f.input(:country, input_html: {data: {controller: "select"}}), class: "col-sm-6 mb-2" %>
       </div>
 
       <div class="media align-items-center">
@@ -79,8 +78,8 @@
         <% end %>
         <%= card_body do %>
           <div class="row">
-            <%= tag.div f.input(:bio, input_html: { class: "js-summernote-editor", rows: 6 }), class: "col-12 mb-2" %>
-            <%= tag.div f.input(:skills, collection: ENUMS::KEYWORDS.keys, required: false, input_html: { class: "form-control", multiple: true, data: { controller: "select" }}), class: "col-12" %>
+            <%= tag.div f.input(:bio, input_html: {class: "js-summernote-editor", rows: 6}), class: "col-12 mb-2" %>
+            <%= tag.div f.input(:skills, collection: ENUMS::KEYWORDS.keys, required: false, input_html: {class: "form-control", multiple: true, data: {controller: "select"}}), class: "col-12" %>
           </div>
         <% end %>
       <% end %>
@@ -157,7 +156,7 @@
           <label class="switcher-control mb-0 mr-3">
             <input class="switcher-input" type="checkbox"
               value="administrator" name="user[roles][]" id="user_roles_administrator"
-              <%= 'checked="checked"' if @user.administrator? %>>
+              <%= 'checked="checked"' if @user.administrator? %> />
             <span class="switcher-indicator"></span>
           </label>
           <label class="media-body text-muted mb-0">
@@ -169,7 +168,7 @@
           <label class="switcher-control mb-0 mr-3">
             <input class="switcher-input" type="checkbox"
               value="advertiser" name="user[roles][]" id="user_roles_advertiser"
-              <%= 'checked="checked"' if @user.advertiser? %>>
+              <%= 'checked="checked"' if @user.advertiser? %> />
             <span class="switcher-indicator"></span>
           </label>
           <label class="media-body text-muted mb-0" for="checkboxSwitch6">
@@ -181,7 +180,7 @@
           <label class="switcher-control mb-0 mr-3">
             <input class="switcher-input" type="checkbox"
               value="publisher" name="user[roles][]" id="user_roles_publisher"
-              <%= 'checked="checked"' if @user.publisher? %>>
+              <%= 'checked="checked"' if @user.publisher? %> />
             <span class="switcher-indicator"></span>
           </label>
           <label class="media-body text-muted mb-0" for="checkboxSwitch7">
@@ -193,7 +192,7 @@
           <label class="switcher-control mb-0 mr-3">
             <input class="switcher-input" type="checkbox"
               value="employer" name="user[roles][]" id="user_roles_employer"
-              <%= 'checked="checked"' if @user.employer? %>>
+              <%= 'checked="checked"' if @user.employer? %> />
             <span class="switcher-indicator"></span>
           </label>
           <label class="media-body text-muted mb-0" for="checkboxSwitch8">

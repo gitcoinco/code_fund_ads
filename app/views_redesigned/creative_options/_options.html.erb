@@ -5,7 +5,7 @@
         <div class="custom-control custom-checkbox d-flex align-items-center small text-muted">
           <input class="custom-control-input" type="checkbox" value="<%= creative.id %>"
                 name="campaign[creative_ids][]" id="campaign_creative_id_<%= creative.id %>"
-                <%= 'checked="checked"' if selected_creative_ids.include?(creative.id) %>/>
+                <%= 'checked="checked"' if selected_creative_ids.include?(creative.id) %> />
           <label class="custom-control-label ml-1" for="campaign_creative_id_<%= creative.id %>">
             <span class="text-dark"><%= creative.name %></span>
             <div class="media ml-2">

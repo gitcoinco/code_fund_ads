@@ -1,4 +1,4 @@
-<%= simple_form_for property, html: { class: "js-validate" }, wrapper: :front_form do |f| %>
+<%= simple_form_for property, html: {class: "js-validate"}, wrapper: :front_form do |f| %>
   <%= card do %>
     <%= card_header do %>
       <%= card_title do %>
@@ -11,48 +11,48 @@
     <%= card_body do %>
       <div class="row">
         <%= tag.div f.input(:status, label: "Status", collection: ENUMS::PROPERTY_STATUSES.values.map { |status| [status.capitalize, status] }, required: true,
-                            input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
+                            input_html: {class: "form-control", data: {controller: "select"}}), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
 
-        <%= tag.div f.input(:revenue_percentage, required: true, input_html: { class: "form-control" },
-                            data: { msg: "Please enter a property name", error_class: "u-has-error", success_class: "u-has-success" }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
+        <%= tag.div f.input(:revenue_percentage, required: true, input_html: {class: "form-control"},
+                            data: {msg: "Please enter a property name", error_class: "u-has-error", success_class: "u-has-success"}), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
 
-        <%= tag.div f.input(:name, required: true, input_html: { class: "form-control" },
-                            data: { msg: "Please enter a property name", error_class: "u-has-error", success_class: "u-has-success" }), class: "col-md-6 mb-3" %>
+        <%= tag.div f.input(:name, required: true, input_html: {class: "form-control"},
+                            data: {msg: "Please enter a property name", error_class: "u-has-error", success_class: "u-has-success"}), class: "col-md-6 mb-3" %>
 
         <%= tag.div f.input(:audience_id, label: "Audience", collection: Audience.all.map { |audience| [audience.name, audience.id] }, required: true,
-                            input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
+                            input_html: {class: "form-control", data: {controller: "select"}}), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
 
         <%= tag.div f.input(:property_type, label: "Type", collection: ENUMS::PROPERTY_TYPES.values.map { |property_type| [property_type.capitalize, property_type] }, required: true,
-                            input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" %>
+                            input_html: {class: "form-control", data: {controller: "select"}}), class: "col-md-6 mb-3" %>
 
-        <%= tag.div f.input(:description, input_html: { class: "form-control", rows: 2 }), class: "col-12 mb-3" %>
+        <%= tag.div f.input(:description, input_html: {class: "form-control", rows: 2}), class: "col-12 mb-3" %>
 
-        <%= tag.div f.input(:url, as: :url, required: true, placeholder: "https://", input_html: { class: "form-control" },
-                            data: { msg: "Please enter a valid website URL", error_class: "u-has-error", success_class: "u-has-success", rule_url: true }), class: "col-12 mb-3" %>
+        <%= tag.div f.input(:url, as: :url, required: true, placeholder: "https://", input_html: {class: "form-control"},
+                            data: {msg: "Please enter a valid website URL", error_class: "u-has-error", success_class: "u-has-success", rule_url: true}), class: "col-12 mb-3" %>
 
         <%= tag.div f.input(:language, label: "Primary Language", collection: ENUMS::LANGUAGES.values, required: true,
-                            input_html: { class: "form-control", data: { controller: "select" }}), class: "col-12 mb-3" %>
+                            input_html: {class: "form-control", data: {controller: "select"}}), class: "col-12 mb-3" %>
 
         <%= tag.div f.input(:keywords, label: "Programming Languages & Topics", collection: ENUMS::KEYWORDS.keys, required: true,
-                            input_html: { class: "form-control btn-primary", multiple: true, data: { controller: "select" }}), class: "col-12 mb-3" %>
+                            input_html: {class: "form-control btn-primary", multiple: true, data: {controller: "select"}}), class: "col-12 mb-3" %>
 
         <%= tag.div f.input(:ad_template, label: "Template", collection: ENUMS::AD_TEMPLATES.values, required: true,
-                            input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" %>
+                            input_html: {class: "form-control", data: {controller: "select"}}), class: "col-md-6 mb-3" %>
 
         <%= tag.div f.input(:ad_theme, label: "Theme", collection: ENUMS::AD_THEMES.values, required: true,
-                            input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" %>
+                            input_html: {class: "form-control", data: {controller: "select"}}), class: "col-md-6 mb-3" %>
 
         <%= tag.div f.input(:fallback_ad_template, label: "Fallback Template", collection: ENUMS::AD_TEMPLATES.values,
-                            input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" %>
+                            input_html: {class: "form-control", data: {controller: "select"}}), class: "col-md-6 mb-3" %>
 
         <%= tag.div f.input(:fallback_ad_theme, label: "Fallback Theme", collection: ENUMS::AD_THEMES.values,
-                            input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3" %>
+                            input_html: {class: "form-control", data: {controller: "select"}}), class: "col-md-6 mb-3" %>
 
         <div class="col-12 mb-3">
           <%= f.input :responsive_behavior,
               label: "Responsive Behavior <small>for smaller screens</small>".html_safe,
               collection: property_responsive_behaviors_for_select,
-              input_html: { class: "form-control", data: { controller: "select" }} %>
+              input_html: {class: "form-control", data: {controller: "select"}} %>
           <small class="form-text text-muted mt-2">
             <strong>IMPORTANT</strong>:
             Responsive behavior on small screens requires that the viewport <code>meta</code> tag be included in your site's <code>head</code> section.
@@ -61,15 +61,15 @@
         </div>
 
         <%= tag.div f.input(:prohibited_advertiser_ids, label: "Excluded Advertisers", collection: advertisers_for_select,
-          input_html: { class: "form-control", multiple: true, data: { controller: "select" }}), class: "col-12 mb-3" if authorized_user.can_admin_system? %>
+          input_html: {class: "form-control", multiple: true, data: {controller: "select"}}), class: "col-12 mb-3" if authorized_user.can_admin_system? %>
 
         <% if @assignable_fallback_campaigns&.exists? %>
           <div class="col-12 mb-3" data-controller="select-multiple">
             <%= f.input :assigned_fallback_campaign_ids, collection: @assignable_fallback_campaigns.map { |c| [c.scoped_name(truncate: true), c.id]},
               label: "Assigned Fallback Campaigns <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> restricts fallback campaigns to this list</small>".html_safe,
-              input_html: { multiple: true, data: { controller: "select", target: "select-multiple.select" }} %>
+              input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select"}} %>
             <div class="d-block">
-              <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-secondary btn-xs py-0", data: { action: "click->select-multiple#clearSelections" }  %>
+              <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-secondary btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
             </div>
           </div>
         <% end %>

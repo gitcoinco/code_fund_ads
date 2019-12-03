@@ -26,12 +26,11 @@
           clicks = summary.clicks_count
           ctr = (summary.clicks_count.to_f / summary.impressions_count.to_f) * 100
           cpm = ((summary.gross_revenue_cents / 100).to_f / summary.impressions_count.to_f) * 1000
-          cpc = (summary.gross_revenue_cents / 100).to_f / summary.clicks_count.to_f
-        %>
+          cpc = (summary.gross_revenue_cents / 100).to_f / summary.clicks_count.to_f %>
         <%= tag.tr class: classes(
-          "danger": ctr <= 0.05,
-          "warn": ctr > 0.05 && ctr < 0.1,
-          "success": ctr >= 0.2
+              "danger": ctr <= 0.05,
+              "warn": ctr > 0.05 && ctr < 0.1,
+              "success": ctr >= 0.2
         ) do %>
           <td class="text-center"><%= campaign.id %></td>
           <td><%= number_to_currency campaign.total_budget %></td>

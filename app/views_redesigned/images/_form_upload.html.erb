@@ -11,8 +11,8 @@
 } do %>
   <%= file_field_tag "imageable[images][]", hidden: true,
         accept: ".jpg,.gif,.png,.svg", multiple: true, direct_upload: true,
-        data: { target: "image-uploader.input", action: "change->image-uploader#upload" } %>
-  <%= submit_tag "Submit", hidden: true, data: { target: "image-uploader.submitButton" } %>
+        data: {target: "image-uploader.input", action: "change->image-uploader#upload"} %>
+  <%= submit_tag "Submit", hidden: true, data: {target: "image-uploader.submitButton"} %>
 
   <div class="mb-3 text-center">
     <h5 class="mb-0">Upload Images</h2>
@@ -35,4 +35,3 @@
     </div>
   </div>
 <% end %>
-

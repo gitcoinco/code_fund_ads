@@ -1,5 +1,5 @@
 <%= render "devise/layout" do %>
-  <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { class: "auth-form mx-auto", method: :post }) do |f| %>
+  <%= simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: {class: "auth-form mx-auto", method: :post}) do |f| %>
     <div class="text-center mb-4">
       <h4 class="font-weight-normal">Resend Confirmation?</h4>
     </div>
@@ -11,7 +11,7 @@
                 label: false,
                 autofocus: true,
                 value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email),
-                input_html: { autocomplete: "email" },
+                input_html: {autocomplete: "email"},
                 placeholder: "Email address",
                 data: {
                   rule_email: true,

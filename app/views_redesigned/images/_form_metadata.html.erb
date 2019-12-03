@@ -1,4 +1,4 @@
-<%= simple_form_for image, url: image_path(imageable.to_gid_param, image), html: { class: "js-validate" } do |f| %>
+<%= simple_form_for image, url: image_path(imageable.to_gid_param, image), html: {class: "js-validate"} do |f| %>
   <div class="row mb-4">
     <div class="col-md-6 mt-2 mb-2">
       <%= card do %>
@@ -13,8 +13,8 @@
         <%= card_body do %>
               <%= f.input(:name, required: true) %>
               <%= f.input(:description, required: false, as: :text) %>
-              <%= f.input(:format, label: "Format", as: :select, collection: image_formats_for_select, hint: "* Image files cannot be replaced", required: true, input_html: { data: { controller: "select" }})%>
-              <%= f.submit "Save Image", class: "btn btn-sm btn-primary mr-1"  %>
+              <%= f.input(:format, label: "Format", as: :select, collection: image_formats_for_select, hint: "* Image files cannot be replaced", required: true, input_html: {data: {controller: "select"}}) %>
+              <%= f.submit "Save Image", class: "btn btn-sm btn-primary mr-1" %>
               <%= link_to "Cancel", images_path(imageable.to_gid_param), class: "btn btn-sm btn-subtle-dark" %>
         <% end %>
       <% end %>

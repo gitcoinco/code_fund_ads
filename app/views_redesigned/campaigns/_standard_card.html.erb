@@ -16,11 +16,7 @@
         <h6 class="text-muted mb-0">Total Spent</h6>
         <div data-controller="easy-pie-chart" class="easypiechart" data-target="easy-pie-chart.chart"
             data-toggle="easypiechart"
-            data-percent=<%= campaign.total_consumed_budget_percentage %>
-            data-bar-color="#F9AC2F"
-            data-track-color="#FEF7EC"
-            data-scale-color="false"
-            data-size="100">
+            data-percent="<%= campaign.total_consumed_budget_percentage %>">
             <span class="text-sm"><%= number_to_percentage(campaign.total_consumed_budget_percentage, precision: 0) %></span>
         </div>
         <div class="position-relative" style="top:-8px;">
@@ -33,15 +29,11 @@
         </div>
       </div>
 
-      <div class="d-flex flex-column text-center" data-toggle="tooltip" title="<%= remaining_days_label(campaign)%>">
+      <div class="d-flex flex-column text-center" data-toggle="tooltip" title="<%= remaining_days_label(campaign) %>">
         <h6 class="text-muted mb-0">Days Left</h6>
         <div data-controller="easy-pie-chart" class="easypiechart" data-target="easy-pie-chart.chart"
             data-toggle="easypiechart"
-            data-percent=<%= calc_percentage(campaign.remaining_operative_days, campaign.total_operative_days) %>
-            data-bar-color="#F9AC2F"
-            data-track-color="#FEF7EC"
-            data-scale-color="false"
-            data-size="100">
+            data-percent="<%= calc_percentage(campaign.remaining_operative_days, campaign.total_operative_days) %>">
             <span class="text-sm"><%= number_to_percentage(calc_percentage(campaign.remaining_operative_days, campaign.total_operative_days), precision: 0) %></span>
         </div>
         <div class="position-relative" style="top:-8px;">

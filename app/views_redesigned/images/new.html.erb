@@ -4,8 +4,7 @@
     icon: "fas fa-images" %>
 <% end %>
 
-<%= render layout: "/images/layout", locals: { imageable: @imageable, override: [ :page_heading ] } do %>
+<%= render layout: "/images/layout", locals: {imageable: @imageable, override: [ :page_heading ]} do %>
   <%= render "/images/form_upload", imageable: @imageable %>
   <%= @instructions.upload_images_html.html_safe %>
 <% end %>
-

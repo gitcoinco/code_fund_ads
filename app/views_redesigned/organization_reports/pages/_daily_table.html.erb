@@ -20,13 +20,12 @@ summaries = campaign.daily_summaries_by_day(report.start_date, report.end_date)
       clicks = row[:clicks_count].to_i
       ctr = (clicks.to_f / impressions.to_f) * 100
       cpm = (revenue / impressions.to_f) * 1000
-      cpc = clicks > 0 ? revenue / clicks.to_f : nil
-    %>
+      cpc = clicks > 0 ? revenue / clicks.to_f : nil %>
     <%= tag.tr class: classes(
-        "danger": ctr <= 0.05,
-        "warn": ctr > 0.05 && ctr < 0.1,
-        "success": ctr >= 0.2,
-        "saturday": row[:displayed_at_date].wday == 6
+          "danger": ctr <= 0.05,
+          "warn": ctr > 0.05 && ctr < 0.1,
+          "success": ctr >= 0.2,
+          "saturday": row[:displayed_at_date].wday == 6
       ) do %>
       <td class="text-left"><%= row[:displayed_at_date].to_s("abdy") %></td>
       <td><%= number_to_currency revenue %></td>

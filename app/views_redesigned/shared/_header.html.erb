@@ -22,8 +22,8 @@
             <div class="input-group-prepend">
               <span class="input-group-text"><span class="fas fa-search"></span></span>
             </div>
-            <input type="hidden" name="bird_id" data-target="search-autocomplete.hidden"/>
-            <input type="search" id="search-input" class="form-control" placeholder="Search" aria-label="Search" data-target="search-autocomplete.input"/>
+            <input type="hidden" name="bird_id" data-target="search-autocomplete.hidden" />
+            <input type="search" id="search-input" class="form-control" placeholder="Search" aria-label="Search" data-target="search-autocomplete.input" />
             <ul data-target="search-autocomplete.results" class="list-group"></ul>
           </div>
         </form>
@@ -39,12 +39,12 @@
               <div class="dropdown-arrow"></div>
               <div class="dropdown-sheets">
                 <% {
-                  "CodeFund": { image: "codefund-logo.svg", url: "https://codefund.io", color: "dfeaff", top: 7, left: 7 },
-                  "Bounties": { image: "tophat/gitcoin-symbol.svg", url: "https://gitcoin.co", color: "29086a", top: 4, left: 5 },
-                  "Grants": { image: "tophat/grants-symbol.svg", url: "https://gitcoin.co/grants", color: "00a55e", top: 8, left: 6 },
-                  "Quests": { image: "tophat/quests-symbol.svg", url: "https://gitcoin.co/quests", color: "ffffff", top: 4, left: 5 },
-                  "Kudos": { image: "tophat/kudos-symbol.svg", url: "https://gitcoin.co/kudos", color: "3e00ff", top: 4, left: 5 },
-                  "Hackathons": { image: "tophat/gitcoin-symbol.svg", url: "https://gitcoin.co/hackathons", color: "55508e", top: 4, left: 5 }
+                  "CodeFund": {image: "codefund-logo.svg", url: "https://codefund.io", color: "dfeaff", top: 7, left: 7},
+                  "Bounties": {image: "tophat/gitcoin-symbol.svg", url: "https://gitcoin.co", color: "29086a", top: 4, left: 5},
+                  "Grants": {image: "tophat/grants-symbol.svg", url: "https://gitcoin.co/grants", color: "00a55e", top: 8, left: 6},
+                  "Quests": {image: "tophat/quests-symbol.svg", url: "https://gitcoin.co/quests", color: "ffffff", top: 4, left: 5},
+                  "Kudos": {image: "tophat/kudos-symbol.svg", url: "https://gitcoin.co/kudos", color: "3e00ff", top: 4, left: 5},
+                  "Hackathons": {image: "tophat/gitcoin-symbol.svg", url: "https://gitcoin.co/hackathons", color: "55508e", top: 4, left: 5}
                 }.each do |title, data| %>
                   <div class="dropdown-sheet-item">
                     <%= link_to data[:url], target: "_blank", class: "tile-wrapper" do %>

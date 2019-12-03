@@ -17,7 +17,7 @@
                 <option value="">--- select an image ---<option>
                 <% current_user.sponsor_images.each do |image| %>
                   <%= tag.option Image.new(image).display_name, value: image.blob_id,
-                    data: { image_url: polymorphic_url(image) },
+                    data: {image_url: polymorphic_url(image)},
                     selected: creative.sponsor_image == image %>
                 <% end %>
         </select>
@@ -30,12 +30,11 @@
       <div class="d-flex justify-content-center align-items-center mw-100" style="min-height:200px">
         <%= image_tag asset_path("sponsor-placeholder.svg"),
             class: "img-thumbnail",
-            data: { 
-              target: "creative-form.previewSponsorImage", 
-              default_image_url: asset_path("sponsor-placeholder.svg") 
+            data: {
+              target: "creative-form.previewSponsorImage",
+              default_image_url: asset_path("sponsor-placeholder.svg")
             } %>
       </div>
     </div>
   </div>
 </div>
-

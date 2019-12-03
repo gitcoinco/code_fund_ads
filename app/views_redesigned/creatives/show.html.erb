@@ -1,4 +1,4 @@
-<%= render "/creatives/layout", locals: { creative: @creative } do %>
+<%= render "/creatives/layout", locals: {creative: @creative} do %>
   <%= card do %>
     <%= card_header do %>
       <%= card_title do %>
@@ -10,7 +10,7 @@
         <% if @creative.standard? %>
           <% ENUMS::AD_TEMPLATES.values.each do |template| %>
             <% ["light", "dark"].each do |theme| %>
-              <%= render partial: "/creatives/preview_card", locals: { creative: @creative, template: template, theme: theme } %>
+              <%= render partial: "/creatives/preview_card", locals: {creative: @creative, template: template, theme: theme} %>
             <% end %>
           <% end %>
         <% end %>
@@ -20,4 +20,3 @@
       <% end %>
     <% end %>
 <% end %>
-

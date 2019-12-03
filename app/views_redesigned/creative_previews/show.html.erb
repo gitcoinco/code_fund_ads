@@ -14,7 +14,7 @@
     <p>"The story is simply this," said the painter after some time. "Two months ago I went to a crush at Lady Brandon's. You know we poor artists have to show ourselves in society from time to time, just to remind the public that we are not savages. With an evening coat and a white tie, as you told me once, anybody, even a stock-broker, can gain a reputation for being civilized. Well, after I had been in the room about ten minutes, talking to huge overdressed dowagers and tedious academicians, I suddenly became conscious that some one was looking at me. I turned half-way round and saw Dorian Gray for the first time.</p>
 
     <% if @creative.standard? %>
-      <div id="codefund" style"background-color: <%= params[:theme] == "dark" ? "#263238" : "#ffffff" %>;"></div>
+      <div id="codefund" style "background-color: <%= params[:theme] == "dark" ? "#263238" : "#ffffff" %>;"></div>
       <%= javascript_include_tag advertisement_preview_path(0, creative_id: @creative.id, template: params[:template], theme: params[:theme], format: :js) %>
     <% else %>
       <%= image_tag @creative.sponsor_image %>

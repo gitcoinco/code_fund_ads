@@ -4,7 +4,6 @@
     icon: "fas fa-images" %>
 <% end %>
 
-<%= render layout: "/images/layout", locals: { imageable: @imageable, override: [ :page_heading, :actions ] } do %>
+<%= render layout: "/images/layout", locals: {imageable: @imageable, override: [ :page_heading, :actions ]} do %>
   <%= render "/images/form_metadata", imageable: @imageable, image: @image %>
 <% end %>
-

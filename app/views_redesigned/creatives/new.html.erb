@@ -4,7 +4,6 @@
     icon: "fas fa-palette" %>
 <% end %>
 
-<%= render layout: "/creatives/layout", locals: { override: [:page_heading] } do %>
+<%= render layout: "/creatives/layout", locals: {override: [:page_heading]} do %>
   <%= render "/creatives/form", creative: @creative %>
 <% end %>
-

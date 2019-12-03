@@ -4,6 +4,6 @@
       icon: "fas fa-browser" %>
 <% end %>
 
-<%= render layout: "/properties/layout", locals: { property: @property, override: [:page_heading, :actions] } do %>
+<%= render layout: "/properties/layout", locals: {property: @property, override: [:page_heading, :actions]} do %>
   <%= render "properties/form", property: @property %>
 <% end %>

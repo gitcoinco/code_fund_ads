@@ -14,13 +14,13 @@
           end_date: Date.today.at_end_of_month.strftime("%m/%d/%Y")
         }
       }), class: "col-12 mb-3" %>
-    <%= tag.div f.input(:recipients, as: :text, input_html: { value: current_user.email }, label: "Email Recipients (one per line)", required: true), class: "col-12 mb-3" %>
+    <%= tag.div f.input(:recipients, as: :text, input_html: {value: current_user.email}, label: "Email Recipients (one per line)", required: true), class: "col-12 mb-3" %>
     <div class="col-12 mb-3">
       <label class="form-label string required">Campaigns <abbr title="required">*</abbr></label>
       <div>
         <% organization.campaigns.order(end_date: :desc).each do |campaign| %>
           <div class="form-check">
-            <input class="form-check-input" name="scheduled_organization_report[campaign_ids][]" type="checkbox" value="<%= campaign.id %>" id="campaign-<%= campaign.id %>">
+            <input class="form-check-input" name="scheduled_organization_report[campaign_ids][]" type="checkbox" value="<%= campaign.id %>" id="campaign-<%= campaign.id %>" />
             <label class="form-check-label" for="campaign-<%= campaign.id %>" style="font-size: 12px;">
               <%= campaign.id %> - <%= campaign.name %>
               <% if campaign.active? %>

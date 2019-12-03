@@ -1,4 +1,4 @@
-<%= render layout: "/users/layout", locals: { user: @user } do %>
+<%= render layout: "/users/layout", locals: {user: @user} do %>
   <article class="mb-4">
     <div class="bg-white shadow-sm">
       <%= render "/properties/table", properties: @properties, pagy: @pagy %>

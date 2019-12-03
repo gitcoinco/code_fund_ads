@@ -1,5 +1,5 @@
 <%= render "devise/layout" do %>
-  <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { class: "auth-form mx-auto", method: :put }) do |f| %>
+  <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: {class: "auth-form mx-auto", method: :put}) do |f| %>
     <%= f.error_notification %>
     <%= f.input :reset_password_token, as: :hidden %>
     <%= f.full_error :reset_password_token %>
@@ -14,7 +14,7 @@
                 label: false,
                 autofocus: true,
                 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
+                input_html: {autocomplete: "new-password"} %>
       </div>
       <div class="form-label-group">
         <label class="form-label">Password Confirmation</label>

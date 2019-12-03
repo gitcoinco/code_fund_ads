@@ -5,7 +5,7 @@
   </td>
 
   <td class="align-middle">
-    <%= link_to property.name, property, title: "View Property", data: tooltip_expando %><br/>
+    <%= link_to property.name, property, title: "View Property", data: tooltip_expando %><br />
     <small><%= link_to truncate(property.display_url, length: 30), property.url, target: "_blank" %></small>
   </td>
 
@@ -13,7 +13,7 @@
     <td class="align-middle">
       <%= link_to property.user.full_name, user_path(property.user), title: "View User", data: tooltip_expando %>
       <% if property.user.organization %>
-        <br/>
+        <br />
         <small><%= link_to property.user.organization.name, property.user.organization, class: "text-dark" %></small>
       <% end %>
     </td>
@@ -23,15 +23,15 @@
     <% if property.restrict_to_sponsor_campaigns? %>
       <span class="opacity-30">N/A</span>
     <% else %>
-      <span class="text-muted">D:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_daily, units: { thousand: "K", million: "M" } %><br/>
-      <span class="text-muted">M:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_monthly, units: { thousand: "K", million: "M" } %><br/>
-      <span class="text-muted">Y:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_yearly, units: { thousand: "K", million: "M" } %><br/>
+      <span class="text-muted">D:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_daily, units: {thousand: "K", million: "M"} %><br />
+      <span class="text-muted">M:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_monthly, units: {thousand: "K", million: "M"} %><br />
+      <span class="text-muted">Y:</span> <%= number_to_human property.property_traffic_estimates.first&.visitors_yearly, units: {thousand: "K", million: "M"} %><br />
     <% end %>
   </td>
 
   <td class="align-middle text-muted">
     <small class="d-block"><%= property.created_at.strftime("%d %b, %Y") %></small>
-    <small class="d-block"><%= property.created_at.strftime("%I:%M %p")  %></small>
+    <small class="d-block"><%= property.created_at.strftime("%I:%M %p") %></small>
   </td>
 
   <td class="align-middle text-<%= property_status_color(property.status) %>">

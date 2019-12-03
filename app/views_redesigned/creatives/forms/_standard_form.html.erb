@@ -5,8 +5,8 @@
         <div class="text-center pb-2 text-dark" data-target="creative-form.copyWarningWrapper">
           Your ad copy is <span class="actual-length text-dark" data-target="creative-form.adLength">0</span> of <strong class="text-dark">85</strong> characters
         </div>
-        <%= tag.div f.input(:headline, required: true, input_html: { data: { target: "creative-form.inputHeadline", action: "change->creative-form#setHeadline keyup->creative-form#setHeadline" }}), class: "col-12 mb-3" %>
-        <%= tag.div f.input(:body, required: true, input_html: { rows: 2, data: { target: "creative-form.inputBody", action: "change->creative-form#setBody keyup->creative-form#setBody" }}), class: "col-12 mb-3" %>
+        <%= tag.div f.input(:headline, required: true, input_html: {data: {target: "creative-form.inputHeadline", action: "change->creative-form#setHeadline keyup->creative-form#setHeadline"}}), class: "col-12 mb-3" %>
+        <%= tag.div f.input(:body, required: true, input_html: {rows: 2, data: {target: "creative-form.inputBody", action: "change->creative-form#setBody keyup->creative-form#setBody"}}), class: "col-12 mb-3" %>
         <%= tag.div f.input(:cta, label: "Call to Action", required: true, placeholder: "e.g. Learn more", hint: "Only used with the `sponsored-text` template"), class: "col-12 mb-3" %>
       </div>
       <div class="col-12 mb-4">
@@ -25,7 +25,7 @@
                   <option value="">--- select an image ---<option>
                   <% current_user.icon_images.each do |image| %>
                     <%= tag.option Image.new(image).display_name, value: image.blob_id,
-                      data: { image_url: polymorphic_url(image) },
+                      data: {image_url: polymorphic_url(image)},
                       selected: creative.icon_image == image %>
                   <% end %>
           </select>
@@ -47,7 +47,7 @@
                   <option value="">--- select an image ---<option>
                   <% current_user.small_images.each do |image| %>
                     <%= tag.option Image.new(image).display_name, value: image.blob_id,
-                      data: { image_url: polymorphic_url(image) },
+                      data: {image_url: polymorphic_url(image)},
                       selected: creative.small_image == image %>
                   <% end %>
           </select>
@@ -69,7 +69,7 @@
                   <option value="">--- select an image ---<option>
                   <% current_user.large_images.each do |image| %>
                     <%= tag.option Image.new(image).display_name, value: image.blob_id,
-                      data: { image_url: polymorphic_url(image) },
+                      data: {image_url: polymorphic_url(image)},
                       selected: creative.large_image == image %>
                   <% end %>
           </select>
@@ -91,7 +91,7 @@
                   <option value="">--- select an image ---<option>
                   <% current_user.wide_images.each do |image| %>
                     <%= tag.option Image.new(image).display_name, value: image.blob_id,
-                      data: { image_url: polymorphic_url(image) },
+                      data: {image_url: polymorphic_url(image)},
                       selected: creative.wide_image == image %>
                   <% end %>
           </select>
@@ -156,4 +156,3 @@
     </div>
   </div>
 </div>
-

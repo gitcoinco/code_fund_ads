@@ -6,36 +6,36 @@
 
     <!-- Meta Tags -->
     <%= display_meta_tags site: "CodeFund" %>
-    <link rel="manifest" href="/site.webmanifest">
-    <meta name="theme-color" content="#3063A0">
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#3063A0" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
 
     <!-- CDN Stylesheets -->
-    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-zrnmn8R8KkWl12rAZFt4yKjxplaDaT7/EUkKm7AovijfrQItFWR7O/JJn4DAa/gx" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-zrnmn8R8KkWl12rAZFt4yKjxplaDaT7/EUkKm7AovijfrQItFWR7O/JJn4DAa/gx" crossorigin="anonymous" />
 
     <!-- Compressed Stylesheets -->
-    <%= stylesheet_pack_tag 'code_fund_redesign', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag "code_fund_redesign", media: "all", 'data-turbolinks-track': "reload" %>
 
     <!-- Compressed JavaScripts -->
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'code_fund_redesign', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track': "reload" %>
+    <%= javascript_pack_tag "code_fund_redesign", 'data-turbolinks-track': "reload" %>
   </head>
   <body>
     <div class="app">
       <!--[if lt IE 10]>
         <div class="page-message" role="alert">You are using an <strong>outdated</strong> browser. Please <a class="alert-link" href="http://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</div>
       <![endif]-->
-      <%= render 'shared/header' %>
-      <%= render 'shared/search_results' if @search_results %>
+      <%= render "shared/header" %>
+      <%= render "shared/search_results" if @search_results %>
       <div class="main">
-        <%= render 'shared/sidebar' if current_user %>
+        <%= render "shared/sidebar" if current_user %>
         <main class="app-main">
           <%= yield %>
         </main>
       </div>
-      <%= render 'shared/footer' %>
+      <%= render "shared/footer" %>
     </div>
 
     <!-- Target for dynamically generated modals -->
