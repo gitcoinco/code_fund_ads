@@ -159,6 +159,7 @@ class CampaignsController < ApplicationController
       total_budget_cents
       status
       created_at
+      updated_at
       user.first_name
     ]
   end

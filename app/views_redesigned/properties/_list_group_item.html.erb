@@ -1,6 +1,6 @@
 <div class="list-group-item"  data-target="filterable-list.filterable" data-filter-key='all <%= property.status %>'>
   <div class="list-group-item-figure">
-    <%= link_to properties_path(property), class: "user-avatar user-avatar-md" do %>
+    <%= link_to property_path(property), class: "user-avatar user-avatar-md" do %>
       <%= image_tag property.favicon_image_url %>
     <% end %>
   </div>
@@ -13,11 +13,11 @@
         </h4>
       </div>
       <ul class="list-inline text-muted mb-0">
-        <li class="list-inline-item mr-3" data-toggle="tooltip" title="Status: <%= property.status.humanize %>" data-placement="top" data-original-title="Status">
+        <li class="list-inline-item mr-3">
           <span class="badge badge-subtle badge-<%= property_status_color(property.status) %>"><%= property.status.humanize %></span>
         </li>
         <%= edit_button(link: edit_property_path(property)) %>
-        <%= goto_button(link: properties_path(property), icon: "fas fa-chevron-right", title: "View Property") %>
+        <%= goto_button(link: property_path(property), icon: "fas fa-chevron-right", title: "View Property") %>
       </ul>
     </div>
   </div>

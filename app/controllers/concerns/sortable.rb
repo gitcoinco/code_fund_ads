@@ -15,12 +15,22 @@ module Sortable
   end
 
   def sort_column
-    return params[:column] if sortable_columns.include?(params[:column])
+    return column if sortable_columns.include?(column)
     return "name" if sortable_columns.include?("name")
     "created_at"
   end
 
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    %w[asc desc].include?(direction) ? direction : "asc"
+  end
+
+  private
+
+  def column
+    params[:column] || session[:sort_by]
+  end
+
+  def direction
+    params[:direction] || session[:sort_direction]
   end
 end
