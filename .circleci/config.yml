@@ -4,9 +4,11 @@ jobs:
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
+          DATABASE_URL: "postgres://ubuntu@localhost:5432/code_fund_ads_test"
           DEFAULT_HOST: codefund.io
+          NODE_ENV: test
           PG_HOST: localhost
-          PG_USER: ubuntu
+          PG_USERNAME: ubuntu
           RACK_ENV: test
           RAILS_ENV: test
           REDIS_CACHE_URL: redis://127.0.0.1:6379
@@ -47,7 +49,7 @@ jobs:
           name: install gem dependencies
           command: |
             gem install bundler:2.0.1
-            bundle check || bundle install --jobs=4 --retry=3 --path vendor/bundle
+            bundle check || bundle install --jobs=6 --retry=3 --path vendor/bundle
       - run:
           name: install yarn dependencies
           command: yarn check || yarn install --ignore-engines --frozen-lockfile
