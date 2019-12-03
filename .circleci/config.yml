@@ -1,5 +1,14 @@
 version: 2
 
+anchors:
+  - &install_dependencies
+    name: Install gem package dependencies
+    command: |
+      sudo apt-get update
+      sudo apt-get install -y postgresql-client
+      curl -o- -L https://yarnpkg.com/install.sh | bash
+      gem install bundler:2.0.1
+
 references:
   default_docker_ruby_executor: &default_docker_ruby_executor
     image: circleci/ruby:2.6.5-node-browsers
@@ -41,6 +50,7 @@ jobs:
       - *default_docker_ruby_executor
     steps:
       - checkout
+      - run: *install_dependencies
       - restore_cache:
           keys:
             - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
@@ -72,6 +82,7 @@ jobs:
       - *redis
     steps:
       - checkout
+      - run: *install_dependencies
       - restore_cache:
           keys:
             - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
@@ -101,6 +112,7 @@ jobs:
       - *redis
     steps:
       - checkout
+      - run: *install_dependencies
       - restore_cache:
           keys:
             - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
@@ -122,6 +134,7 @@ jobs:
       - *redis
     steps:
       - checkout
+      - run: *install_dependencies
       - restore_cache:
           keys:
             - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
@@ -143,6 +156,7 @@ jobs:
       - *redis
     steps:
       - checkout
+      - run: *install_dependencies
       - restore_cache:
           keys:
             - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
@@ -164,6 +178,7 @@ jobs:
       - *redis
     steps:
       - checkout
+      - run: *install_dependencies
       - restore_cache:
           keys:
             - codefund-bundle-v1-{{ checksum "Gemfile.lock" }}
