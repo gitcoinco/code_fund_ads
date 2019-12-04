@@ -2,10 +2,10 @@
   <div class="card card-fluid" data-controller="filterable-list">
     <div class="card-header nav-scroller">
       <ul class="nav nav-tabs card-header-tabs">
-        <li class="nav-item"><span class="nav-link show <%= "active" if session[:scope_by].nil? || session[:scope_by]&.inquiry&.all? %>" data-toggle="tab" data-scope-by="all" data-reflex="click->ScopableReflex#scope">All</span></li>
-        <li class="nav-item"><span class="nav-link show <%= "active" if session[:scope_by]&.inquiry&.archived? %>" data-toggle="tab" data-scope-by="archived" data-reflex="click->ScopableReflex#scope">Archived</span></li>
-        <li class="nav-item"><span class="nav-link show <%= "active" if session[:scope_by]&.inquiry&.pending? %>" data-toggle="tab" data-scope-by="pending" data-reflex="click->ScopableReflex#scope">Pending</span></li>
-        <li class="nav-item"><span class="nav-link show <%= "active" if session[:scope_by]&.inquiry&.active? %>" data-toggle="tab" data-scope-by="active" data-reflex="click->ScopableReflex#scope">Active</span></li>
+        <li class="nav-item"><span class="nav-link show <%= "active" if session[:scope_by].nil? || session[:scope_by] == "all" %>" data-toggle="tab" data-scope-by="all" data-reflex="click->ScopableReflex#scope">All</span></li>
+        <% scopable.each do |item| %>
+          <li class="nav-item"><span class="nav-link show <%= "active" if session[:scope_by] == item %>" data-toggle="tab" data-scope-by="<%= item %>" data-reflex="click->ScopableReflex#scope"><%= item.capitalize %></span></li>
+        <% end %>
       </ul>
     </div>
     <div class="card-body">
@@ -16,11 +16,11 @@
             <button type="button" class="close" aria-label="Close" data-action="click->filterable-list#reset">
               <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
             </button>
-            <label class="input-group-prepend" for="searchCampaigns">
+            <label class="input-group-prepend" for="search<%= resource_name&.capitalize %>">
               <span class="input-group-text"><span class="fad fa-magnifying-glass"></span></span>
             </label>
-            <input type="text" class="form-control" id="searchCampaigns"
-              placeholder="Find campaigns"
+            <input type="text" class="form-control" id="search<%= resource_name&.capitalize %>"
+              placeholder="Find <%= resource_name %>"
               data-target="filterable-list.source"
               data-action="input->filterable-list#filter" />
           </div>
@@ -39,15 +39,15 @@
               <div class="dropdown-arrow"></div>
               <h6 class="dropdown-header"> Sort By </h6>
               <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="0" data-reflex="click->SortableReflex#sort" data-column-name="name" />
+                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="0" data-reflex="click->SortableReflex#sort" data-column-name="name" />
                   <span class="custom-control-label">Name</span>
               </label>
               <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="1" data-reflex="click->SortableReflex#sort" data-column-name="updated_at" />
+                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="1" data-reflex="click->SortableReflex#sort" data-column-name="updated_at" />
                   <span class="custom-control-label">Updated</span>
               </label>
               <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="2" data-reflex="click->SortableReflex#sort" data-column-name="created_at" />
+                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="2" data-reflex="click->SortableReflex#sort" data-column-name="created_at" />
                   <span class="custom-control-label">Created</span>
               </label>
             </div>
@@ -57,14 +57,14 @@
       </div>
     </div>
 
-  <div class="text-muted px-3 mb-2">
+    <div class="text-muted px-3 mb-2">
       <%= pagy_entries(pagy) %>
     </div>
 
     <div class="tab-content pb-3" data-reflex-root=".class">
       <div class="tab-pane fade show active" role="tabpanel">
         <div class="list-group list-group-flush list-group-divider" data-target="filterable-list.wrapper">
-          <%= render partial: "/campaigns/list_group_item", collection: campaigns, as: :campaign %>
+          <%= render partial: "/#{resource_name}/list_group_item", collection: collection, as: resource_name&.singularize&.to_sym %>
         </div>
         <% if pagy.pages > 1 %>
           <ul class="pagination justify-content-center mt-4">

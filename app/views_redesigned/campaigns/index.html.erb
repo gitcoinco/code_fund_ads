@@ -9,7 +9,11 @@
           </div>
         </div>
       </header>
-      <%= render "/campaigns/list", campaigns: @campaigns, pagy: @pagy %>
+      <%= render "shared/data_list",
+          resource_name: "campaigns",
+          scopable: %w[archived pending active],
+          collection: @campaigns,
+          pagy: @pagy %>
     </div>
   </div>
 </div>

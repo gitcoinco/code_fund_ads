@@ -9,7 +9,11 @@
           </div>
         </div>
       </header>
-      <%= render "/properties/list", properties: @properties, pagy: @pagy %>
+      <%= render "/shared/data_list",
+          resource_name: "properties",
+          scopable: %w[active archived blacklisted pending rejected],
+          collection: @properties,
+          pagy: @pagy %>
     </div>
   </div>
 </div>

@@ -1,4 +1,5 @@
 class PropertiesController < ApplicationController
+  include Scopable
   include Sortable
 
   before_action :authenticate_user!
@@ -8,7 +9,7 @@ class PropertiesController < ApplicationController
   before_action :set_assignable_fallback_campaigns, only: [:edit]
 
   def index
-    properties = Property.order(order_by).includes(:user, :property_traffic_estimates)
+    properties = scope_list(Property).order(order_by).includes(:user, :property_traffic_estimates)
 
     if authorized_user.can_admin_system?
       properties = properties.where(user: @user) if @user
