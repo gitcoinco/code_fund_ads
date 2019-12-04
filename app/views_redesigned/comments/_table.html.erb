@@ -3,7 +3,6 @@
     <%= render partial: "/shared/comment", collection: @comments, as: :comment %>
   </ul>
 </div>
-
 <div class="message-publisher bg-light">
   <%= form_tag comments_path, method: :post do %>
     <input type="hidden" name="sgid" value="<%= @commentable.to_sgid %>" />

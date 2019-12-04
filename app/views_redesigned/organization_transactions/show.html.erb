@@ -8,12 +8,10 @@
     <% end %>
   <% end %>
 <% end if authorized_user.can_admin_system? %>
-
 <% content_for :page_heading do %>
   <%= page_heading "Viewing", "Transaction",
     icon: "fas fa-file-invoice-dollar" %>
 <% end %>
-
 <%= render layout: "/organization_transactions/layout" do %>
   <div class="row">
     <div class="col-12">

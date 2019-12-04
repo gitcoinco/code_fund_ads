@@ -1,28 +1,27 @@
 <%= simple_form_for user, html: {class: "media align-items-center"} do |f| %>
   <%= card add_class: "mx-auto" do %>
     <%= card_body do %>
-        <div class="d-flex flex-column flex-md-row align-items-center">
-          <div class="d-flex justify-content-center md:mr-4">
-            <div class="user-avatar user-avatar-lg">
-              <%= user_avatar_image_tag(user, "img-fluid rounded-circle") rescue nil %>
-            </div>
+      <div class="d-flex flex-column flex-md-row align-items-center">
+        <div class="d-flex justify-content-center md:mr-4">
+          <div class="user-avatar user-avatar-lg">
+            <%= user_avatar_image_tag(user, "img-fluid rounded-circle") rescue nil %>
           </div>
-          <div class="d-flex flex-column flex-md-row">
-            <div class="custom-file my-4 md-my-0">
-              <%= f.file_field :avatar, class: "custom-file-input" %>
-              <label class="custom-file-label" for="fileAttachmentBtn">
-                Upload New Avatar
-              </label>
-            </div>
-            <div class="justify-content-end">
-              <button type="submit" class="btn btn-primary btn-block-sm-only md:ml-2">Save</button>
-            </div>
+        </div>
+        <div class="d-flex flex-column flex-md-row">
+          <div class="custom-file my-4 md-my-0">
+            <%= f.file_field :avatar, class: "custom-file-input" %>
+            <label class="custom-file-label" for="fileAttachmentBtn">
+              Upload New Avatar
+            </label>
           </div>
+          <div class="justify-content-end">
+            <button type="submit" class="btn btn-primary btn-block-sm-only md:ml-2">Save</button>
+          </div>
+        </div>
       </div>
     <% end %>
   <% end %>
 <% end %>
-
 <%= simple_form_for user, html: {class: "js-validate"} do |f| %>
   <%= card do %>
     <%= card_header do %>
@@ -51,13 +50,11 @@
         <%= tag.div f.input(:postal_code), class: "col-sm-6 mb-2" %>
         <%= tag.div f.input(:country, input_html: {data: {controller: "select"}}), class: "col-sm-6 mb-2" %>
       </div>
-
       <div class="media align-items-center">
         <label class="switcher-control mb-0 mr-3">
           <%= f.check_box :us_resident, class: "switcher-input" %>
           <span class="switcher-indicator"></span>
         </label>
-
         <label class="media-body text-muted mb-0">
           <span class="d-block text-dark">Are you a US Resident?</span>
           <small class="d-block">We need to know if you are a US resident for tax purposes</small>
@@ -151,7 +148,6 @@
             <span class="d-block text-dark">Enable API Access?</span>
           </label>
         </div>
-
         <div class="media align-items-center mb-3">
           <label class="switcher-control mb-0 mr-3">
             <%= tag.input type: "text",
@@ -168,7 +164,6 @@
             <span class="d-block text-dark">Administrator?</span>
           </label>
         </div>
-
         <div class="media align-items-center mb-3">
           <label class="switcher-control mb-0 mr-3">
             <%= tag.input type: "text",
@@ -185,7 +180,6 @@
             <span class="d-block text-dark">Advertiser?</span>
           </label>
         </div>
-
         <div class="media align-items-center mb-3">
           <label class="switcher-control mb-0 mr-3">
             <%= tag.input type: "text",
@@ -202,7 +196,6 @@
             <span class="d-block text-dark">Publisher?</span>
           </label>
         </div>
-
         <div class="media align-items-center mb-3">
           <label class="switcher-control mb-0 mr-3">
             <%= tag.input type: "text",
@@ -223,8 +216,8 @@
     <% end %>
   <% end %>
   <%= button_panel do %>
-      <button type="submit" class="btn btn-sm btn-primary mr-1">Update Profile</button>
-      <!-- TODO: wrong button type -->
-      <button type="submit" class="btn btn-sm btn-soft-secondary">Cancel</button>
+    <button type="submit" class="btn btn-sm btn-primary mr-1">Update Profile</button>
+    <!-- TODO: wrong button type -->
+    <button type="submit" class="btn btn-sm btn-soft-secondary">Cancel</button>
   <% end %>
 <% end %>

@@ -3,7 +3,6 @@
       subtitle: @creative.name,
       icon: "fas fa-palette" %>
 <% end %>
-
 <%= render layout: "/creatives/layout", locals: {creative: @creative, override: [:page_heading]} do %>
   <%= render "/creatives/form", creative: @creative %>
 <% end %>

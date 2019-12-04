@@ -3,12 +3,10 @@
     subtitle: "Earn by referring friends",
     icon: "fas fa-browser" %>
 <% end %>
-
 <section class="container mt-4">
   <header class="page-title-bar border-bottom">
     <%= yield :page_heading %>
   </header>
-
   <article class="grid grid-tcolumns-400 grid-trows-200">
     <%= render "/referrals/share_card" %>
     <%= render "/referrals/stats_card" %>

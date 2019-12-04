@@ -3,7 +3,6 @@
     subtitle: @organization.name,
     icon: "fas fa-ad" %>
 <% end %>
-
 <%= render layout: "/organizations/layout", locals: {organization: @organization, override: [:page_heading, :actions]} do %>
   <%= render "/organizations/form", organization: @organization %>
 <% end %>

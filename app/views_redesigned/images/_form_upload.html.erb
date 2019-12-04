@@ -13,7 +13,6 @@
         accept: ".jpg,.gif,.png,.svg", multiple: true, direct_upload: true,
         data: {target: "image-uploader.input", action: "change->image-uploader#upload"} %>
   <%= submit_tag "Submit", hidden: true, data: {target: "image-uploader.submitButton"} %>
-
   <div class="mb-3 text-center">
     <h5 class="mb-0">Upload Images</h2>
     <p>Click on the button below to choose one or more images</p>
@@ -26,7 +25,6 @@
           } %>
     <%= link_to "Cancel", images_path(imageable.to_gid_param), class: "btn btn-sm btn-subtle-dark mb-4 mt-3 ml-2" %>
   </div>
-
   <div hidden class="col-12 mb-3" data-target="image-uploader.progressBarTemplate">
     <div style="height: 32px; padding: 1px;" class="progress border border-primary bg-white">
       <div style="width: 0%; height: 28px; white-space: nowrap; border-radius: 3px;" role="progressbar" class="progress-bar">

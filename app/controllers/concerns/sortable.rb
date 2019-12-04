@@ -35,6 +35,8 @@ module Sortable
   end
 
   def current_page(max: nil)
+    return 1 if max&.zero?
+
     page = session[:current_page].to_i
     page = 1 if page <= 0
     page = max if max && page > max

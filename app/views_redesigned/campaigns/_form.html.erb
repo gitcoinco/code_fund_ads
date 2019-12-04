@@ -47,7 +47,6 @@
                 end_date: (campaign.end_date || 29.days.from_now).strftime("%m/%d/%Y")
               }
             }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
-
         <div class="col-12 mb-5">
           <%= f.input :url, as: :string, required: true, input_html: {class: "form-control"},
             placeholder: "https://example.com/?utm_source=codefund&utm_campaign={{campaign_id}}",
@@ -129,7 +128,6 @@
           <% end %>
         </div>
       </div>
-
       <% if authorized_user.can_admin_system? %>
         <div class="row">
           <div class="col-12 mb-2">
@@ -144,7 +142,6 @@
             </div>
           </div>
         </div>
-
         <div class="row">
           <div class="col-12 mb-2">
             <div class="media align-items-center mb-3">
@@ -161,7 +158,6 @@
       <% end %>
     <% end %>
   <% end %>
-
   <!-- Targeting -->
   <%= card do %>
     <%= card_header do %>
@@ -233,7 +229,6 @@
       <% end %>
     <% end %>
   <% end %>
-
   <nav class="mt-5">
     <div id="nav-tab" class="nav nav-tabs" role="tablist">
       <a id="nav-standard-tab" class="nav-item nav-link <%= "active" if campaign.standard? || campaign.new_record? %>"
@@ -260,7 +255,6 @@
       </div>
     </div>
   </div>
-
   <%= button_panel do %>
     <%= f.submit "Save Campaign", class: "btn btn-sm btn-primary mr-1" %>
     <%= link_to "Cancel", campaigns_path, class: "btn btn-sm btn-subtle-dark" %>

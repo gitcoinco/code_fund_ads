@@ -21,7 +21,6 @@
       <%= render "/users/list", users: User.all.includes(:avatar_attachment).order(last_name: :asc) %>
     </div>
   </div>
-
   <div class="page-sidebar bg-light p-3">
     DASHBOARD GOES HERE
   </div>

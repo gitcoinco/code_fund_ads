@@ -3,7 +3,6 @@
     subtitle: "Fill out the form below",
     icon: "fas fa-lightbulb-dollar" %>
 <% end %>
-
 <%= render layout: "/coupons/layout", locals: {override: [:page_heading, :actions]} do %>
   <%= render "/coupons/form", coupon: @coupon %>
 <% end %>

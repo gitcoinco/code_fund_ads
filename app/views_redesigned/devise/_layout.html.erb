@@ -13,7 +13,6 @@
     </header>
   <% end %>
 <% end %>
-
 <% unless local_assigns[:override]&.include? :footer %>
   <% content_for :footer do %>
     <footer class="auth-footer text-center">
@@ -25,16 +24,15 @@
     </footer>
   <% end %>
 <% end %>
-
 <section class="d-flex flex-column <%= "vw-100" unless user_signed_in? %>">
   <% if user_signed_in? %>
     <%= render "shared/sidebar" %>
     <article class="container my-4">
-  <% else %>
-    <article class="container-fluid p-0 my-0">
-  <% end %>
+    <% else %>
+      <article class="container-fluid p-0 my-0">
+      <% end %>
       <%= yield :page_heading %>
       <%= yield %>
     </article>
-</section>
-<%= yield :footer %>
+  </section>
+  <%= yield :footer %>

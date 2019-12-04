@@ -2,7 +2,6 @@
   <%= f.input(:name, required: false) %>
   <%= f.input(:balance_direction, as: :select, data: {controller: "select"}, required: false,
         collection: ENUMS::ORGANIZATION_SEARCH_DIRECTIONS.values.map { |dir| [dir.capitalize, dir] }) %>
-
   <div class="text-right">
     <%= f.button :submit, value: "Apply Filters", class: "btn btn-sm btn-primary" %>
     <%= link_to "Clear", organization_search_path(@organization_search.to_gid_param), class: "btn-sm btn-link text-danger ml-3", method: :delete %>

@@ -16,7 +16,6 @@
                   <%= creative.body %>
                 </div>
               <% end %>
-
               <% if creative.sponsor? %>
                 <%= image_tag creative.sponsor_image, class: "align-self-start mr-3", style: "width: 100%;" %>
               <% end %>
@@ -27,7 +26,6 @@
     <% end %>
   <% end %>
 <% end %>
-
 <div class="col-md-6 mb-3">
   <%= card do %>
     <%= card_body add_class: "p-5 text-center" do %>

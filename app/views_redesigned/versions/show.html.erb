@@ -7,8 +7,10 @@
       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
     </div>
     <div class="modal-body">
-      <style><%= Diffy::CSS %></style>
-        <table class="table">
+      <style>
+        <%= Diffy::CSS %>
+      </style>
+      <table class="table">
         <% @versionable.attributes.each do |name, val| %>
           <% if @version.reify && val != @version.reify[name] %>
             <tr>
@@ -17,7 +19,7 @@
             </tr>
           <% end %>
         <% end %>
-        </table>
+      </table>
     </div>
     <div class="modal-footer">
       <%= link_to("Rollback", version_path(@version, sgid: @versionable.to_sgid),

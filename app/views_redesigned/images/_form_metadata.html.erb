@@ -11,11 +11,11 @@
           <% end %>
         <% end %>
         <%= card_body do %>
-              <%= f.input(:name, required: true) %>
-              <%= f.input(:description, required: false, as: :text) %>
-              <%= f.input(:format, label: "Format", as: :select, collection: image_formats_for_select, hint: "* Image files cannot be replaced", required: true, input_html: {data: {controller: "select"}}) %>
-              <%= f.submit "Save Image", class: "btn btn-sm btn-primary mr-1" %>
-              <%= link_to "Cancel", images_path(imageable.to_gid_param), class: "btn btn-sm btn-subtle-dark" %>
+          <%= f.input(:name, required: true) %>
+          <%= f.input(:description, required: false, as: :text) %>
+          <%= f.input(:format, label: "Format", as: :select, collection: image_formats_for_select, hint: "* Image files cannot be replaced", required: true, input_html: {data: {controller: "select"}}) %>
+          <%= f.submit "Save Image", class: "btn btn-sm btn-primary mr-1" %>
+          <%= link_to "Cancel", images_path(imageable.to_gid_param), class: "btn btn-sm btn-subtle-dark" %>
         <% end %>
       <% end %>
     </div>

@@ -2,23 +2,21 @@
   <%= table_head do %>
     <%= table_row header: true do %>
       <%= table_column do %>
-         Index
+        Index
       <% end %>
       <%= table_column do %>
-         Date
+        Date
       <% end %>
       <%= table_column do %>
-         Author
+        Author
       <% end %>
       <%= table_column do %>
-         Event
+        Event
       <% end %>
       <%= table_column do %>
-
       <% end %>
     <% end %>
   <% end %>
-
   <%= table_body do %>
     <% versionable.versions.reverse.each do |version| %>
       <%= table_row do %>

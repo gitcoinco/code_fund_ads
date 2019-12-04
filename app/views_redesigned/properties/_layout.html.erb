@@ -1,11 +1,19 @@
 <% unless local_assigns[:override]&.include? :page_heading %>
   <% content_for :page_heading do %>
-    <%= page_heading "Viewing", "Properties",
-        subtitle: property.name,
-        icon: "fas fa-browser" %>
+    <div class="row text-center text-sm-left">
+      <div class="col-sm-auto col-12 mb-2 px-0">
+        <span class="fa-stack fa-3x text-primary">
+          <i class="fas fa-circle fa-stack-2x"></i>
+          <i class="fad fa-browser fa-stack-1x fa-inverse"></i>
+        </span>
+      </div>
+      <div class="col">
+        <h1 class="page-title"><%= property.name %></h1>
+        <p class="text-muted"><%= property.description.present? ? property.description : "Missing description" %></p>
+      </div>
+    </div>
   <% end %>
 <% end %>
-
 <% unless local_assigns[:override]&.include? :actions %>
   <% content_for :actions do %>
     <%= actions_list do %>
@@ -15,7 +23,6 @@
     <% end %>
   <% end %>
 <% end %>
-
 <div class="page <%= "has-sidebar has-sidebar-expand-xl" unless property.new_record? %>">
   <div class="page-inner" data-controller="auto-height">
     <header class="page-title-bar">
@@ -31,27 +38,12 @@
         </nav>
         <button type="button" class="btn btn-light btn-icon d-xl-none" data-toggle="sidebar"><i class="fa fa-angle-double-left"></i></button>
       </div>
-
-      <div class="row text-center text-sm-left">
-        <div class="col-sm-auto col-12 mb-2 px-0">
-          <span class="fa-stack fa-3x text-primary">
-            <i class="fas fa-circle fa-stack-2x"></i>
-            <i class="fad fa-browser fa-stack-1x fa-inverse"></i>
-          </span>
-        </div>
-        <div class="col">
-          <h1 class="page-title"><%= property.name %></h1>
-          <p class="text-muted"><%= property.description.present? ? property.description : "Missing description" %></p>
-        </div>
-      </div>
-
+      <%= yield :page_heading %>
       <%= render("properties/tabs", property: property) if property.persisted? %>
     </header>
-
     <div class="page-section">
       <%= yield %>
     </div>
   </div>
-
   <%= render "/properties/for_user/sidebar", property: property unless property.new_record? %>
 </div>

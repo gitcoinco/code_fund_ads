@@ -5,7 +5,6 @@
       icon: "fas fa-ad" %>
   <% end %>
 <% end %>
-
 <% unless local_assigns[:override]&.include? :actions %>
   <% content_for :actions do %>
     <%= actions_list do %>
@@ -18,7 +17,6 @@
     <% end %>
   <% end %>
 <% end %>
-
 <section class="page-inner">
   <header class="page-title-bar">
     <%= yield :page_heading %>

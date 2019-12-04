@@ -7,7 +7,6 @@
       </div>
     <% end %>
   </div>
-
   <div class="d-flex justify-content-between align-items-center">
     <span><%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %></span>
     <%= pagy_entries(@pagy) %>

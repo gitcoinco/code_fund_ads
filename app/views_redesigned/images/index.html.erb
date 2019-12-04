@@ -3,7 +3,6 @@
     subtitle: "for #{@imageable.imageable_name}",
     icon: "fas fa-images" %>
 <% end %>
-
 <%= render layout: "/images/layout", locals: {imageable: @imagable, override: [ :page_heading ]} do %>
   <%= render partial: "/image_searches/form",
               layout: "/shared/collapsible_search_form",

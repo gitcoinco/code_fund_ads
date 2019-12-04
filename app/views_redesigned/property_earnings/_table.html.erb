@@ -12,7 +12,6 @@
         <th>Fallback CTR</th>
       </tr>
     <% end %>
-
     <%= table_body do %>
       <% (@start_date..@end_date).each do |date| %>
         <%= render_later async_property_earnings_row_path(property_id: @property.id, date: date.iso8601), tag_name: "tr" do %>
