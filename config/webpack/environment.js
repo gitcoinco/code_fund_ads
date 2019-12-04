@@ -24,7 +24,9 @@ environment.plugins.prepend(
     Noty: 'noty',
     Circles: 'Circles',
     ClipboardJS: 'clipboard'
-  })
+  }),
+  'MomentContextReplacement',
+  new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|pl/)
 )
 
 environment.loaders.prepend('erb', erb)
