@@ -1,5 +1,6 @@
 class CampaignsController < ApplicationController
   include Sortable
+  include Scopable
   include Pagy::Backend
 
   before_action :authenticate_user!
@@ -9,7 +10,7 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
   def index
-    campaigns = Campaign.order(order_by).includes(:user, :creative, :organization)
+    campaigns = scope_list(Campaign).order(order_by).includes(:user, :creative, :organization)
 
     if authorized_user.can_admin_system?
       campaigns = campaigns.where(user: @user) if @user

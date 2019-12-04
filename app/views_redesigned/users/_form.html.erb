@@ -154,9 +154,14 @@
 
         <div class="media align-items-center mb-3">
           <label class="switcher-control mb-0 mr-3">
-            <input class="switcher-input" type="checkbox"
-              value="administrator" name="user[roles][]" id="user_roles_administrator"
-              <%= 'checked="checked"' if user.administrator? %> />
+            <%= tag.input type: 'text',
+                          disabled: true,
+                          class: "switcher-input",
+                          type: "checkbox",
+                          value: "administrator",
+                          name: "user[roles][]",
+                          id: "user_roles_administrator",
+                          checked: "checked" if user.administrator? %>
             <span class="switcher-indicator"></span>
           </label>
           <label class="media-body text-muted mb-0">
@@ -166,9 +171,14 @@
 
         <div class="media align-items-center mb-3">
           <label class="switcher-control mb-0 mr-3">
-            <input class="switcher-input" type="checkbox"
-              value="advertiser" name="user[roles][]" id="user_roles_advertiser"
-              <%= 'checked="checked"' if user.advertiser? %> />
+            <%= tag.input type: 'text',
+                          disabled: true,
+                          class: "switcher-input",
+                          type: "checkbox",
+                          value: "advertiser",
+                          name: "user[roles][]",
+                          id: "user_roles_advertiser",
+                          checked: "checked" if user.advertiser? %>
             <span class="switcher-indicator"></span>
           </label>
           <label class="media-body text-muted mb-0" for="checkboxSwitch6">
@@ -178,9 +188,14 @@
 
         <div class="media align-items-center mb-3">
           <label class="switcher-control mb-0 mr-3">
-            <input class="switcher-input" type="checkbox"
-              value="publisher" name="user[roles][]" id="user_roles_publisher"
-              <%= 'checked="checked"' if user.publisher? %> />
+            <%= tag.input type: 'text',
+                          disabled: true,
+                          class: "switcher-input",
+                          type: "checkbox",
+                          value: "publisher",
+                          name: "user[roles][]",
+                          id: "user_roles_publisher",
+                          checked: "checked" if user.publisher? %>
             <span class="switcher-indicator"></span>
           </label>
           <label class="media-body text-muted mb-0" for="checkboxSwitch7">
@@ -190,9 +205,14 @@
 
         <div class="media align-items-center mb-3">
           <label class="switcher-control mb-0 mr-3">
-            <input class="switcher-input" type="checkbox"
-              value="employer" name="user[roles][]" id="user_roles_employer"
-              <%= 'checked="checked"' if user.employer? %> />
+            <%= tag.input type: 'text',
+                          disabled: true,
+                          class: "switcher-input",
+                          type: "checkbox",
+                          value: "employer",
+                          name: "user[roles][]",
+                          id: "user_roles_employer",
+                          checked: "checked" if user.employer? %>
             <span class="switcher-indicator"></span>
           </label>
           <label class="media-body text-muted mb-0" for="checkboxSwitch8">
@@ -204,6 +224,7 @@
   <% end %>
   <%= button_panel do %>
       <button type="submit" class="btn btn-sm btn-primary mr-1">Update Profile</button>
+      <!-- TODO: wrong button type -->
       <button type="submit" class="btn btn-sm btn-soft-secondary">Cancel</button>
   <% end %>
 <% end %>
