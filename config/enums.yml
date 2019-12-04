@@ -96,8 +96,7 @@ CAMPAIGN_STATUSES:
 CAMPAIGN_STATUS_COLORS:
   pending: warning
   active: success
-  archived: muted
-
+  archived: secondary
 COUPON_TYPES:
   - percentage
 

@@ -10,8 +10,8 @@
   </div>
 <% end %>
 
-<%= render '/campaigns/details/overview' %>
+<%= render "/campaigns/details/overview" %>
 <% unless @campaign.paid_fallback? || @campaign.fallback? %>
-  <%= render '/campaigns/details/budget' %>
-  <%= render 'campaigns/details/ecpm' %>
+  <%= render "/campaigns/details/budget" %>
+  <%= render "campaigns/details/ecpm" %>
 <% end %>
