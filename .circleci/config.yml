@@ -52,7 +52,7 @@ jobs:
       - run:
           name: Conditionally Precompile Assets
           command: |
-              if [[ ! -d public/packs-test ]]; then;
+              if [[ ! -d public/packs-test ]]; then
                   bundle exec rails webpacker:compile
               else
                   echo "No need to compile assets."
