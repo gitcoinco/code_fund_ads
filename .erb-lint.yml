@@ -10,7 +10,10 @@ linters:
   DeprecatedClasses:
     enabled: true
     rule_set:
-      - deprecated: ['u-[-_\w]*']
+      - deprecated: [
+          'u-[-_\w]*',
+          'transition-3d-hover',
+        ]
   Rubocop:
     enabled: true
     rubocop_config:

@@ -4,6 +4,10 @@ module Frontend
       content_tag(:div, nil, id: id, class: "card mb-4 #{add_class}", &block)
     end
 
+    def standalone_card_header(id: nil, add_class: "", text: "")
+      tag.h6(text, id: id, class: "card-header #{add_class}")
+    end
+
     def card_header(id: nil, add_class: "", &block)
       content_tag(:div, nil, id: id, class: "card-header #{add_class}", &block)
     end

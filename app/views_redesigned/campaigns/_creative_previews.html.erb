@@ -21,7 +21,7 @@
             <%= tag.strong split_experiment_confidence_level(alternative.z_score) %>
           </small>
           <%= link_to "Make Winner", split_experiment_path(campaign, winner_name: alternative.name),
-            class: "btn btn-subtle-success btn-xs transition-3d-hover mt-2", rel: "nofollow",
+            class: "btn btn-subtle-success btn-xs mt-2", rel: "nofollow",
             data: {controller: "split-experiment", action: "split-experiment#setWinner"} %>
         <% end %>
       </div>
