@@ -40,9 +40,9 @@ jobs:
       - restore_cache:
           name: restore assets cache
           keys:
-            - asset-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-            - asset-cache-v1-{{ arch }}-{{ .Branch }}
-            - asset-cache-v1
+            - assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+            - assets-cache-v1-{{ arch }}-{{ .Branch }}
+            - assets-cache-v1
 
       - run:
           name: install gem dependencies
