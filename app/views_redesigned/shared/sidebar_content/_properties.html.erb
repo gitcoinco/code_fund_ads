@@ -1,0 +1,45 @@
+<%= tag.li class: classes(
+  "menu-item has-child": true,
+  "has-open": request.path.start_with?('/properties')
+) do %>
+  <a href="#" class="menu-link">
+    <span class="menu-icon fad fa-browser"></span>
+    <span class="menu-text">Properties</span>
+  </a>
+  <ul class="menu">
+    <li class="menu-subhead">Properties</li>
+    <%= active_link_to "Add Property", new_property_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Overview", properties_path, class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
+    <%= tag.li class: classes(
+      "menu-item has-child": true,
+      "has-open": [
+        request.path.start_with?("/properties"),
+        request.path.exclude?("/properties/new")
+      ].all?
+    ) do %>
+      <a href="#" class="menu-link">
+        <span class="menu-text">Active Properties</span>
+      </a>
+      <ul class="menu">
+        <% current_user.properties.active.order(name: :asc).each do |property| %>
+          <%= tag.li class: classes(
+            "menu-item has-child": true,
+            "has-open": request.path.start_with?("/properties/#{property.id}")
+          ) do %>
+            <a href="#" class="menu-link">
+              <span class="menu-text"><%= property.name %></span>
+            </a>
+            <ul class="menu">
+              <%= active_link_to "Overview", property_path(property), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
+              <%= active_link_to "Installation", property_instructions_path(property), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Earnings", property_earnings_path(property), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Campaigns", property_campaigns_path(property), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Changelog", property_versions_path(property), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Clone Property", new_property_path(clone: property.id), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+            </ul>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
+  </ul>
+<% end %>

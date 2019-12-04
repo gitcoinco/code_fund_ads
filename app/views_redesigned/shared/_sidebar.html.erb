@@ -7,8 +7,10 @@
         </span>
         <span class="account-icon">
           <span class="fa fa-caret-down fa-lg"></span>
-        </span> <span class="account-summary">
+        </span>
+        <span class="account-summary">
           <span class="account-name"><%= current_user.name %></span>
+          <span class="account-description"><%= current_user.organization&.name %></span>
         </span>
       </button>
       <div id="dropdown-aside" class="dropdown-aside collapse">
@@ -32,25 +34,27 @@
     <div class="aside-menu">
       <nav id="stacked-menu" class="stacked-menu">
         <ul class="menu">
-          <li class="menu-header" style="margin-top: 0px;">Report Dates</li>
-          <li class="menu-item">
-            <%= render "/shared/date_range_picker" %>
-          </li>
-          <% if authorized_user.can_advertise_and_publish? %>
-            <%= render "/shared/sidebar_content/advertisers_publishers" %>
-          <% elsif authorized_user.can_advertise? %>
-            <%= render "/shared/sidebar_content/advertisers" %>
-          <% elsif authorized_user.can_publish? %>
-            <%= render "/shared/sidebar_content/publishers" %>
-          <% end %>
-          <% if authorized_user.can_admin_system? %>
-            <%= render "/shared/sidebar_content/administrators" %>
-          <% end %>
+          <%= render "/shared/sidebar_content/dashboard" unless authorized_user.can_advertise_and_publish? %>
+          <%= render "/shared/sidebar_content/dashboards" if authorized_user.can_advertise_and_publish? %>
+          <%= render "/shared/sidebar_content/teams" if authorized_user.can_advertise_and_publish? || authorized_user.can_admin_system? %>
+          <%= render "/shared/sidebar_content/campaigns" if authorized_user.can_advertise? %>
+          <%= render "/shared/sidebar_content/creatives" if authorized_user.can_advertise? %>
+          <%= render "/shared/sidebar_content/images" if authorized_user.can_advertise? %>
+          <%= render "/shared/sidebar_content/properties" if authorized_user.can_publish? %>
+          <%= render "/shared/sidebar_content/profile" %>
+          <%= render "/shared/sidebar_content/admin" if authorized_user.can_admin_system? %>
         </ul>
       </nav>
     </div>
-    <footer class="aside-footer border-top p-3 text-center">
-      You earned <a href="#" class="text-dark" style="font-weight: bold;">$3,251</a>
-    </footer>
+
+    <% if authorized_user.can_admin_system? %>
+      <%= render "/shared/sidebar_content/footer_admin" %>
+    <% elsif authorized_user.can_advertise_and_publish? %>
+      <%= render "/shared/sidebar_content/footer_advertiser_publisher" %>
+    <% elsif authorized_user.can_advertise? %>
+      <%= render "/shared/sidebar_content/footer_advertiser" %>
+    <% elsif authorized_user.can_publish? %>
+      <%= render "/shared/sidebar_content/footer_publisher" %>
+    <% end %>
   </div>
 </aside>

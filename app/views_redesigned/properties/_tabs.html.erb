@@ -1,11 +1,9 @@
-<div class="nav-tabs-wrapper">
-  <%= nav_tabs do %>
-    <%= nav_item_link(name: "Details", path: property_path(property), active: :exact) %>
-    <%= nav_item_link(name: "Instructions", path: property_instructions_path(property)) %>
-    <%= nav_item_link(name: "Overview", path: property_dashboards_path(property)) %>
-    <%= nav_item_link(name: "Keywords", path: property_keywords_path(property)) %>
-    <%= nav_item_link(name: "Earnings", path: property_earnings_path(property)) %>
-    <%= nav_item_link(name: "Campaigns", path: property_campaigns_path(property)) %>
-    <%= nav_item_link(name: "Revisions", path: property_versions_path(property)) %>
-<% end %>
+<div class="nav-scroller border-bottom">
+  <div class="nav nav-tabs">
+    <%= active_link_to "Overview", property_path(property), class: "nav-link", active: :exact %>
+    <%= active_link_to "Instructions", property_instructions_path(property), class: "nav-link" %>
+    <%= active_link_to "Earnings", property_earnings_path(property), class: "nav-link" %>
+    <%= active_link_to "Campaigns", property_campaigns_path(property), class: "nav-link" %>
+    <%= active_link_to "Settings", edit_property_path(property), class: "nav-link" %>
+  </div>
 </div>

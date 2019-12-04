@@ -1,11 +1,9 @@
-<% content_for :page_heading do %>
-  <header class="page-title-bar pl-2">
-    <%= page_heading "Inviting", "User",
+<%= page_heading "Invite", "User",
       subtitle: "Fill out the form below",
-      icon: "fas fa-user-circle" %>
-  </header>
-<% end %>
+      icon: "fad fa-user-plus" %>
 
-<%= render layout: "devise/layout", locals: {override: [:page_heading, :footer]} do %>
-  <%= render "devise/invitations/form" %>
-<% end %>
+<div class="page-inner p-0">
+  <div class="board">
+    <%= render "devise/invitations/form" %>
+  </div>
+<div>

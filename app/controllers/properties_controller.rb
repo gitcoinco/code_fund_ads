@@ -9,13 +9,16 @@ class PropertiesController < ApplicationController
 
   def index
     properties = Property.order(order_by).includes(:user, :property_traffic_estimates)
+
     if authorized_user.can_admin_system?
       properties = properties.where(user: @user) if @user
     else
       properties = properties.where(user: current_user)
     end
+
     properties = @property_search.apply(properties)
-    @pagy, @properties = pagy(properties)
+    max = (properties.count / Pagy::VARS[:items].to_f).ceil
+    @pagy, @properties = pagy(properties, page: current_page(max: max))
 
     render "/properties/for_user/index" if @user
   end
@@ -58,9 +61,10 @@ class PropertiesController < ApplicationController
 
   def destroy
     @property.destroy
+    redirect_url = params[:redir] || properties_url
 
     respond_to do |format|
-      format.html { redirect_to properties_url, notice: "Property was successfully destroyed." }
+      format.html { redirect_to redirect_url, notice: "Property was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -131,6 +135,7 @@ class PropertiesController < ApplicationController
       created_at
       name
       status
+      updated_at
     ]
   end
 

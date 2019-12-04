@@ -1,10 +1,10 @@
-<%= simple_form_for @user, html: {class: "media align-items-center"} do |f| %>
+<%= simple_form_for user, html: {class: "media align-items-center"} do |f| %>
   <%= card add_class: "mx-auto" do %>
     <%= card_body do %>
         <div class="d-flex flex-column flex-md-row align-items-center">
           <div class="d-flex justify-content-center md:mr-4">
             <div class="user-avatar user-avatar-lg">
-              <%= user_avatar_image_tag(@user, "img-fluid rounded-circle") %>
+              <%= user_avatar_image_tag(user, "img-fluid rounded-circle") rescue nil %>
             </div>
           </div>
           <div class="d-flex flex-column flex-md-row">
@@ -23,7 +23,7 @@
   <% end %>
 <% end %>
 
-<%= simple_form_for @user, html: {class: "js-validate"} do |f| %>
+<%= simple_form_for user, html: {class: "js-validate"} do |f| %>
   <%= card do %>
     <%= card_header do %>
       <%= card_title do %>
@@ -156,7 +156,7 @@
           <label class="switcher-control mb-0 mr-3">
             <input class="switcher-input" type="checkbox"
               value="administrator" name="user[roles][]" id="user_roles_administrator"
-              <%= 'checked="checked"' if @user.administrator? %> />
+              <%= 'checked="checked"' if user.administrator? %> />
             <span class="switcher-indicator"></span>
           </label>
           <label class="media-body text-muted mb-0">
@@ -168,7 +168,7 @@
           <label class="switcher-control mb-0 mr-3">
             <input class="switcher-input" type="checkbox"
               value="advertiser" name="user[roles][]" id="user_roles_advertiser"
-              <%= 'checked="checked"' if @user.advertiser? %> />
+              <%= 'checked="checked"' if user.advertiser? %> />
             <span class="switcher-indicator"></span>
           </label>
           <label class="media-body text-muted mb-0" for="checkboxSwitch6">
@@ -180,7 +180,7 @@
           <label class="switcher-control mb-0 mr-3">
             <input class="switcher-input" type="checkbox"
               value="publisher" name="user[roles][]" id="user_roles_publisher"
-              <%= 'checked="checked"' if @user.publisher? %> />
+              <%= 'checked="checked"' if user.publisher? %> />
             <span class="switcher-indicator"></span>
           </label>
           <label class="media-body text-muted mb-0" for="checkboxSwitch7">
@@ -192,7 +192,7 @@
           <label class="switcher-control mb-0 mr-3">
             <input class="switcher-input" type="checkbox"
               value="employer" name="user[roles][]" id="user_roles_employer"
-              <%= 'checked="checked"' if @user.employer? %> />
+              <%= 'checked="checked"' if user.employer? %> />
             <span class="switcher-indicator"></span>
           </label>
           <label class="media-body text-muted mb-0" for="checkboxSwitch8">

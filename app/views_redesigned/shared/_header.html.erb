@@ -1,4 +1,8 @@
-<header class="app-header app-header-dark">
+<header class="app-header app-header-dark" style="
+        background-color: #15003e !important;
+        background-image: url(<%= asset_path("bg-shapes/pattern2.svg") %>);
+        background-size: initial;
+        background-repeat: repeat;">
   <div class="top-bar">
     <div class="top-bar-brand">
       <%= link_to root_path, class: "navbar-brand" do %>
@@ -62,17 +66,17 @@
       </div>
 
       <div class="dropdown d-flex">
-        <button class="btn-account d-none d-md-flex <%= "bg-danger" if true_user != current_user %>" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <%= tag.span class: "user-avatar user-avatar-md" do %>
-            <%= user_avatar_image_tag(current_user, "") %>
-          <% end %>
+        <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span class="user-avatar user-avatar-md"><%= user_avatar_image_tag(current_user, "") %></span>
           <span class="account-summary pr-lg-4 d-none d-lg-block">
             <span class="account-name"><%= current_user.name %></span>
-          </span></button>
-        <div class="dropdown-menu">
+            <span class="account-description"><%= current_user.organization&.name %></span>
+          </span>
+        </button>
+        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 56px; left: 0px;">
           <div class="dropdown-arrow ml-3"></div>
-          <h6 class="dropdown-header d-none d-md-block d-lg-none"> <%= current_user.name %> </h6>
-          <%= link_to edit_user_path(current_user), class: "dropdown-item" do %>
+          <h6 class="dropdown-header d-none d-md-block d-lg-none"><%= current_user.name %></h6>
+          <%= link_to user_path(current_user), class: "dropdown-item" do %>
             <span class="dropdown-icon fas fa-user"></span> Profile
           <% end %>
           <%= link_to destroy_user_session_path, class: "dropdown-item" do %>
@@ -80,11 +84,13 @@
             Logout
           <% end %>
           <% if current_user != true_user %>
+            <div class="dropdown-divider"></div>
             <%= link_to stop_user_impersonation_path, class: "dropdown-item" do %>
-              <span class="dropdown-icon fas fa-undo"></span>
+              <span class="dropdown-icon fas fa-sign-in"></span>
               Back to <%= true_user.first_name %>
             <% end %>
           <% end %>
+        </div>
       </div>
     </div>
   </div>

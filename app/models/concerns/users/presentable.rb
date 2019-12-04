@@ -10,6 +10,10 @@ module Users
       [first_name, last_name].compact.join " "
     end
 
+    def initials
+      [first_name[0], last_name[0]].compact.join.upcase
+    end
+
     alias name full_name
 
     def hashed_email

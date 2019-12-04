@@ -1,0 +1,83 @@
+<div class="page-section">
+  <div class="card card-fluid" data-controller="filterable-list">
+    <div class="card-header nav-scroller">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link show active" data-toggle="tab" href="#campaigns-website">All</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <!-- TODO: Use reflex for this search -->
+          <div class="input-group has-clearable">
+            <button type="button" class="close" aria-label="Close" data-action="click->filterable-list#reset">
+              <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
+            </button>
+            <label class="input-group-prepend" for="searchCampaigns">
+              <span class="input-group-text"><span class="fad fa-magnifying-glass"></span></span>
+            </label>
+            <input type="text" class="form-control" id="searchCampaigns"
+              placeholder="Find campaigns"
+              data-target="filterable-list.source"
+              data-action="input->filterable-list#filter" />
+          </div>
+        </div>
+        <div class="col-auto d-none d-sm-flex">
+          <div class="dropdown">
+            <button class="btn btn-secondary" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><%= session[:sort_by]&.humanize || "Name" %> <span class="fa fa-caret-down"></span></button>
+            <div class="dropdown-menu dropdown-menu-right stop-propagation">
+              <div class="dropdown-arrow"></div>
+              <h6 class="dropdown-header"> Sort By </h6>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="0" data-reflex="click->SortableReflex#sort" data-column-name="name" data-direction="asc" />
+                  <span class="custom-control-label">Name</span>
+              </label>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="1" data-reflex="click->SortableReflex#sort" data-column-name="name" data-direction="desc" />
+                  <span class="custom-control-label">Name <span class="text-muted">(Decs)</span></span>
+              </label>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="2" data-reflex="click->SortableReflex#sort" data-column-name="updated_at" data-direction="asc" />
+                  <span class="custom-control-label">Last updated</span>
+              </label>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="3" data-reflex="click->SortableReflex#sort" data-column-name="updated_at" data-direction="desc" />
+                  <span class="custom-control-label">Oldest updated</span>
+              </label>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="4" data-reflex="click->SortableReflex#sort" data-column-name="created_at" data-direction="asc" />
+                  <span class="custom-control-label">Last created</span>
+              </label>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sortCampaignsBy" value="5" data-reflex="click->SortableReflex#sort" data-column-name="created_at" data-direction="desc" />
+                  <span class="custom-control-label">Oldest created</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-muted px-3 mb-2">
+      <%= pagy_entries(pagy) %>
+    </div>
+
+    <div class="tab-content pb-3" data-reflex-root=".class">
+      <div class="tab-pane fade show active" role="tabpanel">
+        <div class="list-group list-group-flush list-group-divider" data-target="filterable-list.wrapper">
+          <%= render partial: "/campaigns/list_group_item", collection: campaigns, as: :campaign %>
+        </div>
+        <% if pagy.pages > 1 %>
+          <ul class="pagination justify-content-center mt-4">
+            <%= render "/shared/paginator" %>
+          </ul>
+        <% end %>
+      </div>
+      <div class="tab-pane fade" id="project-explore-teams" role="tabpanel">
+        <div class="alert alert-warning mx-3"> You can search for public teams only! </div>
+      </div>
+    </div>
+  </div>
+</div>

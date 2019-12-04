@@ -116,6 +116,16 @@ class DailySummaryReport < ApplicationRecord
     gross_revenue / clicks_count
   end
 
+  def publisher_cpm
+    return Money.new(0) unless paid_impressions_count > 0
+    property_revenue / (paid_impressions_count / 1000.to_f)
+  end
+
+  def paid_percent
+    return nil if impressions_count == 0
+    (paid_impressions_count.to_f / impressions_count.to_f) * 100
+  end
+
   # protected instance methods ................................................
   # private instance methods ..................................................
 end

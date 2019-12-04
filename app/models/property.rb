@@ -31,8 +31,10 @@ class Property < ApplicationRecord
   # extends ...................................................................
 
   # includes ..................................................................
+  include Properties::Chartable
   include Properties::Impressionable
   include Properties::Presentable
+  include Properties::Reportable
   include Eventable
   include Imageable
   include Impressionable
@@ -116,6 +118,7 @@ class Property < ApplicationRecord
   # - without_keywords
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  acts_as_paranoid
   tag_columns :prohibited_advertiser_ids
   tag_columns :keywords
   has_one_attached :screenshot

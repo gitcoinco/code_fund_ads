@@ -1,62 +1,17 @@
-<!-- ========== FOOTER ========== -->
-<footer class="p-2 bg-dark text-light">
-  <div class="container">
-    <div class="row my-4">
-      <div class="col-6 col-md-3">
-        <%= image_tag "codefund-w.svg", class: "mb-4 position-relative", style: "left:-15px; height:24px;" %>
-        <ul class="list-inline mb-5 mb-md-0">
-          <li class="list-inline-item mr-3">
-            <a href="https://twitter.com/codefundio/" class="tile tile-circle bg-primary text-light text-decoration-none" title="twitter"><i class="fab fa-twitter"></i></a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-6 col-md-3 mb-3 mb-md-0">
-        <h6 class="mb-3 text-muted"> About </h6>
-        <ul class="list-unstyled">
-          <li class="mb-3">
-            <%= link_to "Advertise with Us", advertisers_path, class: "text-light" %>
-          </li>
-          <li class="mb-3">
-            <%= link_to "Become a Publisher", publishers_path, class: "text-light" %>
-          </li>
-          <li class="mb-3">
-            <a href="https://app.codefund.io/blog/" class="text-light">Blog</a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-6 col-md-3 mb-3 mb-md-0">
-        <h6 class="mb-3 text-muted"> Company </h6>
-        <ul class="list-unstyled">
-          <li class="mb-3">
-            <%= link_to "Team", page_path(:team), class: "text-light" %>
-          </li>
-          <li class="mb-3">
-            <a href="https://github.com/gitcoinco/code_fund_ads" class="text-light">Code</a>
-          </li>
-          <li class="mb-3">
-            <a href="https://stackshare.io/codefund" class="text-light">Our Stack</a>
-          </li>
-        </ul>
-      </div>
-      <div class="col-6 col-md-3 mb-3 mb-md-0">
-        <h6 class="mb-3 text-muted"> Resources </h6>
-        <ul class="list-unstyled">
-          <li class="mb-3">
-            <a href="https://status.codefund.io" class="text-light">Status</a>
-          </li>
-          <li class="mb-3">
-            <a href="https://www.iubenda.com/privacy-policy/47597768" class="text-light">Privacy Policy</a>
-          </li>
-          <li class="mb-3">
-            <a href="https://www.iubenda.com/privacy-policy/47597768/cookie-policy" class="text-light">Cookie Policy</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <hr class="border-light opacity-20" />
-  <div class="container">
-    <p class="text-muted text-center mt-4">Copyright &copy; 2017-2019 ConsenSys, AG. All rights reserved.</p>
-  </div>
+<footer class="app-footer">
+  <ul class="list-inline">
+    <li class="list-inline-item">
+      <a class="text-muted" href="mailto:team@codefund.io">Support</a>
+    </li>
+    <li class="list-inline-item">
+      <a class="text-muted" href="https://status.codefund.io" target="_blank">Status</a>
+    </li>
+    <li class="list-inline-item">
+      <a class="text-muted" href="https://www.iubenda.com/privacy-policy/47597768" target="_blank">Privacy</a>
+    </li>
+    <li class="list-inline-item">
+      <a class="text-muted" href="https://www.iubenda.com/privacy-policy/47597768/cookie-policy" target="_blank">Cookies</a>
+    </li>
+  </ul>
+  <div class="copyright">Copyright &copy; <%= Time.now.year %> ConsenSys, AG. All rights reserved. </div>
 </footer>
-<!-- ========== END FOOTER ========== -->

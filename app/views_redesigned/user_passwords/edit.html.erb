@@ -1,11 +1,12 @@
 <% content_for :page_heading do %>
-  <header class="page-title-bar">
-    <%= page_heading "Changing", "Password",
-        subtitle: "Enter your new password below",
-        icon: "fas fa-key" %>
-  </header>
+  <%= page_heading "Change", "Password",
+      subtitle: "Enter your new password below",
+      icon: "fas fa-key" %>
 <% end %>
 
-<%= render layout: "devise/layout", locals: {override: [ :page_heading ]} do %>
+<section class="container mt-4">
+  <header class="page-title-bar">
+    <%= yield :page_heading %>
+  </header>
   <%= render "/user_passwords/form" %>
-<% end %>
+</section>

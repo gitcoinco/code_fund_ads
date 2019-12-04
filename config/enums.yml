@@ -84,6 +84,10 @@ USER_STATUSES:
   - active
   - blacklisted
 
+USER_STATUS_COLORS:
+  active: success
+  blacklisted: dark
+
 CAMPAIGN_STATUSES:
   - pending
   - active

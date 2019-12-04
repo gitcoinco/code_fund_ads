@@ -1,5 +1,6 @@
 class CampaignsController < ApplicationController
   include Sortable
+  include Pagy::Backend
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!, only: [:destroy]
@@ -9,13 +10,16 @@ class CampaignsController < ApplicationController
 
   def index
     campaigns = Campaign.order(order_by).includes(:user, :creative, :organization)
+
     if authorized_user.can_admin_system?
       campaigns = campaigns.where(user: @user) if @user
     else
       campaigns = campaigns.where(user: current_user)
     end
+
     campaigns = @campaign_search.apply(campaigns)
-    @pagy, @campaigns = pagy(campaigns)
+    max = (campaigns.count / Pagy::VARS[:items].to_f).ceil
+    @pagy, @campaigns = pagy(campaigns, page: current_page(max: max))
 
     render "/campaigns/for_user/index" if @user
   end
@@ -154,11 +158,12 @@ class CampaignsController < ApplicationController
 
   def sortable_columns
     %w[
-      name
-      end_date
-      total_budget_cents
-      status
       created_at
+      end_date
+      name
+      status
+      total_budget_cents
+      updated_at
       user.first_name
     ]
   end

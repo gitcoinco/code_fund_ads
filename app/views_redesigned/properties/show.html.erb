@@ -1,10 +1,54 @@
 <%= render layout: "/properties/layout", locals: {property: @property} do %>
+  <div class="section-block">
+    <div class="metric-row metric-flush">
+      <div class="col">
+        <div class="metric metric-bordered align-items-center">
+          <h2 class="metric-label">Total Impressions</h2>
+          <p class="metric-value h3">
+            <span class="value"><%= number_with_delimiter @property.impressions_count(@start_date, @end_date) %></span>
+          </p>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="metric metric-bordered align-items-center">
+          <h2 class="metric-label">Total Clicks</h2>
+          <p class="metric-value h3">
+            <span class="value"><%= number_with_delimiter @property.clicks_count(@start_date, @end_date) %></span>
+          </p>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="metric metric-bordered align-items-center">
+          <h2 class="metric-label">Avg. Click Rate</h2>
+          <p class="metric-value h3">
+            <span class="value"><%= number_to_percentage @property.click_rate(@start_date, @end_date), precision: 2 %></span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-block d-flex justify-content-between align-items-center my-3">
+    <h1 class="section-title mb-0">Reports</h1>
+    <%= render "/shared/date_range_picker" %>
+  </div>
+
+  <div class="card card-body">
+    <h3 class="mx-auto my-auto p-5">TODO: CHART GOES HERE</h3>
+  </div>
+
   <div class="row mx-n2">
     <div class="col-md-6 col-lg-4 px-2">
-      <%= render "/properties/standard_card", property: @property, start_date: @start_date, end_date: @end_date %>
+      <div class="card card-body">
+        <h3 class="mx-auto my-auto p-5">TODO: CHART GOES HERE</h3>
+      </div>
     </div>
     <div class="col-md-6 col-lg-8 px-2">
-      <%= render "/properties/details_card", property: @property %>
+      <div class="card card-body">
+        <h3 class="mx-auto my-auto p-5">TODO: CHART GOES HERE</h3>
+      </div>
     </div>
   </div>
 <% end %>

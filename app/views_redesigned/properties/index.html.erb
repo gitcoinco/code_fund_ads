@@ -1,15 +1,15 @@
-<section class="container mt-4">
-  <header class="page-title-bar">
-    <%= page_heading "Viewing", "Properties",
-    subtitle: "#{pluralize(@pagy.count, "record")} found",
-    icon: "fas fa-browser" %>
-  </header>
-  <%= render partial: "/property_searches/form",
-                layout: "/shared/collapsible_search_form",
-                locals: {search: @property_search} %>
-  <article class="mb-4">
-    <div class="bg-white shadow-sm">
-      <%= render "/properties/table", properties: @properties, pagy: @pagy %>
+<div class="wrapper">
+  <div class="page">
+    <div class="page-inner">
+      <header class="page-title-bar">
+        <div class="d-flex justify-content-between">
+          <h1 class="page-title">Properties</h1>
+          <div class="btn-toolbar">
+            <%= link_to "Add property", new_property_path, class: "btn btn-primary" %>
+          </div>
+        </div>
+      </header>
+      <%= render "/properties/list", properties: @properties, pagy: @pagy %>
     </div>
-  </article>
-</section>
+  </div>
+</div>

@@ -1,42 +1,74 @@
-<% unless local_assigns[:override]&.include? :page_heading %>
-  <% content_for :page_heading do %>
-    <%= page_heading user.first_name, user.last_name,
-      subtitle: user.email,
-      icon: "fas fa-user-circle" %>
-  <% end %>
-<% end %>
 
-<% unless local_assigns[:override]&.include? :actions %>
-  <% content_for :actions do %>
-    <%= actions_list do %>
-      <%= actions_list_item title: "Edit User" do %>
-        <%= render "/shared/actions/edit_user", user: user %>
-      <% end %>
-      <% if user != current_user %>
-        <%= actions_list_item title: "Masquerade User" do %>
-          <%= render "/shared/actions/masquerade_as_user", user: user %>
-        <% end %>
-      <% end %>
-    <% end %>
-  <% end %>
-<% end %>
-
-<section class="container mt-4">
-  <header class="page-title-bar">
-    <%= yield :page_heading %>
-
-    <% if authorized_user.can_admin_system? %>
-      <div class="d-flex border-bottom">
-        <%= render("users/tabs", user: user) %>
-        <%= yield :actions %>
+<div class="page has-sidebar has-sidebar-fluid has-sidebar-expand-xl" data-controller="filterable-list">
+  <div class="page-inner page-inner-fill position-relative">
+    <header class="page-navs bg-light shadow-sm">
+      <div class="input-group has-clearable">
+        <button type="button" class="close" aria-label="Close" data-action="click->filterable-list#reset">
+          <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
+        </button>
+        <label class="input-group-prepend" for="searchUsers">
+          <span class="input-group-text"><span class="fad fa-magnifying-glass"></span></span>
+        </label>
+        <input type="text" class="form-control" id="searchUsers"
+          data-filter=".board .list-group-item"
+          placeholder="Find users"
+          data-target="filterable-list.source"
+          data-action="input->filterable-list#filter" />
       </div>
-    <% else %>
-      <div class="d-flex flex-row-reverse border-bottom">
-        <div class="mb-2">
-          <%= yield :actions %>
+    </header>
+    <button type="button" class="btn btn-primary btn-floated position-absolute" data-toggle="modal" data-target="#clientNewModal" title="Add new client">
+      <i class="fa fa-plus"></i>
+    </button>
+    <div class="board p-0 perfect-scrollbar bg-white" data-target="filterable-list.wrapper" data-turbolinks-persist-scroll>
+      <%= render "/users/list", users: User.all.order(last_name: :asc) %>
+    </div>
+  </div>
+
+  <div class="page-sidebar bg-light">
+    <header class="sidebar-header d-xl-none">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item active">
+            <a href="#" onclick="Looper.toggleSidebar()">
+              <i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Back
+            </a>
+          </li>
+        </ol>
+      </nav>
+    </header>
+
+    <div class="sidebar-section sidebar-section-fill">
+      <header class="page-title-bar">
+        <div class="d-flex justify-content-between">
+          <h1 class="page-title">
+            <figure class="user-avatar mr-2">
+              <%= image_tag "", class: "lozad", data: {src: avatar_image_url(user)}, alt: "" %>
+            </figure>
+            <%= user.first_name %> <strong><%= user.last_name %></strong>
+          </h1>
+          <div class="btn-toolbar">
+            <%= render "/shared/actions/edit_user", user: user %>
+            <%= render "/shared/actions/masquerade_as_user", user: user if user != current_user %>
+          </div>
         </div>
+      </header>
+
+      <div class="nav-scroller border-bottom">
+        <ul class="nav nav-tabs">
+          <%= tag.li(active_link_to("Details", user_path(user), active: :exact,
+            data: {turbolinks_persist_scroll: true}, class: "nav-link")) %>
+          <%= tag.li(active_link_to("Properties", user_properties_path(user),
+            data: {turbolinks_persist_scroll: true}, class: "nav-link")) %>
+          <%= tag.li(active_link_to("Campaigns", user_campaigns_path(user),
+            data: {turbolinks_persist_scroll: true}, class: "nav-link")) %>
+          <%= tag.li(active_link_to("Revisions", user_versions_path(user),
+            data: {turbolinks_persist_scroll: true}, class: "nav-link")) %>
+        </ul>
       </div>
-    <% end %>
-  </header>
-  <%= yield %>
-</section>
+
+      <%= yield %>
+    </div>
+  </div>
+</div>
+
+<%= render "/shared/modals/user_new_modal" %>

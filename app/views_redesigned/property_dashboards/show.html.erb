@@ -1,21 +1,18 @@
 <%= render layout: "/properties/layout", locals: {property: @property} do %>
+  <div class="section-block d-flex justify-content-between align-items-center mt-0 mb-3">
+    <h1 class="section-title mb-0">Overview</h1>
+    <%= render "/shared/date_range_picker" %>
+  </div>
+
   <%= card do %>
-    <%= card_header do %>
-      <%= card_title do %>
-        Overview
-      <% end %>
-      <%= card_subtitle do %>
-        A mini-dashboard specifically for this property.
-      <% end %>
-    <% end %>
     <%= card_body do %>
       <small class="text-center d-block text-muted">
         ensure ad blockers are disabled to view the overview
       </small>
       <iframe
         src="<%= @iframe_url %>"
-        style="width: 100%; min-height: 2000px; border: 0; resize: horizontal;"
-        height="2000"
+        style="width: 100%; border: 0; resize: horizontal;"
+        height="800"
         scrolling="no"
         allowtransparency></iframe>
     <% end %>

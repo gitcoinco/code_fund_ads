@@ -2,7 +2,6 @@
 <html>
   <head>
     <title><%= @title || "CodeFund ❤️ Open Source" %></title>
-    <%= ga_tag_manager_header %>
 
     <!-- Meta Tags -->
     <%= display_meta_tags site: "CodeFund" %>
@@ -14,6 +13,7 @@
 
     <!-- CDN Stylesheets -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-zrnmn8R8KkWl12rAZFt4yKjxplaDaT7/EUkKm7AovijfrQItFWR7O/JJn4DAa/gx" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet" />
 
     <!-- Compressed Stylesheets -->
     <%= stylesheet_pack_tag "code_fund_redesign", media: "all", 'data-turbolinks-track': "reload" %>
@@ -27,15 +27,14 @@
       <!--[if lt IE 10]>
         <div class="page-message" role="alert">You are using an <strong>outdated</strong> browser. Please <a class="alert-link" href="http://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</div>
       <![endif]-->
-      <%= render "shared/header" %>
-      <%= render "shared/search_results" if @search_results %>
+      <%= render "/shared/header" %>
+      <%= render "/shared/search_results" if @search_results %>
       <div class="main">
-        <%= render "shared/sidebar" if current_user %>
+        <%= render "/shared/sidebar" %>
         <main class="app-main">
           <%= yield %>
         </main>
       </div>
-      <%= render "shared/footer" %>
     </div>
 
     <!-- Target for dynamically generated modals -->

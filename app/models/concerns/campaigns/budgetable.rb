@@ -83,6 +83,7 @@ module Campaigns
 
     def average_daily_spend
       return Money.new(0) unless consumed_operative_days > 0
+      return Money.new(0) unless summary
       overview = summary
       overview.gross_revenue / consumed_operative_days
     end

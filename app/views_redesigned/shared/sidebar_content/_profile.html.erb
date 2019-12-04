@@ -1,0 +1,19 @@
+<%= tag.li class: classes(
+  "menu-item has-child": true,
+  "has-open": [
+    request.path.start_with?("/users/#{current_user.id}"),
+    request.path.start_with?("/password/edit")
+  ].any?
+) do %>
+  <a href="#" class="menu-link">
+    <span class="menu-icon fad fa-user-cog"></span>
+    <span class="menu-text">Profile</span>
+  </a>
+  <ul class="menu">
+    <li class="menu-subhead">Profile</li>
+    <%= active_link_to "View Profile", user_path(current_user), class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
+    <%= active_link_to "Edit Profile", edit_user_path(current_user), class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Change Password", edit_user_passwords_path(current_user), class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Referrals", referrals_path, class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item" %>
+  </ul>
+<% end %>

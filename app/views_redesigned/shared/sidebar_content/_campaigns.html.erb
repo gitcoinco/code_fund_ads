@@ -1,0 +1,49 @@
+<%= tag.li class: classes(
+  "menu-item has-child": true,
+  "has-open": request.path.start_with?('/campaign')
+) do %>
+  <a href="#" class="menu-link">
+    <span class="menu-icon fad fa-ad"></span>
+    <span class="menu-text">Campaigns</span>
+  </a>
+  <ul class="menu">
+    <li class="menu-subhead">Campaigns</li>
+    <%= active_link_to "Create Campaign", new_campaign_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Overview", campaigns_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
+    <%= tag.li class: classes(
+      "menu-item has-child": true,
+      "has-open": [
+        request.path.start_with?("/campaigns"),
+        request.path.exclude?("/campaigns/new")
+      ].all?
+    ) do %>
+      <a href="#" class="menu-link">
+        <span class="menu-text">Active Campaigns</span>
+      </a>
+      <ul class="menu">
+        <% current_user.campaigns.active.order(name: :asc).each do |campaign| %>
+          <%= tag.li class: classes(
+            "menu-item has-child": true,
+            "has-open": request.path.start_with?("/campaigns/#{campaign.id}")
+          ) do %>
+            <a href="#" class="menu-link">
+              <span class="menu-text"><%= campaign.name %></span>
+            </a>
+            <ul class="menu">
+              <%= active_link_to "Overview", campaign_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
+              <%= active_link_to "Targeting", campaign_targeting_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Daily Spend", campaign_dailies_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Properties", campaign_properties_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Countries", campaign_countries_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Changelog", campaign_versions_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <li class="menu-item"><%= link_to "Clone Campaign", new_campaign_path(clone: campaign.id), class: "menu-link" %></li>
+            </ul>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
+    <%#= active_link_to "Board View", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <%#= active_link_to "Gantt View", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <%#= active_link_to "Calendar View", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+  </ul>
+<% end %>

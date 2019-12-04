@@ -1,69 +1,13 @@
 <%= render layout: "/properties/layout", locals: {property: @property} do %>
-  <article class="instructions-tab">
-    <%= card do %>
-      <%= card_header do %>
-        <%= card_title do %>
-          Embed Instructions
-        <% end %>
-        <%= card_subtitle do %>
-          <% if @property.restrict_to_sponsor_campaigns? %>
-            Paste the following code snippet into your README
-          <% else %>
-            Paste the following code snippet into your web application
-          <% end %>
-        <% end %>
-      <% end %>
-      <%= card_body do %>
-        <section class="code-snippet">
-          <div class="js-focus-state form-group mb-2">
-            <div class="input-group input-group-alt">
-              <textarea rows="5" id="embedCode" class="form-control">
-                <% if @property.restrict_to_sponsor_campaigns? %>
-                  <p align="center">
-                    <a href="<%= sponsor_visit_url @property %>">
-                      <img src="<%= sponsor_url @property %>" />
-                    </a>
-                  </p>
-                <% else %>
-                  <%= javascript_include_tag(advertisements_url(@property.id, format: :js), async: true) %>
-                <% end %>
-              </textarea>
-              <div class="input-group-append">
-                <a class="js-clipboard input-group-text text-primary text-decoration-none" href="javascript:;"
-                  data-controller="copy-to-clipboard"
-                  data-content-target="#embedCode"
-                  data-class-change-target="#embedIcon"
-                  data-default-class="fas fa-clone"
-                  data-success-class="fas fa-check">
-                  <span id="embedIcon" class="fas fa-clone"></span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section class="docs-reference row mt-4">
-          <div class="col-12 col-md-6 offset-md-3">
-            <div class="alert alert-primary has-icon" role="alert">
-              <div class="alert-icon">
-                <span class="fas fa-info"></span>
-              </div>
-              For API documentation, visit <a href="https://codefund.docs.apiary.io" class="alert-link" target="_blank">https://codefund.docs.apiary.io</a>.
-            </div>
-          </div>
-        </section>
-        <section class="code-sandbox-example mt-4">
-          <% unless @property.restrict_to_sponsor_campaigns? %>
-            <%= tag.iframe("Loading...",
-              src: nil,
-              style: "width: 100%; height: 550px; border: 0; border-radius: 4px; overflow:hidden;",
-              sandbox: "allow-modals allow-forms allow-popups allow-scripts allow-same-origin",
-              data: {
-                controller: "code-sandbox-embed",
-                url: advertisements_url(@property.id, format: :js)
-              }) %>
-          <% end %>
-        </section>
-      <% end %>
-    <% end %>
-  </article>
+  <div class="border rounded p-1" style="background-color: #151515;">
+    <%= tag.iframe("Loading...",
+      src: nil,
+      style: "width: 100%; height: 550px; border: 0; padding: 0;overflow:hidden;",
+      sandbox: "allow-modals allow-forms allow-popups allow-scripts allow-same-origin",
+      data: {
+        controller: "code-sandbox-embed",
+        url: advertisements_url(@property.id, format: :js)
+      }
+    ) %>
+  </div>
 <% end %>

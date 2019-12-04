@@ -1,13 +1,6 @@
 <%= simple_form_for property, html: {class: "js-validate"}, wrapper: :front_form do |f| %>
   <%= card do %>
-    <%= card_header do %>
-      <%= card_title do %>
-        Property Details
-      <% end %>
-      <%= card_subtitle do %>
-        Tell us about your property
-      <% end %>
-    <% end %>
+    <h6 class="card-header"> Property </h6>
     <%= card_body do %>
       <div class="row">
         <%= tag.div f.input(:status, label: "Status", collection: ENUMS::PROPERTY_STATUSES.values.map { |status| [status.capitalize, status] }, required: true,
