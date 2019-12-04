@@ -3,22 +3,36 @@
     <%= table_head do %>
       <tr>
         <th>Date</th>
-        <th>Paid Impressions</th>
-        <th>Paid Clicks</th>
-        <th>Paid CTR</th>
-        <th>Earnings</th>
-        <th>Fallback Impressions</th>
-        <th>Fallback Clicks</th>
-        <th>Fallback CTR</th>
+        <th class="text-right">Impressions</th>
+        <th class="text-right">Clicks</th>
+        <th class="text-right">CTR</th>
+        <th class="text-right">Earnings</th>
       </tr>
     <% end %>
     <%= table_body do %>
-      <% (@start_date..@end_date).each do |date| %>
-        <%= render_later async_property_earnings_row_path(property_id: @property.id, date: date.iso8601), tag_name: "tr" do %>
-          <%= table_data colspan: "5" do %>
-            <i class="fa fa-spinner fa-spin text-primary"></i>
-          <% end %>
-        <% end %>
+      <% report.each do |item| %>
+        <tr>
+          <td class="align-middle">
+            <%= item.displayed_at_date %>
+            <small class="d-block text-muted">Fallback</small>
+          </td>
+          <td class="text-right">
+            <%= number_with_delimiter item.impressions_count %>
+            <small class="d-block text-muted"><%= number_with_delimiter item.fallbacks_count %></small>
+          </td>
+          <td class="text-right">
+            <%= number_with_delimiter item.clicks_count %>
+            <small class="d-block text-muted">-</small>
+          </td>
+          <td class="text-right">
+            <%= number_to_percentage item.click_rate, precision: 3 %>
+            <small class="d-block text-muted">-</small>
+          </td>
+          <td class="text-right">
+            <%= Money.new(item.property_revenue_cents / 100).format %>
+            <small class="d-block text-muted">$0.00</small>
+          </td>
+        </tr>
       <% end %>
     <% end %>
   <% end %>

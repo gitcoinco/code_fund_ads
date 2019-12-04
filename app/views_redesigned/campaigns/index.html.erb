@@ -11,7 +11,7 @@
       </header>
       <%= render "/shared/data_list",
           resource_name: "campaigns",
-          scopable: %w[archived pending active],
+          scopable: %w[pending active archived],
           collection: @campaigns,
           pagy: @pagy %>
     </div>

@@ -27,5 +27,15 @@ module Frontend
     def button_panel(id: nil, add_class: "", &block)
       content_tag(:div, nil, id: id, class: "col-12 my-4 #{add_class}", &block)
     end
+
+    def layout_button(link: "#", icon: nil, add_class: "", target: "", title: nil, admin: false)
+      return "" if admin && !authorized_user.can_admin_system?
+      link_to link,
+        class: "tile layout-button #{add_class}",
+        target: target,
+        title: title do
+          tag.span class: icon
+        end
+    end
   end
 end

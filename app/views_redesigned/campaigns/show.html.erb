@@ -1,13 +1,25 @@
-<%= render layout: "/campaigns/layout", locals: {campaign: @campaign} do %>
-  <div class="row">
-    <div class="col-md-6 col-lg-4">
-      <% if @campaign.standard? %>
-        <%= render "campaigns/standard_card", campaign: @campaign %>
-      <% end %>
-      <%= render "campaigns/creative_previews", campaign: @campaign %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @campaign,
+  sidebar: true,
+  datepicker: true,
+  buttons: [
+    layout_button(link: new_campaign_path(clone: @campaign.id), icon: "fad fa-copy", title: "Clone campaign", admin: true)
+  ]
+} do %>
+  <div class="card card-body">
+    <h3 class="mx-auto my-auto p-5">TODO: CHART GOES HERE</h3>
+  </div>
+
+  <div class="row mx-n2">
+    <div class="col-md-6 col-lg-4 px-2">
+      <div class="card card-body">
+        <h3 class="mx-auto my-auto p-5">TODO: CHART GOES HERE</h3>
+      </div>
     </div>
-    <div class="col-md-6 col-lg-8">
-      <%= render "campaigns/details" %>
+    <div class="col-md-6 col-lg-8 px-2">
+      <div class="card card-body">
+        <h3 class="mx-auto my-auto p-5">TODO: CHART GOES HERE</h3>
+      </div>
     </div>
   </div>
 <% end %>

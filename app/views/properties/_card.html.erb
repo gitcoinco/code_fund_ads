@@ -1,4 +1,4 @@
-<div class="card mb-5">
+<div class="card mb-5" style="max-width: 375px;">
   <div class="card-header text-center">
     <div class="d-flex justify-content-between align-items-center">
       <h4 class="h6 mb-0">
@@ -20,9 +20,4 @@
   <div class="card-body p-0 gradient-half-primary-v3">
     <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "img-fluid"), property %>
   </div>
-
-  <%= render_later async_property_card_footer_path(property_id: property.id) do %>
-    <i class="fa fa-spinner fa-spin text-primary"></i>
-  <% end %>
-  <small class="text-muted text-center d-block mb-1 pt-1 border-top"><em>data refreshes every 15 minutes</em></small>
 </div>

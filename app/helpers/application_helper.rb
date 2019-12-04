@@ -7,6 +7,12 @@ module ApplicationHelper
     iso_code
   end
 
+  def country_short_name(iso_code)
+    country = Country.find(iso_code)
+    return tag.span("#{country.emoji_flag} #{iso_code}", title: "country.name") if country
+    iso_code
+  end
+
   def safe_camo(url)
     camo url.to_s
   rescue
