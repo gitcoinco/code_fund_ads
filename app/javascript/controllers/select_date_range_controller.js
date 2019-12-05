@@ -4,9 +4,11 @@
 import { Controller } from 'stimulus'
 import moment from 'moment'
 
-export default class extends Controller {
-  connect () {
-    jQuery(this.element).daterangepicker({
+const init = element => {
+  jQuery(element)
+    .daterangepicker({
+      startDate: element.dataset.startDate,
+      endDate: element.dataset.endDate,
       ranges: {
         'Next 30 Days': [moment(), moment().add(29, 'days')],
         'Next 60 Days': [moment(), moment().add(59, 'days')],
@@ -22,5 +24,19 @@ export default class extends Controller {
         ]
       }
     })
+    .on('apply.daterangepicker', () =>
+      element.dispatchEvent(new Event('input'))
+    )
+}
+
+export default class extends Controller {
+  connect () {
+    init(this.element)
   }
 }
+
+document.addEventListener('cable-ready:after-morph', () => {
+  document
+    .querySelectorAll('[data-controller="select-date-range"]')
+    .forEach(el => init(el))
+})

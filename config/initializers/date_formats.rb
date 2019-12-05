@@ -1,4 +1,5 @@
 date_formats = {
+  "mm/dd" => "%m/%d",
   "mm/dd/yyyy" => "%m/%d/%Y",
   "yyyy_mm" => "%Y_%m",
   "yyyymmdd" => "%Y%m%d",
