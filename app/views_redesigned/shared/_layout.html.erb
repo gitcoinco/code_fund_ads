@@ -6,7 +6,7 @@
       buttons: local_assigns[:buttons] || [],
       datepicker: local_assigns[:datepicker] || false %>
     
-    <%= render("/#{subject.class.name.underscore.pluralize}/tabs", subject: subject) if subject.persisted? %>
+    <%= render("/#{subject.class.name.underscore.pluralize}/tabs", subject: subject) if subject.persisted? && local_assigns[:tabs] != false %>
     
     <div class="page-section">
       <%= yield %>

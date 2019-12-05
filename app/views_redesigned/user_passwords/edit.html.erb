@@ -1,11 +1,9 @@
-<% content_for :page_heading do %>
-  <%= page_heading "Change", "Password",
-      subtitle: "Enter your new password below",
-      icon: "fas fa-key" %>
-<% end %>
-<section class="container mt-4">
-  <header class="page-title-bar">
-    <%= yield :page_heading %>
-  </header>
+<%= render layout: "/shared/layout", locals: {
+  subject: @user,
+  title: "Edit Password",
+  subtitle: "Fill out the form below to change your password",
+  sidebar: false,
+  tabs: false
+} do %>
   <%= render "/user_passwords/form" %>
-</section>
+<% end %>

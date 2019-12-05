@@ -28,12 +28,13 @@ module Frontend
       content_tag(:div, nil, id: id, class: "col-12 my-4 #{add_class}", &block)
     end
 
-    def layout_button(link: "#", icon: nil, add_class: "", target: "", title: nil, admin: false)
+    def layout_button(link: "#", icon: nil, add_class: "", target: "", title: nil, admin: false, method: :get)
       return "" if admin && !authorized_user.can_admin_system?
       link_to link,
         class: "tile layout-button #{add_class}",
         target: target,
-        title: title do
+        title: title,
+        method: method do
           tag.span class: icon
         end
     end

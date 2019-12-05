@@ -1,0 +1,26 @@
+<div class="list-group-item list-group-item-<%= user_status_color(user.status) %>"
+     data-target="filterable-list.filterable"
+     data-filter-key='all <%= user.status %>'>
+  <div class="list-group-item-figure">
+    <%= link_to user_path(user), class: "user-avatar user-avatar-md" do %>
+      <%= image_tag avatar_image_url(user) %>
+    <% end %>
+  </div>
+  <div class="list-group-item-body">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex">
+        <h4 class="list-group-item-title">
+          <%= link_to user.name, user %><br />
+          <small><%#= link_to truncate(user.display_url, length: 30), user.url, target: "_blank" %></small>
+        </h4>
+      </div>
+      <ul class="list-inline text-muted mb-0">
+        <li class="d-none d-sm-inline list-inline-item mr-3">
+          <span class="badge badge-subtle badge-<%= user_status_color(user.status) %>"><%= user.status.humanize %></span>
+        </li>
+        <%= edit_button(link: edit_user_path(user)) %>
+        <%= goto_button(link: user_path(user), icon: "fas fa-chevron-right", title: "View User") %>
+      </ul>
+    </div>
+  </div>
+</div>
