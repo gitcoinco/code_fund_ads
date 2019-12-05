@@ -17,14 +17,17 @@ const init = element => {
   })
 }
 
+const rewire = () => {
+  document
+    .querySelectorAll('[data-controller="stacked-bar-chart"]')
+    .forEach(el => init(el))
+}
+
+document.addEventListener('cable-ready:after-morph', rewire)
+document.addEventListener('turbolinks:load', rewire)
+
 export default class extends Controller {
   connect () {
     init(this.element)
   }
 }
-
-document.addEventListener('cable-ready:after-morph', () => {
-  document
-    .querySelectorAll('[data-controller="stacked-bar-chart"]')
-    .forEach(el => init(el))
-})

@@ -29,14 +29,17 @@ const init = element => {
     )
 }
 
+const rewire = () => {
+  document
+    .querySelectorAll('[data-controller="select-date-range"]')
+    .forEach(el => init(el))
+}
+
+document.addEventListener('turbolinks:load', rewire)
+document.addEventListener('cable-ready:after-morph', rewire)
+
 export default class extends Controller {
   connect () {
     init(this.element)
   }
 }
-
-document.addEventListener('cable-ready:after-morph', () => {
-  document
-    .querySelectorAll('[data-controller="select-date-range"]')
-    .forEach(el => init(el))
-})
