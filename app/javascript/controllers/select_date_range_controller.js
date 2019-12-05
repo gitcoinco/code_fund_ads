@@ -35,7 +35,6 @@ const rewire = () => {
     .forEach(el => init(el))
 }
 
-document.addEventListener('turbolinks:load', rewire)
 document.addEventListener('cable-ready:after-morph', rewire)
 
 export default class extends Controller {

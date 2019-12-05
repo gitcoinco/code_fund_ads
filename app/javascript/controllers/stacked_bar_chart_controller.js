@@ -24,7 +24,6 @@ const rewire = () => {
 }
 
 document.addEventListener('cable-ready:after-morph', rewire)
-document.addEventListener('turbolinks:load', rewire)
 
 export default class extends Controller {
   connect () {
