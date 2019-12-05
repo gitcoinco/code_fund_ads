@@ -256,7 +256,7 @@
     </div>
   </div>
   <%= button_panel do %>
-    <%= f.submit "Save Campaign", class: "btn btn-sm btn-primary mr-1" %>
-    <%= link_to "Cancel", campaigns_path, class: "btn btn-sm btn-subtle-dark" %>
+    <%= f.submit "Save Campaign", class: "btn btn-primary mr-1" %>
+    <%= cancel_button(campaigns_path) %>
   <% end %>
 <% end %>

@@ -13,9 +13,7 @@ module Scopable
   private
 
   def current_scope
-    current = session[:current_scope]
-    current = scope_by unless current && scope_by != current
-    current
+    session[:current_scope].present? ? session[:current_scope] : scope_by
   end
 
   def scope_by
@@ -23,7 +21,7 @@ module Scopable
   end
 
   def reset_current_scope
-    session[:current_scope] = :all if session[:last_controller_name] != controller_name
+    session[:current_scope] = session[:last_controller_name] != controller_name ? :all : ""
     session[:last_controller_name] = controller_name
   end
 end

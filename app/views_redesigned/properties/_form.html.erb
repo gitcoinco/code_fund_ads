@@ -1,6 +1,6 @@
 <%= simple_form_for property, html: {class: "js-validate"}, wrapper: :front_form do |f| %>
   <%= card do %>
-    <h6 class="card-header"> Property </h6>
+    <%= standalone_card_header text: "Property Details" %>
     <%= card_body do %>
       <div class="row">
         <%= tag.div f.input(:status, label: "Status", collection: ENUMS::PROPERTY_STATUSES.values.map { |status| [status.capitalize, status] }, required: true,
@@ -83,11 +83,15 @@
             </label>
           </div>
         </div>
-        <%= render "@shared/forms/button_panel" do %>
-          <%= f.submit "Save Property", class: "btn btn-sm btn-primary mr-1" %>
-          <%= link_to "Cancel", properties_path, class: "btn btn-sm btn-subtle-secondary" %>
-        <% end %>
       </div>
+    <% end %>
+    <%= card_footer do %>
+      <%= card_footer_content do %>
+        <%= button_panel margin: "my-0" do %>
+          <%= f.submit "Save Property", class: "btn btn-primary" %>
+          <%= cancel_button(properties_path) %>
+        <% end %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

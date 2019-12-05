@@ -1,19 +1,11 @@
-<div class="wrapper">
-  <div class="page">
-    <div class="page-inner">
-      <header class="page-title-bar">
-        <div class="d-flex justify-content-between">
-          <h1 class="page-title">Users</h1>
-          <div class="btn-toolbar">
-            <%= link_to "Invite User", "#", class: "btn btn-primary" %>
-          </div>
-        </div>
-      </header>
-      <%= render "/shared/data_list",
-          resource_name: "users",
-          scopable: %w[active blacklisted],
-          collection: @users,
-          pagy: @pagy %>
-    </div>
-  </div>
-</div>
+<%= render "/shared/index_layout",
+    title: "Users",
+    buttons: [
+      link_to("Invite User", "#", class: "btn btn-primary")
+    ] do %>
+  <%= render "/shared/data_list",
+             resource_name: "users",
+             scopable: %w[active blacklisted],
+             collection: @users,
+             pagy: @pagy %>
+<% end %>

@@ -24,8 +24,12 @@ module Frontend
         end
     end
 
-    def button_panel(id: nil, add_class: "", &block)
-      content_tag(:div, nil, id: id, class: "col-12 my-4 #{add_class}", &block)
+    def button_panel(id: nil, margin: "my-4", add_class: "", &block)
+      content_tag(:div, nil, id: id, class: "col-12 #{margin} d-flex justify-content-end #{add_class}", &block)
+    end
+
+    def cancel_button(path, add_class: nil)
+      link_to "Cancel", path, class: "btn btn-light ml-1 #{add_class}"
     end
 
     def layout_button(link: "#", icon: nil, add_class: "", target: "", title: nil, admin: false, method: :get)
