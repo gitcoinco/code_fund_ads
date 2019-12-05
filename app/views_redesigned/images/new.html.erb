@@ -2,7 +2,7 @@
     locals: {
         subject: @imageable,
         title: "Upload Images",
-        subtitle: "for #{@imageable.imageable_name}" } do %>
+        subtitle: "for #{@imageable.imageable_name}"} do %>
   <%= render "/images/form_upload", imageable: @imageable %>
   <%= render "/images/upload_instructions" %>
 <% end %>

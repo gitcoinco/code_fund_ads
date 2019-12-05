@@ -2,6 +2,6 @@
     locals: {
         subject: @imageable,
         title: "Edit Image",
-        subtitle: "for #{@image.name || ''}" } do %>
+        subtitle: "for #{@image.name || ''}"} do %>
   <%= render "/images/form_metadata", imageable: @imageable, image: @image %>
 <% end %>
