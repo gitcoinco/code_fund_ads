@@ -60,3 +60,18 @@ li.menu-item.active {
   border-radius: .2rem;
   margin-left: 4px;
 }
+
+.metabase-card {
+  width: 100%;
+  min-height: 800px;
+  border: 0; resize: horizontal;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid rgba(20, 20, 31, 0.12);
+  border-radius: .25rem;
+}

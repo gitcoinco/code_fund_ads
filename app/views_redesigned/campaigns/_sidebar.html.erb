@@ -18,54 +18,70 @@ summary = subject.summary(@start_date, @end_date)
     <div class="card card-reflow">
       <div class="card-body">
         <button type="button" class="close mt-n1 d-none d-xl-none d-sm-block" onclick="CodeFundTheme.toggleSidebar()" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="card-title">Summary</h4>
+
+        <small class="d-block"><%= subject.percentage_complete_by_date %>% Completed by Date</small>
+        <div class="progress bg-muted mb-2">
+          <div class="progress-bar progress-bar-striped <%= "progress-bar-animated" if subject.active? && subject.percentage_complete_by_date == 100 %> bg-purple" role="progressbar" aria-valuenow="<%= subject.percentage_complete_by_date %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= subject.percentage_complete_by_date %>%">
+            <span class="sr-only"><%= subject.percentage_complete_by_date %>%</span>
+          </div>
+        </div>
+        
+        <small class="d-block"><%= subject.percentage_complete_by_budget %>% Completed by Budget</small>
+        <div class="progress bg-muted">
+          <div class="progress-bar progress-bar-striped <%= "progress-bar-animated" if subject.active? && subject.percentage_complete_by_budget == 100 %> bg-green" role="progressbar" aria-valuenow="<%= subject.percentage_complete_by_budget %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= subject.percentage_complete_by_budget %>%">
+            <span class="sr-only"><%= subject.percentage_complete_by_budget %>%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between border-top p-3">
         <div class="row">
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= number_with_delimiter summary.impressions_count rescue "-" %></h6>
-              <p class="metric-label mt-1">Impressions</p>
+              <h6 class="metric-value text-center"><%= number_with_delimiter summary.impressions_count rescue "-" %></h6>
+              <p class="metric-label text-center mt-1">Impressions</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= number_with_delimiter summary.clicks_count rescue "-" %></h6>
-              <p class="metric-label mt-1">Clicks</p>
+              <h6 class="metric-value text-center"><%= number_with_delimiter summary.clicks_count rescue "-" %></h6>
+              <p class="metric-label text-center mt-1">Clicks</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= number_to_percentage summary.click_rate, precision: 3 rescue "-" %></h6>
-              <p class="metric-label mt-1">Avg CTR</p>
+              <h6 class="metric-value text-center"><%= number_to_percentage summary.click_rate, precision: 3 rescue "-" %></h6>
+              <p class="metric-label text-center mt-1">Avg CTR</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= subject.total_consumed_budget.format rescue "-" %></h6>
-              <p class="metric-label mt-1">Ad Spend</p>
+              <h6 class="metric-value text-center"><%= subject.total_consumed_budget.format rescue "-" %></h6>
+              <p class="metric-label text-center mt-1">Ad Spend</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= summary.cpm.format rescue "-" %></h6>
-              <p class="metric-label mt-1">Avg CPM</p>
+              <h6 class="metric-value text-center"><%= summary.cpm.format rescue "-" %></h6>
+              <p class="metric-label text-center mt-1">Avg CPM</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= summary.cpc.format rescue "-" %></h6>
-              <p class="metric-label mt-1">Avg CPC</p>
+              <h6 class="metric-value text-center"><%= summary.cpc.format rescue "-" %></h6>
+              <p class="metric-label text-center mt-1">Avg CPC</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= subject.average_daily_spend.format rescue "-" %></h6>
-              <p class="metric-label mt-1">Avg Daily Spend</p>
+              <h6 class="metric-value text-center"><%= subject.average_daily_spend.format rescue "-" %></h6>
+              <p class="metric-label text-center mt-1">Avg Daily Spend</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= pluralize subject.estimated_days_until_budget_consumed, "day" rescue "-" %></h6>
-              <p class="metric-label mt-1">Est Days Remain</p>
+              <h6 class="metric-value text-center"><%= pluralize subject.estimated_days_until_budget_consumed, "day" rescue "-" %></h6>
+              <p class="metric-label text-center mt-1">Est Days Remain</p>
             </div>
           </div>
         </div>
@@ -75,6 +91,7 @@ summary = subject.summary(@start_date, @end_date)
         <h4 class="card-title"> Details </h4>
         <%= link_to "Edit", edit_campaign_path(subject) %>
       </div>
+      
       <div class="list-group list-group-bordered list-group-reflow mx-3 mb-3">
         <div class="list-group-item justify-content-between align-items-center px-0">
           <span class="text-muted">Name</span> <span><%= subject.name %></span>
@@ -103,7 +120,7 @@ summary = subject.summary(@start_date, @end_date)
       </div>
 
       <div class="card-body border-top">
-        <div class="d-flex justify-content-between my-3">
+        <div class="d-flex justify-content-between mb-3">
           <h4 class="card-title">Changelog</h4>
         </div>
         <ul class="timeline timeline-fluid">

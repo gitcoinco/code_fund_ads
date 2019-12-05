@@ -1,0 +1,2 @@
+module GanttCampaignsHelper
+end

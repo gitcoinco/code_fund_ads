@@ -1,5 +1,5 @@
 <%= table_row do %>
-  <%= table_data_value report.scoped_by.name %>
+  <td><%= link_to report.scoped_by.name, report.scoped_by %></td>
   <% if @campaign.standard? %>
     <%= table_data_value report.gross_revenue.format %>
     <%= table_data_value number_with_delimiter(report.impressions_count) %>
