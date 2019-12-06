@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_administrator!, if: -> { params[:redir].present? }
 
   def index
-    users = User.includes(:avatar_attachment, :organization).include_image_count.order(order_by)
+    users = scope_list(User).includes(:avatar_attachment, :organization).include_image_count.order(order_by)
     users = @user_search.apply(users)
     users = users.where(organization: @organization) if @organization
     @pagy, @users = pagy(users)

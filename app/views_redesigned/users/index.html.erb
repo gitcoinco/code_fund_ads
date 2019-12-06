@@ -5,7 +5,7 @@
     ] do %>
   <%= render "/shared/data_list",
              resource_name: "users",
-             scopable: %w[active blacklisted],
+             scopable: %w[administrators advertisers publishers],
              collection: @users,
              pagy: @pagy %>
 <% end %>
