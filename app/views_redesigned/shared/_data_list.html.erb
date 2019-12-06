@@ -15,21 +15,6 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <div class="col">
-          <!-- TODO: Use reflex for this search -->
-          <div class="input-group has-clearable">
-            <button type="button" class="close" aria-label="Close" data-action="click->filterable-list#reset">
-              <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
-            </button>
-            <label class="input-group-prepend" for="search<%= resource_name&.capitalize %>">
-              <span class="input-group-text"><span class="fad fa-magnifying-glass"></span></span>
-            </label>
-            <input type="text" class="form-control" id="search<%= resource_name&.capitalize %>"
-              placeholder="Find <%= resource_name %>"
-              data-target="filterable-list.source"
-              data-action="input->filterable-list#filter" />
-          </div>
-        </div>
         <div class="col-auto d-none d-sm-flex">
           <div class="dropdown">
             <div class="btn-group" role="group" aria-label="Basic example">

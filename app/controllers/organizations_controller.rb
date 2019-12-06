@@ -3,12 +3,10 @@ class OrganizationsController < ApplicationController
   include Scopable
 
   before_action :authenticate_administrator!, except: [:show]
-  before_action :set_organization_search, only: [:index]
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
 
   def index
     organizations = scope_list(Organization).order(order_by)
-    organizations = @organization_search.apply(organizations)
     @pagy, @organizations = pagy(organizations)
   end
 
@@ -58,12 +56,6 @@ class OrganizationsController < ApplicationController
   end
 
   private
-
-  def set_organization_search
-    clear_searches except: :organization_search
-    @organization_search = GlobalID.parse(session[:organization_search]).find if session[:organization_search].present?
-    @organization_search ||= OrganizationSearch.new
-  end
 
   def set_organization
     @organization = if authorized_user.can_admin_system?

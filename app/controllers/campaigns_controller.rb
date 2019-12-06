@@ -6,7 +6,6 @@ class CampaignsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_administrator!, only: [:destroy]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
-  before_action :set_campaign_search, only: [:index]
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -18,7 +17,6 @@ class CampaignsController < ApplicationController
       campaigns = campaigns.where(user: current_user)
     end
 
-    campaigns = @campaign_search.apply(campaigns)
     max = (campaigns.count / Pagy::VARS[:items].to_f).ceil
     @pagy, @campaigns = pagy(campaigns, page: current_page(max: max))
 
@@ -102,12 +100,6 @@ class CampaignsController < ApplicationController
   end
 
   private
-
-  def set_campaign_search
-    clear_searches except: :campaign_search
-    @campaign_search = GlobalID.parse(session[:campaign_search]).find if session[:campaign_search].present?
-    @campaign_search ||= CampaignSearch.new
-  end
 
   def set_campaign
     @campaign = if authorized_user.can_admin_system?

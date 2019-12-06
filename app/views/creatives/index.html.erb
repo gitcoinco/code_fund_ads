@@ -14,9 +14,6 @@
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
-    <%= render partial: "/creative_searches/form",
-              layout: "/@shared/collapsable_search_form",
-              locals: { search: @creative_search } %>
     <div class="mb-2">
       <div class="card-sm-columns card-md-2-count card-lg-3-count">
         <%= render partial: "/creatives/creative", collection: @creatives, as: :creative %>

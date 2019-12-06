@@ -17,9 +17,6 @@
 
 <main id="content" role="main" class="bg-light">
   <div class="container space-1">
-    <%= render partial: "/property_searches/form",
-               layout: "/@shared/collapsable_search_form",
-               locals: { search: @property_search } %>
     <div class="bg-white p-4">
       <%= render "/properties/table", properties: @properties, pagy: @pagy %>
     </div>

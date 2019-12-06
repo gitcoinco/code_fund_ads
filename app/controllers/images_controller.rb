@@ -1,13 +1,11 @@
 class ImagesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_imageable
-  before_action :set_image_search, only: [:index]
 
   def index
     return render_forbidden unless authorized_user.can_view_imageable?(@imageable)
-    images = @imageable.images
-    return redirect_to(new_image_path) if images.count == 0
-    @images = @image_search.apply(images.attachments)
+    @images = @imageable.images
+    return redirect_to(new_image_path) if @images.count == 0
   end
 
   def new
@@ -49,12 +47,6 @@ class ImagesController < ApplicationController
 
   def set_imageable
     @imageable = GlobalID.parse(params[:imageable_gid]).find
-  end
-
-  def set_image_search
-    clear_searches except: :image_search
-    @image_search = GlobalID.parse(session[:image_search]).find if session[:image_search].present?
-    @image_search ||= ImageSearch.new
   end
 
   def imageable_params
