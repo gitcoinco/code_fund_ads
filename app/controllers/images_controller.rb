@@ -19,7 +19,7 @@ class ImagesController < ApplicationController
 
   def edit
     image = @imageable.images.find(params[:id])
-    # return render_forbidden unless authorized_user.can_update_image?(image)
+    return render_forbidden unless authorized_user.can_update_image?(image)
     @image = Image.new(image)
   end
 

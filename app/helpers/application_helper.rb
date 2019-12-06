@@ -1,6 +1,7 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  # TODO: move these to Country or a presentable concern
   def country_display_name(iso_code)
     country = Country.find(iso_code)
     return "#{country.emoji_flag} #{truncate country.name, length: 30} (#{iso_code})" if country
