@@ -1,4 +1,7 @@
-<%= render layout: "/properties/layout", locals: {property: @versionable} do %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @versionable,
+  sidebar: false,
+} do %>
   <%= card do %>
     <%= card_header do %>
       <%= card_title do %>

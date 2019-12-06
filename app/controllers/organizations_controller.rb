@@ -1,12 +1,13 @@
 class OrganizationsController < ApplicationController
   include Sortable
+  include Scopable
 
   before_action :authenticate_administrator!, except: [:show]
   before_action :set_organization_search, only: [:index]
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
 
   def index
-    organizations = Organization.order(order_by)
+    organizations = scope_list(Organization).order(order_by)
     organizations = @organization_search.apply(organizations)
     @pagy, @organizations = pagy(organizations)
   end
@@ -83,6 +84,7 @@ class OrganizationsController < ApplicationController
       name
       balance_cents
       created_at
+      updated_at
     ]
   end
 end

@@ -35,9 +35,9 @@
     </div>
   </div>
   <div class="row">
-    <%= button_panel do %>
-      <%= f.submit "Schedule Report", class: "btn btn-sm btn-primary transition-3d-hover mr-1" %>
-      <%= link_to "Cancel", organization_reports_path(organization), class: "btn btn-sm btn-soft-secondary transition-3d-hover" %>
+    <%= button_panel margin: "my-0" do %>
+      <%= f.submit "Schedule Report", class: "btn btn-primary" %>
+      <%= cancel_button link: organization_reports_path(organization) %>
     <% end %>
   </div>
 <% end %>

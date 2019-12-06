@@ -6,10 +6,10 @@
 ) do %>
   <a href="#" class="menu-link">
     <span class="menu-icon fad fa-users"></span>
-    <span class="menu-text">Teams</span>
+    <span class="menu-text">Organizations</span>
   </a>
   <ul class="menu">
-    <li class="menu-subhead">Teams</li>
+    <li class="menu-subhead">Organizations</li>
     <% current_user.organizations.each do |organization| %>
       <li class="menu-item has-child">
         <a href="#" class="menu-link">
@@ -23,6 +23,6 @@
         </ul>
       </li>
     <% end %>
-    <%= active_link_to "Add Team", new_organization_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_admin_system? %>
+    <%= active_link_to "Add Organization", new_organization_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_admin_system? %>
   </ul>
 <% end %>

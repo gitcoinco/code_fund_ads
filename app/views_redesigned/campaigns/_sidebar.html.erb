@@ -97,7 +97,7 @@ summary = subject.summary(@start_date, @end_date)
           <span class="text-muted">Name</span> <span><%= subject.name %></span>
         </div>
         <div class="list-group-item justify-content-between align-items-center px-0">
-          <span class="text-muted">Team</span> <span><%= link_to subject.organization.name, subject.organization %></span>
+          <span class="text-muted">Organization</span> <span><%= link_to subject.organization.name, subject.organization %></span>
         </div>
         <div class="list-group-item justify-content-between align-items-center px-0">
           <span class="text-muted">Status</span> <span><%= subject.status.humanize %></span>
