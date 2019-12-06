@@ -30,6 +30,7 @@ module ApplicationHelper
   end
 
   def pseudo_row_divider
+    ActiveSupport::Deprecation.warn("pseudo_row_divider will be removed after the redesign is complete.")
     @pseudo_row_divider ||= render("/@shared/forms/pseudo_row_divider")
   end
 
@@ -121,25 +122,30 @@ module ApplicationHelper
 
   def ga_tag
     return nil unless ENV["GA_TRACKING_ID"].present?
+    return render("/@shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"])  unless ENV["REDESIGN"] == "true"
     render("/@shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"])
   end
 
   def ga_tag_manager_header
     return nil unless ENV["GA_TAG_MANAGER_ID"].present?
-    render("/@shared/scripts/google_tag_manager_header", id: ENV["GA_TAG_MANAGER_ID"])
+    return render("/@shared/scripts/google_tag_manager_header", id: ENV["GA_TAG_MANAGER_ID"]) unless ENV["REDESIGN"] == "true"
+    render("/shared/scripts/google_tag_manager_header", id: ENV["GA_TAG_MANAGER_ID"])
   end
 
   def ga_tag_manager_footer
     return nil unless ENV["GA_TAG_MANAGER_ID"].present?
-    render("/@shared/scripts/google_tag_manager_footer", id: ENV["GA_TAG_MANAGER_ID"])
+    return render("/@shared/scripts/google_tag_manager_footer", id: ENV["GA_TAG_MANAGER_ID"])  unless ENV["REDESIGN"] == "true"
+    render("/shared/scripts/google_tag_manager_footer", id: ENV["GA_TAG_MANAGER_ID"])
   end
 
   def headway_tag
     return nil unless ENV["HEADWAY_ID"].present?
-    render("/@shared/scripts/headway", id: ENV["HEADWAY_ID"])
+    return render("/@shared/scripts/headway", id: ENV["HEADWAY_ID"]) unless ENV["REDESIGN"] == "true"
+    render("/shared/scripts/headway", id: ENV["HEADWAY_ID"])
   end
 
   def intercom_tag
+    ActiveSupport::Deprecation.warn("intercom_tag will be removed after the redesign is complete.")
     return nil unless ENV["INTERCOM_APP_ID"].present? && ENV["INTERCOM_SECRET_KEY"].present?
     intercom_settings = {app_id: ENV["INTERCOM_APP_ID"]}
     if current_user
@@ -157,11 +163,13 @@ module ApplicationHelper
   end
 
   def codefund_analytics_tag
+    ActiveSupport::Deprecation.warn("codefund_analytics_tag will be removed after the redesign is complete.")
     return nil unless ENV["CODEFUND_ANALYTICS_KEY"].present?
     render("/@shared/scripts/codefund_analytics", id: ENV["CODEFUND_ANALYTICS_KEY"])
   end
 
   def support_widget_tag
+    ActiveSupport::Deprecation.warn("support_widget_tag will be removed after the redesign is complete.")
     return nil unless ENV["GROOVE_WIDGET_ID"].present?
     render("/@shared/scripts/groove", id: ENV["GROOVE_WIDGET_ID"])
   end
@@ -250,6 +258,7 @@ module ApplicationHelper
   end
 
   def date_range_picker
+    ActiveSupport::Deprecation.warn("date_range_picker will be removed after the redesign is complete.")
     render "/@shared/date_range_picker"
   end
 
