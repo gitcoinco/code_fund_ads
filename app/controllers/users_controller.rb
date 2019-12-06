@@ -4,7 +4,6 @@ class UsersController < ApplicationController
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!, except: [:show, :edit, :update]
-  before_action :set_user_search, only: [:index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_organization, only: [:index], if: -> { params[:organization_id].present? }
   skip_before_action :authenticate_user!, if: -> { params[:redir].present? }
@@ -12,7 +11,6 @@ class UsersController < ApplicationController
 
   def index
     users = scope_list(User).includes(:avatar_attachment, :organization).include_image_count.order(order_by)
-    users = @user_search.apply(users)
     users = users.where(organization: @organization) if @organization
     @pagy, @users = pagy(users)
 
@@ -64,12 +62,6 @@ class UsersController < ApplicationController
   end
 
   private
-
-  def set_user_search
-    clear_searches except: :user_search
-    @user_search = GlobalID.parse(session[:user_search]).find if session[:user_search].present?
-    @user_search ||= UserSearch.new
-  end
 
   def set_user
     @user = if authorized_user.can_admin_system? && params[:id] != "me"
