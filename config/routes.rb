@@ -75,7 +75,6 @@ Rails.application.routes.draw do
 
   # polymorphic based on: app/models/concerns/imageable.rb
   scope "/imageables/:imageable_gid/" do
-    resources :image_searches, only: [:create, :update, :destroy]
     resources :images, except: [:show]
   end
 
