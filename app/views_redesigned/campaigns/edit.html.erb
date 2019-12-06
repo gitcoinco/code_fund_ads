@@ -1,9 +1,9 @@
-<% content_for :page_heading do %>
-  <%= page_heading "Editing", "Campaign",
-    subtitle: @campaign.name,
-    icon: "fas fa-ad" %>
-<% end %>
-
-<%= render layout: "/campaigns/layout", locals: {campaign: @campaign, override: [:page_heading, :actions]} do %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @campaign,
+  sidebar: false,
+  buttons: [
+    layout_button(link: new_campaign_path(clone: @campaign.id), icon: "fad fa-copy", title: "Clone campaign", admin: true)
+  ]
+} do %>
   <%= render "/campaigns/form", campaign: @campaign %>
 <% end %>

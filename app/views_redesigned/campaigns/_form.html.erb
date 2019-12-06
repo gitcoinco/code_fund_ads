@@ -39,11 +39,11 @@
                 end_date: (campaign.end_date || 29.days.from_now).strftime("%m/%d/%Y")
               }
             }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
-        <div class="col-12 mb-5">
+        <div class="col-12 <%= "mb-5" if authorized_user.can_admin_system? %>">
           <%= f.input :url, as: :string, required: true, input_html: {class: "form-control"},
             placeholder: "https://example.com/?utm_source=codefund&utm_campaign={{campaign_id}}",
             data: {msg: "Please enter a valid URL", error_class: "u-has-error", success_class: "u-has-success", rule_url: true} %>
-          <small class="text-muted">Use any of the following variables in the URL</small>
+          <small class="text-muted mt-4 mb-2 d-block">Use any of the following variables in the URL</small>
           <%= table compact: true do %>
             <%= table_head do %>
               <%= table_row header: true do %>
@@ -214,14 +214,16 @@
       <% end %>
 
       <fieldset data-target="campaign-form.creativesWrapper">
-        
+
       </fieldset>
     <% end %>
-  <% end %>
-
-
-  <%= button_panel do %>
-    <%= f.submit "Save Campaign", class: "btn btn-primary mr-1" %>
-    <%= cancel_button(campaigns_path) %>
+     <%= card_footer do %>
+      <%= card_footer_content do %>
+        <%= button_panel margin: "my-0" do %>
+          <%= cancel_button(campaigns_path) %>
+          <%= f.submit "Save Campaign", class: "btn btn-primary" %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>

@@ -100,38 +100,40 @@
     </div>
   </div>
   <div class="col-md-6">
-    <div class="p-4 mb-3 rounded">
+    <div class="p-4 mb-3 rounded border-bottom">
       <%= image_tag "anatomy-of-an-ad@2x.png", class: "img-fluid" %>
     </div>
     <div class="row justify-content-between align-items-center mb-2">
-      <div class="col-sm-4 col-md-6 mb-3 mb-sm-0">
-        <h2 class="h6 mb-0">Preview</h2>
+      <div class="col-12">
+        <h6 class="text-center">Preview</h6>
       </div>
-      <div class="col-sm-8 col-md-6 text-sm-right" hidden>
-        <ul class="list-inline mb-0">
-          <li class="list-inline-item">
-            <select class="js-select selectpicker"
-                    data-style="btn-sm btn-subtle-primary"
-                    data-target="creative-form.inputTemplateTheme"
-                    data-action="change->creative-form#setTemplateTheme">
-              <option value="default|light">Default (light)</option>
-              <option value="default|dark">Default (dark)</option>
-              <option value="centered|light">Centered (light)</option>
-              <option value="centered|dark">Centered (dark)</option>
-              <option value="horizontal|light">Horizontal (light)</option>
-              <option value="horizontal|dark">Horizontal (dark)</option>
-              <option value="vertical|light">Vertical (light)</option>
-              <option value="vertical|dark">Vertical (dark)</option>
-              <option value="image-centered|light">Image Centered (light)</option>
-              <option value="image-centered|dark">Image Centered (dark)</option>
-              <option value="image-only|light">Image Only (light)</option>
-              <option value="image-only|dark">Image Only (dark)</option>
-              <option value="square|light">Square (light)</option>
-              <option value="square|dark">Square (dark)</option>
-            </select>
-          </li>
-        </ul>
-      </div>
+      <%
+        # <div class="col-sm-8 col-md-6 text-sm-right" hidden>
+        #   <ul class="list-inline mb-0">
+        #     <li class="list-inline-item">
+        #       <select class="js-select selectpicker"
+        #               data-style="btn-sm btn-subtle-primary"
+        #               data-target="creative-form.inputTemplateTheme"
+        #               data-action="change->creative-form#setTemplateTheme">
+        #         <option value="default|light">Default (light)</option>
+        #         <option value="default|dark">Default (dark)</option>
+        #         <option value="centered|light">Centered (light)</option>
+        #         <option value="centered|dark">Centered (dark)</option>
+        #         <option value="horizontal|light">Horizontal (light)</option>
+        #         <option value="horizontal|dark">Horizontal (dark)</option>
+        #         <option value="vertical|light">Vertical (light)</option>
+        #         <option value="vertical|dark">Vertical (dark)</option>
+        #         <option value="image-centered|light">Image Centered (light)</option>
+        #         <option value="image-centered|dark">Image Centered (dark)</option>
+        #         <option value="image-only|light">Image Only (light)</option>
+        #         <option value="image-only|dark">Image Only (dark)</option>
+        #         <option value="square|light">Square (light)</option>
+        #         <option value="square|dark">Square (dark)</option>
+        #       </select>
+        #     </li>
+        #   </ul>
+        # </div>
+      %>
     </div>
     <div class="p-4">
       <div id="creative-preview" data-target="preview">

@@ -3,7 +3,7 @@
     <%= link_to creative.name, creative %>
   <% end %>
   <%= table_data do %>
-    <%= image_tag(creative.icon_image, class: "align-self-start mr-1", width: '20', height: '20') if creative.icon_image %>
+    <%= image_tag(creative.icon_image, class: "align-self-start mr-1", width: "20", height: "20") if creative.icon_image %>
     <strong><%= creative.headline %></strong> <%= creative.body %>
   <% end %>
   <%= table_data do %>

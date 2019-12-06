@@ -11,8 +11,8 @@
         <%= card_footer do %>
           <%= card_footer_content do %>
             <%= button_panel margin: "my-0" do %>
-              <%= link_to "Cancel", images_path(imageable.to_gid_param), class: "btn btn-sm btn-subtle-dark mr-1" %>
-              <%= f.submit "Save Image", class: "btn btn-sm btn-primary" %>
+              <%= f.submit "Save Image", class: "btn btn-primary" %>
+              <%= cancel_button(images_path(imageable.to_gid_param)) %>
             <% end %>
           <% end %>
         <% end %>

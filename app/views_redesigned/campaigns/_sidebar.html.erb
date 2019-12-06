@@ -25,7 +25,7 @@ summary = subject.summary(@start_date, @end_date)
             <span class="sr-only"><%= subject.percentage_complete_by_date %>%</span>
           </div>
         </div>
-        
+
         <small class="d-block"><%= subject.percentage_complete_by_budget %>% Completed by Budget</small>
         <div class="progress bg-muted">
           <div class="progress-bar progress-bar-striped <%= "progress-bar-animated" if subject.active? && subject.percentage_complete_by_budget == 100 %> bg-green" role="progressbar" aria-valuenow="<%= subject.percentage_complete_by_budget %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= subject.percentage_complete_by_budget %>%">
@@ -51,7 +51,7 @@ summary = subject.summary(@start_date, @end_date)
           <div class="col-6">
             <div class="metric">
               <h6 class="metric-value text-center"><%= number_to_percentage summary.click_rate, precision: 3 rescue "-" %></h6>
-              <p class="metric-label text-center mt-1">Avg CTR</p>
+              <p class="metric-label text-center mt-1">Avg. CTR</p>
             </div>
           </div>
           <div class="col-6">
@@ -63,25 +63,25 @@ summary = subject.summary(@start_date, @end_date)
           <div class="col-6">
             <div class="metric">
               <h6 class="metric-value text-center"><%= summary.cpm.format rescue "-" %></h6>
-              <p class="metric-label text-center mt-1">Avg CPM</p>
+              <p class="metric-label text-center mt-1">Avg. CPM</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
               <h6 class="metric-value text-center"><%= summary.cpc.format rescue "-" %></h6>
-              <p class="metric-label text-center mt-1">Avg CPC</p>
+              <p class="metric-label text-center mt-1">Avg. CPC</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
               <h6 class="metric-value text-center"><%= subject.average_daily_spend.format rescue "-" %></h6>
-              <p class="metric-label text-center mt-1">Avg Daily Spend</p>
+              <p class="metric-label text-center mt-1">Avg. Daily Spend</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
               <h6 class="metric-value text-center"><%= pluralize subject.estimated_days_until_budget_consumed, "day" rescue "-" %></h6>
-              <p class="metric-label text-center mt-1">Est Days Remain</p>
+              <p class="metric-label text-center mt-1">Est. Days Remaing</p>
             </div>
           </div>
         </div>
@@ -91,7 +91,7 @@ summary = subject.summary(@start_date, @end_date)
         <h4 class="card-title"> Details </h4>
         <%= link_to "Edit", edit_campaign_path(subject) %>
       </div>
-      
+
       <div class="list-group list-group-bordered list-group-reflow mx-3 mb-3">
         <div class="list-group-item justify-content-between align-items-center px-0">
           <span class="text-muted">Name</span> <span><%= subject.name %></span>

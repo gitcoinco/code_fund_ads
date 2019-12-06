@@ -7,7 +7,7 @@ module Frontend
         title: title,
         data: tooltip_expando,
         method: method do
-          tag.span class: "#{icon} btn-icon__inner"
+          tag.span class: icon.to_s
         end
     end
 
@@ -20,7 +20,7 @@ module Frontend
           title: "Edit",
           "original-title": "Edit",
         } do
-          tag.span class: "fas fa-pen btn-icon__inner"
+          tag.span class: "fas fa-pen"
         end
     end
 
@@ -32,16 +32,25 @@ module Frontend
       link_to "Cancel", path, class: "btn btn-light ml-1 #{add_class}"
     end
 
-    def layout_button(link: "#", icon: nil, add_class: "", target: "", title: nil, admin: false, method: :get)
+    def layout_button(link: "#", icon: nil, add_class: "", target: "", title: nil, admin: false, method: :get, confirmation_message: nil)
       return "" if admin && !authorized_user.can_admin_system?
-      data = method == :delete ? { confirm: "Are you sure?" } : {}
       link_to link,
         class: "tile layout-button #{add_class}",
         target: target,
         title: title,
-        data: data,
         method: method do
           tag.span class: icon
+        end
+    end
+
+    def destroy_button(link: "#", add_class: "", title: nil, admin: false, confirmation_message: nil, danger: true)
+      return "" if admin && !authorized_user.can_admin_system?
+      link_to link,
+        class: "tile layout-button #{"bg-danger" if danger} #{add_class}",
+        title: title,
+        data: {confirm: confirmation_message || "Are you sure?"},
+        method: :delete do
+          tag.span class: "fas fa-trash #{"text-white" if danger}"
         end
     end
   end

@@ -9,10 +9,10 @@
         </h6>
         <div class="position-relative">
           <%= link_to property_property_screenshots_path(property), method: :put, class: "btn btn-xs btn-icon btn-light transition-3d-hover" do %>
-            <span class="fas fa-camera btn-icon__inner"></span>
+            <span class="fas fa-camera"></span>
           <% end if authorized_user.can_admin_system? %>
           <%= link_to property.url, class: "btn btn-xs btn-icon btn-light", target: "_blank" do %>
-            <span class="fas fa-external-link btn-icon__inner"></span>
+            <span class="fas fa-external-link"></span>
           <% end %>
         </div>
       </div>
