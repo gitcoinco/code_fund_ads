@@ -4,7 +4,7 @@
         title: "Edit Image",
         subtitle: "for #{@image.name || ''}",
         buttons: [
-          destroy_button(link: image_path(@imageable.to_gid_param, @image), title: "Delete image", confirmation_message: I18n.t("images.destroy.confirm"))
+          delete_button(link: image_path(@imageable.to_gid_param, @image), title: "Delete image", confirmation_message: I18n.t("images.destroy.confirm"), layout: true)
         ]
       } do %>
   <%= render "/images/form_metadata", imageable: @imageable, image: @image %>

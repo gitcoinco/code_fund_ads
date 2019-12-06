@@ -35,53 +35,53 @@ summary = subject.summary(@start_date, @end_date)
       </div>
 
       <div class="d-flex justify-content-between border-top p-3">
-        <div class="row">
+        <div class="row text-center">
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value text-center"><%= number_with_delimiter summary.impressions_count rescue "-" %></h6>
-              <p class="metric-label text-center mt-1">Impressions</p>
+              <h6 class="metric-value"><%= number_with_delimiter summary.impressions_count rescue "-" %></h6>
+              <p class="metric-label mt-1">Impressions</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value text-center"><%= number_with_delimiter summary.clicks_count rescue "-" %></h6>
-              <p class="metric-label text-center mt-1">Clicks</p>
+              <h6 class="metric-value"><%= number_with_delimiter summary.clicks_count rescue "-" %></h6>
+              <p class="metric-label mt-1">Clicks</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value text-center"><%= number_to_percentage summary.click_rate, precision: 3 rescue "-" %></h6>
-              <p class="metric-label text-center mt-1">Avg. CTR</p>
+              <h6 class="metric-value"><%= number_to_percentage summary.click_rate, precision: 3 rescue "-" %></h6>
+              <p class="metric-label mt-1">Avg. CTR</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value text-center"><%= subject.total_consumed_budget.format rescue "-" %></h6>
-              <p class="metric-label text-center mt-1">Ad Spend</p>
+              <h6 class="metric-value"><%= subject.total_consumed_budget.format rescue "-" %></h6>
+              <p class="metric-label mt-1">Ad Spend</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value text-center"><%= summary.cpm.format rescue "-" %></h6>
-              <p class="metric-label text-center mt-1">Avg. CPM</p>
+              <h6 class="metric-value"><%= summary.cpm.format rescue "-" %></h6>
+              <p class="metric-label mt-1">Avg. CPM</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value text-center"><%= summary.cpc.format rescue "-" %></h6>
-              <p class="metric-label text-center mt-1">Avg. CPC</p>
+              <h6 class="metric-value"><%= summary.cpc.format rescue "-" %></h6>
+              <p class="metric-label mt-1">Avg. CPC</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value text-center"><%= subject.average_daily_spend.format rescue "-" %></h6>
-              <p class="metric-label text-center mt-1">Avg. Daily Spend</p>
+              <h6 class="metric-value"><%= subject.average_daily_spend.format rescue "-" %></h6>
+              <p class="metric-label mt-1">Avg. Daily Spend</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value text-center"><%= pluralize subject.estimated_days_until_budget_consumed, "day" rescue "-" %></h6>
-              <p class="metric-label text-center mt-1">Est. Days Remaing</p>
+              <h6 class="metric-value"><%= pluralize subject.estimated_days_until_budget_consumed, "day" rescue "-" %></h6>
+              <p class="metric-label mt-1">Est. Days Remaing</p>
             </div>
           </div>
         </div>

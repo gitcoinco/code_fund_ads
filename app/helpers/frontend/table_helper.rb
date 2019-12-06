@@ -14,12 +14,12 @@ module Frontend
       content_tag(:div, nil, class: "table-responsive", &block)
     end
 
-    def table_head(id: nil, add_class: nil, bg_color: "thead-light", &block)
+    def table_head(id: nil, add_class: nil, bg_color: "", &block)
       content_tag(:thead, nil, id: id, class: "#{bg_color} #{add_class}", &block)
     end
 
-    def table_body(id: nil, add_class: nil, &block)
-      content_tag(:tbody, nil, id: id, class: add_class, &block)
+    def table_body(id: nil, add_class: nil, data: nil, &block)
+      content_tag(:tbody, nil, id: id, class: add_class, data: data, &block)
     end
 
     def table_row(id: nil, add_class: nil, header: false, &block)

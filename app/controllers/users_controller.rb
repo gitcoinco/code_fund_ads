@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   include Sortable
+  include Scopable
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!, except: [:show, :edit, :update]
