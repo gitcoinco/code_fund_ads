@@ -172,7 +172,17 @@
       "contributions": [
         "doc"
       ]
+    },
+    {
+      "login": "XhmikosR",
+      "name": "XhmikosR",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/349621?v=4",
+      "profile": "https://xhmikosr.io/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
-  "commitConvention": "none"
+  "commitConvention": "none",
+  "skipCi": true
 }
