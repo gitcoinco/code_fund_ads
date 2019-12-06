@@ -24,4 +24,4 @@
   } catch (e) {
     console.log('CodeFund was unable to capture referrer and utms!', e.message)
   }
-})(this)
+})()
