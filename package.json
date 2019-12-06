@@ -39,7 +39,6 @@
     "easy-pie-chart": "^2.1.7",
     "filestack-js": "^1.10.0",
     "flatpickr": "^4.6.3",
-    "frappe-gantt": "^0.3.0",
     "git": "^0.1.5",
     "github-buttons": "git+https://github.com/ntkme/github-buttons.git",
     "jquery": "^3.4.1",

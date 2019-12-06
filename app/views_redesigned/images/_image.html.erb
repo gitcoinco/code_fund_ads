@@ -10,14 +10,12 @@
         <li class="list-inline-item text-truncate mr-auto">
           <%= image.blob.filename.to_s %>
         </li>
-        <% if authorized_user.can_admin_system? %>
-          <li class="list-inline-item">
-            <%= render "/shared/actions/edit_image", imageable: imageable, image: image %>
-          </li>
-          <li class="list-inline-item">
-            <%= render "/shared/actions/delete_image", imageable: imageable, image: image %>
-          </li>
-        <% end %>
+        <li class="list-inline-item">
+          <%= render "/shared/actions/edit_image", imageable: imageable, image: image %>
+        </li>
+        <li class="list-inline-item">
+          <%= render "/shared/actions/delete_image", imageable: imageable, image: image %>
+        </li>
       </ul>
     <% end %>
   <% end %>

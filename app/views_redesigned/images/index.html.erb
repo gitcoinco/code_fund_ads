@@ -3,8 +3,5 @@
     buttons: [
       link_to("Upload Image", new_image_path, class: "btn btn-primary")
     ] do %>
-  <%= render partial: "/image_searches/form",
-             layout: "/shared/collapsible_search_form",
-             locals: {search: @image_search} %>
   <%= render "/images/grid", imageable: @imageable, images: @images %>
 <% end %>

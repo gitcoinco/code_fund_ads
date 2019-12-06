@@ -46,15 +46,5 @@
         </ul>
       </nav>
     </div>
-
-    <% if authorized_user.can_admin_system? %>
-      <%= render "/shared/sidebar_content/footer_admin" %>
-    <% elsif authorized_user.can_advertise_and_publish? %>
-      <%= render "/shared/sidebar_content/footer_advertiser_publisher" %>
-    <% elsif authorized_user.can_advertise? %>
-      <%= render "/shared/sidebar_content/footer_advertiser" %>
-    <% elsif authorized_user.can_publish? %>
-      <%= render "/shared/sidebar_content/footer_publisher" %>
-    <% end %>
   </div>
 </aside>

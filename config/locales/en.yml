@@ -47,6 +47,7 @@ en:
     destroy:
       confirm: 'Are you sure you want to delete this image?'
       success: 'The image was deleted successfully.'
+      failure: 'The image is being used in an active creative and cannot be deleted.'
     update:
       success: 'The image was updated successfully.'
 

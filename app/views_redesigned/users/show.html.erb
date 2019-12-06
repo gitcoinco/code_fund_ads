@@ -7,20 +7,9 @@
     layout_button(link: user_impersonation_path(@user), method: :put, icon: "fad fa-mask", title: "Masquerade as user", admin: true)
   ]
 } do %>
-  <div class="card card-body">
-    <h3 class="mx-auto my-auto p-5">TODO: CHART GOES HERE</h3>
-  </div>
-
-  <div class="row mx-n2">
-    <div class="col-md-6 col-lg-4 px-2">
-      <div class="card card-body">
-        <h3 class="mx-auto my-auto p-5">TODO: CHART GOES HERE</h3>
-      </div>
-    </div>
-    <div class="col-md-6 col-lg-8 px-2">
-      <div class="card card-body">
-        <h3 class="mx-auto my-auto p-5">TODO: CHART GOES HERE</h3>
-      </div>
-    </div>
-  </div>
+  <%= card do %>
+    <%= card_body do %>
+      <h3 class="w-full text-center">Coming Soon</h3>
+    <% end %>
+  <% end %>
 <% end %>

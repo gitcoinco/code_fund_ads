@@ -19,7 +19,7 @@
             <th></th>
           </tr>
         </thead>
-        <tbody data-target="filterable-list.wrapper">
+        <tbody class="overflow-visible" data-target="filterable-list.wrapper">
           <% @properties.each do |property| %>
             <tr data-target="filterable-list.filterable" data-filter-key='all <%= property.status %>'>
               <td class="align-middle text-truncate">

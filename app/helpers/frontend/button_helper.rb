@@ -34,10 +34,12 @@ module Frontend
 
     def layout_button(link: "#", icon: nil, add_class: "", target: "", title: nil, admin: false, method: :get)
       return "" if admin && !authorized_user.can_admin_system?
+      data = method == :delete ? { confirm: "Are you sure?" } : {}
       link_to link,
         class: "tile layout-button #{add_class}",
         target: target,
         title: title,
+        data: data,
         method: method do
           tag.span class: icon
         end
