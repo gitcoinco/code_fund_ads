@@ -48,3 +48,4 @@ legacy
 lib/tasks/impressions.rake
 /coverage
 .vscode
+stats.json

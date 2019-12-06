@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
@@ -9,7 +9,7 @@ jobs:
           RAILS_ENV: test
           RACK_ENV: test
           DEFAULT_HOST: codefund.io
-          PARALLEL_WORKERS: 1
+          PARALLEL_WORKERS: "1"
           REDIS_CACHE_URL: redis://127.0.0.1:6379
           REDIS_QUEUE_URL: redis://127.0.0.1:6379
       - image: circleci/postgres:11.2
@@ -24,7 +24,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y postgresql-client
           curl -o- -L https://yarnpkg.com/install.sh | bash
-
       - restore_cache:
           name: restore gem cache
           keys:
@@ -42,8 +41,6 @@ jobs:
           keys:
             - assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
             - assets-cache-v1-{{ arch }}-{{ .Branch }}
-            - assets-cache-v1
-
       - run:
           name: install gem dependencies
           command: |
@@ -53,9 +50,13 @@ jobs:
           name: install yarn dependencies
           command: yarn check || yarn install --ignore-engines --frozen-lockfile
       - run:
-          name: precompile assets
-          command: bundle exec rails webpacker:compile webpacker:clean
-
+          name: Conditionally Precompile Assets
+          command: |
+              if [[ ! -d public/packs-test ]]; then
+                  bundle exec rails webpacker:compile
+              else
+                  echo "No need to compile assets."
+              fi
       - save_cache:
           name: save gem cache
           paths:
@@ -71,7 +72,6 @@ jobs:
           key: assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - public/packs-test
-
       - run:
           name: Set up DB
           command: bundle exec rails db:drop db:create db:structure:load --trace
