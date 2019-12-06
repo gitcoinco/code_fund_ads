@@ -66,6 +66,9 @@ class Organization < ApplicationRecord
     def codefund
       where(name: "CodeFund").first_or_create!(skip_validation: true)
     end
+    alias positive with_positive_balance
+    alias negative with_negative_balance
+    alias zero with_zero_balance
   end
 
   # public instance methods ...................................................

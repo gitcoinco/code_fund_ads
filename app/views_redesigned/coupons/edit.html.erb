@@ -1,9 +1,8 @@
-<% content_for :page_heading do %>
-  <%= page_heading "Editing", "Coupon",
-      subtitle: "Fill out the form below",
-      icon: "fas fa-lightbulb-dollar" %>
-<% end %>
-
-<%= render layout: "/coupons/layout", locals: {override: [:page_heading, :actions]} do %>
+<%= render layout: "/shared/layout",
+    locals: {
+      subject: @coupon,
+      title: "Editing Coupon",
+      tabs: false,
+      subtitle: @coupon.code} do %>
   <%= render "/coupons/form", coupon: @coupon %>
 <% end %>

@@ -15,7 +15,7 @@ summaries = campaign.daily_summary_reports_by_property(report.start_date, report
     </tr>
   </thead>
   <tbody>
-  <% summaries.each do |row|
+    <% summaries.each do |row|
       property = Property.find(row[:scoped_by_id])
       revenue = (row[:gross_revenue_cents].to_f / 100).to_f
       impressions = row[:impressions_count].to_i
@@ -43,5 +43,5 @@ summaries = campaign.daily_summary_reports_by_property(report.start_date, report
       <td><%= number_to_currency cpc %></td>
     <% end %>
   <% end %>
-  </tbody>
+</tbody>
 </table>

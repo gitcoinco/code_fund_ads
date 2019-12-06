@@ -2,33 +2,25 @@
   <div class="row mb-4">
     <div class="col-md-6 mt-2 mb-2">
       <%= card do %>
-        <%= card_header do %>
-          <%= card_title do %>
-            Image Settings
-          <% end %>
-          <%= card_subtitle do %>
-            Fill out the form
-          <% end %>
-        <% end %>
+        <%= standalone_card_header text: "Image Settings" %>
         <%= card_body do %>
-              <%= f.input(:name, required: true) %>
-              <%= f.input(:description, required: false, as: :text) %>
-              <%= f.input(:format, label: "Format", as: :select, collection: image_formats_for_select, hint: "* Image files cannot be replaced", required: true, input_html: {data: {controller: "select"}}) %>
-              <%= f.submit "Save Image", class: "btn btn-sm btn-primary mr-1" %>
-              <%= link_to "Cancel", images_path(imageable.to_gid_param), class: "btn btn-sm btn-subtle-dark" %>
+          <%= f.input(:name, required: true) %>
+          <%= f.input(:description, required: false, as: :text) %>
+          <%= f.input(:format, label: "Format", as: :select, collection: image_formats_for_select, hint: "* Image files cannot be replaced", required: true, input_html: {data: {controller: "select"}}) %>
+        <% end %>
+        <%= card_footer do %>
+          <%= card_footer_content do %>
+            <%= button_panel margin: "my-0" do %>
+              <%= f.submit "Save Image", class: "btn btn-primary" %>
+              <%= cancel_button(images_path(imageable.to_gid_param)) %>
+            <% end %>
+          <% end %>
         <% end %>
       <% end %>
     </div>
     <div class="col-md-6 mt-2 mb-2">
       <%= card do %>
-        <%= card_header do %>
-          <%= card_title do %>
-            Image Settings
-          <% end %>
-          <%= card_subtitle do %>
-            Fill out the form
-          <% end %>
-        <% end %>
+        <%= standalone_card_header text: "Image Details" %>
         <%= card_body do %>
           <div class="d-flex justify-content-center align-items-center" style="min-height:200px">
             <% if image.attachment.blob.svg? %>
@@ -37,18 +29,22 @@
               <%= image_tag image.variant(geometry: "400x400>"), class: "img-thumbnail img-fluid d-block mb-2" %>
             <% end %>
           </div>
-          <ul class="list-unstyled my-3">
-            <%= details_li("Owner") { link_to imageable.name, imageable } %>
-            <%= details_li("Filename") do %>
-              <%= image.filename.to_s %>
-              <%= link_to(tag.span("", class: "small fas fa-external-link"), image.image_url, target: "_blank") %>
-            <% end %>
-            <%= details_li("Content Type") { image.content_type } %>
-            <%= details_li("Width") { "#{number_with_precision(image.width, precision: 0)}px" } %>
-            <%= details_li("Height") { "#{number_with_precision(image.height, precision: 0)}px" } %>
-            <%= details_li("Size") { number_to_human_size(image.byte_size) } %>
-            <%= details_li("Checksum") { image.checksum } %>
-          </ul>
+        <% end %>
+        <%= card_footer do %>
+          <%= card_footer_content do %>
+            <ul class="list-unstyled my-3 text-body">
+              <%= details_li("Owner: ") { link_to imageable.name, imageable } %>
+              <%= details_li("Filename: ") do %>
+                <%= image.filename.to_s %>
+                <%= link_to(tag.span("", class: "small fas fa-external-link"), image.image_url, target: "_blank") %>
+              <% end %>
+              <%= details_li("Content Type: ") { image.content_type } %>
+              <%= details_li("Width: ") { "#{number_with_precision(image.width, precision: 0)}px" } %>
+              <%= details_li("Height: ") { "#{number_with_precision(image.height, precision: 0)}px" } %>
+              <%= details_li("Size: ") { number_to_human_size(image.byte_size) } %>
+              <%= details_li("Checksum: ") { image.checksum } %>
+            </ul>
+          <% end %>
         <% end %>
       <% end %>
     </div>

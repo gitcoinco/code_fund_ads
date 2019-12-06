@@ -12,14 +12,12 @@
   </head>
   <body>
     <p>"The story is simply this," said the painter after some time. "Two months ago I went to a crush at Lady Brandon's. You know we poor artists have to show ourselves in society from time to time, just to remind the public that we are not savages. With an evening coat and a white tie, as you told me once, anybody, even a stock-broker, can gain a reputation for being civilized. Well, after I had been in the room about ten minutes, talking to huge overdressed dowagers and tedious academicians, I suddenly became conscious that some one was looking at me. I turned half-way round and saw Dorian Gray for the first time.</p>
-
     <% if @creative.standard? %>
       <div id="codefund" style "background-color: <%= params[:theme] == "dark" ? "#263238" : "#ffffff" %>;"></div>
       <%= javascript_include_tag advertisement_preview_path(0, creative_id: @creative.id, template: params[:template], theme: params[:theme], format: :js) %>
     <% else %>
       <%= image_tag @creative.sponsor_image %>
     <% end %>
-
     <p>Then our eyes met, I felt that I was growing pale. A curious sensation of terror came over me. I knew that I had come face to face with some one whose mere personality was so fascinating that, if I allowed it to do so, it would absorb my whole nature, my whole soul, my very art itself. I did not want any external influence in my life. You know yourself, Harry, how independent I am by nature. I have always been my own master; had at least always been so, till I met Dorian Gray. Then--but I don't know how to explain it to you. Something seemed to tell me that I was on the verge of a terrible crisis in my life. I had a strange feeling that fate had in store for me exquisite joys and exquisite sorrows. I grew afraid and turned to quit the room. It was not conscience that made me do so: it was a sort of cowardice. I take no credit to myself for trying to escape."</p>
     <p>"Conscience and cowardice are really the same things, Basil. Conscience is the trade-name of the firm. That is all."</p>
     <p>"I don't believe that, Harry, and I don't believe you do either. However, whatever was my motive--and it may have been pride, for I used to be very proud--I certainly struggled to the door. There, of course, I stumbled against Lady Brandon. 'You are not going to run away so soon, Mr. Hallward?' she screamed out. You know her curiously shrill voice?"</p>

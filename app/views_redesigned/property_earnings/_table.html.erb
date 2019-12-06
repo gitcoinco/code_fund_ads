@@ -1,26 +1,41 @@
-<div class="table-responsive">
-  <%= table add_class: "dt-responsive nowrap w-100 dtr-inline", compact: true do %>
-    <%= table_head do %>
-      <tr>
-        <th>Date</th>
-        <th>Paid Impressions</th>
-        <th>Paid Clicks</th>
-        <th>Paid CTR</th>
-        <th>Earnings</th>
-        <th>Fallback Impressions</th>
-        <th>Fallback Clicks</th>
-        <th>Fallback CTR</th>
-      </tr>
+<%= table do %>
+  <%= table_head do %>
+    <%= table_row header: true do %>
+      <%= table_column { "Name" } %>
+      <%= table_column add_class: "text-right" do %>Impressions<% end %>
+      <%= table_column add_class: "text-right" do %>Clicks<% end %>
+      <%= table_column add_class: "text-right" do %>CTR<% end %>
+      <%= table_column add_class: "text-right" do %>Earnings<% end %>
     <% end %>
-
-    <%= table_body do %>
-      <% (@start_date..@end_date).each do |date| %>
-        <%= render_later async_property_earnings_row_path(property_id: @property.id, date: date.iso8601), tag_name: "tr" do %>
-          <%= table_data colspan: "5" do %>
-            <i class="fa fa-spinner fa-spin text-primary"></i>
+  <% end %>
+  <%= table_body do %>
+    <% if @report.exists? %>
+      <% @report.each do |item| %>
+        <%= table_row do %>
+          <%= table_data do %>
+            <%= item.displayed_at_date %>
+            <small class="d-block text-muted">Fallback</small>
+          <% end %>
+          <%= table_data add_class: "text-right" do %>
+            <%= number_with_delimiter item.impressions_count %>
+            <small class="d-block text-muted"><%= number_with_delimiter item.fallbacks_count %></small>
+          <% end %>
+          <%= table_data add_class: "text-right" do %>
+            <%= number_with_delimiter item.clicks_count %>
+            <small class="d-block text-muted">-</small>
+          <% end %>
+          <%= table_data add_class: "text-right" do %>
+            <%= number_to_percentage item.click_rate, precision: 3 %>
+            <small class="d-block text-muted">-</small>
+          <% end %>
+          <%= table_data add_class: "text-right" do %>
+            <%= Money.new(item.property_revenue_cents / 100).format %>
+            <small class="d-block text-muted">$0.00</small>
           <% end %>
         <% end %>
       <% end %>
+    <% else %>
+      <%= render "/shared/no_data_alert" %>
     <% end %>
   <% end %>
-</div>
+<% end %>

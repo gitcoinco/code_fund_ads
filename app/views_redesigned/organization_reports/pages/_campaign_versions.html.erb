@@ -8,13 +8,13 @@
     end
     results.reverse_each.to_h.each do |date, versions|
   %>
-    <h4><%= date.to_s("bdy") %></h4>
-    <ul>
+  <h4><%= date.to_s("bdy") %></h4>
+  <ul>
     <% versions.each do |version| %>
       <% version.changeset.each do |k, v| %>
         <li>Changed <strong><%= k.humanize.downcase %></strong> from <code class="before"><%= v[0] %></code> to <code class="after"><%= v[1] %></code></li>
       <% end %>
     <% end %>
-    </ul>
-  <% end %>
+  </ul>
+<% end %>
 </div>

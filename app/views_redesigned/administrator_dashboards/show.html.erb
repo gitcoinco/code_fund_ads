@@ -1,15 +1,7 @@
-<%= page_heading "Admin", "Dashboard",
-      subtitle: "#{@start_date.to_s("mm/dd/yyyy")} &ndash; #{@end_date.to_s("mm/dd/yyyy")}".html_safe,
-      icon: "fad fa-tachometer-fast",
-      datepicker: true %>
+<div class="page-inner">
+  <%= render "/shared/page_heading_with_subtitle",
+    title: "Admin Dashboard",
+    datepicker: false %>
 
-<div class="page-inner p-0">
-  <div class="board">
-    <% @active_campaigns.each.with_index do |campaign, index| %>
-      <%= render "/campaigns/standard_card", campaign: campaign %>
-      <% if (index + 1) % 3 == 0 %>
-        </div><div class="card-deck d-block d-lg-flex">
-      <% end %>
-    <% end %>
-  </div>
+  <div class="board d-flex flex-column overflow-x-auto p-0"></div>
 </div>

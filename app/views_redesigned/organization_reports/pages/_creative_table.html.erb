@@ -15,7 +15,7 @@ summaries = campaign.daily_summary_reports_by_creative(report.start_date, report
     </tr>
   </thead>
   <tbody>
-  <% summaries.each do |row|
+    <% summaries.each do |row|
       creative = Creative.find(row[:scoped_by_id])
       revenue = (row[:gross_revenue_cents].to_f / 100).to_f
       impressions = row[:impressions_count].to_i
@@ -28,15 +28,15 @@ summaries = campaign.daily_summary_reports_by_creative(report.start_date, report
           "warn": ctr > 0.05 && ctr < 0.1 && impressions > 10_000,
           "success": ctr >= 0.2 && impressions > 10_000
       ) do %>
-      <td class="text-center"><%= row[:scoped_by_id] %></td>
-      <td class="text-left"><%= link_to creative.name %></td>
-      <td><%= number_to_currency revenue %></td>
-      <td><%= number_with_delimiter impressions %></td>
-      <td><%= number_with_delimiter clicks %></td>
-      <td class="td-color"><%= number_to_percentage ctr, precision: 2 %></td>
-      <td><%= number_to_currency cpm %></td>
-      <td><%= number_to_currency cpc %></td>
+        <td class="text-center"><%= row[:scoped_by_id] %></td>
+        <td class="text-left"><%= link_to creative.name %></td>
+        <td><%= number_to_currency revenue %></td>
+        <td><%= number_with_delimiter impressions %></td>
+        <td><%= number_with_delimiter clicks %></td>
+        <td class="td-color"><%= number_to_percentage ctr, precision: 2 %></td>
+        <td><%= number_to_currency cpm %></td>
+        <td><%= number_to_currency cpc %></td>
+      <% end %>
     <% end %>
-  <% end %>
   </tbody>
 </table>

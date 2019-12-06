@@ -1,15 +1,10 @@
-<% content_for :page_heading do %>
-  <%= page_heading "Generate", "Report",
-    subtitle: "Fill out the form below",
-    icon: "fas fa-chart" %>
-<% end %>
-
-<section class="container mt-4">
-  <header class="page-title-bar">
-    <%= yield :page_heading %>
-  </header>
+<%= render layout: "/shared/layout",
+    locals: {
+        subject: @organization,
+        title: "Generate Report",
+        subtitle: "Fill out the form below"} do %>
   <%= render "/organization_reports/form",
       organization: @organization,
       organization_report: @organization_report,
       url: organization_reports_path(@organization) %>
-</section>
+<% end %>

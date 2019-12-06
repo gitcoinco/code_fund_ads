@@ -1,4 +1,7 @@
-<%= render layout: "/users/layout", locals: { user: @versionable } do %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @versionable,
+  sidebar: false,
+} do %>
   <div class="section-block">
     <h2 class="section-title"> Timeline </h2>
     <ul class="timeline">

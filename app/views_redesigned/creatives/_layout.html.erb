@@ -1,22 +1,9 @@
-<% unless local_assigns[:override]&.include? :page_heading %>
-  <% content_for :page_heading do %>
-    <%= page_heading "Viewing", "Creative",
-        subtitle: @creative.name,
-        icon: "fas fa-palette" %>
-  <% end %>
-<% end %>
-
-<% unless local_assigns[:override]&.include? :actions %>
-  <% content_for :actions do %>
-  <% end %>
-<% end %>
-
-<section class="creative">
-  <article class="container mt-4">
-    <header class="page-title-bar">
-      <%= yield :page_heading %>
-      <%= yield :actions %>
-    </header>
+<div class="page-inner">
+  <%= render "/shared/page_heading_with_subtitle",
+    title: local_assigns[:title] || creative.name,
+    subtitle: local_assigns[:subtitle],
+    buttons: local_assigns[:buttons] || [] %>
+  <div class="page-section">
     <%= yield %>
-  </article>
-</section>
+  </div>
+</div>

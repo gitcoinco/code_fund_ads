@@ -1,6 +1,5 @@
 <%= simple_form_for organization_report, url: url, wrapper: :front_form do |f| %>
   <%= render "/shared/forms/error_messages", object: organization_report %>
-
   <div class="row">
     <%= tag.div f.input(:title, label: "Subject", required: true), class: "col-12 mb-3" %>
     <%= tag.div f.input(:date_range, required: true,
@@ -33,11 +32,10 @@
       </div>
     </div>
   </div>
-
   <div class="row">
-    <%= button_panel do %>
-      <%= f.submit "Generate Report", class: "btn btn-sm btn-primary transition-3d-hover mr-1" %>
-      <%= link_to "Cancel", organization_reports_path(organization), class: "btn btn-sm btn-subtle-secondary transition-3d-hover" %>
+    <%= button_panel margin: "my-0" do %>
+      <%= f.submit "Generate Report", class: "btn btn-primary" %>
+      <%= cancel_button link: organization_reports_path(organization) %>
     <% end %>
   </div>
 <% end %>

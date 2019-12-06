@@ -1,0 +1,25 @@
+<div class="list-group-item %>"
+     data-target="filterable-list.filterable"
+     data-filter-key='<%= "#{organization.name.downcase}" %>'>
+  <div class="list-group-item-body">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex">
+        <h4 class="list-group-item-title">
+          <%= link_to organization.name, organization, title: "View organization", data: tooltip_expando %><br />
+        </h4>
+      </div>
+      <ul class="list-inline text-muted mb-0">
+        <li class="d-none d-sm-inline list-inline-item mr-3">
+          <%= link_to organization.balance.format, organization_transactions_path(organization),
+              class: classes(
+                "badge badge-subtle badge-success": organization.balance > 0,
+                "badge badge-subtle badge-danger": organization.balance < 0,
+                "badge badge-subtle badge-muted": organization.balance.zero?
+              ) %>
+        </li>
+        <%= edit_button(link: edit_organization_path(organization)) %>
+        <%= goto_button(link: organization_path(organization), icon: "fas fa-chevron-right", title: "View organization") %>
+      </ul>
+    </div>
+  </div>
+</div>

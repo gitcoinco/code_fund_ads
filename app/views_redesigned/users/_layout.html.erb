@@ -1,4 +1,3 @@
-
 <div class="page has-sidebar has-sidebar-fluid has-sidebar-expand-xl" data-controller="filterable-list">
   <div class="page-inner page-inner-fill position-relative">
     <header class="page-navs bg-light shadow-sm">
@@ -23,7 +22,6 @@
       <%= render "/users/list", users: User.all.order(last_name: :asc) %>
     </div>
   </div>
-
   <div class="page-sidebar bg-light">
     <header class="sidebar-header d-xl-none">
       <nav aria-label="breadcrumb">
@@ -36,7 +34,6 @@
         </ol>
       </nav>
     </header>
-
     <div class="sidebar-section sidebar-section-fill">
       <header class="page-title-bar">
         <div class="d-flex justify-content-between">
@@ -52,7 +49,6 @@
           </div>
         </div>
       </header>
-
       <div class="nav-scroller border-bottom">
         <ul class="nav nav-tabs">
           <%= tag.li(active_link_to("Details", user_path(user), active: :exact,
@@ -65,10 +61,8 @@
             data: {turbolinks_persist_scroll: true}, class: "nav-link")) %>
         </ul>
       </div>
-
       <%= yield %>
     </div>
   </div>
 </div>
-
 <%= render "/shared/modals/user_new_modal" %>

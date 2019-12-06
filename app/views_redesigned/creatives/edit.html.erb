@@ -1,9 +1,7 @@
-<%= content_for :page_heading do %>
-  <%= page_heading "Editing", "Creative",
-      subtitle: @creative.name,
-      icon: "fas fa-palette" %>
-<% end %>
-
-<%= render layout: "/creatives/layout", locals: {creative: @creative, override: [:page_heading]} do %>
+<%= render layout: "/shared/layout",
+    locals: {
+      subject: @creative,
+        title: "Editing Creative",
+        subtitle: @creative.name} do %>
   <%= render "/creatives/form", creative: @creative %>
 <% end %>

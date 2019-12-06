@@ -1,15 +1,15 @@
 class CampaignsController < ApplicationController
   include Sortable
+  include Scopable
   include Pagy::Backend
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!, only: [:destroy]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
-  before_action :set_campaign_search, only: [:index]
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
 
   def index
-    campaigns = Campaign.order(order_by).includes(:user, :creative, :organization)
+    campaigns = scope_list(Campaign).order(order_by).includes(:user, :creative, :organization)
 
     if authorized_user.can_admin_system?
       campaigns = campaigns.where(user: @user) if @user
@@ -17,7 +17,6 @@ class CampaignsController < ApplicationController
       campaigns = campaigns.where(user: current_user)
     end
 
-    campaigns = @campaign_search.apply(campaigns)
     max = (campaigns.count / Pagy::VARS[:items].to_f).ceil
     @pagy, @campaigns = pagy(campaigns, page: current_page(max: max))
 
@@ -26,6 +25,20 @@ class CampaignsController < ApplicationController
 
   def show
     set_meta_tags @campaign
+
+    payload = {
+      resource: {
+        dashboard: ENV["METABASE_CAMPAIGN_DASHBOARD_ID"].to_i,
+      },
+      params: {
+        "campaign_id" => @campaign.id,
+        "start_date" => @start_date.strftime("%F"),
+        "end_date" => @end_date.strftime("%F"),
+      },
+    }
+    token = JWT.encode payload, ENV["METABASE_SECRET_KEY"]
+
+    @iframe_url = ENV["METABASE_SITE_URL"] + "/embed/dashboard/" + token + "#bordered=false&titled=false"
   end
 
   def new
@@ -87,12 +100,6 @@ class CampaignsController < ApplicationController
   end
 
   private
-
-  def set_campaign_search
-    clear_searches except: :campaign_search
-    @campaign_search = GlobalID.parse(session[:campaign_search]).find if session[:campaign_search].present?
-    @campaign_search ||= CampaignSearch.new
-  end
 
   def set_campaign
     @campaign = if authorized_user.can_admin_system?

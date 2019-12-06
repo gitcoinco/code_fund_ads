@@ -3,8 +3,6 @@
     <%= table_row header: true do %>
       <%= table_column { "Property" } %>
       <% if @campaign.standard? %>
-        <%= table_column { "Matching Tags" } %>
-        <%= table_column { "Spend" } %>
         <%= table_column { "Impressions" } %>
       <% end %>
       <%= table_column { "Clicks" } %>
@@ -12,9 +10,6 @@
         <%= table_column { "CTR" } %>
         <%= table_column { "CPM" } %>
         <%= table_column { "CPC" } %>
-        <% if authorized_user.can_admin_system? %>
-          <%= table_column { "Blacklist?" } %>
-        <% end %>
       <% end %>
     <% end %>
   <% end %>
@@ -25,8 +20,6 @@
           <strong>Totals</strong>
         <% end %>
         <% if @campaign.standard? %>
-          <%= table_data do %><% end %>
-          <%= table_data_value @summary.gross_revenue.format %>
           <%= table_data_value number_with_delimiter(@summary.impressions_count) %>
         <% end %>
         <%= table_data_value number_with_delimiter(@summary.clicks_count) %>
@@ -34,14 +27,13 @@
           <%= table_data_value number_to_percentage(@summary.click_rate, precision: 2) %>
           <%= table_data_value number_with_delimiter(@summary.cpm.format) %>
           <%= table_data_value number_with_delimiter(@summary.cpc.format) %>
-          <% if authorized_user.can_admin_system? %>
-            <%= table_data do %>
-              &nbsp;
-            <% end %>
-          <% end %>
         <% end %>
       <% end %>
     <% end %>
-    <%= render partial: "/campaign_properties/tr", collection: @reports, as: :report %>
+    <% if @reports.exists? %>
+      <%= render partial: "/campaign_properties/tr", collection: @reports, as: :report %>
+    <% else %>
+      <%= render "/shared/no_data_alert" %>
+    <% end %>
   <% end %>
 <% end %>

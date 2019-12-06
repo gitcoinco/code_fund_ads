@@ -1,5 +1,4 @@
 import { Controller } from 'stimulus'
-import moment from 'moment'
 import { Calendar } from '@fullcalendar/core'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import bootstrapPlugin from '@fullcalendar/bootstrap'

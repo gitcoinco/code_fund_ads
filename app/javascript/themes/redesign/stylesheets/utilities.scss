@@ -81,6 +81,12 @@
   grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
 }
 
+.dashboard-grid-wrapper {
+  display: grid;
+  grid-gap: 14px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
 // =========== Buttons ===========
 @include media-breakpoint-down(sm) {
   .btn-block-sm-only {

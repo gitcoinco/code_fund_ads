@@ -1,12 +1,7 @@
-<% content_for :page_heading do %>
-  <%= page_heading "Viewing", "Images",
-    subtitle: "for #{@imageable.imageable_name}",
-    icon: "fas fa-images" %>
-<% end %>
-
-<%= render layout: "/images/layout", locals: {imageable: @imagable, override: [ :page_heading ]} do %>
-  <%= render partial: "/image_searches/form",
-              layout: "/shared/collapsible_search_form",
-              locals: {search: @image_search} %>
+<%= render "/shared/index_layout",
+    title: "Images",
+    buttons: [
+      link_to("Upload Image", new_image_path, class: "btn btn-primary")
+    ] do %>
   <%= render "/images/grid", imageable: @imageable, images: @images %>
 <% end %>

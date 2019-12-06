@@ -1,0 +1,10 @@
+<%= card do %>
+  <%= standalone_card_header text: "Budget Cap" %>
+  <%= card_body padding: "p-0" do %>
+    <ul class="list-group list-group-flush list-group-bordered">
+      <%= details_li("Hourly") { @campaign.hourly_budget.format } %>
+      <%= details_li("Daily") { @campaign.daily_budget.format } %>
+      <%= details_li("Total") { @campaign.total_budget.format } %>
+    </ul>
+  <% end %>
+<% end %>

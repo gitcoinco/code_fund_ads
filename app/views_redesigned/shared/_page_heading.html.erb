@@ -1,15 +1,33 @@
-<header class="page-navs shadow-sm">
-  <a href="page-team-projects.html" class="btn-account">
-    <% if local_assigns[:icon] %>
-      <i class="<%= icon %> fa-3x mr-3"></i>
-    <% end %>
-    <div class="account-summary">
-      <h1 class="card-title"><%= local_assigns[:title] ? title : "#{action} #{subject}" %></h1>
-      <% if local_assigns[:subtitle] %>
-        <h6 class="card-subtitle text-muted"><%= subtitle %></h6>
+<header class="page-title-bar">
+  <!-- .breadcrumb -->
+  <div class="d-flex justify-content-between align-items-center">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          <a href="page-teams.html"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Teams</a>
+        </li>
+      </ol>
+    </nav>
+    <!-- /.breadcrumb -->
+    <button type="button" class="btn btn-light btn-icon d-xl-none" data-toggle="sidebar"><i class="fa fa-angle-double-left"></i></button>
+  </div>
+  <div class="row text-center text-sm-left">
+    <div class="col-sm-auto col-12 mb-2">
+      <% if local_assigns[:icon] %>
+        <div class="tile bg-primary tile-circle tile-xl">
+          <i class="<%= icon %> fa-lg"></i>
+        </div>
       <% end %>
     </div>
-  </a>
+    <div class="col">
+      <h1 class="page-title">
+        <%= local_assigns[:title] ? title : "#{action} #{subject}" %>
+      </h1>
+      <% if local_assigns[:subtitle] %>
+        <p class="text-muted"><%= subtitle %></p>
+      <% end %>
+    </div>
+  </div>
   <div class="ml-auto pr-3">
     <% if local_assigns[:datepicker] %>
       <%= render "/shared/date_range_picker" %>

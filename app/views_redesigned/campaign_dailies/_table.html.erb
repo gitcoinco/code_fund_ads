@@ -32,6 +32,10 @@
         <% end %>
       <% end %>
     <% end %>
-    <%= render partial: "/campaign_dailies/tr", collection: @daily_summaries, as: :daily_summary %>
+    <% if @daily_summaries.exists? %>
+      <%= render partial: "/campaign_dailies/tr", collection: @daily_summaries, as: :daily_summary %>
+    <% else %>
+      <%= render "/shared/no_data_alert" %>
+    <% end %>
   <% end %>
 <% end %>

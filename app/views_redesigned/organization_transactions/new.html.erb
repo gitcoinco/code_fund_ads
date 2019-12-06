@@ -1,11 +1,10 @@
-<% content_for :page_heading do %>
-  <%= page_heading "Adding", "Transaction",
-    subtitle: "Fill out the form below",
-    icon: "fas fa-file-invoice-dollar" %>
-<% end %>
-
-<%= render layout: "/organization_transactions/layout" do %>
-  <%= render "/organization_transactions/form",
+<%= render layout: "/shared/layout",
+    locals: {
+        subject: @organization,
+        title: "Adding Transaction",
+        subtitle: "Fill out the form below",
+        tabs: false} do %>
+    <%= render "/organization_transactions/form",
       organization: @organization,
       organization_transaction: @organization_transaction,
       url: organization_transactions_path(@organization) %>

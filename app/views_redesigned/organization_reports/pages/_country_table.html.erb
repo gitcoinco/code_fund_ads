@@ -15,7 +15,7 @@ summaries = campaign.daily_summary_reports_by_country_code(report.start_date, re
     </tr>
   </thead>
   <tbody>
-  <% summaries.each do |row|
+    <% summaries.each do |row|
       country = Country.find(row.scoped_by_id)
       revenue = (row[:gross_revenue_cents].to_f / 100).to_f
       impressions = row[:impressions_count].to_i
@@ -38,5 +38,5 @@ summaries = campaign.daily_summary_reports_by_country_code(report.start_date, re
       <td><%= number_to_currency cpc %></td>
     <% end %>
   <% end %>
-  </tbody>
+</tbody>
 </table>

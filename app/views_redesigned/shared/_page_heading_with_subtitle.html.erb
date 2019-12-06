@@ -1,0 +1,20 @@
+<header class="page-title-bar mb-0">
+  <div class="d-flex flex-column flex-md-row">
+    <p class="lead">
+      <span class="font-weight-bold h4"><%= local_assigns[:title] ? title : "#{action} #{subject}" %></span>
+      <% if local_assigns[:subtitle].present? %>
+        <span class="d-block text-muted lead"><%= subtitle %></span>
+      <% end %>
+    </p>
+    <% if local_assigns[:datepicker] || local_assigns[:buttons] %>
+      <div class="ml-auto d-flex">
+        <% if local_assigns[:datepicker] %>
+          <%= render "/shared/date_range_picker" %>
+        <% end %>
+        <% (local_assigns[:buttons] || []).each do |link| %>
+          <%= link.html_safe %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</header>

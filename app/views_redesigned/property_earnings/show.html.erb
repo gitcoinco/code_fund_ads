@@ -1,12 +1,13 @@
-<%= render layout: "/properties/layout", locals: {property: @property} do %>
-  <div class="section-block d-flex justify-content-between align-items-center mt-0 mb-3">
-    <h1 class="section-title mb-0">Property Earnings</h1>
-    <%= render "/shared/date_range_picker" %>
-  </div>
-
+<%= render layout: "/shared/layout", locals: {
+  subject: @property,
+  sidebar: true,
+  datepicker: true,
+  buttons: [
+    layout_button(link: new_property_path, icon: "fas fa-plus", title: "New property"),
+    layout_button(link: new_property_path(clone: @property_id), icon: "fad fa-copy", title: "Clone property")
+  ]
+} do %>
   <%= card do %>
-    <%= card_body do %>
-      <%= render "/property_earnings/table", property: @property %>
-    <% end %>
+    <%= render "/property_earnings/table", property: @property, report: @report %>
   <% end %>
 <% end %>

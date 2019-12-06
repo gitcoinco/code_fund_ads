@@ -1,9 +1,9 @@
-<div class="list-group-item"
+<div class="list-group-item list-group-item-<%= campaign_status_color(campaign.status) %>"
      data-target="filterable-list.filterable"
      data-filter-key='<%= "#{campaign.name.downcase} #{campaign.status}" %>'>
   <div class="list-group-item-body">
-    <div class="d-sm-flex justify-content-sm-between align-items-sm-center">
-      <div class="team d-flex">
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex">
         <h4 class="list-group-item-title">
           <%= link_to campaign.name, campaign, title: "View campaign", data: tooltip_expando %><br />
           <% if authorized_user.can_admin_system? %>
@@ -12,7 +12,7 @@
         </h4>
       </div>
       <ul class="list-inline text-muted mb-0">
-        <li class="list-inline-item mr-3">
+        <li class="d-none d-sm-inline list-inline-item mr-3">
           <span class="badge badge-subtle badge-<%= campaign_status_color(campaign.status) %>"><%= campaign.status.humanize %></span>
         </li>
         <%= edit_button(link: edit_campaign_path(campaign)) %>

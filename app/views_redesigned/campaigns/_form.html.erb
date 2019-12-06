@@ -9,14 +9,6 @@
   <%= render "/shared/forms/error_messages", object: campaign %>
   <!-- Details -->
   <%= card do %>
-    <%= card_header do %>
-      <%= card_title do %>
-        Campaign Details
-      <% end %>
-      <%= card_subtitle do %>
-        Tell us about your campaign
-      <% end %>
-    <% end %>
     <%= card_body do %>
       <div class="row">
         <% if authorized_user.can_admin_system? %>
@@ -47,12 +39,11 @@
                 end_date: (campaign.end_date || 29.days.from_now).strftime("%m/%d/%Y")
               }
             }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
-
-        <div class="col-12 mb-5">
+        <div class="col-12 <%= "mb-5" if authorized_user.can_admin_system? %>">
           <%= f.input :url, as: :string, required: true, input_html: {class: "form-control"},
             placeholder: "https://example.com/?utm_source=codefund&utm_campaign={{campaign_id}}",
             data: {msg: "Please enter a valid URL", error_class: "u-has-error", success_class: "u-has-success", rule_url: true} %>
-          <small class="text-muted">Use any of the following variables in the URL</small>
+          <small class="text-muted mt-4 mb-2 d-block">Use any of the following variables in the URL</small>
           <%= table compact: true do %>
             <%= table_head do %>
               <%= table_row header: true do %>
@@ -129,7 +120,6 @@
           <% end %>
         </div>
       </div>
-
       <% if authorized_user.can_admin_system? %>
         <div class="row">
           <div class="col-12 mb-2">
@@ -144,7 +134,6 @@
             </div>
           </div>
         </div>
-
         <div class="row">
           <div class="col-12 mb-2">
             <div class="media align-items-center mb-3">
@@ -158,22 +147,6 @@
             </div>
           </div>
         </div>
-      <% end %>
-    <% end %>
-  <% end %>
-
-  <!-- Targeting -->
-  <%= card do %>
-    <%= card_header do %>
-      <%= card_title do %>
-        Targeting
-      <% end %>
-      <%= card_subtitle do %>
-        Who do you want this campaign to reach?
-      <% end %>
-    <% end %>
-    <%= card_body do %>
-      <% if campaign.fixed_ecpm || authorized_user.can_admin_system? %>
         <div class="row" data-controller="select-geo-targets" data-action="cf:select:changed->select-geo-targets#updateProvinceCodeOptions">
           <div class="col-12 mb-3">
             <%= f.label :country_codes, label: "Targeted Countries", class: "form-label", required: true %>
@@ -229,40 +202,28 @@
               </div>
             </div>
           <% end %>
+          <div class="col-12 mb-3">
+            <label>Creatives - Select up to 3 to run at the same time</label>
+            <%= render partial: "/creative_options/options",
+            locals: {
+              selected_creative_ids: campaign.creative_ids,
+              creatives: campaign.user.creatives.active.standard.order(name: :asc)
+            } %>
+          </div>
         </div>
       <% end %>
+
+      <fieldset data-target="campaign-form.creativesWrapper">
+
+      </fieldset>
     <% end %>
-  <% end %>
-
-  <nav class="mt-5">
-    <div id="nav-tab" class="nav nav-tabs" role="tablist">
-      <a id="nav-standard-tab" class="nav-item nav-link <%= "active" if campaign.standard? || campaign.new_record? %>"
-        href="#nav-standard" role="tab" aria-controls="nav-standard" aria-selected="true"
-        data-toggle="tab" data-action="mouseup->campaign-form#enableStandardForm" data-creative-type="standard">
-        Standard
-      </a>
-      <a id="nav-sponsor-tab" class="nav-item nav-link <%= "active" if campaign.sponsor? %>"
-        href="#nav-sponsor" role="tab" aria-controls="nav-sponsor" aria-selected="false"
-        data-toggle="tab" data-action="mouseup->campaign-form#enableSponsorForm" data-creative-type="sponsor">
-        Sponsor
-      </a>
-    </div>
-  </nav>
-  <div class="tab-content">
-    <div id="nav-standard" data-target="campaign-form.standardForm" class="tab-pane fade <%= "show active" if campaign.standard? || campaign.new_record? %>" role="tabpanel" aria-labelledby="nav-standard-tab">
-      <div id="standard-form-fields"> <!-- NOTE: containing div used by stimulus controller -->
-        <%= render "/campaigns/forms/standard_form", f: f, campaign: campaign %>
-      </div>
-    </div>
-    <div id="nav-sponsor" data-target="campaign-form.sponsorForm" class="tab-pane fade <%= "show active" if campaign.sponsor? %>" role="tabpanel" aria-labelledby="nav-sponsor-tab">
-      <div id="sponsor-form-fields"> <!-- NOTE: containing div used by stimulus controller -->
-        <%= render "/campaigns/forms/sponsor_form", f: f, campaign: campaign %>
-      </div>
-    </div>
-  </div>
-
-  <%= button_panel do %>
-    <%= f.submit "Save Campaign", class: "btn btn-sm btn-primary mr-1" %>
-    <%= link_to "Cancel", campaigns_path, class: "btn btn-sm btn-subtle-dark" %>
+     <%= card_footer do %>
+      <%= card_footer_content do %>
+        <%= button_panel margin: "my-0" do %>
+          <%= f.submit "Save Campaign", class: "btn btn-primary" %>
+          <%= cancel_button(campaigns_path) %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>

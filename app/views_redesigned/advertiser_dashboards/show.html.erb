@@ -1,10 +1,10 @@
-<%= page_heading "Advertiser", "Dashboard",
-      subtitle: "#{@start_date.to_s("mm/dd/yyyy")} &ndash; #{@end_date.to_s("mm/dd/yyyy")}".html_safe,
-      icon: "fad fa-tachometer-fast",
-      datepicker: true %>
+<div class="page-inner">
+  <%= render "/shared/page_heading_with_subtitle",
+    title: "Advertiser Dashboard",
+    subtitle: "#{@start_date.to_s("mm/dd/yyyy")} &ndash; #{@end_date.to_s("mm/dd/yyyy")}".html_safe,
+    datepicker: true %>
 
-<div class="page-inner p-0">
-  <div class="board">
+  <div class="page-section">
     <div class="metric-row">
       <%= render "/shared/widgets/stat_card",
         label: "Remaining Balance",
@@ -22,9 +22,8 @@
 
     <div class="card-deck-xl">
       <div class="card card-fluid pb-3">
-        <div class="card-header"> Active Campaigns</div>
+        <div class="card-header">Active Campaigns</div>
         <div class="list-group list-group-flush overflow-auto">
-
           <% @campaigns.each do |campaign| %>
             <div class="list-group-item">
               <div class="list-group-item-figure">
@@ -59,7 +58,6 @@
               </div>
             </div>
           <% end %>
-
         </div>
       </div>
 
@@ -78,7 +76,7 @@
                 }
               }.to_json
           } %>
-          <div id="calendar" data-controller="campaign-calendar" data-events-feed='/myfeed.php'></div>
+          <div id="calendar" data-controller="campaign-calendar"></div>
         </div>
       </div>
     </div>

@@ -1,15 +1,11 @@
-<div class="wrapper">
-  <div class="page">
-    <div class="page-inner">
-      <header class="page-title-bar">
-        <div class="d-flex justify-content-between">
-          <h1 class="page-title">Campaigns</h1>
-          <div class="btn-toolbar">
-            <%= link_to "Add campaign", new_campaign_path, class: "btn btn-primary" %>
-          </div>
-        </div>
-      </header>
-      <%= render "/campaigns/list", campaigns: @campaigns, pagy: @pagy %>
-    </div>
-  </div>
-</div>
+<%= render "/shared/index_layout",
+    title: "Campaigns",
+    buttons: [
+      link_to("Add campaign", new_campaign_path, class: "btn btn-primary")
+    ] do %>
+  <%= render "/shared/data_list",
+               resource_name: "campaigns",
+               scopable: %w[pending active archived],
+               collection: @campaigns,
+               pagy: @pagy %>
+<% end %>

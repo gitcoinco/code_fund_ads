@@ -1,15 +1,15 @@
-<%= render layout: "/properties/layout", locals: {property: @property} do %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @property,
+  sidebar: true,
+  datepicker: true,
+  buttons: [
+    layout_button(link: new_property_path, icon: "fas fa-plus", title: "New property"),
+    layout_button(link: new_property_path(clone: @property_id), icon: "fad fa-copy", title: "Clone property")
+  ]
+} do %>
   <%= card do %>
-    <%= card_header do %>
-      <%= card_title do %>
-        Campaigns
-      <% end %>
-      <%= card_subtitle do %>
-        List of campaigns that have been advertised on this property
-      <% end %>
-    <% end %>
-    <%= card_body do %>
-      <%= render "/property_campaigns/table" %>
+    <%= card_body padding: "p-0" do %>
+      <%= render "/property_campaigns/table", report: @report %>
     <% end %>
   <% end %>
 <% end %>

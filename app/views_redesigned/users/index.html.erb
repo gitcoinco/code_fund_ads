@@ -1,28 +1,11 @@
-<div class="page has-sidebar has-sidebar-fluid has-sidebar-expand-xl" data-controller="filterable-list">
-  <div class="page-inner page-inner-fill position-relative">
-    <header class="page-navs bg-light shadow-sm">
-      <div class="input-group has-clearable">
-        <button type="button" class="close" aria-label="Close" data-action="click->filterable-list#reset">
-          <span aria-hidden="true"><i class="fa fa-times-circle"></i></span>
-        </button>
-        <label class="input-group-prepend" for="searchUsers">
-          <span class="input-group-text"><span class="fad fa-magnifying-glass"></span></span>
-        </label>
-        <input type="text" class="form-control" id="searchUsers"
-          placeholder="Find users"
-          data-target="filterable-list.source"
-          data-action="input->filterable-list#filter" />
-      </div>
-    </header>
-    <button type="button" class="btn btn-primary btn-floated position-absolute" data-toggle="modal" data-target="#clientNewModal" title="Add new client">
-      <i class="fa fa-plus"></i>
-    </button>
-    <div class="board p-0 perfect-scrollbar bg-white" data-target="filterable-list.wrapper" data-turbolinks-persist-scroll>
-      <%= render "/users/list", users: User.all.includes(:avatar_attachment).order(last_name: :asc) %>
-    </div>
-  </div>
-
-  <div class="page-sidebar bg-light p-3">
-    DASHBOARD GOES HERE
-  </div>
-</div>
+<%= render "/shared/index_layout",
+    title: "Users",
+    buttons: [
+      link_to("Invite User", "#", class: "btn btn-primary")
+    ] do %>
+  <%= render "/shared/data_list",
+             resource_name: "users",
+             scopable: %w[administrators advertisers publishers],
+             collection: @users,
+             pagy: @pagy %>
+<% end %>

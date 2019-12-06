@@ -1,4 +1,7 @@
-<%= render layout: "/organizations/layout", locals: {organization: @organization} do %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @organization,
+  sidebar: true
+} do %>
   <div class="row">
     <div class="col-md-6">
       <%= render "organization_reports/card" %>

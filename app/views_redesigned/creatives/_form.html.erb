@@ -57,16 +57,16 @@
               </div>
             </div>
           </div>
-          <div class="container p-5">
-            <div class="row">
-              <div class="col">
-                <%= f.submit "Save Creative", class: "btn btn-sm btn-primary mr-1" %>
-                <%= link_to "Cancel", creatives_path, class: "btn btn-sm btn-subtle-dark" %>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
+    <% end %>
+    <%= card_footer do %>
+      <%= card_footer_content do %>
+        <%= button_panel margin: "my-0" do %>
+          <%= f.submit "Save Creative", class: "btn btn-primary" %>
+          <%= cancel_button(creatives_path) %>
+        <% end %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

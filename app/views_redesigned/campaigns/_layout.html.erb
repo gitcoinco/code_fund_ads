@@ -1,31 +1,10 @@
-<% unless local_assigns[:override]&.include? :page_heading %>
-  <% content_for :page_heading do %>
-    <%= page_heading "Viewing", "Campaign",
-      subtitle: campaign.name,
-      icon: "fas fa-ad" %>
-  <% end %>
-<% end %>
-
-<% unless local_assigns[:override]&.include? :actions %>
-  <% content_for :actions do %>
-    <%= actions_list do %>
-      <%= actions_list_item title: "Edit Campaign" do %>
-        <%= render "/shared/actions/edit_campaign", campaign: campaign %>
-      <% end %>
-      <%= actions_list_item title: "Clone Campaign" do %>
-        <%= render "/shared/actions/generic", link: new_campaign_path(clone: campaign.id), icon: "fa fa-copy" %>
-      <% end %>
-    <% end %>
-  <% end %>
-<% end %>
-
-<section class="container mt-4">
-  <header class="page-title-bar">
-    <%= yield :page_heading %>
-    <div class="d-flex border-bottom">
-      <%= render("campaigns/tabs", campaign: campaign) if campaign.persisted? %>
-      <%= yield :actions %>
-    </div>
-  </header>
-  <%= yield %>
-</section>
+<div class="page-inner">
+  <%= render "/shared/page_heading_with_subtitle",
+      title: local_assigns[:title] || campaign.name,
+      subtitle: local_assigns[:subtitle],
+      buttons: local_assigns[:buttons] || [],
+      datepicker: local_assigns[:datepicker] || false %>
+  <div class="page-section">
+    <%= yield %>
+  </div>
+</div>

@@ -1,15 +1,11 @@
-<div class="wrapper">
-  <div class="page">
-    <div class="page-inner">
-      <header class="page-title-bar">
-        <div class="d-flex justify-content-between">
-          <h1 class="page-title">Properties</h1>
-          <div class="btn-toolbar">
-            <%= link_to "Add property", new_property_path, class: "btn btn-primary" %>
-          </div>
-        </div>
-      </header>
-      <%= render "/properties/list", properties: @properties, pagy: @pagy %>
-    </div>
-  </div>
-</div>
+<%= render "/shared/index_layout",
+    title: "Properties",
+    buttons: [
+      link_to("Add property", new_property_path, class: "btn btn-primary")
+    ] do %>
+  <%= render "/shared/data_list",
+             resource_name: "properties",
+             scopable: %w[active archived blacklisted pending rejected],
+             collection: @properties,
+             pagy: @pagy %>
+<% end %>

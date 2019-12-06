@@ -1,14 +1,14 @@
 class PropertiesController < ApplicationController
+  include Scopable
   include Sortable
 
   before_action :authenticate_user!
-  before_action :set_property_search, only: [:index]
   before_action :set_property, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
   before_action :set_assignable_fallback_campaigns, only: [:edit]
 
   def index
-    properties = Property.order(order_by).includes(:user, :property_traffic_estimates)
+    properties = scope_list(Property).order(order_by).includes(:user, :property_traffic_estimates)
 
     if authorized_user.can_admin_system?
       properties = properties.where(user: @user) if @user
@@ -16,7 +16,6 @@ class PropertiesController < ApplicationController
       properties = properties.where(user: current_user)
     end
 
-    properties = @property_search.apply(properties)
     max = (properties.count / Pagy::VARS[:items].to_f).ceil
     @pagy, @properties = pagy(properties, page: current_page(max: max))
 
@@ -26,6 +25,20 @@ class PropertiesController < ApplicationController
   def new
     @property = current_user.properties.build(status: "pending", ad_template: "default", ad_theme: "light")
     set_assignable_fallback_campaigns
+  end
+
+  def show
+    payload = {
+      resource: {dashboard: ENV["METABASE_PROPERTY_DASHBOARD_ID"].to_i},
+      params: {
+        "property_id" => @property.id,
+        "start_date" => @start_date.strftime("%F"),
+        "end_date" => @end_date.strftime("%F"),
+      },
+    }
+    token = JWT.encode payload, ENV["METABASE_SECRET_KEY"]
+
+    @iframe_url = ENV["METABASE_SITE_URL"] + "/embed/dashboard/" + token + "#bordered=false&titled=false"
   end
 
   def create
@@ -70,12 +83,6 @@ class PropertiesController < ApplicationController
   end
 
   private
-
-  def set_property_search
-    clear_searches except: :property_search
-    @property_search = GlobalID.parse(session[:property_search]).find if session[:property_search].present?
-    @property_search ||= PropertySearch.new
-  end
 
   def set_property
     @property = if authorized_user.can_admin_system?

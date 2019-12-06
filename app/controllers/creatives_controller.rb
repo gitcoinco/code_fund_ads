@@ -1,13 +1,11 @@
 class CreativesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_creative_search, only: [:index]
   before_action :set_creative, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_creative_create_rights!, only: [:new, :create]
   before_action :authenticate_creative_update_rights!, only: [:edit, :update]
 
   def index
     creatives = current_user.creatives.order(:name).includes(:user)
-    creatives = @creative_search.apply(creatives)
     @pagy, @creatives = pagy(creatives, items: 10)
   end
 
@@ -70,12 +68,6 @@ class CreativesController < ApplicationController
   end
 
   private
-
-  def set_creative_search
-    clear_searches except: :creative_search
-    @creative_search = GlobalID.parse(session[:creative_search]).find if session[:creative_search].present?
-    @creative_search ||= CreativeSearch.new
-  end
 
   def set_creative
     @creative = if authorized_user(true).can_admin_system?

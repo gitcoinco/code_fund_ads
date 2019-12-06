@@ -1,17 +1,6 @@
-<% content_for :actions do %>
-  <%= actions_list do %>
-    <%= actions_list_item title: "View User" do %>
-      <%= render "/shared/actions/show_user", user: @user %>
-    <% end %>
-  <% end %>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Editing", "User",
-    subtitle: "Fill out the form below",
-    icon: "fas fa-user-circle" %>
-<% end %>
-
-<%= render layout: "/users/layout", locals: {user: @user, override: [:page_heading, :actions]} do %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @user,
+  subtitle: @user.email
+} do %>
   <%= render "/users/form", user: @user %>
 <% end %>

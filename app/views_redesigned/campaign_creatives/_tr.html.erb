@@ -1,14 +1,6 @@
 <%= table_row do %>
-  <%= table_data add_class: ("text-center align-middle" if @campaign.standard?) do %>
-    <% if @campaign.standard? %>
-      <small class="d-block text-dark"><%= authorized_user.can_admin_system? ? link_to(report.scoped_by.name, report.scoped_by) : report.scoped_by.name %></small>
-      <iframe src="<%= advertisement_preview_iframe_path(@campaign, creative_id: report.scoped_by.id, template: "square", theme: "light") %>"
-        style="height:375px; width:100%; border:0; margin:0; padding:0; resize:horizontal;"
-        frameBorder="0" scrolling="no" class=""></iframe>
-    <% end %>
-    <% if @campaign.sponsor? %>
-      <%= image_tag report.scoped_by.sponsor_image %>
-    <% end %>
+  <%= table_data do %>
+    <%= link_to report.scoped_by.name, report.scoped_by %>
   <% end %>
   <% if @campaign.standard? %>
     <%= table_data_value report.gross_revenue.format %>

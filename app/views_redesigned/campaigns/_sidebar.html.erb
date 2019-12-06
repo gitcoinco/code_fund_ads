@@ -1,0 +1,132 @@
+<%
+# TODO: Apply cacheing?
+summary = subject.summary(@start_date, @end_date)
+%>
+
+<div class="page-sidebar">
+  <header class="sidebar-header d-sm-none">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          <a href="#" onclick="CodeFundTheme.toggleSidebar()"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Back</a>
+        </li>
+      </ol>
+    </nav>
+  </header>
+
+  <div class="sidebar-section-fill">
+    <div class="card card-reflow">
+      <div class="card-body">
+        <button type="button" class="close mt-n1 d-none d-xl-none d-sm-block" onclick="CodeFundTheme.toggleSidebar()" aria-label="Close"><span aria-hidden="true">×</span></button>
+
+        <small class="d-block"><%= subject.percentage_complete_by_date %>% Completed by Date</small>
+        <div class="progress bg-muted mb-2">
+          <div class="progress-bar progress-bar-striped <%= "progress-bar-animated" if subject.active? && subject.percentage_complete_by_date == 100 %> bg-purple" role="progressbar" aria-valuenow="<%= subject.percentage_complete_by_date %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= subject.percentage_complete_by_date %>%">
+            <span class="sr-only"><%= subject.percentage_complete_by_date %>%</span>
+          </div>
+        </div>
+
+        <small class="d-block"><%= subject.percentage_complete_by_budget %>% Completed by Budget</small>
+        <div class="progress bg-muted">
+          <div class="progress-bar progress-bar-striped <%= "progress-bar-animated" if subject.active? && subject.percentage_complete_by_budget == 100 %> bg-green" role="progressbar" aria-valuenow="<%= subject.percentage_complete_by_budget %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= subject.percentage_complete_by_budget %>%">
+            <span class="sr-only"><%= subject.percentage_complete_by_budget %>%</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between border-top p-3">
+        <div class="row text-center">
+          <div class="col-6">
+            <div class="metric">
+              <h6 class="metric-value"><%= number_with_delimiter summary.impressions_count rescue "-" %></h6>
+              <p class="metric-label mt-1">Impressions</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="metric">
+              <h6 class="metric-value"><%= number_with_delimiter summary.clicks_count rescue "-" %></h6>
+              <p class="metric-label mt-1">Clicks</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="metric">
+              <h6 class="metric-value"><%= number_to_percentage summary.click_rate, precision: 3 rescue "-" %></h6>
+              <p class="metric-label mt-1">Avg. CTR</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="metric">
+              <h6 class="metric-value"><%= subject.total_consumed_budget.format rescue "-" %></h6>
+              <p class="metric-label mt-1">Ad Spend</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="metric">
+              <h6 class="metric-value"><%= summary.cpm.format rescue "-" %></h6>
+              <p class="metric-label mt-1">Avg. CPM</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="metric">
+              <h6 class="metric-value"><%= summary.cpc.format rescue "-" %></h6>
+              <p class="metric-label mt-1">Avg. CPC</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="metric">
+              <h6 class="metric-value"><%= subject.average_daily_spend.format rescue "-" %></h6>
+              <p class="metric-label mt-1">Avg. Daily Spend</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="metric">
+              <h6 class="metric-value"><%= pluralize subject.estimated_days_until_budget_consumed, "day" rescue "-" %></h6>
+              <p class="metric-label mt-1">Est. Days Remaing</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between border-top px-3 pt-3 pb-0">
+        <h4 class="card-title"> Details </h4>
+        <%= link_to "Edit", edit_campaign_path(subject) %>
+      </div>
+
+      <div class="list-group list-group-bordered list-group-reflow mx-3 mb-3">
+        <div class="list-group-item justify-content-between align-items-center px-0">
+          <span class="text-muted">Name</span> <span><%= subject.name %></span>
+        </div>
+        <div class="list-group-item justify-content-between align-items-center px-0">
+          <span class="text-muted">Organization</span> <span><%= link_to subject.organization.name, subject.organization %></span>
+        </div>
+        <div class="list-group-item justify-content-between align-items-center px-0">
+          <span class="text-muted">Status</span> <span><%= subject.status.humanize %></span>
+        </div>
+        <div class="list-group-item justify-content-between align-items-center px-0">
+          <span class="text-muted">Date Range</span> <span><%= "#{@campaign.start_date.to_s("mm/dd/yyyy")} &mdash; #{@campaign.end_date.to_s("mm/dd/yyyy")}".html_safe %></span>
+        </div>
+        <div class="list-group-item justify-content-between align-items-center px-0">
+          <span class="text-muted">URL</span> <span><%= link_to truncate(subject.url, length: 30), subject.url, target: "_blank" %></span>
+        </div>
+        <div class="list-group-item justify-content-between align-items-center px-0">
+          <span class="text-muted">Total Budget</span> <span><%= subject.total_budget.format %></span>
+        </div>
+        <div class="list-group-item justify-content-between align-items-center px-0">
+          <span class="text-muted">Daily Budget</span> <span><%= subject.daily_budget.format %></span>
+        </div>
+        <div class="list-group-item justify-content-between align-items-center px-0">
+          <span class="text-muted">Hourly Cap</span> <span><%= subject.hourly_budget.format %></span>
+        </div>
+      </div>
+
+      <div class="card-body border-top">
+        <div class="d-flex justify-content-between mb-3">
+          <h4 class="card-title">Changelog</h4>
+        </div>
+        <ul class="timeline timeline-fluid">
+          <%= render "/versions/timeline", versionable: subject %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

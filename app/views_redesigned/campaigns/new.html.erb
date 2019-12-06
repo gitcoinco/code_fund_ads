@@ -1,9 +1,7 @@
-<% content_for :page_heading do %>
-  <%= page_heading "Adding", "Campaign",
-    subtitle: "Fill out the form below",
-    icon: "fas fa-ad" %>
-<% end %>
-
-<%= render layout: "/campaigns/layout", locals: {campaign: @campaign, override: [:page_heading, :actions]} do %>
+<%= render layout: "/shared/layout",
+    locals: {
+        subject: @campaign,
+        title: "Create Campaign",
+        subtitle: "Fill out the form below"} do %>
   <%= render "/campaigns/form", campaign: @campaign %>
 <% end %>

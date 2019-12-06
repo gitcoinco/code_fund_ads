@@ -10,10 +10,10 @@
         </h6>
         <p class="mb-0">
           <%= simple_format event.body %>
-      </div>
-      <div class="d-none d-sm-block">
-        <span class="timeline-date"><%= time_ago_in_words event.created_at %> ago by <%= event.user %></span>
+        </div>
+        <div class="d-none d-sm-block">
+          <span class="timeline-date"><%= time_ago_in_words event.created_at %> ago by <%= event.user %></span>
+        </div>
       </div>
     </div>
-  </div>
-</li>
+  </li>

@@ -4,6 +4,7 @@ module Sortable
   included do
     helper_method :sort_column, :sort_direction
     before_action :reset_current_page
+    after_action :update_last_sort_by
   end
 
   # Abstract method that should be overridden in including controllers
@@ -34,6 +35,8 @@ module Sortable
   end
 
   def current_page(max: nil)
+    return 1 if max&.zero?
+
     page = session[:current_page].to_i
     page = 1 if page <= 0
     page = max if max && page > max
@@ -53,5 +56,9 @@ module Sortable
   def reset_current_page
     session[:current_page] = 1 if session[:last_controller_name] != controller_name
     session[:last_controller_name] = controller_name
+  end
+
+  def update_last_sort_by
+    session[:last_sort_by] = sort_by
   end
 end

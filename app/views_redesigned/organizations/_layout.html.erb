@@ -3,18 +3,16 @@
     <%= page_heading "", organization.name,
       icon: "fas fa-building" %>
   <% end %>
- <% end %>
-
-  <% unless local_assigns[:override]&.include? :actions %>
-   <% content_for :actions do %>
-     <%= actions_list do %>
-       <%= actions_list_item title: "Edit Organization" do %>
-         <%= render "/shared/actions/edit_organization", organization: organization %>
-       <% end %>
-     <% end %>
-   <% end %>
- <% end %>
-
+<% end %>
+<% unless local_assigns[:override]&.include? :actions %>
+  <% content_for :actions do %>
+    <%= actions_list do %>
+      <%= actions_list_item title: "Edit Organization" do %>
+        <%= render "/shared/actions/edit_organization", organization: organization %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
 <section class="container mt-4">
   <header class="page-title-bar">
     <%= yield :page_heading %>

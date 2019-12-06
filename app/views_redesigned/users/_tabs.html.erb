@@ -1,10 +1,9 @@
-<div class="nav-tabs-wrapper">
+<div class="nav-tabs-wrapper my-3">
   <%= nav_tabs do %>
-    <%= nav_item_link(name: "Details", path: user_path(user), active: :exact) %>
-    <%= nav_item_link(name: "Properties", path: user_properties_path(user)) %>
-    <%= nav_item_link(name: "Campaigns", path: user_campaigns_path(user)) %>
-    <%= nav_item_link(name: "Comments", path: user_comments_path(user)) %>
-    <%= nav_item_link(name: "Events", path: user_events_path(user)) %>
-    <%= nav_item_link(name: "Revisions", path: user_versions_path(user)) %>
+    <%= nav_item_link(name: "Overview", path: user_path(subject), active: :exact) %>
+    <%#= nav_item_link(name: "Teams", path: "#") %>
+    <%= nav_item_link(name: "Properties", path: user_properties_path(subject)) %>
+    <%= nav_item_link(name: "Campaigns", path: user_campaigns_path(subject)) %>
+    <%= nav_item_link(name: "Settings", path: edit_user_path(subject)) %>
   <% end %>
 </div>

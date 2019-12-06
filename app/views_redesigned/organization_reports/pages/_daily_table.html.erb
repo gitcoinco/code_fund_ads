@@ -14,7 +14,7 @@ summaries = campaign.daily_summaries_by_day(report.start_date, report.end_date)
     </tr>
   </thead>
   <tbody>
-  <% summaries.each do |row|
+    <% summaries.each do |row|
       revenue = (row[:gross_revenue_cents].to_f / 100).to_f
       impressions = row[:impressions_count].to_i
       clicks = row[:clicks_count].to_i
@@ -36,5 +36,5 @@ summaries = campaign.daily_summaries_by_day(report.start_date, report.end_date)
       <td><%= number_to_currency cpc %></td>
     <% end %>
   <% end %>
-  </tbody>
+</tbody>
 </table>

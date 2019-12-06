@@ -1,21 +1,30 @@
-<%= render "/creatives/layout", locals: {creative: @creative} do %>
-  <%= card do %>
-    <%= card_header do %>
-      <%= card_title do %>
-        Ad Previews
-      <% end %>
-    <% end %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @creative,
+  tabs: false,
+  buttons: [
+    layout_button(link: new_creative_path(clone: @creative.id), icon: "fad fa-copy", title: "Clone creative"),
+    delete_button(link: creative_path(@creative), title: "Delete creative", layout: true)
+  ]
+} do %>
+  <%= card add_class: "mt-4" do %>
     <%= card_body do %>
-      <div class="row">
+      <ul class="list-group list-group-bordered list-group-flush">
         <% if @creative.standard? %>
           <% ENUMS::AD_TEMPLATES.values.each do |template| %>
-            <% ["light", "dark"].each do |theme| %>
-              <%= render partial: "/creatives/preview_card", locals: {creative: @creative, template: template, theme: theme} %>
-            <% end %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <%= template %>
+              <span>
+                <%= link_to creative_previews_path(@creative, template: template, theme: "light"),
+                          class: "badge badge-lg badge-light", target: "_blank" do %>
+                          Light <i class="fas fa-external-link"></i>
+                        <% end %>
+                <%= link_to creative_previews_path(@creative, template: template, theme: "dark"),
+                          class: "badge badge-lg badge-dark", target: "_blank" do %>
+                          Dark <i class="fas fa-external-link"></i>
+                        <% end %>
+              </span>
+            </li>
           <% end %>
-        <% end %>
-        <% if @creative.sponsor? %>
-          <%= image_tag @creative.sponsor_image %>
         <% end %>
       <% end %>
     <% end %>

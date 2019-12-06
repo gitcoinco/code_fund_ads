@@ -1,0 +1,67 @@
+<div class="page-section">
+  <div class="card card-fluid" data-controller="filterable-list">
+    <div class="card-header nav-scroller">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <span class="nav-link show pointer <%= "active" if session[:scope_by].nil? || session[:scope_by] == "all" %>"
+                data-toggle="tab" data-scope-by="all" data-reflex="click->ScopableReflex#scope">All</span>
+        </li>
+        <% scopable.each do |item| %>
+          <li class="nav-item"><span class="nav-link show pointer <%= "active" if session[:scope_by] == item %>"
+              data-toggle="tab" data-scope-by="<%= item %>" data-reflex="click->ScopableReflex#scope"><%= item.capitalize %></span>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-auto d-none d-sm-flex">
+          <div class="dropdown">
+            <div class="btn-group" role="group" aria-label="Basic example">
+              <button data-reflex="click->SortableReflex#flip" class="btn btn-secondary">
+                <%= current_sort_direction_icon %>
+              </button>
+              <button class="btn btn-secondary" style="min-width:112px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <%= session[:sort_by]&.humanize || "Name" %>
+                <span class="fa fa-caret-down"></span>
+              </button>
+            <div class="dropdown-menu dropdown-menu-right stop-propagation">
+              <div class="dropdown-arrow"></div>
+              <h6 class="dropdown-header"> Sort By </h6>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="0" data-reflex="click->SortableReflex#sort" data-column-name="name" />
+                  <span class="custom-control-label">Name</span>
+              </label>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="1" data-reflex="click->SortableReflex#sort" data-column-name="updated_at" />
+                  <span class="custom-control-label">Updated</span>
+              </label>
+              <label class="custom-control custom-radio">
+                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="2" data-reflex="click->SortableReflex#sort" data-column-name="created_at" />
+                  <span class="custom-control-label">Created</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-muted px-3 mb-2">
+      <%= pagy_entries(pagy) %>
+    </div>
+
+    <div class="tab-content pb-3" data-reflex-root=".class">
+      <div class="tab-pane fade show active" role="tabpanel">
+        <div class="list-group list-group-flush list-group-divider" data-target="filterable-list.wrapper">
+          <%= render partial: "/#{resource_name}/list_group_item", collection: collection, as: resource_name&.singularize&.to_sym %>
+        </div>
+        <% if pagy.pages > 1 %>
+          <ul class="pagination justify-content-center mt-4">
+            <%= render "/shared/paginator" %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

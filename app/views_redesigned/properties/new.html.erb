@@ -1,9 +1,7 @@
-<% content_for :page_heading do %>
-  <%= page_heading "Adding", "Property",
-      subtitle: (@property.name ? !@property.name.nil? : "Fill out form below"),
-      icon: "fas fa-browser" %>
-<% end %>
-
-<%= render layout: "/properties/layout", locals: {property: @property, override: [:page_heading, :actions]} do %>
-  <%= render "properties/form", property: @property %>
+<%= render layout: "/shared/layout",
+    locals: {
+        subject: @property,
+        title: "Add Property",
+        subtitle: "Fill out the form below"} do %>
+  <%= render "/properties/form", property: @property %>
 <% end %>

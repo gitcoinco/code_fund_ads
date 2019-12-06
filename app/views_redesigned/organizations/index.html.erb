@@ -1,16 +1,11 @@
-<section class="container mt-4">
-  <header class="page-title-bar">
-    <%= page_heading "Viewing", "Organizations",
-      subtitle: "#{pluralize(@pagy.count, "record")} found",
-      icon: "fas fa-building" %>
-  </header>
-
-  <%= render partial: "/organization_searches/form",
-            layout: "/shared/collapsible_search_form",
-            locals: {search: @organization_search} %>
-  <article class="mb-4">
-    <div class="bg-white shadow-sm">
-      <%= render "/organizations/table", organizations: @organizations, pagy: @pagy %>
-    </div>
-  </article>
-</section>
+<%= render "/shared/index_layout",
+    title: "Organizations",
+    buttons: [
+      link_to("Add organization", new_organization_path, class: "btn btn-primary")
+    ] do %>
+  <%= render "/shared/data_list",
+              resource_name: "organizations",
+              scopable: %w[positive negative zero],
+              collection: @organizations,
+              pagy: @pagy %>
+<% end %>

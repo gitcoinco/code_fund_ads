@@ -1,8 +1,16 @@
-<%= render layout: "/properties/layout", locals: {property: @property} do %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @property,
+  sidebar: true,
+  datepicker: true,
+  buttons: [
+    layout_button(link: new_property_path, icon: "fas fa-plus", title: "New property"),
+    layout_button(link: new_property_path(clone: @property_id), icon: "fad fa-copy", title: "Clone property")
+  ]
+} do %>
   <div class="border rounded p-1" style="background-color: #151515;">
     <%= tag.iframe("Loading...",
       src: nil,
-      style: "width: 100%; height: 550px; border: 0; padding: 0;overflow:hidden;",
+      style: "width: 100%; height: 550px; border: 0; padding: 0; overflow:hidden;",
       sandbox: "allow-modals allow-forms allow-popups allow-scripts allow-same-origin",
       data: {
         controller: "code-sandbox-embed",

@@ -12,9 +12,9 @@
       "text-link text-danger": organization_transaction.transaction_type == ENUMS::ORGANIZATION_TRANSACTION_TYPES::DEBIT,
       "text-link text-success": organization_transaction.transaction_type == ENUMS::ORGANIZATION_TRANSACTION_TYPES::CREDIT
      ) %>
-     <% if organization_transaction.gift? %>
+    <% if organization_transaction.gift? %>
       <span class="fas fa-gift"></span>
-     <% end %>
+    <% end %>
   <% end %>
   <%= table_data add_style: "width: 33.3%;" do %>
     <%= organization_transaction.reference %>

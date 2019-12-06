@@ -1,0 +1,58 @@
+<div class="page-sidebar">
+  <header class="sidebar-header d-sm-none">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active">
+          <a href="#" onclick="CodeFundTheme.toggleSidebar()"><i class="breadcrumb-icon fa fa-angle-left mr-2"></i>Back</a>
+        </li>
+      </ol>
+    </nav>
+  </header>
+
+  <div class="sidebar-section-fill">
+    <div class="card card-reflow">
+      <div class="d-flex justify-content-between border-top p-3">
+        <div class="row text-center">
+          <div class="col-6">
+            <div class="metric">
+              <h6 class="metric-value"><%= subject.name rescue "-" %></h6>
+              <p class="metric-label mt-1">Name</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="metric">
+              <h6 class="metric-value"><%= subject.total_credits.format rescue "-" %></h6>
+              <p class="metric-label mt-1">Credits</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="metric">
+              <h6 class="metric-value"><%= subject.total_debits.format rescue "-" %></h6>
+              <p class="metric-label mt-1">Clicks</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="metric">
+              <h6 class="metric-value"><%= subject.balance.format rescue "-" %></h6>
+              <p class="metric-label mt-1">Balance</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-between border-top px-3 pt-3 pb-0">
+        <h4 class="card-title"> Details </h4>
+        <%= link_to "Edit", edit_organization_path(subject) %>
+      </div>
+
+      <div class="card-body border-top">
+        <div class="d-flex justify-content-between mb-3">
+          <h4 class="card-title">Changelog</h4>
+        </div>
+        <ul class="timeline timeline-fluid">
+          <%= render "/versions/timeline", versionable: subject %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

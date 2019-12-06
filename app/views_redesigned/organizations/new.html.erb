@@ -1,9 +1,7 @@
-<% content_for :page_heading do %>
-  <%= page_heading "Adding", "Organization",
-    subtitle: "Fill out the form below",
-    icon: "fas fa-ad" %>
-<% end %>
-
-<%= render layout: "/organizations/layout", locals: {organization: @organization, override: [:page_heading, :actions]} do %>
+<%= render layout: "/shared/layout",
+    locals: {
+      subject: @organization,
+      title: "Create Organization",
+      subtitle: "Fill out the form below"} do %>
   <%= render "/organizations/form", organization: @organization %>
 <% end %>

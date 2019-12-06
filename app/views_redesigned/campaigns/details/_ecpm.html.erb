@@ -1,0 +1,15 @@
+<%= card do %>
+  <%= standalone_card_header text: "eCPM" %>
+  <%= card_body padding: "p-0" do %>
+    <% if @campaign.fixed_ecpm? %>
+      <%= details_li("eCPM Fixed") { @campaign.ecpm.format } %>
+    <% else %>
+      <ul class="list-group list-group-flush list-group-bordered">
+        <%= details_li("Base") { @campaign.ecpm.format } %>
+        <% @campaign.ecpms.each do |ecpm_data| %>
+          <%= details_li(ecpm_data[:country_name]) { ecpm_data[:ecpm].format } %>
+        <% end %>
+      </ul>
+    <% end %>
+  <% end %>
+<% end %>

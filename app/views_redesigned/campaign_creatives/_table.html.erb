@@ -32,6 +32,10 @@
         <% end %>
       <% end %>
     <% end %>
-    <%= render partial: "/campaign_creatives/tr", collection: @reports, as: :report %>
+    <% if @reports.exists? %>
+      <%= render partial: "/campaign_creatives/tr", collection: @reports, as: :report %>
+    <% else %>
+      <%= render "/shared/no_data_alert" %>
+    <% end %>
   <% end %>
 <% end %>

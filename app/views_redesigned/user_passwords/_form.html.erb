@@ -1,6 +1,6 @@
 <%= card do %>
-  <%= card_body do %>
-    <%= form_tag user_passwords_path, method: :put, class: "js-validate mx-auto" do %>
+  <%= form_tag user_passwords_path, method: :put, class: "js-validate" do %>
+    <%= card_body do %>
       <div class="js-form-message js-focus-state mb-3">
         <label class="form-label" for="user_password">
           Password
@@ -14,7 +14,7 @@
                data-success-class="u-has-success" />
         </div>
       </div>
-      <div class="js-form-message js-focus-state mb-5">
+      <div class="js-form-message js-focus-state">
         <label class="form-label" for="user_password">
           Confirm Password
           <span class="text-danger">*</span>
@@ -29,11 +29,13 @@
                data-success-class="u-has-success" />
         </div>
       </div>
-      <div class="row align-items-center">
-        <div class="col-8 col-sm-6">
-          <button type="submit" class="btn btn-primary">Change my password</button>
-        </div>
-      </div>
+    <% end %>
+    <%= card_footer do %>
+      <%= card_footer_content do %>
+        <%= button_panel margin: "my-0" do %>
+            <button type="submit" class="btn btn-primary">Change my password</button>
+        <% end %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

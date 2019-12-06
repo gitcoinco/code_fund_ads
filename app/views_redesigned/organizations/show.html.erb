@@ -1,7 +1,10 @@
-<%= render layout: "/organizations/layout", locals: {organization: @organization} do %>
-  <div class="row">
-    <div class="col-12">
-      <%= render "organizations/details_card" %>
-    </div>
-  </div>
+<%= render layout: "/shared/layout", locals: {
+  subject: @organization,
+  sidebar: true
+} do %>
+  <%= card do %>
+    <%= card_body do %>
+      <h3 class="w-full text-center">Coming Soon</h3>
+    <% end %>
+  <% end %>
 <% end %>

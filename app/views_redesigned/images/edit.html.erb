@@ -1,9 +1,11 @@
-<% content_for :page_heading do %>
-  <%= page_heading "Edit", "Image",
-    subtitle: "for #{@imageable.imageable_name}",
-    icon: "fas fa-images" %>
-<% end %>
-
-<%= render layout: "/images/layout", locals: {imageable: @imageable, override: [ :page_heading, :actions ]} do %>
+<%= render layout: "/shared/layout",
+    locals: {
+        subject: @imageable,
+        title: "Edit Image",
+        subtitle: "for #{@image.name || ''}",
+        buttons: [
+          delete_button(link: image_path(@imageable.to_gid_param, @image), title: "Delete image", confirmation_message: I18n.t("images.destroy.confirm"), layout: true)
+        ]
+      } do %>
   <%= render "/images/form_metadata", imageable: @imageable, image: @image %>
 <% end %>
