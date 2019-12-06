@@ -3,7 +3,6 @@ class PropertiesController < ApplicationController
   include Sortable
 
   before_action :authenticate_user!
-  before_action :set_property_search, only: [:index]
   before_action :set_property, only: [:show, :edit, :update, :destroy]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
   before_action :set_assignable_fallback_campaigns, only: [:edit]
@@ -17,7 +16,6 @@ class PropertiesController < ApplicationController
       properties = properties.where(user: current_user)
     end
 
-    properties = @property_search.apply(properties)
     max = (properties.count / Pagy::VARS[:items].to_f).ceil
     @pagy, @properties = pagy(properties, page: current_page(max: max))
 
@@ -85,12 +83,6 @@ class PropertiesController < ApplicationController
   end
 
   private
-
-  def set_property_search
-    clear_searches except: :property_search
-    @property_search = GlobalID.parse(session[:property_search]).find if session[:property_search].present?
-    @property_search ||= PropertySearch.new
-  end
 
   def set_property
     @property = if authorized_user.can_admin_system?

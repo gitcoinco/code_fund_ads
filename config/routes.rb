@@ -52,7 +52,6 @@ Rails.application.routes.draw do
   resource :advertiser_dashboards, only: [:show], path: "/dashboards/advertiser"
   resource :publisher_dashboards, only: [:show], path: "/dashboards/publisher"
   resources :job_posting_searches, only: [:create, :update, :destroy], path: "/jobs/searches"
-  resources :property_searches, only: [:create, :update, :destroy]
   resources :applicant_searches, only: [:create, :update, :destroy]
   resource :creative_options, only: [:show]
 
