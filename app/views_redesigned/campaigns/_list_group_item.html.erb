@@ -5,7 +5,7 @@
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex">
         <h4 class="list-group-item-title">
-          <%= link_to campaign.name, campaign, title: "View campaign", data: tooltip_expando %><br>
+          <%= link_to campaign.name, campaign, title: "View campaign", data: tooltip_expando %><br />
           <% if authorized_user.can_admin_system? %>
             <small><%= link_to campaign.organization.name, user_path(campaign.user) %></small>
           <% end %>

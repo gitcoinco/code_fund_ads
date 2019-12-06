@@ -1,0 +1,15 @@
+<%= card do %>
+  <%= card_body do %>
+    <div class="d-flex align-items-middle">
+      <div class="user-avatar user-avatar-lg mr-4 shadow-sm">
+        <%= user_avatar_image_tag(user, "img-fluid rounded-circle") rescue nil %>
+      </div>
+      <div class="custom-file mt-2">
+        <%= f.file_field :avatar, class: "custom-file-input" %>
+        <label class="custom-file-label" for="fileAttachmentBtn">
+          Upload New Avatar
+        </label>
+      </div>
+    </div>
+  <% end %>
+<% end %>
