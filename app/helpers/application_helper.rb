@@ -122,7 +122,7 @@ module ApplicationHelper
 
   def ga_tag
     return nil unless ENV["GA_TRACKING_ID"].present?
-    return render("/@shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"])  unless ENV["REDESIGN"] == "true"
+    return render("/@shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"]) unless ENV["REDESIGN"] == "true"
     render("/@shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"])
   end
 
@@ -134,7 +134,7 @@ module ApplicationHelper
 
   def ga_tag_manager_footer
     return nil unless ENV["GA_TAG_MANAGER_ID"].present?
-    return render("/@shared/scripts/google_tag_manager_footer", id: ENV["GA_TAG_MANAGER_ID"])  unless ENV["REDESIGN"] == "true"
+    return render("/@shared/scripts/google_tag_manager_footer", id: ENV["GA_TAG_MANAGER_ID"]) unless ENV["REDESIGN"] == "true"
     render("/shared/scripts/google_tag_manager_footer", id: ENV["GA_TAG_MANAGER_ID"])
   end
 
