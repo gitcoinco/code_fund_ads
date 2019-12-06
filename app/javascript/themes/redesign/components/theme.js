@@ -545,7 +545,6 @@ class Theme {
    * Invert gray colors due to active skin
    */
   invertGrays () {
-    const self = this
     const gray = this.getColors('gray')
     // get gray colors in array that reserve it
     const reverseGray = this.objToArray(gray).reverse()
