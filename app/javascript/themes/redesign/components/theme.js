@@ -208,10 +208,7 @@ class Theme {
             backgroundPosition: 'center center'
           })
 
-          if (
-            $container.hasClass('user-avatar') ||
-            $container.hasClass('user-avatar')
-          ) {
+          if ($container.hasClass('user-avatar')) {
             $container.css('background-position', 'top center')
           }
 
