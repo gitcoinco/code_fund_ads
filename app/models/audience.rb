@@ -83,19 +83,19 @@ class Audience < ApplicationRecord
       max[:audience]
     end
 
-    def inventory_summary(start_date = nil, end_date = nil)
-      rows = all.map { |audience| audience.inventory_summary(start_date, end_date) }
-      {
-        impressions_count: rows.sum { |row| row[:impressions_count] },
-        fallbacks_count: rows.sum { |row| row[:fallbacks_count] },
-        sold_count: rows.sum { |row| row[:sold_count] },
-        gross_revenue: rows.sum { |row| row[:gross_revenue] }.format,
-        sold_value: rows.sum { |row| row[:sold_value] }.format,
-        total_value: rows.sum { |row| row[:total_value] }.format,
-        unrealized_sold_value: rows.sum { |row| row[:unrealized_sold_value] }.format,
-        unrealized_total_value: rows.sum { |row| row[:unrealized_total_value] }.format,
-      }
-    end
+    # def inventory_summary(start_date = nil, end_date = nil)
+    #   rows = all.map { |audience| audience.inventory_summary(start_date, end_date) }
+    #   {
+    #     impressions_count: rows.sum { |row| row[:impressions_count] },
+    #     fallbacks_count: rows.sum { |row| row[:fallbacks_count] },
+    #     sold_count: rows.sum { |row| row[:sold_count] },
+    #     gross_revenue: rows.sum { |row| row[:gross_revenue] }.format,
+    #     sold_value: rows.sum { |row| row[:sold_value] }.format,
+    #     total_value: rows.sum { |row| row[:total_value] }.format,
+    #     unrealized_sold_value: rows.sum { |row| row[:unrealized_sold_value] }.format,
+    #     unrealized_total_value: rows.sum { |row| row[:unrealized_total_value] }.format,
+    #   }
+    # end
   end
 
   # public instance methods ...................................................
@@ -117,14 +117,13 @@ class Audience < ApplicationRecord
     ecpm_for_country Country.find(country_code)
   end
 
+  def single_impression_price_for_region(region)
+    ecpm_for_region(region).to_f / 1000
+  end
+
   def daily_summaries(start_date = nil, end_date = nil, region: nil)
     summaries = DailySummary.between(start_date, end_date).where(impressionable_type: "Property", impressionable_id: properties.active.select(:id))
-    summaries = case region
-    when nil then summaries.scoped_by(nil)
-    when Region.other then summaries.scoped_by(region.country_codes, "country_code").or(summaries.where(scoped_by_type: "country_code", scoped_by_id: nil))
-    else summaries.scoped_by(region.country_codes, "country_code")
-    end
-    summaries
+    region ? summaries.scoped_by(region.country_codes, "country_code") : summaries.scoped_by(nil)
   end
 
   def dailies(start_date = nil, end_date = nil, region: nil)
@@ -138,73 +137,110 @@ class Audience < ApplicationRecord
       .order(:displayed_at_date)
   end
 
-  def impressions_count(start_date = nil, end_date = nil, region: nil)
-    daily_summaries(start_date, end_date, region: region).sum(:impressions_count)
+  def adjusted_total_budget(start_date = nil, end_date = nil, region:, total_budget:)
+    max_budget = available_impressions_price(start_date, end_date, region: region)
+    return max_budget if max_budget < total_budget
+    total_budget
   end
 
-  def fallbacks_count(start_date = nil, end_date = nil, region: nil)
-    daily_summaries(start_date, end_date, region: region).sum(:fallbacks_count)
+  def purchasable_impressions(start_date = nil, end_date = nil, region:, total_budget:)
+    budget = adjusted_total_budget(start_date, end_date, region: region, total_budget: total_budget)
+    (budget.to_f / single_impression_price_for_region(region)).round
   end
 
-  def clicks_count(start_date = nil, end_date = nil, region: nil)
-    daily_summaries(start_date, end_date, region: region).sum(:clicks_count)
+  def available_impressions_price(start_date = nil, end_date = nil, region:)
+    fractional_dollars = single_impression_price_for_region(region) * available_impressions(start_date, end_date, region: region)
+    cents = fractional_dollars * 100
+    Money.new cents, "USD"
   end
 
-  def gross_revenue_cents(start_date = nil, end_date = nil, region: nil)
-    daily_summaries(start_date, end_date, region: region).sum(:gross_revenue_cents)
+  def available_impressions(start_date = nil, end_date = nil, region: nil)
+    available_daily_impressions(start_date, end_date, region: region).values.sum
   end
 
-  def click_rate(start_date = nil, end_date = nil, region: nil)
-    icount = impressions_count(start_date, end_date, region: region)
-    ccount = clicks_count(start_date, end_date, region: region)
-    icount.zero? ? 0 : (ccount / icount.to_f) * 100
-  end
-
-  def inventory(start_date = nil, end_date = nil)
-    Region.all.each_with_object([]) do |region, memo|
-      gross_revenue_cents = gross_revenue_cents(start_date, end_date, region: region)
-      gross_revenue = Money.new(gross_revenue_cents, "USD")
-      count = impressions_count(start_date, end_date, region: region)
-      fallback_count = fallbacks_count(start_date, end_date, region: region)
-      sold_count = count - fallback_count
-      ecpm = ecpm_for_region(region)
-      total_value = (count / 1000.to_f) * ecpm_for_region(region)
-      sold_value = (sold_count / 1000.to_f) * ecpm_for_region(region)
-      memo << {
-        audience_name: name,
-        region_name: region.name,
-        impressions_count: count,
-        fallbacks_count: fallback_count,
-        sold_count: sold_count,
-        gross_revenue: gross_revenue,
-        ecpm: ecpm,
-        sold_value: sold_value,
-        total_value: total_value,
-        unrealized_sold_value: (sold_value - gross_revenue),
-        unrealized_total_value: (total_value - gross_revenue),
-      }
+  def available_daily_impressions(start_date = nil, end_date = nil, region: nil)
+    impressions = average_daily_impressions(region: region)
+    (Date.coerce(start_date)..Date.coerce(end_date)).each_with_object({}) do |date, memo|
+      memo[date] = impressions[date.day]
     end
   end
 
-  def inventory_summary(start_date = nil, end_date = nil)
-    rows = inventory(start_date, end_date)
-    impressions_count = rows.sum { |row| row[:impressions_count] }
-    fallbacks_count = rows.sum { |row| row[:fallbacks_count] }
-    sold_value = rows.sum { |row| row[:sold_value] }
-    total_value = rows.sum { |row| row[:total_value] }
-    gross_revenue = rows.sum { |row| row[:gross_revenue] }
-    {
-      audience_name: name,
-      impressions_count: impressions_count,
-      fallbacks_count: fallbacks_count,
-      sold_count: impressions_count - fallbacks_count,
-      gross_revenue: gross_revenue,
-      sold_value: sold_value,
-      total_value: total_value,
-      unrealized_sold_value: (sold_value - gross_revenue),
-      unrealized_total_value: (total_value - gross_revenue),
-    }
+  def average_daily_impressions(region: nil)
+    list = dailies(3.months.ago.beginning_of_month, 1.month.ago.end_of_month, region: region).to_a
+    (1..31).each_with_object({}) do |day, memo|
+      rows = list.select { |daily| daily.displayed_at_date.day == day }
+      average_impressions_count = (rows.map(&:impressions_count).sum / rows.size.to_f).round
+      memo[day] = average_impressions_count
+    end
   end
+
+  # def impressions_count(start_date = nil, end_date = nil, region: nil)
+  #   daily_summaries(start_date, end_date, region: region).sum(:impressions_count)
+  # end
+
+  # def fallbacks_count(start_date = nil, end_date = nil, region: nil)
+  #   daily_summaries(start_date, end_date, region: region).sum(:fallbacks_count)
+  # end
+
+  # def clicks_count(start_date = nil, end_date = nil, region: nil)
+  #   daily_summaries(start_date, end_date, region: region).sum(:clicks_count)
+  # end
+
+  # def gross_revenue_cents(start_date = nil, end_date = nil, region: nil)
+  #   daily_summaries(start_date, end_date, region: region).sum(:gross_revenue_cents)
+  # end
+
+  # def click_rate(start_date = nil, end_date = nil, region: nil)
+  #   icount = impressions_count(start_date, end_date, region: region)
+  #   ccount = clicks_count(start_date, end_date, region: region)
+  #   icount.zero? ? 0 : (ccount / icount.to_f) * 100
+  # end
+
+  # def inventory(start_date = nil, end_date = nil)
+  #   Region.all.each_with_object([]) do |region, memo|
+  #     gross_revenue_cents = gross_revenue_cents(start_date, end_date, region: region)
+  #     gross_revenue = Money.new(gross_revenue_cents, "USD")
+  #     count = impressions_count(start_date, end_date, region: region)
+  #     fallback_count = fallbacks_count(start_date, end_date, region: region)
+  #     sold_count = count - fallback_count
+  #     ecpm = ecpm_for_region(region)
+  #     total_value = (count / 1000.to_f) * ecpm_for_region(region)
+  #     sold_value = (sold_count / 1000.to_f) * ecpm_for_region(region)
+  #     memo << {
+  #       audience_name: name,
+  #       region_name: region.name,
+  #       impressions_count: count,
+  #       fallbacks_count: fallback_count,
+  #       sold_count: sold_count,
+  #       gross_revenue: gross_revenue,
+  #       ecpm: ecpm,
+  #       sold_value: sold_value,
+  #       total_value: total_value,
+  #       unrealized_sold_value: (sold_value - gross_revenue),
+  #       unrealized_total_value: (total_value - gross_revenue),
+  #     }
+  #   end
+  # end
+
+  # def inventory_summary(start_date = nil, end_date = nil)
+  #   rows = inventory(start_date, end_date)
+  #   impressions_count = rows.sum { |row| row[:impressions_count] }
+  #   fallbacks_count = rows.sum { |row| row[:fallbacks_count] }
+  #   sold_value = rows.sum { |row| row[:sold_value] }
+  #   total_value = rows.sum { |row| row[:total_value] }
+  #   gross_revenue = rows.sum { |row| row[:gross_revenue] }
+  #   {
+  #     audience_name: name,
+  #     impressions_count: impressions_count,
+  #     fallbacks_count: fallbacks_count,
+  #     sold_count: impressions_count - fallbacks_count,
+  #     gross_revenue: gross_revenue,
+  #     sold_value: sold_value,
+  #     total_value: total_value,
+  #     unrealized_sold_value: (sold_value - gross_revenue),
+  #     unrealized_total_value: (total_value - gross_revenue),
+  #   }
+  # end
 
   # protected instance methods ................................................
 

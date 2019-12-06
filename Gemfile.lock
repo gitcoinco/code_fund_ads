@@ -91,6 +91,7 @@ GEM
       airbrake-ruby (~> 4.8)
     airbrake-ruby (4.8.0)
       rbtree3 (~> 0.5)
+    american_date (1.1.1)
     annotate (3.0.3)
       activerecord (>= 3.2, < 7.0)
       rake (>= 10.4, < 14.0)
@@ -612,6 +613,7 @@ DEPENDENCIES
   active_storage_svg_sanitizer (~> 0.1.0)
   acts_as_commentable_with_threading (~> 2.0.1)
   airbrake (~> 9.3)
+  american_date (~> 1.1.1)
   annotate
   awesome_print
   aws-sdk-s3 (~> 1.48.0)

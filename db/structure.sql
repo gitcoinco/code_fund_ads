@@ -914,7 +914,7 @@ ALTER SEQUENCE public.publisher_invoices_id_seq OWNED BY public.publisher_invoic
 
 CREATE VIEW public.regions AS
  SELECT 1 AS id,
-    'United States and Candada'::text AS name,
+    'United States and Canada'::text AS name,
     'USD'::text AS blockchain_ecpm_currency,
     1000 AS blockchain_ecpm_cents,
     'USD'::text AS css_and_design_ecpm_currency,
@@ -2562,6 +2562,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191010214024'),
 ('20191014171135'),
 ('20191014205953'),
-('20191105141709');
+('20191105141709'),
+('20191205212413');
 
 
