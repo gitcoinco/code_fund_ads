@@ -1,30 +1,30 @@
-<div class="table-responsive">
-  <table class="js-datatable table table-striped table-compact table-borderless u-datatable u-datatable__striped u-datatable__trigger">
-    <thead>
-      <tr class="border-bottom">
-        <th>Name</th>
-        <% unless @property.restrict_to_sponsor_campaigns? %>
-          <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Impressions</th>
-        <% end %>
-        <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">total</span>Clicks</th>
-        <% unless @property.restrict_to_sponsor_campaigns? %>
-          <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">average</span>CTR</th>
-          <th class="text-center" style="width: 15%;"><span class="d-block small text-muted">estimated</span>Earnings</th>
-        <% end %>
-      </tr>
-    </thead>
-    <tbody>
-      <% @campaigns.each do |campaign| %>
-        <%= render_later async_property_campaign_row_path(property_id: @property.id, campaign_id: campaign.id), tag_name: "tr" do %>
-          <td colspan="5">
-            <i class="fa fa-spinner fa-spin text-primary"></i>
-          </td>
+<%= table compact: true do %>
+  <%= table_head do %>
+    <%= table_row header: true do %>
+      <%= table_column { "Name" } %>
+      <%= table_column add_class: "text-right" do %>Impressions<% end %>
+      <%= table_column add_class: "text-right" do %>Clicks<% end %>
+      <%= table_column add_class: "text-right" do %>CTR<% end %>
+      <%= table_column add_class: "text-right" do %>Earnings<% end %>
+    <% end %>
+  <% end %>
+  <%= table_body do %>
+    <% if @report.exists? %>
+      <% @report.each do |item| %>
+        <%= table_row do %>
+          <%= table_data do %><%= link_to report.scoped_by.name, report.scoped_by %><% end %>
+          <%= table_data add_class: "text-right" do %>
+            <%= item.scoped_by.name %>
+            <sup><%= link_to tag.i("", class: "fas fa-external-link"), item.scoped_by.url, target: "_blank", class: "color: blue" %></sup>
+          <% end %>
+          <%= table_data add_class: "text-right" do %><%= number_with_delimiter item.impressions_count %><% end %>
+          <%= table_data add_class: "text-right" do %><%= number_with_delimiter item.clicks_count %><% end %>
+          <%= table_data add_class: "text-right" do %><%= number_to_percentage item.click_rate, precision: 3 %><% end %>
+          <%= table_data add_class: "text-right" do %><%= Money.new(item.property_revenue_cents / 100).format %><% end %>
         <% end %>
       <% end %>
-    </tbody>
-  </table>
-  <div class="d-flex justify-content-between align-items-center">
-    <span><%== pagy_bootstrap_nav(@pagy) if @pagy.pages > 1 %></span>
-    <%= pagy_entries(@pagy) %>
-  </div>
-</div>
+    <% else %>
+      <%= render "/shared/no_data_alert" %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -28,8 +28,8 @@ module CodeFundAds
     end
 
     config.to_prepare do
-      if Rails.env.development? && ENV["REDESIGN"] == "true"
-        ApplicationController.layout "application_redesign"
+      if Rails.env.development? && ENV["REDESIGN"] == "false"
+        ApplicationController.layout "application_old"
       end
     end
   end

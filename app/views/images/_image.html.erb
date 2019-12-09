@@ -1,18 +1,22 @@
-<div class="cbp-caption-defaultWrap">
-  <% if image.blob.svg? %>
-    <%= image_tag image, disposition: "inline", style: "width:260px" %>
-  <% else %>
-    <%= image_tag image.variant(geometry: "260x200"), style: "width:260px" %>
-  <% end %>
-</div>
-<div class="cbp-caption-activeWrap bg-dark">
-  <div class="cbp-l-caption-alignCenter">
-    <div class="cbp-l-caption-body">
-      <%= tag.h4(image.metadata['name'], class: "h5 text-white mb-0") if image.metadata['name'].present? %>
-      <h4 class="h6 text-white mb-0"><%= image.blob.filename.to_s %></h4>
-      <p class="small text-white-70 mb-0">
-        <%= "#{image.metadata['width']}×#{image.metadata['height']}" %>
-      </p>
+<%= card do %>
+  <%= card_body do %>
+    <div class="d-flex justify-content-center align-items-center" style="min-height:200px">
+      <%= image_tag image, class: "img-thumbnail mw-100" %>
     </div>
-  </div>
-</div>
+  <% end %>
+  <%= card_footer do %>
+    <%= card_footer_content do %>
+      <ul class="list-inline d-flex text-muted align-items-center mb-0">
+        <li class="list-inline-item text-truncate mr-auto">
+          <%= image.blob.filename.to_s %>
+        </li>
+        <li class="list-inline-item">
+          <%= render "/shared/actions/edit_image", imageable: imageable, image: image %>
+        </li>
+        <li class="list-inline-item">
+          <%= render "/shared/actions/delete_image", imageable: imageable, image: image %>
+        </li>
+      </ul>
+    <% end %>
+  <% end %>
+<% end %>

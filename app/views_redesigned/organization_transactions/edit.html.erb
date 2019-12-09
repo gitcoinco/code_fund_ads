@@ -1,9 +1,0 @@
-<%= render layout: "/shared/layout", locals: {
-  subject: @organization,
-  sidebar: false
-} do %>
-  <%= render "/organization_transactions/form",
-        organization: @organization,
-        organization_transaction: @organization_transaction,
-        url: organization_transaction_path(@organization, @organization_transaction) %>
-<% end %>

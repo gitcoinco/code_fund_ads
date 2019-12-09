@@ -1,23 +1,13 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/users" %>
-  <%= render "/@shared/breadcrumbs/user", user: @user %>
-  <%= render "/@shared/breadcrumbs/edit_password", class: "active" %>
-<% end %>
-
-<% content_for :actions do %>
-  <%= render "/@shared/actions/show_user", user: @user %>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Update", "Password",
-    subtitle: "Enter a new password below",
-    icon: "fas fa-lock" %>
-<% end %>
-
-<main id="content" role="main">
-  <div class="bg-light">
-    <div class="container space-2">
+<%= render layout: "/shared/layout", locals: {
+  subject: @user,
+  title: "Edit Password",
+  subtitle: "Fill out the form below to change your password",
+  sidebar: false,
+  tabs: false
+} do %>
+  <div class="row border-top pt-4">
+    <div class="col-12 col-md-6 offset-md-3">
       <%= render "/user_passwords/form" %>
     </div>
   </div>
-</main>
+<% end %>

@@ -21,7 +21,7 @@ module ApplicationHelper
   end
 
   def page_heading(action, subject, title: nil, subtitle: nil, icon: nil, datepicker: false)
-    return render("/@shared/page_heading", action: action, subject: subject, title: title, subtitle: subtitle, icon: icon, datepicker: datepicker) unless ENV["REDESIGN"] == "true"
+    return render("/shared/page_heading", action: action, subject: subject, title: title, subtitle: subtitle, icon: icon, datepicker: datepicker) if ENV["REDESIGN"] == "false"
 
     render partial: "/shared/page_heading", locals: {action: action, subject: subject, title: title, subtitle: subtitle, icon: icon, datepicker: datepicker}
   end
@@ -32,7 +32,7 @@ module ApplicationHelper
 
   def pseudo_row_divider
     ActiveSupport::Deprecation.warn("pseudo_row_divider will be removed after the redesign is complete.")
-    @pseudo_row_divider ||= render("/@shared/forms/pseudo_row_divider")
+    @pseudo_row_divider ||= render("/shared/forms/pseudo_row_divider")
   end
 
   def classes(options = {})
@@ -123,25 +123,25 @@ module ApplicationHelper
 
   def ga_tag
     return nil unless ENV["GA_TRACKING_ID"].present?
-    return render("/@shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"]) unless ENV["REDESIGN"] == "true"
-    render("/@shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"])
+    return render("/shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"]) if ENV["REDESIGN"] == "false"
+    render("/shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"])
   end
 
   def ga_tag_manager_header
     return nil unless ENV["GA_TAG_MANAGER_ID"].present?
-    return render("/@shared/scripts/google_tag_manager_header", id: ENV["GA_TAG_MANAGER_ID"]) unless ENV["REDESIGN"] == "true"
+    return render("/shared/scripts/google_tag_manager_header", id: ENV["GA_TAG_MANAGER_ID"]) if ENV["REDESIGN"] == "false"
     render("/shared/scripts/google_tag_manager_header", id: ENV["GA_TAG_MANAGER_ID"])
   end
 
   def ga_tag_manager_footer
     return nil unless ENV["GA_TAG_MANAGER_ID"].present?
-    return render("/@shared/scripts/google_tag_manager_footer", id: ENV["GA_TAG_MANAGER_ID"]) unless ENV["REDESIGN"] == "true"
+    return render("/shared/scripts/google_tag_manager_footer", id: ENV["GA_TAG_MANAGER_ID"]) if ENV["REDESIGN"] == "false"
     render("/shared/scripts/google_tag_manager_footer", id: ENV["GA_TAG_MANAGER_ID"])
   end
 
   def headway_tag
     return nil unless ENV["HEADWAY_ID"].present?
-    return render("/@shared/scripts/headway", id: ENV["HEADWAY_ID"]) unless ENV["REDESIGN"] == "true"
+    return render("/shared/scripts/headway", id: ENV["HEADWAY_ID"]) if ENV["REDESIGN"] == "false"
     render("/shared/scripts/headway", id: ENV["HEADWAY_ID"])
   end
 
@@ -160,19 +160,19 @@ module ApplicationHelper
         created_at: current_user.created_at.to_i,
       })
     end
-    render("/@shared/scripts/intercom", intercom_settings: intercom_settings)
+    render("/shared/scripts/intercom", intercom_settings: intercom_settings)
   end
 
   def codefund_analytics_tag
     ActiveSupport::Deprecation.warn("codefund_analytics_tag will be removed after the redesign is complete.")
     return nil unless ENV["CODEFUND_ANALYTICS_KEY"].present?
-    render("/@shared/scripts/codefund_analytics", id: ENV["CODEFUND_ANALYTICS_KEY"])
+    render("/shared/scripts/codefund_analytics", id: ENV["CODEFUND_ANALYTICS_KEY"])
   end
 
   def support_widget_tag
     ActiveSupport::Deprecation.warn("support_widget_tag will be removed after the redesign is complete.")
     return nil unless ENV["GROOVE_WIDGET_ID"].present?
-    render("/@shared/scripts/groove", id: ENV["GROOVE_WIDGET_ID"])
+    render("/shared/scripts/groove", id: ENV["GROOVE_WIDGET_ID"])
   end
 
   def badge_for_role(role, wrap_class: "")
@@ -219,7 +219,7 @@ module ApplicationHelper
   end
 
   def details_li(label, &block)
-    return render partial: "/@shared/details_li", locals: {label: label, block: block} unless ENV["REDESIGN"] == "true"
+    return render partial: "/shared/details_li", locals: {label: label, block: block} if ENV["REDESIGN"] == "false"
 
     render partial: "/shared/details_li", locals: {label: label, block: block}
   end
@@ -234,7 +234,7 @@ module ApplicationHelper
       selected = "down" if direction == "asc"
     end
 
-    return render "/@shared/sortable_tr", title: title, selected: selected, column: column unless ENV["REDESIGN"] == "true"
+    return render "/shared/sortable_tr", title: title, selected: selected, column: column if ENV["REDESIGN"] == "false"
 
     render "/shared/sortable_tr", title: title, selected: selected, column: column
   end
@@ -260,12 +260,12 @@ module ApplicationHelper
 
   def date_range_picker
     ActiveSupport::Deprecation.warn("date_range_picker will be removed after the redesign is complete.")
-    render "/@shared/date_range_picker"
+    render "/shared/date_range_picker"
   end
 
   def sparkline(values, width: 100, height: 30, stroke_width: 3, color: "green", filled: true)
     svg_class = "sparkline sparkline--#{color}#{" sparkline--filled" if filled}"
-    render "/@shared/widgets/sparkline_graph", values: values, width: width, height: height, stroke_width: stroke_width, svg_class: svg_class
+    render "/shared/widgets/sparkline_graph", values: values, width: width, height: height, stroke_width: stroke_width, svg_class: svg_class
   end
 
   def calc_percentage(numerator, denominator)

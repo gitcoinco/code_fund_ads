@@ -1,20 +1,12 @@
-<div class="table-responsive">
-  <table class="table table-borderless u-datatable u-datatable__striped">
-    <thead>
-      <tr class="border-bottom">
-        <th scope="col">Name</th>
-        <th scope="col">Advertiser</th>
-        <th scope="col">Headline</th>
-        <th scope="col">Campaigns</th>
-        <th scope="col"></th>
-      </tr>
-    </thead>
-    <tbody>
-      <%= render partial: "/creatives/tr", collection: creatives, as: :creative %>
-    </tbody>
-  </table>
-  <div class="d-flex justify-content-between align-items-center">
-    <span><%== pagy_bootstrap_nav(pagy) if pagy.pages > 1 %></span>
-    <%= pagy_entries(pagy) %>
-  </div>
-</div>
+<%= table do %>
+  <%= table_head do %>
+    <%= table_row header: true do %>
+      <%= table_column add_scope: "col" do %>Name<% end %>
+      <%= table_column add_scope: "col" do %>Copy<% end %>
+      <%= table_column add_scope: "col" do %>&nbsp;<% end %>
+    <% end %>
+  <% end %>
+  <%= table_body do %>
+    <%= render partial: "/creatives/tr", collection: creatives, as: :creative %>
+  <% end %>
+<% end %>

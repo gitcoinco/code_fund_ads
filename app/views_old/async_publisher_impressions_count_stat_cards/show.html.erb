@@ -1,0 +1,3 @@
+<%= render "/shared/widgets/stat_card",
+  label: "Impressions",
+  value: number_with_delimiter(current_user.impressions_count_as_publisher(@start_date, @end_date)) %>

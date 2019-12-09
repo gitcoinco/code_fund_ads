@@ -48,14 +48,14 @@ jobs:
             bundle check || bundle install --jobs=6 --retry=3 --path vendor/bundle
       - run:
           name: install yarn dependencies
-          command: yarn check || yarn install --ignore-engines --frozen-lockfile
+          command: yarn install --ignore-engines --frozen-lockfile
       - run:
-          name: Conditionally Precompile Assets
+          name: precompile assets
           command: |
               if [[ ! -d public/packs-test ]]; then
                   bundle exec rails webpacker:compile
               else
-                  echo "No need to compile assets."
+                  echo "Asset cache found and applied."
               fi
       - save_cache:
           name: save gem cache
@@ -67,29 +67,32 @@ jobs:
           paths:
             - ~/.cache/yarn
           key: yarn-cache-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
-      - save_cache:
-          name: save assets cache
-          key: assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-            - public/packs-test
       - run:
-          name: Set up DB
+          name: set up DB
           command: bundle exec rails db:drop db:create db:structure:load --trace
       - run:
           name: run zeitwerk:check
           command: bundle exec rails zeitwerk:check
       - run:
           name: run tests
-          command: bundle exec rails test
-      - run:
-          name: run system tests
-          command: bundle exec rails test:system
+          command: |
+            bundle exec rails test
+            set +e
+            bundle exec rails test:system
+      - store_artifacts:
+          path: tmp/screenshots
+          destination: screenshots
+      - save_cache:
+          name: save assets cache
+          key: assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - public/packs-test
       - run:
           name: run standardrb check
           command: bundle exec standardrb --format progress
       - run:
           name: run ERB lint check
-          command: bundle exec erblint app/views_redesigned/**/*.html.erb
+          command: bundle exec erblint app/views/**/*.html.erb
       - run:
           name: run prettier-standard check
           command: yarn run --ignore-engines prettier-standard --check 'app/**/*.js'

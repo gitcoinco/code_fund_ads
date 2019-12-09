@@ -1,7 +1,15 @@
-<%= render layout: "/campaigns/show_layout", locals: { campaign: @commentable } do %>
-  <h3 class="h5 mb-3">
-    Comments
-    <small class="text-muted d-block">Comments and notes for this campaign</small>
-  </h3>
-  <%= render "/comments/table", commentable: @commentable, comments: @comments %>
+<%= render layout: "/campaigns/layout", locals: {campaign: @commentable} do %>
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Comments
+      <% end %>
+      <%= card_subtitle do %>
+        Comments and notes for this campaign
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <%= render "/comments/table", commentable: @commentable, comments: @comments %>
+    <% end %>
+  <% end %>
 <% end %>

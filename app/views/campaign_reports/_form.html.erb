@@ -8,8 +8,6 @@
 } do |f| %>
   <div class="input-group">
     <%= f.email_field :email, value: campaign.user.email, placeholder: "Enter an email address...", class: "form-control", style: "min-width:300px;" %>
-    <div class="input-group-append">
-      <%= f.submit "Email Reports", class: "btn btn-outline-secondary" %>
-    </div>
+    <%= f.submit "Email Reports", class: "btn btn-primary" %>
   </div>
 <% end %>
