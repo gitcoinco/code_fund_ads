@@ -24,6 +24,15 @@ class PropertiesController < ApplicationController
 
   def new
     @property = current_user.properties.build(status: "pending", ad_template: "default", ad_theme: "light")
+
+    if params[:clone].present?
+      cloned_property = current_user.properties.find(params[:clone])
+      if cloned_property.present?
+        @property.attributes = cloned_property.attributes
+        @property.status = "pending"
+      end
+    end
+
     set_assignable_fallback_campaigns
   end
 

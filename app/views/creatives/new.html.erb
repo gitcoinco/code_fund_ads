@@ -1,7 +1,9 @@
 <%= render layout: "/shared/layout",
     locals: {
       subject: @creative,
-        title: "Adding Creative",
-        subtitle: "Fill out the form below"} do %>
+      title: "Adding Creative",
+      subtitle: "Fill out the form below",
+      tabs: false
+    } do %>
   <%= render "/creatives/form", creative: @creative %>
 <% end %>

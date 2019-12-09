@@ -202,20 +202,16 @@
               </div>
             </div>
           <% end %>
-          <div class="col-12 mb-3">
-            <label>Creatives - Select up to 3 to run at the same time</label>
-            <%= render partial: "/creative_options/options",
-            locals: {
-              selected_creative_ids: campaign.creative_ids,
-              creatives: campaign.user.creatives.active.standard.order(name: :asc)
-            } %>
-          </div>
         </div>
       <% end %>
-
-      <fieldset data-target="campaign-form.creativesWrapper">
-
-      </fieldset>
+      <div class="col-12 mb-3">
+        <label>Creatives - Select up to 3 to run at the same time</label>
+        <%= render partial: "/creative_options/options",
+        locals: {
+          selected_creative_ids: campaign.creative_ids,
+          creatives: campaign.user.creatives.active.standard.order(name: :asc)
+        } %>
+      </div>
     <% end %>
      <%= card_footer do %>
       <%= card_footer_content do %>
