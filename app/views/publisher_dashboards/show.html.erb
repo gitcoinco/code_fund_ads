@@ -21,10 +21,13 @@
       </div>
 
     <div class="mb-3">
-      <div class="card-deck d-block d-md-flex card-sm-columns card-sm-2-count card-md-3-count">
-        <%= render partial: "/properties/overview_card",
-          collection: @properties,
-          locals: {start_date: @start_date, end_date: @end_date}, as: :property %>
+      <div class="card-deck d-block d-lg-flex card-lg-gutters-2">
+        <% @properties.each.with_index do |property, index| %>
+          <%= render "/properties/overview_card", property: property, start_date: @start_date, end_date: @end_date %>
+          <% if (index + 1) % 3 == 0 %>
+            </div><div class="card-deck d-block d-lg-flex card-lg-gutters-2">
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
