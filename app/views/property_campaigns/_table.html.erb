@@ -12,7 +12,7 @@
     <% if @report.exists? %>
       <% @report.each do |item| %>
         <%= table_row do %>
-          <%= table_data do %><%= link_to report.scoped_by.name, report.scoped_by %><% end %>
+          <%= table_data do %><%= link_to item.scoped_by.name, item.scoped_by %><% end %>
           <%= table_data add_class: "text-right" do %>
             <%= item.scoped_by.name %>
             <sup><%= link_to tag.i("", class: "fas fa-external-link"), item.scoped_by.url, target: "_blank", class: "color: blue" %></sup>

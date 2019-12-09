@@ -22,7 +22,7 @@
 
     <div class="mb-3">
       <div class="card-deck d-block d-md-flex card-sm-columns card-sm-2-count card-md-3-count">
-        <%= render partial: "/properties/card",
+        <%= render partial: "/properties/overview_card",
           collection: @properties,
           locals: {start_date: @start_date, end_date: @end_date}, as: :property %>
       </div>
