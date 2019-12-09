@@ -1,6 +1,5 @@
 version: 2.1
 jobs:
-  parallelism: 2
   build:
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
@@ -85,16 +84,12 @@ jobs:
           command: bundle exec rails zeitwerk:check
       - run:
           name: run tests
-          command: |
-              if [[ "${CIRCLE_NODE_INDEX}" == 0 ]]; then
-                bundle exec rails test
-              fi
+          command: bundle exec rails test
       - run:
           name: run system tests
           command: |
-              if [[ "${CIRCLE_NODE_INDEX}" == 1 ]]; then
-                bundle exec rails test:system
-              fi
+            set +e
+            bundle exec rails test:system
       - store_artifacts:
           path: tmp/screenshots
           destination: screenshots
