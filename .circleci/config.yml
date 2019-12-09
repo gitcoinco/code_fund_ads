@@ -4,10 +4,6 @@ jobs:
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
-          AWS_S3_ACCESS_KEY_ID: AKIAIOSFODNN7EXAMPLE
-          AWS_S3_BUCKET: example_s3_bucket
-          AWS_S3_REGION: us-west-2
-          AWS_S3_SECRET_ACCESS_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYzEXAMPLEKEY
           PG_HOST: localhost
           PG_USERNAME: ubuntu
           RAILS_ENV: test
@@ -84,10 +80,8 @@ jobs:
           command: bundle exec rails zeitwerk:check
       - run:
           name: run tests
-          command: bundle exec rails test
-      - run:
-          name: run system tests
           command: |
+            bundle exec rails test
             set +e
             bundle exec rails test:system
       - store_artifacts:
