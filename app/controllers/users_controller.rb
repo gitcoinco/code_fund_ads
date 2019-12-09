@@ -12,7 +12,9 @@ class UsersController < ApplicationController
   def index
     users = scope_list(User).includes(:avatar_attachment, :organization).include_image_count.order(order_by)
     users = users.where(organization: @organization) if @organization
-    @pagy, @users = pagy(users)
+
+    max = (users.size / Pagy::VARS[:items].to_f).ceil
+    @pagy, @users = pagy(users, page: current_page(max: max))
 
     render "/users/for_organization/index" if @organization
   end
@@ -110,6 +112,7 @@ class UsersController < ApplicationController
     %w[
       company_name
       created_at
+      updated_at
       email
       first_name
       last_sign_in_at
