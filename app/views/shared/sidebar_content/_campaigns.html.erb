@@ -8,7 +8,7 @@
   </a>
   <ul class="menu">
     <li class="menu-subhead">Campaigns</li>
-    <%= active_link_to "Create Campaign", new_campaign_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Create Campaign", new_campaign_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_admin_system? %>
     <%= active_link_to "Overview", campaigns_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
     <%= tag.li class: classes(
       "menu-item has-child": true,
@@ -35,6 +35,7 @@
               <%= active_link_to "Creatives", campaign_creatives_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
               <%= active_link_to "Countries", campaign_countries_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
               <%= active_link_to "Properties", campaign_properties_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Settings", edit_campaign_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
             </ul>
           <% end %>
         <% end %>

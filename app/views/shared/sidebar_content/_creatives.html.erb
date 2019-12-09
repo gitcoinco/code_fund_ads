@@ -8,22 +8,7 @@
   </a>
   <ul class="menu">
     <li class="menu-subhead">Creatives</li>
+    <%= active_link_to "Overview", creatives_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
     <%= active_link_to "Add Creative", new_creative_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
-    <%= tag.li class: classes(
-      "menu-item has-child": true,
-      "has-open": [
-        request.path.start_with?("/creatives"),
-        request.path.exclude?("/creatives/new")
-      ].all?
-    ) do %>
-      <a href="#" class="menu-link">
-        <span class="menu-text">List</span>
-      </a>
-      <ul class="menu">
-        <% current_user.creatives.active.order(name: :asc).each do |creative| %>
-          <%= active_link_to creative.name, creative_path(creative), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
-        <% end %>
-      </ul>
-    <% end %>
   </ul>
 <% end %>

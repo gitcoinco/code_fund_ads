@@ -3,5 +3,14 @@
     title: "Admin Dashboard",
     datepicker: false %>
 
-  <div class="board d-flex flex-column overflow-x-auto p-0"></div>
+  <div class="mb-7" id="dashboard-advertiser-cards">
+    <div class="card-deck d-block d-lg-flex card-lg-gutters-2">
+      <% @active_campaigns.each.with_index do |campaign, index| %>
+        <%= render "/campaigns/standard_card", campaign: campaign %>
+        <% if (index + 1) % 3 == 0 %>
+          </div><div class="card-deck d-block d-lg-flex card-lg-gutters-2">
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 </div>
