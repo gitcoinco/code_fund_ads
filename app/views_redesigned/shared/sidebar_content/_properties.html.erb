@@ -8,7 +8,6 @@
   </a>
   <ul class="menu">
     <li class="menu-subhead">Properties</li>
-    <%= active_link_to "Add Property", new_property_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
     <%= active_link_to "Overview", properties_path, class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
     <%= tag.li class: classes(
       "menu-item has-child": true,
@@ -40,5 +39,6 @@
         <% end %>
       </ul>
     <% end %>
+    <%= active_link_to "Add Property", new_property_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
   </ul>
 <% end %>

@@ -4,7 +4,7 @@
   datepicker: true,
   buttons: [
     layout_button(link: new_property_path, icon: "fas fa-plus", title: "New property"),
-    layout_button(link: new_property_path(clone: @property_id), icon: "fad fa-copy", title: "Clone property")
+    layout_button(link: new_property_path(clone: @property.id), icon: "fad fa-copy", title: "Clone property")
   ]
 } do %>
   <small class="text-center d-block text-muted mb-2">
