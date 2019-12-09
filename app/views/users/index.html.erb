@@ -1,21 +1,11 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/users", class: "active" %>
+<%= render "/shared/index_layout",
+    title: "Users",
+    buttons: [
+      link_to("Invite User", "#", class: "btn btn-primary")
+    ] do %>
+  <%= render "/shared/data_list",
+             resource_name: "users",
+             scopable: %w[administrators advertisers publishers],
+             collection: @users,
+             pagy: @pagy %>
 <% end %>
-
-<% content_for :actions do %>
-  <%= render "/@shared/actions/add_user" %>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Viewing", "Users",
-    subtitle: "#{pluralize(@pagy.count, "record")} found",
-    icon: "fas fa-user-circle" %>
-<% end %>
-
-<main id="content" role="main" class="bg-light">
-  <div class="container space-1">
-    <div class="bg-white p-4">
-      <%= render "/users/table", users: @users, pagy: @pagy %>
-    </div>
-  </div>
-</main>

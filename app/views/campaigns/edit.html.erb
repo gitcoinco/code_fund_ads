@@ -1,17 +1,9 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/campaigns" %>
-  <%= render "/@shared/breadcrumbs/campaign", campaign: @campaign %>
-  <%= render "/@shared/breadcrumbs/edit_campaign", campaign: @campaign, class: "active" %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @campaign,
+  sidebar: false,
+  buttons: [
+    layout_button(link: new_campaign_path(clone: @campaign.id), icon: "fad fa-copy", title: "Clone campaign", admin: true)
+  ]
+} do %>
+  <%= render "/campaigns/form", campaign: @campaign %>
 <% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Editing", "Campaign",
-    subtitle: @campaign.name,
-    icon: "fas fa-ad" %>
-<% end %>
-
-<main id="content" role="main" class="bg-light">
-  <div class="container space-1">
-    <%= render "/campaigns/form", campaign: @campaign %>
-  </div>
-</main>

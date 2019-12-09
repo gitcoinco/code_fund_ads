@@ -1,21 +1,10 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/properties" %>
-  <%= render "/@shared/breadcrumbs/property", property: @property %>
-  <%= render "/@shared/breadcrumbs/edit_property", property: @property, class: "active" %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @property,
+  sidebar: false,
+  buttons: [
+    layout_button(link: new_property_path, icon: "fas fa-plus", title: "New property"),
+    layout_button(link: new_property_path(clone: @property_id), icon: "fad fa-copy", title: "Clone property")
+  ]
+} do %>
+  <%= render "properties/form", property: @property %>
 <% end %>
-
-<% content_for :actions do %>
-  <%= render "/@shared/actions/show_property", property: @property %>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Editing", "Property",
-    subtitle: @property.scoped_name,
-    icon: "fas fa-browser" %>
-<% end %>
-
-<main id="content" role="main" class="bg-light">
-  <div class="container space-1">
-    <%= render "/properties/form", property: @property %>
-  </div>
-</main>

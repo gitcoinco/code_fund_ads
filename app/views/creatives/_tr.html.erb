@@ -1,7 +1,12 @@
-<%= tag.tr class: classes("even": creative_counter.even?, "odd": creative_counter.odd?) do %>
-  <td><%= link_to creative.name, creative_path(creative), title: "View Creative", data: tooltip_expando %></td>
-  <td><%= link_to creative.user.full_name, user_path(creative.user), title: "View User", data: tooltip_expando %></td>
-  <td><%= tag.span creative.headline, title: creative.body, data: tooltip_expando %></td>
-  <td><%= badge_for_count creative.campaigns.count %></td>
-  <td><%= link_to "Edit", edit_creative_path(creative), class: "btn btn-link btn-sm", title: "Edit Creative", data: tooltip_expando %></td>
+<%= table_row do %>
+  <%= table_data do %>
+    <%= link_to creative.name, creative %>
+  <% end %>
+  <%= table_data do %>
+    <%= image_tag(creative.icon_image, class: "align-self-start mr-1", width: "20", height: "20") if creative.icon_image %>
+    <strong><%= creative.headline %></strong> <%= creative.body %>
+  <% end %>
+  <%= table_data do %>
+    <%= edit_button(link: edit_creative_path(creative)) %>
+  <% end %>
 <% end %>

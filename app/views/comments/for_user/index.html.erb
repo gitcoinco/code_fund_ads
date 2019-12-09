@@ -1,8 +1,13 @@
-<%= render layout: "/users/show_layout", locals: { user: @commentable } do %>
-  <h3 class="h5 mb-3">
-    Comments
-    <small class="text-muted d-block">Comments and notes for this user</small>
-  </h3>
-
-  <%= render "/comments/table", commentable: @commentable, comments: @comments %>
+<%= render layout: "/users/layout", locals: {user: @commentable} do %>
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Comments
+      <% end %>
+      <%= card_subtitle do %>
+        Comments and notes for this user
+      <% end %>
+    <% end %>
+    <%= render "/comments/table", commentable: @commentable, comments: @comments %>
+  <% end %>
 <% end %>

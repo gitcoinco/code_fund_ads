@@ -1,12 +1,41 @@
 <html>
-<% if @creative.standard? %>
-  <body style="padding: <%= params[:template] == "bottom-bar" ? "0" : "10" %>px; margin: 0px; background-color: <%= params[:theme] == "dark" ? "#263238" : "#ffffff" %>;">
-    <div id="codefund" style"background-color: <%= params[:theme] == "dark" ? "#263238" : "#ffffff" %>;"></div>
-    <%= javascript_include_tag advertisement_preview_path(0, creative_id: @creative.id, template: params[:template], theme: params[:theme], format: :js) %>
-  </body>
-<% else %>
+  <head>
+    <style>
+      body {
+        padding: <%= params[:template] == "bottom-bar" ? "0" : "10" %>px;
+        font-family: "Times New Roman", Times, serif;
+        margin: 0px;
+        background-color: <%= params[:theme] == "dark" ? "#263238" : "#ffffff" %>;
+        color: <%= params[:theme] == "dark" ? "#dadada" : "#9e9e9e" %>;
+      }
+    </style>
+  </head>
   <body>
-    <%= image_tag @creative.sponsor_image %>
+    <p>"The story is simply this," said the painter after some time. "Two months ago I went to a crush at Lady Brandon's. You know we poor artists have to show ourselves in society from time to time, just to remind the public that we are not savages. With an evening coat and a white tie, as you told me once, anybody, even a stock-broker, can gain a reputation for being civilized. Well, after I had been in the room about ten minutes, talking to huge overdressed dowagers and tedious academicians, I suddenly became conscious that some one was looking at me. I turned half-way round and saw Dorian Gray for the first time.</p>
+    <% if @creative.standard? %>
+      <div id="codefund" style "background-color: <%= params[:theme] == "dark" ? "#263238" : "#ffffff" %>;"></div>
+      <%= javascript_include_tag advertisement_preview_path(0, creative_id: @creative.id, template: params[:template], theme: params[:theme], format: :js) %>
+    <% else %>
+      <%= image_tag @creative.sponsor_image %>
+    <% end %>
+    <p>Then our eyes met, I felt that I was growing pale. A curious sensation of terror came over me. I knew that I had come face to face with some one whose mere personality was so fascinating that, if I allowed it to do so, it would absorb my whole nature, my whole soul, my very art itself. I did not want any external influence in my life. You know yourself, Harry, how independent I am by nature. I have always been my own master; had at least always been so, till I met Dorian Gray. Then--but I don't know how to explain it to you. Something seemed to tell me that I was on the verge of a terrible crisis in my life. I had a strange feeling that fate had in store for me exquisite joys and exquisite sorrows. I grew afraid and turned to quit the room. It was not conscience that made me do so: it was a sort of cowardice. I take no credit to myself for trying to escape."</p>
+    <p>"Conscience and cowardice are really the same things, Basil. Conscience is the trade-name of the firm. That is all."</p>
+    <p>"I don't believe that, Harry, and I don't believe you do either. However, whatever was my motive--and it may have been pride, for I used to be very proud--I certainly struggled to the door. There, of course, I stumbled against Lady Brandon. 'You are not going to run away so soon, Mr. Hallward?' she screamed out. You know her curiously shrill voice?"</p>
+    <p>"Yes; she is a peacock in everything but beauty," said Lord Henry, pulling the daisy to bits with his long nervous fingers.</p>
+    <p>"I could not get rid of her. She brought me up to royalties, and people with stars and garters, and elderly ladies with gigantic tiaras and parrot noses. She spoke of me as her dearest friend. I had only met her once before, but she took it into her head to lionize me. I believe some picture of mine had made a great success at the time, at least had been chattered about in the penny newspapers, which is the nineteenth-century standard of immortality. Suddenly I found myself face to face with the young man whose personality had so strangely stirred me. We were quite close, almost touching. Our eyes met again. It was reckless of me, but I asked Lady Brandon to introduce me to him. Perhaps it was not so reckless, after all. It was simply inevitable. We would have spoken to each other without any introduction. I am sure of that. Dorian told me so afterwards. He, too, felt that we were destined to know each other."</p>
+    <p>"And how did Lady Brandon describe this wonderful young man?" asked his companion. "I know she goes in for giving a rapid precis of all her guests. I remember her bringing me up to a truculent and red-faced old gentleman covered all over with orders and ribbons, and hissing into my ear, in a tragic whisper which must have been perfectly audible to everybody in the room, the most astounding details. I simply fled. I like to find out people for myself. But Lady Brandon treats her guests exactly as an auctioneer treats his goods. She either explains them entirely away, or tells one everything about them except what one wants to know."</p>
+    <p>"Poor Lady Brandon! You are hard on her, Harry!" said Hallward listlessly.</p>
+    <p>"My dear fellow, she tried to found a salon, and only succeeded in opening a restaurant. How could I admire her? But tell me, what did she say about Mr. Dorian Gray?"</p>
+    <p>"Oh, something like, 'Charming boy--poor dear mother and I absolutely inseparable. Quite forget what he does--afraid he--doesn't do anything--oh, yes, plays the piano--or is it the violin, dear Mr. Gray?' Neither of us could help laughing, and we became friends at once."</p>
+    <p>"Laughter is not at all a bad beginning for a friendship, and it is far the best ending for one," said the young lord, plucking another daisy.</p>
+    <p>Hallward shook his head. "You don't understand what friendship is, Harry," he murmured--"or what enmity is, for that matter. You like every one; that is to say, you are indifferent to every one."</p>
+    <p>"How horribly unjust of you!" cried Lord Henry, tilting his hat back and looking up at the little clouds that, like ravelled skeins of glossy white silk, were drifting across the hollowed turquoise of the summer sky. "Yes; horribly unjust of you. I make a great difference between people. I choose my friends for their good looks, my acquaintances for their good characters, and my enemies for their good intellects. A man cannot be too careful in the choice of his enemies. I have not got one who is a fool. They are all men of some intellectual power, and consequently they all appreciate me. Is that very vain of me? I think it is rather vain."</p>
+    <p>"I should think it was, Harry. But according to your category I must be merely an acquaintance."</p>
+    <p>"My dear old Basil, you are much more than an acquaintance."</p>
+    <p>"And much less than a friend. A sort of brother, I suppose?"</p>
+    <p>"Oh, brothers! I don't care for brothers. My elder brother won't die, and my younger brothers seem never to do anything else."</p>
+    <p>"Harry!" exclaimed Hallward, frowning.</p>
+    <p>"My dear fellow, I am not quite serious. But I can't help detesting my relations. I suppose it comes from the fact that none of us can stand other people having the same faults as ourselves. I quite sympathize with the rage of the English democracy against what they call the vices of the upper orders. The masses feel that drunkenness, stupidity, and immorality should be their own special property, and that if any one of us makes an ass of himself, he is poaching on their preserves. When poor Southwark got into the divorce court, their indignation was quite magnificent. And yet I don't suppose that ten per cent of the proletariat live correctly."</p>
+    <p>"I don't agree with a single word that you have said, and, what is more, Harry, I feel sure you don't either."</p>
   </body>
-<% end %>
 </html>

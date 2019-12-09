@@ -16,12 +16,12 @@ class ApplicationController < ActionController::Base
 
   impersonates :user
 
-  if ENV["REDESIGN"] == "true"
-    prepend_view_path Rails.root.join("app/views_redesigned").to_s
+  if ENV["REDESIGN"] == "false"
+    prepend_view_path Rails.root.join("app/views_old").to_s
 
     layout -> {
-      filepath = Rails.root.join("app/views_redesigned", controller_name, "#{partial_name(action_name)}.html.erb")
-      File.exist?(filepath) ? "application_redesign" : "application"
+      filepath = Rails.root.join("app/views_old", controller_name, "#{partial_name(action_name)}.html.erb")
+      File.exist?(filepath) ? "application_old" : "application"
     }
   end
 

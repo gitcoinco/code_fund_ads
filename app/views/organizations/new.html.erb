@@ -1,16 +1,7 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/organizations" %>
-  <%= render "/@shared/breadcrumbs/add_organization", class: "active" %>
+<%= render layout: "/shared/layout",
+    locals: {
+      subject: @organization,
+      title: "Create Organization",
+      subtitle: "Fill out the form below"} do %>
+  <%= render "/organizations/form", organization: @organization %>
 <% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Adding", "Organization",
-    subtitle: "Fill out the form below",
-    icon: "fas fa-ad" %>
-<% end %>
-
-<main id="content" role="main" class="bg-light">
-  <div class="container space-1">
-    <%= render "/organizations/form", organization: @organization %>
-  </div>
-</main>

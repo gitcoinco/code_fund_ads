@@ -1,7 +1,10 @@
-<%= render layout: "/organizations/show_layout", locals: { organization: @organization } do %>
-  <h3 class="h5 mb-3">
-    Members
-    <small class="text-muted d-block">Members of the organization</small>
-  </h3>
-  <%= render "/users/table", users: @users, pagy: @pagy %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @organization,
+  sidebar: true
+} do %>
+  <%= card add_class: "mt-4" do %>
+    <%= card_body padding: "p-0" do %>
+      <%= render "/users/table", users: @users, pagy: @pagy %>
+    <% end %>
+  <% end %>
 <% end %>

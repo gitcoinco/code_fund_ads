@@ -1,9 +1,0 @@
-<%= render layout: "/shared/layout",
-    locals: {
-        subject: @imageable,
-        title: "Upload Images",
-        tabs: false,
-        subtitle: "for #{@imageable.imageable_name}"} do %>
-  <%= render "/images/form_upload", imageable: @imageable %>
-  <%= render "/images/upload_instructions" %>
-<% end %>

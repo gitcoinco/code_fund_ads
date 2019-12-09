@@ -28,25 +28,20 @@
         <small>avg cpc</small>
       </div>
     </div>
-
     <h2 class="page">Results by Day</h2>
     <p class="lead"><%= campaign.id %> - <%= campaign.name %></p>
-    <%= render partial: "/organization_reports/pages/daily_table", locals: { campaign: campaign, report: report } %>
-    
+    <%= render partial: "/organization_reports/pages/daily_table", locals: {campaign: campaign, report: report} %>
     <h2 class="page">Results by Geography</h2>
     <p class="lead"><%= campaign.id %> - <%= campaign.name %></p>
-    <%= render partial: "/organization_reports/pages/country_table", locals: { campaign: campaign, report: report } %>
-    
+    <%= render partial: "/organization_reports/pages/country_table", locals: {campaign: campaign, report: report} %>
     <h2 class="page">Results by Property</h2>
     <p class="lead"><%= campaign.id %> - <%= campaign.name %></p>
-    <%= render partial: "/organization_reports/pages/property_table", locals: { campaign: campaign, report: report } %>
-    
+    <%= render partial: "/organization_reports/pages/property_table", locals: {campaign: campaign, report: report} %>
     <h2 class="page">Results by Creative</h2>
     <p class="lead"><%= campaign.id %> - <%= campaign.name %></p>
-    <%= render partial: "/organization_reports/pages/creative_table", locals: { campaign: campaign, report: report } %>
-
+    <%= render partial: "/organization_reports/pages/creative_table", locals: {campaign: campaign, report: report} %>
     <h2 class="page">Changelog</h2>
     <p class="lead"><%= campaign.id %> - <%= campaign.name %></p>
-    <%= render partial: "/organization_reports/pages/campaign_versions", locals: { campaign: campaign, report: report } %>
+    <%= render partial: "/organization_reports/pages/campaign_versions", locals: {campaign: campaign, report: report} %>
   </div>
 </div>

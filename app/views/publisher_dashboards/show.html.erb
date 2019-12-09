@@ -1,45 +1,31 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/dashboard", class: "active" %>
-<% end %>
+<div class="page-inner">
+  <%= render "/shared/page_heading_with_subtitle",
+    title: "Publisher Dashboard",
+    subtitle: "#{@start_date.to_s("mm/dd/yyyy")} &ndash; #{@end_date.to_s("mm/dd/yyyy")}".html_safe,
+    datepicker: true %>
 
-<% content_for :actions do %>
-  <%= render "/@shared/date_range_picker" %>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Publisher", "Dashboard",
-    subtitle: "Overall view of your account",
-    icon: "fas fa-tachometer" %>
-<% end %>
-
-<main id="content" role="main" class="bg-light">
-  <div class="container space-1">
-    <div class="card-deck d-block d-lg-flex card-lg-gutters-3 mb-3">
-      <%= render_later async_publisher_impressions_count_stat_card_path do %>
-        <i class="fa fa-spinner fa-spin text-primary"></i>
-      <% end %>
-      <%= render_later async_publisher_clicks_count_stat_card_path do %>
-        <i class="fa fa-spinner fa-spin text-primary"></i>
-      <% end %>
-      <%= render_later async_publisher_click_rate_stat_card_path do %>
-        <i class="fa fa-spinner fa-spin text-primary"></i>
-      <% end %>
-      <%= render_later async_publisher_revenue_stat_card_path do %>
-        <i class="fa fa-spinner fa-spin text-primary"></i>
-      <% end %>
-    </div>
-
-    <div class="text-center mb-3 mt-5">
-      <span class="u-divider u-divider--xs u-divider--text">Active Properties</span>
-    </div>
+  <div class="page-section">
+    <div class="metric-row">
+      <%= render "/shared/widgets/stat_card",
+        label: "Impressions",
+        value: number_with_delimiter(current_user.impressions_count_as_publisher(@start_date, @end_date)) %>
+      <%= render "/shared/widgets/stat_card",
+        label: "Clicks",
+        value: number_with_delimiter(current_user.clicks_count_as_publisher(@start_date, @end_date)) %>
+      <%= render "/shared/widgets/stat_card",
+        label: "Click Rate",
+        value: number_to_percentage(current_user.click_rate_as_publisher(@start_date, @end_date), precision: 3) %>
+      <%= render "/shared/widgets/stat_card",
+        label: "Earnings",
+        value: current_user.property_revenue(@start_date, @end_date).format %>
+      </div>
 
     <div class="mb-3">
       <div class="card-deck d-block d-md-flex card-sm-columns card-sm-2-count card-md-3-count">
         <%= render partial: "/properties/card",
           collection: @properties,
-          locals: { start_date: @start_date, end_date: @end_date }, as: :property %>
+          locals: {start_date: @start_date, end_date: @end_date}, as: :property %>
       </div>
     </div>
-
   </div>
-</main>
+</div>

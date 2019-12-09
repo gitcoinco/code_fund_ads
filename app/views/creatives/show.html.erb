@@ -1,50 +1,31 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/creatives" %>
-  <%= render "/@shared/breadcrumbs/creative", creative: @creative, class: "active" %>
-<% end %>
-
-<% content_for :actions do %>
-  <% if authorized_user.can_edit_creative?(@creative) %>
-    <ul class="nav flex-nowrap" style="justify-content: flex-end;">
-      <li>
-        <%= render "/@shared/actions/edit_creative", creative: @creative %>
-      </li>
-      <li class="ml-1" title="Clone Creative" data-toggle="tooltip" data-placement="bottom">
-        <%= render "/@shared/actions/generic", link: new_creative_path(clone: @creative.id), icon: "fa fa-copy" %>
-      </li>
-      <li class="ml-1">
-        <%= render "/@shared/actions/delete_creative", creative: @creative %>
-      </li>
-    </ul>
-  <% end %>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Viewing", "Creative",
-    subtitle: @creative.name,
-    icon: "fas fa-palette" %>
-<% end %>
-
-<main id="content" role="main" class="bg-light">
-  <div class="container space-1">
-    <div class="text-center mb-3">
-      <span class="u-divider u-divider--xs u-divider--text">Ad Previews</span>
-    </div>
-
-    <div class="row">
-      <% if @creative.standard? %>
-        <% ENUMS::AD_TEMPLATES.values.each do |template| %>
-          <% ["light", "dark"].each do |theme| %>
-            <%= render partial: "/creatives/preview_card", locals: { creative: @creative, template: template, theme: theme } %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @creative,
+  tabs: false,
+  buttons: [
+    layout_button(link: new_creative_path(clone: @creative.id), icon: "fad fa-copy", title: "Clone creative"),
+    delete_button(link: creative_path(@creative), title: "Delete creative", layout: true)
+  ]
+} do %>
+  <%= card add_class: "mt-4" do %>
+    <%= card_body do %>
+      <ul class="list-group list-group-bordered list-group-flush">
+        <% if @creative.standard? %>
+          <% ENUMS::AD_TEMPLATES.values.each do |template| %>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              <%= template %>
+              <span>
+                <%= link_to creative_previews_path(@creative, template: template, theme: "light"),
+                          class: "badge badge-lg badge-light", target: "_blank" do %>
+                          Light <i class="fas fa-external-link"></i>
+                        <% end %>
+                <%= link_to creative_previews_path(@creative, template: template, theme: "dark"),
+                          class: "badge badge-lg badge-dark", target: "_blank" do %>
+                          Dark <i class="fas fa-external-link"></i>
+                        <% end %>
+              </span>
+            </li>
           <% end %>
         <% end %>
       <% end %>
-
-      <% if @creative.sponsor? %>
-        <div class="col-auto">
-          <%= image_tag @creative.sponsor_image %>
-        </div>
-      <% end %>
-    </div>
-  </div>
-</main>
+    <% end %>
+<% end %>

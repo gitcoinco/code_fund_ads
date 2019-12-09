@@ -1,19 +1,14 @@
-<%= render layout: "/campaigns/show_layout", locals: { campaign: @campaign } do %>
-  <div class="mb-3">
-    <% if @campaign.standard? %>
-      <div class="d-inline-block float-right text-right">
-        <%= render "/campaign_reports/form", campaign: @campaign %>
-        <%= link_to campaign_countries_path(@campaign, format: :csv), class: "d-block mt-3 mb-2" do %>
-          Download
-        <% end %>
-      </div>
+<%= render layout: "/shared/layout", locals: {
+  subject: @campaign,
+  sidebar: true,
+  datepicker: true,
+  buttons: [
+    layout_button(link: new_campaign_path(clone: @campaign.id), icon: "fad fa-copy", title: "Clone campaign")
+  ]
+} do %>
+  <%= card do %>
+    <%= card_body padding: "p-0" do %>
+      <%= render "/campaign_countries/table", campaign: @campaign %>
     <% end %>
-
-    <h3 class="h5 mb-3">
-      Countries
-      <small class="text-muted d-block">Stats by country</small>
-    </h3>
-  </div>
-
-  <%= render "/campaign_countries/table" %>
+  <% end %>
 <% end %>

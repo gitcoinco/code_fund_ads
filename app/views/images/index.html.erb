@@ -1,19 +1,7 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/images", imageable: @imageable, class: "active" %>
+<%= render "/shared/index_layout",
+    title: "Images",
+    buttons: [
+      link_to("Upload Image", new_image_path, class: "btn btn-primary")
+    ] do %>
+  <%= render "/images/grid", imageable: @imageable, images: @images %>
 <% end %>
-
-<% content_for :actions do %>
-  <%= render "/@shared/actions/add_images", imageable: @imageable if authorized_user.can_upload_imageables? %>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Viewing", "Images",
-    subtitle: "for #{@imageable.imageable_name}",
-    icon: "fas fa-images" %>
-<% end %>
-
-<main id="content" role="main" class="bg-light">
-  <div class="container space-1">
-    <%= render "/images/grid", imageable: @imageable, images: @images %>
-  </div>
-</main>

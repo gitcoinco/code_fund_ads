@@ -1,24 +1,11 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/properties", class: "active" %>
+<%= render "/shared/index_layout",
+    title: "Properties",
+    buttons: [
+      link_to("Add property", new_property_path, class: "btn btn-primary")
+    ] do %>
+  <%= render "/shared/data_list",
+             resource_name: "properties",
+             scopable: %w[active archived blacklisted pending rejected],
+             collection: @properties,
+             pagy: @pagy %>
 <% end %>
-
-<% content_for :actions do %>
-  <ul class="nav flex-nowrap" style="justify-content: flex-end;">
-    <li><%= render "/@shared/date_range_picker" %></li>
-    <li class="ml-1"><%= render "/@shared/actions/add_property" %></li>
-  </ul>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Viewing", "Properties",
-    subtitle: "#{pluralize(@pagy.count, "record")} found",
-    icon: "fas fa-browser" %>
-<% end %>
-
-<main id="content" role="main" class="bg-light">
-  <div class="container space-1">
-    <div class="bg-white p-4">
-      <%= render "/properties/table", properties: @properties, pagy: @pagy %>
-    </div>
-  </div>
-</main>

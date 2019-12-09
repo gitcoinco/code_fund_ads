@@ -3,7 +3,7 @@
   <ol>
     <li><a href="#campaign-summary">Quick Summary</a></li>
     <% @report.campaigns.each do |campaign| %>
-    <li><a href="#campaign-<%= campaign.id %>"><%= campaign.name %></a></li>
+      <li><a href="#campaign-<%= campaign.id %>"><%= campaign.name %></a></li>
     <% end %>
   </ol>
 </div>

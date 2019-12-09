@@ -1,41 +1,27 @@
-<!-- Login Form -->
-<div class="container space-top-1 space-top-md-3 space-bottom-2">
-  <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put, class: "w-md-75 w-lg-50 mx-md-auto" }) do |f| %>
+<%= render "devise/layout" do %>
+  <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: {class: "auth-form mx-auto", method: :put}) do |f| %>
     <%= f.error_notification %>
-
     <%= f.input :reset_password_token, as: :hidden %>
     <%= f.full_error :reset_password_token %>
-
-    <!-- Title -->
-    <div class="mb-7">
-      <h1 class="h3 font-weight-normal mb-0">Change your <span class="font-weight-semi-bold text-success">password</span></h1>
-      <p>Enter your new password below.</p>
+    <div class="text-center mb-4">
+      <h4 class="font-weight-normal">Change your password</h4>
     </div>
-    <!-- End Title -->
-
-    <!-- Form Group -->
-    <div class="js-form-message form-group">
-      <%= f.input :password,
-              label: "New password",
-              required: true,
-              autofocus: true,
-              hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-              input_html: { autocomplete: "new-password" } %>
-      <%= f.input :password_confirmation, label: "Confirm your new password", required: true %>
-    </div>
-    <!-- End Form Group -->
-
-    <!-- Button -->
-    <div class="row align-items-center mb-5">
-      <div class="col-4 col-sm-6">
-        <%= link_to "Back to sign in", new_user_session_path, class: "small link-muted" %>
+    <div class="form-group">
+      <div class="form-label-group">
+        <label class="form-label">Password</label>
+        <%= f.input :password,
+                required: true,
+                label: false,
+                autofocus: true,
+                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                input_html: {autocomplete: "new-password"} %>
       </div>
-
-      <div class="col-8 col-sm-6 text-right">
-        <button type="submit" class="btn btn-primary transition-3d-hover">Change my password</button>
+      <div class="form-label-group">
+        <label class="form-label">Password Confirmation</label>
+        <%= f.input :password_confirmation, label: false, required: true %>
       </div>
     </div>
-    <!-- End Button -->
+    <%= f.button :submit, "Change my Password", class: "btn btn-primary btn-block" %>
+    <%= render "devise/links" %>
   <% end %>
-</div>
-<!-- End Login Form -->
+<% end %>

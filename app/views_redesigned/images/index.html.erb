@@ -1,7 +1,0 @@
-<%= render "/shared/index_layout",
-    title: "Images",
-    buttons: [
-      link_to("Upload Image", new_image_path, class: "btn btn-primary")
-    ] do %>
-  <%= render "/images/grid", imageable: @imageable, images: @images %>
-<% end %>

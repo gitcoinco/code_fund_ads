@@ -1,3 +1,15 @@
-<%= render layout: "/users/show_layout", locals: { user: @user } do %>
-  <%= render "/properties/table", properties: @properties, pagy: @pagy %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @user,
+  subtitle: @user.email,
+  sidebar: true,
+  buttons: [
+    layout_button(link: edit_user_path(@user), icon: "fad fa-pencil", title: "Edit user"),
+    layout_button(link: user_impersonation_path(@user), method: :put, icon: "fad fa-mask", title: "Masquerade as user", admin: true)
+  ]
+} do %>
+  <%= card do %>
+    <%= card_body padding: "p-0" do %>
+      <%= render "/properties/for_user/table", properties: @properties %>
+    <% end %>
+  <% end %>
 <% end %>

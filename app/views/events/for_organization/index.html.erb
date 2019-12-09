@@ -1,7 +1,15 @@
-<%= render layout: "/organizations/show_layout", locals: { organization: @eventable } do %>
-  <h3 class="h5 mb-3">
-    Events
-    <small class="text-muted d-block">List of events related to this organization</small>
-  </h3>
-  <%= render "/events/table", eventable: @eventable, events: @events %>
+<%= render layout: "/organizations/layout", locals: {organization: @eventable} do %>
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Events
+      <% end %>
+      <%= card_subtitle do %>
+        List of events related to this organization
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <%= render "/events/table", eventable: @eventable, events: @events %>
+    <% end %>
+  <% end %>
 <% end %>

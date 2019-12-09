@@ -1,16 +1,7 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/campaigns" %>
-  <%= render "/@shared/breadcrumbs/add_campaign", class: "active" %>
+<%= render layout: "/shared/layout",
+    locals: {
+        subject: @campaign,
+        title: "Create Campaign",
+        subtitle: "Fill out the form below"} do %>
+  <%= render "/campaigns/form", campaign: @campaign %>
 <% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Adding", "Campaign",
-    subtitle: "Fill out the form below",
-    icon: "fas fa-ad" %>
-<% end %>
-
-<main id="content" role="main" class="bg-light">
-  <div class="container space-1">
-    <%= render "/campaigns/form", campaign: @campaign %>
-  </div>
-</main>

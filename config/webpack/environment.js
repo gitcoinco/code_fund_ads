@@ -5,7 +5,7 @@ const webpack = require('webpack')
 environment.config.merge({
   resolve: {
     alias: {
-      Circles: 'themes/current/vendor/circles/circles.min'
+      Circles: 'themes/old/vendor/circles/circles.min'
     }
   }
 })

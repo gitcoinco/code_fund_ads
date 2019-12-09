@@ -1,20 +1,9 @@
-<% content_for :breadcrumbs do %>
-  <%= render "/@shared/breadcrumbs/users" %>
-  <%= render "/@shared/breadcrumbs/invite_user", class: "active" %>
+<%= render layout: "/shared/layout", locals: {
+  subject: @user,
+  title: "Invite User",
+  subtitle: "Fill out the form below",
+  sidebar: false,
+  tabs: false
+} do %>
+  <%= render "devise/invitations/form" %>
 <% end %>
-
-<% content_for :actions do %>
-  <%= render "/@shared/actions/list_users" %>
-<% end %>
-
-<% content_for :page_heading do %>
-  <%= page_heading "Inviting", "User",
-    subtitle: "Fill out the form below",
-    icon: "fas fa-user-circle" %>
-<% end %>
-
-<main id="content" role="main" class="bg-light">
-  <div class="container space-1">
-  <%= render "/devise/invitations/form" %>
-  </div>
-</main>
