@@ -36,11 +36,11 @@ jobs:
             - yarn-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
             - yarn-cache-v1-{{ arch }}-{{ .Branch }}
             - yarn-cache-v1
-      - restore_cache:
-          name: restore assets cache
-          keys:
-            - assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-            - assets-cache-v1-{{ arch }}-{{ .Branch }}
+      # - restore_cache:
+      #     name: restore assets cache
+      #     keys:
+      #       - assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+      #       - assets-cache-v1-{{ arch }}-{{ .Branch }}
       - run:
           name: install gem dependencies
           command: |
@@ -49,14 +49,14 @@ jobs:
       - run:
           name: install yarn dependencies
           command: yarn check || yarn install --ignore-engines --frozen-lockfile
-      - run:
-          name: Conditionally Precompile Assets
-          command: |
-              if [[ ! -d public/packs-test ]]; then
-                  bundle exec rails webpacker:compile
-              else
-                  echo "Asset cache found and applied."
-              fi
+      # - run:
+      #     name: precompile assets
+      #     command: |
+      #         if [[ ! -d public/packs-test ]]; then
+      #             bundle exec rails webpacker:compile
+      #         else
+      #             echo "Asset cache found and applied."
+      #         fi
       - save_cache:
           name: save gem cache
           paths:
@@ -68,7 +68,7 @@ jobs:
             - ~/.cache/yarn
           key: yarn-cache-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
-          name: Set up DB
+          name: set up DB
           command: bundle exec rails db:drop db:create db:structure:load --trace
       - run:
           name: run zeitwerk:check
@@ -79,11 +79,14 @@ jobs:
       - run:
           name: run system tests
           command: bundle exec rails test:system
-      - save_cache:
-          name: save assets cache
-          key: assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-            - public/packs-test
+      - store_artifacts:
+          path: tmp/screenshots
+          destination: screenshots
+      # - save_cache:
+      #     name: save assets cache
+      #     key: assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+      #     paths:
+      #       - public/packs-test
       - run:
           name: run standardrb check
           command: bundle exec standardrb --format progress
