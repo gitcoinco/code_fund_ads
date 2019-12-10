@@ -8,7 +8,7 @@
       <% end %>
     <% end %>
     <%= table_body do %>
-      <%= render partial: "/organization_users/tr", locals: { organization: @organization }, collection: organization_users, as: :organization_user %>
+      <%= render partial: "/organization_users/tr", locals: {organization: @organization}, collection: organization_users, as: :organization_user %>
     <% end %>
   <% end %>
   <%= pagination_wrapper do %>

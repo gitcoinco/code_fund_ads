@@ -1,4 +1,4 @@
-<%= render layout: "/users/layout", locals: { user: @user } do %>
+<%= render layout: "/users/layout", locals: {user: @user} do %>
   <% if @organizations_as_owner.present? %>
     <%= render "/user_organizations/list", list_header: "Owner", organizations: @organizations_as_owner %>
   <% end %>

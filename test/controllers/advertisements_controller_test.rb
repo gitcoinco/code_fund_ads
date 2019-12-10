@@ -3,10 +3,6 @@ require "test_helper"
 class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
-  setup do
-    Current.organization = organizations(:default)
-  end
-
   test "get advertisement blocked referer url" do
     AdvertisementsController.any_instance.stubs(ad_test?: false)
     Rails.env.stubs(production?: true)
@@ -36,6 +32,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     get advertisements_url(property, format: :js)
     assert_response :success
     assert response.body.include?("click?campaign_id=#{campaign.id}")
+  end
 
   test "get advertisement with active & matching campaign" do
     AdvertisementsController.any_instance.stubs(ad_test?: false)

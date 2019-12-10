@@ -34,6 +34,7 @@
     <div class="aside-menu">
       <nav id="stacked-menu" class="stacked-menu">
         <ul class="menu">
+          <%= render "/shared/sidebar_content/teams_select" %>
           <%= render "/shared/sidebar_content/dashboard" unless authorized_user.can_advertise_and_publish? %>
           <%= render "/shared/sidebar_content/dashboards" if authorized_user.can_advertise_and_publish? %>
           <%= render "/shared/sidebar_content/teams" if authorized_user.can_advertise_and_publish? || authorized_user.can_admin_system? %>

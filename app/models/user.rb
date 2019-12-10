@@ -247,11 +247,6 @@ class User < ApplicationRecord
     super && !blacklisted?
   end
 
-  # TODO: Overwrite once Teams are in place
-  def organizations
-    [organization].compact
-  end
-
   # protected instance methods ................................................
   protected
 
