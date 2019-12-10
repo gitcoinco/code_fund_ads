@@ -38,6 +38,18 @@ summary = subject.summary(@start_date, @end_date)
         <div class="row text-center">
           <div class="col-6">
             <div class="metric">
+              <h6 class="metric-value"><%= number_with_delimiter subject.total_budget.format rescue "-" %></h6>
+              <p class="metric-label mt-1">Total Budget</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="metric">
+              <h6 class="metric-value"><%= number_with_delimiter subject.total_remaining_budget.format rescue "-" %></h6>
+              <p class="metric-label mt-1">Remaining Budget</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="metric">
               <h6 class="metric-value"><%= number_with_delimiter summary.impressions_count rescue "-" %></h6>
               <p class="metric-label mt-1">Impressions</p>
             </div>

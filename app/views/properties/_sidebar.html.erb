@@ -69,6 +69,11 @@
         <div class="list-group-item justify-content-between align-items-center px-0">
           <span class="text-muted">Website</span> <span><%= link_to subject.pretty_url, target: "_blank" %></span>
         </div>
+        <% if authorized_user.can_admin_system? %>
+          <div class="list-group-item justify-content-between align-items-center px-0">
+            <span class="text-muted">Owner</span> <span><%= link_to subject.user&.name, subject.user %></span>
+          </div>
+        <% end %>
         <div class="list-group-item justify-content-between align-items-center px-0">
           <span class="text-muted">Audience</span> <span><%= subject.audience&.name %></span>
         </div>
