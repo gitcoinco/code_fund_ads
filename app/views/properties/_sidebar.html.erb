@@ -1,3 +1,7 @@
+<%
+  paid_summary = subject.summary(@start_date, @end_date, paid: true)
+  unpaid_summary = subject.summary(@start_date, @end_date, paid: false)
+%>
 <div class="page-sidebar">
   <header class="sidebar-header d-sm-none">
     <nav aria-label="breadcrumb">
@@ -17,41 +21,41 @@
         <div class="row text-center">
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= Money.new(subject.summary(@start_date, @end_date)&.property_revenue_cents)&.format %></h6>
+              <h6 class="metric-value"><%= Money.new(paid_summary.property_revenue_cents).format %></h6>
               <p class="metric-label mt-1">Earnings</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= number_to_percentage subject.summary(@start_date, @end_date)&.click_rate, precision: 3 %></h6>
+              <h6 class="metric-value"><%= number_to_percentage paid_summary.click_rate, precision: 3 %></h6>
               <p class="metric-label mt-1">Avg. CTR</p>
             </div>
           </div>
 
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= Money.new(subject.summary(@start_date, @end_date)&.publisher_cpm)&.format %></h6>
+              <h6 class="metric-value"><%= paid_summary.property_cpm.format %></h6>
               <p class="metric-label mt-1">Avg. CPM</p>
             </div>
           </div>
 
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= number_to_percentage subject.summary(@start_date, @end_date)&.paid_percent, precision: 3 %></h6>
+              <h6 class="metric-value"><%= number_to_percentage calc_percentage(paid_summary.impressions_count, paid_summary.impressions_count + unpaid_summary.impressions_count) * 100, precision: 3 %></h6>
               <p class="metric-label mt-1">Paid vs Fallback</p>
             </div>
           </div>
 
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= number_with_delimiter subject.summary(@start_date, @end_date)&.paid_impressions_count %></h6>
+              <h6 class="metric-value"><%= number_with_delimiter paid_summary.impressions_count %></h6>
               <p class="metric-label mt-1">Total Paid</p>
             </div>
           </div>
 
           <div class="col-6">
             <div class="metric">
-              <h6 class="metric-value"><%= number_with_delimiter subject.summary(@start_date, @end_date)&.unpaid_impressions_count %></h6>
+              <h6 class="metric-value"><%= number_with_delimiter unpaid_summary.impressions_count %></h6>
               <p class="metric-label mt-1">Total Fallback</p>
             </div>
           </div>

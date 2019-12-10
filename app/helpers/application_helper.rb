@@ -270,7 +270,7 @@ module ApplicationHelper
 
   def calc_percentage(numerator, denominator)
     return 0 if denominator.zero?
-    numerator / denominator
+    numerator / denominator.to_f
   end
 
   private
