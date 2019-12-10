@@ -42,27 +42,26 @@ class DailySummaryReport < ApplicationRecord
   # scopes ....................................................................
 
   default_scope -> {
-    paid_impressions_count = Arel::Nodes::Subtraction.new(
-      arel_table[:impressions_count].sum,
-      arel_table[:fallbacks_count].sum
-    )
-
     select(:impressionable_type, :impressionable_id, :scoped_by_type, :scoped_by_id)
       .select(arel_table[:unique_ip_addresses_count].sum.as("unique_ip_addresses_count"))
       .select(arel_table[:impressions_count].sum.as("impressions_count"))
-      .select(arel_table[:fallbacks_count].sum.as("unpaid_impressions_count"))
-      .select(paid_impressions_count.as("paid_impressions_count"))
       .select(arel_table[:clicks_count].sum.as("clicks_count"))
       .select(arel_table[:gross_revenue_cents].sum.as("gross_revenue_cents"))
       .select(arel_table[:property_revenue_cents].sum.as("property_revenue_cents"))
       .select(arel_table[:house_revenue_cents].sum.as("house_revenue_cents"))
-      .select(arel_table[:click_rate].average.as("click_rate"))
       .group(:impressionable_type, :impressionable_id, :scoped_by_type, :scoped_by_id)
       .order("impressions_count desc")
   }
 
   scope :scoped_by_type, ->(type) {
     type.nil? ? where(scoped_by_type: nil, scoped_by_id: nil) : where(scoped_by_type: type)
+  }
+
+  scope :scoped_by, ->(value, type = nil) {
+    case value
+    when Campaign, Property, Creative then where(scoped_by_type: value.class.name, scoped_by_id: value.id)
+    else where scoped_by_type: type, scoped_by_id: value
+    end
   }
 
   scope :between, ->(start_date, end_date = nil) {
@@ -80,8 +79,6 @@ class DailySummaryReport < ApplicationRecord
   attribute :scoped_by_id, :string
   attribute :unique_ip_addresses_count, :integer
   attribute :impressions_count, :integer
-  attribute :unpaid_impressions_count, :integer
-  attribute :paid_impressions_count, :integer
   attribute :clicks_count, :integer
   attribute :gross_revenue_cents, :integer
   attribute :property_revenue_cents, :integer
@@ -116,14 +113,9 @@ class DailySummaryReport < ApplicationRecord
     gross_revenue / clicks_count
   end
 
-  def publisher_cpm
-    return Money.new(0) unless paid_impressions_count > 0
-    property_revenue / (paid_impressions_count / 1000.to_f)
-  end
-
-  def paid_percent
-    return nil if impressions_count == 0
-    (paid_impressions_count.to_f / impressions_count.to_f) * 100
+  def property_cpm
+    return Money.new(0) unless impressions_count > 0
+    property_revenue / (impressions_count / 1000.to_f)
   end
 
   # protected instance methods ................................................

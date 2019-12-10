@@ -3,7 +3,8 @@ class PropertyEarningsController < ApplicationController
   before_action :set_property
 
   def show
-    @report = @property.daily_summaries_by_day(@start_date, @end_date)
+    @paid_report = @property.daily_summaries_by_day(@start_date, @end_date, paid: true)
+    @unpaid_report = @property.daily_summaries_by_day(@start_date, @end_date, paid: false)
   end
 
   private

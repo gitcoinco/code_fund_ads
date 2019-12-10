@@ -9,27 +9,31 @@
     <% end %>
   <% end %>
   <%= table_body do %>
-    <% if @report.exists? %>
-      <% @report.each do |item| %>
+    <% if @paid_report.exists? || @unpaid_report.exists? %>
+      <% (@start_date..@end_date).each do |date| %>
+        <%
+          paid_daily_summary = @paid_report.find { |daily_summary| daily_summary.displayed_at_date == date }
+          unpaid_daily_summary = @unpaid_report.find { |daily_summary| daily_summary.displayed_at_date == date }
+        %>
         <%= table_row do %>
           <%= table_data do %>
-            <%= item.displayed_at_date %>
+            <%= date.to_s("mm/dd/yyyy") %>
             <small class="d-block text-muted">Fallback</small>
           <% end %>
           <%= table_data add_class: "text-right" do %>
-            <%= number_with_delimiter item.impressions_count %>
-            <small class="d-block text-muted"><%= number_with_delimiter item.fallbacks_count %></small>
+            <%= number_with_delimiter paid_daily_summary&.impressions_count.to_i %>
+            <small class="d-block text-muted"><%= number_with_delimiter unpaid_daily_summary&.impressions_count.to_i %></small>
           <% end %>
           <%= table_data add_class: "text-right" do %>
-            <%= number_with_delimiter item.clicks_count %>
-            <small class="d-block text-muted">-</small>
+            <%= number_with_delimiter paid_daily_summary&.clicks_count.to_i %>
+            <small class="d-block text-muted"><%= number_with_delimiter unpaid_daily_summary&.clicks_count.to_i %></small>
           <% end %>
           <%= table_data add_class: "text-right" do %>
-            <%= number_to_percentage item.click_rate, precision: 3 %>
-            <small class="d-block text-muted">-</small>
+            <%= number_to_percentage calc_percentage(paid_daily_summary&.clicks_count.to_f, paid_daily_summary&.impressions_count.to_f) * 100, precision: 3 %>
+            <small class="d-block text-muted"><%= number_to_percentage calc_percentage(unpaid_daily_summary&.clicks_count.to_f, unpaid_daily_summary&.impressions_count.to_f) * 100, precision: 3 %></small>
           <% end %>
           <%= table_data add_class: "text-right" do %>
-            <%= Money.new(item.property_revenue_cents).format %>
+            <%= Money.new(paid_daily_summary&.property_revenue_cents.to_f).format %>
             <small class="d-block text-muted">$0.00</small>
           <% end %>
         <% end %>
