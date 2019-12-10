@@ -183,7 +183,4 @@ Rails.application.routes.draw do
   resource :async_publisher_revenue_stat_card, only: [:show]
 
   resources :wordpress_snippets, only: [:show]
-
-  # IMPORTANT: leave as last route so it doesn't override others
-  get "/*id", to: "pages#show", as: :page, constraints: {id: /(?!rails).*/}
 end

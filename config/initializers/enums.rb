@@ -28,23 +28,6 @@ enums[:ad_templates] = Dir[Rails.root.join("app/javascript/advertisements/**")].
 enums[:ad_templates].delete "@responsive_footer"
 enums[:ad_themes] = %w[dark light unstyled]
 
-# Exposes pages for the partials living under: app/views/pages
-#
-# Examples:
-#
-#   ENUMS::PAGES::HELP
-#   ENUMS::PAGES::TEAM
-#
-enums[:pages] = Dir.glob("_*rb", base: Rails.root.join("app/views/pages")).map { |page|
-  page.scan(/(?<=\A_).*(?=\.html\.erb\z)/)
-}.flatten.sort
-
-Dir.glob("_*rb", base: Rails.root.join("app/views/pages/partners")).map { |page|
-  page.scan(/(?<=\A_).*(?=\.html\.erb\z)/)
-}.flatten.sort.each do |page|
-  enums[:pages] << "partners/#{page}"
-end
-
 enums.each do |key, dictionary|
   dictionary = dictionary.zip(dictionary).to_h if dictionary.is_a?(Array)
 
