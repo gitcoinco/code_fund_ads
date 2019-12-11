@@ -9,6 +9,7 @@
   <%= render "/shared/forms/error_messages", object: campaign %>
   <!-- Details -->
   <%= card do %>
+    <%= standalone_card_header text: "Details" %>
     <%= card_body do %>
       <div class="row">
         <% if authorized_user.can_admin_system? %>
@@ -147,6 +148,35 @@
             </div>
           </div>
         </div>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        Creatives
+      <% end %>
+      <%= card_subtitle do %>
+        Pick which creatives you would like to use (only approved creatives are available)
+        <small class="mt-1 d-block text-primary opacity-70">Multivariate testing is used to determine the most effective creative</small>
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <div class="row" data-controller="campaignForm">
+        <div data-target="campaign-form.creativesWrapper">
+          <%= render partial: "/creative_options/options",
+              locals: {
+                selected_creative_ids: campaign.creative_ids,
+                creatives: campaign.user.creatives.active.standard.order(name: :asc)
+              } %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <% if authorized_user.can_admin_system? %>
+    <%= card do %>
+      <%= standalone_card_header text: "Geo Targeting" %>
+      <%= card_body do %>
         <div class="row" data-controller="select-geo-targets" data-action="cf:select:changed->select-geo-targets#updateProvinceCodeOptions">
           <div class="col-12 mb-3">
             <%= f.label :country_codes, label: "Targeted Countries", class: "form-label", required: true %>
@@ -160,25 +190,25 @@
               <% Country.all.map(&:subregion).uniq.sort.each do |subregion| %>
                 <div class="checkbox-tree__branch" data-controller="checkbox-tree-branch">
                   <i class="fa fa-caret-right"
-                    data-target="checkbox-tree-branch.toggle"
-                    data-action="click->checkbox-tree-branch#toggleBranch">
+                      data-target="checkbox-tree-branch.toggle"
+                      data-action="click->checkbox-tree-branch#toggleBranch">
                   </i>
                   <div class="form-check">
                     <%= check_box_tag subregion.downcase,
-                      nil,
-                      false,
-                      class: "form-check-input",
-                      data: {
-                        target: "checkbox-tree-branch.selectAll",
-                        action: "change->checkbox-tree-branch#toggleSelectAll"
-                      } %>
+                        nil,
+                        false,
+                        class: "form-check-input",
+                        data: {
+                          target: "checkbox-tree-branch.selectAll",
+                          action: "change->checkbox-tree-branch#toggleSelectAll"
+                        } %>
                     <%= label_tag subregion.downcase, subregion, class: "form-check-label" %>
                   </div>
                   <div class="checkbox-tree__branch-leaves" data-target="checkbox-tree-branch.leaves">
                     <%= f.input :country_codes,
-                      as: :check_boxes,
-                      collection: countries_with_codes_for_subregion(subregion),
-                      input_html: {data: {target: "checkbox-tree-branch.leaf", action: "change->checkbox-tree-branch#handleLeafChange"}} %>
+                        as: :check_boxes,
+                        collection: countries_with_codes_for_subregion(subregion),
+                        input_html: {data: {target: "checkbox-tree-branch.leaf", action: "change->checkbox-tree-branch#handleLeafChange"}} %>
                   </div>
                 </div>
               <% end %>
@@ -186,65 +216,65 @@
           </div>
           <div class="col-12 mb-3" data-controller="select-multiple">
             <%= f.input :province_codes, required: false, collection: [], label: "Targeted States/Provinces",
-              input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select select-geo-targets.provinceCodesSelect", provinces: provinces_for_stimulus, selected: @campaign.province_codes}} %>
+                input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select select-geo-targets.provinceCodesSelect", provinces: provinces_for_stimulus, selected: @campaign.province_codes}} %>
             <div class="d-block mt-1">
               <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#selectAll"} %>
               <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
             </div>
           </div>
-          <% if authorized_user.can_admin_system? %>
-            <div class="col-12 mb-3" data-controller="select-multiple">
-              <%= f.input :assigned_property_ids, collection: properties_for_select,
-                label: "Assigned Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> prioritized over keywords</small>".html_safe,
-                input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select"}} %>
-              <div class="d-block mt-1">
-                <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
-              </div>
-            </div>
-          <% end %>
         </div>
       <% end %>
-
-      <% if authorized_user.can_admin_system? %>
+    <% end %>
+  <% end %>
+  <% if authorized_user.can_admin_system? %>
+    <%= card do %>
+      <%= standalone_card_header text: "Additional Targeting" %>
+      <%= card_body do %>
         <div class="row">
           <div class="col-12 mb-3" data-controller="select-multiple">
             <%= f.input :keywords, collection: keywords_for_select, label: "Targeted Keywords",
               input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select"}} %>
-            <div class="d-block">
-              <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: {action: "click->select-multiple#selectAll"} %>
-              <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
+            <div class="d-block mt-1">
+              <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#selectAll"} %>
+              <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
             </div>
           </div>
-        </div>
-
-        <div class="row">
           <div class="col-12 mb-4" data-controller="select-multiple">
             <%= f.input :negative_keywords, collection: keywords_for_select, label: "Negative Keywords",
               input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select"}} %>
-            <div class="d-block">
-              <%= link_to "All", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: {action: "click->select-multiple#selectAll"} %>
-              <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
+            <div class="d-block mt-1">
+              <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#selectAll"} %>
+              <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
             </div>
           </div>
-        </div>
-
-        <div class="row mb-3">
           <div class="col-12 mb-3" data-controller="select-multiple">
             <%= f.input :prohibited_property_ids, collection: properties_for_select,
               label: "Prohibited Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> deprioritized after assigned properties</small>".html_safe,
               input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select"}} %>
-            <div class="d-block">
-              <%= link_to "Clear", request.path, class: "btn text-uppercase btn-soft-secondary btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
+            <div class="d-block mt-1">
+              <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
+            </div>
+          </div>
+          <div class="col-12 mb-3" data-controller="select-multiple">
+            <%= f.input :assigned_property_ids, collection: properties_for_select,
+              label: "Assigned Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> prioritized over keywords</small>".html_safe,
+              input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select"}} %>
+            <div class="d-block mt-1">
+              <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
             </div>
           </div>
         </div>
-
+      <% end %>
+    <% end %>
+    <%= card do %>
+      <%= standalone_card_header text: "Budget" %>
+      <%= card_body do %>
         <div class="row">
           <div class="col-12 mb-2">
             <div class="media align-items-center mb-3">
-              <label class="checkbox-switch mb-0 mr-3">
-                <%= f.check_box :fixed_ecpm, class: "checkbox-switch__input" %>
-                <span class="checkbox-switch__slider"></span>
+              <label class="switcher-control mb-0 mr-3">
+                <%= f.check_box :fixed_ecpm, class: "switcher-input" %>
+                <span class="switcher-indicator"></span>
               </label>
               <label class="media-body text-muted mb-0">
                 <span class="d-block text-dark">Use fixed eCPM pricing? <small class="ml-2 text-muted">Do NOT adjust by country</small></span>
@@ -252,7 +282,6 @@
             </div>
           </div>
         </div>
-
         <div class="row">
           <div class="col-md-6 mb-3">
             <%= f.input(:ecpm, as: :currency, currency: "$") %>
@@ -262,31 +291,16 @@
           </div>
           <%= tag.div f.input(:total_budget, label: "Total Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
         </div>
-
         <div class="row">
           <%= tag.div f.input(:hourly_budget, label: "Hourly Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
           <%= tag.div f.input(:daily_budget, label: "Daily Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
         </div>
       <% end %>
+    <% end %>
+  <% end %>
 
-      <div class="row">
-        <div class="col-12 mb-3">
-          <label>Creatives - Select up to 3 to run at the same time</label>
-          <%= render partial: "/creative_options/options",
-          locals: {
-            selected_creative_ids: campaign.creative_ids,
-            creatives: campaign.user.creatives.active.standard.order(name: :asc)
-          } %>
-        </div>
-      </div>
-    <% end %>
-     <%= card_footer do %>
-      <%= card_footer_content do %>
-        <%= button_panel margin: "my-0" do %>
-          <%= f.submit "Save Campaign", class: "btn btn-primary" %>
-          <%= cancel_button(campaigns_path) %>
-        <% end %>
-      <% end %>
-    <% end %>
+  <%= button_panel margin: "my-0" do %>
+    <%= f.submit "Save Campaign", class: "btn btn-primary" %>
+    <%= cancel_button(campaigns_path) %>
   <% end %>
 <% end %>

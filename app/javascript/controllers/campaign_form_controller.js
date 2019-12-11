@@ -1,15 +1,8 @@
 import Rails from '@rails/ujs'
 import { Controller } from 'stimulus'
-// import { Binding } from '@stimulus/core/dist/src/binding'
 
 export default class extends Controller {
-  static targets = [
-    'form',
-    'creativesWrapper',
-    'advertiserSelectField',
-    'sponsorForm',
-    'standardForm'
-  ]
+  static targets = ['form', 'creativesWrapper', 'advertiserSelectField']
 
   connect () {
     // jQuery is required as Select2 uses jQuery events
@@ -17,23 +10,12 @@ export default class extends Controller {
       'change',
       this.updateCreativeOptions.bind(this)
     )
-    this.standardFormFields = this.standardFormTarget.querySelector(
-      '#standard-form-fields'
-    )
-    this.sponsorFormFields = this.sponsorFormTarget.querySelector(
-      '#sponsor-form-fields'
-    )
-
-    this.standardFormTarget.classList.contains('active')
-      ? this.enableStandardForm()
-      : this.enableSponsorForm()
   }
 
   updateCreativeOptions (event) {
     const selectedIds = this.formTarget.dataset.selectedCreativeIds
     const advertiserId = this.advertiserSelectFieldTarget.value
     const partialUrl = `/creative_options?user_id=${advertiserId}&selected_ids=${selectedIds}`
-
     fetch(partialUrl, {
       method: 'GET',
       dataType: 'html',
@@ -57,17 +39,5 @@ export default class extends Controller {
 
   setCreativeOptions (html) {
     this.creativesWrapperTarget.innerHTML = html
-  }
-
-  enableStandardForm (event) {
-    if (event) Rails.stopEverything(event)
-    this.sponsorFormFields.remove()
-    this.standardFormTarget.appendChild(this.standardFormFields)
-  }
-
-  enableSponsorForm (event) {
-    if (event) Rails.stopEverything(event)
-    this.standardFormFields.remove()
-    this.sponsorFormTarget.appendChild(this.sponsorFormFields)
   }
 }
