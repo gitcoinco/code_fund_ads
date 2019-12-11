@@ -14,6 +14,11 @@
         <% (local_assigns[:buttons] || []).each do |link| %>
           <%= link.html_safe %>
         <% end %>
+        <% if local_assigns[:sidebar] %>
+          <button type="button" class="btn tile layout-button d-xl-none" onclick="CodeFundTheme.toggleSidebar()">
+            <span class="fa fa-angle-double-left"></span>
+          </button>
+        <% end %>
       </div>
     <% end %>
   </div>
