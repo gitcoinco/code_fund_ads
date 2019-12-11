@@ -3,7 +3,6 @@ require "test_helper"
 class CreateDebitForCampaignAndDateJobTest < ActiveJob::TestCase
   test "debits are created correctly" do
     property = properties(:website)
-    Current.organization = campaigns(:premium).organization
     campaign = amend(campaigns: :premium, start_date: 1.month.ago.to_date, end_date: 1.month.from_now.to_date)
     campaign.organization.organization_transactions.credits.create!(
       amount: Monetize.parse("$10,000 USD"),

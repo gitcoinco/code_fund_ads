@@ -26,7 +26,6 @@ module SystemTestHelper
 
   def ad_template_setup(ad_template: "default", ad_theme: "light")
     Capybara.ignore_hidden_elements = false
-    Current.organization = organizations(:default)
     AdvertisementsController.any_instance.stubs(ad_test?: false)
 
     start_date = Date.parse("2019-01-01")
