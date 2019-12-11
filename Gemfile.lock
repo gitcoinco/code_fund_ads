@@ -483,8 +483,6 @@ GEM
       rack (~> 2.0)
       rack-protection (= 2.0.7)
       tilt (~> 2.0)
-    sitemap_generator (6.0.2)
-      builder (~> 3.0)
     sixarm_ruby_unaccent (1.2.0)
     slack-notifier (2.3.2)
     smart_properties (1.15.0)
@@ -686,7 +684,6 @@ DEPENDENCIES
   sidekiq-failures (~> 1.0.0)
   simple_form (~> 5.0)
   simplecov
-  sitemap_generator (~> 6.0.2)
   slack-notifier (~> 2.3.2)
   solargraph
   split (~> 3.4.1)
