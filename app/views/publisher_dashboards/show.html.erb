@@ -18,16 +18,17 @@
       <%= render "/shared/widgets/stat_card",
         label: "Earnings",
         value: current_user.property_revenue(@start_date, @end_date).format %>
-      </div>
+    </div>
+
+    <small class="text-center d-block text-muted mb-2">
+      data refreshes every 15 minutes.
+    </small>
 
     <div class="mb-3">
-      <div class="card-deck d-block d-lg-flex card-lg-gutters-2">
-        <% @properties.each.with_index do |property, index| %>
-          <%= render "/properties/overview_card", property: property, start_date: @start_date, end_date: @end_date %>
-          <% if (index + 1) % 3 == 0 %>
-            </div><div class="card-deck d-block d-lg-flex card-lg-gutters-2">
-          <% end %>
-        <% end %>
+      <div class="dashboard-grid-wrapper">
+        <%= render partial: "/properties/overview_card",
+          collection: @properties,
+          locals: {start_date: @start_date, end_date: @end_date}, as: :property %>
       </div>
     </div>
   </div>

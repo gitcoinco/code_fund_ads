@@ -1,47 +1,47 @@
 <div class="row align-items-center text-center">
   <% if @property.restrict_to_sponsor_campaigns? %>
-    <div class="col-4">
-      <p class="mb-0 font-weight-bold">
-        <span class="d-block">Total</span>
-        <span class="d-block">Clicks</span>
-      </p>
-      <div class="text-dark mt-2"><%= number_with_delimiter @property.clicks_count(@start_date, @end_date) %></div>
+    <div class="col-4 p-0">
+      <div class="metric">
+        <p class="metric-label mb-0">Total</p>
+        <p class="metric-label mb-2 text-wrap">Clicks</p>
+        <h6 class="metric-value"><%= number_with_delimiter @property.clicks_count(@start_date, @end_date) %></h6>
+      </div>
     </div>
-    <div class="col-4">
-      <p class="mb-0 font-weight-bold">
-        <span class="d-block">Current</span>
-        <span class="d-block">Advertiser</span>
-      </p>
-      <div class="text-dark mt-2"><%= @property.current_sponsor_campaign&.user&.name || "none" %></div>
+    <div class="col-4 p-0">
+      <div class="metric">
+        <p class="metric-label mb-0">Current</p>
+        <p class="metric-label mb-2 text-wrap">Advertiser</p>
+        <h6 class="metric-value"><%= @property.current_sponsor_campaign&.user&.name || "none" %></h6>
+      </div>
     </div>
-    <div class="col-4">
-      <p class="mb-0 font-weight-bold">
-        <span class="d-block">Current</span>
-        <span class="d-block">Campaign</span>
-      </p>
-      <div class="text-dark mt-2"><%= @property.current_sponsor_campaign&.name || "none" %></div>
+    <div class="col-4 p-0">
+      <div class="metric">
+        <p class="metric-label mb-0">Current</p>
+        <p class="metric-label mb-2 text-wrap">Campaign</p>
+        <h6 class="metric-value"><%= @property.current_sponsor_campaign&.name || "none" %></h6>
+      </div>
     </div>
   <% else %>
-    <div class="col-4">
-      <p class="mb-0 font-weight-bold">
-        <span class="d-block">Total</span>
-        <span class="d-block">Impressions</span>
-      </p>
-      <div class="text-dark mt-2"><%= number_with_delimiter @property.impressions_count(@start_date, @end_date) %></div>
+    <div class="col-4 p-0">
+      <div class="metric">
+        <p class="metric-label mb-0">Total</p>
+        <p class="metric-label mb-2 text-wrap">Impressions</p>
+        <h6 class="metric-value"><%= number_with_delimiter @property.impressions_count(@start_date, @end_date) %></h6>
+      </div>
     </div>
-    <div class="col-4">
-      <p class="mb-0 font-weight-bold">
-        <span class="d-block">Average</span>
-        <span class="d-block">Click Rate</span>
-      </p>
-      <div class="text-dark mt-2"><%= number_to_percentage @property.click_rate(@start_date, @end_date), precision: 2 %></div>
+    <div class="col-4 p-0">
+      <div class="metric border-left border-right rounded-0 px-2">
+        <p class="metric-label mb-0">Avg.</p>
+        <p class="metric-label mb-2 text-wrap">Click Rate</p>
+        <h6 class="metric-value"><%= number_to_percentage @property.click_rate(@start_date, @end_date), precision: 2 %></h6>
+      </div>
     </div>
-    <div class="col-4">
-      <p class="mb-0 font-weight-bold">
-        <span class="d-block">Estimated</span>
-        <span class="d-block">Earnings</span>
-      </p>
-      <div class="text-dark mt-2"><%= @property.property_revenue(@start_date, @end_date).format %></div>
+    <div class="col-4 p-0">
+      <div class="metric">
+        <p class="metric-label mb-0">Est.</p>
+        <p class="metric-label mb-2 text-wrap">Earnings</p>
+        <h6 class="metric-value"><%= @property.property_revenue(@start_date, @end_date).format %></h6>
+      </div>
     </div>
   <% end %>
 </div>

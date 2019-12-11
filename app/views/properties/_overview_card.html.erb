@@ -18,17 +18,13 @@
       </div>
     <% end %>
   <% end %>
-  <figure class="figure mx-auto">
-    <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "img-fluid"), property %>
+  <figure class="embed-responsive embed-responsive-4by3 mb-0">
+    <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "embed-responsive-item"), property %>
   </figure>
-  <%= card_body do %>
+  <%= card_body padding: "p-0" do %>
     <%= render_later async_property_card_footer_path(property_id: property.id) do %>
       <i class="fa fa-spinner fa-spin text-center d-block"></i>
     <% end %>
   <% end %>
-  <%= card_footer do %>
-    <% card_footer_content do %>
-      <small class="text-center d-block"><em>data refreshes every 15 minutes</em></small>
-    <% end %>
-  <% end %>
+
 <% end %>
