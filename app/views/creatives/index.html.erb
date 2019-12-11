@@ -1,6 +1,6 @@
 <%= render "/shared/index_layout",
     title: "Creatives" do %>
   <%= card do %>
-    <%= render "/creatives/table", creatives: @creatives %>
+    <%= render "/creatives/table", creatives: @creatives, pagy: @pagy %>
   <% end %>
 <% end %>
