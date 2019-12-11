@@ -17,10 +17,10 @@ owner:
 
 member:
   organization: default
-  user: advertiser
+  user: publisher
   role: member
 
 administrator:
   organization: default
-  user: advertiser
+  user: administrator
   role: administrator

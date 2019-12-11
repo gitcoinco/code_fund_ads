@@ -71,6 +71,7 @@ class User < ApplicationRecord
   include Users::Developable if Rails.env.development?
   include Users::Advertiser
   include Users::Publisher
+  include Users::Presentable
   include Users::Stripeable
   include Eventable
   include FullNameSplitter
@@ -78,7 +79,6 @@ class User < ApplicationRecord
   include Taggable
 
   # relationships .............................................................
-  include Users::Presentable
   belongs_to :organization, optional: true
   belongs_to :referring_user, class_name: "User", foreign_key: "referring_user_id", optional: true
   has_many :job_postings
