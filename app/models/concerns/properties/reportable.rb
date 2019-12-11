@@ -16,6 +16,10 @@ module Properties
       )
     end
 
+    def earnings(start = nil, stop = nil)
+      Money.new daily_summaries.scoped_by(nil).between(start || start_date, stop || end_date).sum(:property_revenue_cents)
+    end
+
     # Daily report -------------------------------------------------------------------------------------------
 
     def daily_summaries_by_day(start = nil, stop = nil, paid: true)
