@@ -18,6 +18,11 @@
         <li class="d-none d-sm-inline list-inline-item mr-3">
           <span class="badge badge-subtle badge-<%= property_status_color(property.status) %>"><%= property.status.humanize %></span>
         </li>
+        <li class="d-none d-sm-inline list-inline-item mr-3">
+          <%= render_later async_property_sparkline_path(property_id: property.id) do %>
+            <i class="fa fa-spinner fa-spin text-primary"></i>
+          <% end %>
+        </li>
         <%= edit_button(link: edit_property_path(property)) %>
         <%= goto_button(link: property_path(property), icon: "fas fa-chevron-right", title: "View Property") %>
       </ul>
