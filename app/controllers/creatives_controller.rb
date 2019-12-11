@@ -5,8 +5,7 @@ class CreativesController < ApplicationController
   before_action :authenticate_creative_update_rights!, only: [:edit, :update]
 
   def index
-    creatives = current_user.creatives.order(:name).includes(:user)
-    @pagy, @creatives = pagy(creatives, items: 10)
+    @creatives = current_user.creatives.order(:name).includes(:user)
   end
 
   def new
