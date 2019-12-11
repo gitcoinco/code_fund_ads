@@ -1,10 +1,19 @@
 module Properties
   module Reportable
     def summary(start = nil, stop = nil, paid: true)
-      DailySummaryReport.scoped_by(self)
+      report = DailySummaryReport.scoped_by(self)
         .where(impressionable_type: "Campaign", impressionable_id: campaign_ids_relation(paid))
         .where(scoped_by_type: "Property", scoped_by_id: id)
-        .between(start || start_date, stop || end_date)[0]
+        .between(start || start_date, stop || end_date)
+        .load
+
+      DailySummaryReport.new(
+        impressions_count: report.sum(&:impressions_count),
+        clicks_count: report.sum(&:clicks_count),
+        gross_revenue_cents: report.sum(&:gross_revenue_cents),
+        property_revenue_cents: report.sum(&:property_revenue_cents),
+        house_revenue_cents: report.sum(&:house_revenue_cents),
+      )
     end
 
     # Daily report -------------------------------------------------------------------------------------------
