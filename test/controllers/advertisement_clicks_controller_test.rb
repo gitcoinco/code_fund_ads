@@ -156,7 +156,7 @@ class AdvertisementClicksControllerTest < ActionDispatch::IntegrationTest
     assert property.restrict_to_sponsor_campaigns?
     get sponsor_visit_url(property), headers: {"REMOTE_ADDR": ip, "User-Agent": "Rails/Minitest"}
     assert_response :found
-    assert headers["Location"] == advertisers_url
+    assert headers["Location"] == "https://codefund.io"
     assert Impression.count == 0
   end
 

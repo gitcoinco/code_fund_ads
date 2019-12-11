@@ -1,2 +1,0 @@
-class AdvertisersController < ApplicationController
-end

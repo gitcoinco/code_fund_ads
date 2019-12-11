@@ -89,9 +89,6 @@ class ApplicationController < ActionController::Base
         {href: "/safari-pinned-tab.svg", rel: "mask-icon", color: "#5bbad5", type: "image/svg"},
       ],
       manifest: {href: "/site.webmanifest"},
-      alternate: [
-        {href: "https://app.codefund.io/blog/rss", type: "application/rss+xml", title: "RSS"},
-      ],
       "apple-mobile-web-app-title": "CodeFund",
       "application-name": "CodeFund",
       "msapplication-TileColor": "#da532c",

@@ -14,7 +14,6 @@ gem "aws-sdk-s3", "~> 1.48.0", require: false
 gem "barnes", "~> 0.0.7"
 gem "bootsnap", ">= 1.4.2", require: false
 gem "bulk_insert", "~> 1.7.0"
-gem "buttercms-rails", "~> 1.2.1"
 gem "cable_ready", "~> 4.0.7"
 gem "camo", "~> 0.1.0"
 gem "chroma", "~> 0.2.0"
