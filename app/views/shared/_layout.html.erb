@@ -1,10 +1,15 @@
 <div class="page <%= "has-sidebar has-sidebar-expand-xl" if local_assigns[:sidebar] %>">
+  <% if local_assigns[:sidebar] %>
+    <div class="sidebar-backdrop"></div>
+  <% end %>
+
   <div class="page-inner" data-controller="auto-height">
     <%= render "/shared/page_heading_with_subtitle",
       title: local_assigns[:title] || subject.name,
       subtitle: local_assigns[:subtitle],
       buttons: local_assigns[:buttons] || [],
-      datepicker: local_assigns[:datepicker] || false %>
+      datepicker: local_assigns[:datepicker] || false,
+      sidebar: local_assigns[:sidebar] || false %>
 
     <%= render("/#{subject.class.name.underscore.pluralize}/tabs", subject: subject) if subject.persisted? && local_assigns[:tabs] != false %>
 
