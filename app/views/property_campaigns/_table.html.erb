@@ -12,7 +12,11 @@
     <% if @report.exists? %>
       <% @report.each do |item| %>
         <%= table_row do %>
-          <%= table_data do %><%= link_to item.scoped_by.name, item.scoped_by %><% end %>
+          <% if current_user.publisher? %>
+            <%= table_data do %><%= item.scoped_by.name %><% end %>
+          <% else %>
+            <%= table_data do %><%= link_to item.scoped_by.name, item.scoped_by %><% end %>
+          <% end %>
           <%= table_data add_class: "text-right" do %><%= number_with_delimiter item.impressions_count %><% end %>
           <%= table_data add_class: "text-right" do %><%= number_with_delimiter item.clicks_count %><% end %>
           <%= table_data add_class: "text-right" do %><%= number_to_percentage item.click_rate, precision: 3 %><% end %>
