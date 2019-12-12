@@ -48,7 +48,7 @@ premium:
     - 1
   status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
   name: CodeFund
-  url: https://codefund.io
+  url: <%= ENV["WORDPRESS_URL"] %>
   total_budget_cents: <%= Monetize.parse("$5,000 USD").cents %>
   total_budget_currency: USD
   daily_budget_cents: <%= Monetize.parse("$55 USD").cents %>
@@ -74,6 +74,6 @@ fallback:
     - 2
   status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
   name: CodeFund
-  url: https://codefund.io
+  url: <%= ENV["WORDPRESS_URL"] %>
   fallback: true
   country_codes: <%= Country.all.map(&:id) %>

@@ -38,7 +38,7 @@ class AdvertisementClicksController < ApplicationController
       @theme = params[:theme]
     end
 
-    redirect_to "https://codefund.io" unless @campaign
+    redirect_to ENV["WORDPRESS_URL"] unless @campaign
   end
 
   def mustache_params

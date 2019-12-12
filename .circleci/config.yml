@@ -12,6 +12,7 @@ jobs:
           PARALLEL_WORKERS: "1"
           REDIS_CACHE_URL: redis://127.0.0.1:6379
           REDIS_QUEUE_URL: redis://127.0.0.1:6379
+          WORDPRESS_URL: 'https://codefund.io'
       - image: circleci/postgres:11.2
         environment:
           POSTGRES_USER: ubuntu
