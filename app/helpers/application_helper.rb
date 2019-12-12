@@ -218,4 +218,36 @@ module ApplicationHelper
     return 0 if denominator.zero?
     numerator / denominator.to_f
   end
+
+  def inline_circle_icon(icon_class, title: "")
+    tag.i "", class: [icon_class, "fa-2x"].join(" "), title: title, data: tooltip_expando
+  end
+
+  private
+
+  def redesigned_badge_for_role(role, wrap_class)
+    case role
+    when "administrator"
+      tag.div(
+        tag.span("", class: "fas fa-key content-centered"),
+        class: "tile tile-circle tile-sm bg-dark #{wrap_class}",
+        title: "Administrator",
+        data: tooltip_expando
+      )
+    when "advertiser"
+      tag.div(
+        tag.span("", class: "fas fa-ad content-centered"),
+        class: "tile tile-circle tile-sm bg-success #{wrap_class}",
+        title: "Advertiser",
+        data: tooltip_expando
+      )
+    when "publisher"
+      tag.div(
+        tag.span("", class: "fas fa-code content-centered"),
+        class: "tile tile-circle tile-sm bg-primary #{wrap_class}",
+        title: "Publisher",
+        data: tooltip_expando
+      )
+    end
+  end
 end

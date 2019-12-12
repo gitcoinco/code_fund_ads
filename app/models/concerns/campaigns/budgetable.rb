@@ -46,9 +46,9 @@ module Campaigns
     end
 
     # Returns a Money indicating how much budget remains
-    def total_remaining_budget
+    def total_remaining_budget(exclude_org_balance: false)
       value = total_budget - total_consumed_budget
-      return organization.balance if organization.balance < value
+      return organization.balance if organization.balance < value && !exclude_org_balance
       value
     end
 
