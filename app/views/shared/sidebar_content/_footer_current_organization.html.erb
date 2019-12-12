@@ -1,0 +1,10 @@
+<% if Current.organization %>
+  <footer class="aside-footer border-top p-3 text-center">
+    <strong><%= Current.organization.name %></strong>
+    <div>
+      <a href="#" data-toggle="modal" data-target="#organizationUserModal">change</a>
+      •
+      <%= link_to 'view', organization_path(Current.organization) %>
+    </div>
+  </footer>
+<% end %>

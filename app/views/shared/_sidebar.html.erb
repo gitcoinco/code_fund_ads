@@ -10,7 +10,7 @@
         </span>
         <span class="account-summary">
           <span class="account-name"><%= current_user.name %></span>
-          <span class="account-description"><%= current_user.organization&.name %></span>
+          <span class="account-description"><%= Current.organization&.name %></span>
         </span>
       </button>
       <div id="dropdown-aside" class="dropdown-aside collapse">
@@ -47,5 +47,6 @@
         </ul>
       </nav>
     </div>
+    <%#= render "/shared/sidebar_content/footer_current_organization" %>
   </div>
 </aside>

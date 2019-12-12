@@ -12,6 +12,7 @@ class CreateDebitForCampaignAndDateJobTest < ActiveJob::TestCase
     )
     campaign.organization.recalculate_balance!
     starting_balance = campaign.organization.reload.balance
+
     rand(5000).times do
       campaign.impressions.create!(
         advertiser: campaign.user,

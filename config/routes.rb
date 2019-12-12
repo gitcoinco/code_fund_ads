@@ -134,7 +134,6 @@ Rails.application.routes.draw do
     resources :campaigns, only: [:index], as: :user_campaigns
     resources :properties, only: [:index], as: :user_properties
     resources :creatives, only: [:index], as: :user_creatives
-    resources :user_organizations, only: [:index], path: "/organizations"
     resources :versions, only: [:index], as: :user_versions, path: "/revisions"
     resources :comments, only: [:index], as: :user_comments
     resources :events, only: [:index], as: :user_events
