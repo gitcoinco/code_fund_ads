@@ -90,7 +90,7 @@ class ApplicationController < ActionController::Base
       ],
       manifest: {href: "/site.webmanifest"},
       alternate: [
-        {href: "https://app.codefund.io/blog/rss", type: "application/rss+xml", title: "RSS"},
+        {href: "#{ENV["WORDPRESS_URL"]}/blog/feed", type: "application/rss+xml", title: "RSS"},
       ],
       "apple-mobile-web-app-title": "CodeFund",
       "application-name": "CodeFund",
