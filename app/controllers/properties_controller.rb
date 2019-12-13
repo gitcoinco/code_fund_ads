@@ -57,6 +57,7 @@ class PropertiesController < ApplicationController
 
     respond_to do |format|
       if @property.save
+        CreateNewPropertyNotificationJob.perform_later @property
         format.html { redirect_to @property, notice: "Property was successfully created." }
         format.json { render :show, status: :created, location: @property }
       else

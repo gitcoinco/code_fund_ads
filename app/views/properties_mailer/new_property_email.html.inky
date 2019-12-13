@@ -1,0 +1,16 @@
+<h2>Property created by <%= @property.user&.name %></h2>
+
+<br>
+<strong>Overview</strong>
+
+<ul style="margin-top:5px;">
+  <li style="margin-bottom:5px;">Name: <code><%= @property.name %></code></li>
+  <li style="margin-bottom:5px;">Description: <code><%= @property&.description %></code></li>
+  <li style="margin-bottom:5px;">URL: <code><%= @property.url %></code></li>
+  <li style="margin-bottom:5px;">Language: <code><%= @property.language %></code></li>
+  <li>Keywords: <code><%= @property.keywords.join(", ") %></code></li>
+</ul>
+
+<p>
+  <%= link_to "View Property", property_url(@property), style: "margin-top:5px;" %>
+</p>
