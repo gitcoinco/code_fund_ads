@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     mount Sidekiq::Web => "/sidekiq"
     mount Split::Dashboard, at: "/split"
   end
+
+  resources :health, only: [:index]
   resources :split_experiments, only: [:update, :destroy]
 
   root to: "pages#index"

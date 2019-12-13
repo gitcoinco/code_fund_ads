@@ -1,0 +1,14 @@
+<%= render "/shared/index_layout",
+    title: "Health",
+    sidebar: false do %>
+  <div class="grid grid-tcolumns-200">
+    <% @results.each do |result| %>
+      <div class="metric metric-bordered">
+        <h2 class="metric-label"> <%= result.name %> </h2>
+        <p class="metric-value h2">
+          <sup><%= result.success ? "✔️" : "✖️" %></sup> <span class="value"><%= result.message %></span>
+        </p>
+      </div>
+    <% end %>
+  </div>
+<% end %>
