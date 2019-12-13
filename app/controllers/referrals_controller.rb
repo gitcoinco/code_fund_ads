@@ -7,6 +7,6 @@ class ReferralsController < ApplicationController
 
     IncrementReferralLinkClickCountJob.perform_later params[:referral_code]
 
-    redirect_to root_path
+    redirect_to ENV["WORDPRESS_URL"]
   end
 end
