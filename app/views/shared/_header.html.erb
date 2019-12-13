@@ -70,7 +70,7 @@
           <span class="user-avatar user-avatar-md"><%= user_avatar_image_tag(current_user, "") %></span>
           <span class="account-summary pr-lg-4 d-none d-lg-block">
             <span class="account-name"><%= current_user.name %></span>
-            <span class="account-description"><%= current_user.organization&.name %></span>
+            <span class="account-description"><%= Current.organization&.name %></span>
           </span>
         </button>
         <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 56px; left: 0px;">

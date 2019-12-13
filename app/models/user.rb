@@ -82,6 +82,11 @@ class User < ApplicationRecord
   belongs_to :organization, optional: true
   belongs_to :referring_user, class_name: "User", foreign_key: "referring_user_id", optional: true
   has_many :job_postings
+  has_many :organization_users, dependent: :destroy, inverse_of: :user
+  has_many :organizations_as_administrator, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::ADMINISTRATOR} }, through: :organization_users, source: "organization"
+  has_many :organizations_as_member, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::MEMBER} }, through: :organization_users, source: "organization"
+  has_many :organizations_as_owner, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::OWNER} }, through: :organization_users, source: "organization"
+  has_many :organizations, through: :organization_users
   has_many :referred_users, class_name: "User", foreign_key: "referring_user_id"
 
   # validations ...............................................................
@@ -141,6 +146,7 @@ class User < ApplicationRecord
   #   irb>User.created_by_invite
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+
   begin
     tag_columns :roles
     tag_columns :skills
@@ -204,6 +210,15 @@ class User < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def organization
+    ActiveSupport::Deprecation.warn("User#organization is being deprecated and should not be used")
+    super
+  end
+
+  def default_organization
+    organizations_as_owner.first || organizations_as_administrator.first || organizations_as_member.first
+  end
+
   def administrator?
     roles.include? ENUMS::USER_ROLES::ADMINISTRATOR
   end
@@ -235,11 +250,6 @@ class User < ApplicationRecord
 
   def active_for_authentication?
     super && !blacklisted?
-  end
-
-  # TODO: Overwrite once Teams are in place
-  def organizations
-    [organization].compact
   end
 
   # protected instance methods ................................................

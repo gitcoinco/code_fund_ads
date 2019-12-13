@@ -5,7 +5,7 @@ class CreativesController < ApplicationController
   before_action :authenticate_creative_update_rights!, only: [:edit, :update]
 
   def index
-    creatives = current_user.creatives.order(:name).includes(:user)
+    creatives = Current.organization&.creatives&.order(:name)&.includes(:user)
     @pagy, @creatives = pagy(creatives, items: 10)
   end
 
@@ -73,7 +73,7 @@ class CreativesController < ApplicationController
     @creative = if authorized_user(true).can_admin_system?
       Creative.find(params[:id])
     else
-      current_user.creatives.find(params[:id])
+      Current.organization&.creatives&.find(params[:id])
     end
   end
 

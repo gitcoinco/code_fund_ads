@@ -86,10 +86,10 @@
         </div>
       </div>
       <div class="col-sm-6">
-      <%= tag.div f.input(:status, collection: user_statuses_for_select,
-    input_html: {class: "form-control", data: {controller: "select"}}), class: "mb-2" %>
-<%= tag.div f.input(:organization_id, label: "Organization", collection: organizations_for_select, include_blank: "None",
-  input_html: {class: "form-control", data: {controller: "select"}}), class: "mb-3" %>
+        <%= tag.div f.input(:status, collection: user_statuses_for_select,
+            input_html: {class: "form-control", data: {controller: "select"}}), class: "mb-2" %>
+        <%= tag.div f.input(:organization_id, label: "Organization", collection: organizations_for_select, include_blank: "None",
+            input_html: {class: "form-control", data: {controller: "select"}}), class: "mb-3" %>
       </div>
     </div>
   <% end %>

@@ -1,0 +1,18 @@
+<%= table_wrapper do %>
+  <%= paginated_table do %>
+    <%= table_head do %>
+      <%= table_row header: true do %>
+        <%= table_column(add_scope: "col") { "Name" } %>
+        <%= table_column(add_scope: "col") { "Role" } %>
+        <%= table_column {} if authorized_user.can_edit_organization?(@organization) %>
+      <% end %>
+    <% end %>
+    <%= table_body do %>
+      <%= render partial: "/organization_users/tr", locals: {organization: @organization}, collection: organization_users, as: :organization_user %>
+    <% end %>
+  <% end %>
+  <%= pagination_wrapper do %>
+    <span><%== pagy_bootstrap_nav(pagy) if pagy.pages > 1 %></span>
+    <%= pagy_entries(pagy) %>
+  <% end %>
+<% end %>

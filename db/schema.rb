@@ -364,6 +364,17 @@ ActiveRecord::Schema.define(version: 2019_12_01_235552) do
     t.index ["transaction_type"], name: "index_organization_transactions_on_transaction_type"
   end
 
+  create_table "organization_users", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "user_id", null: false
+    t.string "role", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id", "user_id", "role"], name: "index_organization_users_on_uniqueness", unique: true
+    t.index ["organization_id"], name: "index_organization_users_on_organization_id"
+    t.index ["user_id"], name: "index_organization_users_on_user_id"
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.string "name", null: false
     t.integer "balance_cents", default: 0, null: false

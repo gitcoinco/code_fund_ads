@@ -15,7 +15,6 @@
       </span>
     </div>
   <% end %>
-  <%= table_data do %><%= link_to user.organization.name, user.organization if user.organization %><% end %>
   <%= table_data do %>
     <% user.roles.each do |role| %>
       <%= badge_for_role(role) %>

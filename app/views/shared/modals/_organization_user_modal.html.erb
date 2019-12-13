@@ -1,0 +1,31 @@
+
+<div class="modal fade" id="organizationUserModal" tabindex="-1" role="dialog" aria-labelledby="organizationUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 id="organizationUserModalTitle" class="modal-title"> Choose Organization </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <%= form_tag nil,
+                data: {
+                  controller: "current-organization",
+                  target: "current-organization.currentOrganizationForm"
+                },
+                method: :get do %>
+          <%= select_tag "current-organization",
+                options_from_collection_for_select(user_organizations_for_select, "id", "name", Current.organization&.id),
+                class: "form-control custom-select",
+                data: {
+                  controller: "select",
+                  target: "current-organization.currentOrganizationSelect",
+                  action: "change->current-organization#updateCurrentOrganization"
+                } %>
+        <% end %>
+      </div>
+      <div class="modal-footer"></div>
+    </div>
+  </div>
+</div>

@@ -71,6 +71,11 @@ module ApplicationHelper
     Organization.order(Organization.arel_table[:name].lower).map { |org| [org.name, org.id] }
   end
 
+  def user_organizations_for_select
+    return Organization.order(Organization.arel_table[:name].lower) if authorized_user.can_admin_system?
+    current_user.organizations.order(Organization.arel_table[:name].lower)
+  end
+
   def currencies_for_select
     Money::Currency.table.values.sort_by { |currency| currency[:name] }.map do |currency|
       ["#{currency[:name]} (#{currency[:iso_code]})", currency[:iso_code]]

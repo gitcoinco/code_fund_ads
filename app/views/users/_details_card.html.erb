@@ -23,7 +23,6 @@
       <% end %>
       <%= details_li("Name") { @user.name } %>
       <%= details_li("Email") { @user.email } %>
-      <%= details_li("Organization") { link_to @user.organization.name, @user.organization } if @user.organization %>
       <%= details_li("Company Name") { @user.company_name } %>
       <%= details_li("Street Address") { @user.address_1 } %>
       <%= details_li("City") { @user.city } %>

@@ -15,5 +15,6 @@ class AuthorizedUser < Perm::Authorized
   include Authorizers::Image
   include Authorizers::Imageable
   include Authorizers::JobPosting
+  include Authorizers::Organization
   include Authorizers::Roles
 end

@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   include Authorizable
   include Dateable
+  include Organization::Currentable
 
   delegate :instrument, to: ActiveSupport::Notifications
 
@@ -13,6 +14,7 @@ class ApplicationController < ActionController::Base
   before_action :sample_requests_for_scout
   before_action :set_ngrok_urls, if: -> { Rails.env.development? }
   before_action :allow_cors_requests, unless: -> { Rails.env.production? }
+  before_action :current_organization
 
   impersonates :user
 
@@ -26,6 +28,8 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  helper_method :current_organization
 
   def store_ids
     return if is_a?(Untrackable)
@@ -135,11 +139,6 @@ class ApplicationController < ActionController::Base
   def after_invite_path_for(_inviter, _invitee = nil)
     users_path
   end
-
-  def current_organization
-    current_user&.organization
-  end
-  helper_method :current_organization
 
   def reload_extensions
     load Rails.root.join("app/lib/extensions.rb")

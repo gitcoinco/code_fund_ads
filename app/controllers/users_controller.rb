@@ -11,12 +11,9 @@ class UsersController < ApplicationController
 
   def index
     users = scope_list(User).includes(:avatar_attachment, :organization).include_image_count.order(order_by)
-    users = users.where(organization: @organization) if @organization
 
     max = (users.size / Pagy::VARS[:items].to_f).ceil
     @pagy, @users = pagy(users, page: current_page(max: max))
-
-    render "/users/for_organization/index" if @organization
   end
 
   def new
@@ -74,7 +71,7 @@ class UsersController < ApplicationController
   end
 
   def set_organization
-    @organization = Organization.find(params[:organization_id])
+    @organization ||= Current.organization
   end
 
   def user_params

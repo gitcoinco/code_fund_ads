@@ -4,10 +4,10 @@ module Organizationable
   included do
     belongs_to :organization
 
-    before_validation :set_organization, only: [:create]
+    before_validation :set_organization, on: :create
   end
 
   def set_organization
-    self.organization = user.organization
+    self.organization_id ||= Current&.organization&.id
   end
 end

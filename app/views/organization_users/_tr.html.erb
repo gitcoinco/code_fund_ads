@@ -1,0 +1,18 @@
+<%= table_row do %>
+  <%= table_data do %>
+    <div class="media align-items-center">
+      <span class="user-avatar user-avatar-sm bg-muted position-relative mr-3">
+        <%= user_avatar_image_tag(organization_user.user, "img-fluid rounded-circle") %>
+      </span>
+      <span>
+        <%= link_to organization_user.user.full_name, user_path(organization_user.user), title: "View User", data: tooltip_expando %>
+        <small class="d-block text-muted"><%= organization_user.user.email %></small>
+      </span>
+    </div>
+  <% end %>
+  <%= table_data { organization_user.role.titleize } %>
+  <%= table_data add_class: "text-right" do %>
+    <%= edit_button(link: edit_organization_user_path(organization, organization_user)) %>
+    <%= delete_button(link: organization_user_path(organization, organization_user)) %>
+  <% end if authorized_user.can_edit_organization?(@organization) %>
+<% end %>

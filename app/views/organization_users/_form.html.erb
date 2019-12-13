@@ -1,0 +1,34 @@
+<%= simple_form_for organization_user, wrapper: :front_form do |f| %>
+  <%= f.hidden_field :organization_id, value: organization.id %>
+  <%= render "/shared/forms/error_messages", object: organization_user %>
+
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        <%= organization.name %> Member
+      <% end %>
+      <%= card_subtitle do %>
+        Fill out the fields below
+      <% end %>
+    <% end %>
+    <%= card_body do %>
+      <div class="row">
+        <%= tag.div f.input(:user_id, label: "User", collection: users_for_select, include_blank: "None",
+            input_html: {class: "form-control", data: {controller: "select"}}), class: "col-md-6 mb-3 mb-md-0" %>
+        <div class="col-md-6 mb-3">
+          <%= f.input :role, label: "Role", required: true,
+                collection: ENUMS::ORGANIZATION_ROLES.values.map { |role| [role.capitalize, role] },
+                input_html: {class: "form-control", data: {controller: "select"}} %>
+        </div>
+      </div>
+    <% end %>
+    <%= card_footer do %>
+      <%= card_footer_content do %>
+        <%= button_panel margin: "my-0" do %>
+          <%= f.submit "Save Membership", class: "btn btn-primary" %>
+          <%= cancel_button(organization_users_path(organization)) %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

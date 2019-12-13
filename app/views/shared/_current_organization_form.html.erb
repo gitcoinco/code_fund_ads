@@ -1,0 +1,14 @@
+<%= form_tag nil,
+      data: {
+        controller: "current-organization",
+        target: "current-organization.form"
+      },
+      method: :get do %>
+    <%= select_tag "current-organization",
+      options_from_collection_for_select(available_organizations, "id", "name", Current.organization&.id&.to_s),
+      class: "form-control custom-select",
+      data: {
+        target: "current-organization.select",
+        action: "change->current-organization#updateCurrentOrganization"
+      } %>
+<% end %>

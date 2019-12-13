@@ -1,0 +1,14 @@
+<%= render layout: "/shared/layout", locals: {
+  subject: @organization,
+  sidebar: true,
+  tabs: true,
+  buttons: [
+    layout_button(link: new_organization_user_path(@organization), icon: "fas fa-plus", title: "Add transaction")
+  ]
+} do %>
+  <%= card do %>
+    <%= card_body padding: "p-0" do %>
+      <%= render "/organization_users/table", organization: @organization, organization_users: @organization_users, pagy: @pagy %>
+    <% end %>
+  <% end %>
+<% end %>

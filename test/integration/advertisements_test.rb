@@ -224,19 +224,20 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: property will show targeted premium campaign over a zero balance campaign with assigned property" do
+    organization = copy(organizations: :default, balance: Money.new(0, "USD"))
+
     user = copy users: :advertiser,
                 email: Faker::Internet.email,
                 password: "password",
-                password_confirmation: "password",
-                organization: copy(organizations: :default, balance: Money.new(0, "USD"))
+                password_confirmation: "password"
 
     creative = copy creatives: :premium,
-                    organization: user.organization,
+                    organization: organization,
                     user: user,
                     body: "This is an assigned premium campaign"
 
     copy campaigns: :premium,
-         organization: user.organization,
+         organization: organization,
          user: user,
          assigned_property_ids: [@property.id],
          keywords: [],

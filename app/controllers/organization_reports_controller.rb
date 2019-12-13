@@ -70,11 +70,7 @@ class OrganizationReportsController < ApplicationController
   private
 
   def set_organization
-    @organization = if authorized_user.can_admin_system?
-      Organization.find(params[:organization_id])
-    else
-      current_user&.organization
-    end
+    @organization = Current.organization
   end
 
   def organization_report_params

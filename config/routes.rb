@@ -45,7 +45,7 @@ Rails.application.routes.draw do
   resources :organizations
   scope "/organization/:organization_id/" do
     resources :organization_transactions, path: "/transactions"
-    resources :users, path: "/members", as: :organization_users
+    resources :organization_users, path: "/members", as: :organization_users
     resources :comments, only: [:index], as: :organization_comments
     resources :events, only: [:index], as: :organization_events
     resources :versions, only: [:index], as: :organization_versions, path: "/revisions"

@@ -687,6 +687,39 @@ ALTER SEQUENCE public.organization_transactions_id_seq OWNED BY public.organizat
 
 
 --
+-- Name: organization_users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.organization_users (
+    id bigint NOT NULL,
+    organization_id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    role character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: organization_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.organization_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: organization_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.organization_users_id_seq OWNED BY public.organization_users.id;
+
+
+--
 -- Name: organizations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1229,6 +1262,13 @@ ALTER TABLE ONLY public.organization_transactions ALTER COLUMN id SET DEFAULT ne
 
 
 --
+-- Name: organization_users id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organization_users ALTER COLUMN id SET DEFAULT nextval('public.organization_users_id_seq'::regclass);
+
+
+--
 -- Name: organizations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1386,6 +1426,14 @@ ALTER TABLE ONLY public.organization_reports
 
 ALTER TABLE ONLY public.organization_transactions
     ADD CONSTRAINT organization_transactions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: organization_users organization_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.organization_users
+    ADD CONSTRAINT organization_users_pkey PRIMARY KEY (id);
 
 
 --
@@ -2161,6 +2209,27 @@ CREATE INDEX index_organization_transactions_on_transaction_type ON public.organ
 
 
 --
+-- Name: index_organization_users_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organization_users_on_organization_id ON public.organization_users USING btree (organization_id);
+
+
+--
+-- Name: index_organization_users_on_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_organization_users_on_uniqueness ON public.organization_users USING btree (organization_id, user_id, role);
+
+
+--
+-- Name: index_organization_users_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organization_users_on_user_id ON public.organization_users USING btree (user_id);
+
+
+--
 -- Name: index_properties_on_assigned_fallback_campaign_ids; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2571,6 +2640,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191014171135'),
 ('20191014205953'),
 ('20191105141709'),
+('20191105190354'),
 ('20191201235552');
 
 
