@@ -3,7 +3,7 @@ module Properties
     extend ActiveSupport::Concern
 
     def scoped_name
-      [user.scoped_name, name].compact.join "・"
+      [user&.name, name].compact.join "・"
     end
 
     def analytics_key

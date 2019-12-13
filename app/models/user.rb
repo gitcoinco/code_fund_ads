@@ -215,6 +215,10 @@ class User < ApplicationRecord
     super
   end
 
+  def default_organization
+    organizations_as_owner.first || organizations_as_administrator.first || organizations_as_member.first
+  end
+
   def administrator?
     roles.include? ENUMS::USER_ROLES::ADMINISTRATOR
   end

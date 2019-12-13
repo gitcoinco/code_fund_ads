@@ -41,20 +41,10 @@ module CurrentOrganizationable
 
   def set_default_organization
     if current_user.organization_users.nil?
-      set_legacy_organization
+      current_user&.organization
     else
-      default_organization_by_role
+      current_user.default_organization
     end
-  end
-
-  def set_legacy_organization
-    current_user&.organization
-  end
-
-  def default_organization_by_role
-    current_user.organizations_as_owner.first ||
-      current_user.organizations_as_administrator.first ||
-      current_user.organizations_as_member.first
   end
 
   def valid_user_organization?(org_id)

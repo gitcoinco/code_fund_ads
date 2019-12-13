@@ -14,7 +14,7 @@ class CampaignsController < ApplicationController
     if authorized_user.can_admin_system?
       campaigns = campaigns.where(user: @user) if @user
     else
-      campaigns = campaigns.where(user: current_user)
+      campaigns = campaigns.where(organization: Current.organization)
     end
 
     max = (campaigns.count / Pagy::VARS[:items].to_f).ceil
@@ -105,7 +105,7 @@ class CampaignsController < ApplicationController
     @campaign = if authorized_user.can_admin_system?
       Campaign.find(params[:id])
     else
-      current_user.campaigns.find(params[:id])
+      Current.organization&.campaigns&.find(params[:id])
     end
   end
 

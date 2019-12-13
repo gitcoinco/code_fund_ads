@@ -5,7 +5,7 @@ namespace :organization_users do
 
     users.each do |user|
       organization = user.organization
-      role = organization.organization_users.present? ? ENUMS::ORGANIZATION_ROLES::MEMBER : ENUMS::ORGANIZATION_ROLES::OWNER
+      role = organization.organization_users.present? ? ENUMS::ORGANIZATION_ROLES::ADMINISTRATOR : ENUMS::ORGANIZATION_ROLES::OWNER
       OrganizationUser.create(user: user, organization: organization, role: role)
     end
 

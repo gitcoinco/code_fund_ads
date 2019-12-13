@@ -3,7 +3,7 @@ module Users
     extend ActiveSupport::Concern
 
     def scoped_name
-      [organization&.name, full_name].compact.join "·"
+      [default_organization&.name, full_name].compact.join "·"
     end
 
     def full_name
