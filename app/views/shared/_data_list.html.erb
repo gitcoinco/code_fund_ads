@@ -15,10 +15,10 @@
     </div>
     <div class="card-body">
       <div class="row">
-        <div class="col-auto d-none d-sm-flex">
+        <div class="col-auto d-none d-sm-flex" data-controller="sortable-list">
           <div class="dropdown">
-            <div class="btn-group" role="group" aria-label="Basic example">
-              <button data-reflex="click->SortableReflex#flip" class="btn btn-secondary">
+            <div class="btn-group" role="group" aria-label="sort">
+              <button data-action="click->sortable-list#flip" class="btn btn-secondary">
                 <%= current_sort_direction_icon %>
               </button>
               <button class="btn btn-secondary" style="min-width:112px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -29,15 +29,15 @@
               <div class="dropdown-arrow"></div>
               <h6 class="dropdown-header"> Sort By </h6>
               <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="0" data-reflex="click->SortableReflex#sort" data-column-name="name" />
+                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="0" data-action="click->sortable-list#sort" data-column-name="name" />
                   <span class="custom-control-label">Name</span>
               </label>
               <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="1" data-reflex="click->SortableReflex#sort" data-column-name="updated_at" />
+                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="1" data-action="click->sortable-list#sort" data-column-name="updated_at" />
                   <span class="custom-control-label">Updated</span>
               </label>
               <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="2" data-reflex="click->SortableReflex#sort" data-column-name="created_at" />
+                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="2" data-action="click->sortable-list#sort" data-column-name="created_at" />
                   <span class="custom-control-label">Created</span>
               </label>
             </div>

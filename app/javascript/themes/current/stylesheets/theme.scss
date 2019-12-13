@@ -79,3 +79,10 @@ button.layout-button {
   border: 1px solid rgba(20, 20, 31, 0.12);
   border-radius: 0.25rem;
 }
+
+#reflex-status {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 0 0.5em 0.5em 0;
+}
