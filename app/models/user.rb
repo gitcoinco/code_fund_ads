@@ -82,7 +82,7 @@ class User < ApplicationRecord
   belongs_to :organization, optional: true
   belongs_to :referring_user, class_name: "User", foreign_key: "referring_user_id", optional: true
   has_many :job_postings
-  has_many :organization_users, dependent: :destroy
+  has_many :organization_users, dependent: :destroy, inverse_of: :user
   has_many :organizations_as_administrator, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::ADMINISTRATOR} }, through: :organization_users, source: "organization"
   has_many :organizations_as_member, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::MEMBER} }, through: :organization_users, source: "organization"
   has_many :organizations_as_owner, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::OWNER} }, through: :organization_users, source: "organization"
@@ -146,6 +146,7 @@ class User < ApplicationRecord
   #   irb>User.created_by_invite
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+
   begin
     tag_columns :roles
     tag_columns :skills

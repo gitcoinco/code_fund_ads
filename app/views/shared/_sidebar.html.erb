@@ -34,10 +34,9 @@
     <div class="aside-menu">
       <nav id="stacked-menu" class="stacked-menu">
         <ul class="menu">
-          <%= render "/shared/sidebar_content/teams_select" %>
           <%= render "/shared/sidebar_content/dashboard" unless authorized_user.can_advertise_and_publish? %>
           <%= render "/shared/sidebar_content/dashboards" if authorized_user.can_advertise_and_publish? %>
-          <%= render "/shared/sidebar_content/teams" if authorized_user.can_advertise_and_publish? || authorized_user.can_admin_system? %>
+          <%= render "/shared/sidebar_content/organizations" if authorized_user.can_advertise_and_publish? || authorized_user.can_advertise? || authorized_user.can_admin_system? %>
           <%= render "/shared/sidebar_content/campaigns" if authorized_user.can_advertise? %>
           <%= render "/shared/sidebar_content/creatives" if authorized_user.can_advertise? %>
           <%= render "/shared/sidebar_content/images" if authorized_user.can_advertise? %>
@@ -47,6 +46,6 @@
         </ul>
       </nav>
     </div>
-    <%#= render "/shared/sidebar_content/footer_current_organization" %>
+    <%= render "/shared/sidebar_content/footer_current_organization" %>
   </div>
 </aside>

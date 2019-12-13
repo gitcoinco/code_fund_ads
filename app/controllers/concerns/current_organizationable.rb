@@ -26,7 +26,7 @@ module CurrentOrganizationable
 
   def find_organization
     id = organization_id if valid_user_organization?(organization_id)
-    Organization.find(id)
+    Organization&.find(id)
   end
 
   def organization_id
@@ -35,7 +35,7 @@ module CurrentOrganizationable
     if controller_name.inquiry.organizations? && params[:action] != "index"
       params[:id]
     else
-      params[:organization_id] || session[:organization_id]
+      session[:organization_id] || params[:organization_id]
     end
   end
 

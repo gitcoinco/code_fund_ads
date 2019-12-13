@@ -1,7 +1,7 @@
 <div class="nav-scroller border-bottom my-3">
   <%= nav_tabs do %>
     <%= nav_item_link(name: "Details", path: subject, active: :exact) %>
-    <%= nav_item_link(name: "Members", path: organization_users_path(subject)) if authorized_user.can_admin_system? %>
+    <%= nav_item_link(name: "Members", path: organization_users_path(subject)) %>
     <%= nav_item_link(name: "Transactions", path: organization_transactions_path(subject)) %>
     <%= nav_item_link(name: "Reports", path: organization_reports_path(subject)) %>
   <% end %>
