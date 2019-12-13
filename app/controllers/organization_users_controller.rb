@@ -52,11 +52,19 @@ class OrganizationUsersController < ApplicationController
   private
 
   def set_organization
-    @organization = Organization.find(params[:organization_id])
+    @organization = if authorized_user.can_admin_system?
+      Organization.find(params[:organization_id])
+    else
+      current_user.organizations.find(params[:organization_id])
+    end
   end
 
   def set_organization_user
-    @organization_user = OrganizationUser.find(params[:id])
+    @organization_user = if authorized_user.can_admin_system?
+      OrganizationUser.find(params[:id])
+    else
+      Current.organization&.find(params[:id])
+    end
   end
 
   def organization_user_params
