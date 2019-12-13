@@ -14,7 +14,7 @@
     <%= card_body do %>
       <div class="row">
         <%= tag.div f.input(:user_id, label: "User", collection: users_for_select, include_blank: "None",
-            input_html: { class: "form-control", data: { controller: "select" }}), class: "col-md-6 mb-3 mb-md-0" %>
+            input_html: {class: "form-control", data: {controller: "select"}}), class: "col-md-6 mb-3 mb-md-0" %>
         <div class="col-md-6 mb-3">
           <%= f.input :role, label: "Role", required: true,
                 collection: ENUMS::ORGANIZATION_ROLES.values.map { |role| [role.capitalize, role] },
