@@ -7,6 +7,7 @@ require_relative "./mmdb_test_helper"
 require "rails/test_help"
 require "webmock/minitest"
 require "mocha/minitest"
+require "sidekiq/testing"
 
 WebMock.allow_net_connect!
 
@@ -25,6 +26,10 @@ class ActiveSupport::TestCase
   if workers > 1
     puts "Running tests with #{workers} worker processes..."
     parallelize workers: workers
+  end
+
+  def teardown
+    Sidekiq::Worker.clear_all
   end
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
