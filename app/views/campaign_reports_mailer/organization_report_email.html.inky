@@ -1,0 +1,28 @@
+<container>
+  <row>
+    <columns>
+      <h3 align="center"><b><%= @organization_report.organization.name %></b></h3>
+      <p align="center" style="margin-top: -5px; color: #999;"><%= @organization_report.title %></p>
+      <spacer size="16"></spacer>
+      <p style="padding: 10px; background-color: #ffffee;">Your current organization balance is <b><%= @organization_report.organization.balance.format %></b> (excluding today's spend)</p>
+      <spacer size="8"></spacer>
+      <p>Please find the attached campaign report.</p>
+      <dl>
+        <dt style="margin-bottom: 5px;"><b>Date Range</b></dt>
+        <dd><%= @organization_report.start_date.to_s("bdy") %> - <%= @organization_report.end_date.to_s("bdy") %></dd>
+        <dt style="margin-top: 10px; margin-bottom: 5px;"><b>Campaigns</b></dt>
+        <dd>
+          <% @organization_report.campaigns.each do |campaign| %>
+            <%= link_to campaign.name, campaign_url(campaign) %><br>
+          <% end %>
+        </dd>
+      </dl>
+      <spacer size="16"></spacer>
+      <p>Please let us know if you would like us to make any revisions or if you have any questions.</p>
+      <spacer size="8"></spacer>
+      <p>Thanks for being part of the CodeFund family!</p>
+      <spacer size="12"></spacer>
+      <p>The CodeFund Team</p>
+    </columns>
+  </row>
+</container>
