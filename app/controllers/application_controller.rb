@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include Pagy::Backend
   include Authorizable
   include Dateable
-  include CurrentOrganizationable
+  include Organization::Currentable
 
   delegate :instrument, to: ActiveSupport::Notifications
 
