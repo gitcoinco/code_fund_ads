@@ -10,40 +10,6 @@
     <%= javascript_pack_tag "front", 'data-turbolinks-track': "reload" %>
   </head>
   <body data-controller="front">
-    <div class="plugin-div">
-      <span id="name" class="font name"></span>
-      <span id="handle" class="font handle">-</span>
-
-      <div class="navButtonRow width100percent">
-        <div id="infoButton" class="font navButton" onClick="showInfo()">Info</div>
-        <div id="notesButton" class="font navButton" onClick="showNotes()">Notes</div>
-      </div>
-
-      <div id="infoSection" class="width100percent">
-        <div class="column">
-          <div class="row">
-            <div class="rowItem infoKey font">Id</div>
-            <div class="rowItem infoValue font" id="id"></div>
-          </div>
-  
-          <div class="row">
-            <div class="rowItem infoKey font">Location</div>
-            <div class="rowItem infoValue font" id="location"></div>
-          </div>
-  
-          <div class="row">
-            <div class="rowItem infoKey font">Status</div>
-            <div class="rowItem infoValue font" id="status"></div>
-          </div>
-        </div>
-      </div>
-
-      <div id="notesSection" class="width100percent displayNone">
-        <div class="column">
-          <button class="newNote font" onClick="createNote()">+ New Note</button>
-          <div class="column" id="notes"></div>
-        </div>
-      </div>
-    </div>
+    <h1>CodeFund App</h1>
   </body>
 </html>
