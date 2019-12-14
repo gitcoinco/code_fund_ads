@@ -5,9 +5,11 @@ Rails.application.routes.draw do
   %w[403 404 422 500].each do |code|
     get code, controller: :errors, action: :error, code: code
   end
-
+  
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
+  get "/front.app", to: "front#show", as: :front_app
+  
   authenticate :user, lambda { |user| AuthorizedUser.new(user || User.new).can_admin_system? } do
     mount Sidekiq::Web => "/sidekiq"
     mount Split::Dashboard, at: "/split"
