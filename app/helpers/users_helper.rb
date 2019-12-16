@@ -1,5 +1,6 @@
 module UsersHelper
   def avatar_image_url(user)
+    return unless user
     return user.avatar if user.avatar.attached?
 
     user.gravatar_url("identicon")
