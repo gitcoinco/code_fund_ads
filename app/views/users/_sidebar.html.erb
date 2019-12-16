@@ -8,7 +8,6 @@
       </ol>
     </nav>
   </header>
-
   <div class="sidebar-section-fill">
     <div class="card card-reflow">
       <div class="d-flex justify-content-between border-top px-3 pt-3 pb-0">
@@ -24,24 +23,26 @@
         </li>
       </ul>
       <div class="card card-reflow">
-        <div class="d-flex justify-content-between border-top px-3 pt-3 pb-0">
-          <h4 class="card-title">Organizations</h4>
+        <% if subject&.organization_users&.exists? %>
+          <div class="d-flex justify-content-between border-top px-3 pt-3 pb-0">
+            <h4 class="card-title">Organizations</h4>
+          </div>
+          <ul class="list-group list-group-bordered list-group-reflow mx-3 mb-3">
+            <% subject.organization_users.each do |org_user| %>
+              <li class="list-group-item justify-content-between align-items-center px-0">
+                <%= link_to org_user.organization.name, org_user.organization %> <span><%= org_user.role.humanize %></span>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+        <div class="card-body border-top">
+          <div class="d-flex justify-content-between my-3">
+            <h4 class="card-title">Changelog</h4>
+          </div>
+          <ul class="timeline timeline-fluid">
+            <%= render "/versions/timeline", versionable: subject %>
+          </ul>
         </div>
-        <ul class="list-group list-group-bordered list-group-reflow mx-3 mb-3">
-          <% subject.organization_users.each do |org_user| %>
-            <li class="list-group-item justify-content-between align-items-center px-0">
-              <%= link_to org_user.organization.name, org_user.organization %> <span><%= org_user.role.humanize %></span>
-            </li>
-          <% end if subject&.organization_users&.exists? %>
-        </ul>
-      </div>
-      <div class="card-body border-top">
-        <div class="d-flex justify-content-between my-3">
-          <h4 class="card-title">Changelog</h4>
-        </div>
-        <ul class="timeline timeline-fluid">
-          <%= render "/versions/timeline", versionable: subject %>
-        </ul>
       </div>
     </div>
   </div>
