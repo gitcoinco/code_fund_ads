@@ -19,7 +19,7 @@ class AdvertisementPreviewsController < ApplicationController
     return render("/advertisement_previews/show") if request.format.html?
 
     # 2. Second it renders the JavaScript to preview the ad
-    @campaign ||= current_user.campaigns.build(
+    @campaign ||= Current&.organization&.campaigns&.build(
       id: 0,
       name: "Unsaved Preview Campaign",
       creative: @creative,
@@ -63,7 +63,7 @@ class AdvertisementPreviewsController < ApplicationController
     @campaign = if authorized_user.can_admin_system?
       Campaign.find params[:campaign_id]
     else
-      current_user.campaigns.find params[:campaign_id]
+      Current.organization&.campaigns&.find params[:campaign_id]
     end
   end
 
@@ -73,7 +73,7 @@ class AdvertisementPreviewsController < ApplicationController
     @creative = if authorized_user.can_admin_system?
       Creative.find params[:creative_id]
     else
-      current_user.creatives.find params[:creative_id]
+      Current.organization&.creatives&.find params[:creative_id]
     end
   end
 end

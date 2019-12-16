@@ -1,8 +1,6 @@
 <%= tag.li class: classes(
   "menu-item has-child": true,
-  "has-open": [
-    request.path =~ /\/organizations?\/\d{1,}/
-  ].any?
+  "has-open": request.path.start_with?('/organization')
 ) do %>
   <a href="#" class="menu-link">
     <span class="menu-icon fad fa-users"></span>
@@ -10,11 +8,14 @@
   </a>
   <ul class="menu">
     <li class="menu-subhead">Organizations</li>
+    <%= active_link_to "Create Organization", new_organization_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_admin_system? %>
+    <%# binding.pry %>
     <% current_user.organizations.each do |organization| %>
       <%= tag.li class: classes(
           "menu-item has-child": true,
           "has-open": [
-            request.path =~ /\/organizations?\/\d{1,}/
+            request.path.start_with?("/organizations/#{organization.id}"),
+            request.path.start_with?("/organization/#{organization.id}")
           ].any?
         ) do %>
         <a href="#" class="menu-link">
@@ -22,11 +23,11 @@
         </a>
         <ul class="menu">
           <%= active_link_to "Overview", organization_path(organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
+          <%= active_link_to "Members", organization_users_path(organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
           <%= active_link_to "Transactions", organization_transactions_path(organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
           <%= active_link_to "Reports", organization_reports_path(organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
         </ul>
       <% end %>
     <% end %>
-    <%= active_link_to "Add Organization", new_organization_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_admin_system? %>
   </ul>
 <% end %>

@@ -114,7 +114,7 @@ class PropertiesController < ApplicationController
     @assignable_fallback_campaigns = if authorized_user.can_admin_system?
       Campaign.active.fallback
     else
-      current_user.campaigns.active.fallback
+      Current.organization&.campaigns&.active&.fallback
     end
   end
 

@@ -21,7 +21,7 @@
         <span class="menu-text">Active Campaigns</span>
       </a>
       <ul class="menu">
-        <% current_user.campaigns.active.order(name: :asc).each do |campaign| %>
+        <% Current.organization&.campaigns&.active&.order(name: :asc).each do |campaign| %>
           <%= tag.li class: classes(
             "menu-item has-child": true,
             "has-open": request.path.start_with?("/campaigns/#{campaign.id}")
