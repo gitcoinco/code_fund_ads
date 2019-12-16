@@ -10,7 +10,7 @@ module Dateable
   def set_dates
     @start_date = session[:start_date].present? ?
       Date.strptime(session[:start_date], "%m/%d/%Y") :
-      Date.current.beginning_of_month
+      7.days.ago.to_date
 
     @end_date = session[:end_date].present? ?
       Date.strptime(session[:end_date], "%m/%d/%Y") :
