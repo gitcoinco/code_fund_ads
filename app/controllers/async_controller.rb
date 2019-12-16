@@ -16,7 +16,7 @@ class AsyncController < ApplicationController
   def campaign?
     return false unless params[:campaign_id]
     return true if @campaign
-    Current.organization&.campaigns&.where(id: params[:campaign_id]).exists?
+    Current.organization&.campaigns&.where(id: params[:campaign_id])&.exists?
   end
 
   def set_campaign
