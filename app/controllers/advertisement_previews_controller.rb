@@ -21,6 +21,7 @@ class AdvertisementPreviewsController < ApplicationController
     # 2. Second it renders the JavaScript to preview the ad
     @campaign ||= Current&.organization&.campaigns&.build(
       id: 0,
+      user: current_user,
       name: "Unsaved Preview Campaign",
       creative: @creative,
       creative_ids: [@creative.id]
