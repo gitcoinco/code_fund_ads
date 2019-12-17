@@ -1,7 +1,7 @@
 <%= render "/shared/index_layout",
     title: "Campaigns",
     buttons: [
-      link_to("Add campaign", new_campaign_path, class: "btn btn-primary")
+      layout_button(link: new_campaign_path, icon: "fas fa-plus", title: "Add campaign", admin: true)
     ] do %>
   <%= render "/shared/data_list",
                resource_name: "campaigns",

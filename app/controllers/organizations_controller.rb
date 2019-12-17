@@ -7,7 +7,8 @@ class OrganizationsController < ApplicationController
 
   def index
     organizations = scope_list(Organization).order(order_by)
-    @pagy, @organizations = pagy(organizations)
+    max = (organizations.count / Pagy::VARS[:items].to_f).ceil
+    @pagy, @organizations = pagy(organizations, page: current_page(max: max))
   end
 
   def new
@@ -19,7 +20,7 @@ class OrganizationsController < ApplicationController
 
     respond_to do |format|
       if @organization.save
-        format.html { redirect_to @organization, notice: "Organization was successfully created." }
+        format.html { redirect_to @organization, notice: t("organizations.create.success") }
         format.json { render :show, status: :created, location: @organization }
       else
         format.html { render :new }
@@ -31,7 +32,7 @@ class OrganizationsController < ApplicationController
   def update
     respond_to do |format|
       if @organization.update(organization_params)
-        format.html { redirect_to @organization, notice: "Organization was successfully updated." }
+        format.html { redirect_to @organization, notice: t("organizations.update.success") }
         format.json { render :show, status: :ok, location: @organization }
       else
         format.html { render :edit }
@@ -44,12 +45,12 @@ class OrganizationsController < ApplicationController
     if @organization.users.empty?
       @organization.destroy
       respond_to do |format|
-        format.html { redirect_to organizations_url, notice: "Organization was successfully destroyed." }
+        format.html { redirect_to organizations_url, notice: t("organizations.destroy.success") }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to organizations_url, alert: "We are unable to delete an organization that has users" }
+        format.html { redirect_to organizations_url, alert: t("organizations.destroy.failure") }
         format.json { head :no_content }
       end
     end

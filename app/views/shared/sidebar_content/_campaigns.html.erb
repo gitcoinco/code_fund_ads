@@ -10,39 +10,38 @@
     <li class="menu-subhead">Campaigns</li>
     <%= active_link_to "Create Campaign", new_campaign_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_admin_system? %>
     <%= active_link_to "Overview", campaigns_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
-    <%= tag.li class: classes(
-      "menu-item has-child": true,
-      "has-open": [
-        request.path.start_with?("/campaigns"),
-        request.path.exclude?("/campaigns/new")
-      ].all?
-    ) do %>
-      <a href="#" class="menu-link">
-        <span class="menu-text">Active Campaigns</span>
-      </a>
-      <ul class="menu">
-        <% Current.organization&.campaigns&.active&.order(name: :asc).each do |campaign| %>
-          <%= tag.li class: classes(
-            "menu-item has-child": true,
-            "has-open": request.path.start_with?("/campaigns/#{campaign.id}")
-          ) do %>
-            <a href="#" class="menu-link">
-              <span class="menu-text"><%= campaign.name %></span>
-            </a>
-            <ul class="menu">
-              <%= active_link_to "Overview", campaign_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
-              <%= active_link_to "Daily Stats", campaign_dailies_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
-              <%= active_link_to "Creatives", campaign_creatives_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
-              <%= active_link_to "Countries", campaign_countries_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
-              <%= active_link_to "Properties", campaign_properties_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
-              <%= active_link_to "Settings", edit_campaign_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
-            </ul>
+    <% if active_campaigns_for_current_organization&.exists? %>
+      <%= tag.li class: classes(
+        "menu-item has-child": true,
+        "has-open": [
+          request.path.start_with?("/campaigns"),
+          request.path.exclude?("/campaigns/new")
+        ].all?
+      ) do %>
+        <a href="#" class="menu-link">
+          <span class="menu-text">Active Campaigns</span>
+        </a>
+        <ul class="menu">
+          <% active_campaigns_for_current_organization&.order(name: :asc).each do |campaign| %>
+            <%= tag.li class: classes(
+              "menu-item has-child": true,
+              "has-open": request.path.start_with?("/campaigns/#{campaign.id}")
+            ) do %>
+              <a href="#" class="menu-link">
+                <span class="menu-text"><%= campaign.name %></span>
+              </a>
+              <ul class="menu">
+                <%= active_link_to "Overview", campaign_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
+                <%= active_link_to "Daily Stats", campaign_dailies_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+                <%= active_link_to "Creatives", campaign_creatives_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+                <%= active_link_to "Countries", campaign_countries_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+                <%= active_link_to "Properties", campaign_properties_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+                <%= active_link_to "Settings", edit_campaign_path(campaign), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              </ul>
+            <% end %>
           <% end %>
-        <% end %>
-      </ul>
+        </ul>
+      <% end %>
     <% end %>
-    <%#= active_link_to "Board View", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
-    <%#= active_link_to "Gantt View", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
-    <%#= active_link_to "Calendar View", "#", class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
   </ul>
 <% end %>

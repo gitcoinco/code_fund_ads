@@ -51,6 +51,14 @@ en:
     update:
       success: 'The image was updated successfully.'
 
+  organizations:
+    create:
+      success: Team was successfully created.
+    destroy:
+      success: Team was successfully deleted.
+      failure: We are unable to delete a team that has active members.
+    update:
+      success: Team was successfully updated.
   datetime:
     distance_in_words:
       short:
