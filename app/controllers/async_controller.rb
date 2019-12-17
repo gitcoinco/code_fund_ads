@@ -16,14 +16,14 @@ class AsyncController < ApplicationController
   def campaign?
     return false unless params[:campaign_id]
     return true if @campaign
-    current_user.campaigns.where(id: params[:campaign_id]).exists?
+    Current.organization&.campaigns&.where(id: params[:campaign_id])&.exists?
   end
 
   def set_campaign
     @campaign = if authorized_user.can_admin_system? || property?
       Campaign.find(params[:campaign_id])
     else
-      current_user.campaigns.find(params[:campaign_id])
+      Current.organization&.campaigns&.find(params[:campaign_id])
     end
   end
 

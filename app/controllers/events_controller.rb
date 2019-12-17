@@ -34,7 +34,7 @@ class EventsController < ApplicationController
     @eventable = if authorized_user.can_admin_system?
       Campaign.find(params[:campaign_id])
     else
-      current_user.campaigns.find(params[:campaign_id])
+      Current.organization&.campaigns&.find(params[:campaign_id])
     end
   end
 
@@ -50,7 +50,7 @@ class EventsController < ApplicationController
     @eventable = if authorized_user.can_admin_system?
       Creative.find(params[:creative_id])
     else
-      current_user.creatives.find(params[:creative_id])
+      Current.organization&.creatives&.find(params[:creative_id])
     end
   end
 end
