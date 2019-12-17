@@ -10,14 +10,14 @@ module Organization::Currentable
   private
 
   def set_current_organization
-    session[:organization_id] = organization&.id
-    Current.organization = organization
+    session[:organization_id] = org&.id
+    Current.organization = org
 
-    organization
+    org
   end
 
-  def organization
-    @organization ||= if session[:organization_id].nil?
+  def org
+    @org ||= if session[:organization_id].nil?
       set_default_organization
     else
       valid_user_organization?(organization_id) ? Organization.find(organization_id) : set_default_organization
@@ -31,7 +31,7 @@ module Organization::Currentable
   def find_organization_id
     return params["current-organization"] if params["current-organization"]
 
-    if controller_name.inquiry.organizations? && action_name != "index"
+    if controller_name.inquiry.organizations? && !%w[index new create].include?(action_name)
       params[:id]
     else
       session[:organization_id] || params[:organization_id]
