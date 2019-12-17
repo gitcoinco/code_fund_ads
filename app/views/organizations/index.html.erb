@@ -1,7 +1,7 @@
 <%= render "/shared/index_layout",
-    title: "Organizations",
+    title: "Teams",
     buttons: [
-      link_to("Add organization", new_organization_path, class: "btn btn-primary")
+      layout_button(link: new_organization_path, icon: "fas fa-plus", title: "Add team", admin: true)
     ] do %>
   <%= render "/shared/data_list",
               resource_name: "organizations",

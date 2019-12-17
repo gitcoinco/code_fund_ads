@@ -3,10 +3,10 @@
   <%= card do %>
     <%= card_header do %>
       <%= card_title do %>
-        Organization Details
+        Team Details
       <% end %>
       <%= card_subtitle do %>
-        Tell us about your organization
+        Tell us about your team
       <% end %>
     <% end %>
     <%= card_body do %>
@@ -17,7 +17,7 @@
     <%= card_footer do %>
       <%= card_footer_content do %>
         <%= button_panel margin: "my-0" do %>
-          <%= f.submit "Save Organization", class: "btn btn-primary" %>
+          <%= f.submit "Save Team", class: "btn btn-primary" %>
           <%= cancel_button(organizations_path) %>
         <% end %>
       <% end %>

@@ -14,7 +14,8 @@
   <ul class="menu">
     <li class="menu-subhead">Admin</li>
     <%= active_link_to "Dashboard", administrator_dashboards_path, class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item" %>
-    <%= active_link_to "Organizations", organizations_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Create Team", new_organization_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Teams", organizations_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
     <%= active_link_to "Users", users_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
     <%= active_link_to "Invite User", new_user_invitation_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
   </ul>

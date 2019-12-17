@@ -1,0 +1,18 @@
+<%= tag.li class: classes(
+    "menu-item has-child": true,
+    "has-open": [
+      request.path.start_with?("/organizations/#{Current.organization.id}"),
+      request.path.start_with?("/organization/#{Current.organization.id}")
+    ].any?
+  ) do %>
+  <a href="#" class="menu-link">
+    <span class="menu-icon fad fa-users"></span>
+    <span class="menu-text"><%= Current.organization.name %></span>
+  </a>
+  <ul class="menu">
+    <%= active_link_to "Overview", organization_path(Current.organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
+    <%= active_link_to "Members", organization_users_path(Current.organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Transactions", organization_transactions_path(Current.organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Reports", organization_reports_path(Current.organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+  </ul>
+<% end %>

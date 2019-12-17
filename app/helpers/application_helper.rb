@@ -1,6 +1,10 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  def active_campaigns_for_current_organization
+    Current.organization&.campaigns&.active
+  end
+
   # TODO: move these to Country or a presentable concern
   def country_display_name(iso_code)
     country = Country.find(iso_code)
