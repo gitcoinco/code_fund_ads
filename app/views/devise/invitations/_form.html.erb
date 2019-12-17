@@ -6,7 +6,7 @@
         <%= tag.div f.input(:first_name, required: true), class: "col-12 col-md-6" %>
         <%= tag.div f.input(:last_name, required: true), class: "col-12 col-md-6" %>
         <%= tag.div f.input(:email, required: true), class: "col-12 col-md-6" %>
-        <%= tag.div f.input(:organization_id, label: "Organization", collection: organizations_for_select, include_blank: "None",
+        <%= tag.div f.input(:organization_id, label: "Team", collection: organizations_for_select, include_blank: "None",
           input_html: {class: "form-control", data: {controller: "select"}}), class: "col-12 col-md-6" %>
         <%= tag.div f.input(:roles, collection: ENUMS::USER_ROLES.values.map { |role| [role.capitalize, role] }, required: true, input_html: {multiple: true, data: {controller: "select"}}), class: "col-12" %>
       </div>
