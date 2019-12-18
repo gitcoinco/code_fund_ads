@@ -20,6 +20,7 @@ class OrganizationUser < ApplicationRecord
 
   # validations ...............................................................
   validates :organization_id, uniqueness: {scope: [:user_id, :role]}
+  validates :user_id, uniqueness: {scope: :organization_id}
   validates :role, inclusion: {in: ENUMS::ORGANIZATION_ROLES.values}
 
   # callbacks .................................................................
