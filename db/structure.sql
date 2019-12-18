@@ -694,7 +694,7 @@ CREATE TABLE public.organization_users (
     id bigint NOT NULL,
     organization_id bigint NOT NULL,
     user_id bigint NOT NULL,
-    role character varying NOT NULL,
+    role character varying DEFAULT 'member'::character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -2641,6 +2641,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191014205953'),
 ('20191105141709'),
 ('20191105190354'),
-('20191201235552');
+('20191201235552'),
+('20191218185622');
 
 

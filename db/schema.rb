@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_01_235552) do
+ActiveRecord::Schema.define(version: 2019_12_18_185622) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -367,7 +367,7 @@ ActiveRecord::Schema.define(version: 2019_12_01_235552) do
   create_table "organization_users", force: :cascade do |t|
     t.bigint "organization_id", null: false
     t.bigint "user_id", null: false
-    t.string "role", null: false
+    t.string "role", default: "member", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["organization_id", "user_id", "role"], name: "index_organization_users_on_uniqueness", unique: true
