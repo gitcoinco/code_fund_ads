@@ -1,6 +1,7 @@
 version: 2.1
 jobs:
   build:
+    parallelism: 4
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
@@ -18,7 +19,6 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: code_fund_ads_test
       - image: circleci/redis:5.0.4
-    parallelism: 4
     working_directory: ~/repo
     steps:
       - checkout
