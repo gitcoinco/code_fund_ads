@@ -3,7 +3,7 @@ class OrganizationInvitesController < ApplicationController
   before_action :set_organization
 
   def create
-    user = User.invite!(user_invite_params)
+    user = User.invite!(user_invite_params.merge!(roles: Array(ENUMS::USER_ROLES::ADVERTISER)))
     organization_user = OrganizationUser.new(
       user: user,
       organization_id: organization_user_invite_params[:organization_id],
@@ -32,6 +32,6 @@ class OrganizationInvitesController < ApplicationController
   end
 
   def user_invite_params
-    params.require(:organization_invite).permit(:first_name, :last_name, :email, :roles)
+    params.require(:organization_invite).permit(:first_name, :last_name, :email)
   end
 end

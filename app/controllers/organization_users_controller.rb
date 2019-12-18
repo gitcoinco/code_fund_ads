@@ -1,6 +1,6 @@
 class OrganizationUsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_organization, except: [:create]
+  before_action :set_organization
   before_action :set_organization_user, only: [:edit, :update, :destroy]
   before_action :authorize_user, except: [:index]
 

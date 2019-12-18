@@ -92,7 +92,6 @@ class User < ApplicationRecord
   # validations ...............................................................
   validates :first_name, presence: true
   validates :last_name, presence: true
-  validates :organization_id, presence: true, if: -> { administrator? || advertiser? }
 
   # callbacks .................................................................
   before_save :ensure_roles

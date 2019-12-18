@@ -1,5 +1,5 @@
 <%= simple_form_for(:organization_invite, method: :post, url: organization_invites_path) do |f| %>
-  <%= card_body add_class: "border-top" do %>
+  <%= card_body do %>
     <div class="row">
       <%= tag.div f.input(:first_name, required: true), class: "col-12 col-md-6" %>
       <%= tag.div f.input(:last_name, required: true), class: "col-12 col-md-6" %>
@@ -8,7 +8,6 @@
           collection: ENUMS::ORGANIZATION_ROLES.values.map { |role| [role.capitalize, role] },
           input_html: {class: "form-control", data: {controller: "select"}}), class: "col-12 col-md-6" %>
       <%= f.hidden_field :organization_id, value: organization.id %>
-      <%= f.hidden_field :roles, value: [ENUMS::USER_ROLES::ADVERTISER] %>
     </div>
   <% end %>
   <%= card_footer do %>
