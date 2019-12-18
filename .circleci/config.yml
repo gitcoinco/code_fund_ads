@@ -18,6 +18,7 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: code_fund_ads_test
       - image: circleci/redis:5.0.4
+    parallelism: 4
     working_directory: ~/repo
     steps:
       - checkout
@@ -77,9 +78,8 @@ jobs:
       - run:
           name: run tests
           command: |
-            bundle exec rails test
-            set +e
-            bundle exec rails test:system
+            circleci tests glob test/**/*.rb | circleci tests split > /tmp/tests-to-run
+            bin/rails test $(cat /tmp/tests-to-run)
       - store_artifacts:
           path: tmp/screenshots
           destination: screenshots
