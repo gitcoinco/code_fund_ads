@@ -1,10 +1,10 @@
 <%= simple_form_for organization_user, wrapper: :front_form do |f| %>
-  <%= card_body do %>
+  <%= card_body add_class: "border-top" do %>
     <%= f.hidden_field :organization_id, value: organization.id %>
     <div class="row">
       <div class="col-md-6 mb-3 mb-md-0">
         <%= f.input(:user_id, label: "Name", collection: users_for_select, include_blank: "None",
-          input_html: {class: "form-control", data: {controller: "select"}}) %>
+            required: true, input_html: {class: "form-control", data: {controller: "select"}}) %>
       </div>
       <div class="col-md-6 mb-3">
         <%= f.input :role, label: "Role", required: true,
