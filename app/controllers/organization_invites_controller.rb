@@ -24,11 +24,7 @@ class OrganizationInvitesController < ApplicationController
   private
 
   def set_organization
-    @organization = if authorized_user.can_admin_system?
-      Organization.find(organization_user_invite_params[:organization_id])
-    else
-      current_user.organizations.find(organization_user_invite_params[:organization_id])
-    end
+    @organization = Current.organization
   end
 
   def organization_user_invite_params
