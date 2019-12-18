@@ -5,7 +5,7 @@
 #  id              :bigint           not null, primary key
 #  organization_id :bigint           not null
 #  user_id         :bigint           not null
-#  role            :string           not null
+#  role            :string           default("member"), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #

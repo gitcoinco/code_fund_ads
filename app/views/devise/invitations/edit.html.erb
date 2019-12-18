@@ -1,24 +1,40 @@
-<%= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put, class: "mx-auto" }) do |f| %>
-  <%= devise_error_messages! %>
-  <%= f.input :invitation_token, as: :hidden %>
-  <div class="text-center mb-4">
-    <h4 class="font-weight-normal">Set your password</h4>
-  </div>
-  <div class="form-group">
-    <div class="form-label-group">
-      <label class="form-label">New Password</label>
-      <%= f.input :password,
-                label: false,
-                required: true,
-                autofocus: true,
-                hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
+<%= render "devise/layout" do %>
+  <%= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: {class: "auth-form mx-auto"}) do |f| %>
+    <%= f.input :invitation_token, as: :hidden %>
+    <div class="text-center mb-4">
+      <h4 class="font-weight-normal">Set Your Password</h4>
     </div>
-    <div class="form-label-group">
-      <label class="form-label">Password Confirmation</label>
-      <%= f.input :password_confirmation, label: false, required: true %>
+    <div class="form-group">
+      <div class="form-label-group">
+        <%= f.password_field :password,
+                  label: false,
+                  required: true,
+                  autofocus: true,
+                  placeholder: "Password",
+                  tabindex: 1,
+                  class: "form-control",
+                  hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
+                  input_html: { autocomplete: "new-password" } %>
+        <%= f.label :password %>
+      </div>
     </div>
-  </div>
-  <%= f.button :submit, "Set my Password", class: "btn btn-primary btn-block" %>
-  <%= render "devise/links" %>
+    <div class="form-group">
+      <div class="form-label-group">
+        <%= f.password_field :password_confirmation,
+                    placeholder: "Retype Password",
+                    label: false,
+                    required: true,
+                    tabindex: 2,
+                    class: "form-control" %>
+        <%= f.label :password_confirmation %>
+      </div>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-lg btn-primary btn-block" type="submit">Set Password</button>
+    </div>
+    <div class="form-group text-center mt-4">
+        <%= f.check_box :remember_me, class: "custom-control-input" %>
+    </div>
+    <%= render "devise/links" %>
+  <% end %>
 <% end %>
