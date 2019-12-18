@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  test:
     parallelism: 4
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
