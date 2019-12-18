@@ -11,11 +11,9 @@
         Fill out the fields below
       <% end %>
     <% end %>
-    <%= card_body do %>
-      <%= render "/organization_users/forms/existing_user_form",
-            organization: @organization,
-            organization_user: @organization_user,
-            url: organization_user_path(@organization, @organization_user) %>
-    <% end %>
+    <%= render "/organization_users/forms/existing_user_form",
+          organization: @organization,
+          organization_user: @organization_user,
+          url: organization_user_path(@organization, @organization_user) %>
   <% end %>
 <% end %>

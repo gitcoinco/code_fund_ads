@@ -1,7 +1,7 @@
 <%= simple_form_for organization_user, wrapper: :front_form do |f| %>
   <%= card_body do %>
     <%= f.hidden_field :organization_id, value: organization.id %>
-    <% if organization_user %>
+    <% if organization_user.user %>
       <%= f.hidden_field :user_id, value: organization_user.user.id %>
     <% else %>
       <div class="row" data-controller="organization-users-search" data-reflex-root="#morph">
@@ -25,12 +25,11 @@
               <% end %>
           </div>
         </div>
-      <% end %>
-      <div class="col-md-6 mb-3">
-        <%= f.input :role, label: "Role", required: true,
-              collection: ENUMS::ORGANIZATION_ROLES.values.map { |role| [role.capitalize, role] },
-              input_html: {class: "form-control", data: {controller: "select"}} %>
-      </div>
+    <% end %>
+    <div class="col-md-6 mb-3">
+      <%= f.input :role, label: "Role", required: true,
+            collection: ENUMS::ORGANIZATION_ROLES.values.map { |role| [role.capitalize, role] },
+            input_html: {class: "form-control", data: {controller: "select"}} %>
     </div>
   <% end %>
   <%= card_footer do %>
