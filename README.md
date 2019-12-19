@@ -148,14 +148,28 @@ ENUMS::USER_ROLES.constants
 ## Development Environment
 
 ###### Prerequisites
-
-- ruby version `2.6.5` via [rbenv](https://github.com/rbenv/rbenv)
-- NodeJS version `<12.0.0` via [nvm](https://github.com/nvm-sh/nvm) with yarn installed globally
-- graphviz `brew install graphviz` or `sudo apt-get install graphviz`
+- Ruby version `2.6.5`
+  - [rbenv](https://github.com/rbenv/rbenv)
+  - [asdf](https://github.com/asdf-vm/asdf-ruby)
+- NodeJS version `13.0.1`
+  - [nvm](https://github.com/nvm-sh/nvm)
+  - [asdf](https://github.com/asdf-vm/asdf-nodejs)
+- Bundler version 2.1.1
+  - `gem install bundler`
+- Yarn
+  - Mac: [instructions](https://yarnpkg.com/lang/en/docs/install/#mac-stable)
+  - Ubuntu: [instructions](https://yarnpkg.com/lang/en/docs/install/#debian-stable)
+- graphviz
+  - Mac: `brew install graphviz`
+  - Ubuntu: `sudo apt-get install graphviz`
 - PostgreSQL 11
+  - Mac: [instructions](https://wiki.postgresql.org/wiki/Homebrew)
+  - Ubuntu: [instructions](https://itsfoss.com/install-postgresql-ubuntu/)
 - Redis
+  - Mac: `brew install redis && brew services start redis`
+  - Ubuntu: [instructions](https://redis.io/topics/quickstart)
 
-You must create a (superuser) role with the name of your OS user in your postgres configuration in order to run db operations (e.g. testing and development).
+>You must create a (superuser) role with the name of your OS user in your postgres configuration in order to run db operations (e.g. testing and development).
 
 ```sh
 git clone https://github.com/gitcoinco/code_fund_ads.git
