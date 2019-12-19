@@ -2,8 +2,8 @@
   subject: @organization,
   sidebar: false,
   buttons: [
-    layout_button(link: edit_organization_transaction_path(@organization, @organization_transaction), icon: "fas fa-pencil", title: "Edit transaction"),
-    delete_button(link: organization_transaction_path(@organization, @organization_transaction), title: "Delete transaction", layout: true)
+    layout_button(link: edit_organization_transaction_path(@organization, @organization_transaction), icon: "fas fa-pencil", title: "Edit transaction", admin: true),
+    delete_button(link: organization_transaction_path(@organization, @organization_transaction), title: "Delete transaction", layout: true, admin: true)
   ]
 } do %>
   <%= card do %>
