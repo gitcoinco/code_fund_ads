@@ -16,6 +16,9 @@ export default class extends ApplicationController {
 
   _perform (event) {
     event.preventDefault()
-    this.stimulate('OrganizationUsersSearchReflex#perform', this.queryTarget.value)
+    this.stimulate(
+      'OrganizationUsersSearchReflex#perform',
+      this.queryTarget.value
+    )
   }
 }
