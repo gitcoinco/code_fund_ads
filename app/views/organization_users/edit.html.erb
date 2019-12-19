@@ -2,8 +2,18 @@
   subject: @organization,
   sidebar: false
 } do %>
-  <%= render "/organization_users/form",
-        organization: @organization,
-        organization_user: @organization_user,
-        url: organization_user_path(@organization, @organization_user) %>
+  <%= card do %>
+    <%= card_header do %>
+      <%= card_title do %>
+        <%= @organization_user.user&.name %>
+      <% end %>
+      <%= card_subtitle do %>
+        Fill out the fields below
+      <% end %>
+    <% end %>
+    <%= render "/organization_users/forms/existing_user_form",
+          organization: @organization,
+          organization_user: @organization_user,
+          url: organization_user_path(@organization, @organization_user) %>
+  <% end %>
 <% end %>

@@ -1,7 +1,8 @@
 class OrganizationUsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_organization, except: [:create, :update]
+  before_action :set_organization
   before_action :set_organization_user, only: [:edit, :update, :destroy]
+  before_action :authorize_user, except: [:index]
 
   def index
     organization_users = @organization.organization_users.includes(:user).order(role: :asc)
@@ -51,20 +52,18 @@ class OrganizationUsersController < ApplicationController
 
   private
 
-  def set_organization
-    @organization = if authorized_user.can_admin_system?
-      Organization.find(params[:organization_id])
-    else
-      current_user.organizations.find(params[:organization_id])
+  def authorize_user
+    unless authorized_user.can_edit_organization?(@organization)
+      redirect_to organization_users_path(@organization), notice: "You do not have permission to update membership settings."
     end
   end
 
+  def set_organization
+    @organization = Current.organization
+  end
+
   def set_organization_user
-    @organization_user = if authorized_user.can_admin_system?
-      OrganizationUser.find(params[:id])
-    else
-      Current.organization&.find(params[:id])
-    end
+    @organization_user = Current.organization&.organization_users&.find(params[:id])
   end
 
   def organization_user_params

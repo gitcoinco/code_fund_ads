@@ -1,0 +1,21 @@
+<%= simple_form_for(:organization_invite, method: :post, url: organization_invites_path) do |f| %>
+  <%= card_body do %>
+    <div class="row">
+      <%= tag.div f.input(:first_name, required: true), class: "col-12 col-md-6" %>
+      <%= tag.div f.input(:last_name, required: true), class: "col-12 col-md-6" %>
+      <%= tag.div f.input(:email, required: true), class: "col-12 col-md-6" %>
+      <%= tag.div f.input(:organization_role, label: "Role", required: true,
+          collection: ENUMS::ORGANIZATION_ROLES.values.map { |role| [role.capitalize, role] },
+          input_html: {class: "form-control", data: {controller: "select"}}), class: "col-12 col-md-6" %>
+      <%= f.hidden_field :organization_id, value: organization.id %>
+    </div>
+  <% end %>
+  <%= card_footer do %>
+    <%= card_footer_content do %>
+      <%= button_panel margin: "my-0" do %>
+        <%= f.submit "Save Membership", class: "btn btn-primary" %>
+        <%= cancel_button(organization_users_path(organization)) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

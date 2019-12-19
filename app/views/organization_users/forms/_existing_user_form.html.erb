@@ -1,0 +1,43 @@
+<%= simple_form_for organization_user, wrapper: :front_form do |f| %>
+  <%= card_body do %>
+    <%= f.hidden_field :organization_id, value: organization.id %>
+    <% if organization_user.user %>
+      <%= f.hidden_field :user_id, value: organization_user.user.id %>
+    <% else %>
+      <div class="row" data-controller="organization-users-search" data-reflex-root="#morph">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <label class="form-label string required" for="organization-user-email">Email <abbr title="required">*</abbr></label>
+          <input id="organization-user-email" type="text" placeholder="Search for a user by email..." class="form-control"
+                data-target="organization-users-search.query" data-action="input->organization-users-search#perform">
+            <div id="morph" class="">
+              <small data-target="organization-users-search.activity" class="text-danger" hidden>
+                <i class="fas fa-spinner fa-spin"></i>
+                Searching for user...
+              </small>
+              <% if session[:organization_user_search_result] %>
+                <small data-target="organization-users-search.found" class="text-success">
+                  <strong><%= session[:organization_user_search_result]&.email %></strong> found.</small>
+                  <%= f.hidden_field :user_id, value: session[:organization_user_search_result]&.id %>
+              <% else %>
+                <small data-target="organization-users-search.found" class="text-danger">
+                  No users matching that email.
+                </small>
+              <% end %>
+          </div>
+        </div>
+    <% end %>
+    <div class="col-md-6 mb-3">
+      <%= f.input :role, label: "Role", required: true,
+            collection: ENUMS::ORGANIZATION_ROLES.values.map { |role| [role.capitalize, role] },
+            input_html: {class: "form-control", data: {controller: "select"}} %>
+    </div>
+  <% end %>
+  <%= card_footer do %>
+      <%= card_footer_content do %>
+        <%= button_panel margin: "my-0" do %>
+          <%= f.submit "Save Membership", class: "btn btn-primary" %>
+          <%= cancel_button(organization_users_path(organization)) %>
+        <% end %>
+      <% end %>
+  <% end %>
+<% end %>

@@ -52,6 +52,7 @@ Rails.application.routes.draw do
     resources :organization_reports, except: [:edit], as: :organization_reports, path: "/reports"
     resources :scheduled_organization_reports, only: [:create, :destroy], as: :scheduled_organization_reports, path: "/scheduled_reports"
   end
+  resource :organization_invites, only: [:create]
 
   scope "/jobs", manage_scope: true do
     resources :job_postings, only: [:index, :edit, :update, :destroy], path: "/manage", as: :manage_job_postings

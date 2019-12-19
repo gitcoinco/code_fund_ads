@@ -1,34 +1,35 @@
-<%= simple_form_for organization_user, wrapper: :front_form do |f| %>
-  <%= f.hidden_field :organization_id, value: organization.id %>
-  <%= render "/shared/forms/error_messages", object: organization_user %>
-
-  <%= card do %>
-    <%= card_header do %>
-      <%= card_title do %>
-        <%= organization.name %> Member
-      <% end %>
-      <%= card_subtitle do %>
-        Fill out the fields below
-      <% end %>
+<%= render "/shared/forms/error_messages", object: organization_user %>
+<%= card do %>
+  <%= card_header do %>
+    <%= card_title do %>
+      <%= organization.name %> Member
     <% end %>
-    <%= card_body do %>
+    <%= card_subtitle do %>
+      Fill out the fields below
+    <% end %>
+  <% end %>
+  <%= card_body add_class: "border-bottom" do %>
+    <div data-controller="organization-users">
       <div class="row">
-        <%= tag.div f.input(:user_id, label: "User", collection: users_for_select, include_blank: "None",
-            input_html: {class: "form-control", data: {controller: "select"}}), class: "col-md-6 mb-3 mb-md-0" %>
-        <div class="col-md-6 mb-3">
-          <%= f.input :role, label: "Role", required: true,
-                collection: ENUMS::ORGANIZATION_ROLES.values.map { |role| [role.capitalize, role] },
-                input_html: {class: "form-control", data: {controller: "select"}} %>
+        <div class="form-group">
+          <label>Would you like to add or invite someone to your team?</label>
+          <div class="custom-control custom-radio mb-1">
+            <input type="radio" class="custom-control-input" id="ou-rd1" data-value="add" data-action="organization-users#newMember" data-target="organization-users.add" />
+            <label class="custom-control-label" for="ou-rd1">Add existing user</label>
+            <div class="text-muted">This is someone who already has a CodeFund account.</div>
+          </div>
+          <div class="custom-control custom-radio mb-1">
+            <input type="radio" class="custom-control-input" id="ou-rd2" checked="" data-value="invite" data-action="organization-users#newMember" data-target="organization-users.invite" />
+            <label class="custom-control-label" for="ou-rd2">Invite new user</label>
+            <div class="text-muted">This is someone who needs a CodeFund account.</div>
+          </div>
         </div>
       </div>
-    <% end %>
-    <%= card_footer do %>
-      <%= card_footer_content do %>
-        <%= button_panel margin: "my-0" do %>
-          <%= f.submit "Save Membership", class: "btn btn-primary" %>
-          <%= cancel_button(organization_users_path(organization)) %>
-        <% end %>
-      <% end %>
-    <% end %>
+    </div>
+  <% end %>
+  <% if session[:organization_users_new_member_type] == "add" %>
+    <%= render "/organization_users/forms/existing_user_form", organization: organization, organization_user: organization_user %>
+  <% else %>
+    <%= render "/organization_users/forms/new_user_form", organization: organization, organization_user: organization_user %>
   <% end %>
 <% end %>

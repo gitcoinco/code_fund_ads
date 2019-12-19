@@ -7,6 +7,10 @@
         <p>We would love to have you participate with CodeFund! Your site will be a great fit for our advertisers.</p>
         <spacer size="8"></spacer>
         <p>Please let me know if you have any questions. Once things are in place, I will activate your property and you should start seeing funding coming in immediately.</p>
+      <% elsif @resource.organization_users.exists? -%>
+        <p>You have been invited to join a team on CodeFund.</p>
+        <spacer size="8"></spacer>
+        <p>Please click the '<%= t("devise.mailer.invitation_instructions.accept") %>' button below to create your account.</p>
       <% else -%>
         <p>Thank you for your interest in being an advertiser with CodeFund.</p>
         <spacer size="8"></spacer>
