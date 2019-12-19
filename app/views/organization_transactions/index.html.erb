@@ -2,7 +2,7 @@
   subject: @organization,
   sidebar: true,
   buttons: [
-    layout_button(link: new_organization_transaction_path(@organization), icon: "fas fa-plus", title: "Add transaction"),
+    layout_button(link: new_organization_transaction_path(@organization), icon: "fas fa-plus", title: "Add transaction", admin: true),
     layout_button(link: organization_transactions_path(@organization, format: :csv), icon: "fas fa-download", title: "Export to CSV")
   ]
 } do %>
