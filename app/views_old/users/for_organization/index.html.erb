@@ -1,7 +1,0 @@
-<%= render layout: "/organizations/show_layout", locals: { organization: @organization } do %>
-  <h3 class="h5 mb-3">
-    Members
-    <small class="text-muted d-block">Members of the organization</small>
-  </h3>
-  <%= render "/users/table", users: @users, pagy: @pagy %>
-<% end %>

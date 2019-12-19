@@ -1,9 +1,0 @@
-<%= render layout: "/properties/show_layout", locals: { property: @property } do %>
-  <div class="d-flex mb-3">
-    <h3 class="h5 mb-3 flex-grow-1">
-      Campaigns
-      <small class="text-muted d-block">List of campaigns that have been advertised on this property</small>
-    </h3>
-  </div>
-  <%= render "/property_campaigns/table" %>
-<% end %>

@@ -2,14 +2,6 @@ const { environment } = require('@rails/webpacker')
 const erb = require('./loaders/erb')
 const webpack = require('webpack')
 
-environment.config.merge({
-  resolve: {
-    alias: {
-      Circles: 'themes/old/vendor/circles/circles.min'
-    }
-  }
-})
-
 environment.plugins.prepend(
   'Provide',
   new webpack.ProvidePlugin({
@@ -22,7 +14,6 @@ environment.plugins.prepend(
     Typed: 'typed.js',
     SVGInjector: 'svg-injector',
     Noty: 'noty',
-    Circles: 'Circles',
     ClipboardJS: 'clipboard'
   }),
   'MomentContextReplacement',

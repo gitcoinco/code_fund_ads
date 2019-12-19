@@ -1,9 +1,0 @@
-<%= render layout: "/properties/show_layout", locals: { property: @property } do %>
-  <h3 class="h5 mb-3">
-    Keywords
-    <small class="text-muted d-block">Keywords that associate this property with campaigns</small>
-  </h3>
-  <% @property.keywords.sort.each do |keyword| %>
-    <span class="btn btn-xs btn-soft-primary mb-2"><%= keyword %></span>
-  <% end %>
-<% end %>

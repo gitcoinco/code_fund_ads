@@ -1,7 +1,0 @@
-<%= render layout: "/properties/show_layout", locals: { property: @eventable } do %>
-  <h3 class="h5 mb-3">
-    Events
-    <small class="text-muted d-block">List of events related to this property</small>
-  </h3>
-  <%= render "/events/table", eventable: @eventable, events: @events %>
-<% end %>

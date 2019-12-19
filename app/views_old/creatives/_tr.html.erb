@@ -1,7 +1,0 @@
-<%= tag.tr class: classes("even": creative_counter.even?, "odd": creative_counter.odd?) do %>
-  <td><%= link_to creative.name, creative_path(creative), title: "View Creative", data: tooltip_expando %></td>
-  <td><%= link_to creative.user.full_name, user_path(creative.user), title: "View User", data: tooltip_expando %></td>
-  <td><%= tag.span creative.headline, title: creative.body, data: tooltip_expando %></td>
-  <td><%= badge_for_count creative.campaigns.count %></td>
-  <td><%= link_to "Edit", edit_creative_path(creative), class: "btn btn-link btn-sm", title: "Edit Creative", data: tooltip_expando %></td>
-<% end %>

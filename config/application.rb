@@ -26,11 +26,5 @@ module CodeFundAds
       g.assets false
       g.stylesheets false
     end
-
-    config.to_prepare do
-      if Rails.env.development? && ENV["REDESIGN"] == "false"
-        ApplicationController.layout "application_old"
-      end
-    end
   end
 end

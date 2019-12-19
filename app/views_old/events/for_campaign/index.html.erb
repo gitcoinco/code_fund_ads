@@ -1,7 +1,0 @@
-<%= render layout: "/campaigns/show_layout", locals: { campaign: @eventable } do %>
-  <h3 class="h5 mb-3">
-    Events
-    <small class="text-muted d-block">List of events related to this campaign</small>
-  </h3>
-  <%= render "/events/table", eventable: @eventable, events: @events %>
-<% end %>
