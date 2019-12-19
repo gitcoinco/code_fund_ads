@@ -1,7 +1,0 @@
-<%= render layout: "/properties/show_layout", locals: { property: @versionable } do %>
-  <h3 class="h5 mb-3">
-    Property Revisions
-    <small class="text-muted d-block">List of revisions to this property</small>
-  </h3>
-  <%= render "/versions/table", versionable: @versionable, versions: @versions %>
-<% end %>

@@ -1,9 +1,0 @@
-//
-// Background Cover
-//
-
-@mixin background-cover($hs-size: cover, $hs-repeat: no-repeat, $hs-positionX: center, $hs-positionY: center) {
-  background-size: $hs-size;
-  background-repeat: $hs-repeat;
-  background-position: $hs-positionX $hs-positionY;
-}

@@ -1,9 +1,0 @@
-<%= render partial: "list_item", collection: job_postings, as: :job_posting, cached: true %>
-<% if pagy.next %>
-  <%= link_to "Load More", "javascript:;",
-    class: "btn btn-soft-primary mt-5 mx-auto",
-    data: {
-      next_url: pagy_url_for(pagy.next, pagy),
-      action: "click->load-more#loadMore"
-    } %>
-<% end %>

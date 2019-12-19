@@ -1,5 +1,0 @@
-<%= link_to image_path(imageable.to_gid_param, image),
-      method: :delete, class: "btn btn-sm btn-soft-danger transition-3d-hover text-white",
-      data: { confirm: I18n.t("images.destroy.confirm") } do %>
-  <span class="fa fa-trash font-size-13"></span>
-<% end if authorized_user.can_destroy_image?(image) %>

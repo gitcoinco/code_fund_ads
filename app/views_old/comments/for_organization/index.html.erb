@@ -1,7 +1,0 @@
-<%= render layout: "/organizations/show_layout", locals: { organization: @commentable } do %>
-  <h3 class="h5 mb-3">
-    Comments
-    <small class="text-muted d-block">Comments and notes for this organization</small>
-  </h3>
-  <%= render "/comments/table", commentable: @commentable, comments: @comments %>
-<% end %>

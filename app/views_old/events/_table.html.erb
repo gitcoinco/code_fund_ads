@@ -1,4 +1,0 @@
-<ul class="list-unstyled u-indicator-vertical-dashed">
-  <%= render partial: "/events/event", collection: @events, as: :event if @events.present? %>
-  <%= tag.h3("No tracked events", class: "h5 mt-3 text-center text-muted") if @events.empty? %>
-</ul>

@@ -1,9 +1,0 @@
-<div class="card mb-5">
-  <div class="card-body p-0 ">
-    <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "img-fluid"), property.url %>
-    <div class="my-3 mb-4 text-center">
-      <h3 class="h6 mb-1"><%= property.name %></h3>
-      <p class="font-size-1 px-5"><%= link_to truncate(property.url, length: 30), property.url, class: "text-link" %></p>
-    </div>
-  </div>
-</div>

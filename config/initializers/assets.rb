@@ -7,8 +7,6 @@ Rails.application.config.assets.version = "1.0"
 # Rails.application.config.assets.paths << Emoji.images_path
 # Add Yarn node_modules folder to the asset load path.
 Rails.application.config.assets.paths << Rails.root.join("node_modules")
-Rails.application.config.assets.paths << Rails.root.join("vendor/themes/old/vendor/malihu-custom-scrollbar-plugin")
-Rails.application.config.assets.paths << Rails.root.join("vendor/themes/old")
 Rails.application.config.assets.paths << Rails.root.join("vendor/themes/current")
 
 # Precompile additional assets.

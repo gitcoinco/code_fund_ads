@@ -1,9 +1,0 @@
-<th scope="col" class="font-weight-medium sorting" tabindex="0" rowspan="1" colspan="1">
-  <div class="d-flex justify-content-between align-items-center">
-    <%= title %>
-    <div class="ml-2">
-      <%= link_to(tag.span("", class: "fas fa-angle-up u-datatable__thead-icon #{'text-primary' if selected == 'up'}"), column: column, direction: "asc") %>
-      <%= link_to(tag.span("", class: "fas fa-angle-down u-datatable__thead-icon #{'text-primary' if selected == 'down'}"), column: column, direction: "desc") %>
-    </div>
-  </div>
-</th>

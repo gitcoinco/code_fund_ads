@@ -25,8 +25,6 @@ module ApplicationHelper
   end
 
   def page_heading(action, subject, title: nil, subtitle: nil, icon: nil, datepicker: false)
-    return render("/shared/page_heading", action: action, subject: subject, title: title, subtitle: subtitle, icon: icon, datepicker: datepicker) if ENV["REDESIGN"] == "false"
-
     render partial: "/shared/page_heading", locals: {action: action, subject: subject, title: title, subtitle: subtitle, icon: icon, datepicker: datepicker}
   end
 
@@ -132,25 +130,21 @@ module ApplicationHelper
 
   def ga_tag
     return nil unless ENV["GA_TRACKING_ID"].present?
-    return render("/shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"]) if ENV["REDESIGN"] == "false"
     render("/shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"])
   end
 
   def ga_tag_manager_header
     return nil unless ENV["GA_TAG_MANAGER_ID"].present?
-    return render("/shared/scripts/google_tag_manager_header", id: ENV["GA_TAG_MANAGER_ID"]) if ENV["REDESIGN"] == "false"
     render("/shared/scripts/google_tag_manager_header", id: ENV["GA_TAG_MANAGER_ID"])
   end
 
   def ga_tag_manager_footer
     return nil unless ENV["GA_TAG_MANAGER_ID"].present?
-    return render("/shared/scripts/google_tag_manager_footer", id: ENV["GA_TAG_MANAGER_ID"]) if ENV["REDESIGN"] == "false"
     render("/shared/scripts/google_tag_manager_footer", id: ENV["GA_TAG_MANAGER_ID"])
   end
 
   def headway_tag
     return nil unless ENV["HEADWAY_ID"].present?
-    return render("/shared/scripts/headway", id: ENV["HEADWAY_ID"]) if ENV["REDESIGN"] == "false"
     render("/shared/scripts/headway", id: ENV["HEADWAY_ID"])
   end
 
@@ -185,27 +179,25 @@ module ApplicationHelper
   end
 
   def badge_for_role(role, wrap_class: "")
-    return redesigned_badge_for_role(role, wrap_class.to_s) if ENV["REDESIGN"] == "true"
-
     case role
     when "administrator"
-      tag.span(
-        tag.span("", class: "fas fa-key content-centered", style: "top: 5px; left: 5px; position: absolute;"),
-        class: "btn btn-icon btn-dark btn-xs rounded-circle position-relative #{wrap_class}",
+      tag.div(
+        tag.span("", class: "fas fa-key content-centered"),
+        class: "tile tile-circle tile-sm bg-dark #{wrap_class}",
         title: "Administrator",
         data: tooltip_expando
       )
     when "advertiser"
-      tag.span(
-        tag.span("", class: "fas fa-ad content-centered", style: "top: 5px; left: 5px; position: absolute;"),
-        class: "btn btn-icon btn-success btn-xs rounded-circle position-relative #{wrap_class}",
+      tag.div(
+        tag.span("", class: "fas fa-ad content-centered"),
+        class: "tile tile-circle tile-sm bg-success #{wrap_class}",
         title: "Advertiser",
         data: tooltip_expando
       )
     when "publisher"
-      tag.span(
-        tag.span("", class: "fas fa-code content-centered", style: "top: 5px; left: 3px; position: absolute;"),
-        class: "btn btn-icon btn-primary btn-xs rounded-circle position-relative #{wrap_class}",
+      tag.div(
+        tag.span("", class: "fas fa-code content-centered"),
+        class: "tile tile-circle tile-sm bg-primary #{wrap_class}",
         title: "Publisher",
         data: tooltip_expando
       )
@@ -228,8 +220,6 @@ module ApplicationHelper
   end
 
   def details_li(label, &block)
-    return render partial: "/shared/details_li", locals: {label: label, block: block} if ENV["REDESIGN"] == "false"
-
     render partial: "/shared/details_li", locals: {label: label, block: block}
   end
 
@@ -243,8 +233,6 @@ module ApplicationHelper
       selected = "down" if direction == "asc"
     end
 
-    return render "/shared/sortable_tr", title: title, selected: selected, column: column if ENV["REDESIGN"] == "false"
-
     render "/shared/sortable_tr", title: title, selected: selected, column: column
   end
 
@@ -252,8 +240,7 @@ module ApplicationHelper
     start = pagy.offset + 1
     finish = start + pagy.items - 1
     count = pagy.count
-    classes = ENV["REDESIGN"] == "true" ? "text-muted" : "text-secondary"
-    tag.small("Showing #{start} to #{finish} of #{count} Entries", class: classes).html_safe
+    tag.small("Showing #{start} to #{finish} of #{count} Entries", class: "text-muted").html_safe
   end
 
   def find_version_author(version)
@@ -280,33 +267,5 @@ module ApplicationHelper
   def calc_percentage(numerator, denominator)
     return 0 if denominator.zero?
     numerator / denominator.to_f
-  end
-
-  private
-
-  def redesigned_badge_for_role(role, wrap_class)
-    case role
-    when "administrator"
-      tag.div(
-        tag.span("", class: "fas fa-key content-centered"),
-        class: "tile tile-circle tile-sm bg-dark #{wrap_class}",
-        title: "Administrator",
-        data: tooltip_expando
-      )
-    when "advertiser"
-      tag.div(
-        tag.span("", class: "fas fa-ad content-centered"),
-        class: "tile tile-circle tile-sm bg-success #{wrap_class}",
-        title: "Advertiser",
-        data: tooltip_expando
-      )
-    when "publisher"
-      tag.div(
-        tag.span("", class: "fas fa-code content-centered"),
-        class: "tile tile-circle tile-sm bg-primary #{wrap_class}",
-        title: "Publisher",
-        data: tooltip_expando
-      )
-    end
   end
 end
