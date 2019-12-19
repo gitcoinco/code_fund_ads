@@ -6,5 +6,9 @@ echo "== Checking ERB Lint =="
 bundle exec erblint --autocorrect app/views/**/*.html.erb
 echo "== Checking Prettier-Standard =="
 yarn run prettier-standard app/**/*.js
-echo "== Checking Zeitwerk =="
-bundle exec rails zeitwerk:check
+# echo "== Checking Zeitwerk =="
+# We need to wait for rails 6.0.3 to release (sometime in January) to be able to use
+# this again due an issue with this rake task that was fixed but not released.
+# Issue: https://github.com/rails/rails/issues/37966
+# Fix: https://github.com/rails/rails/commit/da28edf9baf0bd83b5308564bdcd8f4673b492bd
+# bundle exec rails zeitwerk:check
