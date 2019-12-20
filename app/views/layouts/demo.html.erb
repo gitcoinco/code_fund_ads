@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#3063A0" />
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-    <%= action_cable_meta_tag %>
+    <%= content_for :demo %>
 
     <!-- CDN Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet" />
@@ -19,9 +19,8 @@
 
     <!-- Compressed JavaScripts -->
     <%= javascript_pack_tag "code_fund", 'data-turbolinks-track': "reload" %>
-    <%= javascript_pack_tag "code_fund_ad", 'data-turbolinks-track': "reload" %>
   </head>
-  <body>
+  <body class="pt-0">
     <%= yield %>
   </body>
 </html>

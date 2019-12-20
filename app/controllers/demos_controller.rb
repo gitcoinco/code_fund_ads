@@ -1,34 +1,31 @@
 class DemosController < ApplicationController
-  protect_from_forgery unless: -> { request.format.js? }
-  before_action :set_cors_headers
-  before_action :set_no_caching_headers
   layout "demo"
+  helper_method :position
+  ABSOLUTE = ["bottom-bar", "top-bar", "smart-bar", "sticky-box"]
 
-  helper_method :template_name, :theme_name
-
-  def index
-    # binding.pry
-    @ad_url = advertisement_preview_path(campaign_id, template: template, theme: theme, format: :js)
-    # @ad_url = "#{base_url}?template=#{template}&theme=#{theme}"
-    # binding.pry
-    # render "/advertisements/show", property_id: ENV["PROPERTY_DEMO_ID"], template: template, theme: theme, ad_test: true
+  def show
+    @template = demo_params[:template] || "default"
+    @theme = demo_params[:theme] || "light"
+    @script_path = "/ad-previews/#{campaign.id}.js?template=#{@template}&theme=#{@theme}"
   end
 
-  def template
-    @template ||= "default"
+  def update
+    redirect_to demo_path(template: params[:template], theme: params[:theme])
   end
 
-  def theme
-    @theme ||= "light"
-  end
+  def position
+    return "absolute" if ABSOLUTE.include?(@template)
 
-  def campaign_id
-    @campaign_id = 395
+    "relative"
   end
 
   private
 
-  def base_url
-    "http://localhost:3000/properties/#{ENV["PROPERTY_DEMO_ID"]}/funder.js"
+  def campaign
+    @campaign ||= Campaign.find(ENV["CAMPAIGN_DEMO_ID"])
+  end
+
+  def demo_params
+    params.permit(:template, :theme)
   end
 end

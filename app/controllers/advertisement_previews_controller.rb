@@ -1,7 +1,7 @@
 class AdvertisementPreviewsController < ApplicationController
   layout false
   protect_from_forgery unless: -> { request.format.js? }
-  before_action :authenticate_user!
+  before_action :authenticate_user!, unless: -> { demo? }
   before_action :authenticate_administrator!, only: [:index]
   before_action :set_cors_headers
   before_action :set_campaign, only: [:show]
@@ -59,9 +59,13 @@ class AdvertisementPreviewsController < ApplicationController
 
   private
 
+  def demo?
+    Rails.application.routes.recognize_path(request.referrer)[:controller].inquiry.demos? && params[:campaign_id] == ENV["CAMPAIGN_DEMO_ID"]
+  end
+
   def set_campaign
     return nil if params[:campaign_id] == "0"
-    @campaign = if authorized_user.can_admin_system?
+    @campaign = if authorized_user.can_admin_system? || demo?
       Campaign.find params[:campaign_id]
     else
       Current.organization&.campaigns&.find params[:campaign_id]
