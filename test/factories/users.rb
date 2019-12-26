@@ -116,16 +116,16 @@ FactoryBot.define do
                                }
 
       advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-260x200.png")),
-                                filename: "seed-260x200.png",
-                                content_type: "image/png",
-                                metadata: {
-                                  identified: true,
-                                  width: 260,
-                                  height: 200,
-                                  analyzed: true,
-                                  name: "seed-260x200.png",
-                                  format: ENUMS::IMAGE_FORMATS::LARGE,
-                                }
+                               filename: "seed-260x200.png",
+                               content_type: "image/png",
+                               metadata: {
+                                 identified: true,
+                                 width: 260,
+                                 height: 200,
+                                 analyzed: true,
+                                 name: "seed-260x200.png",
+                                 format: ENUMS::IMAGE_FORMATS::LARGE,
+                               }
 
       advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-512x320.jpg")),
                                filename: "seed-512x320.jpg",

@@ -22,7 +22,7 @@ linters:
         Enabled: true
         EnforcedStyle: no_space
         EnforcedStyleForEmptyBraces: no_space
-      Layout/IndentFirstArgument:
+      Layout/FirstArgumentIndentation:
         Enabled: true
         EnforcedStyle: consistent
         IndentationWidth: ~

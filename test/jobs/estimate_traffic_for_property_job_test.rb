@@ -64,17 +64,17 @@ class EstimateTrafficForPropertyJobTest < ActiveJob::TestCase
     {"data" =>
       {"estimations" =>
         {"site_worth" => "$4,897",
-        "visitors" => {"daily" => "4,293", "monthly" => "128,790", "yearly" => "1,566,945"},
-        "pageviews" => {"daily" => "6,708", "monthly" => "201,240", "yearly" => "2,448,420"},
-        "revenue" => {"daily" => "$7", "monthly" => "$201", "yearly" => "$2,448"},},
-      "alexa" =>
+         "visitors" => {"daily" => "4,293", "monthly" => "128,790", "yearly" => "1,566,945"},
+         "pageviews" => {"daily" => "6,708", "monthly" => "201,240", "yearly" => "2,448,420"},
+         "revenue" => {"daily" => "$7", "monthly" => "$201", "yearly" => "$2,448"},},
+       "alexa" =>
         {"rank" => {"3_months" => "139130", "1_month" => "191055", "7_days" => "153927", "1_day" => "286961"},
-        "rank_delta" => {"3_months" => "-12650", "1_month" => "+88806", "7_days" => "-87568", "1_day" => "-104154"},
-        "reach" => {"3_months" => "125548", "1_month" => "174111", "7_days" => "126952", "1_day" => "237510"},
-        "reach_delta" => {"3_months" => "-15903", "1_month" => "+86511", "7_days" => "-106500", "1_day" => "-84447"},
-        "pageviews" => {"3_months" => "0.24", "1_month" => "0.16", "7_days" => "0.17", "1_day" => "0.08"},
-        "pageviews_delta" => {"3_months" => "+5%", "1_month" => "-50.390%", "7_days" => "+30%", "1_day" => "+60%"},},},
-    "queries_remained" => 45,
-    "elapsed_time" => "1.86",}
+         "rank_delta" => {"3_months" => "-12650", "1_month" => "+88806", "7_days" => "-87568", "1_day" => "-104154"},
+         "reach" => {"3_months" => "125548", "1_month" => "174111", "7_days" => "126952", "1_day" => "237510"},
+         "reach_delta" => {"3_months" => "-15903", "1_month" => "+86511", "7_days" => "-106500", "1_day" => "-84447"},
+         "pageviews" => {"3_months" => "0.24", "1_month" => "0.16", "7_days" => "0.17", "1_day" => "0.08"},
+         "pageviews_delta" => {"3_months" => "+5%", "1_month" => "-50.390%", "7_days" => "+30%", "1_day" => "+60%"},},},
+     "queries_remained" => 45,
+     "elapsed_time" => "1.86",}
   end
 end

@@ -24,7 +24,7 @@ class ScheduleOrganizationReportJobTest < ActiveJob::TestCase
     end_date = 2.months.from_now.to_date
 
     scheduled_report = create(:scheduled_organization_report, start_date: start_date, end_date: end_date,
-      organization: campaign.organization)
+                                                              organization: campaign.organization)
 
     freeze_time do
       expected_args = ->(job_args) do
@@ -43,7 +43,7 @@ class ScheduleOrganizationReportJobTest < ActiveJob::TestCase
     start_date = 2.months.ago.to_date
     end_date = 1.month.ago.to_date
     scheduled_report = create(:scheduled_organization_report, start_date: start_date, end_date: end_date,
-      organization: campaign.organization)
+                                                              organization: campaign.organization)
 
     assert_no_enqueued_jobs do
       ScheduleOrganizationReportJob.perform_now(id: scheduled_report.id, deliver_at: Time.now)

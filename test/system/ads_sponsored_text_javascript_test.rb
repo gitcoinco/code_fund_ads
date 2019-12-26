@@ -28,9 +28,9 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
     find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
-                                                 "text-decoration": "none solid rgb(52, 152, 219)",
-                                                 "position": "static",
-                                                 "display": "inline",)
+                                                    "text-decoration": "none solid rgb(52, 152, 219)",
+                                                    "position": "static",
+                                                    "display": "inline",)
   end
 
   test "sponsored text - premium ad with dark theme" do
@@ -51,9 +51,9 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
     find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
-                                                 "text-decoration": "none solid rgb(52, 152, 219)",
-                                                 "position": "static",
-                                                 "display": "inline",)
+                                                    "text-decoration": "none solid rgb(52, 152, 219)",
+                                                    "position": "static",
+                                                    "display": "inline",)
   end
 
   test "sponsored text - fallback ad with light theme" do
@@ -74,9 +74,9 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
     find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
-                                                 "text-decoration": "none solid rgb(52, 152, 219)",
-                                                 "position": "static",
-                                                 "display": "inline",)
+                                                    "text-decoration": "none solid rgb(52, 152, 219)",
+                                                    "position": "static",
+                                                    "display": "inline",)
   end
 
   test "sponsored text - fallback ad with dark theme" do
@@ -97,8 +97,8 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
     find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
-                                                 "text-decoration": "none solid rgb(52, 152, 219)",
-                                                 "position": "static",
-                                                 "display": "inline",)
+                                                    "text-decoration": "none solid rgb(52, 152, 219)",
+                                                    "position": "static",
+                                                    "display": "inline",)
   end
 end

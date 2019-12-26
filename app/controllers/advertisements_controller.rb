@@ -47,7 +47,7 @@ class AdvertisementsController < ApplicationController
       return true if request.referer.nil?
       ENUMS::BLOCK_LIST.values.exclude? URI.parse(request.referer)&.host
     rescue URI::InvalidURIError
-      return true
+      true
     end
   end
 

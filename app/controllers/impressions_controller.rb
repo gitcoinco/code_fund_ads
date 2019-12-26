@@ -27,7 +27,7 @@ class ImpressionsController < ApplicationController
     Rails.cache.delete params[:id]
 
     if @virtual_impression.nil?
-      return send_file(Rails.root.join("app/assets/images/pixel.gif"), type: "image/gif", disposition: "inline", status: :accepted)
+      send_file(Rails.root.join("app/assets/images/pixel.gif"), type: "image/gif", disposition: "inline", status: :accepted)
     end
   end
 
