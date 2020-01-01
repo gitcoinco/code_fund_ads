@@ -9,7 +9,6 @@ environment.plugins.prepend(
     $: 'jquery',
     'window.jQuery': 'jquery',
     Popper: ['popper.js', 'default'],
-    Chartist: 'chartist',
     Chart: 'chart.js',
     Typed: 'typed.js',
     SVGInjector: 'svg-injector',

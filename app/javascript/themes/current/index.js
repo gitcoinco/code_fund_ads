@@ -1,6 +1,5 @@
 // =========== Webpack ===========
 import 'bootstrap-select'
-import 'slick-carousel'
 import 'jquery-validation'
 
 // =========== Vendor ===========
