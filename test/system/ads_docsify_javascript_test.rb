@@ -22,11 +22,11 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
 
     find("div", id: "cf").assert_matches_style("max-width": "330px", "margin": "0px 527px")
     find("div", class: "cf-wrapper").assert_matches_style("display": "block",
-                                                           "overflow": "hidden",
-                                                           "font-size": "14px",
-                                                           "line-height": "19.6px",
-                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                           "padding": "15px",)
+                                                          "overflow": "hidden",
+                                                          "font-size": "14px",
+                                                          "line-height": "19.6px",
+                                                          "font-family": "Helvetica, Arial, sans-serif",
+                                                          "padding": "15px",)
     find("div", class: "clearfix").assert_matches_style("overflow": "auto")
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("float": "left", "margin-right": "15px")
@@ -61,11 +61,11 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
 
     find("div", id: "cf").assert_matches_style("max-width": "330px", "margin": "0px 527px")
     find("div", class: "cf-wrapper").assert_matches_style("display": "block",
-                                                           "overflow": "hidden",
-                                                           "font-size": "14px",
-                                                           "line-height": "19.6px",
-                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                           "padding": "15px",)
+                                                          "overflow": "hidden",
+                                                          "font-size": "14px",
+                                                          "line-height": "19.6px",
+                                                          "font-family": "Helvetica, Arial, sans-serif",
+                                                          "padding": "15px",)
     find("div", class: "clearfix").assert_matches_style("overflow": "auto")
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("float": "left", "margin-right": "15px")
@@ -100,11 +100,11 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
 
     find("div", id: "cf").assert_matches_style("max-width": "330px", "margin": "0px 527px")
     find("div", class: "cf-wrapper").assert_matches_style("display": "block",
-                                                           "overflow": "hidden",
-                                                           "font-size": "14px",
-                                                           "line-height": "19.6px",
-                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                           "padding": "15px",)
+                                                          "overflow": "hidden",
+                                                          "font-size": "14px",
+                                                          "line-height": "19.6px",
+                                                          "font-family": "Helvetica, Arial, sans-serif",
+                                                          "padding": "15px",)
     find("div", class: "clearfix").assert_matches_style("overflow": "auto")
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("float": "left", "margin-right": "15px")
@@ -139,11 +139,11 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
 
     find("div", id: "cf").assert_matches_style("max-width": "330px", "margin": "0px 527px")
     find("div", class: "cf-wrapper").assert_matches_style("display": "block",
-                                                           "overflow": "hidden",
-                                                           "font-size": "14px",
-                                                           "line-height": "19.6px",
-                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                           "padding": "15px",)
+                                                          "overflow": "hidden",
+                                                          "font-size": "14px",
+                                                          "line-height": "19.6px",
+                                                          "font-family": "Helvetica, Arial, sans-serif",
+                                                          "padding": "15px",)
     find("div", class: "clearfix").assert_matches_style("overflow": "auto")
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("float": "left", "margin-right": "15px")

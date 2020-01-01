@@ -20,12 +20,12 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
 
     assert_selector("div#cf")
     find("div", class: "cf-wrapper").assert_matches_style("max-width": "330px",
-                                                           "padding-top": "15px",
-                                                           "display": "block",
-                                                           "font-size": "14px",
-                                                           "line-height": "19.6px",
-                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                           "margin": "0px 512px",)
+                                                          "padding-top": "15px",
+                                                          "display": "block",
+                                                          "font-size": "14px",
+                                                          "line-height": "19.6px",
+                                                          "font-family": "Helvetica, Arial, sans-serif",
+                                                          "margin": "0px 512px",)
     find("div", class: "cf-header").assert_matches_style("font-size": "12px",
                                                          "color": "rgba(102, 119, 136, 1)",
                                                          "display": "block",
@@ -52,12 +52,12 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
 
     assert_selector("div#cf")
     find("div", class: "cf-wrapper").assert_matches_style("max-width": "330px",
-                                                           "padding-top": "15px",
-                                                           "display": "block",
-                                                           "font-size": "14px",
-                                                           "line-height": "19.6px",
-                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                           "margin": "0px 512px",)
+                                                          "padding-top": "15px",
+                                                          "display": "block",
+                                                          "font-size": "14px",
+                                                          "line-height": "19.6px",
+                                                          "font-family": "Helvetica, Arial, sans-serif",
+                                                          "margin": "0px 512px",)
     find("div", class: "cf-header").assert_matches_style("font-size": "12px",
                                                          "color": "rgba(255, 255, 255, 0.8)",
                                                          "display": "block",
@@ -84,12 +84,12 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
 
     assert_selector("div#cf")
     find("div", class: "cf-wrapper").assert_matches_style("max-width": "330px",
-                                                           "padding-top": "15px",
-                                                           "display": "block",
-                                                           "font-size": "14px",
-                                                           "line-height": "19.6px",
-                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                           "margin": "0px 512px",)
+                                                          "padding-top": "15px",
+                                                          "display": "block",
+                                                          "font-size": "14px",
+                                                          "line-height": "19.6px",
+                                                          "font-family": "Helvetica, Arial, sans-serif",
+                                                          "margin": "0px 512px",)
     find("div", class: "cf-header").assert_matches_style("font-size": "12px",
                                                          "color": "rgba(102, 119, 136, 1)",
                                                          "display": "block",
@@ -116,12 +116,12 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
 
     assert_selector("div#cf")
     find("div", class: "cf-wrapper").assert_matches_style("max-width": "330px",
-                                                           "padding-top": "15px",
-                                                           "display": "block",
-                                                           "font-size": "14px",
-                                                           "line-height": "19.6px",
-                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                           "margin": "0px 512px",)
+                                                          "padding-top": "15px",
+                                                          "display": "block",
+                                                          "font-size": "14px",
+                                                          "line-height": "19.6px",
+                                                          "font-family": "Helvetica, Arial, sans-serif",
+                                                          "margin": "0px 512px",)
     find("div", class: "cf-header").assert_matches_style("font-size": "12px",
                                                          "color": "rgba(255, 255, 255, 0.8)",
                                                          "display": "block",

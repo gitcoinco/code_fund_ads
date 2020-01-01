@@ -24,12 +24,12 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
                                                "font-size": "13px",
                                                "box-shadow": "none")
     find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
-                                                 "cursor": "pointer",
-                                                 "text-decoration": "none solid rgb(52, 152, 219)",
-                                                 "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
-                                                 "font-size": "13px",
-                                                 "line-height": "22px",
-                                                 "box-shadow": "none",)
+                                                    "cursor": "pointer",
+                                                    "text-decoration": "none solid rgb(52, 152, 219)",
+                                                    "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                                    "font-size": "13px",
+                                                    "line-height": "22px",
+                                                    "box-shadow": "none",)
   end
 
   test "text - premium ad with dark theme" do
@@ -46,12 +46,12 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
                                                "font-size": "13px",
                                                "box-shadow": "none")
     find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
-                                                 "cursor": "pointer",
-                                                 "text-decoration": "none solid rgb(52, 152, 219)",
-                                                 "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
-                                                 "font-size": "13px",
-                                                 "line-height": "22px",
-                                                 "box-shadow": "none",)
+                                                    "cursor": "pointer",
+                                                    "text-decoration": "none solid rgb(52, 152, 219)",
+                                                    "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                                    "font-size": "13px",
+                                                    "line-height": "22px",
+                                                    "box-shadow": "none",)
   end
 
   test "text - fallback ad with light theme" do
@@ -68,12 +68,12 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
                                                "font-size": "13px",
                                                "box-shadow": "none")
     find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
-                                                 "cursor": "pointer",
-                                                 "text-decoration": "none solid rgb(52, 152, 219)",
-                                                 "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
-                                                 "font-size": "13px",
-                                                 "line-height": "22px",
-                                                 "box-shadow": "none",)
+                                                    "cursor": "pointer",
+                                                    "text-decoration": "none solid rgb(52, 152, 219)",
+                                                    "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                                    "font-size": "13px",
+                                                    "line-height": "22px",
+                                                    "box-shadow": "none",)
   end
 
   test "text - fallback ad with dark theme" do
@@ -90,11 +90,11 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
                                                "font-size": "13px",
                                                "box-shadow": "none")
     find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
-                                                 "cursor": "pointer",
-                                                 "text-decoration": "none solid rgb(52, 152, 219)",
-                                                 "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
-                                                 "font-size": "13px",
-                                                 "line-height": "22px",
-                                                 "box-shadow": "none",)
+                                                    "cursor": "pointer",
+                                                    "text-decoration": "none solid rgb(52, 152, 219)",
+                                                    "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
+                                                    "font-size": "13px",
+                                                    "line-height": "22px",
+                                                    "box-shadow": "none",)
   end
 end

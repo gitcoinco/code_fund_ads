@@ -31,7 +31,7 @@ class JobPostingsController < ApplicationController
     end
 
     if params[:manage_scope]
-      return render "/job_postings/for_user/index"
+      render "/job_postings/for_user/index"
     end
   end
 
