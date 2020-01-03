@@ -18,6 +18,7 @@ class UsersController < ApplicationController
 
   def new
     @user = User.new
+    @user.organization_users.build
   end
 
   def create
@@ -38,6 +39,10 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def edit
+    @user.organization_users.build unless @user.organization_users.exists?
   end
 
   def update
@@ -95,10 +100,10 @@ class UsersController < ApplicationController
       :us_resident,
       :website_url,
       skills: [],
+      organization_users_attributes: [:organization_id, :role],
     ).tap do |whitelisted|
       if authorized_user.can_admin_system?
         whitelisted[:api_access] = params[:user][:api_access]
-        whitelisted[:organization_id] = params[:user][:organization_id]
         whitelisted[:roles] = params[:user][:roles]
         whitelisted[:status] = params[:user][:status]
       end

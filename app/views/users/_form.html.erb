@@ -16,7 +16,14 @@
     </div>
   </div>
   <% if authorized_user.can_admin_system? %>
-    <%= render "/users/form/admin", f: f, user: user %>
+    <div class="row">
+      <div class="col-12 col-lg-6">
+        <%= render "/users/form/admin", f: f, user: user %>
+      </div>
+      <div class="col-12 col-lg-6">
+        <%= render "/users/form/organization", f: f %>
+      </div>
+    </div>
   <% end %>
   <%= button_panel do %>
     <%= f.submit "Save User", class: "btn btn-primary mr-1" %>
