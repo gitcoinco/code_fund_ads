@@ -10,7 +10,13 @@
   <%= card_body do %>
     <div class="row">
       <%= tag.div f.input(:bio, input_html: {class: "js-summernote-editor", rows: 6}), class: "col-12 mb-2" %>
-      <%= tag.div f.input(:skills, collection: ENUMS::KEYWORDS.keys, required: false, input_html: {class: "form-control", multiple: true, data: {controller: "select"}}), class: "col-12" %>
+      <div class="col-12 mb-3" data-controller="select-multiple">
+        <%= f.input(:skills, collection: ENUMS::KEYWORDS.keys,
+            input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select"}}) %>
+        <div class="d-block">
+          <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-secondary btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
+        </div>
+      </div>
     </div>
   <% end %>
 <% end %>

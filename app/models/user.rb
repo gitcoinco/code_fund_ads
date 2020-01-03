@@ -167,6 +167,7 @@ class User < ApplicationRecord
     :validatable
   )
   has_one_attached :avatar
+  accepts_nested_attributes_for :organization_users
   acts_as_commentable
   has_paper_trail on: %i[update], only: %i[
     api_access

@@ -1,4 +1,4 @@
-    <%= card do %>
+<%= card do %>
   <%= card_header do %>
     <%= card_title do %>
       Security
@@ -9,8 +9,7 @@
   <% end %>
   <%= card_body do %>
     <div class="row">
-      <div class="col-sm-6">
-
+      <div class="col-sm-12">
         <div class="media align-items-center mb-3">
           <label class="switcher-control mb-0 mr-3">
             <%= f.check_box :api_access, class: "switcher-input", id: "checkboxSwitch2" %>
@@ -20,76 +19,16 @@
             <span class="d-block text-dark">Enable API Access?</span>
           </label>
         </div>
-        <div class="media align-items-center mb-3">
-          <label class="switcher-control mb-0 mr-3">
-            <%= tag.input type: "text",
-                              disabled: true,
-                              class: "switcher-input",
-                              type: "checkbox",
-                              value: "administrator",
-                              name: "user[roles][]",
-                              id: "user_roles_administrator",
-                              checked: "checked" if user.administrator? %>
-            <span class="switcher-indicator"></span>
-          </label>
-          <label class="media-body text-muted mb-0">
-            <span class="d-block text-dark">Administrator?</span>
-          </label>
-        </div>
-        <div class="media align-items-center mb-3">
-          <label class="switcher-control mb-0 mr-3">
-            <%= tag.input type: "text",
-                              disabled: true,
-                              class: "switcher-input",
-                              type: "checkbox",
-                              value: "advertiser",
-                              name: "user[roles][]",
-                              id: "user_roles_advertiser",
-                              checked: "checked" if user.advertiser? %>
-            <span class="switcher-indicator"></span>
-          </label>
-          <label class="media-body text-muted mb-0" for="checkboxSwitch6">
-            <span class="d-block text-dark">Advertiser?</span>
-          </label>
-        </div>
-        <div class="media align-items-center mb-3">
-          <label class="switcher-control mb-0 mr-3">
-            <%= tag.input type: "text",
-                              disabled: true,
-                              class: "switcher-input",
-                              type: "checkbox",
-                              value: "publisher",
-                              name: "user[roles][]",
-                              id: "user_roles_publisher",
-                              checked: "checked" if user.publisher? %>
-            <span class="switcher-indicator"></span>
-          </label>
-          <label class="media-body text-muted mb-0" for="checkboxSwitch7">
-            <span class="d-block text-dark">Publisher?</span>
-          </label>
-        </div>
-        <div class="media align-items-center mb-3">
-          <label class="switcher-control mb-0 mr-3">
-            <%= tag.input type: "text",
-                              disabled: true,
-                              class: "switcher-input",
-                              type: "checkbox",
-                              value: "employer",
-                              name: "user[roles][]",
-                              id: "user_roles_employer",
-                              checked: "checked" if user.employer? %>
-            <span class="switcher-indicator"></span>
-          </label>
-          <label class="media-body text-muted mb-0" for="checkboxSwitch8">
-            <span class="d-block text-dark">Employer?</span>
-          </label>
-        </div>
-      </div>
-      <div class="col-sm-6">
         <%= tag.div f.input(:status, collection: user_statuses_for_select,
             input_html: {class: "form-control", data: {controller: "select"}}), class: "mb-2" %>
-        <%= tag.div f.input(:organization_id, label: "Organization", collection: organizations_for_select, include_blank: "None",
-            input_html: {class: "form-control", data: {controller: "select"}}), class: "mb-3" %>
+        <div class="mb-3" data-controller="select-multiple">
+          <%= f.input(:roles, label: "System Roles", collection: ENUMS::USER_ROLES.keys,
+              input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select"}}) %>
+          <div class="d-block">
+            <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-secondary btn-xs py-0",
+                data: {action: "click->select-multiple#clearSelections"} %>
+          </div>
+        </div>
       </div>
     </div>
   <% end %>
