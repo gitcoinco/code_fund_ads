@@ -1,100 +1,304 @@
+# == Version ==
 version: 2.1
-jobs:
-  build:
+
+# == Defaults ==
+defaults: &defaults
+  working_directory: ~/code_fund_ads
+  environment:
+    PG_HOST: localhost
+    PG_USERNAME: ubuntu
+    RAILS_ENV: test
+    RACK_ENV: test
+    DEFAULT_HOST: codefund.io
+    PARALLEL_WORKERS: "1"
+    REDIS_CACHE_URL: redis://127.0.0.1:6379
+    REDIS_QUEUE_URL: redis://127.0.0.1:6379
+    WORDPRESS_URL: 'https://codefund.io'
+
+# == Executors ==
+executors:
+  ruby_tests:
+    <<: *defaults
+    docker:
+      - image: circleci/ruby:2.6.5-node
+      - image: circleci/postgres:11.2
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: code_fund_ads_test
+  node_tests:
+    <<: *defaults
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
-        environment:
-          PG_HOST: localhost
-          PG_USERNAME: ubuntu
-          RAILS_ENV: test
-          RACK_ENV: test
-          DEFAULT_HOST: codefund.io
-          PARALLEL_WORKERS: "1"
-          REDIS_CACHE_URL: redis://127.0.0.1:6379
-          REDIS_QUEUE_URL: redis://127.0.0.1:6379
-          WORDPRESS_URL: 'https://codefund.io'
       - image: circleci/postgres:11.2
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: code_fund_ads_test
       - image: circleci/redis:5.0.4
-    working_directory: ~/repo
+
+# == Aliases ==
+aliases:
+  - &restore_gem_cache
+    name: Restoring gem cache
+    keys:
+      - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+      - gem-cache-v1-{{ arch }}-{{ .Branch }}
+      - gem-cache-v1
+
+  - &save_gem_cache
+    name: Saving gem cache
+    key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+    paths:
+      - ~/code_fund_ads/vendor/bundle
+
+  - &bundle_install
+    name: Install gems
+    command: |
+      gem install bundler:2.1.1
+      bundle check || bundle install --jobs=6 --retry=3 --path vendor/bundle
+
+  - &restore_yarn_cache
+    name: Restoring yarn cache
+    keys:
+      - yarn-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "~/code_fund_ads/yarn.lock" }}
+      - yarn-cache-v1-{{ arch }}-{{ .Branch }}
+      - yarn-cache-v1
+
+  - &save_yarn_cache
+    name: Saving yarn cache
+    key: yarn-cache-v1-{{ .Branch }}-{{ checksum "~/code_fund_ads/yarn.lock" }}
+    paths:
+      - ~/code_fund_ads/node_modules
+
+  - &yarn_install
+    name: Install node packages
+    command: yarn install --ignore-engines --frozen-lockfile
+
+  - &asset_cache_key
+    name: Set up asset cache key
+    command: find ~/code_fund_ads/app/javascript ~/code_fund_ads/app/assets -type f -exec md5 -q {} \; > ~/code_fund_ads/dependency_checksum
+
+  - &restore_asset_cache
+    name: Restoring asset cache
+    keys:
+      - assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "~/code_fund_ads/dependency_checksum" }}
+      - assets-cache-v1-{{ arch }}-{{ .Branch }}
+      - assets-cache-v1-{{ arch }}
+
+  - &save_asset_cache
+    name: Saving asset cache
+    key: assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "~/code_fund_ads/dependency_checksum" }}
+    paths:
+      - public/assets
+      - public/packs-test
+      - tmp/cache/bootsnap-load-path-cache
+      - tmp/cache/bootsnap-compile-cache
+      - tmp/cache/webpacker
+
+  - &precompile_assets
+    name: precompile assets
+    command: bundle exec rails webpacker:compile webpacker:clean
+
+  - &install_dependencies
+    name: Install package dependencies
+    command: |
+      sudo apt-get update
+      sudo apt-get install -y postgresql-client
+      curl -o- -L https://yarnpkg.com/install.sh | bash
+
+  - &db_setup
+    name: Setup DB
+    command: bundle exec rails db:drop db:create db:structure:load --trace
+
+# == Commands ==
+commands:
+  run_yarn:
+    steps:
+      - restore_cache: *restore_yarn_cache
+      - run: *yarn_install
+      - save_cache: *save_yarn_cache
+  run_bundler:
+    steps:
+      - restore_cache: *restore_gem_cache
+      - run: *bundle_install
+      - save_cache: *save_gem_cache
+  run_asset_precompilation:
+    steps:
+      - run: *asset_cache_key
+      - restore_cache: *restore_asset_cache
+      - run: *precompile_assets
+      - save_cache: *save_asset_cache
+
+# == Jobs ==
+jobs:
+  asset_dependencies:
+    executor: node_tests
     steps:
       - checkout
-      - run: |
-          sudo apt-get update
-          sudo apt-get install -y postgresql-client
-          curl -o- -L https://yarnpkg.com/install.sh | bash
-      - restore_cache:
-          name: restore gem cache
-          keys:
-            - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gem-cache-v1-{{ arch }}-{{ .Branch }}
-            - gem-cache-v1
-      - restore_cache:
-          name: restore yarn cache
-          keys:
-            - yarn-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-cache-v1-{{ arch }}-{{ .Branch }}
-            - yarn-cache-v1
-      - restore_cache:
-          name: restore assets cache
-          keys:
-            - assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-            - assets-cache-v1-{{ arch }}-{{ .Branch }}
-      - run:
-          name: install gem dependencies
-          command: |
-            gem install bundler:2.0.1
-            bundle check || bundle install --jobs=6 --retry=3 --path vendor/bundle
-      - run:
-          name: install yarn dependencies
-          command: yarn install --ignore-engines --frozen-lockfile
-      - run:
-          name: precompile assets
-          command: |
-              if [[ ! -d public/packs-test ]]; then
-                  bundle exec rails webpacker:compile
-              else
-                  echo "Asset cache found and applied."
-              fi
-      - save_cache:
-          name: save gem cache
+      - attach_workspace:
+          at: ~/code_fund_ads
+      - run_bundler
+      - run_yarn
+      - run_asset_precompilation
+      - persist_to_workspace:
+          root: .
+          paths:
+            - public/assets
+            - public/packs-test
+
+  bundle_dependencies:
+    executor: ruby_tests
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/code_fund_ads
+      - run_bundler
+      - persist_to_workspace:
+          root: .
           paths:
             - vendor/bundle
-          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-      - save_cache:
-          name: save yarn cache
+
+  yarn_dependencies:
+    executor: node_tests
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/code_fund_ads
+      - run_yarn
+      - persist_to_workspace:
+          root: .
           paths:
-            - ~/.cache/yarn
-          key: yarn-cache-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - node_modules
+
+  unit_tests:
+    executor: ruby_tests
+    parallelism: 2
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/code_fund_ads
+      - run_bundler
+      - run: *install_dependencies
+      - run: *db_setup
       - run:
-          name: set up DB
-          command: bundle exec rails db:drop db:create db:structure:load --trace
-      # This task is broken until Rails 6.0.3 is released. See comment in bin/standardize
-      # - run:
-      #     name: run zeitwerk:check
-      #     command: bundle exec rails zeitwerk:check
-      - run:
-          name: run tests
+          name: Run Unit Tests
           command: |
-            bundle exec rails test
-            set +e
-            bundle exec rails test:system
+            circleci tests glob test/{channels,helpers,jobs,lib,mailers,models}/**/*_test.rb | circleci tests split > /tmp/unit-tests
+            bundle exec rails test $(cat /tmp/unit-tests)
+
+  integration_tests:
+    executor: node_tests
+    parallelism: 3
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/code_fund_ads
+      - run_bundler
+      - run_yarn
+      - run_asset_precompilation
+      - run: *install_dependencies
+      - run: *db_setup
+      - run:
+          name: Run Integration & Controller Tests
+          command: |
+            circleci tests glob test/{controllers,integration}/**/*_test.rb | circleci tests split > /tmp/integration-tests
+            bundle exec rails test $(cat /tmp/integration-tests)
+
+  system_tests:
+    executor: node_tests
+    parallelism: 3
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/code_fund_ads
+      - run_bundler
+      - run_yarn
+      - run_asset_precompilation
+      - run: *install_dependencies
+      - run: *db_setup
+      - run:
+          name: Run System Tests
+          command: |
+            circleci tests glob test/system/*.rb | circleci tests split > /tmp/system-tests
+            bundle exec rails test $(cat /tmp/system-tests)
       - store_artifacts:
           path: tmp/screenshots
           destination: screenshots
-      - save_cache:
-          name: save assets cache
-          key: assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-            - public/packs-test
+
+  standardrb_check:
+    executor: ruby_tests
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/code_fund_ads
+      - run_bundler
       - run:
           name: run standardrb check
           command: bundle exec standardrb --format progress
+
+  erb_lint_check:
+    executor: ruby_tests
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/code_fund_ads
+      - run_bundler
       - run:
           name: run ERB lint check
           command: bundle exec erblint app/views/**/*.html.erb
+
+  zeitwerk_check:
+    executor: ruby_tests
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/code_fund_ads
+      - run_bundler
+      - run:
+          name: run zeitwerk:check
+          command: bundle exec rails zeitwerk:check
+
+  prettier_standard_check:
+    executor: node_tests
+    steps:
+      - checkout
+      - run_yarn
       - run:
           name: run prettier-standard check
           command: yarn run --ignore-engines prettier-standard --check 'app/**/*.js'
+
+# == Workflows ==
+workflows:
+  tests:
+    jobs:
+      - bundle_dependencies
+      - yarn_dependencies
+      - asset_dependencies:
+          requires:
+            - bundle_dependencies
+            - yarn_dependencies
+      - system_tests:
+          requires:
+            - bundle_dependencies
+            - yarn_dependencies
+            - asset_dependencies
+      - unit_tests:
+          requires:
+              - bundle_dependencies
+      - integration_tests:
+          requires:
+              - bundle_dependencies
+              - yarn_dependencies
+              - asset_dependencies
+      # This task is broken until Rails 6.0.3 is released. See comment in bin/standardize
+      # - zeitwerk_check:
+          # requires:
+          #     - bundle_dependencies
+      - standardrb_check:
+          requires:
+              - bundle_dependencies
+      - erb_lint_check:
+          requires:
+              - bundle_dependencies
+      - prettier_standard_check:
+          requires:
+              - yarn_dependencies
