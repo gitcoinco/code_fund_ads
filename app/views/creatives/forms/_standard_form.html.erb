@@ -17,13 +17,14 @@
           <select class="form-control custom-select required"
                   data-target="creative-form.inputIconBlobId"
                   data-action="change->creative-form#setIconImage"
+                  data-controller="select"
                   required="required"
                   aria-required="true"
                   name="creative[icon_blob_id]"
                   id="creative_icon_blob_id"
                   required>
                   <option value="">--- select an image ---<option>
-                  <% current_user.icon_images.each do |image| %>
+                  <% Current.organization.icon_images.each do |image| %>
                     <%= tag.option Image.new(image).display_name, value: image.blob_id,
                       data: {image_url: polymorphic_url(image)},
                       selected: creative.icon_image == image %>
@@ -39,13 +40,14 @@
           <select class="form-control custom-select required"
                   data-target="creative-form.inputSmallBlobId"
                   data-action="change->creative-form#setSmallImage"
+                  data-controller="select"
                   required="required"
                   aria-required="true"
                   name="creative[small_blob_id]"
                   id="creative_small_blob_id"
                   required>
                   <option value="">--- select an image ---<option>
-                  <% current_user.small_images.each do |image| %>
+                  <% Current.organization.small_images.each do |image| %>
                     <%= tag.option Image.new(image).display_name, value: image.blob_id,
                       data: {image_url: polymorphic_url(image)},
                       selected: creative.small_image == image %>
@@ -61,13 +63,14 @@
           <select class="form-control custom-select required"
                   data-target="creative-form.inputLargeBlobId"
                   data-action="change->creative-form#setLargeImage"
+                  data-controller="select"
                   required="required"
                   aria-required="true"
                   name="creative[large_blob_id]"
                   id="creative_large_blob_id"
                   required>
                   <option value="">--- select an image ---<option>
-                  <% current_user.large_images.each do |image| %>
+                  <% Current.organization.large_images.each do |image| %>
                     <%= tag.option Image.new(image).display_name, value: image.blob_id,
                       data: {image_url: polymorphic_url(image)},
                       selected: creative.large_image == image %>
@@ -83,13 +86,14 @@
           <select class="form-control custom-select required"
                   data-target="creative-form.inputWideBlobId"
                   data-action="change->creative-form#setWideImage"
+                  data-controller="select"
                   required="required"
                   aria-required="true"
                   name="creative[wide_blob_id]"
                   id="creative_wide_blob_id"
                   required>
                   <option value="">--- select an image ---<option>
-                  <% current_user.wide_images.each do |image| %>
+                  <% Current.organization.wide_images.each do |image| %>
                     <%= tag.option Image.new(image).display_name, value: image.blob_id,
                       data: {image_url: polymorphic_url(image)},
                       selected: creative.wide_image == image %>

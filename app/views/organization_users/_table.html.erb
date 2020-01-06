@@ -4,7 +4,7 @@
       <%= table_row header: true do %>
         <%= table_column(add_scope: "col") { "Name" } %>
         <%= table_column(add_scope: "col") { "Role" } %>
-        <%= table_column {} if authorized_user.can_edit_organization?(@organization) %>
+        <%= table_column {} if authorized_user.can_edit_organization_users?(@organization) %>
       <% end %>
     <% end %>
     <%= table_body do %>

@@ -42,9 +42,9 @@ class ActiveSupport::TestCase
     post user_session_url
   end
 
-  def attach_small_image!(user)
+  def attach_small_image!(record)
     name = "seed-200x200.png"
-    user.images.attach(
+    record.images.attach(
       io: File.open(Rails.root.join("app/assets/images/seeds/seed-200x200.png")),
       filename: "seed-200x200.png",
       content_type: "image/png",
@@ -57,12 +57,12 @@ class ActiveSupport::TestCase
         format: ENUMS::IMAGE_FORMATS::SMALL,
       }
     )
-    user.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::SMALL).order(created_at: :desc).first
+    record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::SMALL).order(created_at: :desc).first
   end
 
-  def attach_large_image!(user)
+  def attach_large_image!(record)
     name = "seed-260x200.png"
-    user.images.attach(
+    record.images.attach(
       io: File.open(Rails.root.join("app/assets/images/seeds/seed-260x200.png")),
       filename: "seed-260x200.png",
       content_type: "image/png",
@@ -75,12 +75,12 @@ class ActiveSupport::TestCase
         format: ENUMS::IMAGE_FORMATS::LARGE,
       }
     )
-    user.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::LARGE).order(created_at: :desc).first
+    record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::LARGE).order(created_at: :desc).first
   end
 
-  def attach_wide_image!(user)
+  def attach_wide_image!(record)
     name = "seed-512x320.jpg"
-    user.images.attach(
+    record.images.attach(
       io: File.open(Rails.root.join("app/assets/images/seeds/seed-512x320.jpg")),
       filename: "seed-512x320.jpg",
       content_type: "image/jpeg",
@@ -93,12 +93,12 @@ class ActiveSupport::TestCase
         format: ENUMS::IMAGE_FORMATS::WIDE,
       }
     )
-    user.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::WIDE).order(created_at: :desc).first
+    record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::WIDE).order(created_at: :desc).first
   end
 
-  def attach_sponsor_image!(user)
+  def attach_sponsor_image!(record)
     name = "sponsor-heroku.svg"
-    user.images.attach(
+    record.images.attach(
       io: File.open(Rails.root.join("test/assets/images/sponsor-heroku.svg")),
       filename: "sponsor-heroku.svg",
       content_type: "image/svg+xml",
@@ -111,7 +111,7 @@ class ActiveSupport::TestCase
         format: ENUMS::IMAGE_FORMATS::SPONSOR,
       },
     )
-    user.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::SPONSOR).order(created_at: :desc).first
+    record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::SPONSOR).order(created_at: :desc).first
   end
 
   # Factory method to find a fixture and update its attributes
@@ -183,7 +183,7 @@ class ActiveSupport::TestCase
       country_codes: country_codes,
       keywords: ENUMS::KEYWORDS.keys.sample(10)
     )
-    campaign.creative.add_image! attach_large_image!(campaign.user)
+    campaign.creative.add_image! attach_large_image!(campaign.organization)
     campaign.organization.update balance: Monetize.parse("$10,000 USD")
     campaign
   end
@@ -208,7 +208,7 @@ class ActiveSupport::TestCase
       keywords: [],
       fallback: true
     )
-    campaign.creative.add_image! attach_large_image!(campaign.user)
+    campaign.creative.add_image! attach_large_image!(campaign.organization)
     campaign
   end
 

@@ -85,6 +85,7 @@ class User < ApplicationRecord
   has_many :organization_users, dependent: :destroy, inverse_of: :user
   has_many :organizations_as_administrator, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::ADMINISTRATOR} }, through: :organization_users, source: "organization"
   has_many :organizations_as_member, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::MEMBER} }, through: :organization_users, source: "organization"
+  # DEPRECATE: [OrganizationUser#owners] Remove User#organizations_as_owner relationship
   has_many :organizations_as_owner, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::OWNER} }, through: :organization_users, source: "organization"
   has_many :organizations, through: :organization_users
   has_many :referred_users, class_name: "User", foreign_key: "referring_user_id"
@@ -215,6 +216,13 @@ class User < ApplicationRecord
     super
   end
 
+  # DEPRECATE: [OrganizationUser#owners] Delete deprecation method
+  def organizations_as_owner
+    ActiveSupport::Deprecation.warn("User#organizations_as_owner is deprecated. Use User#organization_as_administrator instead.")
+    super
+  end
+
+  # DEPRECATE: [OrganizationUser#owners] Remove organizations_as_owner.first
   def default_organization
     organizations.load unless organizations.loaded?
     ou = organization_users.find(&:owner?) || organization_users.find(&:administrator?) || organization_users.find(&:member?)

@@ -14,5 +14,5 @@
   <%= table_data add_class: "text-right" do %>
     <%= edit_button(link: edit_organization_user_path(organization, organization_user)) %>
     <%= delete_button(link: organization_user_path(organization, organization_user)) %>
-  <% end if authorized_user.can_edit_organization?(@organization) %>
+  <% end if authorized_user.can_edit_organization_users?(@organization) %>
 <% end %>
