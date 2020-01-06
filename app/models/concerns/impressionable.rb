@@ -7,22 +7,36 @@ module Impressionable
     has_many :daily_summary_reports, as: :impressionable
   end
 
-  def daily_impressions_counts(start_date = nil, end_date = nil, scoped_by: nil, fresh: false)
+  def daily_impressions_counts(start_date = nil, end_date = nil, scoped_by: nil, fresh: false, ignore_local_cache: false)
     start_date = constrained_date(start_date)
     end_date = constrained_date(end_date || start_date)
-    key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
-    Rails.cache.fetch key, force: fresh, expires_in: 1.hour, race_condition_ttl: 5.minutes do
-      counts_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
-        .pluck(:displayed_at_date, :impressions_count)
-        .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
-      dates = (start_date..end_date).to_a
-      missing_dates = dates - counts_by_date.keys
-      if missing_dates.present?
-        impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).count
-          .each { |date, count| counts_by_date[date] ||= count }
+    key = "#{cache_key}/#{__method__}/#{start_date.iso8601}-#{end_date.iso8601}/#{scoped_by&.cache_key}"
+    value = ignore_local_cache ? nil : Rails.local_cache.read(key)
+
+    if value.nil?
+      PgLock.new(name: __method__, ttl: 30, attempts: 1).lock do
+        value = Rails.cache.fetch(key, force: fresh, expires_in: 15.minutes, race_condition_ttl: 5.minutes) {
+          counts_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
+            .pluck(:displayed_at_date, :impressions_count)
+            .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
+          dates = (start_date..end_date).to_a
+          missing_dates = dates - counts_by_date.keys
+          if missing_dates.present?
+            impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).count
+              .each { |date, count| counts_by_date[date] ||= count }
+          end
+          dates.map { |date| counts_by_date[date] ||= 0 }
+        }
+        Rails.local_cache.write key, value
       end
-      dates.map { |date| counts_by_date[date] ||= 0 }
     end
+
+    unless Rails.cache.exist? key
+      defer.build_daily_impressions_counts start_date.iso8601, end_date.iso8601,
+        scoped_by: scoped_by, ignore_local_cache: true
+    end
+
+    value || {}
   end
 
   def daily_clicks_counts(start_date = nil, end_date = nil, scoped_by: nil, fresh: false)
