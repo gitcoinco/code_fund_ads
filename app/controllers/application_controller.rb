@@ -15,12 +15,16 @@ class ApplicationController < ActionController::Base
   before_action :set_ngrok_urls, if: -> { Rails.env.development? }
   before_action :allow_cors_requests, unless: -> { Rails.env.production? }
   before_action :current_organization
-
+  before_action :organization_redirect, if: -> { params["current-organization"] }
   impersonates :user
 
   protected
 
   helper_method :current_organization
+
+  def organization_redirect
+    redirect_to organization_path(Current.organization)
+  end
 
   def store_ids
     return if is_a?(Untrackable)

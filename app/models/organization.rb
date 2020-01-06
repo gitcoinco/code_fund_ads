@@ -17,11 +17,14 @@ class Organization < ApplicationRecord
 
   # includes ..................................................................
   include Organizations::Developable
+  include Organizations::Imageable
   include Eventable
+  include Imageable
 
   # relationships .............................................................
   has_many :campaigns
   has_many :creatives
+  has_many :creative_images, through: :creatives
   has_many :impressions
   has_many :job_postings
   has_many :organization_reports
@@ -31,6 +34,7 @@ class Organization < ApplicationRecord
   has_many :users
   has_many :administrators, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::ADMINISTRATOR} }, through: :organization_users, source: "user"
   has_many :members, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::MEMBER} }, through: :organization_users, source: "user"
+  # DEPRECATE: [OrganizationUser#owners] Delete relationship Organzation#owners
   has_many :owners, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::OWNER} }, through: :organization_users, source: "user"
 
   # validations ...............................................................
@@ -40,6 +44,8 @@ class Organization < ApplicationRecord
       record.errors.add(attr, "'#{value}' is reserved")
     end
   end
+  # DEPRECATE: [OrganizationUser#owners] Uncomment validation
+  # validate :administrator_exists_validator, if: proc { |record| record.organization_users.exists? }
 
   # callbacks .................................................................
 
@@ -76,6 +82,12 @@ class Organization < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  # DEPRECATE: [OrganizationUser#owners] Delete deprecation method
+  def owners
+    ActiveSupport::Deprecation.warn("Organization#owners is deprecated. Use Organization#administrator instead.")
+    super
+  end
 
   def total_debits
     Money.new(organization_transactions.debits.sum(&:amount_cents), "USD")
@@ -118,4 +130,10 @@ class Organization < ApplicationRecord
 
   # protected instance methods ................................................
   # private instance methods ..................................................
+
+  private
+
+  def administrator_exists_validator
+    errors.add :base, "You need at least one administrator in the organization." if administrators.empty?
+  end
 end

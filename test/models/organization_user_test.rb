@@ -16,16 +16,13 @@ class OrganizationUserTest < ActiveSupport::TestCase
   def setup
     @organization_user = organization_users(:member)
   end
-  test "owners scope" do
-    assert_equal [organization_users(:owner)], OrganizationUser.owners
-  end
 
   test "administrators scope" do
-    assert_equal [organization_users(:administrator)], OrganizationUser.administrators
+    assert_equal organization_users(:administrator).role, OrganizationUser.administrators.sample.role
   end
 
   test "members scope" do
-    assert_equal [@organization_user], OrganizationUser.members
+    assert_equal @organization_user, OrganizationUser.members.sample
   end
 
   test "organization_id uniqueness validation" do

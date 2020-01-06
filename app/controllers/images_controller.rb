@@ -1,9 +1,9 @@
 class ImagesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_imageable
+  before_action :authenticate_images_viewable_rights!, only: :index
 
   def index
-    return render_forbidden unless authorized_user.can_view_imageable?(@imageable)
     @images = @imageable.images
     return redirect_to(new_image_path) if @images.count == 0
   end
@@ -55,5 +55,9 @@ class ImagesController < ApplicationController
       :format,
       :name,
     )
+  end
+
+  def authenticate_images_viewable_rights!
+    return render_forbidden unless authorized_user.can_view_imageable?(@imageable)
   end
 end

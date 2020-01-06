@@ -137,7 +137,7 @@ class CampaignTest < ActiveSupport::TestCase
     campaign.creatives.each do |creative|
       creative.standard_images.destroy_all
       creative.update! creative_type: ENUMS::CREATIVE_TYPES::SPONSOR
-      CreativeImage.create! creative: creative, image: attach_sponsor_image!(campaign.user)
+      CreativeImage.create! creative: creative, image: attach_sponsor_image!(campaign.organization)
     end
     assert campaign.selling_price.present?
     assert campaign.selling_price == campaign.total_budget
