@@ -102,7 +102,7 @@ aliases:
 
   - &precompile_assets
     name: precompile assets
-    command: bundle exec rails webpacker:compile webpacker:clean
+    command: bundle exec rails webpacker:compile
 
   - &install_dependencies
     name: Install package dependencies
