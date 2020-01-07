@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= @title || "CodeFund | Ethical Advertising" %></title>
+
+    <!-- Meta Tags -->
+    <%= display_meta_tags site: "CodeFund" %>
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#3063A0" />
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= content_for :demo %>
+
+    <!-- CDN Stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet" />
+
+    <!-- Compressed Stylesheets -->
+    <%= stylesheet_pack_tag "code_fund", media: "all", 'data-turbolinks-track': "reload" %>
+
+    <!-- Compressed JavaScripts -->
+    <%= javascript_pack_tag "code_fund", 'data-turbolinks-track': "reload" %>
+  </head>
+  <body class="pt-0">
+    <%= yield %>
+  </body>
+</html>

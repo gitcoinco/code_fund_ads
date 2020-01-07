@@ -4,6 +4,7 @@ jobs:
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
         environment:
+          CAMPAIGN_DEMO_ID: "395"
           PG_HOST: localhost
           PG_USERNAME: ubuntu
           RAILS_ENV: test

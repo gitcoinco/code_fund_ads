@@ -21,6 +21,7 @@ end
 
 class ActiveSupport::TestCase
   include FactoryBot::Syntax::Methods
+  include Devise::Test::IntegrationHelpers
 
   workers = ENV["TEST_CONCURRENCY"].present? ? ENV["TEST_CONCURRENCY"].to_i : (Concurrent.processor_count / 3.to_f).round
   if workers > 1
@@ -36,6 +37,10 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+  def sign_in_user(user)
+    sign_in user
+    post user_session_url
+  end
 
   def attach_small_image!(user)
     name = "seed-200x200.png"
