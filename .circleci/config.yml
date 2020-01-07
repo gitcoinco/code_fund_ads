@@ -82,20 +82,14 @@ aliases:
     name: Install node packages
     command: yarn install --ignore-engines --frozen-lockfile --cache-folder ~/.cache/yarn
 
-  # - &asset_cache_key
-  #   name: Set up asset cache key
-  #   command: find ~/code_fund_ads/app/javascript ~/code_fund_ads/app/assets -type f -exec md5 -q {} \; > ~/code_fund_ads/dependency_checksum
-
   - &restore_asset_cache
     name: Restoring asset cache
     keys:
-      # - assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "~/code_fund_ads/dependency_checksum" }}
       - assets-cache-v1-{{ arch }}-{{ .Branch }}
       - assets-cache-v1-{{ arch }}
 
   - &save_asset_cache
     name: Saving asset cache
-    # key: assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "~/code_fund_ads/dependency_checksum" }}
     key: assets-cache-v1-{{ arch }}-{{ .Branch }}
     paths:
       - ~/code_fund_ads/public/packs-test
@@ -129,10 +123,9 @@ commands:
       - save_cache: *save_gem_cache
   run_asset_precompilation:
     steps:
-      # - run: *asset_cache_key
-      # - restore_cache: *restore_asset_cache
+      - restore_cache: *restore_asset_cache
       - run: *precompile_assets
-      # - save_cache: *save_asset_cache
+      - save_cache: *save_asset_cache
 
 # == Jobs ==
 jobs:
@@ -140,15 +133,9 @@ jobs:
     executor: node
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/code_fund_ads
       - run_bundler
       - run_yarn
       - run_asset_precompilation
-      - persist_to_workspace:
-          root: .
-          paths:
-            - ./public/packs-test/
 
   bundle_dependencies:
     executor: ruby
