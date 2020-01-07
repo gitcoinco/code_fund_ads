@@ -3,7 +3,7 @@
   tabs: false,
   buttons: [
     layout_button(link: new_creative_path(clone: @creative.id), icon: "fad fa-copy", title: "Clone creative"),
-    layout_button(link: edit_creative_path(@creative), icon: "fad fa-pencil", title: "Edit creative"),
+    layout_button(link: edit_creative_path(@creative), icon: "fad fa-pencil", title: "Edit creative", admin: @creative.active?),
     delete_button(link: creative_path(@creative), title: "Delete creative", layout: true)
   ]
 } do %>

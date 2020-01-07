@@ -7,6 +7,6 @@
     <strong><%= creative.headline %></strong> <%= creative.body %>
   <% end %>
   <%= table_data do %>
-    <%= edit_button(link: edit_creative_path(creative)) %>
+    <%= edit_button(link: edit_creative_path(creative)) unless creative.active? && !authorized_user.can_admin_system? %>
   <% end %>
 <% end %>
