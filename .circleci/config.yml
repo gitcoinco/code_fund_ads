@@ -131,6 +131,7 @@ commands:
     steps:
       # - run: *asset_cache_key
       # - restore_cache: *restore_asset_cache
+      - run: mkdir ~/public/packs-test
       - run: *precompile_assets
       # - save_cache: *save_asset_cache
 
