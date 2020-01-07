@@ -15,7 +15,7 @@
             input_html: {class: "form-control", data: {controller: "select"}}), class: "mb-3" %>
         </div>
         <div class="col-sm-12">
-          <%= tag.div ouf.input(:role, label: "Organization Role", collection: ENUMS::ORGANIZATION_ROLES.keys,
+          <%= tag.div ouf.input(:role, label: "Organization Role", collection: ENUMS::ORGANIZATION_ROLES.keys, include_blank: "None",
             input_html: {class: "form-control", data: {controller: "select"}}), class: "mb-2" %>
         </div>
       <% end %>

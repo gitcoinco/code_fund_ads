@@ -26,6 +26,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
+        CheckConsolidatedScreeningListJob.perform_later @user
         format.html do
           return redirect_to(params[:redir]) if params[:redir].present?
           redirect_to success_url, notice: "User was successfully created."
@@ -42,12 +43,13 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user.organization_users.build unless @user.organization_users.exists?
+    @user.organization_users.build(role: "") unless @user.organization_users.exists?
   end
 
   def update
     respond_to do |format|
       if @user.update(user_params)
+        CheckConsolidatedScreeningListJob.perform_later @user
         format.html { redirect_to @user, notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else

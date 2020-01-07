@@ -1,0 +1,11 @@
+<p>
+  <%= @user&.name %> has been flagged by the Consolidated Screening List.
+</p>
+
+<p>
+  <%= link_to "View CSL Info", "https://www.export.gov/csl-search#/?name=#{@user.name}", style: "margin-top:5px;" %>
+</p>
+
+<p>
+  <%= link_to "View User", user_url(@user), style: "margin-top:5px;" %>
+</p>
