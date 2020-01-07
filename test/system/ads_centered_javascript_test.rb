@@ -13,6 +13,7 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
 
   test "centered - premium ad with light theme" do
     visit advertisement_tests_path(@property, test_country_code: "US")
+    puts @property
     assert_creative_headline @premium_campaign
     assert_creative_body @premium_campaign
     assert_campaign_link @premium_campaign

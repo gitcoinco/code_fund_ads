@@ -2,7 +2,7 @@ require "test_helper"
 
 # Chrome headless driver
 Capybara.register_driver :headless_chrome do |app|
-  caps = Selenium::WebDriver::Remote::Capabilities.chrome(loggingPrefs: { browser: 'ALL' })
+  caps = Selenium::WebDriver::Remote::Capabilities.chrome(loggingPrefs: {browser: "ALL"})
   opts = Selenium::WebDriver::Chrome::Options.new
 
   chrome_args = %w[--headless --no-sandbox --disable-gpu --window-size=1400,1400 --remote-debugging-port=9222]

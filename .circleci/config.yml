@@ -17,6 +17,10 @@ defaults: &defaults
 
 # == Executors ==
 executors:
+  ruby:
+    <<: *defaults
+    docker:
+      - image: circleci/ruby:2.6.5-node
   ruby_tests:
     <<: *defaults
     docker:
@@ -25,6 +29,10 @@ executors:
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: code_fund_ads_test
+  node_tests:
+    <<: *defaults
+    docker:
+      - image: circleci/ruby:2.6.5-node-browsers
   node_tests:
     <<: *defaults
     docker:
@@ -133,7 +141,7 @@ commands:
 # == Jobs ==
 jobs:
   asset_dependencies:
-    executor: node_tests
+    executor: node
     steps:
       - checkout
       - attach_workspace:
@@ -148,7 +156,7 @@ jobs:
             - public/packs-test
 
   bundle_dependencies:
-    executor: ruby_tests
+    executor: ruby
     steps:
       - checkout
       - attach_workspace:
@@ -160,7 +168,7 @@ jobs:
             - vendor/bundle
 
   yarn_dependencies:
-    executor: node_tests
+    executor: node
     steps:
       - checkout
       - attach_workspace:
@@ -228,7 +236,7 @@ jobs:
           destination: screenshots
 
   standardrb_check:
-    executor: ruby_tests
+    executor: ruby
     steps:
       - checkout
       - attach_workspace:
@@ -239,7 +247,7 @@ jobs:
           command: bundle exec standardrb --format progress
 
   erb_lint_check:
-    executor: ruby_tests
+    executor: ruby
     steps:
       - checkout
       - attach_workspace:
@@ -250,7 +258,7 @@ jobs:
           command: bundle exec erblint app/views/**/*.html.erb
 
   zeitwerk_check:
-    executor: ruby_tests
+    executor: ruby
     steps:
       - checkout
       - attach_workspace:
@@ -261,7 +269,7 @@ jobs:
           command: bundle exec rails zeitwerk:check
 
   prettier_standard_check:
-    executor: node_tests
+    executor: node
     steps:
       - checkout
       - run_yarn
