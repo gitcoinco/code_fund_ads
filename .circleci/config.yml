@@ -14,6 +14,7 @@ defaults: &defaults
     REDIS_CACHE_URL: redis://127.0.0.1:6379
     REDIS_QUEUE_URL: redis://127.0.0.1:6379
     WORDPRESS_URL: 'https://codefund.io'
+    TEST_CONCURRENCY: "1"
 
 # == Executors ==
 executors:
@@ -37,8 +38,6 @@ executors:
     <<: *defaults
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
-        environment:
-          TEST_CONCURRENCY: "1"
       - image: circleci/postgres:11.2
         environment:
           POSTGRES_USER: ubuntu
@@ -131,9 +130,9 @@ commands:
   run_asset_precompilation:
     steps:
       # - run: *asset_cache_key
-      - restore_cache: *restore_asset_cache
+      # - restore_cache: *restore_asset_cache
       - run: *precompile_assets
-      - save_cache: *save_asset_cache
+      # - save_cache: *save_asset_cache
 
 # == Jobs ==
 jobs:
@@ -147,42 +146,27 @@ jobs:
       - run_yarn
       - run_asset_precompilation
       - persist_to_workspace:
-          root: .
+          root: ~/code_fund_ads
           paths:
-            - public/assets
             - public/packs-test
 
   bundle_dependencies:
     executor: ruby
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/code_fund_ads
       - run_bundler
-      - persist_to_workspace:
-          root: .
-          paths:
-            - vendor/bundle
 
   yarn_dependencies:
     executor: node
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/code_fund_ads
       - run_yarn
-      - persist_to_workspace:
-          root: .
-          paths:
-            - node_modules
 
   unit_tests:
     executor: ruby_tests
     parallelism: 2
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/code_fund_ads
       - run_bundler
       - run: *install_dependencies
       - run: *db_setup
@@ -236,8 +220,6 @@ jobs:
     executor: ruby
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/code_fund_ads
       - run_bundler
       - run:
           name: run standardrb check
@@ -247,8 +229,6 @@ jobs:
     executor: ruby
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/code_fund_ads
       - run_bundler
       - run:
           name: run ERB lint check
@@ -258,8 +238,6 @@ jobs:
     executor: ruby
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/code_fund_ads
       - run_bundler
       - run:
           name: run zeitwerk:check
