@@ -98,11 +98,7 @@ aliases:
     name: Saving asset cache
     key: assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "~/code_fund_ads/dependency_checksum" }}
     paths:
-      - public/assets
       - public/packs-test
-      - tmp/cache/bootsnap-load-path-cache
-      - tmp/cache/bootsnap-compile-cache
-      - tmp/cache/webpacker
 
   - &precompile_assets
     name: precompile assets
