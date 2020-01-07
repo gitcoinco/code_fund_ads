@@ -29,6 +29,8 @@ executors:
     <<: *defaults
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
+        environment:
+          TEST_CONCURRENCY: "1"
       - image: circleci/postgres:11.2
         environment:
           POSTGRES_USER: ubuntu
@@ -214,6 +216,7 @@ jobs:
       - run_yarn
       - run_asset_precompilation
       - run: *install_dependencies
+      - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: *db_setup
       - run:
           name: Run System Tests
