@@ -7,9 +7,9 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
     ad_template_setup(ad_template: "bottom-bar")
   end
 
-  teardown do
-    travel_back
-  end
+  # teardown do
+  #   travel_back
+  # end
 
   test "bottom bar - premium ad with light theme" do
     visit advertisement_tests_path(@property, test_country_code: "US")
