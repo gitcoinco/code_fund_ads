@@ -108,7 +108,6 @@ group :development do
   gem "model_probe"
   gem "ngrok-tunnel"
   gem "rack-mini-profiler", require: false
-  gem "rails-erd"
   gem "solargraph"
   gem "standard"
   gem "teamocil"
