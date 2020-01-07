@@ -69,36 +69,37 @@ aliases:
   - &restore_yarn_cache
     name: Restoring yarn cache
     keys:
-      - yarn-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "~/code_fund_ads/yarn.lock" }}
+      - yarn-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - yarn-cache-v1-{{ arch }}-{{ .Branch }}
       - yarn-cache-v1
 
   - &save_yarn_cache
     name: Saving yarn cache
-    key: yarn-cache-v1-{{ .Branch }}-{{ checksum "~/code_fund_ads/yarn.lock" }}
+    key: yarn-cache-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
     paths:
-      - ~/code_fund_ads/node_modules
+      - ~/.cache/yarn
 
   - &yarn_install
     name: Install node packages
-    command: yarn install --ignore-engines --frozen-lockfile
+    command: yarn install --ignore-engines --frozen-lockfile --cache-folder ~/.cache/yarn
 
-  - &asset_cache_key
-    name: Set up asset cache key
-    command: find ~/code_fund_ads/app/javascript ~/code_fund_ads/app/assets -type f -exec md5 -q {} \; > ~/code_fund_ads/dependency_checksum
+  # - &asset_cache_key
+  #   name: Set up asset cache key
+  #   command: find ~/code_fund_ads/app/javascript ~/code_fund_ads/app/assets -type f -exec md5 -q {} \; > ~/code_fund_ads/dependency_checksum
 
   - &restore_asset_cache
     name: Restoring asset cache
     keys:
-      - assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "~/code_fund_ads/dependency_checksum" }}
+      # - assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "~/code_fund_ads/dependency_checksum" }}
       - assets-cache-v1-{{ arch }}-{{ .Branch }}
       - assets-cache-v1-{{ arch }}
 
   - &save_asset_cache
     name: Saving asset cache
-    key: assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "~/code_fund_ads/dependency_checksum" }}
+    # key: assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "~/code_fund_ads/dependency_checksum" }}
+    key: assets-cache-v1-{{ arch }}-{{ .Branch }}
     paths:
-      - public/packs-test
+      - ~/code_fund_ads/public/packs-test
 
   - &precompile_assets
     name: precompile assets
@@ -129,7 +130,7 @@ commands:
       - save_cache: *save_gem_cache
   run_asset_precompilation:
     steps:
-      - run: *asset_cache_key
+      # - run: *asset_cache_key
       - restore_cache: *restore_asset_cache
       - run: *precompile_assets
       - save_cache: *save_asset_cache
