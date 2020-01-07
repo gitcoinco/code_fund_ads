@@ -1,9 +1,3 @@
-<p align="center">
-  <a href="https://app.codefund.io/properties/444/visit-sponsor">
-    <img src="https://app.codefund.io/properties/444/sponsor" />
-  </a>
-</p>
-
 [![Maintainability](https://api.codeclimate.com/v1/badges/eee4d09c1a37d23e8990/maintainability)](https://codeclimate.com/github/gitcoinco/code_fund_ads/maintainability)
 [![All Contributors](https://img.shields.io/badge/all_contributors-15-orange.svg?style=flat-square)](#contributors)
 [![StackShare](https://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/codefund/codefund)
