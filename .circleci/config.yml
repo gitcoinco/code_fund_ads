@@ -131,7 +131,6 @@ commands:
     steps:
       # - run: *asset_cache_key
       # - restore_cache: *restore_asset_cache
-      - run: mkdir ~/public/packs-test
       - run: *precompile_assets
       # - save_cache: *save_asset_cache
 
@@ -147,9 +146,9 @@ jobs:
       - run_yarn
       - run_asset_precompilation
       - persist_to_workspace:
-          root: ~/code_fund_ads
+          root: .
           paths:
-            - public/packs-test
+            - ./public/packs-test/
 
   bundle_dependencies:
     executor: ruby
