@@ -1,5 +1,8 @@
 require "test_helper"
 
+puts "WAIT TIME"
+puts Capybara.default_max_wait_time
+Capybara.default_max_wait_time = 90
 # Chrome headless driver
 Capybara.register_driver :headless_chrome do |app|
   caps = Selenium::WebDriver::Remote::Capabilities.chrome(loggingPrefs: {browser: "ALL"})
