@@ -215,7 +215,7 @@ jobs:
 
   system_tests:
     executor: node_tests
-    parallelism: 3
+    # parallelism: 3
     steps:
       - checkout
       - attach_workspace:
@@ -228,9 +228,10 @@ jobs:
       - run: *db_setup
       - run:
           name: Run System Tests
-          command: |
-            circleci tests glob test/system/*.rb | circleci tests split > /tmp/system-tests
-            bundle exec rails test $(cat /tmp/system-tests) -v --backtrace
+          command: bin/rails test:system
+          # command: |
+          #   circleci tests glob test/system/*.rb | circleci tests split > /tmp/system-tests
+          #   bundle exec rails test $(cat /tmp/system-tests) -v --backtrace
       - store_artifacts:
           path: tmp/screenshots
           destination: screenshots
@@ -295,11 +296,11 @@ workflows:
       - unit_tests:
           requires:
               - bundle_dependencies
-      - integration_tests:
-          requires:
-              - bundle_dependencies
-              - yarn_dependencies
-              - asset_dependencies
+      # - integration_tests:
+      #     requires:
+      #         - bundle_dependencies
+      #         - yarn_dependencies
+      #         - asset_dependencies
       # This task is broken until Rails 6.0.3 is released. See comment in bin/standardize
       # - zeitwerk_check:
           # requires:
