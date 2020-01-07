@@ -29,7 +29,7 @@ executors:
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: code_fund_ads_test
-  node_tests:
+  node:
     <<: *defaults
     docker:
       - image: circleci/ruby:2.6.5-node-browsers
@@ -230,7 +230,7 @@ jobs:
           name: Run System Tests
           command: |
             circleci tests glob test/system/*.rb | circleci tests split > /tmp/system-tests
-            bundle exec rails test $(cat /tmp/system-tests)
+            bundle exec rails test $(cat /tmp/system-tests) -v --backtrace
       - store_artifacts:
           path: tmp/screenshots
           destination: screenshots
