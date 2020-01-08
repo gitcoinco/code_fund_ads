@@ -1,8 +1,8 @@
 #!/bin/sh
 rm -f ./tmp/production-shallow.dump
 
-if [[ -z "$PRODUCTION_DATABASE_REPLICA_URL" ]]; then
-  echo "PRODUCTION_DATABASE_REPLICA_URL environment variable not set!"
+if [[ -z "$METABASE_URL" ]]; then
+  echo "METABASE_URL environment variable not set!"
   exit 1
 fi
 
@@ -351,4 +351,4 @@ pg_dump --verbose --no-acl --no-owner --format=c \
   --exclude-table=impressions_2020_01_advertiser_769 \
   --exclude-table=impressions_2020_01_advertiser_869 \
   --exclude-table=impressions_default \
-  $PRODUCTION_DATABASE_REPLICA_URL > ./tmp/production-shallow.dump
+  $METABASE_URL > ./tmp/production-shallow.dump
