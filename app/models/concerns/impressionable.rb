@@ -98,7 +98,7 @@ module Impressionable
   def house_revenue(start_date, end_date = nil, scoped_by: nil, fresh: false)
     start_date = constrained_date(start_date)
     end_date = constrained_date(end_date || start_date)
-    key = "#{cache_key}/#{__method__}/#{start_date.cache_key}-#{end_date.cache_key}/#{scoped_by&.cache_key}"
+    key = "#{cache_key}/#{__method__}/#{start_date.iso8601}-#{end_date.iso8601}/#{scoped_by&.cache_key}"
     cents = fetch_from_cache(key, force: fresh) {
       cents_by_date = daily_summaries.between(start_date, end_date).scoped_by(scoped_by)
         .pluck(:displayed_at_date, :house_revenue_cents)
@@ -132,6 +132,8 @@ module Impressionable
     value = Rails.cache.fetch(key, force: force, expires_in: 1.hour, race_condition_ttl: 5.minutes, &block)
 
     unless Rails.cache.exist? fresh_key
+      # distributed lock that spans all dynos/processes to ensure only 1 process
+      # in the distributed system updates the cache
       PgLock.new(name: key, attempts: 1).lock do
         value = block.call
         Rails.cache.write key, value, expires_in: 1.hour
