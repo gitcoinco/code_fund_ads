@@ -336,6 +336,7 @@ GEM
       tty-color (~> 0.5)
     perm (1.0.2)
     pg (1.1.4)
+    pg_lock (0.2.1)
     premailer (1.11.1)
       addressable
       css_parser (>= 1.6.0)
@@ -660,6 +661,7 @@ DEPENDENCIES
   paper_trail (~> 10.3.0)
   perm (~> 1.0.2)
   pg (>= 0.18, < 2.0)
+  pg_lock (~> 0.2.1)
   premailer (= 1.11.1)
   premailer-rails (= 1.10.3)
   pretender (~> 0.3.3)
