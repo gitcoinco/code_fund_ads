@@ -12,15 +12,24 @@
     <%= content_for :demo %>
 
     <!-- CDN Stylesheets -->
-    <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet" />
+    <link href="https://gitcdn.xyz/repo/octoshrimpy/blokkfont/master/blokkfont.css" rel="stylesheet" type="text/css" />
 
     <!-- Compressed Stylesheets -->
     <%= stylesheet_pack_tag "code_fund", media: "all", 'data-turbolinks-track': "reload" %>
 
     <!-- Compressed JavaScripts -->
     <%= javascript_pack_tag "code_fund", 'data-turbolinks-track': "reload" %>
+    <style>
+      p {
+        font-family: "BLOKK";
+        font-size: 20px;
+      }
+    </style>
   </head>
   <body class="pt-0">
     <%= yield %>
   </body>
+  <script>
+    sessionStorage.setItem("codefund", "open");
+  </script>
 </html>

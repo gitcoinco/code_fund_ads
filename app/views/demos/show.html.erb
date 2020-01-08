@@ -1,5 +1,11 @@
 <% content_for :demo do %>
-  <script src="<%= @script_path %>" async="async"></script>
+  <script>
+    document.addEventListener('turbolinks:load', function () {
+      var script = document.createElement('script');
+      script.src = "<%= @script_path %>";
+      document.head.appendChild(script);
+    });
+  </script>
 <% end %>
 <%= tag.div(id: "codefund") if position&.inquiry&.absolute? %>
 <div class="row p-4" data-controller="ad-demo">
@@ -21,30 +27,88 @@
 <div class="<%= @theme.inquiry.dark? ? "bg-dark-ad text-white" : "bg-white" %> vw-100 pt-4">
   <div class="container w-full mx-auto d-flex flex-column">
     <h1>Ad Template: <%= @template.humanize %></h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis tellus id interdum velit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit amet consectetur. Imperdiet proin fermentum leo vel orci porta non pulvinar. Gravida quis blandit turpis cursus in hac habitasse platea dictumst. Adipiscing diam donec adipiscing tristique risus nec feugiat. Blandit turpis cursus in hac habitasse platea dictumst quisque sagittis. Integer eget aliquet nibh praesent tristique magna sit amet. Faucibus a pellentesque sit amet porttitor eget dolor morbi non. Gravida arcu ac tortor dignissim convallis.
-      Vel turpis nunc eget lorem. At ultrices mi tempus imperdiet nulla malesuada. Odio facilisis mauris sit amet massa vitae tortor. Tincidunt praesent semper feugiat nibh sed pulvinar. Ac turpis egestas sed tempus urna et pharetra pharetra. Enim neque volutpat ac tincidunt vitae semper quis lectus nulla. Pellentesque elit eget gravida cum sociis natoque. Interdum velit euismod in pellentesque massa placerat duis ultricies. Cras ornare arcu dui vivamus arcu felis. Cursus eget nunc scelerisque viverra mauris in aliquam.
-      Nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus. </p>
+    <p>
+      Lorem Khaled Ipsum is a major key to success. You see the hedges, how I got it shaped up? It’s important to shape up
+      your hedges, it’s like getting a haircut, stay fresh. Give thanks to the most high. Always remember in the jungle there’s
+      a lot of they in there, after you overcome they, you will make it to paradise. Hammock talk come soon. In life there will
+      be road blocks but we will over come it. Surround yourself with angels, positive energy, beautiful people, beautiful souls,
+      clean heart, angel. Mogul talk.
+    </p>
     <%= tag.div(id: "codefund") if position&.inquiry&.relative? %>
     <h1>Ad Theme: <%= @theme.humanize %></h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis tellus id interdum velit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit amet consectetur. Imperdiet proin fermentum leo vel orci porta non pulvinar. Gravida quis blandit turpis cursus in hac habitasse platea dictumst. Adipiscing diam donec adipiscing tristique risus nec feugiat. Blandit turpis cursus in hac habitasse platea dictumst quisque sagittis. Integer eget aliquet nibh praesent tristique magna sit amet. Faucibus a pellentesque sit amet porttitor eget dolor morbi non. Gravida arcu ac tortor dignissim convallis.
-      Vel turpis nunc eget lorem. At ultrices mi tempus imperdiet nulla malesuada. Odio facilisis mauris sit amet massa vitae tortor. Tincidunt praesent semper feugiat nibh sed pulvinar. Ac turpis egestas sed tempus urna et pharetra pharetra. Enim neque volutpat ac tincidunt vitae semper quis lectus nulla. Pellentesque elit eget gravida cum sociis natoque. Interdum velit euismod in pellentesque massa placerat duis ultricies. Cras ornare arcu dui vivamus arcu felis. Cursus eget nunc scelerisque viverra mauris in aliquam.
-      Nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus. Enim ut tellus elementum sagittis vitae et. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Feugiat vivamus at augue eget. Et magnis dis parturient montes nascetur ridiculus mus mauris. Elit duis tristique sollicitudin nibh sit amet commodo nulla. Viverra vitae congue eu consequat. Sed libero enim sed faucibus turpis. Nibh tellus molestie nunc non blandit massa enim nec dui. Vel turpis nunc eget lorem dolor. Elit pellentesque habitant morbi tristique. Vel fringilla est ullamcorper eget nulla. Elementum sagittis vitae et leo duis ut diam quam. Cras tincidunt lobortis feugiat vivamus at augue eget arcu. Eu sem integer vitae justo eget. Blandit cursus risus at ultrices mi tempus imperdiet. Ipsum nunc aliquet bibendum enim.
-      Vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Aliquet eget sit amet tellus cras adipiscing. Massa sed elementum tempus egestas sed sed risus pretium quam. Enim sit amet venenatis urna cursus eget nunc scelerisque. Enim tortor at auctor urna nunc id cursus. Eleifend quam adipiscing vitae proin. Donec ac odio tempor orci dapibus ultrices in. Enim praesent elementum facilisis leo. Venenatis lectus magna fringilla urna porttitor. Porta nibh venenatis cras sed. Pretium nibh ipsum consequat nisl vel pretium lectus quam. Aliquam etiam erat velit scelerisque in dictum non consectetur.
-      At lectus urna duis convallis. Arcu cursus vitae congue mauris. Quam vulputate dignissim suspendisse in est ante in. Vel eros donec ac odio tempor orci dapibus ultrices. Malesuada fames ac turpis egestas maecenas pharetra convallis. Est ullamcorper eget nulla facilisi. Lacinia quis vel eros donec ac. Bibendum neque egestas congue quisque. Diam sollicitudin tempor id eu nisl nunc. Curabitur vitae nunc sed velit dignissim.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis tellus id interdum velit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit amet consectetur. Imperdiet proin fermentum leo vel orci porta non pulvinar. Gravida quis blandit turpis cursus in hac habitasse platea dictumst. Adipiscing diam donec adipiscing tristique risus nec feugiat. Blandit turpis cursus in hac habitasse platea dictumst quisque sagittis. Integer eget aliquet nibh praesent tristique magna sit amet. Faucibus a pellentesque sit amet porttitor eget dolor morbi non. Gravida arcu ac tortor dignissim convallis.
-      Vel turpis nunc eget lorem. At ultrices mi tempus imperdiet nulla malesuada. Odio facilisis mauris sit amet massa vitae tortor. Tincidunt praesent semper feugiat nibh sed pulvinar. Ac turpis egestas sed tempus urna et pharetra pharetra. Enim neque volutpat ac tincidunt vitae semper quis lectus nulla. Pellentesque elit eget gravida cum sociis natoque. Interdum velit euismod in pellentesque massa placerat duis ultricies. Cras ornare arcu dui vivamus arcu felis. Cursus eget nunc scelerisque viverra mauris in aliquam.
-      Nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus. Enim ut tellus elementum sagittis vitae et. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Feugiat vivamus at augue eget. Et magnis dis parturient montes nascetur ridiculus mus mauris. Elit duis tristique sollicitudin nibh sit amet commodo nulla. Viverra vitae congue eu consequat. Sed libero enim sed faucibus turpis. Nibh tellus molestie nunc non blandit massa enim nec dui. Vel turpis nunc eget lorem dolor. Elit pellentesque habitant morbi tristique. Vel fringilla est ullamcorper eget nulla. Elementum sagittis vitae et leo duis ut diam quam. Cras tincidunt lobortis feugiat vivamus at augue eget arcu. Eu sem integer vitae justo eget. Blandit cursus risus at ultrices mi tempus imperdiet. Ipsum nunc aliquet bibendum enim.
-      Vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Aliquet eget sit amet tellus cras adipiscing. Massa sed elementum tempus egestas sed sed risus pretium quam. Enim sit amet venenatis urna cursus eget nunc scelerisque. Enim tortor at auctor urna nunc id cursus. Eleifend quam adipiscing vitae proin. Donec ac odio tempor orci dapibus ultrices in. Enim praesent elementum facilisis leo. Venenatis lectus magna fringilla urna porttitor. Porta nibh venenatis cras sed. Pretium nibh ipsum consequat nisl vel pretium lectus quam. Aliquam etiam erat velit scelerisque in dictum non consectetur.
-      At lectus urna duis convallis. Arcu cursus vitae congue mauris. Quam vulputate dignissim suspendisse in est ante in. Vel eros donec ac odio tempor orci dapibus ultrices. Malesuada fames ac turpis egestas maecenas pharetra convallis. Est ullamcorper eget nulla facilisi. Lacinia quis vel eros donec ac. Bibendum neque egestas congue quisque. Diam sollicitudin tempor id eu nisl nunc. Curabitur vitae nunc sed velit dignissim.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis tellus id interdum velit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit amet consectetur. Imperdiet proin fermentum leo vel orci porta non pulvinar. Gravida quis blandit turpis cursus in hac habitasse platea dictumst. Adipiscing diam donec adipiscing tristique risus nec feugiat. Blandit turpis cursus in hac habitasse platea dictumst quisque sagittis. Integer eget aliquet nibh praesent tristique magna sit amet. Faucibus a pellentesque sit amet porttitor eget dolor morbi non. Gravida arcu ac tortor dignissim convallis.
-      Vel turpis nunc eget lorem. At ultrices mi tempus imperdiet nulla malesuada. Odio facilisis mauris sit amet massa vitae tortor. Tincidunt praesent semper feugiat nibh sed pulvinar. Ac turpis egestas sed tempus urna et pharetra pharetra. Enim neque volutpat ac tincidunt vitae semper quis lectus nulla. Pellentesque elit eget gravida cum sociis natoque. Interdum velit euismod in pellentesque massa placerat duis ultricies. Cras ornare arcu dui vivamus arcu felis. Cursus eget nunc scelerisque viverra mauris in aliquam.
-      Nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus. Enim ut tellus elementum sagittis vitae et. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Feugiat vivamus at augue eget. Et magnis dis parturient montes nascetur ridiculus mus mauris. Elit duis tristique sollicitudin nibh sit amet commodo nulla. Viverra vitae congue eu consequat. Sed libero enim sed faucibus turpis. Nibh tellus molestie nunc non blandit massa enim nec dui. Vel turpis nunc eget lorem dolor. Elit pellentesque habitant morbi tristique. Vel fringilla est ullamcorper eget nulla. Elementum sagittis vitae et leo duis ut diam quam. Cras tincidunt lobortis feugiat vivamus at augue eget arcu. Eu sem integer vitae justo eget. Blandit cursus risus at ultrices mi tempus imperdiet. Ipsum nunc aliquet bibendum enim.
-      Vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Aliquet eget sit amet tellus cras adipiscing. Massa sed elementum tempus egestas sed sed risus pretium quam. Enim sit amet venenatis urna cursus eget nunc scelerisque. Enim tortor at auctor urna nunc id cursus. Eleifend quam adipiscing vitae proin. Donec ac odio tempor orci dapibus ultrices in. Enim praesent elementum facilisis leo. Venenatis lectus magna fringilla urna porttitor. Porta nibh venenatis cras sed. Pretium nibh ipsum consequat nisl vel pretium lectus quam. Aliquam etiam erat velit scelerisque in dictum non consectetur.
-      At lectus urna duis convallis. Arcu cursus vitae congue mauris. Quam vulputate dignissim suspendisse in est ante in. Vel eros donec ac odio tempor orci dapibus ultrices. Malesuada fames ac turpis egestas maecenas pharetra convallis. Est ullamcorper eget nulla facilisi. Lacinia quis vel eros donec ac. Bibendum neque egestas congue quisque. Diam sollicitudin tempor id eu nisl nunc. Curabitur vitae nunc sed velit dignissim.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Convallis tellus id interdum velit. Suspendisse faucibus interdum posuere lorem ipsum dolor sit amet consectetur. Imperdiet proin fermentum leo vel orci porta non pulvinar. Gravida quis blandit turpis cursus in hac habitasse platea dictumst. Adipiscing diam donec adipiscing tristique risus nec feugiat. Blandit turpis cursus in hac habitasse platea dictumst quisque sagittis. Integer eget aliquet nibh praesent tristique magna sit amet. Faucibus a pellentesque sit amet porttitor eget dolor morbi non. Gravida arcu ac tortor dignissim convallis.
-      Vel turpis nunc eget lorem. At ultrices mi tempus imperdiet nulla malesuada. Odio facilisis mauris sit amet massa vitae tortor. Tincidunt praesent semper feugiat nibh sed pulvinar. Ac turpis egestas sed tempus urna et pharetra pharetra. Enim neque volutpat ac tincidunt vitae semper quis lectus nulla. Pellentesque elit eget gravida cum sociis natoque. Interdum velit euismod in pellentesque massa placerat duis ultricies. Cras ornare arcu dui vivamus arcu felis. Cursus eget nunc scelerisque viverra mauris in aliquam.
-      Nulla posuere sollicitudin aliquam ultrices sagittis orci a scelerisque purus. Enim ut tellus elementum sagittis vitae et. Egestas tellus rutrum tellus pellentesque eu tincidunt tortor aliquam nulla. Feugiat vivamus at augue eget. Et magnis dis parturient montes nascetur ridiculus mus mauris. Elit duis tristique sollicitudin nibh sit amet commodo nulla. Viverra vitae congue eu consequat. Sed libero enim sed faucibus turpis. Nibh tellus molestie nunc non blandit massa enim nec dui. Vel turpis nunc eget lorem dolor. Elit pellentesque habitant morbi tristique. Vel fringilla est ullamcorper eget nulla. Elementum sagittis vitae et leo duis ut diam quam. Cras tincidunt lobortis feugiat vivamus at augue eget arcu. Eu sem integer vitae justo eget. Blandit cursus risus at ultrices mi tempus imperdiet. Ipsum nunc aliquet bibendum enim.
-      Vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi. Aliquet eget sit amet tellus cras adipiscing. Massa sed elementum tempus egestas sed sed risus pretium quam. Enim sit amet venenatis urna cursus eget nunc scelerisque. Enim tortor at auctor urna nunc id cursus. Eleifend quam adipiscing vitae proin. Donec ac odio tempor orci dapibus ultrices in. Enim praesent elementum facilisis leo. Venenatis lectus magna fringilla urna porttitor. Porta nibh venenatis cras sed. Pretium nibh ipsum consequat nisl vel pretium lectus quam. Aliquam etiam erat velit scelerisque in dictum non consectetur.
-      At lectus urna duis convallis. Arcu cursus vitae congue mauris. Quam vulputate dignissim suspendisse in est ante in. Vel eros donec ac odio tempor orci dapibus ultrices. Malesuada fames ac turpis egestas maecenas pharetra convallis. Est ullamcorper eget nulla facilisi. Lacinia quis vel eros donec ac. Bibendum neque egestas congue quisque. Diam sollicitudin tempor id eu nisl nunc. Curabitur vitae nunc sed velit dignissim.</p>
+    <p>
+      We don’t see them, we will never see them. You smart, you loyal, you a genius. Eliptical talk. You do know, you do know that they
+      don’t want you to have lunch. I’m keeping it real with you, so what you going do is have lunch. Surround yourself with angels. You
+      smart, you loyal, you a genius. Give thanks to the most high. We the best. In life there will be road blocks but we will over come
+      it. Put it this way, it took me twenty five years to get these plants, twenty five years of blood sweat and tears, and I’m never giving
+      up, I’m just getting started. Bless up. The key is to drink coconut, fresh coconut, trust me. Find peace, life is like a water fall,
+      you’ve gotta flow. Find peace, life is like a water fall, you’ve gotta flow. Lion! Life is what you make it, so let’s make it. To succeed
+      you must believe. When you believe, you will succeed. Mogul talk. It’s important to use cocoa butter. It’s the key to more success, why
+      not live smooth? Why live rough? Cloth talk. They never said winning was easy. Some people can’t handle success, I can.
+    </p>
+    <p>
+      It’s important to use cocoa butter. It’s the key to more success, why not live smooth? Why live rough? It’s on you how you want to live
+      your life. Everyone has a choice. I pick my choice, squeaky clean. I’m giving you cloth talk, cloth. Special cloth alert, cut from a
+      special cloth. You should never complain, complaining is a weak emotion, you got life, we breathing, we blessed. Life is what you make
+      it, so let’s make it. I’m up to something. In life there will be road blocks but we will over come it.
+    </p>
+    <p>
+      Egg whites, turkey sausage, wheat toast, water. Of course they don’t want us to eat our breakfast, so we are going to enjoy our breakfast.
+      The key is to enjoy life, because they don’t want you to enjoy life. I promise you, they don’t want you to jetski, they don’t want you to
+      smile. Surround yourself with angels. In life you have to take the trash out, if you have trash in your life, take it out, throw it away,
+      get rid of it, major key. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion!
+    </p>
+    <p>
+      Mogul talk. I’m giving you cloth talk, cloth. Special cloth alert, cut from a special cloth. Eliptical talk. Mogul talk. They will try
+      to close the door on you, just open it. Mogul talk. Bless up. Look at the sunset, life is amazing, life is beautiful, life is what you make
+      it. They will try to close the door on you, just open it. To be successful you’ve got to work hard, to make history, simple, you’ve got
+      to make it. I told you all this before, when you have a swimming pool, do not use chlorine, use salt water, the healing, salt water is
+      the healing.
+    </p>
+    <p>
+      You smart, you loyal, you a genius. Special cloth alert. Congratulations, you played yourself. You see the hedges, how I got it shaped
+      up? It’s important to shape up your hedges, it’s like getting a haircut, stay fresh. Celebrate success right, the only way, apple. The key
+      is to drink coconut, fresh coconut, trust me. Watch your back, but more importantly when you get out the shower, dry your back, it’s a
+      cold world out there. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion!
+    </p>
+    <p>
+      We don’t see them, we will never see them. You smart, you loyal, you a genius. Eliptical talk. You do know, you do know that they don’t
+      want you to have lunch. I’m keeping it real with you, so what you going do is have lunch. Surround yourself with angels. You smart, you
+      loyal, you a genius. Give thanks to the most high. We the best. In life there will be road blocks but we will over come it. Put it this
+      way, it took me twenty five years to get these plants, twenty five years of blood sweat and tears, and I’m never giving up, I’m just
+      getting started.
+    </p>
+    <p>
+      Bless up. The key is to drink coconut, fresh coconut, trust me. Find peace, life is like a water fall, you’ve gotta flow. Find peace,
+      life is like a water fall, you’ve gotta flow. Lion! Life is what you make it, so let’s make it. To succeed you must believe. When you
+      believe, you will succeed. Mogul talk. It’s important to use cocoa butter. It’s the key to more success, why not live smooth? Why live
+      rough? Cloth talk. They never said winning was easy. Some people can’t handle success, I can.
+    </p>
+    <p>
+      It’s important to use cocoa butter. It’s the key to more success, why not live smooth? Why live rough? It’s on you how you want to
+      live your life. Everyone has a choice. I pick my choice, squeaky clean. I’m giving you cloth talk, cloth. Special cloth alert, cut from
+      a special cloth. You should never complain, complaining is a weak emotion, you got life, we breathing, we blessed. Life is what you
+      make it, so let’s make it. I’m up to something. In life there will be road blocks but we will over come it.
+    </p>
+    <p>
+      Egg whites, turkey sausage, wheat toast, water. Of course they don’t want us to eat our breakfast, so we are going to enjoy our
+      breakfast. The key is to enjoy life, because they don’t want you to enjoy life. I promise you, they don’t want you to jetski, they don’t
+      want you to smile. Surround yourself with angels. In life you have to take the trash out, if you have trash in your life, take it out,
+      throw it away, get rid of it, major key. The weather is amazing, walk with me through the pathway of more success. Take this journey
+      with me, Lion!
+    </p>
+    <p>
+      Mogul talk. I’m giving you cloth talk, cloth. Special cloth alert, cut from a special cloth. Eliptical talk. Mogul talk. They will try
+      to close the door on you, just open it. Mogul talk. Bless up. Look at the sunset, life is amazing, life is beautiful, life is what you make
+      it. They will try to close the door on you, just open it. To be successful you’ve got to work hard, to make history, simple, you’ve got to
+      make it. I told you all this before, when you have a swimming pool, do not use chlorine, use salt water, the healing, salt water is the
+      healing.
+    </p>
+    <p>
+      You smart, you loyal, you a genius. Special cloth alert. Congratulations, you played yourself. You see the hedges, how I got it shaped up?
+      It’s important to shape up your hedges, it’s like getting a haircut, stay fresh. Celebrate success right, the only way, apple. The key is to
+      drink coconut, fresh coconut, trust me. Watch your back, but more importantly when you get out the shower, dry your back, it’s a cold world
+      out there. The weather is amazing, walk with me through the pathway of more success. Take this journey with me, Lion!
+    </p>
   </div>
 </div>
