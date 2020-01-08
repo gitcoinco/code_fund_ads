@@ -234,9 +234,16 @@
           <div class="col-12 mb-3" data-controller="select-multiple">
             <%= f.input :keywords, collection: keywords_for_select, label: "Targeted Keywords",
               input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select"}} %>
-            <div class="d-block mt-1">
-              <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#selectAll"} %>
-              <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
+            <div class="row mt-1">
+              <div class="col-2 mr-1">
+                <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#selectAll"} %>
+                <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
+              </div>
+              <div class="col mx-0">
+                <% Audience.select do |a| %>
+                  <%= link_to a.name, request.path, class: "btn btn-secondary btn-xs py-0", data: {action: "click->select-multiple#selectSubset", values: a.keywords} %>
+                <% end %>
+              </div>
             </div>
           </div>
           <div class="col-12 mb-4" data-controller="select-multiple">
