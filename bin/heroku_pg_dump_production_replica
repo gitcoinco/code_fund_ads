@@ -6,6 +6,11 @@ if [[ -z "$PRODUCTION_DATABASE_REPLICA_URL" ]]; then
   exit 1
 fi
 
+if [[ -z "$AWS_S3_ACCESS_KEY_ID" ]]; then
+  echo "AWS_S3_ACCESS_KEY_ID environment variable not set! It should be set to the production value."
+  exit 1
+fi
+
 pg_dump --verbose --no-acl --no-owner --format=c \
   --exclude-table=impressions_2018_11_advertiser_123 \
   --exclude-table=impressions_2018_11_advertiser_132 \
@@ -291,5 +296,59 @@ pg_dump --verbose --no-acl --no-owner --format=c \
   --exclude-table=impressions_2019_11_advertiser_850 \
   --exclude-table=impressions_2019_11_advertiser_863 \
   --exclude-table=impressions_2019_11_advertiser_864 \
+  --exclude-table=impressions_2019_12_advertiser_123 \
+  --exclude-table=impressions_2019_12_advertiser_132 \
+  --exclude-table=impressions_2019_12_advertiser_146 \
+  --exclude-table=impressions_2019_12_advertiser_185 \
+  --exclude-table=impressions_2019_12_advertiser_239 \
+  --exclude-table=impressions_2019_12_advertiser_305 \
+  --exclude-table=impressions_2019_12_advertiser_365 \
+  --exclude-table=impressions_2019_12_advertiser_387 \
+  --exclude-table=impressions_2019_12_advertiser_43 \
+  --exclude-table=impressions_2019_12_advertiser_457 \
+  --exclude-table=impressions_2019_12_advertiser_572 \
+  --exclude-table=impressions_2019_12_advertiser_613 \
+  --exclude-table=impressions_2019_12_advertiser_619 \
+  --exclude-table=impressions_2019_12_advertiser_624 \
+  --exclude-table=impressions_2019_12_advertiser_632 \
+  --exclude-table=impressions_2019_12_advertiser_646 \
+  --exclude-table=impressions_2019_12_advertiser_660 \
+  --exclude-table=impressions_2019_12_advertiser_700 \
+  --exclude-table=impressions_2019_12_advertiser_707 \
+  --exclude-table=impressions_2019_12_advertiser_710 \
+  --exclude-table=impressions_2019_12_advertiser_712 \
+  --exclude-table=impressions_2019_12_advertiser_714 \
+  --exclude-table=impressions_2019_12_advertiser_723 \
+  --exclude-table=impressions_2019_12_advertiser_727 \
+  --exclude-table=impressions_2019_12_advertiser_735 \
+  --exclude-table=impressions_2019_12_advertiser_769 \
+  --exclude-table=impressions_2019_12_advertiser_779 \
+  --exclude-table=impressions_2019_12_advertiser_788 \
+  --exclude-table=impressions_2019_12_advertiser_789 \
+  --exclude-table=impressions_2019_12_advertiser_849 \
+  --exclude-table=impressions_2019_12_advertiser_850 \
+  --exclude-table=impressions_2019_12_advertiser_863 \
+  --exclude-table=impressions_2019_12_advertiser_869 \
+  --exclude-table=impressions_2020_01_advertiser_123 \
+  --exclude-table=impressions_2020_01_advertiser_146 \
+  --exclude-table=impressions_2020_01_advertiser_185 \
+  --exclude-table=impressions_2020_01_advertiser_239 \
+  --exclude-table=impressions_2020_01_advertiser_305 \
+  --exclude-table=impressions_2020_01_advertiser_365 \
+  --exclude-table=impressions_2020_01_advertiser_387 \
+  --exclude-table=impressions_2020_01_advertiser_43 \
+  --exclude-table=impressions_2020_01_advertiser_457 \
+  --exclude-table=impressions_2020_01_advertiser_613 \
+  --exclude-table=impressions_2020_01_advertiser_619 \
+  --exclude-table=impressions_2020_01_advertiser_624 \
+  --exclude-table=impressions_2020_01_advertiser_628 \
+  --exclude-table=impressions_2020_01_advertiser_646 \
+  --exclude-table=impressions_2020_01_advertiser_700 \
+  --exclude-table=impressions_2020_01_advertiser_712 \
+  --exclude-table=impressions_2020_01_advertiser_723 \
+  --exclude-table=impressions_2020_01_advertiser_727 \
+  --exclude-table=impressions_2020_01_advertiser_735 \
+  --exclude-table=impressions_2020_01_advertiser_769 \
+  --exclude-table=impressions_2020_01_advertiser_869 \
   --exclude-table=impressions_default \
   $PRODUCTION_DATABASE_REPLICA_URL > ./tmp/production-shallow.dump
