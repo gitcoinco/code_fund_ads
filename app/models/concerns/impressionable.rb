@@ -127,15 +127,15 @@ module Impressionable
       max: (end_date.future? ? Date.current : end_date)
   end
 
-  def fetch_from_cache(cache_key, force: false, &block)
-    fresh_key = "#{cache_key}/fresh"
-    value = Rails.cache.fetch(cache_key, force: force, expires_in: 1.hour, race_condition_ttl: 5.minutes, &block)
+  def fetch_from_cache(key, force: false, &block)
+    fresh_key = "#{key}/fresh"
+    value = Rails.cache.fetch(key, force: force, expires_in: 1.hour, race_condition_ttl: 5.minutes, &block)
 
     unless Rails.cache.exist? fresh_key
-      PgLock.new(name: cache_key, attempts: 1).lock do
+      PgLock.new(name: key, attempts: 1).lock do
         value = block.call
-        Rails.cache.write cache_key, value, expires_in: 1.hour
-        Rails.cache.write fresh_key, true, expires_in: rand(10..15).minutes
+        Rails.cache.write key, value, expires_in: 1.hour
+        Rails.cache.write fresh_key, true, expires_in: 10.minutes
       end
     end
 
