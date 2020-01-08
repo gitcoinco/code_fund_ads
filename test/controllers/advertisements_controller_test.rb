@@ -135,6 +135,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
       creative.standard_images.destroy_all
       creative.update! creative_type: ENUMS::CREATIVE_TYPES::SPONSOR
       CreativeImage.create! creative: creative, image: attach_sponsor_image!(campaign.user)
+      creative.reload
     end
     property = matched_property(campaign)
     property.update! url: "https://github.com/gitcoinco/code_fund_ads"
