@@ -1,5 +1,5 @@
 <%= table_row do %>
-  <%= table_data_value country_short_name(report.scoped_by_id), add_class: "text-nowrap" %>
+  <%= table_data_value report.country_short_name, add_class: "text-nowrap" %>
   <% if @campaign.standard? %>
     <%= table_data_value report.gross_revenue.format %>
     <%= table_data_value number_with_delimiter(report.impressions_count) %>
