@@ -8,12 +8,12 @@ module Authorizers
 
     def can_update_split_experiment?(campaign)
       return true if can_admin_system?
-      can_edit_for_organization?(campaign.organization)
+      can_manage_organization?(campaign.organization)
     end
 
     def can_destroy_split_experiment?(campaign)
       return true if can_admin_system?
-      can_edit_for_organization?(campaign.organization)
+      can_manage_organization?(campaign.organization)
     end
   end
 end

@@ -1,7 +1,9 @@
 class ImagesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_imageable
-  before_action :authenticate_images_viewable_rights!, only: :index
+  before_action :set_attachment, only: [:edit, :update]
+  before_action :authorize_view!, only: :index
+  before_action :authorize_edit!, only: [:edit, :update]
 
   def index
     @images = @imageable.images
@@ -14,18 +16,14 @@ class ImagesController < ApplicationController
   end
 
   def edit
-    image = @imageable.images.find(params[:id])
-    return render_forbidden unless authorized_user.can_update_image?(image)
-    @image = Image.new(image)
+    @image = Image.new(@attachment)
   end
 
   def update
-    image = @imageable.images.find(params[:id])
-    return render_forbidden unless authorized_user.can_update_image?(image)
-    image.blob.metadata = image.blob.metadata.merge(image_params)
-    image.blob.save
+    @attachment.blob.metadata = @attachment.blob.metadata.merge(image_params)
+    @attachment.blob.save
     flash[:notice] = I18n.t("images.update.success")
-    redirect_to edit_image_path(@imageable.to_gid_param, image)
+    redirect_to edit_image_path(@imageable.to_gid_param, @attachment)
   end
 
   def destroy
@@ -45,6 +43,10 @@ class ImagesController < ApplicationController
     @imageable = GlobalID.parse(params[:imageable_gid]).find
   end
 
+  def set_attachment
+    @attachment = @imageable.images.find(params[:id])
+  end
+
   def imageable_params
     params.require(:imageable).permit(images: [])
   end
@@ -57,7 +59,11 @@ class ImagesController < ApplicationController
     )
   end
 
-  def authenticate_images_viewable_rights!
-    return render_forbidden unless authorized_user.can_view_imageable?(@imageable)
+  def authorize_view!
+    render_forbidden unless authorized_user.can_view_imageable?(@imageable)
+  end
+
+  def authorize_edit!
+    render_forbidden unless authorized_user.can_update_image?(@attachment)
   end
 end
