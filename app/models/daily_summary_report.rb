@@ -32,7 +32,10 @@ class DailySummaryReport < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
 
+  include DailySummaryReports::Presentable
+
   # relationships .............................................................
+
   belongs_to :impressionable, polymorphic: true
   belongs_to :scoped_by, polymorphic: true, optional: true
 

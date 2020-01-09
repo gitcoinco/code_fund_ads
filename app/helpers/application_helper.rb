@@ -5,36 +5,12 @@ module ApplicationHelper
     Current.organization&.campaigns&.active
   end
 
-  # TODO: move these to Country or a presentable concern
-  def country_display_name(iso_code)
-    country = Country.find(iso_code)
-    return "#{country.emoji_flag} #{truncate country.name, length: 30} (#{iso_code})" if country
-    iso_code
-  end
-
-  def country_short_name(iso_code)
-    country = Country.find(iso_code)
-    return tag.span("#{country.emoji_flag} #{iso_code}", title: "country.name") if country
-    iso_code
-  end
-
-  def safe_camo(url)
-    camo url.to_s
-  rescue
-    asset_path "pixel.gif"
-  end
-
   def page_heading(action, subject, title: nil, subtitle: nil, icon: nil, datepicker: false)
     render partial: "/shared/page_heading", locals: {action: action, subject: subject, title: title, subtitle: subtitle, icon: icon, datepicker: datepicker}
   end
 
   def breadcrumbs
     @breadcrumbs = yield
-  end
-
-  def pseudo_row_divider
-    ActiveSupport::Deprecation.warn("pseudo_row_divider will be removed after the redesign is complete.")
-    @pseudo_row_divider ||= render("/shared/forms/pseudo_row_divider")
   end
 
   def classes(options = {})
@@ -148,36 +124,6 @@ module ApplicationHelper
     render("/shared/scripts/headway", id: ENV["HEADWAY_ID"])
   end
 
-  def intercom_tag
-    ActiveSupport::Deprecation.warn("intercom_tag will be removed after the redesign is complete.")
-    return nil unless ENV["INTERCOM_APP_ID"].present? && ENV["INTERCOM_SECRET_KEY"].present?
-    intercom_settings = {app_id: ENV["INTERCOM_APP_ID"]}
-    if current_user
-      user_hash = OpenSSL::HMAC.hexdigest("sha256", ENV["INTERCOM_SECRET_KEY"], current_user.id.to_s)
-
-      intercom_settings = intercom_settings.merge({
-        user_id: current_user.id.to_s,
-        user_hash: user_hash,
-        name: current_user.full_name,
-        email: current_user.email,
-        created_at: current_user.created_at.to_i,
-      })
-    end
-    render("/shared/scripts/intercom", intercom_settings: intercom_settings)
-  end
-
-  def codefund_analytics_tag
-    ActiveSupport::Deprecation.warn("codefund_analytics_tag will be removed after the redesign is complete.")
-    return nil unless ENV["CODEFUND_ANALYTICS_KEY"].present?
-    render("/shared/scripts/codefund_analytics", id: ENV["CODEFUND_ANALYTICS_KEY"])
-  end
-
-  def support_widget_tag
-    ActiveSupport::Deprecation.warn("support_widget_tag will be removed after the redesign is complete.")
-    return nil unless ENV["GROOVE_WIDGET_ID"].present?
-    render("/shared/scripts/groove", id: ENV["GROOVE_WIDGET_ID"])
-  end
-
   def badge_for_role(role, wrap_class: "")
     case role
     when "administrator"
@@ -252,11 +198,6 @@ module ApplicationHelper
       include_plus_and_minus_in_html: true,
       include_diff_info: true)
     changes.to_s.present? ? changes.to_s(:html).html_safe : "No Changes"
-  end
-
-  def date_range_picker
-    ActiveSupport::Deprecation.warn("date_range_picker will be removed after the redesign is complete.")
-    render "/shared/date_range_picker"
   end
 
   def sparkline(values, width: 100, height: 30, stroke_width: 3, color: "green", filled: true)
