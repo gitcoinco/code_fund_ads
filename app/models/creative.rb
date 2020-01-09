@@ -46,7 +46,6 @@ class Creative < ApplicationRecord
   after_commit :touch_campaigns, on: [:update]
 
   # scopes ....................................................................
-  default_scope { includes images: :blob }
   scope :active, -> { where(status: ENUMS::CREATIVE_STATUSES::ACTIVE) }
   scope :pending, -> { where(status: ENUMS::CREATIVE_STATUSES::PENDING) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }

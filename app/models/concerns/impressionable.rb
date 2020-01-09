@@ -137,7 +137,7 @@ module Impressionable
       PgLock.new(name: key, attempts: 1).lock do
         value = block.call
         Rails.cache.write key, value, expires_in: 1.hour
-        Rails.cache.write fresh_key, true, expires_in: 10.minutes
+        Rails.cache.write fresh_key, true, expires_in: 7.minutes
       end
     end
 
