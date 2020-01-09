@@ -46,6 +46,7 @@ class Creative < ApplicationRecord
   after_commit :touch_campaigns, on: [:update]
 
   # scopes ....................................................................
+  default_scope { includes images: :blob }
   scope :active, -> { where(status: ENUMS::CREATIVE_STATUSES::ACTIVE) }
   scope :pending, -> { where(status: ENUMS::CREATIVE_STATUSES::PENDING) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
@@ -100,7 +101,8 @@ class Creative < ApplicationRecord
   end
 
   def icon_image
-    images.metadata_format(ENUMS::IMAGE_FORMATS::ICON).first
+    return images.metadata_format(ENUMS::IMAGE_FORMATS::ICON).first unless images.loaded?
+    images.find { |image| image.blob.metadata["format"] == ENUMS::IMAGE_FORMATS::ICON }
   end
 
   def assign_icon_image(blob_id)
@@ -111,7 +113,8 @@ class Creative < ApplicationRecord
   end
 
   def small_image
-    images.metadata_format(ENUMS::IMAGE_FORMATS::SMALL).first
+    return images.metadata_format(ENUMS::IMAGE_FORMATS::SMALL).first unless images.loaded?
+    images.find { |image| image.blob.metadata["format"] == ENUMS::IMAGE_FORMATS::SMALL }
   end
 
   def assign_small_image(blob_id)
@@ -122,7 +125,8 @@ class Creative < ApplicationRecord
   end
 
   def large_image
-    images.metadata_format(ENUMS::IMAGE_FORMATS::LARGE).first
+    return images.metadata_format(ENUMS::IMAGE_FORMATS::LARGE).first unless images.loaded?
+    images.find { |image| image.blob.metadata["format"] == ENUMS::IMAGE_FORMATS::LARGE }
   end
 
   def assign_large_image(blob_id)
@@ -133,7 +137,8 @@ class Creative < ApplicationRecord
   end
 
   def wide_image
-    images.metadata_format(ENUMS::IMAGE_FORMATS::WIDE).first
+    return images.metadata_format(ENUMS::IMAGE_FORMATS::WIDE).first unless images.loaded?
+    images.find { |image| image.blob.metadata["format"] == ENUMS::IMAGE_FORMATS::WIDE }
   end
 
   def assign_wide_image(blob_id)
@@ -144,7 +149,8 @@ class Creative < ApplicationRecord
   end
 
   def sponsor_image
-    images.metadata_format(ENUMS::IMAGE_FORMATS::SPONSOR).first
+    return images.metadata_format(ENUMS::IMAGE_FORMATS::SPONSOR).first unless images.loaded?
+    images.find { |image| image.blob.metadata["format"] == ENUMS::IMAGE_FORMATS::SPONSOR }
   end
 
   def assign_sponsor_image(blob_id)
