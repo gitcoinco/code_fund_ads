@@ -2,7 +2,7 @@ module Authorizers
   module Imageable
     def can_view_imageable?(imageable)
       return true if can_admin_system?
-      can_edit_for_organization?(imageable)
+      can_manage_organization?(imageable)
     end
 
     def can_upload_imageables?

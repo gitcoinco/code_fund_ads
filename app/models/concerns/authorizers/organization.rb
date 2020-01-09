@@ -5,7 +5,7 @@ module Authorizers
       organization.users.include?(user)
     end
 
-    def can_edit_for_organization?(organization)
+    def can_manage_organization?(organization)
       # The distinction between this and can_edit_organization? is
       # this is intended to be used in other authorizers, since
       # we do not check for can_admin_system?

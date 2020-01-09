@@ -7,7 +7,7 @@ class CampaignsController < ApplicationController
   before_action :authenticate_administrator!, only: [:destroy]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_creative_update_rights!, only: [:edit, :update]
+  before_action :authorize_edit!, only: [:edit, :update]
 
   def index
     campaigns = scope_list(Campaign)
@@ -172,7 +172,7 @@ class CampaignsController < ApplicationController
     ]
   end
 
-  def authenticate_campaign_update_rights!
-    return render_forbidden unless authorized_user(true).can_edit_campaign?(@campaign)
+  def authorize_edit!
+    render_forbidden unless authorized_user(true).can_edit_campaign?(@campaign)
   end
 end

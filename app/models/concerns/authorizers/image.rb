@@ -2,7 +2,7 @@ module Authorizers
   module Image
     def can_update_image?(image)
       return true if can_admin_system?
-      can_edit_for_organization?(image.record)
+      can_manage_organization?(image.record)
     end
 
     def can_destroy_image?(image)
@@ -12,7 +12,7 @@ module Authorizers
                creative_images: {
                  active_storage_attachment_id: image.id,
                }).exists?
-      can_edit_for_organization?(image.record)
+      can_manage_organization?(image.record)
     end
   end
 end
