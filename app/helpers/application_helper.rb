@@ -42,7 +42,7 @@ module ApplicationHelper
   end
 
   def advertisers_for_select
-    User.advertisers.includes(:organization).sort_by(&:scoped_name).map { |user| [user.scoped_name, user.id] }
+    User.advertisers.includes(:organizations).sort_by(&:scoped_name).map { |user| [user.scoped_name, user.id] }
   end
 
   def organizations_for_select

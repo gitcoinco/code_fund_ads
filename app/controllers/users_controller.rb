@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_administrator!, if: -> { params[:redir].present? }
 
   def index
-    users = scope_list(User).includes(:avatar_attachment, :organization).include_image_count.order(order_by)
+    users = scope_list(User).includes(:avatar_attachment, :organizations).include_image_count.order(order_by)
 
     max = (users.size / Pagy::VARS[:items].to_f).ceil
     @pagy, @users = pagy(users, page: current_page(max: max))

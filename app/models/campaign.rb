@@ -328,7 +328,7 @@ class Campaign < ApplicationRecord
   end
 
   def matching_properties
-    Property.for_campaign self
+    @matching_properties ||= Property.for_campaign(self)
   end
 
   def matching_keywords(property)
