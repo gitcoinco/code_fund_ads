@@ -36,6 +36,18 @@ class OrganizationUser < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def owner?
+    role == ENUMS::ORGANIZATION_ROLES::OWNER
+  end
+
+  def administrator?
+    role == ENUMS::ORGANIZATION_ROLES::ADMINISTRATOR
+  end
+
+  def member?
+    role == ENUMS::ORGANIZATION_ROLES::MEMBER
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................

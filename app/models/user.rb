@@ -217,10 +217,8 @@ class User < ApplicationRecord
 
   def default_organization
     organizations.load unless organizations.loaded?
-    org_user = organization_users.find { |ou| ou.role == ENUMS::ORGANIZATION_ROLES::OWNER }
-    org_user ||= organization_users.find { |ou| ou.role == ENUMS::ORGANIZATION_ROLES::ADMINISTRATOR }
-    org_user ||= organization_users.find { |ou| ou.role == ENUMS::ORGANIZATION_ROLES::MEMBER }
-    org_user.organization
+    ou = organization_users.find(&:owner?) || organization_users.find(&:administrator?) || organization_users.find(&:member?)
+    ou&.organization || organization
   end
 
   def administrator?
