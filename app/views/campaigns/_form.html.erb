@@ -216,7 +216,7 @@
           </div>
           <div class="col-12 mb-3" data-controller="select-multiple">
             <%= f.input :province_codes, required: false, collection: [], label: "Targeted States/Provinces",
-                input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select select-geo-targets.provinceCodesSelect", provinces: provinces_for_stimulus, selected: @campaign.province_codes}} %>
+                input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select select-geo-targets.provinceCodesSelect", provinces: provinces_for_stimulus, selected: campaign.province_codes}} %>
             <div class="d-block mt-1">
               <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#selectAll"} %>
               <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
@@ -240,7 +240,7 @@
                 <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
               </div>
               <div class="col mx-0">
-                <% Audience.select do |a| %>
+                <% Audience.all do |a| %>
                   <%= link_to a.name, request.path, class: "btn btn-secondary btn-xs py-0", data: {action: "click->select-multiple#selectSubset", values: a.keywords} %>
                 <% end %>
               </div>
