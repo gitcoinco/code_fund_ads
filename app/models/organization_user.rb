@@ -41,7 +41,6 @@ class OrganizationUser < ApplicationRecord
 
   # DEPRECATE: [OrganizationUser#owners] Delete predicate method
   def owner?
-    ActiveSupport::Deprecation.warn("OrganizationUsers#owners is deprecated. Use OrganizationUser#administrator instead.")
     role == ENUMS::ORGANIZATION_ROLES::OWNER
   end
 
