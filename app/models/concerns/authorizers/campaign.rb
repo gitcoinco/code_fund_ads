@@ -3,17 +3,22 @@ module Authorizers
     def can_assign_property_to_campaign?(property, campaign)
       return false unless campaign.fallback?
       return true if can_admin_system?
-      property.user_id == campaign.user_id
+      false
+    end
+
+    def can_edit_campaign?(campaign)
+      return true if can_admin_system?
+      can_manage_organization?(campaign.organization)
     end
 
     def can_update_split_experiment?(campaign)
       return true if can_admin_system?
-      user.id == campaign.user_id
+      can_manage_organization?(campaign.organization)
     end
 
     def can_destroy_split_experiment?(campaign)
       return true if can_admin_system?
-      user.id == campaign.user_id
+      can_manage_organization?(campaign.organization)
     end
   end
 end

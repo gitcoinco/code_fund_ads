@@ -21,6 +21,7 @@ module CodeFundAds
     config.active_record.schema_format = :sql
     config.active_job.queue_adapter = :sidekiq
     config.exceptions_app = routes
+    config.annotations.register_tags("DEPRECATE")
 
     config.generators do |g|
       g.assets false

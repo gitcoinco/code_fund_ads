@@ -10,17 +10,17 @@
 #  updated_at      :datetime         not null
 #
 
-owner:
+system_administrator:
+  organization: default
+  user: administrator
+  role: administrator
+
+administrator:
   organization: default
   user: advertiser
-  role: owner
+  role: administrator
 
 member:
   organization: default
   user: publisher
   role: member
-
-administrator:
-  organization: default
-  user: administrator
-  role: administrator

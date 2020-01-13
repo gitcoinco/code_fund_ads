@@ -15,7 +15,7 @@
                 id="creative_sponsor_blob_id"
                 required>
                 <option value="">--- select an image ---<option>
-                <% current_user.sponsor_images.each do |image| %>
+                <% Current.organization&.sponsor_images.each do |image| %>
                   <%= tag.option Image.new(image).display_name, value: image.blob_id,
                     data: {image_url: polymorphic_url(image)},
                     selected: creative.sponsor_image == image %>

@@ -84,10 +84,6 @@ class Creative < ApplicationRecord
     status == ENUMS::CREATIVE_STATUSES::ARCHIVED
   end
 
-  def locked?
-    active? || archived?
-  end
-
   def add_image!(image)
     CreativeImage.create! creative: self, image: image
   end
@@ -107,7 +103,7 @@ class Creative < ApplicationRecord
 
   def assign_icon_image(blob_id)
     creative_image = creative_images.icon.first_or_initialize
-    image = user.images.where(blob_id: blob_id).first
+    image = organization.images.where(blob_id: blob_id).first
     creative_image.active_storage_attachment_id = image.id
     creative_image.save!
   end
@@ -119,7 +115,7 @@ class Creative < ApplicationRecord
 
   def assign_small_image(blob_id)
     creative_image = creative_images.small.first_or_initialize
-    image = user.images.where(blob_id: blob_id).first
+    image = organization.images.where(blob_id: blob_id).first
     creative_image.active_storage_attachment_id = image.id
     creative_image.save!
   end
@@ -131,7 +127,7 @@ class Creative < ApplicationRecord
 
   def assign_large_image(blob_id)
     creative_image = creative_images.large.first_or_initialize
-    image = user.images.where(blob_id: blob_id).first
+    image = organization.images.where(blob_id: blob_id).first
     creative_image.active_storage_attachment_id = image.id
     creative_image.save!
   end
@@ -143,7 +139,7 @@ class Creative < ApplicationRecord
 
   def assign_wide_image(blob_id)
     creative_image = creative_images.wide.first_or_initialize
-    image = user.images.where(blob_id: blob_id).first
+    image = organization.images.where(blob_id: blob_id).first
     creative_image.active_storage_attachment_id = image.id
     creative_image.save!
   end
@@ -155,7 +151,7 @@ class Creative < ApplicationRecord
 
   def assign_sponsor_image(blob_id)
     creative_image = creative_images.sponsor.first_or_initialize
-    image = user.images.where(blob_id: blob_id).first
+    image = organization.images.where(blob_id: blob_id).first
     creative_image.active_storage_attachment_id = image.id
     creative_image.save!
   end

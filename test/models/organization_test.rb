@@ -55,4 +55,22 @@ class OrganizationTest < ActiveSupport::TestCase
     organization.recalculate_balance!
     assert organization.balance == Monetize.parse("$100 USD")
   end
+
+  test "administrators" do
+    organization = organizations(:default)
+    assert organization.administrators
+  end
+
+  test "members" do
+    organization = organizations(:default)
+    assert organization.members
+  end
+
+  # DEPRECATE: [OrganizationUser#owners] Uncomment test
+  # test "administrator must exist validation" do
+  #   organization = organizations(:default)
+  #   organization.administrators.delete_all
+  #   assert_not organization.valid?
+  #   assert_includes organization.errors.messages.to_s, "You need at least one"
+  # end
 end

@@ -2,7 +2,7 @@ class OrganizationUsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_organization
   before_action :set_organization_user, only: [:edit, :update, :destroy]
-  before_action :authorize_user, except: [:index]
+  before_action :authorize_edit!, except: [:index]
 
   def index
     organization_users = @organization.organization_users.includes(:user).order(role: :asc)
@@ -42,18 +42,21 @@ class OrganizationUsersController < ApplicationController
   end
 
   def destroy
-    @organization_user.destroy
-
     respond_to do |format|
-      format.html { redirect_to organization_users_path(@organization), notice: "User was successfully removed from the organization." }
-      format.json { head :no_content }
+      if @organization_user.destroy
+        format.html { redirect_to organization_users_path(@organization), notice: "User was successfully removed from the organization." }
+        format.json { head :no_content }
+      else
+        format.html { redirect_to organization_users_path(@organization), notice: @organization.errors.messages.to_s }
+        format.json { render json: @organization_user.errors, status: :unprocessable_entity }
+      end
     end
   end
 
   private
 
-  def authorize_user
-    unless authorized_user.can_edit_organization?(@organization)
+  def authorize_edit!
+    unless authorized_user.can_edit_organization_users?(@organization)
       redirect_to organization_users_path(@organization), notice: "You do not have permission to update membership settings."
     end
   end

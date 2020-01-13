@@ -1,11 +1,4 @@
-<%= simple_form_for campaign, html: {
-  class: "js-validate",
-  data: {
-    controller: "campaign-form",
-    target: "campaign-form.form",
-    selected_creative_ids: campaign.creative_ids,
-  }
-}, wrapper: :front_form do |f| %>
+<%= simple_form_for campaign, wrapper: :front_form do |f| %>
   <%= render "/shared/forms/error_messages", object: campaign %>
   <!-- Details -->
   <%= card do %>
@@ -13,11 +6,8 @@
     <%= card_body do %>
       <div class="row">
         <% if authorized_user.can_admin_system? %>
-          <%= tag.div f.input(:user_id, label: "Advertiser", collection: advertisers_for_select, required: true,
-            input_html: {class: "form-control", data: {
-              controller: "select",
-              target: "campaign-form.advertiserSelectField"
-            }}), class: "col-md-6 mb-3" %>
+          <%= tag.div f.input(:user_id, label: "Advertiser", collection: organization_users_for_select, required: true,
+              input_html: {class: "form-control"}), class: "col-md-6 mb-3" %>
         <% else %>
           <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id} %>
           <div class="col-md-6 mb-3">
@@ -162,14 +152,20 @@
       <% end %>
     <% end %>
     <%= card_body do %>
-      <div class="row" data-controller="campaignForm">
-        <div data-target="campaign-form.creativesWrapper">
-          <%= render partial: "/creative_options/options",
-              locals: {
-                selected_creative_ids: campaign.creative_ids,
-                creatives: campaign.user.creatives.active.standard.order(name: :asc)
-              } %>
-        </div>
+      <div class="d-flex flex-column">
+        <% Current.organization.creatives.active.each do |creative| %>
+          <div class="form-check">
+            <%= tag.input type: "checkbox",
+                          class: "form-check-input",
+                          value: creative.id,
+                          name: "campaign[creative_ids][]",
+                          id: "campaign_creative_id_#{creative.id}",
+                          checked: campaign.creatives.include?(creative) %>
+            <label class="form-check-label" for="campaign_creative_id_<%= creative.id %>">
+              <%= creative.name %> - <strong><%= creative.headline %></strong> <%= creative.body %>
+            </label>
+          </div>
+        <% end %>
       </div>
     <% end %>
   <% end %>

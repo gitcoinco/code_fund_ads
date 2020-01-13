@@ -7,7 +7,7 @@ module Authorizers
 
     def can_edit_creative?(creative)
       return true if can_admin_system?
-      creative.user == user && !creative.locked?
+      can_manage_organization?(creative.organization)
     end
   end
 end

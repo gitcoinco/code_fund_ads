@@ -134,7 +134,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     campaign.creatives.each do |creative|
       creative.standard_images.destroy_all
       creative.update! creative_type: ENUMS::CREATIVE_TYPES::SPONSOR
-      CreativeImage.create! creative: creative, image: attach_sponsor_image!(campaign.user)
+      creative.creative_images.create! image: attach_sponsor_image!(campaign.organization)
       creative.reload
     end
     property = matched_property(campaign)

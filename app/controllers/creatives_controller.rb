@@ -1,8 +1,8 @@
 class CreativesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_creative, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_creative_create_rights!, only: [:new, :create]
-  before_action :authenticate_creative_update_rights!, only: [:edit, :update]
+  before_action :authorize_new!, only: [:new, :create]
+  before_action :authorize_edit!, only: [:edit, :update]
 
   def index
     creatives = Current.organization&.creatives&.order(:name)&.includes(:user)
@@ -87,11 +87,11 @@ class CreativesController < ApplicationController
     params.require(:creative).permit(:icon_blob_id, :small_blob_id, :large_blob_id, :wide_blob_id, :sponsor_blob_id)
   end
 
-  def authenticate_creative_create_rights!
-    return render_forbidden unless authorized_user(true).can_create_creative?
+  def authorize_new!
+    render_forbidden unless authorized_user(true).can_create_creative?
   end
 
-  def authenticate_creative_update_rights!
-    return render_forbidden unless authorized_user(true).can_edit_creative?(@creative)
+  def authorize_edit!
+    render_forbidden unless authorized_user(true).can_edit_creative?(@creative)
   end
 end

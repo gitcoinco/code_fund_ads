@@ -35,6 +35,7 @@ class CreativeImage < ApplicationRecord
   scope :sponsor, -> { where active_storage_attachment_id: ActiveStorage::Attachment.metadata_format(ENUMS::IMAGE_FORMATS::SPONSOR) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  delegate :organization, to: :creative
 
   # class methods .............................................................
   class << self

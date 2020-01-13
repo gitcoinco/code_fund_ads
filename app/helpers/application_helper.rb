@@ -41,6 +41,10 @@ module ApplicationHelper
     ENUMS::USER_STATUSES.values.map { |f| [f.humanize, f] }
   end
 
+  def organization_users_for_select
+    Current.organization.users.advertisers.sort_by(&:name).map { |user| [user.name, user.id] }
+  end
+
   def advertisers_for_select
     User.advertisers.includes(:organizations).sort_by(&:scoped_name).map { |user| [user.scoped_name, user.id] }
   end

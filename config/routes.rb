@@ -40,7 +40,6 @@ Rails.application.routes.draw do
   resource :publisher_dashboards, only: [:show], path: "/dashboards/publisher"
   resources :job_posting_searches, only: [:create, :update, :destroy], path: "/jobs/searches"
   resources :applicant_searches, only: [:create, :update, :destroy]
-  resource :creative_options, only: [:show]
 
   resources :organizations
   scope "/organization/:organization_id/" do

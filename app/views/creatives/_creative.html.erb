@@ -16,11 +16,6 @@
           <%= creative.name %>
         <% end %>
       </li>
-      <% if creative.locked? %>
-        <li class="list-inline-item">
-          <i class="far fa-lock-alt"></i>
-        </li>
-      <% end %>
       <% if authorized_user.can_edit_creative?(creative) %>
         <li class="list-inline-item">
           <%= render "/shared/actions/edit_creative", creative: creative %>
