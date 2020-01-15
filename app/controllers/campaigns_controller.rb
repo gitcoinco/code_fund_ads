@@ -7,6 +7,7 @@ class CampaignsController < ApplicationController
   before_action :authenticate_administrator!, only: [:destroy]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
+  before_action :set_current_organization, only: [:show, :edit]
   before_action :authorize_edit!, only: [:edit, :update]
 
   def index
@@ -112,6 +113,11 @@ class CampaignsController < ApplicationController
     else
       current_user
     end
+  end
+
+  def set_current_organization
+    return unless authorized_user.can_admin_system?
+    Current.organization = @campaign.organization if @campaign.organization
   end
 
   def campaign_params
