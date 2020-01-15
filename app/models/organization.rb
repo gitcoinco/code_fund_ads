@@ -31,7 +31,7 @@ class Organization < ApplicationRecord
   has_many :organization_transactions
   has_many :organization_users, dependent: :destroy
   has_many :scheduled_organization_reports
-  has_many :users
+  has_many :users, through: :organization_users
   has_many :administrators, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::ADMINISTRATOR} }, through: :organization_users, source: "user"
   has_many :members, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::MEMBER} }, through: :organization_users, source: "user"
   # DEPRECATE: [OrganizationUser#owners] Delete relationship Organzation#owners
