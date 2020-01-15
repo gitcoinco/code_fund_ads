@@ -26,6 +26,7 @@ function initTheme () {
 
 document.addEventListener('turbolinks:before-cache', function () {
   $('[data-toggle="tooltip"]').tooltip('hide')
+  $('[data-toggle="selectpicker"]').selectpicker('destroy')
 })
 document.addEventListener('turbolinks:load', initTheme)
 document.addEventListener('cable-ready:after-morph', initTheme)
