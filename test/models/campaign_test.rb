@@ -152,4 +152,17 @@ class CampaignTest < ActiveSupport::TestCase
     assert_not @campaign.update(url: "<E2><80><8B>https://app.codefund.io")
     assert_equal ["is invalid"], @campaign.errors.messages[:url]
   end
+
+  test "creatives must be active for active campaign" do
+    @campaign.stubs(active?: true)
+    @campaign.creatives.sample.update(status: :pending)
+    assert_not @campaign.valid?
+    assert_equal ["cannot be inactive"], @campaign.errors.messages[:creatives]
+  end
+
+  test "creatives may be innactive for innactive campaign" do
+    @campaign.stubs(active?: false)
+    @campaign.creatives.sample.update(status: :pending)
+    assert @campaign.valid?
+  end
 end

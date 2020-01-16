@@ -63,6 +63,7 @@ class Campaign < ApplicationRecord
   validates :name, length: {maximum: 255, allow_blank: false}
   validates :status, inclusion: {in: ENUMS::CAMPAIGN_STATUSES.values}
   validate :validate_creatives
+  validate :validate_active_creatives, if: :active?
   validate :validate_assigned_properties, if: :sponsor?
   validate :validate_url
 
@@ -423,6 +424,11 @@ class Campaign < ApplicationRecord
     if standard_creatives.exists? && sponsor_creatives.exists?
       errors.add :creatives, "cannot include both standard and sponsor types"
     end
+  end
+
+  def validate_active_creatives
+    return unless creatives
+    errors.add(:creatives, "cannot be inactive") unless creatives.active.exists?
   end
 
   def validate_assigned_properties
