@@ -51,25 +51,32 @@ end
 if ENV["RAILS_ENV"] == "development" && ENV["NGROK_SUBDOMAIN"].present?
   begin
     options = {
-      # App port
       addr: ENV.fetch("PORT") { 3000 },
-      # ngrok system files
       config: File.join(ENV["HOME"], ".ngrok2", "ngrok.yml"),
+      subdomain: ENV["NGROK_SUBDOMAIN"],
+      region: "us",
     }
 
-    options[:subdomain] = ENV["NGROK_SUBDOMAIN"]
-    options[:region] = "us"
-
-    # Create tunnel
     Ngrok::Tunnel.start(options)
-
-    # Create cool box
-    box = TTY::Box.frame(width: 50, height: 10, padding: 2, title: {top_left: "<NGROK>", bottom_right: "</NGROK>"}, style: {fg: :green, bg: :black, border: {fg: :green, bg: :black}}) {
-      "STATUS: #{Ngrok::Tunnel.status}\nPORT:   #{Ngrok::Tunnel.port}\nHTTP:   #{Ngrok::Tunnel.ngrok_url}\nHTTPS:  #{Ngrok::Tunnel.ngrok_url_https}\n"
+    box = TTY::Box.frame(
+      width: 50,
+      height: 10,
+      padding: 2,
+      title: {top_left: "<NGROK>", bottom_right: "</NGROK>"},
+      style: {fg: :green, bg: :black, border: {fg: :green, bg: :black}}
+    ) {
+      "STATUS:  #{Ngrok::Tunnel.status}\nPORT:    #{Ngrok::Tunnel.port}\nHTTP:    #{Ngrok::Tunnel.ngrok_url}\nHTTPS:   #{Ngrok::Tunnel.ngrok_url_https}\nINSPECT: http://127.0.0.1:4040"
     }
   rescue
-    box = TTY::Box.frame(width: 50, height: 5, align: :center, padding: 1, title: {top_left: "<NGROK>", bottom_right: "</NGROK>"}, style: {fg: :red, bg: :black, border: {fg: :red, bg: :black}}) {
-      "I couldn't create the tunnel ;("
+    box = TTY::Box.frame(
+      width: 50,
+      height: 5,
+      align: :center,
+      padding: 1,
+      title: {top_left: "<NGROK>", bottom_right: "</NGROK>"},
+      style: {fg: :red, bg: :black, border: {fg: :red, bg: :black}}
+    ) {
+      "Tunnel could not be created, check your ngrok subdomain."
     }
   end
   puts "\n#{box}\n"
