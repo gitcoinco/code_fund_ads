@@ -9,7 +9,7 @@
 } do %>
   <%= card do %>
     <%= card_body padding: "p-0" do %>
-      <%= render "/campaigns/for_user/table", campaigns: @campaigns %>
+      <%= render "/user_campaigns/table", campaigns: @campaigns, pagy: @pagy %>
     <% end %>
   <% end %>
 <% end %>
