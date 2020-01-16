@@ -8,11 +8,11 @@ export default class extends Controller {
   }
 
   beforeReflex () {
-    document.getElementById('reflex-status').classList.remove('d-none')
+    //document.getElementById('reflex-status').classList.remove('d-none')
   }
 
   afterReflex () {
-    document.getElementById('reflex-status').classList.add('d-none')
-    setFocus()
+    //document.getElementById('reflex-status').classList.add('d-none')
+    //setFocus()
   }
 }

@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 2020_01_16_184119) do
   end
 
   create_table "campaign_bundles", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "user_id", null: false
     t.string "name", null: false
     t.text "url", null: false
     t.integer "daily_budget_cents", default: 0, null: false
@@ -92,8 +94,10 @@ ActiveRecord::Schema.define(version: 2020_01_16_184119) do
     t.bigint "prohibited_property_ids", default: [], null: false, array: true
     t.bigint "creative_ids", default: [], null: false, array: true
     t.boolean "paid_fallback", default: false
+    t.bigint "campaign_bundle_id"
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
     t.index ["assigned_property_ids"], name: "index_campaigns_on_assigned_property_ids", using: :gin
+    t.index ["campaign_bundle_id"], name: "index_campaigns_on_campaign_bundle_id"
     t.index ["core_hours_only"], name: "index_campaigns_on_core_hours_only"
     t.index ["country_codes"], name: "index_campaigns_on_country_codes", using: :gin
     t.index ["creative_id"], name: "index_campaigns_on_creative_id"

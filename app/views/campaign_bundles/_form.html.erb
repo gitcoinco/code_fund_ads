@@ -1,42 +1,42 @@
 <%= form_with model: @campaign_bundle do |f| %>
   <div class="row">
-    <div class="col-8 form-group">
+    <div class="col form-group">
       <%= f.label :name %>
       <%= f.text_field :name, class: "form-control", required: true %>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-8 form-group">
+    <div class="col form-group">
       <%= f.label :url, "URL" %>
       <%= f.text_field :url, class: "form-control", required: true %>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-3 form-group">
+    <div class="col form-group">
       <%= f.label :daily_budget, "Daily Budget" %>
       <%= f.text_field :daily_budget, class: "form-control", required: true %>
       <small class="form-text text-muted">
         The average you want to spend each day
       </small>
     </div>
-    <div class="col-5 pt-4 text-info">
+    <div class="col mt-4 text-info">
       For the month, you won't pay more than your daily budget times the average number of days in a month.
       Some days you might spend more or less than your daily budget.
     </div>
   </div>
 
   <div class="row">
-    <div class="col-3 form-group">
+    <div class="col form-group">
       <%= f.label :start_date, "Start Date" %>
-      <%= f.text_field :start_date, required: true,
+      <%= f.text_field :start_date, value: @campaign_bundle&.start_date&.to_s("mm/dd/yyyy"), required: true,
         class: "js-range-datepicker form-control bg-white rounded-right",
         data: {controller: "select-date"} %>
     </div>
-    <div class="col-3 form-group">
+    <div class="col form-group">
       <%= f.label :end_date, "End Date" %>
-      <%= f.text_field :end_date,
+      <%= f.text_field :end_date, value: @campaign_bundle&.end_date&.to_s("mm/dd/yyyy"),
         class: "js-range-datepicker form-control bg-white rounded-right",
         data: {controller: "select-date"} %>
       <small class="form-text text-muted">
@@ -46,11 +46,13 @@
   </div>
 
   <div class="row">
-    <div class="col-8">
-      <%= f.label :regions, "Regions" %>
+    <div class="col" data-target="campaign-bundles.regions">
+      <%= f.label :regions, "Locations" %>
       <% Region.order(:name).each do |region| %>
-        <div class="form-check">
-          <%= f.check_box :region_ids, {id: dom_id(region), class: "form-check-input", multiple: true}, region.id, @campaign_bundle.region_ids.include?(region.id) %>
+        <div class="form-check ml-1">
+          <%= f.check_box :region_ids,
+            {id: dom_id(region), class: "form-check-input", multiple: true, data: {reflex: "change->CampaignBundlesReflex#update_region_ids"}},
+            region.id, @campaign_bundle.region_ids.include?(region.id) %>
           <%= f.label region.name, region.name, for: dom_id(region), class: "form-check-label" %>
         </div>
       <% end %>
@@ -58,7 +60,7 @@
   </div>
 
   <div class="row mt-5">
-    <div class="col-12">
+    <div class="col">
       <%= link_to "Add Campaign", "", class: "btn btn-secondary" %>
     </div>
   </div>

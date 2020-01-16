@@ -99,6 +99,33 @@ class Region < ApplicationRecord
     public_send audience.ecpm_column_name.delete_suffix("_cents")
   end
 
+  def daily_impressions_counts(start_date = nil, end_date = nil)
+    results = self.class.connection.execute(
+      DailySummary.between(start_date, end_date).where(impressionable_type: "Property").scoped_by(country_codes, :country_code)
+      .select(:displayed_at_date)
+      .select(DailySummary.arel_table[:impressions_count].sum.as("impressions_count"))
+      .group(:displayed_at_date)
+      .order(:displayed_at_date)
+      .to_sql
+    )
+    results.each_with_object({}) do |row, memo|
+      memo[Date.coerce(row["displayed_at_date"])] = row["impressions_count"]
+    end
+  end
+
+  def average_impressions_counts_by_wday
+    dailies = daily_impressions_counts(90.days.ago, 1.day.ago)
+    grouped_by_wday = dailies.group_by { |date, _| date.wday }
+    grouped_by_wday.each_with_object({}) do |(wday, entries), memo|
+      memo[wday] = (entries.sum(&:last) / entries.size.to_f).floor
+    end
+  end
+
+  def average_daily_impressions_count
+    wday_impressions_counts = average_impressions_counts_by_wday
+    (wday_impressions_counts.values.sum / wday_impressions_counts.size.to_f).floor
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................

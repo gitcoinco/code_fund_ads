@@ -188,6 +188,8 @@ UNION ALL
 
 CREATE TABLE public.campaign_bundles (
     id bigint NOT NULL,
+    organization_id bigint NOT NULL,
+    user_id bigint NOT NULL,
     name character varying NOT NULL,
     url text NOT NULL,
     daily_budget_cents integer DEFAULT 0 NOT NULL,
@@ -256,7 +258,8 @@ CREATE TABLE public.campaigns (
     hourly_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     prohibited_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
     creative_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
-    paid_fallback boolean DEFAULT false
+    paid_fallback boolean DEFAULT false,
+    campaign_bundle_id bigint
 );
 
 
@@ -1985,6 +1988,13 @@ CREATE INDEX index_campaign_bundles_on_start_date ON public.campaign_bundles USI
 --
 
 CREATE INDEX index_campaigns_on_assigned_property_ids ON public.campaigns USING gin (assigned_property_ids);
+
+
+--
+-- Name: index_campaigns_on_campaign_bundle_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_campaign_bundle_id ON public.campaigns USING btree (campaign_bundle_id);
 
 
 --

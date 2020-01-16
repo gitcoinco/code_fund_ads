@@ -1,6 +1,8 @@
 class CreateCampaignBundles < ActiveRecord::Migration[6.0]
   def change
     create_table :campaign_bundles do |t|
+      t.bigint :organization_id, null: false
+      t.bigint :user_id, null: false
       t.string :name, null: false
       t.text :url, null: false
       t.monetize :daily_budget, null: false
@@ -14,5 +16,8 @@ class CreateCampaignBundles < ActiveRecord::Migration[6.0]
       t.index :region_ids, using: :gin
       t.timestamps
     end
+
+    add_column :campaigns, :campaign_bundle_id, :bigint
+    add_index :campaigns, :campaign_bundle_id
   end
 end

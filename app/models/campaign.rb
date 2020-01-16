@@ -31,6 +31,7 @@
 #  weekdays_only           :boolean          default(FALSE)
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  campaign_bundle_id      :bigint
 #  creative_id             :bigint
 #  legacy_id               :uuid
 #  organization_id         :bigint
@@ -39,6 +40,7 @@
 # Indexes
 #
 #  index_campaigns_on_assigned_property_ids    (assigned_property_ids) USING gin
+#  index_campaigns_on_campaign_bundle_id       (campaign_bundle_id)
 #  index_campaigns_on_core_hours_only          (core_hours_only)
 #  index_campaigns_on_country_codes            (country_codes) USING gin
 #  index_campaigns_on_creative_id              (creative_id)
@@ -76,6 +78,7 @@ class Campaign < ApplicationRecord
   include Taggable
 
   # relationships .............................................................
+  belongs_to :campaign_bundle, optional: true
   belongs_to :creative, -> { includes :creative_images }
   belongs_to :user
   has_one :job_posting
@@ -244,6 +247,12 @@ class Campaign < ApplicationRecord
   end
 
   # public instance methods ...................................................
+
+  attr_accessor :temporary_id
+
+  def to_stashable_attributes
+    as_json.merge temporary_id: temporary_id
+  end
 
   def metadata
     key = "#{cache_key_with_version}/metadata"

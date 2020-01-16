@@ -12,6 +12,8 @@
 #  url                   :text             not null
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
+#  organization_id       :bigint           not null
+#  user_id               :bigint           not null
 #
 # Indexes
 #
@@ -24,7 +26,11 @@
 class CampaignBundle < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
+
   # relationships .............................................................
+  belongs_to :organization
+  belongs_to :user
+  has_many :campaigns
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
@@ -38,12 +44,25 @@ class CampaignBundle < ApplicationRecord
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   monetize :daily_budget_cents, numericality: {greater_than_or_equal_to: 0}
+  accepts_nested_attributes_for :campaigns
 
   # class methods .............................................................
   class << self
   end
 
   # public instance methods ...................................................
+
+  def to_stashable_attributes
+    as_json.merge campaigns_attributes: campaigns.map(&:to_stashable_attributes)
+  end
+
+  def average_daily_impressions_count
+    regions.map(&:average_daily_impressions_count).sum
+  end
+
+  def regions
+    Region.where id: region_ids
+  end
 
   # protected instance methods ................................................
   protected
