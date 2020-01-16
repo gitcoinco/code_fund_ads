@@ -14,6 +14,7 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
   test "bottom bar - premium ad with light theme" do
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_script_tag(@property)
+    print page.html
     assert_creative_body @premium_campaign
     assert_campaign_link @premium_campaign
     assert_impression_pixel @property
