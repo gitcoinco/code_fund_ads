@@ -243,7 +243,7 @@ class AdvertisementsController < ApplicationController
     return nil unless property&.active? || property&.pending?
     return nil if device_small? && property.hide_on_responsive?
 
-    campaign_relation = Campaign.active.with_active_creatives.available_on(Date.current)
+    campaign_relation = Campaign.active.available_on(Date.current)
     campaign_relation = sponsor? ? campaign_relation.sponsor : campaign_relation.standard
     campaign_relation = campaign_relation.where(weekdays_only: false) if Date.current.on_weekend?
     campaign_relation = campaign_relation.where(core_hours_only: false) if prohibited_hour?
