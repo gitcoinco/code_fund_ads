@@ -14,6 +14,10 @@ module SystemTestHelper
     assert_text :all, text
   end
 
+  def assert_script_tag(property)
+    assert_css "script[src*='properties/#{property.id}/funder.js']"
+  end
+
   def assert_creative_headline(campaign)
     assert campaign.creative.headline.present?
     assert_text campaign.creative.headline

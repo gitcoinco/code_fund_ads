@@ -14,6 +14,7 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
 
   test "media - premium ad with light theme" do
     visit advertisement_tests_path(@property, test_country_code: "US")
+    assert_script_tag(@property)
     assert_campaign_link @premium_campaign
     assert_powered_by_link(text: "This is a premium campaign Premium ethical ad by CodeFund")
 
@@ -45,6 +46,7 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
   test "media - premium ad with dark theme" do
     @property.update ad_theme: "dark"
     visit advertisement_tests_path(@property, test_country_code: "US")
+    assert_script_tag(@property)
     assert_campaign_link @premium_campaign
     assert_powered_by_link(text: "This is a premium campaign Premium ethical ad by CodeFund")
 
@@ -76,6 +78,7 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
   test "media - fallback ad with light theme" do
     @premium_campaign.update keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
+    assert_script_tag(@property)
     assert_campaign_link @fallback_campaign
     assert_powered_by_link(text: "This is a fallback campaign Fallback ethical ad by CodeFund")
 
@@ -107,6 +110,7 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
   test "media - fallback ad with dark theme" do
     @property.update keywords: [], ad_theme: "dark"
     visit advertisement_tests_path(@property, test_country_code: "US")
+    assert_script_tag(@property)
     assert_campaign_link @fallback_campaign
     assert_powered_by_link(text: "This is a fallback campaign Fallback ethical ad by CodeFund")
 

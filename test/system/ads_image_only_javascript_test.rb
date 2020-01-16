@@ -14,6 +14,7 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
 
   test "image only - premium ad with light theme" do
     visit advertisement_tests_path(@property, test_country_code: "US")
+    assert_script_tag(@property)
     assert_campaign_link @premium_campaign
     assert_powered_by_link(text: "supported by ethical ad by CodeFund")
 
@@ -50,6 +51,7 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
   test "image only - premium ad with dark theme" do
     @property.update ad_theme: "dark"
     visit advertisement_tests_path(@property, test_country_code: "US")
+    assert_script_tag(@property)
     assert_campaign_link @premium_campaign
     assert_powered_by_link(text: "supported by ethical ad by CodeFund")
 
@@ -86,6 +88,7 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
   test "image only - fallback ad with light theme" do
     @premium_campaign.update keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
+    assert_script_tag(@property)
     assert_campaign_link @fallback_campaign
     assert_powered_by_link(text: "supported by ethical ad by CodeFund")
 
@@ -122,6 +125,7 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
   test "image only - fallback ad with dark theme" do
     @property.update keywords: [], ad_theme: "dark"
     visit advertisement_tests_path(@property, test_country_code: "US")
+    assert_script_tag(@property)
     assert_campaign_link @fallback_campaign
     assert_powered_by_link(text: "supported by ethical ad by CodeFund")
 
