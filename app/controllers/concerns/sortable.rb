@@ -3,7 +3,6 @@ module Sortable
 
   included do
     helper_method :sort_column, :sort_direction
-    before_action :reset_current_page
     after_action :update_last_sort_by
   end
 
@@ -51,11 +50,6 @@ module Sortable
 
   def direction
     params[:direction] || session[:sort_direction]
-  end
-
-  def reset_current_page
-    session[:current_page] = 1 if session[:last_controller_name] != controller_name
-    session[:last_controller_name] = controller_name
   end
 
   def update_last_sort_by

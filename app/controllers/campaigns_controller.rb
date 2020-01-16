@@ -109,11 +109,6 @@ class CampaignsController < ApplicationController
     Current.organization = @campaign.organization if @campaign.organization
   end
 
-  def set_current_organization_for_admin
-    return unless authorized_user.can_admin_system?
-    Current.organization = @campaign.organization if @campaign.organization
-  end
-
   def campaign_params
     return advertiser_campaign_params if !authorized_user.can_admin_system? && @campaign.fixed_ecpm
     return extended_advertiser_campaign_params unless authorized_user.can_admin_system?

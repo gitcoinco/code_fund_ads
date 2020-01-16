@@ -1,4 +1,4 @@
-<nav class="pagy-bootstrap-nav pagination" role="navigation" aria-label="pager">
+<nav class="pagy-bootstrap-nav pagination" role="navigation" aria-label="pager" data-controller="pagination">
   <ul class="pagination">
     <li class="page-item"><a href="#" class="page-link" data-reflex="click->PaginationReflex#paginate" data-page="<%= @pagy.prev %>">←</a></li>
     <% @pagy.series.each do |item| %>

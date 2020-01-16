@@ -25,32 +25,30 @@
                 <%= session[:sort_by]&.humanize || "Name" %>
                 <span class="fa fa-caret-down"></span>
               </button>
-            <div class="dropdown-menu dropdown-menu-right stop-propagation">
-              <div class="dropdown-arrow"></div>
-              <h6 class="dropdown-header"> Sort By </h6>
-              <label class="custom-control custom-radio">
+              <div class="dropdown-menu dropdown-menu-right stop-propagation">
+                <div class="dropdown-arrow"></div>
+                <h6 class="dropdown-header"> Sort By </h6>
+                <label class="custom-control custom-radio">
                   <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="0" data-action="click->sortable-list#sort" data-column-name="name" />
                   <span class="custom-control-label">Name</span>
-              </label>
-              <label class="custom-control custom-radio">
+                </label>
+                <label class="custom-control custom-radio">
                   <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="1" data-action="click->sortable-list#sort" data-column-name="updated_at" />
                   <span class="custom-control-label">Updated</span>
-              </label>
-              <label class="custom-control custom-radio">
+                </label>
+                <label class="custom-control custom-radio">
                   <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="2" data-action="click->sortable-list#sort" data-column-name="created_at" />
                   <span class="custom-control-label">Created</span>
-              </label>
+                </label>
+              </div>
             </div>
           </div>
         </div>
-        </div>
       </div>
     </div>
-
     <div class="text-muted px-3 mb-2">
       <%= pagy_entries(pagy) %>
     </div>
-
     <div class="tab-content pb-3" data-reflex-root=".class">
       <div class="tab-pane fade show active" role="tabpanel">
         <div class="list-group list-group-flush list-group-divider" data-target="filterable-list.wrapper">
