@@ -1,7 +1,7 @@
 import ApplicationController from './application_controller'
 
 export default class extends ApplicationController {
-  beforeReflex() {
+  beforeReflex () {
     window.scrollTo(0, 0)
   }
 }
