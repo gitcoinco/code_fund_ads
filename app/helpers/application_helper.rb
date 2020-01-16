@@ -157,6 +157,7 @@ module ApplicationHelper
   def noty_flash
     flash_messages = []
     flash.each do |type, message|
+      next unless message.is_a? String
       type = "success" if type == "notice"
       type = "error" if type == "alert"
       body = {
