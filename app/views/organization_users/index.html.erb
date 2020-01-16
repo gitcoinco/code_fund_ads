@@ -3,7 +3,8 @@
   sidebar: true,
   tabs: true,
   buttons: [
-    layout_button(link: new_organization_user_path(@organization), icon: "fas fa-plus", title: "Add transaction", permissions: authorized_user.can_edit_organization_users?(@organization))
+    generate_organization_report_button(@organization.id),
+    layout_button(link: new_organization_user_path(@organization), icon: "fas fa-plus", title: "Add transaction", permissions: authorized_user.can_edit_organization_users?(@organization)),
   ]
 } do %>
   <%= card do %>

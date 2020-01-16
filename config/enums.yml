@@ -70,6 +70,9 @@
 #   pry>ENUMS::CAMPAIGN_STATUSES[2]          # active
 #
 
+EMAIL_ADDRESSES:
+  eric: eric@codefund.io
+
 BLOCK_LIST:
   - cstream1.com
   - blockedurl.test
