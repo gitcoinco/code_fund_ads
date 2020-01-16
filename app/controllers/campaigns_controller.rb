@@ -5,9 +5,8 @@ class CampaignsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!, only: [:destroy]
-  before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
-  before_action :set_current_organization, only: [:show, :edit]
+  before_action :set_current_organization_for_admin, only: [:show, :edit]
   before_action :authorize_edit!, only: [:edit, :update]
 
   def index
@@ -17,8 +16,6 @@ class CampaignsController < ApplicationController
       .where(organization: Current.organization)
     max = (campaigns.count / Pagy::VARS[:items].to_f).ceil
     @pagy, @campaigns = pagy(campaigns, page: current_page(max: max))
-
-    render "/campaigns/for_user/index" if @user
   end
 
   def show
@@ -107,15 +104,7 @@ class CampaignsController < ApplicationController
     end
   end
 
-  def set_user
-    @user = if authorized_user.can_admin_system?
-      User.find(params[:user_id])
-    else
-      current_user
-    end
-  end
-
-  def set_current_organization
+  def set_current_organization_for_admin
     return unless authorized_user.can_admin_system?
     Current.organization = @campaign.organization if @campaign.organization
   end

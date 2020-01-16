@@ -131,7 +131,7 @@ Rails.application.routes.draw do
   resource :user_passwords, only: [:edit, :update], path: "/password"
 
   scope "/users/:user_id" do
-    resources :campaigns, only: [:index], as: :user_campaigns
+    resources :user_campaigns, only: [:index], path: "/campaigns"
     resources :properties, only: [:index], as: :user_properties
     resources :creatives, only: [:index], as: :user_creatives
     resources :versions, only: [:index], as: :user_versions, path: "/revisions"
