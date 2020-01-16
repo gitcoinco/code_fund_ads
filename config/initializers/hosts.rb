@@ -1,1 +1,7 @@
-Rails.application.config.hosts << ENV["NGROK_HOST"] if Rails.env.development? && ENV["NGROK_HOST"].present?
+return unless Rails.env.development?
+
+if ENV["NGROK_HOST"].present?
+  Rails.application.config.hosts << ENV["NGROK_HOST"]
+elsif ENV["NGROK_SUBDOMAIN"].present?
+  Rails.application.config.hosts << "#{ENV["NGROK_SUBDOMAIN"]}.ngrok.io"
+end
