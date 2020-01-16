@@ -183,6 +183,43 @@ UNION ALL
 
 
 --
+-- Name: campaign_bundles; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.campaign_bundles (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    url text NOT NULL,
+    daily_budget_cents integer DEFAULT 0 NOT NULL,
+    daily_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    start_date date,
+    end_date date,
+    region_ids bigint[] DEFAULT '{}'::bigint[],
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: campaign_bundles_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.campaign_bundles_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: campaign_bundles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.campaign_bundles_id_seq OWNED BY public.campaign_bundles.id;
+
+
+--
 -- Name: campaigns; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -948,64 +985,204 @@ ALTER SEQUENCE public.publisher_invoices_id_seq OWNED BY public.publisher_invoic
 
 CREATE VIEW public.regions AS
  SELECT 1 AS id,
-    'United States and Candada'::text AS name,
+    'Africa'::text AS name,
     'USD'::text AS blockchain_ecpm_currency,
-    1000 AS blockchain_ecpm_cents,
+    75 AS blockchain_ecpm_cents,
     'USD'::text AS css_and_design_ecpm_currency,
-    450 AS css_and_design_ecpm_cents,
+    38 AS css_and_design_ecpm_cents,
     'USD'::text AS dev_ops_ecpm_currency,
-    650 AS dev_ops_ecpm_cents,
+    53 AS dev_ops_ecpm_cents,
     'USD'::text AS game_development_ecpm_currency,
-    425 AS game_development_ecpm_cents,
+    38 AS game_development_ecpm_cents,
     'USD'::text AS javascript_and_frontend_ecpm_currency,
-    625 AS javascript_and_frontend_ecpm_cents,
+    68 AS javascript_and_frontend_ecpm_cents,
     'USD'::text AS miscellaneous_ecpm_currency,
-    425 AS miscellaneous_ecpm_cents,
+    23 AS miscellaneous_ecpm_cents,
     'USD'::text AS mobile_development_ecpm_currency,
-    450 AS mobile_development_ecpm_cents,
+    38 AS mobile_development_ecpm_cents,
     'USD'::text AS web_development_and_backend_ecpm_currency,
-    500 AS web_development_and_backend_ecpm_cents,
-    '{US,CA}'::text[] AS country_codes
+    45 AS web_development_and_backend_ecpm_cents,
+    '{AO,BF,BI,BJ,BW,CD,CF,CG,CI,CM,CV,DJ,DZ,EG,EH,ER,ET,GA,GH,GM,GN,GQ,GW,IO,KE,KM,LR,LS,LY,MA,MG,ML,MR,MU,MW,MZ,NA,NE,NG,RE,RW,SC,SD,SH,SL,SN,SO,SS,ST,SZ,TD,TG,TN,TZ,UG,YT,ZA,ZM,ZW}'::text[] AS country_codes
 UNION ALL
  SELECT 2 AS id,
-    'Europe, Australia and New Zealand'::text AS name,
+    'Americas - Central and Southern'::text AS name,
     'USD'::text AS blockchain_ecpm_currency,
-    900 AS blockchain_ecpm_cents,
+    150 AS blockchain_ecpm_cents,
     'USD'::text AS css_and_design_ecpm_currency,
-    350 AS css_and_design_ecpm_cents,
+    75 AS css_and_design_ecpm_cents,
     'USD'::text AS dev_ops_ecpm_currency,
-    550 AS dev_ops_ecpm_cents,
+    105 AS dev_ops_ecpm_cents,
     'USD'::text AS game_development_ecpm_currency,
-    325 AS game_development_ecpm_cents,
+    75 AS game_development_ecpm_cents,
     'USD'::text AS javascript_and_frontend_ecpm_currency,
-    525 AS javascript_and_frontend_ecpm_cents,
+    135 AS javascript_and_frontend_ecpm_cents,
     'USD'::text AS miscellaneous_ecpm_currency,
-    325 AS miscellaneous_ecpm_cents,
+    45 AS miscellaneous_ecpm_cents,
     'USD'::text AS mobile_development_ecpm_currency,
-    350 AS mobile_development_ecpm_cents,
+    75 AS mobile_development_ecpm_cents,
     'USD'::text AS web_development_and_backend_ecpm_currency,
-    400 AS web_development_and_backend_ecpm_cents,
-    '{AD,AL,AT,AU,AX,BA,BE,BG,BY,CC,CH,CX,CZ,DE,DK,EE,ES,FI,FO,FR,GB,GG,GI,GR,HR,HU,IE,IM,IS,IT,JE,LI,LT,LU,LV,MC,MD,ME,MK,MT,NF,NL,NO,NZ,PL,PT,RO,RS,SE,SI,SJ,SK,SM,UA,VA}'::text[] AS country_codes
+    90 AS web_development_and_backend_ecpm_cents,
+    '{AR,BO,BR,BZ,CL,CO,CR,EC,FK,GF,GS,GT,GY,HN,MX,NI,PA,PE,PY,SR,SV,UY,VE}'::text[] AS country_codes
 UNION ALL
  SELECT 3 AS id,
+    'Americas - Northern'::text AS name,
+    'USD'::text AS blockchain_ecpm_currency,
+    750 AS blockchain_ecpm_cents,
+    'USD'::text AS css_and_design_ecpm_currency,
+    375 AS css_and_design_ecpm_cents,
+    'USD'::text AS dev_ops_ecpm_currency,
+    525 AS dev_ops_ecpm_cents,
+    'USD'::text AS game_development_ecpm_currency,
+    375 AS game_development_ecpm_cents,
+    'USD'::text AS javascript_and_frontend_ecpm_currency,
+    675 AS javascript_and_frontend_ecpm_cents,
+    'USD'::text AS miscellaneous_ecpm_currency,
+    225 AS miscellaneous_ecpm_cents,
+    'USD'::text AS mobile_development_ecpm_currency,
+    375 AS mobile_development_ecpm_cents,
+    'USD'::text AS web_development_and_backend_ecpm_currency,
+    450 AS web_development_and_backend_ecpm_cents,
+    '{US,CA}'::text[] AS country_codes
+UNION ALL
+ SELECT 4 AS id,
+    'Asia - Central and South-Eastern'::text AS name,
+    'USD'::text AS blockchain_ecpm_currency,
+    225 AS blockchain_ecpm_cents,
+    'USD'::text AS css_and_design_ecpm_currency,
+    113 AS css_and_design_ecpm_cents,
+    'USD'::text AS dev_ops_ecpm_currency,
+    158 AS dev_ops_ecpm_cents,
+    'USD'::text AS game_development_ecpm_currency,
+    113 AS game_development_ecpm_cents,
+    'USD'::text AS javascript_and_frontend_ecpm_currency,
+    203 AS javascript_and_frontend_ecpm_cents,
+    'USD'::text AS miscellaneous_ecpm_currency,
+    68 AS miscellaneous_ecpm_cents,
+    'USD'::text AS mobile_development_ecpm_currency,
+    113 AS mobile_development_ecpm_cents,
+    'USD'::text AS web_development_and_backend_ecpm_currency,
+    135 AS web_development_and_backend_ecpm_cents,
+    '{BN,ID,KG,KH,KZ,LA,MM,MY,PH,SG,TH,TJ,TL,TM,UZ,VN}'::text[] AS country_codes
+UNION ALL
+ SELECT 5 AS id,
+    'Asia - Eastern'::text AS name,
+    'USD'::text AS blockchain_ecpm_currency,
+    225 AS blockchain_ecpm_cents,
+    'USD'::text AS css_and_design_ecpm_currency,
+    113 AS css_and_design_ecpm_cents,
+    'USD'::text AS dev_ops_ecpm_currency,
+    158 AS dev_ops_ecpm_cents,
+    'USD'::text AS game_development_ecpm_currency,
+    113 AS game_development_ecpm_cents,
+    'USD'::text AS javascript_and_frontend_ecpm_currency,
+    203 AS javascript_and_frontend_ecpm_cents,
+    'USD'::text AS miscellaneous_ecpm_currency,
+    68 AS miscellaneous_ecpm_cents,
+    'USD'::text AS mobile_development_ecpm_currency,
+    113 AS mobile_development_ecpm_cents,
+    'USD'::text AS web_development_and_backend_ecpm_currency,
+    135 AS web_development_and_backend_ecpm_cents,
+    '{CN,HK,JP,KP,KR,MN,MO,TW}'::text[] AS country_codes
+UNION ALL
+ SELECT 6 AS id,
+    'Asia - Southern and Western'::text AS name,
+    'USD'::text AS blockchain_ecpm_currency,
+    225 AS blockchain_ecpm_cents,
+    'USD'::text AS css_and_design_ecpm_currency,
+    113 AS css_and_design_ecpm_cents,
+    'USD'::text AS dev_ops_ecpm_currency,
+    158 AS dev_ops_ecpm_cents,
+    'USD'::text AS game_development_ecpm_currency,
+    113 AS game_development_ecpm_cents,
+    'USD'::text AS javascript_and_frontend_ecpm_currency,
+    203 AS javascript_and_frontend_ecpm_cents,
+    'USD'::text AS miscellaneous_ecpm_currency,
+    68 AS miscellaneous_ecpm_cents,
+    'USD'::text AS mobile_development_ecpm_currency,
+    113 AS mobile_development_ecpm_cents,
+    'USD'::text AS web_development_and_backend_ecpm_currency,
+    135 AS web_development_and_backend_ecpm_cents,
+    '{AE,AF,AM,AZ,BD,BH,BT,CY,GE,IL,IN,IQ,IR,JO,KW,LB,LK,MV,NP,OM,PK,PS,QA,SA,SY,TR,YE}'::text[] AS country_codes
+UNION ALL
+ SELECT 7 AS id,
+    'Australia and New Zealand'::text AS name,
+    'USD'::text AS blockchain_ecpm_currency,
+    750 AS blockchain_ecpm_cents,
+    'USD'::text AS css_and_design_ecpm_currency,
+    375 AS css_and_design_ecpm_cents,
+    'USD'::text AS dev_ops_ecpm_currency,
+    525 AS dev_ops_ecpm_cents,
+    'USD'::text AS game_development_ecpm_currency,
+    375 AS game_development_ecpm_cents,
+    'USD'::text AS javascript_and_frontend_ecpm_currency,
+    675 AS javascript_and_frontend_ecpm_cents,
+    'USD'::text AS miscellaneous_ecpm_currency,
+    225 AS miscellaneous_ecpm_cents,
+    'USD'::text AS mobile_development_ecpm_currency,
+    375 AS mobile_development_ecpm_cents,
+    'USD'::text AS web_development_and_backend_ecpm_currency,
+    450 AS web_development_and_backend_ecpm_cents,
+    '{AU,CC,CX,NF,NZ}'::text[] AS country_codes
+UNION ALL
+ SELECT 8 AS id,
+    'Europe'::text AS name,
+    'USD'::text AS blockchain_ecpm_currency,
+    675 AS blockchain_ecpm_cents,
+    'USD'::text AS css_and_design_ecpm_currency,
+    338 AS css_and_design_ecpm_cents,
+    'USD'::text AS dev_ops_ecpm_currency,
+    473 AS dev_ops_ecpm_cents,
+    'USD'::text AS game_development_ecpm_currency,
+    338 AS game_development_ecpm_cents,
+    'USD'::text AS javascript_and_frontend_ecpm_currency,
+    608 AS javascript_and_frontend_ecpm_cents,
+    'USD'::text AS miscellaneous_ecpm_currency,
+    203 AS miscellaneous_ecpm_cents,
+    'USD'::text AS mobile_development_ecpm_currency,
+    338 AS mobile_development_ecpm_cents,
+    'USD'::text AS web_development_and_backend_ecpm_currency,
+    405 AS web_development_and_backend_ecpm_cents,
+    '{AD,AL,AT,AX,BA,BE,CH,DE,DK,EE,ES,FI,FO,FR,GB,GG,GI,GR,HR,IE,IM,IS,IT,JE,LI,LT,LU,LV,MC,ME,MK,MT,NL,NO,PT,RS,SE,SI,SJ,SM,VA}'::text[] AS country_codes
+UNION ALL
+ SELECT 9 AS id,
+    'Europe - Eastern'::text AS name,
+    'USD'::text AS blockchain_ecpm_currency,
+    450 AS blockchain_ecpm_cents,
+    'USD'::text AS css_and_design_ecpm_currency,
+    225 AS css_and_design_ecpm_cents,
+    'USD'::text AS dev_ops_ecpm_currency,
+    315 AS dev_ops_ecpm_cents,
+    'USD'::text AS game_development_ecpm_currency,
+    225 AS game_development_ecpm_cents,
+    'USD'::text AS javascript_and_frontend_ecpm_currency,
+    405 AS javascript_and_frontend_ecpm_cents,
+    'USD'::text AS miscellaneous_ecpm_currency,
+    135 AS miscellaneous_ecpm_cents,
+    'USD'::text AS mobile_development_ecpm_currency,
+    225 AS mobile_development_ecpm_cents,
+    'USD'::text AS web_development_and_backend_ecpm_currency,
+    270 AS web_development_and_backend_ecpm_cents,
+    '{BG,BY,CZ,HU,MD,PL,RO,RU,SK,UA}'::text[] AS country_codes
+UNION ALL
+ SELECT 10 AS id,
     'Other'::text AS name,
     'USD'::text AS blockchain_ecpm_currency,
-    600 AS blockchain_ecpm_cents,
+    75 AS blockchain_ecpm_cents,
     'USD'::text AS css_and_design_ecpm_currency,
-    50 AS css_and_design_ecpm_cents,
+    38 AS css_and_design_ecpm_cents,
     'USD'::text AS dev_ops_ecpm_currency,
-    250 AS dev_ops_ecpm_cents,
+    53 AS dev_ops_ecpm_cents,
     'USD'::text AS game_development_ecpm_currency,
-    25 AS game_development_ecpm_cents,
+    38 AS game_development_ecpm_cents,
     'USD'::text AS javascript_and_frontend_ecpm_currency,
-    225 AS javascript_and_frontend_ecpm_cents,
+    68 AS javascript_and_frontend_ecpm_cents,
     'USD'::text AS miscellaneous_ecpm_currency,
-    25 AS miscellaneous_ecpm_cents,
+    23 AS miscellaneous_ecpm_cents,
     'USD'::text AS mobile_development_ecpm_currency,
-    50 AS mobile_development_ecpm_cents,
+    38 AS mobile_development_ecpm_cents,
     'USD'::text AS web_development_and_backend_ecpm_currency,
-    100 AS web_development_and_backend_ecpm_cents,
-    '{AE,AF,AG,AI,AM,AO,AR,AS,AW,AZ,BB,BD,BF,BH,BI,BJ,BL,BM,BN,BO,BQ,BR,BS,BT,BW,BZ,CD,CF,CG,CI,CK,CL,CM,CN,CO,CR,CU,CV,CW,CY,DJ,DM,DO,DZ,EC,EG,EH,ER,ET,FJ,FK,FM,GA,GD,GE,GF,GH,GL,GM,GN,GP,GQ,GS,GT,GU,GW,GY,HK,HN,HT,ID,IL,IN,IO,IQ,IR,JM,JO,JP,KE,KG,KH,KI,KM,KN,KP,KR,KW,KY,KZ,LA,LB,LC,LK,LR,LS,LY,MA,MF,MG,MH,ML,MM,MN,MO,MP,MQ,MR,MS,MU,MV,MW,MX,MY,MZ,NA,NC,NE,NG,NI,NP,NR,NU,OM,PA,PE,PF,PG,PH,PK,PM,PN,PR,PS,PW,PY,QA,RE,RU,RW,SA,SB,SC,SD,SG,SH,SL,SN,SO,SR,SS,ST,SV,SX,SY,SZ,TC,TD,TG,TH,TJ,TK,TL,TM,TN,TO,TR,TT,TV,TW,TZ,UG,UM,UY,UZ,VC,VE,VG,VI,VN,VU,WF,WS,YE,YT,ZA,ZM,ZW}'::text[] AS country_codes;
+    45 AS web_development_and_backend_ecpm_cents,
+    '{AG,AI,AS,AW,BB,BL,BM,BQ,BS,CK,CU,CW,DM,DO,FJ,FM,GD,GL,GP,GU,HT,JM,KI,KN,KY,LC,MF,MH,MP,MQ,MS,NC,NR,NU,PF,PG,PM,PN,PR,PW,SB,SX,TC,TK,TO,TT,TV,UM,VC,VG,VI,VU,WF,WS}'::text[] AS country_codes;
 
 
 --
@@ -1192,6 +1369,13 @@ ALTER TABLE ONLY public.active_storage_blobs ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: campaign_bundles id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.campaign_bundles ALTER COLUMN id SET DEFAULT nextval('public.campaign_bundles_id_seq'::regclass);
+
+
+--
 -- Name: campaigns id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1346,6 +1530,14 @@ ALTER TABLE ONLY public.active_storage_blobs
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
+
+
+--
+-- Name: campaign_bundles campaign_bundles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.campaign_bundles
+    ADD CONSTRAINT campaign_bundles_pkey PRIMARY KEY (id);
 
 
 --
@@ -1758,6 +1950,34 @@ CREATE INDEX index_active_storage_blobs_on_indexed_metadata ON public.active_sto
 --
 
 CREATE UNIQUE INDEX index_active_storage_blobs_on_key ON public.active_storage_blobs USING btree (key);
+
+
+--
+-- Name: index_campaign_bundles_on_end_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaign_bundles_on_end_date ON public.campaign_bundles USING btree (end_date);
+
+
+--
+-- Name: index_campaign_bundles_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaign_bundles_on_name ON public.campaign_bundles USING btree (lower((name)::text));
+
+
+--
+-- Name: index_campaign_bundles_on_region_ids; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaign_bundles_on_region_ids ON public.campaign_bundles USING gin (region_ids);
+
+
+--
+-- Name: index_campaign_bundles_on_start_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaign_bundles_on_start_date ON public.campaign_bundles USING btree (start_date);
 
 
 --
@@ -2642,6 +2862,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191105141709'),
 ('20191105190354'),
 ('20191201235552'),
-('20191218185622');
+('20191218185622'),
+('20200116165511'),
+('20200116184119');
 
 

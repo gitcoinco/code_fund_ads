@@ -3,29 +3,41 @@
 # Table name: properties
 #
 #  id                             :bigint           not null, primary key
-#  user_id                        :bigint           not null
-#  property_type                  :string           not null
-#  status                         :string           not null
-#  name                           :string           not null
-#  description                    :text
-#  url                            :text             not null
 #  ad_template                    :string
 #  ad_theme                       :string
-#  language                       :string           not null
-#  keywords                       :string           default([]), not null, is an Array
-#  prohibited_advertiser_ids      :bigint           default([]), not null, is an Array
-#  prohibit_fallback_campaigns    :boolean          default(FALSE), not null
-#  created_at                     :datetime         not null
-#  updated_at                     :datetime         not null
-#  legacy_id                      :uuid
-#  revenue_percentage             :decimal(, )      default(0.6), not null
 #  assigned_fallback_campaign_ids :bigint           default([]), not null, is an Array
-#  restrict_to_assigner_campaigns :boolean          default(FALSE), not null
+#  deleted_at                     :datetime
+#  description                    :text
 #  fallback_ad_template           :string
 #  fallback_ad_theme              :string
+#  keywords                       :string           default([]), not null, is an Array
+#  language                       :string           not null
+#  name                           :string           not null
+#  prohibit_fallback_campaigns    :boolean          default(FALSE), not null
+#  prohibited_advertiser_ids      :bigint           default([]), not null, is an Array
+#  property_type                  :string           not null
 #  responsive_behavior            :string           default("none"), not null
+#  restrict_to_assigner_campaigns :boolean          default(FALSE), not null
+#  revenue_percentage             :decimal(, )      default(0.6), not null
+#  status                         :string           not null
+#  url                            :text             not null
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
 #  audience_id                    :bigint
-#  deleted_at                     :datetime
+#  legacy_id                      :uuid
+#  user_id                        :bigint           not null
+#
+# Indexes
+#
+#  index_properties_on_assigned_fallback_campaign_ids  (assigned_fallback_campaign_ids) USING gin
+#  index_properties_on_audience_id                     (audience_id)
+#  index_properties_on_deleted_at                      (deleted_at)
+#  index_properties_on_keywords                        (keywords) USING gin
+#  index_properties_on_name                            (lower((name)::text))
+#  index_properties_on_prohibited_advertiser_ids       (prohibited_advertiser_ids) USING gin
+#  index_properties_on_property_type                   (property_type)
+#  index_properties_on_status                          (status)
+#  index_properties_on_user_id                         (user_id)
 #
 
 require "factory_bot_rails"

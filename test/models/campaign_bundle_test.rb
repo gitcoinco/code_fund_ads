@@ -1,0 +1,30 @@
+# == Schema Information
+#
+# Table name: campaign_bundles
+#
+#  id                    :bigint           not null, primary key
+#  daily_budget_cents    :integer          default(0), not null
+#  daily_budget_currency :string           default("USD"), not null
+#  end_date              :date
+#  name                  :string           not null
+#  region_ids            :bigint           default([]), is an Array
+#  start_date            :date
+#  url                   :text             not null
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#
+# Indexes
+#
+#  index_campaign_bundles_on_end_date    (end_date)
+#  index_campaign_bundles_on_name        (lower((name)::text))
+#  index_campaign_bundles_on_region_ids  (region_ids) USING gin
+#  index_campaign_bundles_on_start_date  (start_date)
+#
+
+require "test_helper"
+
+class CampaignBundleTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
+end

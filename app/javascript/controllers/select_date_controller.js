@@ -7,7 +7,8 @@ export default class extends Controller {
   connect () {
     jQuery(this.element).daterangepicker({
       singleDatePicker: true,
-      showDropdowns: true
+      showDropdowns: true,
+      autoUpdateInput: false
     })
   }
 }
