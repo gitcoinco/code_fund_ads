@@ -77,8 +77,6 @@ BLOCK_LIST:
 ORGANIZATION_ROLES:
   - administrator
   - member
-  # DEPRECATE: [OrganizationUser#owners] Delete owner role
-  - owner
 
 USER_ROLES:
   - administrator

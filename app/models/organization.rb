@@ -34,8 +34,6 @@ class Organization < ApplicationRecord
   has_many :users, through: :organization_users
   has_many :administrators, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::ADMINISTRATOR} }, through: :organization_users, source: "user"
   has_many :members, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::MEMBER} }, through: :organization_users, source: "user"
-  # DEPRECATE: [OrganizationUser#owners] Delete relationship Organzation#owners
-  has_many :owners, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::OWNER} }, through: :organization_users, source: "user"
 
   # validations ...............................................................
   validates :name, presence: true
@@ -44,8 +42,7 @@ class Organization < ApplicationRecord
       record.errors.add(attr, "'#{value}' is reserved")
     end
   end
-  # DEPRECATE: [OrganizationUser#owners] Uncomment validation
-  # validate :administrator_exists_validator, if: proc { |record| record.organization_users.exists? }
+  validate :administrator_exists_validator, if: proc { |record| record.organization_users.exists? }
 
   # callbacks .................................................................
 
@@ -82,12 +79,6 @@ class Organization < ApplicationRecord
   end
 
   # public instance methods ...................................................
-
-  # DEPRECATE: [OrganizationUser#owners] Delete deprecation method
-  def owners
-    ActiveSupport::Deprecation.warn("Organization#owners is deprecated. Use Organization#administrator instead.")
-    super
-  end
 
   def total_debits
     Money.new(organization_transactions.debits.sum(&:amount_cents), "USD")

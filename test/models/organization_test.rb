@@ -66,11 +66,10 @@ class OrganizationTest < ActiveSupport::TestCase
     assert organization.members
   end
 
-  # DEPRECATE: [OrganizationUser#owners] Uncomment test
-  # test "administrator must exist validation" do
-  #   organization = organizations(:default)
-  #   organization.administrators.delete_all
-  #   assert_not organization.valid?
-  #   assert_includes organization.errors.messages.to_s, "You need at least one"
-  # end
+  test "administrator must exist validation" do
+    organization = organizations(:default)
+    organization.administrators.delete_all
+    assert_not organization.valid?
+    assert_includes organization.errors.messages.to_s, "You need at least one"
+  end
 end
