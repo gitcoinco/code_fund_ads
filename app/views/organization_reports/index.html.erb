@@ -1,6 +1,9 @@
 <%= render layout: "/shared/layout", locals: {
   subject: @organization,
-  sidebar: false
+  sidebar: false,
+  buttons: [
+    generate_organization_report_button(@organization.id),
+  ],
 } do %>
   <div class="row">
     <div class="col-md-6">

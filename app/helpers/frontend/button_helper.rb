@@ -19,6 +19,11 @@ module Frontend
       link_to "Cancel", path, class: "btn btn-light ml-1 #{add_class}"
     end
 
+    def generate_organization_report_button(id)
+      return "" unless authorized_user.can_admin_system?
+      button_tag("Generate Reports", data: {reflex: "click->OrganizationReportsReflex#generate", id: id, controller: "organization-reports"}, class: "ml-1 btn btn-primary", style: "height:2.5rem;")
+    end
+
     def layout_button(link: "#", icon: nil, add_class: "", target: "", title: nil, admin: false, method: :get, confirmation_message: nil, permissions: true)
       return "" if admin && !authorized_user.can_admin_system?
       return "" unless permissions
