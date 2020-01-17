@@ -79,7 +79,7 @@ jobs:
       - run:
           name: set up DB
           command: bundle exec rails db:drop db:create db:structure:load --trace
-      # This task is broken until Rails 6.0.3 is released. See comment in bin/standardize
+      # This task is broken until Rails 6.0.3 is released. See comment in bin/standardize.
       # - run:
       #     name: run zeitwerk:check
       #     command: bundle exec rails zeitwerk:check
