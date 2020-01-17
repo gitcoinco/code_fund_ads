@@ -1,13 +1,114 @@
-name: Run Tests & Linters
+# name: Run Tests & Linters
+
+# on:
+#   pull_request:
+#     branches:
+#       - '*'
+#   push:
+#     branches:
+#       - master
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     services:
+#       postgres:
+#         image: postgres:11
+#         env:
+#           POSTGRES_USER: postgres
+#           POSTGRES_PASSWORD: postgres
+#           POSTGRES_DB: postgres
+#         ports: ['5432:5432']
+#         options: >-
+#           --health-cmd pg_isready
+#           --health-interval 10s
+#           --health-timeout 5s
+#           --health-retries 5
+#       redis:
+#         image: redis
+#         ports: ['6379:6379']
+#         options: --entrypoint redis-server
+#     container:
+#       image: andrewmcodes/locomotive:v0.0.1
+#       env:
+#         DEFAULT_HOST: app.codefund.io
+#     steps:
+#     - uses: actions/checkout@v2
+
+#     - name: Get Yarn Cache
+#       id: yarn-cache
+#       run: echo "::set-output name=dir::$(yarn cache dir)"
+
+#     - name: Cache Node Modules
+#       id: node-modules-cache
+#       uses: actions/cache@v1
+#       with:
+#         path: ${{ steps.yarn-cache.outputs.dir }}
+#         key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+#         restore-keys: |
+#           ${{ runner.os }}-yarn-
+
+#     - name: Cache Gems
+#       id: gem-cache
+#       uses: actions/cache@v1
+#       with:
+#         path: vendor/bundle
+#         key: ${{ runner.os }}-gem-${{ hashFiles('**/Gemfile.lock') }}
+#         restore-keys: |
+#           ${{ runner.os }}-gem-
+
+#     - name: Cache Assets
+#       id: assets-cache
+#       uses: actions/cache@v1
+#       with:
+#         path: public/packs-test
+#         key: ${{ runner.os }}-assets-${{ steps.extract_branch.outputs.branch }}
+#         restore-keys: |
+#           ${{ runner.os }}-assets-
+
+#     - name: Bundle Install
+#       run: bundle install --path vendor/bundle --jobs 4 --retry 3
+
+#     - name: Yarn Install
+#       run: bin/rails yarn:install
+
+#     - name: Compile Assets
+#       shell: bash
+#       run: |
+#         if [[ ! -d public/packs-test ]]; then
+#           bundle exec rails webpacker:compile
+#         else
+#           echo "No need to compile assets."
+#         fi
+
+#     - name: Setup DB
+#       run: bin/rails db:drop db:create db:structure:load --trace
+
+#     - name: Run Rails Tests
+#       run: |
+#         bin/rails test
+#         bin/rails test:system
+
+#     - name: Zeitwerk Check
+#       run: bundle exec rails zeitwerk:check
+
+#     - name: StandardRB Check
+#       run: bundle exec standardrb --format progress
+
+#     - name: ERB Lint
+#       run: bundle exec erblint app/views_redesigned/**/*.html.erb
+
+#     - name: Prettier-Standard Check
+#       run: yarn run --ignore-engines prettier-standard --check 'app/**/*.js'
+name: Test
 
 on:
-  pull_request:
-    branches:
-      - '*'
+  # pull_request:
+  #   branches:
+  #     - '*'
   push:
     branches:
       - master
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -29,11 +130,20 @@ jobs:
         ports: ['6379:6379']
         options: --entrypoint redis-server
     container:
-      image: andrewmcodes/locomotive:v0.0.1
+      image: andrewmcodes/locomotive:latest
       env:
         DEFAULT_HOST: app.codefund.io
+
     steps:
-    - uses: actions/checkout@v1
+    - name: Checkout
+      uses: meetup/express-checkout@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.CLONE_TOKEN }}
+
+    - name: Extract branch name
+      shell: bash
+      run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+      id: extract_branch
 
     - name: Get Yarn Cache
       id: yarn-cache
@@ -73,15 +183,14 @@ jobs:
       run: bin/rails yarn:install
 
     - name: Compile Assets
-      shell: bash
-      run: |
-        if [[ ! -d public/packs-test ]]; then
-          bundle exec rails webpacker:compile
-        else
-          echo "No need to compile assets."
-        fi
+      run: bin/rails webpacker:compile
 
     - name: Setup DB
+      # env:
+      #   PG_HOST: postgres
+      #   PG_USERNAME: postgres
+      #   PG_PASSWORD: postgres
+      #   RAILS_ENV: test
       run: bin/rails db:drop db:create db:structure:load --trace
 
     - name: Run Rails Tests
@@ -94,9 +203,6 @@ jobs:
 
     - name: StandardRB Check
       run: bundle exec standardrb --format progress
-
-    - name: ERB Lint
-      run: bundle exec erblint app/views_redesigned/**/*.html.erb
 
     - name: Prettier-Standard Check
       run: yarn run --ignore-engines prettier-standard --check 'app/**/*.js'
