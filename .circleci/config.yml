@@ -41,7 +41,7 @@ jobs:
             - yarn-cache-v1-2
       - run:
           name: Set up assets cache key
-          command: find app/javascript app/assets -type f -exec md5 -q {} \; > dependency_checksum
+          command: find app/javascript -type f -exec md5 -q {} \; > dependency_checksum
       - restore_cache:
           name: restore assets cache
           keys:
@@ -69,7 +69,7 @@ jobs:
           name: save yarn cache
           paths:
             - ~/.cache/yarn
-          key: yarn-cache-v1-2-{{ arch }}--{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: yarn-cache-v1-2-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - save_cache:
           name: save assets cache
           paths:
@@ -100,4 +100,4 @@ jobs:
           command: bundle exec erblint app/views/**/*.html.erb
       - run:
           name: run prettier-standard check
-          command: yarn run --ignore-engines prettier-standard --check 'app/**/*.js'
+          command: yarn run --ignore-engines prettier-standard --check "app/**/*.js"
