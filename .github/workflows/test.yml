@@ -134,6 +134,7 @@ jobs:
       env:
         DEFAULT_HOST: app.codefund.io
         WORDPRESS_URL: test.com
+        CAMPAIGN_DEMO_ID: "395"
 
     steps:
     - uses: actions/checkout@v2
