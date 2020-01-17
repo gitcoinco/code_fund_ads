@@ -68,7 +68,9 @@ jobs:
             - code_fund_ads-bundle-v2-
       - run:
           name: Bundle Install
-          command: bundle check || bundle install
+          command: |
+            gem install bundler
+            bundle check || bundle install
       - restore_cache:
           keys:
             - code_fund_ads-yarn-{{ checksum "yarn.lock" }}
