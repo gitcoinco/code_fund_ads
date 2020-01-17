@@ -133,6 +133,7 @@ jobs:
       image: andrewmcodes/locomotive:latest
       env:
         DEFAULT_HOST: app.codefund.io
+        WORDPRESS_URL: test.com
 
     steps:
     - uses: actions/checkout@v2
