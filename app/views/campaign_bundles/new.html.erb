@@ -8,15 +8,17 @@
       <div class="card mt-5">
         <div class="card-header bg-muted">
           Estimated Inventory
-          <small class="opacity-60 d-block">All inventory including sold &amp; unsold</small>
+          <small class="opacity-60 d-block">Includes both sold &amp; unsold inventory</small>
         </div>
         <div class="card-body mb-2">
-          <div data-target="campaign-bundles.activity" hidden>Recalculating estimates...</div>
+          <div class="font-weight-bold text-danger" data-target="campaign-bundles.activity" hidden>
+            Recalculating estimates...
+          </div>
           <div data-target="campaign-bundles.estimates">
             <% if @campaign_bundle.end_date %>
-              <div><strong><%= %></strong> <small>Impressions</small></div>
+              <div><%= %> <small>Impressions</small></div>
             <% end %>
-            <div><strong><%= number_to_human @campaign_bundle.average_daily_impressions_count %></strong> <small>Daily Impressions</small></div>
+            <div class="text-success"><%= number_to_human(@campaign_bundle.average_daily_impressions_count).downcase %> <strong>daily</strong> impressions</div>
             <small class="d-block mt-2 opacity-60">Based on your targeting and settings but not your budget or available inventory</small>
           </div>
         </div>

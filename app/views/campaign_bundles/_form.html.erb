@@ -51,11 +51,15 @@
       <% Region.order(:name).each do |region| %>
         <div class="form-check ml-1">
           <%= f.check_box :region_ids,
-            {id: dom_id(region), class: "form-check-input", multiple: true, data: {reflex: "change->CampaignBundlesReflex#update_region_ids"}},
+            {id: dom_id(region), class: "form-check-input", multiple: true, data: {action: "change->campaign-bundles#updateSelectedRegionIds"}},
             region.id, @campaign_bundle.region_ids.include?(region.id) %>
           <%= f.label region.name, region.name, for: dom_id(region), class: "form-check-label" %>
         </div>
       <% end %>
+      <div class="mt-2">
+        <a href="#" class="btn btn-link btn-secondary" data-action="click->campaign-bundles#selectAllRegionIds">Select All</a>
+        <a href="#" class="btn btn-link btn-secondary" data-action="click->campaign-bundles#deselectAllRegionIds">Clear Selections</a>
+      </div>
     </div>
   </div>
 

@@ -57,7 +57,7 @@ class CampaignBundle < ApplicationRecord
   end
 
   def average_daily_impressions_count
-    regions.map(&:average_daily_impressions_count).sum
+    Region.average_daily_impressions_count(*regions)
   end
 
   def regions
