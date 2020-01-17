@@ -1,16 +1,17 @@
 <div class="container mt-5 position-relative" data-controller="campaign-bundles">
   <div class="row">
-    <div class="col-9">
+    <div class="col-8">
       <h1>New Ad Bundle</h1>
       <%= render "/campaign_bundles/form" %>
     </div>
-    <div class="col-3 pt-5">
+    <div class="col-4">
       <div class="card mt-5">
         <div class="card-header bg-muted">
           Estimated Inventory
           <small class="opacity-60 d-block">Includes both sold &amp; unsold inventory</small>
         </div>
         <div class="card-body mb-2">
+          <small class="d-block mb-2 opacity-60">Based on your targeting and settings but not your budget or available inventory</small>
           <div class="font-weight-bold text-danger" data-target="campaign-bundles.activity" hidden>
             Recalculating estimates...
           </div>
@@ -18,8 +19,16 @@
             <% if @campaign_bundle.end_date %>
               <div><%= %> <small>Impressions</small></div>
             <% end %>
-            <div class="text-success"><%= number_to_human(@campaign_bundle.average_daily_impressions_count).downcase %> <strong>daily</strong> impressions</div>
-            <small class="d-block mt-2 opacity-60">Based on your targeting and settings but not your budget or available inventory</small>
+            <h5><%= number_to_human(@campaign_bundle.average_daily_impressions_count).downcase %> daily impressions</h5>
+            <hr />
+            <h6 class="mb-3">Top Countries</h6>
+            <% @campaign_bundle.countries.sort_by(&:average_daily_impressions_count).reverse[0,12].each do |country| %>
+              <div class="mb-2">
+                <%= country.emoji_flag %>
+                <%= truncate country.name, length: 24 %>
+                <small class="opacity-60"><%= number_to_human(country.average_daily_impressions_count).downcase %></small>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>

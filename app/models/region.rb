@@ -88,51 +88,14 @@ class Region < ApplicationRecord
       find 10
     end
 
-    def daily_impressions_counts(start_date, end_date, *regions)
-      results = connection.execute(
-        DailySummary.between(start_date, end_date).where(impressionable_type: "Property").scoped_by(regions.map(&:country_codes).flatten, :country_code)
-          .select(:displayed_at_date)
-          .select(DailySummary.arel_table[:impressions_count].sum.as("impressions_count"))
-          .group(:displayed_at_date)
-          .order(:displayed_at_date)
-          .to_sql
-      )
-      results.each_with_object({}) do |row, memo|
-        memo[Date.coerce(row["displayed_at_date"])] = row["impressions_count"]
-      end
-    end
-
-    def day_of_week_impressions_counts(start_date, end_date, *regions)
-      # the db query returns total impressions by day of week for the specified date range,
-      # but we still need to calculate the average impressions for each week day
-      # based on week day counts in the range between start_date and end_date
-      # i.e. how many Sundays, Mondays, ... are in the range etc...
-
-      start_date = Date.coerce(start_date)
-      end_date = Date.coerce(end_date)
-
-      results = connection.execute(
-        DailySummary.between(start_date, end_date).where(impressionable_type: "Property").scoped_by(regions.map(&:country_codes).flatten, :country_code)
-        .select(Arel::Nodes::NamedFunction.new("DATE_PART", [Arel::Nodes::SqlLiteral.new("'dow'"), DailySummary.arel_table[:displayed_at_date]]).as("day_of_week"))
-        .select(DailySummary.arel_table[:impressions_count].sum.as("impressions_count"))
-        .group(:day_of_week)
-        .order(:day_of_week)
-        .to_sql
-      )
-
-      day_of_week_counts = (start_date..end_date).each_with_object({}) { |date, memo|
-        memo[date.wday] ||= 0
-        memo[date.wday] += 1
-      }
-
-      results.each_with_object({}) do |row, memo|
-        day_of_week = row["day_of_week"].to_i
-        memo[day_of_week] = (row["impressions_count"] / day_of_week_counts[day_of_week].to_f).floor
-      end
-    end
-
     def average_day_of_week_impressions_counts(*regions)
-      day_of_week_impressions_counts(90.days.ago, 1.day.ago, *regions)
+      country_counts = regions.map { |region| Country.average_day_of_week_impressions_counts(*region.countries) }
+      country_counts.each_with_object({}) { |entry, memo|
+        entry.each do |day_of_week, count|
+          memo[day_of_week] ||= 0
+          memo[day_of_week] += count
+        end
+      }
     end
 
     def average_daily_impressions_count(*regions)
@@ -152,16 +115,16 @@ class Region < ApplicationRecord
     public_send audience.ecpm_column_name.delete_suffix("_cents")
   end
 
-  def daily_impressions_counts(start_date, end_date)
-    Region.daily_impressions_counts start_date, end_date, self
+  def countries
+    @countries ||= Country.where(iso_code: country_codes)
   end
 
   def average_day_of_week_impressions_counts
-    Region.average_day_of_week_impressions_counts self
+    @average_day_of_week_impressions_counts ||= Region.average_day_of_week_impressions_counts(self)
   end
 
   def average_daily_impressions_count
-    Region.average_daily_impressions_count self
+    @average_daily_impressions_count ||= Region.average_daily_impressions_count(self)
   end
 
   # protected instance methods ................................................

@@ -69,6 +69,7 @@ class Impression < ApplicationRecord
     when Campaign then where campaign_id: value.id
     when Property then where property_id: value.id
     when Creative then where creative_id: value.id
+    when Country then where(country_code: value.iso_code)
     else
       if value.nil? && type.nil?
         all

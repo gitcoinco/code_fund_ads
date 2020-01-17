@@ -64,6 +64,10 @@ class CampaignBundle < ApplicationRecord
     Region.where id: region_ids
   end
 
+  def countries
+    Country.where id: regions.map(&:country_codes).flatten
+  end
+
   # protected instance methods ................................................
   protected
 
