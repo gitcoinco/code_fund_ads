@@ -2,10 +2,10 @@ class CreateOrganizationReportJob < ApplicationJob
   queue_as :default
 
   def perform(id:)
-    organization = Organization.find(id)
+    organization = Organization.find_by(id: id)
     return unless organization
-    campaigns = organization.campaigns&.active
-    return unless campaigns
+    campaigns = organization.campaigns.active
+    return unless campaigns.exists?
     organization_report = build_report(organization, campaigns)
     if organization_report.save
       GenerateOrganizationReportJob.perform_later(
