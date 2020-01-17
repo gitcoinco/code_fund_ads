@@ -1,101 +1,96 @@
-version: 2.1
+# CAMPAIGN_DEMO_ID: "395"
+# PG_HOST: localhost
+# PG_USERNAME: ubuntu
+# RAILS_ENV: test
+# RACK_ENV: test
+# DEFAULT_HOST: codefund.io
+# PARALLEL_WORKERS: "1"
+# REDIS_CACHE_URL: redis://127.0.0.1:6379
+# REDIS_QUEUE_URL: redis://127.0.0.1:6379
+# WORDPRESS_URL: 'https://codefund.io'
+# - image: circleci/redis:5.0.4
+
+version: 2
+
+references:
+  default_docker_ruby_executor: &default_docker_ruby_executor
+    image: circleci/ruby:2.6.5-stretch-node
+    environment:
+      BUNDLE_JOBS: 3
+      BUNDLE_RETRY: 3
+      BUNDLE_PATH: vendor/bundle
+      RAILS_ENV: test
+  postgres: &postgres
+    image: circleci/postgres:11.2
+    environment:
+      POSTGRES_USER: code_fund_ads
+      POSTGRES_DB: code_fund_ads_test_test
+      POSTGRES_PASSWORD: ""
+
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.5-node-browsers
-        environment:
-          CAMPAIGN_DEMO_ID: "395"
-          PG_HOST: localhost
-          PG_USERNAME: ubuntu
-          RAILS_ENV: test
-          RACK_ENV: test
-          DEFAULT_HOST: codefund.io
-          PARALLEL_WORKERS: "1"
-          REDIS_CACHE_URL: redis://127.0.0.1:6379
-          REDIS_QUEUE_URL: redis://127.0.0.1:6379
-          WORDPRESS_URL: 'https://codefund.io'
-      - image: circleci/postgres:11.2
-        environment:
-          POSTGRES_USER: ubuntu
-          POSTGRES_DB: code_fund_ads_test
-      - image: circleci/redis:5.0.4
-    working_directory: ~/repo
+      - *default_docker_ruby_executor
     steps:
       - checkout
-      - run: |
-          sudo apt-get update
-          sudo apt-get install -y postgresql-client
-          curl -o- -L https://yarnpkg.com/install.sh | bash
       - restore_cache:
-          name: restore gem cache
           keys:
-            - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gem-cache-v1-{{ arch }}-{{ .Branch }}
-            - gem-cache-v1
-      - restore_cache:
-          name: restore yarn cache
-          keys:
-            - yarn-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-cache-v1-{{ arch }}-{{ .Branch }}
-            - yarn-cache-v1
-      - restore_cache:
-          name: restore assets cache
-          keys:
-            - assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-            - assets-cache-v1-{{ arch }}-{{ .Branch }}
+            - code_fund_ads-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - code_fund_ads-bundle-v2-
       - run:
-          name: install gem dependencies
-          command: |
-            gem install bundler:2.0.1
-            bundle check || bundle install --jobs=6 --retry=3 --path vendor/bundle
-      - run:
-          name: install yarn dependencies
-          command: yarn install --ignore-engines --frozen-lockfile
-      - run:
-          name: precompile assets
-          command: |
-              if [[ ! -d public/packs-test ]]; then
-                  bundle exec rails webpacker:compile
-              else
-                  echo "Asset cache found and applied."
-              fi
+          name: Bundle Install
+          command: bundle check || bundle install
       - save_cache:
-          name: save gem cache
+          key: code_fund_ads-bundle-v2-{{ checksum "Gemfile.lock" }}
           paths:
             - vendor/bundle
-          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+      - restore_cache:
+          keys:
+            - code_fund_ads-yarn-{{ checksum "yarn.lock" }}
+            - code_fund_ads-yarn-
+      - run:
+          name: Yarn Install
+          command: yarn install --cache-folder ~/.cache/yarn
       - save_cache:
-          name: save yarn cache
+          key: code_fund_ads-yarn-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-          key: yarn-cache-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+  test:
+    parallelism: 3
+    docker:
+      - *default_docker_ruby_executor
+      - *postgres
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - code_fund_ads-bundle-v2-{{ checksum "Gemfile.lock" }}
+            - code_fund_ads-bundle-v2-
       - run:
-          name: set up DB
-          command: bundle exec rails db:drop db:create db:structure:load --trace
-      # This task is broken until Rails 6.0.3 is released. See comment in bin/standardize
-      # - run:
-      #     name: run zeitwerk:check
-      #     command: bundle exec rails zeitwerk:check
+          name: Bundle Install
+          command: bundle check || bundle install
+      - restore_cache:
+          keys:
+            - code_fund_ads-yarn-{{ checksum "yarn.lock" }}
+            - code_fund_ads-yarn-
       - run:
-          name: run tests
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
+      - run:
           command: |
-            bundle exec rails test
-            set +e
-            bundle exec rails test:system
+            TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
+            bundle exec rails test $TESTFILES
       - store_artifacts:
           path: tmp/screenshots
           destination: screenshots
-      - save_cache:
-          name: save assets cache
-          key: assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-          paths:
-            - public/packs-test
-      - run:
-          name: run standardrb check
-          command: bundle exec standardrb --format progress
-      - run:
-          name: run ERB lint check
-          command: bundle exec erblint app/views/**/*.html.erb
-      - run:
-          name: run prettier-standard check
-          command: yarn run --ignore-engines prettier-standard --check 'app/**/*.js'
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
