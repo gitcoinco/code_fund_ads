@@ -29,20 +29,21 @@ jobs:
       - restore_cache:
           name: restore gem cache
           keys:
-            - gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gem-cache-v1-{{ arch }}-{{ .Branch }}
-            - gem-cache-v1
+            - gem-cache-v3-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-v3-{{ arch }}-{{ .Branch }}
+            - gem-cache-v3
       - restore_cache:
           name: restore yarn cache
           keys:
-            - yarn-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-cache-v1-{{ arch }}-{{ .Branch }}
-            - yarn-cache-v1
+            - yarn-cache-v3-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache-v3-{{ arch }}-{{ .Branch }}
+            - yarn-cache-v3
       - restore_cache:
           name: restore assets cache
           keys:
-            - assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
-            - assets-cache-v1-{{ arch }}-{{ .Branch }}
+            - assets-cache-v3-{{ arch }}-{{ .Branch }}
+            - assets-cache-v3-{{ arch }}
+            - assets-cache-v3
       - run:
           name: install gem dependencies
           command: |
@@ -63,12 +64,12 @@ jobs:
           name: save gem cache
           paths:
             - vendor/bundle
-          key: gem-cache-v1-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: gem-cache-v3-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
       - save_cache:
           name: save yarn cache
           paths:
             - ~/.cache/yarn
-          key: yarn-cache-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: yarn-cache-v3-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: set up DB
           command: bundle exec rails db:drop db:create db:structure:load --trace
@@ -87,7 +88,7 @@ jobs:
           destination: screenshots
       - save_cache:
           name: save assets cache
-          key: assets-cache-v1-{{ arch }}-{{ .Branch }}-{{ .Environment.CIRCLE_SHA1 }}
+          key: assets-cache-v3-{{ arch }}-{{ .Branch }}
           paths:
             - public/packs-test
       - run:
