@@ -76,6 +76,10 @@ jobs:
       - *redis
     steps:
       - checkout
+      - run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql-client
+          curl -o- -L https://yarnpkg.com/install.sh | bash
       - restore_cache:
           keys:
             - code_fund_ads-bundle-v2-{{ checksum "Gemfile.lock" }}
