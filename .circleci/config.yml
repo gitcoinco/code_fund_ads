@@ -101,7 +101,7 @@ jobs:
           command: bin/rails db:drop db:create db:structure:load --trace
       - run:
           command: |
-            TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=timings)
+            TESTFILES=$(circleci tests glob "test/**/*_test.rb" | circleci tests split --split-by=filesize)
             bundle exec rails test $TESTFILES
       - store_artifacts:
           path: tmp/screenshots
