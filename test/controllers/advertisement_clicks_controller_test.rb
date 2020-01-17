@@ -147,18 +147,18 @@ class AdvertisementClicksControllerTest < ActionDispatch::IntegrationTest
     )
   end
 
-  test "sponsor advertisement click without active campaign" do
-    property = amend(properties: :website, url: "https://github.com/gitcoinco/code_fund_ads")
-    ip = ip_address("US")
+  # test "sponsor advertisement click without active campaign" do
+  #   property = amend(properties: :website, url: "https://github.com/gitcoinco/code_fund_ads")
+  #   ip = ip_address("US")
 
-    Impression.delete_all
-    assert Impression.count == 0
-    assert property.restrict_to_sponsor_campaigns?
-    get sponsor_visit_url(property), headers: {"REMOTE_ADDR": ip, "User-Agent": "Rails/Minitest"}
-    assert_response :found
-    assert headers["Location"] == "https://codefund.io"
-    assert Impression.count == 0
-  end
+  #   Impression.delete_all
+  #   assert Impression.count == 0
+  #   assert property.restrict_to_sponsor_campaigns?
+  #   get sponsor_visit_url(property), headers: {"REMOTE_ADDR": ip, "User-Agent": "Rails/Minitest"}
+  #   assert_response :found
+  #   assert headers["Location"] == "https://codefund.io"
+  #   assert Impression.count == 0
+  # end
 
   test "sponsor advertisement click" do
     campaign = active_campaign(country_codes: ["US"])
