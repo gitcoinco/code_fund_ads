@@ -38,7 +38,7 @@ export default class extends Controller {
     <div id="codefund"></div>
     <script
       src="${url}"
-      async="async"
+      async
     ></script>
     <!-- END COPY CODEFUND EMBED -->
 
