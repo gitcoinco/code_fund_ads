@@ -28,21 +28,27 @@ jobs:
       - restore_cache:
           name: restore gem cache
           keys:
-            - gem-cache-v2-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gem-cache-v2-{{ arch }}-{{ .Branch }}
-            - gem-cache-v2
+            - gem-cache-v1-2-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-v1-2-{{ arch }}-{{ .Branch }}
+            - gem-cache-v1-2-{{ arch }}
+            - gem-cache-v1-2
       - restore_cache:
           name: restore yarn cache
           keys:
-            - yarn-cache-v2-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-cache-v2-{{ arch }}-{{ .Branch }}
-            - yarn-cache-v2
+            - yarn-cache-v1-2-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache-v1-2-{{ arch }}-{{ .Branch }}
+            - yarn-cache-v1-2-{{ arch }}
+            - yarn-cache-v1-2
+      - run:
+          name: Set up assets cache key
+          command: find app/javascript app/assets -type f -exec md5 -q {} \; > dependency_checksum
       - restore_cache:
           name: restore assets cache
           keys:
-            - assets-cache-v2-{{ arch }}-{{ .Branch }}
-            - assets-cache-v2-{{ arch }}
-            - assets-cache-v2
+            - assets-cache-v1-2-{{ arch }}-{{ .Branch }}-{{ checksum "dependency_checksum" }}
+            - assets-cache-v1-2-{{ arch }}-{{ .Branch }}
+            - assets-cache-v1-2-{{ arch }}
+            - assets-cache-v1-2
       - run:
           name: install gem dependencies
           command: |
@@ -53,22 +59,23 @@ jobs:
           command: yarn install --ignore-engines --frozen-lockfile
       - run:
           name: precompile assets
-          command: bundle exec rails webpacker:compile
+          command: RAILS_ENV=test bundle exec rails webpacker:compile
       - save_cache:
           name: save gem cache
           paths:
             - vendor/bundle
-          key: gem-cache-v2-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: gem-cache-v1-2-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
       - save_cache:
           name: save yarn cache
           paths:
             - ~/.cache/yarn
-          key: yarn-cache-v2-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: yarn-cache-v1-2-{{ arch }}--{{ .Branch }}-{{ checksum "yarn.lock" }}
       - save_cache:
           name: save assets cache
           paths:
             - public/packs-test
-          key: assets-cache-v2-{{ arch }}-{{ .Branch }}
+            - tmp/cache/webpacker
+          key: assets-cache-v1-2-{{ arch }}-{{ .Branch }}-{{ checksum "dependency_checksum" }}
       - run:
           name: set up DB
           command: bundle exec rails db:drop db:create db:structure:load --trace
