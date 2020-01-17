@@ -26,8 +26,6 @@ class OrganizationUser < ApplicationRecord
   # callbacks .................................................................
   # scopes ....................................................................
 
-  # DEPRECATE: [OrganizationUser#owners] Remove owners scope
-  scope :owners, -> { where role: ENUMS::ORGANIZATION_ROLES::OWNERS }
   scope :administrators, -> { where role: ENUMS::ORGANIZATION_ROLES::ADMINISTRATOR }
   scope :members, -> { where role: ENUMS::ORGANIZATION_ROLES::MEMBER }
 
@@ -39,23 +37,12 @@ class OrganizationUser < ApplicationRecord
 
   # public instance methods ...................................................
 
-  # DEPRECATE: [OrganizationUser#owners] Delete predicate method
-  def owner?
-    role == ENUMS::ORGANIZATION_ROLES::OWNER
-  end
-
   def administrator?
     role == ENUMS::ORGANIZATION_ROLES::ADMINISTRATOR
   end
 
   def member?
     role == ENUMS::ORGANIZATION_ROLES::MEMBER
-  end
-
-  # DEPRECATE: [OrganizationUser#owners] Delete deprecation method
-  def owners
-    ActiveSupport::Deprecation.warn("OrganizationUsers#owners is deprecated. Use OrganizationUser#administrator instead.")
-    super
   end
 
   # protected instance methods ................................................
