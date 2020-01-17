@@ -20,12 +20,24 @@ references:
       BUNDLE_RETRY: 3
       BUNDLE_PATH: vendor/bundle
       RAILS_ENV: test
+      CAMPAIGN_DEMO_ID: "395"
+      PG_HOST: localhost
+      PG_USERNAME: ubuntu
+      RAILS_ENV: test
+      RACK_ENV: test
+      DEFAULT_HOST: codefund.io
+      PARALLEL_WORKERS: "1"
+      REDIS_CACHE_URL: redis://127.0.0.1:6379
+      REDIS_QUEUE_URL: redis://127.0.0.1:6379
+      WORDPRESS_URL: 'https://codefund.io'
   postgres: &postgres
     image: circleci/postgres:11.2
     environment:
       POSTGRES_USER: code_fund_ads
       POSTGRES_DB: code_fund_ads_test_test
       POSTGRES_PASSWORD: ""
+  redis: &redis
+    image: circleci/redis:5.0.4
 
 jobs:
   build:
@@ -62,6 +74,7 @@ jobs:
     docker:
       - *default_docker_ruby_executor
       - *postgres
+      - *redis
     steps:
       - checkout
       - restore_cache:
