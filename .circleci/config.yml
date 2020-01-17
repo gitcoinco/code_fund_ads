@@ -32,8 +32,8 @@ references:
   postgres: &postgres
     image: circleci/postgres:11.2
     environment:
-      POSTGRES_USER: code_fund_ads
-      POSTGRES_DB: code_fund_ads_test_test
+      POSTGRES_USER: ubuntu
+      POSTGRES_DB: code_fund_ads_test
       POSTGRES_PASSWORD: ""
   redis: &redis
     image: circleci/redis:5.0.4
