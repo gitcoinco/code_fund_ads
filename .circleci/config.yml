@@ -17,16 +17,15 @@ references:
     image: circleci/ruby:2.6.5-stretch-node
     environment:
       BUNDLE_JOBS: 3
-      BUNDLE_RETRY: 3
       BUNDLE_PATH: vendor/bundle
-      RAILS_ENV: test
+      BUNDLE_RETRY: 3
       CAMPAIGN_DEMO_ID: "395"
-      PG_HOST: localhost
-      PG_USERNAME: ubuntu
-      RAILS_ENV: test
-      RACK_ENV: test
       DEFAULT_HOST: codefund.io
       PARALLEL_WORKERS: "1"
+      PG_HOST: localhost
+      PG_USERNAME: ubuntu
+      RACK_ENV: test
+      RAILS_ENV: test
       REDIS_CACHE_URL: redis://127.0.0.1:6379
       REDIS_QUEUE_URL: redis://127.0.0.1:6379
       WORDPRESS_URL: 'https://codefund.io'
