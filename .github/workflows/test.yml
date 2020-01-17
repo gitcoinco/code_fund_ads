@@ -135,10 +135,7 @@ jobs:
         DEFAULT_HOST: app.codefund.io
 
     steps:
-    - name: Checkout
-      uses: meetup/express-checkout@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.CLONE_TOKEN }}
+    - uses: actions/checkout@v2
 
     - name: Extract branch name
       shell: bash
@@ -186,11 +183,6 @@ jobs:
       run: bin/rails webpacker:compile
 
     - name: Setup DB
-      # env:
-      #   PG_HOST: postgres
-      #   PG_USERNAME: postgres
-      #   PG_PASSWORD: postgres
-      #   RAILS_ENV: test
       run: bin/rails db:drop db:create db:structure:load --trace
 
     - name: Run Rails Tests
@@ -198,8 +190,8 @@ jobs:
         bin/rails test
         bin/rails test:system
 
-    - name: Zeitwerk Check
-      run: bundle exec rails zeitwerk:check
+    # - name: Zeitwerk Check
+    #   run: bundle exec rails zeitwerk:check
 
     - name: StandardRB Check
       run: bundle exec standardrb --format progress
