@@ -52,7 +52,7 @@ jobs:
             - code_fund_ads-yarn-
       - run:
           name: Yarn Install
-          command: yarn install --cache-folder ~/.cache/yarn
+          command: yarn install --cache-folder ~/.cache/yarn --ignore-engines --frozen-lockfile
       - save_cache:
           key: code_fund_ads-yarn-{{ checksum "yarn.lock" }}
           paths:
