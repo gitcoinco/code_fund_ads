@@ -31,15 +31,18 @@
 #  weekdays_only           :boolean          default(FALSE)
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  audience_id             :integer
 #  campaign_bundle_id      :bigint
 #  creative_id             :bigint
 #  legacy_id               :uuid
 #  organization_id         :bigint
+#  region_id               :integer
 #  user_id                 :bigint
 #
 # Indexes
 #
 #  index_campaigns_on_assigned_property_ids    (assigned_property_ids) USING gin
+#  index_campaigns_on_audience_id              (audience_id)
 #  index_campaigns_on_campaign_bundle_id       (campaign_bundle_id)
 #  index_campaigns_on_core_hours_only          (core_hours_only)
 #  index_campaigns_on_country_codes            (country_codes) USING gin
@@ -54,6 +57,7 @@
 #  index_campaigns_on_paid_fallback            (paid_fallback)
 #  index_campaigns_on_prohibited_property_ids  (prohibited_property_ids) USING gin
 #  index_campaigns_on_province_codes           (province_codes) USING gin
+#  index_campaigns_on_region_id                (region_id)
 #  index_campaigns_on_start_date               (start_date)
 #  index_campaigns_on_status                   (status)
 #  index_campaigns_on_user_id                  (user_id)

@@ -14,6 +14,7 @@ class Audience < ApplicationRecord
   include Taggable
 
   # relationships .............................................................
+  has_many :campaigns
   has_many :properties
 
   # validations ...............................................................

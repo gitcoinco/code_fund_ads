@@ -31,15 +31,18 @@
 #  weekdays_only           :boolean          default(FALSE)
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
+#  audience_id             :integer
 #  campaign_bundle_id      :bigint
 #  creative_id             :bigint
 #  legacy_id               :uuid
 #  organization_id         :bigint
+#  region_id               :integer
 #  user_id                 :bigint
 #
 # Indexes
 #
 #  index_campaigns_on_assigned_property_ids    (assigned_property_ids) USING gin
+#  index_campaigns_on_audience_id              (audience_id)
 #  index_campaigns_on_campaign_bundle_id       (campaign_bundle_id)
 #  index_campaigns_on_core_hours_only          (core_hours_only)
 #  index_campaigns_on_country_codes            (country_codes) USING gin
@@ -54,6 +57,7 @@
 #  index_campaigns_on_paid_fallback            (paid_fallback)
 #  index_campaigns_on_prohibited_property_ids  (prohibited_property_ids) USING gin
 #  index_campaigns_on_province_codes           (province_codes) USING gin
+#  index_campaigns_on_region_id                (region_id)
 #  index_campaigns_on_start_date               (start_date)
 #  index_campaigns_on_status                   (status)
 #  index_campaigns_on_user_id                  (user_id)
@@ -79,6 +83,8 @@ class Campaign < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :campaign_bundle, optional: true
+  belongs_to :audience, optional: true
+  belongs_to :region, optional: true
   belongs_to :creative, -> { includes :creative_images }
   belongs_to :user
   has_one :job_posting
@@ -89,8 +95,11 @@ class Campaign < ApplicationRecord
   validate :validate_creatives
   validate :validate_assigned_properties, if: :sponsor?
   validate :validate_url
+  validate :validate_campaign_bundle
 
   # callbacks .................................................................
+  before_validation :assign_keywords
+  before_validation :assign_country_codes
   before_validation :sort_arrays
   before_validation :sanitize_creative_ids
   before_save :sanitize_assigned_property_ids
@@ -422,6 +431,16 @@ class Campaign < ApplicationRecord
 
   private
 
+  def assign_keywords
+    return unless audience
+    self.keywords = audience.keywords
+  end
+
+  def assign_country_codes
+    return unless region
+    self.country_codes = region.country_codes
+  end
+
   def sanitize_creative_ids
     permitted_creative_ids = permitted_creatives.distinct.pluck(:id)
     self.creative_id = ([creative_id] & permitted_creative_ids).first
@@ -476,5 +495,15 @@ class Campaign < ApplicationRecord
     if assigned_properties.present? && assigned_properties.map(&:restrict_to_sponsor_campaigns?).uniq != [true]
       errors.add :assigned_properties, "must be set to those restricted to sponsor campaigns i.e. GitHub properties, etc..."
     end
+  end
+
+  def validate_campaign_bundle
+    return unless campaign_bundle
+    errors[:organization] << "must match the bundle" if campaign_id != campaign_bundle.organization_id
+    errors[:start_date] << "must match the bundle" if start_date != campaign_bundle.start_date
+    errors[:end_date] << "must match the bundle" if end_date != campaign_bundle.end_date
+    errors[:region] << "must match the bundle" if region_id != campaign_bundle.region_id
+    errors[:country_codes] << "must match the bundle" if (country_codes - campaign_bundle.region.country_codes).size > 0
+    errors[:daily_budget] << "cannot exceed the bundle's daily budget" if daily_budget > campaign_bundle.daily_budget
   end
 end

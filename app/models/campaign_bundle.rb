@@ -29,6 +29,7 @@ class CampaignBundle < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :organization
+  belongs_to :region
   belongs_to :user
   has_many :campaigns
 
@@ -66,6 +67,10 @@ class CampaignBundle < ApplicationRecord
 
   def countries
     Country.where id: regions.map(&:country_codes).flatten
+  end
+
+  def competing_campaigns
+    # TODO: implement
   end
 
   # protected instance methods ................................................

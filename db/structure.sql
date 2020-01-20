@@ -259,7 +259,9 @@ CREATE TABLE public.campaigns (
     prohibited_property_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
     creative_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
     paid_fallback boolean DEFAULT false,
-    campaign_bundle_id bigint
+    campaign_bundle_id bigint,
+    audience_id integer,
+    region_id integer
 );
 
 
@@ -1991,6 +1993,13 @@ CREATE INDEX index_campaigns_on_assigned_property_ids ON public.campaigns USING 
 
 
 --
+-- Name: index_campaigns_on_audience_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_audience_id ON public.campaigns USING btree (audience_id);
+
+
+--
 -- Name: index_campaigns_on_campaign_bundle_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2086,6 +2095,13 @@ CREATE INDEX index_campaigns_on_prohibited_property_ids ON public.campaigns USIN
 --
 
 CREATE INDEX index_campaigns_on_province_codes ON public.campaigns USING gin (province_codes);
+
+
+--
+-- Name: index_campaigns_on_region_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_region_id ON public.campaigns USING btree (region_id);
 
 
 --

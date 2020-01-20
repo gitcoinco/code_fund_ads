@@ -18,6 +18,10 @@ class CreateCampaignBundles < ActiveRecord::Migration[6.0]
     end
 
     add_column :campaigns, :campaign_bundle_id, :bigint
+    add_column :campaigns, :audience_id, :integer
+    add_column :campaigns, :region_id, :integer
     add_index :campaigns, :campaign_bundle_id
+    add_index :campaigns, :audience_id
+    add_index :campaigns, :region_id
   end
 end
