@@ -66,11 +66,21 @@ class CampaignBundle < ApplicationRecord
   end
 
   def countries
-    Country.where id: regions.map(&:country_codes).flatten
+    Country.where id: country_codes
+  end
+
+  def country_codes
+    regions.map(&:country_codes).flatten.sort
   end
 
   def competing_campaigns
-    # TODO: implement
+    Campaign.active.premium.where(region_id: region_ids).available_on_or_after(start_date)
+  end
+
+  def competing_daily_budget_by_region
+    competing_campaigns.group(:region_id).sum(:daily_budget_cents).map { |region_id, daily_budget_cents|
+      [Region.find(region_id), Money.new(daily_budget_cents)]
+    }.to_h
   end
 
   # protected instance methods ................................................

@@ -116,6 +116,7 @@ class Campaign < ApplicationRecord
   scope :premium, -> { where(fallback: false).where(paid_fallback: false) }
   scope :job_posting, -> { where job_posting: true }
   scope :available_on, ->(date) { where(arel_table[:start_date].lteq(date.to_date)).where(arel_table[:end_date].gteq(date.to_date)) }
+  scope :available_on_or_after, ->(date) { where(arel_table[:end_date].gteq(date.to_date)) }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :search_country_codes, ->(*values) { values.blank? ? all : with_any_country_codes(*values) }
   scope :search_province_codes, ->(*values) { values.blank? ? all : with_any_province_codes(*values) }
@@ -424,6 +425,22 @@ class Campaign < ApplicationRecord
       keywords: keywords,
     }
   end
+
+  # HACK: REMOVE THESE TEMPORARY METHODS
+  def best_matching_region
+    return Region.americas_northern if country_codes.any?(/US|CA/i)
+    return Region.europe if country_codes.any?(/DE|FR|GB/i)
+    Region.all.max_by { |region| (region.country_codes & country_codes).size }
+  end
+
+  def best_matching_audience
+    Audience.all.max_by { |audience| (audience.keywords & keywords).size }
+  end
+
+  def set_best_matching_region_and_audience
+    update_columns region_id: best_matching_region.id, audience_id: best_matching_audience.id
+  end
+  # HACK: END
 
   # protected instance methods ................................................
 

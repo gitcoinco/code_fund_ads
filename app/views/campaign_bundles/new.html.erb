@@ -4,8 +4,15 @@
       <h1>New Ad Bundle</h1>
       <%= render "/campaign_bundles/form" %>
     </div>
-    <div class="col-4">
-      <div class="card mt-5">
+    <div class="col-4 pt-5">
+      <h5>
+        Competing with <%= @campaign_bundle.competing_campaigns.size %> other campaigns
+      </h5>
+      <h6>Reserved Daily Budget by Region</h6>
+      <% @campaign_bundle.competing_daily_budget_by_region.each do |region, daily_budget| %>
+        <div><%= region.name %>: <%= daily_budget.format %></div>
+      <% end %>
+      <div class="card mt-2">
         <div class="card-header bg-muted">
           Estimated Inventory
           <small class="opacity-60 d-block">Includes both sold &amp; unsold inventory</small>
