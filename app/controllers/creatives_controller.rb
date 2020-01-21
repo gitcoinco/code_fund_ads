@@ -79,7 +79,7 @@ class CreativesController < ApplicationController
 
   def creative_params
     params.require(:creative).permit(:creative_type, :name, :headline, :body, :cta).tap do |whitelisted|
-      whitelisted[:status] = params[:creative][:status] if authorized_user(true).can_admin_system?
+      whitelisted[:status] = params[:creative][:status] if authorized_user(true).can_admin_system? || !Current.organization.creative_approval_needed?
     end
   end
 
