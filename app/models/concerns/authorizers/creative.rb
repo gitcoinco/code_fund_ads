@@ -6,9 +6,7 @@ module Authorizers
     end
 
     def can_edit_creative?(creative)
-      return true if can_admin_system?
-      return false unless can_manage_organization?(creative.organization)
-      return true unless creative.organization.creative_approval_needed?
+      return true if can_edit_creatives_without_approval?(creative.organization)
       !creative.active?
     end
   end
