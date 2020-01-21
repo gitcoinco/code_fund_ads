@@ -41,7 +41,7 @@ class CreativesController < ApplicationController
     respond_to do |format|
       if @creative.update(creative_params)
         @creative.assign_images creative_image_params
-        @creative.update_columns status: ENUMS::CREATIVE_STATUSES::PENDING if @creative.active? && !authorized_user(true).can_admin_system?
+        @creative.update_columns status: ENUMS::CREATIVE_STATUSES::PENDING unless authorized_user(true).can_edit_creative?(@creative)
 
         format.html { redirect_to @creative, notice: "Creative was successfully updated." }
         format.json { render :show, status: :ok, location: @creative }
@@ -79,7 +79,7 @@ class CreativesController < ApplicationController
 
   def creative_params
     params.require(:creative).permit(:creative_type, :name, :headline, :body, :cta).tap do |whitelisted|
-      whitelisted[:status] = params[:creative][:status] if authorized_user(true).can_admin_system?
+      whitelisted[:status] = params[:creative][:status] if authorized_user(true).can_edit_creatives_without_approval?(Current.organization)
     end
   end
 

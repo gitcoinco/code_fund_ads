@@ -16,5 +16,11 @@ module Authorizers
       return true if can_admin_system?
       organization.administrators.include?(user)
     end
+
+    def can_edit_creatives_without_approval?(organization)
+      return true if can_admin_system?
+      return false unless can_manage_organization?(organization)
+      !organization.creative_approval_needed?
+    end
   end
 end
