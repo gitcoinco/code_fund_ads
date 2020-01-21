@@ -40,10 +40,18 @@
         </div>
       </div>
 
-      <div class="d-flex justify-content-between border-top px-3 pt-3 pb-0">
-        <h4 class="card-title"> Details </h4>
-        <%= link_to "Edit", edit_organization_path(subject) %>
-      </div>
+      <% if authorized_user.can_admin_system? %>
+        <div class="d-flex justify-content-between border-top px-3 pt-3 pb-0">
+          <h4 class="card-title"> Details </h4>
+          <%= link_to "Edit", edit_organization_path(subject) %>
+        </div>
+
+        <div class="list-group list-group-bordered list-group-reflow mx-3 mb-3">
+          <div class="list-group-item justify-content-between align-items-center px-0">
+            <span class="text-muted">Creative approval needed</span> <span><%= subject.creative_approval_needed.to_s.humanize %></span>
+          </div>
+        </div>
+      <% end %>
 
       <div class="card-body border-top">
         <div class="d-flex justify-content-between mb-3">
