@@ -4,19 +4,15 @@
       <%= image_tag image, class: "img-thumbnail mw-100" %>
     </div>
   <% end %>
-  <%= card_footer do %>
-    <%= card_footer_content do %>
-      <ul class="list-inline d-flex text-muted align-items-center mb-0">
-        <li class="list-inline-item text-truncate mr-auto">
-          <%= image.blob.filename.to_s %>
-        </li>
-        <li class="list-inline-item">
-          <%= render "/shared/actions/edit_image", imageable: imageable, image: image %>
-        </li>
-        <li class="list-inline-item">
-          <%= render "/shared/actions/delete_image", imageable: imageable, image: image %>
-        </li>
-      </ul>
+  <ul class="list-group list-group-flush list-group-bordered border-top border-bottom">
+    <%= details_li(image.blob.filename.to_s) do %>
+      <span class="d-flex">
+        <%= render "/shared/actions/edit_image", imageable: imageable, image: image %>
+        <%= render "/shared/actions/delete_image", imageable: imageable, image: image %>
+      </span>
     <% end %>
-  <% end %>
+    <%= details_li("Filesize") { number_to_human_size(image.byte_size) } %>
+    <%= details_li("Dimensions") { image_dimensions(image) } %>
+    <%= details_li("Conent Type") { image.blob.content_type } %>
+  </ul>
 <% end %>

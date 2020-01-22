@@ -73,6 +73,10 @@
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 }
 
+.grid-tcolumns-300 {
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
 .grid-tcolumns-200 {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
