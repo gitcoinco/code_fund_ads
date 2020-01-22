@@ -10,16 +10,20 @@
 CodeFund Ads is an ethical and discreet ad platform that funds open-source.
 It helps your favorite projects thrive by paying maintainers the majority of all generated revenue.
 
+<!-- ⬇️ Use `bundle exec tocer -g` to regenerate this table of contents ⬇️ -->
+
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
 ## Table of Contents
 
   - [Publisher JavaScript Embedding](#publisher-javascript-embedding)
     - [Optional Query String Parameters](#optional-query-string-parameters)
+    - [Embed Callbacks](#embed-callbacks)
   - [API](#api)
   - [Ad Rendering and Impression/Click Tracking](#ad-rendering-and-impressionclick-tracking)
   - [Enums](#enums)
   - [Development Environment](#development-environment)
+    - [Prerequisites](#prerequisites)
     - [Database Seeds](#database-seeds)
     - [Tmux/Teamocil or Mert](#tmuxteamocil-or-mert)
   - [Code Standards](#code-standards)
@@ -28,8 +32,10 @@ It helps your favorite projects thrive by paying maintainers the majority of all
     - [Scheduler](#scheduler)
     - [Database](#database)
   - [Maxmind](#maxmind)
+  - [Instrumentation](#instrumentation)
   - [Candidates for GEM extraction](#candidates-for-gem-extraction)
   - [Contributors](#contributors)
+  - [License](#license)
 
 <!-- Tocer[finish]: Auto-generated, don't remove. -->
 
@@ -141,7 +147,7 @@ ENUMS::USER_ROLES.constants
 
 ## Development Environment
 
-###### Prerequisites
+### Prerequisites
 - Ruby version `2.6.5`
   - [rbenv](https://github.com/rbenv/rbenv)
   - [asdf](https://github.com/asdf-vm/asdf-ruby)
