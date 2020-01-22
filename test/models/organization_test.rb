@@ -2,12 +2,17 @@
 #
 # Table name: organizations
 #
-#  id               :bigint           not null, primary key
-#  name             :string           not null
-#  balance_cents    :integer          default(0), not null
-#  balance_currency :string           default("USD"), not null
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  id                       :bigint           not null, primary key
+#  balance_cents            :integer          default(0), not null
+#  balance_currency         :string           default("USD"), not null
+#  creative_approval_needed :boolean          default(TRUE)
+#  name                     :string           not null
+#  created_at               :datetime         not null
+#  updated_at               :datetime         not null
+#
+# Indexes
+#
+#  index_organizations_on_creative_approval_needed  (creative_approval_needed)
 #
 
 require "test_helper"
@@ -66,11 +71,10 @@ class OrganizationTest < ActiveSupport::TestCase
     assert organization.members
   end
 
-  # DEPRECATE: [OrganizationUser#owners] Uncomment test
-  # test "administrator must exist validation" do
-  #   organization = organizations(:default)
-  #   organization.administrators.delete_all
-  #   assert_not organization.valid?
-  #   assert_includes organization.errors.messages.to_s, "You need at least one"
-  # end
+  test "administrator must exist validation" do
+    organization = organizations(:default)
+    organization.administrators.delete_all
+    assert_not organization.valid?
+    assert_includes organization.errors.messages.to_s, "You need at least one"
+  end
 end

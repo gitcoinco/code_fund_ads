@@ -135,9 +135,9 @@ class CodeFundAd {
 
   trackUplift () {
     try {
-      console.log(`CodeFund is recording uplift. ${this.upliftUrl}`)
+      console.log(`CodeFund is recording uplift. ${this.urls.uplift}`)
       const xhr = new XMLHttpRequest()
-      xhr.open('POST', this.upliftUrl)
+      xhr.open('POST', this.urls.uplift)
       xhr.send()
     } catch (e) {
       console.log(`CodeFund was unable to record uplift! ${e.message}`)
@@ -148,12 +148,12 @@ class CodeFundAd {
     if (this.uplift.pixel1 === undefined) return
     if (this.uplift.pixel2 === undefined) return
     if (this.uplift.pixel1 && !this.uplift.pixel2)
-      this.trackUplift(this.upliftUrl)
+      this.trackUplift(this.urls.uplift)
   }
 
   detectUplift (count) {
-    if (!this.adblockPlusPixelUrl) return
-    if (this.adblockPlusPixelUrl.length === 0) return
+    if (!this.urls.adblock) return
+    if (this.urls.adblock.length === 0) return
     var xhr = new XMLHttpRequest()
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
@@ -170,7 +170,7 @@ class CodeFundAd {
     }
     xhr.open(
       'GET',
-      `${this.adblockPlusPixelUrl}?ch=${count}&rnd=${Math.random() * 11}`
+      `${this.urls.adblock}?ch=${count}&rnd=${Math.random() * 11}`
     )
     xhr.send()
   }

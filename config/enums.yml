@@ -70,6 +70,9 @@
 #   pry>ENUMS::CAMPAIGN_STATUSES[2]          # active
 #
 
+EMAIL_ADDRESSES:
+  eric: eric@codefund.io
+
 BLOCK_LIST:
   - cstream1.com
   - blockedurl.test
@@ -77,8 +80,6 @@ BLOCK_LIST:
 ORGANIZATION_ROLES:
   - administrator
   - member
-  # DEPRECATE: [OrganizationUser#owners] Delete owner role
-  - owner
 
 USER_ROLES:
   - administrator

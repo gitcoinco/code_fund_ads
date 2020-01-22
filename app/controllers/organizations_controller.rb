@@ -64,7 +64,8 @@ class OrganizationsController < ApplicationController
 
   def organization_params
     params.require(:organization).permit(
-      :name
+      :name,
+      :creative_approval_needed,
     )
   end
 

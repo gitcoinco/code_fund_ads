@@ -9,7 +9,7 @@ class CreativePreviewsController < ApplicationController
     @creative = if authorized_user.can_admin_system?
       Creative.find(params[:creative_id])
     else
-      current_user.creatives.find(params[:creative_id])
+      Current.organization&.creatives&.find(params[:creative_id])
     end
   end
 end
