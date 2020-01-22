@@ -20,9 +20,9 @@
 </p>
 
 <!-- ⬇️ Use `bundle exec tocer -g` to regenerate this table of contents ⬇️ -->
-
+<!-- markdownlint-disable -->
 <!-- prettier-ignore-start -->
-<!-- markdownlint-enable -->
+
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
 ## Table of Contents
@@ -31,7 +31,7 @@
     - [Optional Query String Parameters](#optional-query-string-parameters)
     - [Embed Callbacks](#embed-callbacks)
       - [Example](#example)
-      - [Response](#response)
+      - [Responses](#responses)
   - [API](#api)
     - [Ad Rendering and Impression/Click Tracking](#ad-rendering-and-impressionclick-tracking)
   - [Development](#development)
@@ -57,6 +57,7 @@
 
 <!-- Tocer[finish]: Auto-generated, don't remove. -->
 
+<!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
 
 ## Publisher JavaScript Embedding
@@ -94,7 +95,7 @@ window.addEventListener("codefund", function(evt) {
 });
 ```
 
-#### Response
+#### Responses
 
 On a successful embed, `evt.detail` will return:
 
