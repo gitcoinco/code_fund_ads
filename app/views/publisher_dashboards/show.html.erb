@@ -20,18 +20,16 @@
         value: current_user.property_revenue(@start_date, @end_date).format %>
     </div>
 
-    <%= card do %>
-      <%= card_body do %>
-        <small class="text-center d-block text-muted">
-          ensure ad blockers are disabled to view the overview
-        </small>
-        <iframe
-          src="<%= @iframe_url %>"
-          style="width: 100%; border: 0; resize: horizontal;"
-          height="800"
-          scrolling="yes"
-          allowtransparency></iframe>
-      <% end %>
-  <% end %>
+    <small class="text-center d-block text-muted mb-2">
+      data refreshes every 15 minutes.
+    </small>
+
+    <div class="mb-3">
+      <div class="dashboard-grid-wrapper">
+        <%= render partial: "/properties/overview_card",
+          collection: @properties,
+          locals: {start_date: @start_date, end_date: @end_date}, as: :property %>
+      </div>
+    </div>
   </div>
 </div>
