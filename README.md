@@ -75,7 +75,7 @@ On a successful embed, `evt.detail` will return:
 
 or
 
-{ "status": "ok", "house": true } // Ad returned is a house ad
+{ "status": "ok", "house": true } // Ad returned is a house (fallback) ad
 ```
 
 If an error occurs with embedding the ad, `evt.detail` will return:
@@ -84,7 +84,7 @@ If an error occurs with embedding the ad, `evt.detail` will return:
 { "status": "error", "message": "error message" }
 ```
 
-And in the event that we do not have an available advertiser, you will see:
+In the event that we do not have an available advertiser, and thus no available (paid or fallback) ad, `evt.detail` will return:
 
 ```json
 { "status": "no-advertiser" }
