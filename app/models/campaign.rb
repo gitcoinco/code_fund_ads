@@ -116,8 +116,10 @@ class Campaign < ApplicationRecord
   scope :paid_fallback, -> { where paid_fallback: true }
   scope :premium, -> { where(fallback: false).where(paid_fallback: false) }
   scope :job_posting, -> { where job_posting: true }
-  scope :available_on, ->(date) { where(arel_table[:start_date].lteq(date.to_date)).where(arel_table[:end_date].gteq(date.to_date)) }
-  scope :available_on_or_after, ->(date) { where(arel_table[:end_date].gteq(date.to_date)) }
+  scope :available_on, ->(date) {
+    where(arel_table[:start_date].lteq(date.to_date)).where(end_date: nil)
+      .or(where(arel_table[:start_date].lteq(date.to_date)).where(arel_table[:end_date].gteq(date.to_date)))
+  }
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :search_country_codes, ->(*values) { values.blank? ? all : with_any_country_codes(*values) }
   scope :search_province_codes, ->(*values) { values.blank? ? all : with_any_province_codes(*values) }

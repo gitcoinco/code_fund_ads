@@ -49,7 +49,7 @@ class Country
       end
     end
 
-    def day_of_week_impressions_counts(start_date, end_date, *countries)
+    def day_of_week_impressions_counts(start_date, end_date, countries: [], audience: nil)
       # the db query returns total impressions by day of week for the specified date range,
       # but we still need to calculate the average impressions for each week day
       # based on week day counts in the range between start_date and end_date
@@ -58,15 +58,14 @@ class Country
       start_date = Date.coerce(start_date)
       end_date = Date.coerce(end_date)
 
-      results = ApplicationRecord.connection.execute(
-        DailySummary.between(start_date, end_date).where(impressionable_type: "Property").scoped_by(countries.map(&:iso_code), :country_code)
+      daily_summaries = DailySummary.between(start_date, end_date).where(impressionable_type: "Property").scoped_by(countries.map(&:iso_code), :country_code)
         .select(Arel::Nodes::NamedFunction.new("DATE_PART", [Arel::Nodes::SqlLiteral.new("'dow'"), DailySummary.arel_table[:displayed_at_date]]).as("day_of_week"))
         .select(DailySummary.arel_table[:impressions_count].sum.as("impressions_count"))
         .group(:day_of_week)
         .order(:day_of_week)
-        .to_sql
-      )
+      daily_summaries = daily_summaries.where(impressionable_id: Property.select(:id).where(audience_id: audience.id)) if audience
 
+      results = ApplicationRecord.connection.execute(daily_summaries.to_sql)
       day_of_week_counts = (start_date..end_date).each_with_object({}) { |date, memo|
         memo[date.wday] ||= 0
         memo[date.wday] += 1
@@ -78,15 +77,15 @@ class Country
       end
     end
 
-    def average_day_of_week_impressions_counts(*countries)
-      key = "average_day_of_week_impressions_counts/#{Digest::MD5.hexdigest(countries.map(&:cache_key).join)}"
+    def average_day_of_week_impressions_counts(countries: [], audience: nil)
+      key = "average_day_of_week_impressions_counts/#{Digest::MD5.hexdigest(countries.map(&:cache_key).join)}/#{audience&.cache_key}"
       Rails.cache.fetch key, expires_in: 1.day do
-        day_of_week_impressions_counts(90.days.ago, 1.day.ago, *countries)
+        day_of_week_impressions_counts(90.days.ago, 1.day.ago, countries: countries, audience: audience)
       end
     end
 
-    def average_daily_impressions_count(*countries)
-      counts = average_day_of_week_impressions_counts(*countries)
+    def average_daily_impressions_count(countries: [], audience: nil)
+      counts = average_day_of_week_impressions_counts(countries: countries, audience: audience)
       return 0 unless counts.size > 0
       (counts.values.sum / counts.size.to_f).floor
     end
@@ -107,10 +106,10 @@ class Country
   end
 
   def average_day_of_week_impressions_counts
-    @average_day_of_week_impressions_counts ||= Country.average_day_of_week_impressions_counts(self)
+    Country.average_day_of_week_impressions_counts(countries: [self])
   end
 
-  def average_daily_impressions_count
-    @average_daily_impressions_count ||= Country.average_daily_impressions_count(self)
+  def average_daily_impressions_count(audience: nil)
+    Country.average_daily_impressions_count(countries: [self], audience: audience)
   end
 end

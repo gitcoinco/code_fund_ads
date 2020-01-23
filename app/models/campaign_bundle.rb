@@ -74,7 +74,7 @@ class CampaignBundle < ApplicationRecord
   end
 
   def competing_campaigns
-    Campaign.active.premium.where(region_id: region_ids).available_on_or_after(start_date)
+    Campaign.active.premium.where(region_id: region_ids).available_on(start_date)
   end
 
   def competing_daily_budget_by_region

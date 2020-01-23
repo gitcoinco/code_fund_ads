@@ -2,7 +2,7 @@ import Rails from '@rails/ujs'
 import ApplicationController from './application_controller'
 
 export default class extends ApplicationController {
-  static targets = ['activity', 'estimates', 'regions']
+  static targets = ['regions']
 
   selectAllRegionIds (event) {
     Rails.stopEverything(event)
@@ -23,17 +23,10 @@ export default class extends ApplicationController {
   }
 
   updateSelectedRegionIds () {
-    this.showActivity()
     this.stimulate(
       'CampaignBundlesReflex#update_region_ids',
       this.selectedRegionIds
     )
-  }
-
-  showActivity () {
-    this.activityTarget.hidden = false
-    this.estimatesTarget.hidden = true
-    this.element.querySelectorAll('a,input').forEach(el => (el.disabled = true))
   }
 
   get regionCheckboxes () {

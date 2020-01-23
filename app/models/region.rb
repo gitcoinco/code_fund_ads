@@ -92,7 +92,7 @@ class Region < ApplicationRecord
     end
 
     def average_day_of_week_impressions_counts(*regions)
-      country_counts = regions.map { |region| Country.average_day_of_week_impressions_counts(*region.countries) }
+      country_counts = regions.map { |region| Country.average_day_of_week_impressions_counts(countries: region.countries) }
       country_counts.each_with_object({}) { |entry, memo|
         entry.each do |day_of_week, count|
           memo[day_of_week] ||= 0
@@ -102,6 +102,12 @@ class Region < ApplicationRecord
     end
 
     def average_daily_impressions_count(*regions)
+      counts = average_day_of_week_impressions_counts(*regions)
+      return 0 unless counts.size > 0
+      (counts.values.sum / counts.size.to_f).floor
+    end
+
+    def average_daily_impressions_count_by_audience(*regions)
       counts = average_day_of_week_impressions_counts(*regions)
       return 0 unless counts.size > 0
       (counts.values.sum / counts.size.to_f).floor

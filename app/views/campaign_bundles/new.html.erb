@@ -4,41 +4,102 @@
       <h1>New Ad Bundle</h1>
       <%= render "/campaign_bundles/form" %>
     </div>
-    <div class="col-4 pt-5">
-      <h5>
-        Competing with <%= @campaign_bundle.competing_campaigns.size %> other campaigns
-      </h5>
-      <h6>Reserved Daily Budget by Region</h6>
-      <% @campaign_bundle.competing_daily_budget_by_region.each do |region, daily_budget| %>
-        <div><%= region.name %>: <%= daily_budget.format %></div>
+    <div class="col-4 mt-5 pt-4">
+      <% if @campaign_bundle.region_ids.present? %>
+        <div class="card mt-2">
+          <div class="card-header bg-muted">
+            <%= number_with_delimiter @campaign_bundle.average_daily_impressions_count %> <u>estimated</u> daily impressions
+            <small class="text-danger d-block">Based on your targeting and settings but not your budget</small>
+          </div>
+          <div class="card-body">
+            <table class="table table-sm table-hover">
+              <thead>
+                <tr class="bg-light">
+                  <th>Audience</th>
+                  <th>Impressions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% Audience.all.each do |audience| %>
+                  <tr>
+                    <td><%= audience.name %></td>
+                    <td class="text-right"><%= number_with_delimiter Country.average_daily_impressions_count(countries: @campaign_bundle.countries, audience: audience) %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card mt-2">
+          <div class="card-header bg-muted">
+            Top Countries <small><u>estimated</u> daily impressions</small>
+            <small class="text-danger d-block">Based on your targeting and settings but not your budget</small>
+          </div>
+          <div class="card-body">
+            <table class="table table-sm table-hover">
+              <thead>
+                <tr class="bg-light">
+                  <th>Country</th>
+                  <th>Impressions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @campaign_bundle.countries.sort_by(&:average_daily_impressions_count).reverse[0,6].each do |country| %>
+                  <tr>
+                    <td>
+                    <%= country.emoji_flag %>
+                    <%= truncate country.name, length: 24 %>
+                    </td>
+                    <td class="text-right">
+                      <%= number_with_delimiter country.average_daily_impressions_count %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" class="pl-1">
+                      <details>
+                        <summary class="text-muted">Audience Breakdown</summary>
+                        <table class="table table-sm table-hover">
+                          <thead>
+                            <tr class="bg-light">
+                              <th>Audience</th>
+                              <th>Impressions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% Audience.all.each do |audience| %>
+                              <tr>
+                                <td><%= audience.name %></td>
+                                <td class="text-right"><%= number_with_delimiter country.average_daily_impressions_count(audience: audience) %></td>
+                              </tr>
+                            <% end %>
+                          </tbody>
+                        </table>
+                      </details>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
       <% end %>
-      <div class="card mt-2">
-        <div class="card-header bg-muted">
-          Estimated Inventory
-          <small class="opacity-60 d-block">Includes both sold &amp; unsold inventory</small>
-        </div>
-        <div class="card-body mb-2">
-          <small class="d-block mb-2 opacity-60">Based on your targeting and settings but not your budget or available inventory</small>
-          <div class="font-weight-bold text-danger" data-target="campaign-bundles.activity" hidden>
-            Recalculating estimates...
+
+      <% if @campaign_bundle.competing_campaigns.exists? %>
+        <div class="card mt-2">
+          <div class="card-header bg-muted">
+            Competition
+            <small class="opacity-60 d-block">Campaigns targeting the same dates and locations</small>
           </div>
-          <div data-target="campaign-bundles.estimates">
-            <% if @campaign_bundle.end_date %>
-              <div><%= %> <small>Impressions</small></div>
-            <% end %>
-            <h5><%= number_to_human(@campaign_bundle.average_daily_impressions_count).downcase %> daily impressions</h5>
-            <hr />
-            <h6 class="mb-3">Top Countries</h6>
-            <% @campaign_bundle.countries.sort_by(&:average_daily_impressions_count).reverse[0,12].each do |country| %>
-              <div class="mb-2">
-                <%= country.emoji_flag %>
-                <%= truncate country.name, length: 24 %>
-                <small class="opacity-60"><%= number_to_human(country.average_daily_impressions_count).downcase %></small>
-              </div>
+          <div class="card-body mb-2">
+            <h5><%= @campaign_bundle.competing_campaigns.size %> <%= "campaign".pluralize @campaign_bundle.competing_campaigns.size %></h5>
+            <h6>Reserved Daily Budget by Region</h6>
+            <% @campaign_bundle.competing_daily_budget_by_region.each do |region, daily_budget| %>
+              <div><%= region.name %>: <%= daily_budget.format %></div>
             <% end %>
           </div>
         </div>
-      </div>
+      <% end %>
     </div>
   </div>
 </div>
