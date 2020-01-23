@@ -25,7 +25,6 @@
 #  fallback_ad_theme              :string
 #  responsive_behavior            :string           default("none"), not null
 #  audience_id                    :bigint
-#  deleted_at                     :datetime
 #
 
 require "factory_bot_rails"

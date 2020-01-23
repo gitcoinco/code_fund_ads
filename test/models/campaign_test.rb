@@ -191,4 +191,21 @@ class CampaignTest < ActiveSupport::TestCase
     @campaign.creatives.sample.update(status: :pending)
     assert @campaign.valid?
   end
+
+  test "cannot be destroyed if there are associated daily summaries" do
+    DailySummary.create impressionable_type: "Campaign",
+                        impressionable_id: @campaign.id,
+                        displayed_at_date: Date.today
+    assert_not @campaign.destroy
+    assert_includes @campaign.errors.messages[:base].to_s, "has associated"
+  end
+
+  test "cannot be destroyed if there are associated impressions" do
+    premium_impression campaign: @campaign,
+                       estimated_gross_revenue_fractional_cents: @campaign.daily_budget.cents,
+                       displayed_at: Time.current,
+                       displayed_at_date: Date.current
+    assert_not @campaign.destroy
+    assert_includes @campaign.errors.messages[:base].to_s, "has associated"
+  end
 end

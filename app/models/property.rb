@@ -25,7 +25,6 @@
 #  fallback_ad_theme              :string
 #  responsive_behavior            :string           default("none"), not null
 #  audience_id                    :bigint
-#  deleted_at                     :datetime
 #
 
 class Property < ApplicationRecord
@@ -67,6 +66,7 @@ class Property < ApplicationRecord
   before_save :sanitize_assigned_fallback_campaign_ids
   after_save :generate_screenshot
   before_destroy :destroy_paper_trail_versions
+  before_destroy :validate_destroyable
 
   # scopes ....................................................................
   scope :active, -> { where status: ENUMS::PROPERTY_STATUSES::ACTIVE }
@@ -119,7 +119,6 @@ class Property < ApplicationRecord
   # - without_keywords
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  acts_as_paranoid
   tag_columns :prohibited_advertiser_ids
   tag_columns :keywords
   has_one_attached :screenshot
@@ -242,5 +241,11 @@ class Property < ApplicationRecord
 
   def assign_restrict_to_assigner_campaigns
     self.restrict_to_assigner_campaigns ||= restrict_to_sponsor_campaigns?
+  end
+
+  def validate_destroyable
+    return unless DailySummary.find_by(scoped_by_type: "Property", scoped_by_id: id)
+    errors.add :base, "record has associated daily summaries, try archiving it instead"
+    throw(:abort)
   end
 end

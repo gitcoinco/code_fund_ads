@@ -71,6 +71,7 @@ class Campaign < ApplicationRecord
   before_validation :sort_arrays
   before_validation :sanitize_creative_ids
   before_save :sanitize_assigned_property_ids
+  before_destroy :validate_destroyable
 
   # scopes ....................................................................
   # TODO: update standard/sponsor scopes to use arel instead of string interpolation
@@ -437,5 +438,11 @@ class Campaign < ApplicationRecord
     if assigned_properties.present? && assigned_properties.map(&:restrict_to_sponsor_campaigns?).uniq != [true]
       errors.add :assigned_properties, "must be set to those restricted to sponsor campaigns i.e. GitHub properties, etc..."
     end
+  end
+
+  def validate_destroyable
+    return unless daily_summaries.exists? || impressions.exists?
+    errors.add :base, "record has associated impressions and/or daily summaries, try archiving it instead"
+    throw(:abort)
   end
 end
