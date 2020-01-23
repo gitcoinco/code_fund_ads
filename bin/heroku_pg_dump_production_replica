@@ -11,7 +11,7 @@ if [[ -z "$AWS_S3_ACCESS_KEY_ID" ]]; then
   exit 1
 fi
 
-pg_dump --verbose --no-acl --no-owner --format=c \
+pg_dump --verbose --no-acl --no-owner --format=c --schema=public \
   --exclude-table=impressions_2018_11_advertiser_123 \
   --exclude-table=impressions_2018_11_advertiser_132 \
   --exclude-table=impressions_2018_11_advertiser_137 \
