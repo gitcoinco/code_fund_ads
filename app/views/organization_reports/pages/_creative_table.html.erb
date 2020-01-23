@@ -16,7 +16,8 @@ summaries = campaign.daily_summary_reports_by_creative(report.start_date, report
   </thead>
   <tbody>
     <% summaries.each do |row|
-      creative = Creative.find(row[:scoped_by_id])
+      creative = Creative.find_by(id: row[:scoped_by_id])
+      next unless creative
       revenue = (row[:gross_revenue_cents].to_f / 100).to_f
       impressions = row[:impressions_count].to_i
       clicks = row[:clicks_count].to_i
