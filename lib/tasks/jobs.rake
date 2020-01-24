@@ -12,4 +12,9 @@ namespace :jobs do
     ImportGithubJobsJob.new.perform(*tags)
     puts "There are #{JobPosting.count} jobs"
   end
+
+  desc "Sync campaign data with Zapier"
+  task sync_to_zapier: :environment do
+    SyncToZapierJob.new.perform
+  end
 end
