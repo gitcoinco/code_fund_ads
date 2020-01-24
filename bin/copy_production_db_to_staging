@@ -1,13 +1,20 @@
 #!/bin/sh
 
 # Requirements
-# - aws-cli
+# - aws-cli (brew install awscli)
 # - AWS environment variables
 #   * AWS_ACCESS_KEY_ID
 #   * AWS_SECRET_ACCESS_KEY
 #   * AWS_DEFAULT_REGION
+# - Metabase environment variables
+#   * METABASE_URL
 
 app='code-fund-ads-staging'
+
+if [ -z "$(which aws)" ]; then
+  echo 'aws-cli not installed! Aborting.';
+  exit 1
+fi
 
 ./bin/heroku_pg_dump_production_replica
 heroku pg:reset DATABASE_URL -a $app
