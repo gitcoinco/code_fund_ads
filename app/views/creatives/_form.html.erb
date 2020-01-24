@@ -27,6 +27,8 @@
             <%= f.input(:status, label: "Status", collection: creative_statuses_for_select,
                   input_html: {class: "form-control", data: {controller: "select"}}) %>
           </div>
+        <% else %>
+          <%= f.hidden_field :status, value: ENUMS::CREATIVE_STATUSES::PENDING %>
         <% end %>
       </div>
       <div class="row mt-3">
