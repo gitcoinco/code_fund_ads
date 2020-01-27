@@ -95,11 +95,11 @@ ActiveRecord::Schema.define(version: 2020_01_21_171555) do
     t.bigint "creative_ids", default: [], null: false, array: true
     t.boolean "paid_fallback", default: false
     t.bigint "campaign_bundle_id"
-    t.integer "audience_id"
-    t.integer "region_id"
+    t.bigint "audience_ids", default: [], null: false, array: true
+    t.bigint "region_ids", default: [], null: false, array: true
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
     t.index ["assigned_property_ids"], name: "index_campaigns_on_assigned_property_ids", using: :gin
-    t.index ["audience_id"], name: "index_campaigns_on_audience_id"
+    t.index ["audience_ids"], name: "index_campaigns_on_audience_ids", using: :gin
     t.index ["campaign_bundle_id"], name: "index_campaigns_on_campaign_bundle_id"
     t.index ["core_hours_only"], name: "index_campaigns_on_core_hours_only"
     t.index ["country_codes"], name: "index_campaigns_on_country_codes", using: :gin
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 2020_01_21_171555) do
     t.index ["paid_fallback"], name: "index_campaigns_on_paid_fallback"
     t.index ["prohibited_property_ids"], name: "index_campaigns_on_prohibited_property_ids", using: :gin
     t.index ["province_codes"], name: "index_campaigns_on_province_codes", using: :gin
-    t.index ["region_id"], name: "index_campaigns_on_region_id"
+    t.index ["region_ids"], name: "index_campaigns_on_region_ids", using: :gin
     t.index ["start_date"], name: "index_campaigns_on_start_date"
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["user_id"], name: "index_campaigns_on_user_id"

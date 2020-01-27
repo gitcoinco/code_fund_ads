@@ -73,14 +73,14 @@ class CampaignBundle < ApplicationRecord
     regions.map(&:country_codes).flatten.sort
   end
 
-  def competing_campaigns
-    Campaign.active.premium.where(region_id: region_ids).available_on(start_date)
-  end
-
-  def competing_daily_budget_by_region
-    competing_campaigns.group(:region_id).sum(:daily_budget_cents).map { |region_id, daily_budget_cents|
-      [Region.find(region_id), Money.new(daily_budget_cents)]
-    }.to_h
+  def cache_key
+    return super if persisted?
+    [
+      self.class.table_name,
+      start_date&.iso8601,
+      end_date&.iso8601,
+      Digest::MD5.hexdigest(region_ids.join),
+    ].compact.join("/")
   end
 
   # protected instance methods ................................................

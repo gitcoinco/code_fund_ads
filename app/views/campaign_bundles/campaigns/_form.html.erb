@@ -1,0 +1,45 @@
+<%= f.fields_for "campaigns_attributes[#{campaign.temporary_id}]", campaign do |cf| %>
+  <div class="row">
+    <div class="col-8">
+      <div class="d-flex mt-4 border-bottom">
+        <h4>Campaign <%= campaign_iteration.index + 1 %></h4>
+        <%= link_to "Remove", "#", class: "btn btn-link ml-auto", data: { reflex: "click->CampaignBundlesReflex#remove_campaign", temporary_id: campaign.temporary_id } %>
+      </div>
+
+      <div class="row">
+        <div class="col form-group">
+          <%= cf.label :name %>
+          <%= cf.text_field :name, class: "form-control", required: true %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col form-group">
+          <%= cf.label :url, "URL" %>
+          <%= cf.text_field :url, class: "form-control", required: true %>
+        </div>
+      </div>
+
+      <div class="row" data-controller="checkboxes" data-reflex-name="CampaignBundlesReflex#update_campaign_audience_ids" data-temporary-id="<%= campaign.temporary_id %>">
+        <div class="col">
+          <%= cf.label :audiences, "Audiences" %>
+          <% Audience.order(:name).each do |audience| %>
+            <div class="form-check ml-1">
+              <%= cf.check_box :audience_ids,
+                {id: campaign_audience_dom_id(campaign, audience), class: "form-check-input", multiple: true, data: {action: "change->checkboxes#invokeReflex"}},
+                audience.id, campaign.audience_ids.include?(audience.id) %>
+              <%= cf.label audience.name, audience.name, for: campaign_audience_dom_id(campaign, audience), class: "form-check-label" %>
+            </div>
+          <% end %>
+          <div class="mt-2">
+            <a href="#" class="btn btn-link btn-light border" data-action="click->checkboxes#checkAll">Select All</a>
+            <a href="#" class="btn btn-link btn-light border" data-action="click->checkboxes#uncheckAll">Clear Selections</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <%= render "/campaign_bundles/campaigns/daily_impressions", campaign: campaign %>
+    </div>
+  </div>
+<% end %>

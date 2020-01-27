@@ -4,6 +4,7 @@
 #
 #  id                      :bigint           not null, primary key
 #  assigned_property_ids   :bigint           default([]), not null, is an Array
+#  audience_ids            :bigint           default([]), not null, is an Array
 #  core_hours_only         :boolean          default(FALSE)
 #  country_codes           :string           default([]), is an Array
 #  creative_ids            :bigint           default([]), not null, is an Array
@@ -23,6 +24,7 @@
 #  paid_fallback           :boolean          default(FALSE)
 #  prohibited_property_ids :bigint           default([]), not null, is an Array
 #  province_codes          :string           default([]), is an Array
+#  region_ids              :bigint           default([]), not null, is an Array
 #  start_date              :date
 #  status                  :string           not null
 #  total_budget_cents      :integer          default(0), not null
@@ -31,18 +33,16 @@
 #  weekdays_only           :boolean          default(FALSE)
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
-#  audience_id             :integer
 #  campaign_bundle_id      :bigint
 #  creative_id             :bigint
 #  legacy_id               :uuid
 #  organization_id         :bigint
-#  region_id               :integer
 #  user_id                 :bigint
 #
 # Indexes
 #
 #  index_campaigns_on_assigned_property_ids    (assigned_property_ids) USING gin
-#  index_campaigns_on_audience_id              (audience_id)
+#  index_campaigns_on_audience_ids             (audience_ids) USING gin
 #  index_campaigns_on_campaign_bundle_id       (campaign_bundle_id)
 #  index_campaigns_on_core_hours_only          (core_hours_only)
 #  index_campaigns_on_country_codes            (country_codes) USING gin
@@ -57,7 +57,7 @@
 #  index_campaigns_on_paid_fallback            (paid_fallback)
 #  index_campaigns_on_prohibited_property_ids  (prohibited_property_ids) USING gin
 #  index_campaigns_on_province_codes           (province_codes) USING gin
-#  index_campaigns_on_region_id                (region_id)
+#  index_campaigns_on_region_ids               (region_ids) USING gin
 #  index_campaigns_on_start_date               (start_date)
 #  index_campaigns_on_status                   (status)
 #  index_campaigns_on_user_id                  (user_id)
@@ -96,11 +96,10 @@ class Campaign < ApplicationRecord
   validate :validate_active_creatives, if: :active?
   validate :validate_assigned_properties, if: :sponsor?
   validate :validate_url
-  validate :validate_campaign_bundle
+  validate :validate_daily_budget
 
   # callbacks .................................................................
-  before_validation :assign_keywords
-  before_validation :assign_country_codes
+  before_validation :sync_to_campaign_bundle
   before_validation :sort_arrays
   before_validation :sanitize_creative_ids
   before_save :sanitize_assigned_property_ids
@@ -227,9 +226,11 @@ class Campaign < ApplicationRecord
   monetize :daily_budget_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :hourly_budget_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :ecpm_cents, numericality: {greater_than_or_equal_to: 0}
-  tag_columns :country_codes
   tag_columns :creative_ids
+  tag_columns :region_ids
+  tag_columns :country_codes
   tag_columns :province_codes
+  tag_columns :audience_ids
   tag_columns :keywords
   tag_columns :negative_keywords
   acts_as_commentable
@@ -429,21 +430,21 @@ class Campaign < ApplicationRecord
     }
   end
 
-  # HACK: REMOVE THESE TEMPORARY METHODS
-  def best_matching_region
-    return Region.americas_northern if country_codes.any?(/US|CA/i)
-    return Region.europe if country_codes.any?(/DE|FR|GB/i)
-    Region.all.max_by { |region| (region.country_codes & country_codes).size }
+  def audiences(include_fuzzy_matches: false)
+    relation = Audience.where(id: audience_ids)
+    relation = relation.or(Region.with_any_keywords(*keywords)) if include_fuzzy_matches
+    relation
   end
 
-  def best_matching_audience
-    Audience.all.max_by { |audience| (audience.keywords & keywords).size }
+  def regions(include_fuzzy_matches: false)
+    relation = Region.where(id: region_ids)
+    relation = relation.or(Region.with_any_country_codes(*country_codes)) if include_fuzzy_matches
+    relation
   end
 
-  def set_best_matching_region_and_audience
-    update_columns region_id: best_matching_region.id, audience_id: best_matching_audience.id
+  def competitors
+    Campaign.active.with_any_country_codes(*country_codes).with_any_keywords(*keywords)
   end
-  # HACK: END
 
   # protected instance methods ................................................
 
@@ -452,13 +453,17 @@ class Campaign < ApplicationRecord
   private
 
   def assign_keywords
-    return unless audience
-    self.keywords = audience.keywords
+    return unless audiences.exists?
+    allowed_keywords = audiences.map(&:keywords).flatten.uniq
+    self.keywords = allowed_keywords if keywords.blank?
+    self.keywords = (keywords & allowed_keywords).uniq.sort
   end
 
   def assign_country_codes
-    return unless region
-    self.country_codes = region.country_codes
+    return unless regions.exists?
+    allowed_country_codes = regions.map(&:country_codes).flatten.uniq
+    self.country_codes = allowed_country_codes if country_codes.blank?
+    self.country_codes = (country_codes & allowed_country_codes).uniq.sort
   end
 
   def sanitize_creative_ids
@@ -470,6 +475,8 @@ class Campaign < ApplicationRecord
   end
 
   def sort_arrays
+    self.audience_ids = audience_ids&.reject(&:blank?)&.sort || []
+    self.region_ids = region_ids&.reject(&:blank?)&.sort || []
     self.country_codes = country_codes&.reject(&:blank?)&.sort || []
     self.keywords = keywords&.reject(&:blank?)&.sort || []
     self.negative_keywords = negative_keywords&.reject(&:blank?)&.sort || []
@@ -522,13 +529,18 @@ class Campaign < ApplicationRecord
     end
   end
 
-  def validate_campaign_bundle
+  def validate_daily_budget
     return unless campaign_bundle
-    errors[:organization] << "must match the bundle" if campaign_id != campaign_bundle.organization_id
-    errors[:start_date] << "must match the bundle" if start_date != campaign_bundle.start_date
-    errors[:end_date] << "must match the bundle" if end_date != campaign_bundle.end_date
-    errors[:region] << "must match the bundle" if region_id != campaign_bundle.region_id
-    errors[:country_codes] << "must match the bundle" if (country_codes - campaign_bundle.region.country_codes).size > 0
     errors[:daily_budget] << "cannot exceed the bundle's daily budget" if daily_budget > campaign_bundle.daily_budget
+  end
+
+  def sync_to_campaign_bundle
+    return unless campaign_bundle
+    assign_country_codes
+    assign_keywords
+    self.organization_id = campaign_bundle.organization_id
+    self.region_ids = campaign_bundle.region_ids
+    self.start_date = campaign_bundle.start_date
+    self.end_date = campaign_bundle.end_date
   end
 end

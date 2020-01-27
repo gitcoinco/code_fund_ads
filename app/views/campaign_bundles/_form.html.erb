@@ -1,69 +1,84 @@
 <%= form_with model: @campaign_bundle do |f| %>
   <div class="row">
-    <div class="col form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: "form-control", required: true %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col form-group">
-      <%= f.label :url, "URL" %>
-      <%= f.text_field :url, class: "form-control", required: true %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col form-group">
-      <%= f.label :daily_budget, "Daily Budget" %>
-      <%= f.text_field :daily_budget, class: "form-control", required: true %>
-      <small class="form-text text-muted">
-        The average you want to spend each day
-      </small>
-    </div>
-    <div class="col mt-4 text-info">
-      <small>
-        For the month, you won't pay more than your daily budget times the average number of days in a month.
-        Some days you might spend more or less than your daily budget.
-      </small>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col form-group">
-      <%= f.label :start_date, "Start Date" %>
-      <%= f.date_field :start_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_start_date"} %>
-    </div>
-    <div class="col form-group">
-      <%= f.label :end_date, "End Date" %>
-      <%= f.date_field :end_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_end_date"} %>
-      <small class="form-text text-muted">
-        Your ads will continue to run unless you specify an end date.
-      </small>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col" data-target="campaign-bundles.regions">
-      <%= f.label :regions, "Locations" %>
-      <% Region.order(:name).each do |region| %>
-        <div class="form-check ml-1">
-          <%= f.check_box :region_ids,
-            {id: dom_id(region), class: "form-check-input", multiple: true, data: {action: "change->campaign-bundles#updateSelectedRegionIds"}},
-            region.id, @campaign_bundle.region_ids.include?(region.id) %>
-          <%= f.label region.name, region.name, for: dom_id(region), class: "form-check-label" %>
+    <div class="col-8">
+      <div class="row">
+        <div class="col form-group">
+          <%= f.label :name %>
+          <%= f.text_field :name, class: "form-control", required: true %>
         </div>
-      <% end %>
-      <div class="mt-2">
-        <a href="#" class="btn btn-link btn-secondary" data-action="click->campaign-bundles#selectAllRegionIds">Select All</a>
-        <a href="#" class="btn btn-link btn-secondary" data-action="click->campaign-bundles#deselectAllRegionIds">Clear Selections</a>
       </div>
+
+      <div class="row">
+        <div class="col form-group">
+          <%= f.label :url, "URL" %>
+          <%= f.text_field :url, class: "form-control", required: true %>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col form-group">
+          <%= f.label :daily_budget, "Daily Budget" %>
+          <%= f.text_field :daily_budget, class: "form-control", required: true %>
+          <small class="form-text text-muted">
+            The average you want to spend each day
+          </small>
+        </div>
+        <div class="col mt-4 text-info">
+          <small>
+            For the month, you won't pay more than your daily budget times the average number of days in a month.
+            Some days you might spend more or less than your daily budget.
+          </small>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col form-group">
+          <%= f.label :start_date, "Start Date" %>
+          <%= f.date_field :start_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_start_date"} %>
+        </div>
+        <div class="col form-group">
+          <%= f.label :end_date, "End Date" %>
+          <%= f.date_field :end_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_end_date"} %>
+          <small class="form-text text-muted">
+            Your ads will continue to run unless you specify an end date.
+          </small>
+        </div>
+      </div>
+
+      <div class="row" data-controller="checkboxes" data-reflex-name="CampaignBundlesReflex#update_region_ids">
+        <div class="col">
+          <%= f.label :regions, "Locations" %>
+          <% Region.order(:name).each do |region| %>
+            <div class="form-check ml-1">
+              <%= f.check_box :region_ids,
+                {id: dom_id(region), class: "form-check-input", multiple: true, data: {action: "change->checkboxes#invokeReflex"}},
+                region.id, @campaign_bundle.region_ids.include?(region.id) %>
+              <%= f.label region.name, region.name, for: dom_id(region), class: "form-check-label" %>
+            </div>
+          <% end %>
+          <div class="mt-2">
+            <a href="#" class="btn btn-link btn-light border" data-action="click->checkboxes#checkAll">Select All</a>
+            <a href="#" class="btn btn-link btn-light border" data-action="click->checkboxes#uncheckAll">Clear Selections</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-4">
+      <%= render "/campaign_bundles/daily_impressions" %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <%= render partial: "/campaign_bundles/campaigns/form", collection: @campaign_bundle.campaigns, as: :campaign, locals: {f: f} %>
     </div>
   </div>
 
   <div class="row mt-5">
     <div class="col">
-      <%= link_to "Add Campaign", "", class: "btn btn-secondary" %>
+      <%= link_to "Add Campaign", "#", class: "btn btn-secondary", data: {reflex: "click->CampaignBundlesReflex#add_campaign"} %>
+      <%= link_to "Save Bundle", "#", class: "btn btn-dark" if @campaign_bundle.campaigns.present? %>
     </div>
   </div>
 <% end %>
