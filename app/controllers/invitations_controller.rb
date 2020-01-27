@@ -16,6 +16,10 @@ class InvitationsController < Devise::InvitationsController
     helpers.default_dashboard_path user
   end
 
+  def after_invite_path_for(_inviter, _invitee = nil)
+    users_path
+  end
+
   private
 
   def create_organization_user

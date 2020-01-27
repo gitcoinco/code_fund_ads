@@ -131,10 +131,6 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:invite, keys: [:first_name, :last_name, :organization_id, roles: []])
   end
 
-  def after_invite_path_for(_inviter, _invitee = nil)
-    users_path
-  end
-
   def reload_extensions
     load Rails.root.join("app/lib/extensions.rb")
   end
