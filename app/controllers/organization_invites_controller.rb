@@ -15,7 +15,7 @@ class OrganizationInvitesController < ApplicationController
         format.html { redirect_to organization_users_path(@organization), notice: "User was successfully invited to the organization." }
         format.json { render :show, status: :created, location: organization_user }
       else
-        format.html { render :new }
+        format.html { redirect_to new_organization_user_path(@organization), notice: organization_user.errors || "An unexpected error occurred." }
         format.json { render json: organization_user.errors, status: :unprocessable_entity }
       end
     end
