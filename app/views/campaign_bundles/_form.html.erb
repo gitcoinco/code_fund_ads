@@ -4,21 +4,21 @@
       <div class="row">
         <div class="col form-group">
           <%= f.label :name %>
-          <%= f.text_field :name, class: "form-control", required: true %>
+          <%= f.text_field :name, class: "form-control", required: true, data: {controller: "application", reflex: "input->CampaignBundlesReflex#update_name"} %>
         </div>
       </div>
 
       <div class="row">
         <div class="col form-group">
           <%= f.label :url, "URL" %>
-          <%= f.text_field :url, class: "form-control", required: true %>
+          <%= f.text_field :url, class: "form-control", required: true, data: {controller: "application", reflex: "input->CampaignBundlesReflex#update_url"} %>
         </div>
       </div>
 
       <div class="row">
         <div class="col form-group">
           <%= f.label :daily_budget, "Daily Budget" %>
-          <%= f.text_field :daily_budget, class: "form-control", required: true %>
+          <%= f.text_field :daily_budget, class: "form-control", required: true, data: {controller: "application", reflex: "input->CampaignBundlesReflex#update_daily_budget"} %>
           <small class="form-text text-muted">
             The average you want to spend each day
           </small>
@@ -65,6 +65,7 @@
     </div>
 
     <div class="col-4">
+      <%= render "/shared/errors", record: @campaign_bundle %>
       <%= render "/campaign_bundles/daily_impressions" %>
     </div>
   </div>
@@ -75,7 +76,7 @@
     </div>
   </div>
 
-  <div class="row mt-5">
+  <div class="row my-5">
     <div class="col">
       <%= link_to "Add Campaign", "#", class: "btn btn-secondary", data: {reflex: "click->CampaignBundlesReflex#add_campaign"} %>
       <%= link_to "Save Bundle", "#", class: "btn btn-dark" if @campaign_bundle.campaigns.present? %>

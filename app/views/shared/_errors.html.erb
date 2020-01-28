@@ -1,0 +1,11 @@
+<% if record.errors.any? %>
+  <div id="error_explanation" class="border border-danger rounded py-2 px-3 my-3 bg-white text-danger">
+    <h2><%= pluralize(record.errors.count, "Error") %> Detected</h2>
+
+    <ul>
+      <% record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

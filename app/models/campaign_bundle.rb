@@ -29,14 +29,13 @@ class CampaignBundle < ApplicationRecord
 
   # relationships .............................................................
   belongs_to :organization
-  belongs_to :region
   belongs_to :user
   has_many :campaigns
 
   # validations ...............................................................
-  validates :name, length: {maximum: 255, allow_blank: false}
-  validates :region_ids, inclusion: {in: Region.pluck(:id)}
-  validate :validate_url
+  validates :name, length: {maximum: 255, allow_blank: false, message: "is invalid"}
+  validates :url, url: true
+  validates :region_ids, overlap: {values: Region.all.pluck(:id)}
 
   # callbacks .................................................................
   before_validation :sanitize_region_ids
@@ -88,13 +87,6 @@ class CampaignBundle < ApplicationRecord
 
   # private instance methods ..................................................
   private
-
-  def validate_url
-    self.url = url.to_s.strip
-    URI.parse(url)
-  rescue
-    errors[:url] << "is invalid"
-  end
 
   def sanitize_region_ids
     self.region_ids = (region_ids & Region.pluck(:id)).sort

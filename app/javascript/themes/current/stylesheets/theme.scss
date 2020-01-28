@@ -78,6 +78,22 @@ button.layout-button {
   border-radius: 0.25rem;
 }
 
+.form-group {
+  $color-danger: rgb(183, 107, 163);
+  $color-danger-light: rgba(183, 107, 163, 0.15);
+  &.form-group-with-errors {
+    label {
+      color: $color-danger;
+    }
+    .form-control {
+      &, &:focus, &:active {
+        border-color: $color-danger;
+        box-shadow: inset 0 1px 0 0 $color-danger-light;
+      }
+    }
+  }
+}
+
 #reflex-status {
   position: fixed;
   bottom: 0;

@@ -1,6 +1,8 @@
 <%= f.fields_for "campaigns_attributes[#{campaign.temporary_id}]", campaign do |cf| %>
   <div class="row">
     <div class="col-8">
+      <%= render "/shared/errors", record: campaign %>
+
       <div class="d-flex mt-4 border-bottom">
         <h4>Campaign <%= campaign_iteration.index + 1 %></h4>
         <%= link_to "Remove", "#", class: "btn btn-link ml-auto", data: { reflex: "click->CampaignBundlesReflex#remove_campaign", temporary_id: campaign.temporary_id } %>

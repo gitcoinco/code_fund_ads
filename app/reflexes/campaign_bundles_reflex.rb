@@ -1,20 +1,29 @@
 class CampaignBundlesReflex < ApplicationReflex
   include CampaignBundles::Stashable
 
+  def update_name
+    campaign_bundle.name = element[:value]
+  end
+
+  def update_url
+    campaign_bundle.url = element[:value]
+  end
+
+  def update_daily_budget
+    campaign.daily_budget = Money.new(element[:value].to_f * 100, "USD")
+    campaign_bundle.campaigns.each { |c| c.daily_budget = campaign_bundle.daily_budget }
+  end
+
   def update_start_date
     campaign_bundle.start_date = Date.parse(element[:value])
-    campaign_bundle.campaigns.each do |campaign|
-      campaign.start_date = campaign_bundle.start_date
-    end
+    campaign_bundle.campaigns.each { |c| c.start_date = campaign_bundle.start_date }
   rescue => e
     Rails.logger.error "Failed to parse and assign CampaignBundle#start_date! #{e}"
   end
 
   def update_end_date
     campaign_bundle.end_date = Date.parse(element[:value])
-    campaign_bundle.campaigns.each do |campaign|
-      campaign.end_date = campaign_bundle.end_date
-    end
+    campaign_bundle.campaigns.each { |c| c.end_date = campaign_bundle.end_date }
   rescue => e
     Rails.logger.error "Failed to parse and assign CampaignBundle#end_date! #{e}"
   end

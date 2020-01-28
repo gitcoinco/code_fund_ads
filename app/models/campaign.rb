@@ -85,17 +85,17 @@ class Campaign < ApplicationRecord
   belongs_to :campaign_bundle, optional: true
   belongs_to :audience, optional: true
   belongs_to :region, optional: true
-  belongs_to :creative, -> { includes :creative_images }
+  belongs_to :creative, -> { includes :creative_images }, optional: true
   belongs_to :user
   has_one :job_posting
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
+  validates :url, url: true
   validates :status, inclusion: {in: ENUMS::CAMPAIGN_STATUSES.values}
   validate :validate_creatives
   validate :validate_active_creatives, if: :active?
   validate :validate_assigned_properties, if: :sponsor?
-  validate :validate_url
   validate :validate_daily_budget
 
   # callbacks .................................................................
@@ -486,13 +486,6 @@ class Campaign < ApplicationRecord
 
   def sanitize_assigned_property_ids
     self.assigned_property_ids = assigned_property_ids.select(&:present?).uniq.sort
-  end
-
-  def validate_url
-    self.url = url.to_s.strip
-    URI.parse(url)
-  rescue
-    errors[:url] << "is invalid"
   end
 
   def validate_creatives
