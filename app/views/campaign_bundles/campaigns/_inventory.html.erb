@@ -1,0 +1,46 @@
+<div class="card mt-2">
+  <div class="card-header bg-muted">
+    <h5><%= campaign.competitors.premium.count %> other <%= "campaign".pluralize campaign.competitors.premium.count %></h5>
+    <div class="opacity-60">
+      Campaigns targeting the same inventory have a combined total daily budget of
+      <%= Money.new(campaign.competitors.premium.sum(:daily_budget_cents), "USD").format %>
+    </div>
+  </div>
+  <div class="card-body" style="max-height:400px; overflow-y:scroll;">
+    <table class="table table-sm table-hover table-bordered">
+      <thead>
+        <tr class="bg-light">
+          <th class="rounded-0">Region</th>
+          <th class="rounded-0">Audience</th>
+          <th class="rounded-0"><small class="d-block opacity-60">Projected Daily</small>Impressions</th>
+          <th class="rounded-0"><small class="d-block opacity-60">Projected Daily</small>Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% campaign.regions.to_a.product(campaign.audiences.to_a).each do |(region, audience)| %>
+          <%
+            impressions_count = Country.average_daily_impressions_count(countries: region.countries, audience: audience)
+            impressions_value = ((impressions_count / 1000.to_f) * region.ecpm(audience))
+            @total_impressions_count ||= 0
+            @total_impressions_count += impressions_count
+            @total_impressions_value ||= Money.new(0)
+            @total_impressions_value += impressions_value
+          %>
+          <tr title="<%= "#{region.name} + #{audience.name}" %>">
+            <td><small class="text-nowrap"><%= truncate region.name, length: 18 %></small></td>
+            <td><small class="text-nowrap"><%= truncate audience.name, length: 18 %></small></td>
+            <td class="text-right"><%= number_with_delimiter impressions_count %></td>
+            <td class="text-right"><%= impressions_value.format %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr class="bg-light">
+          <td class="text-right" colspan="2"><strong>Totals</strong></td>
+          <td class="text-right"><%= number_with_delimiter @total_impressions_count.to_i %></td>
+          <td class="text-right"><%= @total_impressions_value&.format %></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

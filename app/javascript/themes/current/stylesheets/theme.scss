@@ -81,7 +81,7 @@ button.layout-button {
 .form-group {
   $color-danger: rgb(183, 107, 163);
   $color-danger-light: rgba(183, 107, 163, 0.15);
-  &.form-group-with-errors {
+  .field_with_errors {
     label {
       color: $color-danger;
     }

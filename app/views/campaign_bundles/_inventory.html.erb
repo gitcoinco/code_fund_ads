@@ -3,15 +3,15 @@
     <div class="card mt-2">
       <div class="card-header bg-muted">
         <h5><%= number_with_delimiter @campaign_bundle.average_daily_impressions_count %> daily impressions</h5>
-        <div class="opacity-60">Average inventory based on your targeting but not your budget or availability</div>
+        <div class="opacity-60">Average inventory based on your targeted locations but not audience, your budget, or availability</div>
       </div>
-      <div class="card-body">
+      <div class="card-body" style="max-height:400px; overflow-y:scroll;">
         <h6 class="text-muted">Top Countries</h6>
         <table class="table table-sm table-hover table-bordered">
           <thead>
             <tr class="bg-light">
               <th class="rounded-0">Country</th>
-              <th class="rounded-0"><small class="d-block opacity-60">Projected</small>Impressions</th>
+              <th class="rounded-0"><small class="d-block opacity-60">Projected Daily</small>Impressions</th>
             </tr>
           </thead>
           <tbody>
@@ -34,7 +34,7 @@
           <thead>
             <tr class="bg-light">
               <th class="rounded-0">Audience</th>
-              <th class="rounded-0"><small class="d-block opacity-60">Projected</small>Impressions</th>
+              <th class="rounded-0"><small class="d-block opacity-60">Projected Daily</small>Impressions</th>
             </tr>
           </thead>
           <tbody>

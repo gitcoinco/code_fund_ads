@@ -1,6 +1,6 @@
 <%= form_with model: @campaign_bundle do |f| %>
   <div class="row">
-    <div class="col-8">
+    <div class="col-7">
       <div class="row">
         <div class="col form-group">
           <%= f.label :name %>
@@ -46,7 +46,7 @@
       </div>
 
       <div class="row" data-controller="checkboxes" data-reflex-name="CampaignBundlesReflex#update_region_ids">
-        <div class="col">
+        <div class="col form-group">
           <%= f.label :regions, "Locations" %>
           <% Region.order(:name).each do |region| %>
             <div class="form-check ml-1">
@@ -64,9 +64,9 @@
       </div>
     </div>
 
-    <div class="col-4">
+    <div class="col-5">
       <%= render "/shared/errors", record: @campaign_bundle %>
-      <%= render "/campaign_bundles/daily_impressions" %>
+      <%= render "/campaign_bundles/inventory" %>
     </div>
   </div>
 

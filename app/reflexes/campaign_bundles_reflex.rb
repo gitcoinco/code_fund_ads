@@ -52,7 +52,16 @@ class CampaignBundlesReflex < ApplicationReflex
     campaign_bundle.campaigns.delete campaign
   end
 
+  def update_campaign_name
+    campaign.name = element[:value]
+  end
+
+  def update_campaign_url
+    campaign.url = element[:value]
+  end
+
   def update_campaign_audience_ids(audience_ids = [])
+    campaign.keywords = []
     campaign.audience_ids = audience_ids.sort
   end
 

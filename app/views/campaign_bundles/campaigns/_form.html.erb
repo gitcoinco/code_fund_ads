@@ -1,8 +1,6 @@
 <%= f.fields_for "campaigns_attributes[#{campaign.temporary_id}]", campaign do |cf| %>
   <div class="row">
-    <div class="col-8">
-      <%= render "/shared/errors", record: campaign %>
-
+    <div class="col-7">
       <div class="d-flex mt-4 border-bottom">
         <h4>Campaign <%= campaign_iteration.index + 1 %></h4>
         <%= link_to "Remove", "#", class: "btn btn-link ml-auto", data: { reflex: "click->CampaignBundlesReflex#remove_campaign", temporary_id: campaign.temporary_id } %>
@@ -11,14 +9,14 @@
       <div class="row">
         <div class="col form-group">
           <%= cf.label :name %>
-          <%= cf.text_field :name, class: "form-control", required: true %>
+          <%= cf.text_field :name, class: "form-control", required: true, data: { controller: "application", reflex: "input->CampaignBundlesReflex#update_campaign_name", temporary_id: campaign.temporary_id } %>
         </div>
       </div>
 
       <div class="row">
         <div class="col form-group">
           <%= cf.label :url, "URL" %>
-          <%= cf.text_field :url, class: "form-control", required: true %>
+          <%= cf.text_field :url, class: "form-control", required: true, data: { controller: "application", reflex: "input->CampaignBundlesReflex#update_campaign_url", temporary_id: campaign.temporary_id } %>
         </div>
       </div>
 
@@ -40,8 +38,9 @@
         </div>
       </div>
     </div>
-    <div class="col-4">
-      <%= render "/campaign_bundles/campaigns/daily_impressions", campaign: campaign %>
+    <div class="col-5">
+      <%= render "/shared/errors", record: campaign %>
+      <%= render "/campaign_bundles/campaigns/inventory", campaign: campaign if campaign.region_ids.present? && campaign.audience_ids.present? %>
     </div>
   </div>
 <% end %>

@@ -92,6 +92,8 @@ class Campaign < ApplicationRecord
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
   validates :url, url: true
+  validates :audience_ids, overlap: {values: Audience.all.pluck(:id)}, if: -> { campaign_bundle.present? }
+  validates :region_ids, overlap: {values: Region.all.pluck(:id)}, if: -> { campaign_bundle.present? }
   validates :status, inclusion: {in: ENUMS::CAMPAIGN_STATUSES.values}
   validate :validate_creatives
   validate :validate_active_creatives, if: :active?
@@ -443,7 +445,7 @@ class Campaign < ApplicationRecord
   end
 
   def competitors
-    Campaign.active.with_any_country_codes(*country_codes).with_any_keywords(*keywords)
+    Campaign.active.available_on(start_date).with_any_country_codes(*country_codes).with_any_keywords(*keywords)
   end
 
   # protected instance methods ................................................
