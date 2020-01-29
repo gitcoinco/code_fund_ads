@@ -117,10 +117,17 @@ class Campaign < ApplicationRecord
   scope :paid_fallback, -> { where paid_fallback: true }
   scope :premium, -> { where(fallback: false).where(paid_fallback: false) }
   scope :job_posting, -> { where job_posting: true }
-  scope :available_on, ->(date) {
-    where(arel_table[:start_date].lteq(date.to_date)).where(end_date: nil)
-      .or(where(arel_table[:start_date].lteq(date.to_date)).where(arel_table[:end_date].gteq(date.to_date)))
-  }
+
+  scope :starts_on_or_before, ->(date) { where arel_table[:start_date].lteq(date.to_date) }
+  scope :ends_on_or_before, ->(date) { where arel_table[:end_date].lteq(date.to_date) }
+  scope :ends_on_or_after, ->(date) { where arel_table[:end_date].gteq(date.to_date) }
+  scope :ends_after, ->(date) { where arel_table[:end_date].gt(date.to_date) }
+  scope :unending, -> { where end_date: nil }
+  scope :started, -> { where arel_table[:start_date].lteq(Arel::Nodes::SqlLiteral.new("current_date")) }
+  scope :ended, -> { where arel_table[:end_date].lteq(Arel::Nodes::SqlLiteral.new("current_date")) }
+  scope :unended, -> { unending.or(where(arel_table[:end_date].gteq(Arel::Nodes::SqlLiteral.new("current_date")))) }
+  scope :available_on, ->(date) { starts_on_or_before(date).unending.or(starts_on_or_before(date).ends_on_or_after(date)) }
+
   scope :search_keywords, ->(*values) { values.blank? ? all : with_any_keywords(*values) }
   scope :search_country_codes, ->(*values) { values.blank? ? all : with_any_country_codes(*values) }
   scope :search_province_codes, ->(*values) { values.blank? ? all : with_any_province_codes(*values) }
@@ -445,7 +452,17 @@ class Campaign < ApplicationRecord
   end
 
   def competitors
-    Campaign.active.available_on(start_date).with_any_country_codes(*country_codes).with_any_keywords(*keywords)
+    return Campaign.none unless start_date
+    assign_keywords
+    assign_country_codes
+    relation = Campaign.active.with_any_country_codes(*country_codes).with_any_keywords(*keywords).available_on(start_date)
+    relation = relation.unending.or(relation.ends_on_or_before(end_date)) if end_date
+    relation
+  end
+
+  def premium_competitors
+    return Campaign.none unless start_date
+    competitors.premium
   end
 
   # protected instance methods ................................................

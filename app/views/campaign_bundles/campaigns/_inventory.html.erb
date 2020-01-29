@@ -1,15 +1,53 @@
+<%
+  competitors = campaign.premium_competitors.order(:start_date).to_a
+  competitors_total_daily_budget = competitors.sum(&:daily_budget)
+  sold_daily_inventory = @campaign_bundle.sold_daily_inventory(campaign)
+  sold_daily_inventory_value = sold_daily_inventory.sum { |data| data[:impressions_value] }
+%>
 <div class="card mt-2">
   <div class="card-header bg-muted">
-    <h5><%= campaign.competitors.premium.count %> other <%= "campaign".pluralize campaign.competitors.premium.count %></h5>
+    <h5><%= (sold_daily_inventory_value - competitors_total_daily_budget).format %> available for purchase*</h5>
     <div class="opacity-60">
-      Campaigns targeting the same inventory have a combined total daily budget of
-      <%= Money.new(campaign.competitors.premium.sum(:daily_budget_cents), "USD").format %>
+      Approximation of daily inventory value.
+      <div class="text-uppercase">*Check future dates to ensure we don't oversell.</div>
     </div>
   </div>
   <div class="card-body" style="max-height:400px; overflow-y:scroll;">
+    <h6 class="text-muted">Existing Campaigns <small>that target the same inventory</small></h6>
     <table class="table table-sm table-hover table-bordered">
       <thead>
         <tr class="bg-light">
+          <th class="rounded-0">Name</th>
+          <th class="rounded-0">Daily Budget</th>
+          <th class="rounded-0">Start</th>
+          <th class="rounded-0">End</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% competitors.each do |campaign| %>
+          <tr>
+            <td><%= truncate campaign.name, length: 12 %></td>
+            <td class="text-right"><%= campaign.daily_budget.format %></td>
+            <td><%= campaign.start_date.to_s("mm/dd/yyyy") %></td>
+            <td><%= campaign.end_date&.to_s("mm/dd/yyyy") %></td>
+          </tr>
+        <% end %>
+      </tbody>
+      <tfoot>
+        <tr class="bg-light">
+          <td class="text-right font-weight-bold">Totals</td>
+          <td class="text-right font-weight-bold"><%= competitors_total_daily_budget.format %></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+
+    <h6 class="text-muted">Sold Daily Inventory</h6>
+    <table class="table table-sm table-hover table-bordered">
+      <thead>
+        <tr class="bg-light">
+          <th class="rounded-0">#</th>
           <th class="rounded-0">Region</th>
           <th class="rounded-0">Audience</th>
           <th class="rounded-0"><small class="d-block opacity-60">Projected Daily</small>Impressions</th>
@@ -17,28 +55,21 @@
         </tr>
       </thead>
       <tbody>
-        <% campaign.regions.to_a.product(campaign.audiences.to_a).each do |(region, audience)| %>
-          <%
-            impressions_count = Country.average_daily_impressions_count(countries: region.countries, audience: audience)
-            impressions_value = ((impressions_count / 1000.to_f) * region.ecpm(audience))
-            @total_impressions_count ||= 0
-            @total_impressions_count += impressions_count
-            @total_impressions_value ||= Money.new(0)
-            @total_impressions_value += impressions_value
-          %>
-          <tr title="<%= "#{region.name} + #{audience.name}" %>">
-            <td><small class="text-nowrap"><%= truncate region.name, length: 18 %></small></td>
-            <td><small class="text-nowrap"><%= truncate audience.name, length: 18 %></small></td>
-            <td class="text-right"><%= number_with_delimiter impressions_count %></td>
-            <td class="text-right"><%= impressions_value.format %></td>
+        <% sold_daily_inventory.sort_by { |data| data[:impressions_count] }.reverse.each_with_index do |data, index| %>
+          <tr title="<%= "#{data[:region].name} + #{data[:audience].name}" %>">
+            <td><%= index + 1 %></td>
+            <td><small class="text-nowrap"><%= truncate data[:region].name, length: 18 %></small></td>
+            <td><small class="text-nowrap"><%= truncate data[:audience].name, length: 18 %></small></td>
+            <td class="text-right"><%= number_with_delimiter data[:impressions_count] %></td>
+            <td class="text-right"><%= data[:impressions_value].format %></td>
           </tr>
         <% end %>
       </tbody>
       <tfoot>
         <tr class="bg-light">
-          <td class="text-right" colspan="2"><strong>Totals</strong></td>
-          <td class="text-right"><%= number_with_delimiter @total_impressions_count.to_i %></td>
-          <td class="text-right"><%= @total_impressions_value&.format %></td>
+          <td class="text-right font-weight-bold" colspan="3">Totals</td>
+          <td class="text-right font-weight-bold"><%= number_with_delimiter sold_daily_inventory.sum { |data| data[:impressions_count] } %></td>
+          <td class="text-right font-weight-bold"><%= sold_daily_inventory_value.format %></td>
         </tr>
       </tfoot>
     </table>
