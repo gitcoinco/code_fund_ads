@@ -28,7 +28,7 @@
             <% end %>
             <%= table_data do %>
               <%= edit_button(link: edit_campaign_path(campaign)) %>
-              <%= delete_button(link: campaign_path(campaign, redir: user_campaigns_path(@user))) %>
+              <%= delete_button(link: campaign_path(campaign, redir: user_campaigns_path(@user))) unless campaign.archived? %>
             <% end %>
           <% end %>
         <% end %>

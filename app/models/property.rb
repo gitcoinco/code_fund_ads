@@ -100,6 +100,14 @@ class Property < ApplicationRecord
     value_cast = Arel::Nodes::NamedFunction.new("CAST", [value.as("bigint[]")])
     where Arel::Nodes::InfixOperation.new("@>", arel_table[:assigned_fallback_campaign_ids], value_cast)
   }
+  scope :order_by_status, -> {
+                            order_by = ["CASE"]
+                            ENUMS::PROPERTY_STATUSES.values.each_with_index do |status, index|
+                              order_by << "WHEN status='#{status}' THEN #{index}"
+                            end
+                            order_by << "END"
+                            order(Arel.sql(order_by.join(" ")))
+                          }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
@@ -153,6 +161,10 @@ class Property < ApplicationRecord
 
   def active?
     status == ENUMS::PROPERTY_STATUSES::ACTIVE
+  end
+
+  def archived?
+    status == ENUMS::PROPERTY_STATUSES::ARCHIVED
   end
 
   def pending?
@@ -245,7 +257,7 @@ class Property < ApplicationRecord
 
   def validate_destroyable
     return unless DailySummary.find_by(scoped_by_type: "Property", scoped_by_id: id)
-    errors.add :base, "record has associated daily summaries, try archiving it instead"
-    throw(:abort)
+    errors.add :base, "Record has associated daily summaries, try archiving it instead."
+    throw :abort
   end
 end

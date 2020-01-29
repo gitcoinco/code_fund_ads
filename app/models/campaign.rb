@@ -139,6 +139,14 @@ class Campaign < ApplicationRecord
   scope :with_active_creatives, -> {
     where "\"campaigns\".\"creative_ids\" && (SELECT array_agg(id) FROM \"creatives\" WHERE \"creatives\".\"status\" = 'active')::bigint[]"
   }
+  scope :order_by_status, -> {
+                            order_by = ["CASE"]
+                            ENUMS::CAMPAIGN_STATUSES.values.each_with_index do |status, index|
+                              order_by << "WHEN status='#{status}' THEN #{index}"
+                            end
+                            order_by << "END"
+                            order(Arel.sql(order_by.join(" ")))
+                          }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
@@ -442,7 +450,7 @@ class Campaign < ApplicationRecord
 
   def validate_destroyable
     return unless daily_summaries.exists? || impressions.exists?
-    errors.add :base, "record has associated impressions and/or daily summaries, try archiving it instead"
-    throw(:abort)
+    errors.add :base, "Record has associated impressions and/or daily summaries, try archiving it instead."
+    throw :abort
   end
 end

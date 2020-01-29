@@ -87,7 +87,7 @@ class CampaignsController < ApplicationController
   end
 
   def destroy
-    @campaign.update(status: :archived)
+    @campaign.update(status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED)
     respond_to do |format|
       format.html { redirect_to campaigns_url, notice: "Campaign was successfully archived." }
       format.json { head :no_content }

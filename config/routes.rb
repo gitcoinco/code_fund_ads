@@ -132,7 +132,7 @@ Rails.application.routes.draw do
 
   scope "/users/:user_id" do
     resources :user_campaigns, only: [:index], path: "/campaigns"
-    resources :properties, only: [:index], as: :user_properties
+    resources :user_properties, only: [:index], path: "/properties"
     resources :creatives, only: [:index], as: :user_creatives
     resources :versions, only: [:index], as: :user_versions, path: "/revisions"
     resources :comments, only: [:index], as: :user_comments

@@ -54,7 +54,7 @@ class CreativesController < ApplicationController
 
   def destroy
     if @creative.campaigns.empty?
-      @creative.update(status: :archived)
+      @creative.update(status: ENUMS::CREATIVE_STATUSES::ARCHIVED)
       respond_to do |format|
         format.html { redirect_to creatives_url, notice: "Creative was successfully archived." }
         format.json { head :no_content }

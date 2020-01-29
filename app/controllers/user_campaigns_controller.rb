@@ -5,7 +5,7 @@ class UserCampaignsController < ApplicationController
   before_action :set_user, only: :index
 
   def index
-    campaigns = Campaign.includes(:organization).where(organization: @user.organizations)
+    campaigns = Campaign.includes(:organization).where(organization: @user.organizations).order_by_status
     @pagy, @campaigns = pagy(campaigns)
   end
 

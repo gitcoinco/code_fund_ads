@@ -63,6 +63,7 @@ class Creative < ApplicationRecord
                             order_by << "END"
                             order(Arel.sql(order_by.join(" ")))
                           }
+
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   sanitize :headline, :body, :cta
 
@@ -182,7 +183,7 @@ class Creative < ApplicationRecord
 
   def validate_destroyable
     return unless DailySummary.find_by(scoped_by_type: "Creative", scoped_by_id: id)
-    errors.add :base, "record has associated daily summaries, try archiving it instead"
-    throw(:abort)
+    errors.add :base, "Record has associated daily summaries, try archiving it instead."
+    throw :abort
   end
 end
