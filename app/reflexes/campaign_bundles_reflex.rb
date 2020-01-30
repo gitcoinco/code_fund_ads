@@ -10,7 +10,7 @@ class CampaignBundlesReflex < ApplicationReflex
   end
 
   def update_daily_budget
-    campaign.daily_budget = Money.new(element[:value].to_f * 100, "USD")
+    campaign_bundle.daily_budget = Money.new(element[:value].to_f * 100, "USD")
     campaign_bundle.campaigns.each { |c| c.daily_budget = campaign_bundle.daily_budget }
   end
 
@@ -58,6 +58,10 @@ class CampaignBundlesReflex < ApplicationReflex
 
   def update_campaign_url
     campaign.url = element[:value]
+  end
+
+  def update_campaign_ecpm_multiplier
+    campaign.ecpm_multiplier = element[:value].to_f
   end
 
   def update_campaign_audience_ids(audience_ids = [])

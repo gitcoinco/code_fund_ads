@@ -20,6 +20,7 @@ class CreateCampaignBundles < ActiveRecord::Migration[6.0]
     add_column :campaigns, :campaign_bundle_id, :bigint
     add_column :campaigns, :audience_ids, :bigint, default: [], array: true, null: false
     add_column :campaigns, :region_ids, :bigint, default: [], array: true, null: false
+    add_column :campaigns, :ecpm_multiplier, :decimal, default: 1, null: false
     add_index :campaigns, :campaign_bundle_id
     add_index :campaigns, :audience_ids, using: :gin
     add_index :campaigns, :region_ids, using: :gin

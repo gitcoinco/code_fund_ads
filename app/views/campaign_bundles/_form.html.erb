@@ -18,7 +18,7 @@
       <div class="row">
         <div class="col form-group">
           <%= f.label :daily_budget, "Daily Budget" %>
-          <%= f.text_field :daily_budget, class: "form-control", required: true, data: {controller: "application", reflex: "input->CampaignBundlesReflex#update_daily_budget"} %>
+          <%= f.text_field :daily_budget, value: @campaign_bundle.daily_budget.format(symbol: false, no_cents: true), class: "form-control", required: true, data: {controller: "application", reflex: "input->CampaignBundlesReflex#update_daily_budget"} %>
           <small class="form-text text-muted">
             The average you want to spend each day
           </small>
@@ -47,7 +47,7 @@
 
       <div class="row" data-controller="checkboxes" data-reflex-name="CampaignBundlesReflex#update_region_ids">
         <div class="col form-group">
-          <%= f.label :regions, "Locations" %>
+          <%= f.label :regions, "Regions" %>
           <% Region.order(:name).each do |region| %>
             <div class="form-check ml-1">
               <%= f.check_box :region_ids,

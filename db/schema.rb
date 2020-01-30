@@ -97,6 +97,7 @@ ActiveRecord::Schema.define(version: 2020_01_21_171555) do
     t.bigint "campaign_bundle_id"
     t.bigint "audience_ids", default: [], null: false, array: true
     t.bigint "region_ids", default: [], null: false, array: true
+    t.decimal "ecpm_multiplier", default: "1.0", null: false
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
     t.index ["assigned_property_ids"], name: "index_campaigns_on_assigned_property_ids", using: :gin
     t.index ["audience_ids"], name: "index_campaigns_on_audience_ids", using: :gin

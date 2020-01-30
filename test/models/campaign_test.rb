@@ -12,6 +12,7 @@
 #  daily_budget_currency   :string           default("USD"), not null
 #  ecpm_cents              :integer          default(0), not null
 #  ecpm_currency           :string           default("USD"), not null
+#  ecpm_multiplier         :decimal(, )      default(1.0), not null
 #  end_date                :date
 #  fallback                :boolean          default(FALSE), not null
 #  fixed_ecpm              :boolean          default(TRUE), not null

@@ -20,6 +20,13 @@
         </div>
       </div>
 
+      <div class="row">
+        <div class="col form-group">
+          <%= cf.label :ecpm_multiplier, "eCPM Multiplier" %>
+          <%= cf.number_field :ecpm_multiplier, class: "form-control", required: true, data: { controller: "application", reflex: "input->CampaignBundlesReflex#update_campaign_ecpm_multiplier", temporary_id: campaign.temporary_id } %>
+        </div>
+      </div>
+
       <div class="row" data-controller="checkboxes" data-reflex-name="CampaignBundlesReflex#update_campaign_audience_ids" data-temporary-id="<%= campaign.temporary_id %>">
         <div class="col">
           <%= cf.label :audiences, "Audiences" %>

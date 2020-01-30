@@ -261,7 +261,8 @@ CREATE TABLE public.campaigns (
     paid_fallback boolean DEFAULT false,
     campaign_bundle_id bigint,
     audience_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
-    region_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
+    region_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
+    ecpm_multiplier numeric DEFAULT 1.0 NOT NULL
 );
 
 
