@@ -32,7 +32,6 @@ class CampaignBundle < ApplicationRecord
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false, message: "is invalid"}
-  validates :url, url: true
   validates :region_ids, overlap: {values: Region.all.pluck(:id)}
 
   # callbacks .................................................................

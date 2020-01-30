@@ -13,4 +13,8 @@ class CampaignBundlesController < ApplicationController
     end
     stash_campaign_bundle @campaign_bundle
   end
+
+  def create
+    binding.pry
+  end
 end

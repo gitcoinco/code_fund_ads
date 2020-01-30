@@ -10,13 +10,6 @@
 
       <div class="row">
         <div class="col form-group">
-          <%= f.label :url, "URL" %>
-          <%= f.text_field :url, class: "form-control", required: true, data: {controller: "application", reflex: "input->CampaignBundlesReflex#update_url"} %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col form-group">
           <%= f.label :start_date, "Start Date" %>
           <%= f.date_field :start_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_start_date"} %>
         </div>
@@ -63,7 +56,7 @@
   <div class="row my-5">
     <div class="col">
       <%= link_to "Add Campaign", "#", class: "btn btn-secondary", data: {reflex: "click->CampaignBundlesReflex#add_campaign"} %>
-      <%= link_to "Save Bundle", "#", class: "btn btn-dark" if @campaign_bundle.campaigns.present? %>
+      <%= f.submit "Save Bundle", class: "btn btn-dark" if @campaign_bundle.valid? && @campaign_bundle.campaigns.present? %>
     </div>
   </div>
 <% end %>

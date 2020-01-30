@@ -5,10 +5,6 @@ class CampaignBundlesReflex < ApplicationReflex
     campaign_bundle.name = element[:value]
   end
 
-  def update_url
-    campaign_bundle.url = element[:value]
-  end
-
   def update_start_date
     campaign_bundle.start_date = Date.parse(element[:value])
     campaign_bundle.campaigns.each { |c| c.start_date = campaign_bundle.start_date }
