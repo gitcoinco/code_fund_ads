@@ -5,7 +5,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "2.6.5"
 
-# gem "active_link_to", "~> 1.0.5"
+gem "active_link_to", "~> 1.0.5"
 gem "active_storage_svg_sanitizer", "~> 0.1.0"
 gem "acts_as_commentable_with_threading", "~> 2.0.1"
 gem "acts_as_paranoid", "~> 0.6.2"
