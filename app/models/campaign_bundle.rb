@@ -7,7 +7,6 @@
 #  name            :string           not null
 #  region_ids      :bigint           default([]), is an Array
 #  start_date      :date
-#  url             :text             not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  organization_id :bigint           not null

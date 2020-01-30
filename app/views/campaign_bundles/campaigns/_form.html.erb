@@ -29,14 +29,14 @@
       <div class="row">
         <div class="col-6 form-group">
           <%= cf.label :daily_budget, "Daily Budget" %>
-          <%= cf.text_field :daily_budget, value: campaign.daily_budget.format(symbol: false, no_cents: true), class: "form-control", required: true, data: {controller: "application", reflex: "input->CampaignBundlesReflex#update_campaign_daily_budget"} %>
+          <%= cf.text_field :daily_budget, value: campaign.daily_budget.format(symbol: false, no_cents: true), step: 0.01, class: "form-control", required: true, data: {controller: "application", reflex: "input->CampaignBundlesReflex#update_campaign_daily_budget"} %>
           <small class="form-text text-muted">
             The average you want to spend each day
           </small>
         </div>
         <div class="col-6 form-group">
           <%= cf.label :ecpm_multiplier, "eCPM Multiplier" %>
-          <%= cf.number_field :ecpm_multiplier, class: "form-control", required: true, data: { controller: "application", reflex: "input->CampaignBundlesReflex#update_campaign_ecpm_multiplier", temporary_id: campaign.temporary_id } %>
+          <%= cf.number_field :ecpm_multiplier, class: "form-control", required: true, step: 0.01, data: { controller: "application", reflex: "input->CampaignBundlesReflex#update_campaign_ecpm_multiplier", temporary_id: campaign.temporary_id } %>
         </div>
       </div>
 

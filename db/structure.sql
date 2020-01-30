@@ -191,7 +191,6 @@ CREATE TABLE public.campaign_bundles (
     organization_id bigint NOT NULL,
     user_id bigint NOT NULL,
     name character varying NOT NULL,
-    url text NOT NULL,
     start_date date,
     end_date date,
     region_ids bigint[] DEFAULT '{}'::bigint[],
@@ -2899,5 +2898,3 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200116165511'),
 ('20200116184119'),
 ('20200121171555');
-
-
