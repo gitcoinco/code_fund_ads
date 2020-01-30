@@ -1,8 +1,8 @@
-<% cache @campaign_bundle.region_ids do %>
-  <% if @campaign_bundle.region_ids.present? %>
+<% if @campaign_bundle.region_ids.present? %>
+  <% cache @campaign_bundle.region_ids, expires_in: 1.day do %>
     <div class="card mt-2">
       <div class="card-header bg-muted">
-        <h5><%= number_with_delimiter @campaign_bundle.average_daily_impressions_count %> daily impressions</h5>
+        <h5><%= number_with_delimiter @campaign_bundle.average_daily_impressions_count %> impressions/day</h5>
         <div class="opacity-60">Average inventory based on your targeted locations but not audience, your budget, or availability</div>
       </div>
       <div class="card-body" style="max-height:400px; overflow-y:scroll;">
@@ -23,7 +23,7 @@
                 <%= country.emoji_flag %>
                 <%= truncate country.name, length: 24 %>
                 </td>
-                <td class="text-right">
+                <td class="text-right text-monospace">
                   <%= number_with_delimiter country.average_daily_impressions_count %>
                 </td>
               </tr>
@@ -45,7 +45,7 @@
               <tr>
                 <td><%= index + 1 %></td>
                 <td><%= audience.name %></td>
-                <td class="text-right"><%= number_with_delimiter count %></td>
+                <td class="text-right text-monospace"><%= number_with_delimiter count %></td>
               </tr>
             <% end %>
           </tbody>

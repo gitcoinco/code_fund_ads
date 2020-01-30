@@ -278,6 +278,15 @@ class Campaign < ApplicationRecord
     as_json.merge temporary_id: temporary_id
   end
 
+  def inventory_summary
+    return nil if persisted? || campaign_bundle.nil?
+    @inventory_summary ||= InventorySummary.new(self)
+  end
+
+  def targeting_variants
+    regions.to_a.product audiences.to_a
+  end
+
   def metadata
     key = "#{cache_key_with_version}/metadata"
     Rails.cache.fetch key do

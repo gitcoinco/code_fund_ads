@@ -89,18 +89,6 @@ class CampaignBundle < ApplicationRecord
     end
   end
 
-  def sold_daily_inventory(campaign)
-    campaign.regions.to_a.product(campaign.audiences.to_a).map do |(region, audience)|
-      count = Country.average_daily_impressions_count(countries: region.countries, audience: audience)
-      {
-        region: region,
-        audience: audience,
-        impressions_count: count,
-        impressions_value: (count / 1000.to_f) * region.ecpm(audience),
-      }
-    end
-  end
-
   # protected instance methods ................................................
   protected
 
