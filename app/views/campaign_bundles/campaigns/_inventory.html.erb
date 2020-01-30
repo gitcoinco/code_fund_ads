@@ -22,24 +22,24 @@
             <th class="rounded-0">Region</th>
             <th class="rounded-0">Audience</th>
             <th class="rounded-0"><small class="d-block opacity-60">Base</small>eCPM</th>
-            <th class="rounded-0"><small class="d-block opacity-60">Discounted</small>eCPM</th>
+            <th class="rounded-0"><small class="d-block opacity-60">Adjusted</small>eCPM</th>
           </tr>
         </thead>
         <tbody>
-          <% campaign.targeting_variants.map do |(region, audience)| %>
-            <tr title="<%= "#{region.name} + #{audience.name}" %>">
-              <td><small class="text-nowrap"><%= truncate region.name, length: 18 %></small></td>
-              <td><small class="text-nowrap"><%= truncate audience.name, length: 18 %></small></td>
-              <td class="text-right text-monospace"><%= region.ecpm(audience).format %></td>
-              <td class="text-right text-monospace"><%= (region.ecpm(audience) * campaign.ecpm_multiplier).format %></td>
+          <% campaign.inventory_summary.inventory_details.map do |inventory_detail| %>
+            <tr title="<%= "#{inventory_detail.region.name} + #{inventory_detail.audience.name}" %>">
+              <td><small class="text-nowrap"><%= truncate inventory_detail.region.name, length: 18 %></small></td>
+              <td><small class="text-nowrap"><%= truncate inventory_detail.audience.name, length: 18 %></small></td>
+              <td class="text-right text-monospace"><%= inventory_detail.base_ecpm.format %></td>
+              <td class="text-right text-monospace"><%= inventory_detail.adjusted_ecpm.format %></td>
             </tr>
           <% end %>
         </tbody>
         <tfoot>
           <tr class="bg-light">
             <td class="text-right font-weight-bold" colspan="2">Average</td>
-            <td class="text-right font-weight-bold text-monospace"><%=  %></td>
-            <td class="text-right font-weight-bold text-monospace"><%=  %></td>
+            <td class="text-right font-weight-bold text-monospace"><%= campaign.inventory_summary.average_base_ecpm.format %></td>
+            <td class="text-right font-weight-bold text-monospace"><%= campaign.inventory_summary.average_adjusted_ecpm.format %></td>
           </tr>
         </tfoot>
       </table>

@@ -43,8 +43,18 @@ class InventorySummary
 
   def inventory_details
     @inventory_details ||= campaign.targeting_variants.map { |(region, audience)|
-      InventoryDetail.new(region, audience)
+      InventoryDetail.new(region, audience, ecpm_multiplier: campaign.ecpm_multiplier)
     }
+  end
+
+  def average_base_ecpm
+    return Money.new(0) if inventory_details.blank?
+    inventory_details.sum(&:base_ecpm) / inventory_details.size.to_f
+  end
+
+  def average_adjusted_ecpm
+    return Money.new(0) if inventory_details.blank?
+    inventory_details.sum(&:adjusted_ecpm) / inventory_details.size.to_f
   end
 
   def cache_key
