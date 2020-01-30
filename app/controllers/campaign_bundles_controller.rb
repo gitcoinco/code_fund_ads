@@ -15,6 +15,30 @@ class CampaignBundlesController < ApplicationController
   end
 
   def create
-    binding.pry
+    @campaign_bundle = CampaignBundle.new(campaign_bundle_params)
+    @campaign_bundle.organization = Current.organization
+    @campaign_bundle.user = current_user
+    @campaign_bundle.campaigns.each do |campaign|
+      campaign.organization = Current.organization
+      campaign.user = current_user
+      campaign.status = ENUMS::CAMPAIGN_STATUSES::PENDING
+      campaign.start_date = @campaign_bundle.start_date
+      campaign.end_date = @campaign_bundle.end_date
+      campaign.region_ids = @campaign_bundle.region_ids
+      campaign.hourly_budget = campaign.daily_budget / 3
+      # TODO: set max budget if end date
+    end
+
+    # TODO: save a redirect to the missing camapign_bundles#show with a flash message
+  end
+
+  def campaign_bundle_params
+    params.require(:campaign_bundle).permit(
+      :name,
+      :start_date,
+      :end_date,
+      region_ids: [],
+      campaigns_attributes: [:name, :url, :daily_budget, :ecpm_multiplier, audience_ids: []]
+    )
   end
 end
