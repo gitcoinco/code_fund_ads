@@ -9,11 +9,6 @@ class CampaignBundlesReflex < ApplicationReflex
     campaign_bundle.url = element[:value]
   end
 
-  def update_daily_budget
-    campaign_bundle.daily_budget = Money.new(element[:value].to_f * 100, "USD")
-    campaign_bundle.campaigns.each { |c| c.daily_budget = campaign_bundle.daily_budget }
-  end
-
   def update_start_date
     campaign_bundle.start_date = Date.parse(element[:value])
     campaign_bundle.campaigns.each { |c| c.start_date = campaign_bundle.start_date }
@@ -58,6 +53,10 @@ class CampaignBundlesReflex < ApplicationReflex
 
   def update_campaign_url
     campaign.url = element[:value]
+  end
+
+  def update_campaign_daily_budget
+    campaign.daily_budget = Money.new(element[:value].to_f * 100, "USD")
   end
 
   def update_campaign_ecpm_multiplier

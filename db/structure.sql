@@ -192,8 +192,6 @@ CREATE TABLE public.campaign_bundles (
     user_id bigint NOT NULL,
     name character varying NOT NULL,
     url text NOT NULL,
-    daily_budget_cents integer DEFAULT 0 NOT NULL,
-    daily_budget_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     start_date date,
     end_date date,
     region_ids bigint[] DEFAULT '{}'::bigint[],

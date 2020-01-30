@@ -99,7 +99,6 @@ class Campaign < ApplicationRecord
   validate :validate_creatives
   validate :validate_active_creatives, if: :active?
   validate :validate_assigned_properties, if: :sponsor?
-  validate :validate_daily_budget
 
   # callbacks .................................................................
   before_validation :sync_to_campaign_bundle
@@ -549,11 +548,6 @@ class Campaign < ApplicationRecord
     if assigned_properties.present? && assigned_properties.map(&:restrict_to_sponsor_campaigns?).uniq != [true]
       errors.add :assigned_properties, "must be set to those restricted to sponsor campaigns i.e. GitHub properties, etc..."
     end
-  end
-
-  def validate_daily_budget
-    return unless campaign_bundle
-    errors[:daily_budget] << "cannot exceed the bundle's daily budget" if daily_budget > campaign_bundle.daily_budget
   end
 
   def sync_to_campaign_bundle

@@ -48,8 +48,6 @@ ActiveRecord::Schema.define(version: 2020_01_21_171555) do
     t.bigint "user_id", null: false
     t.string "name", null: false
     t.text "url", null: false
-    t.integer "daily_budget_cents", default: 0, null: false
-    t.string "daily_budget_currency", default: "USD", null: false
     t.date "start_date"
     t.date "end_date"
     t.bigint "region_ids", default: [], array: true

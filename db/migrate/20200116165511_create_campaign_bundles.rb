@@ -5,7 +5,6 @@ class CreateCampaignBundles < ActiveRecord::Migration[6.0]
       t.bigint :user_id, null: false
       t.string :name, null: false
       t.text :url, null: false
-      t.monetize :daily_budget, null: false
       t.date :start_date
       t.date :end_date
       t.bigint :region_ids, default: [], array: true
