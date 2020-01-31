@@ -43,7 +43,7 @@ class InventorySummary
 
   def avaliable_daily_impressions_count
     @avaliable_daily_impressions_count ||= if available_daily_inventory_percentage > 0
-      (average_daily_impressions_count / available_daily_inventory_percentage.to_f).floor
+      (average_daily_impressions_count * available_daily_inventory_percentage.to_f).floor
     else
       0
     end
@@ -51,7 +51,7 @@ class InventorySummary
 
   def inventory_details
     @inventory_details ||= campaign.targeting_variants.map { |(region, audience)|
-      InventoryDetail.new(region, audience, ecpm_multiplier: campaign.ecpm_multiplier)
+      InventoryDetail.new(region, audience, ecpm_multiplier: campaign.ecpm_multiplier, start_date: campaign.start_date)
     }
   end
 
