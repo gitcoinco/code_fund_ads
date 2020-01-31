@@ -29,7 +29,15 @@ class CampaignBundlesController < ApplicationController
       # TODO: set max budget if end date
     end
 
-    # TODO: save a redirect to the missing camapign_bundles#show with a flash message
+    respond_to do |format|
+      if @campaign_bundle.save
+        format.html { redirect_to campaigns_path, notice: "Campaign bundle was successfully created." }
+        # format.json { render :show, status: :created, location: @campaign_bundle }
+      else
+        format.html { render :new }
+        format.json { render json: @campaign_bundle.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def campaign_bundle_params
