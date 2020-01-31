@@ -15,6 +15,7 @@
       <small class="d-block mt-2">Average daily inventory valued at <%= tag.span campaign.inventory_summary.average_daily_inventory_value.format, class: "text-monospace" %></small>
     </div>
     <div class="card-body" style="max-height:400px; overflow-y:scroll;">
+
       <h6 class="text-muted">eCPM by Region & Audience</h6>
       <table class="table table-sm table-hover table-bordered">
         <thead>
@@ -44,7 +45,13 @@
         </tfoot>
       </table>
 
-      <h6 class="text-muted">Sold Daily Inventory</h6>
+      <h6 class="text-muted">
+        Sold Daily Inventory
+        <small class="d-block">
+          based on campaigns targeting the same inventory operating on
+          <%= tag.span @campaign_bundle.start_date.to_s("mm/dd/yyyy"), class: "text-monospace" %>
+        </small>
+      </h6>
       <table class="table table-sm table-hover table-bordered">
         <thead>
           <tr class="bg-light">
@@ -68,41 +75,88 @@
         </tbody>
         <tfoot>
           <tr class="bg-light">
-            <td class="text-right font-weight-bold" colspan="3">Total</td>
+            <td class="text-right font-weight-bold" colspan="3">Total Sold <small>daily</small></td>
             <td class="text-right font-weight-bold text-monospace"><%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count %></td>
             <td class="text-right font-weight-bold text-monospace"><%= campaign.inventory_summary.average_daily_inventory_value.format %></td>
           </tr>
+          <tr class="bg-light">
+            <td class="text-right font-weight-bold" colspan="3">Total Unsold <small>daily</small></td>
+            <td class="text-right font-weight-bold text-monospace"><%= tag.span number_with_delimiter campaign.inventory_summary.avaliable_daily_impressions_count, class: "text-monospace" %></td>
+            <td class="text-right font-weight-bold text-monospace"><%= tag.span campaign.inventory_summary.available_daily_inventory_value.format, class: "font-weight-bold text-monospace" %></td>
+          </tr>
         </tfoot>
       </table>
-      <h6 class="text-muted">Existing Campaigns <small>that target the same inventory</small></h6>
-      <table class="table table-sm table-hover table-bordered">
-        <thead>
-          <tr class="bg-light">
-            <th class="rounded-0">Name</th>
-            <th class="rounded-0">Daily Budget</th>
-            <th class="rounded-0">Start</th>
-            <th class="rounded-0">End</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% campaign.inventory_summary.competitors.each do |campaign| %>
-            <tr>
-              <td><%= truncate campaign.name, length: 12 %></td>
-              <td class="text-right text-monospace"><%= campaign.daily_budget.format %></td>
-              <td class="text-right text-monospace"><%= campaign.start_date.to_s("mm/dd/yyyy") %></td>
-              <td class="text-right text-monospace"><%= campaign.end_date&.to_s("mm/dd/yyyy") %></td>
+
+      <% if campaign.inventory_summary.competitors.present? %>
+        <h6 class="text-muted">
+          Active Campaigns
+          <small class="d-block">targeting the same inventory operating on <%= tag.span @campaign_bundle.start_date.to_s("mm/dd/yyyy"), class: "text-monospace" %></small>
+        </h6>
+        <table class="table table-sm table-hover table-bordered">
+          <thead>
+            <tr class="bg-light">
+              <th class="rounded-0">Name</th>
+              <th class="rounded-0">Daily Budget</th>
+              <th class="rounded-0">Start</th>
+              <th class="rounded-0">End</th>
             </tr>
-          <% end %>
-        </tbody>
-        <tfoot>
-          <tr class="bg-light">
-            <td class="text-right font-weight-bold">Total</td>
-            <td class="text-right font-weight-bold text-monospace"><%= campaign.inventory_summary.competitors_total_daily_budget.format %></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tfoot>
-      </table>
+          </thead>
+          <tbody>
+            <% campaign.inventory_summary.competitors.each do |c| %>
+              <tr>
+                <td><%= truncate c.name, length: 12 %></td>
+                <td class="text-right text-monospace"><%= c.daily_budget.format %></td>
+                <td class="text-right text-monospace"><%= c.start_date.to_s("mm/dd/yyyy") %></td>
+                <td class="text-right text-monospace"><%= c.end_date&.to_s("mm/dd/yyyy") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <tr class="bg-light">
+              <td class="text-right font-weight-bold">Total</td>
+              <td class="text-right font-weight-bold text-monospace"><%= campaign.inventory_summary.competitors_total_daily_budget.format %></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      <% end %>
+
+      <% if campaign.inventory_summary.future_competitors.present? %>
+        <h6 class="text-muted">
+          Future Campaigns
+          <small class="d-block">targeting the same inventory starting after <%= tag.span @campaign_bundle.start_date.to_s("mm/dd/yyyy"), class: "text-monospace" %></small>
+        </h6>
+        <table class="table table-sm table-hover table-bordered">
+          <thead>
+            <tr class="bg-light">
+              <th class="rounded-0">Name</th>
+              <th class="rounded-0">Daily Budget</th>
+              <th class="rounded-0">Start</th>
+              <th class="rounded-0">End</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% campaign.inventory_summary.future_competitors.each do |c| %>
+              <tr>
+                <td><%= truncate c.name, length: 12 %></td>
+                <td class="text-right text-monospace"><%= c.daily_budget.format %></td>
+                <td class="text-right text-monospace"><%= c.start_date.to_s("mm/dd/yyyy") %></td>
+                <td class="text-right text-monospace"><%= c.end_date&.to_s("mm/dd/yyyy") %></td>
+              </tr>
+            <% end %>
+          </tbody>
+          <tfoot>
+            <tr class="bg-light">
+              <td class="text-right font-weight-bold">Total</td>
+              <td class="text-right font-weight-bold text-monospace"><%= campaign.inventory_summary.future_competitors_total_daily_budget.format %></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      <% end %>
+
     </div>
   </div>
 <% end %>

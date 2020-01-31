@@ -13,6 +13,14 @@ class InventorySummary
     @competitors_total_daily_budget ||= Money.new(competitors.sum(&:daily_budget), "USD")
   end
 
+  def future_competitors
+    @future_competitors ||= campaign.future_premium_competitors.order(:start_date).to_a
+  end
+
+  def future_competitors_total_daily_budget
+    @future_competitors_total_daily_budget ||= Money.new(future_competitors.sum(&:daily_budget), "USD")
+  end
+
   def average_daily_inventory_value
     @average_daily_inventory_value ||= inventory_details.sum(&:impressions_value)
   end

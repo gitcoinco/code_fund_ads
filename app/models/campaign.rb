@@ -119,6 +119,8 @@ class Campaign < ApplicationRecord
   scope :job_posting, -> { where job_posting: true }
 
   scope :starts_on_or_before, ->(date) { where arel_table[:start_date].lteq(date.to_date) }
+  scope :starts_on_or_after, ->(date) { where arel_table[:start_date].gteq(date.to_date) }
+  scope :starts_after, ->(date) { where arel_table[:start_date].gt(date.to_date) }
   scope :ends_on_or_before, ->(date) { where arel_table[:end_date].lteq(date.to_date) }
   scope :ends_on_or_after, ->(date) { where arel_table[:end_date].gteq(date.to_date) }
   scope :ends_after, ->(date) { where arel_table[:end_date].gt(date.to_date) }
@@ -472,6 +474,20 @@ class Campaign < ApplicationRecord
   def premium_competitors
     return Campaign.none unless start_date
     competitors.premium
+  end
+
+  def future_competitors
+    return Campaign.none unless start_date
+    assign_keywords
+    assign_country_codes
+    relation = Campaign.active.with_any_country_codes(*country_codes).with_any_keywords(*keywords).starts_after(start_date).ends_on_or_before(start_date.advance(days: 90))
+    relation = relation.unending.or(relation.ends_on_or_before(end_date)) if end_date
+    relation
+  end
+
+  def future_premium_competitors
+    return Campaign.none unless start_date
+    future_competitors.premium
   end
 
   # protected instance methods ................................................
