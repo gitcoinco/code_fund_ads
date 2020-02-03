@@ -3,7 +3,7 @@
     <div class="card-header bg-muted">
       <div class="text-muted">Estimated available daily impressions and their value</div>
       <div class="progress bg-light" style="height:8px" title="<%= number_to_percentage campaign.inventory_summary.available_daily_inventory_percentage * 100, precision: 1 %> available">
-        <div class="progress-bar" role="progressbar" style="width:<%= campaign.inventory_summary.available_daily_inventory_percentage * 100 %>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" style="width:<%= campaign.inventory_summary.available_daily_inventory_percentage * 100 %>%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
 
       <h5 class="my-2 <%= classes "text-info": campaign.inventory_summary.avaliable_daily_impressions_count > 0, "text-danger": campaign.inventory_summary.avaliable_daily_impressions_count <= 0 %>">

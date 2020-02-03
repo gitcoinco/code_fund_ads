@@ -1,8 +1,7 @@
-<div class="container my-5 position-relative">
-  <div class="row">
-    <div class="col">
-      <h1 class="border-bottom">New Ad Bundle</h1>
-    </div>
-  </div>
+<%= render layout: "/shared/layout",
+    locals: {
+        subject: @campaign_bundle,
+        title: "New Ad Bundle",
+        subtitle: "Fill out the form below"} do %>
   <%= render partial: "/campaign_bundles/form" %>
-</div>
+<% end %>

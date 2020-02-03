@@ -1,7 +1,6 @@
 class CampaignBundlesController < ApplicationController
   include CampaignBundles::Stashable
   before_action :authenticate_user!
-  layout "demo"
 
   def new
     @campaign_bundle ||= stashed_campaign_bundle

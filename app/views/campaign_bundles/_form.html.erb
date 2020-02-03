@@ -1,45 +1,50 @@
 <%= form_with model: @campaign_bundle, id: "campaign-bundle-form" do |f| %>
   <div class="row">
     <div class="col-7">
-      <div class="row">
-        <div class="col form-group">
-          <%= f.label :name %>
-          <%= f.text_field :name, class: "form-control", required: true, data: {controller: "application", reflex: "input->CampaignBundlesReflex#update_name"} %>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col form-group">
-          <%= f.label :start_date, "Start Date" %>
-          <%= f.date_field :start_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_start_date"} %>
-        </div>
-        <div class="col form-group">
-          <%= f.label :end_date, "End Date" %>
-          <%= f.date_field :end_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_end_date"} %>
-          <small class="form-text text-muted">
-            Your ads will continue to run unless you specify an end date.
-          </small>
-        </div>
-      </div>
-
-      <div class="row" data-controller="checkboxes" data-reflex-name="CampaignBundlesReflex#update_region_ids">
-        <div class="col form-group">
-          <%= f.label :regions, "Regions" %>
-          <% Region.order(:name).each do |region| %>
-            <div class="form-check ml-1">
-              <%= f.check_box :region_ids,
-                {id: dom_id(region), class: "form-check-input", multiple: true, data: {action: "change->checkboxes#invokeReflex"}},
-                region.id, @campaign_bundle.region_ids.include?(region.id) %>
-              <%= f.label region.name, region.name, for: dom_id(region), class: "form-check-label" %>
+      <%= card do %>
+        <%= standalone_card_header text: "Bundle Details" %>
+        <%= card_body do %>
+          <div class="row">
+            <div class="col form-group">
+              <%= f.label :name %>
+              <%= f.text_field :name, class: "form-control", required: true, data: {controller: "application", reflex: "input->CampaignBundlesReflex#update_name"} %>
             </div>
-          <% end %>
-          <div class="mt-2">
-            <a href="#" class="btn btn-link btn-light border" data-action="click->checkboxes#checkAll">Select All</a>
-            <a href="#" class="btn btn-link btn-light border" data-action="click->checkboxes#uncheckAll">Clear Selections</a>
+          </div>
+
+          <div class="row">
+            <div class="col form-group">
+              <%= f.label :start_date, "Start Date" %>
+              <%= f.date_field :start_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_start_date"} %>
+            </div>
+            <div class="col form-group">
+              <%= f.label :end_date, "End Date" %>
+              <%= f.date_field :end_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_end_date"} %>
+              <small class="form-text text-muted">
+                Your ads will continue to run unless you specify an end date.
+              </small>
+            </div>
+          </div>
+
+          <div class="row" data-controller="checkboxes" data-reflex-name="CampaignBundlesReflex#update_region_ids">
+            <div class="col form-group">
+              <%= f.label :regions, "Regions" %>
+              <% Region.order(:name).each do |region| %>
+                <div class="custom-control custom-checkbox ml-1">
+                  <%= f.check_box :region_ids,
+                    {id: dom_id(region), class: "custom-control-input", multiple: true, data: {action: "change->checkboxes#invokeReflex"}},
+                    region.id, @campaign_bundle.region_ids.include?(region.id) %>
+                  <%= f.label region.name, region.name, for: dom_id(region), class: "custom-control-label" %>
+                </div>
+              <% end %>
+              <div class="mt-2">
+                <a href="#" class="btn btn-link btn-light border" data-action="click->checkboxes#checkAll">Select All</a>
+                <a href="#" class="btn btn-link btn-light border" data-action="click->checkboxes#uncheckAll">Clear Selections</a>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      <% end %>
+    <% end %>
 
     <div class="col-5">
       <%= render "/shared/errors", record: @campaign_bundle %>
@@ -52,11 +57,8 @@
       <%= render partial: "/campaign_bundles/campaigns/form", collection: @campaign_bundle.campaigns, as: :campaign, locals: {f: f} %>
     </div>
   </div>
-
-  <div class="row my-5">
-    <div class="col">
-      <%= link_to "Add Campaign", "#", class: "btn btn-secondary", data: {reflex: "click->CampaignBundlesReflex#add_campaign"} %>
-      <%= f.submit "Save Bundle", class: "btn btn-dark" if @campaign_bundle.valid? && @campaign_bundle.campaigns.present? %>
-    </div>
-  </div>
+  <%= button_panel do %>
+    <%= link_to "Add Campaign", "#", class: "btn btn-secondary mr-2", data: {reflex: "click->CampaignBundlesReflex#add_campaign"} %>
+    <%= f.submit "Save Bundle", class: "btn btn-primary" if @campaign_bundle.valid? && @campaign_bundle.campaigns.present? %>
+  <% end %>
 <% end %>
