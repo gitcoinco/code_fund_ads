@@ -234,8 +234,7 @@ class Impression < ApplicationRecord
 
     # CampaignBundle based ecpm i.e. our new sales strategy
     region = campaign.regions.with_all_country_codes(country_code).first || Region.other
-    ecpm = region.ecpm(property.audience) * campaign.ecpm_multiplier
-    ecpm.cents / 1_000.to_f
+    region.ecpm(property.audience) * campaign.ecpm_multiplier
   end
 
   def calculate_estimated_gross_revenue_fractional_cents
