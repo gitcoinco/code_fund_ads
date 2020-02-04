@@ -250,6 +250,20 @@ class Property < ApplicationRecord
   def assign_audience(force: false)
     self.audience = nil if force
     self.audience ||= Audience.match(keywords)
+    assign_keywords
+    audience
+  end
+
+  def assign_keywords
+    return unless audience
+
+    if audience_id_changed?
+      self.keywords = audience.keywords
+    else
+      allowed_keywords = audience.keywords
+      self.keywords = allowed_keywords if keywords.blank?
+      self.keywords = (keywords & allowed_keywords).uniq.sort
+    end
   end
 
   def assign_restrict_to_assigner_campaigns

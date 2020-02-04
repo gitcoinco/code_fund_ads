@@ -1,4 +1,4 @@
-<%= simple_form_for property, html: {class: "js-validate"}, data: {controller: "properties-form"}, wrapper: :front_form do |f| %>
+<%= simple_form_for property, html: {class: "js-validate"}, data: {controller: "property-form"}, wrapper: :front_form do |f| %>
   <%= card do %>
     <%= standalone_card_header text: "Property Details" %>
     <%= card_body do %>
@@ -31,8 +31,15 @@
                             collection: Audience.all.map { |audience| [audience.name, audience.id] },
                             required: true,
                             input_html: {
-                              class: "form-control", data: {action: "properties-form#updateKeywords"}
+                              class: "form-control", data: {controller: "select", action: "cf:select:changed->property-form#updateKeywords"}
                             }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
+        <%= tag.div f.input(:language,
+                            label: "Primary Language",
+                            collection: ENUMS::LANGUAGES.values,
+                            required: true,
+                            input_html: {
+                              class: "form-control", data: {controller: "select", "reflex-permanent": true}
+                            }), class: "col-md-6 mb-3" %>
         <%= tag.div f.input(:description,
                             input_html: {
                               class: "form-control", rows: 2, data: {"reflex-permanent": true}
@@ -44,20 +51,20 @@
                             input_html: {
                               class: "form-control", data: {msg: "Please enter a valid website URL", rule_url: true, "reflex-permanent": true}
                             }), class: "col-12 mb-3" %>
-        <%= tag.div f.input(:language,
-                            label: "Primary Language",
-                            collection: ENUMS::LANGUAGES.values,
-                            required: true,
-                            input_html: {
-                              class: "form-control", data: {controller: "select", "reflex-permanent": true}
-                            }), class: "col-12 mb-3" %>
-        <%= tag.div f.input(:keywords,
-                            label: "Programming Languages & Topics",
-                            collection: ENUMS::KEYWORDS.keys,
-                            required: true,
-                            input_html: {
-                              class: "form-control btn-primary", multiple: true, data: {target: "properties-form.keywordsSelector"}
-                            }), class: "col-12 mb-3" %>
+        <% if authorized_user.can_admin_system? %>
+          <div class="col-md-12 mb-3">
+            <%= f.input(:keywords,
+                        label: "Programming Languages & Topics",
+                        collection: ENUMS::KEYWORDS.keys,
+                        required: true,
+                        input_html: {
+                          class: "form-control btn-primary", multiple: true, data: {controller: "select", target: "property-form.keywordsSelector"}
+                        }) %>
+            <small class="form-text text-muted mt-2">
+              <strong>IMPORTANT</strong>: Must be a subset of the <%= link_to "audience", audiences_path, target: "_blank" %>.
+            </small>
+          </div>
+        <% end %>
         <%= tag.div f.input(:ad_template,
                             label: "Template",
                             collection: ENUMS::AD_TEMPLATES.values,
