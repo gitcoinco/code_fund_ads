@@ -110,7 +110,7 @@
         <table class="table table-sm table-hover table-bordered">
           <thead>
             <tr class="bg-light">
-              <th class="rounded-0">Name</th>
+              <th class="rounded-0">ID</th>
               <th class="rounded-0">Daily Budget</th>
               <th class="rounded-0">Start</th>
               <th class="rounded-0">End</th>
@@ -119,7 +119,7 @@
           <tbody>
             <% campaign.inventory_summary.competitors.each do |c| %>
               <tr>
-                <td><%= truncate c.name, length: 12 %></td>
+                <td data="tooltip_expando" title="<%= c.name %>"><%= link_to c.id, c %></td>
                 <td class="text-right text-monospace"><%= c.daily_budget.format %></td>
                 <td class="text-right text-monospace"><%= c.start_date.to_s("mm/dd/yyyy") %></td>
                 <td class="text-right text-monospace"><%= c.end_date&.to_s("mm/dd/yyyy") %></td>
@@ -145,7 +145,7 @@
         <table class="table table-sm table-hover table-bordered">
           <thead>
             <tr class="bg-light">
-              <th class="rounded-0">Name</th>
+              <th class="rounded-0">ID</th>
               <th class="rounded-0">Daily Budget</th>
               <th class="rounded-0">Start</th>
               <th class="rounded-0">End</th>
@@ -154,7 +154,7 @@
           <tbody>
             <% campaign.inventory_summary.future_competitors.each do |c| %>
               <tr>
-                <td><%= truncate c.name, length: 12 %></td>
+                <td data="tooltip_expando" title="<%= c.name %>"><%= link_to c.id, c %></td>
                 <td class="text-right text-monospace"><%= c.daily_budget.format %></td>
                 <td class="text-right text-monospace"><%= c.start_date.to_s("mm/dd/yyyy") %></td>
                 <td class="text-right text-monospace"><%= c.end_date&.to_s("mm/dd/yyyy") %></td>
