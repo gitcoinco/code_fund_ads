@@ -26,7 +26,7 @@ function create (element) {
 
 function destroy (element) {
   const created = element.classList.contains('select2-hidden-accessible')
-  if (created) jQuery(this.element).select2('destroy')
+  if (created) jQuery(element).select2('destroy')
   element.dispatchEvent(new Event('select:destroyed'))
 }
 
