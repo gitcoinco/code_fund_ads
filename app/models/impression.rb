@@ -230,10 +230,10 @@ class Impression < ApplicationRecord
   end
 
   def applicable_ecpm
-    return campaign.adjusted_ecpm country_code unless campaign.campaign_bundle
+    return campaign.adjusted_ecpm(country_code) unless campaign.region_ids.present?
 
     # CampaignBundle based ecpm i.e. our new sales strategy
-    region = Region.with_all_country_codes(country_code).first || Region.other
+    region = campaign.regions.with_all_country_codes(country_code).first || Region.other
     ecpm = region.ecpm(property.audience) * campaign.ecpm_multiplier
     ecpm.cents / 1_000.to_f
   end
