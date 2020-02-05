@@ -53,7 +53,7 @@ export default class extends Controller {
               .add(-1, 'month')
               .endOf('month')
           ],
-          'This Month': [moment().startOf('month'), moment()],
+          'This Month': [moment().startOf('month'), moment().endOf('month')],
           'Next Month': [
             moment()
               .utc()
