@@ -140,7 +140,10 @@ class CampaignsController < ApplicationController
       :name,
       :url,
       creative_ids: [],
-    )
+    ).tap do |whitelisted|
+      new_status = params[:campaign][:status]
+      whitelisted[:status] = new_status if ["paused", "active"].include?(new_status) && ["paused", "active"].include?(@campaign.status)
+    end
   end
 
   def extended_advertiser_campaign_params

@@ -17,10 +17,10 @@
             </div>
           </div>
         <% end %>
-        <%= tag.div f.input(:status, label: "Status", collection: ENUMS::PROPERTY_STATUSES.values.map { |status| [status.capitalize, status] }, required: true,
+        <%= tag.div f.input(:status, label: "Status", collection: ENUMS::CAMPAIGN_STATUSES.values.map { |status| [status.capitalize, status] }, required: true,
           input_html: {class: "form-control", data: {controller: "select"}}), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
         <%= tag.div f.input(:name, required: true, input_html: {class: "form-control"},
-          data: {msg: "Please enter a property name", error_class: "u-has-error", success_class: "u-has-success"}), class: "col-md-6 mb-3" %>
+          data: {msg: "Please enter a campaign name", error_class: "u-has-error", success_class: "u-has-success"}), class: "col-md-6 mb-3" %>
         <%= tag.div f.input(:date_range, required: true,
             input_html: {
               class: "js-range-datepicker form-control bg-white rounded-right",
