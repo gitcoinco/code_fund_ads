@@ -11,7 +11,7 @@
                               collection: organization_users_for_select,
                               required: true,
                               input_html: {
-                                class: "form-control", data: {"reflex-permanent": true}
+                                class: "form-control"
                               }), class: "col-md-6 mb-3" %>
         <% else %>
           <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id} %>
@@ -27,12 +27,12 @@
                             collection: ENUMS::PROPERTY_STATUSES.values.map { |status| [status.capitalize, status] },
                             required: true,
                             input_html: {
-                              class: "form-control", data: {controller: "select", "reflex-permanent": true}
+                              class: "form-control", data: {controller: "select"}
                             }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
         <%= tag.div f.input(:name,
                             required: true,
                             input_html: {
-                              class: "form-control", data: {msg: "Please enter a property name", "reflex-permanent": true}
+                              class: "form-control", data: {msg: "Please enter a property name"}
                             }), class: "col-md-6 mb-3" %>
         <%= tag.div f.input(:date_range,
                             required: true,
@@ -41,21 +41,20 @@
                               data: {
                                 controller: "select-date-range",
                                 start_date: (campaign.start_date || Date.today).strftime("%m/%d/%Y"),
-                                end_date: (campaign.end_date || 29.days.from_now).strftime("%m/%d/%Y"),
-                                "reflex-permanent": true
+                                end_date: (campaign.end_date || 29.days.from_now).strftime("%m/%d/%Y")
                               }
                             }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
         <%= tag.div f.input(:audience_ids,
                             label: "Audiences",
                             collection: Audience.all.map { |audience| [audience.name, audience.id] },
                             input_html: {
-                              class: "form-control", multiple: true, data: {controller: "select", action: "cf:select:changed->campaign-form#updateKeywords"}
+                              class: "form-control", multiple: true, data: {controller: "select", reflex: "cf:select:changed->CampaignFormReflex#update_audience_ids", campaign_id: campaign.id}
                             }), class: "col-md-12 mb-3" if authorized_user.can_admin_system? %>
         <%= tag.div f.input(:region_ids,
                             label: "Regions",
                             collection: Region.all.map { |region| [region.name, region.id] },
                             input_html: {
-                              class: "form-control", multiple: true, data: {controller: "select", action: "cf:select:changed->campaign-form#updateGeoTargeting"}
+                              class: "form-control", multiple: true, data: {controller: "select", reflex: "cf:select:changed->CampaignFormReflex#update_region_ids", campaign_id: campaign.id}
                             }), class: "col-md-12 mb-3" if authorized_user.can_admin_system? %>
         <div class="col-12 <%= "mb-5" if authorized_user.can_admin_system? %>">
           <%= f.input(:url,
@@ -64,7 +63,7 @@
                       input_html: {
                         class: "form-control",
                         placeholder: "https://example.com/?utm_source=codefund&utm_campaign={{campaign_id}}",
-                        data: {msg: "Please enter a valid URL", rule_url: true, "reflex-permanent": true}
+                        data: {msg: "Please enter a valid URL", rule_url: true}
                       }) %>
           <small class="text-muted mt-4 mb-2 d-block">Use any of the following variables in the URL</small>
           <%= table compact: true do %>
@@ -148,7 +147,7 @@
           <div class="col-12 mb-2">
             <div class="media align-items-center mb-3">
               <label class="switcher-control mb-0 mr-3">
-                <%= f.check_box :paid_fallback, class: "switcher-input", data: {"reflex-permanent": true} %>
+                <%= f.check_box :paid_fallback, class: "switcher-input" %>
                 <span class="switcher-indicator"></span>
               </label>
               <label class="media-body text-muted mb-0">
@@ -161,7 +160,7 @@
           <div class="col-12 mb-2">
             <div class="media align-items-center mb-3">
               <label class="switcher-control mb-0 mr-3">
-                <%= f.check_box :fallback, class: "switcher-input", data: {"reflex-permanent": true} %>
+                <%= f.check_box :fallback, class: "switcher-input" %>
                 <span class="switcher-indicator"></span>
               </label>
               <label class="media-body text-muted mb-0">
@@ -192,8 +191,7 @@
                           value: creative.id,
                           name: "campaign[creative_ids][]",
                           id: "campaign_creative_id_#{creative.id}",
-                          checked: campaign.creatives.include?(creative),
-                          data: {"reflex-permanent": true} %>
+                          checked: campaign.creatives.include?(creative) %>
             <label class="form-check-label" for="campaign_creative_id_<%= creative.id %>">
               <%= creative.name %> - <strong><%= creative.headline %></strong> <%= creative.body %>
             </label>
@@ -227,7 +225,7 @@
                         nil,
                         false,
                         class: "form-check-input",
-                        data: {target: "checkbox-tree-branch.selectAll", action: "change->checkbox-tree-branch#toggleSelectAll"} %>
+                        data: {target: "checkbox-tree-branch.selectAll campaign-form.subregionInput", action: "change->checkbox-tree-branch#toggleSelectAll"} %>
                     <%= label_tag subregion.downcase, subregion, class: "form-check-label" %>
                   </div>
                   <div class="checkbox-tree__branch-leaves" data-target="checkbox-tree-branch.leaves">
@@ -235,7 +233,7 @@
                         as: :check_boxes,
                         collection: countries_with_codes_for_subregion(subregion),
                         input_html: {
-                          data: {target: "checkbox-tree-branch.leaf", action: "change->checkbox-tree-branch#handleLeafChange"}
+                          data: {target: "checkbox-tree-branch.leaf campaign-form.countryCodesInput", action: "change->checkbox-tree-branch#handleLeafChange"}
                         }) %>
                   </div>
                 </div>
@@ -269,7 +267,7 @@
                         collection: keywords_for_select,
                         label: "Targeted Keywords",
                         input_html: {
-                          multiple: true, data: {controller: "select", target: "select-multiple.select campaign-form.keywordsSelector"}
+                          multiple: true, data: {controller: "select", target: "select-multiple.select campaign-form.targetedKeywordsInput"}
                         }) %>
             <div class="row mt-1">
               <div class="col-2 mr-1">
@@ -288,7 +286,7 @@
                         collection: keywords_for_select,
                         label: "Negative Keywords",
                         input_html: {
-                          multiple: true, data: {controller: "select", target: "select-multiple.select", "reflex-permanent": true}
+                          multiple: true, data: {controller: "select", target: "select-multiple.select"}
                         }) %>
             <div class="d-block mt-1">
               <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#selectAll"} %>
@@ -300,7 +298,7 @@
                         collection: properties_for_select,
                         label: "Prohibited Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> deprioritized after assigned properties</small>".html_safe,
                         input_html: {
-                          multiple: true, data: {controller: "select", target: "select-multiple.select", "reflex-permanent": true}
+                          multiple: true, data: {controller: "select", target: "select-multiple.select"}
                         }) %>
             <div class="d-block mt-1">
               <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
@@ -311,7 +309,7 @@
                         collection: properties_for_select,
                         label: "Assigned Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> prioritized over keywords</small>".html_safe,
                         input_html: {
-                          multiple: true, data: {controller: "select", target: "select-multiple.select", "reflex-permanent": true}
+                          multiple: true, data: {controller: "select", target: "select-multiple.select"}
                         }) %>
             <div class="d-block mt-1">
               <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
@@ -327,7 +325,7 @@
           <div class="col-12 mb-2">
             <div class="media align-items-center mb-3">
               <label class="switcher-control mb-0 mr-3">
-                <%= f.check_box :fixed_ecpm, class: "switcher-input", data: {"reflex-permanent": true} %>
+                <%= f.check_box :fixed_ecpm, class: "switcher-input" %>
                 <span class="switcher-indicator"></span>
               </label>
               <label class="media-body text-muted mb-0">
@@ -338,31 +336,16 @@
         </div>
         <div class="row">
           <div class="col-md-6 mb-3">
-            <%= f.input(:ecpm, as: :currency, currency: "$", data: {"reflex-permanent": true}) %>
+            <%= f.input(:ecpm, as: :currency, currency: "$") %>
             <small id="passwordHelpBlock" class="form-text text-muted">
               Effective cost per thousand impressions
             </small>
           </div>
-          <%= tag.div f.input(:total_budget,
-                              label: "Total Budget Cap",
-                              as: :currency,
-                              currency: "$",
-                              data: {"reflex-permanent": true}
-                              ), class: "col-md-6 mb-3" %>
+          <%= tag.div f.input(:total_budget, label: "Total Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
         </div>
         <div class="row">
-          <%= tag.div f.input(:hourly_budget,
-                              label: "Hourly Budget Cap",
-                              as: :currency,
-                              currency: "$",
-                              data: {"reflex-permanent": true}
-                              ), class: "col-md-6 mb-3" %>
-          <%= tag.div f.input(:daily_budget,
-                              label: "Daily Budget Cap",
-                              as: :currency,
-                              currency: "$",
-                              data: {"reflex-permanent": true}
-                              ), class: "col-md-6 mb-3" %>
+          <%= tag.div f.input(:hourly_budget, label: "Hourly Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
+          <%= tag.div f.input(:daily_budget, label: "Daily Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
         </div>
       <% end %>
     <% end %>

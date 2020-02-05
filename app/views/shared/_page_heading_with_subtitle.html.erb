@@ -1,7 +1,7 @@
 <header class="page-title-bar mb-0">
   <div class="d-flex flex-column flex-md-row">
     <p class="lead">
-      <span class="font-weight-bold h4"><%= local_assigns[:title] ? title : "#{action} #{subject}" %></span>
+      <span class="font-weight-bold h4"><%= local_assigns[:title] ? title : "#{action_name} #{subject}" %></span>
       <% if local_assigns[:subtitle].present? %>
         <span class="d-block text-muted lead"><%= subtitle %></span>
       <% end %>

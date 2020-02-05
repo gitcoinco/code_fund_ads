@@ -2,12 +2,15 @@ class CampaignsController < ApplicationController
   include Sortable
   include Scopable
   include Pagy::Backend
+  include Campaigns::Stashable
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!, only: [:destroy]
+  before_action :unstash_campaign, only: [:new], if: -> { @stimulus_reflex }
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
   before_action :set_current_organization_for_admin, only: [:show, :edit]
   before_action :authorize_edit!, only: [:edit, :update]
+  after_action :stash_campaign_record, only: [:new]
 
   def index
     campaigns = scope_list(Campaign)
@@ -37,12 +40,7 @@ class CampaignsController < ApplicationController
   end
 
   def new
-    @campaign = current_user.campaigns.build(
-      status: "pending",
-      start_date: Date.tomorrow,
-      end_date: 30.days.from_now,
-      ecpm: Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD")
-    )
+    @campaign ||= build_campaign
 
     if params[:clone].present?
       cloned_campaign = Campaign.find(params[:clone])
@@ -96,16 +94,31 @@ class CampaignsController < ApplicationController
 
   private
 
+  def build_campaign
+    current_user.campaigns.build(
+      temporary_id: Campaign.count + 1,
+      status: "pending",
+      start_date: Date.tomorrow,
+      end_date: 30.days.from_now,
+      ecpm: Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD")
+    )
+  end
+
   def set_campaign
     @campaign = if authorized_user.can_admin_system?
       Campaign.find(params[:id])
     else
       Current.organization&.campaigns&.find(params[:id])
     end
-    @campaign.audience_ids = @audiences.map(&:id) if @audiences
-    @campaign.region_ids = @regions.map(&:id) if @regions
-    @campaign.validate
-    @campaign
+  end
+
+  def unstash_campaign
+    @campaign ||= stashed_campaign
+  end
+
+  def stash_campaign_record
+    stash_campaign(@campaign)
+    @campaign ||= stashed_campaign
   end
 
   def set_current_organization_for_admin
@@ -130,12 +143,14 @@ class CampaignsController < ApplicationController
       :url,
       :user_id,
       assigned_property_ids: [],
+      audience_ids: [],
       country_codes: [],
       creative_ids: [],
       keywords: [],
       negative_keywords: [],
       prohibited_property_ids: [],
       province_codes: [],
+      region_ids: [],
     )
   end
 

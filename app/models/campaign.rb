@@ -492,6 +492,30 @@ class Campaign < ApplicationRecord
     future_competitors.premium
   end
 
+  def assign_keywords
+    return unless audiences.exists?
+    allowed_keywords = audiences.map(&:keywords).flatten.uniq
+
+    if audience_ids_changed?
+      self.keywords = allowed_keywords
+    else
+      self.keywords = allowed_keywords if keywords.blank?
+      self.keywords = (keywords & allowed_keywords).uniq.sort
+    end
+  end
+
+  def assign_country_codes
+    return unless regions.exists?
+    allowed_country_codes = regions.map(&:country_codes).flatten.uniq
+
+    if region_ids_changed?
+      self.country_codes = allowed_country_codes
+    else
+      self.country_codes = allowed_country_codes if country_codes.blank?
+      self.country_codes = (country_codes & allowed_country_codes).uniq.sort
+    end
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................
@@ -505,35 +529,11 @@ class Campaign < ApplicationRecord
     audiences
   end
 
-  def assign_keywords
-    return unless audiences.exists?
-    allowed_keywords = audiences.map(&:keywords).flatten.uniq
-
-    if audience_ids_changed?
-      self.keywords = allowed_keywords
-    else
-      self.keywords = allowed_keywords if keywords.blank?
-      self.keywords = (keywords & allowed_keywords).uniq.sort
-    end
-  end
-
   def assign_regions(force: false)
     self.regions = nil if force
     self.regions ||= Region.where(id: region_ids)
     assign_country_codes
     regions
-  end
-
-  def assign_country_codes
-    return unless regions.exists?
-    allowed_country_codes = regions.map(&:country_codes).flatten.uniq
-
-    if region_ids_changed?
-      self.country_codes = allowed_country_codes
-    else
-      self.country_codes = allowed_country_codes if country_codes.blank?
-      self.country_codes = (country_codes & allowed_country_codes).uniq.sort
-    end
   end
 
   def sanitize_creative_ids
