@@ -58,7 +58,7 @@
                         collection: ENUMS::KEYWORDS.keys,
                         required: true,
                         input_html: {
-                          class: "form-control btn-primary", multiple: true, data: {controller: "select", target: "property-form.keywordsSelector"}
+                          class: "form-control btn-primary", multiple: true, data: {controller: "select"}
                         }) %>
             <small class="form-text text-muted mt-2">
               <strong>IMPORTANT</strong>: Must be a subset of the <%= link_to "audience", audiences_path, target: "_blank" %>.

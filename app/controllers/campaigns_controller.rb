@@ -102,6 +102,10 @@ class CampaignsController < ApplicationController
     else
       Current.organization&.campaigns&.find(params[:id])
     end
+    @campaign.audience_ids = @audiences.map(&:id) if @audiences
+    @campaign.region_ids = @regions.map(&:id) if @regions
+    @campaign.validate
+    @campaign
   end
 
   def set_current_organization_for_admin
