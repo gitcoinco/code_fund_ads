@@ -6,11 +6,9 @@ class CampaignsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!, only: [:destroy]
-  before_action :unstash_campaign, only: [:new], if: -> { @stimulus_reflex }
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
   before_action :set_current_organization_for_admin, only: [:show, :edit]
   before_action :authorize_edit!, only: [:edit, :update]
-  after_action :stash_campaign_record, only: [:new]
 
   def index
     campaigns = scope_list(Campaign)
@@ -40,7 +38,7 @@ class CampaignsController < ApplicationController
   end
 
   def new
-    @campaign ||= build_campaign
+    @campaign ||= @stimulus_reflex ? stashed_campaign : build_campaign
 
     if params[:clone].present?
       cloned_campaign = Campaign.find(params[:clone])
@@ -50,6 +48,9 @@ class CampaignsController < ApplicationController
         @campaign.status = "pending"
       end
     end
+
+    stash_campaign(@campaign)
+    @campaign ||= stashed_campaign
   end
 
   def edit
@@ -110,15 +111,6 @@ class CampaignsController < ApplicationController
     else
       Current.organization&.campaigns&.find(params[:id])
     end
-  end
-
-  def unstash_campaign
-    @campaign ||= stashed_campaign
-  end
-
-  def stash_campaign_record
-    stash_campaign(@campaign)
-    @campaign ||= stashed_campaign
   end
 
   def set_current_organization_for_admin
