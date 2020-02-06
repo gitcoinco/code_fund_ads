@@ -57,6 +57,11 @@ class CampaignTest < ActiveSupport::TestCase
     refute AuthorizedUser.new(@campaign.user).can_pause_campaign?(@campaign)
   end
 
+  test "campaigns can be paused if already active" do
+    @campaign.update status: ENUMS::CAMPAIGN_STATUSES::ACTIVE
+    assert AuthorizedUser.new(@campaign.user).can_pause_campaign?(@campaign)
+  end
+
   test "campaigns can't be paused by an unauthorized user" do
     user = users(:publisher)
     @campaign.update status: ENUMS::CAMPAIGN_STATUSES::ACTIVE
@@ -162,17 +167,6 @@ class CampaignTest < ActiveSupport::TestCase
 
   test "standard campaign doesn't have a selling_price" do
     assert @campaign.selling_price.nil?
-  end
-
-  test "sponsor campaigns have a selling_price that is the same as total_budget" do
-    campaign = active_campaign
-    campaign.creatives.each do |creative|
-      creative.standard_images.destroy_all
-      creative.update! creative_type: ENUMS::CREATIVE_TYPES::SPONSOR
-      CreativeImage.create! creative: creative, image: attach_sponsor_image!(campaign.organization)
-    end
-    assert campaign.selling_price.present?
-    assert campaign.selling_price == campaign.total_budget
   end
 
   test "url's have whitespace stripped prior to saving" do
