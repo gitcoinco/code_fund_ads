@@ -1,8 +1,8 @@
 class CampaignBundlesController < ApplicationController
   include CampaignBundles::Stashable
   before_action :authenticate_user!
-  before_action :set_campaign_bundle, only: :new
-  after_action :stash_campaign_bundle, only: :new
+  before_action -> { @campaign_bundle ||= stashed_campaign_bundle }, only: :new
+  after_action -> { stash_campaign_bundle @campaign_bundle }, only: :new
 
   def new
     @campaign_bundle.assign_attributes organization: Current.organization, user: current_user
@@ -40,14 +40,6 @@ class CampaignBundlesController < ApplicationController
   end
 
   private
-
-  def set_campaign_bundle
-    @campaign_bundle ||= stashed_campaign_bundle
-  end
-
-  def stash_campaign_bundle
-    @campaign_bundle ||= stashed_campaign_bundle
-  end
 
   def campaign_bundle_params
     params.require(:campaign_bundle).permit(
