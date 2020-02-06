@@ -141,8 +141,12 @@ class CampaignsController < ApplicationController
       :url,
       creative_ids: [],
     ).tap do |whitelisted|
-      new_status = params[:campaign][:status]
-      whitelisted[:status] = new_status if ["paused", "active"].include?(new_status) && ["paused", "active"].include?(@campaign.status)
+      case params[:campaign][:status]
+      when ENUMS::CAMPAIGN_STATUSES::PAUSED
+        whitelisted[:status] = ENUMS::CAMPAIGN_STATUSES::PAUSED if authorized_user.can_pause_campaign?(@campaign)
+      when ENUMS::CAMPAIGN_STATUSES::ACTIVE
+        whitelisted[:status] = ENUMS::CAMPAIGN_STATUSES::ACTIVE if authorized_user.can_activate_campaign?(@campaign)
+      end
     end
   end
 

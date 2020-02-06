@@ -45,6 +45,7 @@ class Campaign < ApplicationRecord
   include Campaigns::Operable
   include Campaigns::Presentable
   include Campaigns::Reportable
+  include Campaigns::Statusable
   include Colorable
   include Eventable
   include Impressionable
@@ -61,7 +62,6 @@ class Campaign < ApplicationRecord
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
-  validates :status, inclusion: {in: ENUMS::CAMPAIGN_STATUSES.values}
   validate :validate_creatives
   validate :validate_active_creatives, if: :active?
   validate :validate_assigned_properties, if: :sponsor?
@@ -76,9 +76,6 @@ class Campaign < ApplicationRecord
   # TODO: update standard/sponsor scopes to use arel instead of string interpolation
   scope :standard, -> { where "\"campaigns\".\"creative_ids\" && ARRAY(#{Creative.standard.select(:id).to_sql})" }
   scope :sponsor, -> { where "\"campaigns\".\"creative_ids\" && ARRAY(#{Creative.sponsor.select(:id).to_sql})" }
-  scope :pending, -> { where status: ENUMS::CAMPAIGN_STATUSES::PENDING }
-  scope :active, -> { where status: ENUMS::CAMPAIGN_STATUSES::ACTIVE }
-  scope :archived, -> { where status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED }
   scope :fallback, -> { where fallback: true }
   scope :paid_fallback, -> { where paid_fallback: true }
   scope :premium, -> { where(fallback: false).where(paid_fallback: false) }
@@ -334,18 +331,6 @@ class Campaign < ApplicationRecord
 
   def matching_keywords(property)
     keywords & property.keywords
-  end
-
-  def pending?
-    status == ENUMS::CAMPAIGN_STATUSES::PENDING
-  end
-
-  def active?
-    status == ENUMS::CAMPAIGN_STATUSES::ACTIVE
-  end
-
-  def archived?
-    status == ENUMS::CAMPAIGN_STATUSES::ARCHIVED
   end
 
   def premium?

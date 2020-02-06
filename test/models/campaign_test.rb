@@ -52,6 +52,38 @@ class CampaignTest < ActiveSupport::TestCase
     travel_back
   end
 
+  test "campaigns can only be paused if already active" do
+    @campaign.update status: ENUMS::CAMPAIGN_STATUSES::PENDING
+    refute AuthorizedUser.new(@campaign.user).can_pause_campaign?(@campaign)
+  end
+
+  test "campaigns can't be paused by an unauthorized user" do
+    user = users(:publisher)
+    @campaign.update status: ENUMS::CAMPAIGN_STATUSES::ACTIVE
+    @campaign.organization.organization_users.where(user: user).destroy_all
+    refute @campaign.organization.users.include?(user)
+    refute AuthorizedUser.new(user).can_pause_campaign?(@campaign)
+  end
+
+  test "campaigns can be activated by admins" do
+    @campaign.update status: ENUMS::CAMPAIGN_STATUSES::ACCEPTED
+    refute AuthorizedUser.new(@campaign.user).can_activate_campaign?(@campaign)
+    assert AuthorizedUser.new(users(:administrator)).can_activate_campaign?(@campaign)
+
+    @campaign.update status: ENUMS::CAMPAIGN_STATUSES::PENDING
+    refute AuthorizedUser.new(@campaign.user).can_activate_campaign?(@campaign)
+    assert AuthorizedUser.new(users(:administrator)).can_activate_campaign?(@campaign)
+  end
+
+  test "paused campaigns can be activated by organization managers" do
+    user = users(:publisher)
+    @campaign.update status: ENUMS::CAMPAIGN_STATUSES::PAUSED
+    @campaign.organization.organization_users.where(user: user).destroy_all
+    assert AuthorizedUser.new(@campaign.user).can_activate_campaign?(@campaign)
+    assert AuthorizedUser.new(users(:administrator)).can_activate_campaign?(@campaign)
+    refute AuthorizedUser.new(user).can_activate_campaign?(@campaign)
+  end
+
   test "initial campaign budgets" do
     assert @campaign.total_budget == Monetize.parse("$5,000.00 USD")
     assert @campaign.ecpm == Monetize.parse("$3.00 USD")
