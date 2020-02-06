@@ -10,21 +10,24 @@
               <%= f.text_field :name, class: "form-control", required: true, data: {controller: "application", reflex: "input->CampaignBundlesReflex#update_name"} %>
             </div>
           </div>
-
           <div class="row">
             <div class="col form-group">
-              <%= f.label :start_date, "Start Date" %>
-              <%= f.date_field :start_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_start_date"} %>
+              <%= f.label :start_date, "Start Date", class: "control-label" %>
+              <%= f.text_field :start_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_start_date", behavior: "flatpickr"} %>
             </div>
             <div class="col form-group">
-              <%= f.label :end_date, "End Date" %>
-              <%= f.date_field :end_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_end_date"} %>
+              <%= f.label :end_date, "End Date", class: "control-label" %>
+              <div class="input-group input-group-alt flatpickr" data-toggle="flatpickr" data-wrap="true">
+                <%= f.text_field :end_date, class: "form-control", data: {behavior: "flatpickr", reflex: "input->CampaignBundlesReflex#update_end_date"} %>
+                <div class="input-group-append">
+                  <button type="button" class="btn btn-secondary" data-clear=""><i class="fa fa-times"></i></button>
+                </div>
+              </div>
               <small class="form-text text-muted">
                 Your ads will continue to run unless you specify an end date.
               </small>
             </div>
           </div>
-
           <div class="row" data-controller="checkboxes" data-reflex-name="CampaignBundlesReflex#update_region_ids">
             <div class="col form-group">
               <%= f.label :regions, "Regions" %>
@@ -45,13 +48,11 @@
         </div>
       <% end %>
     <% end %>
-
     <div class="col-5">
       <%= render "/shared/errors", record: @campaign_bundle %>
       <%= render "/campaign_bundles/inventory" %>
     </div>
   </div>
-
   <div class="row">
     <div class="col">
       <%= render partial: "/campaign_bundles/campaigns/form", collection: @campaign_bundle.campaigns, as: :campaign, locals: {f: f} %>

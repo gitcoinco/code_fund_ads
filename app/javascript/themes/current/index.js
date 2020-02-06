@@ -1,6 +1,7 @@
 // =========== Webpack ===========
 import 'bootstrap-select'
 import 'jquery-validation'
+import flatpickr from 'flatpickr'
 
 // =========== Vendor ===========
 // TODO: Remove the hs.core and hs.clipboard in favor of stimulus
@@ -28,5 +29,22 @@ document.addEventListener('turbolinks:before-cache', function () {
   $('[data-toggle="tooltip"]').tooltip('hide')
   $('[data-toggle="selectpicker"]').selectpicker('destroy')
 })
-document.addEventListener('turbolinks:load', initTheme)
-document.addEventListener('cable-ready:after-morph', initTheme)
+
+// TODO: There is definitely an issue here
+document.addEventListener('turbolinks:load', () => {
+  initTheme
+  flatpickr("[data-behavior='flatpickr']", {
+    altInput: true,
+    altFormat: 'F j, Y',
+    dateFormat: 'Y-m-d'
+  })
+})
+
+document.addEventListener('cable-ready:after-morph', () => {
+  initTheme
+  flatpickr("[data-behavior='flatpickr']", {
+    altInput: true,
+    altFormat: 'F j, Y',
+    dateFormat: 'Y-m-d'
+  })
+})
