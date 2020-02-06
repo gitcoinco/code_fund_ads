@@ -8,6 +8,7 @@ class UrlValidator < ActiveModel::EachValidator
   # a URL may be technically well-formed but may
   # not actually be valid, so this checks for both.
   def url_valid?(url)
+    url = url.to_s.strip
     url = begin
             URI.parse(url)
           rescue

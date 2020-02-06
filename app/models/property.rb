@@ -71,7 +71,7 @@ class Property < ApplicationRecord
   validates :responsive_behavior, inclusion: {in: ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS.values}
   validates :revenue_percentage, numericality: {less_than_or_equal_to: 1.0, greater_than_or_equal_to: 0}
   validates :status, inclusion: {in: ENUMS::PROPERTY_STATUSES.values}
-  validates :url, presence: true, url: true
+  validates :url, url: true
 
   # callbacks .................................................................
   before_validation :assign_audience
