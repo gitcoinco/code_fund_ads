@@ -35,7 +35,7 @@ class CampaignBundlesReflex < ApplicationReflex
       region_ids: campaign_bundle.region_ids,
       start_date: campaign_bundle.start_date,
       end_date: campaign_bundle.end_date,
-      status: ENUMS::CAMPAIGN_STATUSES::PENDING,
+      status: ENUMS::CAMPAIGN_STATUSES::ACCEPTED,
     )
   end
 

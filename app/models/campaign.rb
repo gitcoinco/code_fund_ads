@@ -451,7 +451,7 @@ class Campaign < ApplicationRecord
     return Campaign.none unless start_date
     assign_keywords
     assign_country_codes
-    relation = Campaign.active.with_any_country_codes(*country_codes).with_any_keywords(*keywords).available_on(start_date)
+    relation = Campaign.active.or(Campaign.accepted).with_any_country_codes(*country_codes).with_any_keywords(*keywords).available_on(start_date)
     relation = relation.unending.or(relation.ends_on_or_before(end_date)) if end_date
     relation
   end
