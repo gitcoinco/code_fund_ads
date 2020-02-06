@@ -21,6 +21,7 @@ module CampaignsHelper
   def campaign_status_html(status)
     case ENUMS::CAMPAIGN_STATUSES[status]
     when "active" then tag.span(class: "fas fa-circle text-success", title: "Active", data: tooltip_expando(placement: "left"))
+    when "paused" then tag.span(class: "fas fa-circle text-info", title: "Paused", data: tooltip_expando(placement: "left"))
     when "pending" then tag.span(class: "fas fa-circle text-warning", title: "Pending", data: tooltip_expando(placement: "left"))
     when "archived" then tag.span(class: "fas fa-circle text-muted", title: "Archived", data: tooltip_expando(placement: "left"))
     end

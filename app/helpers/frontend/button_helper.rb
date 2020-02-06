@@ -24,9 +24,9 @@ module Frontend
       button_tag("Generate Reports", data: {reflex: "click->OrganizationReportsReflex#generate", id: id, controller: "organization-reports"}, class: "ml-1 btn btn-primary", style: "height:2.5rem;")
     end
 
-    def layout_button(link: "#", icon: nil, add_class: "", target: "", title: nil, admin: false, method: :get, confirmation_message: nil, permissions: true)
+    def layout_button(link: "#", icon: nil, add_class: "", target: "", title: nil, admin: false, method: :get, confirmation_message: nil, display: true)
+      return "" unless display
       return "" if admin && !authorized_user.can_admin_system?
-      return "" unless permissions
 
       link_to link,
         class: "tile layout-button #{add_class}",

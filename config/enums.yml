@@ -49,26 +49,6 @@
 #   pry>ENUMS::USER_ROLES.administrator? :publisher     # false
 #   pry>ENUMS::USER_ROLES["administrator"]              # administrator
 #
-#   ----------------------------------------------------------------------------
-#
-#   CAMPAIGN_STATUSES:
-#     1: pending
-#     2: active
-#     3: archived
-#
-#   The YAML above will be converted to the following enums
-#
-#   pry>ENUMS::CAMPAIGN_STATUSES::PENDING    # 1
-#   pry>ENUMS::CAMPAIGN_STATUSES::ACTIVE     # 2
-#   pry>ENUMS::CAMPAIGN_STATUSES::ARCHIVED   # 3
-#
-#   pry>ENUMS::CAMPAIGN_STATUSES.keys        # [1, 2, 3]
-#   pry>ENUMS::CAMPAIGN_STATUSES.values      # [pending, active, archived]
-#   pry>ENUMS::CAMPAIGN_STATUSES.pending? 1  # true
-#   pry>ENUMS::CAMPAIGN_STATUSES.pending? 2  # false
-#   pry>ENUMS::CAMPAIGN_STATUSES["active"]   # 2
-#   pry>ENUMS::CAMPAIGN_STATUSES[2]          # active
-#
 
 EMAIL_ADDRESSES:
   eric: eric@codefund.io
@@ -96,14 +76,19 @@ USER_STATUS_COLORS:
   blacklisted: dark
 
 CAMPAIGN_STATUSES:
-  - pending
+  - accepted
   - active
   - archived
+  - paused
+  - pending
 
 CAMPAIGN_STATUS_COLORS:
-  pending: warning
+  accepted: success
   active: success
   archived: secondary
+  paused: info
+  pending: warning
+
 COUPON_TYPES:
   - percentage
 
