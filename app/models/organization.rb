@@ -28,6 +28,7 @@ class Organization < ApplicationRecord
 
   # relationships .............................................................
   has_many :campaigns
+  has_many :campaign_bundles
   has_many :creatives
   has_many :creative_images, through: :creatives
   has_many :impressions

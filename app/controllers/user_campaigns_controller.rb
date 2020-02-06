@@ -1,8 +1,8 @@
 class UserCampaignsController < ApplicationController
   include Pagy::Backend
+  before_action :set_user, only: :index
 
   before_action :authenticate_user!
-  before_action :set_user, only: :index
 
   def index
     campaigns = Campaign.includes(:organization).where(organization: @user.organizations)

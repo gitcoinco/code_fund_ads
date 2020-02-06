@@ -1,8 +1,15 @@
 class CampaignBundlesController < ApplicationController
+  include Pagy::Backend
   include CampaignBundles::Stashable
+
   before_action :authenticate_user!
   before_action -> { @campaign_bundle ||= stashed_campaign_bundle }, only: :new
   after_action -> { stash_campaign_bundle @campaign_bundle }, only: :new
+
+  def index
+    campaign_bundles = CampaignBundle.includes(:organization).where(organization: Current.organization)
+    @pagy, @campaign_bundles = pagy(campaign_bundles)
+  end
 
   def new
     @campaign_bundle.assign_attributes organization: Current.organization, user: current_user
