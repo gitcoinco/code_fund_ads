@@ -1,4 +1,4 @@
-require "import_export"
+require "consolidated_screening_list"
 
 class CheckConsolidatedScreeningListJob < ApplicationJob
   queue_as :low
@@ -8,7 +8,7 @@ class CheckConsolidatedScreeningListJob < ApplicationJob
     @user = user
     return unless @user
 
-    return if ImportExport::Client.new.search(name: @user.name).empty?
+    return if ConsolidatedScreeningList::Client.new.search(name: @user.name).empty?
 
     send_slack_notification
     send_email_notification

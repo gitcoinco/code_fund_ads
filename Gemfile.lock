@@ -1,13 +1,4 @@
 GIT
-  remote: https://github.com/andrewmcodes/import_export.git
-  revision: 90069d9c6ed38d62b6c8ceb33fb3f6ada9655e80
-  specs:
-    import_export (0.0.1)
-      dotenv (~> 2.0)
-      iso_country_codes (~> 0.7)
-      rest-client (~> 2.0)
-
-GIT
   remote: https://github.com/coderberry/screenshot_machine.git
   revision: f065ca91092ed655f17c02f729e74074daeddeab
   specs:
@@ -151,6 +142,11 @@ GEM
     coderay (1.1.2)
     concurrent-ruby (1.1.6)
     connection_pool (2.2.2)
+    consolidated_screening_list (0.0.2)
+      dotenv (~> 2.7)
+      iso_country_codes (~> 0.7)
+      rest-client (~> 2)
+      uuid (~> 2.3)
     countries (3.0.1)
       i18n_data (~> 0.10.0)
       sixarm_ruby_unaccent (~> 1.1)
@@ -257,6 +253,8 @@ GEM
     loofah (2.4.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
+    macaddr (1.7.2)
+      systemu (~> 2.6.5)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
     mailgun-ruby (1.2.0)
@@ -531,6 +529,7 @@ GEM
       unicode_utils (~> 1.4)
     strings-ansi (0.2.0)
     stripe (5.4.1)
+    systemu (2.6.5)
     tag_columns (0.1.8)
       activesupport
     teamocil (1.4.2)
@@ -562,6 +561,8 @@ GEM
     unicode-display_width (1.6.1)
     unicode_utils (1.4.0)
     uniform_notifier (1.13.0)
+    uuid (2.3.9)
+      macaddr (~> 1.0)
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (4.0.1)
@@ -612,6 +613,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   chroma (~> 0.2.0)
   chronic (~> 0.10.2)
+  consolidated_screening_list (~> 0.0.2)
   countries (~> 3.0.0)
   country_select (~> 4.0.0)
   css_parser (= 1.7.0)
@@ -632,7 +634,6 @@ DEPENDENCIES
   hiredis (~> 0.6.3)
   htmlentities (= 4.3.4)
   image_processing (~> 1.9.0)
-  import_export (~> 0.0.1)!
   inky-rb (~> 1.3.7.3)
   ipaddress (~> 0.8.3)
   jbuilder (~> 2.5)
