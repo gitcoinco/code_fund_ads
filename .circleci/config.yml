@@ -45,10 +45,9 @@ jobs:
       - restore_cache:
           name: Restore assets cache
           keys:
-            - assets-cache-v4-{{ arch }}-{{ .Branch }}-{{ checksum "dependency_checksum" }}
-            - assets-cache-v4-{{ arch }}-{{ .Branch }}
-            - assets-cache-v4-{{ arch }}
-            - assets-cache-v4
+            - assets-cache-v4-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
+            - assets-cache-v4-{{ checksum "dependency_checksum" }}-{{ arch }}
+            - assets-cache-v4-{{ checksum "dependency_checksum" }}
       - run:
           name: Install gem dependencies
           command: |
@@ -75,7 +74,7 @@ jobs:
           paths:
             - public/packs-test
             - tmp/cache/webpacker
-          key: assets-cache-v4-{{ arch }}-{{ .Branch }}-{{ checksum "dependency_checksum" }}
+          key: assets-cache-v4-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
       - run:
           name: Set up DB
           command: bundle exec rails db:drop db:create db:structure:load --trace
