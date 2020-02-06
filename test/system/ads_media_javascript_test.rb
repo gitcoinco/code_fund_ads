@@ -5,7 +5,6 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
 
   setup do
     ad_template_setup(ad_template: "media")
-    Creative.any_instance.stubs(small_image: OpenStruct.new(cloudfront_url: "https://www.test.codefund.io/test.png"))
   end
 
   teardown do
