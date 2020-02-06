@@ -1,16 +1,16 @@
 class CampaignBundlesController < ApplicationController
   include CampaignBundles::Stashable
   before_action :authenticate_user!
+  before_action :set_campaign_bundle, only: :new
+  after_action :stash_campaign_bundle, only: :new
 
   def new
-    @campaign_bundle ||= stashed_campaign_bundle
     @campaign_bundle.assign_attributes organization: Current.organization, user: current_user
     @campaign_bundle.start_date ||= Date.current
     @campaign_bundle.validate
     @campaign_bundle.errors.each do |key, _|
       @campaign_bundle.errors.delete key if key.to_s.start_with?("campaign")
     end
-    stash_campaign_bundle @campaign_bundle
   end
 
   def create
@@ -37,6 +37,16 @@ class CampaignBundlesController < ApplicationController
         format.json { render json: @campaign_bundle.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  private
+
+  def set_campaign_bundle
+    @campaign_bundle ||= stashed_campaign_bundle
+  end
+
+  def stash_campaign_bundle
+    @campaign_bundle ||= stashed_campaign_bundle
   end
 
   def campaign_bundle_params

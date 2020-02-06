@@ -156,6 +156,12 @@ class Property < ApplicationRecord
 
   # public instance methods ...................................................
 
+  attr_accessor :temporary_id
+
+  def to_stashable_attributes
+    as_json.merge temporary_id: temporary_id
+  end
+
   def host
     URI.parse(url).host
   end
@@ -225,6 +231,18 @@ class Property < ApplicationRecord
     update_columns audience_id: Audience.match(keywords)&.id
   end
 
+  def assign_keywords
+    return unless audience
+
+    if audience_id_changed?
+      self.keywords = audience.keywords
+    else
+      allowed_keywords = audience.keywords
+      self.keywords = allowed_keywords if keywords.blank?
+      self.keywords = (keywords & allowed_keywords).uniq.sort
+    end
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................
@@ -250,6 +268,8 @@ class Property < ApplicationRecord
   def assign_audience(force: false)
     self.audience = nil if force
     self.audience ||= Audience.match(keywords)
+    assign_keywords
+    audience
   end
 
   def assign_restrict_to_assigner_campaigns

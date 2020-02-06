@@ -2,6 +2,7 @@ class CampaignsController < ApplicationController
   include Sortable
   include Scopable
   include Pagy::Backend
+  include Campaigns::Stashable
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!, only: [:destroy]
@@ -37,12 +38,7 @@ class CampaignsController < ApplicationController
   end
 
   def new
-    @campaign = current_user.campaigns.build(
-      status: "pending",
-      start_date: Date.tomorrow,
-      end_date: 30.days.from_now,
-      ecpm: Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD")
-    )
+    @campaign ||= @stimulus_reflex ? stashed_campaign : build_campaign
 
     if params[:clone].present?
       cloned_campaign = Campaign.find(params[:clone])
@@ -52,6 +48,9 @@ class CampaignsController < ApplicationController
         @campaign.status = "pending"
       end
     end
+
+    stash_campaign(@campaign)
+    @campaign ||= stashed_campaign
   end
 
   def edit
@@ -96,6 +95,16 @@ class CampaignsController < ApplicationController
 
   private
 
+  def build_campaign
+    current_user.campaigns.build(
+      temporary_id: Campaign.count + 1,
+      status: "pending",
+      start_date: Date.tomorrow,
+      end_date: 30.days.from_now,
+      ecpm: Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD")
+    )
+  end
+
   def set_campaign
     @campaign = if authorized_user.can_admin_system?
       Campaign.find(params[:id])
@@ -126,12 +135,14 @@ class CampaignsController < ApplicationController
       :url,
       :user_id,
       assigned_property_ids: [],
+      audience_ids: [],
       country_codes: [],
       creative_ids: [],
       keywords: [],
       negative_keywords: [],
       prohibited_property_ids: [],
       province_codes: [],
+      region_ids: [],
     )
   end
 

@@ -104,6 +104,8 @@ class Campaign < ApplicationRecord
   before_validation :sync_to_campaign_bundle
   before_validation :sort_arrays
   before_validation :sanitize_creative_ids
+  before_validation :assign_audiences
+  before_validation :assign_regions
   before_save :sanitize_assigned_property_ids
 
   # scopes ....................................................................
@@ -490,24 +492,48 @@ class Campaign < ApplicationRecord
     future_competitors.premium
   end
 
+  def assign_keywords
+    return unless audiences.exists?
+    allowed_keywords = audiences.map(&:keywords).flatten.uniq
+
+    if audience_ids_changed?
+      self.keywords = allowed_keywords
+    else
+      self.keywords = allowed_keywords if keywords.blank?
+      self.keywords = (keywords & allowed_keywords).uniq.sort
+    end
+  end
+
+  def assign_country_codes
+    return unless regions.exists?
+    allowed_country_codes = regions.map(&:country_codes).flatten.uniq
+
+    if region_ids_changed?
+      self.country_codes = allowed_country_codes
+    else
+      self.country_codes = allowed_country_codes if country_codes.blank?
+      self.country_codes = (country_codes & allowed_country_codes).uniq.sort
+    end
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................
 
   private
 
-  def assign_keywords
-    return unless audiences.exists?
-    allowed_keywords = audiences.map(&:keywords).flatten.uniq
-    self.keywords = allowed_keywords if keywords.blank?
-    self.keywords = (keywords & allowed_keywords).uniq.sort
+  def assign_audiences(force: false)
+    self.audiences = nil if force
+    self.audiences ||= Audience.match(keywords)
+    assign_keywords
+    audiences
   end
 
-  def assign_country_codes
-    return unless regions.exists?
-    allowed_country_codes = regions.map(&:country_codes).flatten.uniq
-    self.country_codes = allowed_country_codes if country_codes.blank?
-    self.country_codes = (country_codes & allowed_country_codes).uniq.sort
+  def assign_regions(force: false)
+    self.regions = nil if force
+    self.regions ||= Region.where(id: region_ids)
+    assign_country_codes
+    regions
   end
 
   def sanitize_creative_ids

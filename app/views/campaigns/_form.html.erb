@@ -1,4 +1,4 @@
-<%= simple_form_for campaign, wrapper: :front_form do |f| %>
+<%= simple_form_for campaign, data: {controller: "campaign-form"}, wrapper: :front_form do |f| %>
   <%= render "/shared/forms/error_messages", object: campaign %>
   <!-- Details -->
   <%= card do %>
@@ -6,8 +6,13 @@
     <%= card_body do %>
       <div class="row">
         <% if authorized_user.can_admin_system? %>
-          <%= tag.div f.input(:user_id, label: "Advertiser", collection: organization_users_for_select, required: true,
-              input_html: {class: "form-control"}), class: "col-md-6 mb-3" %>
+          <%= tag.div f.input(:user_id,
+                              label: "Advertiser",
+                              collection: organization_users_for_select,
+                              required: true,
+                              input_html: {
+                                class: "form-control", data: {controller: "select"}
+                              }), class: "col-md-6 mb-3" %>
         <% else %>
           <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id} %>
           <div class="col-md-6 mb-3">
@@ -17,23 +22,49 @@
             </div>
           </div>
         <% end %>
-        <%= tag.div f.input(:status, label: "Status", collection: ENUMS::PROPERTY_STATUSES.values.map { |status| [status.capitalize, status] }, required: true,
-          input_html: {class: "form-control", data: {controller: "select"}}), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
-        <%= tag.div f.input(:name, required: true, input_html: {class: "form-control"},
-          data: {msg: "Please enter a property name", error_class: "u-has-error", success_class: "u-has-success"}), class: "col-md-6 mb-3" %>
-        <%= tag.div f.input(:date_range, required: true,
-            input_html: {
-              class: "js-range-datepicker form-control bg-white rounded-right",
-              data: {
-                controller: "select-date-range",
-                start_date: (campaign.start_date || Date.today).strftime("%m/%d/%Y"),
-                end_date: (campaign.end_date || 29.days.from_now).strftime("%m/%d/%Y")
-              }
-            }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
+        <%= tag.div f.input(:status,
+                            label: "Status",
+                            collection: ENUMS::PROPERTY_STATUSES.values.map { |status| [status.capitalize, status] },
+                            required: true,
+                            input_html: {
+                              class: "form-control", data: {controller: "select"}
+                            }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
+        <%= tag.div f.input(:name,
+                            required: true,
+                            input_html: {
+                              class: "form-control", data: {msg: "Please enter a property name"}
+                            }), class: "col-md-6 mb-3" %>
+        <%= tag.div f.input(:date_range,
+                            required: true,
+                            input_html: {
+                              class: "js-range-datepicker form-control bg-white rounded-right",
+                              data: {
+                                controller: "select-date-range",
+                                start_date: (campaign.start_date || Date.today).strftime("%m/%d/%Y"),
+                                end_date: (campaign.end_date || 29.days.from_now).strftime("%m/%d/%Y")
+                              }
+                            }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
+        <%= tag.div f.input(:audience_ids,
+                            label: "Audiences",
+                            collection: Audience.all.map { |audience| [audience.name, audience.id] },
+                            input_html: {
+                              class: "form-control", multiple: true, data: {controller: "select", reflex: "cf:select:changed->CampaignFormReflex#update_audience_ids", campaign_id: campaign.id}
+                            }), class: "col-md-12 mb-3" if authorized_user.can_admin_system? %>
+        <%= tag.div f.input(:region_ids,
+                            label: "Regions",
+                            collection: Region.all.map { |region| [region.name, region.id] },
+                            input_html: {
+                              class: "form-control", multiple: true, data: {controller: "select", reflex: "cf:select:changed->CampaignFormReflex#update_region_ids", campaign_id: campaign.id}
+                            }), class: "col-md-12 mb-3" if authorized_user.can_admin_system? %>
         <div class="col-12 <%= "mb-5" if authorized_user.can_admin_system? %>">
-          <%= f.input :url, as: :string, required: true, input_html: {class: "form-control"},
-            placeholder: "https://example.com/?utm_source=codefund&utm_campaign={{campaign_id}}",
-            data: {msg: "Please enter a valid URL", error_class: "u-has-error", success_class: "u-has-success", rule_url: true} %>
+          <%= f.input(:url,
+                      as: :string,
+                      required: true,
+                      input_html: {
+                        class: "form-control",
+                        placeholder: "https://example.com/?utm_source=codefund&utm_campaign={{campaign_id}}",
+                        data: {msg: "Please enter a valid URL", rule_url: true}
+                      }) %>
           <small class="text-muted mt-4 mb-2 d-block">Use any of the following variables in the URL</small>
           <%= table compact: true do %>
             <%= table_head do %>
@@ -194,25 +225,29 @@
                         nil,
                         false,
                         class: "form-check-input",
-                        data: {
-                          target: "checkbox-tree-branch.selectAll",
-                          action: "change->checkbox-tree-branch#toggleSelectAll"
-                        } %>
+                        data: {target: "checkbox-tree-branch.selectAll campaign-form.subregionInput", action: "change->checkbox-tree-branch#toggleSelectAll"} %>
                     <%= label_tag subregion.downcase, subregion, class: "form-check-label" %>
                   </div>
                   <div class="checkbox-tree__branch-leaves" data-target="checkbox-tree-branch.leaves">
-                    <%= f.input :country_codes,
+                    <%= f.input(:country_codes,
                         as: :check_boxes,
                         collection: countries_with_codes_for_subregion(subregion),
-                        input_html: {data: {target: "checkbox-tree-branch.leaf", action: "change->checkbox-tree-branch#handleLeafChange"}} %>
+                        input_html: {
+                          data: {target: "checkbox-tree-branch.leaf campaign-form.countryCodesInput", action: "change->checkbox-tree-branch#handleLeafChange"}
+                        }) %>
                   </div>
                 </div>
               <% end %>
             </div>
           </div>
           <div class="col-12 mb-3" data-controller="select-multiple">
-            <%= f.input :province_codes, required: false, collection: [], label: "Targeted States/Provinces",
-                input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select select-geo-targets.provinceCodesSelect", provinces: provinces_for_stimulus, selected: campaign.province_codes}} %>
+            <%= f.input(:province_codes,
+                        required: false,
+                        collection: [],
+                        label: "Targeted States/Provinces",
+                        input_html: {
+                          multiple: true, data: {controller: "select", target: "select-multiple.select select-geo-targets.provinceCodesSelect", provinces: provinces_for_stimulus, selected: campaign.province_codes}
+                        }) %>
             <div class="d-block mt-1">
               <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#selectAll"} %>
               <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
@@ -228,8 +263,12 @@
       <%= card_body do %>
         <div class="row">
           <div class="col-12 mb-3" data-controller="select-multiple">
-            <%= f.input :keywords, collection: keywords_for_select, label: "Targeted Keywords",
-              input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select"}} %>
+            <%= f.input(:keywords,
+                        collection: keywords_for_select,
+                        label: "Targeted Keywords",
+                        input_html: {
+                          multiple: true, data: {controller: "select", target: "select-multiple.select campaign-form.targetedKeywordsInput"}
+                        }) %>
             <div class="row mt-1">
               <div class="col-2 mr-1">
                 <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#selectAll"} %>
@@ -243,25 +282,35 @@
             </div>
           </div>
           <div class="col-12 mb-4" data-controller="select-multiple">
-            <%= f.input :negative_keywords, collection: keywords_for_select, label: "Negative Keywords",
-              input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select"}} %>
+            <%= f.input(:negative_keywords,
+                        collection: keywords_for_select,
+                        label: "Negative Keywords",
+                        input_html: {
+                          multiple: true, data: {controller: "select", target: "select-multiple.select"}
+                        }) %>
             <div class="d-block mt-1">
               <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#selectAll"} %>
               <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
             </div>
           </div>
           <div class="col-12 mb-3" data-controller="select-multiple">
-            <%= f.input :prohibited_property_ids, collection: properties_for_select,
-              label: "Prohibited Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> deprioritized after assigned properties</small>".html_safe,
-              input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select"}} %>
+            <%= f.input(:prohibited_property_ids,
+                        collection: properties_for_select,
+                        label: "Prohibited Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> deprioritized after assigned properties</small>".html_safe,
+                        input_html: {
+                          multiple: true, data: {controller: "select", target: "select-multiple.select"}
+                        }) %>
             <div class="d-block mt-1">
               <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
             </div>
           </div>
           <div class="col-12 mb-3" data-controller="select-multiple">
-            <%= f.input :assigned_property_ids, collection: properties_for_select,
-              label: "Assigned Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> prioritized over keywords</small>".html_safe,
-              input_html: {multiple: true, data: {controller: "select", target: "select-multiple.select"}} %>
+            <%= f.input(:assigned_property_ids,
+                        collection: properties_for_select,
+                        label: "Assigned Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> prioritized over keywords</small>".html_safe,
+                        input_html: {
+                          multiple: true, data: {controller: "select", target: "select-multiple.select"}
+                        }) %>
             <div class="d-block mt-1">
               <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
             </div>
