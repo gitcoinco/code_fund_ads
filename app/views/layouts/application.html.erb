@@ -34,7 +34,8 @@
           <%= yield %>
         </main>
       </div>
-      <div id="reflex-status" class="spinner-border spinner-border-sm text-primary d-none" role="status">
+
+      <div hidden role="status" class="reflex-activity spinner-border spinner-border-sm text-primary" style="position:fixed; bottom:0; right:0; margin:0 0.5em 0.5em 0;">
         <span class="sr-only">Loading...</span>
       </div>
     </div>

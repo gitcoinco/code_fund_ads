@@ -22,7 +22,7 @@ class InventoryDetail
   end
 
   def sold_impressions_count
-    (sold_budget_total.to_f / individual_impression_value).floor
+    sold_budget_total.to_f / individual_impression_value
   end
 
   def unsold_impressions_count

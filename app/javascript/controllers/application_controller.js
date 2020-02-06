@@ -6,12 +6,14 @@ export default class extends Controller {
     StimulusReflex.register(this)
   }
 
-  // beforeReflex (element) {
-  //   document.getElementById('reflex-status').classList.remove('d-none')
-  // }
+  beforeReflex (element) {
+    document
+      .querySelectorAll('.reflex-activity')
+      .forEach(e => (e.hidden = false))
+  }
 
   afterReflex (element) {
-    //document.getElementById('reflex-status').classList.add('d-none')
+    document.getElementById('.reflex-activity').forEach(e => (e.hidden = true))
     this.focus(element)
   }
 
