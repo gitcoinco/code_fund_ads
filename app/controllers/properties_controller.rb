@@ -1,6 +1,7 @@
 class PropertiesController < ApplicationController
   include Scopable
   include Sortable
+  include Properties::Stashable
 
   before_action :authenticate_user!
   before_action :set_property, only: [:show, :edit, :update, :destroy]
@@ -23,7 +24,7 @@ class PropertiesController < ApplicationController
   end
 
   def new
-    @property = current_user.properties.build(status: "pending", ad_template: "default", ad_theme: "light")
+    @property ||= @stimulus_reflex ? stashed_property : build_property
 
     if params[:clone].present?
       cloned_property = current_user.properties.find(params[:clone])
@@ -34,6 +35,8 @@ class PropertiesController < ApplicationController
     end
 
     set_assignable_fallback_campaigns
+    stash_property(@property)
+    @property ||= stashed_property
   end
 
   def show
@@ -93,6 +96,10 @@ class PropertiesController < ApplicationController
   end
 
   private
+
+  def build_property
+    current_user.properties.build(status: "pending", ad_template: "default", ad_theme: "light", temporary_id: Property.count + 1,)
+  end
 
   def set_property
     @property = if authorized_user.can_admin_system?
