@@ -77,7 +77,7 @@ USER_STATUS_COLORS:
 
 CAMPAIGN_STATUSES:
   - accepted
-  - active``
+  - active
   - archived
   - paused
   - pending
