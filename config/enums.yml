@@ -735,6 +735,8 @@ KEYWORDS:
     - rust
   "Scala":
     - scala
+  "Solidity":
+    - solidity
   "Swift":
     - swift
   "Other":

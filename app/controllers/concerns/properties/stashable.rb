@@ -7,11 +7,30 @@ module Properties
     end
 
     def stashed_property
-      Property.new stashed_property_params
+      property = property_id > 0 ? Property.find(property_id) : Property.new
+      property.assign_attributes stashed_property_params.except(:id) unless property_changed?
+      property
+    end
+
+    private
+
+    def property_id
+      (url_params[:controller] == "properties" ? url_params[:id] : url_params[:property_id]).to_i
+    end
+
+    def property_changed?
+      property_id != stashed_property_params[:id]
     end
 
     def stashed_property_params
-      session[:stashed_property] || {}
+      @stashed_property_params ||= HashWithIndifferentAccess.new(
+        session[:stashed_property] || {
+          temporary_id: Property.count + 1,
+          status: ENUMS::PROPERTY_STATUSES::PENDING,
+          ad_template: ENUMS::AD_TEMPLATES::DEFAULT,
+          ad_theme: ENUMS::AD_THEMES::LIGHT,
+        }
+      )
     end
   end
 end

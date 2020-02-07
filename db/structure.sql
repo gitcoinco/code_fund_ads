@@ -144,7 +144,7 @@ CREATE VIEW public.audiences AS
  SELECT 1 AS id,
     'Blockchain'::text AS name,
     'blockchain_ecpm_cents'::text AS ecpm_column_name,
-    '{Blockchain,Cryptography}'::text[] AS keywords
+    '{Blockchain,Cryptography,Solidity}'::text[] AS keywords
 UNION ALL
  SELECT 2 AS id,
     'CSS & Design'::text AS name,
@@ -154,7 +154,7 @@ UNION ALL
  SELECT 3 AS id,
     'DevOps'::text AS name,
     'dev_ops_ecpm_cents'::text AS ecpm_column_name,
-    '{DevOps,Python,Ruby,Security,Serverless}'::text[] AS keywords
+    '{DevOps,Security,Serverless}'::text[] AS keywords
 UNION ALL
  SELECT 4 AS id,
     'Game Development'::text AS name,
@@ -169,7 +169,7 @@ UNION ALL
  SELECT 6 AS id,
     'Miscellaneous'::text AS name,
     'miscellaneous_ecpm_cents'::text AS ecpm_column_name,
-    '{C,D,"Developer Resources",Erlang,F#,Haskell,IoT,Julia,"Machine Learning",Other,Python,Q,R,Rust,Scala}'::text[] AS keywords
+    '{C,D,"Developer Resources",Erlang,F#,Haskell,IoT,Julia,"Machine Learning",Other,Q,R,Rust,Scala}'::text[] AS keywords
 UNION ALL
  SELECT 7 AS id,
     'Mobile Development'::text AS name,
@@ -2897,6 +2897,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191218185622'),
 ('20200116165511'),
 ('20200116184119'),
-('20200121171555');
+('20200121171555'),
+('20200207162017');
 
 

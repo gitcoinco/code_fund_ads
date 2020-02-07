@@ -7,14 +7,23 @@ module Campaigns
     end
 
     def stashed_campaign
-      params = stashed_campaign_params
-      campaign = params[:id] ? Campaign.find(params[:id]) : Campaign.new
-      campaign.assign_attributes params.except(:id)
+      campaign = campaign_id > 0 ? Campaign.find(campaign_id) : Campaign.new
+      campaign.assign_attributes stashed_campaign_params.except(:id) unless campaign_changed?
       campaign
     end
 
+    private
+
+    def campaign_id
+      (url_params[:controller] == "campaigns" ? url_params[:id] : url_params[:campaign_id]).to_i
+    end
+
+    def campaign_changed?
+      campaign_id != stashed_campaign_params[:id]
+    end
+
     def stashed_campaign_params
-      HashWithIndifferentAccess.new(
+      @stashed_campaign_params ||= HashWithIndifferentAccess.new(
         session[:stashed_campaign] || {
           temporary_id: Campaign.max(:id) + 1,
           status: ENUMS::CAMPAIGN_STATUSES::PENDING,

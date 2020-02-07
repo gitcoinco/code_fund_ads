@@ -231,15 +231,17 @@ class Property < ApplicationRecord
     update_columns audience_id: Audience.match(keywords)&.id
   end
 
-  def assign_keywords
+  def assign_keywords(force_audience_keywords: false)
     return unless audience
 
-    if audience_id_changed?
-      self.keywords = audience.keywords
+    original_keywords = keywords
+    audience_keywords = audience.keywords
+    force_audience_keywords ||= audience_id_changed? || original_keywords.blank?
+
+    self.keywords = if force_audience_keywords
+      audience_keywords
     else
-      allowed_keywords = audience.keywords
-      self.keywords = allowed_keywords if keywords.blank?
-      self.keywords = (keywords & allowed_keywords).uniq.sort
+      (original_keywords & audience_keywords).uniq.sort
     end
   end
 

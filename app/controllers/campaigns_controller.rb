@@ -6,11 +6,10 @@ class CampaignsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!, only: [:destroy]
-  before_action :set_campaign, only: [:show, :edit, :update, :destroy]
+  before_action :set_campaign, except: [:create, :index]
   before_action :set_current_organization_for_admin, only: [:show, :edit]
   before_action :authorize_edit!, only: [:edit, :update]
-  before_action -> { @campaign ||= stashed_campaign }, only: :new
-  after_action -> { stash_campaign @campaign }, only: [:new, :edit]
+  after_action -> { stash_campaign @campaign }, except: [:index, :destroy]
 
   def index
     campaigns = scope_list(Campaign)
@@ -93,6 +92,7 @@ class CampaignsController < ApplicationController
   private
 
   def set_campaign
+    return @campaign ||= stashed_campaign if action_name == "new"
     @campaign ||= if authorized_user.can_admin_system?
       Campaign.find(params[:id])
     else
