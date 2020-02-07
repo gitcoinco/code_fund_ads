@@ -6,12 +6,12 @@ module CampaignBundles
 
     included do
       # scopes ....................................................................
-      scope :configured, -> { where status: STATUSES::CONFIGURED }
-      scope :unconfigured, -> { where status: STATUSES::UNCONFIGURED }
+      scope :configured, -> { where id: all.select(&:configured?).map(&:id) }
+      scope :unconfigured, -> { where id: all.select(&:unconfigured?).map(&:id) }
     end
 
     def status
-      @status ||= all_campaigns_configured? ? ENUMS::CAMPAIGN_BUNDLE_STATUSES::CONFIGURED : ENUMS::CAMPAIGN_BUNDLE_STATUSES::UNCONFIGURED
+      @status ||= all_campaigns_configured? ? STATUSES::CONFIGURED : STATUSES::UNCONFIGURED
     end
 
     def all_campaigns_configured?
@@ -19,11 +19,11 @@ module CampaignBundles
     end
 
     def configured?
-      status == STATUSES::CONFIGURED
+      all_campaigns_configured?
     end
 
     def unconfigured?
-      status == STATUSES::UNCONFIGURED
+      !all_campaigns_configured?
     end
   end
 end
