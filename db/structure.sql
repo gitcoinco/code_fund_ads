@@ -144,7 +144,7 @@ CREATE VIEW public.audiences AS
  SELECT 1 AS id,
     'Blockchain'::text AS name,
     'blockchain_ecpm_cents'::text AS ecpm_column_name,
-    '{Blockchain,Cryptography}'::text[] AS keywords
+    '{Blockchain,Cryptography,Solidity}'::text[] AS keywords
 UNION ALL
  SELECT 2 AS id,
     'CSS & Design'::text AS name,

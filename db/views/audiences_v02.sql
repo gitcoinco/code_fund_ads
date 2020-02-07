@@ -1,4 +1,4 @@
-select 1 id, 'Blockchain' "name", 'blockchain_ecpm_cents' ecpm_column_name, '{Blockchain,Cryptography}'::text[] keywords
+select 1 id, 'Blockchain' "name", 'blockchain_ecpm_cents' ecpm_column_name, '{Blockchain,Cryptography,Solidity}'::text[] keywords
 union all
 select 2, 'CSS & Design', 'css_and_design_ecpm_cents', '{"CSS & Design"}'
 union all
