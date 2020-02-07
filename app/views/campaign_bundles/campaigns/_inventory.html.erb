@@ -1,21 +1,76 @@
 <% cache campaign.inventory_summary, expires_in: 1.hour.from_now do %>
   <div class="card mt-2">
     <div class="card-header bg-muted">
-      <div>Average Monthly Impressions: <span class="text-monospace"><%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count * 30 %></span></div>
-      <div>Average Daily Impressions: <span class="text-monospace"><%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count %></span></div>
-      <div>Average Daily Impressions Value: <span class="text-monospace"><%= campaign.inventory_summary.average_daily_impressions_value.format %></span></div>
-      <div>Current Sold Daily Budget: <span class="text-monospace"><%= campaign.inventory_summary.current_competitors_total_daily_budget.format %></span></div>
-      <div>Future Sold Daily Budget: <span class="text-monospace"><%= campaign.inventory_summary.future_competitors_total_daily_budget.format %></span></div>
-      <div>Total Sold Daily Budget: <span class="text-monospace"><%= campaign.inventory_summary.all_competitors_total_daily_budget.format %></span></div>
-      <div>Current Discrepancy: <span class="text-monospace"><%= campaign.inventory_summary.current_discrepancy.format %></span></div>
-      <div>Total Discrepancy: <span class="text-monospace"><%= campaign.inventory_summary.total_discrepancy.format %></span></div>
-      <div>Average base eCPM: <span class="text-monospace"><%= campaign.inventory_summary.average_base_ecpm.format %></span></div>
-      <div>Average adjusted eCPM: <span class="text-monospace"><%= campaign.inventory_summary.average_adjusted_ecpm.format %></span></div>
-      <div>Average Individual Impression Value: <span class="text-monospace"><%= number_with_precision campaign.inventory_summary.average_individual_impression_value, precision: 3 %></span></div>
-      <div>Unsold Daily Impressions <small>rollup</small>: <span class="text-monospace"><%= number_with_delimiter campaign.inventory_summary.unsold_daily_impressions_count %></span></div>
-      <div>Unsold Daily Impressions <small>calc</small>: <span class="text-monospace"><%= number_with_delimiter campaign.inventory_summary.unsold_daily_impressions_count(strategy: :caclulate) %></span></div>
+      <h5><%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count %> impressions/day</h5>
+      <div class="opacity-60">Average inventory based on your targeted locations and audience but not your budget or availability</div>
     </div>
-    <div class="card-body" style="max-height:400px; overflow-y:scroll;">
+    <div class="card-body" style="max-height:500px; overflow-y:scroll;">
+      <h6 class="text-muted">
+        Inventory Summary
+        <small>decision support</small>
+      </h6>
+      <table class="table table-sm table-hover table-bordered">
+        <thead>
+          <tr class="bg-light">
+            <th class="rounded-0">Metric</th>
+            <th class="rounded-0">Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Average Monthly Impressions</td>
+            <td class="text-right text-monospace"><%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count * 30 %></td>
+          </tr>
+          <tr>
+            <td>Average Daily Impressions</td>
+            <td class="text-right text-monospace"><%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count %></td>
+          </tr>
+          <tr>
+            <td>Unsold Daily Impressions <small>rollup</small></td>
+            <td class="text-right text-monospace"><%= number_with_delimiter campaign.inventory_summary.unsold_daily_impressions_count %></td>
+          </tr>
+          <tr>
+            <td>Unsold Daily Impressions <small>calc</small></td>
+            <td class="text-right text-monospace"><%= number_with_delimiter campaign.inventory_summary.unsold_daily_impressions_count(strategy: :caclulate) %></td>
+          </tr>
+          <tr>
+            <td>Average eCPM <small>base</small></td>
+            <td class="text-right text-monospace"><%= campaign.inventory_summary.average_base_ecpm.format %></td>
+          </tr>
+          <tr>
+            <td>Average eCPM <small>adjusted</small></td>
+            <td class="text-right text-monospace"><%= campaign.inventory_summary.average_adjusted_ecpm.format %></td>
+          </tr>
+          <tr>
+            <td>Average Individual Impression Value</td>
+            <td class="text-right text-monospace"><%= number_with_precision campaign.inventory_summary.average_individual_impression_value, precision: 3 %></td>
+          </tr>
+          <tr>
+            <td>Average Daily Impressions Value</td>
+            <td class="text-right text-monospace"><%= campaign.inventory_summary.average_daily_impressions_value.format %></td>
+          </tr>
+          <tr>
+            <td>Sold Daily Budget <small>current</small></td>
+            <td class="text-right text-monospace"><%= campaign.inventory_summary.current_competitors_total_daily_budget.format %></td>
+          </tr>
+          <tr>
+            <td>Sold Daily Budget <small>future</small></td>
+            <td class="text-right text-monospace"><%= campaign.inventory_summary.future_competitors_total_daily_budget.format %></td>
+          </tr>
+          <tr>
+            <td>Sold Daily Budget <small>total</small></td>
+            <td class="text-right text-monospace"><%= campaign.inventory_summary.all_competitors_total_daily_budget.format %></td>
+          </tr>
+          <tr>
+            <td>Discrepancy <small>current</small></td>
+            <td class="text-right text-monospace"><%= campaign.inventory_summary.current_discrepancy.format %></td>
+          </tr>
+          <tr>
+            <td>Discrepancy <small>total</small></td>
+            <td class="text-right text-monospace"><%= campaign.inventory_summary.total_discrepancy.format %></td>
+          </tr>
+        </tbody>
+      </table>
 
       <h6 class="text-muted">eCPM by Region & Audience</h6>
       <table class="table table-sm table-hover table-bordered">
