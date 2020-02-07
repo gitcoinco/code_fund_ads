@@ -9,6 +9,8 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, only: [:show, :edit, :update, :destroy]
   before_action :set_current_organization_for_admin, only: [:show, :edit]
   before_action :authorize_edit!, only: [:edit, :update]
+  before_action -> { @campaign ||= stashed_campaign }, only: :new
+  after_action -> { stash_campaign @campaign }, only: [:new, :edit]
 
   def index
     campaigns = scope_list(Campaign)
@@ -38,8 +40,6 @@ class CampaignsController < ApplicationController
   end
 
   def new
-    @campaign ||= @stimulus_reflex ? stashed_campaign : build_campaign
-
     if params[:clone].present?
       cloned_campaign = Campaign.find(params[:clone])
       if cloned_campaign.present?
@@ -48,9 +48,6 @@ class CampaignsController < ApplicationController
         @campaign.status = "pending"
       end
     end
-
-    stash_campaign(@campaign)
-    @campaign ||= stashed_campaign
   end
 
   def edit
@@ -95,18 +92,8 @@ class CampaignsController < ApplicationController
 
   private
 
-  def build_campaign
-    current_user.campaigns.build(
-      temporary_id: Campaign.count + 1,
-      status: "pending",
-      start_date: Date.tomorrow,
-      end_date: 30.days.from_now,
-      ecpm: Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD")
-    )
-  end
-
   def set_campaign
-    @campaign = if authorized_user.can_admin_system?
+    @campaign ||= if authorized_user.can_admin_system?
       Campaign.find(params[:id])
     else
       Current.organization&.campaigns&.find(params[:id])
