@@ -475,27 +475,31 @@ class Campaign < ApplicationRecord
     future_competitors.premium
   end
 
-  def assign_keywords
+  def assign_keywords(force_audience_keywords: false)
     return unless audiences.exists?
-    allowed_keywords = audiences.map(&:keywords).flatten.uniq
 
-    if audience_ids_changed?
-      self.keywords = allowed_keywords
+    original_keywords = keywords
+    audience_keywords = audiences.map(&:keywords).flatten.uniq
+    force_audience_keywords ||= audience_ids_changed? || original_keywords.blank?
+
+    self.keywords = if force_audience_keywords
+      audience_keywords
     else
-      self.keywords = allowed_keywords if keywords.blank?
-      self.keywords = (keywords & allowed_keywords).uniq.sort
+      (original_keywords & audience_keywords).uniq.sort
     end
   end
 
-  def assign_country_codes
+  def assign_country_codes(force_region_country_codes: false)
     return unless regions.exists?
-    allowed_country_codes = regions.map(&:country_codes).flatten.uniq
 
-    if region_ids_changed?
-      self.country_codes = allowed_country_codes
+    original_country_codes = country_codes
+    region_country_codes = regions.map(&:country_codes).flatten.uniq
+    force_region_country_codes ||= region_ids_changed? || original_country_codes.blank?
+
+    self.country_codes = if force_region_country_codes
+      region_country_codes
     else
-      self.country_codes = allowed_country_codes if country_codes.blank?
-      self.country_codes = (country_codes & allowed_country_codes).uniq.sort
+      (original_country_codes & region_country_codes).uniq.sort
     end
   end
 
