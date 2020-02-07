@@ -447,7 +447,7 @@ class Campaign < ApplicationRecord
     relation
   end
 
-  def competitors
+  def current_competitors
     return Campaign.none unless start_date
     assign_keywords
     assign_country_codes
@@ -456,9 +456,9 @@ class Campaign < ApplicationRecord
     relation
   end
 
-  def premium_competitors
+  def current_premium_competitors
     return Campaign.none unless start_date
-    competitors.premium
+    current_competitors.premium
   end
 
   def future_competitors

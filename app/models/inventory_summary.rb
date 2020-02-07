@@ -5,48 +5,74 @@ class InventorySummary
     @campaign = campaign
   end
 
-  def competitors
-    @competitors ||= campaign.premium_competitors.order(:start_date).to_a
-  end
-
-  def competitors_total_daily_budget
-    @competitors_total_daily_budget ||= Money.new(competitors.sum(&:daily_budget), "USD")
+  def current_competitors
+    @current_competitors ||= campaign.current_premium_competitors.order(:start_date).to_a
   end
 
   def future_competitors
     @future_competitors ||= campaign.future_premium_competitors.order(:start_date).to_a
   end
 
+  def all_competitors
+    current_competitors + future_competitors
+  end
+
+  def current_competitors_total_daily_budget
+    @current_competitors_total_daily_budget ||= Money.new(current_competitors.sum(&:daily_budget), "USD")
+  end
+
   def future_competitors_total_daily_budget
     @future_competitors_total_daily_budget ||= Money.new(future_competitors.sum(&:daily_budget), "USD")
   end
 
-  def average_daily_inventory_value
-    @average_daily_inventory_value ||= inventory_details.sum(&:impressions_value)
+  def all_competitors_total_daily_budget
+    @all_competitors_total_daily_budget ||= Money.new(all_competitors.sum(&:daily_budget), "USD")
+  end
+
+  def current_discrepancy
+    average_daily_impressions_value - current_competitors_total_daily_budget
+  end
+
+  def total_discrepancy
+    average_daily_impressions_value - all_competitors_total_daily_budget
+  end
+
+  def average_daily_impressions_value
+    @average_daily_impressions_value ||= inventory_details.sum(&:average_daily_impressions_value)
   end
 
   def average_daily_impressions_count
-    @average_daily_impressions_count ||= inventory_details.sum(&:impressions_count)
+    @average_daily_impressions_count ||= inventory_details.sum(&:average_daily_impressions_count)
   end
 
-  def available_daily_inventory_value
-    @available_daily_inventory_value ||= average_daily_inventory_value - competitors_total_daily_budget
+  def sold_daily_impressions_count
+    @sold_daily_impressions_count ||= inventory_details.sum(&:sold_daily_impressions_count)
   end
 
-  def available_daily_inventory_percentage
-    @available_daily_inventory_percentage ||= if average_daily_inventory_value > 0
-      available_daily_inventory_value / average_daily_inventory_value.to_f
+  def unsold_daily_impressions_count(strategy: :rollup)
+    return inventory_details.sum(&:unsold_daily_impressions_count) if strategy == :rollup
+    return (total_discrepancy.to_f / average_individual_impression_value.to_f).floor if strategy == :caclulate
+    0
+  end
+
+  def sold_daily_impressions_value
+    @sold_daily_impressions_value ||= inventory_details.sum(&:sold_daily_impressions_value)
+  end
+
+  def unsold_daily_impressions_value
+    @unsold_daily_impressions_value ||= inventory_details.sum(&:unsold_daily_impressions_value)
+  end
+
+  def available_daily_impressions_percentage
+    @available_daily_impressions_percentage ||= if average_daily_impressions_count > 0
+      unsold_daily_impressions_count / average_daily_impressions_count.to_f
     else
       0
     end
   end
 
-  def avaliable_daily_impressions_count
-    @avaliable_daily_impressions_count ||= if available_daily_inventory_percentage > 0
-      (average_daily_impressions_count * available_daily_inventory_percentage.to_f).floor
-    else
-      0
-    end
+  def average_individual_impression_value
+    average_daily_impressions_value.to_f / average_daily_impressions_count
   end
 
   def inventory_details
@@ -74,8 +100,8 @@ class InventorySummary
       Digest::MD5.hexdigest(campaign.regions.map(&:id).join),
       "audiences",
       Digest::MD5.hexdigest(campaign.audiences.map(&:id).join),
-      "competitors",
-      Digest::MD5.hexdigest(competitors.map(&:id).join),
+      "all_competitors",
+      Digest::MD5.hexdigest(all_competitors.map(&:id).join),
     ].join "/"
   end
 end
