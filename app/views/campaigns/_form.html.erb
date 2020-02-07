@@ -182,22 +182,24 @@
         <small class="mt-1 d-block text-primary opacity-70">Multivariate testing is used to determine the most effective creative</small>
       <% end %>
     <% end %>
-    <%= card_body do %>
-      <div class="d-flex flex-column">
-        <% Current.organization.creatives.active.each do |creative| %>
-          <div class="form-check">
-            <%= tag.input type: "checkbox",
-                          class: "form-check-input",
-                          value: creative.id,
-                          name: "campaign[creative_ids][]",
-                          id: "campaign_creative_id_#{creative.id}",
-                          checked: campaign.creatives.include?(creative) %>
-            <label class="form-check-label" for="campaign_creative_id_<%= creative.id %>">
-              <%= creative.name %> - <strong><%= creative.headline %></strong> <%= creative.body %>
-            </label>
-          </div>
-        <% end %>
-      </div>
+    <% cache Current.organization.creatives.active do %>
+      <%= card_body do %>
+        <div class="d-flex flex-column">
+          <% Current.organization.creatives.active.each do |creative| %>
+            <div class="form-check">
+              <%= tag.input type: "checkbox",
+                            class: "form-check-input",
+                            value: creative.id,
+                            name: "campaign[creative_ids][]",
+                            id: "campaign_creative_id_#{creative.id}",
+                            checked: campaign.creatives.include?(creative) %>
+              <label class="form-check-label" for="campaign_creative_id_<%= creative.id %>">
+                <%= creative.name %> - <strong><%= creative.headline %></strong> <%= creative.body %>
+              </label>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
   <% if authorized_user.can_admin_system? %>
