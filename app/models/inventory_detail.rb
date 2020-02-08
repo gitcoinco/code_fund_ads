@@ -26,6 +26,8 @@ class InventoryDetail
   end
 
   def unsold_daily_impressions_count
+    # TODO: verifiy the logic here because it's producting an incorrect value
+    #       vars to test: March 1 start_date, Asia East + Asia South, Game Development
     (unsold_daily_impressions_value.to_f / individual_impression_value).floor
   end
 
@@ -39,7 +41,7 @@ class InventoryDetail
 
   def sold_daily_impressions_value
     @sold_daily_impressions_value ||= begin
-      relation = Campaign.active.with_any_country_codes(*region.country_codes).with_any_keywords(*audience.keywords).available_on(start_date)
+      relation = Campaign.active.premium.with_any_country_codes(*region.country_codes).with_any_keywords(*audience.keywords).available_on(start_date)
       relation = relation.unending.or(relation.ends_on_or_before(end_date)) if end_date
       Money.new relation.sum(:daily_budget_cents), "USD"
     end

@@ -50,16 +50,20 @@
             <td class="text-right text-monospace"><%= campaign.inventory_summary.average_daily_impressions_value.format %></td>
           </tr>
           <tr>
-            <td>Sold Daily Budget <small>current</small></td>
+            <td>Sold Daily Value <small>current</small></td>
             <td class="text-right text-monospace"><%= campaign.inventory_summary.current_competitors_total_daily_budget.format %></td>
           </tr>
           <tr>
-            <td>Sold Daily Budget <small>future</small></td>
+            <td>Sold Daily Value <small>future</small></td>
             <td class="text-right text-monospace"><%= campaign.inventory_summary.future_competitors_total_daily_budget.format %></td>
           </tr>
           <tr>
-            <td>Sold Daily Budget <small>total</small></td>
+            <td>Sold Daily Value <small>total</small></td>
             <td class="text-right text-monospace"><%= campaign.inventory_summary.all_competitors_total_daily_budget.format %></td>
+          </tr>
+          <tr>
+            <td>Unsold Daily Value</td>
+            <td class="text-right text-monospace"><%= campaign.inventory_summary.unsold_daily_impressions_value.format %></td>
           </tr>
           <tr>
             <td>Discrepancy <small>current</small></td>
