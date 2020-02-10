@@ -58,6 +58,7 @@ gem "premailer", "1.11.1"
 gem "premailer-rails", "1.10.3"
 gem "pretender", "~> 0.3.3"
 gem "puma", "~> 4.3"
+gem "puma_worker_killer", "~> 0.1.1", require: false # HACK: temporary bandaid until we work through inaccurate memory reporting from Heroku
 gem "rack-attack", "~> 6.2.1"
 gem "rails", "~> 6.0"
 gem "redis", "~> 4.0", require: ["redis", "redis/connection/hiredis"]
