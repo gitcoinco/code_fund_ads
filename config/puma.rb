@@ -38,7 +38,7 @@ preload_app!
 before_fork do
   # HACK: temporary bandaid until we work through inaccurate memory reporting from Heroku
   require "puma_worker_killer"
-  PumaWorkerKiller.enable_rolling_restart(8 * 3600) # 8 hours in seconds
+  PumaWorkerKiller.enable_rolling_restart((ENV["PUMA_WORKER_KILLER_ROLLING_RESTART_SECONDS"] || 8 * 3600).to_i) # 8 hours in seconds
 end
 
 on_worker_fork do
