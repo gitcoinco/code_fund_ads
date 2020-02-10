@@ -115,7 +115,7 @@ summary = subject.summary(@start_date, @end_date)
           <span class="text-muted">Status</span> <span><%= subject.status.humanize %></span>
         </div>
         <div class="list-group-item justify-content-between align-items-center px-0">
-          <span class="text-muted">Date Range</span> <span><%= "#{@campaign.start_date.to_s("mm/dd/yyyy")} &mdash; #{@campaign.end_date.to_s("mm/dd/yyyy")}".html_safe %></span>
+          <span class="text-muted">Date Range</span> <span><%= "#{@campaign.start_date.to_s("mm/dd/yyyy")} &mdash; #{@campaign.end_date&.to_s("mm/dd/yyyy")}".html_safe %></span>
         </div>
         <div class="list-group-item justify-content-between align-items-center px-0">
           <span class="text-muted">URL</span> <span><%= link_to truncate(subject.url, length: 30), subject.url, target: "_blank" %></span>

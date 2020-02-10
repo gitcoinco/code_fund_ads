@@ -42,7 +42,9 @@
                   <%= campaign.percentage_complete_by_date %>% by Date
                   • <%= campaign.percentage_complete_by_budget %>% by Budget
                   • <%= campaign.total_remaining_budget.format %> Remaining
-                  • <%= campaign.remaining_operative_days %> Days Left
+                  <% unless campaign.remaining_operative_days.infinite? %>
+                    • <%= campaign.remaining_operative_days %> Days Left
+                  <% end %>
                   <%= "• #{campaign.estimated_days_until_budget_consumed} based on budget" if campaign.consumed_operative_days > 3 %>
                 </p>
                 <div class="progress bg-muted" style="border-bottom: 1px solid #ffffff;">

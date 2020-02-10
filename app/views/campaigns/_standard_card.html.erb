@@ -35,7 +35,7 @@
       </div>
       <div class="col" data-toggle="tooltip" title="<%= remaining_days_label(campaign) %>">
         <strong>Days Left</strong>
-        <span class="d-block"><%= campaign.remaining_operative_days %></span>
+        <span class="d-block"><%= campaign.remaining_operative_days.infinite? ? "Infinite" : campaign.remaining_operative_days %></span>
       </div>
     </div>
   <% end %>

@@ -16,13 +16,15 @@ module Campaigns
 
     alias to_s analytics_key
 
+    # DEPRECATE: [Campaigns::Presentable#duration] Delete method
     def duration
+      ActiveSupport::Deprecation.warn("Campaign#duration is deprecated due to undending campaigns.")
       return nil if total_operative_days.zero?
       distance_of_time_in_words(start_date.beginning_of_day, end_date.end_of_day, scope: "datetime.distance_in_words.short")
     end
 
     def percentage_complete_by_date
-      return 0 if total_operative_days.zero?
+      return 0 if total_operative_days.zero? || remaining_operative_days.infinite?
       return 0 if start_date > Date.current
       return 100 if end_date < Date.current
 
