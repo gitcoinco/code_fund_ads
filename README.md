@@ -5,10 +5,23 @@
 [![Join the conversation](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/code_fund_ads/community)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgitcoinco%2Fcode_fund_ads.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgitcoinco%2Fcode_fund_ads?ref=badge_shield)
 
-# CodeFund Ads
+<br />
+<p align="center">
+  <a href="https://github.com/gitcoinco/code_fund_ads">
+    <img src="app/assets/images/codefund-logo-square-128.png" alt="Logo" width="128" height="128">
+  </a>
 
-CodeFund Ads is an ethical and discreet ad platform that funds open-source.
-It helps your favorite projects thrive by paying maintainers the majority of all generated revenue.
+  <h2 align="center">CodeFund Ads</h2>
+
+  <p align="center">
+    CodeFund Ads is an ethical and discreet ad platform that funds open-source.
+    It helps your favorite projects thrive by paying maintainers the majority of all generated revenue.
+  </p>
+</p>
+
+<!-- ⬇️ Use `bundle exec tocer -g` to regenerate this table of contents ⬇️ -->
+<!-- markdownlint-disable -->
+<!-- prettier-ignore-start -->
 
 <!-- Tocer[start]: Auto-generated, don't remove. -->
 
@@ -16,27 +29,41 @@ It helps your favorite projects thrive by paying maintainers the majority of all
 
   - [Publisher JavaScript Embedding](#publisher-javascript-embedding)
     - [Optional Query String Parameters](#optional-query-string-parameters)
+    - [Embed Callbacks](#embed-callbacks)
+      - [Example](#example)
+      - [Responses](#responses)
   - [API](#api)
-  - [Ad Rendering and Impression/Click Tracking](#ad-rendering-and-impressionclick-tracking)
-  - [Enums](#enums)
-  - [Development Environment](#development-environment)
-    - [Database Seeds](#database-seeds)
-    - [Tmux/Teamocil or Mert](#tmuxteamocil-or-mert)
+    - [Ad Rendering and Impression/Click Tracking](#ad-rendering-and-impressionclick-tracking)
+  - [Development](#development)
+    - [Prerequisites](#prerequisites)
+    - [Setup](#setup)
+    - [Database](#database)
+    - [Maxmind](#maxmind)
+    - [Workspace Setup](#workspace-setup)
+      - [Tmux](#tmux)
+      - [Teamocil](#teamocil)
+      - [Mert](#mert)
   - [Code Standards](#code-standards)
+    - [Enums](#enums)
+    - [Linting](#linting)
   - [Deployment](#deployment)
     - [Preboot](#preboot)
     - [Scheduler](#scheduler)
-    - [Database](#database)
-  - [Maxmind](#maxmind)
+    - [Database](#database-1)
+  - [Instrumentation](#instrumentation)
   - [Candidates for GEM extraction](#candidates-for-gem-extraction)
   - [Contributors](#contributors)
+  - [License](#license)
 
 <!-- Tocer[finish]: Auto-generated, don't remove. -->
+
+<!-- markdownlint-enable -->
+<!-- prettier-ignore-end -->
 
 ## Publisher JavaScript Embedding
 
 After being approved on the CodeFund platform,
-publishers can add CodeFund to their site by including the CodeFund script and adding the CodeFund `div`.
+publishers can add CodeFund ads to their site by including the CodeFund script and adding the CodeFund `div`.
 
 ```html
 <div id="codefund"></div>
@@ -57,25 +84,27 @@ You may want to perform a function if the embed function does not return an ad.
 
 To do this, you must create an event listener for the window event `codefund`.
 
-Example:
+#### Example
 
 ```js
 window.addEventListener("codefund", function(evt) {
   if (evt.detail.status !== 'ok') {
-    // Do something else
     console.log(evt.detail.status);
+    // Do something
   }
 });
 ```
+
+#### Responses
 
 On a successful embed, `evt.detail` will return:
 
 ```json
 { "status": "ok", "house": false }
 
-or
+// or
 
-{ "status": "ok", "house": true } // Ad returned is a house ad
+{ "status": "ok", "house": true } // Ad returned is a house (fallback) ad
 ```
 
 If an error occurs with embedding the ad, `evt.detail` will return:
@@ -84,7 +113,7 @@ If an error occurs with embedding the ad, `evt.detail` will return:
 { "status": "error", "message": "error message" }
 ```
 
-And in the event that we do not have an available advertiser, you will see:
+In the event that we do not have an available advertiser, and thus no available (paid or fallback) ad, `evt.detail` will return:
 
 ```json
 { "status": "no-advertiser" }
@@ -97,9 +126,9 @@ The API is documented with [Blueprint](https://apiblueprint.org) and is [hosted 
 > NOTE: Apairy doesn't fully adhere to the [Blueprint 1A9 specification](https://github.com/apiaryio/api-blueprint/blob/format-1A9/API%20Blueprint%20Specification.md).
 > Our Blueprint file may deviate from the spec to satisfy Apiary limitations.
 
-https://github.com/gitcoinco/code_fund_ads/blob/master/BLUEPRINT.md
+The [online version](https://codefund.docs.apiary.io/#) is generated from [this file](https://github.com/gitcoinco/code_fund_ads/blob/master/BLUEPRINT.md).
 
-## Ad Rendering and Impression/Click Tracking
+### Ad Rendering and Impression/Click Tracking
 
 The URLs/routes responsible for ad rendering are:
 
@@ -124,24 +153,10 @@ The URLs/routes responsible for ad rendering are:
   This is the proxy/redirect URL that allows us to track the click.
   We immediately redirect to the advertiser's campaign URL and background the work to mark the associated impression as clicked.
 
-## Enums
+## Development
 
-All enum values are managed as constants defined in `config/enums.yml`
-This file is converted to Ruby constants at runtime.
+### Prerequisites
 
-Introspect what enums are defined via the cli.
-
-```ruby
-ENUMS.constants
-ENUMS::USER_ROLES.constants
-# etc...
-```
-
-**Always use enums instead of "magic" values.**
-
-## Development Environment
-
-###### Prerequisites
 - Ruby version `2.6.5`
   - [rbenv](https://github.com/rbenv/rbenv)
   - [asdf](https://github.com/asdf-vm/asdf-ruby)
@@ -165,9 +180,12 @@ ENUMS::USER_ROLES.constants
 
 >You must create a (superuser) role with the name of your OS user in your postgres configuration in order to run db operations (e.g. testing and development).
 
+### Setup
+
 ```sh
+# clone the repo & cd into the project
 git clone https://github.com/gitcoinco/code_fund_ads.git
-cd /path/to/project
+cd /path/to/code_fund_ads
 
 # setup environment variables
 cp .env-example .env
@@ -193,36 +211,80 @@ on caching and may not work properly without the cache enabled.
 bundle exec rails dev:cache # => Development mode is now being cached.
 ```
 
-### Database Seeds
+### Database
 
 The `impressions` table will seed with approximately 100k records spread over 12 months by default.
 You can increase this by setting the `IMPRESSIONS` environment variable and seeding again.
 
-```
+```sh
 IMPRESSIONS=10_000_000 rails db:seed
 ```
 
-### Tmux/Teamocil or Mert
+### Maxmind
 
-You may want to create a [teamocil](https://github.com/remiprev/teamocil)/[tmux](https://github.com/tmux/tmux) config for your machine.
+This product includes GeoLite data created by MaxMind, available from: http://www.maxmind.com
 
-SEE: https://github.com/gitcoinco/code_fund_ads/blob/master/.teamocil-example.yml
+The GeoLite2-City.tar.gz is checked into this repo at `db/maxmind/GeoLite2-City.tar.gz`
+
+A fresh copy of the GeoLite2-City.tar.gz file can be obtained by running one of the following commands.
 
 ```sh
-cd /path/to/project
+rails maxmind:download
+```
+
+```ruby
+DownloadAndExtractMaxmindFileJob.new.download
+```
+
+### Workspace Setup
+
+We provide a few example files for some popular tools to help you get up an running.
+
+#### [Tmux](https://github.com/tmux/tmux)
+
+SEE: [sample config file](https://github.com/gitcoinco/code_fund_ads/blob/master/.tmuxinator-example.yml)
+
+```sh
+cd /path/to/code_fund_ads
+./bin/tmuxinator
+```
+
+#### [Teamocil](https://github.com/remiprev/teamocil)
+
+SEE: [sample config file](https://github.com/gitcoinco/code_fund_ads/blob/master/.teamocil-example.yml)
+
+```sh
+cd /path/to/code_fund_ads
 ./bin/teamocil
 ```
 
-Alternatively, you may want to create a [mert](https://github.com/eggplanetio/mert) config for your machine to be used with iTerm.
+#### [Mert](https://github.com/eggplanetio/mert)
 
-SEE: https://github.com/gitcoinco/code_fund_ads/blob/master/.mert-example.yml
+SEE: [sample config file](https://github.com/gitcoinco/code_fund_ads/blob/master/.mert-example.yml)
 
 ```sh
-cd /path/to/project
+cd /path/to/code_fund_ads
 ./bin/mert
 ```
 
 ## Code Standards
+
+### Enums
+
+All enum values are managed as constants defined in `config/enums.yml`
+This file is converted to Ruby constants at runtime.
+
+Introspect what enums are defined via the cli.
+
+```ruby
+ENUMS.constants
+ENUMS::USER_ROLES.constants
+# etc...
+```
+
+**Always use enums instead of "magic" values.**
+
+### Linting
 
 We avoid [bike shedding](https://en.wikipedia.org/wiki/Law_of_triviality) by enforcing coding standards through tooling.
 
@@ -240,7 +302,7 @@ Ensure the code has been standardized by running the following before you commit
 All pushes of master to Github result in a deployment to the staging environment.
 We use Herou build pipelines to promote the deployment to environments like production.
 
-```
+```sh
 ./bin/heroku_promote
 ```
 
@@ -272,29 +334,15 @@ We manage this with [Heroku Scheduler](https://devcenter.heroku.com/articles/sch
 - The `impressions` table is dynamically partitioned by **advertiser** (i.e. `user`) and **date**
 - The database user requires permissions to execute DDL and create schema to support dynamic partition tables
 
-## Maxmind
-
-This product includes GeoLite data created by MaxMind, available from: http://www.maxmind.com
-
-The GeoLite2-City.tar.gz is checked into this repo at `db/maxmind/GeoLite2-City.tar.gz`
-
-A fresh copy of the GeoLite2-City.tar.gz file can be obtained by running one of the following commands.
-
-```sh
-rails maxmind:download
-```
-
-```ruby
-DownloadAndExtractMaxmindFileJob.new.download
-```
-
 ## Instrumentation
 
 CodeFund uses a self-hosted version of [count.ly](https://count.ly/) to gather and analyze data. This data does not include any personal identifiable information.
 
 The pattern in which to instrument CodeFund with is as follows:
 
-    CodeFundAds::Events.track(:action, :device_id, :segmentation)
+```ruby
+CodeFundAds::Events.track(:action, :device_id, :segmentation)
+```
 
 Each variable can be the following value:
 
@@ -368,6 +416,8 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
 
 This project follows the [all-contributors](https://github.com/kentcdodds/all-contributors) specification. Contributions of any kind welcome!
 
-
 ## License
+
+[AGPL-3.0](LICENSE)
+
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgitcoinco%2Fcode_fund_ads.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgitcoinco%2Fcode_fund_ads?ref=badge_large)
