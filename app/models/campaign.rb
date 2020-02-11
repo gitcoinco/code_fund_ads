@@ -184,6 +184,9 @@ class Campaign < ApplicationRecord
   scope :with_active_creatives, -> {
     where "\"campaigns\".\"creative_ids\" && (SELECT array_agg(id) FROM \"creatives\" WHERE \"creatives\".\"status\" = 'active')::bigint[]"
   }
+  scope :with_inactive_creatives, -> {
+    where "\"campaigns\".\"creative_ids\" && (SELECT array_agg(id) FROM \"creatives\" WHERE \"creatives\".\"status\" != 'active')::bigint[]"
+  }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
