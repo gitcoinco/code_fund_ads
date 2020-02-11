@@ -47,6 +47,7 @@ class Creative < ApplicationRecord
   validates :status, inclusion: {in: ENUMS::CREATIVE_STATUSES.values}
   validates :creative_type, inclusion: {in: ENUMS::CREATIVE_TYPES.values}
   validate :validate_images
+  validate :validate_status_change
 
   # callbacks .................................................................
   after_commit :touch_campaigns, on: [:update]
@@ -170,6 +171,15 @@ class Creative < ApplicationRecord
 
   def touch_campaigns
     campaigns.map(&:touch)
+  end
+
+  def validate_status_change
+    return unless status_changed?
+    return unless campaigns.exists?
+
+    if !active? && campaigns.where(status: ENUMS::CAMPAIGN_STATUSES::ACTIVE).exists?
+      errors.add :base, "cannot deactivate creative because it is used by an active campaign"
+    end
   end
 
   def validate_images

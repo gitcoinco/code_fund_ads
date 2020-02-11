@@ -6,24 +6,23 @@ module CampaignBundles
 
     included do
       # scopes ....................................................................
-      scope :configured, -> { where id: all.select(&:configured?).map(&:id) }
-      scope :unconfigured, -> { where id: all.select(&:unconfigured?).map(&:id) }
+      scope :configured, -> { where.not id: unconfigured }
+      scope :unconfigured, -> {
+        where(id: Campaign.with_inactive_creatives.select(:campaign_bundle_id))
+          .or(where(id: Campaign.without_creative_ids.select(:campaign_bundle_id)))
+      }
     end
 
     def status
-      @status ||= all_campaigns_configured? ? STATUSES::CONFIGURED : STATUSES::UNCONFIGURED
-    end
-
-    def all_campaigns_configured?
-      campaigns.map(&:active?).all?
+      @status ||= unconfigured? ? STATUSES::UNCONFIGURED : STATUSES::CONFIGURED
     end
 
     def configured?
-      all_campaigns_configured?
+      !unconfigured?
     end
 
     def unconfigured?
-      !all_campaigns_configured?
+      campaigns.with_inactive_creatives.exists? || campaigns.without_creative_ids.exists?
     end
   end
 end
