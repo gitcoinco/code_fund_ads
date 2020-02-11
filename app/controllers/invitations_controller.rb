@@ -1,5 +1,5 @@
 class InvitationsController < Devise::InvitationsController
-  layout "authentication"
+  layout :resolve_layout
   after_action :create_organization_user, only: :create
 
   def update
@@ -9,7 +9,7 @@ class InvitationsController < Devise::InvitationsController
 
   def new
     self.resource = resource_class.new
-    render :new, layout: "application"
+    render :new
   end
 
   def after_accept_path_for(user)
@@ -23,7 +23,19 @@ class InvitationsController < Devise::InvitationsController
   private
 
   def create_organization_user
-    org = Organization.find(invite_params.dig(:organization_id))
+    org = Organization.find_by(id: invite_params.dig(:organization_id))
+    return unless org
     OrganizationUser.find_or_create_by(organization: org, user: resource)
+  end
+
+  def resolve_layout
+    case action_name
+    when "new"
+      "application"
+    when "create"
+      "application"
+    else
+      "authentication"
+    end
   end
 end
