@@ -6,6 +6,7 @@ class CampaignBundlesReflex < ApplicationReflex
   end
 
   def update_start_date
+    # reflex
     campaign_bundle.start_date = Date.parse(element[:value])
     campaign_bundle.campaigns.each { |c| c.start_date = campaign_bundle.start_date }
   rescue => e
@@ -13,6 +14,7 @@ class CampaignBundlesReflex < ApplicationReflex
   end
 
   def update_end_date
+    # reflex
     campaign_bundle.end_date = Date.parse(element[:value])
     campaign_bundle.campaigns.each { |c| c.end_date = campaign_bundle.end_date }
   rescue => e

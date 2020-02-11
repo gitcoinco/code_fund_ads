@@ -14,11 +14,11 @@
           <div class="row">
             <div class="col form-group">
               <%= f.label :start_date, "Start Date" %>
-              <%= f.date_field :start_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_start_date"} %>
+              <%= f.date_field :start_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_start_date", controller: "flatpickr"} %>
             </div>
             <div class="col form-group">
               <%= f.label :end_date, "End Date" %>
-              <%= f.date_field :end_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_end_date"} %>
+              <%= f.date_field :end_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_end_date", controller: "flatpickr"} %>
               <small class="form-text text-muted">
                 Your ads will continue to run unless you specify an end date.
               </small>

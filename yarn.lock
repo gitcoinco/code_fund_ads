@@ -3757,7 +3757,7 @@ flat-cache@^2.0.1:
     rimraf "2.6.3"
     write "1.0.3"
 
-flatpickr@^4.6.3:
+flatpickr@>=4.6.0:
   version "4.6.3"
   resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.3.tgz#15a8b76b6e34e3a072861250503a5995b9d3bc60"
   integrity sha512-007VucCkqNOMMb9ggRLNuJowwaJcyOh4sKAFcdGfahfGc7JQbf94zSzjdBq/wVyHWUEs5o3+idhFZ0wbZMRmVQ==
@@ -8650,7 +8650,15 @@ stdout-stream@^1.4.0:
   dependencies:
     readable-stream "^2.0.1"
 
-"stimulus@>= 1.1", stimulus@^1.1.1:
+stimulus-flatpickr@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/stimulus-flatpickr/-/stimulus-flatpickr-1.2.1.tgz#a2e5f9f7979bd879a48bd0ce22eb83203445c6be"
+  integrity sha512-AMW8qunsjudPKNWLSEXS3Dl+63svpgqQGMaGADV81OdSH8OMagUhmab7BMA1iWH/eozd+Kv7tcZ9GRBSsAEAqA==
+  dependencies:
+    flatpickr ">=4.6.0"
+    stimulus ">=1.1.1"
+
+"stimulus@>= 1.1", stimulus@>=1.1.1, stimulus@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/stimulus/-/stimulus-1.1.1.tgz#53c2fded6849e7b85eed3ed8dd76e33abd74bec5"
   integrity sha512-R0mBqKp48YnRDZOxZ8hiOH4Ilph3Yj78CIFTBkCwyHs4iGCpe7xlEdQ7cjIxb+7qVCSxFKgxO+mAQbsNgt/5XQ==

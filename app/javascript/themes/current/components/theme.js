@@ -116,7 +116,7 @@ class Theme {
     this.select2()
     this.atwho()
     this.tribute()
-    this.flatpickr()
+    // this.flatpickr()
     this.colorpicker()
     this.touchspin()
     this.nouislider()
