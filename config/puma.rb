@@ -37,11 +37,13 @@ if web_concurrency > 1
   preload_app!
 
   before_fork do
-    # HACK: temporary bandaid until we work through inaccurate memory reporting from Heroku
-    require "puma_worker_killer"
-    PumaWorkerKiller.enable_rolling_restart((ENV["PUMA_WORKER_KILLER_ROLLING_RESTART_SECONDS"] || 8 * 3600).to_i) # 8 hours in seconds
-    require "barnes"
-    Barnes.start
+    if ENV.fetch("RAILS_ENV", "development") == "production"
+      # HACK: temporary bandaid until we work through inaccurate memory reporting from Heroku
+      require "puma_worker_killer"
+      PumaWorkerKiller.enable_rolling_restart((ENV["PUMA_WORKER_KILLER_ROLLING_RESTART_SECONDS"] || 8 * 3600).to_i) # 8 hours in seconds
+      require "barnes"
+      Barnes.start
+    end
   end
 end
 
