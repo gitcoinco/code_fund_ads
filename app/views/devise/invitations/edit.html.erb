@@ -1,6 +1,7 @@
 <%= render "devise/layout" do %>
-  <%= simple_form_for(resource, as: resource_name, url: invitation_path(resource_name), html: {class: "auth-form mx-auto"}) do |f| %>
+  <%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: {class: "auth-form mx-auto"}, wrapper: :front_form do |f| %>
     <%= f.input :invitation_token, as: :hidden %>
+    <%= render "/shared/forms/error_messages", object: resource %>
     <div class="text-center mb-4">
       <h4 class="font-weight-normal">Set Your Password</h4>
     </div>
