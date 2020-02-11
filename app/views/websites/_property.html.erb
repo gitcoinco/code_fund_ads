@@ -1,5 +1,5 @@
 <%= card do %>
-  <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : "missing-screenshot.jpg", class: "img-fluid"), property.url %>
+  <%= link_to image_tag(property.screenshot.attached? ? property.screenshot : asset_pack_path("media/images/placeholders/missing-screenshot.jpg"), class: "img-fluid"), property.url %>
   <%= card_body do %>
     <div class="my-3 mb-4 text-center">
       <h3 class="h6 mb-1"><%= property.name %></h3>

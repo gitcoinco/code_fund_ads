@@ -117,7 +117,7 @@ FactoryBot.define do
     roles { [ENUMS::USER_ROLES::ADVERTISER] }
 
     after :build do |advertiser|
-      advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-200x200.png")),
+      advertiser.images.attach io: File.open(Rails.root.join("test/assets/images/seeds/seed-200x200.png")),
                                filename: "seed-200x200.png",
                                content_type: "image/png",
                                metadata: {
@@ -129,7 +129,7 @@ FactoryBot.define do
                                  format: ENUMS::IMAGE_FORMATS::SMALL,
                                }
 
-      advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-260x200.png")),
+      advertiser.images.attach io: File.open(Rails.root.join("test/assets/images/seeds/seed-260x200.png")),
                                filename: "seed-260x200.png",
                                content_type: "image/png",
                                metadata: {
@@ -141,7 +141,7 @@ FactoryBot.define do
                                  format: ENUMS::IMAGE_FORMATS::LARGE,
                                }
 
-      advertiser.images.attach io: File.open(Rails.root.join("app/assets/images/seeds/seed-512x320.jpg")),
+      advertiser.images.attach io: File.open(Rails.root.join("test/assets/images/seeds/seed-512x320.jpg")),
                                filename: "seed-512x320.jpg",
                                content_type: "image/jpeg",
                                metadata: {
