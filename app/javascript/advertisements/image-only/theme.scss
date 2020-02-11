@@ -1,5 +1,5 @@
-div#cf[data-template="image-only"] {
-  &[data-theme="dark"] {
+div#cf[data-template='image-only'] {
+  &[data-theme='dark'] {
     max-width: 280px;
     margin: 0 auto;
 
@@ -24,13 +24,13 @@ div#cf[data-template="image-only"] {
         margin-bottom: 8px;
 
         &:before {
-          content: "-";
+          content: '-';
           margin: 0 0.5em;
           opacity: 0.5;
         }
 
         &:after {
-          content: "-";
+          content: '-';
           margin: 0 0.5em;
           opacity: 0.5;
         }
@@ -59,7 +59,7 @@ div#cf[data-template="image-only"] {
     }
   }
 
-  &[data-theme="light"] {
+  &[data-theme='light'] {
     max-width: 280px;
     margin: 0 auto;
 
@@ -84,13 +84,13 @@ div#cf[data-template="image-only"] {
         margin-bottom: 8px;
 
         &:before {
-          content: "-";
+          content: '-';
           margin: 0 0.5em;
           opacity: 0.5;
         }
 
         &:after {
-          content: "-";
+          content: '-';
           margin: 0 0.5em;
           opacity: 0.5;
         }

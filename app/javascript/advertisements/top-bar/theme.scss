@@ -5,12 +5,12 @@ $button-text-color: #2c6ac7;
 $button-hover-bg-color: #1c1565;
 $button-hover-text-color: #ffffff;
 
-div#cf[data-template="top-bar"] {
-  &[data-theme="dark"] {
+div#cf[data-template='top-bar'] {
+  &[data-theme='dark'] {
     // No changes
   }
 
-  &[data-theme="light"] {
+  &[data-theme='light'] {
     // No changes
   }
 

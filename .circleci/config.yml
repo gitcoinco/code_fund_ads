@@ -99,4 +99,4 @@ jobs:
           command: bundle exec erblint app/views/**/*.html.erb
       - run:
           name: Run prettier-standard check
-          command: yarn run --ignore-engines prettier-standard --check "app/**/*.js"
+          command: yarn run --ignore-engines prettier:check
