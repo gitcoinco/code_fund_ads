@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "all-contributors-cli": "^6.8.1",
-    "prettier-standard": "^15.0.1",
+    "prettier-standard": "^16.1.0",
     "webpack-bundle-analyzer": "^3.6.0",
     "webpack-dev-server": "^3.7.1"
   }
