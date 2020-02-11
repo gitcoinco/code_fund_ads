@@ -28,12 +28,12 @@
         Preview
       </label>
       <div class="d-flex justify-content-center align-items-center mw-100" style="min-height:200px">
-        <%= image_tag asset_path("sponsor-placeholder.svg"),
+        <%= image_pack_tag("sponsor-placeholder.svg",
             class: "img-thumbnail",
             data: {
               target: "creative-form.previewSponsorImage",
-              default_image_url: asset_path("sponsor-placeholder.svg")
-            } %>
+              default_image_url: image_pack_tag("sponsor-placeholder.svg")
+            }) %>
       </div>
     </div>
   </div>
