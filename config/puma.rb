@@ -1,4 +1,3 @@
-require "barnes"
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
 # Any libraries that use thread pools should be configured to match
@@ -41,6 +40,8 @@ if web_concurrency > 1
     # HACK: temporary bandaid until we work through inaccurate memory reporting from Heroku
     require "puma_worker_killer"
     PumaWorkerKiller.enable_rolling_restart((ENV["PUMA_WORKER_KILLER_ROLLING_RESTART_SECONDS"] || 8 * 3600).to_i) # 8 hours in seconds
+    require "barnes"
+    Barnes.start
   end
 end
 
@@ -49,7 +50,6 @@ on_worker_fork do
 end
 
 on_worker_boot do
-  Barnes.start
   ActiveRecord::Base.establish_connection
 end
 
