@@ -26,7 +26,7 @@ namespace :datastore_connections do
 
     web = WEB_CONCURRENCY * REDIS_CACHE_MAX_THREADS
     puts "Redis Cache"
-    puts "Max: 256 (check current plan)"
+    puts "Max: 512 (check current plan)"
     puts "Web (per dyno) ....#{web}"
     puts "Web (all dynos) ...#{WEB_DYNOS * web}"
     puts
@@ -34,7 +34,7 @@ namespace :datastore_connections do
     web = (WEB_CONCURRENCY * REDIS_QUEUE_MAX_THREADS) + (WEB_CONCURRENCY * ACTION_CABLE_MAX_THREADS)
     worker = WEB_CONCURRENCY * REDIS_QUEUE_MAX_THREADS
     puts "Redis Queue"
-    puts "Max: 512 (check current plan)"
+    puts "Max: 1024 (check current plan)"
     puts "Web (per dyno) .......#{web}"
     puts "Web (all dynos) ......#{WEB_DYNOS * web}"
     puts "Worker (per dyno) ....#{worker}"
