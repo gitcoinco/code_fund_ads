@@ -204,7 +204,7 @@ http {
       proxy_set_header Connection "upgrade";
     }
 
-    location ~* /(assets|packs)/ {
+    location ~ ^/(assets|packs)/ {
       gzip_static on;
       expires max;
       add_header Cache-Control public;
