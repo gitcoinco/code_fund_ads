@@ -65,7 +65,7 @@ Rails.application.configure do
   config.cache_store = :redis_cache_store, {
     namespace: "code_fund_ads_#{Rails.env}_cache",
     url: ENV["REDIS_CACHE_URL"],
-    size: ENV.fetch("REDIS_MAX_THREADS", 10).to_i,
+    size: ENV.fetch("REDIS_CACHE_MAX_THREADS", 5).to_i,
     expires_in: 7.days,
     race_condition_ttl: 30.seconds,
   }
