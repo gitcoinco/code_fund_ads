@@ -46,8 +46,8 @@ class InventoryDetail
 
   def sold_daily_impressions_value
     @sold_daily_impressions_value ||= begin
-      campaigns = Campaign.active.premium.with_any_country_codes(*region.country_codes).with_any_keywords(*audience.keywords).available_on(start_date)
-      campaigns = relation.unending.or(relation.ends_on_or_before(end_date)) if end_date
+      campaigns = Campaign.active.or(Campaign.accepted).premium.with_any_country_codes(*region.country_codes).with_any_keywords(*audience.keywords).available_on(start_date)
+      campaigns = campaigns.unending.or(campaigns.ends_on_or_before(end_date)) if end_date
       sold_inventory_details = campaigns.each_with_object([]) { |c, memo|
         match = c.inventory_summary.inventory_details.find { |inventory_detail|
           inventory_detail.region == region && inventory_detail.audience == audience

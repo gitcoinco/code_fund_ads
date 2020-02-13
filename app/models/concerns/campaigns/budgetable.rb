@@ -6,6 +6,7 @@ module Campaigns
 
     included do
       before_save :init_hourly_budget
+      before_save :init_total_budget
     end
 
     # Sponsor campaigns equate `total_budget` with `selling_price` because they are sold at a fixed price.
@@ -137,10 +138,17 @@ module Campaigns
 
     private
 
+    def init_total_budget
+      return unless daily_budget > 0
+      return unless total_budget == 0
+      self.total_budget = end_date ? total_operative_days * daily_budget : daily_budget * 365
+    end
+
     def init_hourly_budget
       return unless daily_budget > 0
+      return unless hourly_budget == 0
       min = daily_budget / 18.to_f
-      self.hourly_budget ||= daily_budget / 8.to_f
+      self.hourly_budget = daily_budget / 8.to_f
       self.hourly_budget = min if hourly_budget < min
     end
   end

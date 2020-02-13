@@ -74,9 +74,9 @@ class InventorySummary
       campaign.daily_budget.cents,
       campaign.ecpm_multiplier,
       "regions",
-      Digest::MD5.hexdigest(campaign.regions.map(&:id).join),
+      Digest::MD5.hexdigest(campaign.region_ids.join),
       "audiences",
-      Digest::MD5.hexdigest(campaign.audiences.map(&:id).join),
+      Digest::MD5.hexdigest(campaign.audience_ids.join),
       "all_competitors",
       Digest::MD5.hexdigest(all_competitors.map(&:id).join),
     ].join "/"

@@ -32,20 +32,13 @@ class CampaignBundlesController < ApplicationController
     @campaign_bundle.organization = Current.organization
     @campaign_bundle.user = current_user
     @campaign_bundle.campaigns.each do |campaign|
-      campaign.organization = Current.organization
-      campaign.user = current_user
-      campaign.status = ENUMS::CAMPAIGN_STATUSES::PENDING
-      campaign.start_date = @campaign_bundle.start_date
-      campaign.end_date = @campaign_bundle.end_date
-      campaign.region_ids = @campaign_bundle.region_ids
-      campaign.hourly_budget = campaign.daily_budget / 3
-      # TODO: set max budget if end date
+      campaign.assign_attributes status: ENUMS::CAMPAIGN_STATUSES::ACCEPTED
     end
 
     respond_to do |format|
       if @campaign_bundle.save
         format.html { redirect_to campaign_bundles_path, notice: "Campaign bundle was successfully created." }
-        # format.json { render :show, status: :created, location: @campaign_bundle }
+        format.json { render :show, status: :created, location: @campaign_bundle }
       else
         format.html { render :new }
         format.json { render json: @campaign_bundle.errors, status: :unprocessable_entity }

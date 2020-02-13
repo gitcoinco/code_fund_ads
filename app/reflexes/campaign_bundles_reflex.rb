@@ -30,7 +30,7 @@ class CampaignBundlesReflex < ApplicationReflex
     temporary_id = campaign_bundle.campaigns.size
     campaign_bundle.campaigns.build(
       temporary_id: temporary_id,
-      name: "#{(temporary_id + 1).ordinalize} Campaign",
+      name: "#{campaign_bundle.name} #{(temporary_id + 1).ordinalize} Campaign".strip,
       user: current_user,
       region_ids: campaign_bundle.region_ids,
       start_date: campaign_bundle.start_date,
