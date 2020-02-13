@@ -1,7 +1,7 @@
 common: &defaults
   key: <%= ENV["SCOUT_KEY"] %>
   name: CodeFund
-  monitor: true
+  monitor: <%= ENV.fetch("SCOUT_ENABLED", "false") %>
   ignore:
     - '/okcomputer'
     - '/okcomputer.json'
@@ -10,11 +10,9 @@ common: &defaults
 
 development:
   <<: *defaults
-  monitor: false
 
 test:
   <<: *defaults
-  monitor: false
 
 production:
   <<: *defaults
