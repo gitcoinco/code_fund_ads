@@ -6,7 +6,6 @@
 #  ad_template                    :string
 #  ad_theme                       :string
 #  assigned_fallback_campaign_ids :bigint           default([]), not null, is an Array
-#  deleted_at                     :datetime
 #  description                    :text
 #  fallback_ad_template           :string
 #  fallback_ad_theme              :string
@@ -31,7 +30,6 @@
 #
 #  index_properties_on_assigned_fallback_campaign_ids  (assigned_fallback_campaign_ids) USING gin
 #  index_properties_on_audience_id                     (audience_id)
-#  index_properties_on_deleted_at                      (deleted_at)
 #  index_properties_on_keywords                        (keywords) USING gin
 #  index_properties_on_name                            (lower((name)::text))
 #  index_properties_on_prohibited_advertiser_ids       (prohibited_advertiser_ids) USING gin
@@ -100,5 +98,15 @@ class PropertyTest < ActiveSupport::TestCase
   test "url format validation" do
     assert_not @property.update(url: "htp://www.example.com")
     assert_includes @property.errors.messages[:url].to_s, "is invalid"
+  end
+
+  test "cannot be destroyed if there are associated daily summaries" do
+    DailySummary.create impressionable_type: "Campaign",
+                        impressionable_id: campaigns(:premium).id,
+                        scoped_by_type: "Property",
+                        scoped_by_id: @property.id,
+                        displayed_at_date: Date.today
+    assert_not @property.destroy
+    assert_includes @property.errors.messages[:base].to_s, "has associated"
   end
 end

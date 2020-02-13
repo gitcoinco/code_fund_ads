@@ -6,7 +6,6 @@
 #  ad_template                    :string
 #  ad_theme                       :string
 #  assigned_fallback_campaign_ids :bigint           default([]), not null, is an Array
-#  deleted_at                     :datetime
 #  description                    :text
 #  fallback_ad_template           :string
 #  fallback_ad_theme              :string
@@ -31,7 +30,6 @@
 #
 #  index_properties_on_assigned_fallback_campaign_ids  (assigned_fallback_campaign_ids) USING gin
 #  index_properties_on_audience_id                     (audience_id)
-#  index_properties_on_deleted_at                      (deleted_at)
 #  index_properties_on_keywords                        (keywords) USING gin
 #  index_properties_on_name                            (lower((name)::text))
 #  index_properties_on_prohibited_advertiser_ids       (prohibited_advertiser_ids) USING gin
@@ -79,6 +77,7 @@ class Property < ApplicationRecord
   before_save :sanitize_assigned_fallback_campaign_ids
   after_save :generate_screenshot
   before_destroy :destroy_paper_trail_versions
+  before_destroy :validate_destroyable
 
   # scopes ....................................................................
   scope :active, -> { where status: ENUMS::PROPERTY_STATUSES::ACTIVE }
@@ -112,6 +111,14 @@ class Property < ApplicationRecord
     value_cast = Arel::Nodes::NamedFunction.new("CAST", [value.as("bigint[]")])
     where Arel::Nodes::InfixOperation.new("@>", arel_table[:assigned_fallback_campaign_ids], value_cast)
   }
+  scope :order_by_status, -> {
+                            order_by = ["CASE"]
+                            ENUMS::PROPERTY_STATUSES.values.each_with_index do |status, index|
+                              order_by << "WHEN status='#{status}' THEN #{index}"
+                            end
+                            order_by << "END"
+                            order(Arel.sql(order_by.join(" ")))
+                          }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
@@ -131,7 +138,6 @@ class Property < ApplicationRecord
   # - without_keywords
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  acts_as_paranoid
   tag_columns :prohibited_advertiser_ids
   tag_columns :keywords
   has_one_attached :screenshot
@@ -172,6 +178,10 @@ class Property < ApplicationRecord
 
   def active?
     status == ENUMS::PROPERTY_STATUSES::ACTIVE
+  end
+
+  def archived?
+    status == ENUMS::PROPERTY_STATUSES::ARCHIVED
   end
 
   def pending?
@@ -276,5 +286,11 @@ class Property < ApplicationRecord
 
   def assign_restrict_to_assigner_campaigns
     self.restrict_to_assigner_campaigns ||= restrict_to_sponsor_campaigns?
+  end
+
+  def validate_destroyable
+    return unless DailySummary.find_by(scoped_by_type: "Property", scoped_by_id: id)
+    errors.add :base, "Record has associated daily summaries, try archiving it instead."
+    throw :abort
   end
 end

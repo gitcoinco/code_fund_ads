@@ -5,7 +5,7 @@ class CreativesController < ApplicationController
   before_action :authorize_edit!, only: [:edit, :update]
 
   def index
-    creatives = Current.organization&.creatives&.order(:name)&.includes(:user)
+    creatives = Current.organization&.creatives&.includes(:user)&.order_by_status&.order(:name)
     @pagy, @creatives = pagy(creatives, items: 10)
   end
 
@@ -54,14 +54,14 @@ class CreativesController < ApplicationController
 
   def destroy
     if @creative.campaigns.empty?
-      @creative.destroy
+      @creative.update(status: ENUMS::CREATIVE_STATUSES::ARCHIVED)
       respond_to do |format|
-        format.html { redirect_to creatives_url, notice: "Creative was successfully destroyed." }
+        format.html { redirect_to creatives_url, notice: "Creative was successfully archived." }
         format.json { head :no_content }
       end
     else
       respond_to do |format|
-        format.html { redirect_to creatives_url, alert: "We are unable to delete a creative that has been used" }
+        format.html { redirect_to creatives_url, alert: "We are unable to delete a creative that is being used" }
         format.json { head :no_content }
       end
     end

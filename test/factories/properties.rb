@@ -6,7 +6,6 @@
 #  ad_template                    :string
 #  ad_theme                       :string
 #  assigned_fallback_campaign_ids :bigint           default([]), not null, is an Array
-#  deleted_at                     :datetime
 #  description                    :text
 #  fallback_ad_template           :string
 #  fallback_ad_theme              :string
@@ -31,7 +30,6 @@
 #
 #  index_properties_on_assigned_fallback_campaign_ids  (assigned_fallback_campaign_ids) USING gin
 #  index_properties_on_audience_id                     (audience_id)
-#  index_properties_on_deleted_at                      (deleted_at)
 #  index_properties_on_keywords                        (keywords) USING gin
 #  index_properties_on_name                            (lower((name)::text))
 #  index_properties_on_prohibited_advertiser_ids       (prohibited_advertiser_ids) USING gin
