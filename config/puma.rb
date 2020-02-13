@@ -38,10 +38,6 @@ before_fork do
   if ENV.fetch("RAILS_ENV", "development") == "production"
     require "barnes"
     Barnes.start
-
-    # HACK: temporary bandaid until we work through inaccurate memory reporting from Heroku
-    require "puma_worker_killer"
-    PumaWorkerKiller.enable_rolling_restart((ENV["PUMA_WORKER_KILLER_ROLLING_RESTART_SECONDS"] || 8 * 3600).to_i) # 8 hours in seconds
   end
 end
 
