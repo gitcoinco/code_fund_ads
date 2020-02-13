@@ -29,7 +29,7 @@ gem "docraptor", "~> 1.3.0"
 gem "email_address", "~> 0.1.11"
 gem "full-name-splitter", "~> 0.1.2"
 gem "gibbon", "~> 3.3.0"
-gem "heroku-deflater", "~> 0.6.3", group: :production
+# gem "heroku-deflater", "~> 0.6.3", group: :production
 gem "hiredis", "~> 0.6.3"
 gem "htmlentities", "4.3.4"
 gem "image_processing", "~> 1.9.0"
