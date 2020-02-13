@@ -4,78 +4,7 @@
       <h5><%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count %> impressions/day</h5>
       <div class="opacity-60">Average inventory based on your targeted locations and audience but not your budget or availability</div>
     </div>
-    <div class="card-body" style="max-height:500px; overflow-y:scroll;">
-      <h6 class="text-muted">
-        Inventory Summary
-        <small>decision support</small>
-      </h6>
-      <table class="table table-sm table-hover table-bordered">
-        <thead>
-          <tr class="bg-light">
-            <th class="rounded-0">Metric</th>
-            <th class="rounded-0">Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Average Monthly Impressions</td>
-            <td class="text-right text-monospace"><%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count * 30 %></td>
-          </tr>
-          <tr>
-            <td>Average Daily Impressions</td>
-            <td class="text-right text-monospace"><%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count %></td>
-          </tr>
-          <tr>
-            <td>Unsold Daily Impressions <small>rollup</small></td>
-            <td class="text-right text-monospace"><%= number_with_delimiter campaign.inventory_summary.unsold_daily_impressions_count %></td>
-          </tr>
-          <tr>
-            <td>Unsold Daily Impressions <small>calc</small></td>
-            <td class="text-right text-monospace"><%= number_with_delimiter campaign.inventory_summary.unsold_daily_impressions_count(strategy: :caclulate) %></td>
-          </tr>
-          <tr>
-            <td>Average eCPM <small>base</small></td>
-            <td class="text-right text-monospace"><%= campaign.inventory_summary.average_base_ecpm.format %></td>
-          </tr>
-          <tr>
-            <td>Average eCPM <small>adjusted</small></td>
-            <td class="text-right text-monospace"><%= campaign.inventory_summary.average_adjusted_ecpm.format %></td>
-          </tr>
-          <tr>
-            <td>Average Individual Impression Value</td>
-            <td class="text-right text-monospace"><%= number_with_precision campaign.inventory_summary.average_individual_impression_value, precision: 3 %></td>
-          </tr>
-          <tr>
-            <td>Average Daily Impressions Value</td>
-            <td class="text-right text-monospace"><%= campaign.inventory_summary.average_daily_impressions_value.format %></td>
-          </tr>
-          <tr>
-            <td>Sold Daily Value <small>current</small></td>
-            <td class="text-right text-monospace"><%= campaign.inventory_summary.current_competitors_total_daily_budget.format %></td>
-          </tr>
-          <tr>
-            <td>Sold Daily Value <small>future</small></td>
-            <td class="text-right text-monospace"><%= campaign.inventory_summary.future_competitors_total_daily_budget.format %></td>
-          </tr>
-          <tr>
-            <td>Sold Daily Value <small>total</small></td>
-            <td class="text-right text-monospace"><%= campaign.inventory_summary.all_competitors_total_daily_budget.format %></td>
-          </tr>
-          <tr>
-            <td>Unsold Daily Value</td>
-            <td class="text-right text-monospace"><%= campaign.inventory_summary.unsold_daily_impressions_value.format %></td>
-          </tr>
-          <tr>
-            <td>Discrepancy <small>current</small></td>
-            <td class="text-right text-monospace"><%= campaign.inventory_summary.current_discrepancy.format %></td>
-          </tr>
-          <tr>
-            <td>Discrepancy <small>total</small></td>
-            <td class="text-right text-monospace"><%= campaign.inventory_summary.total_discrepancy.format %></td>
-          </tr>
-        </tbody>
-      </table>
-
+    <div class="card-body" style="max-height:650px; overflow-y:scroll;">
       <h6 class="text-muted">eCPM by Region & Audience</h6>
       <table class="table table-sm table-hover table-bordered">
         <thead>
@@ -96,21 +25,36 @@
             </tr>
           <% end %>
         </tbody>
-        <tfoot>
-          <tr class="bg-light">
-            <td class="text-right font-weight-bold" colspan="2">Average</td>
-            <td class="text-right font-weight-bold text-monospace"><%= campaign.inventory_summary.average_base_ecpm.format %></td>
-            <td class="text-right font-weight-bold text-monospace"><%= campaign.inventory_summary.average_adjusted_ecpm.format %></td>
-          </tr>
-        </tfoot>
       </table>
 
-      <h6 class="text-muted">
+      <h6 class="text-muted mt-5">Inventory by Region & Audience</h6>
+      <table class="table table-sm table-hover table-bordered">
+        <thead>
+          <tr class="bg-light">
+            <th class="rounded-0">Region</th>
+            <th class="rounded-0">Audience</th>
+            <th class="rounded-0"><small class="d-block opacity-60">Average Daily</small> Impressions</th>
+            <th class="rounded-0"><small class="d-block opacity-60">Average Daily</small> Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% campaign.inventory_summary.inventory_details.map do |inventory_detail| %>
+            <tr title="<%= "#{inventory_detail.region.name} + #{inventory_detail.audience.name}" %>">
+              <td><small class="text-nowrap"><%= truncate inventory_detail.region.name, length: 18 %></small></td>
+              <td><small class="text-nowrap"><%= truncate inventory_detail.audience.name, length: 18 %></small></td>
+              <td class="text-right text-monospace"><%= number_with_delimiter inventory_detail.average_daily_impressions_count %></td>
+              <td class="text-right text-monospace"><%= number_to_percentage inventory_detail.percentage * 100, precision: 1 %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+      <h6 class="text-muted mt-5">
         Daily Inventory
         <small class="ml-2">
           <span class="text-black"><i class="fas fa-circle"></i> Total</span>
           <span class="text-danger ml-1"><i class="fas fa-circle"></i> Sold</span>
-          <span class="text-info ml-1"><i class="fas fa-circle"></i> Unsold</span>
+          <span class="text-success ml-1"><i class="fas fa-circle"></i> Unsold</span>
         </small>
         <small class="d-block">based on active campaigns operating on <%= tag.span @campaign_bundle.start_date.to_s("mm/dd/yyyy"), class: "text-monospace" %></small>
       </h6>
@@ -133,12 +77,12 @@
               <td class="text-right text-monospace">
                 <%= number_with_delimiter inventory_detail.average_daily_impressions_count %>
                 <span class="text-nowrap text-danger d-block"><%= number_with_delimiter inventory_detail.sold_daily_impressions_count %></span>
-                <span class="text-nowrap text-info d-block"><%= number_with_delimiter inventory_detail.unsold_daily_impressions_count %></span>
+                <span class="text-nowrap text-success d-block"><%= number_with_delimiter inventory_detail.unsold_daily_impressions_count %></span>
               </td>
               <td class="text-right text-monospace">
                 <%= inventory_detail.average_daily_impressions_value.format %>
                 <span class="text-nowrap text-danger d-block"><%= inventory_detail.sold_daily_impressions_value.format %></span>
-                <span class="text-nowrap text-info d-block"><%= inventory_detail.unsold_daily_impressions_value.format %></span>
+                <span class="text-nowrap text-success d-block"><%= inventory_detail.unsold_daily_impressions_value.format %></span>
               </td>
             </tr>
           <% end %>
@@ -146,26 +90,29 @@
         <tfoot>
           <tr class="bg-light">
             <td class="text-right font-weight-bold" colspan="3">
+              <small class="opacity-60 float-left text-left">
+                Sold/Unsold estimates are<br>based on Active Campaigns
+              </small>
               Total
               <span class="text-nowrap text-danger d-block">Sold</span>
-              <span class="text-nowrap text-info d-block">Unsold</span>
+              <span class="text-nowrap text-success d-block">Unsold</span>
             </td>
             <td class="text-right font-weight-bold text-monospace">
               <%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count %>
               <span class="text-nowrap text-danger d-block"><%= number_with_delimiter campaign.inventory_summary.sold_daily_impressions_count %></span>
-              <span class="text-nowrap text-info d-block"><%= number_with_delimiter campaign.inventory_summary.unsold_daily_impressions_count %></span>
+              <span class="text-nowrap text-success d-block"><%= number_with_delimiter campaign.inventory_summary.unsold_daily_impressions_count %></span>
             </td>
             <td class="text-right font-weight-bold text-monospace">
               <%= campaign.inventory_summary.average_daily_impressions_value.format %>
               <span class="text-nowrap text-danger d-block"><%=  campaign.inventory_summary.sold_daily_impressions_value.format %></span>
-              <span class="text-nowrap text-info d-block"><%= campaign.inventory_summary.unsold_daily_impressions_value.format %></span>
+              <span class="text-nowrap text-success d-block"><%= campaign.inventory_summary.unsold_daily_impressions_value.format %></span>
             </td>
           </tr>
         </tfoot>
       </table>
 
       <% if campaign.inventory_summary.current_competitors.present? %>
-        <h6 class="text-muted">
+        <h6 class="text-muted mt-5">
           Active Campaigns
           <small class="d-block">targeting the same inventory and operating on <%= tag.span @campaign_bundle.start_date.to_s("mm/dd/yyyy"), class: "text-monospace" %></small>
         </h6>
@@ -200,7 +147,7 @@
       <% end %>
 
       <% if campaign.inventory_summary.future_competitors.present? %>
-        <h6 class="text-muted">
+        <h6 class="text-muted mt-5">
           Future Campaigns
           <small class="d-block">targeting the same inventory and starting after <%= tag.span @campaign_bundle.start_date.to_s("mm/dd/yyyy"), class: "text-monospace" %></small>
         </h6>

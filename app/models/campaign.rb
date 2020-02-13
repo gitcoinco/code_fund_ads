@@ -277,12 +277,13 @@ class Campaign < ApplicationRecord
   end
 
   def inventory_summary
-    return nil if persisted? || campaign_bundle.nil?
     @inventory_summary ||= InventorySummary.new(self)
   end
 
   def targeting_variants
-    regions.to_a.product audiences.to_a
+    r = region_ids.present? ? regions : regions(include_fuzzy_matches: true)
+    a = audience_ids.present? ? audiences : audiences(include_fuzzy_matches: true)
+    r.to_a.product a.to_a
   end
 
   def metadata
@@ -437,7 +438,7 @@ class Campaign < ApplicationRecord
 
   def audiences(include_fuzzy_matches: false)
     relation = Audience.where(id: audience_ids)
-    relation = relation.or(Region.with_any_keywords(*keywords)) if include_fuzzy_matches
+    relation = relation.or(Audience.with_any_keywords(*keywords)) if include_fuzzy_matches
     relation
   end
 

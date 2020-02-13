@@ -25,18 +25,6 @@ class InventorySummary
     @future_competitors_total_daily_budget ||= Money.new(future_competitors.sum(&:daily_budget), "USD")
   end
 
-  def all_competitors_total_daily_budget
-    @all_competitors_total_daily_budget ||= Money.new(all_competitors.sum(&:daily_budget), "USD")
-  end
-
-  def current_discrepancy
-    average_daily_impressions_value - current_competitors_total_daily_budget
-  end
-
-  def total_discrepancy
-    average_daily_impressions_value - all_competitors_total_daily_budget
-  end
-
   def average_daily_impressions_value
     @average_daily_impressions_value ||= inventory_details.sum(&:average_daily_impressions_value)
   end
@@ -49,10 +37,8 @@ class InventorySummary
     @sold_daily_impressions_count ||= inventory_details.sum(&:sold_daily_impressions_count)
   end
 
-  def unsold_daily_impressions_count(strategy: :rollup)
-    return inventory_details.sum(&:unsold_daily_impressions_count) if strategy == :rollup
-    return (total_discrepancy.to_f / average_individual_impression_value.to_f).floor if strategy == :caclulate
-    0
+  def unsold_daily_impressions_count
+    inventory_details.sum(&:unsold_daily_impressions_count)
   end
 
   def sold_daily_impressions_value
@@ -71,24 +57,15 @@ class InventorySummary
     end
   end
 
-  def average_individual_impression_value
-    average_daily_impressions_value.to_f / average_daily_impressions_count
-  end
-
   def inventory_details
     @inventory_details ||= campaign.targeting_variants.map { |(region, audience)|
-      InventoryDetail.new(region, audience, ecpm_multiplier: campaign.ecpm_multiplier, start_date: campaign.start_date)
+      InventoryDetail.new self, region: region, audience: audience, ecpm_multiplier: campaign.ecpm_multiplier
     }
   end
 
   def average_base_ecpm
     return Money.new(0) if inventory_details.blank?
     inventory_details.sum(&:base_ecpm) / inventory_details.size.to_f
-  end
-
-  def average_adjusted_ecpm
-    return Money.new(0) if inventory_details.blank?
-    inventory_details.sum(&:adjusted_ecpm) / inventory_details.size.to_f
   end
 
   def cache_key
