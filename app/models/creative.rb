@@ -44,6 +44,7 @@ class Creative < ApplicationRecord
 
   # callbacks .................................................................
   after_commit :touch_campaigns, on: [:update]
+  before_destroy :validate_destroyable
 
   # scopes ....................................................................
   default_scope { includes images: :blob }
@@ -54,6 +55,14 @@ class Creative < ApplicationRecord
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }
   scope :standard, -> { where creative_type: ENUMS::CREATIVE_TYPES::STANDARD }
   scope :sponsor, -> { where creative_type: ENUMS::CREATIVE_TYPES::SPONSOR }
+  scope :order_by_status, -> {
+                            order_by = ["CASE"]
+                            ENUMS::CREATIVE_STATUSES.values.each_with_index do |status, index|
+                              order_by << "WHEN status='#{status}' THEN #{index}"
+                            end
+                            order_by << "END"
+                            order(Arel.sql(order_by.join(" ")))
+                          }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   sanitize :headline, :body, :cta
@@ -170,5 +179,11 @@ class Creative < ApplicationRecord
     if standard_images.exists? && sponsor_image
       errors.add :images, "cannot include both standard and sponsor types"
     end
+  end
+
+  def validate_destroyable
+    return unless DailySummary.find_by(scoped_by_type: "Creative", scoped_by_id: id)
+    errors.add :base, "Record has associated daily summaries, try archiving it instead."
+    throw :abort
   end
 end

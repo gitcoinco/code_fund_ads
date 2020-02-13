@@ -18,8 +18,6 @@ class PropertiesController < ApplicationController
 
     max = (properties.count / Pagy::VARS[:items].to_f).ceil
     @pagy, @properties = pagy(properties, page: current_page(max: max))
-
-    render "/properties/for_user/index" if @user
   end
 
   def new
@@ -83,11 +81,11 @@ class PropertiesController < ApplicationController
   end
 
   def destroy
-    @property.destroy
+    @property.update(status: ENUMS::PROPERTY_STATUSES::ARCHIVED)
     redirect_url = params[:redir] || properties_url
 
     respond_to do |format|
-      format.html { redirect_to redirect_url, notice: "Property was successfully destroyed." }
+      format.html { redirect_to redirect_url, notice: "Property was successfully archived." }
       format.json { head :no_content }
     end
   end

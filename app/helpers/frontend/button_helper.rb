@@ -46,8 +46,10 @@ module Frontend
         end
     end
 
-    def delete_button(link: "#", add_class: "", title: nil, admin: false, confirmation_message: "Are you sure?", layout: false)
+    def delete_button(link: "#", add_class: "", title: nil, admin: false, confirmation_message: "Are you sure?", layout: false, display: true)
+      return "" unless display
       return "" if admin && !authorized_user.can_admin_system?
+
       classes = layout ? "bg-danger tile layout-button" : "btn btn-xs btn-icon btn-subtle-secondary"
       link_to link,
         class: "#{classes} #{add_class}",

@@ -2,9 +2,10 @@
   <%= paginated_table do %>
     <%= table_head do %>
       <%= table_row header: true do %>
-        <%= table_column add_scope: "col" do %>Name<% end %>
-        <%= table_column add_scope: "col" do %>Copy<% end %>
-        <%= table_column add_scope: "col" do %>&nbsp;<% end %>
+        <%= table_column { "Name" } %>
+        <%= table_column { "Copy" } %>
+        <%= table_column { "Status" } %>
+        <%= table_column { } %>
       <% end %>
     <% end %>
     <%= table_body do %>

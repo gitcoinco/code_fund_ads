@@ -80,9 +80,6 @@ GEM
       activerecord (>= 4.0)
       activesupport (>= 4.0)
       awesome_nested_set (>= 3.0)
-    acts_as_paranoid (0.6.2)
-      activerecord (>= 4.2, < 7.0)
-      activesupport (>= 4.2, < 7.0)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     airbrake (9.5.0)
@@ -599,7 +596,6 @@ DEPENDENCIES
   active_link_to (~> 1.0.5)
   active_storage_svg_sanitizer (~> 0.1.0)
   acts_as_commentable_with_threading (~> 2.0.1)
-  acts_as_paranoid (~> 0.6.2)
   airbrake (~> 9.3)
   annotate
   awesome_print
@@ -713,4 +709,4 @@ RUBY VERSION
    ruby 2.6.5p114
 
 BUNDLED WITH
-   2.1.1
+   2.1.4

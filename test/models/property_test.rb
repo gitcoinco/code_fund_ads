@@ -25,7 +25,6 @@
 #  fallback_ad_theme              :string
 #  responsive_behavior            :string           default("none"), not null
 #  audience_id                    :bigint
-#  deleted_at                     :datetime
 #
 
 require "test_helper"
@@ -88,5 +87,15 @@ class PropertyTest < ActiveSupport::TestCase
   test "url format validation" do
     assert_not @property.update(url: "htp://www.example.com")
     assert_includes @property.errors.messages[:url].to_s, "must be a valid URL"
+  end
+
+  test "cannot be destroyed if there are associated daily summaries" do
+    DailySummary.create impressionable_type: "Campaign",
+                        impressionable_id: campaigns(:premium).id,
+                        scoped_by_type: "Property",
+                        scoped_by_id: @property.id,
+                        displayed_at_date: Date.today
+    assert_not @property.destroy
+    assert_includes @property.errors.messages[:base].to_s, "has associated"
   end
 end

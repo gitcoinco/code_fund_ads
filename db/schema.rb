@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_21_171555) do
+ActiveRecord::Schema.define(version: 2020_01_23_175239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -408,11 +408,9 @@ ActiveRecord::Schema.define(version: 2020_01_21_171555) do
     t.string "fallback_ad_theme"
     t.string "responsive_behavior", default: "none", null: false
     t.bigint "audience_id"
-    t.datetime "deleted_at"
     t.index "lower((name)::text)", name: "index_properties_on_name"
     t.index ["assigned_fallback_campaign_ids"], name: "index_properties_on_assigned_fallback_campaign_ids", using: :gin
     t.index ["audience_id"], name: "index_properties_on_audience_id"
-    t.index ["deleted_at"], name: "index_properties_on_deleted_at"
     t.index ["keywords"], name: "index_properties_on_keywords", using: :gin
     t.index ["prohibited_advertiser_ids"], name: "index_properties_on_prohibited_advertiser_ids", using: :gin
     t.index ["property_type"], name: "index_properties_on_property_type"

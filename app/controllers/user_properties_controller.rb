@@ -1,12 +1,12 @@
-class UserCampaignsController < ApplicationController
+class UserPropertiesController < ApplicationController
   include Pagy::Backend
 
   before_action :authenticate_user!
   before_action :set_user, only: :index
 
   def index
-    campaigns = Campaign.includes(:organization).where(organization: @user.organizations).order_by_status
-    @pagy, @campaigns = pagy(campaigns)
+    properties = Property.where(user: @user).order_by_status
+    @pagy, @properties = pagy(properties)
   end
 
   private

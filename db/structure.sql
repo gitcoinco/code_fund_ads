@@ -780,8 +780,7 @@ CREATE TABLE public.properties (
     fallback_ad_template character varying,
     fallback_ad_theme character varying,
     responsive_behavior character varying DEFAULT 'none'::character varying NOT NULL,
-    audience_id bigint,
-    deleted_at timestamp without time zone
+    audience_id bigint
 );
 
 
@@ -2252,13 +2251,6 @@ CREATE INDEX index_properties_on_audience_id ON public.properties USING btree (a
 
 
 --
--- Name: index_properties_on_deleted_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_properties_on_deleted_at ON public.properties USING btree (deleted_at);
-
-
---
 -- Name: index_properties_on_keywords; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2651,4 +2643,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20191105190354'),
 ('20191201235552'),
 ('20191218185622'),
-('20200121171555');
+('20200121171555'),
+('20200123175239');

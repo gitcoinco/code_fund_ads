@@ -25,7 +25,6 @@
 #  fallback_ad_theme              :string
 #  responsive_behavior            :string           default("none"), not null
 #  audience_id                    :bigint
-#  deleted_at                     :datetime
 #
 
 class Property < ApplicationRecord
@@ -67,6 +66,7 @@ class Property < ApplicationRecord
   before_save :sanitize_assigned_fallback_campaign_ids
   after_save :generate_screenshot
   before_destroy :destroy_paper_trail_versions
+  before_destroy :validate_destroyable
 
   # scopes ....................................................................
   scope :active, -> { where status: ENUMS::PROPERTY_STATUSES::ACTIVE }
@@ -100,6 +100,14 @@ class Property < ApplicationRecord
     value_cast = Arel::Nodes::NamedFunction.new("CAST", [value.as("bigint[]")])
     where Arel::Nodes::InfixOperation.new("@>", arel_table[:assigned_fallback_campaign_ids], value_cast)
   }
+  scope :order_by_status, -> {
+                            order_by = ["CASE"]
+                            ENUMS::PROPERTY_STATUSES.values.each_with_index do |status, index|
+                              order_by << "WHEN status='#{status}' THEN #{index}"
+                            end
+                            order_by << "END"
+                            order(Arel.sql(order_by.join(" ")))
+                          }
 
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
@@ -119,7 +127,6 @@ class Property < ApplicationRecord
   # - without_keywords
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  acts_as_paranoid
   tag_columns :prohibited_advertiser_ids
   tag_columns :keywords
   has_one_attached :screenshot
@@ -154,6 +161,10 @@ class Property < ApplicationRecord
 
   def active?
     status == ENUMS::PROPERTY_STATUSES::ACTIVE
+  end
+
+  def archived?
+    status == ENUMS::PROPERTY_STATUSES::ARCHIVED
   end
 
   def pending?
@@ -242,5 +253,11 @@ class Property < ApplicationRecord
 
   def assign_restrict_to_assigner_campaigns
     self.restrict_to_assigner_campaigns ||= restrict_to_sponsor_campaigns?
+  end
+
+  def validate_destroyable
+    return unless DailySummary.find_by(scoped_by_type: "Property", scoped_by_id: id)
+    errors.add :base, "Record has associated daily summaries, try archiving it instead."
+    throw :abort
   end
 end
