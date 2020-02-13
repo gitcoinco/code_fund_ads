@@ -101,6 +101,11 @@ CREATIVE_STATUSES:
   - active
   - archived
 
+CREATIVE_STATUS_COLORS:
+  pending: warning
+  active: success
+  archived: secondary
+
 PROPERTY_TYPES:
   - website
   - repository

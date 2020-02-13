@@ -5,7 +5,7 @@ class CreativesController < ApplicationController
   before_action :authorize_edit!, only: [:edit, :update]
 
   def index
-    creatives = Current.organization&.creatives&.order(:name)&.includes(:user)&.order_by_status
+    creatives = Current.organization&.creatives&.includes(:user)&.order_by_status&.order(:name)
     @pagy, @creatives = pagy(creatives, items: 10)
   end
 
