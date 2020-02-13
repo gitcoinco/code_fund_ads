@@ -19,9 +19,7 @@ export default class extends Controller {
       )
       .then(
         (payload => {
-          this.element.src = `https://codesandbox.io/embed/${
-            payload.sandbox_id
-          }?hidenavigation=1&codemirror=1&highlights=12,13,14,15,16&view=editor`
+          this.element.src = `https://codesandbox.io/embed/${payload.sandbox_id}?hidenavigation=1&codemirror=1&highlights=12,13,14,15,16&view=editor`
         }).bind(this)
       )
       .catch(function (error) {

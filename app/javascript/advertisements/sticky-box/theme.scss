@@ -1,8 +1,8 @@
-div#cf[data-template="sticky-box"] {
-  &[data-theme="dark"] {
+div#cf[data-template='sticky-box'] {
+  &[data-theme='dark'] {
   }
 
-  &[data-theme="light"] {
+  &[data-theme='light'] {
   }
 
   background: rgba(255, 255, 255, 0.98);
@@ -90,7 +90,7 @@ div#cf[data-template="sticky-box"] {
     }
   }
 
-  [data-behavior="close"] {
+  [data-behavior='close'] {
     background: rgba(0, 0, 0, 0.1);
     border-radius: 50px;
     color: #fff;
