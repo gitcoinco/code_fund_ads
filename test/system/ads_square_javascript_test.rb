@@ -5,7 +5,6 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
 
   setup do
     ad_template_setup(ad_template: "square")
-    Creative.any_instance.stubs(large_image: OpenStruct.new(cloudfront_url: "https://www.test.codefund.io/test.png"))
   end
 
   teardown do

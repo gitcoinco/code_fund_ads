@@ -89,6 +89,14 @@ CAMPAIGN_STATUS_COLORS:
   paused: info
   pending: warning
 
+CAMPAIGN_BUNDLE_STATUSES:
+  - configured
+  - unconfigured
+
+CAMPAIGN_BUNDLE_STATUS_COLORS:
+  configured: success
+  unconfigured: warning
+
 COUPON_TYPES:
   - percentage
 
