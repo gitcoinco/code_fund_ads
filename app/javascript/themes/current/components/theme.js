@@ -1319,9 +1319,7 @@ class Theme {
         // define custom template
         if (options.itemTemplate == true) {
           options.menuItemTemplate = item => {
-            return `<span class="user-avatar user-avatar-sm mr-2"><img src="${
-              item.original.avatar
-            }"></span> ${item.string}`
+            return `<span class="user-avatar user-avatar-sm mr-2"><img src="${item.original.avatar}"></span> ${item.string}`
           }
         }
 
@@ -1687,9 +1685,7 @@ class Theme {
               .addClass(`${strength[result.score]}`)
               .css('width', indicatorWidth)
             $(feedback).html(
-              `<strong>${result.feedback.warning}</strong> ${
-                result.feedback.suggestions
-              }`
+              `<strong>${result.feedback.warning}</strong> ${result.feedback.suggestions}`
             )
           } else {
             $(indicator).addClass('d-none')

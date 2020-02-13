@@ -1,9 +1,10 @@
 // default styles for all ads
 #cf[data-template] {
-  &[data-theme='dark'], &[data-theme='light'] {
+  &[data-theme='dark'],
+  &[data-theme='light'] {
     &,
     * {
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     }
 
     a {

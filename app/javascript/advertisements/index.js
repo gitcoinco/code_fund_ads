@@ -69,9 +69,7 @@ class CodeFundAd {
   perform () {
     if (!this.visible) {
       console.log(
-        `CodeFund container element not visible! Please verify an element exists (and is visible) that matches the CSS selector "${
-          this.selector
-        }"`
+        `CodeFund container element not visible! Please verify an element exists (and is visible) that matches the CSS selector "${this.selector}"`
       )
       return this.dispatch({ status: 'no-container-element' })
     }

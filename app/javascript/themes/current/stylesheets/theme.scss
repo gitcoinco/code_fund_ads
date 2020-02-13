@@ -1,12 +1,12 @@
-@import "./theme_variables";
+@import './theme_variables';
 
 // =========== Webpack ===========
-@import "~animate.css/animate";
-@import "~bootstrap-select/dist/css/bootstrap-select.min";
-@import "~flatpickr/dist/flatpickr.min";
+@import '~animate.css/animate';
+@import '~bootstrap-select/dist/css/bootstrap-select.min';
+@import '~flatpickr/dist/flatpickr.min';
 
 // =========== Vendor ===========
-@import "~themes/current/stylesheets/theme.min";
+@import '~themes/current/stylesheets/theme.min';
 
 body {
   padding-top: 56px;
