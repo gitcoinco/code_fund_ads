@@ -141,7 +141,7 @@ module Campaigns
     def init_total_budget
       return unless daily_budget > 0
       return unless total_budget == 0
-      self.total_budget = end_date ? total_operative_days * daily_budget : daily_budget * 365
+      self.total_budget = total_operative_days * daily_budget
     end
 
     def init_hourly_budget
