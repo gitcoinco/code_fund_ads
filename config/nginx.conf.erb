@@ -196,7 +196,7 @@ http {
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
-      proxy_set_header X-Accel-Mapping
+      proxy_set_header X-Accel-Mapping;
     }
 
     location / {
