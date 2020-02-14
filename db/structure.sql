@@ -959,7 +959,8 @@ ALTER SEQUENCE public.property_traffic_estimates_id_seq OWNED BY public.property
 CREATE TABLE public.publisher_invoices (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
-    amount money NOT NULL,
+    amount_cents integer DEFAULT 0 NOT NULL,
+    amount_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     currency character varying NOT NULL,
     start_date date NOT NULL,
     end_date date NOT NULL,
@@ -2586,6 +2587,13 @@ CREATE INDEX index_publisher_invoices_on_end_date ON public.publisher_invoices U
 
 
 --
+-- Name: index_publisher_invoices_on_paid_at; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_publisher_invoices_on_paid_at ON public.publisher_invoices USING btree (paid_at);
+
+
+--
 -- Name: index_publisher_invoices_on_start_date; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2899,5 +2907,3 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200121171555'),
 ('20200207162017'),
 ('20200213234149');
-
-

@@ -321,34 +321,78 @@
       <% end %>
     <% end %>
     <%= card do %>
-      <%= standalone_card_header text: "Budget" %>
+      <%= card_header do %>
+        <%= card_title do %>
+          Budget
+        <% end %>
+        <%= card_subtitle do %>
+          This campaign is using the <%= campaign.pricing_strategy.humanize.downcase %> based pricing strategy
+        <% end %>
+      <% end %>
       <%= card_body do %>
-        <div class="row">
-          <div class="col-12 mb-2">
-            <div class="media align-items-center mb-3">
-              <label class="switcher-control mb-0 mr-3">
-                <%= f.check_box :fixed_ecpm, class: "switcher-input" %>
-                <span class="switcher-indicator"></span>
-              </label>
-              <label class="media-body text-muted mb-0">
-                <span class="d-block text-dark">Use fixed eCPM pricing? <small class="ml-2 text-muted">Do NOT adjust by country</small></span>
-              </label>
+        <% if campaign.campaign_pricing_strategy? %>
+          <div class="row">
+            <div class="col-12 mb-2">
+              <div class="media align-items-center mb-3">
+                <label class="switcher-control mb-0 mr-3">
+                  <%= f.check_box :fixed_ecpm, class: "switcher-input" %>
+                  <span class="switcher-indicator"></span>
+                </label>
+                <label class="media-body text-muted mb-0">
+                  <span class="d-block text-dark">Use fixed eCPM pricing? <small class="ml-2 text-muted">Do NOT adjust by country</small></span>
+                </label>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6 mb-3">
-            <%= f.input(:ecpm, as: :currency, currency: "$") %>
-            <small id="passwordHelpBlock" class="form-text text-muted">
-              Effective cost per thousand impressions
-            </small>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <%= f.input(:ecpm, as: :currency, currency: "$") %>
+              <small id="passwordHelpBlock" class="form-text text-muted">
+                Effective cost per thousand impressions
+              </small>
+            </div>
+            <%= tag.div f.input(:total_budget, label: "Total Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
           </div>
-          <%= tag.div f.input(:total_budget, label: "Total Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
-        </div>
-        <div class="row">
-          <%= tag.div f.input(:hourly_budget, label: "Hourly Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
-          <%= tag.div f.input(:daily_budget, label: "Daily Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
-        </div>
+          <div class="row">
+            <%= tag.div f.input(:hourly_budget, label: "Hourly Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
+            <%= tag.div f.input(:daily_budget, label: "Daily Budget Cap", as: :currency, currency: "$"), class: "col-md-6 mb-3" %>
+          </div>
+        <% else %>
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <%= tag.div f.input(:ecpm_multiplier, label: "eCPM Multiplier", as: :decimal, input_html: { step: 0.01 }), class: "mb-3" %>
+              <%= tag.div f.input(:hourly_budget, label: "Hourly Budget Cap", as: :currency, currency: "$"), class: "mb-3" %>
+              <%= tag.div f.input(:daily_budget, label: "Daily Budget Cap", as: :currency, currency: "$"), class: "mb-3" %>
+            </div>
+            <div class="col-md-8">
+              <p class="mb-2">eCPM by Region & Audience</p>
+              <%= table add_class: "table-sm table-hover table-bordered" do %>
+                <%= table_head do %>
+                  <%= table_row header: true do %>
+                    <%= table_column { "Region" } %>
+                    <%= table_column { "Audience" } %>
+                    <%= table_column(add_class: "text-right") { "Base eCPM" } %>
+                    <%= table_column(add_class: "text-right") { "Adjusted eCPM" } %>
+                  <% end %>
+                <% end %>
+                <%= table_body do %>
+                  <% campaign.inventory_summary.inventory_details.map do |inventory_detail| %>
+                    <%= table_row title: "#{inventory_detail.region.name} + #{inventory_detail.audience.name}" do %>
+                      <%= table_data do %>
+                        <small class="text-nowrap"><%= truncate inventory_detail.region.name, length: 30 %></small>
+                      <% end %>
+                      <%= table_data do %>
+                        <small class="text-nowrap"><%= truncate inventory_detail.audience.name, length: 30 %></small>
+                      <% end %>
+                      <%= table_data_value inventory_detail.base_ecpm.format, add_class: "text-right text-monospace" %>
+                      <%= table_data_value inventory_detail.adjusted_ecpm.format, add_class: "text-right text-monospace" %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>

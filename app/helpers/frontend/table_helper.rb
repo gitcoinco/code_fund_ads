@@ -22,10 +22,10 @@ module Frontend
       content_tag(:tbody, nil, id: id, class: add_class, data: data, &block)
     end
 
-    def table_row(id: nil, add_class: nil, header: false, &block)
+    def table_row(id: nil, add_class: nil, header: false, title: nil, &block)
       add_class = "border-bottom #{add_class}" if header
 
-      content_tag(:tr, nil, id: id, class: add_class, &block)
+      content_tag(:tr, nil, id: id, class: add_class, title: title, &block)
     end
 
     def table_row_controller(controller, id: nil, add_class: nil, &block)

@@ -47,8 +47,8 @@ ActiveRecord::Schema.define(version: 2020_02_13_234149) do
     t.bigint "organization_id", null: false
     t.bigint "user_id", null: false
     t.string "name", null: false
-    t.datetime "start_date", null: false
-    t.datetime "end_date", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
     t.bigint "region_ids", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(version: 2020_02_13_234149) do
     t.boolean "fallback", default: false, null: false
     t.string "name", null: false
     t.text "url", null: false
-    t.datetime "start_date", null: false
-    t.datetime "end_date", null: false
+    t.date "start_date", null: false
+    t.date "end_date", null: false
     t.boolean "core_hours_only", default: false
     t.boolean "weekdays_only", default: false
     t.integer "total_budget_cents", default: 0, null: false
