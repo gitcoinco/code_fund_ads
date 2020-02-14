@@ -26,7 +26,7 @@ module Campaigns
     def stashed_campaign_params
       @stashed_campaign_params ||= HashWithIndifferentAccess.new(
         session[:stashed_campaign] || {
-          temporary_id: Campaign.max(:id) + 1,
+          temporary_id: Campaign.maximum(:id) + 1,
           status: ENUMS::CAMPAIGN_STATUSES::PENDING,
           start_date: Date.tomorrow,
           ecpm: Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD"),
