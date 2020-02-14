@@ -75,6 +75,10 @@ USER_STATUS_COLORS:
   active: success
   blacklisted: dark
 
+CAMPAIGN_PRICING_STRATEGIES:
+  - campaign
+  - region_and_audience
+
 CAMPAIGN_STATUSES:
   - accepted
   - active

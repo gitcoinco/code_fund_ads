@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: hdb_views; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA hdb_views;
+
+
+--
 -- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -131,8 +138,8 @@ ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -191,8 +198,8 @@ CREATE TABLE public.campaign_bundles (
     organization_id bigint NOT NULL,
     user_id bigint NOT NULL,
     name character varying NOT NULL,
-    start_date timestamp without time zone NOT NULL,
-    end_date timestamp without time zone NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
     region_ids bigint[] DEFAULT '{}'::bigint[],
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -230,8 +237,8 @@ CREATE TABLE public.campaigns (
     fallback boolean DEFAULT false NOT NULL,
     name character varying NOT NULL,
     url text NOT NULL,
-    start_date timestamp without time zone NOT NULL,
-    end_date timestamp without time zone NOT NULL,
+    start_date date NOT NULL,
+    end_date date NOT NULL,
     core_hours_only boolean DEFAULT false,
     weekdays_only boolean DEFAULT false,
     total_budget_cents integer DEFAULT 0 NOT NULL,
@@ -441,9 +448,9 @@ CREATE TABLE public.daily_summaries (
     scoped_by_id character varying,
     impressions_count integer DEFAULT 0 NOT NULL,
     fallbacks_count integer DEFAULT 0 NOT NULL,
-    fallback_percentage numeric DEFAULT 0.0 NOT NULL,
+    fallback_percentage numeric DEFAULT 0 NOT NULL,
     clicks_count integer DEFAULT 0 NOT NULL,
-    click_rate numeric DEFAULT 0.0 NOT NULL,
+    click_rate numeric DEFAULT 0 NOT NULL,
     ecpm_cents integer DEFAULT 0 NOT NULL,
     ecpm_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     cost_per_click_cents integer DEFAULT 0 NOT NULL,
@@ -543,8 +550,8 @@ CREATE TABLE public.impressions (
     ad_template character varying,
     ad_theme character varying,
     organization_id bigint,
-    province_code character varying,
-    uplift boolean DEFAULT false
+    uplift boolean DEFAULT false,
+    province_code character varying
 )
 PARTITION BY RANGE (advertiser_id, displayed_at_date);
 
@@ -577,8 +584,8 @@ CREATE TABLE public.impressions_default (
     ad_template character varying,
     ad_theme character varying,
     organization_id bigint,
-    province_code character varying,
-    uplift boolean DEFAULT false
+    uplift boolean DEFAULT false,
+    province_code character varying
 );
 ALTER TABLE ONLY public.impressions ATTACH PARTITION public.impressions_default DEFAULT;
 
@@ -952,8 +959,7 @@ ALTER SEQUENCE public.property_traffic_estimates_id_seq OWNED BY public.property
 CREATE TABLE public.publisher_invoices (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
-    amount_cents integer DEFAULT 0 NOT NULL,
-    amount_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    amount money NOT NULL,
     currency character varying NOT NULL,
     start_date date NOT NULL,
     end_date date NOT NULL,
@@ -2577,13 +2583,6 @@ CREATE INDEX index_property_traffic_estimates_on_property_id ON public.property_
 --
 
 CREATE INDEX index_publisher_invoices_on_end_date ON public.publisher_invoices USING btree (end_date);
-
-
---
--- Name: index_publisher_invoices_on_paid_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_publisher_invoices_on_paid_at ON public.publisher_invoices USING btree (paid_at);
 
 
 --

@@ -230,7 +230,7 @@ class Impression < ApplicationRecord
   end
 
   def applicable_ecpm
-    return campaign.adjusted_ecpm(country_code) unless campaign.region_ids.present?
+    return campaign.adjusted_ecpm(country_code) if campaign.campaign_pricing_strategy?
 
     # region/audience based ecpm i.e. our new sales strategy
     region = campaign.regions.with_all_country_codes(country_code).first || Region.other

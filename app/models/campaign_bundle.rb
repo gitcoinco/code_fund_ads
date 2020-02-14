@@ -3,10 +3,10 @@
 # Table name: campaign_bundles
 #
 #  id              :bigint           not null, primary key
-#  end_date        :datetime         not null
+#  end_date        :date             not null
 #  name            :string           not null
 #  region_ids      :bigint           default([]), is an Array
-#  start_date      :datetime         not null
+#  start_date      :date             not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  organization_id :bigint           not null

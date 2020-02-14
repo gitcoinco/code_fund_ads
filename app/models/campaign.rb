@@ -13,7 +13,7 @@
 #  ecpm_cents              :integer          default(0), not null
 #  ecpm_currency           :string           default("USD"), not null
 #  ecpm_multiplier         :decimal(, )      default(1.0), not null
-#  end_date                :datetime         not null
+#  end_date                :date             not null
 #  fallback                :boolean          default(FALSE), not null
 #  fixed_ecpm              :boolean          default(TRUE), not null
 #  hourly_budget_cents     :integer          default(0), not null
@@ -26,7 +26,7 @@
 #  prohibited_property_ids :bigint           default([]), not null, is an Array
 #  province_codes          :string           default([]), is an Array
 #  region_ids              :bigint           default([]), not null, is an Array
-#  start_date              :datetime         not null
+#  start_date              :date             not null
 #  status                  :string           not null
 #  total_budget_cents      :integer          default(0), not null
 #  total_budget_currency   :string           default("USD"), not null
@@ -276,6 +276,19 @@ class Campaign < ApplicationRecord
   # public instance methods ...................................................
 
   attr_accessor :temporary_id
+
+  def region_and_audience_pricing_strategy?
+    pricing_strategy == ENUMS::CAMPAIGN_PRICING_STRATEGIES::REGION_AND_AUDIENCE
+  end
+
+  def campaign_pricing_strategy?
+    pricing_strategy == ENUMS::CAMPAIGN_PRICING_STRATEGIES::CAMPAIGN
+  end
+
+  def pricing_strategy
+    return ENUMS::CAMPAIGN_PRICING_STRATEGIES::REGION_AND_AUDIENCE if campaign_bundle
+    ENUMS::CAMPAIGN_PRICING_STRATEGIES::CAMPAIGN
+  end
 
   def to_stashable_attributes
     as_json.merge temporary_id: temporary_id
