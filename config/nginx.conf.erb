@@ -212,7 +212,6 @@ http {
 
     location ~ ^/(assets|packs)/ {
       gzip_static on;
-      brotli_static on; # Optional, see below
       expires max;
       add_header Cache-Control public;
     }
