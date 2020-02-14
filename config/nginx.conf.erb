@@ -188,27 +188,19 @@ http {
 
     root /app/public;
 
-    location / {
+    location @app {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
+      proxy_set_header X-Sendfile-Type X-Accel-Redirect;
+      proxy_set_header X-Accel-Mapping
+    }
 
-      location ^~ /assets/ {
-        gzip_static on;
-        gzip on;
-        expires max;
-        root /app/public;
-      }
-
-      location ^~ /packs/ {
-        gzip_static on;
-        gzip on;
-        expires max;
-        root /app/public/packs;
-      }
+    location / {
+      try_files $uri @app;
     }
 
     location /cable {
@@ -220,6 +212,7 @@ http {
 
     location ~ ^/(assets|packs)/ {
       gzip_static on;
+      brotli_static on; # Optional, see below
       expires max;
       add_header Cache-Control public;
     }
