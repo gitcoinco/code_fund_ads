@@ -18,4 +18,11 @@
 #  index_campaign_bundles_on_name        (lower((name)::text))
 #  index_campaign_bundles_on_region_ids  (region_ids) USING gin
 #  index_campaign_bundles_on_start_date  (start_date)
-#
+
+default:
+  organization: default
+  user: advertiser
+  name: Default Campaign Bundle
+  start_date: <%= 1.week.from_now.to_date %>
+  end_date: <%= 5.weeks.from_now.to_date %>
+  region_ids: <%= [Region.americas_northern.id, Region.europe.id] %>

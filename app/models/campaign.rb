@@ -372,6 +372,11 @@ class Campaign < ApplicationRecord
     update(prohibited_property_ids: ids)
   end
 
+  def fixed_ecpm?
+    return false unless campaign_pricing_strategy?
+    super
+  end
+
   def adjusted_ecpm(country_code)
     return ecpm if fixed_ecpm?
 

@@ -80,6 +80,28 @@ class CampaignTest < ActiveSupport::TestCase
     travel_back
   end
 
+  test "pricing strategy without bundle" do
+    assert @campaign.campaign_pricing_strategy?
+  end
+
+  test "pricing strategy with bundle" do
+    @campaign.update campaign_bundle: campaign_bundles(:default)
+    assert @campaign.region_and_audience_pricing_strategy?
+  end
+
+  test "fixed_ecpm? without bundle" do
+    @campaign.update fixed_ecpm: true
+    assert @campaign.fixed_ecpm?
+    @campaign.update fixed_ecpm: false
+    refute @campaign.fixed_ecpm?
+  end
+
+  test "fixed_ecpm? with bundle" do
+    @campaign.update campaign_bundle: campaign_bundles(:default)
+    @campaign.update fixed_ecpm: true
+    refute @campaign.fixed_ecpm?
+  end
+
   test "campaigns can only be paused if already active" do
     @campaign.update status: ENUMS::CAMPAIGN_STATUSES::PENDING
     refute AuthorizedUser.new(@campaign.user).can_pause_campaign?(@campaign)
