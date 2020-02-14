@@ -195,6 +195,20 @@ http {
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
+
+      location ^~ /assets/ {
+        gzip_static on;
+        gzip on;
+        expires max;
+        root /app/public;
+      }
+
+      location ^~ /packs/ {
+        gzip_static on;
+        gzip on;
+        expires max;
+        root /app/public/packs;
+      }
     }
 
     location /cable {
@@ -205,7 +219,6 @@ http {
     }
 
     location ~ ^/(assets|packs)/ {
-      gzip on;
       gzip_static on;
       expires max;
       add_header Cache-Control public;
