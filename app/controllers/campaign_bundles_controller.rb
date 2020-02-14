@@ -20,7 +20,6 @@ class CampaignBundlesController < ApplicationController
 
   def new
     @campaign_bundle.assign_attributes organization: Current.organization, user: current_user
-    @campaign_bundle.start_date ||= Date.current
     @campaign_bundle.validate
     @campaign_bundle.errors.each do |key, _|
       @campaign_bundle.errors.delete key if key.to_s.start_with?("campaign")

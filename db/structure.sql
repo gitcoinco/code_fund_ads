@@ -191,8 +191,8 @@ CREATE TABLE public.campaign_bundles (
     organization_id bigint NOT NULL,
     user_id bigint NOT NULL,
     name character varying NOT NULL,
-    start_date date,
-    end_date date,
+    start_date timestamp without time zone NOT NULL,
+    end_date timestamp without time zone NOT NULL,
     region_ids bigint[] DEFAULT '{}'::bigint[],
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -230,8 +230,8 @@ CREATE TABLE public.campaigns (
     fallback boolean DEFAULT false NOT NULL,
     name character varying NOT NULL,
     url text NOT NULL,
-    start_date date,
-    end_date date,
+    start_date timestamp without time zone NOT NULL,
+    end_date timestamp without time zone NOT NULL,
     core_hours_only boolean DEFAULT false,
     weekdays_only boolean DEFAULT false,
     total_budget_cents integer DEFAULT 0 NOT NULL,
@@ -2898,6 +2898,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200116165511'),
 ('20200116184119'),
 ('20200121171555'),
-('20200207162017');
+('20200207162017'),
+('20200213234149');
 
 

@@ -6,17 +6,23 @@ class CampaignBundlesReflex < ApplicationReflex
   end
 
   def update_start_date
-    campaign_bundle.start_date = Date.parse(element[:value])
+    date = begin
+             Date.parse(element[:value])
+           rescue
+             nil
+           end
+    campaign_bundle.start_date = date
     campaign_bundle.campaigns.each { |c| c.start_date = campaign_bundle.start_date }
-  rescue => e
-    Rails.logger.error "Failed to parse and assign CampaignBundle#start_date! #{e}"
   end
 
   def update_end_date
-    campaign_bundle.end_date = Date.parse(element[:value])
+    date = begin
+             Date.parse(element[:value])
+           rescue
+             nil
+           end
+    campaign_bundle.end_date = date
     campaign_bundle.campaigns.each { |c| c.end_date = campaign_bundle.end_date }
-  rescue => e
-    Rails.logger.error "Failed to parse and assign CampaignBundle#end_date! #{e}"
   end
 
   def update_region_ids(region_ids = [])

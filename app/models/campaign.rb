@@ -13,7 +13,7 @@
 #  ecpm_cents              :integer          default(0), not null
 #  ecpm_currency           :string           default("USD"), not null
 #  ecpm_multiplier         :decimal(, )      default(1.0), not null
-#  end_date                :date
+#  end_date                :datetime         not null
 #  fallback                :boolean          default(FALSE), not null
 #  fixed_ecpm              :boolean          default(TRUE), not null
 #  hourly_budget_cents     :integer          default(0), not null
@@ -26,7 +26,7 @@
 #  prohibited_property_ids :bigint           default([]), not null, is an Array
 #  province_codes          :string           default([]), is an Array
 #  region_ids              :bigint           default([]), not null, is an Array
-#  start_date              :date
+#  start_date              :datetime         not null
 #  status                  :string           not null
 #  total_budget_cents      :integer          default(0), not null
 #  total_budget_currency   :string           default("USD"), not null
@@ -94,6 +94,8 @@ class Campaign < ApplicationRecord
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
   validates :url, url: true
+  validates :start_date, presence: true
+  validates :end_date, presence: true
   validate :validate_creatives
   validate :validate_active_creatives, if: :active?
   validate :validate_assigned_properties, if: :sponsor?

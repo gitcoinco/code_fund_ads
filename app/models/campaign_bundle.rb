@@ -3,10 +3,10 @@
 # Table name: campaign_bundles
 #
 #  id              :bigint           not null, primary key
-#  end_date        :date
+#  end_date        :datetime         not null
 #  name            :string           not null
 #  region_ids      :bigint           default([]), is an Array
-#  start_date      :date
+#  start_date      :datetime         not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  organization_id :bigint           not null
@@ -32,6 +32,8 @@ class CampaignBundle < ApplicationRecord
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false, message: "is invalid"}
+  validates :start_date, presence: true
+  validates :end_date, presence: true
   validates :region_ids, overlap: {values: Region.all.pluck(:id)}
 
   # callbacks .................................................................

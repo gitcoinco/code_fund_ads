@@ -13,7 +13,7 @@
 #  ecpm_cents              :integer          default(0), not null
 #  ecpm_currency           :string           default("USD"), not null
 #  ecpm_multiplier         :decimal(, )      default(1.0), not null
-#  end_date                :date
+#  end_date                :datetime         not null
 #  fallback                :boolean          default(FALSE), not null
 #  fixed_ecpm              :boolean          default(TRUE), not null
 #  hourly_budget_cents     :integer          default(0), not null
@@ -26,7 +26,7 @@
 #  prohibited_property_ids :bigint           default([]), not null, is an Array
 #  province_codes          :string           default([]), is an Array
 #  region_ids              :bigint           default([]), not null, is an Array
-#  start_date              :date
+#  start_date              :datetime         not null
 #  status                  :string           not null
 #  total_budget_cents      :integer          default(0), not null
 #  total_budget_currency   :string           default("USD"), not null
