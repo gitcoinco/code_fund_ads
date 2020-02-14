@@ -15,7 +15,8 @@ module Campaigns
     private
 
     def campaign_id
-      (url_params[:controller] == "campaigns" ? url_params[:id] : url_params[:campaign_id]).to_i
+      p = try(:params) || try(:url_params) || {}
+      (p[:controller] == "campaigns" ? p[:id] : p[:campaign_id]).to_i
     end
 
     def campaign_changed?
