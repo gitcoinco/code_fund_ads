@@ -119,7 +119,8 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
   end
 
   test "image only - fallback ad with dark theme" do
-    @property.update keywords: [], ad_theme: "dark"
+    @property.update ad_theme: "dark"
+    @premium_campaign.update keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_campaign_link @fallback_campaign
     assert_powered_by_link(text: "supported by ethical ad by CodeFund")
