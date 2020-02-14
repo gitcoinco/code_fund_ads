@@ -15,7 +15,8 @@ module Properties
     private
 
     def property_id
-      (url_params[:controller] == "properties" ? url_params[:id] : url_params[:property_id]).to_i
+      p = try(:params) || try(:url_params) || {}
+      (p[:controller] == "properties" ? p[:id] : p[:property_id]).to_i
     end
 
     def property_changed?
