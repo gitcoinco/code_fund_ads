@@ -629,6 +629,7 @@ DEPENDENCIES
   faker
   full-name-splitter (~> 0.1.2)
   gibbon (~> 3.3.0)
+  hashdiff
   heroku-deflater (~> 0.6.3)
   hiredis (~> 0.6.3)
   htmlentities (= 4.3.4)

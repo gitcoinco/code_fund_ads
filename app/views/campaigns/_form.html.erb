@@ -360,7 +360,7 @@
         <% else %>
           <div class="row">
             <div class="col-md-4 mb-3">
-              <%= tag.div f.input(:ecpm_multiplier, label: "eCPM Multiplier", as: :decimal, input_html: { step: 0.01 }), class: "mb-3" %>
+              <%= tag.div f.input(:ecpm_multiplier, label: "eCPM Multiplier", as: :decimal, input_html: {step: 0.01}), class: "mb-3" %>
               <%= tag.div f.input(:hourly_budget, label: "Hourly Budget Cap", as: :currency, currency: "$"), class: "mb-3" %>
               <%= tag.div f.input(:daily_budget, label: "Daily Budget Cap", as: :currency, currency: "$"), class: "mb-3" %>
             </div>
