@@ -110,7 +110,7 @@ group :development do
   gem "ngrok-tunnel"
   gem "rack-mini-profiler", require: false
   gem "solargraph"
-  gem "standard"
+  gem "standard", ">= 0.1"
   gem "teamocil"
   gem "tocer"
   gem "tty-box"
