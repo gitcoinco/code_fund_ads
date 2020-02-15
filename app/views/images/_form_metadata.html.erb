@@ -2,7 +2,7 @@
   <div class="row mb-4">
     <div class="col-md-6 mt-2 mb-2">
       <%= card do %>
-        <%= standalone_card_header text: "Image Settings" %>
+        <%= card_header "Image Settings" %>
         <%= card_body do %>
           <%= f.input(:name, required: true) %>
           <%= f.input(:description, required: false, as: :text) %>
@@ -11,8 +11,8 @@
         <%= card_footer do %>
           <%= card_footer_content do %>
             <%= button_panel margin: "my-0" do %>
-              <%= f.submit "Save Image", class: "btn btn-primary" %>
               <%= cancel_button(images_path(imageable.to_gid_param)) %>
+              <%= f.submit "Save Image", class: "btn btn-primary" %>
             <% end %>
           <% end %>
         <% end %>
@@ -20,7 +20,7 @@
     </div>
     <div class="col-md-6 mt-2 mb-2">
       <%= card do %>
-        <%= standalone_card_header text: "Image Details" %>
+        <%= card_header "Image Details" %>
         <%= card_body do %>
           <div class="d-flex justify-content-center align-items-center" style="min-height:200px">
             <% if image.attachment.blob.svg? %>

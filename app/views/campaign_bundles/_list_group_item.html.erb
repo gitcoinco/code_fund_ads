@@ -1,4 +1,4 @@
-<div class="list-group-item list-group-item-<%= campaign_bundle_status_color(campaign_bundle.status) %>"
+<div class="list-group-item list-group-item-<%= status_color(campaign_bundle.status) %>"
      data-target="filterable-list.filterable"
      data-filter-key='<%= "#{campaign_bundle.name.downcase} #{campaign_bundle.status}" %>'>
   <div class="list-group-item-body">
@@ -13,7 +13,7 @@
       </div>
       <ul class="list-inline text-muted mb-0">
         <li class="d-none d-sm-inline list-inline-item mr-3">
-          <span class="badge badge-subtle badge-<%= campaign_bundle_status_color(campaign_bundle.status) %>"><%= campaign_bundle.status.humanize %></span>
+          <span class="badge badge-subtle badge-<%= status_color(campaign_bundle.status) %>"><%= campaign_bundle.status.humanize %></span>
         </li>
         <%= goto_button(link: campaign_bundle_path(campaign_bundle), icon: "fas fa-chevron-right", title: "View campaign bundle") %>
       </ul>

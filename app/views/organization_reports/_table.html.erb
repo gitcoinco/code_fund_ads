@@ -2,16 +2,16 @@
   <%= paginated_table add_class: "table-dark" do %>
     <%= table_head do %>
       <%= table_row header: true do %>
-        <%= table_column add_scope: "col" do %>Date<% end %>
-        <%= table_column add_scope: "col" do %>Title<% end %>
-        <%= table_column add_scope: "col" do %>Download<% end %>
+        <%= table_column "Date" %>
+        <%= table_column "Title" %>
+        <%= table_column "Download" %>
       <% end %>
     <% end %>
     <%= table_body do %>
       <% scheduled_organization_reports.each do |scheduled_report| %>
         <%= table_row add_class: "bg-success" do %>
-          <%= table_data_value scheduled_report.start_date.to_s("bdy") %>
-          <%= table_data_value scheduled_report.subject %>
+          <%= table_data scheduled_report.start_date.to_s("bdy") %>
+          <%= table_data scheduled_report.subject %>
           <%= table_data do %>
             <%= link_to "Delete", scheduled_organization_report_path(@organization, scheduled_report), method: :delete, data: {confirm: "Are you sure?"}, class: "text-white" %>
           <% end %>
@@ -19,8 +19,8 @@
       <% end %>
       <% organization_reports.each do |organization_report| %>
         <tr data-organization-report-id="<%= organization_report.id %>">
-          <%= table_data_value organization_report.created_at.to_s("bdy") %>
-          <%= table_data_value organization_report.title %>
+          <%= table_data organization_report.created_at.to_s("bdy") %>
+          <%= table_data organization_report.title %>
           <%= table_data do %>
             <% if organization_report.status == "ready" %>
               <%= link_to "PDF", url_for(organization_report.pdf), target: "_blank", class: "text-white" %>
@@ -33,7 +33,7 @@
     <% end %>
   <% end %>
   <%= pagination_wrapper do %>
-    <span><%== pagy_bootstrap_nav(pagy) if pagy.pages > 1 %></span>
+    <span><%== pagy_bootstrap_nav(pagy) %></span>
     <%= pagy_entries(pagy) %>
-  <% end %>
+  <% end if pagy.pages > 1 %>
 <% end %>

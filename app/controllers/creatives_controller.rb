@@ -1,12 +1,16 @@
 class CreativesController < ApplicationController
+  include Sortable
+  include Scopable
+
   before_action :authenticate_user!
   before_action :set_creative, only: [:show, :edit, :update, :destroy]
   before_action :authorize_new!, only: [:new, :create]
   before_action :authorize_edit!, only: [:edit, :update]
 
   def index
-    creatives = Current.organization&.creatives&.includes(:user)&.order_by_status&.order(:name)
-    @pagy, @creatives = pagy(creatives, items: 10)
+    creatives = scope_list(Creative).where(organization: Current.organization)&.order(order_by)&.includes(:user)
+    max = (creatives.count / Pagy::VARS[:items].to_f).ceil
+    @pagy, @creatives = pagy(creatives, page: current_page(max: max))
   end
 
   def new
@@ -85,6 +89,16 @@ class CreativesController < ApplicationController
 
   def creative_image_params
     params.require(:creative).permit(:icon_blob_id, :small_blob_id, :large_blob_id, :wide_blob_id, :sponsor_blob_id)
+  end
+
+  def sortable_columns
+    %w[
+      created_at
+      name
+      status
+      updated_at
+      user.first_name
+    ]
   end
 
   def authorize_new!

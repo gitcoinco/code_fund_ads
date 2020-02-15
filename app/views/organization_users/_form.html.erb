@@ -1,12 +1,8 @@
 <%= render "/shared/forms/error_messages", object: organization_user %>
 <%= card do %>
   <%= card_header do %>
-    <%= card_title do %>
-      <%= organization.name %> Member
-    <% end %>
-    <%= card_subtitle do %>
-      Fill out the fields below
-    <% end %>
+    <%= card_title "#{organization.name} Member" %>
+    <%= card_subtitle "Fill out the fields below" %>
   <% end %>
   <%= card_body add_class: "border-bottom" do %>
     <div data-controller="organization-users">

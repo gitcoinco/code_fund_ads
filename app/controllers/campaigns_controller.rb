@@ -1,7 +1,6 @@
 class CampaignsController < ApplicationController
   include Sortable
   include Scopable
-  include Pagy::Backend
   include Campaigns::Stashable
 
   before_action :authenticate_user!

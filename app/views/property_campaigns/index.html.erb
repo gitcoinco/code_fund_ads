@@ -15,7 +15,7 @@
   </div>
   <%= card do %>
     <%= card_body padding: "p-0" do %>
-      <%= render "/property_campaigns/table", report: @report %>
+      <%= render "/property_campaigns/table", report: @report, pagy: @pagy %>
     <% end %>
   <% end %>
 <% end %>

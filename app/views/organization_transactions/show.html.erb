@@ -7,7 +7,7 @@
   ]
 } do %>
   <%= card do %>
-    <%= standalone_card_header text: "Transaction Details" %>
+    <%= card_header "Transaction Details" %>
     <%= card_body do %>
       <ul class="list-group list-group-flush list-group-bordered">
         <%= details_li("Post Date") { @organization_transaction.posted_at.to_s("mm/dd/yyyy") } %>

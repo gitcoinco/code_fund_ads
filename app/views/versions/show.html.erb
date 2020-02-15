@@ -12,6 +12,7 @@
       </style>
       <table class="table">
         <% @versionable.attributes.each do |name, val| %>
+          <% next if %w(created_at updated_at).include?(name) %>
           <% if @version.reify && val != @version.reify[name] %>
             <tr>
               <td><%= name.humanize.titleize %></td>

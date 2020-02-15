@@ -8,7 +8,7 @@ class OrganizationTransactionsController < ApplicationController
 
   def index
     organization_transactions = @organization.organization_transactions.order(order_by)
-    @pagy, @organization_transactions = pagy(organization_transactions)
+    @pagy, @organization_transactions = pagy(organization_transactions, items: Pagy::VARS[:items])
 
     respond_to do |format|
       format.html

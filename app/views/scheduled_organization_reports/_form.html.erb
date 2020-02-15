@@ -23,7 +23,7 @@
             <label class="form-check-label" for="campaign-<%= campaign.id %>" style="font-size: 12px;">
               <%= campaign.id %> - <%= campaign.name %>
               <% if campaign.active? %>
-                <span class="badge badge-<%= campaign_status_color(campaign.status) %>">Active</span>
+                <span class="badge badge-<%= status_color(campaign.status) %>">Active</span>
               <% end %>
               <mark>
                 <%= campaign.start_date.to_s("bd") %> - <%= campaign.end_date.to_s("bd") %>
@@ -36,8 +36,8 @@
   </div>
   <div class="row">
     <%= button_panel margin: "my-0" do %>
-      <%= f.submit "Schedule Report", class: "btn btn-primary" %>
       <%= cancel_button link: organization_reports_path(organization) %>
+      <%= f.submit "Schedule Report", class: "btn btn-primary" %>
     <% end %>
   </div>
 <% end %>

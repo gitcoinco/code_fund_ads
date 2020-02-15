@@ -14,10 +14,6 @@ module CampaignsHelper
     ENUMS::CAMPAIGN_STATUSES.values.map { |val| [val.humanize, val] }
   end
 
-  def campaign_status_color(status)
-    ENUMS::CAMPAIGN_STATUS_COLORS[status]
-  end
-
   def campaign_status_html(status)
     case ENUMS::CAMPAIGN_STATUSES[status]
     when "active" then tag.span(class: "fas fa-circle text-success", title: "Active", data: tooltip_expando(placement: "left"))

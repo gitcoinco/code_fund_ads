@@ -1,5 +1,5 @@
 <%= card do %>
-  <%= standalone_card_header text: "Details" %>
+  <%= card_header "Details" %>
   <%= card_body padding: "p-0" do %>
     <ul class="list-group list-group-flush list-group-bordered">
       <%= details_li("User") { link_to @campaign.user.full_name, @campaign.user } if authorized_user.can_admin_system? %>

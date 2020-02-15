@@ -2,12 +2,8 @@
   <%= render "/shared/forms/error_messages", object: organization_transaction %>
   <%= card do %>
     <%= card_header do %>
-      <%= card_title do %>
-        Transaction Details
-      <% end %>
-      <%= card_subtitle do %>
-        Fill out the fields below
-      <% end %>
+      <%= card_title "Transaction Details" %>
+      <%= card_subtitle "Fill out the fields below" %>
     <% end %>
     <%= card_body do %>
       <div class="row">
@@ -42,8 +38,8 @@
     <%= card_footer do %>
       <%= card_footer_content do %>
         <%= button_panel margin: "my-0" do %>
-          <%= f.submit "Save Transaction", class: "btn btn-primary" %>
           <%= cancel_button(organization_transactions_path(organization)) %>
+          <%= f.submit "Save Transaction", class: "btn btn-primary" %>
         <% end %>
       <% end %>
     <% end %>

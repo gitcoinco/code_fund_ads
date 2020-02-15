@@ -1,12 +1,8 @@
 <%= render layout: "/creatives/layout", locals: {creative: @eventable} do %>
   <%= card do %>
     <%= card_header do %>
-      <%= card_title do %>
-        Events
-      <% end %>
-      <%= card_subtitle do %>
-        List of events related to this creative
-      <% end %>
+      <%= card_title "Events" %>
+      <%= card_subtitle "List of events related to this creative" %>
     <% end %>
     <%= card_body do %>
       <%= render "/events/table", eventable: @eventable, events: @events %>

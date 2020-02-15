@@ -1,11 +1,11 @@
 <%= table do %>
   <%= table_head do %>
     <%= table_row header: true do %>
-      <%= sortable_tr "first_name", "Name" %>
-      <%= table_column add_scope: "col" do %>Organization<% end %>
-      <%= table_column add_scope: "col" do %>Roles<% end %>
-      <%= sortable_tr "last_sign_in_at", "Login" %>
-      <%= table_column add_scope: "col" do %><% end %>
+      <%= table_column "Name" %>
+      <%= table_column "Organization" %>
+      <%= table_column "Roles" %>
+      <%= table_column "Login" %>
+      <%= table_column "" %>
     <% end %>
   <% end %>
   <%= table_body do %>

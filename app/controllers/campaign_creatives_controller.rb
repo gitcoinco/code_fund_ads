@@ -4,7 +4,8 @@ class CampaignCreativesController < ApplicationController
 
   def index
     @summary = @campaign.summary(@start_date, @end_date)
-    @reports = @campaign.daily_summary_reports_by_creative(@start_date, @end_date)
+    reports = @campaign.daily_summary_reports_by_creative(@start_date, @end_date).unscope(:order)
+    @pagy, @reports = pagy(reports, items: Pagy::VARS[:items])
 
     respond_to do |format|
       format.html

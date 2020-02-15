@@ -1,4 +1,4 @@
-<div class="list-group-item list-group-item-<%= property_status_color(property.status) %>"
+<div class="list-group-item list-group-item-<%= status_color(property.status) %>"
      data-target="filterable-list.filterable"
      data-filter-key='all <%= property.status %>'>
   <div class="list-group-item-figure">
@@ -16,7 +16,7 @@
       </div>
       <ul class="list-inline text-muted mb-0">
         <li class="d-none d-sm-inline list-inline-item mr-3">
-          <span class="badge badge-subtle badge-<%= property_status_color(property.status) %>"><%= property.status.humanize %></span>
+          <span class="badge badge-subtle badge-<%= status_color(property.status) %>"><%= property.status.humanize %></span>
         </li>
         <li class="d-none d-sm-inline list-inline-item mr-3">
           <%= render_later async_property_sparkline_path(property_id: property.id) do %>

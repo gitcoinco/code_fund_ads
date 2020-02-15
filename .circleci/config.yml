@@ -44,7 +44,7 @@ jobs:
             - yarn-cache-v5
       - run:
           name: Set up assets cache key
-          command: find app/javascript -type f -exec md5 -q {} \; > dependency_checksum
+          command: find app/javascript -type f -exec md5sum {} \; > dependency_checksum
       - restore_cache:
           name: Restore assets cache
           keys:
@@ -61,7 +61,7 @@ jobs:
           command: yarn install --check-files --frozen-lockfile
       - run:
           name: Precompile assets
-          command: RAILS_ENV=test bundle exec rails assets:precompile
+          command: bundle exec rails assets:precompile
       - save_cache:
           name: Save gem cache
           paths:

@@ -1,22 +1,19 @@
-<%= table_row add_class: classes("even": organization_transaction_counter.even?, "odd": organization_transaction_counter.odd?) do %>
-  <%= table_data add_style: "width: 33.3%;" do %>
-    <%= organization_transaction.posted_at.to_s("mm/dd/yyyy") %>
-  <% end %>
-  <%= table_data add_style: "width: 33.3%;" do %>
-    <%= link_to (
-      organization_transaction.transaction_type == ENUMS::ORGANIZATION_TRANSACTION_TYPES::CREDIT ?
-      organization_transaction.amount.format :
-      (organization_transaction.amount * -1).format
-    ), organization_transaction_path(organization, organization_transaction),
-    class: classes(
-      "text-link text-danger": organization_transaction.transaction_type == ENUMS::ORGANIZATION_TRANSACTION_TYPES::DEBIT,
-      "text-link text-success": organization_transaction.transaction_type == ENUMS::ORGANIZATION_TRANSACTION_TYPES::CREDIT
-     ) %>
+<%= table_row do %>
+  <%= table_data organization_transaction.posted_at.to_s("mm/dd/yyyy") %>
+  <%= table_data do %>
+    <%= tag.span(organization_transaction.transaction_type == ENUMS::ORGANIZATION_TRANSACTION_TYPES::CREDIT ?
+          organization_transaction.amount.format :
+          (organization_transaction.amount * -1).format, class: classes(
+            "text-link text-danger": organization_transaction.transaction_type == ENUMS::ORGANIZATION_TRANSACTION_TYPES::DEBIT,
+            "text-link text-success": organization_transaction.transaction_type == ENUMS::ORGANIZATION_TRANSACTION_TYPES::CREDIT)) %>
     <% if organization_transaction.gift? %>
-      <span class="fas fa-gift"></span>
+      <span class="fas fa-gift text-success"></span>
     <% end %>
   <% end %>
-  <%= table_data add_style: "width: 33.3%;" do %>
-    <%= organization_transaction.reference %>
+  <%= table_data organization_transaction.reference %>
+  <%= table_data add_class: "text-right" do %>
+    <%= edit_button(link: edit_organization_transaction_path(organization, organization_transaction), title: "Edit Member", admin: true) %>
+    <%= delete_button(link: organization_transaction_path(organization, organization_transaction), title: "Remove Member", admin: true) %>
+    <%= goto_button(link: organization_transaction_path(organization, organization_transaction), icon: "fas fa-chevron-right", title: "View organization") %>
   <% end %>
 <% end %>

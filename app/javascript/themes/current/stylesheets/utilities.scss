@@ -63,6 +63,14 @@
   font-size: 1.25em;
 }
 
+.leading-relaxed {
+  line-height: 1.625 !important;
+}
+
+.leading-loose {
+  line-height: 2 !important;
+}
+
 // =========== Grid ===========
 .grid {
   display: grid;
