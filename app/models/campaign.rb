@@ -187,6 +187,9 @@ class Campaign < ApplicationRecord
   scope :with_active_creatives, -> {
     where "\"campaigns\".\"creative_ids\" && (SELECT array_agg(id) FROM \"creatives\" WHERE \"creatives\".\"status\" = 'active')::bigint[]"
   }
+  scope :with_inactive_creatives, -> {
+    where "\"campaigns\".\"creative_ids\" && (SELECT array_agg(id) FROM \"creatives\" WHERE \"creatives\".\"status\" != 'active')::bigint[]"
+  }
   scope :order_by_status, -> {
                             order_by = ["CASE"]
                             ENUMS::CAMPAIGN_STATUSES.values.each_with_index do |status, index|
