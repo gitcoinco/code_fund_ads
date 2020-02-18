@@ -150,7 +150,7 @@
     <% end %>
     <div class="col-6">
       <%= render "/shared/errors", record: campaign %>
-      <%= render "/campaign_bundles/campaigns/inventory", campaign: campaign if campaign.region_ids.present? && campaign.audience_ids.present? %>
+      <%= render "/campaign_bundles/campaigns/inventory", campaign: campaign if campaign.start_date && campaign.region_ids.present? && campaign.audience_ids.present? %>
     </div>
   </div>
 <% end %>
