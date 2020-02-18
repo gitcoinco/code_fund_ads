@@ -3,7 +3,7 @@
 // The verbose use of the `jQuery` variable instead of `$` is intentional so its use is easier to identify
 import { Controller } from 'stimulus'
 import moment from 'moment'
-import dateRangeSelectedEvent from '../events/date_range_selected_event'
+import events from '../events'
 
 function init (element) {
   jQuery(element).daterangepicker({
@@ -23,7 +23,7 @@ function init (element) {
     }
   })
   jQuery(element).on('apply.daterangepicker', event => {
-    event.target.dispatchEvent(dateRangeSelectedEvent)
+    event.target.dispatchEvent(events.DateRangeSelectedEvent)
   })
 }
 

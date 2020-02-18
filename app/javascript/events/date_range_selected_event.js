@@ -1,5 +1,5 @@
-const evt = new CustomEvent('cf:date-range-selected', {
-  bubbles: true
-})
-
-export default evt
+export default () => {
+  return new CustomEvent('cf:date-range-selected', {
+    bubbles: true
+  })
+}
