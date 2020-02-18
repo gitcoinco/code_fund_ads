@@ -113,13 +113,14 @@
 
       <% if campaign.inventory_summary.current_competitors.present? %>
         <h6 class="text-muted mt-5">
-          Active Campaigns
+          Live Campaigns
           <small class="d-block">targeting the same inventory and operating on <%= tag.span @campaign_bundle.start_date.to_s("mm/dd/yyyy"), class: "text-monospace" %></small>
         </h6>
         <table class="table table-sm table-hover table-bordered">
           <thead>
             <tr class="bg-light">
               <th class="rounded-0">ID</th>
+              <th class="rounded-0">Status</th>
               <th class="rounded-0">Daily Budget</th>
               <th class="rounded-0">Start</th>
               <th class="rounded-0">End</th>
@@ -129,6 +130,7 @@
             <% campaign.inventory_summary.current_competitors.each do |c| %>
               <tr>
                 <td data="tooltip_expando" title="<%= c.name %>"><%= link_to c.id, c %></td>
+                <td><%= c.status %></td>
                 <td class="text-right text-monospace"><%= c.daily_budget.format %></td>
                 <td class="text-right text-monospace"><%= c.start_date.to_s("mm/dd/yyyy") %></td>
                 <td class="text-right text-monospace"><%= c.end_date&.to_s("mm/dd/yyyy") %></td>
@@ -137,6 +139,7 @@
           </tbody>
           <tfoot>
             <tr class="bg-light">
+              <td></td>
               <td class="text-right font-weight-bold">Total</td>
               <td class="text-right font-weight-bold text-monospace"><%= campaign.inventory_summary.current_competitors_total_daily_budget.format %></td>
               <td></td>
@@ -155,6 +158,7 @@
           <thead>
             <tr class="bg-light">
               <th class="rounded-0">ID</th>
+              <th class="rounded-0">Status</th>
               <th class="rounded-0">Daily Budget</th>
               <th class="rounded-0">Start</th>
               <th class="rounded-0">End</th>
@@ -164,6 +168,7 @@
             <% campaign.inventory_summary.future_competitors.each do |c| %>
               <tr>
                 <td data="tooltip_expando" title="<%= c.name %>"><%= link_to c.id, c, target: "_blank" %></td>
+                <td><%= c.status %></td>
                 <td class="text-right text-monospace"><%= c.daily_budget.format %></td>
                 <td class="text-right text-monospace"><%= c.start_date.to_s("mm/dd/yyyy") %></td>
                 <td class="text-right text-monospace"><%= c.end_date&.to_s("mm/dd/yyyy") %></td>
@@ -172,6 +177,7 @@
           </tbody>
           <tfoot>
             <tr class="bg-light">
+              <td></td>
               <td class="text-right font-weight-bold">Total</td>
               <td class="text-right font-weight-bold text-monospace"><%= campaign.inventory_summary.future_competitors_total_daily_budget.format %></td>
               <td></td>

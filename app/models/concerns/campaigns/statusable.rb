@@ -16,6 +16,7 @@ module Campaigns
       scope :archived, -> { where status: STATUSES::ARCHIVED }
       scope :paused, -> { where status: STATUSES::PAUSED }
       scope :pending, -> { where status: STATUSES::PENDING }
+      scope :sold, -> { where status: [STATUSES::ACCEPTED, STATUSES::ACTIVE, STATUSES::PAUSED] }
     end
 
     def accepted?
