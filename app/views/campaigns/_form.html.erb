@@ -325,7 +325,7 @@
     <%= card do %>
       <%= card_header do %>
         <%= card_title do %>
-          Budget
+          Budget <small>for <%= number_with_delimiter campaign.total_operative_days %> operative days <%= " with a total spend of #{campaign.total_budget.format}" if campaign.region_and_audience_pricing_strategy? %></small>
         <% end %>
         <%= card_subtitle do %>
           This campaign is using the <%= campaign.pricing_strategy.humanize.downcase %> based pricing strategy
