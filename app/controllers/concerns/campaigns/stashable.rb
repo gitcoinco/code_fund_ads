@@ -20,7 +20,7 @@ module Campaigns
     end
 
     def campaign_changed?
-      campaign_id != stashed_campaign_params[:id]
+      campaign_id != stashed_campaign_params[:id].to_i
     end
 
     def stashed_campaign_params
