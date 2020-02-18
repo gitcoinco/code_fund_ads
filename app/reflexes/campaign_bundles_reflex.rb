@@ -5,25 +5,12 @@ class CampaignBundlesReflex < ApplicationReflex
     campaign_bundle.name = element[:value]
   end
 
-  def update_start_date
-    date = begin
-             Date.parse(element[:value])
-           rescue
-             nil
-           end
-    campaign_bundle.start_date = date
-    campaign_bundle.campaigns.each { |c| c.start_date = campaign_bundle.start_date }
-    campaign_bundle.init_total_budget
-  end
-
-  def update_end_date
-    date = begin
-             Date.parse(element[:value])
-           rescue
-             nil
-           end
-    campaign_bundle.end_date = date
-    campaign_bundle.campaigns.each { |c| c.end_date = campaign_bundle.end_date }
+  def update_date_range
+    campaign_bundle.date_range = element[:value]
+    campaign_bundle.campaigns.each do |c|
+      c.start_date = campaign_bundle.start_date
+      c.end_date = campaign_bundle.end_date
+    end
     campaign_bundle.init_total_budget
   end
 

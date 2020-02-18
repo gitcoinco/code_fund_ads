@@ -1,1 +1,1 @@
-import './value_committed'
+import './value_committed_event'

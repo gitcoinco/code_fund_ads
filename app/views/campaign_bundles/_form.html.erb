@@ -18,12 +18,8 @@
 
           <div class="row">
             <div class="col form-group">
-              <%= f.label :start_date, "Start Date" %>
-              <%= f.date_field :start_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_start_date"} %>
-            </div>
-            <div class="col form-group">
-              <%= f.label :end_date, "End Date" %>
-              <%= f.date_field :end_date, class: "form-control", data: {reflex: "input->CampaignBundlesReflex#update_end_date"} %>
+              <%= f.text_field(:date_range, class: "js-range-datepicker form-control bg-white rounded-right",
+                                data: {reflex: "cf:date-range-selected->CampaignBundlesReflex#update_date_range", controller: "select-date-range"}) %>
             </div>
           </div>
 

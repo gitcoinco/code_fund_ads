@@ -58,8 +58,7 @@ class CampaignBundlesController < ApplicationController
   def campaign_bundle_params
     params.require(:campaign_bundle).permit(
       :name,
-      :start_date,
-      :end_date,
+      :date_range,
       region_ids: [],
       campaigns_attributes: [:name, :url, :daily_budget, :ecpm_multiplier, audience_ids: []]
     )
