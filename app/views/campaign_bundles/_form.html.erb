@@ -1,6 +1,6 @@
 <%= form_with model: @campaign_bundle, id: "campaign-bundle-form" do |f| %>
   <div class="row">
-    <div class="col-7">
+    <div class="col-6">
       <%= card do %>
         <%= standalone_card_header text: "Bundle Details" %>
         <%= card_body do %>
@@ -43,7 +43,7 @@
       <% end %>
     <% end %>
 
-    <div class="col-5">
+    <div class="col-6">
       <%= render "/shared/errors", record: @campaign_bundle %>
       <%= render "/campaign_bundles/inventory" %>
     </div>
