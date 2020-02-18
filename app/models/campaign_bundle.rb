@@ -50,6 +50,24 @@ class CampaignBundle < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def dates
+    (start_date..end_date).to_a
+  rescue
+    nil
+  end
+
+  def total_operative_days
+    dates ? dates.size : 0
+  end
+
+  def total_budget
+    Money.new campaigns.to_a.sum(&:total_budget), "USD"
+  end
+
+  def init_total_budget
+    campaigns.map(&:init_total_budget)
+  end
+
   def to_stashable_attributes
     as_json.merge campaigns_attributes: campaigns.map(&:to_stashable_attributes)
   end

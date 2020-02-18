@@ -2,12 +2,17 @@
   <div class="row">
     <div class="col-6">
       <%= card do %>
-        <%= standalone_card_header text: "Bundle Details" %>
+        <%= card_header do %>
+          <%= card_title do %>
+            Bundle Details
+            <small>total spend of <%= @campaign_bundle.total_budget.format %> over <%= number_with_delimiter @campaign_bundle.total_operative_days %> days</small>
+          <% end %>
+        <% end %>
         <%= card_body do %>
           <div class="row">
             <div class="col form-group">
               <%= f.label :name %>
-              <%= f.text_field :name, class: "form-control", required: true, data: {controller: "application", reflex: "input->CampaignBundlesReflex#update_name"} %>
+              <%= f.text_field :name, class: "form-control", required: true, data: {controller: "application", reflex: "cf:value-committed->CampaignBundlesReflex#update_name"} %>
             </div>
           </div>
 

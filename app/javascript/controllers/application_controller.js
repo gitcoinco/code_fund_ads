@@ -13,6 +13,9 @@ export default class extends Controller {
   }
 
   afterReflex (element) {
+    document
+      .querySelectorAll('.reflex-activity')
+      .forEach(e => (e.hidden = true))
     this.focus(element)
   }
 

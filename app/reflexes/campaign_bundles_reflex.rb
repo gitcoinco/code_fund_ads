@@ -13,6 +13,7 @@ class CampaignBundlesReflex < ApplicationReflex
            end
     campaign_bundle.start_date = date
     campaign_bundle.campaigns.each { |c| c.start_date = campaign_bundle.start_date }
+    campaign_bundle.init_total_budget
   end
 
   def update_end_date
@@ -23,6 +24,7 @@ class CampaignBundlesReflex < ApplicationReflex
            end
     campaign_bundle.end_date = date
     campaign_bundle.campaigns.each { |c| c.end_date = campaign_bundle.end_date }
+    campaign_bundle.init_total_budget
   end
 
   def update_region_ids(region_ids = [])
@@ -59,6 +61,7 @@ class CampaignBundlesReflex < ApplicationReflex
 
   def update_campaign_daily_budget
     campaign.daily_budget = Money.new(element[:value].to_f * 100, "USD")
+    campaign.init_total_budget
   end
 
   def update_campaign_ecpm_multiplier

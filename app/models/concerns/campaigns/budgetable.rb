@@ -9,6 +9,26 @@ module Campaigns
       before_save :init_total_budget
     end
 
+    def should_calculate_total_budget?
+      if campaign_pricing_strategy?
+        return false unless daily_budget > 0
+        return false unless total_budget == 0
+        return true
+      end
+
+      if region_and_audience_pricing_strategy?
+        return true unless persisted?
+        return start_date_changed? || end_date_changed? || daily_budget_cents_changed?
+      end
+
+      false
+    end
+
+    def init_total_budget
+      return unless should_calculate_total_budget?
+      self.total_budget = total_operative_days * daily_budget
+    end
+
     # Sponsor campaigns equate `total_budget` with `selling_price` because they are sold at a fixed price.
     #
     # Standard campaigns don't capture `selling_price` because the price is variable and because an
@@ -137,12 +157,6 @@ module Campaigns
     end
 
     private
-
-    def init_total_budget
-      return unless daily_budget > 0
-      return unless total_budget == 0
-      self.total_budget = total_operative_days * daily_budget
-    end
 
     def init_hourly_budget
       return unless daily_budget > 0
