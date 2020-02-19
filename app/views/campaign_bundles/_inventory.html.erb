@@ -1,0 +1,56 @@
+<% if @campaign_bundle.region_ids.present? %>
+  <% cache @campaign_bundle.region_ids, expires_in: 1.day do %>
+    <div class="card mt-2">
+      <div class="card-header bg-muted">
+        <h5><%= number_with_delimiter @campaign_bundle.average_daily_impressions_count %> impressions/day</h5>
+        <div class="opacity-60">Average inventory based on your targeted locations but not audience, your budget, or availability</div>
+      </div>
+      <div class="card-body" style="max-height:400px; overflow-y:scroll;">
+        <h6 class="text-muted">Daily Impressions by Country</h6>
+        <table class="table table-sm table-hover table-bordered">
+          <thead>
+            <tr class="bg-light">
+              <th class="rounded-0">#</th>
+              <th class="rounded-0">Country</th>
+              <th class="rounded-0"><small class="d-block opacity-60">Average Daily</small>Impressions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @campaign_bundle.countries.sort_by(&:average_daily_impressions_count).reverse.each_with_index do |country, index| %>
+              <tr>
+                <td><%= index + 1 %></td>
+                <td>
+                <%= country.emoji_flag %>
+                <%= truncate country.name, length: 24 %>
+                </td>
+                <td class="text-right text-monospace">
+                  <%= number_with_delimiter country.average_daily_impressions_count %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+        <h6 class="text-muted mt-5">Daily Impressions by Audience</h6>
+        <table class="table table-sm table-hover table-bordered">
+          <thead>
+            <tr class="bg-light">
+              <th class="rounded-0">#</th>
+              <th class="rounded-0">Audience</th>
+              <th class="rounded-0"><small class="d-block opacity-60">Average Daily</small>Impressions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @campaign_bundle.daily_impressions_by_audience.sort_by { |count, _| count }.reverse.each_with_index do |(count, audience), index| %>
+              <tr>
+                <td><%= index + 1 %></td>
+                <td><%= audience.name %></td>
+                <td class="text-right text-monospace"><%= number_with_delimiter count %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  <% end %>
+<% end %>

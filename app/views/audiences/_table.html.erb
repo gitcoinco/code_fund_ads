@@ -1,0 +1,26 @@
+<%= table do %>
+  <%= table_head do %>
+    <%= table_row header: true do %>
+      <%= table_column { "ID" } %>
+      <%= table_column { "Name" } %>
+      <%= table_column { "Keywords" } %>
+    <% end %>
+  <% end %>
+  <%= table_body do %>
+    <% if audiences.exists? %>
+      <% audiences.each do |audience| %>
+        <%= table_row do %>
+          <%= table_data_value(audience.id) %>
+          <%= table_data_value(audience.name) %>
+          <%= table_data do %>
+            <% audience.keywords.each do |keyword| %>
+              <span class="badge badge-subtle badge-primary"><%= keyword %></span>
+            <% end %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= render "/shared/no_data_alert" %>
+    <% end %>
+  <% end %>
+<% end %>

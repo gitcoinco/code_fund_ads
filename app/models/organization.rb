@@ -3,12 +3,16 @@
 # Table name: organizations
 #
 #  id                       :bigint           not null, primary key
-#  name                     :string           not null
 #  balance_cents            :integer          default(0), not null
 #  balance_currency         :string           default("USD"), not null
+#  creative_approval_needed :boolean          default(TRUE)
+#  name                     :string           not null
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
-#  creative_approval_needed :boolean          default(TRUE)
+#
+# Indexes
+#
+#  index_organizations_on_creative_approval_needed  (creative_approval_needed)
 #
 
 require "csv"
@@ -24,6 +28,7 @@ class Organization < ApplicationRecord
 
   # relationships .............................................................
   has_many :campaigns
+  has_many :campaign_bundles
   has_many :creatives
   has_many :creative_images, through: :creatives
   has_many :impressions

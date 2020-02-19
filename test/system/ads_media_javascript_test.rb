@@ -104,7 +104,8 @@ class AdsMediaJavascriptTest < ApplicationSystemTestCase
   end
 
   test "media - fallback ad with dark theme" do
-    @property.update keywords: [], ad_theme: "dark"
+    @property.update ad_theme: "dark"
+    @premium_campaign.update keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_campaign_link @fallback_campaign
     assert_powered_by_link(text: "This is a fallback campaign Fallback ethical ad by CodeFund")

@@ -105,7 +105,8 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
   end
 
   test "bottom bar - fallback ad with dark theme" do
-    @property.update keywords: [], ad_theme: "dark"
+    @property.update ad_theme: "dark"
+    @premium_campaign.update keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign

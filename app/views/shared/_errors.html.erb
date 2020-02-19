@@ -1,0 +1,13 @@
+<% if record.errors.any? %>
+  <div id="error-explanation-<%= record.id || record.try(:temporary_id) %>" class="border border-danger rounded py-3 mb-3 bg-white text-danger">
+    <ul class="my-0">
+      <% record.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% else %>
+  <div id="error-explanation-<%= record.id || record.try(:temporary_id) %>" class="border border-success rounded p-3 mb-3 bg-white text-success">
+    Great job! Inputs are valid.
+  </div>
+<% end %>

@@ -4,7 +4,8 @@
     request.path == "/dashboards/administrator",
     request.path == "/organizations",
     request.path == "/users",
-    request.path == "/users/invitation/new"
+    request.path == "/users/invitation/new",
+    request.path == "/audiences"
   ].any?
 ) do %>
   <a href="#" class="menu-link">
@@ -18,5 +19,6 @@
     <%= active_link_to "Teams", organizations_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
     <%= active_link_to "Users", users_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
     <%= active_link_to "Invite User", new_user_invitation_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Audiences", audiences_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
   </ul>
 <% end %>

@@ -37,6 +37,7 @@
           <%= render "/shared/sidebar_content/dashboard" unless authorized_user.can_advertise_and_publish? %>
           <%= render "/shared/sidebar_content/dashboards" if authorized_user.can_advertise_and_publish? %>
           <%= render "/shared/sidebar_content/organization" if Current.organization %>
+          <%= render "/shared/sidebar_content/campaign_bundles" if authorized_user.can_advertise? %>
           <%= render "/shared/sidebar_content/campaigns" if authorized_user.can_advertise? %>
           <%= render "/shared/sidebar_content/creatives" if authorized_user.can_advertise? %>
           <%= render "/shared/sidebar_content/images" if authorized_user.can_advertise? %>

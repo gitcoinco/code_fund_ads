@@ -110,7 +110,7 @@ group :development do
   gem "ngrok-tunnel"
   gem "rack-mini-profiler", require: false
   gem "solargraph"
-  gem "standard"
+  gem "standard", ">= 0.1"
   gem "teamocil"
   gem "tocer"
   gem "tty-box"
@@ -119,6 +119,7 @@ end
 
 group :test do
   gem "capybara", ">= 2.15"
+  gem "hashdiff"
   gem "minitest-reporters", require: "minitest/reporters"
   gem "mocha"
   gem "selenium-webdriver"

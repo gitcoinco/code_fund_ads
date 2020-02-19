@@ -3,11 +3,17 @@
 # Table name: organization_users
 #
 #  id              :bigint           not null, primary key
-#  organization_id :bigint           not null
-#  user_id         :bigint           not null
 #  role            :string           default("member"), not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  organization_id :bigint           not null
+#  user_id         :bigint           not null
+#
+# Indexes
+#
+#  index_organization_users_on_organization_id  (organization_id)
+#  index_organization_users_on_uniqueness       (organization_id,user_id,role) UNIQUE
+#  index_organization_users_on_user_id          (user_id)
 #
 
 system_administrator:

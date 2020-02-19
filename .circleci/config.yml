@@ -51,7 +51,7 @@ jobs:
       - run:
           name: Install gem dependencies
           command: |
-            gem install bundler:2.1.1
+            gem install bundler:2.1.4
             bundle check || bundle install --jobs=6 --retry=3 --path vendor/bundle
       - run:
           name: Install yarn dependencies

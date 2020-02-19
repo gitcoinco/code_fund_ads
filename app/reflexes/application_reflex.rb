@@ -10,4 +10,8 @@ class ApplicationReflex < StimulusReflex::Reflex
       AuthorizedUser.new(current_user || User.new)
     end
   end
+
+  def url_params
+    HashWithIndifferentAccess.new Rails.application.routes.recognize_path(url)
+  end
 end

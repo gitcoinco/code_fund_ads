@@ -1,44 +1,61 @@
-// Boostrap requires jQuery
+// Bootstrap requires jQuery
 // Our use of it here is simply because its already a dependency
 // The verbose use of the `jQuery` variable instead of `$` is intentional so its use is easier to identify
 // This controller includes hacks to ensure that jQuery based libs like Select2 work with Turbolinks
 import 'select2'
 import { Controller } from 'stimulus'
 
+function create (element) {
+  const created = element.classList.contains('select2-hidden-accessible')
+  if (created) return
+
+  jQuery(element).select2({
+    theme: 'bootstrap',
+    width: '100%',
+    closeOnSelect: !element.multiple
+  })
+  element.dispatchEvent(new Event('select:created'))
+  jQuery(element).on(
+    'change.select2',
+    (() =>
+      element.dispatchEvent(
+        new Event('cf:select:changed', { bubbles: true })
+      )).bind(this)
+  )
+}
+
+function destroy (element) {
+  const created = element.classList.contains('select2-hidden-accessible')
+  if (created) jQuery(element).select2('destroy')
+  element.dispatchEvent(new Event('select:destroyed'))
+}
+
+document.addEventListener('cable-ready:before-morph', () => {
+  document
+    .querySelectorAll('[data-controller="select"]')
+    .forEach(element => destroy(element))
+})
+
+document.addEventListener('cable-ready:after-morph', () => {
+  document
+    .querySelectorAll('[data-controller="select"]')
+    .forEach(element => create(element))
+})
+
 export default class extends Controller {
   connect () {
-    this.create()
-    this.element.addEventListener('select:create', this.create.bind(this))
-    this.element.addEventListener('select:destroy', this.destroy.bind(this))
-    document.addEventListener(
-      'turbolinks:before-cache',
-      this.destroy.bind(this)
-    )
-  }
+    create(this.element)
 
-  create () {
-    if (this.created) return
-    jQuery(this.element).select2({
-      theme: 'bootstrap',
-      width: '100%',
-      closeOnSelect: !this.element.multiple
+    this.element.addEventListener('select:create', () => {
+      create(this.element)
     })
-    this.element.dispatchEvent(new Event('select:created'))
-    jQuery(this.element).on(
-      'change.select2',
-      (() =>
-        this.element.dispatchEvent(
-          new Event('cf:select:changed', { bubbles: true })
-        )).bind(this)
-    )
-  }
 
-  destroy () {
-    if (this.created) jQuery(this.element).select2('destroy')
-    this.element.dispatchEvent(new Event('select:destroyed'))
-  }
+    this.element.addEventListener('select:destroy', () => {
+      destroy(this.element)
+    })
 
-  get created () {
-    return this.element.classList.contains('select2-hidden-accessible')
+    document.addEventListener('turbolinks:before-cache', () => {
+      destroy(this.element)
+    })
   }
 }

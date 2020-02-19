@@ -75,6 +75,10 @@ USER_STATUS_COLORS:
   active: success
   blacklisted: dark
 
+CAMPAIGN_PRICING_STRATEGIES:
+  - campaign
+  - region_and_audience
+
 CAMPAIGN_STATUSES:
   - accepted
   - active
@@ -88,6 +92,14 @@ CAMPAIGN_STATUS_COLORS:
   archived: secondary
   paused: info
   pending: warning
+
+CAMPAIGN_BUNDLE_STATUSES:
+  - configured
+  - unconfigured
+
+CAMPAIGN_BUNDLE_STATUS_COLORS:
+  configured: success
+  unconfigured: warning
 
 COUPON_TYPES:
   - percentage
@@ -740,6 +752,8 @@ KEYWORDS:
     - rust
   "Scala":
     - scala
+  "Solidity":
+    - solidity
   "Swift":
     - swift
   "Other":

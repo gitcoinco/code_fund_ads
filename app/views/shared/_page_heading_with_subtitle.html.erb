@@ -1,10 +1,11 @@
 <header class="page-title-bar mb-0">
   <div class="d-flex flex-column flex-md-row">
     <p class="lead">
-      <span class="font-weight-bold h4"><%= local_assigns[:title] ? title : "#{action} #{subject}" %></span>
-      <% if local_assigns[:subtitle].present? %>
-        <span class="d-block text-muted lead"><%= subtitle %></span>
-      <% end %>
+      <span class="font-weight-bold h4">
+        <%= local_assigns[:title] ? title : "#{action_name} #{subject}" %>
+        <span hidden role="status" class="reflex-activity spinner-border spinner-border-sm text-primary" style="position:relative; top:-5px;"></span>
+      </span>
+      <%= tag.span subtitle, class: "d-block text-muted" if local_assigns[:subtitle].present? %>
     </p>
     <% if local_assigns[:datepicker] || local_assigns[:buttons] %>
       <div class="ml-auto d-flex">

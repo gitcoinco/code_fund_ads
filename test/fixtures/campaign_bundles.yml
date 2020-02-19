@@ -1,0 +1,28 @@
+# == Schema Information
+#
+# Table name: campaign_bundles
+#
+#  id              :bigint           not null, primary key
+#  end_date        :date             not null
+#  name            :string           not null
+#  region_ids      :bigint           default([]), is an Array
+#  start_date      :date             not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  organization_id :bigint           not null
+#  user_id         :bigint           not null
+#
+# Indexes
+#
+#  index_campaign_bundles_on_end_date    (end_date)
+#  index_campaign_bundles_on_name        (lower((name)::text))
+#  index_campaign_bundles_on_region_ids  (region_ids) USING gin
+#  index_campaign_bundles_on_start_date  (start_date)
+
+default:
+  organization: default
+  user: advertiser
+  name: Default Campaign Bundle
+  start_date: <%= 1.week.from_now.to_date %>
+  end_date: <%= 5.weeks.from_now.to_date %>
+  region_ids: <%= [Region.americas_northern.id, Region.europe.id] %>

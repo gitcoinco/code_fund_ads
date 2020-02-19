@@ -3,17 +3,23 @@
 # Table name: creatives
 #
 #  id              :bigint           not null, primary key
-#  user_id         :bigint           not null
-#  name            :string           not null
-#  headline        :string
 #  body            :text
+#  creative_type   :string           default("standard"), not null
+#  cta             :string
+#  headline        :string
+#  name            :string           not null
+#  status          :string           default("pending")
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  legacy_id       :uuid
 #  organization_id :bigint
-#  cta             :string
-#  status          :string           default("pending")
-#  creative_type   :string           default("standard"), not null
+#  user_id         :bigint           not null
+#
+# Indexes
+#
+#  index_creatives_on_creative_type    (creative_type)
+#  index_creatives_on_organization_id  (organization_id)
+#  index_creatives_on_user_id          (user_id)
 #
 
 class Creative < ApplicationRecord
@@ -41,6 +47,7 @@ class Creative < ApplicationRecord
   validates :status, inclusion: {in: ENUMS::CREATIVE_STATUSES.values}
   validates :creative_type, inclusion: {in: ENUMS::CREATIVE_TYPES.values}
   validate :validate_images
+  validate :validate_status_change
 
   # callbacks .................................................................
   after_commit :touch_campaigns, on: [:update]
@@ -173,6 +180,15 @@ class Creative < ApplicationRecord
 
   def touch_campaigns
     campaigns.map(&:touch)
+  end
+
+  def validate_status_change
+    return unless status_changed?
+    return unless campaigns.exists?
+
+    if !active? && campaigns.where(status: ENUMS::CAMPAIGN_STATUSES::ACTIVE).exists?
+      errors.add :base, "cannot deactivate creative because it is used by an active campaign"
+    end
   end
 
   def validate_images

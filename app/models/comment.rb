@@ -3,17 +3,22 @@
 # Table name: comments
 #
 #  id               :bigint           not null, primary key
-#  commentable_id   :bigint           not null
-#  commentable_type :string           not null
-#  title            :string
 #  body             :text
-#  subject          :string
-#  user_id          :bigint           not null
-#  parent_id        :bigint
+#  commentable_type :string           not null
 #  lft              :integer
 #  rgt              :integer
+#  subject          :string
+#  title            :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#  commentable_id   :bigint           not null
+#  parent_id        :bigint
+#  user_id          :bigint           not null
+#
+# Indexes
+#
+#  index_comments_on_commentable_id_and_commentable_type  (commentable_id,commentable_type)
+#  index_comments_on_user_id                              (user_id)
 #
 
 class Comment < ActiveRecord::Base

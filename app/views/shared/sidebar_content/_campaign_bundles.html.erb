@@ -1,0 +1,14 @@
+<%= tag.li class: classes(
+  "menu-item has-child": true,
+  "has-open": request.path.start_with?('/campaign_bundles')
+) do %>
+  <a href="#" class="menu-link">
+    <span class="menu-icon fad fa-box-alt"></span>
+    <span class="menu-text">Campaign Bundles</span>
+  </a>
+  <ul class="menu">
+    <li class="menu-subhead">Campaign Bundles</li>
+    <%= active_link_to "Overview", campaign_bundles_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
+    <%= active_link_to "Create Campaign Bundle", new_campaign_bundle_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_admin_system? %>
+  </ul>
+<% end %>

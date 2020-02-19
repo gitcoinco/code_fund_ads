@@ -3,9 +3,9 @@
 # Table name: audiences
 #
 #  id               :integer          primary key
-#  name             :text
 #  ecpm_column_name :text
 #  keywords         :text             is an Array
+#  name             :text
 #
 
 class Audience < ApplicationRecord
@@ -14,6 +14,7 @@ class Audience < ApplicationRecord
   include Taggable
 
   # relationships .............................................................
+  has_many :campaigns
   has_many :properties
 
   # validations ...............................................................
@@ -100,6 +101,35 @@ class Audience < ApplicationRecord
 
   def ecpm_for_country_code(country_code)
     ecpm_for_country Country.find(country_code)
+  end
+
+  def single_impression_price_for_region(region)
+    ecpm_for_region(region).to_f / 1000
+  end
+
+  def daily_summaries(start_date = nil, end_date = nil, region: nil)
+    summaries = DailySummary.between(start_date, end_date).where(impressionable_type: "Property", impressionable_id: properties.active.select(:id))
+    region ? summaries.scoped_by(region.country_codes, "country_code") : summaries.scoped_by(nil)
+  end
+
+  def dailies(start_date = nil, end_date = nil, region: nil)
+    daily_summaries(start_date, end_date, region: region)
+      .select(:displayed_at_date)
+      .select(DailySummary.arel_table[:impressions_count].sum.as("impressions_count"))
+      .select(DailySummary.arel_table[:fallbacks_count].sum.as("fallbacks_count"))
+      .select(DailySummary.arel_table[:clicks_count].sum.as("clicks_count"))
+      .select(DailySummary.arel_table[:gross_revenue_cents].sum.as("gross_revenue_cents"))
+      .group(:displayed_at_date)
+      .order(:displayed_at_date)
+  end
+
+  def average_daily_impressions_counts(region: nil)
+    list = dailies(3.months.ago.beginning_of_month, 1.month.ago.end_of_month, region: region).to_a
+    (1..31).each_with_object({}) do |day, memo|
+      rows = list.select { |daily| daily.displayed_at_date.day == day }
+      average_impressions_count = (rows.map(&:impressions_count).sum / rows.size.to_f).round
+      memo[day] = average_impressions_count
+    end
   end
 
   # protected instance methods ................................................

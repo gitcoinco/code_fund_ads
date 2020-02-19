@@ -5,6 +5,17 @@ export default class extends Controller {
 
   connect () {
     this.handleLeafChange()
+    document.addEventListener(
+      'cable-ready:after-morph',
+      this.handleLeafChange.bind(this)
+    )
+  }
+
+  disconnect () {
+    document.removeEventListener(
+      'cable-ready:after-morph',
+      this.handleLeafChange.bind(this)
+    )
   }
 
   toggleBranch (event) {

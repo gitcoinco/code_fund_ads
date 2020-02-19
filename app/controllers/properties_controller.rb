@@ -1,11 +1,13 @@
 class PropertiesController < ApplicationController
   include Scopable
   include Sortable
+  include Properties::Stashable
 
   before_action :authenticate_user!
-  before_action :set_property, only: [:show, :edit, :update, :destroy]
+  before_action :set_property, except: [:create, :index]
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }
   before_action :set_assignable_fallback_campaigns, only: [:edit]
+  after_action -> { stash_property @property }, only: [:new, :edit]
 
   def index
     properties = scope_list(Property).order(order_by).includes(:user, :property_traffic_estimates)
@@ -21,8 +23,6 @@ class PropertiesController < ApplicationController
   end
 
   def new
-    @property = current_user.properties.build(status: "pending", ad_template: "default", ad_theme: "light")
-
     if params[:clone].present?
       cloned_property = current_user.properties.find(params[:clone])
       if cloned_property.present?
@@ -93,11 +93,15 @@ class PropertiesController < ApplicationController
   private
 
   def set_property
-    @property = if authorized_user.can_admin_system?
+    return @property ||= stashed_property if action_name == "new"
+    @property ||= if authorized_user.can_admin_system?
       Property.find(params[:id])
     else
       current_user.properties.find(params[:id])
     end
+    @property.audience = @audience if @audience
+    @property.validate
+    @property
   end
 
   def set_user

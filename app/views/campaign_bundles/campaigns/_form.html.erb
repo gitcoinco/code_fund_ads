@@ -1,0 +1,159 @@
+<%= f.fields_for "campaigns_attributes[#{campaign.temporary_id}]", campaign do |cf| %>
+  <div id="campaign-<%= campaign_iteration.index %>-fields" class="row">
+    <div class="col-6">
+      <%= card do %>
+        <%= card_header do %>
+          <%= card_title do %>
+            <div class="d-flex justify-content-between align-items-center">
+              <span>
+                Campaign <%= campaign_iteration.index + 1 %>
+              <small><%= " total spend of #{campaign.total_budget.format} over #{number_with_delimiter campaign.total_operative_days} days" %></small>
+              </span>
+              <%= link_to "Remove", "#", class: "btn btn-link", data: { reflex: "click->CampaignBundlesReflex#remove_campaign", temporary_id: campaign.temporary_id } %>
+            </div>
+          <% end %>
+          <%= card_subtitle do %>
+            You won't pay more than your daily budget times the total number of days that the bundle is configured to run.
+            Some days you might spend more or less than your daily budget.
+          <% end %>
+        <% end %>
+        <%= card_body do %>
+          <small class="text-muted">
+
+          </small>
+
+          <div class="row mt-2">
+            <div class="col form-group">
+              <%= cf.label :name %>
+              <%= cf.text_field :name, class: "form-control", required: true,
+                data: { controller: "application", reflex: "cf:value-committed->CampaignBundlesReflex#update_campaign_name", temporary_id: campaign.temporary_id } %>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col form-group">
+              <%= cf.label :url, "URL" %>
+              <%= cf.text_field :url, class: "form-control", required: true, placeholder: "https://example.com/?utm_source=codefund&utm_campaign={{campaign_id}}",
+                data: { controller: "application", reflex: "cf:value-committed->CampaignBundlesReflex#update_campaign_url", temporary_id: campaign.temporary_id } %>
+              <details class="mt-2">
+                <summary>Use any of the following variables in the URL</summary>
+                <%= table do %>
+                  <%= table_head do %>
+                    <%= table_row header: true do %>
+                      <%= table_column do %>
+                        &nbsp;
+                      <% end %>
+                      <%= table_column do %>
+                        Variable
+                      <% end %>
+                      <%= table_column do %>
+                        Example Value
+                      <% end %>
+                      <%= table_column do %>
+                        Description
+                      <% end %>
+                    <% end %>
+                  <% end %>
+                  <%= table_body do %>
+                    <%= table_row_controller("copy") do %>
+                      <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                      <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{campaign_id}}" style="border:none;" disabled data-target="copy.input" /><% end %>
+                      <%= table_data do %><%= campaign.id || 123 %><% end %>
+                      <%= table_data do %>The campaign <code class="code">id</code><% end %>
+                    <% end %>
+                    <%= table_row_controller("copy") do %>
+                      <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                      <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{campaign_name}}" style="border:none;" disabled data-target="copy.input" /><% end %>
+                      <%= table_data do %><%= campaign.name || "Example" %><% end %>
+                      <%= table_data do %>The campaign <code class="code">name</code><% end %>
+                    <% end %>
+                    <%= table_row_controller("copy") do %>
+                      <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                      <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{creative_id}}" style="border:none;" disabled data-target="copy.input" /><% end %>
+                      <%= table_data do %><%= campaign.creatives.first&.id || 123 %><% end %>
+                      <%= table_data do %>The creative <code class="code">id</code> that was rendered<% end %>
+                    <% end %>
+                    <%= table_row_controller("copy") do %>
+                      <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                      <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{creative_name}}" style="border:none;" disabled data-target="copy.input" /><% end %>
+                      <%= table_data do %><%= campaign.creatives.first&.name || "Example" %><% end %>
+                      <%= table_data do %>The creative <code class="code">name</code> that was rendered<% end %>
+                    <% end %>
+                    <%= table_row_controller("copy") do %>
+                      <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                      <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_id}}" style="border:none;" disabled data-target="copy.input" /><% end %>
+                      <%= table_data do %><%= campaign.matching_properties.first&.id || 123 %><% end %>
+                      <%= table_data do %>The property <code class="code">id</code> that displayed the ad<% end %>
+                    <% end %>
+                    <%= table_row_controller("copy") do %>
+                      <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                      <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_name}}" style="border:none;" disabled data-target="copy.input" /><% end %>
+                      <%= table_data do %><%= campaign.matching_properties.first&.name || "Example" %><% end %>
+                      <%= table_data do %>The property <code class="code">name</code> that displayed the ad<% end %>
+                    <% end %>
+                    <%= table_row_controller("copy") do %>
+                      <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                      <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_url}}" style="border:none;" disabled data-target="copy.input" /><% end %>
+                      <%= table_data do %><%= campaign.matching_properties.first&.url || "https://www.example.com" %><% end %>
+                      <%= table_data do %>The property <code class="code">url</code> that displayed the ad<% end %>
+                    <% end %>
+                    <%= table_row_controller("copy") do %>
+                      <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                      <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{template}}" style="border:none;" disabled data-target="copy.input" /><% end %>
+                      <%= table_data do %>default<% end %>
+                      <%= table_data do %>The ad <code class="code">template</code> used to render the ad<% end %>
+                    <% end %>
+                    <%= table_row_controller("copy") do %>
+                      <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
+                      <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{theme}}" style="border:none;" disabled data-target="copy.input" /><% end %>
+                      <%= table_data do %>light<% end %>
+                      <%= table_data do %>The ad <code class="code">theme</code> used to render the ad<% end %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              </details>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-6 form-group">
+              <%= cf.label :daily_budget, "Daily Budget" %>
+              <%= cf.text_field :daily_budget, value: campaign.daily_budget.format(symbol: false), step: 0.01, class: "form-control", required: true,
+                data: {controller: "application", reflex: "cf:value-committed->CampaignBundlesReflex#update_campaign_daily_budget", temporary_id: campaign.temporary_id } %>
+              <small class="form-text text-muted">
+                The average you want to spend each day
+              </small>
+            </div>
+            <div class="col-6 form-group">
+              <%= cf.label :ecpm_multiplier, "eCPM Multiplier" %>
+              <%= cf.number_field :ecpm_multiplier, class: "form-control", required: true, step: 0.01,
+                data: { controller: "application", reflex: "cf:value-committed->CampaignBundlesReflex#update_campaign_ecpm_multiplier", temporary_id: campaign.temporary_id } %>
+            </div>
+          </div>
+
+          <div class="row" data-controller="checkboxes" data-reflex-name="CampaignBundlesReflex#update_campaign_audience_ids" data-temporary-id="<%= campaign.temporary_id %>">
+            <div class="col">
+              <%= cf.label :audiences, "Audiences" %>
+              <% Audience.order(:name).each do |audience| %>
+                <div class="custom-control custom-checkbox ml-1">
+                  <%= cf.check_box :audience_ids,
+                    {id: campaign_audience_dom_id(campaign, audience), class: "custom-control-input", multiple: true, data: {action: "change->checkboxes#invokeReflex"}},
+                    audience.id, campaign.audience_ids.include?(audience.id) %>
+                  <%= cf.label audience.name, audience.name, for: campaign_audience_dom_id(campaign, audience), class: "custom-control-label" %>
+                </div>
+              <% end %>
+              <div class="mt-2">
+                <a href="#" class="btn btn-link btn-light border" data-action="click->checkboxes#checkAll">Select All</a>
+                <a href="#" class="btn btn-link btn-light border" data-action="click->checkboxes#uncheckAll">Clear Selections</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <div class="col-6">
+      <%= render "/shared/errors", record: campaign %>
+      <%= render "/campaign_bundles/campaigns/inventory", campaign: campaign if campaign.start_date && campaign.region_ids.present? && campaign.audience_ids.present? %>
+    </div>
+  </div>
+<% end %>

@@ -3,44 +3,74 @@
 # Table name: campaigns
 #
 #  id                      :bigint           not null, primary key
-#  user_id                 :bigint
-#  creative_id             :bigint
-#  status                  :string           not null
-#  fallback                :boolean          default(FALSE), not null
-#  name                    :string           not null
-#  url                     :text             not null
-#  start_date              :date
-#  end_date                :date
+#  assigned_property_ids   :bigint           default([]), not null, is an Array
+#  audience_ids            :bigint           default([]), not null, is an Array
 #  core_hours_only         :boolean          default(FALSE)
-#  weekdays_only           :boolean          default(FALSE)
-#  total_budget_cents      :integer          default(0), not null
-#  total_budget_currency   :string           default("USD"), not null
+#  country_codes           :string           default([]), is an Array
+#  creative_ids            :bigint           default([]), not null, is an Array
 #  daily_budget_cents      :integer          default(0), not null
 #  daily_budget_currency   :string           default("USD"), not null
 #  ecpm_cents              :integer          default(0), not null
 #  ecpm_currency           :string           default("USD"), not null
-#  country_codes           :string           default([]), is an Array
-#  keywords                :string           default([]), is an Array
-#  negative_keywords       :string           default([]), is an Array
-#  created_at              :datetime         not null
-#  updated_at              :datetime         not null
-#  legacy_id               :uuid
-#  organization_id         :bigint
-#  job_posting             :boolean          default(FALSE), not null
-#  province_codes          :string           default([]), is an Array
+#  ecpm_multiplier         :decimal(, )      default(1.0), not null
+#  end_date                :date             not null
+#  fallback                :boolean          default(FALSE), not null
 #  fixed_ecpm              :boolean          default(TRUE), not null
-#  assigned_property_ids   :bigint           default([]), not null, is an Array
 #  hourly_budget_cents     :integer          default(0), not null
 #  hourly_budget_currency  :string           default("USD"), not null
-#  prohibited_property_ids :bigint           default([]), not null, is an Array
-#  creative_ids            :bigint           default([]), not null, is an Array
+#  job_posting             :boolean          default(FALSE), not null
+#  keywords                :string           default([]), is an Array
+#  name                    :string           not null
+#  negative_keywords       :string           default([]), is an Array
 #  paid_fallback           :boolean          default(FALSE)
+#  prohibited_property_ids :bigint           default([]), not null, is an Array
+#  province_codes          :string           default([]), is an Array
+#  region_ids              :bigint           default([]), not null, is an Array
+#  start_date              :date             not null
+#  status                  :string           not null
+#  total_budget_cents      :integer          default(0), not null
+#  total_budget_currency   :string           default("USD"), not null
+#  url                     :text             not null
+#  weekdays_only           :boolean          default(FALSE)
+#  created_at              :datetime         not null
+#  updated_at              :datetime         not null
+#  campaign_bundle_id      :bigint
+#  creative_id             :bigint
+#  legacy_id               :uuid
+#  organization_id         :bigint
+#  user_id                 :bigint
+#
+# Indexes
+#
+#  index_campaigns_on_assigned_property_ids    (assigned_property_ids) USING gin
+#  index_campaigns_on_audience_ids             (audience_ids) USING gin
+#  index_campaigns_on_campaign_bundle_id       (campaign_bundle_id)
+#  index_campaigns_on_core_hours_only          (core_hours_only)
+#  index_campaigns_on_country_codes            (country_codes) USING gin
+#  index_campaigns_on_creative_id              (creative_id)
+#  index_campaigns_on_creative_ids             (creative_ids) USING gin
+#  index_campaigns_on_end_date                 (end_date)
+#  index_campaigns_on_job_posting              (job_posting)
+#  index_campaigns_on_keywords                 (keywords) USING gin
+#  index_campaigns_on_name                     (lower((name)::text))
+#  index_campaigns_on_negative_keywords        (negative_keywords) USING gin
+#  index_campaigns_on_organization_id          (organization_id)
+#  index_campaigns_on_paid_fallback            (paid_fallback)
+#  index_campaigns_on_prohibited_property_ids  (prohibited_property_ids) USING gin
+#  index_campaigns_on_province_codes           (province_codes) USING gin
+#  index_campaigns_on_region_ids               (region_ids) USING gin
+#  index_campaigns_on_start_date               (start_date)
+#  index_campaigns_on_status                   (status)
+#  index_campaigns_on_user_id                  (user_id)
+#  index_campaigns_on_weekdays_only            (weekdays_only)
 #
 
 # IMPORTANT: Limit campaigns fixtures to [1] using only the minimum required data
 #            Additional setup should be perfomed in the test suite
 
 premium:
+  start_date: <%= 1.week.from_now.to_date %>
+  end_date: <%= 5.weeks.from_now.to_date %>
   organization: default
   user: advertiser
   creative: premium
@@ -67,6 +97,8 @@ premium:
     - US
 
 fallback:
+  start_date: <%= 1.week.from_now.to_date %>
+  end_date: <%= 5.weeks.from_now.to_date %>
   organization: default
   user: advertiser
   creative: fallback

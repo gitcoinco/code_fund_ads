@@ -29,6 +29,9 @@ class Region < ApplicationRecord
   include Taggable
 
   # relationships .............................................................
+  has_many :campaigns
+  has_many :campaign_bundles
+
   # validations ...............................................................
   # callbacks .................................................................
   # scopes ....................................................................
@@ -48,6 +51,67 @@ class Region < ApplicationRecord
 
   # class methods .............................................................
   class << self
+    def africa
+      find 1
+    end
+
+    def americas_central_southern
+      find 2
+    end
+
+    def americas_northern
+      find 3
+    end
+
+    def asia_central_and_south_eastern
+      find 4
+    end
+
+    def asia_eastern
+      find 5
+    end
+
+    def asia_southern_and_western
+      find 6
+    end
+
+    def australia_and_new_zealand
+      find 7
+    end
+
+    def europe
+      find 8
+    end
+
+    def europe_eastern
+      find 9
+    end
+
+    def other
+      find 10
+    end
+
+    def average_day_of_week_impressions_counts(*regions)
+      country_counts = regions.map { |region| Country.average_day_of_week_impressions_counts(countries: region.countries) }
+      country_counts.each_with_object({}) { |entry, memo|
+        entry.each do |day_of_week, count|
+          memo[day_of_week] ||= 0
+          memo[day_of_week] += count
+        end
+      }
+    end
+
+    def average_daily_impressions_count(*regions)
+      counts = average_day_of_week_impressions_counts(*regions)
+      return 0 unless counts.size > 0
+      (counts.values.sum / counts.size.to_f).floor
+    end
+
+    def average_daily_impressions_count_by_audience(*regions)
+      counts = average_day_of_week_impressions_counts(*regions)
+      return 0 unless counts.size > 0
+      (counts.values.sum / counts.size.to_f).floor
+    end
   end
 
   # public instance methods ...................................................
@@ -58,6 +122,18 @@ class Region < ApplicationRecord
 
   def ecpm(audience)
     public_send audience.ecpm_column_name.delete_suffix("_cents")
+  end
+
+  def countries
+    @countries ||= Country.where(iso_code: country_codes)
+  end
+
+  def average_day_of_week_impressions_counts
+    @average_day_of_week_impressions_counts ||= Region.average_day_of_week_impressions_counts(self)
+  end
+
+  def average_daily_impressions_count
+    @average_daily_impressions_count ||= Region.average_daily_impressions_count(self)
   end
 
   # protected instance methods ................................................

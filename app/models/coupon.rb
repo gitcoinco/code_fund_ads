@@ -3,15 +3,19 @@
 # Table name: coupons
 #
 #  id               :bigint           not null, primary key
+#  claimed          :integer          default(0), not null
 #  code             :string           not null
-#  description      :string
 #  coupon_type      :string           not null
+#  description      :string
 #  discount_percent :integer          default(0), not null
 #  expires_at       :datetime         not null
 #  quantity         :integer          default(99999), not null
-#  claimed          :integer          default(0), not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
+#
+# Indexes
+#
+#  index_coupons_on_code  (code) UNIQUE
 #
 
 class Coupon < ApplicationRecord

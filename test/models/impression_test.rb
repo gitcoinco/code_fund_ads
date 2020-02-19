@@ -50,6 +50,48 @@ class ImpressionTest < ActiveSupport::TestCase
     )
   end
 
+  test "US applicable_ecpm without region_ids" do
+    @impression.campaign.update fixed_ecpm: false, region_ids: []
+    assert @impression.country_code == "US"
+    assert @impression.campaign.ecpm == Monetize.parse("$3.00 USD")
+    assert @impression.applicable_ecpm == Monetize.parse("$3.00 USD")
+  end
+
+  test "JP applicable_ecpm without region_ids" do
+    @impression.update country_code: "JP"
+    @impression.campaign.update fixed_ecpm: false, region_ids: []
+    assert @impression.campaign.ecpm == Monetize.parse("$3.00 USD")
+    assert @impression.applicable_ecpm == Monetize.parse("$0.30 USD")
+  end
+
+  test "US + CSS & Design applicable_ecpm with bundle and region_ids" do
+    @impression.property.update audience: Audience.css_and_design
+    @impression.campaign.update campaign_bundle: amend(campaign_bundles: :default, region_ids: [Region.americas_northern.id, Region.asia_southern_and_western.id])
+    assert @impression.country_code == "US"
+    assert @impression.applicable_ecpm == Monetize.parse("$3.75 USD")
+  end
+
+  test "US + CSS & Design applicable_ecpm with bundle, region_ids, and multiplier" do
+    @impression.property.update audience: Audience.css_and_design
+    @impression.campaign.update ecpm_multiplier: 0.85, campaign_bundle: amend(campaign_bundles: :default, region_ids: [Region.americas_northern.id, Region.asia_southern_and_western.id])
+    assert @impression.country_code == "US"
+    assert @impression.applicable_ecpm == Monetize.parse("$3.19 USD")
+  end
+
+  test "IN + JavaScript applicable_ecpm with bundle and region_ids" do
+    @impression.update country_code: "IN"
+    @impression.property.update audience: Audience.css_and_design
+    @impression.campaign.update campaign_bundle: amend(campaign_bundles: :default, region_ids: [Region.americas_northern.id, Region.asia_southern_and_western.id])
+    assert @impression.applicable_ecpm == Monetize.parse("$1.13 USD")
+  end
+
+  test "IN + JavaScript applicable_ecpm with bundle, region_ids, and multiplier" do
+    @impression.update country_code: "IN"
+    @impression.property.update audience: Audience.css_and_design
+    @impression.campaign.update ecpm_multiplier: 1.35, campaign_bundle: amend(campaign_bundles: :default, region_ids: [Region.americas_northern.id, Region.asia_southern_and_western.id])
+    assert @impression.applicable_ecpm == Monetize.parse("$1.53 USD")
+  end
+
   test "calculated revenue with fixed ecpm campaign and unknown country" do
     @impression.update country_code: nil
     @impression.property.update revenue_percentage: 0.65

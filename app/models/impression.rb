@@ -69,6 +69,7 @@ class Impression < ApplicationRecord
     when Campaign then where campaign_id: value.id
     when Property then where property_id: value.id
     when Creative then where creative_id: value.id
+    when Country then where(country_code: value.iso_code)
     else
       if value.nil? && type.nil?
         all
@@ -229,7 +230,11 @@ class Impression < ApplicationRecord
   end
 
   def applicable_ecpm
-    campaign.adjusted_ecpm country_code
+    return campaign.adjusted_ecpm(country_code) if campaign.campaign_pricing_strategy?
+
+    # region/audience based ecpm i.e. our new sales strategy
+    region = campaign.regions.with_all_country_codes(country_code).first || Region.other
+    region.ecpm(property.audience) * campaign.ecpm_multiplier
   end
 
   def calculate_estimated_gross_revenue_fractional_cents
