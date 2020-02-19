@@ -87,14 +87,14 @@ class ApplicationController < ActionController::Base
         {href: "/favicon-16x16.png", sizes: "16x16", rel: "icon", type: "image/png"},
         {href: "/safari-pinned-tab.svg", rel: "mask-icon", color: "#5bbad5", type: "image/svg"},
       ],
-      manifest: {href: "/site.webmanifest"},
+      manifest: "/site.webmanifest",
       alternate: [
         {href: "#{ENV["WORDPRESS_URL"]}/blog/feed", type: "application/rss+xml", title: "RSS"},
       ],
       "apple-mobile-web-app-title": "CodeFund",
       "application-name": "CodeFund",
       "msapplication-TileColor": "#da532c",
-      "theme-color": "#ffffff",
+      "theme-color": "#3063A0",
       og: {
         title: :title,
         type: "website",
