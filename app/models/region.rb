@@ -116,6 +116,11 @@ class Region < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def name
+    return "#{super} (US and Canada only)" if id == 3
+    super
+  end
+
   def read_only?
     true
   end
