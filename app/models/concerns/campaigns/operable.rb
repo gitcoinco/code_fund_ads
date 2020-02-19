@@ -14,7 +14,7 @@ module Campaigns
     end
 
     def total_operative_days
-      operative_dates.size
+      operative_dates&.size
     end
 
     def remaining_operative_dates
@@ -23,7 +23,7 @@ module Campaigns
     end
 
     def remaining_operative_days
-      remaining_operative_dates.size
+      remaining_operative_dates&.size
     end
 
     def consumed_operative_days
