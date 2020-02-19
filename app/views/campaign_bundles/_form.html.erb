@@ -12,7 +12,7 @@
           <div class="row">
             <div class="col form-group">
               <%= f.label :name %>
-              <%= f.text_field :name, class: "form-control", required: true, data: {controller: "application", reflex: "cf:value-committed->CampaignBundlesReflex#update_name"} %>
+              <%= f.text_field :name, class: "form-control", required: true, data: {reflex: "cf:value-committed->CampaignBundlesReflex#update_name"} %>
             </div>
           </div>
 
