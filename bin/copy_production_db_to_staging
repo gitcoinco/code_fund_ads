@@ -16,6 +16,7 @@ if [ -z "$(which aws)" ]; then
   exit 1
 fi
 
+source .env
 ./bin/heroku_pg_dump_production_replica
 heroku pg:reset DATABASE_URL -a $app
 aws s3 rm s3://codefund-backups/production-db/production-shallow.dump
