@@ -40,7 +40,7 @@ gem "jwt", "~> 2.2.1"
 gem "liquid", "~> 4.0.1"
 gem "mailgun-ruby", "~> 1.2.0"
 gem "maxminddb", "~> 0.1.22"
-gem "meta-tags", "~> 2.12.0"
+gem "meta-tags", "~> 2.13.0"
 gem "mini_magick", "~> 4.9.2" # intended for use with ActiveStorage & graphicsmagick
 gem "monetize", "~> 1.9.0"
 gem "money", "~> 6.13.1"
