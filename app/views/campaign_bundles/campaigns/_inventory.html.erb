@@ -10,8 +10,8 @@
         <tr class="bg-light">
           <th class="rounded-0">Region</th>
           <th class="rounded-0">Audience</th>
-          <th class="rounded-0"><small class="d-block opacity-60">Base</small>eCPM</th>
-          <th class="rounded-0"><small class="d-block opacity-60">Adjusted</small>eCPM</th>
+          <th class="rounded-0 text-right"><small class="d-block opacity-60">Base</small>eCPM</th>
+          <th class="rounded-0 text-right"><small class="d-block opacity-60">Adjusted</small>eCPM</th>
         </tr>
       </thead>
       <tbody>
@@ -32,8 +32,8 @@
         <tr class="bg-light">
           <th class="rounded-0">Region</th>
           <th class="rounded-0">Audience</th>
-          <th class="rounded-0"><small class="d-block opacity-60">Average Daily</small> Impressions</th>
-          <th class="rounded-0"><small class="d-block opacity-60">Average Daily</small> Percentage</th>
+          <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Daily</small> Impressions</th>
+          <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Daily</small> Percentage</th>
         </tr>
       </thead>
       <tbody>
@@ -63,8 +63,8 @@
           <th class="rounded-0">#</th>
           <th class="rounded-0">Region</th>
           <th class="rounded-0">Audience</th>
-          <th class="rounded-0"><small class="d-block opacity-60">Estimated Daily</small>Impressions</th>
-          <th class="rounded-0"><small class="d-block opacity-60">Estimated Daily</small>Value</th>
+          <th class="rounded-0 text-right"><small class="d-block opacity-60">Estimated Daily</small>Impressions</th>
+          <th class="rounded-0 text-right"><small class="d-block opacity-60">Estimated Daily</small>Value</th>
         </tr>
       </thead>
       <tbody>
@@ -120,16 +120,16 @@
           <tr class="bg-light">
             <th class="rounded-0">ID</th>
             <th class="rounded-0">Status</th>
-            <th class="rounded-0">Daily Budget</th>
-            <th class="rounded-0">Start</th>
-            <th class="rounded-0">End</th>
+            <th class="rounded-0 text-right">Daily Budget</th>
+            <th class="rounded-0 text-right">Start</th>
+            <th class="rounded-0 text-right">End</th>
           </tr>
         </thead>
         <tbody>
           <% campaign.inventory_summary.current_competitors.each do |c| %>
             <tr>
               <td data="tooltip_expando" title="<%= c.name %>"><%= link_to c.id, c %></td>
-              <td><%= c.status %></td>
+              <td class="text-<%= campaign_status_color(c.status) %>"><%= c.status.humanize %></span></td>
               <td class="text-right text-monospace"><%= c.daily_budget.format %></td>
               <td class="text-right text-monospace"><%= c.start_date.to_s("mm/dd/yyyy") %></td>
               <td class="text-right text-monospace"><%= c.end_date&.to_s("mm/dd/yyyy") %></td>
@@ -167,7 +167,7 @@
           <% campaign.inventory_summary.future_competitors.each do |c| %>
             <tr>
               <td data="tooltip_expando" title="<%= c.name %>"><%= link_to c.id, c, target: "_blank" %></td>
-              <td><%= c.status %></td>
+              <td class="text-<%= campaign_status_color(c.status) %>"><%= c.status.humanize %></span></td>
               <td class="text-right text-monospace"><%= c.daily_budget.format %></td>
               <td class="text-right text-monospace"><%= c.start_date.to_s("mm/dd/yyyy") %></td>
               <td class="text-right text-monospace"><%= c.end_date&.to_s("mm/dd/yyyy") %></td>
