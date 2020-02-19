@@ -337,7 +337,7 @@
             <div class="col-12 mb-2">
               <div class="media align-items-center mb-3">
                 <label class="switcher-control mb-0 mr-3">
-                  <%= f.check_box :fixed_ecpm, class: "switcher-input", "data-reflex-permanent": true %>
+                  <%= f.check_box(:fixed_ecpm, class: "switcher-input", input_html: {data:{"reflex-permanent": true}}) %>
                   <span class="switcher-indicator"></span>
                 </label>
                 <label class="media-body text-muted mb-0">
