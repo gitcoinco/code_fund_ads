@@ -6,16 +6,7 @@ export default class extends Controller {
     StimulusReflex.register(this)
   }
 
-  beforeReflex (element) {
-    document
-      .querySelectorAll('.reflex-activity')
-      .forEach(e => (e.hidden = false))
-  }
-
   afterReflex (element) {
-    document
-      .querySelectorAll('.reflex-activity')
-      .forEach(e => (e.hidden = true))
     this.focus(element)
   }
 
