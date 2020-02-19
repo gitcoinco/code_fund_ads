@@ -183,7 +183,7 @@
         <small class="mt-1 d-block text-primary opacity-70">Multivariate testing is used to determine the most effective creative</small>
       <% end %>
     <% end %>
-    <% cache Current.organization.creatives.active do %>
+    <% cache [Current.organization.creatives.active, campaign.creative_ids.join] do %>
       <%= card_body do %>
         <div class="d-flex flex-column">
           <% Current.organization.creatives.active.each do |creative| %>

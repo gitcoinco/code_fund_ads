@@ -619,7 +619,6 @@ class Campaign < ApplicationRecord
   def sync_to_campaign_bundle
     return unless campaign_bundle
     self.organization_id = campaign_bundle.organization_id
-    self.user_id = campaign_bundle.user_id
     self.region_ids = campaign_bundle.region_ids
     self.start_date = campaign_bundle.start_date
     self.end_date = campaign_bundle.end_date
