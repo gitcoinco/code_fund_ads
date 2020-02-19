@@ -3,7 +3,7 @@
     <div class="sidebar-backdrop"></div>
   <% end %>
 
-  <div class="page-inner">
+  <div class="page-inner" data-controller="auto-height">
     <%= render "/shared/page_heading_with_subtitle",
       title: local_assigns[:title] || subject.name,
       subtitle: local_assigns[:subtitle],
