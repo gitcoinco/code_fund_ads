@@ -95,7 +95,7 @@ GEM
       activerecord (>= 4.0.0, < 7.0)
     awesome_print (1.8.0)
     aws-eventstream (1.0.3)
-    aws-partitions (1.273.0)
+    aws-partitions (1.275.0)
     aws-sdk-core (3.90.1)
       aws-eventstream (~> 1.0, >= 1.0.2)
       aws-partitions (~> 1, >= 1.239.0)
@@ -188,12 +188,12 @@ GEM
       netaddr (>= 2.0.4, < 3)
       simpleidn
     equatable (0.6.1)
-    erb_lint (0.0.30)
+    erb_lint (0.0.31)
       activesupport
       better_html (~> 1.0.7)
       html_tokenizer
       rainbow
-      rubocop (~> 0.51)
+      rubocop (~> 0.79.0)
       smart_properties
     erubi (1.9.0)
     ethon (0.12.0)
@@ -204,7 +204,7 @@ GEM
     factory_bot_rails (5.1.1)
       factory_bot (~> 5.1.0)
       railties (>= 4.2.0)
-    faker (2.10.1)
+    faker (2.10.2)
       i18n (>= 1.6, < 2)
     faraday (1.0.0)
       multipart-post (>= 1.2, < 3)
@@ -422,10 +422,10 @@ GEM
     reverse_markdown (1.4.0)
       nokogiri
     rollbar (2.24.0)
-    rubocop (0.77.0)
+    rubocop (0.79.0)
       jaro_winkler (~> 1.5.1)
       parallel (~> 1.10)
-      parser (>= 2.6)
+      parser (>= 2.7.0.1)
       rainbow (>= 2.2.2, < 4.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 1.4.0, < 1.7)
@@ -515,11 +515,11 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     staccato (0.5.3)
-    standard (0.1.7)
-      rubocop (~> 0.77.0)
+    standard (0.1.9)
+      rubocop (~> 0.79.0)
       rubocop-performance (~> 1.5.1)
     statsd-ruby (1.4.0)
-    stimulus_reflex (2.1.8)
+    stimulus_reflex (2.1.9)
       cable_ready (>= 4.0)
       nokogiri
       rack
@@ -692,7 +692,7 @@ DEPENDENCIES
   spreadsheet (~> 1.2.4)
   staccato (~> 0.5.1)
   standard (>= 0.1)
-  stimulus_reflex (~> 2.1.4)
+  stimulus_reflex (~> 2.1.9)
   stopwords-filter (~> 0.4.1)
   stripe (~> 5.4.1)
   tag_columns (~> 0.1.8)
