@@ -26,7 +26,7 @@
             <div class="col form-group">
               <%= cf.label :name %>
               <%= cf.text_field :name, class: "form-control", required: true,
-                data: { controller: "application", reflex: "cf:value-committed->CampaignBundlesReflex#update_campaign_name", temporary_id: campaign.temporary_id } %>
+                data: { reflex: "cf:value-committed->CampaignBundlesReflex#update_campaign_name", temporary_id: campaign.temporary_id } %>
             </div>
           </div>
 
@@ -34,7 +34,7 @@
             <div class="col form-group">
               <%= cf.label :url, "URL" %>
               <%= cf.text_field :url, class: "form-control", required: true, placeholder: "https://example.com/?utm_source=codefund&utm_campaign={{campaign_id}}",
-                data: { controller: "application", reflex: "cf:value-committed->CampaignBundlesReflex#update_campaign_url", temporary_id: campaign.temporary_id } %>
+                data: { reflex: "cf:value-committed->CampaignBundlesReflex#update_campaign_url", temporary_id: campaign.temporary_id } %>
               <details class="mt-2">
                 <summary>Use any of the following variables in the URL</summary>
                 <%= table do %>
@@ -119,7 +119,7 @@
             <div class="col-6 form-group">
               <%= cf.label :daily_budget, "Daily Budget" %>
               <%= cf.text_field :daily_budget, value: campaign.daily_budget.format(symbol: false), step: 0.01, class: "form-control", required: true,
-                data: {controller: "application", reflex: "cf:value-committed->CampaignBundlesReflex#update_campaign_daily_budget", temporary_id: campaign.temporary_id } %>
+                data: { reflex: "cf:value-committed->CampaignBundlesReflex#update_campaign_daily_budget", temporary_id: campaign.temporary_id } %>
               <small class="form-text text-muted">
                 The average you want to spend each day
               </small>
@@ -127,7 +127,7 @@
             <div class="col-6 form-group">
               <%= cf.label :ecpm_multiplier, "eCPM Multiplier" %>
               <%= cf.number_field :ecpm_multiplier, class: "form-control", required: true, step: 0.01,
-                data: { controller: "application", reflex: "cf:value-committed->CampaignBundlesReflex#update_campaign_ecpm_multiplier", temporary_id: campaign.temporary_id } %>
+                data: { reflex: "cf:value-committed->CampaignBundlesReflex#update_campaign_ecpm_multiplier", temporary_id: campaign.temporary_id } %>
             </div>
           </div>
 

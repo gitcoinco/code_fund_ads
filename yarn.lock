@@ -9184,10 +9184,10 @@ stdout-stream@^1.4.0:
     "@stimulus/core" "^1.1.1"
     "@stimulus/webpack-helpers" "^1.1.1"
 
-stimulus_reflex@^2.1.4:
-  version "2.1.7"
-  resolved "https://registry.yarnpkg.com/stimulus_reflex/-/stimulus_reflex-2.1.7.tgz#37265c2acee733f807228cffa185816f9358ba4f"
-  integrity sha512-OsYRHJSoTzVWmqnXu3xBLGHIfjds1B0/QCugkilwklaZkM8F4EJOEnKASYcNgbsiT74o62R9anZwaEjPPEm5dA==
+stimulus_reflex@^2.1.9:
+  version "2.1.9"
+  resolved "https://registry.yarnpkg.com/stimulus_reflex/-/stimulus_reflex-2.1.9.tgz#aff2c7390645cd3d81b4944d983a871bdd362f39"
+  integrity sha512-mBmgRciPuKnuKK/YNmEC45LDeAy/c4yxKBDWvl7Bc0ms8kfI/dAS1psGx0aLAlqCwe1hargFzQnEQ0DOAZcl3w==
   dependencies:
     actioncable ">= 5.2"
     cable_ready ">= 4.0"
