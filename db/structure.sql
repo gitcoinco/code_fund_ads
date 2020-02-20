@@ -820,7 +820,8 @@ CREATE TABLE public.properties (
     fallback_ad_template character varying,
     fallback_ad_theme character varying,
     responsive_behavior character varying DEFAULT 'none'::character varying NOT NULL,
-    audience_id bigint
+    audience_id bigint,
+    deleted_at timestamp without time zone
 );
 
 
@@ -2892,6 +2893,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200121171555'),
 ('20200123175239'),
 ('20200207162017'),
-('20200213234149');
+('20200213234149'),
+('20200220160136');
 
 

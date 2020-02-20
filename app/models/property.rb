@@ -6,6 +6,7 @@
 #  ad_template                    :string
 #  ad_theme                       :string
 #  assigned_fallback_campaign_ids :bigint           default([]), not null, is an Array
+#  deleted_at                     :datetime
 #  description                    :text
 #  fallback_ad_template           :string
 #  fallback_ad_theme              :string
