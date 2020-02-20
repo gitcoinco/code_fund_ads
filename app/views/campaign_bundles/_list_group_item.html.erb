@@ -7,7 +7,7 @@
         <h4 class="list-group-item-title">
           <%= link_to campaign_bundle.name, campaign_bundle, title: "View campaign_bundle", data: tooltip_expando %><br />
           <% if authorized_user.can_admin_system? %>
-            <small><%= link_to campaign_bundle.organization.name, user_path(campaign_bundle.user) %></small>
+            <small><%= link_to campaign_bundle.organization.name, organization_path(campaign_bundle.organization) %></small>
           <% end %>
         </h4>
       </div>

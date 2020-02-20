@@ -1,4 +1,4 @@
-<%= form_with model: @campaign_bundle, id: "campaign-bundle-form" do |f| %>
+<%= form_with model: @campaign_bundle, id: "campaign-bundle-form", local: true do |f| %>
   <div class="row">
     <div class="col-6">
       <%= card do %>
@@ -12,12 +12,18 @@
           <div class="row">
             <div class="col form-group">
               <%= f.label :name %>
-              <%= f.text_field :name, class: "form-control", required: true, data: {reflex: "cf:value-committed->CampaignBundlesReflex#update_name"} %>
+              <%= f.text_field :name, class: "form-control", data: {reflex: "cf:value-committed->CampaignBundlesReflex#update_name"} %>
             </div>
           </div>
 
           <div class="row">
-            <div class="col form-group">
+            <div class="col-md-6 form-group">
+              <%= f.label "Advertiser" %>
+              <%= f.select :user_id, organization_users_for_select, {},
+                class: "form-control custom-select",  data: {controller: "select", reflex_permanent: true} %>
+            </div>
+            <div class="col-md-6 form-group">
+              <%= f.label "Date Range" %>
               <%= f.text_field(:date_range, class: "js-range-datepicker form-control bg-white rounded-right",
                                 data: {reflex: "cf:date-range-selected->CampaignBundlesReflex#update_date_range", controller: "select-date-range"}) %>
             </div>

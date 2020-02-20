@@ -5,6 +5,7 @@ class CampaignBundlesController < ApplicationController
   include CampaignBundles::Stashable
 
   before_action :authenticate_user!
+  before_action :authenticate_administrator!, only: [:new, :create]
   before_action -> { @campaign_bundle ||= stashed_campaign_bundle }, only: :new
   after_action -> { stash_campaign_bundle @campaign_bundle }, only: :new
   before_action :set_campaign_bundle, only: :show
@@ -29,9 +30,8 @@ class CampaignBundlesController < ApplicationController
   def create
     @campaign_bundle = CampaignBundle.new(campaign_bundle_params)
     @campaign_bundle.organization = Current.organization
-    @campaign_bundle.user = current_user
     @campaign_bundle.campaigns.each do |campaign|
-      campaign.assign_attributes status: ENUMS::CAMPAIGN_STATUSES::ACCEPTED
+      campaign.assign_attributes user_id: @campaign_bundle.user_id, status: ENUMS::CAMPAIGN_STATUSES::ACCEPTED
     end
 
     respond_to do |format|
@@ -57,8 +57,9 @@ class CampaignBundlesController < ApplicationController
 
   def campaign_bundle_params
     params.require(:campaign_bundle).permit(
-      :name,
       :date_range,
+      :name,
+      :user_id,
       region_ids: [],
       campaigns_attributes: [:name, :url, :daily_budget, :ecpm_multiplier, audience_ids: []]
     )
