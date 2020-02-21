@@ -30,13 +30,16 @@ module Campaigns
     end
 
     def update_cloned_campaign(campaign)
-      cloned_campaign = Campaign.find(params[:clone])
       if cloned_campaign.present?
         campaign.attributes = cloned_campaign.attributes
         campaign.user = cloned_campaign.user
         campaign.status = "pending"
       end
       campaign
+    end
+
+    def cloned_campaign
+      @cloned_campaign ||= Campaign.find(params[:clone])
     end
 
     def stashed_campaign_params
