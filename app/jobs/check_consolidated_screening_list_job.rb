@@ -1,5 +1,3 @@
-require "consolidated_screening_list"
-
 class CheckConsolidatedScreeningListJob < ApplicationJob
   queue_as :low
 
