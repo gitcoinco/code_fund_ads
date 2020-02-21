@@ -15,7 +15,7 @@
 #  name                           :string           not null
 #  prohibit_fallback_campaigns    :boolean          default(FALSE), not null
 #  prohibited_advertiser_ids      :bigint           default([]), not null, is an Array
-#  property_type                  :string           not null
+#  property_type                  :string           default("website"), not null
 #  responsive_behavior            :string           default("none"), not null
 #  restrict_to_assigner_campaigns :boolean          default(FALSE), not null
 #  revenue_percentage             :decimal(, )      default(0.6), not null
