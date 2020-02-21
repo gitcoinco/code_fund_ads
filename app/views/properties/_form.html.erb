@@ -25,7 +25,7 @@
                             collection: ENUMS::PROPERTY_TYPES.values.map { |property_type| [property_type.capitalize, property_type] },
                             required: true,
                               input_html: {class: "form-control", data: {controller: "select", "reflex-permanent": true}
-                            }), class: "col-md-6 mb-3" %>
+                            }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
         <%= tag.div f.input(:audience_id,
                             label: "Audience",
                             collection: Audience.all.map { |audience| [audience.name, audience.id] },
