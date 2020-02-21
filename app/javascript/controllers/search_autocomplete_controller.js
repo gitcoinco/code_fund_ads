@@ -1,6 +1,6 @@
 import Turbolinks from 'turbolinks'
 import { Controller } from 'stimulus'
-import debounce from 'lodash.debounce'
+import { debounce } from 'lodash'
 
 export default class extends Controller {
   static targets = ['input', 'hidden', 'results']

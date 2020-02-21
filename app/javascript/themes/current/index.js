@@ -5,7 +5,6 @@ import 'jquery-validation'
 // =========== Vendor ===========
 // TODO: Remove the hs.core and hs.clipboard in favor of stimulus
 import 'themes/current/javascript/hs.core'
-import 'themes/current/javascript/components/hs.clipboard'
 
 // =========== Vendor ===========
 import './stylesheets/application.scss'

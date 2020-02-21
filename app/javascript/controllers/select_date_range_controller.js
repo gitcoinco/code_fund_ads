@@ -37,4 +37,8 @@ export default class extends Controller {
   connect () {
     init(this.element)
   }
+
+  submit () {
+    this.element.closest('form').submit()
+  }
 }
