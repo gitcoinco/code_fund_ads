@@ -53,7 +53,7 @@ COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
 SET default_tablespace = '';
 
-SET default_table_access_method = heap;
+SET default_with_oids = false;
 
 --
 -- Name: active_storage_attachments; Type: TABLE; Schema: public; Owner: -
@@ -2896,5 +2896,3 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200213234149'),
 ('20200220160136'),
 ('20200221220825');
-
-
