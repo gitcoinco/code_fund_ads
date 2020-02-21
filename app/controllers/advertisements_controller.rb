@@ -77,7 +77,7 @@ class AdvertisementsController < ApplicationController
 
   def catch_all_sponsor_html
     key = "Creative/sponsor-catch-all"
-    Rails.cache.fetch(key) { File.read(Rails.root.join("app/assets/images/sponsor-catch-all.svg")) }
+    Rails.cache.fetch(key) { File.read(Rails.root.join("app/javascript/images/sponsor-catch-all.svg")) }
   end
 
   def set_advertisement_variables

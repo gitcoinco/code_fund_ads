@@ -1,99 +1,95 @@
 <% cache [current_user, Current.organization] do %>
-<header class="app-header app-header-dark" style="
-        background-color: #15003e !important;
-        background-image: url(<%= asset_path("bg-shapes/pattern2.svg") %>);
-        background-size: initial;
-        background-repeat: repeat;">
-  <div class="top-bar">
-    <div class="top-bar-brand">
-      <%= link_to root_path, class: "navbar-brand" do %>
-        <%= image_tag "codefund-wg-full-256.svg", alt: "CodeFund" %>
-      <% end %>
-    </div>
-
-    <div class="top-bar-list">
-      <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
-        <button data-controller="sidebar" data-action="click->sidebar#toggle click@window->sidebar#hide" class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="Menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button>
+  <header class="app-header app-header-dark">
+    <div class="top-bar">
+      <div class="top-bar-brand">
+        <%= link_to root_path, class: "navbar-brand" do %>
+          <%= image_pack_tag "codefund-wg-full-256.svg", alt: "CodeFund" %>
+        <% end %>
       </div>
 
-      <div class="top-bar-item top-bar-item-full">
-        <form class="top-bar-search"
-            data-controller="search-autocomplete"
-            data-action="submit->search-autocomplete#submit"
-          data-autocomplete-url="/search"
-          data-min-length="2"
-          class="search-autocomplete js-focus-state input-group input-group-lg">
-          <div class="input-group input-group-search dropdown">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><span class="fas fa-search"></span></span>
-            </div>
-            <input type="hidden" name="bird_id" data-target="search-autocomplete.hidden" />
-            <input type="search" id="search-input" class="form-control" placeholder="Search" aria-label="Search" data-target="search-autocomplete.input" />
-            <ul data-target="search-autocomplete.results" class="list-group"></ul>
-          </div>
-        </form>
-      </div>
+      <div class="top-bar-list">
+        <div class="top-bar-item px-2 d-md-none d-lg-none d-xl-none">
+          <button data-controller="sidebar" data-action="click->sidebar#toggle click@window->sidebar#hide" class="hamburger hamburger-squeeze" type="button" data-toggle="aside" aria-label="Menu"><span class="hamburger-box"><span class="hamburger-inner"></span></span></button>
+        </div>
 
-      <div class="top-bar-item top-bar-item-right px-0 d-none d-sm-flex">
-        <ul class="header-nav nav">
-          <li class="nav-item dropdown header-nav-dropdown">
-            <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span class="fas fa-th"></span>
-              </a>
-            <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
-              <div class="dropdown-arrow"></div>
-              <div class="dropdown-sheets">
-                <% {
-                  "CodeFund": {image: "codefund-logo.svg", url: ENV["WORDPRESS_URL"], color: "dfeaff", top: 7, left: 7},
-                  "Bounties": {image: "tophat/gitcoin-symbol.svg", url: "https://gitcoin.co", color: "29086a", top: 4, left: 5},
-                  "Grants": {image: "tophat/grants-symbol.svg", url: "https://gitcoin.co/grants", color: "00a55e", top: 8, left: 6},
-                  "Quests": {image: "tophat/quests-symbol.svg", url: "https://gitcoin.co/quests", color: "ffffff", top: 4, left: 5},
-                  "Kudos": {image: "tophat/kudos-symbol.svg", url: "https://gitcoin.co/kudos", color: "3e00ff", top: 4, left: 5},
-                  "Hackathons": {image: "tophat/gitcoin-symbol.svg", url: "https://gitcoin.co/hackathons", color: "55508e", top: 4, left: 5}
-                }.each do |title, data| %>
-                  <div class="dropdown-sheet-item">
-                    <%= link_to data[:url], target: "_blank", class: "tile-wrapper" do %>
-                      <span class="tile tile-lg" style="background-color: #<%= data[:color] %>; position: relative;">
-                        <%= image_tag data[:image], style: "width: 35px; height: 35px; top: #{data[:top]}px; left: #{data[:left]}px;" %>
-                      </span>
-                      <span class="tile-peek"><%= title %></span>
-                    <% end %>
-                  </div>
-                <% end %>
+        <div class="top-bar-item top-bar-item-full">
+          <form class="top-bar-search"
+              data-controller="search-autocomplete"
+              data-action="submit->search-autocomplete#submit"
+            data-autocomplete-url="/search"
+            data-min-length="2"
+            class="search-autocomplete js-focus-state input-group input-group-lg">
+            <div class="input-group input-group-search dropdown">
+              <div class="input-group-prepend">
+                <span class="input-group-text"><span class="fas fa-search"></span></span>
               </div>
+              <input type="hidden" name="bird_id" data-target="search-autocomplete.hidden" />
+              <input type="search" id="search-input" class="form-control" placeholder="Search" aria-label="Search" data-target="search-autocomplete.input" />
+              <ul data-target="search-autocomplete.results" class="list-group"></ul>
             </div>
-          </li>
-        </ul>
-      </div>
+          </form>
+        </div>
 
-      <div class="dropdown d-flex">
-        <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <span class="user-avatar user-avatar-md"><%= user_avatar_image_tag(current_user, "") %></span>
-          <span class="account-summary pr-lg-4 d-none d-lg-block">
-            <span class="account-name"><%= current_user.name %></span>
-            <span class="account-description"><%= Current.organization&.name %></span>
-          </span>
-        </button>
-        <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 56px; left: 0px;">
-          <div class="dropdown-arrow ml-3"></div>
-          <h6 class="dropdown-header d-none d-md-block d-lg-none"><%= current_user.name %></h6>
-          <%= link_to user_path(current_user), class: "dropdown-item" do %>
-            <span class="dropdown-icon fas fa-user"></span> Profile
-          <% end %>
-          <%= link_to destroy_user_session_path, class: "dropdown-item" do %>
-            <span class="dropdown-icon fas fa-sign-out"></span>
-            Logout
-          <% end %>
-          <% if current_user != true_user %>
-            <div class="dropdown-divider"></div>
-            <%= link_to stop_user_impersonation_path, class: "dropdown-item" do %>
-              <span class="dropdown-icon fas fa-sign-in"></span>
-              Back to <%= true_user.first_name %>
+        <div class="top-bar-item top-bar-item-right px-0 d-none d-sm-flex">
+          <ul class="header-nav nav">
+            <li class="nav-item dropdown header-nav-dropdown">
+              <a class="nav-link" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="fas fa-th"></span>
+                </a>
+              <div class="dropdown-menu dropdown-menu-rich dropdown-menu-right">
+                <div class="dropdown-arrow"></div>
+                <div class="dropdown-sheets">
+                  <% {
+                    "CodeFund": {image: "branding/codefund-logo.svg", url: ENV["WORDPRESS_URL"], color: "dfeaff", top: 7, left: 7},
+                    "Bounties": {image: "tophat/gitcoin-symbol.svg", url: "https://gitcoin.co", color: "29086a", top: 4, left: 5},
+                    "Grants": {image: "tophat/grants-symbol.svg", url: "https://gitcoin.co/grants", color: "00a55e", top: 8, left: 6},
+                    "Quests": {image: "tophat/quests-symbol.svg", url: "https://gitcoin.co/quests", color: "ffffff", top: 4, left: 5},
+                    "Kudos": {image: "tophat/kudos-symbol.svg", url: "https://gitcoin.co/kudos", color: "3e00ff", top: 4, left: 5},
+                    "Hackathons": {image: "tophat/gitcoin-symbol.svg", url: "https://gitcoin.co/hackathons", color: "55508e", top: 4, left: 5}
+                  }.each do |title, data| %>
+                    <div class="dropdown-sheet-item">
+                      <%= link_to data[:url], target: "_blank", class: "tile-wrapper" do %>
+                        <span class="tile tile-lg" style="background-color: #<%= data[:color] %>; position: relative;">
+                          <%= image_pack_tag data[:image], style: "width: 35px; height: 35px; top: #{data[:top]}px; left: #{data[:left]}px;" %>
+                        </span>
+                        <span class="tile-peek"><%= title %></span>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="dropdown d-flex">
+          <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <span class="user-avatar user-avatar-md"><%= user_avatar_image_tag(current_user, "") %></span>
+            <span class="account-summary pr-lg-4 d-none d-lg-block">
+              <span class="account-name"><%= current_user.name %></span>
+              <span class="account-description"><%= Current.organization&.name %></span>
+            </span>
+          </button>
+          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 56px; left: 0px;">
+            <div class="dropdown-arrow ml-3"></div>
+            <h6 class="dropdown-header d-none d-md-block d-lg-none"><%= current_user.name %></h6>
+            <%= link_to user_path(current_user), class: "dropdown-item" do %>
+              <span class="dropdown-icon fas fa-user"></span> Profile
             <% end %>
-          <% end %>
+            <%= link_to destroy_user_session_path, class: "dropdown-item" do %>
+              <span class="dropdown-icon fas fa-sign-out"></span>
+              Logout
+            <% end %>
+            <% if current_user != true_user %>
+              <div class="dropdown-divider"></div>
+              <%= link_to stop_user_impersonation_path, class: "dropdown-item" do %>
+                <span class="dropdown-icon fas fa-sign-in"></span>
+                Back to <%= true_user.first_name %>
+              <% end %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</header>
+  </header>
 <% end %>

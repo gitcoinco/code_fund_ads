@@ -45,7 +45,7 @@ class ActiveSupport::TestCase
   def attach_small_image!(record)
     name = "seed-200x200.png"
     record.images.attach(
-      io: File.open(Rails.root.join("app/assets/images/seeds/seed-200x200.png")),
+      io: File.open(Rails.root.join("test/assets/images/seeds/seed-200x200.png")),
       filename: "seed-200x200.png",
       content_type: "image/png",
       metadata: {
@@ -63,7 +63,7 @@ class ActiveSupport::TestCase
   def attach_large_image!(record)
     name = "seed-260x200.png"
     record.images.attach(
-      io: File.open(Rails.root.join("app/assets/images/seeds/seed-260x200.png")),
+      io: File.open(Rails.root.join("test/assets/images/seeds/seed-260x200.png")),
       filename: "seed-260x200.png",
       content_type: "image/png",
       metadata: {
@@ -81,7 +81,7 @@ class ActiveSupport::TestCase
   def attach_wide_image!(record)
     name = "seed-512x320.jpg"
     record.images.attach(
-      io: File.open(Rails.root.join("app/assets/images/seeds/seed-512x320.jpg")),
+      io: File.open(Rails.root.join("test/assets/images/seeds/seed-512x320.jpg")),
       filename: "seed-512x320.jpg",
       content_type: "image/jpeg",
       metadata: {

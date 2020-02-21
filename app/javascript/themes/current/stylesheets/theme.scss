@@ -95,3 +95,11 @@ button.layout-button {
     }
   }
 }
+
+.app-header,
+.auth-header {
+  background-color: #15003e !important;
+  background-image: url('../../../images/patterns/pattern2.svg');
+  background-size: initial;
+  background-repeat: repeat;
+}

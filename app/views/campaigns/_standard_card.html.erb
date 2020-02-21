@@ -13,7 +13,7 @@
     </div>
   <% end %>
   <%= card_body add_class: "text-center" do %>
-    <%= image_tag campaign.creative.wide_image || "missing-200x200.png", height: 124, class: "mw-100 mb-4" %>
+    <%= image_tag campaign.creative.wide_image || asset_pack_path("media/images/placeholders/missing-200x200.png"), height: 124, class: "mw-100 mb-4" %>
     <h5 class="card-title">
       <%= link_to campaign_path(campaign) do %>
         <%= truncate(campaign.name, length: 36) %>
