@@ -38,17 +38,6 @@ class CampaignsController < ApplicationController
     @iframe_url = ENV["METABASE_SITE_URL"] + "/embed/dashboard/" + token + "#bordered=false&titled=false"
   end
 
-  def new
-    if params[:clone].present?
-      cloned_campaign = Campaign.find(params[:clone])
-      if cloned_campaign.present?
-        @campaign.attributes = cloned_campaign.attributes
-        @campaign.user = cloned_campaign.user
-        @campaign.status = "pending"
-      end
-    end
-  end
-
   def edit
     set_meta_tags @campaign
     @user ||= @campaign.user
