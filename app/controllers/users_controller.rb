@@ -118,17 +118,14 @@ class UsersController < ApplicationController
       created_at
       updated_at
       email
-      first_name
+      name
       last_sign_in_at
     ]
   end
 
   def sort_column
-    return params[:column] if sortable_columns.include?(params[:column])
-    "last_name"
-  end
-
-  def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "desc"
+    return column if sortable_columns.include?(column)
+    return "first_name" if sortable_columns.include?("name")
+    "created_at"
   end
 end
