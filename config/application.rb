@@ -32,7 +32,6 @@ module CodeFundAds
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
 
-    config.middleware.use Rack::Attack
     config.active_record.schema_format = :sql
     config.active_job.queue_adapter = :sidekiq
     config.exceptions_app = routes
