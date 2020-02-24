@@ -1,27 +1,31 @@
 #!/bin/sh
 
 # Requirements
-# - aws-cli (brew install awscli)
-# - AWS environment variables
-#   * AWS_ACCESS_KEY_ID
-#   * AWS_SECRET_ACCESS_KEY
-#   * AWS_DEFAULT_REGION
-# - Metabase environment variables
+# - Database environment variables
 #   * METABASE_URL
+#   * STAGING_DATABASE_URL
+
+source .env
 
 app='code-fund-ads-staging'
+staging_config="$(heroku pg:credentials:url -a $app)"
 
-if [ -z "$(which aws)" ]; then
-  echo 'aws-cli not installed! Aborting.';
+if [[ $app != *"staging"* ]]; then
+  echo 'Not configured to run in the staging environment! Aborting.';
   exit 1
 fi
 
-source .env
+if [[ -z "$STAGING_DATABASE_URL" ]]; then
+  echo 'STAGING_DATABASE_URL not set! Aborting.';
+  exit 1
+fi
+
+if [[ $staging_config != *"$STAGING_DATABASE_URL"* ]]; then
+  echo "STAGING_DATABASE_URL not found in 'heroku pg:credentials:url -a $app' Aborting."
+  exit 1
+fi
+
 ./bin/heroku_pg_dump_production_replica
 heroku pg:reset DATABASE_URL -a $app
-aws s3 rm s3://codefund-backups/production-db/production-shallow.dump
-aws s3 cp ./tmp/production-shallow.dump s3://codefund-backups/production-db/
-url=$(aws s3 presign s3://codefund-backups/production-db/production-shallow.dump)
-heroku pg:backups:restore $url DATABASE_URL -a $app
-aws s3 rm s3://codefund-backups/production-db/production-shallow.dump
+pg_restore --verbose --clean --no-acl --no-owner -d $STAGING_DATABASE_URL tmp/production-shallow.dump
 heroku run rails db:migrate -a $app
