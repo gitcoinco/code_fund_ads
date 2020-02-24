@@ -32,5 +32,5 @@ queue_names = %i[
 ]
 
 queue_names.each do |queue_name|
-  OkComputer::Registry.register "queue/#{queue_name}", SidekiqQueueSizeHealthCheck.new(queue_name)
+  OkComputer::Registry.register "queue/#{queue_name}", SidekiqQueueSizeHealthCheck.new(queue_name, ENV.fetch("MAX_QUEUE_SIZE", 2500).to_i)
 end

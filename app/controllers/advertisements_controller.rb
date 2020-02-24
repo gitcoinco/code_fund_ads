@@ -239,7 +239,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def back_pressure?
-    Sidekiq::Queue.new(:impression).size > 2500
+    Sidekiq::Queue.new(:impression).size > ENV.fetch("MAX_QUEUE_SIZE", 2500).to_i
   end
 
   def set_campaign
