@@ -26,7 +26,7 @@ if Rails.env.production?
   end
 
   # Throttle ads per property to 120/minute i.e. max of 172,800/day
-  Rack::Attack.throttle("ad requests by property", limit: ENV.fetch("MAX_REQUESTS_PER_PROPERTY_PER_MIN", 120).to_i, period: 1.minute.to_i) do |req|
+  Rack::Attack.throttle("ad requests by property", limit: ENV.fetch("MAX_REQUESTS_PER_PROPERTY_PER_MIN", 600).to_i, period: 1.minute.to_i) do |req|
     PropertyIdExtractor.extract_property_id req.path
   end
 end
