@@ -21,12 +21,12 @@ end
 
 if Rails.env.production?
   # Throttle all IPs to 20 requests/minute
-  Rack::Attack.throttle("requests by ip", limit: 20, period: 1.minute.to_i) do |request|
+  Rack::Attack.throttle("requests by ip", limit: ENV.fetch("MAX_REQUESTS_PER_IP_PER_MIN", 20).to_i, period: 1.minute.to_i) do |request|
     request.ip
   end
 
   # Throttle ads per property to 120/minute i.e. max of 172,800/day
-  Rack::Attack.throttle("limit logins per email", limit: 120, period: 1.minute.to_i) do |req|
+  Rack::Attack.throttle("ad requests by property", limit: ENV.fetch("MAX_REQUESTS_PER_PROPERTY_PER_MIN", 600).to_i, period: 1.minute.to_i) do |req|
     PropertyIdExtractor.extract_property_id req.path
   end
 end
