@@ -3,7 +3,7 @@
 # Table name: job_postings
 #
 #  id                         :bigint           not null, primary key
-#  auto_renew                 :boolean          default(TRUE), not null
+#  auto_renew                 :boolean          default("true"), not null
 #  city                       :string
 #  company_email              :string
 #  company_logo_url           :string
@@ -11,24 +11,24 @@
 #  company_url                :string
 #  country_code               :string
 #  description                :text             not null
-#  detail_view_count          :integer          default(0), not null
-#  display_salary             :boolean          default(TRUE)
+#  detail_view_count          :integer          default("0"), not null
+#  display_salary             :boolean          default("true")
 #  end_date                   :date             not null
 #  full_text_search           :tsvector
 #  how_to_apply               :text
 #  job_type                   :string           not null
-#  keywords                   :string           default([]), not null, is an Array
-#  list_view_count            :integer          default(0), not null
-#  max_annual_salary_cents    :integer          default(0), not null
+#  keywords                   :string           default("{}"), not null, is an Array
+#  list_view_count            :integer          default("0"), not null
+#  max_annual_salary_cents    :integer          default("0"), not null
 #  max_annual_salary_currency :string           default("USD"), not null
-#  min_annual_salary_cents    :integer          default(0), not null
+#  min_annual_salary_cents    :integer          default("0"), not null
 #  min_annual_salary_currency :string           default("USD"), not null
-#  offers                     :string           default([]), not null, is an Array
+#  offers                     :string           default("{}"), not null, is an Array
 #  plan                       :string
 #  province_code              :string
 #  province_name              :string
-#  remote                     :boolean          default(FALSE), not null
-#  remote_country_codes       :string           default([]), not null, is an Array
+#  remote                     :boolean          default("false"), not null
+#  remote_country_codes       :string           default("{}"), not null, is an Array
 #  source                     :string           default("internal"), not null
 #  source_identifier          :string
 #  start_date                 :date             not null

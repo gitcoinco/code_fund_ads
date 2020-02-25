@@ -3,35 +3,35 @@
 # Table name: campaigns
 #
 #  id                      :bigint           not null, primary key
-#  assigned_property_ids   :bigint           default([]), not null, is an Array
-#  audience_ids            :bigint           default([]), not null, is an Array
-#  core_hours_only         :boolean          default(FALSE)
-#  country_codes           :string           default([]), is an Array
-#  creative_ids            :bigint           default([]), not null, is an Array
-#  daily_budget_cents      :integer          default(0), not null
+#  assigned_property_ids   :bigint           default("{}"), not null, is an Array
+#  audience_ids            :bigint           default("{}"), not null, is an Array
+#  core_hours_only         :boolean          default("false")
+#  country_codes           :string           default("{}"), is an Array
+#  creative_ids            :bigint           default("{}"), not null, is an Array
+#  daily_budget_cents      :integer          default("0"), not null
 #  daily_budget_currency   :string           default("USD"), not null
-#  ecpm_cents              :integer          default(0), not null
+#  ecpm_cents              :integer          default("0"), not null
 #  ecpm_currency           :string           default("USD"), not null
-#  ecpm_multiplier         :decimal(, )      default(1.0), not null
+#  ecpm_multiplier         :decimal(, )      default("1.0"), not null
 #  end_date                :date             not null
-#  fallback                :boolean          default(FALSE), not null
-#  fixed_ecpm              :boolean          default(TRUE), not null
-#  hourly_budget_cents     :integer          default(0), not null
+#  fallback                :boolean          default("false"), not null
+#  fixed_ecpm              :boolean          default("true"), not null
+#  hourly_budget_cents     :integer          default("0"), not null
 #  hourly_budget_currency  :string           default("USD"), not null
-#  job_posting             :boolean          default(FALSE), not null
-#  keywords                :string           default([]), is an Array
+#  job_posting             :boolean          default("false"), not null
+#  keywords                :string           default("{}"), is an Array
 #  name                    :string           not null
-#  negative_keywords       :string           default([]), is an Array
-#  paid_fallback           :boolean          default(FALSE)
-#  prohibited_property_ids :bigint           default([]), not null, is an Array
-#  province_codes          :string           default([]), is an Array
-#  region_ids              :bigint           default([]), not null, is an Array
+#  negative_keywords       :string           default("{}"), is an Array
+#  paid_fallback           :boolean          default("false")
+#  prohibited_property_ids :bigint           default("{}"), not null, is an Array
+#  province_codes          :string           default("{}"), is an Array
+#  region_ids              :bigint           default("{}"), not null, is an Array
 #  start_date              :date             not null
 #  status                  :string           not null
-#  total_budget_cents      :integer          default(0), not null
+#  total_budget_cents      :integer          default("0"), not null
 #  total_budget_currency   :string           default("USD"), not null
 #  url                     :text             not null
-#  weekdays_only           :boolean          default(FALSE)
+#  weekdays_only           :boolean          default("false")
 #  created_at              :datetime         not null
 #  updated_at              :datetime         not null
 #  campaign_bundle_id      :bigint

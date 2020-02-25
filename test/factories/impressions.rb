@@ -3,30 +3,30 @@
 # Table name: impressions
 #
 #  id                                          :uuid             not null, primary key
-#  advertiser_id                               :bigint           not null
-#  publisher_id                                :bigint           not null
-#  campaign_id                                 :bigint           not null
-#  creative_id                                 :bigint           not null
-#  property_id                                 :bigint           not null
-#  ip_address                                  :string           not null
-#  user_agent                                  :text             not null
-#  country_code                                :string
-#  postal_code                                 :string
-#  latitude                                    :decimal(, )
-#  longitude                                   :decimal(, )
-#  displayed_at                                :datetime         not null
-#  displayed_at_date                           :date             not null
-#  clicked_at                                  :datetime
-#  clicked_at_date                             :date
-#  fallback_campaign                           :boolean          default(FALSE), not null
-#  estimated_gross_revenue_fractional_cents    :float
-#  estimated_property_revenue_fractional_cents :float
-#  estimated_house_revenue_fractional_cents    :float
 #  ad_template                                 :string
 #  ad_theme                                    :string
-#  organization_id                             :bigint
-#  uplift                                      :boolean          default(FALSE)
+#  clicked_at                                  :datetime
+#  clicked_at_date                             :date
+#  country_code                                :string
+#  displayed_at                                :datetime         not null
+#  displayed_at_date                           :date             not null
+#  estimated_gross_revenue_fractional_cents    :float
+#  estimated_house_revenue_fractional_cents    :float
+#  estimated_property_revenue_fractional_cents :float
+#  fallback_campaign                           :boolean          default("false"), not null
+#  ip_address                                  :string           not null
+#  latitude                                    :decimal(, )
+#  longitude                                   :decimal(, )
+#  postal_code                                 :string
 #  province_code                               :string
+#  uplift                                      :boolean          default("false")
+#  user_agent                                  :text             not null
+#  advertiser_id                               :bigint           not null
+#  campaign_id                                 :bigint           not null
+#  creative_id                                 :bigint           not null
+#  organization_id                             :bigint
+#  property_id                                 :bigint           not null
+#  publisher_id                                :bigint           not null
 #
 
 require "factory_bot_rails"
