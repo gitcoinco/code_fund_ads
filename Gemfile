@@ -95,14 +95,12 @@ group :development, :test do
 end
 
 group :development do
-  # gem 'spring'
-  # gem 'spring-watcher-listen', '~> 2.0.0'
   gem "annotate"
   gem "bullet"
   gem "erb_lint"
   gem "factory_bot_rails"
   gem "letter_opener_web"
-  gem "listen", ">= 3.0.5", "< 3.2"
+  gem "listen", "~> 3.2"
   gem "mechanize"
   gem "meta_request" # RailsPanel Chrome extension
   gem "model_probe"
