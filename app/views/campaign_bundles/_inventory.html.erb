@@ -38,6 +38,7 @@
               <th class="rounded-0">#</th>
               <th class="rounded-0">Audience</th>
               <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Daily</small>Impressions</th>
+              <th class="rounded-0 text-right"><small class="d-block opacity-60">Average</small>Click Rate</th>
             </tr>
           </thead>
           <tbody>
@@ -46,6 +47,7 @@
                 <td><%= index + 1 %></td>
                 <td><%= audience.name %></td>
                 <td class="text-right text-monospace"><%= number_with_delimiter count %></td>
+                <td class="text-right text-monospace"><%= number_to_percentage DailySummary.average_premium_click_rate(audience: audience), precision: 2 %></td>
               </tr>
             <% end %>
           </tbody>

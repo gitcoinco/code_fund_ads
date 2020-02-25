@@ -87,6 +87,41 @@ class DailySummary < ApplicationRecord
 
   # class methods .............................................................
   class << self
+    def average_premium_click_rate(countries: [], audience: nil)
+      relation = all
+        .select(
+          Arel::Nodes::Multiplication.new(
+            Arel::Nodes::Division.new(
+              arel_table[:clicks_count].sum,
+              Arel::Nodes::NamedFunction.new("CAST", [arel_table[:impressions_count].sum.as("decimal")])
+            ),
+            100
+          ).as("click_rate")
+        )
+        .between(90.days.ago, 1.day.ago)
+        .where(impressionable_type: "Property", campaigns: {fallback: false})
+        .where(arel_table[:impressions_count].gt(0))
+        .scoped_by_type("Campaign")
+        .joins(
+          arel_table.join(Campaign.arel_table).on(
+            Campaign.arel_table[:id].eq(Arel::Nodes::NamedFunction.new("CAST", [arel_table[:scoped_by_id].as("bigint")]))
+          ).join_sources
+        )
+
+      if audience
+        relation = relation
+          .where(properties: {audience_id: audience.id})
+          .joins(
+            arel_table.join(Property.arel_table).on(
+              Property.arel_table[:id].eq(arel_table[:impressionable_id])
+            ).join_sources
+          )
+      end
+
+      # TODO: countries ???
+
+      relation.to_a.first.click_rate
+    end
   end
 
   # public instance methods ...................................................
