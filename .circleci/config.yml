@@ -18,6 +18,7 @@ jobs:
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: code_fund_ads_test
+      - image: circleci/redis:5.0.4
     working_directory: ~/repo
     steps:
       - checkout
