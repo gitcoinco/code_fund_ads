@@ -27,10 +27,10 @@ class AdsStickyBoxJavascriptTest < ApplicationSystemTestCase
                                                "width": "360px",
                                                "z-index": "999",
                                                "animation": "0.85s ease 0s 1 normal none running fadein",)
-    find("a", class: "cf-powered-by").assert_matches_style("background-color": "rgba(204, 204, 204, 1)",
+    find("a", class: "cf-powered-by").assert_matches_style("background-color": "rgb(204, 204, 204)",
                                                            "border-radius": "2px 0px 0px 2px",
                                                            "bottom": "57px",
-                                                           "color": "rgba(51, 51, 51, 1)",
+                                                           "color": "rgb(51, 51, 51)",
                                                            "display": "block",
                                                            "font-size": "11px",
                                                            "font-weight": "400",
@@ -52,9 +52,9 @@ class AdsStickyBoxJavascriptTest < ApplicationSystemTestCase
     find("span", class: "cf-body").assert_matches_style("display": "block",
                                                         "font-size": "13px",
                                                         "line-height": "17.55px",
-                                                        "color": "rgba(65, 65, 65, 1)",
+                                                        "color": "rgb(65, 65, 65)",
                                                         "max-width": "350px",)
-    find("span", class: "cf-body").assert_matches_style("color": "rgba(65, 65, 65, 1)",
+    find("span", class: "cf-body").assert_matches_style("color": "rgb(65, 65, 65)",
                                                         "font-size": "13px",
                                                         "line-height": "17.55px",
                                                         "text-decoration": "none solid rgb(65, 65, 65)",)
@@ -79,10 +79,10 @@ class AdsStickyBoxJavascriptTest < ApplicationSystemTestCase
                                                "width": "360px",
                                                "z-index": "999",
                                                "animation": "0.85s ease 0s 1 normal none running fadein",)
-    find("a", class: "cf-powered-by").assert_matches_style("background-color": "rgba(204, 204, 204, 1)",
+    find("a", class: "cf-powered-by").assert_matches_style("background-color": "rgb(204, 204, 204)",
                                                            "border-radius": "2px 0px 0px 2px",
                                                            "bottom": "57px",
-                                                           "color": "rgba(51, 51, 51, 1)",
+                                                           "color": "rgb(51, 51, 51)",
                                                            "display": "block",
                                                            "font-size": "11px",
                                                            "font-weight": "400",
@@ -104,9 +104,9 @@ class AdsStickyBoxJavascriptTest < ApplicationSystemTestCase
     find("span", class: "cf-body").assert_matches_style("display": "block",
                                                         "font-size": "13px",
                                                         "line-height": "17.55px",
-                                                        "color": "rgba(65, 65, 65, 1)",
+                                                        "color": "rgb(65, 65, 65)",
                                                         "max-width": "350px",)
-    find("span", class: "cf-body").assert_matches_style("color": "rgba(65, 65, 65, 1)",
+    find("span", class: "cf-body").assert_matches_style("color": "rgb(65, 65, 65)",
                                                         "font-size": "13px",
                                                         "line-height": "17.55px",
                                                         "text-decoration": "none solid rgb(65, 65, 65)",)
@@ -131,10 +131,10 @@ class AdsStickyBoxJavascriptTest < ApplicationSystemTestCase
                                                "width": "360px",
                                                "z-index": "999",
                                                "animation": "0.85s ease 0s 1 normal none running fadein",)
-    find("a", class: "cf-powered-by").assert_matches_style("background-color": "rgba(204, 204, 204, 1)",
+    find("a", class: "cf-powered-by").assert_matches_style("background-color": "rgb(204, 204, 204)",
                                                            "border-radius": "2px 0px 0px 2px",
                                                            "bottom": "57px",
-                                                           "color": "rgba(51, 51, 51, 1)",
+                                                           "color": "rgb(51, 51, 51)",
                                                            "display": "block",
                                                            "font-size": "11px",
                                                            "font-weight": "400",
@@ -156,9 +156,9 @@ class AdsStickyBoxJavascriptTest < ApplicationSystemTestCase
     find("span", class: "cf-body").assert_matches_style("display": "block",
                                                         "font-size": "13px",
                                                         "line-height": "17.55px",
-                                                        "color": "rgba(65, 65, 65, 1)",
+                                                        "color": "rgb(65, 65, 65)",
                                                         "max-width": "350px",)
-    find("span", class: "cf-body").assert_matches_style("color": "rgba(65, 65, 65, 1)",
+    find("span", class: "cf-body").assert_matches_style("color": "rgb(65, 65, 65)",
                                                         "font-size": "13px",
                                                         "line-height": "17.55px",
                                                         "text-decoration": "none solid rgb(65, 65, 65)",)
@@ -184,10 +184,10 @@ class AdsStickyBoxJavascriptTest < ApplicationSystemTestCase
                                                "width": "360px",
                                                "z-index": "999",
                                                "animation": "0.85s ease 0s 1 normal none running fadein",)
-    find("a", class: "cf-powered-by").assert_matches_style("background-color": "rgba(204, 204, 204, 1)",
+    find("a", class: "cf-powered-by").assert_matches_style("background-color": "rgb(204, 204, 204)",
                                                            "border-radius": "2px 0px 0px 2px",
                                                            "bottom": "57px",
-                                                           "color": "rgba(51, 51, 51, 1)",
+                                                           "color": "rgb(51, 51, 51)",
                                                            "display": "block",
                                                            "font-size": "11px",
                                                            "font-weight": "400",
@@ -209,9 +209,9 @@ class AdsStickyBoxJavascriptTest < ApplicationSystemTestCase
     find("span", class: "cf-body").assert_matches_style("display": "block",
                                                         "font-size": "13px",
                                                         "line-height": "17.55px",
-                                                        "color": "rgba(65, 65, 65, 1)",
+                                                        "color": "rgb(65, 65, 65)",
                                                         "max-width": "350px",)
-    find("span", class: "cf-body").assert_matches_style("color": "rgba(65, 65, 65, 1)",
+    find("span", class: "cf-body").assert_matches_style("color": "rgb(65, 65, 65)",
                                                         "font-size": "13px",
                                                         "line-height": "17.55px",
                                                         "text-decoration": "none solid rgb(65, 65, 65)",)

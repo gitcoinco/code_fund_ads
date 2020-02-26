@@ -27,11 +27,11 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
                                                           "font-family": "Helvetica, Arial, sans-serif",
                                                           "margin": "0px 512px",)
     find("div", class: "cf-header").assert_matches_style("font-size": "12px",
-                                                         "color": "rgba(102, 119, 136, 1)",
+                                                         "color": "rgb(102, 119, 136)",
                                                          "display": "block",
                                                          "margin-bottom": "8px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
-                                                     "color": "rgba(51, 51, 51, 1)",
+                                                     "color": "rgb(51, 51, 51)",
                                                      "text-decoration": "none solid rgb(51, 51, 51)",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "margin-top": "5px",
@@ -39,7 +39,7 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
                                                            "text-decoration": "none solid rgb(102, 119, 136)",
                                                            "display": "block",
                                                            "text-align": "center",
-                                                           "color": "rgba(102, 119, 136, 1)",)
+                                                           "color": "rgb(102, 119, 136)",)
   end
 
   test "centered - premium ad with dark theme" do
@@ -63,7 +63,7 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
                                                          "display": "block",
                                                          "margin-bottom": "8px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
-                                                     "color": "rgba(255, 255, 255, 1)",
+                                                     "color": "rgb(255, 255, 255)",
                                                      "text-decoration": "none solid rgb(255, 255, 255)",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "margin-top": "5px",
@@ -91,11 +91,11 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
                                                           "font-family": "Helvetica, Arial, sans-serif",
                                                           "margin": "0px 512px",)
     find("div", class: "cf-header").assert_matches_style("font-size": "12px",
-                                                         "color": "rgba(102, 119, 136, 1)",
+                                                         "color": "rgb(102, 119, 136)",
                                                          "display": "block",
                                                          "margin-bottom": "8px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
-                                                     "color": "rgba(51, 51, 51, 1)",
+                                                     "color": "rgb(51, 51, 51)",
                                                      "text-decoration": "none solid rgb(51, 51, 51)",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "margin-top": "5px",
@@ -103,7 +103,7 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
                                                            "text-decoration": "none solid rgb(102, 119, 136)",
                                                            "display": "block",
                                                            "text-align": "center",
-                                                           "color": "rgba(102, 119, 136, 1)",)
+                                                           "color": "rgb(102, 119, 136)",)
   end
 
   test "centered - fallback ad with dark theme" do
@@ -128,7 +128,7 @@ class AdsCenteredJavascriptTest < ApplicationSystemTestCase
                                                          "display": "block",
                                                          "margin-bottom": "8px",)
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
-                                                     "color": "rgba(255, 255, 255, 1)",
+                                                     "color": "rgb(255, 255, 255)",
                                                      "text-decoration": "none solid rgb(255, 255, 255)",)
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "margin-top": "5px",

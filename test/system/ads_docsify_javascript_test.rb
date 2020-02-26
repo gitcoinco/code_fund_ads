@@ -33,7 +33,7 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
                                                       "max-width": "65px",
                                                       "position": "relative",
                                                       "border": "0px none rgb(0, 0, 238)")
-    find("span", class: "cf-text").assert_matches_style("color": "rgba(51, 51, 51, 1)")
+    find("span", class: "cf-text").assert_matches_style("color": "rgb(51, 51, 51)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "padding": "0px",
                                                            "text-decoration": "none solid rgba(0, 0, 0, 0.8)",
@@ -111,7 +111,7 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
                                                       "max-width": "65px",
                                                       "position": "relative",
                                                       "border": "0px none rgb(0, 0, 238)")
-    find("span", class: "cf-text").assert_matches_style("color": "rgba(51, 51, 51, 1)")
+    find("span", class: "cf-text").assert_matches_style("color": "rgb(51, 51, 51)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "padding": "0px",
                                                            "text-decoration": "none solid rgba(0, 0, 0, 0.8)",

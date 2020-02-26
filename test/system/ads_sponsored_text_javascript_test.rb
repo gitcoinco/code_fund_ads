@@ -20,14 +20,14 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
     assert_powered_by_link(text: "This is a premium campaign Premium ethical ad by CodeFund")
 
     find("ins", id: "cf").assert_matches_style("text-decoration": "none solid rgb(108, 117, 126)",
-                                               "color": "rgba(108, 117, 126, 1)",
+                                               "color": "rgb(108, 117, 126)",
                                                "line-height": "23.8px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                "font-size": "14px",
                                                "font-weight": "400",)
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
-    find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
+    find("a", class: "cf-cta").assert_matches_style("color": "rgb(52, 152, 219)",
                                                     "text-decoration": "none solid rgb(52, 152, 219)",
                                                     "position": "static",
                                                     "display": "inline",)
@@ -43,14 +43,14 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
     assert_powered_by_link(text: "This is a premium campaign Premium ethical ad by CodeFund")
 
     find("ins", id: "cf").assert_matches_style("text-decoration": "none solid rgb(170, 170, 170)",
-                                               "color": "rgba(170, 170, 170, 1)",
+                                               "color": "rgb(170, 170, 170)",
                                                "line-height": "23.8px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                "font-size": "14px",
                                                "font-weight": "400",)
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
-    find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
+    find("a", class: "cf-cta").assert_matches_style("color": "rgb(52, 152, 219)",
                                                     "text-decoration": "none solid rgb(52, 152, 219)",
                                                     "position": "static",
                                                     "display": "inline",)
@@ -66,14 +66,14 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
     assert_powered_by_link(text: "This is a fallback campaign Fallback ethical ad by CodeFund")
 
     find("ins", id: "cf").assert_matches_style("text-decoration": "none solid rgb(108, 117, 126)",
-                                               "color": "rgba(108, 117, 126, 1)",
+                                               "color": "rgb(108, 117, 126)",
                                                "line-height": "23.8px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                "font-size": "14px",
                                                "font-weight": "400",)
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
-    find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
+    find("a", class: "cf-cta").assert_matches_style("color": "rgb(52, 152, 219)",
                                                     "text-decoration": "none solid rgb(52, 152, 219)",
                                                     "position": "static",
                                                     "display": "inline",)
@@ -90,14 +90,14 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
     assert_powered_by_link(text: "This is a fallback campaign Fallback ethical ad by CodeFund")
 
     find("ins", id: "cf").assert_matches_style("text-decoration": "none solid rgb(170, 170, 170)",
-                                               "color": "rgba(170, 170, 170, 1)",
+                                               "color": "rgb(170, 170, 170)",
                                                "line-height": "23.8px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                "font-size": "14px",
                                                "font-weight": "400",)
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
-    find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
+    find("a", class: "cf-cta").assert_matches_style("color": "rgb(52, 152, 219)",
                                                     "text-decoration": "none solid rgb(52, 152, 219)",
                                                     "position": "static",
                                                     "display": "inline",)
