@@ -141,6 +141,7 @@ module Campaigns
 
     # Returns a boolean indicating if the campaign has available budget
     def budget_available?
+      return false unless total_remaining_budget > 0
       total_consumed_budget < total_budget
     end
 
