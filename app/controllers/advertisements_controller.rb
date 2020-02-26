@@ -77,7 +77,7 @@ class AdvertisementsController < ApplicationController
 
   def catch_all_sponsor_html
     key = "Creative/sponsor-catch-all"
-    Rails.cache.fetch(key) { File.read(Rails.root.join("app/assets/images/sponsor-catch-all.svg")) }
+    Rails.cache.fetch(key) { File.read(Rails.root.join("app/javascript/images/sponsor-catch-all.svg")) }
   end
 
   def set_advertisement_variables
@@ -238,10 +238,15 @@ class AdvertisementsController < ApplicationController
     (params[:ad_test] || params[:adtest]).to_s == "true" || !!request.local?
   end
 
+  def back_pressure?
+    Sidekiq::Queue.new(:impression).size > ENV.fetch("MAX_QUEUE_SIZE", 2500).to_i
+  end
+
   def set_campaign
     return nil if device.bot?
     return nil unless property&.active? || property&.pending?
     return nil if device_small? && property.hide_on_responsive?
+    return nil if back_pressure?
 
     campaign_relation = Campaign.active.available_on(Date.current)
     campaign_relation = sponsor? ? campaign_relation.sponsor : campaign_relation.standard

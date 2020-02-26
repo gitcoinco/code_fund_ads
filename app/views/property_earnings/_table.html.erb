@@ -1,11 +1,11 @@
 <%= table do %>
   <%= table_head do %>
     <%= table_row header: true do %>
-      <%= table_column { "Name" } %>
-      <%= table_column add_class: "text-right" do %>Impressions<% end %>
-      <%= table_column add_class: "text-right" do %>Clicks<% end %>
-      <%= table_column add_class: "text-right" do %>CTR<% end %>
-      <%= table_column add_class: "text-right" do %>Earnings<% end %>
+      <%= table_column "Name" %>
+      <%= table_column "Impressions", add_class: "text-right" %>
+      <%= table_column "Clicks", add_class: "text-right" %>
+      <%= table_column "CTR", add_class: "text-right" %>
+      <%= table_column "Earnings", add_class: "text-right" %>
     <% end %>
   <% end %>
   <%= table_body do %>

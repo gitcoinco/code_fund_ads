@@ -1,5 +1,5 @@
 class EnsureScopedDailySummariesJob < ApplicationJob
-  queue_as :low
+  queue_as :ensure_scoped_daily_summaries
 
   def perform(start_date = nil, end_date = nil)
     start_date = Date.coerce(start_date || 7.days.ago.to_date)

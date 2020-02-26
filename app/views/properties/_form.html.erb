@@ -1,6 +1,6 @@
 <%= simple_form_for property, html: {class: "js-validate"}, data: {controller: "property-form"}, wrapper: :front_form do |f| %>
   <%= card do %>
-    <%= standalone_card_header text: "Property Details" %>
+    <%= card_header "Property Details" %>
     <%= card_body do %>
       <div class="row">
         <%= tag.div f.input(:status,
@@ -25,7 +25,7 @@
                             collection: ENUMS::PROPERTY_TYPES.values.map { |property_type| [property_type.capitalize, property_type] },
                             required: true,
                               input_html: {class: "form-control", data: {controller: "select", "reflex-permanent": true}
-                            }), class: "col-md-6 mb-3" %>
+                            }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
         <%= tag.div f.input(:audience_id,
                             label: "Audience",
                             collection: Audience.all.map { |audience| [audience.name, audience.id] },
@@ -159,8 +159,8 @@
     <%= card_footer do %>
       <%= card_footer_content do %>
         <%= button_panel margin: "my-0" do %>
-          <%= f.submit "Save Property", class: "btn btn-primary" %>
           <%= cancel_button(properties_path) %>
+          <%= f.submit "Save Property", class: "btn btn-primary" %>
         <% end %>
       <% end %>
     <% end %>

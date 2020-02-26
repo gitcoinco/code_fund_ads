@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_20_160136) do
+ActiveRecord::Schema.define(version: 2020_02_21_220825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -409,7 +409,7 @@ ActiveRecord::Schema.define(version: 2020_02_20_160136) do
 
   create_table "properties", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.string "property_type", null: false
+    t.string "property_type", default: "website", null: false
     t.string "status", null: false
     t.string "name", null: false
     t.text "description"

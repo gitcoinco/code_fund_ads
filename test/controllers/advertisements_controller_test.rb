@@ -167,6 +167,6 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     assert Impression.count == 0
     assert_response :success
     assert response.headers["Content-Type"] == "image/svg+xml; charset=utf-8"
-    assert response.body == File.read(File.join("app/assets/images/sponsor-catch-all.svg"))
+    assert response.body == File.read(File.join("app/javascript/images/sponsor-catch-all.svg"))
   end
 end

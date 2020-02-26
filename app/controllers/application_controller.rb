@@ -78,7 +78,7 @@ class ApplicationController < ActionController::Base
       description: "CodeFund is an open source platform that helps fund maintainers, bloggers, and builders through non-tracking ethical ads",
       keywords: ["open source", "ethical advertising", "advertising", "fund open source"],
       charset: "utf-8",
-      image_src: "https://cdn2.codefund.app/assets/codefund-logo-square-512.png",
+      image_src: "https://cdn2.codefund.app/packs/media/images/branding/codefund-logo-square-512-07880204c83ca5c547cc909713157c77.png",
       index: true,
       icon: [
         {href: "/favicon.ico", rel: "shortcut icon"},

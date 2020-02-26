@@ -1,4 +1,4 @@
-<%= table compact: true do %>
+<%= table do %>
   <%= table_head do %>
     <%= table_row header: true do %>
       <%= table_column {"Index"} %>
@@ -12,12 +12,12 @@
     <% if versionable.versions.exists? %>
       <% versionable.versions.reverse.each do |version| %>
         <%= table_row do %>
-          <%= table_data_value version.index %>
-          <%= table_data_value version.created_at %>
+          <%= table_data version.index %>
+          <%= table_data version.created_at %>
           <%= table_data do %>
             <%= link_to find_version_author(version), user_path(find_version_author(version)) rescue "Not Assigned" %>
           <% end %>
-          <%= table_data_value version.event.humanize %>
+          <%= table_data version.event.humanize %>
           <%= table_data do %>
             <a data-controller="remote-modal"
               data-action="click->remote-modal#displayModal"

@@ -1,6 +1,4 @@
 class UserPropertiesController < ApplicationController
-  include Pagy::Backend
-
   before_action :authenticate_user!
   before_action :set_user, only: :index
 

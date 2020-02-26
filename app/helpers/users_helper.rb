@@ -23,8 +23,4 @@ module UsersHelper
     return publisher_dashboards_path if user.has_role?("publisher")
     manage_job_postings_path
   end
-
-  def user_status_color(status)
-    ENUMS::USER_STATUS_COLORS[status] || "muted"
-  end
 end

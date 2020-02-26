@@ -64,4 +64,14 @@ class InventoryDetail
   def unsold_daily_impressions_value
     average_daily_impressions_value - sold_daily_impressions_value
   end
+
+  def average_click_rate
+    @average_click_rate ||= begin
+      [
+        DailySummary.average_premium_click_rate_by_country(*region.countries),
+        DailySummary.average_premium_click_rate_by_audience(audience),
+        DailySummary.average_click_rate(countries: region.countries, audiences: [audience]),
+      ].sum / 3.to_f
+    end
+  end
 end

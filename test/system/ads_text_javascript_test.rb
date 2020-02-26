@@ -18,12 +18,12 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
     assert_campaign_link @premium_campaign
 
     find("div", id: "cf").assert_matches_style("text-decoration": "none solid rgb(119, 131, 143)",
-                                               "color": "rgba(119, 131, 143, 1)",
+                                               "color": "rgb(119, 131, 143)",
                                                "line-height": "22px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                "font-size": "13px",
                                                "box-shadow": "none")
-    find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
+    find("a", class: "cf-cta").assert_matches_style("color": "rgb(52, 152, 219)",
                                                     "cursor": "pointer",
                                                     "text-decoration": "none solid rgb(52, 152, 219)",
                                                     "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
@@ -40,12 +40,12 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
     assert_campaign_link @premium_campaign
 
     find("div", id: "cf").assert_matches_style("text-decoration": "none solid rgb(119, 131, 143)",
-                                               "color": "rgba(119, 131, 143, 1)",
+                                               "color": "rgb(119, 131, 143)",
                                                "line-height": "22px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                "font-size": "13px",
                                                "box-shadow": "none")
-    find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
+    find("a", class: "cf-cta").assert_matches_style("color": "rgb(52, 152, 219)",
                                                     "cursor": "pointer",
                                                     "text-decoration": "none solid rgb(52, 152, 219)",
                                                     "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
@@ -62,12 +62,12 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
     assert_campaign_link @fallback_campaign
 
     find("div", id: "cf").assert_matches_style("text-decoration": "none solid rgb(119, 131, 143)",
-                                               "color": "rgba(119, 131, 143, 1)",
+                                               "color": "rgb(119, 131, 143)",
                                                "line-height": "22px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                "font-size": "13px",
                                                "box-shadow": "none")
-    find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
+    find("a", class: "cf-cta").assert_matches_style("color": "rgb(52, 152, 219)",
                                                     "cursor": "pointer",
                                                     "text-decoration": "none solid rgb(52, 152, 219)",
                                                     "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
@@ -85,12 +85,12 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
     assert_campaign_link @fallback_campaign
 
     find("div", id: "cf").assert_matches_style("text-decoration": "none solid rgb(119, 131, 143)",
-                                               "color": "rgba(119, 131, 143, 1)",
+                                               "color": "rgb(119, 131, 143)",
                                                "line-height": "22px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                "font-size": "13px",
                                                "box-shadow": "none")
-    find("a", class: "cf-cta").assert_matches_style("color": "rgba(52, 152, 219, 1)",
+    find("a", class: "cf-cta").assert_matches_style("color": "rgb(52, 152, 219)",
                                                     "cursor": "pointer",
                                                     "text-decoration": "none solid rgb(52, 152, 219)",
                                                     "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",

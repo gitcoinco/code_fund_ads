@@ -16,7 +16,7 @@ module Frontend
     end
 
     def cancel_button(path, add_class: nil)
-      link_to "Cancel", path, class: "btn btn-light ml-1 #{add_class}"
+      link_to "Cancel", path, class: "btn btn-light mr-1 #{add_class}"
     end
 
     def generate_organization_report_button(id)
@@ -37,13 +37,21 @@ module Frontend
         end
     end
 
+    def masquerade_button(user, add_class: "")
+      return "" unless authorized_user.can_admin_system?
+      link_to(user_impersonation_path(user),
+        class: "btn btn-xs btn-icon btn-subtle-secondary #{add_class}",
+        title: "Masquerade as user",
+        data: tooltip_expando,
+        method: :put) { tag.span(class: "fad fa-mask") }
+    end
+
     def edit_button(link: "#", title: nil, add_class: "", admin: false)
       return "" if admin && !authorized_user.can_admin_system?
-      link_to link,
+      link_to(link,
         class: "btn btn-xs btn-icon btn-subtle-secondary #{add_class}",
-        title: title do
-          tag.span class: "fas fa-pen"
-        end
+        title: title,
+        data: tooltip_expando) { tag.span class: "fas fa-pen" }
     end
 
     def delete_button(link: "#", add_class: "", title: nil, admin: false, confirmation_message: "Are you sure?", layout: false, display: true)
@@ -51,13 +59,11 @@ module Frontend
       return "" if admin && !authorized_user.can_admin_system?
 
       classes = layout ? "bg-danger tile layout-button" : "btn btn-xs btn-icon btn-subtle-secondary"
-      link_to link,
+      link_to(link,
         class: "#{classes} #{add_class}",
         title: title,
-        data: {confirm: confirmation_message},
-        method: :delete do
-          tag.span class: "fas fa-trash #{layout ? "text-white" : "text-subtle"}"
-        end
+        data: {confirm: confirmation_message, toggle: "tooltip", placement: "top"},
+        method: :delete) { tag.span class: "fas fa-trash #{layout ? "text-white" : "text-subtle"}" }
     end
   end
 end

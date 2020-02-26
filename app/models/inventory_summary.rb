@@ -67,4 +67,15 @@ class InventorySummary
     return Money.new(0) if inventory_details.blank?
     inventory_details.sum(&:base_ecpm) / inventory_details.size.to_f
   end
+
+  def average_click_rate
+    @average_click_rate ||= begin
+      countries = campaign.regions.map(&:countries).flatten
+      [
+        DailySummary.average_premium_click_rate_by_country(*countries),
+        DailySummary.average_premium_click_rate_by_audience(*campaign.audiences),
+        DailySummary.average_click_rate(countries: countries, audiences: campaign.audiences),
+      ].sum / 3.to_f
+    end
+  end
 end

@@ -3,7 +3,7 @@
 Campaign statuses are defined in config/enums.yml
 
 - `CAMPAIGN_STATUSES`
-- `CAMPAIGN_STATUS_COLORS`
+- `STATUS_COLORS`
 
 ## accepted
 

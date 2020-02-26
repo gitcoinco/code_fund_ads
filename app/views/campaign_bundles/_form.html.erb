@@ -1,12 +1,10 @@
 <%= form_with model: @campaign_bundle, id: "campaign-bundle-form", local: true do |f| %>
   <div class="row">
-    <div class="col-6">
+    <div class="col-sm-6">
       <%= card do %>
         <%= card_header do %>
-          <%= card_title do %>
-            Bundle Details
-            <small>total spend of <%= @campaign_bundle.total_budget.format %> over <%= number_with_delimiter @campaign_bundle.total_operative_days %> days</small>
-          <% end %>
+          <%= card_title "Bundle Details" %>
+          <%= card_subtitle "total spend of #{@campaign_bundle.total_budget.format} over #{number_with_delimiter(@campaign_bundle.total_operative_days)} days" %>
         <% end %>
         <%= card_body do %>
           <div class="row">
@@ -15,7 +13,6 @@
               <%= f.text_field :name, class: "form-control", data: {reflex: "cf:value-committed->CampaignBundlesReflex#update_name"} %>
             </div>
           </div>
-
           <div class="row">
             <div class="col-md-6 form-group">
               <%= f.label "Advertiser" %>
@@ -28,7 +25,6 @@
                                 data: {reflex: "cf:date-range-selected->CampaignBundlesReflex#update_date_range", controller: "select-date-range"}) %>
             </div>
           </div>
-
           <div class="row" data-controller="checkboxes" data-reflex-name="CampaignBundlesReflex#update_region_ids">
             <div class="col form-group">
               <%= f.label :regions, "Regions" %>
@@ -50,7 +46,7 @@
       <% end %>
     <% end %>
 
-    <div class="col-6">
+    <div class="col-sm-6">
       <%= render "/shared/errors", record: @campaign_bundle %>
       <%= render "/campaign_bundles/inventory" %>
     </div>

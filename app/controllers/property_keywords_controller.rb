@@ -1,3 +1,5 @@
+# TODO: not being used
+
 class PropertyKeywordsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_property

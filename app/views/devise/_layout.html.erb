@@ -1,12 +1,8 @@
 <% unless local_assigns[:override]&.include? :page_heading %>
   <% content_for :page_heading do %>
-    <header id="auth-header" class="auth-header" style="
-        background-color: #15003e;
-        background-image: url(<%= asset_path("bg-shapes/pattern2.svg") %>);
-        background-size: initial;
-        background-repeat: repeat;">
+    <header id="auth-header" class="auth-header">
       <h1>
-        <%= link_to image_tag("codefund-wg-full-256.svg", class: "mb-4 img-fluid", style: "height: 64px;"), ENV["WORDPRESS_URL"] %>
+        <%= link_to image_pack_tag("branding/codefund-wg-full-256.svg", height: "64px"), ENV["WORDPRESS_URL"], class: "mb-4 img-fluid" %>
         <span class="sr-only">Sign In</span>
       </h1>
       <p>Don't have an account? <a href="https://codefund.io/">Apply Now</a></p>

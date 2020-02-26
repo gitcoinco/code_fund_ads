@@ -1,5 +1,3 @@
-require "import_export"
-
 class CheckConsolidatedScreeningListJob < ApplicationJob
   queue_as :low
 
@@ -7,8 +5,8 @@ class CheckConsolidatedScreeningListJob < ApplicationJob
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     @user = user
     return unless @user
-
-    return if ImportExport::Client.new.search(name: @user.name).empty?
+    client = ConsolidatedScreeningList::Client.new api_key: ENV["TRADE_API_KEY"]
+    return if client.search(name: @user.name).empty?
 
     send_slack_notification
     send_email_notification

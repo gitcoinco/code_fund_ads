@@ -800,7 +800,7 @@ ALTER SEQUENCE public.organizations_id_seq OWNED BY public.organizations.id;
 CREATE TABLE public.properties (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
-    property_type character varying NOT NULL,
+    property_type character varying DEFAULT 'website'::character varying NOT NULL,
     status character varying NOT NULL,
     name character varying NOT NULL,
     description text,
@@ -2894,6 +2894,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200123175239'),
 ('20200207162017'),
 ('20200213234149'),
-('20200220160136');
-
-
+('20200220160136'),
+('20200221220825');
