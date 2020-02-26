@@ -1,0 +1,30 @@
+<div class="list-group-item list-group-item-<%= status_color(creative.status) %>"
+     data-target="filterable-list.filterable"
+     data-filter-key='all <%= creative.status %>'>
+  <div class="list-group-item-figure">
+    <%= link_to(creative, class: "tile bg-light") do %>
+      <% if creative.icon_image %>
+        <%= tag.span image_tag(creative.icon_image, class: "mr-1", width: "20", height: "20") %>
+      <% else %>
+        <span class="fa fa-file-image text-muted"></span>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="list-group-item-body">
+    <h4 class="list-group-item-title">
+      <%= link_to creative.name, creative, title: "View creative", data: tooltip_expando %>
+    </h4>
+    <p class="list-group-item-text">
+      <strong><%= creative.headline %></strong> <%= creative.body %>
+    </p>
+  </div>
+  <ul class="list-group-item-figure mb-0 d-flex align-items-center">
+    <li class="d-none d-xl-inline list-inline-item mr-3">
+      <span class="badge badge-subtle badge-<%= status_color(creative.status) %>"><%= creative.status.humanize %></span>
+    </li>
+    <li class="list-inline-item d-flex flex-nowrap">
+      <%= edit_button(link: edit_creative_path(creative)) if authorized_user.can_edit_creative?(creative) %>
+      <%= goto_button(link: creative_path(creative), icon: "fas fa-chevron-right", title: "View creative") %>
+    </li>
+  </ul>
+</div>

@@ -57,6 +57,7 @@ class Creative < ApplicationRecord
   default_scope { includes images: :blob }
   scope :active, -> { where(status: ENUMS::CREATIVE_STATUSES::ACTIVE) }
   scope :pending, -> { where(status: ENUMS::CREATIVE_STATUSES::PENDING) }
+  scope :archived, -> { where(status: ENUMS::CREATIVE_STATUSES::ARCHIVED) }
   scope :search_name, ->(value) { value.blank? ? all : search_column(:name, value) }
   scope :search_user, ->(value) { value.blank? ? all : where(user_id: User.advertisers.search_name(value).or(User.advertisers.search_company(value))) }
   scope :search_user_id, ->(value) { value.blank? ? all : where(user_id: value) }

@@ -3,7 +3,7 @@
     <%= card_title add_class: "mb-0" do %>
       <div class="d-flex justify-content-between align-items-center">
         <h6 class="mb-0">
-          <%= tag.span "", class: "fas fa-circle fa-sm mr-1 text-#{property_status_color(property.status)}",
+          <%= tag.span "", class: "fas fa-circle fa-sm mr-1 text-#{status_color(property.status)}",
             title: property_status_title(property.status), data: tooltip_expando %>
           <%= link_to property.name, property, class: "link-muted" %>
         </h6>

@@ -3,7 +3,8 @@ class PropertyCampaignsController < ApplicationController
   before_action :set_property
 
   def index
-    @report = @property.daily_summary_reports_by_campaign(@start_date, @end_date)
+    report = @property.daily_summary_reports_by_campaign(@start_date, @end_date).unscope(:order)
+    @pagy, @report = pagy(report, items: Pagy::VARS[:items])
   end
 
   private

@@ -8,7 +8,6 @@
   </a>
   <ul class="menu">
     <li class="menu-subhead">Campaigns</li>
-    <%= active_link_to "Create Campaign", new_campaign_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_admin_system? %>
     <%= active_link_to "Overview", campaigns_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
     <% if active_campaigns_for_current_organization&.exists? %>
       <%= tag.li class: classes(
@@ -43,5 +42,6 @@
         </ul>
       <% end %>
     <% end %>
+    <%= active_link_to "Create Campaign", new_campaign_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_admin_system? %>
   </ul>
 <% end %>

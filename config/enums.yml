@@ -71,9 +71,16 @@ USER_STATUSES:
   - active
   - blacklisted
 
-USER_STATUS_COLORS:
+STATUS_COLORS:
+  accepted: success
   active: success
+  archived: secondary
   blacklisted: dark
+  configured: success
+  paused: info
+  pending: warning
+  rejected: danger
+  unconfigured: warning
 
 CAMPAIGN_PRICING_STRATEGIES:
   - campaign
@@ -86,20 +93,9 @@ CAMPAIGN_STATUSES:
   - paused
   - pending
 
-CAMPAIGN_STATUS_COLORS:
-  accepted: success
-  active: success
-  archived: secondary
-  paused: info
-  pending: warning
-
 CAMPAIGN_BUNDLE_STATUSES:
   - configured
   - unconfigured
-
-CAMPAIGN_BUNDLE_STATUS_COLORS:
-  configured: success
-  unconfigured: warning
 
 COUPON_TYPES:
   - percentage
@@ -113,11 +109,6 @@ CREATIVE_STATUSES:
   - active
   - archived
 
-CREATIVE_STATUS_COLORS:
-  pending: warning
-  active: success
-  archived: secondary
-
 PROPERTY_TYPES:
   - website
   - repository
@@ -129,13 +120,6 @@ PROPERTY_STATUSES:
   - rejected
   - archived
   - blacklisted
-
-PROPERTY_STATUS_COLORS:
-  pending: warning
-  active: success
-  rejected: danger
-  archived: muted
-  blacklisted: dark
 
 PROPERTY_RESPONSIVE_BEHAVIORS:
   - none

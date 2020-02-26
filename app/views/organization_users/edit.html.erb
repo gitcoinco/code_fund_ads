@@ -4,12 +4,8 @@
 } do %>
   <%= card do %>
     <%= card_header do %>
-      <%= card_title do %>
-        <%= @organization_user.user&.name %>
-      <% end %>
-      <%= card_subtitle do %>
-        Fill out the fields below
-      <% end %>
+      <%= card_title @organization_user.user&.name %>
+      <%= card_subtitle "Fill out the fields below" %>
     <% end %>
     <%= render "/organization_users/forms/existing_user_form",
           organization: @organization,

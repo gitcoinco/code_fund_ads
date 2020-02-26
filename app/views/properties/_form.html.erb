@@ -1,6 +1,6 @@
 <%= simple_form_for property, html: {class: "js-validate"}, data: {controller: "property-form"}, wrapper: :front_form do |f| %>
   <%= card do %>
-    <%= standalone_card_header text: "Property Details" %>
+    <%= card_header "Property Details" %>
     <%= card_body do %>
       <div class="row">
         <%= tag.div f.input(:status,
@@ -159,8 +159,8 @@
     <%= card_footer do %>
       <%= card_footer_content do %>
         <%= button_panel margin: "my-0" do %>
-          <%= f.submit "Save Property", class: "btn btn-primary" %>
           <%= cancel_button(properties_path) %>
+          <%= f.submit "Save Property", class: "btn btn-primary" %>
         <% end %>
       <% end %>
     <% end %>

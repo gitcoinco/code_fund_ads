@@ -23,6 +23,10 @@ module ApplicationHelper
     {toggle: "tooltip", placement: "top"}.merge(options)
   end
 
+  def status_color(status)
+    ENUMS::STATUS_COLORS[status]
+  end
+
   def users_for_select(role: nil)
     relation = User.select(:id, :company_name, :first_name, :last_name).order(:company_name, :first_name, :last_name)
     relation = relation.send(role) if role
@@ -174,17 +178,19 @@ module ApplicationHelper
     render partial: "/shared/details_li", locals: {label: label, block: block}
   end
 
-  def sortable_tr(column, title = nil)
+  def sortable_tr(column, title = nil, add_style: nil)
     title ||= column.titleize
     direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
     selected = nil
 
     if params[:column] == column
-      selected = "up" if direction == "desc"
-      selected = "down" if direction == "asc"
+      selected = if direction == "desc"
+        "up"
+      else
+        "down"
+      end
     end
-
-    render "/shared/sortable_tr", title: title, selected: selected, column: column
+    render "/shared/sortable_tr", title: title, selected: selected, column: column, add_style: add_style
   end
 
   def pagy_entries(pagy)
@@ -199,9 +205,7 @@ module ApplicationHelper
   end
 
   def diff(content1, content2)
-    changes = Diffy::Diff.new(content1, content2,
-      include_plus_and_minus_in_html: true,
-      include_diff_info: true)
+    changes = Diffy::Diff.new(content1, content2, include_plus_and_minus_in_html: true, include_diff_info: false)
     changes.to_s.present? ? changes.to_s(:html).html_safe : "No Changes"
   end
 

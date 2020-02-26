@@ -1,3 +1,5 @@
+# TODO: not being used
+
 class CouponsController < ApplicationController
   before_action :authenticate_administrator!
   before_action :set_coupon, only: [:edit, :update, :destroy]

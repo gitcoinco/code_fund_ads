@@ -1,24 +1,22 @@
-<%= table compact: true do %>
+<%= table do %>
   <%= table_head do %>
-      <%= table_row header: true do %>
-      <%= table_column(add_style: "min-width: 260px") { "Name" } %>
-      <%= table_column { "Starts On" } %>
-      <%= table_column { "Ends On" } %>
-      <%= table_column { "Status" } %>
-      <%= table_column { } %>
+    <%= table_row header: true do %>
+      <%= table_column "Name", add_style: "min-width: 260px" %>
+      <%= table_column "Starts On" %>
+      <%= table_column "Ends On" %>
+      <%= table_column "Status" %>
+      <%= table_column "" %>
     <% end %>
   <% end %>
   <%= table_body do %>
     <% if campaigns.exists? %>
       <% campaigns.each do |campaign| %>
         <%= table_row do %>
-          <%= table_data add_class: "text-truncate" do %>
-            <%= link_to campaign.name, campaign %>
-          <% end %>
-          <%= table_data_value campaign&.start_date&.to_s("bdy")  %>
-          <%= table_data_value campaign&.end_date&.to_s("bdy")  %>
+          <%= table_data link_to(campaign.name, campaign), add_class: "text-truncate" %>
+          <%= table_data campaign&.start_date&.to_s("bdy") %>
+          <%= table_data campaign&.end_date&.to_s("bdy") %>
           <%= table_data do %>
-            <span class="badge badge-<%= campaign_status_color(campaign.status) %>">
+            <span class="badge badge-<%= status_color(campaign.status) %>">
             <%= campaign.status.humanize %>
           <% end %>
           <%= table_data do %>

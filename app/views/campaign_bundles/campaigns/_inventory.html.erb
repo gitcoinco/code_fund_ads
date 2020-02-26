@@ -1,59 +1,59 @@
-<div class="card mt-2">
-  <div class="card-header bg-muted">
-    <h5>
+<%= card do %>
+  <%= card_header add_class: "bg-muted" do %>
+    <%= card_title do %>
       <%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count %> impressions/day
       <small><%= number_to_percentage campaign.inventory_summary.average_click_rate, precision: 2 %> average CTR</small>
-    </h5>
-    <div class="opacity-60">Average inventory based on your targeted locations and audience but not your budget or availability</div>
-  </div>
-  <div class="card-body" style="max-height:500px; overflow-y:scroll;">
+    <% end %>
+    <%= card_subtitle "Average inventory based on your targeted locations and audience but not your budget or availability", add_class: "font-weight-bold leading-relaxed" %>
+  <% end %>
+  <%= card_body add_style: "max-height:570px; overflow-y:scroll;" do %>
     <h6 class="text-muted">eCPM by Region & Audience</h6>
-    <table class="table table-sm table-hover table-bordered">
-      <thead>
-        <tr class="bg-light">
-          <th class="rounded-0">Region</th>
-          <th class="rounded-0">Audience</th>
-          <th class="rounded-0 text-right"><small class="d-block opacity-60">Base</small>eCPM</th>
-          <th class="rounded-0 text-right"><small class="d-block opacity-60">Adjusted</small>eCPM</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% campaign.inventory_summary.inventory_details.map do |inventory_detail| %>
-          <tr title="<%= "#{inventory_detail.region.name} + #{inventory_detail.audience.name}" %>">
-            <td><small class="text-nowrap"><%= truncate inventory_detail.region.name, length: 18 %></small></td>
-            <td><small class="text-nowrap"><%= truncate inventory_detail.audience.name, length: 18 %></small></td>
-            <td class="text-right text-monospace"><%= inventory_detail.base_ecpm.format %></td>
-            <td class="text-right text-monospace"><%= inventory_detail.adjusted_ecpm.format %></td>
-          </tr>
+    <%= table add_class: "table-sm table-bordered" do %>
+      <%= table_head do %>
+        <%= table_row header: true, add_class: "bg-light" do %>
+          <%= table_column "Region" %>
+          <%= table_column "Audience" %>
+          <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Base</small>eCPM<% end %>
+          <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Adjusted</small>eCPM<% end %>
         <% end %>
-      </tbody>
-    </table>
-
-    <h6 class="text-muted mt-5">Inventory by Region & Audience</h6>
-    <table class="table table-sm table-hover table-bordered">
-      <thead>
-        <tr class="bg-light">
-          <th class="rounded-0">Region</th>
-          <th class="rounded-0">Audience</th>
-          <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Daily</small>Impressions</th>
-          <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Daily</small>Percentage</th>
-          <th class="rounded-0 text-right"><small class="d-block opacity-60">Average</small>Click Rate</th>
-        </tr>
-      </thead>
-      <tbody>
+      <% end %>
+      <%= table_body do %>
         <% campaign.inventory_summary.inventory_details.map do |inventory_detail| %>
-          <tr title="<%= "#{inventory_detail.region.name} + #{inventory_detail.audience.name}" %>">
-            <td><small class="text-nowrap"><%= truncate inventory_detail.region.name, length: 18 %></small></td>
-            <td><small class="text-nowrap"><%= truncate inventory_detail.audience.name, length: 18 %></small></td>
-            <td class="text-right text-monospace"><%= number_with_delimiter inventory_detail.average_daily_impressions_count %></td>
-            <td class="text-right text-monospace"><%= number_to_percentage inventory_detail.percentage * 100, precision: 1 %></td>
-            <td class="text-right text-monospace"><%= number_to_percentage  inventory_detail.average_click_rate, precision: 2 %></td>
-          </tr>
+          <%= table_row title: "#{inventory_detail.region.name} + #{inventory_detail.audience.name}" do %>
+            <%= table_data do %><small class="text-nowrap"><%= truncate inventory_detail.region.name, length: 18 %></small><% end %>
+            <%= table_data do %><small class="text-nowrap"><%= truncate inventory_detail.audience.name, length: 18 %></small><% end %>
+            <%= table_data inventory_detail.base_ecpm.format, add_class: "text-right text-monospace" %>
+            <%= table_data inventory_detail.adjusted_ecpm.format, add_class: "text-right text-monospace" %>
+          <% end %>
         <% end %>
-      </tbody>
-    </table>
+      <% end %>
+    <% end %>
 
-    <h6 class="text-muted mt-5">
+    <h6 class="text-muted mt-3">Inventory by Region & Audience</h6>
+    <%= table add_class: "table-sm table-bordered" do %>
+      <%= table_head do %>
+        <%= table_row header: true, add_class: "bg-light" do %>
+          <%= table_column "Region" %>
+          <%= table_column "Audience" %>
+          <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Average Daily</small>Impressions<% end %>
+          <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Average Daily</small>Percentage<% end %>
+          <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Average</small>Click Rate<% end %>
+        <% end %>
+      <% end %>
+      <%= table_body do %>
+        <% campaign.inventory_summary.inventory_details.map do |inventory_detail| %>
+          <%= table_row title: "#{inventory_detail.region.name} + #{inventory_detail.audience.name}" do %>
+            <%= table_data do %><small class="text-nowrap"><%= truncate inventory_detail.region.name, length: 18 %></small><% end %>
+            <%= table_data do %><small class="text-nowrap"><%= truncate inventory_detail.audience.name, length: 18 %></small><% end %>
+            <%= table_data number_with_delimiter(inventory_detail.average_daily_impressions_count), add_class: "text-right text-monospace" %>
+            <%= table_data number_to_percentage(inventory_detail.percentage * 100, precision: 1), add_class: "text-right text-monospace" %>
+            <%= table_data number_to_percentage(inventory_detail.average_click_rate, precision: 2), add_class: "text-right text-monospace" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <h6 class="text-muted mt-3">
       Daily Inventory
       <small class="ml-2">
         <span class="text-black"><i class="fas fa-circle"></i> Total</span>
@@ -62,134 +62,128 @@
       </small>
       <small class="d-block">based on active campaigns operating on <%= tag.span @campaign_bundle.start_date.to_s("mm/dd/yyyy"), class: "text-monospace" %></small>
     </h6>
-    <table class="table table-sm table-hover table-bordered">
-      <thead>
-        <tr class="bg-light">
-          <th class="rounded-0">#</th>
-          <th class="rounded-0">Region</th>
-          <th class="rounded-0">Audience</th>
-          <th class="rounded-0 text-right"><small class="d-block opacity-60">Estimated Daily</small>Impressions</th>
-          <th class="rounded-0 text-right"><small class="d-block opacity-60">Estimated Daily</small>Value</th>
-        </tr>
-      </thead>
-      <tbody>
+    <%= table add_class: "table-sm table-bordered" do %>
+      <%= table_head do %>
+        <%= table_row header: true, add_class: "bg-light" do %>
+          <%= table_column "#" %>
+          <%= table_column "Region" %>
+          <%= table_column "Audience" %>
+          <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated Daily</small>Impressions<% end %>
+          <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated Daily</small>Value<% end %>
+        <% end %>
+      <% end %>
+      <%= table_body do %>
         <% campaign.inventory_summary.inventory_details.sort_by(&:average_daily_impressions_count).reverse.each_with_index do |inventory_detail, index| %>
-          <tr title="<%= "#{inventory_detail.region.name} + #{inventory_detail.audience.name}" %>">
-            <td><%= index + 1 %></td>
-            <td><small class=""><%= inventory_detail.region.name %></small></td>
-            <td><small class=""><%= inventory_detail.audience.name %></small></td>
-            <td class="text-right text-monospace">
+          <%= table_row title: "#{inventory_detail.region.name} + #{inventory_detail.audience.name}" do %>
+            <%= table_data index + 1 %>
+            <%= table_data do %><small class="text-nowrap"><%= truncate inventory_detail.region.name, length: 18 %></small><% end %>
+            <%= table_data do %><small class="text-nowrap"><%= truncate inventory_detail.audience.name, length: 18 %></small><% end %>
+            <%= table_data add_class: "text-right text-monospace" do %>
               <%= number_with_delimiter inventory_detail.average_daily_impressions_count %>
               <span class="text-nowrap text-danger d-block"><%= number_with_delimiter inventory_detail.sold_daily_impressions_count %></span>
               <span class="text-nowrap text-success d-block"><%= number_with_delimiter inventory_detail.unsold_daily_impressions_count %></span>
-            </td>
-            <td class="text-right text-monospace">
+            <% end %>
+            <%= table_data add_class: "text-right text-monospace" do %>
               <%= inventory_detail.average_daily_impressions_value.format %>
               <span class="text-nowrap text-danger d-block"><%= inventory_detail.sold_daily_impressions_value.format %></span>
               <span class="text-nowrap text-success d-block"><%= inventory_detail.unsold_daily_impressions_value.format %></span>
-            </td>
-          </tr>
+            <% end %>
+          <% end %>
         <% end %>
-      </tbody>
-      <tfoot>
-        <tr class="bg-light">
-          <td class="text-right font-weight-bold" colspan="3">
-            <small class="opacity-60 float-left text-left">
-              Sold/Unsold estimates are<br>based on Active Campaigns
-            </small>
-            Total
+      <% end %>
+      <%= table_footer do %>
+        <%= table_row add_class: "bg-light" do %>
+          <%= table_data add_class: "text-right font-weight-bold", colspan: "3" do %>
+            <small class="opacity-60 float-left text-left">Sold/Unsold estimates are<br>based on Active Campaigns</small>Total
             <span class="text-nowrap text-danger d-block">Sold</span>
             <span class="text-nowrap text-success d-block">Unsold</span>
-          </td>
-          <td class="text-right font-weight-bold text-monospace">
+          <% end %>
+          <%= table_data add_class: "text-right font-weight-bold text-monospace" do %>
             <%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count %>
             <span class="text-nowrap text-danger d-block"><%= number_with_delimiter campaign.inventory_summary.sold_daily_impressions_count %></span>
             <span class="text-nowrap text-success d-block"><%= number_with_delimiter campaign.inventory_summary.unsold_daily_impressions_count %></span>
-          </td>
-          <td class="text-right font-weight-bold text-monospace">
+          <% end %>
+          <%= table_data add_class: "text-right font-weight-bold text-monospace" do %>
             <%= campaign.inventory_summary.average_daily_impressions_value.format %>
             <span class="text-nowrap text-danger d-block"><%=  campaign.inventory_summary.sold_daily_impressions_value.format %></span>
             <span class="text-nowrap text-success d-block"><%= campaign.inventory_summary.unsold_daily_impressions_value.format %></span>
-          </td>
-        </tr>
-      </tfoot>
-    </table>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
 
     <% if campaign.inventory_summary.current_competitors.present? %>
-      <h6 class="text-muted mt-5">
+      <h6 class="text-muted mt-3">
         Live Campaigns
         <small class="d-block">targeting the same inventory and operating on <%= tag.span @campaign_bundle.start_date.to_s("mm/dd/yyyy"), class: "text-monospace" %></small>
       </h6>
-      <table class="table table-sm table-hover table-bordered">
-        <thead>
-          <tr class="bg-light">
-            <th class="rounded-0">ID</th>
-            <th class="rounded-0">Status</th>
-            <th class="rounded-0 text-right">Daily Budget</th>
-            <th class="rounded-0 text-right">Start</th>
-            <th class="rounded-0 text-right">End</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% campaign.inventory_summary.current_competitors.each do |c| %>
-            <tr>
-              <td data="tooltip_expando" title="<%= c.name %>"><%= link_to c.id, c %></td>
-              <td class="text-<%= campaign_status_color(c.status) %>"><%= c.status.humanize %></span></td>
-              <td class="text-right text-monospace"><%= c.daily_budget.format %></td>
-              <td class="text-right text-monospace"><%= c.start_date.to_s("mm/dd/yyyy") %></td>
-              <td class="text-right text-monospace"><%= c.end_date&.to_s("mm/dd/yyyy") %></td>
-            </tr>
+      <%= table add_class: "table-sm table-bordered" do %>
+        <%= table_head do %>
+          <%= table_row header: true, add_class: "bg-light" do %>
+            <%= table_column "ID" %>
+            <%= table_column "Status" %>
+            <%= table_column "Daily Budget", add_class: "text-right" %>
+            <%= table_column "Start", add_class: "text-right" %>
+            <%= table_column "End", add_class: "text-right" %>
           <% end %>
-        </tbody>
-        <tfoot>
-          <tr class="bg-light">
-            <td></td>
-            <td class="text-right font-weight-bold">Total</td>
-            <td class="text-right font-weight-bold text-monospace"><%= campaign.inventory_summary.current_competitors_total_daily_budget.format %></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tfoot>
-      </table>
+        <% end %>
+        <%= table_body do %>
+          <% campaign.inventory_summary.current_competitors.each do |c| %>
+            <%= table_row do %>
+              <%= table_data link_to(c.id, c), title: c.name, data: "tooltip_expando" %>
+              <%= table_data c.status.humanize, add_class: "text-#{status_color(c.status)}" %>
+              <%= table_data c.daily_budget.format, add_class: "text-right text-monospace" %>
+              <%= table_data c.start_date.to_s("mm/dd/yyyy"), add_class: "text-right text-monospace" %>
+              <%= table_data c.end_date.to_s("mm/dd/yyyy"), add_class: "text-right text-monospace" %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <%= table_footer do %>
+          <%= table_row add_class: "bg-light" do %>
+            <%= table_data "" %>
+            <%= table_data "Total", add_class: "text-right font-weight-bold" %>
+            <%= table_data campaign.inventory_summary.current_competitors_total_daily_budget.format, add_class: "text-right font-weight-bold text-monospace" %>
+            <%= table_data "", colspan: 2 %>
+          <% end %>
+        <% end %>
+      <% end %>
     <% end %>
 
     <% if campaign.inventory_summary.future_competitors.present? %>
-      <h6 class="text-muted mt-5">
+      <h6 class="text-muted mt-3">
         Future Campaigns
         <small class="d-block">targeting the same inventory and starting after <%= tag.span @campaign_bundle.start_date.to_s("mm/dd/yyyy"), class: "text-monospace" %></small>
       </h6>
-      <table class="table table-sm table-hover table-bordered">
-        <thead>
-          <tr class="bg-light">
-            <th class="rounded-0">ID</th>
-            <th class="rounded-0">Status</th>
-            <th class="rounded-0">Daily Budget</th>
-            <th class="rounded-0">Start</th>
-            <th class="rounded-0">End</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% campaign.inventory_summary.future_competitors.each do |c| %>
-            <tr>
-              <td data="tooltip_expando" title="<%= c.name %>"><%= link_to c.id, c, target: "_blank" %></td>
-              <td class="text-<%= campaign_status_color(c.status) %>"><%= c.status.humanize %></span></td>
-              <td class="text-right text-monospace"><%= c.daily_budget.format %></td>
-              <td class="text-right text-monospace"><%= c.start_date.to_s("mm/dd/yyyy") %></td>
-              <td class="text-right text-monospace"><%= c.end_date&.to_s("mm/dd/yyyy") %></td>
-            </tr>
+      <%= table add_class: "table-sm table-bordered" do %>
+        <%= table_head do %>
+          <%= table_row header: true, add_class: "bg-light" do %>
+            <%= table_column "ID" %>
+            <%= table_column "Status" %>
+            <%= table_column "Daily Budget", add_class: "text-right" %>
+            <%= table_column "Start", add_class: "text-right" %>
+            <%= table_column "End", add_class: "text-right" %>
           <% end %>
-        </tbody>
-        <tfoot>
-          <tr class="bg-light">
-            <td></td>
-            <td class="text-right font-weight-bold">Total</td>
-            <td class="text-right font-weight-bold text-monospace"><%= campaign.inventory_summary.future_competitors_total_daily_budget.format %></td>
-            <td></td>
-            <td></td>
-          </tr>
-        </tfoot>
-      </table>
+        <% end %>
+        <%= table_body do %>
+          <% campaign.inventory_summary.future_competitors.each do |c| %>
+            <%= table_row do %>
+              <%= table_data link_to(c.id, c, target: "_blank"), title: c.name, data: "tooltip_expando" %>
+              <%= table_data c.status.humanize, add_class: "text-#{status_color(c.status)}" %>
+              <%= table_data c.daily_budget.format, add_class: "text-right text-monospace" %>
+              <%= table_data c.start_date.to_s("mm/dd/yyyy"), add_class: "text-right text-monospace" %>
+              <%= table_data c.end_date.to_s("mm/dd/yyyy"), add_class: "text-right text-monospace" %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <%= table_footer do %>
+          <%= table_row add_class: "bg-light" do %>
+            <%= table_data "" %>
+            <%= table_data "Total", add_class: "text-right font-weight-bold" %>
+            <%= table_data campaign.inventory_summary.future_competitors_total_daily_budget.format, add_class: "text-right font-weight-bold text-monospace" %>
+            <%= table_data "", colspan: 2 %>
+          <% end %>
+        <% end %>
+      <% end %>
     <% end %>
-
-  </div>
-</div>
+  <% end %>
+<% end %>

@@ -1,4 +1,4 @@
-<div class="list-group-item list-group-item-<%= user_status_color(user.status) %>"
+<div class="list-group-item list-group-item-<%= status_color(user.status) %>"
      data-target="filterable-list.filterable"
      data-filter-key='all <%= user.status %>'>
   <div class="list-group-item-figure">
@@ -13,12 +13,15 @@
           <%= link_to user.name, user %><br />
         </h4>
       </div>
-      <ul class="list-inline text-muted mb-0">
-        <li class="d-none d-sm-inline list-inline-item mr-3">
-          <span class="badge badge-subtle badge-<%= user_status_color(user.status) %>"><%= user.status.humanize %></span>
+      <ul class="list-inline text-muted mb-0 d-flex">
+        <li class="d-none d-xl-inline list-inline-item mr-3">
+          <span class="badge badge-subtle badge-<%= status_color(user.status) %>"><%= user.status.humanize %></span>
         </li>
-        <%= edit_button(link: edit_user_path(user)) %>
-        <%= goto_button(link: user_path(user), icon: "fas fa-chevron-right", title: "View User") %>
+        <li class="list-inline-item d-flex flex-nowrap">
+          <%= masquerade_button(user) %>
+          <%= edit_button(link: edit_user_path(user), title: "Edit User") %>
+          <%= goto_button(link: user_path(user), icon: "fas fa-chevron-right", title: "View User") %>
+        </li>
       </ul>
     </div>
   </div>

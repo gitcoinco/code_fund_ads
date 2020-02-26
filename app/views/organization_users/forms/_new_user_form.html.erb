@@ -13,8 +13,8 @@
   <%= card_footer do %>
     <%= card_footer_content do %>
       <%= button_panel margin: "my-0" do %>
-        <%= f.submit "Send Invitation", class: "btn btn-primary" %>
         <%= cancel_button(organization_users_path(organization)) %>
+        <%= f.submit "Send Invitation", class: "btn btn-primary" %>
       <% end %>
     <% end %>
   <% end %>

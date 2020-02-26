@@ -1,57 +1,52 @@
 <% if @campaign_bundle.region_ids.present? %>
   <% cache @campaign_bundle.region_ids, expires_in: 1.day do %>
-    <div class="card mt-2">
-      <div class="card-header bg-muted">
-        <h5><%= number_with_delimiter @campaign_bundle.average_daily_impressions_count %> impressions/day</h5>
-        <div class="opacity-60">Average inventory based on your targeted locations but not audience, your budget, or availability</div>
-      </div>
-      <div class="card-body" style="max-height:400px; overflow-y:scroll;">
+    <%= card do %>
+      <%= card_header add_class: "bg-muted" do %>
+        <%= card_title "#{number_with_delimiter(@campaign_bundle.average_daily_impressions_count)} impressions/day" %>
+        <%= card_subtitle "Average inventory based on your targeted locations but not audience, your budget, or availability", add_class: "font-weight-bold leading-relaxed" %>
+      <% end %>
+      <%= card_body add_style: "max-height:460px; overflow-y:scroll;" do %>
         <h6 class="text-muted">Daily Impressions by Country</h6>
-        <table class="table table-sm table-hover table-bordered">
-          <thead>
-            <tr class="bg-light">
-              <th class="rounded-0">#</th>
-              <th class="rounded-0">Country</th>
-              <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Daily</small>Impressions</th>
-              <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Premium</small>Click Rate</th>
-            </tr>
-          </thead>
-          <tbody>
+        <%= table add_class: "table-sm table-bordered" do %>
+          <%= table_head do %>
+            <%= table_row header: true, add_class: "bg-light" do %>
+              <%= table_column "#" %>
+              <%= table_column "Country" %>
+              <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Average Daily</small>Impressions<% end %>
+              <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Average Premium</small>Click Rate<% end %>
+            <% end %>
+          <% end %>
+          <%= table_body do %>
             <% @campaign_bundle.countries.sort_by(&:average_daily_impressions_count).reverse.each_with_index do |country, index| %>
-              <% if country.average_daily_impressions_count > 0 %>
-                <tr>
-                  <td><%= index + 1 %></td>
-                  <td><%= country.emoji_flag %> <%= truncate country.name, length: 24 %></td>
-                  <td class="text-right text-monospace"><%= number_with_delimiter country.average_daily_impressions_count %></td>
-                  <td class="text-right text-monospace"><%= number_to_percentage DailySummary.average_premium_click_rate_by_country(country), precision: 2 %></td>
-                </tr>
+              <%= table_row do %>
+                <%= table_data index + 1 %>
+                <%= table_data "#{country.emoji_flag} #{truncate(country.name, length: 24)}" %>
+                <%= table_data number_with_delimiter(country.average_daily_impressions_count), add_class: "text-right text-monospace" %>
+                <%= table_data number_to_percentage(DailySummary.average_premium_click_rate_by_country(country), precision: 2), add_class: "text-right text-monospace" %>
+              <% end if country.average_daily_impressions_count > 0 %>
+            <% end %>
+          <% end %>
+        <% end %>
+        <h6 class="text-muted mt-3">Daily Impressions by Audience</h6>
+        <%= table add_class: "table-sm table-bordered" do %>
+          <%= table_head do %>
+            <%= table_row header: true, add_class: "bg-light" do %>
+              <%= table_column "#" %>
+              <%= table_column "Audience" %>
+              <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Average Daily</small>Impressions<% end %>
+            <% end %>
+          <% end %>
+          <%= table_body do %>
+            <% @campaign_bundle.daily_impressions_by_audience.sort_by { |count, _| count }.reverse.each_with_index do |(count, audience), index| %>
+              <%= table_row do %>
+                <%= table_data index + 1 %>
+                <%= table_data audience.name %>
+                <%= table_data number_with_delimiter(count), add_class: "text-right text-monospace" %>
               <% end %>
             <% end %>
-          </tbody>
-        </table>
-
-        <h6 class="text-muted mt-5">Daily Impressions by Audience</h6>
-        <table class="table table-sm table-hover table-bordered">
-          <thead>
-            <tr class="bg-light">
-              <th class="rounded-0">#</th>
-              <th class="rounded-0">Audience</th>
-              <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Daily</small>Impressions</th>
-              <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Premium</small>Click Rate</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @campaign_bundle.daily_impressions_by_audience.sort_by { |count, _| count }.reverse.each_with_index do |(count, audience), index| %>
-              <tr>
-                <td><%= index + 1 %></td>
-                <td><%= audience.name %></td>
-                <td class="text-right text-monospace"><%= number_with_delimiter count %></td>
-                <td class="text-right text-monospace"><%= number_to_percentage DailySummary.average_premium_click_rate_by_audience(audience), precision: 2 %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>

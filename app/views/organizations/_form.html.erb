@@ -2,12 +2,8 @@
   <%= render "/shared/forms/error_messages", object: organization %>
   <%= card do %>
     <%= card_header do %>
-      <%= card_title do %>
-        Team Details
-      <% end %>
-      <%= card_subtitle do %>
-        Tell us about your team
-      <% end %>
+      <%= card_title "Team Details" %>
+      <%= card_subtitle "Tell us about your team" %>
     <% end %>
     <%= card_body do %>
       <div class="row">
@@ -28,8 +24,8 @@
     <%= card_footer do %>
       <%= card_footer_content do %>
         <%= button_panel margin: "my-0" do %>
-          <%= f.submit "Save Team", class: "btn btn-primary" %>
           <%= cancel_button(organizations_path) %>
+          <%= f.submit "Save Team", class: "btn btn-primary" %>
         <% end %>
       <% end %>
     <% end %>

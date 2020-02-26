@@ -4,12 +4,8 @@
 } do %>
   <%= card do %>
     <%= card_header do %>
-      <%= card_title do %>
-        Property Revisions
-      <% end %>
-      <%= card_subtitle do %>
-        List of revisions to this property
-      <% end %>
+      <%= card_title "Property Revisions" %>
+      <%= card_subtitle "List of revisions to this property" %>
     <% end %>
     <%= card_body padding: "p-0" do %>
       <%= render "/versions/table", versionable: @versionable, versions: @versions %>

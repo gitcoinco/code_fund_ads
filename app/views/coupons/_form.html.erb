@@ -2,12 +2,8 @@
   <%= render "/shared/forms/error_messages", object: coupon %>
   <%= card do %>
     <%= card_header do %>
-      <%= card_title do %>
-        Coupon Details
-      <% end %>
-      <%= card_subtitle do %>
-        Fill out the form below
-      <% end %>
+      <%= card_title "Coupon Details" %>
+      <%= card_subtitle "Fill out the form below" %>
     <% end %>
     <%= card_body do %>
       <div class="row">
@@ -31,11 +27,11 @@
     <%= card_footer do %>
       <%= card_footer_content do %>
         <%= button_panel margin: "my-0" do %>
-          <%= f.submit "Save Coupon", class: "btn btn-primary" %>
-          <%= cancel_button(coupons_path) %>
           <% if coupon.persisted? %>
-            <%= link_to "Delete", coupon_path(coupon), method: :delete, class: "btn btn-danger ml-1" %>
+            <%= link_to "Delete", coupon_path(coupon), method: :delete, class: "btn btn-danger" %>
           <% end %>
+          <%= cancel_button(coupons_path, add_class: "ml-1") %>
+          <%= f.submit "Save Coupon", class: "btn btn-primary" %>
         <% end %>
       <% end %>
     <% end %>

@@ -1,5 +1,5 @@
 <%= card do %>
-  <%= standalone_card_header text: "eCPM" %>
+  <%= card_header "eCPM" %>
   <%= card_body padding: "p-0" do %>
     <% if @campaign.fixed_ecpm? %>
       <%= details_li("eCPM Fixed") { @campaign.ecpm.format } %>

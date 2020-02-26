@@ -2,29 +2,25 @@
   <%= paginated_table do %>
     <%= table_head do %>
       <%= table_row header: true do %>
-        <%= table_column(add_style: "min-width: 260px") { "Name" } %>
-        <%= table_column { "URL" } %>
-        <%= table_column { "Type" } %>
-        <%= table_column { "Status" } %>
-        <%= table_column { } %>
+        <%= table_column "Name", add_style: "min-width: 260px" %>
+        <%= table_column "URL" %>
+        <%= table_column "Type" %>
+        <%= table_column "Status" %>
+        <%= table_column "" %>
       <% end %>
     <% end %>
     <%= table_body do %>
-        <% if properties.exists? %>
+      <% if properties.exists? %>
         <% properties.each do |property| %>
           <%= table_row do %>
             <%= table_data add_class: "text-truncate" do %>
               <%= link_to image_tag("", class: "mr-2 lozad", style: "width: 16px; height: 16px;", data: {src: property.favicon_image_url}) %>
               <%= link_to property.name, property %>
             <% end %>
+            <%= table_data link_to(property.pretty_url, property.url, target: "_blank") %>
+            <%= table_data property.property_type.humanize %>
             <%= table_data do %>
-              <%= link_to property.pretty_url, property.url, target: "_blank" %>
-            <% end %>
-            <%= table_data do %>
-              <%= property.property_type.humanize %>
-            <% end %>
-            <%= table_data do %>
-              <span class="badge badge-<%= property_status_color(property.status) %>">
+              <span class="badge badge-<%= status_color(property.status) %>">
               <%= property.status.humanize %>
             <% end %>
             <%= table_data do %>
@@ -39,7 +35,7 @@
     <% end %>
   <% end %>
   <%= pagination_wrapper do %>
-    <span><%== pagy_bootstrap_nav(pagy) if pagy.pages > 1 %></span>
+    <span><%== pagy_bootstrap_nav(pagy) %></span>
     <%= pagy_entries(pagy) %>
-  <% end %>
+  <% end if pagy.pages > 1 %>
 <% end %>

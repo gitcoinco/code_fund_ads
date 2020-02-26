@@ -1,39 +1,45 @@
-<%= table compact: true do %>
-  <%= table_head do %>
-    <%= table_row header: true do %>
-      <%= table_column { "Property" } %>
-      <% if @campaign.standard? %>
-        <%= table_column { "Impressions" } %>
+<%= table_wrapper do %>
+  <%= paginated_table do %>
+    <%= table_head do %>
+      <%= table_row header: true do %>
+        <%= table_column "Property" %>
+        <% if @campaign.standard? %>
+          <%= table_column "Impressions" %>
+        <% end %>
+        <%= table_column "Clicks" %>
+        <% if @campaign.standard? %>
+          <%= table_column "CTR" %>
+          <%= table_column "CPM" %>
+          <%= table_column "CPC" %>
+        <% end %>
       <% end %>
-      <%= table_column { "Clicks" } %>
-      <% if @campaign.standard? %>
-        <%= table_column { "CTR" } %>
-        <%= table_column { "CPM" } %>
-        <%= table_column { "CPC" } %>
+    <% end %>
+    <%= table_body do %>
+      <!-- Totals Row -->
+      <% if @summary %>
+        <%= table_row do %>
+          <%= table_data do %><strong>Totals</strong><% end %>
+          <% if @campaign.standard? %>
+            <%= table_data number_with_delimiter(@summary.impressions_count) %>
+          <% end %>
+          <%= table_data number_with_delimiter(@summary.clicks_count) %>
+          <% if @campaign.standard? %>
+            <%= table_data number_to_percentage(@summary.click_rate, precision: 2) %>
+            <%= table_data number_with_delimiter(@summary.cpm.format) %>
+            <%= table_data number_with_delimiter(@summary.cpc.format) %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <!-- /Totals Row -->
+      <% if @reports.exists? %>
+        <%= render partial: "/campaign_properties/tr", collection: @reports, as: :report %>
+      <% else %>
+        <%= render "/shared/no_data_alert" %>
       <% end %>
     <% end %>
   <% end %>
-  <%= table_body do %>
-    <% if @summary %>
-      <%= table_row do %>
-        <%= table_data do %>
-          <strong>Totals</strong>
-        <% end %>
-        <% if @campaign.standard? %>
-          <%= table_data_value number_with_delimiter(@summary.impressions_count) %>
-        <% end %>
-        <%= table_data_value number_with_delimiter(@summary.clicks_count) %>
-        <% if @campaign.standard? %>
-          <%= table_data_value number_to_percentage(@summary.click_rate, precision: 2) %>
-          <%= table_data_value number_with_delimiter(@summary.cpm.format) %>
-          <%= table_data_value number_with_delimiter(@summary.cpc.format) %>
-        <% end %>
-      <% end %>
-    <% end %>
-    <% if @reports.exists? %>
-      <%= render partial: "/campaign_properties/tr", collection: @reports, as: :report %>
-    <% else %>
-      <%= render "/shared/no_data_alert" %>
-    <% end %>
-  <% end %>
+  <%= pagination_wrapper do %>
+    <span><%== pagy_bootstrap_nav(pagy) %></span>
+    <%= pagy_entries(pagy) %>
+  <% end if pagy.pages > 1 %>
 <% end %>

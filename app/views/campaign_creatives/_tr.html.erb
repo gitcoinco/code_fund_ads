@@ -4,14 +4,14 @@
       <%= link_to report.scoped_by.name, report.scoped_by %>
     <% end %>
     <% if @campaign.standard? %>
-      <%= table_data_value report.gross_revenue.format %>
-      <%= table_data_value number_with_delimiter(report.impressions_count) %>
+      <%= table_data report.gross_revenue.format %>
+      <%= table_data number_with_delimiter(report.impressions_count) %>
     <% end %>
-    <%= table_data_value number_with_delimiter(report.clicks_count) %>
+    <%= table_data number_with_delimiter(report.clicks_count) %>
     <% if @campaign.standard? %>
-      <%= table_data_value number_to_percentage(report.click_rate, precision: 2) %>
-      <%= table_data_value number_with_delimiter(report.cpm.format) %>
-      <%= table_data_value number_with_delimiter(report.cpc.format) %>
+      <%= table_data number_to_percentage(report.click_rate, precision: 2) %>
+      <%= table_data number_with_delimiter(report.cpm.format) %>
+      <%= table_data number_with_delimiter(report.cpc.format) %>
     <% end %>
   <% end %>
 <% end %>

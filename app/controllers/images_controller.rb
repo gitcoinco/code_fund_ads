@@ -6,7 +6,7 @@ class ImagesController < ApplicationController
   before_action :authorize_edit!, only: [:edit, :update]
 
   def index
-    @images = @imageable.images
+    @images = @imageable.images.includes(:blob)
     return redirect_to(new_image_path) if @images.count == 0
   end
 

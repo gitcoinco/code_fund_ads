@@ -1,8 +1,7 @@
 <%= simple_form_for campaign, data: {controller: "campaign-form"}, wrapper: :front_form do |f| %>
   <%= render "/shared/forms/error_messages", object: campaign %>
-  <!-- Details -->
   <%= card do %>
-    <%= standalone_card_header text: "Details" %>
+    <%= card_header "Details" %>
     <%= card_body do %>
       <div class="row">
         <% if authorized_user.can_admin_system? %>
@@ -67,76 +66,68 @@
                         data: {msg: "Please enter a valid URL", rule_url: true, "reflex-permanent": true}
                       }) %>
           <small class="text-muted mt-4 mb-2 d-block">Use any of the following variables in the URL</small>
-          <%= table compact: true do %>
+          <%= table do %>
             <%= table_head do %>
               <%= table_row header: true do %>
-                <%= table_column do %>
-                  &nbsp;
-                <% end %>
-                <%= table_column do %>
-                  Variable
-                <% end %>
-                <%= table_column do %>
-                  Example Value
-                <% end %>
-                <%= table_column do %>
-                  Description
-                <% end %>
+                <%= table_column "" %>
+                <%= table_column "Variable" %>
+                <%= table_column "Example Value" %>
+                <%= table_column "Description" %>
               <% end %>
             <% end %>
             <%= table_body do %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
                 <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{campaign_id}}" style="border:none;" disabled data-target="copy.input" /><% end %>
-                <%= table_data do %><%= campaign.id || 123 %><% end %>
+                <%= table_data campaign.id || 123 %>
                 <%= table_data do %>The campaign <code class="code">id</code><% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
                 <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{campaign_name}}" style="border:none;" disabled data-target="copy.input" /><% end %>
-                <%= table_data do %><%= campaign.name || "Example" %><% end %>
+                <%= table_data campaign.name || "Example" %>
                 <%= table_data do %>The campaign <code class="code">name</code><% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
                 <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{creative_id}}" style="border:none;" disabled data-target="copy.input" /><% end %>
-                <%= table_data do %><%= campaign.creatives.first&.id || 123 %><% end %>
+                <%= table_data campaign.creatives.first&.id || 123 %>
                 <%= table_data do %>The creative <code class="code">id</code> that was rendered<% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
                 <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{creative_name}}" style="border:none;" disabled data-target="copy.input" /><% end %>
-                <%= table_data do %><%= campaign.creatives.first&.name || "Example" %><% end %>
+                <%= table_data campaign.creatives.first&.name || "Example" %>
                 <%= table_data do %>The creative <code class="code">name</code> that was rendered<% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
                 <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_id}}" style="border:none;" disabled data-target="copy.input" /><% end %>
-                <%= table_data do %><%= campaign.matching_properties.first&.id || 123 %><% end %>
+                <%= table_data campaign.matching_properties.first&.id || 123 %>
                 <%= table_data do %>The property <code class="code">id</code> that displayed the ad<% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
                 <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_name}}" style="border:none;" disabled data-target="copy.input" /><% end %>
-                <%= table_data do %><%= campaign.matching_properties.first&.name || "Example" %><% end %>
+                <%= table_data campaign.matching_properties.first&.name || "Example" %>
                 <%= table_data do %>The property <code class="code">name</code> that displayed the ad<% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
                 <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{property_url}}" style="border:none;" disabled data-target="copy.input" /><% end %>
-                <%= table_data do %><%= campaign.matching_properties.first&.url || "https://www.example.com" %><% end %>
+                <%= table_data campaign.matching_properties.first&.url || "https://www.example.com" %>
                 <%= table_data do %>The property <code class="code">url</code> that displayed the ad<% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
                 <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{template}}" style="border:none;" disabled data-target="copy.input" /><% end %>
-                <%= table_data do %>default<% end %>
+                <%= table_data "default" %>
                 <%= table_data do %>The ad <code class="code">template</code> used to render the ad<% end %>
               <% end %>
               <%= table_row_controller("copy") do %>
                 <%= table_data do %><span class="cursor-pointer text-primary" title="Copy to clipboard" data-toggle="tooltip" data-action="click->copy#copy"><i class="far fa-copy"></i></span><% end %>
                 <%= table_data do %><input type="text" class="border-0 bg-transparent code" value="{{theme}}" style="border:none;" disabled data-target="copy.input" /><% end %>
-                <%= table_data do %>light<% end %>
+                <%= table_data "light" %>
                 <%= table_data do %>The ad <code class="code">theme</code> used to render the ad<% end %>
               <% end %>
             <% end %>
@@ -175,9 +166,7 @@
   <% end %>
   <%= card do %>
     <%= card_header do %>
-      <%= card_title do %>
-        Creatives
-      <% end %>
+      <%= card_title "Creatives" %>
       <%= card_subtitle do %>
         Pick which creatives you would like to use (only approved creatives are available)
         <small class="mt-1 d-block text-primary opacity-70">Multivariate testing is used to determine the most effective creative</small>
@@ -206,7 +195,7 @@
   <% end %>
   <% if authorized_user.can_admin_system? %>
     <%= card do %>
-      <%= standalone_card_header text: "Geo Targeting" %>
+      <%= card_header "Geo Targeting" %>
       <%= card_body do %>
         <div class="row" data-controller="select-geo-targets" data-action="cf:select:changed->select-geo-targets#updateProvinceCodeOptions">
           <div class="col-12 mb-3">
@@ -263,7 +252,7 @@
   <% end %>
   <% if authorized_user.can_admin_system? %>
     <%= card do %>
-      <%= standalone_card_header text: "Additional Targeting" %>
+      <%= card_header "Additional Targeting" %>
       <%= card_body do %>
         <div class="row">
           <div class="col-12 mb-3" data-controller="select-multiple">
@@ -327,9 +316,7 @@
         <%= card_title do %>
           Budget <small>for <%= number_with_delimiter campaign.total_operative_days %> operative days <%= " with a total spend of #{campaign.total_budget.format}" if campaign.region_and_audience_pricing_strategy? %></small>
         <% end %>
-        <%= card_subtitle do %>
-          This campaign is using the <%= campaign.pricing_strategy.humanize.downcase %> based pricing strategy
-        <% end %>
+        <%= card_subtitle "This campaign is using the #{campaign.pricing_strategy.humanize.downcase} based pricing strategy" %>
       <% end %>
       <%= card_body do %>
         <% if campaign.campaign_pricing_strategy? %>
@@ -371,23 +358,19 @@
               <%= table add_class: "table-sm table-hover table-bordered" do %>
                 <%= table_head do %>
                   <%= table_row header: true do %>
-                    <%= table_column { "Region" } %>
-                    <%= table_column { "Audience" } %>
-                    <%= table_column(add_class: "text-right") { "Base eCPM" } %>
-                    <%= table_column(add_class: "text-right") { "Adjusted eCPM" } %>
+                    <%= table_column "Region" %>
+                    <%= table_column "Audience" %>
+                    <%= table_column "Base eCPM", add_class: "text-right" %>
+                    <%= table_column "Adjusted eCPM", add_class: "text-right" %>
                   <% end %>
                 <% end %>
                 <%= table_body do %>
                   <% campaign.inventory_summary.inventory_details.map do |inventory_detail| %>
                     <%= table_row title: "#{inventory_detail.region.name} + #{inventory_detail.audience.name}" do %>
-                      <%= table_data do %>
-                        <small class="text-nowrap"><%= truncate inventory_detail.region.name, length: 30 %></small>
-                      <% end %>
-                      <%= table_data do %>
-                        <small class="text-nowrap"><%= truncate inventory_detail.audience.name, length: 30 %></small>
-                      <% end %>
-                      <%= table_data_value inventory_detail.base_ecpm.format, add_class: "text-right text-monospace" %>
-                      <%= table_data_value inventory_detail.adjusted_ecpm.format, add_class: "text-right text-monospace" %>
+                      <%= table_data do %><small class="text-nowrap"><%= truncate inventory_detail.region.name, length: 30 %></small><% end %>
+                      <%= table_data do %><small class="text-nowrap"><%= truncate inventory_detail.audience.name, length: 30 %></small><% end %>
+                      <%= table_data inventory_detail.base_ecpm.format, add_class: "text-right text-monospace" %>
+                      <%= table_data inventory_detail.adjusted_ecpm.format, add_class: "text-right text-monospace" %>
                     <% end %>
                   <% end %>
                 <% end %>
@@ -400,7 +383,7 @@
   <% end %>
 
   <%= button_panel margin: "my-0" do %>
-    <%= f.submit "Save Campaign", class: "btn btn-primary" %>
     <%= cancel_button(campaigns_path) %>
+    <%= f.submit "Save Campaign", class: "btn btn-primary" %>
   <% end %>
 <% end %>

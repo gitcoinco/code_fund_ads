@@ -1,34 +1,28 @@
 <%= table_wrapper do %>
   <%= paginated_table do %>
     <%= table_head do %>
-        <%= table_row header: true do %>
-        <%= table_column(add_style: "min-width: 260px") { "Name" } %>
-        <%= table_column { "Organization" } %>
-        <%= table_column { "Expires" } %>
-        <%= table_column { "Status" } %>
-        <%= table_column { } %>
+      <%= table_row header: true do %>
+        <%= table_column "Name", add_style: "min-width: 260px" %>
+        <%= table_column "Organization" %>
+        <%= table_column "Expires" %>
+        <%= table_column "Status" %>
+        <%= table_column "" %>
       <% end %>
     <% end %>
     <%= table_body do %>
       <% if campaigns.exists? %>
         <% campaigns.each do |campaign| %>
           <%= table_row do %>
-            <%= table_data add_class: "text-truncate" do %>
-              <%= link_to campaign.name, campaign %>
-            <% end %>
+            <%= table_data link_to(campaign.name, campaign), add_class: "text-truncate" %>
+            <%= table_data link_to(campaign.organization&.name, campaign.organization) %>
+            <%= table_data campaign.end_date.to_s("bdy") %>
             <%= table_data do %>
-              <%= link_to campaign.organization&.name, campaign.organization %>
-            <% end %>
-            <%= table_data do %>
-              <%= campaign.end_date.to_s("bdy") %>
-            <% end %>
-            <%= table_data do %>
-              <span class="badge badge-<%= campaign_status_color(campaign.status) %>">
+              <span class="badge badge-<%= status_color(campaign.status) %>">
               <%= campaign.status.humanize %>
             <% end %>
             <%= table_data do %>
-              <%= edit_button(link: edit_campaign_path(campaign)) %>
-              <%= delete_button(link: campaign_path(campaign, redir: user_campaigns_path(@user))) unless campaign.archived? %>
+              <%= edit_button(link: edit_campaign_path(campaign), title: "Edit Campaign") %>
+              <%= delete_button(link: campaign_path(campaign, redir: user_campaigns_path(@user)), title: "Archive Campaign") unless campaign.archived? %>
             <% end %>
           <% end %>
         <% end %>
@@ -38,7 +32,7 @@
     <% end %>
   <% end %>
   <%= pagination_wrapper do %>
-    <span><%== pagy_bootstrap_nav(pagy) if pagy.pages > 1 %></span>
+    <span><%== pagy_bootstrap_nav(pagy) %></span>
     <%= pagy_entries(pagy) %>
-  <% end %>
+  <% end if pagy.pages > 1 %>
 <% end %>

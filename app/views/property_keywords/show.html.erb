@@ -1,12 +1,8 @@
 <%= render layout: "/properties/layout", locals: {property: @property} do %>
   <%= card do %>
     <%= card_header do %>
-      <%= card_title do %>
-        Keywords
-      <% end %>
-      <%= card_subtitle do %>
-        Keywords that associate this property with campaigns
-      <% end %>
+      <%= card_title "Keywords" %>
+      <%= card_subtitle "Keywords that associate this property with campaigns" %>
     <% end %>
     <%= card_body do %>
       <% @property.keywords.sort.each do |keyword| %>

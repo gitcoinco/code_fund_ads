@@ -60,7 +60,7 @@ require "pagy/extras/bootstrap"
 
 # Out Of Range: Allow for easy handling of out of range pages
 # See https://ddnexus.github.io/pagy/extras/out_of_range
-# Pagy::VARS[:out_of_range_mode] = :last_page    # default  (other options: :empty_page and :exception)
+Pagy::VARS[:out_of_range_mode] = :last_page # default  (other options: :empty_page and :exception)
 
 # Trim: Remove the page=1 param from links
 # See https://ddnexus.github.io/pagy/extras/trim
@@ -73,8 +73,7 @@ require "pagy/extras/bootstrap"
 
 # Instance variables
 # See https://ddnexus.github.io/pagy/api/pagy#instance-variables
-# Pagy::VARS[:items] = 20                                   # default
-Pagy::VARS[:items] = 20
+Pagy::VARS[:items] = 15 # default
 
 # Other Variables
 # See https://ddnexus.github.io/pagy/api/pagy#other-variables

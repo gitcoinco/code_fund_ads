@@ -6,12 +6,8 @@
   <%= f.hidden_field :creative_type, data: {target: "creative-form.creativeType"} %>
   <%= card do %>
     <%= card_header do %>
-      <%= card_title do %>
-        Creative Details
-      <% end %>
-      <%= card_subtitle do %>
-        Tell us about the creative
-      <% end %>
+      <%= card_title "Creative Details" %>
+      <%= card_subtitle "Tell us about the creative" %>
     <% end %>
     <%= card_body do %>
       <div class="row">
@@ -65,8 +61,8 @@
     <%= card_footer do %>
       <%= card_footer_content do %>
         <%= button_panel margin: "my-0" do %>
-          <%= f.submit "Save Creative", class: "btn btn-primary" %>
           <%= cancel_button(creatives_path) %>
+          <%= f.submit "Save Creative", class: "btn btn-primary" %>
         <% end %>
       <% end %>
     <% end %>

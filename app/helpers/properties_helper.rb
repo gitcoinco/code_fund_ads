@@ -11,10 +11,6 @@ module PropertiesHelper
     ENUMS::PROPERTY_STATUSES.values.map { |val| [val.humanize, val] }
   end
 
-  def property_status_color(status)
-    ENUMS::PROPERTY_STATUS_COLORS[status]
-  end
-
   def property_responsive_behaviors_for_select
     [
       ["Show ad using the configured template and theme", ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS::NONE],

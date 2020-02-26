@@ -1,3 +1,5 @@
+# TODO: not being used
+
 class CommentsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:index], if: -> { params[:user_id].present? }

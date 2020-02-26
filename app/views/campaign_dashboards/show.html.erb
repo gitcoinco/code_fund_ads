@@ -4,9 +4,7 @@
       <%= card_title do %>
         Overview <sup><%= link_to tag.i("", class: "fas fa-external-link"), @iframe_url, target: "_blank", class: "color: blue" %></sup>
       <% end %>
-      <%= card_subtitle do %>
-        A mini-dashboard specifically for this campaign.
-      <% end %>
+      <%= card_subtitle "A mini-dashboard specifically for this campaign." %>
     <% end %>
     <%= card_body do %>
       <small class="text-center d-block text-muted">

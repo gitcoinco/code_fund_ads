@@ -1,30 +1,32 @@
-<%= table compact: true do %>
-  <%= table_head do %>
-    <%= table_row header: true do %>
-      <%= table_column { "Name" } %>
-      <%= table_column add_class: "text-right" do %>Impressions<% end %>
-      <%= table_column add_class: "text-right" do %>Clicks<% end %>
-      <%= table_column add_class: "text-right" do %>CTR<% end %>
-      <%= table_column add_class: "text-right" do %>Earnings<% end %>
-    <% end %>
-  <% end %>
-  <%= table_body do %>
-    <% if @report.exists? %>
-      <% @report.each do |item| %>
-        <%= table_row do %>
-          <% if current_user.publisher? %>
-            <%= table_data do %><%= item.scoped_by.name %><% end %>
-          <% else %>
-            <%= table_data do %><%= link_to item.scoped_by.name, item.scoped_by %><% end %>
-          <% end %>
-          <%= table_data add_class: "text-right" do %><%= number_with_delimiter item.impressions_count %><% end %>
-          <%= table_data add_class: "text-right" do %><%= number_with_delimiter item.clicks_count %><% end %>
-          <%= table_data add_class: "text-right" do %><%= number_to_percentage item.click_rate, precision: 3 %><% end %>
-          <%= table_data add_class: "text-right" do %><%= Money.new(item.property_revenue_cents).format %><% end %>
-        <% end %>
+<%= table_wrapper do %>
+  <%= paginated_table do %>
+    <%= table_head do %>
+      <%= table_row header: true do %>
+        <%= table_column "Name" %>
+        <%= table_column "Impressions", add_class: "text-right" %>
+        <%= table_column "Clicks", add_class: "text-right" %>
+        <%= table_column "CTR", add_class: "text-right" %>
+        <%= table_column "Earnings", add_class: "text-right" %>
       <% end %>
-    <% else %>
-      <%= render "/shared/no_data_alert" %>
+    <% end %>
+    <%= table_body do %>
+      <% if @report.exists? %>
+        <% @report.each do |item| %>
+          <%= table_row do %>
+            <%= table_data current_user.publisher? ? item.scoped_by.name : link_to(item.scoped_by.name, item.scoped_by) %>
+            <%= table_data number_with_delimiter(item.impressions_count), add_class: "text-right" %>
+            <%= table_data number_with_delimiter(item.clicks_count), add_class: "text-right" %>
+            <%= table_data number_to_percentage(item.click_rate, precision: 3), add_class: "text-right" %>
+            <%= table_data Money.new(item.property_revenue_cents).format, add_class: "text-right" %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= render "/shared/no_data_alert" %>
+      <% end %>
     <% end %>
   <% end %>
+  <%= pagination_wrapper do %>
+    <span><%== pagy_bootstrap_nav(pagy) %></span>
+    <%= pagy_entries(pagy) %>
+  <% end if pagy.pages > 1 %>
 <% end %>

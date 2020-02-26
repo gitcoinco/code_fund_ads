@@ -7,8 +7,10 @@
                 data-toggle="tab" data-scope-by="all" data-reflex="click->ScopableReflex#scope">All</span>
         </li>
         <% scopable.each do |item| %>
-          <li class="nav-item"><span class="nav-link show pointer <%= "active" if session[:scope_by] == item %>"
-              data-toggle="tab" data-scope-by="<%= item %>" data-reflex="click->ScopableReflex#scope"><%= item.capitalize %></span>
+          <li class="nav-item">
+            <span class="nav-link show pointer <%= "active" if session[:scope_by] == item %>" data-toggle="tab" data-scope-by="<%= item %>" data-reflex="click->ScopableReflex#scope">
+              <%= item.capitalize %>
+            </span>
           </li>
         <% end %>
       </ul>
@@ -46,19 +48,19 @@
         </div>
       </div>
     </div>
-    <div class="text-muted px-3 mb-2">
-      <%= pagy_entries(pagy) %>
-    </div>
-    <div class="tab-content pb-3" data-reflex-root=".class">
+    <div class="tab-content pt-3" data-reflex-root=".class">
       <div class="tab-pane fade show active" role="tabpanel">
         <div class="list-group list-group-flush list-group-divider" data-target="filterable-list.wrapper">
           <%= render partial: "/#{resource_name}/list_group_item", collection: collection, as: resource_name&.singularize&.to_sym %>
         </div>
-        <% if pagy.pages > 1 %>
-          <ul class="pagination justify-content-center mt-4">
+        <%= pagination_wrapper do %>
+          <span>
             <%= render "/shared/paginator" %>
-          </ul>
-        <% end %>
+          </span>
+          <span class="ml-auto">
+            <%= pagy_entries(pagy) %>
+          </span>
+        <% end if pagy.pages > 1 %>
       </div>
     </div>
   </div>

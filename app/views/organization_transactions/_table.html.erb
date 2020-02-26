@@ -2,9 +2,10 @@
   <%= paginated_table do %>
     <%= table_head do %>
       <%= table_row header: true do %>
-        <%= sortable_tr "posted_at", "Date" %>
-        <%= sortable_tr "amount_cents", "Amount" %>
-        <%= table_column add_scope: "col" do %>Reference<% end %>
+        <%= sortable_tr "posted_at", "Date", add_style: "width:20%;" %>
+        <%= sortable_tr "amount_cents", "Amount", add_style: "width:25%;" %>
+        <%= table_column "Reference" %>
+        <%= table_column "" %>
       <% end %>
     <% end %>
     <%= table_body do %>
@@ -12,7 +13,7 @@
     <% end %>
   <% end %>
   <%= pagination_wrapper do %>
-    <span><%== pagy_bootstrap_nav(pagy) if pagy.pages > 1 %></span>
+    <span><%== pagy_bootstrap_nav(pagy) %></span>
     <%= pagy_entries(pagy) %>
-  <% end %>
+  <% end if pagy.pages > 1 %>
 <% end %>

@@ -29,10 +29,6 @@ module Sortable
     @sort_by ||= sort_column
   end
 
-  def query
-    @query ||= order_by
-  end
-
   def current_page(max: nil)
     return 1 if max&.zero?
 
@@ -45,11 +41,11 @@ module Sortable
   private
 
   def column
-    params[:column] || session[:sort_by]
+    @column ||= params[:column] || session[:sort_by]
   end
 
   def direction
-    params[:direction] || session[:sort_direction]
+    @direction ||= params[:direction] || session[:sort_direction]
   end
 
   def update_last_sort_by
