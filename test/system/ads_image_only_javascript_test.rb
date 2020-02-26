@@ -41,7 +41,7 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
                                                            "display": "block",
                                                            "font-weight": "400",
                                                            "text-align": "center",
-                                                           "color": "rgba(102, 119, 136, 1)",
+                                                           "color": "rgb(102, 119, 136)",
                                                            "background-color": "rgba(0, 0, 0, 0)",
                                                            "line-height": "15.4px",)
   end
@@ -113,7 +113,7 @@ class AdsImageOnlyJavascriptTest < ApplicationSystemTestCase
                                                            "display": "block",
                                                            "font-weight": "400",
                                                            "text-align": "center",
-                                                           "color": "rgba(102, 119, 136, 1)",
+                                                           "color": "rgb(102, 119, 136)",
                                                            "background-color": "rgba(0, 0, 0, 0)",
                                                            "line-height": "15.4px",)
   end

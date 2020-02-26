@@ -2,12 +2,13 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.5-node-browsers
+      - image: circleci/ruby:2.6.5-browsers
         environment:
           CAMPAIGN_DEMO_ID: "395"
           PG_HOST: localhost
           PG_USERNAME: ubuntu
           RAILS_ENV: test
+          NODE_ENV: test
           RACK_ENV: test
           DEFAULT_HOST: codefund.io
           PARALLEL_WORKERS: "1"
@@ -23,32 +24,33 @@ jobs:
     steps:
       - checkout
       - run: |
-          sudo apt-get update
-          sudo apt-get install -y postgresql-client
-          curl -o- -L https://yarnpkg.com/install.sh | bash
+          sudo curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
+          curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+          echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+          sudo apt-get update && sudo apt-get install -y postgresql-client nodejs yarn
       - restore_cache:
           name: Restore gem cache
           keys:
-            - gem-cache-v4-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gem-cache-v4-{{ arch }}-{{ .Branch }}
-            - gem-cache-v4-{{ arch }}
-            - gem-cache-v4
+            - gem-cache-v5-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-v5-{{ arch }}-{{ .Branch }}
+            - gem-cache-v5-{{ arch }}
+            - gem-cache-v5
       - restore_cache:
           name: Restore yarn cache
           keys:
-            - yarn-cache-v4-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-cache-v4-{{ arch }}-{{ .Branch }}
-            - yarn-cache-v4-{{ arch }}
-            - yarn-cache-v4
+            - yarn-cache-v5-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache-v5-{{ arch }}-{{ .Branch }}
+            - yarn-cache-v5-{{ arch }}
+            - yarn-cache-v5
       - run:
           name: Set up assets cache key
           command: find app/javascript -type f -exec md5 -q {} \; > dependency_checksum
       - restore_cache:
           name: Restore assets cache
           keys:
-            - assets-cache-v4-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
-            - assets-cache-v4-{{ checksum "dependency_checksum" }}-{{ arch }}
-            - assets-cache-v4-{{ checksum "dependency_checksum" }}
+            - assets-cache-v5-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
+            - assets-cache-v5-{{ checksum "dependency_checksum" }}-{{ arch }}
+            - assets-cache-v5-{{ checksum "dependency_checksum" }}
       - run:
           name: Install gem dependencies
           command: |
@@ -56,26 +58,28 @@ jobs:
             bundle check || bundle install --jobs=6 --retry=3 --path vendor/bundle
       - run:
           name: Install yarn dependencies
-          command: yarn install --ignore-engines --frozen-lockfile
+          command: yarn install --check-files --frozen-lockfile
       - run:
           name: Precompile assets
-          command: RAILS_ENV=test bundle exec rails webpacker:compile
+          command: RAILS_ENV=test bundle exec rails assets:precompile
       - save_cache:
           name: Save gem cache
           paths:
             - vendor/bundle
-          key: gem-cache-v4-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: gem-cache-v5-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
       - save_cache:
           name: Save yarn cache
           paths:
             - ~/.cache/yarn
-          key: yarn-cache-v4-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: yarn-cache-v5-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - save_cache:
           name: Save assets cache
           paths:
             - public/packs-test
+            - public/assets
             - tmp/cache/webpacker
-          key: assets-cache-v4-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
+            - tmp/cache/assets/sprockets
+          key: assets-cache-v5-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
       - run:
           name: Set up DB
           command: bundle exec rails db:drop db:create db:structure:load --trace
@@ -85,8 +89,10 @@ jobs:
       #     command: bundle exec rails zeitwerk:check
       - run:
           name: Run tests
+          command: bundle exec rails test
+      - run:
+          name: Run system tests
           command: |
-            bundle exec rails test
             set +e
             bundle exec rails test:system
       - store_artifacts:

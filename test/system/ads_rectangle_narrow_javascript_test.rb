@@ -40,7 +40,7 @@ class AdsRectangleNarrowJavascriptTest < ApplicationSystemTestCase
                                                            "margin-top": "5px",
                                                            "font-size": "11px",
                                                            "display": "block",
-                                                           "color": "rgba(119, 119, 119, 1)",)
+                                                           "color": "rgb(119, 119, 119)",)
   end
 
   test "rectangle narrow - premium ad with dark theme" do
@@ -73,7 +73,7 @@ class AdsRectangleNarrowJavascriptTest < ApplicationSystemTestCase
                                                            "margin-top": "5px",
                                                            "font-size": "12px",
                                                            "display": "block",
-                                                           "color": "rgba(119, 119, 119, 1)",)
+                                                           "color": "rgb(119, 119, 119)",)
   end
 
   test "rectangle narrow - fallback ad with light theme" do
@@ -106,7 +106,7 @@ class AdsRectangleNarrowJavascriptTest < ApplicationSystemTestCase
                                                            "margin-top": "5px",
                                                            "font-size": "11px",
                                                            "display": "block",
-                                                           "color": "rgba(119, 119, 119, 1)",)
+                                                           "color": "rgb(119, 119, 119)",)
   end
 
   test "rectangle narrow - fallback ad with dark theme" do
@@ -140,6 +140,6 @@ class AdsRectangleNarrowJavascriptTest < ApplicationSystemTestCase
                                                            "margin-top": "5px",
                                                            "font-size": "12px",
                                                            "display": "block",
-                                                           "color": "rgba(119, 119, 119, 1)",)
+                                                           "color": "rgb(119, 119, 119)",)
   end
 end

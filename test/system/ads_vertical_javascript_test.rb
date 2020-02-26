@@ -35,12 +35,12 @@ class AdsVerticalJavascriptTest < ApplicationSystemTestCase
     find("img", class: "cf-img").assert_matches_style("width": "125px",
                                                       "position": "relative",
                                                       "height": "125px",)
-    find("span", class: "cf-text").assert_matches_style("color": "rgba(62, 62, 62, 1)")
+    find("span", class: "cf-text").assert_matches_style("color": "rgb(62, 62, 62)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "text-decoration": "none solid rgb(170, 170, 170)",
                                                            "font-size": "11px",
                                                            "display": "block",
-                                                           "color": "rgba(170, 170, 170, 1)",
+                                                           "color": "rgb(170, 170, 170)",
                                                            "margin-top": "10px",)
   end
 
@@ -103,12 +103,12 @@ class AdsVerticalJavascriptTest < ApplicationSystemTestCase
     find("img", class: "cf-img").assert_matches_style("width": "125px",
                                                       "position": "relative",
                                                       "height": "125px",)
-    find("span", class: "cf-text").assert_matches_style("color": "rgba(62, 62, 62, 1)")
+    find("span", class: "cf-text").assert_matches_style("color": "rgb(62, 62, 62)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "text-decoration": "none solid rgb(170, 170, 170)",
                                                            "font-size": "11px",
                                                            "display": "block",
-                                                           "color": "rgba(170, 170, 170, 1)",
+                                                           "color": "rgb(170, 170, 170)",
                                                            "margin-top": "10px",)
   end
 
