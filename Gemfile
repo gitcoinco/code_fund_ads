@@ -8,7 +8,6 @@ ruby "2.6.5"
 gem "active_link_to", "~> 1.0.5"
 gem "active_storage_svg_sanitizer", "~> 0.1.0"
 gem "acts_as_commentable_with_threading", "~> 2.0.1"
-gem "airbrake", "~> 9.3"
 gem "aws-sdk-s3", "~> 1.48.0", require: false
 gem "barnes", "~> 0.0.7"
 gem "bootsnap", ">= 1.4.2", require: false
@@ -28,7 +27,6 @@ gem "diffy", "~> 3.3.0"
 gem "docraptor", "~> 1.3.0"
 gem "email_address", "~> 0.1.11"
 gem "full-name-splitter", "~> 0.1.2"
-gem "gibbon", "~> 3.3.0"
 gem "heroku-deflater", "~> 0.6.3", group: :production
 gem "hiredis", "~> 0.6.3"
 gem "htmlentities", "4.3.4"
@@ -96,14 +94,12 @@ group :development, :test do
 end
 
 group :development do
-  # gem 'spring'
-  # gem 'spring-watcher-listen', '~> 2.0.0'
   gem "annotate"
   gem "bullet"
   gem "erb_lint"
   gem "factory_bot_rails"
   gem "letter_opener_web"
-  gem "listen", ">= 3.0.5", "< 3.2"
+  gem "listen", "~> 3.2"
   gem "mechanize"
   gem "meta_request" # RailsPanel Chrome extension
   gem "model_probe"

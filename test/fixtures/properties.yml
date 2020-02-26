@@ -5,20 +5,20 @@
 #  id                             :bigint           not null, primary key
 #  ad_template                    :string
 #  ad_theme                       :string
-#  assigned_fallback_campaign_ids :bigint           default([]), not null, is an Array
+#  assigned_fallback_campaign_ids :bigint           default("{}"), not null, is an Array
 #  deleted_at                     :datetime
 #  description                    :text
 #  fallback_ad_template           :string
 #  fallback_ad_theme              :string
-#  keywords                       :string           default([]), not null, is an Array
+#  keywords                       :string           default("{}"), not null, is an Array
 #  language                       :string           not null
 #  name                           :string           not null
-#  prohibit_fallback_campaigns    :boolean          default(FALSE), not null
-#  prohibited_advertiser_ids      :bigint           default([]), not null, is an Array
+#  prohibit_fallback_campaigns    :boolean          default("false"), not null
+#  prohibited_advertiser_ids      :bigint           default("{}"), not null, is an Array
 #  property_type                  :string           default("website"), not null
 #  responsive_behavior            :string           default("none"), not null
-#  restrict_to_assigner_campaigns :boolean          default(FALSE), not null
-#  revenue_percentage             :decimal(, )      default(0.6), not null
+#  restrict_to_assigner_campaigns :boolean          default("false"), not null
+#  revenue_percentage             :decimal(, )      default("0.6"), not null
 #  status                         :string           not null
 #  url                            :text             not null
 #  created_at                     :datetime         not null

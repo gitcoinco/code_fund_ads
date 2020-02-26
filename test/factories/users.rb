@@ -5,7 +5,7 @@
 #  id                     :bigint           not null, primary key
 #  address_1              :string
 #  address_2              :string
-#  api_access             :boolean          default(FALSE), not null
+#  api_access             :boolean          default("false"), not null
 #  api_key                :string
 #  bio                    :text
 #  city                   :string
@@ -18,7 +18,7 @@
 #  current_sign_in_ip     :inet
 #  email                  :string           not null
 #  encrypted_password     :string           not null
-#  failed_attempts        :integer          default(0), not null
+#  failed_attempts        :integer          default("0"), not null
 #  first_name             :string           not null
 #  github_username        :string
 #  invitation_accepted_at :datetime
@@ -26,7 +26,7 @@
 #  invitation_limit       :integer
 #  invitation_sent_at     :datetime
 #  invitation_token       :string
-#  invitations_count      :integer          default(0)
+#  invitations_count      :integer          default("0")
 #  invited_by_type        :string
 #  last_name              :string           not null
 #  last_sign_in_at        :datetime
@@ -35,20 +35,20 @@
 #  locked_at              :datetime
 #  paypal_email           :string
 #  postal_code            :string
-#  referral_click_count   :integer          default(0)
+#  referral_click_count   :integer          default("0")
 #  referral_code          :string
 #  region                 :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  roles                  :string           default([]), is an Array
-#  sign_in_count          :integer          default(0), not null
-#  skills                 :text             default([]), is an Array
+#  roles                  :string           default("{}"), is an Array
+#  sign_in_count          :integer          default("0"), not null
+#  skills                 :text             default("{}"), is an Array
 #  status                 :string           default("active")
 #  twitter_username       :string
 #  unconfirmed_email      :string
 #  unlock_token           :string
-#  us_resident            :boolean          default(FALSE)
+#  us_resident            :boolean          default("false")
 #  utm_campaign           :string
 #  utm_content            :string
 #  utm_medium             :string

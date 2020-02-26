@@ -5,7 +5,7 @@
 #  id             :bigint           not null, primary key
 #  body           :text             not null
 #  eventable_type :string           not null
-#  tags           :string           default([]), is an Array
+#  tags           :string           default("{}"), is an Array
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  eventable_id   :bigint           not null

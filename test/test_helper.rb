@@ -1,7 +1,8 @@
-ENV["RAILS_ENV"] ||= "test"
 require "simplecov"
+SimpleCov.start "rails"
+
+ENV["RAILS_ENV"] ||= "test"
 require "factory_bot_rails"
-SimpleCov.start
 require_relative "../config/environment"
 require_relative "./mmdb_test_helper"
 require "rails/test_help"

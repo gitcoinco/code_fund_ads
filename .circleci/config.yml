@@ -107,3 +107,8 @@ jobs:
       - run:
           name: Run prettier-standard check
           command: yarn run --ignore-engines prettier:check
+      - run:
+          name: Audit Gemfile
+          command: |
+            gem install bundler-audit
+            bundle-audit check --update
