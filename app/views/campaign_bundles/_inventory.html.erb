@@ -13,20 +13,19 @@
               <th class="rounded-0">#</th>
               <th class="rounded-0">Country</th>
               <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Daily</small>Impressions</th>
+              <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Premium</small>Click Rate</th>
             </tr>
           </thead>
           <tbody>
             <% @campaign_bundle.countries.sort_by(&:average_daily_impressions_count).reverse.each_with_index do |country, index| %>
-              <tr>
-                <td><%= index + 1 %></td>
-                <td>
-                <%= country.emoji_flag %>
-                <%= truncate country.name, length: 24 %>
-                </td>
-                <td class="text-right text-monospace">
-                  <%= number_with_delimiter country.average_daily_impressions_count %>
-                </td>
-              </tr>
+              <% if country.average_daily_impressions_count > 0 %>
+                <tr>
+                  <td><%= index + 1 %></td>
+                  <td><%= country.emoji_flag %> <%= truncate country.name, length: 24 %></td>
+                  <td class="text-right text-monospace"><%= number_with_delimiter country.average_daily_impressions_count %></td>
+                  <td class="text-right text-monospace"><%= number_to_percentage DailySummary.average_premium_click_rate_by_country(country), precision: 2 %></td>
+                </tr>
+              <% end %>
             <% end %>
           </tbody>
         </table>
@@ -38,6 +37,7 @@
               <th class="rounded-0">#</th>
               <th class="rounded-0">Audience</th>
               <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Daily</small>Impressions</th>
+              <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Premium</small>Click Rate</th>
             </tr>
           </thead>
           <tbody>
@@ -46,6 +46,7 @@
                 <td><%= index + 1 %></td>
                 <td><%= audience.name %></td>
                 <td class="text-right text-monospace"><%= number_with_delimiter count %></td>
+                <td class="text-right text-monospace"><%= number_to_percentage DailySummary.average_premium_click_rate_by_audience(audience), precision: 2 %></td>
               </tr>
             <% end %>
           </tbody>

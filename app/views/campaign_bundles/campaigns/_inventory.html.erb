@@ -1,6 +1,9 @@
 <div class="card mt-2">
   <div class="card-header bg-muted">
-    <h5><%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count %> impressions/day</h5>
+    <h5>
+      <%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count %> impressions/day
+      <small><%= number_to_percentage campaign.inventory_summary.average_click_rate, precision: 2 %> average CTR</small>
+    </h5>
     <div class="opacity-60">Average inventory based on your targeted locations and audience but not your budget or availability</div>
   </div>
   <div class="card-body" style="max-height:500px; overflow-y:scroll;">
@@ -32,8 +35,9 @@
         <tr class="bg-light">
           <th class="rounded-0">Region</th>
           <th class="rounded-0">Audience</th>
-          <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Daily</small> Impressions</th>
-          <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Daily</small> Percentage</th>
+          <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Daily</small>Impressions</th>
+          <th class="rounded-0 text-right"><small class="d-block opacity-60">Average Daily</small>Percentage</th>
+          <th class="rounded-0 text-right"><small class="d-block opacity-60">Average</small>Click Rate</th>
         </tr>
       </thead>
       <tbody>
@@ -43,6 +47,7 @@
             <td><small class="text-nowrap"><%= truncate inventory_detail.audience.name, length: 18 %></small></td>
             <td class="text-right text-monospace"><%= number_with_delimiter inventory_detail.average_daily_impressions_count %></td>
             <td class="text-right text-monospace"><%= number_to_percentage inventory_detail.percentage * 100, precision: 1 %></td>
+            <td class="text-right text-monospace"><%= number_to_percentage  inventory_detail.average_click_rate, precision: 2 %></td>
           </tr>
         <% end %>
       </tbody>
