@@ -5,7 +5,7 @@
     ] do %>
   <%= render "/shared/data_list",
                resource_name: "campaigns",
-               scopable: %w[pending active archived],
+               scopable: ENUMS::CAMPAIGN_STATUSES.values,
                collection: @campaigns,
                pagy: @pagy %>
 <% end %>

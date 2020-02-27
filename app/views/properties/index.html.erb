@@ -5,7 +5,7 @@
     ] do %>
   <%= render "/shared/data_list",
              resource_name: "properties",
-             scopable: %w[active archived blacklisted pending rejected],
+             scopable: ENUMS::PROPERTY_STATUSES.values,
              collection: @properties,
              pagy: @pagy %>
 <% end %>

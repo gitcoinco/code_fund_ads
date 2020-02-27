@@ -5,8 +5,8 @@ class CampaignPropertiesController < ApplicationController
 
   def index
     @summary = @campaign.summary(@start_date, @end_date)
-    reports = @campaign.daily_summary_reports_by_property(@start_date, @end_date).unscope(:order)
-    @pagy, @reports = pagy(reports, items: Pagy::VARS[:items])
+    reports = @campaign.daily_summary_reports_by_property(@start_date, @end_date).to_a
+    @pagy, @reports = pagy_array(reports, items: Pagy::VARS[:items])
 
     respond_to do |format|
       format.html
