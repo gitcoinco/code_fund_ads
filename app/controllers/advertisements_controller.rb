@@ -314,7 +314,7 @@ class AdvertisementsController < ApplicationController
   def choose_campaign(campaign_relation, ignore_budgets: false)
     return campaign_relation.sample if ignore_budgets
 
-    campaigns = campaign_relation.joins(:organization).where(Organization.arel_table[:balance_cents].gt(0)).to_a
+    campaigns = campaign_relation.includes(:organization).to_a
     campaigns.select!(&:hourly_budget_available?)
     campaigns.sample
   end
