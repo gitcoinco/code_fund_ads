@@ -2,7 +2,7 @@
 # This job is idempotent, meaning it's safe to run multiple times with the same args
 # it will only produce a single OrganizationTransaction
 class CreateDebitForCampaignAndDateJob < ApplicationJob
-  queue_as :default
+  queue_as :critical
 
   def perform(campaign_id, date_string)
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f

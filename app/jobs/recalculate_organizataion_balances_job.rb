@@ -1,5 +1,5 @@
 class RecalculateOrganizataionBalancesJob < ApplicationJob
-  queue_as :low
+  queue_as :default
 
   def perform
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
