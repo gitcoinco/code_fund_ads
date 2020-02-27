@@ -17,7 +17,7 @@ module Impressionable
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
       dates = (start_date..end_date).to_a
       missing_dates = dates - counts_by_date.keys
-      if missing_dates.present?
+      if missing_dates.present? && !Current.user_interface?
         impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).count
           .each { |date, count| counts_by_date[date] ||= count }
       end
@@ -35,7 +35,7 @@ module Impressionable
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
       dates = (start_date..end_date).to_a
       missing_dates = dates - counts_by_date.keys
-      if missing_dates.present?
+      if missing_dates.present? && !Current.user_interface?
         impressions.clicked.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).count
           .each { |date, count| counts_by_date[date] ||= count }
       end
@@ -67,7 +67,7 @@ module Impressionable
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
       dates = (start_date..end_date).to_a
       missing_dates = dates - cents_by_date.keys
-      if missing_dates.present?
+      if missing_dates.present? && !Current.user_interface?
         impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).sum(:estimated_gross_revenue_fractional_cents)
           .each { |date, fractional_cents| cents_by_date[date] ||= fractional_cents.round }
       end
@@ -86,7 +86,7 @@ module Impressionable
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
       dates = (start_date..end_date).to_a
       missing_dates = dates - cents_by_date.keys
-      if missing_dates.present?
+      if missing_dates.present? && !Current.user_interface?
         impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).sum(:estimated_property_revenue_fractional_cents)
           .each { |date, fractional_cents| cents_by_date[date] ||= fractional_cents.round }
       end
@@ -105,7 +105,7 @@ module Impressionable
         .each_with_object({}) { |row, memo| memo[row[0]] = row[1] }
       dates = (start_date..end_date).to_a
       missing_dates = dates - cents_by_date.keys
-      if missing_dates.present?
+      if missing_dates.present? && !Current.user_interface?
         impressions.on(*missing_dates).scoped_by(scoped_by).group(:displayed_at_date).sum(:estimated_house_revenue_fractional_cents)
           .each { |date, fractional_cents| cents_by_date[date] ||= fractional_cents.round }
       end

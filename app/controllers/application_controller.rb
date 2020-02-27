@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
   before_action :allow_cors_requests, unless: -> { Rails.env.production? }
   before_action :current_organization
   before_action :organization_redirect, if: -> { params["current-organization"] }
+  before_action -> { Current.user_interface = current_user&.persisted? }
   impersonates :user
 
   protected
