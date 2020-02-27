@@ -3,10 +3,15 @@ class AdministratorDashboardsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!
+  before_action :set_sortable_columns
 
   def show
     campaigns = Campaign.active.premium.includes(:organization).order(order_by)
     @pagy, @campaigns = pagy(campaigns, items: Pagy::VARS[:items])
+  end
+
+  def set_sortable_columns
+    @sortable_columns ||= sortable_columns
   end
 
   private
@@ -16,13 +21,11 @@ class AdministratorDashboardsController < ApplicationController
       start_date
       end_date
       name
-      status
       updated_at
+      created_at
+      hourly_budget_cents
+      daily_budget_cents
+      total_budget_cents
     ]
-  end
-
-  def sort_column
-    return params[:column] if sortable_columns.include?(params[:column])
-    "name"
   end
 end
