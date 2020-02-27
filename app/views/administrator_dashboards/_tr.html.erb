@@ -3,8 +3,7 @@
     <%= tag.span nil, class: classes(
           "tile tile-circle": true,
           "bg-green": campaign.hourly_budget_available?,
-          "bg-light": !campaign.hourly_budget_available?,
-          "bg-yellow": campaign.start_date.future?
+          "bg-light": !campaign.hourly_budget_available?
     ) %>
   <% end %>
   <%= table_data add_class: "text-truncate" do %>
