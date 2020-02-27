@@ -1,14 +1,12 @@
 class AdministratorDashboardsController < ApplicationController
-  include Scopable
   include Sortable
-  
+
+  before_action :authenticate_user!
   before_action :authenticate_administrator!
 
   def show
-    campaigns = Campaign.active.premium.order(name: :asc).includes(:organization)
-
-    max = (campaigns.count / Pagy::VARS[:items].to_f).ceil
-    @pagy, @campaigns = pagy(campaigns, page: current_page(max: max))
+    campaigns = Campaign.active.premium.includes(:organization).order(order_by)
+    @pagy, @campaigns = pagy(campaigns, items: Pagy::VARS[:items])
   end
 
   private
@@ -21,5 +19,10 @@ class AdministratorDashboardsController < ApplicationController
       status
       updated_at
     ]
+  end
+
+  def sort_column
+    return params[:column] if sortable_columns.include?(params[:column])
+    "name"
   end
 end
