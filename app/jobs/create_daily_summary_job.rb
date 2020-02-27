@@ -9,16 +9,25 @@ class CreateDailySummaryJob < ApplicationJob
     return unless impressionable.impressions.on(date).scoped_by(scoped_by, scoped_by_type).exists?
 
     impressions = impressionable.impressions.on(date).scoped_by(scoped_by, scoped_by_type)
+      .select(
+        :id,
+        :fallback_campaign,
+        :clicked_at,
+        :ip_address,
+        :estimated_gross_revenue_fractional_cents,
+        :estimated_property_revenue_fractional_cents,
+        :estimated_house_revenue_fractional_cents
+      ).to_a
 
     DailySummary.transaction do
       impressionable.daily_summaries.on(date).scoped_by(scoped_by, scoped_by_type).first_or_create!(
         impressions_count: impressions.count,
-        fallbacks_count: impressions.fallback.count,
-        clicks_count: impressions.clicked.count,
-        unique_ip_addresses_count: impressions.distinct.count(:ip_address),
-        gross_revenue: Money.new(impressions.sum(:estimated_gross_revenue_fractional_cents).round, "USD"),
-        property_revenue: Money.new(impressions.sum(:estimated_property_revenue_fractional_cents).round, "USD"),
-        house_revenue: Money.new(impressions.sum(:estimated_house_revenue_fractional_cents).round, "USD"),
+        fallbacks_count: impressions.count(&:fallback?),
+        clicks_count: impressions.count(&:clicked?),
+        unique_ip_addresses_count: impressions.group_by(&:ip_address).count,
+        gross_revenue: Money.new(impressions.sum(&:estimated_gross_revenue_fractional_cents).round, "USD"),
+        property_revenue: Money.new(impressions.sum(&:estimated_property_revenue_fractional_cents).round, "USD"),
+        house_revenue: Money.new(impressions.sum(&:estimated_house_revenue_fractional_cents).round, "USD"),
       )
     end
   rescue ActiveRecord::RecordNotUnique => e
