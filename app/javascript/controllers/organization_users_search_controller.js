@@ -1,4 +1,4 @@
-import debounce from 'lodash.debounce'
+import { debounce } from 'lodash'
 import ApplicationController from './application_controller'
 
 export default class extends ApplicationController {

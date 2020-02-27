@@ -1,4 +1,4 @@
-import debounce from 'lodash.debounce'
+import { debounce } from 'lodash'
 
 function newValueCommittedEvent () {
   return new CustomEvent('cf:value-committed', {

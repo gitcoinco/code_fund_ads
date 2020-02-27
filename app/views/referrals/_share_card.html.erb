@@ -8,12 +8,11 @@
     </p>
     <form>
       <div class="js-focus-state mb-2">
-        <div class="input-group">
-          <%= tag.input id: "referralLink", class: "form-control", value: invite_url(current_user.referral_code) %>
+        <div class="input-group" data-controller="copy">
+          <%= tag.input class: "form-control", value: invite_url(current_user.referral_code), data: {target: "copy.input"} %>
           <div class="input-group-append">
-            <a class="js-clipboard input-group-text" href="javascript:;"
-              data-controller="copy-to-clipboard"
-              data-content-target="#referralLink"
+            <a class="input-group-text" href="#"
+              data-action="copy#copy"
               data-class-change-target="#linkIcon"
               data-default-class="fas fa-clone"
               data-success-class="fas fa-check">
