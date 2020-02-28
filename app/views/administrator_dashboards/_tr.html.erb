@@ -1,0 +1,58 @@
+<% cache [campaign, campaign.total_remaining_budget(include_org_balance: false).cents], expires_in: 1.day do %>
+  <%= table_row do %>
+    <%= table_data do %>
+      <%= tag.span nil, class: classes(
+            "tile tile-circle": true,
+            "bg-green": campaign.hourly_budget_available?,
+            "bg-light": !campaign.hourly_budget_available?
+      ) %>
+    <% end %>
+    <%= table_data add_class: "text-truncate" do %>
+      <%= link_to campaign.name, campaign, class: "text-dark", title: "View Campaign", data: tooltip_expando %>
+      <small class="d-block"><%= link_to campaign.organization.name, campaign.organization %> <%= "#{campaign.start_date.to_s "mm/dd"} - #{campaign.end_date.to_s "mm/dd"}" %></small>
+    <% end %>
+    <% if campaign.start_date.future? %>
+      <%= table_data "", colspan: 2 %>
+    <% else %>
+      <%= table_data do %>
+        <%= inline_circle_icon("fad fa-usd-square text-green", title: "Out of budget") unless campaign.budget_available? %>
+        <%= inline_circle_icon("fad fa-turtle text-green", title: "Campaign is pacing too slow") if campaign.pacing_too_slow? %>
+        <%= inline_circle_icon("fad fa-rabbit-fast text-pink", title: "Campaign is pacing too fast") if campaign.pacing_too_fast? %>
+        <%= inline_circle_icon("fad fa-coins text-yellow", title: "Should increase daily caps") if campaign.should_increase_caps? %>
+        <%= inline_circle_icon("fad fa-coin text-yellow", title: "Should decrease daily caps") if campaign.should_increase_inventory? %>
+      <% end %>
+      <%= table_data do %>
+        <div class="progress bg-muted mb-2">
+          <%= tag.div role: "progressbar", class: classes(
+                "bg-purple progress-bar progress-bar-striped": true,
+                "progress-bar-animated": campaign.active? && campaign.percentage_complete_by_date == 100
+            ), aria: {
+              valuenow: campaign.percentage_complete_by_date,
+              valuemin: 0,
+              valuemax: 100
+            },
+            title: "#{campaign.percentage_complete_by_date}% complete by budget with #{pluralize(campaign.remaining_operative_days, 'day')} remaining",
+            style: "width: #{campaign.percentage_complete_by_date}%", data: tooltip_expando do %>
+            <span class="sr-only"><%= campaign.percentage_complete_by_date %>%</span>
+          <% end %>
+        </div>
+        <div class="progress bg-muted">
+          <%= tag.div role: "progressbar", class: classes(
+                "bg-green progress-bar progress-bar-striped": true,
+                "progress-bar-animated": campaign.active? && campaign.percentage_complete_by_budget == 100
+            ), aria: {
+              valuenow: campaign.percentage_complete_by_budget,
+              valuemin: 0,
+              valuemax: 100
+            },
+            title: "#{campaign.percentage_complete_by_budget}% complete by budget with #{pluralize(campaign.estimated_days_until_budget_consumed, 'day')} remaining",
+            style: "width: #{campaign.percentage_complete_by_budget}%", data: tooltip_expando do %>
+            <span class="sr-only"><%= campaign.percentage_complete_by_budget %>%</span>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+    <%= table_data campaign.total_remaining_budget(include_org_balance: false).format, add_class: "text-right" %>
+    <%= table_data number_to_percentage(campaign.click_rate(campaign.start_date, campaign.end_date), precision: 3), add_class: "text-right" %>
+  <% end %>
+<% end %>

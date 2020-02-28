@@ -1,16 +1,14 @@
 <div class="page-inner">
   <%= render "/shared/page_heading_with_subtitle",
-    title: "Admin Dashboard",
+    title: "Administrator Dashboard",
     datepicker: false %>
 
-  <div class="mb-7" id="dashboard-advertiser-cards">
-    <div class="card-deck d-block d-lg-flex card-lg-gutters-2">
-      <% @active_campaigns.each.with_index do |campaign, index| %>
-        <%= render "/campaigns/standard_card", campaign: campaign %>
-        <% if (index + 1) % 3 == 0 %>
-          </div><div class="card-deck d-block d-lg-flex card-lg-gutters-2">
-        <% end %>
+  <div class="page-section">
+    <%= render "/administrator_dashboards/sortable_dropdown" %>
+    <%= card do %>
+      <%= card_body padding: "p-0" do %>
+        <%= render "/administrator_dashboards/table", campaigns: @campaigns, pagy: @pagy %>
       <% end %>
-    </div>
+    <% end %>
   </div>
 </div>
