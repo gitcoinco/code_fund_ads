@@ -54,7 +54,7 @@ gem "pg", ">= 0.18", "< 2.0"
 gem "premailer-rails", "1.10.3"
 gem "premailer", "1.11.1"
 gem "pretender", "~> 0.3.3"
-gem "puma", "~> 4.3", "< 4.3.2"
+gem "puma", "~> 4.3"
 gem "rack-attack", "~> 6.2.1"
 gem "rails", "~> 6.0"
 gem "redis", "~> 4.0", require: ["redis", "redis/connection/hiredis"]
