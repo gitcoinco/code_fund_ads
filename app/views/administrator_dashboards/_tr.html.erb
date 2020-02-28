@@ -9,7 +9,7 @@
     <% end %>
     <%= table_data add_class: "text-truncate" do %>
       <%= link_to campaign.name, campaign, class: "text-dark", title: "View Campaign", data: tooltip_expando %>
-      <small class="d-block"><%= link_to campaign.organization.name, campaign.organization %></small>
+      <small class="d-block"><%= link_to campaign.organization.name, campaign.organization %> <%= "#{campaign.start_date.to_s "mm/dd"} - #{campaign.end_date.to_s "mm/dd"}" %></small>
     <% end %>
     <% if campaign.start_date.future? %>
       <%= table_data "", colspan: 2 %>

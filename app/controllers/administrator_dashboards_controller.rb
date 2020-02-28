@@ -29,4 +29,3 @@ class AdministratorDashboardsController < ApplicationController
     ]
   end
 end
-\
