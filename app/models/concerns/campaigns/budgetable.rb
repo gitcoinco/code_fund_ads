@@ -42,7 +42,7 @@ module Campaigns
 
     # Returns a Money indicating how much budget has been spent
     def total_consumed_budget
-      @total_consumed_budget ||= gross_revenue start_date, Date.current
+      gross_revenue start_date, Date.current
     end
 
     # Returns a Money indicating how much budget remains
