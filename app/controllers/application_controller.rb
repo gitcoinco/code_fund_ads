@@ -21,6 +21,13 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def sanitize_params(key, params)
+    params[key].each do |k, v|
+      params[key][k] = v.select(&:present?).uniq if v.is_a?(Array)
+    end
+    params
+  end
+
   helper_method :current_organization
 
   def organization_redirect

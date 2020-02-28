@@ -96,7 +96,7 @@ class CampaignsController < ApplicationController
   def campaign_params
     return advertiser_campaign_params if !authorized_user.can_admin_system? && @campaign.fixed_ecpm
     return extended_advertiser_campaign_params unless authorized_user.can_admin_system?
-    params.require(:campaign).permit(
+    sanitize_params(:campaign, params).require(:campaign).permit(
       :daily_budget,
       :date_range,
       :ecpm,
@@ -122,7 +122,7 @@ class CampaignsController < ApplicationController
   end
 
   def advertiser_campaign_params
-    params.require(:campaign).permit(
+    sanitize_params(:campaign, params).require(:campaign).permit(
       :name,
       :url,
       creative_ids: [],
@@ -137,7 +137,7 @@ class CampaignsController < ApplicationController
   end
 
   def extended_advertiser_campaign_params
-    params.require(:campaign).permit(
+    sanitize_params(:campaign, params).require(:campaign).permit(
       :name,
       :url,
       country_codes: [],
