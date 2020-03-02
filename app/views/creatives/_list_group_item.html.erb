@@ -15,7 +15,7 @@
       <%= link_to creative.name, creative, title: "View creative", data: tooltip_expando %>
     </h4>
     <p class="list-group-item-text">
-      <strong><%= creative.headline %></strong> <%= creative.body %>
+      <strong class="text-dark"><%= creative.headline %></strong> <%= creative.body %> <span class="text-link" style="text-decoration: underline;"><%= creative.cta %></span>
     </p>
   </div>
   <ul class="list-group-item-figure mb-0 d-flex align-items-center">

@@ -6,10 +6,10 @@ class SearchController < ApplicationController
 
     q = params[:q].strip.downcase
     @results = {
-      users: User.search_name(q).or(User.search_email(q)).limit(5),
-      properties: Property.search_name(q).limit(5),
-      campaigns: Campaign.search_name(q).limit(5),
-      organizations: Organization.search_name(q).limit(5),
+      users: User.search_name(q).or(User.search_email(q)).order(created_at: :desc).limit(5),
+      properties: Property.search_name(q).order(created_at: :desc).limit(5),
+      campaigns: Campaign.search_name(q).order(created_at: :desc).limit(5),
+      organizations: Organization.search_name(q).order(created_at: :desc).limit(5),
     }
     render layout: false
   end

@@ -98,6 +98,10 @@ class OrganizationTransactionsController < ApplicationController
     "posted_at"
   end
 
+  def sort_direction
+    @sort_direction ||= %w[asc desc].include?(direction) ? direction : "desc"
+  end
+
   def sortable_columns
     %w[
       posted_at
