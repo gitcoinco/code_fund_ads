@@ -1,7 +1,7 @@
 # Scheduled via Heroku Scheduler
 # SEE: lib/tasks/schedule.rake
 class CreateDebitsForCampaignsJob < ApplicationJob
-  queue_as :default
+  queue_as :create_debits_for_campaign_and_date
 
   def perform
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f

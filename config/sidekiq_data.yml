@@ -1,0 +1,9 @@
+:concurrency: <%= ENV.fetch("REDIS_QUEUE_MAX_THREADS", 5).to_i - 2 %>
+:queues:
+  - create_debits_for_campaign_and_date
+  - create_debit_for_campaign_and_date
+  - recalculate_organizataion_balances
+  - ensure_daily_summaries
+  - daily_summaries
+  - daily_summary
+  - ensure_scoped_daily_summaries

@@ -15,7 +15,7 @@ class ImpressionSeeder
     @months = [
       3.months.ago.beginning_of_month.to_date,
       2.months.ago.beginning_of_month.to_date,
-      1.month.ago.beginning_of_month.to_date,
+      1.month.ago.beginning_of_month.to_date
     ]
   end
 
@@ -26,6 +26,7 @@ class ImpressionSeeder
     properties = campaigns.each_with_object({}) { |campaign, memo|
       memo[campaign.id] ||= Property.for_campaign(campaign).to_a
     }
+    ip_addresses = 5000.times.map { rand(10).zero? ? Faker::Internet.ip_v6_address : Faker::Internet.public_ip_v4_address }
 
     slice_size = (@months.size / @pid_count.to_f).ceil
     @months.each_slice slice_size do |months|
@@ -37,6 +38,8 @@ class ImpressionSeeder
           impressions = generate_daily_timestamps(monthly_dates).map { |timestamp|
             campaign = campaigns.select { |c| c.available_on? timestamp }.sample
             property = properties[campaign&.id].sample
+            clicked_at = rand(1000) <= 3 ? timestamp : nil
+
             if campaign && property
               impression = Impression.new(
                 campaign: campaign,
@@ -49,8 +52,9 @@ class ImpressionSeeder
                 ad_theme: property.ad_theme,
                 displayed_at: timestamp,
                 displayed_at_date: timestamp.to_date,
-                clicked_at: rand(1000) <= 4 ? (timestamp + rand(86400)) : nil,
-                ip_address: rand(6).zero? ? Faker::Internet.ip_v6_address : Faker::Internet.public_ip_v4_address,
+                clicked_at: clicked_at,
+                clicked_at_date: clicked_at&.to_date,
+                ip_address: ip_addresses.sample,
                 user_agent: Faker::Internet.user_agent,
                 country_code: campaign.country_codes.sample,
                 fallback_campaign: campaign.fallback,

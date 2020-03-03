@@ -6,6 +6,8 @@ class ApplicationRecord < ActiveRecord::Base
   delegate :local_ephemeral_cache, to: :Rails
 
   class << self
+    delegate :local_ephemeral_cache, to: :Rails
+
     def sanitize_sql_value(value)
       sanitize_sql_array ["?", value]
     end
