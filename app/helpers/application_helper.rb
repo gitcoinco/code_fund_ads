@@ -178,21 +178,6 @@ module ApplicationHelper
     render partial: "/shared/details_li", locals: {label: label, block: block}
   end
 
-  def sortable_tr(column, title = nil, add_style: nil)
-    title ||= column.titleize
-    direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
-    selected = nil
-
-    if params[:column] == column
-      selected = if direction == "desc"
-        "up"
-      else
-        "down"
-      end
-    end
-    render "/shared/sortable_tr", title: title, selected: selected, column: column, add_style: add_style
-  end
-
   def pagy_entries(pagy)
     start = pagy.offset + 1
     finish = start + pagy.items - 1

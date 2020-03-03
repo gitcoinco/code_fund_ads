@@ -7,8 +7,7 @@ class OrganizationsController < ApplicationController
 
   def index
     organizations = scope_list(Organization).order(order_by)
-    max = (organizations.count / Pagy::VARS[:items].to_f).ceil
-    @pagy, @organizations = pagy(organizations, page: current_page(max: max))
+    @pagy, @organizations = pagy(organizations, items: Pagy::VARS[:items])
   end
 
   def show

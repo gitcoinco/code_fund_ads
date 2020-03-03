@@ -39,6 +39,7 @@ class OrganizationTransaction < ApplicationRecord
   # scopes ....................................................................
   scope :debits, -> { where(transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::DEBIT) }
   scope :credits, -> { where(transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::CREDIT) }
+  scope :credited_gifts, -> { where(transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::CREDIT, gift: true) }
   scope :gift, -> { where(gift: true) }
   scope :posted_between, ->(start_date, end_date = nil) {
     start_date, end_date = range_boundary(start_date) if start_date.is_a?(Range)
