@@ -54,7 +54,6 @@ class Creative < ApplicationRecord
   before_destroy :validate_destroyable
 
   # scopes ....................................................................
-  default_scope { includes images: :blob }
   scope :active, -> { where(status: ENUMS::CREATIVE_STATUSES::ACTIVE) }
   scope :pending, -> { where(status: ENUMS::CREATIVE_STATUSES::PENDING) }
   scope :archived, -> { where(status: ENUMS::CREATIVE_STATUSES::ARCHIVED) }

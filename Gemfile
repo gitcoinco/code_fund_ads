@@ -97,7 +97,6 @@ group :development do
   gem "annotate"
   gem "bullet"
   gem "erb_lint"
-  gem "factory_bot_rails"
   gem "letter_opener_web"
   gem "listen", "~> 3.2"
   gem "mechanize"

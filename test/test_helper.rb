@@ -2,7 +2,6 @@ require "simplecov"
 SimpleCov.start "rails"
 
 ENV["RAILS_ENV"] ||= "test"
-require "factory_bot_rails"
 require_relative "../config/environment"
 require_relative "./mmdb_test_helper"
 require "rails/test_help"
@@ -21,7 +20,6 @@ unless Webpacker.compiler.fresh?
 end
 
 class ActiveSupport::TestCase
-  include FactoryBot::Syntax::Methods
   include Devise::Test::IntegrationHelpers
 
   workers = ENV["TEST_CONCURRENCY"].present? ? ENV["TEST_CONCURRENCY"].to_i : (Concurrent.processor_count / 3.to_f).round
@@ -55,7 +53,7 @@ class ActiveSupport::TestCase
         height: 200,
         analyzed: true,
         name: name,
-        format: ENUMS::IMAGE_FORMATS::SMALL,
+        format: ENUMS::IMAGE_FORMATS::SMALL
       }
     )
     record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::SMALL).order(created_at: :desc).first
@@ -73,7 +71,7 @@ class ActiveSupport::TestCase
         height: 200,
         analyzed: true,
         name: name,
-        format: ENUMS::IMAGE_FORMATS::LARGE,
+        format: ENUMS::IMAGE_FORMATS::LARGE
       }
     )
     record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::LARGE).order(created_at: :desc).first
@@ -91,7 +89,7 @@ class ActiveSupport::TestCase
         height: 320,
         analyzed: true,
         name: name,
-        format: ENUMS::IMAGE_FORMATS::WIDE,
+        format: ENUMS::IMAGE_FORMATS::WIDE
       }
     )
     record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::WIDE).order(created_at: :desc).first
@@ -109,7 +107,7 @@ class ActiveSupport::TestCase
         height: 40,
         analyzed: true,
         name: name,
-        format: ENUMS::IMAGE_FORMATS::SPONSOR,
+        format: ENUMS::IMAGE_FORMATS::SPONSOR
       },
     )
     record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::SPONSOR).order(created_at: :desc).first

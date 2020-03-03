@@ -3,6 +3,7 @@ class ApplicationRecord < ActiveRecord::Base
 
   self.abstract_class = true
   connects_to database: {writing: :primary, reading: :primary_replica}
+  delegate :local_ephemeral_cache, to: :Rails
 
   class << self
     def sanitize_sql_value(value)

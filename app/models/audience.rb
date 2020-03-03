@@ -28,35 +28,39 @@ class Audience < ApplicationRecord
   # class methods .............................................................
   class << self
     def blockchain
-      find 1
+      @blockchain ||= find(1)
     end
 
     def css_and_design
-      find 2
+      @css_and_design ||= find(2)
     end
 
     def dev_ops
-      find 3
+      @dev_ops ||= find(3)
     end
 
     def game_development
-      find 4
+      @game_development ||= find(4)
     end
 
     def javascript_and_frontend
-      find 5
+      @javascript_and_frontend ||= find(5)
     end
 
     def miscellaneous
-      find 6
+      @miscellaneous ||= find(6)
     end
 
     def mobile_development
-      find 7
+      @mobile_development ||= find(7)
     end
 
     def web_development_and_backend
-      find 8
+      @web_development_and_backend ||= find(8)
+    end
+
+    def all
+      @all ||= super
     end
 
     def matches(keywords = [])

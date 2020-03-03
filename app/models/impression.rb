@@ -34,11 +34,12 @@ class Impression < ApplicationRecord
   # includes ..................................................................
 
   # relationships .............................................................
-  belongs_to :advertiser, class_name: "User", foreign_key: "advertiser_id"
-  belongs_to :publisher, class_name: "User", foreign_key: "publisher_id"
-  belongs_to :campaign
+  belongs_to :organization, optional: true
+  belongs_to :advertiser, class_name: "User", foreign_key: "advertiser_id", optional: true
+  belongs_to :publisher, class_name: "User", foreign_key: "publisher_id", optional: true
+  belongs_to :campaign, optional: true
   belongs_to :creative, optional: true
-  belongs_to :property
+  belongs_to :property, optional: true
 
   # validations ...............................................................
 
@@ -201,7 +202,7 @@ class Impression < ApplicationRecord
   end
 
   def partition_table_name
-    return "impressions_default" unless campaign_id && displayed_at_date
+    return "impressions_default" unless advertiser_id && displayed_at_date
     [
       "impressions",
       displayed_at_date.to_s("yyyy_mm"),
@@ -229,12 +230,24 @@ class Impression < ApplicationRecord
     end
   end
 
+  def region
+    local_ephemeral_cache.fetch "Impression#region/#{campaign_id}/#{country_code}" do
+      match = Region.all.find { |r| campaign.region_ids.include?(r.id) && r.country_codes.include?(country_code) }
+      match || Region.other
+    end
+  end
+
+  def audience
+    local_ephemeral_cache.fetch "Impression#audience/#{property.audience_id}" do
+      Audience.all.find { |a| a.id == property.audience_id }
+    end
+  end
+
   def applicable_ecpm
     return campaign.adjusted_ecpm(country_code) if campaign.campaign_pricing_strategy?
 
     # region/audience based ecpm i.e. our new sales strategy
-    region = campaign.regions.with_all_country_codes(country_code).first || Region.other
-    region.ecpm(property.audience) * campaign.ecpm_multiplier
+    region.ecpm(audience) * campaign.ecpm_multiplier
   end
 
   def calculate_estimated_gross_revenue_fractional_cents
