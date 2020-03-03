@@ -59,7 +59,7 @@ if ENV["RAILS_ENV"] == "development" && ENV["NGROK_SUBDOMAIN"].present?
       addr: ENV.fetch("PORT") { 3000 },
       config: File.join(ENV["HOME"], ".ngrok2", "ngrok.yml"),
       subdomain: ENV["NGROK_SUBDOMAIN"],
-      region: "us",
+      region: "us"
     }
 
     Ngrok::Tunnel.start(options)

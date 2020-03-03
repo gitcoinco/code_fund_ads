@@ -32,7 +32,7 @@ class Province
                 subdivision: code,
                 subregion_cpm_multiplier: subregion_cpm_multipliers[country.subregion] || Country::UNKNOWN_CPM_MULTIPLER,
                 country_cpm_multiplier: country_cpm_multipliers[country.alpha2] || Country::UNKNOWN_CPM_MULTIPLER,
-                emoji_flag: country.emoji_flag,
+                emoji_flag: country.emoji_flag
               }
             end
           else
@@ -45,7 +45,7 @@ class Province
               subdivision: nil,
               subregion_cpm_multiplier: subregion_cpm_multipliers[country.subregion] || Country::UNKNOWN_CPM_MULTIPLER,
               country_cpm_multiplier: country_cpm_multipliers[country.alpha2] || Country::UNKNOWN_CPM_MULTIPLER,
-              emoji_flag: country.emoji_flag,
+              emoji_flag: country.emoji_flag
             }
           end
         end

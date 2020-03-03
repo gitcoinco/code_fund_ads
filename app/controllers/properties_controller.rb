@@ -40,8 +40,8 @@ class PropertiesController < ApplicationController
       params: {
         "property_id" => @property.id,
         "start_date" => @start_date.strftime("%F"),
-        "end_date" => @end_date.strftime("%F"),
-      },
+        "end_date" => @end_date.strftime("%F")
+      }
     }
     token = JWT.encode payload, ENV["METABASE_SECRET_KEY"]
 

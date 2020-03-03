@@ -208,7 +208,7 @@ class JobPosting < ApplicationRecord
       title: "#{company_name} is hiring: #{title}",
       keywords: ["Jobs"] + keywords,
       description: "Job Description: #{meta_description}",
-      image_src: company_logo_url,
+      image_src: company_logo_url
     }
   end
 

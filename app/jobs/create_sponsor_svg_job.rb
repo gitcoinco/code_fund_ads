@@ -31,8 +31,8 @@ class CreateSponsorSvgJob < ApplicationJob
         height: 40,
         analyzed: true,
         name: filename,
-        format: ENUMS::IMAGE_FORMATS::SPONSOR,
-      },
+        format: ENUMS::IMAGE_FORMATS::SPONSOR
+      }
     }
   end
 

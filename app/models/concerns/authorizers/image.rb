@@ -10,7 +10,7 @@ module Authorizers
         .joins(:creative_images)
         .where(status: :active,
                creative_images: {
-                 active_storage_attachment_id: image.id,
+                 active_storage_attachment_id: image.id
                }).exists?
       can_manage_organization?(image.record)
     end

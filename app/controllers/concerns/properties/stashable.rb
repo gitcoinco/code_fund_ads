@@ -29,7 +29,7 @@ module Properties
           temporary_id: Property.count + 1,
           status: ENUMS::PROPERTY_STATUSES::PENDING,
           ad_template: ENUMS::AD_TEMPLATES::DEFAULT,
-          ad_theme: ENUMS::AD_THEMES::LIGHT,
+          ad_theme: ENUMS::AD_THEMES::LIGHT
         }
       )
     end

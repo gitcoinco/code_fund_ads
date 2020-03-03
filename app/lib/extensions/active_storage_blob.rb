@@ -6,7 +6,7 @@ module Extensions
       def quote_column(name)
         [
           quoted_table_name,
-          connection.quote_column_name(name),
+          connection.quote_column_name(name)
         ].join(".")
       end
     end

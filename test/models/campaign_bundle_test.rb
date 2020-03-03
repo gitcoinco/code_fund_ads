@@ -77,7 +77,7 @@ class CampaignBundleTest < ActiveSupport::TestCase
         "prohibited_property_ids" => campaign.prohibited_property_ids,
         "paid_fallback" => campaign.paid_fallback,
         "ecpm_multiplier" => campaign.ecpm_multiplier.to_s,
-        :temporary_id => campaign.temporary_id,}],
+        :temporary_id => campaign.temporary_id}]
     }
 
     diff = Hashdiff.diff(expected.stringify_keys, actual.stringify_keys)

@@ -9,7 +9,7 @@ def us_maxminddb_result
      "postal" => {"code" => "95141"},
      "registered_country" => {"geoname_id" => 6252001, "iso_code" => "US", "names" => {"de" => "USA", "en" => "United States", "es" => "Estados Unidos", "fr" => "États-Unis", "ja" => "アメリカ合衆国", "pt-BR" => "Estados Unidos", "ru" => "США", "zh-CN" => "美国"}},
      "subdivisions" => [{"geoname_id" => 5332921, "iso_code" => "CA", "names" => {"de" => "Kalifornien", "en" => "California", "es" => "California", "fr" => "Californie", "ja" => "カリフォルニア州", "pt-BR" => "Califórnia", "ru" => "Калифорния", "zh-CN" => "加利福尼亚州"}}],
-     "network" => "54.183.128.0/18",}
+     "network" => "54.183.128.0/18"}
   )
 end
 

@@ -316,7 +316,7 @@ class Campaign < ApplicationRecord
     Rails.cache.fetch key do
       {
         standard: standard_creatives.exists?,
-        sponsor: sponsor_creatives.exists?,
+        sponsor: sponsor_creatives.exists?
       }
     end
   end
@@ -406,7 +406,7 @@ class Campaign < ApplicationRecord
       {
         country_iso_code: country.iso_code,
         country_name: country.name,
-        ecpm: adjusted_ecpm(country.iso_code),
+        ecpm: adjusted_ecpm(country.iso_code)
       }
     end
   end
@@ -462,7 +462,7 @@ class Campaign < ApplicationRecord
   def to_meta_tags
     {
       title: name,
-      keywords: keywords,
+      keywords: keywords
     }
   end
 

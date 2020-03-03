@@ -26,10 +26,10 @@ Rails.application.configure do
       url: ENV["REDIS_CACHE_URL"],
       size: ENV.fetch("REDIS_CACHE_MAX_THREADS", 5).to_i,
       expires_in: 7.days,
-      race_condition_ttl: 10.seconds,
+      race_condition_ttl: 10.seconds
     }
     config.public_file_server.headers = {
-      "Cache-Control" => "public, max-age=#{2.days.to_i}",
+      "Cache-Control" => "public, max-age=#{2.days.to_i}"
     }
   else
     config.action_controller.perform_caching = false

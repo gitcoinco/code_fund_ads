@@ -69,7 +69,7 @@ KW_MAP = {
   "Transact-SQL" => nil,
   "VHDL" => nil,
   "Visual Basic" => nil,
-  "Visual Basic .NET" => ".NET",
+  "Visual Basic .NET" => ".NET"
 }
 
 namespace :migrate do

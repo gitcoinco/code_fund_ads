@@ -27,7 +27,7 @@ Rollbar.configure do |config|
     return {} unless context
     {
       params: context[:params]&.to_unsafe_h,
-      url: context[:request]&.url,
+      url: context[:request]&.url
     }
   }
 

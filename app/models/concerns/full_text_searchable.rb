@@ -86,7 +86,7 @@ module FullTextSearchable
     tsvector = tsvectors.join(" || ")
 
     ts_stat = Arel::Nodes::NamedFunction.new("ts_stat", [
-      Arel::Nodes::SqlLiteral.new(sanitize_sql_value("SELECT #{tsvector}")),
+      Arel::Nodes::SqlLiteral.new(sanitize_sql_value("SELECT #{tsvector}"))
     ])
     length = Arel::Nodes::NamedFunction.new("length", [Arel::Nodes::SqlLiteral.new(quote_column_name(:word))])
     query = self.class.select(:word).from(ts_stat.to_sql).where(length.gteq(3)).to_sql

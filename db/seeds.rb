@@ -41,7 +41,7 @@ unless User.publishers.exists?
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
       roles: [ENUMS::USER_ROLES::PUBLISHER],
-      confirmed_at: Time.current,
+      confirmed_at: Time.current
     }
   }
   User.bulk_insert values: publishers
@@ -63,7 +63,7 @@ unless Property.exists?
       language: ENUMS::LANGUAGES::ENGLISH,
       revenue_percentage: 0.7,
       ad_template: ENUMS::AD_TEMPLATES::DEFAULT,
-      ad_theme: ENUMS::AD_THEMES::LIGHT,
+      ad_theme: ENUMS::AD_THEMES::LIGHT
     }
   }
   Property.bulk_insert values: properties
@@ -81,7 +81,7 @@ unless User.advertisers.exists?
       encrypted_password: admin.encrypted_password,
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
-      roles: [ENUMS::USER_ROLES::ADVERTISER],
+      roles: [ENUMS::USER_ROLES::ADVERTISER]
     }
   }
   User.bulk_insert values: advertisers
@@ -101,7 +101,7 @@ unless Creative.exists?
           cta: random_name("CTA"),
           headline: random_name("Headline"),
           body: "This is a premium campaign",
-          status: ENUMS::CREATIVE_STATUSES::ACTIVE,
+          status: ENUMS::CREATIVE_STATUSES::ACTIVE
         }
       }
     )
@@ -121,7 +121,7 @@ unless CampaignBundle.exists?
       name: random_name("CampaignBundle"),
       start_date: start_date.to_date,
       end_date: start_date.advance(months: 2).to_date,
-      region_ids: region_ids,
+      region_ids: region_ids
     }
   }
   CampaignBundle.bulk_insert values: campaign_bundles
@@ -151,7 +151,7 @@ unless Campaign.exists?
       audience_ids: audiences.map(&:id),
       keywords: audiences.map(&:keywords).flatten,
       region_ids: campaign_bundle.regions.map(&:id),
-      country_codes: campaign_bundle.regions.map(&:country_codes).flatten,
+      country_codes: campaign_bundle.regions.map(&:country_codes).flatten
     }
   }
   Campaign.bulk_insert values: campaigns

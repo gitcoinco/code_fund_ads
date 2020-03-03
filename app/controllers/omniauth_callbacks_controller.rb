@@ -8,7 +8,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       company_name: raw_info[:company],
       bio: raw_info[:bio],
       website_url: raw_info[:blog],
-      github_username: raw_info[:login],
+      github_username: raw_info[:login]
     })
   end
 

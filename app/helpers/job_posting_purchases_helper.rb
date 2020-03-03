@@ -2,7 +2,7 @@ module JobPostingPurchasesHelper
   def read_the_docs_keywords
     [
       "Machine Learning",
-      "Python",
+      "Python"
     ]
   end
 end

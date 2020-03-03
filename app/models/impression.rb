@@ -178,7 +178,7 @@ class Impression < ApplicationRecord
       "ad_template" => ad_template,
       "ad_theme" => ad_theme,
       "country_code" => country_code,
-      "gross_revenue" => estimated_gross_revenue_fractional_cents,
+      "gross_revenue" => estimated_gross_revenue_fractional_cents
     }
     TrackImpressionAnalyticsJob.perform_later id, event_name.to_s, options
   rescue => e
@@ -207,7 +207,7 @@ class Impression < ApplicationRecord
       "impressions",
       displayed_at_date.to_s("yyyy_mm"),
       "advertiser",
-      advertiser_id.to_i,
+      advertiser_id.to_i
     ].join("_")
   end
 

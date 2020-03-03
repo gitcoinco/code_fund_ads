@@ -14,7 +14,7 @@ module ApplicationCable
       self.ids = {
         current_user_id: current_user_id,
         true_user_id: true_user_id,
-        session_id: session_id,
+        session_id: session_id
       }
 
       Rails.logger.debug "CONNECT: #{ids.inspect}"

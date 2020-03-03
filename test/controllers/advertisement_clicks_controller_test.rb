@@ -16,14 +16,14 @@ class AdvertisementClicksControllerTest < ActionDispatch::IntegrationTest
       creative_id: @creative.id,
       property_id: @property.id,
       template: "default",
-      theme: "light",
+      theme: "light"
     }
     @expected_query = {
       utm_campaign: @campaign.id.to_s,
       utm_impression: @impression_id,
       utm_medium: "display",
       utm_referrer: @property.url,
-      utm_source: "CodeFund",
+      utm_source: "CodeFund"
     }
   end
 

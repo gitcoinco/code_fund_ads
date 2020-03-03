@@ -44,7 +44,7 @@ class JobPostingsController < ApplicationController
     @similar_job_postings = job_postings.limit(12)
     @report_job_post_link = "mailto:team@codefund.io?#{{
       subject: "[Report Job] #{@job_posting.title}",
-      body: "Link: #{job_posting_url(@job_posting)}\n\nI am reporting this job because ...\n\n",
+      body: "Link: #{job_posting_url(@job_posting)}\n\nI am reporting this job because ...\n\n"
     }.to_query}".gsub("+", "%20")
     IncrementJobPostingViewsJob.perform_later @job_posting.id, "detail_view_count" unless device.bot?
   end

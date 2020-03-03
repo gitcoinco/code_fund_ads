@@ -23,7 +23,7 @@ class Country
             iso_code: province.country_code,
             subregion_cpm_multiplier: province.subregion_cpm_multiplier,
             country_cpm_multiplier: province.country_cpm_multiplier,
-            emoji_flag: province.emoji_flag,
+            emoji_flag: province.emoji_flag
           }
         end
       end

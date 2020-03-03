@@ -24,14 +24,14 @@ class SyncToZapierJob < ApplicationJob
         organization: {
           id: campaign.organization.id,
           name: campaign.organization.name,
-          balance: campaign.organization.balance.format,
+          balance: campaign.organization.balance.format
         },
         user: {
           id: campaign.user.id,
           first_name: campaign.user.first_name,
           last_name: campaign.user.last_name,
-          email: campaign.user.email,
-        },
+          email: campaign.user.email
+        }
       }
     }
 

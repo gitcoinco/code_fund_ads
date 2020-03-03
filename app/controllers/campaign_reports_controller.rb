@@ -19,7 +19,7 @@ class CampaignReportsController < ApplicationController
       to: campaign_report_params[:email],
       campaign: @campaign,
       start_date: @start_date.iso8601,
-      end_date: @end_date.iso8601,
+      end_date: @end_date.iso8601
     }
   end
 

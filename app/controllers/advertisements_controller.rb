@@ -357,7 +357,7 @@ class AdvertisementsController < ApplicationController
       creative_id: @creative.id,
       ad_template: template_name,
       ad_theme: theme_name,
-      ip_address: ip_address,
+      ip_address: ip_address
     }, expires_in: 30.seconds
 
     track_event :virtual_impression_created

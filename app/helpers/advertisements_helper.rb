@@ -19,7 +19,7 @@ module AdvertisementsHelper
         campaign: @campaign_url.to_s.strip,
         poweredBy: @powered_by_url.to_s.strip,
         adblock: ENV["ADBLOCK_PLUS_PIXEL_URL"].to_s.strip,
-        uplift: @uplift_url.to_s.strip,
+        uplift: @uplift_url.to_s.strip
       },
       creative: {
         name: @creative&.name,
@@ -30,9 +30,9 @@ module AdvertisementsHelper
           icon: @creative&.icon_image&.cloudfront_url,
           small: @creative&.small_image&.cloudfront_url,
           large: @creative&.large_image&.cloudfront_url,
-          wide: @creative&.wide_image&.cloudfront_url,
-        },
-      },
+          wide: @creative&.wide_image&.cloudfront_url
+        }
+      }
     }
   end
 end

@@ -9,7 +9,7 @@ module Properties
       # series << dailies.map { |daily| daily.property_revenue_cents.to_f / 100 } if values.include?(:revenue)
       {
         labels: labels,
-        series: series,
+        series: series
       }
     end
   end

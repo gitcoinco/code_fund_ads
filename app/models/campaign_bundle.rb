@@ -94,7 +94,7 @@ class CampaignBundle < ApplicationRecord
       self.class.table_name,
       start_date&.iso8601,
       end_date&.iso8601,
-      Digest::MD5.hexdigest(region_ids.join),
+      Digest::MD5.hexdigest(region_ids.join)
     ].compact.join("/")
   end
 

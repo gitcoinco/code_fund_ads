@@ -10,8 +10,8 @@ class CampaignDashboardsController < ApplicationController
       params: {
         "campaign_id" => @campaign.id,
         "start_date" => @start_date.strftime("%F"),
-        "end_date" => @end_date.strftime("%F"),
-      },
+        "end_date" => @end_date.strftime("%F")
+      }
     }
     token = JWT.encode payload, ENV["METABASE_SECRET_KEY"]
 
