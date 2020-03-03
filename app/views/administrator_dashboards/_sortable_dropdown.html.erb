@@ -1,11 +1,11 @@
-<div class="col-auto d-none d-sm-flex justify-content-sm-end mb-3" data-controller="sortable-list">
+<div class="col-auto px-0 d-none d-sm-flex justify-content-sm-end mb-3" data-controller="sortable-list">
   <div class="dropdown">
     <div class="btn-group" role="group" aria-label="sort">
       <button data-action="click->sortable-list#flip" class="btn btn-secondary">
         <%= current_sort_direction_icon %>
       </button>
       <button class="btn btn-secondary" style="min-width:155px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= session[:sort_by]&.humanize || "Name" %>
+        <%= session[:sort_by]&.humanize || sort_column&.humanize || "Name" %>
         <span class="ml-auto fa fa-caret-down"></span>
       </button>
       <div class="dropdown-menu dropdown-menu-right stop-propagation">

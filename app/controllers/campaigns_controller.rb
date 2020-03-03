@@ -1,22 +1,18 @@
 class CampaignsController < ApplicationController
   include Sortable
-  include Scopable
   include Campaigns::Stashable
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!, only: [:destroy]
   before_action :set_campaign, except: [:create, :index]
+  before_action :set_sortable_columns
   before_action :set_current_organization_for_admin, only: [:show, :edit]
   before_action :authorize_edit!, only: [:edit, :update]
   after_action -> { stash_campaign @campaign }, except: [:index, :destroy]
 
   def index
-    campaigns = scope_list(Campaign)
-      .order(end_date: :desc)
-      .includes(:organization)
-      .where(organization: Current.organization)
-    max = (campaigns.count / Pagy::VARS[:items].to_f).ceil
-    @pagy, @campaigns = pagy(campaigns, page: current_page(max: max))
+    campaigns = Campaign.includes(:organization).where(organization: Current.organization).order(order_by)
+    @pagy, @campaigns = pagy(campaigns, items: Pagy::VARS[:items])
   end
 
   def show
@@ -149,16 +145,30 @@ class CampaignsController < ApplicationController
     )
   end
 
+  def set_sortable_columns
+    @sortable_columns ||= sortable_columns
+  end
+
   def sortable_columns
     %w[
-      created_at
+      start_date
       end_date
       name
-      status
-      total_budget_cents
       updated_at
-      user.first_name
+      created_at
+      hourly_budget_cents
+      daily_budget_cents
+      total_budget_cents
     ]
+  end
+
+  def sort_column
+    return column if sortable_columns.include?(column)
+    "end_date"
+  end
+
+  def sort_direction
+    @sort_direction ||= %w[asc desc].include?(direction) ? direction : "desc"
   end
 
   def authorize_edit!
