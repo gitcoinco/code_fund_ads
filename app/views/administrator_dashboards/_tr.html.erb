@@ -1,4 +1,4 @@
-<% cache [campaign, campaign.total_remaining_budget(include_org_balance: false).cents], expires_in: 1.day do %>
+<% cache [campaign, campaign.start_date.future?, campaign.total_remaining_budget(include_org_balance: false).cents], expires_in: 6.hours do %>
   <%= table_row do %>
     <%= table_data do %>
       <%= tag.span nil, class: classes(
