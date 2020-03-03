@@ -100,6 +100,7 @@ class CampaignsController < ApplicationController
       :daily_budget,
       :date_range,
       :ecpm,
+      :ecpm_multiplier,
       :fallback,
       :fixed_ecpm,
       :hourly_budget,
