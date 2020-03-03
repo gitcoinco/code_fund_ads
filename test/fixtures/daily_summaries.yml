@@ -4,14 +4,14 @@
 # Table name: daily_summaries
 #
 #  id                        :bigint           not null, primary key
-#  click_rate                :decimal(, )      default("0"), not null
+#  click_rate                :decimal(, )      default("0.0"), not null
 #  clicks_count              :integer          default("0"), not null
 #  cost_per_click_cents      :integer          default("0"), not null
 #  cost_per_click_currency   :string           default("USD"), not null
 #  displayed_at_date         :date             not null
 #  ecpm_cents                :integer          default("0"), not null
 #  ecpm_currency             :string           default("USD"), not null
-#  fallback_percentage       :decimal(, )      default("0"), not null
+#  fallback_percentage       :decimal(, )      default("0.0"), not null
 #  fallbacks_count           :integer          default("0"), not null
 #  gross_revenue_cents       :integer          default("0"), not null
 #  gross_revenue_currency    :string           default("USD"), not null
