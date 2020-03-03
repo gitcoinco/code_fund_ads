@@ -218,8 +218,4 @@ module ApplicationHelper
     return 0 if denominator.zero?
     numerator / denominator.to_f
   end
-
-  def inline_circle_icon(icon_class, title: "")
-    tag.i "", class: [icon_class, "fa-2x"].join(" "), title: title, data: tooltip_expando
-  end
 end
