@@ -1,5 +1,9 @@
 class CreateExtensionTablefunc < ActiveRecord::Migration[6.0]
   def up
-    execute "CREATE EXTENSION tablefunc;"
+    enable_extension :tablefunc
+  end
+
+  def down
+    disable_extension :tablefunc
   end
 end
