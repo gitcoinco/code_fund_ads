@@ -51,6 +51,20 @@ CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
 COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
 
+--
+-- Name: tablefunc; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS tablefunc WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION tablefunc; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION tablefunc IS 'functions that manipulate whole tables, including crosstab';
+
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -2895,4 +2909,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200207162017'),
 ('20200213234149'),
 ('20200220160136'),
-('20200221220825');
+('20200221220825'),
+('20200303224134');
+
+
