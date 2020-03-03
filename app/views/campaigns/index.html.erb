@@ -4,6 +4,7 @@
       layout_button(link: new_campaign_path, icon: "fas fa-plus", title: "Add campaign", admin: true)
     ] do %>
   <div class="page-section">
+    <%= render "/administrator_dashboards/sortable_dropdown" %>
     <%= card do %>
       <%= card_body padding: "p-0" do %>
         <%= render "/administrator_dashboards/table", campaigns: @campaigns, pagy: @pagy %>

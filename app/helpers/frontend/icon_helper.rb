@@ -5,8 +5,8 @@ module Frontend
     end
 
     def current_sort_direction_icon
-      direction = session[:sort_direction] == "desc" ? "up" : "down"
-      tag.span class: "fas fa-arrow-#{direction} mr-1"
+      direction = session[:sort_direction] || @sort_direction
+      tag.span class: "fas fa-arrow-#{direction == "desc" ? "up" : "down"} mr-1"
     end
   end
 end
