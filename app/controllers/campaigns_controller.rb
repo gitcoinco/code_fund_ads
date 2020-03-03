@@ -12,8 +12,8 @@ class CampaignsController < ApplicationController
 
   def index
     campaigns = scope_list(Campaign)
-      .order(order_by)
-      .includes(:user, :creative, :organization)
+      .order(end_date: :desc)
+      .includes(:organization)
       .where(organization: Current.organization)
     max = (campaigns.count / Pagy::VARS[:items].to_f).ceil
     @pagy, @campaigns = pagy(campaigns, page: current_page(max: max))
