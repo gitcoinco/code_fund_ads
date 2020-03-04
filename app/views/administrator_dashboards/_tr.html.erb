@@ -1,14 +1,5 @@
 <% cache [campaign, campaign.start_date.future?, campaign.total_remaining_budget(include_org_balance: false).cents], expires_in: 6.hours do %>
   <%= table_row do %>
-    <%= table_data do %>
-      <%= tag.span nil, class: classes(
-            "tile tile-circle": true,
-            "bg-info": !campaign.available_on?(Date.today) && campaign.active?,
-            "bg-dark": campaign.available_on?(Date.today) && !campaign.active?,
-            "bg-green": campaign.available_on?(Date.today) && campaign.active? && campaign.hourly_budget_available?,
-            "bg-light": campaign.available_on?(Date.today) && campaign.active? && !campaign.hourly_budget_available?
-      ) %>
-    <% end %>
     <%= table_data add_class: "text-truncate" do %>
       <%= link_to campaign.name, campaign, class: "text-dark", title: "View Campaign", data: tooltip_expando %>
       <small class="d-block"><%= link_to campaign.organization.name, campaign.organization %> <%= "#{campaign.start_date.to_s "mm/dd"} - #{campaign.end_date.to_s "mm/dd"}" %></small>
@@ -21,7 +12,7 @@
         <%= inline_circle_icon("fad fa-turtle text-green", title: "Campaign is pacing too slow") if campaign.pacing_too_slow? %>
         <%= inline_circle_icon("fad fa-rabbit-fast text-pink", title: "Campaign is pacing too fast") if campaign.pacing_too_fast? %>
         <%= inline_circle_icon("fad fa-coins text-yellow", title: "Should increase daily caps") if campaign.should_increase_caps? %>
-        <%= inline_circle_icon("fad fa-coin text-yellow", title: "Should decrease daily caps") if campaign.should_increase_inventory? %>
+        <%= inline_circle_icon("fad fa-coin text-yellow", title: "Should decrease daily caps") unless campaign.should_increase_caps? || campaign.pacing_too_slow? %>
       <% end %>
       <%= table_data do %>
         <div class="progress bg-muted mb-2">
