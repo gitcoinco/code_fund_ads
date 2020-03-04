@@ -74,7 +74,7 @@ gem "spreadsheet", "~> 1.2.4"
 # TODO - Re-enable for internal CodeFund analytics tool
 # gem "staccato", "~> 0.5.1"
 
-gem "stimulus_reflex", "~> 2.1.9"
+gem "stimulus_reflex", "~> 2.2"
 gem "stopwords-filter", "~> 0.4.1", require: "stopwords"
 gem "stripe", "~> 5.4.1"
 gem "tag_columns", "~> 0.1.8"

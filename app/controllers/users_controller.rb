@@ -124,7 +124,7 @@ class UsersController < ApplicationController
   end
 
   def sort_column
-    return column if sortable_columns.include?(column)
+    return column if sortable_columns.include?(column) && !column.inquiry.name?
     return "first_name" if sortable_columns.include?("name")
     "created_at"
   end

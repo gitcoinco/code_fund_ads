@@ -1846,14 +1846,7 @@ bytes@3.1.0:
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
   integrity sha512-zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==
 
-"cable_ready@>= 4.0":
-  version "4.0.8"
-  resolved "https://registry.yarnpkg.com/cable_ready/-/cable_ready-4.0.8.tgz#b5702d2cf2ed890324dbea73eb197521b68a3118"
-  integrity sha512-CtaaKE0DLwH7Xao2mU0LQicmMN+xMhWJemSphq7oKB9/zAtZlhLdER9L/KsIitdll+7hYw3GSVk76w06rq7Zow==
-  dependencies:
-    morphdom "^2.5.9"
-
-cable_ready@^4.0.7:
+"cable_ready@>= 4.0", cable_ready@^4.0.7:
   version "4.0.9"
   resolved "https://registry.yarnpkg.com/cable_ready/-/cable_ready-4.0.9.tgz#9d8a1c3a5af4251e2ecc3ce18c71346d131cbbbc"
   integrity sha512-WB2xLIu31PSwwRXRLl/9tHwGqFUFEYbtXvM1SBsIRR5t6UaMW/OJrstPanqCiX4ZfTU4IafGn+1rjV/Js2jNhw==
@@ -6152,7 +6145,7 @@ moment-timezone@^0.5.23:
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
-morphdom@^2.5.12, morphdom@^2.5.9:
+morphdom@^2.5.12:
   version "2.5.12"
   resolved "https://registry.yarnpkg.com/morphdom/-/morphdom-2.5.12.tgz#92394bcb8884e94fde097f6ab3e76cf94cd3291f"
   integrity sha512-KAAMs5yBv5of2HJv1vKfOdpdSXrptFEmS7RdWQDvz8jPQawNu7lVFERUvwePSPVdhigFp3XOsUc1anpPARbSOA==
@@ -9127,9 +9120,9 @@ stdout-stream@^1.4.0:
     "@stimulus/webpack-helpers" "^1.1.1"
 
 stimulus_reflex@^2.1.9:
-  version "2.1.9"
-  resolved "https://registry.yarnpkg.com/stimulus_reflex/-/stimulus_reflex-2.1.9.tgz#aff2c7390645cd3d81b4944d983a871bdd362f39"
-  integrity sha512-mBmgRciPuKnuKK/YNmEC45LDeAy/c4yxKBDWvl7Bc0ms8kfI/dAS1psGx0aLAlqCwe1hargFzQnEQ0DOAZcl3w==
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/stimulus_reflex/-/stimulus_reflex-2.2.2.tgz#0bc46bfbb442f2cf980e3436f16282c92924f6fd"
+  integrity sha512-X0QCohbGcBngoUmG5mDXFsVzcBgvKUWAMYSPfrv2eN72IkZqn+vGQFeC3sJncU2t9WIqbRu52/PgBFn7KHbhYQ==
   dependencies:
     actioncable ">= 5.2"
     cable_ready ">= 4.0"

@@ -21,7 +21,11 @@ module Scopable
   end
 
   def reset_current_scope
-    session[:current_scope] = session[:last_controller_name] != controller_name ? :all : ""
-    session[:last_controller_name] = controller_name
+    if session[:last_controller_name] != controller_name
+      session[:current_scope] = nil
+      session[:scope_by] = nil
+    else
+      session[:current_scope] = scope_by
+    end
   end
 end

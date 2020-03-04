@@ -17,6 +17,7 @@ class ApplicationController < ActionController::Base
   before_action :current_organization
   before_action :organization_redirect, if: -> { params["current-organization"] }
   before_action -> { Current.user_interface = current_user&.persisted? }
+  after_action -> { session[:last_controller_name] = controller_name }
   impersonates :user
 
   protected
