@@ -17,10 +17,16 @@ class ApplicationController < ActionController::Base
   before_action :current_organization
   before_action :organization_redirect, if: -> { params["current-organization"] }
   before_action -> { Current.user_interface = current_user&.persisted? }
-  after_action -> { session[:last_controller_name] = controller_name }
+  after_action -> { set_last_controller_name }
   impersonates :user
 
   protected
+
+  def set_last_controller_name
+    unless controller_name.include? "sparkline"
+      session[:last_controller_name] = controller_name
+    end
+  end
 
   def sanitize_params(key, params)
     params[key].each do |k, v|

@@ -13,19 +13,12 @@ module Scopable
   private
 
   def current_scope
-    session[:current_scope].present? ? session[:current_scope] : scope_by
-  end
-
-  def scope_by
-    session[:scope_by]&.to_sym || :all
+    @current_scope ||= session[:scope_by]&.to_sym || :all
   end
 
   def reset_current_scope
     if session[:last_controller_name] != controller_name
-      session[:current_scope] = nil
       session[:scope_by] = nil
-    else
-      session[:current_scope] = scope_by
     end
   end
 end
