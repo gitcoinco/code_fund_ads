@@ -30,12 +30,12 @@ class CreateDebitForCampaignAndDateJob < ApplicationJob
         .where(
           organization_id: campaign.organization_id,
           transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::DEBIT,
-          reference: [campaign.id, date.iso8601].join(":"),
+          reference: [campaign.id, date.iso8601].join(":")
         )
         .first_or_create!(
           description: "Daily Spend on [#{date.iso8601}] for Campaign [#{campaign.id}: #{campaign.name}]",
           amount: amount,
-          posted_at: Time.current,
+          posted_at: Time.current
         )
       campaign.organization.recalculate_balance!
     end
@@ -47,12 +47,12 @@ class CreateDebitForCampaignAndDateJob < ApplicationJob
         .where(
           organization_id: campaign.organization_id,
           transaction_type: ENUMS::ORGANIZATION_TRANSACTION_TYPES::DEBIT,
-          reference: [campaign.id, "#{campaign.start_date.iso8601}--#{campaign.end_date.iso8601}"].join(":"),
+          reference: [campaign.id, "#{campaign.start_date.iso8601}--#{campaign.end_date.iso8601}"].join(":")
         )
         .first_or_create!(
           description: "Total Spend for Campaign [#{campaign.id}: #{campaign.name}]",
           amount: campaign.selling_price,
-          posted_at: Time.current,
+          posted_at: Time.current
         )
       campaign.organization.recalculate_balance!
     end

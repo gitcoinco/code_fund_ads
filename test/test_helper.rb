@@ -11,8 +11,7 @@ require "sidekiq/testing"
 
 WebMock.allow_net_connect!
 
-# Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(color: true)]
-Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new(color: true)]
+Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(color: true)]
 
 unless Webpacker.compiler.fresh?
   puts "== Webpack compiling =="
@@ -31,6 +30,7 @@ class ActiveSupport::TestCase
 
   def teardown
     Sidekiq::Worker.clear_all
+    Rails.local_ephemeral_cache.clear
   end
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.

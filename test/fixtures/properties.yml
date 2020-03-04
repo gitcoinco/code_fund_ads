@@ -44,6 +44,7 @@
 
 website:
   user: publisher
+  audience_id: <%= Audience.javascript_and_frontend.id %>
   property_type: <%= ENUMS::PROPERTY_TYPES::WEBSITE %>
   status: <%= ENUMS::PROPERTY_STATUSES::ACTIVE %>
   name: Website
