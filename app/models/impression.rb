@@ -230,17 +230,27 @@ class Impression < ApplicationRecord
     end
   end
 
+  def campaign
+    key = "#{self.class.name}##{__method__}/#{campaign_id}"
+    local_ephemeral_cache.fetch(key, expires_in: 15.minutes) { super }
+  end
+
+  def property
+    key = "#{self.class.name}##{__method__}/#{property_id}"
+    local_ephemeral_cache.fetch(key, expires_in: 15.minutes) { super }
+  end
+
   def region
-    local_ephemeral_cache.fetch "Impression#region/#{campaign_id}/#{country_code}" do
+    key = "#{self.class.name}##{__method__}/#{campaign_id}/#{country_code}"
+    local_ephemeral_cache.fetch key do
       match = Region.all.find { |r| campaign.region_ids.include?(r.id) && r.country_codes.include?(country_code) }
       match || Region.other
     end
   end
 
   def audience
-    local_ephemeral_cache.fetch "Impression#audience/#{property.audience_id}" do
-      Audience.all.find { |a| a.id == property.audience_id }
-    end
+    key = "#{self.class.name}##{__method__}/#{property.audience_id}"
+    local_ephemeral_cache.fetch(key) { Audience.all.find { |a| a.id == property.audience_id } }
   end
 
   def applicable_ecpm

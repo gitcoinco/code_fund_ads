@@ -11,7 +11,8 @@ require "sidekiq/testing"
 
 WebMock.allow_net_connect!
 
-Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(color: true)]
+# Minitest::Reporters.use! [Minitest::Reporters::DefaultReporter.new(color: true)]
+Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new(color: true)]
 
 unless Webpacker.compiler.fresh?
   puts "== Webpack compiling =="
@@ -108,7 +109,7 @@ class ActiveSupport::TestCase
         analyzed: true,
         name: name,
         format: ENUMS::IMAGE_FORMATS::SPONSOR
-      },
+      }
     )
     record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::SPONSOR).order(created_at: :desc).first
   end
@@ -150,7 +151,7 @@ class ActiveSupport::TestCase
       user_agent: "test",
       country_code: "US",
       displayed_at: Time.current,
-      displayed_at_date: Date.current,
+      displayed_at_date: Date.current
     )
     impression.update! params if params.present?
     impression
@@ -167,7 +168,7 @@ class ActiveSupport::TestCase
       user_agent: "test",
       country_code: "US",
       displayed_at: Time.current,
-      displayed_at_date: Date.current,
+      displayed_at_date: Date.current
     )
     impression.update params if params.present?
     impression

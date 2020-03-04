@@ -8,7 +8,7 @@ class CreateDebitForCampaignAndDateJobTest < ActiveJob::TestCase
       amount: Monetize.parse("$10,000 USD"),
       description: "Initial Credit",
       reference: "Test",
-      posted_at: Time.current,
+      posted_at: Time.current
     )
     campaign.organization.recalculate_balance!
     starting_balance = campaign.organization.reload.balance

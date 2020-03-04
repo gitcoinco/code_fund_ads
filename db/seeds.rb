@@ -51,7 +51,7 @@ end
 unless Property.exists?
   puts "Seeding properties"
   properties = User.publishers.map { |publisher|
-    audience = [Audience.javascript_and_frontend, Audience.web_development_and_backend].sample
+    audience = [Audience.javascript_and_frontend, Audience.web_development_and_backend, Audience.blockchain].sample
     {
       user_id: publisher.id,
       property_type: ENUMS::PROPERTY_TYPES::WEBSITE,
@@ -112,8 +112,13 @@ end
 # CAMPAIGN BUNDLES ...........................................................................................
 unless CampaignBundle.exists?
   puts "Seeding campaign bundles"
-  region_ids = [Region.americas_northern.id, Region.europe.id]
   campaign_bundles = User.advertisers.map { |advertiser|
+    regions = [
+      [Region.asia_eastern, Region.asia_southern_and_western],
+      [Region.europe, Region.europe_eastern, Region.australia_and_new_zealand],
+      [Region.americas_northern, Region.americas_central_southern],
+      [Region.americas_northern]
+    ].sample
     start_date = rand(1..12).months.ago
     {
       organization_id: advertiser.organization_id,
@@ -121,7 +126,7 @@ unless CampaignBundle.exists?
       name: random_name("CampaignBundle"),
       start_date: start_date.to_date,
       end_date: start_date.advance(months: 2).to_date,
-      region_ids: region_ids
+      region_ids: regions.map(&:id)
     }
   }
   CampaignBundle.bulk_insert values: campaign_bundles
@@ -133,7 +138,11 @@ unless Campaign.exists?
   campaigns = CampaignBundle.includes(:user).map { |campaign_bundle|
     creative_ids = campaign_bundle.user.creatives.sample(3).map(&:id)
     total_budget_cents = rand(50000...250000)
-    audiences = [Audience.javascript_and_frontend, Audience.web_development_and_backend]
+    audiences = [
+      [Audience.blockchain],
+      [Audience.javascript_and_frontend, Audience.web_development_and_backend],
+      [Audience.javascript_and_frontend]
+    ].sample
     {
       campaign_bundle_id: campaign_bundle.id,
       start_date: campaign_bundle.start_date,

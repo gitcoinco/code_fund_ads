@@ -1,0 +1,33 @@
+# == Schema Information
+#
+# Table name: scheduled_organization_reports
+#
+#  id              :bigint           not null, primary key
+#  campaign_ids    :bigint           default("{}"), not null, is an Array
+#  dataset         :string           not null
+#  end_date        :date             not null
+#  frequency       :string           not null
+#  recipients      :string           default("{}"), not null, is an Array
+#  start_date      :date             not null
+#  subject         :text             not null
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  organization_id :bigint           not null
+#
+# Indexes
+#
+#  index_scheduled_organization_reports_on_organization_id  (organization_id)
+#
+
+# IMPORTANT: Limit scheduled_organization_reports fixtures to [1] using only the minimum required data
+#            Additional setup should be perfomed in the test suite
+
+default:
+  organization: default
+  subject: My Scheduled Report
+  start_date: <%= 30.days.ago.to_date.iso8601 %>
+  end_date: <%= Date.current %>
+  recipients:
+    - team@codefund.io
+  frequency: <%= ENUMS::SCHEDULED_ORGANIZATION_REPORT_FREQUENCIES.values.sample %>
+  dataset: <%= ENUMS::SCHEDULED_ORGANIZATION_REPORT_DATASETS.values.sample %>
