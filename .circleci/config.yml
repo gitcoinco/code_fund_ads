@@ -24,11 +24,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - run: |
-          sudo curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
-          curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-          echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-          sudo apt-get update && sudo apt-get install -y postgresql-client nodejs yarn
       - restore_cache:
           name: Restore gem cache
           keys:
@@ -52,6 +47,11 @@ jobs:
             - assets-cache-v5-{{ checksum "dependency_checksum.md5" }}-{{ arch }}-{{ .Branch }}
             - assets-cache-v5-{{ checksum "dependency_checksum.md5" }}-{{ arch }}
             - assets-cache-v5-{{ checksum "dependency_checksum.md5" }}
+      - run: |
+          sudo curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
+          curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+          echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+          sudo apt-get update && sudo apt-get install -y postgresql-client nodejs yarn
       - run:
           name: Install gem dependencies
           command: |
