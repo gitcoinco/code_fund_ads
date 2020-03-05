@@ -1,14 +1,10 @@
-require "simplecov"
-
 if ENV["CI"] == "true"
   require "coveralls"
-  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
-    [SimpleCov::Formatter::HTMLFormatter,
-     Coveralls::SimpleCov::Formatter,]
-  )
+  Coveralls.wear!
+else
+  require "simplecov"
+  SimpleCov.start "rails"
 end
-
-SimpleCov.start "rails"
 
 ENV["RAILS_ENV"] ||= "test"
 require "factory_bot_rails"
