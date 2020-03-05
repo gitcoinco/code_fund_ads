@@ -8,7 +8,8 @@ Capybara.register_driver(:cuprite) do |app|
     window_size: [1400, 1400],
     js_errors: false,
     headless: !(ENV["WATCH"] == "true"),
-    process_timeout: 5
+    process_timeout: 5,
+    browser_options: {'no-sandbox': nil}
   )
 end
 
