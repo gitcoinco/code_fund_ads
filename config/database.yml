@@ -9,7 +9,7 @@ default: &default
 development:
   primary: &development_primary
     <<: *default
-    host: localhost
+    host: <%= ENV.fetch("PG_HOST", "localhost") %>
     database: <%= ENV.fetch("PG_DATABASE_NAME", "code_fund_ads_development") %>
   primary_replica:
     <<: *development_primary
@@ -18,7 +18,7 @@ development:
 test:
   primary: &test_primary
     <<: *default
-    host: localhost
+    host: <%= ENV.fetch("PG_HOST", "localhost") %>
     database: code_fund_ads_test
   primary_replica:
     <<: *test_primary
