@@ -5,6 +5,7 @@ jobs:
       - image: circleci/ruby:2.6.5-browsers
         environment:
           CAMPAIGN_DEMO_ID: "395"
+          CI: "true"
           PG_HOST: localhost
           PG_USERNAME: ubuntu
           RAILS_ENV: test

@@ -1,4 +1,10 @@
 require "simplecov"
+
+if ENV["CI"] == "true"
+  require "coveralls"
+  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+end
+
 SimpleCov.start "rails"
 
 ENV["RAILS_ENV"] ||= "test"
