@@ -1,0 +1,13 @@
+<% cache [organization, organization.users, organization.campaigns], expires_in: 6.hours do %>
+  <%= table_row do %>
+    <%= table_data link_to(organization.name, organization_path(organization)) %>
+    <%= table_data organization.balance.format, add_class: "text-right #{"text-success" if organization.balance.positive?} #{"text-danger" if organization.balance.negative?} " %>
+    <%= table_data organization.total_credits.format, add_class: "text-right" %>
+    <%= table_data organization.total_gifts.format, add_class: "text-right" %>
+    <%= table_data link_to(organization.campaigns.active.size, campaigns_path), add_class: "text-right" %>
+    <%= table_data link_to(organization.campaigns.size, campaigns_path), add_class: "text-right" %>
+    <%= table_data link_to(organization.users.count, organization_users_path(organization)), add_class: "text-right" %>
+    <%= table_data organization.campaigns&.order(end_date: :desc)&.first&.end_date&.to_s("mm/dd/yyyy"), add_class: "text-right" %>
+    <%= table_data edit_button(link: edit_organization_path(organization), title: "Edit Organization"), add_class: "text-right" %>
+  <% end %>
+<% end %>

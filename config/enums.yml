@@ -178,6 +178,10 @@ ORGANIZATION_SEARCH_DIRECTIONS:
   - negative
   - zero
 
+ORGANIZATION_STATUSES:
+  - active
+  - inactive
+
 JOB_PLANS:
   - monthly
   - prepaid

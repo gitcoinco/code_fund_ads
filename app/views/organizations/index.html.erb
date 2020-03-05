@@ -3,9 +3,25 @@
     buttons: [
       layout_button(link: new_organization_path, icon: "fas fa-plus", title: "Add team", admin: true)
     ] do %>
-  <%= render "/shared/data_list",
-              resource_name: "organizations",
-              scopable: %w[positive negative zero],
-              collection: @organizations,
-              pagy: @pagy %>
+  <div class="page-section">
+    <div class="card card-fluid" data-controller="filterable-list">
+      <div class="card-header nav-scroller">
+        <ul class="nav nav-tabs card-header-tabs">
+          <li class="nav-item">
+            <span class="nav-link show pointer <%= "active" if session[:scope_by].nil? || session[:scope_by] == "all" %>"
+                  data-toggle="tab" data-scope-by="all" data-reflex="click->ScopableReflex#scope">All</span>
+          </li>
+          <% %w[active inactive].each do |item| %>
+            <li class="nav-item">
+              <span class="nav-link show pointer <%= "active" if session[:scope_by] == item %>" data-toggle="tab" data-scope-by="<%= item %>" data-reflex="click->ScopableReflex#scope">
+                <%= item.capitalize %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+      <%= card_body padding: "p-0" do %>
+        <%= render "/organizations/table", organizations: @organizations, pagy: @pagy %>
+      <% end %>
+  </div>
 <% end %>
