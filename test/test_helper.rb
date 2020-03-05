@@ -1,7 +1,7 @@
 # Only run in CI
 unless ENV["CODECOV_TOKEN"]&.empty?
   require "simplecov"
-  require 'codecov'
+  require "codecov"
   SimpleCov.start "rails"
   SimpleCov.formatter = SimpleCov::Formatter::Codecov
 end
