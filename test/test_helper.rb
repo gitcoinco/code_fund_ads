@@ -1,5 +1,10 @@
-require "simplecov"
-SimpleCov.start "rails"
+# Only run in CI
+unless ENV["CODECOV_TOKEN"]&.empty?
+  require "simplecov"
+  require 'codecov'
+  SimpleCov.start "rails"
+  SimpleCov.formatter = SimpleCov::Formatter::Codecov
+end
 
 ENV["RAILS_ENV"] ||= "test"
 require "factory_bot_rails"
