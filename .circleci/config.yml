@@ -45,13 +45,13 @@ jobs:
             - yarn-cache-v5
       - run:
           name: Set up assets cache key
-          command: find app/javascript -type f -exec md5sum {} \; > dependency_checksum
+          command: find app/javascript -type f -exec md5sum {} \; > dependency_checksum.md5
       - restore_cache:
           name: Restore assets cache
           keys:
-            - assets-cache-v5-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
-            - assets-cache-v5-{{ checksum "dependency_checksum" }}-{{ arch }}
-            - assets-cache-v5-{{ checksum "dependency_checksum" }}
+            - assets-cache-v5-{{ checksum "dependency_checksum.md5" }}-{{ arch }}-{{ .Branch }}
+            - assets-cache-v5-{{ checksum "dependency_checksum.md5" }}-{{ arch }}
+            - assets-cache-v5-{{ checksum "dependency_checksum.md5" }}
       - run:
           name: Install gem dependencies
           command: |
@@ -80,7 +80,7 @@ jobs:
             - public/assets
             - tmp/cache/webpacker
             - tmp/cache/assets/sprockets
-          key: assets-cache-v5-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
+          key: assets-cache-v5-{{ checksum "dependency_checksum.md5" }}-{{ arch }}-{{ .Branch }}
       - run:
           name: Set up DB
           command: bundle exec rails db:drop db:create db:structure:load --trace

@@ -2,7 +2,10 @@ require "simplecov"
 
 if ENV["CI"] == "true"
   require "coveralls"
-  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+  SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+    [SimpleCov::Formatter::HTMLFormatter,
+     Coveralls::SimpleCov::Formatter,]
+  )
 end
 
 SimpleCov.start "rails"
