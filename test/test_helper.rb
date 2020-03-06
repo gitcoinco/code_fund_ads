@@ -1,5 +1,5 @@
 # Only run in CI
-unless ENV["CODECOV_TOKEN"]&.empty?
+if ENV["CI"] == "true"
   require "simplecov"
   require "codecov"
   SimpleCov.start "rails"
