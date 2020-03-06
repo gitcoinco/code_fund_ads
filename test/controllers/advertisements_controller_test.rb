@@ -14,9 +14,10 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "get advertisement with no referer url" do
-    AdvertisementsController.any_instance.stubs(ad_test?: false)
+    AdvertisementsController.any_instance.stubs(ad_test?: false, country_code: "US")
     Rails.env.stubs(production?: true)
     campaign = active_campaign
+    Campaign.premium.where.not(id: campaign.id).delete_all
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
     assert_response :success
@@ -24,18 +25,20 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "get advertisement with non-ascii url" do
-    AdvertisementsController.any_instance.stubs(ad_test?: false)
+    AdvertisementsController.any_instance.stubs(ad_test?: false, country_code: "US")
     Rails.env.stubs(production?: true)
     ActionDispatch::Request.any_instance.stubs(referer: "https://non-ascii.test/\xE4\xB8\x8B\xE8\xBD\xBD\xE5\x8A\xA9\xE6\x89\x8B")
     campaign = active_campaign
     property = matched_property(campaign)
+    Campaign.where.not(id: campaign.id).delete_all
     get advertisements_url(property, format: :js)
     assert_response :success
     assert response.body.include?("click?campaign_id=#{campaign.id}")
   end
 
   test "get advertisement with active & matching campaign" do
-    AdvertisementsController.any_instance.stubs(ad_test?: false)
+    AdvertisementsController.any_instance.stubs(ad_test?: false, country_code: "US")
+    Campaign.fallback.delete_all
     campaign = active_campaign
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
@@ -44,25 +47,26 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "get advertisement with active & geo matching campaign" do
-    campaign = active_campaign(country_codes: ["US"])
+    campaign = active_campaign
     property = matched_property(campaign)
-    self.remote_addr = ip_address(campaign.country_codes.sample)
+    self.remote_addr = ip_address("US")
     get advertisements_url(property, format: :js)
     assert_response :success
     assert response.body.include?("click?campaign_id=#{campaign.id}")
   end
 
   test "get advertisement with active but no geo matching campaigns" do
-    campaign = active_campaign(country_codes: ["CA"])
+    AdvertisementsController.any_instance.stubs(ad_test?: false, country_code: "CN")
+    campaign = active_campaign
     property = matched_property(campaign)
     self.remote_addr = ip_address("US")
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body =~ /"creative":{"name":null/
-    assert response.body =~ /"urls":{"impression":"","campaign":""/
+    assert response.body =~ /This is a fallback campaign/
   end
 
   test "get advertisement with no matching campaigns" do
+    Campaign.fallback.delete_all
     campaign = inactive_campaign
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
@@ -86,8 +90,7 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     property = matched_property(campaign)
     get advertisements_url(property, format: :js)
     assert_response :success
-    assert response.body =~ /"creative":{"name":null/
-    assert response.body =~ /"urls":{"impression":"","campaign":""/
+    assert response.body =~ /This is a fallback campaign/
   end
 
   test "get advertisement with fallback campaign" do

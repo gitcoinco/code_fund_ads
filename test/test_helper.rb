@@ -170,39 +170,24 @@ class ActiveSupport::TestCase
   end
 
   def active_campaign(country_codes: [])
-    campaign = campaigns(:premium)
-    campaign.update!(
-      status: ENUMS::CAMPAIGN_STATUSES::ACTIVE,
-      start_date: 1.month.ago.beginning_of_month,
-      end_date: 1.month.from_now.end_of_month,
-      country_codes: country_codes,
-      keywords: ENUMS::KEYWORDS.keys.sample(10)
-    )
+    campaign = campaigns(:premium_bundled)
     campaign.creative.add_image! attach_large_image!(campaign.organization)
     campaign.organization.update balance: Monetize.parse("$10,000 USD")
     campaign
   end
 
   def inactive_campaign
-    campaign = campaigns(:premium)
+    campaign = campaigns(:premium_bundled)
     campaign.update!(
       status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED,
       start_date: 6.months.ago.beginning_of_month,
-      end_date: 4.months.ago.end_of_month,
-      keywords: ENUMS::KEYWORDS.keys.sample(10)
+      end_date: 4.months.ago.end_of_month
     )
     campaign
   end
 
   def fallback_campaign
-    campaign = campaigns(:premium)
-    campaign.update!(
-      status: ENUMS::CAMPAIGN_STATUSES::ACTIVE,
-      start_date: 1.month.ago.beginning_of_month,
-      end_date: 1.month.from_now.end_of_month,
-      keywords: [],
-      fallback: true
-    )
+    campaign = campaigns(:fallback)
     campaign.creative.add_image! attach_large_image!(campaign.organization)
     campaign
   end

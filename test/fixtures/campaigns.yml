@@ -69,7 +69,7 @@
 #            Additional setup should be perfomed in the test suite
 
 premium:
-  start_date: <%= 1.week.from_now.to_date %>
+  start_date: <%= 1.week.ago.to_date %>
   end_date: <%= 5.weeks.from_now.to_date %>
   organization: default
   user: advertiser
@@ -116,7 +116,7 @@ premium_bundled:
   hourly_budget_cents: <%= Monetize.parse("$7 USD").cents %>
 
 fallback:
-  start_date: <%= 1.week.from_now.to_date %>
+  start_date: <%= 1.week.ago.to_date %>
   end_date: <%= 5.weeks.from_now.to_date %>
   organization: default
   user: advertiser
