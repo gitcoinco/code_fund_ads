@@ -129,15 +129,10 @@ class ActiveSupport::TestCase
   end
 
   def ip_address(country_code)
-    attempts = 0
-    ip = Faker::Internet.public_ip_v4_address
-    data = Mmdb.lookup(ip) || {}
-    while data.to_hash.dig("country", "iso_code") != country_code
-      data = Mmdb.lookup(ip = Faker::Internet.public_ip_v4_address) || {}
-      attempts += 1
-      puts "#{attempts} attempts to find IP address for: #{country_code}" if attempts % 50 == 0
-    end
-    ip
+    {
+      "CN" => "222.77.185.153",
+      "US" => "52.54.11.217"
+    }[country_code]
   end
 
   def premium_impression(params = {})

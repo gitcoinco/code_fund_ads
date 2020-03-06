@@ -5,12 +5,11 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   setup do
     Rails.cache.clear
     start_date = Date.parse("2019-01-01")
-    @premium_campaign = amend campaigns: :premium,
-                              start_date: start_date,
-                              end_date: start_date.advance(months: 3),
-                              keywords: ENUMS::KEYWORDS.keys.sample(5)
+    @premium_campaign = campaigns(:premium_bundled)
+    @premium_campaign.campaign_bundle.update_columns start_date: start_date, end_date: start_date.advance(months: 3)
+    @premium_campaign.save!
     @premium_campaign.organization.update balance: Monetize.parse("$10,000 USD")
-    @property = amend properties: :website, keywords: @premium_campaign.keywords.sample(3)
+    @property = amend(properties: :website, audience_id: @premium_campaign.audience_ids.sample)
     travel_to start_date.to_time.advance(days: 15)
   end
 
@@ -42,7 +41,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------------------------------------------------------
 
   test "js: campaign with matching country will not display when keywords don't match" do
-    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @premium_campaign.keywords
+    @property.update_columns keywords: ENUMS::KEYWORDS.keys.sample(5) - @premium_campaign.keywords
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
     assert response.body =~ /"creative":{"name":null/
@@ -50,14 +49,14 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "json: campaign with matching country will not display when keywords don't match" do
-    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @premium_campaign.keywords
+    @property.update_columns keywords: ENUMS::KEYWORDS.keys.sample(5) - @premium_campaign.keywords
     get advertisements_path(@property, format: :json), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 404
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
   end
 
   test "html: campaign with matching country will not display when keywords don't match" do
-    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @premium_campaign.keywords
+    @property.update_columns keywords: ENUMS::KEYWORDS.keys.sample(5) - @premium_campaign.keywords
     get advertisements_path(@property, format: :html), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 404
     assert response.body =~ /CodeFund does not have an advertiser for you at this time/
@@ -114,7 +113,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     copy campaigns: :fallback, keywords: @property.keywords.sample(2),
          creative_ids: [copy(creatives: :fallback, body: "This is a targeted fallback campaign").id]
-    @premium_campaign.update keywords: ["No Match"]
+    @premium_campaign.update_columns keywords: ["No Match"]
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert Campaign.fallback.count == 2
     assert response.status == 200
@@ -133,7 +132,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: fallback campaign is displayed even when premium campaign with matching country exists but keywords don't match" do
-    @property.update keywords: ENUMS::KEYWORDS.keys.sample(5) - @premium_campaign.keywords
+    @property.update_columns keywords: ENUMS::KEYWORDS.keys.sample(5) - @premium_campaign.keywords
     amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
@@ -169,7 +168,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   test "js: property with assigner campaign will eventually display the assigner campaign" do
     other_campaign = copy(campaigns: :premium, creative_ids: [copy(creatives: :premium).id])
-    @premium_campaign.update assigned_property_ids: [@property.id]
+    @premium_campaign.update_columns assigned_property_ids: [@property.id]
     @premium_campaign.creative.update body: "This is a premium campaign that has assigned the property"
     assert other_campaign.creative.body != @premium_campaign.creative.body
     100.times.each do
@@ -181,9 +180,9 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: property with assigner campaign will eventually display other matching campaigns" do
-    other_campaign = copy(campaigns: :premium, creative_ids: [copy(creatives: :premium, body: "This is a non assigner premium campaign").id])
-    @premium_campaign.update assigned_property_ids: [@property.id]
-    @premium_campaign.creative.update body: "This is a premium campaign that has assigned the property"
+    other_campaign = Campaign.create!(@premium_campaign.attributes.except("id").merge(creative_ids: [copy(creatives: :premium, body: "This is a non assigner premium campaign").id]))
+    @premium_campaign.update_columns assigned_property_ids: [@property.id]
+    @premium_campaign.creative.update_columns body: "This is a premium campaign that has assigned the property"
     assert other_campaign.creative.body != @premium_campaign.creative.body
     100.times.each do
       get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
@@ -195,9 +194,9 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   test "js: property with assigner campaign will never display other matching campaigns when restrict_to_assigner_campaigns is true" do
     other_campaign = copy(campaigns: :premium, creative_ids: [copy(creatives: :premium).id])
-    @premium_campaign.update assigned_property_ids: [@property.id]
-    @premium_campaign.creative.update body: "This is a premium campaign that has assigned the property"
-    @property.update restrict_to_assigner_campaigns: true
+    @premium_campaign.update_columns assigned_property_ids: [@property.id]
+    @premium_campaign.creative.update_columns body: "This is a premium campaign that has assigned the property"
+    @property.update_columns restrict_to_assigner_campaigns: true
     assert other_campaign.creative.body != @premium_campaign.creative.body
     10.times.each do
       get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
@@ -207,7 +206,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: campaign with assigned property does not display on unassigned properties" do
-    @premium_campaign.update assigned_property_ids: [@property.id]
+    @premium_campaign.update_columns assigned_property_ids: [@property.id]
     property = copy(properties: :website)
     get advertisements_path(property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
@@ -216,7 +215,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: campaign with assigned property does not show for untargeted country" do
-    @premium_campaign.update assigned_property_ids: [@property.id]
+    @premium_campaign.update_columns assigned_property_ids: [@property.id]
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("CN")}
     assert response.status == 200
     assert response.body =~ /"creative":{"name":null/
@@ -236,16 +235,17 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
                     user: user,
                     body: "This is an assigned premium campaign"
 
-    copy campaigns: :premium,
-         organization: organization,
-         user: user,
-         assigned_property_ids: [@property.id],
-         keywords: [],
-         creative: creative,
-         creative_ids: [creative.id]
+    Campaign.create! @premium_campaign.attributes.except("id", "campaign_bundle_id").merge(
+      organization: organization,
+      user: user,
+      assigned_property_ids: [@property.id],
+      keywords: [],
+      creative: creative,
+      creative_ids: [creative.id]
+    )
 
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
-    assert Campaign.premium.count == 2
+    assert Campaign.premium.count == 3
     assert response.status == 200
     assert response.body =~ /This is a premium campaign/
     assert response.body =~ /"fallback":false/
@@ -254,7 +254,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------------------------------------------------------
 
   test "js: property only shows assigned fallback" do
-    @premium_campaign.update status: ENUMS::CAMPAIGN_STATUSES::PENDING
+    @premium_campaign.update_columns status: ENUMS::CAMPAIGN_STATUSES::PENDING
 
     amend campaigns: :fallback,
           keywords: @property.keywords,
@@ -265,7 +265,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     assigned = copy campaigns: :fallback, keywords: [],
                     creative_ids: [copy(creatives: :fallback, body: "This is an assigned fallback campaign").id]
 
-    @property.update assigned_fallback_campaign_ids: [assigned.id]
+    @property.update_columns assigned_fallback_campaign_ids: [assigned.id]
 
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert Campaign.fallback.count == 2
@@ -275,7 +275,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: property prefers targeted assigned fallbacks" do
-    @premium_campaign.update status: ENUMS::CAMPAIGN_STATUSES::PENDING
+    @premium_campaign.update_columns status: ENUMS::CAMPAIGN_STATUSES::PENDING
 
     amend campaigns: :fallback,
           keywords: @property.keywords,
@@ -290,7 +290,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
                                  keywords: @property.keywords,
                                  creative_ids: [copy(creatives: :fallback, body: "This is an assigned and targeted fallback campaign").id]
 
-    @property.update assigned_fallback_campaign_ids: [assigned.id, assigned_and_targeted.id]
+    @property.update_columns assigned_fallback_campaign_ids: [assigned.id, assigned_and_targeted.id]
 
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert Campaign.fallback.count == 3
@@ -300,7 +300,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: fallback campaign with assigned property will not display on a different property even if the different property assigns the fallback campaign" do
-    @premium_campaign.update status: ENUMS::CAMPAIGN_STATUSES::PENDING
+    @premium_campaign.update_columns status: ENUMS::CAMPAIGN_STATUSES::PENDING
 
     fallback_campaign = amend campaigns: :fallback,
                               start_date: @premium_campaign.start_date,
@@ -331,7 +331,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: premium ads don't render when over total budget" do
-    @premium_campaign.daily_summaries.create!(displayed_at_date: @premium_campaign.start_date, gross_revenue: Monetize.parse("$5,000 USD"))
+    @premium_campaign.daily_summaries.create!(displayed_at_date: @premium_campaign.start_date, gross_revenue: @premium_campaign.total_budget)
     @premium_campaign.increment_hourly_consumed_budget_fractional_cents(Monetize.parse("$5.00 USD").cents)
     refute @premium_campaign.budget_available?
     refute @premium_campaign.daily_budget_available?
@@ -371,7 +371,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------------------------------------------------------
 
   test "js: premium ads do not render when adtest requested" do
-    @premium_campaign.update assigned_property_ids: [@property.id]
+    @premium_campaign.update_columns assigned_property_ids: [@property.id]
     amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     get advertisements_path(@property, format: :js), params: {adtest: true}, headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
@@ -379,7 +379,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: premium ads render when adtest is not requested" do
-    @premium_campaign.update assigned_property_ids: [@property.id]
+    @premium_campaign.update_columns assigned_property_ids: [@property.id]
     amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200
@@ -387,7 +387,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: premium ads render when adtest is false" do
-    @premium_campaign.update assigned_property_ids: [@property.id]
+    @premium_campaign.update_columns assigned_property_ids: [@property.id]
     amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     get advertisements_path(@property, format: :js), params: {adtest: false}, headers: {"REMOTE_ADDR": ip_address("US")}
     assert response.status == 200

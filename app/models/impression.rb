@@ -231,26 +231,42 @@ class Impression < ApplicationRecord
   end
 
   def campaign
-    key = "#{self.class.name}##{__method__}/#{campaign_id}"
-    local_ephemeral_cache.fetch(key, expires_in: 15.minutes) { super }
+    @campaign ||= if Rails.env.test?
+      super
+    else
+      key = "#{self.class.name}##{__method__}/#{campaign_id}"
+      local_ephemeral_cache.fetch(key, expires_in: 15.minutes) { Campaign.find_by id: campaign_id }
+    end
   end
 
   def property
-    key = "#{self.class.name}##{__method__}/#{property_id}"
-    local_ephemeral_cache.fetch(key, expires_in: 15.minutes) { super }
+    @property ||= if Rails.env.test?
+      super
+    else
+      key = "#{self.class.name}##{__method__}/#{property_id}"
+      local_ephemeral_cache.fetch(key, expires_in: 15.minutes) { Property.find_by id: property_id }
+    end
   end
 
   def region
-    key = "#{self.class.name}##{__method__}/#{campaign_id}/#{country_code}"
-    local_ephemeral_cache.fetch key do
-      match = Region.all.find { |r| campaign.region_ids.include?(r.id) && r.country_codes.include?(country_code) }
-      match || Region.other
+    @region ||= if Rails.env.test?
+      campaign.regions.with_all_country_codes(country_code).first || Region.other
+    else
+      key = "#{self.class.name}##{__method__}/#{campaign_id}/#{country_code}"
+      local_ephemeral_cache.fetch key do
+        match = Region.all.find { |r| campaign.region_ids.include?(r.id) && r.country_codes.include?(country_code) }
+        match || Region.other
+      end
     end
   end
 
   def audience
-    key = "#{self.class.name}##{__method__}/#{property.audience_id}"
-    local_ephemeral_cache.fetch(key) { Audience.all.find { |a| a.id == property.audience_id } }
+    @audience ||= if Rails.env.test?
+      property.audience
+    else
+      key = "#{self.class.name}##{__method__}/#{property.audience_id}"
+      local_ephemeral_cache.fetch(key) { Audience.all.find { |a| a.id == property.audience_id } }
+    end
   end
 
   def applicable_ecpm
