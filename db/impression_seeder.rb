@@ -42,6 +42,7 @@ class ImpressionSeeder
 
             if campaign && property
               impression = Impression.new(
+                id: SecureRandom.uuid,
                 campaign: campaign,
                 property: property,
                 advertiser: users[campaign.user_id],
@@ -57,7 +58,7 @@ class ImpressionSeeder
                 ip_address: ip_addresses.sample,
                 user_agent: Faker::Internet.user_agent,
                 country_code: campaign.country_codes.sample,
-                fallback_campaign: campaign.fallback,
+                fallback_campaign: campaign.fallback
               )
 
               impression.calculate_estimated_revenue
@@ -71,7 +72,7 @@ class ImpressionSeeder
             end
           }
 
-          Impression.bulk_insert values: impressions.compact
+          Impression.insert_all impressions.compact
         end
       }
     end

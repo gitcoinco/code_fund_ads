@@ -41,10 +41,12 @@ unless User.publishers.exists?
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
       roles: [ENUMS::USER_ROLES::PUBLISHER],
-      confirmed_at: Time.current
+      confirmed_at: Time.current,
+      created_at: Time.current,
+      updated_at: Time.current
     }
   }
-  User.bulk_insert values: publishers
+  User.insert_all publishers
 end
 
 # PROPERTIES .................................................................................................
@@ -63,16 +65,26 @@ unless Property.exists?
       language: ENUMS::LANGUAGES::ENGLISH,
       revenue_percentage: 0.7,
       ad_template: ENUMS::AD_TEMPLATES::DEFAULT,
-      ad_theme: ENUMS::AD_THEMES::LIGHT
+      ad_theme: ENUMS::AD_THEMES::LIGHT,
+      created_at: Time.current,
+      updated_at: Time.current
     }
   }
-  Property.bulk_insert values: properties
+  Property.insert_all properties
 end
 
 # ADVERTISERS ................................................................................................
 unless User.advertisers.exists?
   puts "Seeding organizations and advertisers"
-  Organization.bulk_insert values: 30.times.map { |index| {id: index + 2, name: random_name(Faker::Company.name), balance_cents: rand(0..500000)} }
+  Organization.insert_all 30.times.map { |index|
+    {
+      id: index + 2,
+      name: random_name(Faker::Company.name),
+      balance_cents: rand(0..500000),
+      created_at: Time.current,
+      updated_at: Time.current
+    }
+  }
   Organization.connection.exec_query "ALTER SEQUENCE organizations_id_seq RESTART WITH #{Organization.maximum(:id) + 1}"
   advertisers = Organization.where.not(id: 1).pluck(:id).map { |organization_id|
     {
@@ -81,10 +93,12 @@ unless User.advertisers.exists?
       encrypted_password: admin.encrypted_password,
       first_name: Faker::Name.first_name,
       last_name: Faker::Name.last_name,
-      roles: [ENUMS::USER_ROLES::ADVERTISER]
+      roles: [ENUMS::USER_ROLES::ADVERTISER],
+      created_at: Time.current,
+      updated_at: Time.current
     }
   }
-  User.bulk_insert values: advertisers
+  User.insert_all advertisers
 end
 
 # CREATIVES ..................................................................................................
@@ -101,12 +115,14 @@ unless Creative.exists?
           cta: random_name("CTA"),
           headline: random_name("Headline"),
           body: "This is a premium campaign",
-          status: ENUMS::CREATIVE_STATUSES::ACTIVE
+          status: ENUMS::CREATIVE_STATUSES::ACTIVE,
+          created_at: Time.current,
+          updated_at: Time.current
         }
       }
     )
   end
-  Creative.bulk_insert values: creatives
+  Creative.insert_all creatives
 end
 
 # CAMPAIGN BUNDLES ...........................................................................................
@@ -126,10 +142,12 @@ unless CampaignBundle.exists?
       name: random_name("CampaignBundle"),
       start_date: start_date.to_date,
       end_date: start_date.advance(months: 2).to_date,
-      region_ids: regions.map(&:id)
+      region_ids: regions.map(&:id),
+      created_at: Time.current,
+      updated_at: Time.current
     }
   }
-  CampaignBundle.bulk_insert values: campaign_bundles
+  CampaignBundle.insert_all campaign_bundles
 end
 
 # CAMPAIGNS ..................................................................................................
@@ -160,10 +178,12 @@ unless Campaign.exists?
       audience_ids: audiences.map(&:id),
       keywords: audiences.map(&:keywords).flatten,
       region_ids: campaign_bundle.regions.map(&:id),
-      country_codes: campaign_bundle.regions.map(&:country_codes).flatten
+      country_codes: campaign_bundle.regions.map(&:country_codes).flatten,
+      created_at: Time.current,
+      updated_at: Time.current
     }
   }
-  Campaign.bulk_insert values: campaigns
+  Campaign.insert_all campaigns
 end
 
 ImpressionSeeder.run

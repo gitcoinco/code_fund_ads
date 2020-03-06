@@ -231,7 +231,7 @@ class CampaignTest < ActiveSupport::TestCase
 
   test "creatives must be active for active campaign" do
     @campaign.stubs(active?: true)
-    @campaign.creatives.sample.update(status: :pending)
+    @campaign.creatives.update status: :pending
     assert_not @campaign.valid?
     assert_equal ["cannot be inactive"], @campaign.errors.messages[:creatives]
   end

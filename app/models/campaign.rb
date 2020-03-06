@@ -583,8 +583,8 @@ class Campaign < ApplicationRecord
   end
 
   def validate_active_creatives
-    return unless creatives
-    errors.add(:creatives, "cannot be inactive") unless creatives.active.exists?
+    return if creative_ids.blank?
+    errors.add(:creatives, "cannot be inactive") if creatives.select(&:active?).blank?
   end
 
   def validate_assigned_properties

@@ -15,6 +15,7 @@ class CreateDebitForCampaignAndDateJobTest < ActiveJob::TestCase
 
     impressions = rand(500..1000).times.map {
       impression = campaign.impressions.build(
+        id: SecureRandom.uuid,
         advertiser: campaign.user,
         creative: campaign.creative,
         publisher: property.user,
@@ -31,7 +32,7 @@ class CreateDebitForCampaignAndDateJobTest < ActiveJob::TestCase
       impression.attributes
     }
 
-    Impression.bulk_insert values: impressions
+    Impression.insert_all impressions
     CreateDebitForCampaignAndDateJob.perform_now campaign, campaign.operative_dates.first.iso8601
     gross_revenue_cents = Impression.all.sum(:estimated_gross_revenue_fractional_cents).round
 
