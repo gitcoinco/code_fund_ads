@@ -9,7 +9,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/gitcoinco/code_fund_ads">
-    <img src="app/assets/images/codefund-logo-square-128.png" alt="Logo" width="128" height="128">
+    <img src="app/javascript/images/branding/codefund-logo-square-512.png" alt="Logo" width="128" height="128">
   </a>
 
   <h2 align="center">CodeFund Ads</h2>
