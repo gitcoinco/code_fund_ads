@@ -1,0 +1,9 @@
+codecov:
+  bot: "codecov-T-800"
+  require_ci_to_pass: yes
+  notify:
+    after_n_builds: 2
+    wait_for_ci: yes
+  parsers:
+    v1:
+      include_full_missed_files: true
