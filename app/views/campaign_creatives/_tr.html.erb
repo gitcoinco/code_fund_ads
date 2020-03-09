@@ -1,6 +1,9 @@
 <% if report.scoped_by %>
   <%= table_row do %>
     <%= table_data do %>
+      <span class="fas fa-circle text-<%= status_color(report.scoped_by.status) %>"></span>
+    <% end %>
+    <%= table_data do %>
       <%= link_to report.scoped_by.name, report.scoped_by %>
     <% end %>
     <% if @campaign.standard? %>
