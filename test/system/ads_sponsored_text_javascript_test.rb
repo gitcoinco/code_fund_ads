@@ -24,13 +24,13 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
                                                "line-height": "23.8px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                "font-size": "14px",
-                                               "font-weight": "400",)
+                                               "font-weight": "400")
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
     find("a", class: "cf-cta").assert_matches_style("color": "rgb(52, 152, 219)",
                                                     "text-decoration": "none solid rgb(52, 152, 219)",
                                                     "position": "static",
-                                                    "display": "inline",)
+                                                    "display": "inline")
   end
 
   test "sponsored text - premium ad with dark theme" do
@@ -47,17 +47,17 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
                                                "line-height": "23.8px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                "font-size": "14px",
-                                               "font-weight": "400",)
+                                               "font-weight": "400")
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
     find("a", class: "cf-cta").assert_matches_style("color": "rgb(52, 152, 219)",
                                                     "text-decoration": "none solid rgb(52, 152, 219)",
                                                     "position": "static",
-                                                    "display": "inline",)
+                                                    "display": "inline")
   end
 
   test "sponsored text - fallback ad with light theme" do
-    @premium_campaign.update keywords: []
+    @premium_campaign.update audience_ids: [], keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
@@ -70,18 +70,18 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
                                                "line-height": "23.8px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                "font-size": "14px",
-                                               "font-weight": "400",)
+                                               "font-weight": "400")
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
     find("a", class: "cf-cta").assert_matches_style("color": "rgb(52, 152, 219)",
                                                     "text-decoration": "none solid rgb(52, 152, 219)",
                                                     "position": "static",
-                                                    "display": "inline",)
+                                                    "display": "inline")
   end
 
   test "sponsored text - fallback ad with dark theme" do
     @property.update ad_theme: "dark"
-    @premium_campaign.update keywords: []
+    @premium_campaign.update audience_ids: [], keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
@@ -94,12 +94,12 @@ class AdsSponsoredTextJavascriptTest < ApplicationSystemTestCase
                                                "line-height": "23.8px",
                                                "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                "font-size": "14px",
-                                               "font-weight": "400",)
+                                               "font-weight": "400")
     assert_selector("span.cf-wrapper")
     assert_selector("sup")
     find("a", class: "cf-cta").assert_matches_style("color": "rgb(52, 152, 219)",
                                                     "text-decoration": "none solid rgb(52, 152, 219)",
                                                     "position": "static",
-                                                    "display": "inline",)
+                                                    "display": "inline")
   end
 end

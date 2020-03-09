@@ -25,7 +25,7 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
                                                           "font-size": "14px",
                                                           "line-height": "19.6px",
                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                          "padding": "15px",)
+                                                          "padding": "15px")
     find("div", class: "clearfix").assert_matches_style("overflow": "auto")
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("float": "left", "margin-right": "15px")
@@ -46,7 +46,7 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
                                                            "color": "rgba(0, 0, 0, 0.8)",
                                                            "background-color": "rgba(0, 0, 0, 0.05)",
                                                            "line-height": "19.8px",
-                                                           "text-transform": "uppercase",)
+                                                           "text-transform": "uppercase")
   end
 
   test "docsify - premium ad with dark theme" do
@@ -64,7 +64,7 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
                                                           "font-size": "14px",
                                                           "line-height": "19.6px",
                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                          "padding": "15px",)
+                                                          "padding": "15px")
     find("div", class: "clearfix").assert_matches_style("overflow": "auto")
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("float": "left", "margin-right": "15px")
@@ -85,11 +85,11 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
                                                            "color": "rgba(255, 255, 255, 0.7)",
                                                            "background-color": "rgba(255, 255, 255, 0.05)",
                                                            "line-height": "19.8px",
-                                                           "text-transform": "uppercase",)
+                                                           "text-transform": "uppercase")
   end
 
   test "docsify - fallback ad with light theme" do
-    @premium_campaign.update keywords: []
+    @premium_campaign.update audience_ids: [], keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
@@ -103,7 +103,7 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
                                                           "font-size": "14px",
                                                           "line-height": "19.6px",
                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                          "padding": "15px",)
+                                                          "padding": "15px")
     find("div", class: "clearfix").assert_matches_style("overflow": "auto")
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("float": "left", "margin-right": "15px")
@@ -124,12 +124,12 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
                                                            "color": "rgba(0, 0, 0, 0.8)",
                                                            "background-color": "rgba(0, 0, 0, 0.05)",
                                                            "line-height": "19.8px",
-                                                           "text-transform": "uppercase",)
+                                                           "text-transform": "uppercase")
   end
 
   test "docsify - fallback ad with dark theme" do
     @property.update ad_theme: "dark"
-    @premium_campaign.update keywords: []
+    @premium_campaign.update audience_ids: [], keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
@@ -143,7 +143,7 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
                                                           "font-size": "14px",
                                                           "line-height": "19.6px",
                                                           "font-family": "Helvetica, Arial, sans-serif",
-                                                          "padding": "15px",)
+                                                          "padding": "15px")
     find("div", class: "clearfix").assert_matches_style("overflow": "auto")
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("float": "left", "margin-right": "15px")
@@ -164,6 +164,6 @@ class AdsDocsifyJavascriptTest < ApplicationSystemTestCase
                                                            "color": "rgba(255, 255, 255, 0.7)",
                                                            "background-color": "rgba(255, 255, 255, 0.05)",
                                                            "line-height": "19.8px",
-                                                           "text-transform": "uppercase",)
+                                                           "text-transform": "uppercase")
   end
 end
