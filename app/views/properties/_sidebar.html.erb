@@ -71,7 +71,7 @@
           <span class="text-muted">Name</span> <span><%= subject.name %></span>
         </div>
         <div class="list-group-item justify-content-between align-items-center px-0">
-          <span class="text-muted">Website</span> <span><%= link_to subject.pretty_url, target: "_blank" %></span>
+          <span class="text-muted">Website</span> <span><a href="<%= subject.url %>" target="_blank" rel="noopener"><%= subject.pretty_url %></a></span>
         </div>
         <% if authorized_user.can_admin_system? %>
           <div class="list-group-item justify-content-between align-items-center px-0">

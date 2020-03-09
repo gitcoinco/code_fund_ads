@@ -47,5 +47,20 @@ module Frontend
     def pagination_wrapper(add_class: nil, &block)
       content_tag(:div, nil, class: "bg-light d-flex justify-content-between align-items-center pl-1 pr-4 py-2 #{add_class}", &block)
     end
+
+    def sortable_tr(column, title = nil, add_style: nil, add_class: nil)
+      title ||= column.titleize
+      direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
+      selected = nil
+
+      if params[:column] == column
+        selected = if direction == "desc"
+          "up"
+        else
+          "down"
+        end
+      end
+      render "/shared/sortable_tr", title: title, selected: selected, column: column, add_style: add_style, add_class: add_class
+    end
   end
 end

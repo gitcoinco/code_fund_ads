@@ -9,9 +9,19 @@ function init (element) {
   jQuery(element).daterangepicker({
     ranges: {
       'Next 30 Days': [moment(), moment().add(29, 'days')],
-      'Next 60 Days': [moment(), moment().add(59, 'days')],
-      'Next 90 Days': [moment(), moment().add(89, 'days')],
       'This Month': [moment().startOf('month'), moment().endOf('month')],
+      'Last 30 Days': [
+        moment().subtract(30, 'days'),
+        moment().subtract(1, 'days')
+      ],
+      'Last Month': [
+        moment()
+          .subtract(1, 'month')
+          .startOf('month'),
+        moment()
+          .subtract(1, 'month')
+          .endOf('month')
+      ],
       'Next Month': [
         moment()
           .add(1, 'month')

@@ -7,8 +7,23 @@ class OrganizationsController < ApplicationController
 
   def index
     organizations = scope_list(Organization).order(order_by)
-    max = (organizations.count / Pagy::VARS[:items].to_f).ceil
-    @pagy, @organizations = pagy(organizations, page: current_page(max: max))
+    @pagy, @organizations = pagy(organizations, items: Pagy::VARS[:items])
+  end
+
+  def show
+    payload = {
+      resource: {
+        dashboard: ENV["METABASE_ADVERTISER_DASHBOARD_ID"].to_i
+      },
+      params: {
+        "organization_id" => @organization.id,
+        "start_date" => @start_date.strftime("%F"),
+        "end_date" => @end_date.strftime("%F")
+      }
+    }
+    token = JWT.encode payload, ENV["METABASE_SECRET_KEY"]
+
+    @iframe_url = ENV["METABASE_SITE_URL"] + "/embed/dashboard/" + token + "#bordered=false&titled=false"
   end
 
   def new

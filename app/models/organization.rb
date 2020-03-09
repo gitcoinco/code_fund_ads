@@ -21,6 +21,7 @@ class Organization < ApplicationRecord
   # extends ...................................................................
 
   # includes ..................................................................
+  include Organizations::Statusable
   include Organizations::Developable
   include Organizations::Imageable
   include Eventable
@@ -92,6 +93,10 @@ class Organization < ApplicationRecord
 
   def total_credits
     Money.new(organization_transactions.credits.sum(&:amount_cents), "USD")
+  end
+
+  def total_gifts
+    Money.new(organization_transactions.credited_gifts.sum(&:amount_cents), "USD")
   end
 
   def recalculate_balance!
