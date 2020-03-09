@@ -2,6 +2,7 @@
   <%= paginated_table do %>
     <%= table_head do %>
       <%= table_row header: true do %>
+        <%= table_column "", add_style: "width:12px;" %>
         <%= table_column "Creative" %>
         <% if @campaign.standard? %>
           <%= table_column "Spend" %>
@@ -19,6 +20,7 @@
       <!-- Totals Row -->
       <% if @summary %>
         <%= table_row do %>
+          <%= table_data "" %>
           <%= table_data do %><strong>Totals</strong><% end %>
           <% if @campaign.standard? %>
             <%= table_data @summary.gross_revenue.format %>
