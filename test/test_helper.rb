@@ -96,24 +96,6 @@ class ActiveSupport::TestCase
     record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::WIDE).order(created_at: :desc).first
   end
 
-  def attach_sponsor_image!(record)
-    name = "sponsor-heroku.svg"
-    record.images.attach(
-      io: File.open(Rails.root.join("test/assets/images/sponsor-heroku.svg")),
-      filename: "sponsor-heroku.svg",
-      content_type: "image/svg+xml",
-      metadata: {
-        identified: true,
-        width: 400,
-        height: 40,
-        analyzed: true,
-        name: name,
-        format: ENUMS::IMAGE_FORMATS::SPONSOR
-      }
-    )
-    record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::SPONSOR).order(created_at: :desc).first
-  end
-
   # Factory method to find a fixture and update its attributes
   def amend(options = {})
     fixture_class_name, fixture_name = options.shift
@@ -165,20 +147,20 @@ class ActiveSupport::TestCase
       displayed_at: Time.current,
       displayed_at_date: Date.current
     )
-    impression.update params if params.present?
+    impression.update! params if params.present?
     impression
   end
 
   def active_campaign(country_codes: [])
     campaign = campaigns(:premium_bundled)
     campaign.creative.add_image! attach_large_image!(campaign.organization)
-    campaign.organization.update balance: Monetize.parse("$10,000 USD")
+    campaign.organization.update! balance: Monetize.parse("$10,000 USD")
     campaign
   end
 
   def inactive_campaign
     campaign = campaigns(:premium_bundled)
-    campaign.update!(
+    assert campaign.update!(
       status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED,
       start_date: 6.months.ago.beginning_of_month,
       end_date: 4.months.ago.end_of_month
@@ -194,7 +176,14 @@ class ActiveSupport::TestCase
 
   def matched_property(campaign, fixture: :website)
     property = properties(fixture)
-    property.update! keywords: campaign.keywords.sample(5)
+    keywords = campaign.keywords.sample(5)
+    if campaign.audience_ids.present?
+      assert property.update(audience_id: campaign.audience_ids.sample)
+    elsif campaign.premium?
+      assert campaign.keywords.present?
+      assert keywords.present?
+    end
+    assert property.update(audience_id: nil, keywords: keywords)
     property
   end
 end

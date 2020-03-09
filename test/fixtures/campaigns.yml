@@ -69,61 +69,55 @@
 #            Additional setup should be perfomed in the test suite
 
 premium:
-  start_date: <%= 1.week.ago.to_date %>
-  end_date: <%= 5.weeks.from_now.to_date %>
-  organization: default
-  user: advertiser
-  creative: premium
-  creative_ids:
-    - 1
-  status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
-  name: CodeFund
-  url: <%= ENV["WORDPRESS_URL"] %>
-  total_budget_cents: <%= Monetize.parse("$5,000 USD").cents %>
-  total_budget_currency: USD
-  daily_budget_cents: <%= Monetize.parse("$55 USD").cents %>
-  daily_budget_currency: USD
-  hourly_budget_cents: <%= Monetize.parse("$7 USD").cents %>
-  hourly_budget_currency: USD
-  ecpm_cents: <%= Monetize.parse("$3 USD").cents %>
-  ecpm_currency: USD
-  country_codes:
-    - CA
-    - FR
-    - GB
-    - IN
-    - JP
-    - RO
-    - US
-
-premium_bundled:
-  organization: default
-  user: advertiser
-  campaign_bundle: default
-  start_date: <%= 1.week.ago.to_date %>
-  end_date: <%= 5.weeks.from_now.to_date %>
+  country_codes: ["CA", "FR", "GB", "IN", "JP", "RO", "US"]
   creative_id: 1
   creative_ids: [1]
-  region_ids: <%= [Region.americas_northern.id, Region.europe.id].sort %>
-  country_codes: <%= [Region.americas_northern, Region.europe].map(&:country_codes).flatten.sort %>
-  audience_ids: <%= [Audience.javascript_and_frontend.id, Audience.web_development_and_backend.id].sort %>
-  keywords: <%= [Audience.javascript_and_frontend, Audience.web_development_and_backend].map(&:keywords).flatten.sort %>
-  status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
-  name: CodeFund
-  url: <%= ENV["WORDPRESS_URL"] %>
-  total_budget_cents: <%= Monetize.parse("$55 USD").cents * (1.week.ago.to_date..5.weeks.from_now.to_date).to_a.size %>
   daily_budget_cents: <%= Monetize.parse("$55 USD").cents %>
+  daily_budget_currency: USD
+  ecpm_cents: <%= Monetize.parse("$3 USD").cents %>
+  ecpm_currency: USD
+  end_date: <%= 5.weeks.from_now.to_date %>
+  fallback: false
   hourly_budget_cents: <%= Monetize.parse("$7 USD").cents %>
+  hourly_budget_currency: USD
+  name: CodeFund
+  organization: default
+  start_date: <%= 1.week.ago.to_date %>
+  status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
+  total_budget_cents: <%= Monetize.parse("$5,000 USD").cents %>
+  total_budget_currency: USD
+  url: <%= ENV["WORDPRESS_URL"] %>
+  user: advertiser
+
+premium_bundled:
+  audience_ids: <%= [Audience.javascript_and_frontend.id, Audience.web_development_and_backend.id].sort %>
+  campaign_bundle: default
+  country_codes: <%= [Region.americas_northern, Region.europe].map(&:country_codes).flatten.sort %>
+  creative_id: 1
+  creative_ids: [1]
+  daily_budget_cents: <%= Monetize.parse("$55 USD").cents %>
+  end_date: <%= 5.weeks.from_now.to_date %>
+  fallback: false
+  hourly_budget_cents: <%= Monetize.parse("$7 USD").cents %>
+  keywords: <%= [Audience.javascript_and_frontend, Audience.web_development_and_backend].map(&:keywords).flatten.sort %>
+  name: CodeFund
+  organization: default
+  region_ids: <%= [Region.americas_northern.id, Region.europe.id].sort %>
+  start_date: <%= 1.week.ago.to_date %>
+  status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
+  total_budget_cents: <%= Monetize.parse("$55 USD").cents * (1.week.ago.to_date..5.weeks.from_now.to_date).to_a.size %>
+  url: <%= ENV["WORDPRESS_URL"] %>
+  user: advertiser
 
 fallback:
-  start_date: <%= 1.week.ago.to_date %>
-  end_date: <%= 5.weeks.from_now.to_date %>
-  organization: default
-  user: advertiser
+  country_codes: <%= Country.all.map(&:id) %>
   creative_id: 2
   creative_ids: [2]
-  status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
-  name: CodeFund
-  url: <%= ENV["WORDPRESS_URL"] %>
+  end_date: <%= 5.weeks.from_now.to_date %>
   fallback: true
-  country_codes: <%= Country.all.map(&:id) %>
+  name: CodeFund
+  organization: default
+  start_date: <%= 1.week.ago.to_date %>
+  status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
+  url: <%= ENV["WORDPRESS_URL"] %>
+  user: advertiser
