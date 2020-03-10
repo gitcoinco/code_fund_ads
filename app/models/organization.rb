@@ -24,6 +24,7 @@ class Organization < ApplicationRecord
   include Organizations::Statusable
   include Organizations::Developable
   include Organizations::Imageable
+  include Organizations::Advertiseable
   include Eventable
   include Imageable
 

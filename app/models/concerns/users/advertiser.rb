@@ -15,22 +15,5 @@ module Users
       return false unless advertiser?
       campaigns.map(&:operational?).include? true
     end
-
-    def impressions_count_as_advertiser(start_date = nil, end_date = nil)
-      return 0 unless advertiser?
-      campaigns.map { |c| c.impressions_count(start_date, end_date) }.sum
-    end
-
-    def clicks_count_as_advertiser(start_date = nil, end_date = nil)
-      return 0 unless advertiser?
-      campaigns.map { |c| c.clicks_count(start_date, end_date) }.sum
-    end
-
-    def click_rate_as_advertiser(start_date = nil, end_date = nil)
-      impressions_count = impressions_count_as_advertiser(start_date, end_date)
-      return 0 if impressions_count.zero?
-      clicks_count = clicks_count_as_advertiser(start_date, end_date)
-      (clicks_count / impressions_count.to_f) * 100
-    end
   end
 end
