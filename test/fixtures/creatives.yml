@@ -27,6 +27,7 @@
 
 premium:
   id: 1
+  creative_type: <%= ENUMS::CREATIVE_TYPES::STANDARD %>
   organization: default
   user: advertiser
   name: Premium
@@ -37,6 +38,7 @@ premium:
 
 fallback:
   id: 2
+  creative_type: <%= ENUMS::CREATIVE_TYPES::STANDARD %>
   organization: default
   user: advertiser
   name: Fallback

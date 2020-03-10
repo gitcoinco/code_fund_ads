@@ -28,19 +28,19 @@ class AdsRectangleNarrowJavascriptTest < ApplicationSystemTestCase
                                                            "line-height": "16.8px",
                                                            "font-family": "Helvetica, Arial, sans-serif",
                                                            "padding-top": "14px",
-                                                           "padding-left": "10px",)
+                                                           "padding-left": "10px")
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("float": "left", "margin-right": "15px")
     find("img", class: "cf-img").assert_matches_style("max-width": "130px",
                                                       "position": "relative",
-                                                      "vertical-align": "middle",)
+                                                      "vertical-align": "middle")
     find("span", class: "cf-text").assert_matches_style("color": "rgba(0, 0, 0, 0.8)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "text-decoration": "none solid rgb(119, 119, 119)",
                                                            "margin-top": "5px",
                                                            "font-size": "11px",
                                                            "display": "block",
-                                                           "color": "rgb(119, 119, 119)",)
+                                                           "color": "rgb(119, 119, 119)")
   end
 
   test "rectangle narrow - premium ad with dark theme" do
@@ -61,23 +61,23 @@ class AdsRectangleNarrowJavascriptTest < ApplicationSystemTestCase
                                                            "line-height": "16.8px",
                                                            "font-family": "Helvetica, Arial, sans-serif",
                                                            "padding-top": "14px",
-                                                           "padding-left": "10px",)
+                                                           "padding-left": "10px")
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("float": "left", "margin-right": "15px")
     find("img", class: "cf-img").assert_matches_style("max-width": "130px",
                                                       "position": "relative",
-                                                      "vertical-align": "middle",)
+                                                      "vertical-align": "middle")
     find("span", class: "cf-text").assert_matches_style("color": "rgba(255, 255, 255, 0.8)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "text-decoration": "none solid rgb(119, 119, 119)",
                                                            "margin-top": "5px",
                                                            "font-size": "12px",
                                                            "display": "block",
-                                                           "color": "rgb(119, 119, 119)",)
+                                                           "color": "rgb(119, 119, 119)")
   end
 
   test "rectangle narrow - fallback ad with light theme" do
-    @premium_campaign.update keywords: []
+    @premium_campaign.update audience_ids: [], keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
@@ -94,24 +94,24 @@ class AdsRectangleNarrowJavascriptTest < ApplicationSystemTestCase
                                                            "line-height": "16.8px",
                                                            "font-family": "Helvetica, Arial, sans-serif",
                                                            "padding-top": "14px",
-                                                           "padding-left": "10px",)
+                                                           "padding-left": "10px")
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("float": "left", "margin-right": "15px")
     find("img", class: "cf-img").assert_matches_style("max-width": "130px",
                                                       "position": "relative",
-                                                      "vertical-align": "middle",)
+                                                      "vertical-align": "middle")
     find("span", class: "cf-text").assert_matches_style("color": "rgba(0, 0, 0, 0.8)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "text-decoration": "none solid rgb(119, 119, 119)",
                                                            "margin-top": "5px",
                                                            "font-size": "11px",
                                                            "display": "block",
-                                                           "color": "rgb(119, 119, 119)",)
+                                                           "color": "rgb(119, 119, 119)")
   end
 
   test "rectangle narrow - fallback ad with dark theme" do
     @property.update ad_theme: "dark"
-    @premium_campaign.update keywords: []
+    @premium_campaign.update audience_ids: [], keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
@@ -128,18 +128,18 @@ class AdsRectangleNarrowJavascriptTest < ApplicationSystemTestCase
                                                            "line-height": "16.8px",
                                                            "font-family": "Helvetica, Arial, sans-serif",
                                                            "padding-top": "14px",
-                                                           "padding-left": "10px",)
+                                                           "padding-left": "10px")
     find("a", class: "cf-sponsored-by").assert_matches_style("box-shadow": "none", "text-decoration": "none solid rgb(0, 0, 238)")
     find("span", class: "cf-img-wrapper").assert_matches_style("float": "left", "margin-right": "15px")
     find("img", class: "cf-img").assert_matches_style("max-width": "130px",
                                                       "position": "relative",
-                                                      "vertical-align": "middle",)
+                                                      "vertical-align": "middle")
     find("span", class: "cf-text").assert_matches_style("color": "rgba(255, 255, 255, 0.8)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "text-decoration": "none solid rgb(119, 119, 119)",
                                                            "margin-top": "5px",
                                                            "font-size": "12px",
                                                            "display": "block",
-                                                           "color": "rgb(119, 119, 119)",)
+                                                           "color": "rgb(119, 119, 119)")
   end
 end

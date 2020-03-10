@@ -31,14 +31,14 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
                                                            "border-top-style": "solid",
                                                            "background-color": "rgb(238, 238, 238)",
                                                            "text-align": "left",
-                                                           "line-height": "24px",)
+                                                           "line-height": "24px")
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
                                                      "color": "rgba(0, 0, 0, 0.6)",
-                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.6)",)
+                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.6)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "font-size": "11px",
                                                            "text-decoration": "none solid rgba(0, 0, 0, 0.5)",
-                                                           "color": "rgba(0, 0, 0, 0.5)",)
+                                                           "color": "rgba(0, 0, 0, 0.5)")
   end
 
   test "bottom bar - premium ad with dark theme" do
@@ -62,18 +62,18 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
                                                            "border-top-style": "solid",
                                                            "background-color": "rgb(238, 238, 238)",
                                                            "text-align": "left",
-                                                           "line-height": "24px",)
+                                                           "line-height": "24px")
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
                                                      "color": "rgba(0, 0, 0, 0.8)",
-                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.8)",)
+                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.8)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "font-size": "11px",
                                                            "text-decoration": "none solid rgba(0, 0, 0, 0.5)",
-                                                           "color": "rgba(0, 0, 0, 0.5)",)
+                                                           "color": "rgba(0, 0, 0, 0.5)")
   end
 
   test "bottom bar - fallback ad with light theme" do
-    @premium_campaign.update keywords: []
+    @premium_campaign.update audience_ids: [], keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
@@ -94,19 +94,19 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
                                                            "border-top-style": "solid",
                                                            "background-color": "rgb(238, 238, 238)",
                                                            "text-align": "left",
-                                                           "line-height": "24px",)
+                                                           "line-height": "24px")
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
                                                      "color": "rgba(0, 0, 0, 0.6)",
-                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.6)",)
+                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.6)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "font-size": "11px",
                                                            "text-decoration": "none solid rgba(0, 0, 0, 0.5)",
-                                                           "color": "rgba(0, 0, 0, 0.5)",)
+                                                           "color": "rgba(0, 0, 0, 0.5)")
   end
 
   test "bottom bar - fallback ad with dark theme" do
     @property.update ad_theme: "dark"
-    @premium_campaign.update keywords: []
+    @premium_campaign.update audience_ids: [], keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
@@ -127,13 +127,13 @@ class AdsBottomBarJavascriptTest < ApplicationSystemTestCase
                                                            "border-top-style": "solid",
                                                            "background-color": "rgb(238, 238, 238)",
                                                            "text-align": "left",
-                                                           "line-height": "24px",)
+                                                           "line-height": "24px")
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
                                                      "color": "rgba(0, 0, 0, 0.8)",
-                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.8)",)
+                                                     "text-decoration": "none solid rgba(0, 0, 0, 0.8)")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "font-size": "11px",
                                                            "text-decoration": "none solid rgba(0, 0, 0, 0.5)",
-                                                           "color": "rgba(0, 0, 0, 0.5)",)
+                                                           "color": "rgba(0, 0, 0, 0.5)")
   end
 end

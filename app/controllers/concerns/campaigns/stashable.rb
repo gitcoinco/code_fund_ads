@@ -48,7 +48,7 @@ module Campaigns
           temporary_id: Campaign.maximum(:id) + 1,
           status: ENUMS::CAMPAIGN_STATUSES::PENDING,
           start_date: Date.tomorrow,
-          ecpm: Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD"),
+          ecpm: Money.new(ENV.fetch("BASE_ECPM", 400).to_i, "USD")
         }
       )
     end

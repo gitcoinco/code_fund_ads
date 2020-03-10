@@ -13,13 +13,13 @@ class OrganizationsController < ApplicationController
   def show
     payload = {
       resource: {
-        dashboard: ENV["METABASE_ADVERTISER_DASHBOARD_ID"].to_i,
+        dashboard: ENV["METABASE_ADVERTISER_DASHBOARD_ID"].to_i
       },
       params: {
         "organization_id" => @organization.id,
         "start_date" => @start_date.strftime("%F"),
-        "end_date" => @end_date.strftime("%F"),
-      },
+        "end_date" => @end_date.strftime("%F")
+      }
     }
     token = JWT.encode payload, ENV["METABASE_SECRET_KEY"]
 

@@ -106,7 +106,7 @@ class AdvertisementsController < ApplicationController
       creative_id: @creative.id,
       property_id: property.id,
       template: template_name,
-      theme: theme_name,
+      theme: theme_name
     )
     @impression_url = impression_url(@virtual_impression_id, format: :gif)
     @powered_by_url = referral_code ? invite_url(referral_code) : root_url
@@ -343,7 +343,7 @@ class AdvertisementsController < ApplicationController
       creative: @creative,
       ad_template: template_name,
       ad_theme: theme_name,
-      country_code: country_code,
+      country_code: country_code
     ).track_event(event_name)
   end
 
@@ -357,7 +357,7 @@ class AdvertisementsController < ApplicationController
       creative_id: @creative.id,
       ad_template: template_name,
       ad_theme: theme_name,
-      ip_address: ip_address,
+      ip_address: ip_address
     }, expires_in: 30.seconds
 
     track_event :virtual_impression_created

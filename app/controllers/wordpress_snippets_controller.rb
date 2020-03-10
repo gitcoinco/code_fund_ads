@@ -30,7 +30,7 @@ class WordpressSnippetsController < ApplicationController
         name: country.name,
         value: country.ecpm(base: @base, multiplier: @multiplier).to_f,
         display_price: country.ecpm(base: @base, multiplier: @multiplier).format,
-        emoji_flag: country.emoji_flag,
+        emoji_flag: country.emoji_flag
       }
       @regions[country.region][country.subregion][:countries] << c
       @countries << c

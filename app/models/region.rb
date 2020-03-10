@@ -52,43 +52,43 @@ class Region < ApplicationRecord
   # class methods .............................................................
   class << self
     def africa
-      find 1
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 1 }
     end
 
     def americas_central_southern
-      find 2
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 2 }
     end
 
     def americas_northern
-      find 3
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 3 }
     end
 
     def asia_central_and_south_eastern
-      find 4
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 4 }
     end
 
     def asia_eastern
-      find 5
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 5 }
     end
 
     def asia_southern_and_western
-      find 6
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 6 }
     end
 
     def australia_and_new_zealand
-      find 7
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 7 }
     end
 
     def europe
-      find 8
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 8 }
     end
 
     def europe_eastern
-      find 9
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 9 }
     end
 
     def other
-      find 10
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 10 }
     end
 
     def average_day_of_week_impressions_counts(*regions)

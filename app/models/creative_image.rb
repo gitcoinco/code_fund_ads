@@ -19,7 +19,7 @@ class CreativeImage < ApplicationRecord
     ENUMS::IMAGE_FORMATS::ICON,
     ENUMS::IMAGE_FORMATS::SMALL,
     ENUMS::IMAGE_FORMATS::LARGE,
-    ENUMS::IMAGE_FORMATS::WIDE,
+    ENUMS::IMAGE_FORMATS::WIDE
   ].freeze
 
   # extends ...................................................................

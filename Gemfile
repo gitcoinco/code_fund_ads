@@ -11,7 +11,6 @@ gem "acts_as_commentable_with_threading", "~> 2.0.1"
 gem "aws-sdk-s3", "~> 1.48.0", require: false
 gem "barnes", "~> 0.0.7"
 gem "bootsnap", ">= 1.4.2", require: false
-gem "bulk_insert", "~> 1.7.0"
 gem "cable_ready", "~> 4.0.7"
 gem "camo", "~> 0.1.0"
 gem "chroma", "~> 0.2.0"
@@ -100,7 +99,6 @@ group :development do
   gem "annotate"
   gem "bullet"
   gem "erb_lint"
-  gem "factory_bot_rails"
   gem "letter_opener_web"
   gem "listen", "~> 3.2"
   gem "mechanize"
@@ -109,7 +107,7 @@ group :development do
   gem "ngrok-tunnel"
   gem "rack-mini-profiler", require: false
   gem "solargraph"
-  gem "standard", ">= 0.1"
+  gem "standard"
   gem "teamocil"
   gem "tocer"
   gem "tty-box"

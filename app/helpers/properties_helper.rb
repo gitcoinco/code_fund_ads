@@ -15,7 +15,7 @@ module PropertiesHelper
     [
       ["Show ad using the configured template and theme", ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS::NONE],
       ["Show ad using a sticky footer that can be closed by the user", ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS::FOOTER],
-      ["Do not show ads", ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS::HIDE],
+      ["Do not show ads", ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS::HIDE]
     ]
   end
 

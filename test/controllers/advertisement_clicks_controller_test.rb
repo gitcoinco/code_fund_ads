@@ -16,14 +16,14 @@ class AdvertisementClicksControllerTest < ActionDispatch::IntegrationTest
       creative_id: @creative.id,
       property_id: @property.id,
       template: "default",
-      theme: "light",
+      theme: "light"
     }
     @expected_query = {
       utm_campaign: @campaign.id.to_s,
       utm_impression: @impression_id,
       utm_medium: "display",
       utm_referrer: @property.url,
-      utm_source: "CodeFund",
+      utm_source: "CodeFund"
     }
   end
 
@@ -143,53 +143,7 @@ class AdvertisementClicksControllerTest < ActionDispatch::IntegrationTest
       property_name: @property.name,
       property_url: @property.url,
       template: "default",
-      theme: "light",
+      theme: "light"
     )
-  end
-
-  test "sponsor advertisement click without active campaign" do
-    property = amend(properties: :website, url: "https://github.com/gitcoinco/code_fund_ads")
-    ip = ip_address("US")
-
-    Impression.delete_all
-    assert Impression.count == 0
-    assert property.restrict_to_sponsor_campaigns?
-    get sponsor_visit_url(property), headers: {"REMOTE_ADDR": ip, "User-Agent": "Rails/Minitest"}
-    assert_response :found
-    assert headers["Location"] == "https://codefund.io"
-    assert Impression.count == 0
-  end
-
-  test "sponsor advertisement click" do
-    campaign = active_campaign(country_codes: ["US"])
-    campaign.creatives.each do |creative|
-      creative.standard_images.destroy_all
-      creative.update! creative_type: ENUMS::CREATIVE_TYPES::SPONSOR
-      creative.creative_images.create! image: attach_sponsor_image!(campaign.organization)
-    end
-    property = matched_property(campaign)
-    property.update! url: "https://github.com/gitcoinco/code_fund_ads"
-    campaign.update! assigned_property_ids: [property.id]
-    ip = ip_address("US")
-
-    Impression.delete_all
-    assert Impression.count == 0
-    assert campaign.sponsor?
-    assert property.restrict_to_sponsor_campaigns?
-    assert campaign.creatives.size == 1
-    assert campaign.sponsor_creatives.size == 1
-
-    perform_enqueued_jobs do
-      get sponsor_visit_url(property), headers: {"REMOTE_ADDR": ip, "User-Agent": "Rails/Minitest"}
-    end
-    campaign.reload
-
-    assert_response :found
-    assert headers["Location"] == "https://example.com?utm_campaign=154997895&utm_impression=&utm_medium=display&utm_referrer=&utm_source=CodeFund"
-    assert Impression.count == 1
-    impression = Impression.first
-    assert impression.campaign_id == campaign.id
-    assert impression.property_id == property.id
-    assert impression.clicked?
   end
 end

@@ -28,35 +28,35 @@ class Audience < ApplicationRecord
   # class methods .............................................................
   class << self
     def blockchain
-      find 1
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 1 }
     end
 
     def css_and_design
-      find 2
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 2 }
     end
 
     def dev_ops
-      find 3
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 3 }
     end
 
     def game_development
-      find 4
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 4 }
     end
 
     def javascript_and_frontend
-      find 5
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 5 }
     end
 
     def miscellaneous
-      find 6
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 6 }
     end
 
     def mobile_development
-      find 7
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 7 }
     end
 
     def web_development_and_backend
-      find 8
+      local_ephemeral_cache.fetch("#{name}##{__method__}") { find 8 }
     end
 
     def matches(keywords = [])
@@ -65,7 +65,7 @@ class Audience < ApplicationRecord
         {
           audience: audience,
           matched_keywords: matched_keywords,
-          ratio: keywords.size.zero? ? 0 : matched_keywords.size / keywords.size.to_f,
+          ratio: keywords.size.zero? ? 0 : matched_keywords.size / keywords.size.to_f
         }
       end
     end

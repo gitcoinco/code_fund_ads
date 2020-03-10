@@ -93,11 +93,11 @@ class ApplicationController < ActionController::Base
         {href: "/apple-touch-icon.png", sizes: "180x180", rel: "apple-touch-icon", type: "image/png"},
         {href: "/favicon-32x32.png", sizes: "32x32 96x96", rel: "icon", type: "image/png"},
         {href: "/favicon-16x16.png", sizes: "16x16", rel: "icon", type: "image/png"},
-        {href: "/safari-pinned-tab.svg", rel: "mask-icon", color: "#5bbad5", type: "image/svg"},
+        {href: "/safari-pinned-tab.svg", rel: "mask-icon", color: "#5bbad5", type: "image/svg"}
       ],
       manifest: "/site.webmanifest",
       alternate: [
-        {href: "#{ENV["WORDPRESS_URL"]}/blog/feed", type: "application/rss+xml", title: "RSS"},
+        {href: "#{ENV["WORDPRESS_URL"]}/blog/feed", type: "application/rss+xml", title: "RSS"}
       ],
       "apple-mobile-web-app-title": "CodeFund",
       "application-name": "CodeFund",
@@ -111,12 +111,12 @@ class ApplicationController < ActionController::Base
         site_name: "CodeFund",
         locale: "en_US",
         fb: {
-          admins: "801507563",
-        },
+          admins: "801507563"
+        }
       },
       twitter: {
         card: "photo",
-        site: "@codefundio",
+        site: "@codefundio"
       },
       viewport: "width=device-width, initial-scale=1, shrink-to-fit=no"
     )

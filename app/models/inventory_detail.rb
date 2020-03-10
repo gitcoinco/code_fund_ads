@@ -70,7 +70,7 @@ class InventoryDetail
       [
         DailySummary.average_premium_click_rate_by_country(*region.countries),
         DailySummary.average_premium_click_rate_by_audience(audience),
-        DailySummary.average_click_rate(countries: region.countries, audiences: [audience]),
+        DailySummary.average_click_rate(countries: region.countries, audiences: [audience])
       ].sum / 3.to_f
     end
   end

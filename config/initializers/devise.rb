@@ -27,7 +27,7 @@ Devise.setup do |config|
   config.invite_key = {
     email: /\A[^@]+@[^@]+\z/,
     first_name: /\A.+\z/,
-    last_name: /\A.+\z/,
+    last_name: /\A.+\z/
   }
 
   config.validate_on_invite = true

@@ -146,7 +146,7 @@ module ApplicationHelper
       type = "error" if type == "alert"
       body = {
         type: type,
-        text: message,
+        text: message
       }
       text = "<script>new Noty(#{body.to_json}).show();</script>"
       flash_messages << text.html_safe if message

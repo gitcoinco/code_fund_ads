@@ -7,7 +7,6 @@ if ENV["CI"] == "true"
 end
 
 ENV["RAILS_ENV"] ||= "test"
-require "factory_bot_rails"
 require_relative "../config/environment"
 require_relative "./mmdb_test_helper"
 require "rails/test_help"
@@ -26,7 +25,6 @@ unless Webpacker.compiler.fresh?
 end
 
 class ActiveSupport::TestCase
-  include FactoryBot::Syntax::Methods
   include Devise::Test::IntegrationHelpers
 
   workers = ENV["TEST_CONCURRENCY"].present? ? ENV["TEST_CONCURRENCY"].to_i : (Concurrent.processor_count / 3.to_f).round
@@ -37,6 +35,7 @@ class ActiveSupport::TestCase
 
   def teardown
     Sidekiq::Worker.clear_all
+    Rails.local_ephemeral_cache.clear
   end
 
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
@@ -60,7 +59,7 @@ class ActiveSupport::TestCase
         height: 200,
         analyzed: true,
         name: name,
-        format: ENUMS::IMAGE_FORMATS::SMALL,
+        format: ENUMS::IMAGE_FORMATS::SMALL
       }
     )
     record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::SMALL).order(created_at: :desc).first
@@ -78,7 +77,7 @@ class ActiveSupport::TestCase
         height: 200,
         analyzed: true,
         name: name,
-        format: ENUMS::IMAGE_FORMATS::LARGE,
+        format: ENUMS::IMAGE_FORMATS::LARGE
       }
     )
     record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::LARGE).order(created_at: :desc).first
@@ -96,28 +95,10 @@ class ActiveSupport::TestCase
         height: 320,
         analyzed: true,
         name: name,
-        format: ENUMS::IMAGE_FORMATS::WIDE,
+        format: ENUMS::IMAGE_FORMATS::WIDE
       }
     )
     record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::WIDE).order(created_at: :desc).first
-  end
-
-  def attach_sponsor_image!(record)
-    name = "sponsor-heroku.svg"
-    record.images.attach(
-      io: File.open(Rails.root.join("test/assets/images/sponsor-heroku.svg")),
-      filename: "sponsor-heroku.svg",
-      content_type: "image/svg+xml",
-      metadata: {
-        identified: true,
-        width: 400,
-        height: 40,
-        analyzed: true,
-        name: name,
-        format: ENUMS::IMAGE_FORMATS::SPONSOR,
-      },
-    )
-    record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::SPONSOR).order(created_at: :desc).first
   end
 
   # Factory method to find a fixture and update its attributes
@@ -135,15 +116,10 @@ class ActiveSupport::TestCase
   end
 
   def ip_address(country_code)
-    attempts = 0
-    ip = Faker::Internet.public_ip_v4_address
-    data = Mmdb.lookup(ip) || {}
-    while data.to_hash.dig("country", "iso_code") != country_code
-      data = Mmdb.lookup(ip = Faker::Internet.public_ip_v4_address) || {}
-      attempts += 1
-      puts "#{attempts} attempts to find IP address for: #{country_code}" if attempts % 50 == 0
-    end
-    ip
+    {
+      "CN" => "222.77.185.153",
+      "US" => "52.54.11.217"
+    }[country_code]
   end
 
   def premium_impression(params = {})
@@ -157,7 +133,7 @@ class ActiveSupport::TestCase
       user_agent: "test",
       country_code: "US",
       displayed_at: Time.current,
-      displayed_at_date: Date.current,
+      displayed_at_date: Date.current
     )
     impression.update! params if params.present?
     impression
@@ -174,53 +150,45 @@ class ActiveSupport::TestCase
       user_agent: "test",
       country_code: "US",
       displayed_at: Time.current,
-      displayed_at_date: Date.current,
+      displayed_at_date: Date.current
     )
-    impression.update params if params.present?
+    impression.update! params if params.present?
     impression
   end
 
   def active_campaign(country_codes: [])
-    campaign = campaigns(:premium)
-    campaign.update!(
-      status: ENUMS::CAMPAIGN_STATUSES::ACTIVE,
-      start_date: 1.month.ago.beginning_of_month,
-      end_date: 1.month.from_now.end_of_month,
-      country_codes: country_codes,
-      keywords: ENUMS::KEYWORDS.keys.sample(10)
-    )
+    campaign = campaigns(:premium_bundled)
     campaign.creative.add_image! attach_large_image!(campaign.organization)
-    campaign.organization.update balance: Monetize.parse("$10,000 USD")
+    campaign.organization.update! balance: Monetize.parse("$10,000 USD")
     campaign
   end
 
   def inactive_campaign
-    campaign = campaigns(:premium)
-    campaign.update!(
+    campaign = campaigns(:premium_bundled)
+    assert campaign.update!(
       status: ENUMS::CAMPAIGN_STATUSES::ARCHIVED,
       start_date: 6.months.ago.beginning_of_month,
-      end_date: 4.months.ago.end_of_month,
-      keywords: ENUMS::KEYWORDS.keys.sample(10)
+      end_date: 4.months.ago.end_of_month
     )
     campaign
   end
 
   def fallback_campaign
-    campaign = campaigns(:premium)
-    campaign.update!(
-      status: ENUMS::CAMPAIGN_STATUSES::ACTIVE,
-      start_date: 1.month.ago.beginning_of_month,
-      end_date: 1.month.from_now.end_of_month,
-      keywords: [],
-      fallback: true
-    )
+    campaign = campaigns(:fallback)
     campaign.creative.add_image! attach_large_image!(campaign.organization)
     campaign
   end
 
   def matched_property(campaign, fixture: :website)
     property = properties(fixture)
-    property.update! keywords: campaign.keywords.sample(5)
+    keywords = campaign.keywords.sample(5)
+    if campaign.audience_ids.present?
+      assert property.update(audience_id: campaign.audience_ids.sample)
+    elsif campaign.premium?
+      assert campaign.keywords.present?
+      assert keywords.present?
+    end
+    assert property.update(audience_id: nil, keywords: keywords)
     property
   end
 end

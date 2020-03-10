@@ -24,10 +24,8 @@ require "test_helper"
 
 class CampaignBundleTest < ActiveSupport::TestCase
   test "to_stashable_attributes" do
-    bundle = campaign_bundles(:default)
-    campaign = campaigns(:premium)
-    bundle.campaigns << campaign
-    campaign.reload
+    campaign = campaigns(:premium_bundled)
+    bundle = campaign.campaign_bundle
     actual = bundle.to_stashable_attributes
     expected = {
       "id" => bundle.id,
@@ -77,7 +75,7 @@ class CampaignBundleTest < ActiveSupport::TestCase
         "prohibited_property_ids" => campaign.prohibited_property_ids,
         "paid_fallback" => campaign.paid_fallback,
         "ecpm_multiplier" => campaign.ecpm_multiplier.to_s,
-        :temporary_id => campaign.temporary_id,}],
+        :temporary_id => campaign.temporary_id}]
     }
 
     diff = Hashdiff.diff(expected.stringify_keys, actual.stringify_keys)

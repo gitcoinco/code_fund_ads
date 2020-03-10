@@ -30,16 +30,16 @@ class AdsHorizontalJavascriptTest < ApplicationSystemTestCase
                                                            "z-index": "auto",
                                                            "box-sizing": "border-box",
                                                            "display": "block",
-                                                           "margin": "12px 0px",)
+                                                           "margin": "12px 0px")
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
                                                      "color": "rgba(0, 0, 0, 0.6)",
                                                      "text-decoration": "none solid rgba(0, 0, 0, 0.6)",
-                                                     "cursor": "pointer",)
+                                                     "cursor": "pointer")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "font-size": "11px",
                                                            "text-decoration": "none solid rgba(0, 0, 0, 0.5)",
                                                            "color": "rgba(0, 0, 0, 0.5)",
-                                                           "float": "right",)
+                                                           "float": "right")
   end
 
   test "horizontal - premium ad with dark theme" do
@@ -62,20 +62,20 @@ class AdsHorizontalJavascriptTest < ApplicationSystemTestCase
                                                            "z-index": "auto",
                                                            "box-sizing": "border-box",
                                                            "display": "block",
-                                                           "margin": "12px 0px",)
+                                                           "margin": "12px 0px")
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
                                                      "color": "rgba(255, 255, 255, 0.7)",
                                                      "text-decoration": "none solid rgba(255, 255, 255, 0.7)",
-                                                     "cursor": "pointer",)
+                                                     "cursor": "pointer")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "font-size": "11px",
                                                            "text-decoration": "none solid rgba(255, 255, 255, 0.5)",
                                                            "color": "rgba(255, 255, 255, 0.5)",
-                                                           "float": "right",)
+                                                           "float": "right")
   end
 
   test "horizontal - fallback ad with light theme" do
-    @premium_campaign.update keywords: []
+    @premium_campaign.update audience_ids: [], keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
@@ -94,21 +94,21 @@ class AdsHorizontalJavascriptTest < ApplicationSystemTestCase
                                                            "z-index": "auto",
                                                            "box-sizing": "border-box",
                                                            "display": "block",
-                                                           "margin": "12px 0px",)
+                                                           "margin": "12px 0px")
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
                                                      "color": "rgba(0, 0, 0, 0.6)",
                                                      "text-decoration": "none solid rgba(0, 0, 0, 0.6)",
-                                                     "cursor": "pointer",)
+                                                     "cursor": "pointer")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "font-size": "11px",
                                                            "text-decoration": "none solid rgba(0, 0, 0, 0.5)",
                                                            "color": "rgba(0, 0, 0, 0.5)",
-                                                           "float": "right",)
+                                                           "float": "right")
   end
 
   test "horizontal - fallback ad with dark theme" do
     @property.update ad_theme: "dark"
-    @premium_campaign.update keywords: []
+    @premium_campaign.update audience_ids: [], keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
@@ -127,15 +127,15 @@ class AdsHorizontalJavascriptTest < ApplicationSystemTestCase
                                                            "z-index": "auto",
                                                            "box-sizing": "border-box",
                                                            "display": "block",
-                                                           "margin": "12px 0px",)
+                                                           "margin": "12px 0px")
     find("a", class: "cf-text").assert_matches_style("box-shadow": "none",
                                                      "color": "rgba(255, 255, 255, 0.7)",
                                                      "text-decoration": "none solid rgba(255, 255, 255, 0.7)",
-                                                     "cursor": "pointer",)
+                                                     "cursor": "pointer")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "font-size": "11px",
                                                            "text-decoration": "none solid rgba(255, 255, 255, 0.5)",
                                                            "color": "rgba(255, 255, 255, 0.5)",
-                                                           "float": "right",)
+                                                           "float": "right")
   end
 end

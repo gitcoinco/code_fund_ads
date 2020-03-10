@@ -9,7 +9,7 @@ class SearchController < ApplicationController
       users: User.search_name(q).or(User.search_email(q)).order(created_at: :desc).limit(5),
       properties: Property.search_name(q).order(created_at: :desc).limit(5),
       campaigns: Campaign.search_name(q).order(created_at: :desc).limit(5),
-      organizations: Organization.search_name(q).order(created_at: :desc).limit(5),
+      organizations: Organization.search_name(q).order(created_at: :desc).limit(5)
     }
     render layout: false
   end

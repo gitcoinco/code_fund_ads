@@ -65,47 +65,59 @@
 #  index_campaigns_on_weekdays_only            (weekdays_only)
 #
 
-# IMPORTANT: Limit campaigns fixtures to [1] using only the minimum required data
+# IMPORTANT: Limit campaigns fixtures to [3] using only the minimum required data
 #            Additional setup should be perfomed in the test suite
 
 premium:
-  start_date: <%= 1.week.from_now.to_date %>
-  end_date: <%= 5.weeks.from_now.to_date %>
-  organization: default
-  user: advertiser
-  creative: premium
-  creative_ids:
-    - 1
-  status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
-  name: CodeFund
-  url: <%= ENV["WORDPRESS_URL"] %>
-  total_budget_cents: <%= Monetize.parse("$5,000 USD").cents %>
-  total_budget_currency: USD
+  country_codes: ["CA", "FR", "GB", "IN", "JP", "RO", "US"]
+  creative_id: 1
+  creative_ids: [1]
   daily_budget_cents: <%= Monetize.parse("$55 USD").cents %>
   daily_budget_currency: USD
-  hourly_budget_cents: <%= Monetize.parse("$7 USD").cents %>
-  hourly_budget_currency: USD
   ecpm_cents: <%= Monetize.parse("$3 USD").cents %>
   ecpm_currency: USD
-  country_codes:
-    - CA
-    - FR
-    - GB
-    - IN
-    - JP
-    - RO
-    - US
+  end_date: <%= 5.weeks.from_now.to_date %>
+  fallback: false
+  hourly_budget_cents: <%= Monetize.parse("$7 USD").cents %>
+  hourly_budget_currency: USD
+  name: CodeFund
+  organization: default
+  start_date: <%= 1.week.ago.to_date %>
+  status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
+  total_budget_cents: <%= Monetize.parse("$5,000 USD").cents %>
+  total_budget_currency: USD
+  url: <%= ENV["WORDPRESS_URL"] %>
+  user: advertiser
+
+premium_bundled:
+  audience_ids: <%= [Audience.javascript_and_frontend.id, Audience.web_development_and_backend.id].sort %>
+  campaign_bundle: default
+  country_codes: <%= [Region.americas_northern, Region.europe].map(&:country_codes).flatten.sort %>
+  creative_id: 1
+  creative_ids: [1]
+  daily_budget_cents: <%= Monetize.parse("$55 USD").cents %>
+  end_date: <%= 5.weeks.from_now.to_date %>
+  fallback: false
+  hourly_budget_cents: <%= Monetize.parse("$7 USD").cents %>
+  keywords: <%= [Audience.javascript_and_frontend, Audience.web_development_and_backend].map(&:keywords).flatten.sort %>
+  name: CodeFund
+  organization: default
+  region_ids: <%= [Region.americas_northern.id, Region.europe.id].sort %>
+  start_date: <%= 1.week.ago.to_date %>
+  status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
+  total_budget_cents: <%= Monetize.parse("$55 USD").cents * (1.week.ago.to_date..5.weeks.from_now.to_date).to_a.size %>
+  url: <%= ENV["WORDPRESS_URL"] %>
+  user: advertiser
 
 fallback:
-  start_date: <%= 1.week.from_now.to_date %>
-  end_date: <%= 5.weeks.from_now.to_date %>
-  organization: default
-  user: advertiser
-  creative: fallback
-  creative_ids:
-    - 2
-  status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
-  name: CodeFund
-  url: <%= ENV["WORDPRESS_URL"] %>
-  fallback: true
   country_codes: <%= Country.all.map(&:id) %>
+  creative_id: 2
+  creative_ids: [2]
+  end_date: <%= 5.weeks.from_now.to_date %>
+  fallback: true
+  name: CodeFund
+  organization: default
+  start_date: <%= 1.week.ago.to_date %>
+  status: <%= ENUMS::CAMPAIGN_STATUSES::ACTIVE %>
+  url: <%= ENV["WORDPRESS_URL"] %>
+  user: advertiser

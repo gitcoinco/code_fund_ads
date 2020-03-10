@@ -29,7 +29,7 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
                                                     "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                     "font-size": "13px",
                                                     "line-height": "22px",
-                                                    "box-shadow": "none",)
+                                                    "box-shadow": "none")
   end
 
   test "text - premium ad with dark theme" do
@@ -51,11 +51,11 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
                                                     "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                     "font-size": "13px",
                                                     "line-height": "22px",
-                                                    "box-shadow": "none",)
+                                                    "box-shadow": "none")
   end
 
   test "text - fallback ad with light theme" do
-    @premium_campaign.update keywords: []
+    @premium_campaign.update audience_ids: [], keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
@@ -73,12 +73,12 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
                                                     "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                     "font-size": "13px",
                                                     "line-height": "22px",
-                                                    "box-shadow": "none",)
+                                                    "box-shadow": "none")
   end
 
   test "text - fallback ad with dark theme" do
     @property.update ad_theme: "dark"
-    @premium_campaign.update keywords: []
+    @premium_campaign.update audience_ids: [], keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
@@ -96,6 +96,6 @@ class AdsTextJavascriptTest < ApplicationSystemTestCase
                                                     "font-family": "\"Helvetica Neue\", Helvetica, Arial, sans-serif",
                                                     "font-size": "13px",
                                                     "line-height": "22px",
-                                                    "box-shadow": "none",)
+                                                    "box-shadow": "none")
   end
 end

@@ -25,7 +25,7 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                "box-shadow": "rgba(0, 0, 0, 0.1) 0px 0px 0px 1px",
                                                "display": "block",
                                                "line-height": "24px",
-                                               "overflow": "hidden",)
+                                               "overflow": "hidden")
     find("span", class: "cf-wrapper").assert_matches_style("display": "block",
                                                            "font-size": "14px",
                                                            "line-height": "19.6px",
@@ -39,13 +39,13 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                                "margin-bottom": "8px",
                                                                "border-bottom-width": "1px",
                                                                "border-bottom-color": "rgb(250, 250, 250)",
-                                                               "border-bottom-style": "solid",)
+                                                               "border-bottom-style": "solid")
     find("img", class: "cf-img").assert_matches_style("width": "255px",
                                                       "position": "relative",
-                                                      "vertical-align": "middle",)
+                                                      "vertical-align": "middle")
     find("span", class: "cf-text").assert_matches_style("color": "rgba(0, 0, 0, 0.8)",
                                                         "padding-top": "0px",
-                                                        "padding-left": "14px",)
+                                                        "padding-left": "14px")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "text-decoration": "none solid rgba(0, 0, 0, 0.6)",
                                                            "font-size": "9px",
@@ -73,7 +73,7 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                "box-shadow": "rgba(0, 0, 0, 0.1) 0px 0px 0px 1px",
                                                "display": "block",
                                                "line-height": "24px",
-                                               "overflow": "hidden",)
+                                               "overflow": "hidden")
     find("span", class: "cf-wrapper").assert_matches_style("display": "block",
                                                            "font-size": "14px",
                                                            "line-height": "19.6px",
@@ -87,13 +87,13 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                                "margin-bottom": "8px",
                                                                "border-bottom-width": "1px",
                                                                "border-bottom-color": "rgb(250, 250, 250)",
-                                                               "border-bottom-style": "solid",)
+                                                               "border-bottom-style": "solid")
     find("img", class: "cf-img").assert_matches_style("width": "255px",
                                                       "position": "relative",
-                                                      "vertical-align": "middle",)
+                                                      "vertical-align": "middle")
     find("span", class: "cf-text").assert_matches_style("color": "rgba(0, 0, 0, 0.8)",
                                                         "padding-top": "0px",
-                                                        "padding-left": "14px",)
+                                                        "padding-left": "14px")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "text-decoration": "none solid rgba(0, 0, 0, 0.6)",
                                                            "font-size": "9px",
@@ -107,7 +107,7 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
   end
 
   test "square - fallback ad with light theme" do
-    @premium_campaign.update keywords: []
+    @premium_campaign.update audience_ids: [], keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
@@ -121,7 +121,7 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                "box-shadow": "rgba(0, 0, 0, 0.1) 0px 0px 0px 1px",
                                                "display": "block",
                                                "line-height": "24px",
-                                               "overflow": "hidden",)
+                                               "overflow": "hidden")
     find("span", class: "cf-wrapper").assert_matches_style("display": "block",
                                                            "font-size": "14px",
                                                            "line-height": "19.6px",
@@ -135,13 +135,13 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                                "margin-bottom": "8px",
                                                                "border-bottom-width": "1px",
                                                                "border-bottom-color": "rgb(250, 250, 250)",
-                                                               "border-bottom-style": "solid",)
+                                                               "border-bottom-style": "solid")
     find("img", class: "cf-img").assert_matches_style("width": "255px",
                                                       "position": "relative",
-                                                      "vertical-align": "middle",)
+                                                      "vertical-align": "middle")
     find("span", class: "cf-text").assert_matches_style("color": "rgba(0, 0, 0, 0.8)",
                                                         "padding-top": "0px",
-                                                        "padding-left": "14px",)
+                                                        "padding-left": "14px")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "text-decoration": "none solid rgba(0, 0, 0, 0.6)",
                                                            "font-size": "9px",
@@ -156,7 +156,7 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
 
   test "square - fallback ad with dark theme" do
     @property.update ad_theme: "dark"
-    @premium_campaign.update keywords: []
+    @premium_campaign.update audience_ids: [], keywords: []
     visit advertisement_tests_path(@property, test_country_code: "US")
     assert_creative_headline @fallback_campaign
     assert_creative_body @fallback_campaign
@@ -170,7 +170,7 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                "box-shadow": "rgba(0, 0, 0, 0.1) 0px 0px 0px 1px",
                                                "display": "block",
                                                "line-height": "24px",
-                                               "overflow": "hidden",)
+                                               "overflow": "hidden")
     find("span", class: "cf-wrapper").assert_matches_style("display": "block",
                                                            "font-size": "14px",
                                                            "line-height": "19.6px",
@@ -184,13 +184,13 @@ class AdsSquareJavascriptTest < ApplicationSystemTestCase
                                                                "margin-bottom": "8px",
                                                                "border-bottom-width": "1px",
                                                                "border-bottom-color": "rgb(250, 250, 250)",
-                                                               "border-bottom-style": "solid",)
+                                                               "border-bottom-style": "solid")
     find("img", class: "cf-img").assert_matches_style("width": "255px",
                                                       "position": "relative",
-                                                      "vertical-align": "middle",)
+                                                      "vertical-align": "middle")
     find("span", class: "cf-text").assert_matches_style("color": "rgba(0, 0, 0, 0.8)",
                                                         "padding-top": "0px",
-                                                        "padding-left": "14px",)
+                                                        "padding-left": "14px")
     find("a", class: "cf-powered-by").assert_matches_style("box-shadow": "none",
                                                            "text-decoration": "none solid rgba(0, 0, 0, 0.6)",
                                                            "font-size": "9px",

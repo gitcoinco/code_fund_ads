@@ -18,7 +18,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     sessions: "sessions",
-    invitations: "invitations",
+    invitations: "invitations"
   }
 
   # resource :global_stats, only: [:show], defaults: {format: :json}

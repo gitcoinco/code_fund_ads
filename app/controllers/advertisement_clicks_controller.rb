@@ -51,7 +51,7 @@ class AdvertisementClicksController < ApplicationController
       property_name: CGI.escape(@property&.name.to_s),
       property_url: CGI.escape(@property&.url.to_s),
       template: CGI.escape(@template.to_s),
-      theme: CGI.escape(@theme.to_s),
+      theme: CGI.escape(@theme.to_s)
     }
   end
 

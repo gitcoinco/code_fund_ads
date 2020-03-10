@@ -292,7 +292,7 @@ class Campaign < ApplicationRecord
   end
 
   def pricing_strategy
-    return ENUMS::CAMPAIGN_PRICING_STRATEGIES::REGION_AND_AUDIENCE if campaign_bundle
+    return ENUMS::CAMPAIGN_PRICING_STRATEGIES::REGION_AND_AUDIENCE if campaign_bundle_id
     ENUMS::CAMPAIGN_PRICING_STRATEGIES::CAMPAIGN
   end
 
@@ -315,7 +315,7 @@ class Campaign < ApplicationRecord
     Rails.cache.fetch key do
       {
         standard: standard_creatives.exists?,
-        sponsor: sponsor_creatives.exists?,
+        sponsor: sponsor_creatives.exists?
       }
     end
   end
@@ -405,7 +405,7 @@ class Campaign < ApplicationRecord
       {
         country_iso_code: country.iso_code,
         country_name: country.name,
-        ecpm: adjusted_ecpm(country.iso_code),
+        ecpm: adjusted_ecpm(country.iso_code)
       }
     end
   end
@@ -461,7 +461,7 @@ class Campaign < ApplicationRecord
   def to_meta_tags
     {
       title: name,
-      keywords: keywords,
+      keywords: keywords
     }
   end
 
@@ -582,8 +582,8 @@ class Campaign < ApplicationRecord
   end
 
   def validate_active_creatives
-    return unless creatives
-    errors.add(:creatives, "cannot be inactive") unless creatives.active.exists?
+    return if creative_ids.blank?
+    errors.add(:creatives, "cannot be inactive") if creatives.select(&:active?).blank?
   end
 
   def validate_assigned_properties

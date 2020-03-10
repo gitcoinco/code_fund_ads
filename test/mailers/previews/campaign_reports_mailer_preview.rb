@@ -9,7 +9,7 @@ class CampaignReportsMailerPreview < ActionMailer::Preview
 
     params = {
       recipients: ["foo@codefund.io", "bar@codefund.io"],
-      organization_report_id: @organization_report.id,
+      organization_report_id: @organization_report.id
     }
     CampaignReportsMailer.with(params).organization_report_email
   end
@@ -20,7 +20,7 @@ class CampaignReportsMailerPreview < ActionMailer::Preview
       to: "team@codefund.io",
       campaign: campaign,
       start_date: campaign.start_date.iso8601,
-      end_date: campaign.end_date.iso8601,
+      end_date: campaign.end_date.iso8601
     }
     CampaignReportsMailer.with(params).campaign_report_email
   end

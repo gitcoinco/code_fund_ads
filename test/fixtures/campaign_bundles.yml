@@ -24,6 +24,6 @@ default:
   organization: default
   user: advertiser
   name: Default Campaign Bundle
-  start_date: <%= 1.week.from_now.to_date %>
+  start_date: <%= 1.week.ago.to_date %>
   end_date: <%= 5.weeks.from_now.to_date %>
   region_ids: <%= [Region.americas_northern.id, Region.europe.id] %>

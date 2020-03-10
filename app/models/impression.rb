@@ -34,11 +34,12 @@ class Impression < ApplicationRecord
   # includes ..................................................................
 
   # relationships .............................................................
-  belongs_to :advertiser, class_name: "User", foreign_key: "advertiser_id"
-  belongs_to :publisher, class_name: "User", foreign_key: "publisher_id"
-  belongs_to :campaign
+  belongs_to :organization, optional: true
+  belongs_to :advertiser, class_name: "User", foreign_key: "advertiser_id", optional: true
+  belongs_to :publisher, class_name: "User", foreign_key: "publisher_id", optional: true
+  belongs_to :campaign, optional: true
   belongs_to :creative, optional: true
-  belongs_to :property
+  belongs_to :property, optional: true
 
   # validations ...............................................................
 
@@ -203,12 +204,12 @@ class Impression < ApplicationRecord
   end
 
   def partition_table_name
-    return "impressions_default" unless campaign_id && displayed_at_date
+    return "impressions_default" unless advertiser_id && displayed_at_date
     [
       "impressions",
       displayed_at_date.to_s("yyyy_mm"),
       "advertiser",
-      advertiser_id.to_i,
+      advertiser_id.to_i
     ].join("_")
   end
 
@@ -231,12 +232,50 @@ class Impression < ApplicationRecord
     end
   end
 
+  def campaign
+    @campaign ||= if Rails.env.test?
+      super
+    else
+      key = "#{self.class.name}##{__method__}/#{campaign_id}"
+      local_ephemeral_cache.fetch(key, expires_in: 15.minutes) { Campaign.find_by id: campaign_id }
+    end
+  end
+
+  def property
+    @property ||= if Rails.env.test?
+      super
+    else
+      key = "#{self.class.name}##{__method__}/#{property_id}"
+      local_ephemeral_cache.fetch(key, expires_in: 15.minutes) { Property.find_by id: property_id }
+    end
+  end
+
+  def region
+    @region ||= if Rails.env.test?
+      campaign.regions.with_all_country_codes(country_code).first || Region.other
+    else
+      key = "#{self.class.name}##{__method__}/#{campaign_id}/#{country_code}"
+      local_ephemeral_cache.fetch key do
+        match = Region.all.find { |r| campaign.region_ids.include?(r.id) && r.country_codes.include?(country_code) }
+        match || Region.other
+      end
+    end
+  end
+
+  def audience
+    @audience ||= if Rails.env.test?
+      property.audience
+    else
+      key = "#{self.class.name}##{__method__}/#{property.audience_id}"
+      local_ephemeral_cache.fetch(key) { Audience.all.find { |a| a.id == property.audience_id } }
+    end
+  end
+
   def applicable_ecpm
     return campaign.adjusted_ecpm(country_code) if campaign.campaign_pricing_strategy?
 
     # region/audience based ecpm i.e. our new sales strategy
-    region = campaign.regions.with_all_country_codes(country_code).first || Region.other
-    region.ecpm(property.audience) * campaign.ecpm_multiplier
+    region.ecpm(audience) * campaign.ecpm_multiplier
   end
 
   def calculate_estimated_gross_revenue_fractional_cents

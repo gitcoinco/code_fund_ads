@@ -178,7 +178,7 @@ class CampaignTest < ActiveSupport::TestCase
       {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$3.00 USD")},
       {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$3.00 USD")},
       {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$3.00 USD")},
-      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")}
     ]
   end
 
@@ -195,7 +195,7 @@ class CampaignTest < ActiveSupport::TestCase
       {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$0.69 USD")},
       {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$1.59 USD")},
       {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$0.93 USD")},
-      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")}
     ]
   end
 
@@ -211,7 +211,7 @@ class CampaignTest < ActiveSupport::TestCase
       {country_iso_code: "IN", country_name: "India", ecpm: Monetize.parse("$0.30 USD")},
       {country_iso_code: "JP", country_name: "Japan", ecpm: Monetize.parse("$0.30 USD")},
       {country_iso_code: "RO", country_name: "Romania", ecpm: Monetize.parse("$0.90 USD")},
-      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")},
+      {country_iso_code: "US", country_name: "United States of America", ecpm: Monetize.parse("$3.00 USD")}
     ]
   end
 
@@ -231,7 +231,7 @@ class CampaignTest < ActiveSupport::TestCase
 
   test "creatives must be active for active campaign" do
     @campaign.stubs(active?: true)
-    @campaign.creatives.sample.update(status: :pending)
+    @campaign.creatives.update status: :pending
     assert_not @campaign.valid?
     assert_equal ["cannot be inactive"], @campaign.errors.messages[:creatives]
   end

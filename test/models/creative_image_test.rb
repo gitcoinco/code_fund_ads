@@ -43,14 +43,4 @@ class CreativeImageTest < ActiveSupport::TestCase
     @creative_image.image.stubs(metadata: {format: "chonky"})
     assert_not @creative_image.standard?
   end
-
-  test "sponsor? correctly detects sponsor image formats" do
-    @creative_image.image.stubs(metadata: {format: "sponsor"})
-    assert @creative_image.sponsor?
-  end
-
-  test "sponsor? correctly detects non-sponsor image formats" do
-    @creative_image.image.stubs(metadata: {format: "chonky"})
-    assert_not @creative_image.sponsor?
-  end
 end

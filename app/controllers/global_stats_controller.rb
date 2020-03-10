@@ -9,7 +9,7 @@ class GlobalStatsController < ApplicationController
     render json: {impressions_count: imp_count,
                   properties_count: prop_count,
                   campaigns_count: camp_count,
-                  click_rate: click_rate,},
+                  click_rate: click_rate},
            status: :ok
   end
 
