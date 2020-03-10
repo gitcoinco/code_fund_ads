@@ -112,26 +112,6 @@ module ApplicationHelper
     tag.span count, class: "badge badge-pill badge-success"
   end
 
-  def ga_tag
-    return nil unless ENV["GA_TRACKING_ID"].present?
-    render("/shared/scripts/google_analytics", id: ENV["GA_TRACKING_ID"])
-  end
-
-  def ga_tag_manager_header
-    return nil unless ENV["GA_TAG_MANAGER_ID"].present?
-    render("/shared/scripts/google_tag_manager_header", id: ENV["GA_TAG_MANAGER_ID"])
-  end
-
-  def ga_tag_manager_footer
-    return nil unless ENV["GA_TAG_MANAGER_ID"].present?
-    render("/shared/scripts/google_tag_manager_footer", id: ENV["GA_TAG_MANAGER_ID"])
-  end
-
-  def headway_tag
-    return nil unless ENV["HEADWAY_ID"].present?
-    render("/shared/scripts/headway", id: ENV["HEADWAY_ID"])
-  end
-
   def badge_for_role(role, wrap_class: "")
     case role
     when "administrator"
