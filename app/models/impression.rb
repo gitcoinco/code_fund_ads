@@ -170,7 +170,7 @@ class Impression < ApplicationRecord
 
   def track_event(event_name)
     # TODO - Re-build for internal CodeFund analytics tool
-    
+
     # return unless TrackImpressionAnalyticsJob.track_property?(property.analytics_key)
     # options = {
     #   "property_key" => property.analytics_key,
