@@ -4,11 +4,12 @@
 [![CircleCI](https://circleci.com/gh/gitcoinco/code_fund_ads.svg?style=svg)](https://circleci.com/gh/gitcoinco/code_fund_ads)
 [![Join the conversation](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/code_fund_ads/community)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgitcoinco%2Fcode_fund_ads.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgitcoinco%2Fcode_fund_ads?ref=badge_shield)
+[![codecov](https://codecov.io/gh/gitcoinco/code_fund_ads/branch/master/graph/badge.svg)](https://codecov.io/gh/gitcoinco/code_fund_ads)
 
 <br />
 <p align="center">
   <a href="https://github.com/gitcoinco/code_fund_ads">
-    <img src="app/assets/images/codefund-logo-square-128.png" alt="Logo" width="128" height="128">
+    <img src="app/javascript/images/branding/codefund-logo-square-512.png" alt="Logo" width="128" height="128">
   </a>
 
   <h2 align="center">CodeFund Ads</h2>

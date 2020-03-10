@@ -70,7 +70,10 @@ gem "simple_form", "~> 5.0"
 gem "slack-notifier", "~> 2.3.2"
 gem "split", "~> 3.4.1", require: "split/dashboard"
 gem "spreadsheet", "~> 1.2.4"
-gem "staccato", "~> 0.5.1"
+
+# TODO - Re-enable for internal CodeFund analytics tool
+# gem "staccato", "~> 0.5.1"
+
 gem "stimulus_reflex", "~> 2.1.9"
 gem "stopwords-filter", "~> 0.4.1", require: "stopwords"
 gem "stripe", "~> 5.4.1"
@@ -113,6 +116,7 @@ end
 
 group :test do
   gem "capybara", ">= 2.15"
+  gem "codecov", require: false
   gem "cuprite"
   gem "hashdiff"
   gem "minitest-reporters", require: "minitest/reporters"

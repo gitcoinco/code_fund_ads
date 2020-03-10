@@ -11,13 +11,13 @@
         value: current_organization.balance.format %>
       <%= render "/shared/widgets/stat_card",
         label: "Impressions",
-        value: number_with_delimiter(current_user.impressions_count_as_advertiser(@start_date, @end_date)) %>
+        value: number_with_delimiter(Current.organization.impressions_count_for_organization(@start_date, @end_date)) %>
       <%= render "/shared/widgets/stat_card",
         label: "Clicks",
-        value: number_with_delimiter(current_user.clicks_count_as_advertiser(@start_date, @end_date)) %>
+        value: number_with_delimiter(Current.organization.clicks_count_for_organization(@start_date, @end_date)) %>
       <%= render "/shared/widgets/stat_card",
         label: "CTR",
-        value: number_to_percentage(current_user.click_rate_as_advertiser(@start_date, @end_date), precision: 2) %>
+        value: number_to_percentage(Current.organization.click_rate_for_organization(@start_date, @end_date), precision: 2) %>
     </div>
 
     <div class="card-deck-xl">

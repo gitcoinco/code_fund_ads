@@ -6,7 +6,7 @@
   <% end %>
   <%= card_body add_class: "border-bottom" do %>
     <div data-controller="organization-users">
-      <div class="row">
+      <div class="d-flex flex-column">
         <div class="form-group">
           <label>Would you like to add or invite someone to your team?</label>
           <div class="custom-control custom-radio mb-1">
@@ -21,6 +21,17 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-flex flex-column">
+      <h6 class="mb-2">Roles</h6>
+      <details>
+        <summary>Administrator</summary>
+        <p>Has permission to manager organization member's and their roles, and update records on behalf of the organization.</p>
+      </details>
+      <details>
+        <summary>Member</summary>
+        <p>Has permission to update records on behalf of the organization.</p>
+      </details>
     </div>
   <% end %>
   <% if session[:organization_users_new_member_type] == "add" %>
