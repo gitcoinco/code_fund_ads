@@ -1,4 +1,11 @@
 namespace :data do
+  namespace :impressions do
+    desc "Imports impressions records from: ~/Downloads/impressions.csv"
+    task import: :environment do
+      Impression.connection.execute "COPY impressions(id,advertiser_id,publisher_id,campaign_id,creative_id,property_id,ip_address,user_agent,country_code,postal_code,latitude,longitude,displayed_at,displayed_at_date,clicked_at,clicked_at_date,fallback_campaign,estimated_gross_revenue_fractional_cents,estimated_property_revenue_fractional_cents,estimated_house_revenue_fractional_cents,ad_template,ad_theme,organization_id,uplift,province_code) FROM '#{ENV["HOME"]}/Downloads/impressions.csv' DELIMITER ',' CSV HEADER;"
+    end
+  end
+
   namespace :publishers do
     task :purge, [:user_id] => [:environment] do |_task, args|
       user = User.publishers.find_by(id: args[:user_id])
