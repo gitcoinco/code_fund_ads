@@ -7,7 +7,7 @@ class AdvertisementsController < ApplicationController
   # before_action :apply_visitor_rate_limiting
   before_action :set_campaign
   before_action :set_virtual_impression_id
-  after_action :create_virtual_impression, if: :standard?
+  after_action :create_virtual_impression
   # after_action :cache_visitor_response
 
   helper_method :template_name, :theme_name
@@ -15,7 +15,7 @@ class AdvertisementsController < ApplicationController
   def show
     return head(:forbidden) unless valid_referer?
 
-    track_event :virtual_impression_initiated unless sponsor?
+    track_event :virtual_impression_initiated
 
     # TODO: deprecate legacy support on 2019-04-01
     return render_legacy_show if legacy_api_call?
@@ -24,21 +24,12 @@ class AdvertisementsController < ApplicationController
 
     respond_to do |format|
       format.js
-      format.svg { render inline: @advertisement_html || catch_all_sponsor_html, status: :ok, layout: false }
       format.json { render "/advertisements/show", status: @creative ? :ok : :not_found, layout: false }
       format.html { render "/advertisements/show", status: @creative ? :ok : :not_found, layout: false }
     end
   end
 
   protected
-
-  def standard?
-    !sponsor?
-  end
-
-  def sponsor?
-    request.format == "svg"
-  end
 
   def valid_referer?
     return true unless Rails.env.production?
@@ -75,30 +66,12 @@ class AdvertisementsController < ApplicationController
   #   )
   # end
 
-  def catch_all_sponsor_html
-    key = "Creative/sponsor-catch-all"
-    Rails.cache.fetch(key) { File.read(Rails.root.join("app/javascript/images/sponsor-catch-all.svg")) }
-  end
-
   def set_advertisement_variables
     @target = params[:target] || "codefund_ad"
     return unless @campaign
 
     @creative = choose_creative(@virtual_impression_id, @campaign)
     return unless @creative
-
-    if sponsor? && @creative.sponsor_image
-      return @advertisement_html = begin
-        key = "#{@creative.cache_key_with_version}/#{@creative.sponsor_image&.cache_key}"
-        Rails.cache.fetch(key) {
-          begin
-            @creative.sponsor_image.download
-          rescue
-            nil
-          end
-        }
-      end
-    end
 
     @campaign_url = advertisement_clicks_url(
       @virtual_impression_id,
@@ -249,7 +222,6 @@ class AdvertisementsController < ApplicationController
     return nil if back_pressure?
 
     campaign_relation = Campaign.active.available_on(Date.current)
-    campaign_relation = sponsor? ? campaign_relation.sponsor : campaign_relation.standard
     campaign_relation = campaign_relation.where(weekdays_only: false) if Date.current.on_weekend?
     campaign_relation = campaign_relation.where(core_hours_only: false) if prohibited_hour?
     geo_targeted_campaign_relation = campaign_relation
@@ -277,7 +249,7 @@ class AdvertisementsController < ApplicationController
         .or(campaign_relation.targeted_premium_for_property_id(property_id, *keywords))
     end
 
-    choose_campaign premium_campaign_relation, ignore_budgets: sponsor?
+    choose_campaign premium_campaign_relation
   end
 
   def get_fallback_campaign(campaign_relation)
@@ -348,7 +320,6 @@ class AdvertisementsController < ApplicationController
   end
 
   def create_virtual_impression
-    return unless standard?
     return unless @campaign && @creative
 
     Rails.cache.write @virtual_impression_id, {

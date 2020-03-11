@@ -21,22 +21,13 @@ class AdvertisementClicksController < ApplicationController
 
   private
 
-  def sponsor?
-    request.path.include? "/visit-sponsor"
-  end
-
   def set_variables
     @property = Property.select(:id, :name, :url).find_by(id: params[:property_id])
-
-    if sponsor?
-      @campaign = @property.current_sponsor_campaign
-    else
-      @impression_id = params[:impression_id]
-      @campaign = Campaign.select(:id, :name, :url).find_by(id: params[:campaign_id])
-      @creative = Creative.select(:id, :name).find_by(id: params[:creative_id])
-      @template = params[:template]
-      @theme = params[:theme]
-    end
+    @impression_id = params[:impression_id]
+    @campaign = Campaign.select(:id, :name, :url).find_by(id: params[:campaign_id])
+    @creative = Creative.select(:id, :name).find_by(id: params[:creative_id])
+    @template = params[:template]
+    @theme = params[:theme]
 
     redirect_to ENV["WORDPRESS_URL"] unless @campaign
   end
@@ -57,17 +48,6 @@ class AdvertisementClicksController < ApplicationController
 
   def create_click
     return unless @campaign
-
-    if sponsor?
-      return CreateImpressionAndClickJob.perform_later(
-        @campaign.id,
-        @property.id,
-        request.remote_ip,
-        request.user_agent,
-        Time.current.iso8601,
-      )
-    end
-
     return unless @impression_id
 
     CreateClickJob.perform_later(
