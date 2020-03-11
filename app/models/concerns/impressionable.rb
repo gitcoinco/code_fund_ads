@@ -121,19 +121,21 @@ module Impressionable
   private
 
   def fetch_from_cache(key, force: false, &block)
-    fresh_key = "#{key}/fresh"
-    value = Rails.cache.fetch(key, force: force, expires_in: 1.hour, race_condition_ttl: 5.minutes, &block)
+    local_ephemeral_cache.fetch key, force: force, expires_in: 1.minute do
+      fresh_key = "#{key}/fresh"
+      value = Rails.cache.fetch(key, force: force, expires_in: 1.hour, race_condition_ttl: 5.minutes, &block)
 
-    unless Rails.cache.exist? fresh_key
-      # distributed lock that spans all dynos/processes to ensure only 1 process
-      # in the distributed system updates the cache
-      PgLock.new(name: key, attempts: 1).lock do
-        value = block.call
-        Rails.cache.write key, value, expires_in: 1.hour
-        Rails.cache.write fresh_key, true, expires_in: 5.minutes
+      unless Rails.cache.exist? fresh_key
+        # distributed lock that spans all dynos/processes to ensure only 1 process
+        # in the distributed system updates the cache
+        PgLock.new(name: key, attempts: 1).lock do
+          value = block.call
+          Rails.cache.write key, value, expires_in: 1.hour
+          Rails.cache.write fresh_key, true, expires_in: 5.minutes
+        end
       end
-    end
 
-    value
+      value
+    end
   end
 end
