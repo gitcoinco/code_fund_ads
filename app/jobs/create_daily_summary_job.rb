@@ -14,9 +14,9 @@ class CreateDailySummaryJob < ApplicationJob
       .select("count(*) FILTER (WHERE fallback_campaign = true) AS fallbacks_count")
       .select("count(*) FILTER (WHERE clicked_at_date IS NOT NULL) AS clicks_count")
       .select("count(DISTINCT ip_address) AS unique_ip_addresses_count")
-      .select(Arel::Nodes::NamedFunction.new("ROUND", [Impression.arel_table[:estimated_gross_revenue_fractional_cents].sum]).as("gross_revenue"))
-      .select(Arel::Nodes::NamedFunction.new("ROUND", [Impression.arel_table[:estimated_property_revenue_fractional_cents].sum]).as("property_revenue"))
-      .select(Arel::Nodes::NamedFunction.new("ROUND", [Impression.arel_table[:estimated_house_revenue_fractional_cents].sum]).as("house_revenue"))
+      .select("round(sum(estimated_gross_revenue_fractional_cents)) AS gross_revenue_cents")
+      .select("round(sum(estimated_property_revenue_fractional_cents)) AS property_revenue_cents")
+      .select("round(sum(estimated_house_revenue_fractional_cents)) AS house_revenue_cents")
       .to_sql
     ).first
     impressionable.daily_summaries.on(date).scoped_by(scoped_by, scoped_by_type).first_or_create!(rollup)
