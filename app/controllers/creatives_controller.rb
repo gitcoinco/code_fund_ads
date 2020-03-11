@@ -7,6 +7,8 @@ class CreativesController < ApplicationController
   before_action :authorize_new!, only: [:new, :create]
   before_action :authorize_edit!, only: [:edit, :update]
 
+  set_default_sorted_by :name
+
   def index
     creatives = scope_list(Creative).where(organization: Current.organization)&.order(order_by)&.includes(:user)
     @pagy, @creatives = pagy(creatives, page: @page)

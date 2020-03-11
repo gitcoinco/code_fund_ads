@@ -7,7 +7,7 @@ class OrganizationsController < ApplicationController
 
   def index
     organizations = scope_list(Organization).order(order_by)
-    @pagy, @organizations = pagy(organizations, items: Pagy::VARS[:items], page: @page)
+    @pagy, @organizations = pagy(organizations, page: @page)
   end
 
   def show

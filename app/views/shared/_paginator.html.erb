@@ -1,19 +1,19 @@
 <nav class="pagy-bootstrap-nav pagination" role="navigation" aria-label="pager" data-controller="pagination">
   <ul class="pagination">
     <li class="page-item prev <%= "disabled" if @pagy.page == 1 %>">
-      <%= link_to "‹ Prev", "#", class: "page-link", rel: "previous", aria: { label: "Previous" }, data: navigable_expandos(reflex: "click->PaginationReflex#paginate", page: @pagy.prev) %>
+      <%= link_to "‹ Prev", "#", class: "page-link", rel: "previous", aria: {label: "Previous"}, data: navigable_expandos(reflex: "click->PaginationReflex#paginate", page: @pagy.prev) %>
     </li>
     <% @pagy.series.each do |item| %>
       <% if item == :gap %>
         <li class="page-item disabled"><a class="page-link">...</a></li>
       <% else %>
         <li class="page-item <%= "active" if item.is_a?(String) %>">
-          <%= link_to item, "#", class: "page-link", rel: "page", aria: { label: "Page #{item}" }, data: navigable_expandos(reflex: "click->PaginationReflex#paginate", page: item) %>
+          <%= link_to item, "#", class: "page-link", rel: "page", aria: {label: "Page #{item}"}, data: navigable_expandos(reflex: "click->PaginationReflex#paginate", page: item) %>
         </li>
       <% end %>
     <% end %>
     <li class="page-item next <%= "disabled" if @pagy.page == @pagy.pages %>">
-      <%= link_to "Next ›", "#", class: "page-link", rel: "next", aria: { label: "Next" }, data: navigable_expandos(reflex: "click->PaginationReflex#paginate", page: @pagy.next) %>
+      <%= link_to "Next ›", "#", class: "page-link", rel: "next", aria: {label: "Next"}, data: navigable_expandos(reflex: "click->PaginationReflex#paginate", page: @pagy.next) %>
     </li>
   </ul>
 </nav>

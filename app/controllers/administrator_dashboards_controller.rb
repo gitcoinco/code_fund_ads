@@ -4,9 +4,12 @@ class AdministratorDashboardsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_administrator!
 
+  set_default_sorted_by :end_date
+  set_default_sorted_direction :desc
+
   def show
     campaigns = Campaign.active.premium.includes(:organization).order(order_by)
-    @pagy, @campaigns = pagy(campaigns, items: Pagy::VARS[:items], page: @page)
+    @pagy, @campaigns = pagy(campaigns, page: @page)
   end
 
   protected

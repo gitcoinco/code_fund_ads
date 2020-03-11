@@ -5,7 +5,7 @@ class PropertyCampaignsController < ApplicationController
   def index
     # TODO: we don't want to eager load this
     report = @property.daily_summary_reports_by_campaign(@start_date, @end_date).to_a
-    @pagy, @report = pagy_array(report, items: Pagy::VARS[:items])
+    @pagy, @report = pagy_array(report)
   end
 
   private

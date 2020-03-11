@@ -14,7 +14,7 @@ class CampaignsController < ApplicationController
 
   def index
     campaigns = Campaign.includes(:organization).where(organization: Current.organization).order(order_by)
-    @pagy, @campaigns = pagy(campaigns, items: Pagy::VARS[:items])
+    @pagy, @campaigns = pagy(campaigns, page: @page)
   end
 
   def show

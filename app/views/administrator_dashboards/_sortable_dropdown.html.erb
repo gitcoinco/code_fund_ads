@@ -1,11 +1,9 @@
 <%= tag.div class: "col-auto px-0 d-none d-sm-flex justify-content-sm-end mb-3", data: navigable_expandos(controller: "sortable-list") do %>
   <div class="dropdown">
     <div class="btn-group" role="group" aria-label="sort">
-      <button data-action="click->sortable-list#flip" class="btn btn-secondary">
-        <%= current_sort_direction_icon %>
-      </button>
+      <%= tag.button current_sort_direction_icon, class: "btn btn-secondary", data: navigable_expandos(action: "click->sortable-list#flip") %>
       <button class="btn btn-secondary" style="min-width:155px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <%= @sorted_by&.humanize %>
+        <%= @sorted_by.titleize %>
         <span class="ml-auto fa fa-caret-down"></span>
       </button>
       <div class="dropdown-menu dropdown-menu-right stop-propagation">
@@ -14,7 +12,7 @@
         <% @sortable_columns.each_with_index do |column, index| %>
           <label class="custom-control custom-radio">
             <input type="radio" class="custom-control-input" name="sortCampaignBy" value="<%= index %>" data-action="click->sortable-list#sort" data-sorted-by="<%= column %>" />
-            <span class="custom-control-label"><%= column.humanize %> </span>
+            <span class="custom-control-label"><%= column.titleize %></span>
           </label>
         <% end %>
       </div>

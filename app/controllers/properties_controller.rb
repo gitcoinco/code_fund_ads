@@ -9,6 +9,8 @@ class PropertiesController < ApplicationController
   before_action :set_assignable_fallback_campaigns, only: [:edit]
   after_action -> { stash_property @property }, only: [:new, :edit]
 
+  set_default_sorted_by :name
+
   def index
     properties = scope_list(Property).order(order_by).includes(:user, :property_traffic_estimates)
 
