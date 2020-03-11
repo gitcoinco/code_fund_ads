@@ -33,7 +33,7 @@
         <% end %>
       <% end %>
       <!-- /Totals Row -->
-      <% if @reports.any? %>
+      <% if @reports.exists? %>
         <%= render partial: "/campaign_countries/tr", collection: @reports, as: :report %>
       <% else %>
         <%= render "/shared/no_data_alert" %>

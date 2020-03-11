@@ -9,6 +9,10 @@
 
 # Backend Extras
 
+# Arel extra: This extra adds a specialized pagination for collections from sql databases with GROUP BY clauses
+# See the Pagy documentation: https://ddnexus.github.io/pagy/extras/arel
+require "pagy/extras/arel"
+
 # Array extra: Paginate arrays efficiently, avoiding expensive array-wrapping and without overriding
 # See https://ddnexus.github.io/pagy/extras/array
 require "pagy/extras/array"

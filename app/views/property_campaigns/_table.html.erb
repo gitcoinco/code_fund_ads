@@ -10,7 +10,7 @@
       <% end %>
     <% end %>
     <%= table_body do %>
-      <% if @report.any? %>
+      <% if @report.exists? %>
         <% @report.each do |item| %>
           <%= table_row do %>
             <%= table_data current_user.publisher? ? item.scoped_by.name : link_to(item.scoped_by.name, item.scoped_by) %>
