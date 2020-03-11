@@ -9,11 +9,11 @@ class UsersController < ApplicationController
   skip_before_action :authenticate_user!, if: -> { params[:redir].present? }
   skip_before_action :authenticate_administrator!, if: -> { params[:redir].present? }
 
-  def index
-    users = scope_list(User).includes(:avatar_attachment, :organizations).include_image_count.order(order_by)
+  set_default_sorted_by :first_name
 
-    max = (users.size / Pagy::VARS[:items].to_f).ceil
-    @pagy, @users = pagy(users, page: current_page(max: max))
+  def index
+    users = scope_list(User).includes(:avatar_attachment).include_image_count.order(order_by)
+    @pagy, @users = pagy(users, page: @page)
   end
 
   def new
@@ -81,6 +81,22 @@ class UsersController < ApplicationController
     @organization ||= Current.organization
   end
 
+  def set_sortable_columns
+    @sortable_columns ||= %w[
+      company_name
+      created_at
+      email
+      first_name
+      last_name
+      last_sign_in_at
+      updated_at
+    ]
+  end
+
+  def set_scopable_values
+    @scopable_values ||= %w[all administrators advertisers publishers].flatten
+  end
+
   def user_params
     params.require(:user).permit(
       :address_1,
@@ -102,7 +118,7 @@ class UsersController < ApplicationController
       :us_resident,
       :website_url,
       skills: [],
-      organization_users_attributes: [:organization_id, :role],
+      organization_users_attributes: [:organization_id, :role]
     ).tap do |whitelisted|
       if authorized_user.can_admin_system?
         whitelisted[:api_access] = params[:user][:api_access]
@@ -110,22 +126,5 @@ class UsersController < ApplicationController
         whitelisted[:status] = params[:user][:status]
       end
     end
-  end
-
-  def sortable_columns
-    %w[
-      company_name
-      created_at
-      updated_at
-      email
-      name
-      last_sign_in_at
-    ]
-  end
-
-  def sort_column
-    return column if sortable_columns.include?(column)
-    return "first_name" if sortable_columns.include?("name")
-    "created_at"
   end
 end

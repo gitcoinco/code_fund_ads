@@ -50,10 +50,10 @@ module Frontend
 
     def sortable_tr(column, title = nil, add_style: nil, add_class: nil)
       title ||= column.titleize
-      direction = column == sort_column && sort_direction == "asc" ? "desc" : "asc"
+      direction = column == @sorted_by && @sorted_direction == "asc" ? "desc" : "asc"
       selected = nil
 
-      if params[:column] == column
+      if @sorted_by == column
         selected = if direction == "desc"
           "up"
         else

@@ -9,7 +9,7 @@ module Frontend
     end
 
     def current_sort_direction_icon
-      direction = @sort_direction == "desc" ? "up" : "down"
+      direction = @sorted_direction == "desc" ? "up" : "down"
       tag.span class: "fas fa-arrow-#{direction} mr-1"
     end
   end

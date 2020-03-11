@@ -5,14 +5,16 @@ class CampaignsController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_administrator!, only: [:destroy]
   before_action :set_campaign, except: [:create, :index]
-  before_action :set_sortable_columns
   before_action :set_current_organization_for_admin, only: [:show, :edit]
   before_action :authorize_edit!, only: [:edit, :update]
   after_action -> { stash_campaign @campaign }, except: [:index, :destroy]
 
+  set_default_sorted_by :end_date
+  set_default_sorted_direction :desc
+
   def index
     campaigns = Campaign.includes(:organization).where(organization: Current.organization).order(order_by)
-    @pagy, @campaigns = pagy(campaigns, items: Pagy::VARS[:items])
+    @pagy, @campaigns = pagy(campaigns, page: @page)
   end
 
   def show
@@ -73,7 +75,7 @@ class CampaignsController < ApplicationController
     end
   end
 
-  private
+  protected
 
   def set_campaign
     return @campaign ||= stashed_campaign if action_name == "new"
@@ -88,6 +90,21 @@ class CampaignsController < ApplicationController
     return unless authorized_user.can_admin_system?
     Current.organization = @campaign.organization if @campaign.organization
   end
+
+  def set_sortable_columns
+    @sortable_columns ||= %w[
+      start_date
+      end_date
+      name
+      updated_at
+      created_at
+      hourly_budget_cents
+      daily_budget_cents
+      total_budget_cents
+    ]
+  end
+
+  private
 
   def campaign_params
     return advertiser_campaign_params if !authorized_user.can_admin_system? && @campaign.fixed_ecpm
@@ -114,7 +131,7 @@ class CampaignsController < ApplicationController
       negative_keywords: [],
       prohibited_property_ids: [],
       province_codes: [],
-      region_ids: [],
+      region_ids: []
     )
   end
 
@@ -122,7 +139,7 @@ class CampaignsController < ApplicationController
     sanitize_params(:campaign, params).require(:campaign).permit(
       :name,
       :url,
-      creative_ids: [],
+      creative_ids: []
     ).tap do |whitelisted|
       case params[:campaign][:status]
       when ENUMS::CAMPAIGN_STATUSES::PAUSED
@@ -143,32 +160,6 @@ class CampaignsController < ApplicationController
       negative_keywords: [],
       province_codes: []
     )
-  end
-
-  def set_sortable_columns
-    @sortable_columns ||= sortable_columns
-  end
-
-  def sortable_columns
-    %w[
-      start_date
-      end_date
-      name
-      updated_at
-      created_at
-      hourly_budget_cents
-      daily_budget_cents
-      total_budget_cents
-    ]
-  end
-
-  def sort_column
-    return column if sortable_columns.include?(column)
-    "end_date"
-  end
-
-  def sort_direction
-    @sort_direction ||= %w[asc desc].include?(direction) ? direction : "desc"
   end
 
   def authorize_edit!

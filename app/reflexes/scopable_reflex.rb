@@ -1,5 +1,7 @@
 class ScopableReflex < ApplicationReflex
+  include NavigableReflex
+
   def scope
-    session[:scope_by] = element.attributes["data-scope-by"]
+    set_navigable_variables
   end
 end

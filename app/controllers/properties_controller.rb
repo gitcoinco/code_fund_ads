@@ -9,6 +9,8 @@ class PropertiesController < ApplicationController
   before_action :set_assignable_fallback_campaigns, only: [:edit]
   after_action -> { stash_property @property }, only: [:new, :edit]
 
+  set_default_sorted_by :name
+
   def index
     properties = scope_list(Property).order(order_by).includes(:user, :property_traffic_estimates)
 
@@ -18,8 +20,7 @@ class PropertiesController < ApplicationController
       properties = properties.where(user: current_user)
     end
 
-    max = (properties.count / Pagy::VARS[:items].to_f).ceil
-    @pagy, @properties = pagy(properties, page: current_page(max: max))
+    @pagy, @properties = pagy(properties, page: @page)
   end
 
   def new
@@ -90,7 +91,7 @@ class PropertiesController < ApplicationController
     end
   end
 
-  private
+  protected
 
   def set_property
     return @property ||= stashed_property if action_name == "new"
@@ -120,6 +121,21 @@ class PropertiesController < ApplicationController
     end
   end
 
+  def set_sortable_columns
+    @sortable_columns ||= %w[
+      created_at
+      name
+      status
+      updated_at
+    ]
+  end
+
+  def set_scopable_values
+    @scopable_values ||= ["all", ENUMS::PROPERTY_STATUSES.values].flatten
+  end
+
+  private
+
   def property_params
     params.require(:property).permit(
       :ad_template,
@@ -147,15 +163,6 @@ class PropertiesController < ApplicationController
         )
       end
     end
-  end
-
-  def sortable_columns
-    %w[
-      created_at
-      name
-      status
-      updated_at
-    ]
   end
 
   def authorize_assigned_fallback_campaign_ids(property)

@@ -2,26 +2,22 @@ module Scopable
   extend ActiveSupport::Concern
 
   included do
-    helper_method :scope_list
-    before_action :reset_current_scope
+    before_action :set_scoped_by, :set_scopable_values, only: :index
   end
 
   def scope_list(model)
-    model.public_send(current_scope)
+    return model unless @scopable_values.include?(@scoped_by)
+    model.public_send(@scoped_by)
   end
 
-  private
+  protected
 
-  def current_scope
-    session[:current_scope].present? ? session[:current_scope] : scope_by
+  def set_scoped_by
+    @scoped_by ||= "all"
   end
 
-  def scope_by
-    session[:scope_by]&.to_sym || :all
-  end
-
-  def reset_current_scope
-    session[:current_scope] = session[:last_controller_name] != controller_name ? :all : ""
-    session[:last_controller_name] = controller_name
+  # Abstract method that should be overridden in including controllers
+  def set_scopable_values
+    raise NotImplementedError, "controller should implement `set_scopable_values`"
   end
 end

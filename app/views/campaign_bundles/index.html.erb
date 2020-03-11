@@ -5,7 +5,6 @@
     ] do %>
   <%= render "/shared/data_list",
                resource_name: "campaign_bundles",
-               scopable: ENUMS::CAMPAIGN_BUNDLE_STATUSES.values,
                collection: @campaign_bundles,
                pagy: @pagy %>
 <% end %>

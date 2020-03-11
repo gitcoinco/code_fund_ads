@@ -1,5 +1,7 @@
 class PaginationReflex < ApplicationReflex
+  include NavigableReflex
+
   def paginate
-    session[:current_page] = element.dataset[:page].to_i
+    set_navigable_variables
   end
 end

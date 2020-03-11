@@ -97,7 +97,7 @@ module Campaigns
     # Property report ----------------------------------------------------------------------------------------
 
     def daily_summary_reports_by_property(start = nil, stop = nil)
-      daily_summary_reports.scoped_by_type("Property").between(start || start_date, stop || end_date).includes(:scoped_by)
+      daily_summary_reports.scoped_by_type("Property").between(start || start_date, stop || end_date)
     end
 
     def property_report(start = nil, stop = nil)

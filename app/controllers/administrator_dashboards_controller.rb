@@ -3,21 +3,19 @@ class AdministratorDashboardsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!
-  before_action :set_sortable_columns
+
+  set_default_sorted_by :end_date
+  set_default_sorted_direction :desc
 
   def show
     campaigns = Campaign.active.premium.includes(:organization).order(order_by)
-    @pagy, @campaigns = pagy(campaigns, items: Pagy::VARS[:items])
+    @pagy, @campaigns = pagy(campaigns, page: @page)
   end
+
+  protected
 
   def set_sortable_columns
-    @sortable_columns ||= sortable_columns
-  end
-
-  private
-
-  def sortable_columns
-    %w[
+    @sortable_columns ||= %w[
       start_date
       end_date
       name

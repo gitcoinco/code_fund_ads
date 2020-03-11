@@ -46,7 +46,7 @@ module Properties
     # Campaign report ----------------------------------------------------------------------------------------
 
     def daily_summary_reports_by_campaign(start = nil, stop = nil)
-      daily_summary_reports.scoped_by_type("Campaign").between(start || start_date, stop || end_date).includes(:scoped_by)
+      daily_summary_reports.scoped_by_type("Campaign").between(start || start_date, stop || end_date)
     end
 
     private

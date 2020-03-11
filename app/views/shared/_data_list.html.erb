@@ -1,56 +1,44 @@
 <div class="page-section">
-  <div class="card card-fluid" data-controller="filterable-list">
+  <div class="card card-fluid">
     <div class="card-header nav-scroller">
       <ul class="nav nav-tabs card-header-tabs">
-        <li class="nav-item">
-          <span class="nav-link show pointer <%= "active" if session[:scope_by].nil? || session[:scope_by] == "all" %>"
-                data-toggle="tab" data-scope-by="all" data-reflex="click->ScopableReflex#scope">All</span>
-        </li>
-        <% scopable.each do |item| %>
+        <% @scopable_values.flatten.each_with_index do |item| %>
           <li class="nav-item">
-            <span class="nav-link show pointer <%= "active" if session[:scope_by] == item %>" data-toggle="tab" data-scope-by="<%= item %>" data-reflex="click->ScopableReflex#scope">
+            <%= tag.span class: "nav-link show pointer #{"active" if item == @scoped_by}", data: navigable_expandos(reflex: "click->ScopableReflex#scope", scoped_by: item) do %>
               <%= item.capitalize %>
-            </span>
+            <% end %>
           </li>
         <% end %>
       </ul>
     </div>
     <div class="card-body">
       <div class="row">
-        <div class="col-auto d-none d-sm-flex" data-controller="sortable-list">
+        <%= tag.div class: "col-auto d-none d-sm-flex", data: navigable_expandos(controller: "sortable-list") do %>
           <div class="dropdown">
             <div class="btn-group" role="group" aria-label="sort">
-              <button data-action="click->sortable-list#flip" class="btn btn-secondary">
-                <%= current_sort_direction_icon %>
-              </button>
+              <%= tag.button current_sort_direction_icon, class: "btn btn-secondary", data: navigable_expandos(action: "click->sortable-list#flip") %>
               <button class="btn btn-secondary" style="min-width:112px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <%= session[:sort_by]&.humanize || "Name" %>
+                <%= @sorted_by.titleize %>
                 <span class="fa fa-caret-down"></span>
               </button>
               <div class="dropdown-menu dropdown-menu-right stop-propagation">
                 <div class="dropdown-arrow"></div>
                 <h6 class="dropdown-header"> Sort By </h6>
-                <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="0" data-action="click->sortable-list#sort" data-column-name="name" />
-                  <span class="custom-control-label">Name</span>
-                </label>
-                <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="1" data-action="click->sortable-list#sort" data-column-name="updated_at" />
-                  <span class="custom-control-label">Updated</span>
-                </label>
-                <label class="custom-control custom-radio">
-                  <input type="radio" class="custom-control-input" name="sort<%= resource_name&.capitalize %>By" value="2" data-action="click->sortable-list#sort" data-column-name="created_at" />
-                  <span class="custom-control-label">Created</span>
-                </label>
+                <% @sortable_columns.each do |column_name| %>
+                  <label class="custom-control custom-radio">
+                    <input type="radio" class="custom-control-input" name="sortCampaignBy" data-action="click->sortable-list#sort" data-sorted-by="<%= column_name %>" />
+                    <span class="custom-control-label"><%= column_name.titleize %> </span>
+                  </label>
+                <% end %>
               </div>
             </div>
           </div>
-        </div>
+        <% end %>
       </div>
     </div>
-    <div class="tab-content pt-3" data-reflex-root=".class">
-      <div class="tab-pane fade show active" role="tabpanel">
-        <div class="list-group list-group-flush list-group-divider" data-target="filterable-list.wrapper">
+    <div class="tab-content pt-3">
+      <div class="tab-pane fade show active">
+        <div class="list-group list-group-flush list-group-divider">
           <%= render partial: "/#{resource_name}/list_group_item", collection: collection, as: resource_name&.singularize&.to_sym %>
         </div>
         <%= pagination_wrapper do %>

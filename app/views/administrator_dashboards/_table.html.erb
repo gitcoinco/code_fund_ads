@@ -14,7 +14,11 @@
     <% end %>
   <% end %>
   <%= pagination_wrapper do %>
-    <span><%== pagy_bootstrap_nav(pagy) %></span>
-    <%= pagy_entries(pagy) %>
+    <span>
+      <%= render "/shared/paginator" %>
+    </span>
+    <span class="ml-auto">
+      <%= pagy_entries(pagy) %>
+    </span>
   <% end if pagy.pages > 1 %>
 <% end %>

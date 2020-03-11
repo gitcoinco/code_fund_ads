@@ -5,7 +5,7 @@ class CampaignDailiesController < ApplicationController
   def index
     @summary = @campaign.summary(@start_date, @end_date)
     daily_summaries = @campaign.daily_summaries_by_day(@start_date, @end_date).unscope(:order)
-    @pagy, @daily_summaries = pagy(daily_summaries, items: Pagy::VARS[:items])
+    @pagy, @daily_summaries = pagy(daily_summaries)
 
     respond_to do |format|
       format.html

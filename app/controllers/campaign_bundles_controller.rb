@@ -1,7 +1,6 @@
 class CampaignBundlesController < ApplicationController
   include Sortable
   include Scopable
-  include Pagy::Backend
   include CampaignBundles::Stashable
 
   before_action :authenticate_user!
@@ -15,8 +14,7 @@ class CampaignBundlesController < ApplicationController
       .order(order_by)
       .includes(:organization)
       .where(organization: Current.organization)
-    max = (campaign_bundles.count / Pagy::VARS[:items].to_f).ceil
-    @pagy, @campaign_bundles = pagy(campaign_bundles, page: current_page(max: max))
+    @pagy, @campaign_bundles = pagy(campaign_bundles, page: @page)
   end
 
   def new
@@ -45,7 +43,7 @@ class CampaignBundlesController < ApplicationController
     end
   end
 
-  private
+  protected
 
   def set_campaign_bundle
     @campaign_bundle = if authorized_user(true).can_admin_system?
@@ -55,6 +53,22 @@ class CampaignBundlesController < ApplicationController
     end
   end
 
+  def set_sortable_columns
+    @sortable_columns ||= %w[
+      created_at
+      end_date
+      start_date
+      name
+      updated_at
+    ]
+  end
+
+  def set_scopable_values
+    @scopable_values ||= ["all", ENUMS::CAMPAIGN_BUNDLE_STATUSES.values].flatten
+  end
+
+  private
+
   def campaign_bundle_params
     params.require(:campaign_bundle).permit(
       :date_range,
@@ -63,15 +77,5 @@ class CampaignBundlesController < ApplicationController
       region_ids: [],
       campaigns_attributes: [:name, :url, :daily_budget, :ecpm_multiplier, audience_ids: []]
     )
-  end
-
-  def sortable_columns
-    %w[
-      created_at
-      end_date
-      start_date
-      name
-      updated_at
-    ]
   end
 end

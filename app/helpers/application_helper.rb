@@ -1,6 +1,15 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  def navigable_expandos(options = {})
+    {
+      scoped_by: @scoped_by,
+      sorted_by: @sorted_by,
+      sorted_direction: @sorted_direction,
+      page: @page
+    }.merge(options)
+  end
+
   def active_campaigns_for_current_organization
     Current.organization&.campaigns&.active
   end

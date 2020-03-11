@@ -1,54 +1,52 @@
 module Sortable
   extend ActiveSupport::Concern
 
-  included do
-    helper_method :sort_column, :sort_direction
-    after_action :update_last_sort_by
+  module ClassMethods
+    def set_default_sorted_by(value)
+      @default_sorted_by = value.to_s
+    end
+
+    def default_sorted_by
+      @default_sorted_by || "created_at"
+    end
+
+    def set_default_sorted_direction(value)
+      @default_sorted_direction = value.to_s
+    end
+
+    def default_sorted_direction
+      @default_sorted_direction || "asc"
+    end
   end
 
-  # Abstract method that should be overridden in including controllers
-  def sortable_columns
-    raise NotImplementedError, "controller should include method `sortable_columns`"
+  included do
+    before_action :set_sortable_columns, :set_sorted_by, :set_sorted_direction, :set_page, only: [:index, :show]
   end
 
   def order_by
-    "#{sort_column} #{sort_direction} NULLS LAST"
+    "#{@sorted_by} #{@sorted_direction} NULLS LAST"
   end
 
-  def sort_column
-    return column if sortable_columns.include?(column)
-    return "name" if sortable_columns.include?("name")
-    "created_at"
+  protected
+
+  def set_sorted_by
+    @sorted_by ||= begin
+      column = params[:sorted_by]
+      column = self.class.default_sorted_by unless @sortable_columns.include?(column)
+      column
+    end
   end
 
-  def sort_direction
-    @sort_direction ||= %w[asc desc].include?(direction) ? direction : "asc"
+  def set_sorted_direction
+    @sorted_direction ||= params[:sorted_direction] || self.class.default_sorted_direction
   end
 
-  def sort_by
-    @sort_by ||= sort_column
+  def set_page
+    @page = (@page || params[:page] || 1).to_i
   end
 
-  def current_page(max: nil)
-    return 1 if max&.zero?
-
-    page = session[:current_page].to_i
-    page = 1 if page <= 0
-    page = max if max && page > max
-    page
-  end
-
-  private
-
-  def column
-    @column ||= params[:column] || session[:sort_by]
-  end
-
-  def direction
-    @direction ||= params[:direction] || session[:sort_direction]
-  end
-
-  def update_last_sort_by
-    session[:last_sort_by] = sort_by
+  # Abstract method that should be overridden in including controllers
+  def set_sortable_columns
+    raise NotImplementedError, "controller should implement `set_sortable_columns`"
   end
 end

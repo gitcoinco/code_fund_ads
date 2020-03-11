@@ -310,7 +310,7 @@ GEM
     netrc (0.11.0)
     ngrok-tunnel (2.1.1)
     nio4r (2.5.2)
-    nokogiri (1.10.8)
+    nokogiri (1.10.9)
       mini_portile2 (~> 2.4.0)
     ntlm-http (0.1.1)
     oj (3.9.2)
@@ -509,7 +509,7 @@ GEM
       rubocop (~> 0.79.0)
       rubocop-performance (~> 1.5.1)
     statsd-ruby (1.4.0)
-    stimulus_reflex (2.1.9)
+    stimulus_reflex (2.2.2)
       cable_ready (>= 4.0)
       nokogiri
       rack
@@ -579,7 +579,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.24)
-    zeitwerk (2.2.2)
+    zeitwerk (2.3.0)
 
 PLATFORMS
   ruby
@@ -644,7 +644,7 @@ DEPENDENCIES
   ngrok-tunnel
   oj (~> 3.9.0)
   okcomputer (~> 1.18.0)
-  pagy (~> 3.7.0)
+  pagy (~> 3.7.3)
   paper_trail (~> 10.3.0)
   perm (~> 1.0.2)
   pg (>= 0.18, < 2.0)
@@ -679,7 +679,7 @@ DEPENDENCIES
   split (~> 3.4.1)
   spreadsheet (~> 1.2.4)
   standard
-  stimulus_reflex (~> 2.1.9)
+  stimulus_reflex (~> 2.2)
   stopwords-filter (~> 0.4.1)
   stripe (~> 5.4.1)
   tag_columns (~> 0.1.8)
