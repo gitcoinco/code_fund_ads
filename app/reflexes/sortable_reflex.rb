@@ -1,16 +1,13 @@
 class SortableReflex < ApplicationReflex
-  def sort(sort_by)
-    session[:sort_by] = sort_by
-    session[:sort_direction] = session[:last_sort_by] == sort_by ? flip_direction : "asc"
+  include NavigableReflex
+
+  def sort(sorted_by)
+    set_navigable_variables
+    @sorted_by = sorted_by
   end
 
   def flip
-    session[:sort_direction] = flip_direction
-  end
-
-  private
-
-  def flip_direction
-    (session[:sort_direction] || "asc")&.inquiry&.asc? ? "desc" : "asc"
+    set_navigable_variables
+    @sorted_direction = @sorted_direction == "asc" ? "desc" : "asc"
   end
 end

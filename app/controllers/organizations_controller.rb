@@ -7,7 +7,7 @@ class OrganizationsController < ApplicationController
 
   def index
     organizations = scope_list(Organization).order(order_by)
-    @pagy, @organizations = pagy(organizations, items: Pagy::VARS[:items])
+    @pagy, @organizations = pagy(organizations, items: Pagy::VARS[:items], page: @page)
   end
 
   def show
@@ -71,25 +71,27 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  private
+  protected
 
   def set_organization
     @organization ||= Current.organization
   end
+
+  def set_sortable_columns
+    @sortable_columns ||= %w[
+      name
+      balance_cents
+      created_at
+      updated_at
+    ]
+  end
+
+  private
 
   def organization_params
     params.require(:organization).permit(
       :name,
       :creative_approval_needed,
     )
-  end
-
-  def sortable_columns
-    %w[
-      name
-      balance_cents
-      created_at
-      updated_at
-    ]
   end
 end

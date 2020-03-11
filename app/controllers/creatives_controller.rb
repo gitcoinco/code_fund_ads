@@ -9,8 +9,7 @@ class CreativesController < ApplicationController
 
   def index
     creatives = scope_list(Creative).where(organization: Current.organization)&.order(order_by)&.includes(:user)
-    max = (creatives.count / Pagy::VARS[:items].to_f).ceil
-    @pagy, @creatives = pagy(creatives, page: current_page(max: max))
+    @pagy, @creatives = pagy(creatives, page: @page)
   end
 
   def new
@@ -71,7 +70,7 @@ class CreativesController < ApplicationController
     end
   end
 
-  private
+  protected
 
   def set_creative
     @creative = if authorized_user(true).can_admin_system?
@@ -81,6 +80,18 @@ class CreativesController < ApplicationController
     end
   end
 
+  def set_sortable_columns
+    @sortable_columns ||= %w[
+      created_at
+      name
+      status
+      updated_at
+      user.first_name
+    ]
+  end
+
+  private
+
   def creative_params
     params.require(:creative).permit(:creative_type, :name, :headline, :body, :cta).tap do |whitelisted|
       whitelisted[:status] = params[:creative][:status] if authorized_user(true).can_edit_creatives_without_approval?(Current.organization)
@@ -89,16 +100,6 @@ class CreativesController < ApplicationController
 
   def creative_image_params
     params.require(:creative).permit(:icon_blob_id, :small_blob_id, :large_blob_id, :wide_blob_id, :sponsor_blob_id)
-  end
-
-  def sortable_columns
-    %w[
-      created_at
-      name
-      status
-      updated_at
-      user.first_name
-    ]
   end
 
   def authorize_new!

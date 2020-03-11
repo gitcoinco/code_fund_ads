@@ -2,23 +2,16 @@ module Scopable
   extend ActiveSupport::Concern
 
   included do
-    helper_method :scope_list
-    before_action :reset_current_scope
+    before_action :set_scoped_by
   end
 
   def scope_list(model)
-    model.public_send(current_scope)
+    model.public_send @scoped_by
   end
 
-  private
+  protected
 
-  def current_scope
-    @current_scope ||= session[:scope_by]&.to_sym || :all
-  end
-
-  def reset_current_scope
-    if session[:last_controller_name] != controller_name
-      session[:scope_by] = nil
-    end
+  def set_scoped_by
+    @scoped_by ||= "all"
   end
 end
