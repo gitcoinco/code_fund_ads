@@ -5,6 +5,7 @@
 [![Join the conversation](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/code_fund_ads/community)
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fgitcoinco%2Fcode_fund_ads.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fgitcoinco%2Fcode_fund_ads?ref=badge_shield)
 [![codecov](https://codecov.io/gh/gitcoinco/code_fund_ads/branch/master/graph/badge.svg)](https://codecov.io/gh/gitcoinco/code_fund_ads)
+[![TODOs](https://badgen.net/https/api.tickgit.com/badgen/github.com/gitcoinco/code_fund_ads)](https://www.tickgit.com/browse?repo=github.com/gitcoinco/code_fund_ads)
 
 <br />
 <p align="center">
