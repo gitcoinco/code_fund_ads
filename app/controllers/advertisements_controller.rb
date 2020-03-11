@@ -26,6 +26,7 @@ class AdvertisementsController < ApplicationController
       format.js
       format.json { render "/advertisements/show", status: @creative ? :ok : :not_found, layout: false }
       format.html { render "/advertisements/show", status: @creative ? :ok : :not_found, layout: false }
+      format.svg { head :no_content }
     end
   end
 
@@ -171,7 +172,9 @@ class AdvertisementsController < ApplicationController
   end
 
   def property
-    @property ||= Property.find_by(id: property_id)
+    @property ||= local_ephemeral_cache.fetch("properties/#{property_id}", expires_in: 1.minute) {
+      Property.find_by(id: property_id)
+    }
   end
 
   def template_name
@@ -204,7 +207,9 @@ class AdvertisementsController < ApplicationController
   end
 
   def referral_code
-    @referral_code ||= User.referral_code(property.user_id)
+    @referral_code ||= local_ephemeral_cache.fetch("referral_codes/#{property.user_id}", expires_in: 1.minute) {
+      User.referral_code property.user_id
+    }
   end
 
   def ad_test?

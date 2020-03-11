@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include Organization::Currentable
 
   delegate :instrument, to: ActiveSupport::Notifications
+  delegate :local_ephemeral_cache, to: :Rails
 
   before_action :store_ids
   before_action :reload_extensions, unless: -> { Rails.env.production? }
