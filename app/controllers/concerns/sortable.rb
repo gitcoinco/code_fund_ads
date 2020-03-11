@@ -46,7 +46,7 @@ module Sortable
   end
 
   # Abstract method that should be overridden in including controllers
-  def sortable_columns
-    raise NotImplementedError, "controller should implement `sortable_columns`"
+  def set_sortable_columns
+    raise NotImplementedError, "controller should implement `set_sortable_columns`"
   end
 end

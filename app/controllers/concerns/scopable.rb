@@ -17,7 +17,7 @@ module Scopable
   end
 
   # Abstract method that should be overridden in including controllers
-  def scopable_values
-    raise NotImplementedError, "controller should implement `scopable_values`"
+  def set_scopable_values
+    raise NotImplementedError, "controller should implement `set_scopable_values`"
   end
 end
