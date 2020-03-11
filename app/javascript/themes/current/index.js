@@ -3,10 +3,6 @@ import 'bootstrap-select'
 import 'jquery-validation'
 
 // =========== Vendor ===========
-// TODO: Remove the hs.core and hs.clipboard in favor of stimulus
-import 'themes/current/javascript/hs.core'
-
-// =========== Vendor ===========
 import './stylesheets/application.scss'
 
 // =========== Theme ===========
