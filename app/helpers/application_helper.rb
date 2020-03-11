@@ -6,7 +6,7 @@ module ApplicationHelper
       scoped_by: @scoped_by,
       sorted_by: @sorted_by,
       sorted_direction: @sorted_direction,
-      page: @page,
+      page: @page
     }.merge(options)
   end
 
