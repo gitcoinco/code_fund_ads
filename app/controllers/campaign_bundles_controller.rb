@@ -63,6 +63,10 @@ class CampaignBundlesController < ApplicationController
     ]
   end
 
+  def set_scopable_values
+    @scopable_values ||= ["all", ENUMS::CAMPAIGN_BUNDLE_STATUSES.values].flatten
+  end
+
   private
 
   def campaign_bundle_params

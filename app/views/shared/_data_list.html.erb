@@ -2,7 +2,7 @@
   <div class="card card-fluid">
     <div class="card-header nav-scroller">
       <ul class="nav nav-tabs card-header-tabs">
-        <% ["all", scopable].flatten.each_with_index do |item| %>
+        <% @scopable_values.flatten.each_with_index do |item| %>
           <li class="nav-item">
             <%= tag.span class: "nav-link show pointer #{"active" if item == @scoped_by}", data: navigable_expandos(reflex: "click->ScopableReflex#scope", scoped_by: item) do %>
               <%= item.capitalize %>

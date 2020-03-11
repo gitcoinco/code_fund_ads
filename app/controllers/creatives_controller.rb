@@ -92,6 +92,10 @@ class CreativesController < ApplicationController
     ]
   end
 
+  def set_scopable_values
+    @scopable_values ||= ["all", ENUMS::CREATIVE_STATUSES.values].flatten
+  end
+
   private
 
   def creative_params

@@ -5,7 +5,6 @@
     ] do %>
   <%= render "/shared/data_list",
                resource_name: "creatives",
-               scopable: ENUMS::CREATIVE_STATUSES.values,
                collection: @creatives,
                pagy: @pagy %>
 <% end %>

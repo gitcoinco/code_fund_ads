@@ -7,15 +7,11 @@
     <div class="card card-fluid" data-controller="filterable-list">
       <div class="card-header nav-scroller">
         <ul class="nav nav-tabs card-header-tabs">
-          <li class="nav-item">
-            <span class="nav-link show pointer <%= "active" if session[:scope_by].nil? || session[:scope_by] == "all" %>"
-                  data-toggle="tab" data-scope-by="all" data-reflex="click->ScopableReflex#scope">All</span>
-          </li>
-          <% %w[active inactive].each do |item| %>
+          <% @scopable_values.flatten.each_with_index do |item| %>
             <li class="nav-item">
-              <span class="nav-link show pointer <%= "active" if session[:scope_by] == item %>" data-toggle="tab" data-scope-by="<%= item %>" data-reflex="click->ScopableReflex#scope">
+              <%= tag.span class: "nav-link show pointer #{"active" if item == @scoped_by}", data: navigable_expandos(reflex: "click->ScopableReflex#scope", scoped_by: item) do %>
                 <%= item.capitalize %>
-              </span>
+              <% end %>
             </li>
           <% end %>
         </ul>

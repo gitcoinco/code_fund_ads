@@ -86,6 +86,10 @@ class OrganizationsController < ApplicationController
     ]
   end
 
+  def set_scopable_values
+    @scopable_values ||= ["all", ENUMS::ORGANIZATION_STATUSES.values].flatten
+  end
+
   private
 
   def organization_params

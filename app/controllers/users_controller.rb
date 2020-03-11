@@ -93,6 +93,10 @@ class UsersController < ApplicationController
     ]
   end
 
+  def set_scopable_values
+    @scopable_values ||= %w[all administrators advertisers publishers].flatten
+  end
+
   def user_params
     params.require(:user).permit(
       :address_1,

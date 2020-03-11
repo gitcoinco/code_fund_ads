@@ -130,6 +130,10 @@ class PropertiesController < ApplicationController
     ]
   end
 
+  def set_scopable_values
+    @scopable_values ||= ["all", ENUMS::PROPERTY_STATUSES.values].flatten
+  end
+
   private
 
   def property_params
