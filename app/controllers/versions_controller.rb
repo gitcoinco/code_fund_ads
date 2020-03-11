@@ -6,6 +6,8 @@ class VersionsController < ApplicationController
   before_action :set_property, only: [:index], if: -> { params[:property_id].present? }
   before_action :set_versionable, only: [:show, :update]
   before_action :set_version, only: [:show, :update]
+  before_action :authorize_view!, only: [:index, :show]
+  before_action :authorize_edit!, only: [:update]
 
   def index
     @versions = @versionable.versions
@@ -57,11 +59,18 @@ class VersionsController < ApplicationController
   end
 
   def set_versionable
-    # TODO: create authorizer and check permissions
     @versionable = GlobalID::Locator.locate_signed(params[:sgid])
   end
 
   def set_version
     @version = @versionable.versions.find(params[:id])
+  end
+
+  def authorize_edit!
+    render_forbidden unless authorized_user.can_edit_versionable?(@versionable)
+  end
+
+  def authorize_view!
+    render_forbidden unless authorized_user.can_view_versionable?(@versionable)
   end
 end

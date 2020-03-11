@@ -17,4 +17,5 @@ class AuthorizedUser < Perm::Authorized
   include Authorizers::JobPosting
   include Authorizers::Organization
   include Authorizers::Roles
+  include Authorizers::Versionable
 end
