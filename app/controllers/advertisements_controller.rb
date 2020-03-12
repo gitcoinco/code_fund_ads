@@ -17,7 +17,7 @@ class AdvertisementsController < ApplicationController
 
     track_event :virtual_impression_initiated
 
-    # TODO: deprecate legacy support on 2019-04-01
+    # DEPRECATE: deprecate legacy support on 2019-04-01
     return render_legacy_show if legacy_api_call?
 
     set_advertisement_variables
@@ -95,13 +95,13 @@ class AdvertisementsController < ApplicationController
     end
   end
 
-  # TODO: deprecate legacy support on 2019-04-01
+  # DEPRECATE: deprecate legacy support on 2019-04-01
   def legacy_api_call?
     return false unless request.format.json?
     request.path.start_with?("/api/v1/impression", "/t/s/")
   end
 
-  # TODO: deprecate legacy support on 2019-04-01
+  # DEPRECATE: deprecate legacy support on 2019-04-01
   def render_legacy_show
     if @campaign && (@creative = choose_creative(@virtual_impression_id, @campaign))
       @campaign_url = advertisement_clicks_url(@virtual_impression_id, campaign_id: @campaign.id)
@@ -113,7 +113,7 @@ class AdvertisementsController < ApplicationController
     render "/advertisements/legacy_show"
   end
 
-  # TODO: Wrap this IP assignment to only be allowed when API is enabled for
+  # DEPRECATE: Wrap this IP assignment to only be allowed when API is enabled for
   #       the publisher instead of using the legacy_property_id as a qualifier
   def ip_address
     @ip_address ||= params[:legacy_property_id].present? ?
@@ -162,7 +162,7 @@ class AdvertisementsController < ApplicationController
     hour.between? prohibited_hour_start, prohibited_hour_end
   end
 
-  # TODO: deprecate legacy support on 2019-04-01
+  # DEPRECATE: deprecate legacy support on 2019-04-01
   def property_id
     params[:legacy_property_id] ||= params[:property_id] if /[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}/.match?(params[:property_id].to_s)
 

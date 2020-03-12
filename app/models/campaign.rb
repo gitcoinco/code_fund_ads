@@ -390,7 +390,7 @@ class Campaign < ApplicationRecord
     adjusted = ecpm * Country::UNKNOWN_CPM_MULTIPLER
     country = Country.find(country_code)
     if country
-      # TODO: delete logic for country multiplier after all campaigns with a start_date before 2019-03-07 have completed
+      # DEPRECATE: delete logic for country multiplier after all campaigns with a start_date before 2019-03-07 have completed
       adjusted = if start_date && start_date < Date.parse("2019-03-07")
         country.ecpm base: ecpm, multiplier: :country
       else
