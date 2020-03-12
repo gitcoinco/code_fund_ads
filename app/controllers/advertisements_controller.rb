@@ -172,9 +172,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def property
-    local_ephemeral_cache.fetch("properties/#{property_id}", expires_in: 5.minutes) {
-      Property.find_by(id: property_id)
-    }
+    @property ||= Property.find_by(id: property_id)
   end
 
   def template_name
@@ -207,9 +205,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def referral_code
-    local_ephemeral_cache.fetch("referral_codes/#{property.user_id}") {
-      User.referral_code property.user_id
-    }
+    @referral_code ||= User.referral_code(property.user_id)
   end
 
   def ad_test?
