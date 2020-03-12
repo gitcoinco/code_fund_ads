@@ -33,17 +33,23 @@
                             input_html: {
                               class: "form-control", data: {msg: "Please enter a campaign name", "reflex-permanent": true}
                             }), class: "col-md-6 mb-3" %>
-        <%= tag.div f.input(:date_range,
-                            required: true,
-                            input_html: {
-                              class: "js-range-datepicker form-control bg-white rounded-right",
-                              data: {
-                                "reflex-permanent": true,
-                                controller: "select-date-range",
-                                start_date: (campaign.start_date || Date.today).strftime("%m/%d/%Y"),
-                                end_date: (campaign.end_date || 29.days.from_now).strftime("%m/%d/%Y")
-                              }
-                            }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
+        <%= tag.div class: "col-md-6 mb-3" do %>
+          <%= f.input(:date_range,
+                      required: true,
+                      input_html: {
+                        class: "js-range-datepicker form-control bg-white rounded-right",
+                        data: {
+                          "reflex-permanent": true,
+                          controller: "select-date-range",
+                          start_date: (campaign.start_date || Date.today).strftime("%m/%d/%Y"),
+                          end_date: (campaign.end_date || 29.days.from_now).strftime("%m/%d/%Y")
+                        }
+                      }) %>
+          <%= content_tag(:small,
+                          "<i class='fas fa-exclamation-triangle'></i> Bundle Dates: #{campaign.campaign_bundle.start_date.to_s("mm/dd/yyyy")} - #{campaign.campaign_bundle.end_date.to_s("mm/dd/yyyy")}".html_safe,
+                          class: "ml-2 text-danger"
+                         ) if campaign.campaign_bundle %>
+        <% end if authorized_user.can_admin_system? %>
         <%= tag.div f.input(:audience_ids,
                             label: "Audiences",
                             collection: Audience.all.map { |audience| [audience.name, audience.id] },
