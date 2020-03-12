@@ -4,6 +4,9 @@ codecov:
   notify:
     after_n_builds: 2
     wait_for_ci: yes
-  parsers:
-    v1:
-      include_full_missed_files: true
+ignore:
+  - "bin/"
+  - "config/"
+  - "db/"
+  - "docs/"
+  - "public/"
