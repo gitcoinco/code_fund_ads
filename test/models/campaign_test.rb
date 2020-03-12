@@ -258,4 +258,13 @@ class CampaignTest < ActiveSupport::TestCase
     assert_not @campaign.destroy
     assert_includes @campaign.errors.messages[:base].to_s, "has associated"
   end
+
+  test "bundled start and end date changes will update bundle" do
+    bundled_campaign = campaigns(:premium_bundled)
+    assert_equal bundled_campaign.campaign_bundle.start_date, bundled_campaign.start_date
+    assert_equal bundled_campaign.campaign_bundle.end_date, bundled_campaign.end_date
+    bundled_campaign.update(start_date: Date.parse("2020-03-01"), end_date: Date.parse("2020-05-01"))
+    assert_equal bundled_campaign.start_date, bundled_campaign.campaign_bundle.start_date
+    assert_equal bundled_campaign.end_date, bundled_campaign.campaign_bundle.end_date
+  end
 end
