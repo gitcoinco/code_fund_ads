@@ -23,11 +23,14 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - run:
+          name: Set up assets cache key
+          command: find app/javascript -type f | xargs -d'\n' -P0 -n1 md5sum | sort -k 2 | md5sum > dependency_checksum
       - run: |
           sudo curl -sL https://deb.nodesource.com/setup_13.x | sudo bash -
           curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
           echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-          sudo apt-get update && sudo apt-get install -y postgresql-client nodejs yarn
+          sudo apt-get update && sudo apt-get install -y libpq-dev postgresql-client nodejs yarn
       - restore_cache:
           name: Restore gem cache
           keys:
@@ -42,9 +45,6 @@ jobs:
             - yarn-cache-v5-{{ arch }}-{{ .Branch }}
             - yarn-cache-v5-{{ arch }}
             - yarn-cache-v5
-      - run:
-          name: Set up assets cache key
-          command: find app/javascript -type f -exec md5sum {} \; > dependency_checksum
       - restore_cache:
           name: Restore assets cache
           keys:

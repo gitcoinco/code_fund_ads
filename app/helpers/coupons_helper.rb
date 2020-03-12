@@ -1,2 +1,0 @@
-module CouponsHelper
-end
