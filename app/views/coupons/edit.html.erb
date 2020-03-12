@@ -1,8 +1,0 @@
-<%= render layout: "/shared/layout",
-    locals: {
-      subject: @coupon,
-      title: "Editing Coupon",
-      tabs: false,
-      subtitle: @coupon.code} do %>
-  <%= render "/coupons/form", coupon: @coupon %>
-<% end %>

@@ -1,9 +1,0 @@
-<%= table_row add_class: classes("even": coupon_counter.even?, "odd": coupon_counter.odd?) do %>
-  <%= table_data do %><%= coupon.code %><% end %>
-  <%= table_data do %><%= coupon.coupon_type %><% end %>
-  <%= table_data add_class: "text-right" do %><%= coupon.discount_percent %>%<% end %>
-  <%= table_data add_class: "text-right" do %><%= coupon.expires_at.to_s("mm/dd/yyyy") %><% end %>
-  <%= table_data add_class: "text-right" do %><%= coupon.quantity %><% end %>
-  <%= table_data add_class: "text-right" do %><%= coupon.claimed %><% end %>
-  <%= table_data add_class: "text-right" do %><%= edit_button(link: edit_coupon_path(coupon)) %><% end %>
-<% end %>
