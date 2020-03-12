@@ -166,8 +166,7 @@ class User < ApplicationRecord
     # rescue required for initial migration due to devise
     ActiveRecord::NoDatabaseError
   end
-  # TODO: do we want to remove timeoutable?
-  # https://github.com/gitcoinco/code_fund_ads/blob/8750ecdf213dc8ef01fbfb210c809f9bcff52e6f/app/models/user.rb
+
   devise(
     :confirmable,
     :database_authenticatable,
