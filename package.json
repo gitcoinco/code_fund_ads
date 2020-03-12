@@ -10,9 +10,9 @@
     "contributors:add": "all-contributors add",
     "contributors:generate": "all-contributors generate",
     "webpack:analyze": "mkdir -p public/packs && node_modules/.bin/webpack --config config/webpack/production.js --profile --json > public/packs/stats.json && node_modules/.bin/webpack-bundle-analyzer public/packs/stats.json",
-    "prettier:format": "prettier-standard -- \"app/**/*.js\" \"app/**/*.scss\"",
-    "prettier:check": "prettier-standard -- --check \"app/**/*.js\" \"app/**/*.scss\"",
-    "prettier:lint": "prettier-standard -- --lint \"app/**/*.js\" \"app/**/*.scss\""
+    "prettier:format": "prettier-standard -- \"app/**/*.js\" \"config/**/*.js\" \"app/**/*.scss\"",
+    "prettier:check": "prettier-standard -- --check \"app/**/*.js\" \"config/**/*.js\" \"app/**/*.scss\"",
+    "prettier:lint": "prettier-standard -- --lint \"app/**/*.js\" \"config/**/*.js\" \"app/**/*.scss\""
   },
   "dependencies": {
     "@fnando/sparkline": "^0.3.10",
