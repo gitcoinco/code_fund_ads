@@ -6,7 +6,7 @@ module SplitTestable
 
   module ClassMethods
     def find_by_split_test_name(split_test_name)
-      local_ephemeral_cache.fetch "#{name}##{__method__}/#{split_test_name}", expires_in: 1.minute do
+      local_ephemeral_cache.fetch "#{name}##{__method__}/#{split_test_name}", expires_in: 5.minutes do
         find_by id: split_test_name.split(NAME_DELIMITER).last
       end
     end

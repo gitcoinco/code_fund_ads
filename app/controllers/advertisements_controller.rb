@@ -172,7 +172,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def property
-    @property ||= local_ephemeral_cache.fetch("properties/#{property_id}", expires_in: 1.minute) {
+    local_ephemeral_cache.fetch("properties/#{property_id}", expires_in: 5.minutes) {
       Property.find_by(id: property_id)
     }
   end
@@ -207,7 +207,7 @@ class AdvertisementsController < ApplicationController
   end
 
   def referral_code
-    @referral_code ||= local_ephemeral_cache.fetch("referral_codes/#{property.user_id}", expires_in: 1.minute) {
+    local_ephemeral_cache.fetch("referral_codes/#{property.user_id}") {
       User.referral_code property.user_id
     }
   end
