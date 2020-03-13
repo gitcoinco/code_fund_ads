@@ -106,6 +106,7 @@ class Campaign < ApplicationRecord
   before_validation :assign_audiences
   before_validation :assign_regions
   before_save :sanitize_assigned_property_ids
+  before_save :update_campaign_bundle_dates
   before_destroy :validate_destroyable
 
   # scopes ....................................................................
@@ -619,9 +620,17 @@ class Campaign < ApplicationRecord
     return unless campaign_bundle
     self.organization_id = campaign_bundle.organization_id
     self.region_ids = campaign_bundle.region_ids
-    self.start_date = campaign_bundle.start_date
-    self.end_date = campaign_bundle.end_date
     assign_country_codes
     assign_keywords
+  end
+
+  def update_campaign_bundle_dates
+    return unless campaign_bundle
+    params = {
+      start_date: start_date < campaign_bundle.start_date ? start_date : nil,
+      end_date: end_date > campaign_bundle.end_date ? end_date : nil
+    }.compact
+    return if params.empty?
+    campaign_bundle.update(params)
   end
 end

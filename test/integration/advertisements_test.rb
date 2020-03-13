@@ -5,7 +5,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   setup do
     Rails.cache.clear
     start_date = Date.parse("2019-01-01")
-    @premium_campaign = campaigns(:premium_bundled)
+    @premium_campaign = amend(campaigns: :premium_bundled, start_date: start_date, end_date: start_date.advance(months: 3))
     @premium_campaign.campaign_bundle.update_columns start_date: start_date, end_date: start_date.advance(months: 3)
     @premium_campaign.save!
     @premium_campaign.organization.update balance: Monetize.parse("$10,000 USD")
