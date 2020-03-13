@@ -185,7 +185,12 @@ http {
     keepalive_timeout 5;
     client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
 
-    root /app/public;
+    location ~ /(assets|packs)/ {
+      root /app/public;
+      gzip_static on;
+      expires max;
+      add_header Cache-Control public;
+    }
 
     location / {
       proxy_set_header X-Real-IP $remote_addr;
