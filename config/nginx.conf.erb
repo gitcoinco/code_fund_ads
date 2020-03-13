@@ -11,6 +11,11 @@ events {
 http {
   gzip on;
   gzip_comp_level 6;
+  gzip_proxied any;
+  gzip_types text/plain text/css text/json text/javascript
+    application/javascript application/x-javascript application/json
+    application/rss+xml application/vnd.ms-fontobject application/x-font-ttf
+    application/xml font/opentype image/svg+xml text/xml;
 
   server_tokens off;
 
@@ -185,10 +190,22 @@ http {
     keepalive_timeout 5;
     client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
 
+    root /app/public;
+
     location ~ /(assets|packs)/ {
-      root /app/public;
+      gzip_static on;
       expires max;
       add_header Cache-Control public;
+      add_header Last-Modified "";
+      add_header ETag "";
+      break;
+    }
+
+    location /cable {
+      proxy_pass http://unix:///tmp/nginx.socket:;
+      proxy_http_version 1.1;
+      proxy_set_header Upgrade $http_upgrade;
+      proxy_set_header Connection "upgrade";
     }
 
     location / {
@@ -198,13 +215,6 @@ http {
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
-    }
-
-    location /cable {
-      proxy_pass http://unix:///tmp/nginx.socket:;
-      proxy_http_version 1.1;
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection "upgrade";
     }
   }
 }
