@@ -1,0 +1,15 @@
+<h2>Campaign paused by <%= @user&.name %></h2>
+
+<br>
+<strong>Overview</strong>
+
+<ul style="margin-top:5px;">
+  <li style="margin-bottom:5px;">Name: <code><%= @campaign.name %></code></li>
+  <li style="margin-bottom:5px;">Organization: <code><%= @campaign.organization&.name %></code></li>
+  <li style="margin-bottom:5px;">Start Date: <code><%= @campaign.start_date.to_s("mm/dd/yyyy") %></code></li>
+  <li style="margin-bottom:5px;">End Date: <code><%= @campaign.end_date.to_s("mm/dd/yyyy") %></code></li>
+</ul>
+
+<p>
+  <%= link_to "View Campaign", campaign_url(@campaign), style: "margin-top:5px;" %>
+</p>
