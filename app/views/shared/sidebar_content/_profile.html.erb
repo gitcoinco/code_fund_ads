@@ -1,9 +1,9 @@
 <%= tag.li class: classes(
-  "menu-item has-child": true,
-  "has-open": [
-    request.path.start_with?("/users/#{current_user.id}"),
-    request.path.start_with?("/password/edit")
-  ].any?
+      "menu-item has-child": true,
+      "has-open": [
+        request.path.start_with?("/users/#{current_user.id}"),
+        request.path.start_with?("/password/edit")
+      ].any?
 ) do %>
   <a href="#" class="menu-link">
     <span class="menu-icon fad fa-user-cog"></span>

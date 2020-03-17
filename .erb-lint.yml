@@ -1,16 +1,11 @@
 ---
+EnableDefaultLinters: true
 linters:
   ErbSafety:
     enabled: false
   SelfClosingTag:
     enabled: true
     enforced_style: 'always'
-  SpaceAroundErbTag:
-    enabled: true
-  DeprecatedClasses:
-    enabled: true
-    rule_set:
-      - deprecated: ['u-[-_\w]*']
   Rubocop:
     enabled: true
     rubocop_config:

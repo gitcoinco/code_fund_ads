@@ -1,6 +1,6 @@
 <%= tag.li class: classes(
-  "menu-item has-child": true,
-  "has-open": request.path.start_with?('/properties')
+      "menu-item has-child": true,
+      "has-open": request.path.start_with?("/properties")
 ) do %>
   <a href="#" class="menu-link">
     <span class="menu-icon fad fa-browser"></span>
@@ -10,11 +10,11 @@
     <li class="menu-subhead">Properties</li>
     <%= active_link_to "Overview", properties_path, class: "menu-link", tabindex: -1,wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
     <%= tag.li class: classes(
-      "menu-item has-child": true,
-      "has-open": [
-        request.path.start_with?("/properties"),
-        request.path.exclude?("/properties/new")
-      ].all?
+          "menu-item has-child": true,
+          "has-open": [
+            request.path.start_with?("/properties"),
+            request.path.exclude?("/properties/new")
+          ].all?
     ) do %>
       <a href="#" class="menu-link">
         <span class="menu-text">Active Properties</span>
@@ -22,8 +22,8 @@
       <ul class="menu">
         <% current_user.properties.active.order(name: :asc).each do |property| %>
           <%= tag.li class: classes(
-            "menu-item has-child": true,
-            "has-open": request.path.start_with?("/properties/#{property.id}")
+                "menu-item has-child": true,
+                "has-open": request.path.start_with?("/properties/#{property.id}")
           ) do %>
             <a href="#" class="menu-link">
               <span class="menu-text"><%= property.name %></span>

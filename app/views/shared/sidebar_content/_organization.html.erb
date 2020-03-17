@@ -1,9 +1,9 @@
 <%= tag.li class: classes(
-    "menu-item has-child": true,
-    "has-open": [
-      request.path.start_with?("/organizations/#{Current.organization.id}"),
-      request.path.start_with?("/organization/#{Current.organization.id}")
-    ].any?
+      "menu-item has-child": true,
+      "has-open": [
+        request.path.start_with?("/organizations/#{Current.organization.id}"),
+        request.path.start_with?("/organization/#{Current.organization.id}")
+      ].any?
   ) do %>
   <a href="#" class="menu-link">
     <span class="menu-icon fad fa-users"></span>
