@@ -3,14 +3,15 @@
 # SEE: lib/tasks/schedule.rake
 class PropertyImpressionsDropNotificationJob < ApplicationJob
   queue_as :low
+  IMPRESSIONS_THRESHOLD = 5
 
   def perform
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     properties = []
 
     Property.active.find_each do |property|
-      next unless property.daily_summary_reports_by_campaign(2.days.ago, 1.day.ago).sum(&:impressions_count) < 5
-      next unless property.daily_summary_reports_by_campaign(3.days.ago, 2.day.ago).sum(&:impressions_count) > 5
+      next unless property.daily_summary_reports_by_campaign(2.days.ago, 1.day.ago).sum(&:impressions_count) < IMPRESSIONS_THRESHOLD
+      next unless property.daily_summary_reports_by_campaign(3.days.ago, 2.day.ago).sum(&:impressions_count) >= IMPRESSIONS_THRESHOLD
       properties << property
     end
 
