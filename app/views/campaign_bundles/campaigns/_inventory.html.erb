@@ -94,7 +94,7 @@
       <%= table_footer do %>
         <%= table_row add_class: "bg-light" do %>
           <%= table_data add_class: "text-right font-weight-bold", colspan: "3" do %>
-            <small class="opacity-60 float-left text-left">Sold/Unsold estimates are<br>based on Active Campaigns</small>Total
+            <small class="opacity-60 float-left text-left">Sold/Unsold estimates are<br />based on Active Campaigns</small>Total
             <span class="text-nowrap text-danger d-block">Sold</span>
             <span class="text-nowrap text-success d-block">Unsold</span>
           <% end %>
@@ -105,7 +105,7 @@
           <% end %>
           <%= table_data add_class: "text-right font-weight-bold text-monospace" do %>
             <%= campaign.inventory_summary.average_daily_impressions_value.format %>
-            <span class="text-nowrap text-danger d-block"><%=  campaign.inventory_summary.sold_daily_impressions_value.format %></span>
+            <span class="text-nowrap text-danger d-block"><%= campaign.inventory_summary.sold_daily_impressions_value.format %></span>
             <span class="text-nowrap text-success d-block"><%= campaign.inventory_summary.unsold_daily_impressions_value.format %></span>
           <% end %>
         <% end %>

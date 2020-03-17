@@ -1,12 +1,12 @@
 <%= tag.li class: classes(
-  "menu-item has-child": true,
-  "has-open": [
-    request.path == "/dashboards/administrator",
-    request.path == "/organizations",
-    request.path == "/users",
-    request.path == "/users/invitation/new",
-    request.path == "/audiences"
-  ].any?
+      "menu-item has-child": true,
+      "has-open": [
+        request.path == "/dashboards/administrator",
+        request.path == "/organizations",
+        request.path == "/users",
+        request.path == "/users/invitation/new",
+        request.path == "/audiences"
+      ].any?
 ) do %>
   <a href="#" class="menu-link">
     <span class="menu-icon fad fa-user-crown"></span>

@@ -3,7 +3,7 @@
 echo "== Checking StandardRb =="
 bundle exec standardrb --fix
 echo "== Checking ERB Lint =="
-bundle exec erblint --autocorrect app/views/**/*.html.erb
+bundle exec erblint --config .erb-lint.yml --autocorrect app/views/**/*.html.erb
 echo "== Checking Prettier-Standard =="
 yarn run prettier:format
 # echo "== Checking Zeitwerk =="

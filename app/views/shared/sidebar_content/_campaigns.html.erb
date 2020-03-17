@@ -1,6 +1,6 @@
 <%= tag.li class: classes(
-  "menu-item has-child": true,
-  "has-open": request.path.start_with?('/campaigns')
+      "menu-item has-child": true,
+      "has-open": request.path.start_with?("/campaigns")
 ) do %>
   <a href="#" class="menu-link">
     <span class="menu-icon fad fa-ad"></span>
@@ -11,11 +11,11 @@
     <%= active_link_to "Overview", campaigns_path, class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
     <% if active_campaigns_for_current_organization&.exists? %>
       <%= tag.li class: classes(
-        "menu-item has-child": true,
-        "has-open": [
-          request.path.start_with?("/campaigns"),
-          request.path.exclude?("/campaigns/new")
-        ].all?
+            "menu-item has-child": true,
+            "has-open": [
+              request.path.start_with?("/campaigns"),
+              request.path.exclude?("/campaigns/new")
+            ].all?
       ) do %>
         <a href="#" class="menu-link">
           <span class="menu-text">Active Campaigns</span>
@@ -23,8 +23,8 @@
         <ul class="menu">
           <% active_campaigns_for_current_organization&.order(name: :asc).each do |campaign| %>
             <%= tag.li class: classes(
-              "menu-item has-child": true,
-              "has-open": request.path.start_with?("/campaigns/#{campaign.id}")
+                  "menu-item has-child": true,
+                  "has-open": request.path.start_with?("/campaigns/#{campaign.id}")
             ) do %>
               <a href="#" class="menu-link">
                 <span class="menu-text"><%= campaign.name %></span>
