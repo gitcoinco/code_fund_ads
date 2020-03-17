@@ -3,6 +3,7 @@ class CreateImpressionJob < ApplicationJob
 
   def perform(id, campaign_id, property_id, creative_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string)
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
+    return unless user_agent
 
     campaign = Campaign.find_by(id: campaign_id)
     return unless campaign&.standard?
