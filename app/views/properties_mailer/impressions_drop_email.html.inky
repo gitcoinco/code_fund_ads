@@ -1,0 +1,13 @@
+<p>
+  The following list of properties have had a dramatic drop in impressions.
+</p>
+
+<br>
+
+<strong>Properties:</strong>
+
+<ul style="margin-top:5px;">
+  <% @properties.each do |property| -%>
+    <%= link_to property.name, property_url(property) %>
+  <% end -%>
+</ul>

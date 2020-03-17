@@ -3,7 +3,7 @@ class CreateSlackNotificationJob < ApplicationJob
 
   def perform(args)
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
-    return unless ENV["SLACK_WEBHOOK_URL"].present?
+    return unless ENV["SLACK_WEBHOOK_URL"].present? && !Rails.env.development?
 
     notifier = Slack::Notifier.new ENV["SLACK_WEBHOOK_URL"]
     if args[:message].present?

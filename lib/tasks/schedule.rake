@@ -68,4 +68,12 @@ namespace :schedule do
       EstimateTrafficForPropertyJob.perform_later(property.id)
     end
   end
+
+  desc <<~DESC
+    Queues job that checks for a dramatic drop in impressions for properties
+    NOTE: Schedule daily
+  DESC
+  task property_impressions_drop: :environment do
+    PropertyImpressionsDropNotificationJob.perform_later
+  end
 end
