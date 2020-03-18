@@ -3,7 +3,7 @@
 # SEE: lib/tasks/schedule.rake
 class PropertyImpressionsDropNotificationJob < ApplicationJob
   queue_as :low
-  IMPRESSIONS_THRESHOLD = 5
+  IMPRESSIONS_THRESHOLD = 15
 
   def perform
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
