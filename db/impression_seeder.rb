@@ -12,11 +12,7 @@ class ImpressionSeeder
     @pid_count = Etc.nprocessors - 1
     @pid_count = 1 if @pid_count < 1
     @count = (ENV["IMPRESSIONS"] || 100_000).to_f
-    @months = [
-      3.months.ago.beginning_of_month.to_date,
-      2.months.ago.beginning_of_month.to_date,
-      1.month.ago.beginning_of_month.to_date
-    ]
+    @months = 12.times.map { |i| i.months.ago.beginning_of_month.to_date }.reverse
   end
 
   def call
@@ -36,8 +32,16 @@ class ImpressionSeeder
         while months.present?
           monthly_dates = generate_impressions_dates(months.shift)
           impressions = generate_daily_timestamps(monthly_dates).map { |timestamp|
-            campaign = campaigns.select { |c| c.available_on? timestamp }.sample
-            property = properties[campaign&.id].sample
+            campaign = begin
+                         campaigns.select { |c| c.available_on? timestamp }.sample
+                       rescue
+                         nil
+                       end
+            property = begin
+                         properties[campaign&.id].sample
+                       rescue
+                         nil
+                       end
             clicked_at = rand(1000) <= 3 ? timestamp : nil
 
             if campaign && property
@@ -72,7 +76,8 @@ class ImpressionSeeder
             end
           }
 
-          Impression.insert_all impressions.compact
+          impressions.compact!
+          Impression.insert_all impressions unless impressions.blank?
         end
       }
     end
