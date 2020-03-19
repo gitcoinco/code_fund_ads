@@ -2,6 +2,7 @@ module Impressions
   module Partitionable
     extend ActiveSupport::Concern
 
+    # a value of 1 retains the current month and the previous month as attached partitions
     MIN_MONTHS_RETAINED = 1
 
     module ClassMethods
