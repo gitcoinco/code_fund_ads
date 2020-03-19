@@ -2,7 +2,7 @@ module Impressions
   module Partitionable
     extend ActiveSupport::Concern
 
-    MIN_MONTHS_RETAINED = 2
+    MIN_MONTHS_RETAINED = 1
 
     module ClassMethods
       # Returns the names of all tables attached as a partition of the impressions table
