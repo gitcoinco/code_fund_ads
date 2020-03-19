@@ -3,7 +3,7 @@
      data-filter-key='all <%= property.status %>'>
   <div class="list-group-item-figure">
     <%= link_to property_path(property), class: "user-avatar user-avatar-md" do %>
-      <%= image_tag property.favicon_image_url %>
+      <%= image_tag property.favicon_image_url, alt: "#{property.name} favicon" %>
     <% end %>
   </div>
   <div class="list-group-item-body">
@@ -23,8 +23,10 @@
             <i class="fa fa-spinner fa-spin text-primary"></i>
           <% end %>
         </li>
-        <%= edit_button(link: edit_property_path(property)) %>
-        <%= goto_button(link: property_path(property), icon: "fas fa-chevron-right", title: "View Property") %>
+        <li class="d-none d-sm-inline list-inline-item">
+          <%= edit_button(link: edit_property_path(property)) %>
+          <%= goto_button(link: property_path(property), icon: "fas fa-chevron-right", title: "View Property") %>
+        </li>
       </ul>
     </div>
   </div>

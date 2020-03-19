@@ -7,10 +7,10 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="media align-items-center mb-3">
-          <label class="switcher-control mb-0 mr-3">
-            <%= f.check_box :api_access, class: "switcher-input", id: "checkboxSwitch2" %>
+          <%= f.label :api_access, class: "switcher-control mb-0 mr-3" do %>
+            <%= f.check_box :api_access, class: "switcher-input" %>
             <span class="switcher-indicator"></span>
-          </label>
+          <% end %>
           <label class="media-body text-muted mb-0">
             <span class="d-block text-dark">Enable API Access?</span>
           </label>

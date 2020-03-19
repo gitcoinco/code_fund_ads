@@ -16,8 +16,8 @@
         <%= tag.div class: "col-auto d-none d-sm-flex", data: navigable_expandos(controller: "sortable-list") do %>
           <div class="dropdown">
             <div class="btn-group" role="group" aria-label="sort">
-              <%= tag.button current_sort_direction_icon, class: "btn btn-secondary", data: navigable_expandos(action: "click->sortable-list#flip") %>
-              <button class="btn btn-secondary" style="min-width:112px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <%= tag.button current_sort_direction_icon, class: "btn btn-secondary", aria: {label: "flip list order"}, data: navigable_expandos(action: "click->sortable-list#flip") %>
+              <button class="btn btn-secondary" style="min-width:112px;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="sort options">
                 <%= @sorted_by.titleize %>
                 <span class="fa fa-caret-down"></span>
               </button>

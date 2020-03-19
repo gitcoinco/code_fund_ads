@@ -1,10 +1,10 @@
 <div class="nav-scroller border-bottom my-3">
   <%= nav_tabs do %>
-    <%= nav_item_link name: "Overview", path: campaign_path(subject), active: :exact %>
-    <%= nav_item_link name: "Daily Stats", path: campaign_dailies_path(subject) %>
-    <%= nav_item_link name: "Creatives", path: campaign_creatives_path(subject) %>
-    <%= nav_item_link name: "Countries", path: campaign_countries_path(subject) %>
-    <%= nav_item_link name: "Properties", path: campaign_properties_path(subject) %>
-    <%= nav_item_link name: "Settings", path: edit_campaign_path(subject) %>
+    <li><%= nav_item_link name: "Overview", path: campaign_path(subject), active: :exact %></li>
+    <li><%= nav_item_link name: "Daily Stats", path: campaign_dailies_path(subject) %></li>
+    <li><%= nav_item_link name: "Creatives", path: campaign_creatives_path(subject) %></li>
+    <li><%= nav_item_link name: "Countries", path: campaign_countries_path(subject) %></li>
+    <li><%= nav_item_link name: "Properties", path: campaign_properties_path(subject) %></li>
+    <li><%= nav_item_link name: "Settings", path: edit_campaign_path(subject) %></li>
   <% end %>
 </div>

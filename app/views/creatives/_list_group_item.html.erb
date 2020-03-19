@@ -4,7 +4,7 @@
   <div class="list-group-item-figure">
     <%= link_to(creative, class: "tile bg-light") do %>
       <% if creative.icon_image %>
-        <%= tag.span image_tag(creative.icon_image, class: "mr-1", width: "20", height: "20") %>
+        <%= tag.span image_tag(creative.icon_image, class: "mr-1", width: "20", height: "20", alt: "#{creative.name} icon") %>
       <% else %>
         <span class="fa fa-file-image text-muted"></span>
       <% end %>

@@ -29,7 +29,7 @@ export default class extends Controller {
 
   generateIndexContent (url) {
     const html = `<!DOCTYPE html>
-<html>
+<html lang="en">
   <body>
 
     <!-- BEGIN COPY CODEFUND EMBED -->

@@ -1,20 +1,15 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= @title || "CodeFund | Ethical Advertising" %></title>
-
     <!-- Meta Tags -->
     <%= display_meta_tags site: "CodeFund" %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
-
     <!-- CDN Stylesheets -->
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet" />
-
     <!-- Compressed Stylesheets -->
     <%= stylesheet_pack_tag "code_fund", media: "all", 'data-turbolinks-track': "reload" %>
-
     <!-- Compressed JavaScripts -->
     <%= javascript_include_tag "application", 'data-turbolinks-track': "reload" %>
     <%= javascript_pack_tag "code_fund", 'data-turbolinks-track': "reload" %>
@@ -23,7 +18,6 @@
     <main class="auth">
       <%= yield %>
     </main>
-
     <%= noty_flash %>
   </body>
 </html>

@@ -10,10 +10,10 @@
         <%= tag.div f.input(:name, as: :string, required: true, input_html: {class: "form-control"}), class: "col-12 mb-3" %>
         <div class="col-12">
           <div class="media align-items-center mb-3">
-            <label class="switcher-control mb-0 mr-3">
+            <%= f.label :creative_approval_needed, class: "switcher-control mb-0 mr-3" do %>
               <%= f.check_box :creative_approval_needed, class: "switcher-input" %>
               <span class="switcher-indicator"></span>
-            </label>
+            <% end %>
             <label class="media-body text-muted mb-0">
               <span class="d-block text-dark">Approval needed for creatives?</span>
             </label>

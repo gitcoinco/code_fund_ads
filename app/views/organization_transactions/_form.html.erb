@@ -26,10 +26,10 @@
         <%= tag.div f.input(:description, required: true, input_html: {rows: 10, class: "form-control"}), class: "col-12 mb-3" %>
       </div>
       <div class="media align-items-center mb-3">
-        <label class="switcher-control mb-0 mr-3">
+        <%= f.label :gift, class: "switcher-control mb-0 mr-3" do %>
           <%= f.check_box :gift, class: "switcher-input" %>
           <span class="switcher-indicator"></span>
-        </label>
+        <% end %>
         <label class="media-body text-muted mb-0">
           <span class="d-block text-dark">Gifted by CodeFund?</span>
         </label>

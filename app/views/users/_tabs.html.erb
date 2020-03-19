@@ -1,9 +1,8 @@
 <div class="nav-tabs-wrapper my-3">
   <%= nav_tabs do %>
-    <%= nav_item_link(name: "Overview", path: user_path(subject), active: :exact) %>
-    <%#= nav_item_link(name: "Teams", path: "#") %>
-    <%= nav_item_link(name: "Properties", path: user_properties_path(subject)) if subject.properties.exists? %>
-    <%= nav_item_link(name: "Campaigns", path: user_campaigns_path(subject)) if subject.campaigns.exists? %>
-    <%= nav_item_link(name: "Settings", path: edit_user_path(subject)) %>
+    <li><%= nav_item_link(name: "Overview", path: user_path(subject), active: :exact) %></li>
+    <li><%= nav_item_link(name: "Properties", path: user_properties_path(subject)) if subject.properties.exists? %></li>
+    <li><%= nav_item_link(name: "Campaigns", path: user_campaigns_path(subject)) if subject.campaigns.exists? %></li>
+    <li><%= nav_item_link(name: "Settings", path: edit_user_path(subject)) %></li>
   <% end %>
 </div>

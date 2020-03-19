@@ -1,7 +1,7 @@
 <%= render "devise/layout" do %>
   <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :post, class: "auth-form mx-auto"}) do |f| %>
     <div class="text-center mb-4">
-      <h4 class="font-weight-normal">Forgot your password?</h4>
+      <h1 class="h4 font-weight-normal">Forgot your password?</h1>
     </div>
     <div class="form-group">
       <div class="form-label-group">
@@ -11,13 +11,14 @@
                     autofocus: true,
                     input_html: {
                       autocomplete: "email",
-                      class: "form-control"
+                      class: "form-control",
+                      id: "devise-passwords-new-email"
                     },
                     data: {
                       rule_email: true,
                       msg: "Please enter a valid email address."
                     } %>
-        <label class="form-label">Email address</label>
+        <label class="form-label" for="devise-passwords-new-email">Email address</label>
       </div>
     </div>
     <%= f.button :submit, "Request Password",  class: "btn btn-primary btn-block" %>

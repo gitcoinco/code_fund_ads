@@ -4,17 +4,20 @@
     <%= f.input :reset_password_token, as: :hidden %>
     <%= f.full_error :reset_password_token %>
     <div class="text-center mb-4">
-      <h4 class="font-weight-normal">Change your password</h4>
+      <h1 class="h4 font-weight-normal">Change your password</h1>
     </div>
     <div class="form-group">
       <div class="form-label-group">
-        <label class="form-label">Password</label>
+        <label class="form-label" for="devise-passwords-edit-password">Password</label>
         <%= f.input :password,
                 required: true,
                 label: false,
                 autofocus: true,
                 hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),
-                input_html: {autocomplete: "new-password"} %>
+                input_html: {
+                  autocomplete: "new-password",
+                  id: "devise-passwords-edit-password"
+                } %>
       </div>
       <div class="form-label-group">
         <label class="form-label">Password Confirmation</label>
