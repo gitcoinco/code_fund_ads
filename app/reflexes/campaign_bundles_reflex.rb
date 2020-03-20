@@ -30,7 +30,7 @@ class CampaignBundlesReflex < ApplicationReflex
       region_ids: campaign_bundle.region_ids,
       start_date: campaign_bundle.start_date,
       end_date: campaign_bundle.end_date,
-      status: ENUMS::CAMPAIGN_STATUSES::ACCEPTED,
+      status: ENUMS::CAMPAIGN_STATUSES::ACCEPTED
     )
   end
 
@@ -58,6 +58,13 @@ class CampaignBundlesReflex < ApplicationReflex
   def update_campaign_audience_ids(audience_ids = [])
     campaign.keywords = []
     campaign.audience_ids = audience_ids.sort
+  end
+
+  def reset
+    @campaign_bundle = CampaignBundle.new(
+      start_date: Date.current,
+      end_date: 30.days.from_now.to_date
+    )
   end
 
   private

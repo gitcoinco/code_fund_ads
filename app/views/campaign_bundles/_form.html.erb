@@ -59,6 +59,7 @@
   </div>
   <%= button_panel do %>
     <%= link_to "Add Campaign", "#", class: "btn btn-secondary mr-2", data: {reflex: "click->CampaignBundlesReflex#add_campaign"} %>
-    <%= f.submit "Save Bundle", class: "btn btn-primary" if @campaign_bundle.valid? && @campaign_bundle.campaigns.present? %>
+    <%= f.submit "Save Bundle", class: "btn btn-primary mr-2" if @campaign_bundle.valid? && @campaign_bundle.campaigns.present? %>
+    <%= link_to "Reset", "#", class: "btn btn-link mr-2", data: {reflex: "click->CampaignBundlesReflex#reset"} %>
   <% end %>
 <% end %>

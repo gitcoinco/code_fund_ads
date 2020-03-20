@@ -18,6 +18,7 @@ class ApplicationController < ActionController::Base
   before_action :current_organization
   before_action :organization_redirect, if: -> { params["current-organization"] }
   before_action -> { Current.user_interface = current_user&.persisted? }
+  before_action :reset_stashed_campaign_bundle
 
   impersonates :user
 
@@ -143,6 +144,11 @@ class ApplicationController < ActionController::Base
 
   def reload_extensions
     load Rails.root.join("app/lib/extensions.rb")
+  end
+
+  def reset_stashed_campaign_bundle
+    return if controller_name == "campaign_bundles" && action_name == "new"
+    session[:stashed_campaign_bundle] = nil
   end
 
   def default_value(development: nil, production: nil)
