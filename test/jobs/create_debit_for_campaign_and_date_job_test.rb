@@ -39,7 +39,6 @@ class CreateDebitForCampaignAndDateJobTest < ActiveJob::TestCase
 
     assert campaign.standard?
     assert OrganizationTransaction.count == 2
-    # binding.pry unless OrganizationTransaction.debits.first.amount_cents == Impression.all.sum(:estimated_gross_revenue_fractional_cents).round
     assert OrganizationTransaction.debits.first.amount_cents == Impression.all.sum(:estimated_gross_revenue_fractional_cents).round
     assert campaign.organization.reload.balance == (starting_balance - Money.new(gross_revenue_cents, "USD"))
   end
