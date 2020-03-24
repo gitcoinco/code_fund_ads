@@ -1,5 +1,4 @@
-/* purgecss start ignore */
-#cf[data-template='sponsored-text'][data-theme='dark'] {
+ins#cf[data-template='sponsored-text'][data-theme='dark'] {
   text-decoration: none !important;
   color: #aaaaaa;
   line-height: 1.7;
@@ -58,7 +57,7 @@
   }
 }
 
-#cf[data-template='sponsored-text'][data-theme='light'] {
+ins#cf[data-template='sponsored-text'][data-theme='light'] {
   text-decoration: none !important;
   color: #6c757e;
   line-height: 1.7;
@@ -116,4 +115,3 @@
     }
   }
 }
-/* purgecss end ignore */

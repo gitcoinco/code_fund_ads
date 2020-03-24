@@ -1,4 +1,3 @@
-/* purgecss start ignore */
 import './index.scss'
 import Mustache from 'mustache'
 const templates = {}
@@ -176,4 +175,3 @@ class CodeFundAd {
 }
 
 window.CodeFundAd = CodeFundAd
-/* purgecss end ignore */
