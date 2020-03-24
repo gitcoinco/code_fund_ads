@@ -32,8 +32,8 @@ environment.plugins.append(
       path.join(__dirname, '../../app/helpers/**/*.rb')
     ]),
     whitelist: ['select', 'optional', 'user_skills', 'active', 'show'],
-    whitelistPatterns: [/select2$/, /stacked$/],
-    whitelistPatternsChildren: [/select2$/, /stacked$/]
+    whitelistPatterns: [/select2$/, /stacked$/, /cf$/],
+    whitelistPatternsChildren: [/select2$/, /stacked$/, /cf$/]
   })
 )
 
