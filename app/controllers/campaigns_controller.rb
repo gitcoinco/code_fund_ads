@@ -60,7 +60,7 @@ class CampaignsController < ApplicationController
 
     respond_to do |format|
       if @campaign.update(campaign_params)
-        UpdateCampaignNotificationJob.perform_later(campaign: @campaign, previous_status: status, user: current_user) unless authorized_user.can_admin_system?
+        PausedCampaignNotificationJob.perform_later(campaign: @campaign, previous_status: status, user: current_user) unless authorized_user.can_admin_system?
         format.html { redirect_to @campaign, notice: "Campaign was successfully updated." }
         format.json { render :show, status: :ok, location: @campaign }
       else
