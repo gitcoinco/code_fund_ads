@@ -22,17 +22,20 @@ environment.plugins.prepend(
   new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en|pl/)
 )
 
-environment.plugins.append('PurgecssPlugin', new PurgecssPlugin({
-  paths: glob.sync([
-    path.join(__dirname, '../../app/javascript/**/*.js'),
-    path.join(__dirname, '../../app/views/**/*.js.erb'),
-    path.join(__dirname, '../../app/views/**/*.html.erb'),
-    path.join(__dirname, '../../app/helpers/**/*.rb'),
-  ]),
-  whitelist: ['select', 'optional', 'user_skills', 'active', 'show'],
-  whitelistPatterns: [/select2$/, /stacked$/],
-  whitelistPatternsChildren: [/select2$/, /stacked$/],
-}));
+environment.plugins.append(
+  'PurgecssPlugin',
+  new PurgecssPlugin({
+    paths: glob.sync([
+      path.join(__dirname, '../../app/javascript/**/*.js'),
+      path.join(__dirname, '../../app/views/**/*.js.erb'),
+      path.join(__dirname, '../../app/views/**/*.html.erb'),
+      path.join(__dirname, '../../app/helpers/**/*.rb')
+    ]),
+    whitelist: ['select', 'optional', 'user_skills', 'active', 'show'],
+    whitelistPatterns: [/select2$/, /stacked$/],
+    whitelistPatternsChildren: [/select2$/, /stacked$/]
+  })
+)
 
 environment.loaders.prepend('erb', erb)
 
