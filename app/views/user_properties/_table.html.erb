@@ -14,7 +14,7 @@
         <% properties.each do |property| %>
           <%= table_row do %>
             <%= table_data add_class: "text-truncate" do %>
-              <%= link_to image_tag("", class: "mr-2 lozad", style: "width: 16px; height: 16px;", data: {src: property.favicon_image_url}) %>
+              <%= link_to image_tag("", class: "mr-2 lozad", alt: "#{property.name} icon", style: "width: 16px; height: 16px;", data: {src: property.favicon_image_url}) %>
               <%= link_to property.name, property %>
             <% end %>
             <%= table_data link_to(property.pretty_url, property.url, target: "_blank") %>

@@ -1,7 +1,7 @@
 <%= card do %>
   <%= card_body do %>
     <div class="d-flex justify-content-center align-items-center" style="min-height:200px">
-      <%= image_tag image, class: "img-thumbnail mw-100" %>
+      <%= image_tag image, class: "img-thumbnail mw-100", alt: image.blob&.metadata["name"] || image.name %>
     </div>
   <% end %>
   <ul class="list-group list-group-flush list-group-bordered border-top border-bottom">

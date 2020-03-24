@@ -18,10 +18,10 @@
         <%= tag.div f.input(:country, input_html: {data: {controller: "select"}}), class: "col-8 mb-1" %>
       </div>
       <div class="media align-items-center mt-3">
-        <label class="switcher-control mb-0 mr-3">
+        <%= f.label :us_resident, class: "switcher-control mb-0 mr-3" do %>
           <%= f.check_box :us_resident, class: "switcher-input" %>
           <span class="switcher-indicator"></span>
-        </label>
+        <% end %>
         <label class="media-body text-muted mb-0">
           <span class="d-block text-dark">Are you a US Resident?</span>
           <small class="d-block">We need to know if you are a US resident for tax purposes</small>

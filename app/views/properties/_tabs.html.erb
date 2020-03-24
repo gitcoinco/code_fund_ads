@@ -1,9 +1,9 @@
 <div class="nav-scroller border-bottom my-3">
   <%= nav_tabs do %>
-    <%= active_link_to "Overview", property_path(subject), class: "nav-link", active: :exact %>
-    <%= active_link_to "Instructions", property_instructions_path(subject), class: "nav-link" %>
-    <%= active_link_to "Earnings", property_earnings_path(subject), class: "nav-link" %>
-    <%= active_link_to "Campaigns", property_campaigns_path(subject), class: "nav-link" %>
-    <%= active_link_to "Settings", edit_property_path(subject), class: "nav-link" %>
+    <li><%= active_link_to "Overview", property_path(subject), class: "nav-link", active: :exact %></li>
+    <li><%= active_link_to "Instructions", property_instructions_path(subject), class: "nav-link" %></li>
+    <li><%= active_link_to "Earnings", property_earnings_path(subject), class: "nav-link" %></li>
+    <li><%= active_link_to "Campaigns", property_campaigns_path(subject), class: "nav-link" %></li>
+    <li><%= active_link_to "Settings", edit_property_path(subject), class: "nav-link" %></li>
   <% end %>
 </div>

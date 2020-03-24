@@ -144,10 +144,10 @@
         <div class="row">
           <div class="col-12 mb-2">
             <div class="media align-items-center mb-3">
-              <label class="switcher-control mb-0 mr-3">
+              <%= f.label :paid_fallback, class: "switcher-control mb-0 mr-3" do %>
                 <%= f.check_box :paid_fallback, class: "switcher-input", "data-reflex-permanent": true %>
                 <span class="switcher-indicator"></span>
-              </label>
+              <% end %>
               <label class="media-body text-muted mb-0">
                 <span class="d-block text-dark">Is this a paid fallback campaign?</span>
               </label>
@@ -157,10 +157,10 @@
         <div class="row">
           <div class="col-12 mb-2">
             <div class="media align-items-center mb-3">
-              <label class="switcher-control mb-0 mr-3">
+              <%= f.label :fallback, class: "switcher-control mb-0 mr-3" do %>
                 <%= f.check_box :fallback, class: "switcher-input", "data-reflex-permanent": true %>
                 <span class="switcher-indicator"></span>
-              </label>
+              <% end %>
               <label class="media-body text-muted mb-0">
                 <span class="d-block text-dark">Is this a fallback campaign?</span>
               </label>
@@ -329,10 +329,10 @@
           <div class="row">
             <div class="col-12 mb-2">
               <div class="media align-items-center mb-3">
-                <label class="switcher-control mb-0 mr-3">
+                <%= f.label :fixed_ecpm, class: "switcher-control mb-0 mr-3" do %>
                   <%= f.check_box(:fixed_ecpm, class: "switcher-input", input_html: {data:{"reflex-permanent": true}}) %>
                   <span class="switcher-indicator"></span>
-                </label>
+                <% end %>
                 <label class="media-body text-muted mb-0">
                   <span class="d-block text-dark">Use fixed eCPM pricing? <small class="ml-2 text-muted">Do NOT adjust by country</small></span>
                 </label>

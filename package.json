@@ -19,6 +19,7 @@
     "@fullcalendar/bootstrap": "^4.3.0",
     "@fullcalendar/core": "^4.3.1",
     "@fullcalendar/daygrid": "^4.3.0",
+    "@fullhuman/postcss-purgecss": "^2.1.0",
     "@rails/actioncable": "^6.0.0",
     "@rails/activestorage": "^6.0.0",
     "@rails/ujs": "^6.0.0",

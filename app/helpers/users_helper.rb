@@ -12,6 +12,7 @@ module UsersHelper
     gravatar_url = user.gravatar_url("identicon")
     image_tag(
       avatar_image_url(user),
+      alt: "#{user&.name} identicon",
       class: tag_class,
       onerror: "this.error=null;this.src=\"#{gravatar_url}\""
     )

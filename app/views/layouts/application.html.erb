@@ -1,21 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= @title || "CodeFund | Ethical Advertising" %></title>
-
     <!-- Meta Tags -->
     <%= display_meta_tags site: "CodeFund" %>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
-
     <!-- CDN Stylesheets -->
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-zrnmn8R8KkWl12rAZFt4yKjxplaDaT7/EUkKm7AovijfrQItFWR7O/JJn4DAa/gx" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css?family=Fira+Sans:400,500,600" rel="stylesheet" />
-
     <!-- Compressed Stylesheets -->
     <%= stylesheet_pack_tag "code_fund", media: "all", 'data-turbolinks-track': "reload" %>
-
     <!-- Compressed JavaScripts -->
     <%= javascript_include_tag "application", 'data-turbolinks-track': "reload" %>
     <%= javascript_pack_tag "code_fund", 'data-turbolinks-track': "reload" %>
@@ -32,7 +27,6 @@
           <%= yield %>
         </main>
       </div>
-
       <div hidden role="status" class="reflex-activity spinner-border spinner-border-sm text-primary" style="position:fixed; bottom:0; right:0; margin:0 0.5em 0.5em 0;">
         <span class="sr-only">Loading...</span>
       </div>
@@ -40,7 +34,6 @@
     <%= render "/shared/modals/organization_user_modal" %>
     <!-- Target for dynamically generated modals -->
     <div id="global-modal" class="modal fade"></div>
-
     <%= noty_flash %>
   </body>
 </html>

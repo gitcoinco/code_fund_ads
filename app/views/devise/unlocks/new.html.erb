@@ -3,15 +3,18 @@
     <%= f.error_notification %>
     <%= f.full_error :unlock_token %>
     <div class="text-center mb-4">
-      <h4 class="font-weight-normal">Forgot your password?</h4>
+      <h1 class="h4 font-weight-normal">Forgot your password?</h1>
     </div>
     <div class="form-label-group">
-      <label class="form-label">Email address</label>
+      <label class="form-label" for="devise-unlocks-new-email">Email address</label>
       <%= f.input :email,
                   label: false,
                   required: true,
                   autofocus: true,
-                  input_html: {autocomplete: "email"} %>
+                  input_html: {
+                    autocomplete: "email",
+                    id: "devise-unlocks-new-email"
+                  } %>
     </div>
     <%= f.button :submit, "Resend Unlock", class: "btn btn-primary btn-block" %>
     <%= render "devise/links" %>

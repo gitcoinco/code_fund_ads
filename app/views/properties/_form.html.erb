@@ -125,10 +125,10 @@
         <% if authorized_user.can_admin_system? %>
           <div class="col-12 mb-2 mt-2">
             <div class="media align-items-center mb-3">
-              <label class="switcher-control mb-0 mr-3">
+              <%= f.label :restrict_to_assigner_campaigns, class: "switcher-control mb-0 mr-3" do %>
                 <%= f.check_box :restrict_to_assigner_campaigns, class: "switcher-input", data: {"reflex-permanent": true} %>
                 <span class="switcher-indicator"></span>
-              </label>
+              <% end %>
               <label class="mb-0">
                 <span class="d-block">Restrict premium campaigns to those that have explicitly assigned this property</span>
               </label>
@@ -137,10 +137,10 @@
         <% end %>
         <div class="col-12 mb-2 mt-2">
           <div class="media align-items-center mb-3">
-            <label class="switcher-control mb-0 mr-3">
+            <%= f.label :prohibit_fallback_campaigns, class: "switcher-control mb-0 mr-3" do %>
               <%= f.check_box :prohibit_fallback_campaigns, class: "switcher-input", data: {"reflex-permanent": true} %>
               <span class="switcher-indicator"></span>
-            </label>
+            <% end %>
             <label class="mb-0">
               <span class="d-block">
                 Do not display fallback ads

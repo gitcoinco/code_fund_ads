@@ -109,7 +109,7 @@
   </div>
   <div class="col-md-6">
     <div class="p-4 mb-3 rounded border-bottom">
-      <%= image_pack_tag "diagrams/anatomy-of-an-ad@2x.png", class: "img-fluid" %>
+      <%= image_pack_tag "diagrams/anatomy-of-an-ad@2x.png", class: "img-fluid", alt: "Anatomy of an ad diagram" %>
     </div>
     <div class="row justify-content-between align-items-center mb-2">
       <div class="col-12">
@@ -148,7 +148,7 @@
         <span class="cf-wrapper">
           <a href="javascript:;" class="cf-img-wrapper" rel="sponsor">
             <%= image_tag creative.large_image&.variant(geometry: "130x100") || asset_pack_path("media/images/placeholders/missing-260x200.png"),
-                  border: 0, height: 100, width: 130, class: "cf-img",
+                  border: 0, height: 100, width: 130, class: "cf-img", alt: "large image preview",
                   data: {
                     target: "creative-form.previewImageUrl",
                     default_image_url: asset_pack_path("media/images/placeholders/missing-260x200.png")
