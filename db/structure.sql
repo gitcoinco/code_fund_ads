@@ -717,7 +717,8 @@ CREATE TABLE public.organization_transactions (
     reference text,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    gift boolean DEFAULT false
+    gift boolean DEFAULT false,
+    temporary boolean DEFAULT false
 );
 
 
@@ -2910,6 +2911,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200213234149'),
 ('20200220160136'),
 ('20200221220825'),
-('20200303224134');
-
-
+('20200303224134'),
+('20200325201726');

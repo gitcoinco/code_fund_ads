@@ -9,6 +9,7 @@
 #  gift             :boolean          default("false")
 #  posted_at        :datetime         not null
 #  reference        :text
+#  temporary        :boolean          default("false")
 #  transaction_type :string           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
@@ -33,6 +34,8 @@ class OrganizationTransaction < ApplicationRecord
   validates :posted_at, presence: true
   validates :transaction_type, presence: true, inclusion: {in: ENUMS::ORGANIZATION_TRANSACTION_TYPES.values}
   validates :description, presence: true
+  validate :validate_gift
+  validate :validate_temporary
 
   # callbacks .................................................................
 
@@ -58,4 +61,16 @@ class OrganizationTransaction < ApplicationRecord
   # protected instance methods ................................................
 
   # private instance methods ..................................................
+
+  private
+
+  def validate_gift
+    return unless gift
+    errors.add(:base, "cannot be gift and temporary") if temporary
+  end
+
+  def validate_temporary
+    return unless temporary
+    errors.add(:base, "type must be credit if temporary") if transaction_type != ENUMS::ORGANIZATION_TRANSACTION_TYPES::CREDIT
+  end
 end

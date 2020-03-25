@@ -9,6 +9,7 @@
 #  gift             :boolean          default("false")
 #  posted_at        :datetime         not null
 #  reference        :text
+#  temporary        :boolean          default("false")
 #  transaction_type :string           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null

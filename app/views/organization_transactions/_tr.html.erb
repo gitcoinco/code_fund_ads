@@ -10,7 +10,12 @@
       <span class="fas fa-gift text-success"></span>
     <% end %>
   <% end %>
-  <%= table_data organization_transaction.reference %>
+  <%= table_data do %>
+    <% if organization_transaction.temporary? %>
+      <span class="badge badge-warning">Temporary</span>
+    <% end %>
+    <%= organization_transaction.reference %>
+  <% end %>
   <%= table_data add_class: "text-right" do %>
     <%= edit_button(link: edit_organization_transaction_path(organization, organization_transaction), title: "Edit Member", admin: true) %>
     <%= delete_button(link: organization_transaction_path(organization, organization_transaction), title: "Remove Member", admin: true) %>

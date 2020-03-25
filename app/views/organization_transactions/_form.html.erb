@@ -34,6 +34,18 @@
           <span class="d-block text-dark">Gifted by CodeFund?</span>
         </label>
       </div>
+      <div class="media align-items-center mb-3">
+        <%= f.label :temporary, class: "switcher-control mb-0 mr-3" do %>
+          <%= f.check_box :temporary, class: "switcher-input" %>
+          <span class="switcher-indicator"></span>
+        <% end %>
+        <label class="media-body text-muted mb-0">
+          <span class="d-block text-dark">Temporary Credit?</span>
+        </label>
+      </div>
+      <div class="text-muted">
+        Transaction cannot be a gift and temporary credit. Make sure only one of these is selected.
+      </div>
     <% end %>
     <%= card_footer do %>
       <%= card_footer_content do %>

@@ -99,7 +99,8 @@ class OrganizationTransactionsController < ApplicationController
         :description,
         :gift,
         :reference,
-        :transaction_type
+        :transaction_type,
+        :temporary
       ).tap do |whitelisted|
         whitelisted[:posted_at] = Date.strptime(params[:organization_transaction][:posted_at], "%m/%d/%Y")
       end
