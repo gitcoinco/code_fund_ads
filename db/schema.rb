@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_03_224134) do
+ActiveRecord::Schema.define(version: 2020_03_25_201726) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -381,6 +381,7 @@ ActiveRecord::Schema.define(version: 2020_03_03_224134) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "gift", default: false
+    t.boolean "temporary", default: false
     t.index ["gift"], name: "index_organization_transactions_on_gift"
     t.index ["organization_id"], name: "index_organization_transactions_on_organization_id"
     t.index ["reference"], name: "index_organization_transactions_on_reference"
