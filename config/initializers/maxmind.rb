@@ -1,1 +1,1 @@
-DownloadAndExtractMaxmindFileJob.new.extract
+DownloadAndExtractMaxmindFileJob.new.perform
