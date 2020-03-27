@@ -91,7 +91,10 @@ class CampaignsController < ApplicationController
 
   def set_current_organization_for_admin
     return unless authorized_user.can_admin_system?
-    Current.organization = @campaign.organization if @campaign.organization
+    if @campaign.organization
+      Current.organization = @campaign.organization
+      session[:organization_id] = @campaign.organization&.id
+    end
   end
 
   def set_sortable_columns
