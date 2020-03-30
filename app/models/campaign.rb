@@ -435,17 +435,6 @@ class Campaign < ApplicationRecord
     date.to_date.between? start_date, end_date
   end
 
-  def date_range
-    return nil unless start_date && end_date
-    "#{start_date.to_s "mm/dd/yyyy"} #{end_date.to_s "mm/dd/yyyy"}"
-  end
-
-  def date_range=(value)
-    dates = value.split(" - ")
-    self.start_date = Date.strptime(dates[0], "%m/%d/%Y")
-    self.end_date = Date.strptime(dates[1], "%m/%d/%Y")
-  end
-
   def countries
     Country.where iso_code: country_codes
   end

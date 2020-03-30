@@ -41,5 +41,20 @@ module Campaigns
       consumed_budget_for_today = (daily_budget - daily_remaining_budget)
       ((consumed_budget_for_today.to_f / daily_budget.to_f) * 100).to_i
     end
+
+    # TODO: rename date_range to something more appropriate for ui only concerns like: date_range_string
+    #       we should do this because `range` has programmatic meaning and this implementaiton is not it
+    def date_range
+      return nil unless start_date && end_date
+      "#{start_date.to_s "mm/dd/yyyy"} #{end_date.to_s "mm/dd/yyyy"}"
+    end
+
+    # TODO: rename date_range to something more appropriate for ui only concerns like: date_range_string
+    #       we should do this because `range` has programmatic meaning and this implementaiton is not it
+    def date_range=(value)
+      dates = value.split(" - ")
+      self.start_date = Date.strptime(dates[0], "%m/%d/%Y")
+      self.end_date = Date.strptime(dates[1], "%m/%d/%Y")
+    end
   end
 end

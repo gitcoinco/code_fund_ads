@@ -261,9 +261,14 @@ class CampaignTest < ActiveSupport::TestCase
 
   test "bundled start and end date changes will update bundle" do
     bundled_campaign = campaigns(:premium_bundled)
+    start_date = Date.parse("2020-03-01")
+    end_date = Date.parse("2020-06-01")
+
     assert_equal bundled_campaign.campaign_bundle.start_date, bundled_campaign.start_date
     assert_equal bundled_campaign.campaign_bundle.end_date, bundled_campaign.end_date
-    bundled_campaign.update(start_date: Date.parse("2020-03-01"), end_date: Date.parse("2020-05-01"))
+    bundled_campaign.update! start_date: start_date, end_date: end_date
+    assert bundled_campaign.start_date == start_date
+    assert bundled_campaign.end_date == end_date
     assert_equal bundled_campaign.start_date, bundled_campaign.campaign_bundle.start_date
     assert_equal bundled_campaign.end_date, bundled_campaign.campaign_bundle.end_date
   end
