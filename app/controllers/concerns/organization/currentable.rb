@@ -1,6 +1,11 @@
 module Organization::Currentable
   extend ActiveSupport::Concern
 
+  included do
+    before_action :current_organization
+    helper_method :current_organization
+  end
+
   def current_organization
     return unless current_user
 
@@ -12,7 +17,6 @@ module Organization::Currentable
   def set_current_organization
     session[:organization_id] = org&.id
     Current.organization = org
-
     org
   end
 

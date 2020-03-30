@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
   before_action :sample_requests_for_scout
   before_action :set_ngrok_urls, if: -> { Rails.env.development? }
   before_action :allow_cors_requests, unless: -> { Rails.env.production? }
-  before_action :current_organization
   before_action :organization_redirect, if: -> { params["current-organization"] }
   before_action -> { Current.user_interface = current_user&.persisted? }
 
@@ -29,8 +28,6 @@ class ApplicationController < ActionController::Base
     end
     params
   end
-
-  helper_method :current_organization
 
   def organization_redirect
     redirect_to organization_path(Current.organization)
