@@ -8,7 +8,7 @@ ruby "2.6.5"
 gem "active_link_to", "~> 1.0.5"
 gem "active_storage_svg_sanitizer", "~> 0.1.0"
 gem "acts_as_commentable_with_threading", "~> 2.0.1"
-gem "aws-sdk-s3", "~> 1.48.0", require: false
+gem "aws-sdk-s3", "~> 1.61.1", require: false
 gem "barnes", "~> 0.0.7"
 gem "bootsnap", ">= 1.4.2", require: false
 gem "cable_ready", "~> 4.0.7"
