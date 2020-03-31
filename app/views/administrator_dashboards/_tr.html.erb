@@ -24,7 +24,7 @@
               valuemin: 0,
               valuemax: 100
             },
-            title: "#{campaign.percentage_complete_by_date}% complete by budget with #{pluralize(campaign.remaining_operative_days, 'day')} remaining",
+            title: "#{campaign.percentage_complete_by_date}% complete by date with #{pluralize(campaign.remaining_operative_days, 'day')} remaining",
             style: "width: #{campaign.percentage_complete_by_date}%", data: tooltip_expando do %>
             <span class="sr-only"><%= campaign.percentage_complete_by_date %>%</span>
           <% end %>
@@ -38,7 +38,7 @@
               valuemin: 0,
               valuemax: 100
             },
-            title: "#{campaign.percentage_complete_by_budget}% complete by budget with #{pluralize(campaign.estimated_days_until_budget_consumed, 'day')} remaining",
+            title: "#{campaign.percentage_complete_by_budget}% complete by budget with #{pluralize(campaign.estimated_days_until_budget_consumed, 'day')} until budget is consumed",
             style: "width: #{campaign.percentage_complete_by_budget}%", data: tooltip_expando do %>
             <span class="sr-only"><%= campaign.percentage_complete_by_budget %>%</span>
           <% end %>
