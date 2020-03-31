@@ -81,7 +81,7 @@ gem "tag_columns", "~> 0.1.8"
 gem "turbolinks", "~> 5"
 gem "typhoeus", "~> 1.3.1"
 gem "uglifier", ">= 1.3.0"
-gem "webpacker", "~> 4.2.0"
+gem "webpacker", "~> 5.0.1"
 
 group :development, :test do
   gem "awesome_print"
