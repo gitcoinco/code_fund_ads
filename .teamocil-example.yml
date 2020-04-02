@@ -6,7 +6,7 @@ windows:
     layout: main-vertical
     panes:
       - commands:
-        - asdf local ruby 2.6.5
+        - asdf local ruby 2.6.6
         - asdf local nodejs 13.0.1
         - nvim
         focus: true
@@ -16,7 +16,7 @@ windows:
     layout: main-vertical
     panes:
       - commands:
-        - asdf local ruby 2.6.5
+        - asdf local ruby 2.6.6
         - asdf local nodejs 13.0.1
         - bundle exec rails c
 
@@ -25,13 +25,13 @@ windows:
     layout: even-horizontal
     panes:
       - commands:
-        - asdf local ruby 2.6.5
+        - asdf local ruby 2.6.6
         - asdf local nodejs 13.0.1
         - lsof -t -i tcp:3000 | xargs kill -KILL
         - redis-cli flushall
         - bundle exec rails s
       - commands:
-        - asdf local ruby 2.6.5
+        - asdf local ruby 2.6.6
         - asdf local nodejs 13.0.1
         - lsof -t -i tcp:3035 | xargs kill -KILL
         - bundle exec ./bin/webpack-dev-server
@@ -41,7 +41,7 @@ windows:
     layout: main-vertical
     panes:
       - commands:
-        - asdf local ruby 2.6.5
+        - asdf local ruby 2.6.6
         - asdf local nodejs 13.0.1
         - redis-cli flushall
         - bundle exec sidekiq -C config/sidekiq.yml
