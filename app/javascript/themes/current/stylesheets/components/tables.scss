@@ -1,6 +1,5 @@
 // =========== Base ===========
 th[scope='col'] a {
-  color: #1e2022;
   text-decoration: none;
 }
 
@@ -9,7 +8,11 @@ th[scope='col'] a {
   display: block;
   line-height: 0.7;
   cursor: pointer;
-  color: #bdc5d1;
+  color: $color-gray-500;
+
+  &:hover {
+    color: $color-gray-700;
+  }
 }
 
 // =========== Pagination ===========

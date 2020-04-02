@@ -1,3 +1,15 @@
+// =========== Mixins ===========
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+  $max: breakpoint-max($name, $breakpoints);
+  @if $max {
+    @media (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
 // =========== Opacity ===========
 .opacity-0 {
   opacity: 0 !important;
@@ -52,13 +64,9 @@
   }
 }
 
-.text-sm {
-  font-size: 0.825rem;
-}
-
 .code {
   font-family: monospace;
-  color: rgb(232, 62, 140);
+  color: $code-text-color;
   word-break: break-word;
   font-size: 1.25em;
 }
@@ -85,18 +93,8 @@
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
-.grid-tcolumns-200 {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-}
-
 .grid-trows-200 {
   grid-template-rows: repeat(auto-fit, minmax(200px, 1fr));
-}
-
-.dashboard-grid-wrapper {
-  display: grid;
-  grid-gap: 10px 20px;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
 // =========== Buttons ===========
@@ -105,8 +103,4 @@
     display: block;
     width: 100%;
   }
-}
-
-.bg-dark-ad {
-  background-color: rgb(29, 29, 29);
 }

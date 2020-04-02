@@ -597,7 +597,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   bullet
   byebug
-  cable_ready (~> 4.0.7)
+  cable_ready (~> 4.0.9)
   camo (~> 0.1.0)
   capybara (>= 2.15)
   chroma (~> 0.2.0)

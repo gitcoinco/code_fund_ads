@@ -11,7 +11,7 @@ gem "acts_as_commentable_with_threading", "~> 2.0.1"
 gem "aws-sdk-s3", "~> 1.61.1", require: false
 gem "barnes", "~> 0.0.7"
 gem "bootsnap", ">= 1.4.2", require: false
-gem "cable_ready", "~> 4.0.7"
+gem "cable_ready", "~> 4.0.9"
 gem "camo", "~> 0.1.0"
 gem "chroma", "~> 0.2.0"
 gem "chronic", "~> 0.10.2"
