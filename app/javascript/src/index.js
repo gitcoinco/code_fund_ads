@@ -6,7 +6,6 @@ require('channels')
 import 'bootstrap'
 import 'select2'
 import 'moment'
-import 'trix'
 import 'bootstrap-daterangepicker'
 import '../events'
 import './prefetch'

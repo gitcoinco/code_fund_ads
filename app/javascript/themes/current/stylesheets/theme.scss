@@ -1,5 +1,3 @@
-@import './theme_variables';
-
 // =========== Webpack ===========
 @import '~animate.css/animate';
 @import '~bootstrap-select/dist/css/bootstrap-select.min';
@@ -30,13 +28,13 @@ footer {
 }
 
 .app-header-dark {
-  background-color: #222230 !important;
+  background-color: $color-gray-800 !important;
 }
 
 li.menu-item.active {
   a.menu-link {
-    color: #222230;
-    background-color: #ffffff;
+    color: $color-gray-800;
+    background-color: $color-white;
   }
 }
 
@@ -71,15 +69,11 @@ button.layout-button {
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #fff;
+  background-color: $color-white;
   background-clip: border-box;
-  border: 1px solid rgba(20, 20, 31, 0.12);
-  border-radius: 0.25rem;
 }
 
 .form-group {
-  $color-danger: rgb(183, 107, 163);
-  $color-danger-light: rgba(183, 107, 163, 0.15);
   .field_with_errors {
     label {
       color: $color-danger;
@@ -97,8 +91,14 @@ button.layout-button {
 
 .app-header,
 .auth-header {
-  background-color: #15003e !important;
+  background-color: $color-purple !important;
   background-image: url('../../../images/patterns/pattern2.svg');
   background-size: initial;
   background-repeat: repeat;
+}
+
+.dashboard-grid-wrapper {
+  display: grid;
+  grid-gap: 10px 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
