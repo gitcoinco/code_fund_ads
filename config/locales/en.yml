@@ -59,6 +59,17 @@ en:
       failure: We are unable to delete a team that has active members.
     update:
       success: Team was successfully updated.
+    alert:
+      missing_images:
+        heading: Missing required image formats
+        body: "Please upload images with the following formats: %{missing_image_formats}."
+      missing_creatives:
+        heading: Missing creatives
+        body: You need to have active creatives to complete this form.
+      missing_creatives_and_images:
+        heading: You are missing images and active creatives
+        body: "Please upload images with the following formats: %{missing_image_formats}, and then create a new creative with them."
+
   datetime:
     distance_in_words:
       short:

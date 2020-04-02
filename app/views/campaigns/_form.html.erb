@@ -1,3 +1,4 @@
+<%= render("/shared/alert", missing_campaign_resources_alert.merge(alert_type: "danger")) if missing_campaign_resources_alert %>
 <%= simple_form_for campaign, data: {controller: "campaign-form"}, wrapper: :front_form do |f| %>
   <%= render "/shared/forms/error_messages", object: campaign %>
   <%= card do %>
