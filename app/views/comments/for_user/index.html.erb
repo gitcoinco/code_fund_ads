@@ -1,9 +1,0 @@
-<%= render layout: "/users/layout", locals: {user: @commentable} do %>
-  <%= card do %>
-    <%= card_header do %>
-      <%= card_title "Comments" %>
-      <%= card_subtitle "Comments and notes for this user" %>
-    <% end %>
-    <%= render "/comments/table", commentable: @commentable, comments: @comments %>
-  <% end %>
-<% end %>

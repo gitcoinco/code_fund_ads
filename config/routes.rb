@@ -45,7 +45,6 @@ Rails.application.routes.draw do
   scope "/organization/:organization_id/" do
     resources :organization_transactions, path: "/transactions"
     resources :organization_users, path: "/members", as: :organization_users
-    resources :comments, only: [:index], as: :organization_comments
     resources :events, only: [:index], as: :organization_events
     resources :versions, only: [:index], as: :organization_versions, path: "/revisions"
     resources :organization_reports, except: [:edit], as: :organization_reports, path: "/reports"
@@ -63,20 +62,17 @@ Rails.application.routes.draw do
   end
 
   resources :versions, only: [:show, :update]
-  resources :comments, only: [:create, :destroy]
   resources :audiences, only: [:index]
 
   resources :campaign_bundles, only: [:new, :create, :index, :show]
   resources :campaigns
   scope "/campaigns/:campaign_id" do
-    resource :campaign_dashboards, only: [:show], path: "/overview"
     resources :campaign_reports, only: [:create], path: "/reports"
     resources :campaign_dailies, only: [:index], path: "/dailies"
     resources :campaign_properties, only: [:index, :update], path: "/properties"
     resources :campaign_countries, only: [:index], path: "/countries"
     resources :campaign_creatives, only: [:index], path: "/creatives"
     resources :versions, only: [:index], as: :campaign_versions, path: "/revisions"
-    resources :comments, only: [:index], as: :campaign_comments
     resources :events, only: [:index], as: :campaign_events
   end
 
@@ -85,8 +81,6 @@ Rails.application.routes.draw do
     resources :events, only: [:index], as: :creative_events
     resource :creative_previews, only: [:show], path: "/preview/:template/:theme"
   end
-
-  resources :coupons, except: [:show]
 
   # this action should semantically be a `create`,
   # but we are using `show` because it renders the pixel image that creates the impression record
@@ -98,7 +92,7 @@ Rails.application.routes.draw do
     resource :impression_uplifts, only: [:create], path: "/uplift"
   end
 
-  # TODO: deprecate legacy support on 2019-04-01
+  # DEPRECATE: deprecate legacy support on 2019-04-01
   # Legacy embed script support
   get "/scripts/:legacy_property_id/embed.js", to: "advertisements#show"
   # Legacy impressions api support
@@ -110,14 +104,12 @@ Rails.application.routes.draw do
   end
   scope "/properties/:property_id" do
     resource :property_instructions, only: [:show], path: "/instructions"
-    resource :property_keywords, only: [:show], path: "/keywords"
     resource :property_earnings, only: [:show], path: "/earnings"
     resource :property_dashboards, only: [:show], path: "/overview"
     resources :property_campaigns, only: [:index], path: "/campaigns"
     resources :versions, only: [:index], as: :property_versions, path: "/revisions"
     resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { %w[js html json].include? req.format }
     resource :advertisement_tests, only: [:show], constraints: ->(req) { %w[js html json svg].include? req.format } if Rails.env.test?
-    resources :comments, only: [:index], as: :property_comments
     resources :events, only: [:index], as: :property_events
     get "/sponsor", to: "advertisements#show", constraints: ->(req) { req.format == "svg" }, defaults: {format: :svg}, as: :sponsor
     get "/visit-sponsor", to: "advertisement_clicks#show", as: :sponsor_visit
@@ -136,7 +128,6 @@ Rails.application.routes.draw do
     resources :user_properties, only: [:index], path: "/properties"
     resources :creatives, only: [:index], as: :user_creatives
     resources :versions, only: [:index], as: :user_versions, path: "/revisions"
-    resources :comments, only: [:index], as: :user_comments
     resources :events, only: [:index], as: :user_events
     resource :identicon, only: [:show], format: :png, as: :user_identicon, path: "/identicon.png"
     resource :impersonations, only: [:update], as: :user_impersonation, path: "/impersonate"
