@@ -4,9 +4,11 @@ require "zlib"
 require "rubygems/package"
 
 class DownloadAndExtractMaxmindFileJob < ApplicationJob
-  MAXMIND_URI = URI("http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz")
-  MAXMIND_DIR = Rails.root.join("db/maxmind")
+  MAXMIND_URI = URI("https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&license_key=#{ENV["MAXMIND_LICENSE_KEY"]}&suffix=tar.gz")
+  MAXMIND_DIR = Rails.root.join("tmp/maxmind")
   MAXMIND_PATH = MAXMIND_DIR.join("GeoLite2-City.tar.gz")
+  MAXMIND_LEGACY_DIR = Rails.root.join("db/maxmind")
+  MAXMIND_LEGACY_PATH = MAXMIND_LEGACY_DIR.join("GeoLite2-City.tar.gz")
 
   queue_as :low
 
@@ -21,14 +23,20 @@ class DownloadAndExtractMaxmindFileJob < ApplicationJob
 
   def download
     FileUtils.rm_f MAXMIND_PATH
+
     File.open MAXMIND_PATH, "wb" do |file|
       Net::HTTP.start(MAXMIND_URI.host) do |http|
         http.open_timeout = 1
         http.read_timeout = 1
-        http.request_get(MAXMIND_URI.path) do |response|
+        http.request_get(MAXMIND_URI) do |response|
+          throw :abort if response.body.empty?
           response.read_body { |segment| file.write segment }
         end
       end
+    rescue => e
+      FileUtils.rm_f MAXMIND_PATH
+      FileUtils.cp MAXMIND_LEGACY_PATH, MAXMIND_PATH
+      logger.error "Error downloading maxmind file! #{e.message}"
     end
   end
 
