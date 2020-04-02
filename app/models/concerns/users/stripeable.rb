@@ -19,7 +19,7 @@ module Users
         amount: amount,
         currency: currency,
         description: description,
-        metadata: metadata,
+        metadata: metadata
       )
     end
 
@@ -34,7 +34,7 @@ module Users
           last_name: last_name,
           company_name: company_name,
           email: email
-        },
+        }
       )
       update! stripe_customer_id: stripe_customer.id
       stripe_customer

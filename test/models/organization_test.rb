@@ -25,37 +25,37 @@ class OrganizationTest < ActiveSupport::TestCase
       amount: Monetize.parse("$200 USD"),
       description: "Credit 1",
       reference: "Test",
-      posted_at: Time.current,
+      posted_at: Time.current
     )
     organization.organization_transactions.debits.create!(
       amount: Monetize.parse("$50 USD"),
       description: "Debit 1",
       reference: "Test",
-      posted_at: Time.current,
+      posted_at: Time.current
     )
     organization.organization_transactions.debits.create!(
       amount: Monetize.parse("$50 USD"),
       description: "Debit 2",
       reference: "Test",
-      posted_at: Time.current,
+      posted_at: Time.current
     )
     organization.organization_transactions.debits.create!(
       amount: Monetize.parse("$50 USD"),
       description: "Debit 3",
       reference: "Test",
-      posted_at: Time.current,
+      posted_at: Time.current
     )
     organization.organization_transactions.debits.create!(
       amount: Monetize.parse("$25 USD"),
       description: "Debit 4",
       reference: "Test",
-      posted_at: Time.current,
+      posted_at: Time.current
     )
     organization.organization_transactions.credits.create!(
       amount: Monetize.parse("$75 USD"),
       description: "Credit 2",
       reference: "Test",
-      posted_at: Time.current,
+      posted_at: Time.current
     )
     organization.recalculate_balance!
     assert organization.balance == Monetize.parse("$100 USD")

@@ -9,7 +9,7 @@ class Province
     :subdivision,
     :subregion_cpm_multiplier,
     :country_cpm_multiplier,
-    :emoji_flag,
+    :emoji_flag
   )
 
   class << self

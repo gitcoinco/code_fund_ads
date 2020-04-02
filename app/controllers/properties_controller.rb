@@ -151,7 +151,7 @@ class PropertiesController < ApplicationController
       :screenshot,
       :url,
       keywords: [],
-      assigned_fallback_campaign_ids: [],
+      assigned_fallback_campaign_ids: []
     ).tap do |whitelisted|
       if authorized_user.can_admin_system?
         whitelisted.merge! params.require(:property).permit(
@@ -159,7 +159,7 @@ class PropertiesController < ApplicationController
           :restrict_to_assigner_campaigns,
           :revenue_percentage,
           :status,
-          prohibited_advertiser_ids: [],
+          prohibited_advertiser_ids: []
         )
       end
     end

@@ -35,7 +35,7 @@ class OrganizationUserTest < ActiveSupport::TestCase
     ou = OrganizationUser.new(
       organization: @organization_user.organization,
       user: @organization_user.user,
-      role: @organization_user.role,
+      role: @organization_user.role
     )
     assert_not ou.save
     assert_includes ou.errors.messages[:organization_id].to_s, "already been taken"
@@ -45,7 +45,7 @@ class OrganizationUserTest < ActiveSupport::TestCase
     ou = OrganizationUser.new(
       organization: @organization_user.organization,
       user: @organization_user.user,
-      role: "foobar",
+      role: "foobar"
     )
     assert_not ou.save
     assert_includes ou.errors.messages[:role].to_s, "not included in the list"

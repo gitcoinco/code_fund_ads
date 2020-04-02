@@ -11,7 +11,7 @@ class CreateOrganizationReportJob < ApplicationJob
       GenerateOrganizationReportJob.perform_later(
         id: organization_report.id,
         report_url: Rails.application.routes.url_helpers.organization_report_url(organization_id: organization_report.organization_id, id: organization_report.id, host: ENV["DEFAULT_HOST"]),
-        recipients: organization_report.recipients,
+        recipients: organization_report.recipients
       )
     end
   end
@@ -27,7 +27,7 @@ class CreateOrganizationReportJob < ApplicationJob
       start_date: campaigns.minimum(:start_date),
       end_date: campaigns.maximum(:end_date),
       campaign_ids: campaigns.map(&:id),
-      recipients: recipients,
+      recipients: recipients
     )
   end
 end

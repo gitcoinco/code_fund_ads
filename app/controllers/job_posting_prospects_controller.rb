@@ -20,7 +20,7 @@ class JobPostingProspectsController < ApplicationController
       min_annual_salary_cents: default_value(development: 75_000),
       max_annual_salary_cents: default_value(development: 150_000),
       min_annual_salary_currency: default_value(production: "USD"),
-      job_type: default_value(production: ENUMS::JOB_TYPES::FULL_TIME),
+      job_type: default_value(production: ENUMS::JOB_TYPES::FULL_TIME)
     )
   end
 

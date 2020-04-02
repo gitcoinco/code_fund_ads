@@ -55,7 +55,7 @@ class ImagesController < ApplicationController
     params.require(:image).permit(
       :description,
       :format,
-      :name,
+      :name
     )
   end
 

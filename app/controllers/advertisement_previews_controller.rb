@@ -34,7 +34,7 @@ class AdvertisementPreviewsController < ApplicationController
       creative_id: @creative.id,
       property_id: 0,
       template: template_name,
-      theme: theme_name,
+      theme: theme_name
     )
 
     # NOTE: This is a preview. Do not set @impression_url as we don't want to track impressions

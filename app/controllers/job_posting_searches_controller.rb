@@ -32,7 +32,7 @@ class JobPostingSearchesController < ApplicationController
       country_codes: [],
       province_codes: [],
       job_types: [],
-      keywords: [],
+      keywords: []
     )
   end
 end
