@@ -1,5 +1,5 @@
 if Rails.env.production? || ENV["CI"] == "true"
-  DownloadAndExtractMaxmindFileJob.new.perform
+  DownloadAndExtractMaxmindFileJob.perform_now
 else
   DownloadAndExtractMaxmindFileJob.perform_later
 end
