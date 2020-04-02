@@ -159,7 +159,7 @@ The URLs/routes responsible for ad rendering are:
 
 ### Prerequisites
 
-- Ruby version `2.6.5`
+- Ruby version `2.6.6`
   - [rbenv](https://github.com/rbenv/rbenv)
   - [asdf](https://github.com/asdf-vm/asdf-ruby)
 - NodeJS version `13.0.1`

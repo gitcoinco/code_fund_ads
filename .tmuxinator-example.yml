@@ -3,7 +3,7 @@ name: code_fund_ads
 root: /path/to/project
 
 on_project_start: lsof -t -i tcp:3000 | xargs kill -KILL; lsof -t -i tcp:3035 | xargs kill -KILL;
-pre_window: asdf local ruby 2.6.5; asdf local nodejs 13.0.1;
+pre_window: asdf local ruby 2.6.6; asdf local nodejs 13.0.1;
 
 windows:
   - editor: nvim

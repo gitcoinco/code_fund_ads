@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/ruby:2.6.5-browsers
+      - image: circleci/ruby:2.6.6-browsers
         environment:
           CAMPAIGN_DEMO_ID: "395"
           PG_HOST: localhost
