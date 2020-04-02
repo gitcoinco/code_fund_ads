@@ -8,7 +8,7 @@ class CampaignsMailer < ApplicationMailer
     mail(
       to: "team@codefund.io",
       from: "alerts@codefund.io",
-      subject: "A campaign has been paused by #{@user&.name}",
+      subject: "A campaign has been paused by #{@user&.name}"
     )
   end
 end

@@ -41,7 +41,7 @@ class ImpressionsController < ApplicationController
       @virtual_impression[:ad_theme],
       request.remote_ip,
       request.user_agent,
-      Time.current.iso8601,
+      Time.current.iso8601
     )
   end
 end

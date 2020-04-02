@@ -38,7 +38,7 @@ class ScheduledOrganizationReportsController < ApplicationController
       :subject,
       :frequency,
       :dataset,
-      campaign_ids: [],
+      campaign_ids: []
     ).tap do |whitelisted|
       dates = params[:scheduled_organization_report][:date_range].split(" - ")
       whitelisted[:start_date] = Date.strptime(dates[0], "%m/%d/%Y")

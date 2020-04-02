@@ -7,7 +7,7 @@ class UsersMailer < ApplicationMailer
     mail(
       to: "team@codefund.io",
       from: "alerts@codefund.io",
-      subject: "Consolidated Screening List Flagged: #{@user&.name}",
+      subject: "Consolidated Screening List Flagged: #{@user&.name}"
     )
   end
 end

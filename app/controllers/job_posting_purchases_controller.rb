@@ -32,7 +32,7 @@ class JobPostingPurchasesController < ApplicationController
       amount: amount,
       currency: "usd",
       description: "CodeFund Jobs Listing",
-      metadata: {job_posting_id: @job_posting.id},
+      metadata: {job_posting_id: @job_posting.id}
     )
 
     @job_posting.update!(
@@ -40,7 +40,7 @@ class JobPostingPurchasesController < ApplicationController
       offers: job_posting_params[:offers] || [],
       status: ENUMS::JOB_STATUSES::ACTIVE,
       stripe_charge_id: charge.id,
-      coupon_id: @coupon&.id,
+      coupon_id: @coupon&.id
     )
 
     begin

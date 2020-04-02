@@ -13,7 +13,7 @@ class AdvertisementClicksController < ApplicationController
       utm_medium: "display",
       utm_campaign: @campaign.id,
       utm_impression: @impression_id,
-      utm_referrer: request.referer,
+      utm_referrer: request.referer
     )
     uri.query = query.merge(parsed_query).to_query
     redirect_to uri.to_s
@@ -53,7 +53,7 @@ class AdvertisementClicksController < ApplicationController
     CreateClickJob.perform_later(
       @impression_id,
       @campaign.id,
-      Time.current.iso8601,
+      Time.current.iso8601
     )
   rescue => e
     Rollbar.error e

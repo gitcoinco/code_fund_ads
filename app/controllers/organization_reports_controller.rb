@@ -80,7 +80,7 @@ class OrganizationReportsController < ApplicationController
     params.require(:organization_report).permit(
       :title,
       :recipients,
-      campaign_ids: [],
+      campaign_ids: []
     ).tap do |whitelisted|
       dates = params[:organization_report][:date_range].split(" - ")
       whitelisted[:start_date] = Date.strptime(dates[0], "%m/%d/%Y")

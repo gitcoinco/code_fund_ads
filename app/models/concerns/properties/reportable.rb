@@ -12,7 +12,7 @@ module Properties
         clicks_count: report.sum(&:clicks_count),
         gross_revenue_cents: report.sum(&:gross_revenue_cents),
         property_revenue_cents: report.sum(&:property_revenue_cents),
-        house_revenue_cents: report.sum(&:house_revenue_cents),
+        house_revenue_cents: report.sum(&:house_revenue_cents)
       )
     end
 

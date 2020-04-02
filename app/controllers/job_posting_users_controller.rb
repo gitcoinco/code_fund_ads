@@ -5,7 +5,7 @@ class JobPostingUsersController < ApplicationController
     return redirect_to(new_user_session_path(job: @job_posting.id)) if User.where(email: @job_posting.company_email).exists?
     @user = User.new(
       email: @job_posting.company_email,
-      company_name: @job_posting.company_name,
+      company_name: @job_posting.company_name
     )
   end
 

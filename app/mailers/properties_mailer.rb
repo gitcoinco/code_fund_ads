@@ -7,7 +7,7 @@ class PropertiesMailer < ApplicationMailer
     mail(
       to: "team@codefund.io",
       from: "alerts@codefund.io",
-      subject: "A property has been added by #{@property.user&.name}",
+      subject: "A property has been added by #{@property.user&.name}"
     )
   end
 
@@ -16,7 +16,7 @@ class PropertiesMailer < ApplicationMailer
     mail(
       to: "team@codefund.io",
       from: "alerts@codefund.io",
-      subject: "#{@properties.size} properties with a dramatic drop in impressions",
+      subject: "#{@properties.size} properties with a dramatic drop in impressions"
     )
   end
 end

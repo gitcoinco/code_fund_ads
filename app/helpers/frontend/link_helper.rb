@@ -8,7 +8,7 @@ module Frontend
         class_active: "has-active bg-white border-left border-primary",
         wrap_tag: :li,
         wrap_class: "menu-item",
-        active: active,
+        active: active
       )
     end
   end

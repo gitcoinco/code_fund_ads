@@ -7,7 +7,7 @@ class OrganizationInvitesController < ApplicationController
     organization_user = OrganizationUser.new(
       user: user,
       organization_id: organization_user_invite_params[:organization_id],
-      role: organization_user_invite_params[:organization_role],
+      role: organization_user_invite_params[:organization_role]
     )
 
     respond_to do |format|
