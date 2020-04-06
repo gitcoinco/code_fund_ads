@@ -67,10 +67,6 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
       zeitwerk (~> 2.2)
-    acts_as_commentable_with_threading (2.0.1)
-      activerecord (>= 4.0)
-      activesupport (>= 4.0)
-      awesome_nested_set (>= 3.0)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     annotate (3.1.0)
@@ -78,8 +74,6 @@ GEM
       rake (>= 10.4, < 14.0)
     ansi (1.5.0)
     ast (2.4.0)
-    awesome_nested_set (3.2.0)
-      activerecord (>= 4.0.0, < 7.0)
     awesome_print (1.8.0)
     aws-eventstream (1.0.3)
     aws-partitions (1.288.0)
@@ -589,7 +583,6 @@ PLATFORMS
 DEPENDENCIES
   active_link_to (~> 1.0.5)
   active_storage_svg_sanitizer (~> 0.1.0)
-  acts_as_commentable_with_threading (~> 2.0.1)
   annotate
   awesome_print
   aws-sdk-s3 (~> 1.61.1)

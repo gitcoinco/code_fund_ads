@@ -71,7 +71,7 @@ Each template uses an ad creative that follows these guidelines:
 
 * Ad creative **headline** + **body** should not be more than **84 characters long**.
 * Banner image may not be animated.
-* We recomment the use of 👋 emoji when it makes sense, but don't overuse it.
+* We recommend the use of 👋 emoji when it makes sense, but don't overuse it.
 
 We are software developers first and foremost. We will help you craft a message that resonates with the developer community if needed.
 

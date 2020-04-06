@@ -253,7 +253,6 @@ class Campaign < ApplicationRecord
   tag_columns :audience_ids
   tag_columns :keywords
   tag_columns :negative_keywords
-  acts_as_commentable
   has_paper_trail on: %i[create update destroy], version_limit: nil, only: %i[
     core_hours_only
     country_codes

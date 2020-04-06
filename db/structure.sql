@@ -297,45 +297,6 @@ ALTER SEQUENCE public.campaigns_id_seq OWNED BY public.campaigns.id;
 
 
 --
--- Name: comments; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.comments (
-    id bigint NOT NULL,
-    commentable_id bigint NOT NULL,
-    commentable_type character varying NOT NULL,
-    title character varying,
-    body text,
-    subject character varying,
-    user_id bigint NOT NULL,
-    parent_id bigint,
-    lft integer,
-    rgt integer,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
-);
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.comments_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: comments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.comments_id_seq OWNED BY public.comments.id;
-
-
---
 -- Name: coupons; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1402,13 +1363,6 @@ ALTER TABLE ONLY public.campaigns ALTER COLUMN id SET DEFAULT nextval('public.ca
 
 
 --
--- Name: comments id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments ALTER COLUMN id SET DEFAULT nextval('public.comments_id_seq'::regclass);
-
-
---
 -- Name: coupons id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1565,14 +1519,6 @@ ALTER TABLE ONLY public.campaign_bundles
 
 ALTER TABLE ONLY public.campaigns
     ADD CONSTRAINT campaigns_pkey PRIMARY KEY (id);
-
-
---
--- Name: comments comments_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.comments
-    ADD CONSTRAINT comments_pkey PRIMARY KEY (id);
 
 
 --
@@ -2144,20 +2090,6 @@ CREATE INDEX index_campaigns_on_user_id ON public.campaigns USING btree (user_id
 --
 
 CREATE INDEX index_campaigns_on_weekdays_only ON public.campaigns USING btree (weekdays_only);
-
-
---
--- Name: index_comments_on_commentable_id_and_commentable_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_comments_on_commentable_id_and_commentable_type ON public.comments USING btree (commentable_id, commentable_type);
-
-
---
--- Name: index_comments_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_comments_on_user_id ON public.comments USING btree (user_id);
 
 
 --
@@ -2912,6 +2844,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200220160136'),
 ('20200221220825'),
 ('20200303224134'),
-('20200325201726');
-
-
+('20200325201726'),
+('20200406223804');
