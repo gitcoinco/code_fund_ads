@@ -30,7 +30,7 @@ class DownloadAndExtractMaxmindFileJob < ApplicationJob
         http.read_timeout = 1
         http.request_get(MAXMIND_URI) do |response|
           throw :abort if response.body.empty?
-          response.read_body { |segment| file.write segment }
+          file.write response.body
         end
       end
     rescue => e
