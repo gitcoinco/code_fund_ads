@@ -39,102 +39,110 @@
               <%= tag.div f.input(:body, required: true, input_html: {rows: 2, data: {target: "creative-form.inputBody", action: "change->creative-form#setBody keyup->creative-form#setBody"}}), class: "col-12 mb-3" %>
               <%= tag.div f.input(:cta, label: "Call to Action", required: true, placeholder: "e.g. Learn more", hint: "Only used with the `sponsored-text` template"), class: "col-12 mb-3" %>
             </div>
-            <div class="col-12 mb-2">
-              <div class="form-group required select creative_icon_image">
-                <label class="form-label select required" for="creative_icon_image">
-                  Icon Image <abbr title="required">*</abbr> <small class="text-muted">(40x40)</small>
-                </label>
-                <select class="form-control custom-select required"
-                  data-target="creative-form.inputIconBlobId"
-                  data-action="change->creative-form#setIconImage"
-                  data-toggle="selectpicker"
-                  data-size="5"
-                  required="required"
-                  aria-required="true"
-                  name="creative[icon_blob_id]"
-                  id="creative_icon_image"
-                  title="--- select an image ---"
-                  required>
-                  <% Current.organization.icon_images.each do |image| %>
-                    <%= tag.option Image.new(image).display_name, value: image.blob_id,
-                            data: {image_url: polymorphic_url(image)},
-                            selected: creative.icon_image == image %>
-                  <% end %>
-                </select>
+            <% if missing_image_formats? %>
+              <h4><%= missing_image_formats_alert[:heading] %></h4>
+              <p><%= missing_image_formats_alert[:body] %></p>
+              <%= button_panel margin: "my-0" do %>
+                <%= missing_image_formats_alert[:cta] %>
+              <% end %>
+            <% else %>
+              <div class="col-12 mb-2">
+                <div class="form-group required select creative_icon_image">
+                  <label class="form-label select required" for="creative_icon_image">
+                    Icon Image <abbr title="required">*</abbr> <small class="text-muted">(40x40)</small>
+                  </label>
+                  <select class="form-control custom-select required"
+                    data-target="creative-form.inputIconBlobId"
+                    data-action="change->creative-form#setIconImage"
+                    data-toggle="selectpicker"
+                    data-size="5"
+                    required="required"
+                    aria-required="true"
+                    name="creative[icon_blob_id]"
+                    id="creative_icon_image"
+                    title="--- select an image ---"
+                    required>
+                    <% Current.organization.icon_images.each do |image| %>
+                      <%= tag.option Image.new(image).display_name, value: image.blob_id,
+                              data: {image_url: polymorphic_url(image)},
+                              selected: creative.icon_image == image %>
+                    <% end %>
+                  </select>
+                </div>
               </div>
-            </div>
-            <div class="col-12 mb-2">
-              <div class="form-group required select creative_small_image">
-                <label class="form-label select required" for="creative_small_image">
-                  Small Image <abbr title="required">*</abbr> <small class="text-muted">(200×200)</small>
-                </label>
-                <select class="form-control custom-select required"
-                  data-target="creative-form.inputSmallBlobId"
-                  data-action="change->creative-form#setSmallImage"
-                  data-toggle="selectpicker"
-                  data-size="5"
-                  required="required"
-                  aria-required="true"
-                  name="creative[small_blob_id]"
-                  id="creative_small_image"
-                  title="--- select an image ---"
-                  required>
-                  <% Current.organization.small_images.each do |image| %>
-                    <%= tag.option Image.new(image).display_name, value: image.blob_id,
-                            data: {image_url: polymorphic_url(image)},
-                            selected: creative.small_image == image %>
-                  <% end %>
-                </select>
+              <div class="col-12 mb-2">
+                <div class="form-group required select creative_small_image">
+                  <label class="form-label select required" for="creative_small_image">
+                    Small Image <abbr title="required">*</abbr> <small class="text-muted">(200×200)</small>
+                  </label>
+                  <select class="form-control custom-select required"
+                    data-target="creative-form.inputSmallBlobId"
+                    data-action="change->creative-form#setSmallImage"
+                    data-toggle="selectpicker"
+                    data-size="5"
+                    required="required"
+                    aria-required="true"
+                    name="creative[small_blob_id]"
+                    id="creative_small_image"
+                    title="--- select an image ---"
+                    required>
+                    <% Current.organization.small_images.each do |image| %>
+                      <%= tag.option Image.new(image).display_name, value: image.blob_id,
+                              data: {image_url: polymorphic_url(image)},
+                              selected: creative.small_image == image %>
+                    <% end %>
+                  </select>
+                </div>
               </div>
-            </div>
-            <div class="col-12 mb-2">
-              <div class="form-group required select creative_large_image">
-                <label class="control-label" for="creative_large_image">
-                  Large Image <abbr title="required">*</abbr> <small class="text-muted">(260×200)</small>
-                </label>
-                <select class="form-control custom-select required"
-                  data-target="creative-form.inputLargeBlobId"
-                  data-action="change->creative-form#setLargeImage"
-                  data-toggle="selectpicker"
-                  data-size="5"
-                  required="required"
-                  aria-required="true"
-                  name="creative[large_blob_id]"
-                  id="creative_large_image"
-                  title="--- select an image ---"
-                  required>
-                  <% Current.organization.large_images.each do |image| %>
-                    <%= tag.option Image.new(image).display_name, value: image.blob_id,
-                            data: {image_url: polymorphic_url(image)},
-                            selected: creative.large_image == image %>
-                  <% end %>
-                </select>
+              <div class="col-12 mb-2">
+                <div class="form-group required select creative_large_image">
+                  <label class="control-label" for="creative_large_image">
+                    Large Image <abbr title="required">*</abbr> <small class="text-muted">(260×200)</small>
+                  </label>
+                  <select class="form-control custom-select required"
+                    data-target="creative-form.inputLargeBlobId"
+                    data-action="change->creative-form#setLargeImage"
+                    data-toggle="selectpicker"
+                    data-size="5"
+                    required="required"
+                    aria-required="true"
+                    name="creative[large_blob_id]"
+                    id="creative_large_image"
+                    title="--- select an image ---"
+                    required>
+                    <% Current.organization.large_images.each do |image| %>
+                      <%= tag.option Image.new(image).display_name, value: image.blob_id,
+                              data: {image_url: polymorphic_url(image)},
+                              selected: creative.large_image == image %>
+                    <% end %>
+                  </select>
+                </div>
               </div>
-            </div>
-            <div class="col-12 mb-2">
-              <div class="form-group required select wide_large_image">
-                <label class="form-label select required" for="creative_wide_image">
-                  Wide Image <abbr title="required">*</abbr> <small class="text-muted">(512×320)</small>
-                </label>
-                <select class="form-control custom-select required"
-                  data-target="creative-form.inputWideBlobId"
-                  data-action="change->creative-form#setWideImage"
-                  data-toggle="selectpicker"
-                  data-size="5"
-                  required="required"
-                  aria-required="true"
-                  name="creative[wide_blob_id]"
-                  id="creative_wide_image"
-                  title="--- select an image ---"
-                  required>
-                  <% Current.organization.wide_images.each do |image| %>
-                    <%= tag.option Image.new(image).display_name, value: image.blob_id,
-                            data: {image_url: polymorphic_url(image)},
-                            selected: creative.wide_image == image %>
-                  <% end %>
-                </select>
+              <div class="col-12 mb-2">
+                <div class="form-group required select wide_large_image">
+                  <label class="form-label select required" for="creative_wide_image">
+                    Wide Image <abbr title="required">*</abbr> <small class="text-muted">(512×320)</small>
+                  </label>
+                  <select class="form-control custom-select required"
+                    data-target="creative-form.inputWideBlobId"
+                    data-action="change->creative-form#setWideImage"
+                    data-toggle="selectpicker"
+                    data-size="5"
+                    required="required"
+                    aria-required="true"
+                    name="creative[wide_blob_id]"
+                    id="creative_wide_image"
+                    title="--- select an image ---"
+                    required>
+                    <% Current.organization.wide_images.each do |image| %>
+                      <%= tag.option Image.new(image).display_name, value: image.blob_id,
+                              data: {image_url: polymorphic_url(image)},
+                              selected: creative.wide_image == image %>
+                    <% end %>
+                  </select>
+                </div>
               </div>
-            </div>
+            <% end %>
           </div>
         </div>
         <div class="col-md-6">
