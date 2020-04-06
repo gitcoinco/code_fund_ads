@@ -1,0 +1,22 @@
+<div class="row m-0">
+  <div class="col-12 p-0">
+    <div class="alert alert-<%= local_assigns[:alert_type] || "primary" %> has-icon mb-2 d-flex align-items-center">
+      <div class="alert-icon">
+        <span class="<%= local_assigns[:icon] || "fas fa-flag-alt" %>"></span>
+      </div>
+      <div>
+        <% if local_assigns[:heading].present? %>
+          <h4 class="alert-heading"><%= local_assigns[:heading] %></h4>
+        <% end %>
+        <% if local_assigns[:body].present? %>
+          <p class="mb-0"><%= local_assigns[:body] %></p>
+        <% end %>
+      </div>
+      <% if local_assigns[:cta].present? %>
+        <div class="ml-auto">
+          <%= local_assigns[:cta] %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

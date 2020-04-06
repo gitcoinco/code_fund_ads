@@ -12,6 +12,7 @@ module Authorizers
                creative_images: {
                  active_storage_attachment_id: image.id
                }).exists?
+      return true if can_admin_system?
       can_manage_organization?(image.record)
     end
   end
