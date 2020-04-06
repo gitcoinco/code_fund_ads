@@ -62,33 +62,35 @@
           </ul>
         </div>
 
-        <div class="dropdown d-flex">
-          <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="user-avatar user-avatar-md"><%= user_avatar_image_tag(current_user, "") %></span>
-            <span class="account-summary pr-lg-4 d-none d-lg-block">
-              <span class="account-name"><%= current_user.name %></span>
-              <span class="account-description"><%= Current.organization&.name %></span>
-            </span>
-          </button>
-          <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 56px; left: 0px;">
-            <div class="dropdown-arrow ml-3"></div>
-            <h6 class="dropdown-header d-none d-md-block d-lg-none"><%= current_user.name %></h6>
-            <%= link_to user_path(current_user), class: "dropdown-item" do %>
-              <span class="dropdown-icon fas fa-user"></span> Profile
-            <% end %>
-            <%= link_to destroy_user_session_path, class: "dropdown-item" do %>
-              <span class="dropdown-icon fas fa-sign-out"></span>
-              Logout
-            <% end %>
-            <% if current_user != true_user %>
-              <div class="dropdown-divider"></div>
-              <%= link_to stop_user_impersonation_path, class: "dropdown-item" do %>
-                <span class="dropdown-icon fas fa-sign-in"></span>
-                Back to <%= true_user.first_name %>
+        <% if current_user %>
+          <div class="dropdown d-flex">
+            <button class="btn-account d-none d-md-flex" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="user-avatar user-avatar-md"><%= user_avatar_image_tag(current_user, "") %></span>
+              <span class="account-summary pr-lg-4 d-none d-lg-block">
+                <span class="account-name"><%= current_user.name %></span>
+                <span class="account-description"><%= Current.organization&.name %></span>
+              </span>
+            </button>
+            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; will-change: top, left; top: 56px; left: 0px;">
+              <div class="dropdown-arrow ml-3"></div>
+              <h6 class="dropdown-header d-none d-md-block d-lg-none"><%= current_user.name %></h6>
+              <%= link_to user_path(current_user), class: "dropdown-item" do %>
+                <span class="dropdown-icon fas fa-user"></span> Profile
               <% end %>
-            <% end %>
+              <%= link_to destroy_user_session_path, class: "dropdown-item" do %>
+                <span class="dropdown-icon fas fa-sign-out"></span>
+                Logout
+              <% end %>
+              <% if current_user != true_user %>
+                <div class="dropdown-divider"></div>
+                <%= link_to stop_user_impersonation_path, class: "dropdown-item" do %>
+                  <span class="dropdown-icon fas fa-sign-in"></span>
+                  Back to <%= true_user.first_name %>
+                <% end %>
+              <% end %>
+            </div>
           </div>
-        </div>
+        <% end %>
       </div>
     </div>
   </header>
