@@ -13,6 +13,7 @@ require "rails/test_help"
 require "webmock/minitest"
 require "mocha/minitest"
 require "sidekiq/testing"
+require "view_component/test_helpers"
 
 WebMock.allow_net_connect!
 
