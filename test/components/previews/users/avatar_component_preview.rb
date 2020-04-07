@@ -3,8 +3,6 @@
 
 module Users
   class AvatarComponentPreview < ViewComponent::Preview
-    layout "demo"
-
     def extra_small
       render(Users::AvatarComponent.new(user: User.first, size: "xs"))
     end
