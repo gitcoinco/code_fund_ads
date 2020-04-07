@@ -2,9 +2,7 @@
   <div class="aside-content">
     <header class="aside-header d-flex d-md-none">
       <button class="btn-account" type="button" data-toggle="collapse" data-target="#dropdown-aside">
-        <span class="user-avatar user-avatar-lg">
-          <%= user_avatar_image_tag(current_user, "") %>
-        </span>
+        <%= render(Users::AvatarComponent.new(user: current_user, size: "lg")) %>
         <span class="account-icon">
           <span class="fa fa-caret-down fa-lg"></span>
         </span>

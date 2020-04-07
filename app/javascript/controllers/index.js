@@ -8,7 +8,11 @@ import consumer from '../channels/consumer'
 
 const application = Application.start()
 const context = require.context('controllers', true, /_controller\.js$/)
-const context_components = require.context("../../components", true, /_controller.js$/)
+const context_components = require.context(
+  '../../components',
+  true,
+  /_controller.js$/
+)
 application.load(
   definitionsFromContext(context).concat(
     definitionsFromContext(context_components)
