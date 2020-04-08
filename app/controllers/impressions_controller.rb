@@ -43,5 +43,7 @@ class ImpressionsController < ApplicationController
       request.user_agent,
       Time.current.iso8601
     )
+  rescue Encoding::UndefinedConversionError => e
+    Rollbar.error "#{e} => #{@virtual_impression_id}, #{@virtual_impression[:campaign_id]}, #{@virtual_impression[:property_id]}, #{@virtual_impression[:creative_id]}, #{@virtual_impression[:ad_template]}, #{@virtual_impression[:ad_theme]}, #{request.remote_ip}, #{request.user_agent}, #{Time.current.iso8601}"
   end
 end
