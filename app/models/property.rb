@@ -13,13 +13,9 @@
 #  keywords                       :string           default([]), not null, is an Array
 #  language                       :string           not null
 #  name                           :string           not null
-#  prohibit_fallback_campaigns    :boolean          default(FALSE), not null
-#  prohibited_advertiser_ids      :bigint           default([]), not null, is an Array
-#  property_type                  :string           default("website"), not null
 #  responsive_behavior            :string           default("none"), not null
 #  restrict_to_assigner_campaigns :boolean          default(FALSE), not null
 #  revenue_percentage             :decimal(, )      default(0.6), not null
-#  status                         :string           not null
 #  url                            :text             not null
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
@@ -34,6 +30,7 @@
 #  index_properties_on_keywords                        (keywords) USING gin
 #  index_properties_on_name                            (lower((name)::text))
 #  index_properties_on_prohibited_advertiser_ids       (prohibited_advertiser_ids) USING gin
+#  index_properties_on_prohibited_organization_ids     (prohibited_organization_ids) USING gin
 #  index_properties_on_property_type                   (property_type)
 #  index_properties_on_status                          (status)
 #  index_properties_on_user_id                         (user_id)
@@ -124,6 +121,13 @@ class Property < ApplicationRecord
   # Scopes and helpers provied by tag_columns
   # SEE: https://github.com/hopsoft/tag_columns
   #
+  # - with_all_prohibited_organization_ids
+  # - with_any_prohibited_organization_ids
+  # - with_prohibited_organization_ids
+  # - without_all_prohibited_organization_ids
+  # - without_any_prohibited_organization_ids
+  # - without_prohibited_organization_ids
+  #
   # - with_all_prohibited_advertiser_ids
   # - with_any_prohibited_advertiser_ids
   # - with_prohibited_advertiser_ids
@@ -139,6 +143,8 @@ class Property < ApplicationRecord
   # - without_keywords
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  tag_columns :prohibited_organization_ids
+  # DEPRECATE: Remove this after dropping `prohibited_advertiser_ids` column
   tag_columns :prohibited_advertiser_ids
   tag_columns :keywords
   has_one_attached :screenshot
@@ -148,6 +154,7 @@ class Property < ApplicationRecord
     keywords
     language
     prohibit_fallback_campaigns
+    prohibited_organization_ids
     prohibited_advertiser_ids
     name
     property_type

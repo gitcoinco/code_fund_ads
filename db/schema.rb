@@ -420,11 +420,13 @@ ActiveRecord::Schema.define(version: 2020_04_21_152748) do
     t.string "responsive_behavior", default: "none", null: false
     t.bigint "audience_id"
     t.datetime "deleted_at"
+    t.bigint "prohibited_organization_ids", default: [], null: false, array: true
     t.index "lower((name)::text)", name: "index_properties_on_name"
     t.index ["assigned_fallback_campaign_ids"], name: "index_properties_on_assigned_fallback_campaign_ids", using: :gin
     t.index ["audience_id"], name: "index_properties_on_audience_id"
     t.index ["keywords"], name: "index_properties_on_keywords", using: :gin
     t.index ["prohibited_advertiser_ids"], name: "index_properties_on_prohibited_advertiser_ids", using: :gin
+    t.index ["prohibited_organization_ids"], name: "index_properties_on_prohibited_organization_ids", using: :gin
     t.index ["property_type"], name: "index_properties_on_property_type"
     t.index ["status"], name: "index_properties_on_status"
     t.index ["user_id"], name: "index_properties_on_user_id"

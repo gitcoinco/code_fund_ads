@@ -13,8 +13,9 @@
 #  keywords                       :string           default([]), not null, is an Array
 #  language                       :string           not null
 #  name                           :string           not null
-#  prohibit_fallback_campaigns    :boolean          default(FALSE), not null
-#  prohibited_advertiser_ids      :bigint           default([]), not null, is an Array
+#  prohibit_fallback_campaigns    :boolean          default("false"), not null
+#  prohibited_advertiser_ids      :bigint           default("{}"), not null, is an Array
+#  prohibited_organization_ids    :bigint           default("{}"), not null, is an Array
 #  property_type                  :string           default("website"), not null
 #  responsive_behavior            :string           default("none"), not null
 #  restrict_to_assigner_campaigns :boolean          default(FALSE), not null
@@ -34,6 +35,7 @@
 #  index_properties_on_keywords                        (keywords) USING gin
 #  index_properties_on_name                            (lower((name)::text))
 #  index_properties_on_prohibited_advertiser_ids       (prohibited_advertiser_ids) USING gin
+#  index_properties_on_prohibited_organization_ids     (prohibited_organization_ids) USING gin
 #  index_properties_on_property_type                   (property_type)
 #  index_properties_on_status                          (status)
 #  index_properties_on_user_id                         (user_id)
