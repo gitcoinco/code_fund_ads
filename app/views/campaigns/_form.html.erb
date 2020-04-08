@@ -47,8 +47,8 @@
                         }
                       }) %>
           <%= content_tag(:small,
-                          "<i class='fas fa-exclamation-triangle'></i> Bundle Dates: #{campaign.campaign_bundle.start_date.to_s("mm/dd/yyyy")} - #{campaign.campaign_bundle.end_date.to_s("mm/dd/yyyy")}".html_safe,
-                          class: "ml-2 text-danger"
+                          "<i class='fas fa-info-circle'></i> Bundle Dates: #{campaign.campaign_bundle.start_date.to_s("mm/dd/yyyy")} - #{campaign.campaign_bundle.end_date.to_s("mm/dd/yyyy")}".html_safe,
+                          class: "ml-2 text-muted"
                          ) if campaign.campaign_bundle %>
         <% end if authorized_user.can_admin_system? %>
         <%= tag.div f.input(:audience_ids,
