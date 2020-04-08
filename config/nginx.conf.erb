@@ -215,6 +215,7 @@ http {
     location ~ /(assets|packs)/ {
       gzip_static on;
       expires 365d;
+      charset utf-8;
       add_header Cache-Control public;
       add_header Last-Modified "";
       add_header ETag "";
