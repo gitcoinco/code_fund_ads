@@ -103,9 +103,9 @@
           </small>
           <pre class="mt-1 p-2" style="background-color:#d5dae3;"><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</code></pre>
         </div>
-        <%= tag.div f.input(:prohibited_advertiser_ids,
-                            label: "Excluded Advertisers",
-                            collection: advertisers_for_select,
+        <%= tag.div f.input(:prohibited_organization_ids,
+                            label: "Excluded Advertiser Organizations",
+                            collection: organizations_for_select,
                             input_html: {
                               class: "form-control", multiple: true, data: {controller: "select", "reflex-permanent": true}
                             }), class: "col-12 mb-3" if authorized_user.can_admin_system? %>

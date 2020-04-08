@@ -62,10 +62,6 @@ module ApplicationHelper
     User.account_managers.sort_by(&:name).map { |user| [user.name, user.id] }
   end
 
-  def advertisers_for_select
-    User.advertisers.includes(:organizations).sort_by(&:scoped_name).map { |user| [user.scoped_name, user.id] }
-  end
-
   def organizations_for_select
     Organization.order(Organization.arel_table[:name].lower).map { |org| [org.name, org.id] }
   end

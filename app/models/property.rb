@@ -101,7 +101,7 @@ class Property < ApplicationRecord
   scope :for_campaign, ->(campaign) {
     relation = active.with_any_keywords(*campaign.keywords).without_any_keywords(*campaign.negative_keywords)
     relation = relation.where(prohibit_fallback_campaigns: false) if campaign.fallback?
-    relation = relation.without_all_prohibited_advertiser_ids(campaign.id)
+    relation = relation.without_all_prohibited_organization_ids(campaign.id)
     relation
   }
   scope :with_assigned_fallback_campaign_id, ->(campaign_id) {
@@ -148,6 +148,7 @@ class Property < ApplicationRecord
   tag_columns :prohibited_advertiser_ids
   tag_columns :keywords
   has_one_attached :screenshot
+  # DEPRECATE: Remove `prohibited_advertiser_ids` when column is dropped
   has_paper_trail on: %i[update], only: %i[
     ad_template
     ad_theme
