@@ -20,7 +20,6 @@
 #  responsive_behavior            :string           default("none"), not null
 #  restrict_to_assigner_campaigns :boolean          default(FALSE), not null
 #  revenue_percentage             :decimal(, )      default(0.6), not null
-#  status                         :string           not null
 #  url                            :text             not null
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
