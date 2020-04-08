@@ -787,7 +787,6 @@ CREATE TABLE public.properties (
     ad_theme character varying,
     language character varying NOT NULL,
     keywords character varying[] DEFAULT '{}'::character varying[] NOT NULL,
-    prohibited_advertiser_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
     prohibit_fallback_campaigns boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -2464,13 +2463,6 @@ CREATE INDEX index_properties_on_keywords ON public.properties USING gin (keywor
 --
 
 CREATE INDEX index_properties_on_name ON public.properties USING btree (lower((name)::text));
-
-
---
--- Name: index_properties_on_prohibited_advertiser_ids; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_properties_on_prohibited_advertiser_ids ON public.properties USING gin (prohibited_advertiser_ids);
 
 
 --

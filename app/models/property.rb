@@ -14,7 +14,6 @@
 #  language                       :string           not null
 #  name                           :string           not null
 #  prohibit_fallback_campaigns    :boolean          default(FALSE), not null
-#  prohibited_advertiser_ids      :bigint           default([]), not null, is an Array
 #  prohibited_organization_ids    :bigint           default([]), not null, is an Array
 #  property_type                  :string           default("website"), not null
 #  responsive_behavior            :string           default("none"), not null
@@ -34,7 +33,6 @@
 #  index_properties_on_audience_id                     (audience_id)
 #  index_properties_on_keywords                        (keywords) USING gin
 #  index_properties_on_name                            (lower((name)::text))
-#  index_properties_on_prohibited_advertiser_ids       (prohibited_advertiser_ids) USING gin
 #  index_properties_on_prohibited_organization_ids     (prohibited_organization_ids) USING gin
 #  index_properties_on_property_type                   (property_type)
 #  index_properties_on_status                          (status)
@@ -133,13 +131,6 @@ class Property < ApplicationRecord
   # - without_any_prohibited_organization_ids
   # - without_prohibited_organization_ids
   #
-  # - with_all_prohibited_advertiser_ids
-  # - with_any_prohibited_advertiser_ids
-  # - with_prohibited_advertiser_ids
-  # - without_all_prohibited_advertiser_ids
-  # - without_any_prohibited_advertiser_ids
-  # - without_prohibited_advertiser_ids
-  #
   # - with_all_keywords
   # - with_any_keywords
   # - with_keywords
@@ -149,11 +140,8 @@ class Property < ApplicationRecord
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   tag_columns :prohibited_organization_ids
-  # DEPRECATE: Remove this after dropping `prohibited_advertiser_ids` column
-  tag_columns :prohibited_advertiser_ids
   tag_columns :keywords
   has_one_attached :screenshot
-  # DEPRECATE: Remove `prohibited_advertiser_ids` when column is dropped
   has_paper_trail on: %i[update], only: %i[
     ad_template
     ad_theme
@@ -161,7 +149,6 @@ class Property < ApplicationRecord
     language
     prohibit_fallback_campaigns
     prohibited_organization_ids
-    prohibited_advertiser_ids
     name
     property_type
     status
