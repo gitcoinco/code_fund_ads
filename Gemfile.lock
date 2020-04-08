@@ -551,6 +551,8 @@ GEM
     url (0.3.2)
     uuid (2.3.9)
       macaddr (~> 1.0)
+    view_component (2.2.1)
+      capybara (~> 3)
     warden (1.2.8)
       rack (>= 2.0.6)
     web-console (4.0.1)
@@ -685,6 +687,7 @@ DEPENDENCIES
   typhoeus (~> 1.3.1)
   tzinfo-data
   uglifier (>= 1.3.0)
+  view_component (~> 2.2.1)
   web-console (>= 3.3.0)
   webmock
   webpacker (~> 5.0.1)

@@ -1,0 +1,3 @@
+<figure class="<%= avatar_classes %>">
+  <%= image_tag(avatar_image_url, alt: "#{@user&.name} identicon", onerror: "this.error=null;this.src=\"#{user_gravatar_url}\"") %>
+</figure>

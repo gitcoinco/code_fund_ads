@@ -1,8 +1,8 @@
 <%= card do %>
   <%= card_body do %>
     <div class="d-flex align-items-middle">
-      <div class="user-avatar user-avatar-lg mr-4 shadow-sm">
-        <%= user_avatar_image_tag(user, "img-fluid rounded-circle") rescue nil %>
+      <div class="mr-4">
+        <%= render(Users::AvatarComponent.new(user: user, size: "lg")) %>
       </div>
       <div class="custom-file mt-2">
         <%= f.file_field :avatar, class: "custom-file-input" %>

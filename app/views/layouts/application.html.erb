@@ -16,24 +16,31 @@
     <%= javascript_pack_tag "code_fund", 'data-turbolinks-track': "reload" %>
   </head>
   <body>
-    <div class="app">
-      <!--[if lt IE 10]>
-        <div class="page-message" role="alert">You are using an <strong>outdated</strong> browser. Please <a class="alert-link" href="http://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</div>
-      <![endif]-->
-      <%= render "/shared/header" %>
-      <div class="main">
-        <%= render "/shared/sidebar" %>
-        <main class="app-main">
-          <%= yield %>
-        </main>
+    <% if controller_name == "view_components" %>
+      <!-- TODO: this is a hack - will try to get the ability to specify the index layout upstreamed-->
+      <div class="container">
+        <%= yield %>
       </div>
-      <div hidden role="status" class="reflex-activity spinner-border spinner-border-sm text-primary" style="position:fixed; bottom:0; right:0; margin:0 0.5em 0.5em 0;">
-        <span class="sr-only">Loading...</span>
+    <% else %>
+      <div class="app">
+        <!--[if lt IE 10]>
+          <div class="page-message" role="alert">You are using an <strong>outdated</strong> browser. Please <a class="alert-link" href="http://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</div>
+        <![endif]-->
+        <%= render "/shared/header" %>
+        <div class="main">
+          <%= render "/shared/sidebar" %>
+          <main class="app-main">
+            <%= yield %>
+          </main>
+        </div>
+        <div hidden role="status" class="reflex-activity spinner-border spinner-border-sm text-primary" style="position:fixed; bottom:0; right:0; margin:0 0.5em 0.5em 0;">
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
-    </div>
-    <%= render "/shared/modals/organization_user_modal" %>
-    <!-- Target for dynamically generated modals -->
-    <div id="global-modal" class="modal fade"></div>
-    <%= noty_flash %>
+      <%= render "/shared/modals/organization_user_modal" %>
+      <!-- Target for dynamically generated modals -->
+      <div id="global-modal" class="modal fade"></div>
+      <%= noty_flash %>
+    <% end %>
   </body>
 </html>

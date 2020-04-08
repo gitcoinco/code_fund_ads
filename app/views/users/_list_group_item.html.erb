@@ -2,9 +2,7 @@
      data-target="filterable-list.filterable"
      data-filter-key='all <%= user.status %>'>
   <div class="list-group-item-figure">
-    <%= link_to user_path(user), class: "user-avatar user-avatar-md" do %>
-      <%= image_tag avatar_image_url(user), alt: "#{user.name} Gravatar" %>
-    <% end %>
+    <%= render(Users::AvatarComponent.new(user: user)) %>
   </div>
   <div class="list-group-item-body">
     <div class="d-flex justify-content-between align-items-center">

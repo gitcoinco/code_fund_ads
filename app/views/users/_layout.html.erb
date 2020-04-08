@@ -38,10 +38,8 @@
       <header class="page-title-bar">
         <div class="d-flex justify-content-between">
           <h1 class="page-title">
-            <figure class="user-avatar mr-2">
-              <%= image_tag "", class: "lozad", data: {src: avatar_image_url(user)}, alt: "" %>
-            </figure>
-            <%= user.first_name %> <strong><%= user.last_name %></strong>
+            <%= render(Users::AvatarComponent.new(user: user)) %>
+            <span class="ml-2"><%= user.first_name %> <strong><%= user.last_name %></strong></span>
           </h1>
           <div class="btn-toolbar">
             <%= render "/shared/actions/edit_user", user: user %>

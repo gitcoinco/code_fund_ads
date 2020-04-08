@@ -1,23 +1,4 @@
 module UsersHelper
-  def avatar_image_url(user)
-    return unless user
-    return user.avatar if user.avatar.attached?
-
-    user.gravatar_url("identicon")
-  end
-
-  def user_avatar_image_tag(user, tag_class = "")
-    return unless user
-
-    gravatar_url = user.gravatar_url("identicon")
-    image_tag(
-      avatar_image_url(user),
-      alt: "#{user&.name} identicon",
-      class: tag_class,
-      onerror: "this.error=null;this.src=\"#{gravatar_url}\""
-    )
-  end
-
   def default_dashboard_path(user)
     return administrator_dashboards_path if user.has_role?("administrator")
     return advertiser_dashboards_path if user.has_role?("advertiser")
