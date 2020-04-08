@@ -18,8 +18,6 @@ http {
     application/xml font/opentype image/svg+xml text/xml;
 
   server_tokens off;
-  charset utf-8;
-  source_charset utf-8;
 
   log_format l2met 'measure#nginx.service=$request_time request_id=$http_x_request_id';
   access_log <%= ENV['NGINX_ACCESS_LOG_PATH'] || 'logs/nginx/access.log' %> l2met;
@@ -44,7 +42,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -54,7 +51,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -64,7 +60,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -74,7 +69,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -84,7 +78,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -94,7 +87,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -104,7 +96,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -114,7 +105,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -124,7 +114,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -134,7 +123,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -144,7 +132,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -154,7 +141,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -164,7 +150,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -174,7 +159,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -184,7 +168,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
@@ -194,7 +177,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_ssl_server_name on;
@@ -207,15 +189,12 @@ http {
     server_name <%= ENV["APP_SUBDOMAIN"] || "app" %>.codefund.io api.codefund.io api.codefund.app;
     keepalive_timeout 5;
     client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
-    charset utf-8;
-    source_charset utf-8;
 
     root /app/public;
 
     location ~ /(assets|packs)/ {
       gzip_static on;
       expires 365d;
-      add_header X-Content-Type-Options nosniff;
       add_header Cache-Control public;
       add_header Last-Modified "";
       add_header ETag "";
@@ -233,7 +212,6 @@ http {
       proxy_set_header X-Real-IP $remote_addr;
       proxy_set_header X-Forwarded-Proto https;
       proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
       proxy_set_header Host $http_host;
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
