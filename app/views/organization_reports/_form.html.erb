@@ -25,7 +25,7 @@
         </label>
       </div>
     </div>
-    <%= tag.div f.input(:recipients, as: :text, input_html: {value: @recipients.join("\n")}, label: "Email Recipients (one per line)", required: true), class: "col-12 mb-3" %>
+    <%= tag.div f.input(:recipients, as: :text, input_html: {value: @recipients&.join("\n")}, label: "Email Recipients (one per line)", required: true), class: "col-12 mb-3" %>
     <div class="col-12 mb-3">
       <label class="form-label string required">Campaigns <abbr title="required">*</abbr></label>
       <div>
