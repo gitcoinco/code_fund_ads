@@ -1,35 +1,38 @@
-<div class="page-inner">
-  <%= render "/shared/page_heading_with_subtitle",
-    title: "Publisher Dashboard",
-    subtitle: "#{@start_date.to_s("mm/dd/yyyy")} &ndash; #{@end_date.to_s("mm/dd/yyyy")}".html_safe,
-    datepicker: true %>
+<%= render(PageComponent.new) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(
+          title: "Publisher Dashboard",
+          subtitle: "#{@start_date.to_s("mm/dd/yyyy")} &ndash; #{@end_date.to_s("mm/dd/yyyy")}".html_safe,
+          datepicker: true)) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <div class="page-section">
+      <div class="metric-row">
+        <%= render "/shared/widgets/stat_card",
+          label: "Impressions",
+          value: number_with_delimiter(current_user.impressions_count_as_publisher(@start_date, @end_date)) %>
+        <%= render "/shared/widgets/stat_card",
+          label: "Clicks",
+          value: number_with_delimiter(current_user.clicks_count_as_publisher(@start_date, @end_date)) %>
+        <%= render "/shared/widgets/stat_card",
+          label: "Click Rate",
+          value: number_to_percentage(current_user.click_rate_as_publisher(@start_date, @end_date), precision: 3) %>
+        <%= render "/shared/widgets/stat_card",
+          label: "Earnings",
+          value: current_user.property_revenue(@start_date, @end_date).format %>
+      </div>
 
-  <div class="page-section">
-    <div class="metric-row">
-      <%= render "/shared/widgets/stat_card",
-        label: "Impressions",
-        value: number_with_delimiter(current_user.impressions_count_as_publisher(@start_date, @end_date)) %>
-      <%= render "/shared/widgets/stat_card",
-        label: "Clicks",
-        value: number_with_delimiter(current_user.clicks_count_as_publisher(@start_date, @end_date)) %>
-      <%= render "/shared/widgets/stat_card",
-        label: "Click Rate",
-        value: number_to_percentage(current_user.click_rate_as_publisher(@start_date, @end_date), precision: 3) %>
-      <%= render "/shared/widgets/stat_card",
-        label: "Earnings",
-        value: current_user.property_revenue(@start_date, @end_date).format %>
-    </div>
+      <small class="text-center d-block text-muted mb-2">
+        data refreshes every 15 minutes.
+      </small>
 
-    <small class="text-center d-block text-muted mb-2">
-      data refreshes every 15 minutes.
-    </small>
-
-    <div class="mb-3">
-      <div class="dashboard-grid-wrapper">
-        <%= render partial: "/properties/overview_card",
-          collection: @properties,
-          locals: {start_date: @start_date, end_date: @end_date}, as: :property %>
+      <div class="mb-3">
+        <div class="dashboard-grid-wrapper">
+          <%= render partial: "/properties/overview_card",
+            collection: @properties,
+            locals: {start_date: @start_date, end_date: @end_date}, as: :property %>
+        </div>
       </div>
     </div>
-  </div>
-</div>
+  <% end %>
+<% end %>

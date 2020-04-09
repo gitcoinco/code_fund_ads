@@ -1,9 +1,13 @@
-<%= render layout: "/shared/layout", locals: {
-  subject: @organization,
-  sidebar: false
-} do %>
-  <%= render "/organization_transactions/form",
+<%= render(PageComponent.new(subject: @organization)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: "Edit Transaction", subtitle: "for #{@organization.name}", buttons: [
+      layout_button(link: new_organization_transaction_path(@organization), icon: "fas fa-plus", title: "Add transaction", admin: true)
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= render "/organization_transactions/form",
         organization: @organization,
         organization_transaction: @organization_transaction,
         url: organization_transaction_path(@organization, @organization_transaction) %>
+  <% end %>
 <% end %>

@@ -1,7 +1,4 @@
-<%= render layout: "/shared/layout",
-    locals: {
-      subject: @organization,
-      title: "Create Team",
-      subtitle: "Fill out the form below"} do %>
-  <%= render "/organizations/form", organization: @organization %>
+<%= render(PageComponent.new(subject: @organization)) do |component| %>
+  <%= component.with(:header) { render(Page::HeaderComponent.new(title: "New Team", subtitle: "Fill out the form below")) } %>
+  <%= component.with(:body) { render("/organizations/form", organization: @organization) } %>
 <% end %>

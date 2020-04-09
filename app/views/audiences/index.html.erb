@@ -1,8 +1,12 @@
-<%= render "/shared/index_layout",
-    title: "Audiences" do %>
-  <%= card do %>
-    <%= card_body padding: "p-0" do %>
-      <%= render "/audiences/table", audiences: @audiences %>
+<%= render(PageComponent.new) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: "Audiences")) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= card do %>
+      <%= card_body padding: "p-0" do %>
+        <%= render "/audiences/table", audiences: @audiences %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

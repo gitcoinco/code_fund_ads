@@ -1,20 +1,28 @@
-<%= render layout: "/shared/layout", locals: {
-  subject: @organization,
-  sidebar: false,
-  buttons: [
-    generate_organization_report_button(@organization.id),
-  ],
-} do %>
-  <div class="row">
-    <div class="col-md-6">
-      <%= render "organization_reports/card" %>
+<%= render(PageComponent.new(subject: @organization, tabs: true)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: @organization.name, buttons: [
+      generate_organization_report_button(@organization.id)
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= card do %>
+          <%= card_body do %>
+            <%= render "/organization_reports/form",
+                organization: @organization,
+                organization_report: @organization_report,
+                url: organization_reports_path(@organization) %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col-md-6">
+        <%= render "/organization_reports/table",
+            organization: @organization,
+            organization_reports: @organization_reports,
+            scheduled_organization_reports: @scheduled_organization_reports,
+            pagy: @pagy %>
+      </div>
     </div>
-    <div class="col-md-6">
-      <%= render "/organization_reports/table",
-          organization: @organization,
-          organization_reports: @organization_reports,
-          scheduled_organization_reports: @scheduled_organization_reports,
-          pagy: @pagy %>
-    </div>
-  </div>
+  <% end %>
 <% end %>

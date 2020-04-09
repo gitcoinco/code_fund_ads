@@ -1,13 +1,11 @@
-<%= render layout: "/shared/layout",
-    locals: {
-        subject: @imageable,
-        title: "Edit Image",
-        subtitle: "for #{@image.name || ''}",
-        tabs: false,
-        buttons: [
-          delete_button(link: image_path(@imageable.to_gid_param, @image), title: "Delete image", confirmation_message: I18n.t("images.destroy.confirm"), layout: true)
-        ]
-      } do %>
-  <hr class="my-3" />
-  <%= render "/images/form_metadata", imageable: @imageable, image: @image %>
+<%= render(PageComponent.new(subject: @imageable)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: "Edit Image", subtitle: "for #{@image.name || ""}", buttons: [
+      delete_button(link: image_path(@imageable.to_gid_param, @image), title: "Delete image", confirmation_message: I18n.t("images.destroy.confirm"), layout: true)
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <hr class="my-3" />
+    <%= render "/images/form_metadata", imageable: @imageable, image: @image %>
+  <% end %>
 <% end %>

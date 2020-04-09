@@ -105,7 +105,6 @@ Rails.application.routes.draw do
   scope "/properties/:property_id" do
     resource :property_instructions, only: [:show], path: "/instructions"
     resource :property_earnings, only: [:show], path: "/earnings"
-    resource :property_dashboards, only: [:show], path: "/overview"
     resources :property_campaigns, only: [:index], path: "/campaigns"
     resources :versions, only: [:index], as: :property_versions, path: "/revisions"
     resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { %w[js html json].include? req.format }

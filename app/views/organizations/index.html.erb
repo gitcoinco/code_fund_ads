@@ -1,23 +1,27 @@
-<%= render "/shared/index_layout",
-    title: "Teams",
-    buttons: [
+<%= render(PageComponent.new) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: "Teams", buttons: [
       layout_button(link: new_organization_path, icon: "fas fa-plus", title: "Add team", admin: true)
-    ] do %>
-  <div class="page-section">
-    <div class="card card-fluid" data-controller="filterable-list">
-      <div class="card-header nav-scroller">
-        <ul class="nav nav-tabs card-header-tabs">
-          <% @scopable_values.flatten.each_with_index do |item| %>
-            <li class="nav-item">
-              <%= tag.span class: "nav-link show pointer #{"active" if item == @scoped_by}", data: navigable_expandos(reflex: "click->ScopableReflex#scope", scoped_by: item) do %>
-                <%= item.capitalize %>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <div class="page-section">
+      <div class="card card-fluid" data-controller="filterable-list">
+        <div class="card-header nav-scroller">
+          <ul class="nav nav-tabs card-header-tabs">
+            <% @scopable_values.flatten.each_with_index do |item| %>
+              <li class="nav-item">
+                <%= tag.span class: "nav-link show pointer #{"active" if item == @scoped_by}", data: navigable_expandos(reflex: "click->ScopableReflex#scope", scoped_by: item) do %>
+                  <%= item.capitalize %>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+        <%= card_body padding: "p-0" do %>
+          <%= render "/organizations/table", organizations: @organizations, pagy: @pagy %>
+        <% end %>
       </div>
-      <%= card_body padding: "p-0" do %>
-        <%= render "/organizations/table", organizations: @organizations, pagy: @pagy %>
-      <% end %>
-  </div>
+    </div>
+  <% end %>
 <% end %>

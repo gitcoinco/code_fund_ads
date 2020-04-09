@@ -1,15 +1,15 @@
-<%= render layout: "/shared/layout", locals: {
-  subject: @user,
-  subtitle: @user.email,
-  sidebar: true,
-  buttons: [
-    layout_button(link: edit_user_path(@user), icon: "fad fa-pencil", title: "Edit user"),
-    layout_button(link: user_impersonation_path(@user), method: :put, icon: "fad fa-mask", title: "Masquerade as user", admin: true)
-  ]
-} do %>
-  <%= card do %>
-    <%= card_body padding: "p-0" do %>
-      <%= render "/user_properties/table", properties: @properties, pagy: @pagy %>
+<%= render(PageComponent.new(subject: @user, sidebar: true, tabs: true)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: @user&.name, subtitle: @user.email, sidebar: true, buttons: [
+      layout_button(link: edit_user_path(@user), icon: "fad fa-pencil", title: "Edit user"),
+      layout_button(link: user_impersonation_path(@user), method: :put, icon: "fad fa-mask", title: "Masquerade as user", admin: true)
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= card do %>
+      <%= card_body padding: "p-0" do %>
+        <%= render "/user_properties/table", properties: @properties, pagy: @pagy %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

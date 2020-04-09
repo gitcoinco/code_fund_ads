@@ -1,9 +1,4 @@
-<%= render layout: "/shared/layout",
-    locals: {
-      subject: @creative,
-      title: "Adding Creative",
-      subtitle: "Fill out the form below",
-      tabs: false
-    } do %>
-  <%= render "/creatives/form", creative: @creative %>
+<%= render(PageComponent.new(subject: @creative)) do |component| %>
+  <%= component.with(:header) { render(Page::HeaderComponent.new(title: "Adding Creative", subtitle: "Fill out the form below")) } %>
+  <%= component.with(:body) { render("/creatives/form", creative: @creative) } %>
 <% end %>

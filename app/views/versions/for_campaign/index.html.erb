@@ -1,14 +1,12 @@
-<%= render layout: "/shared/layout", locals: {
-  subject: @versionable,
-  sidebar: false,
-} do %>
-  <%= card do %>
-    <%= card_header do %>
-      <%= card_title "Campaign Revisions" %>
-      <%= card_subtitle "List of revisions to this campaign" %>
-    <% end %>
-    <%= card_body padding: "p-0" do %>
-      <%= render "/versions/table", versionable: @versionable %>
+<%= render(PageComponent.new(subject: @versionable, tabs: true)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: "Campaign Revisions", subtitle: "List of revisions to this campaign")) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= card do %>
+      <%= card_body padding: "p-0" do %>
+        <%= render "/versions/table", versionable: @versionable %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

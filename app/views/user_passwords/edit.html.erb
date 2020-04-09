@@ -1,9 +1,4 @@
-<%= render layout: "/shared/layout", locals: {
-  subject: @user,
-  title: "Edit Password",
-  subtitle: "Fill out the form below to change your password",
-  sidebar: false,
-  tabs: false
-} do %>
-  <%= render "/user_passwords/form" %>
+<%= render(PageComponent.new(subject: @user)) do |component| %>
+  <%= component.with(:header) { render(Page::HeaderComponent.new(title: "Edit Password", subtitle: "Fill out the form below")) } %>
+  <%= component.with(:body) { render("/user_passwords/form") } %>
 <% end %>
