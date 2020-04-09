@@ -11,7 +11,7 @@ class OrganizationReportsController < ApplicationController
     @pagy, @organization_reports = pagy(organization_reports)
     @recipients = @organization.users.pluck(:email)
     @recipients << current_user.email
-    @recipients.uniq.compact!
+    @recipients.uniq!&.compact!
   end
 
   def new
