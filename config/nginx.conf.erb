@@ -206,6 +206,8 @@ http {
     server_name <%= ENV["APP_SUBDOMAIN"] || "app" %>.codefund.io api.codefund.io api.codefund.app;
     keepalive_timeout 5;
     client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
+    charset utf-8;
+    override_charset on;
 
     root /app/public;
 
