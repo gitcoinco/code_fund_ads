@@ -162,10 +162,10 @@ The URLs/routes responsible for ad rendering are:
 - Ruby version `2.6.6`
   - [rbenv](https://github.com/rbenv/rbenv)
   - [asdf](https://github.com/asdf-vm/asdf-ruby)
-- NodeJS version `13.0.1`
+- NodeJS version `13.11.0`
   - [nvm](https://github.com/nvm-sh/nvm)
   - [asdf](https://github.com/asdf-vm/asdf-nodejs)
-- Bundler version 2.1.1
+- Bundler version `2.1.4`
   - `gem install bundler`
 - Yarn
   - Mac: [instructions](https://yarnpkg.com/lang/en/docs/install/#mac-stable)

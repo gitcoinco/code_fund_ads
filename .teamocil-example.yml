@@ -7,7 +7,7 @@ windows:
     panes:
       - commands:
         - asdf local ruby 2.6.6
-        - asdf local nodejs 13.0.1
+        - asdf local nodejs 13.11.0
         - nvim
         focus: true
 
@@ -17,7 +17,7 @@ windows:
     panes:
       - commands:
         - asdf local ruby 2.6.6
-        - asdf local nodejs 13.0.1
+        - asdf local nodejs 13.11.0
         - bundle exec rails c
 
   - name: rails
@@ -26,13 +26,13 @@ windows:
     panes:
       - commands:
         - asdf local ruby 2.6.6
-        - asdf local nodejs 13.0.1
+        - asdf local nodejs 13.11.0
         - lsof -t -i tcp:3000 | xargs kill -KILL
         - redis-cli flushall
         - bundle exec rails s
       - commands:
         - asdf local ruby 2.6.6
-        - asdf local nodejs 13.0.1
+        - asdf local nodejs 13.11.0
         - lsof -t -i tcp:3035 | xargs kill -KILL
         - bundle exec ./bin/webpack-dev-server
 
@@ -42,6 +42,6 @@ windows:
     panes:
       - commands:
         - asdf local ruby 2.6.6
-        - asdf local nodejs 13.0.1
+        - asdf local nodejs 13.11.0
         - redis-cli flushall
         - bundle exec sidekiq -C config/sidekiq.yml
