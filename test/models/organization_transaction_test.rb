@@ -3,13 +3,13 @@
 # Table name: organization_transactions
 #
 #  id               :bigint           not null, primary key
-#  amount_cents     :integer          default("0"), not null
+#  amount_cents     :integer          default(0), not null
 #  amount_currency  :string           default("USD"), not null
 #  description      :text
-#  gift             :boolean          default("false")
+#  gift             :boolean          default(FALSE)
 #  posted_at        :datetime         not null
 #  reference        :text
-#  temporary        :boolean          default("false")
+#  temporary        :boolean          default(FALSE)
 #  transaction_type :string           not null
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null

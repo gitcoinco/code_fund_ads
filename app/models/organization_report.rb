@@ -3,7 +3,7 @@
 # Table name: organization_reports
 #
 #  id              :bigint           not null, primary key
-#  campaign_ids    :bigint           default("{}"), not null, is an Array
+#  campaign_ids    :bigint           default([]), not null, is an Array
 #  end_date        :date             not null
 #  pdf_url         :text
 #  start_date      :date             not null

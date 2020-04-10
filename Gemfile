@@ -10,7 +10,7 @@ gem "active_storage_svg_sanitizer", "~> 0.1.0"
 gem "aws-sdk-s3", "~> 1.61.1", require: false
 gem "barnes", "~> 0.0.7"
 gem "bootsnap", ">= 1.4.2", require: false
-gem "cable_ready", "~> 4.0.9"
+gem "cable_ready", "~> 4.1.0"
 gem "camo", "~> 0.1.0"
 gem "chroma", "~> 0.2.0"
 gem "chronic", "~> 0.10.2"
@@ -28,7 +28,7 @@ gem "full-name-splitter", "~> 0.1.2"
 gem "heroku-deflater", "~> 0.6.3", group: :production
 gem "hiredis", "~> 0.6.3"
 gem "htmlentities", "4.3.4"
-gem "image_processing", "~> 1.9.0"
+gem "image_processing", "~> 1.10.3"
 gem "inky-rb", "~> 1.3.7.3", require: "inky"
 gem "ipaddress", "~> 0.8.3"
 gem "jbuilder", "~> 2.5"
@@ -37,7 +37,7 @@ gem "liquid", "~> 4.0.1"
 gem "mailgun-ruby", "~> 1.2.0"
 gem "maxminddb", "~> 0.1.22"
 gem "meta-tags", "~> 2.13.0"
-gem "mini_magick", "~> 4.9.2" # intended for use with ActiveStorage & graphicsmagick
+gem "mini_magick", "~> 4.10.1" # intended for use with ActiveStorage & graphicsmagick
 gem "monetize", "~> 1.9.0"
 gem "money-rails", "~> 1.13.0"
 gem "money", "~> 6.13.1"
@@ -74,7 +74,7 @@ gem "view_component", "~> 2.2.1"
 # TODO - Re-enable for internal CodeFund analytics tool
 # gem "staccato", "~> 0.5.1"
 
-gem "stimulus_reflex", "~> 2.2"
+gem "stimulus_reflex", "~> 3.0.0"
 gem "stopwords-filter", "~> 0.4.1", require: "stopwords"
 gem "stripe", "~> 5.4.1"
 gem "tag_columns", "~> 0.1.8"
@@ -106,7 +106,7 @@ group :development do
   gem "model_probe"
   gem "ngrok-tunnel"
   gem "rack-mini-profiler", require: false
-  gem "solargraph"
+  gem "solargraph", "~> 0.38"
   gem "standard"
   gem "teamocil"
   gem "tocer"
