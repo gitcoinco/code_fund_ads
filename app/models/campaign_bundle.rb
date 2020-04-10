@@ -5,7 +5,7 @@
 #  id              :bigint           not null, primary key
 #  end_date        :date             not null
 #  name            :string           not null
-#  region_ids      :bigint           default("{}"), is an Array
+#  region_ids      :bigint           default([]), is an Array
 #  start_date      :date             not null
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

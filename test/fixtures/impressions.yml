@@ -13,13 +13,13 @@
 #  estimated_gross_revenue_fractional_cents    :float
 #  estimated_house_revenue_fractional_cents    :float
 #  estimated_property_revenue_fractional_cents :float
-#  fallback_campaign                           :boolean          default("false"), not null
+#  fallback_campaign                           :boolean          default(FALSE), not null
 #  ip_address                                  :string           not null
 #  latitude                                    :decimal(, )
 #  longitude                                   :decimal(, )
 #  postal_code                                 :string
 #  province_code                               :string
-#  uplift                                      :boolean          default("false")
+#  uplift                                      :boolean          default(FALSE)
 #  user_agent                                  :text             not null
 #  advertiser_id                               :bigint           not null
 #  campaign_id                                 :bigint           not null

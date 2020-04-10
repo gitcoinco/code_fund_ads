@@ -934,7 +934,7 @@
     "@nodelib/fs.scandir" "2.1.3"
     fastq "^1.6.0"
 
-"@rails/actioncable@^6.0.0":
+"@rails/actioncable@>= 6.0", "@rails/actioncable@^6.0.0":
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-6.0.2.tgz#bcba9bcd6ee09a47c6628336e07399a68ca87814"
   integrity sha512-vN78gohsXPlC5jxBHlmiwkUI9bv6SulcZaE72kAIg/G4ou+wTdiMWPJK1bf2IxUNf+sfOjhl+tbRmY4AzJcgrw==
@@ -1279,11 +1279,6 @@ acorn@^7.1.1:
   version "7.1.1"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-7.1.1.tgz#e35668de0b402f359de515c5482a1ab9f89a69bf"
   integrity sha512-add7dgA5ppRPxCFJoAGfMDi7PIBXq1RtGo7BhbLaxwrXPOmw8gq48Y9ozT01hUKy9byMjlR20EJhu5zlkErEkg==
-
-"actioncable@>= 5.2":
-  version "5.2.4"
-  resolved "https://registry.yarnpkg.com/actioncable/-/actioncable-5.2.4.tgz#744f555f16d87413044f81074a9cc4d2cf416502"
-  integrity sha512-2mCP0eKTjxtDWNPqP6xPar9a5i8F/pndrTHJGU6QDS1a77B+DlPEWzPRiyNAaNEGMY/9yTBOP3CXhR+8/zaVQw==
 
 agent-base@4, agent-base@^4.1.0, agent-base@^4.3.0:
   version "4.3.0"
@@ -2009,10 +2004,10 @@ bytes@3.1.0:
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
   integrity sha512-zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==
 
-"cable_ready@>= 4.0", cable_ready@^4.0.9:
-  version "4.0.9"
-  resolved "https://registry.yarnpkg.com/cable_ready/-/cable_ready-4.0.9.tgz#9d8a1c3a5af4251e2ecc3ce18c71346d131cbbbc"
-  integrity sha512-WB2xLIu31PSwwRXRLl/9tHwGqFUFEYbtXvM1SBsIRR5t6UaMW/OJrstPanqCiX4ZfTU4IafGn+1rjV/Js2jNhw==
+"cable_ready@>= 4.1", cable_ready@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/cable_ready/-/cable_ready-4.1.0.tgz#ddf15d341326058b412964716e7d58de4e223cc8"
+  integrity sha512-qNjcOoGbYiVITyfxTIk9AHDkdinbDAMvQ1U4vQgmojZN1n6qeZiMJsqLaqC78BaXPphcDgZVQu83O6FKVf8Cgg==
   dependencies:
     morphdom "^2.5.12"
 
@@ -9293,13 +9288,13 @@ stdout-stream@^1.4.0:
     "@stimulus/core" "^1.1.1"
     "@stimulus/webpack-helpers" "^1.1.1"
 
-stimulus_reflex@^2.2.3:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/stimulus_reflex/-/stimulus_reflex-2.2.3.tgz#489c0188e7f7713c71aec789316747d707024d93"
-  integrity sha512-HXQk0MGWtmrM/oCKe9YOjhLMhGJOjyg4JY1cCDknkFKRRS7cQc28R2BJZkS20IzTjPiHtFCFZIBISFICSIRrDQ==
+stimulus_reflex@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/stimulus_reflex/-/stimulus_reflex-3.0.0.tgz#a7c0f95173e535fad4b1cd253c53ef099b4a9baa"
+  integrity sha512-K/4SKFF7v63MsZLRWKgAvIGp7Y9AxaakTIXRaCkCe0C6kee9pBGkASr6snQHOQx6op2QRTG7zj3MSmAC8rfOOQ==
   dependencies:
-    actioncable ">= 5.2"
-    cable_ready ">= 4.0"
+    "@rails/actioncable" ">= 6.0"
+    cable_ready ">= 4.1"
     inflected ">= 2.0"
     stimulus ">= 1.1"
 

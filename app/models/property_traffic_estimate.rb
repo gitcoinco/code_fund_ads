@@ -11,36 +11,36 @@
 #  alexa_pageviews_delta_1_month  :float
 #  alexa_pageviews_delta_3_months :float
 #  alexa_pageviews_delta_7_days   :float
-#  alexa_rank_1_day               :bigint           default("0")
-#  alexa_rank_1_month             :bigint           default("0")
-#  alexa_rank_3_months            :bigint           default("0")
-#  alexa_rank_7_days              :bigint           default("0")
-#  alexa_rank_delta_1_day         :bigint           default("0")
-#  alexa_rank_delta_1_month       :bigint           default("0")
-#  alexa_rank_delta_3_months      :bigint           default("0")
-#  alexa_rank_delta_7_days        :bigint           default("0")
-#  alexa_reach_1_day              :bigint           default("0")
-#  alexa_reach_1_month            :bigint           default("0")
-#  alexa_reach_3_months           :bigint           default("0")
-#  alexa_reach_7_days             :bigint           default("0")
-#  alexa_reach_delta_1_day        :bigint           default("0")
-#  alexa_reach_delta_1_month      :bigint           default("0")
-#  alexa_reach_delta_3_months     :bigint           default("0")
-#  alexa_reach_delta_7_days       :bigint           default("0")
-#  pageviews_daily                :bigint           default("0")
-#  pageviews_monthly              :bigint           default("0")
-#  pageviews_yearly               :bigint           default("0")
-#  revenue_daily_cents            :bigint           default("0"), not null
+#  alexa_rank_1_day               :bigint           default(0)
+#  alexa_rank_1_month             :bigint           default(0)
+#  alexa_rank_3_months            :bigint           default(0)
+#  alexa_rank_7_days              :bigint           default(0)
+#  alexa_rank_delta_1_day         :bigint           default(0)
+#  alexa_rank_delta_1_month       :bigint           default(0)
+#  alexa_rank_delta_3_months      :bigint           default(0)
+#  alexa_rank_delta_7_days        :bigint           default(0)
+#  alexa_reach_1_day              :bigint           default(0)
+#  alexa_reach_1_month            :bigint           default(0)
+#  alexa_reach_3_months           :bigint           default(0)
+#  alexa_reach_7_days             :bigint           default(0)
+#  alexa_reach_delta_1_day        :bigint           default(0)
+#  alexa_reach_delta_1_month      :bigint           default(0)
+#  alexa_reach_delta_3_months     :bigint           default(0)
+#  alexa_reach_delta_7_days       :bigint           default(0)
+#  pageviews_daily                :bigint           default(0)
+#  pageviews_monthly              :bigint           default(0)
+#  pageviews_yearly               :bigint           default(0)
+#  revenue_daily_cents            :bigint           default(0), not null
 #  revenue_daily_currency         :string           default("USD"), not null
-#  revenue_monthly_cents          :bigint           default("0"), not null
+#  revenue_monthly_cents          :bigint           default(0), not null
 #  revenue_monthly_currency       :string           default("USD"), not null
-#  revenue_yearly_cents           :bigint           default("0"), not null
+#  revenue_yearly_cents           :bigint           default(0), not null
 #  revenue_yearly_currency        :string           default("USD"), not null
-#  site_worth_cents               :bigint           default("0"), not null
+#  site_worth_cents               :bigint           default(0), not null
 #  site_worth_currency            :string           default("USD"), not null
-#  visitors_daily                 :bigint           default("0")
-#  visitors_monthly               :bigint           default("0")
-#  visitors_yearly                :bigint           default("0")
+#  visitors_daily                 :bigint           default(0)
+#  visitors_monthly               :bigint           default(0)
+#  visitors_yearly                :bigint           default(0)
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
 #  property_id                    :bigint           not null
