@@ -84,7 +84,7 @@ class UsersController < ApplicationController
 
   def set_current_organization_for_admin
     return unless authorized_user.can_admin_system?
-    if @user.organizations
+    if @user.default_organization
       Current.organization = @user.default_organization
       session[:organization_id] = @user.default_organization&.id
     end
