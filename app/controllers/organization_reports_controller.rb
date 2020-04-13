@@ -4,10 +4,8 @@ class OrganizationReportsController < ApplicationController
   http_basic_authenticate_with name: ENV.fetch("DOCRAPTOR_HTTP_USERNAME", "user"), password: ENV.fetch("DOCRAPTOR_HTTP_PASSWORD", "secret"), only: :show
 
   def index
-    @scheduled_organization_reports = @organization.scheduled_organization_reports.order(created_at: :desc)
     organization_reports = @organization.organization_reports.order(created_at: :desc)
     @organization_report = @organization.organization_reports.build
-    @scheduled_organization_report = @organization.scheduled_organization_reports.build
     @pagy, @organization_reports = pagy(organization_reports)
     @recipients = @organization.users.pluck(:email)
     @recipients << current_user.email

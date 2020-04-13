@@ -23,11 +23,7 @@ summaries = campaign.daily_summary_reports_by_country_code(report.start_date, re
       ctr = (clicks.to_f / impressions.to_f) * 100
       cpm = (revenue / impressions.to_f) * 1000
       cpc = clicks > 0 ? revenue / clicks.to_f : nil %>
-    <%= tag.tr class: classes(
-          "danger": ctr <= 0.05 && impressions > 10_000,
-          "warn": ctr > 0.05 && ctr < 0.1 && impressions > 10_000,
-          "success": ctr >= 0.2 && impressions > 10_000
-      ) do %>
+    <%= tag.tr do %>
       <td class="text-center"><%= country ? country.iso_code : "UNK" %></td>
       <td class="text-left"><%= country ? country.name : "Unknown" %></td>
       <td><%= number_to_currency revenue %></td>
