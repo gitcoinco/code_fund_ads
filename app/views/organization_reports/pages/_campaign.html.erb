@@ -4,27 +4,27 @@
     <p class="lead"><%= report.start_date.to_s("bdy") %> to <%= report.end_date.to_s("bdy") %></p>
     <div class="flex-container" style="margin-top: .5in;">
       <div class="flex-item">
-        <h4><%= number_to_currency summary.gross_revenue_cents / 100 %></h4>
+        <div class="h4"><%= number_to_currency summary.gross_revenue_cents / 100 %></div>
         <small>spend</small>
       </div>
       <div class="flex-item">
-        <h4><%= number_with_delimiter summary.impressions_count %></h4>
+        <div class="h4"><%= number_with_delimiter summary.impressions_count %></div>
         <small>impressions</small>
       </div>
       <div class="flex-item">
-        <h4><%= number_with_delimiter summary.clicks_count %></h4>
+        <div class="h4"><%= number_with_delimiter summary.clicks_count %></div>
         <small>clicks</small>
       </div>
       <div class="flex-item">
-        <h4><%= number_to_percentage ((summary.clicks_count.to_f / summary.impressions_count.to_f) * 100), precision: 2 %></h4>
+        <div class="h4"><%= number_to_percentage ((summary.clicks_count.to_f / summary.impressions_count.to_f) * 100), precision: 2 %></div>
         <small>avg ctr</small>
       </div>
       <div class="flex-item">
-        <h4><%= number_to_currency ((summary.gross_revenue_cents / 100).to_f / summary.impressions_count.to_f) * 1000 %></h4>
+        <div class="h4"><%= number_to_currency ((summary.gross_revenue_cents / 100).to_f / summary.impressions_count.to_f) * 1000 %></div>
         <small>avg cpm</small>
       </div>
       <div class="flex-item">
-        <h4><%= number_to_currency (summary.gross_revenue_cents / 100).to_f / summary.clicks_count.to_f %></h4>
+        <div class="h4"><%= number_to_currency (summary.gross_revenue_cents / 100).to_f / summary.clicks_count.to_f %></div>
         <small>avg cpc</small>
       </div>
     </div>

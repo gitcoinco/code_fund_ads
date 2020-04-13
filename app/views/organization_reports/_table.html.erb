@@ -4,30 +4,24 @@
       <%= table_row header: true do %>
         <%= table_column "Date" %>
         <%= table_column "Title" %>
-        <%= table_column "Download" %>
+        <%= table_column "" %>
       <% end %>
     <% end %>
     <%= table_body do %>
-      <% scheduled_organization_reports.each do |scheduled_report| %>
-        <%= table_row add_class: "bg-success" do %>
-          <%= table_data scheduled_report.start_date.to_s("bdy") %>
-          <%= table_data scheduled_report.subject %>
-          <%= table_data do %>
-            <%= link_to "Delete", scheduled_organization_report_path(@organization, scheduled_report), method: :delete, data: {confirm: "Are you sure?"}, class: "text-white" %>
-          <% end %>
-        <% end %>
-      <% end %>
       <% organization_reports.each do |organization_report| %>
         <tr data-organization-report-id="<%= organization_report.id %>">
           <%= table_data organization_report.created_at.to_s("bdy") %>
           <%= table_data organization_report.title %>
           <%= table_data do %>
             <% if organization_report.status == "ready" %>
-              <%= link_to "PDF", url_for(organization_report.pdf), target: "_blank", class: "text-white" %>
+              <%= link_to tag.i("", class: "fas fa-download"), url_for(organization_report.pdf), target: "_blank", class: "text-white" %>
             <% else %>
               <%= link_to "Regenerate", organization_report_path(organization, organization_report), method: :patch, class: "text-white" %>
             <% end %>
           <% end %>
+          <%= table_data do %>
+            <%= link_to tag.i("", class: "fas fa-file-code"), organization_report_path(organization, organization_report), class: "text-white" %>
+          <% end if authorized_user.can_admin_system? %>
         </tr>
       <% end %>
     <% end %>
