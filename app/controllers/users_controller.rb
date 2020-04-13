@@ -5,6 +5,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_administrator!, except: [:show, :edit, :update]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_current_organization_for_admin, only: [:show]
   before_action :set_organization, only: [:index], if: -> { params[:organization_id].present? }
   skip_before_action :authenticate_user!, if: -> { params[:redir].present? }
   skip_before_action :authenticate_administrator!, if: -> { params[:redir].present? }
@@ -79,6 +80,14 @@ class UsersController < ApplicationController
 
   def set_organization
     @organization ||= Current.organization
+  end
+
+  def set_current_organization_for_admin
+    return unless authorized_user.can_admin_system?
+    if @user.default_organization
+      Current.organization = @user.default_organization
+      session[:organization_id] = @user.default_organization&.id
+    end
   end
 
   def set_sortable_columns
