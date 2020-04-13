@@ -8,11 +8,13 @@
       <%= table_data "", colspan: 2 %>
     <% else %>
       <%= table_data do %>
-        <%= inline_circle_icon("fad fa-usd-square text-green", title: "Out of budget") unless campaign.budget_available? %>
-        <%= inline_circle_icon("fad fa-turtle text-green", title: "Campaign is pacing too slow") if campaign.pacing_too_slow? %>
-        <%= inline_circle_icon("fad fa-rabbit-fast text-pink", title: "Campaign is pacing too fast") if campaign.pacing_too_fast? %>
-        <%= inline_circle_icon("fad fa-coins text-yellow", title: "Should increase daily caps") if campaign.should_increase_caps? %>
-        <%= inline_circle_icon("fad fa-coin text-yellow", title: "Should decrease daily caps") unless campaign.should_increase_caps? || campaign.pacing_too_slow? %>
+        <% if campaign.should_display_budget_warnings? %>
+          <%= inline_circle_icon("fad fa-usd-square text-green", title: "Out of budget") unless campaign.budget_available? %>
+          <%= inline_circle_icon("fad fa-turtle text-green", title: "Campaign is pacing too slow") if campaign.pacing_too_slow? %>
+          <%= inline_circle_icon("fad fa-rabbit-fast text-pink", title: "Campaign is pacing too fast") if campaign.pacing_too_fast? %>
+          <%= inline_circle_icon("fad fa-coins text-yellow", title: "Should increase daily caps") if campaign.should_increase_caps? %>
+          <%= inline_circle_icon("fad fa-coin text-yellow", title: "Should decrease daily caps") unless campaign.should_increase_caps? || campaign.pacing_too_slow? %>
+        <% end %>
       <% end %>
       <%= table_data do %>
         <div class="progress bg-muted mb-2">
