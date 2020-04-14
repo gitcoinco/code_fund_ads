@@ -104,7 +104,7 @@
           <pre class="mt-1 p-2" style="background-color:#d5dae3;"><code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</code></pre>
         </div>
         <%= tag.div f.input(:prohibited_organization_ids,
-                            label: "Excluded Advertiser Organizations",
+                            label: "Excluded Advertisers",
                             collection: organizations_for_select,
                             input_html: {
                               class: "form-control", multiple: true, data: {controller: "select", "reflex-permanent": true}
