@@ -142,7 +142,7 @@ module Campaigns
     end
 
     def should_display_budget_warnings?
-      return false if start_date.future? || start_date.today?
+      return false if start_date.future? || start_date.today? || summary.nil?
       (percentage_complete_by_date - gross_revenue_percentage).abs >= 5
     end
 
