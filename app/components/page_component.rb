@@ -8,7 +8,8 @@ class PageComponent < ViewComponent::Base
   end
 
   def subject_view_directory
-    subject&.class&.name&.underscore&.pluralize
+    return "" unless subject
+    subject.class.name.underscore.pluralize
   end
 
   private

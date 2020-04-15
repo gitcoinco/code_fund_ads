@@ -7,7 +7,7 @@
       </h1>
       <%= tag.span subtitle, class: "d-block text-muted" if subtitle %>
     </div>
-    <% if datepicker || buttons.any? %>
+    <% if datepicker || buttons.any? || sidebar %>
       <div class="ml-auto d-flex">
         <%= render("/shared/date_range_picker") if datepicker %>
         <% buttons.each do |link| %>
