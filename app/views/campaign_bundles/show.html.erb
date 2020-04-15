@@ -1,14 +1,15 @@
-<%= render layout: "/shared/layout", locals: {
-  subject: @campaign_bundle,
-  tabs: false,
-  buttons: [
-    layout_button(link: new_campaign_bundle_path, icon: "fas fa-plus", title: "New campaign bundle", admin: true),
-  ]
-} do %>
-  <hr class="my-3" />
-  <%= card do %>
-    <%= card_body padding: "p-0" do %>
-      <%= render "/campaign_bundles/campaigns/table", campaigns: @campaign_bundle.campaigns %>
+<%= render(PageComponent.new(subject: @campaign_bundle)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: @campaign_bundle.name, buttons: [
+      layout_button(link: new_campaign_bundle_path, icon: "fas fa-plus", title: "New campaign bundle", admin: true)
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <hr class="my-3" />
+    <%= card do %>
+      <%= card_body padding: "p-0" do %>
+        <%= render "/campaign_bundles/campaigns/table", campaigns: @campaign_bundle.campaigns %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

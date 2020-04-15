@@ -1,10 +1,10 @@
-<%= render "/shared/index_layout",
-    title: "Properties",
-    buttons: [
+<%= render(PageComponent.new) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: "Properties", buttons: [
       link_to("Add property", new_property_path, class: "btn btn-primary")
-    ] do %>
-  <%= render "/shared/data_list",
-             resource_name: "properties",
-             collection: @properties,
-             pagy: @pagy %>
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= render "/shared/data_list", resource_name: "properties", collection: @properties, pagy: @pagy %>
+  <% end %>
 <% end %>

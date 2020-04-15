@@ -1,12 +1,6 @@
-<div class="page-inner">
-  <%= render "/shared/page_heading_with_subtitle",
-    title: "Administrator Dashboard",
-    datepicker: false %>
-      <iframe
-        src="<%= @iframe_url %>"
-        title="Administrator Dashboard"
-        class="metabase-card border rounded"
-        height="2000"
-        scrolling="no"
-        allowtransparency></iframe>
-</div>
+<%= render(PageComponent.new) do |component| %>
+  <%= component.with(:header) { render(Page::HeaderComponent.new(title: "Administrator Dashboard")) } %>
+  <% component.with(:body) do %>
+    <%= render(MetabaseComponent.new(src: @iframe_url, title: "Administrator Metabase Dashboard")) %>
+  <% end %>
+<% end %>

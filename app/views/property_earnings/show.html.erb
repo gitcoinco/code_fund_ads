@@ -1,13 +1,15 @@
-<%= render layout: "/shared/layout", locals: {
-  subject: @property,
-  sidebar: true,
-  datepicker: true,
-  buttons: [
-    layout_button(link: new_property_path, icon: "fas fa-plus", title: "New property"),
-    layout_button(link: new_property_path(clone: @property.id), icon: "fad fa-copy", title: "Clone property")
-  ]
-} do %>
-  <%= card do %>
-    <%= render "/property_earnings/table", property: @property, report: @report %>
+<%= render(PageComponent.new(subject: @property, sidebar: true, tabs: true)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: @property.name, sidebar: true, datepicker: true, buttons: [
+      layout_button(link: new_property_path, icon: "fas fa-plus", title: "New property"),
+      layout_button(link: new_property_path(clone: @property.id), icon: "fad fa-copy", title: "Clone property")
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= card do %>
+      <%= card_body padding: "p-0" do %>
+        <%= render "/property_earnings/table", property: @property, report: @report %>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>

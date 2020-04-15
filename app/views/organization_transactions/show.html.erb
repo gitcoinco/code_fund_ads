@@ -1,22 +1,23 @@
-<%= render layout: "/shared/layout", locals: {
-  subject: @organization,
-  sidebar: false,
-  buttons: [
-    layout_button(link: edit_organization_transaction_path(@organization, @organization_transaction), icon: "fas fa-pencil", title: "Edit transaction", admin: true),
-    delete_button(link: organization_transaction_path(@organization, @organization_transaction), title: "Delete transaction", layout: true, admin: true)
-  ]
-} do %>
-  <%= card do %>
-    <%= card_header "Transaction Details" %>
-    <%= card_body do %>
-      <ul class="list-group list-group-flush list-group-bordered">
-        <%= details_li("Post Date") { @organization_transaction.posted_at.to_s("mm/dd/yyyy") } %>
-        <%= details_li("Amount") { @organization_transaction.amount.format } %>
-        <%= details_li("Type") { @organization_transaction.transaction_type.capitalize } %>
-        <%= details_li("Gift?") { @organization_transaction.gift? ? "Yes" : "No" } %>
-        <%= details_li("Reference") { @organization_transaction.reference } %>
-        <%= details_li("Description") { @organization_transaction.description } %>
-      </ul>
+<%= render(PageComponent.new(subject: @organization)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: "Transactions", subtitle: "for #{@organization.name}", buttons: [
+      layout_button(link: edit_organization_transaction_path(@organization, @organization_transaction), icon: "fas fa-pencil", title: "Edit transaction", admin: true),
+      delete_button(link: organization_transaction_path(@organization, @organization_transaction), title: "Delete transaction", layout: true, admin: true)
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= card do %>
+      <%= card_header "Transaction Details" %>
+      <%= card_body do %>
+        <ul class="list-group list-group-flush list-group-bordered">
+          <%= details_li("Post Date") { @organization_transaction.posted_at.to_s("mm/dd/yyyy") } %>
+          <%= details_li("Amount") { @organization_transaction.amount.format } %>
+          <%= details_li("Type") { @organization_transaction.transaction_type.capitalize } %>
+          <%= details_li("Gift?") { @organization_transaction.gift? ? "Yes" : "No" } %>
+          <%= details_li("Reference") { @organization_transaction.reference } %>
+          <%= details_li("Description") { @organization_transaction.description } %>
+        </ul>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

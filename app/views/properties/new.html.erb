@@ -1,7 +1,4 @@
-<%= render layout: "/shared/layout",
-    locals: {
-        subject: @property,
-        title: "Add Property",
-        subtitle: "Fill out the form below"} do %>
-  <%= render "/properties/form", property: @property %>
+<%= render(PageComponent.new(subject: @property)) do |component| %>
+  <%= component.with(:header) { render(Page::HeaderComponent.new(title: "Add Property", subtitle: "Fill out the form below")) } %>
+  <%= component.with(:body) { render("/properties/form", property: @property) } %>
 <% end %>

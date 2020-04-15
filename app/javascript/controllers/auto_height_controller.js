@@ -1,4 +1,4 @@
-// Used to make sure `shared/layout` is the full height of the browser
+// Used to make sure `PageComponent` is the full height of the browser
 // and takes zoom percentage in to account.
 import { Controller } from 'stimulus'
 

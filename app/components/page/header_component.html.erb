@@ -1,0 +1,22 @@
+<header class="page-title-bar mb-0">
+  <div class="d-flex flex-column flex-md-row">
+    <div class="lead mb-3">
+      <h1 class="h4 font-weight-bold mb-1">
+        <%= title %>
+        <span hidden role="status" class="reflex-activity spinner-border spinner-border-sm text-primary" style="position:relative; top:-5px;"></span>
+      </h1>
+      <%= tag.span subtitle, class: "d-block text-muted" if subtitle %>
+    </div>
+    <% if datepicker || buttons.any? || sidebar %>
+      <div class="ml-auto d-flex">
+        <%= render("/shared/date_range_picker") if datepicker %>
+        <% buttons.each do |link| %>
+          <%= link.html_safe %>
+        <% end if buttons.any? %>
+        <%= button_tag(type: "button", class: "btn tile layout-button d-xl-none", onclick: "CodeFundTheme.toggleSidebar()") do %>
+          <%= tag.span class: "fa fa-angle-double-left" %>
+        <% end if sidebar %>
+      </div>
+    <% end %>
+  </div>
+</header>

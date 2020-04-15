@@ -1,0 +1,10 @@
+<%= render(PageComponent.new) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: "", buttons: [
+      # Buttons
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <!-- Shit -->
+  <% end %>
+<% end %>

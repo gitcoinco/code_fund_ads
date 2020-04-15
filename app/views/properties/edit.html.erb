@@ -1,10 +1,9 @@
-<%= render layout: "/shared/layout", locals: {
-  subject: @property,
-  sidebar: false,
-  buttons: [
-    layout_button(link: new_property_path, icon: "fas fa-plus", title: "New property"),
-    layout_button(link: new_property_path(clone: @property.id), icon: "fad fa-copy", title: "Clone property")
-  ]
-} do %>
-  <%= render "properties/form", property: @property %>
+<%= render(PageComponent.new(subject: @property, tabs: true)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: @property.name, buttons: [
+      layout_button(link: new_property_path, icon: "fas fa-plus", title: "New property"),
+      layout_button(link: new_property_path(clone: @property.id), icon: "fad fa-copy", title: "Clone property")
+    ])) %>
+  <% end %>
+  <%= component.with(:body) { render("properties/form", property: @property) } %>
 <% end %>

@@ -1,9 +1,7 @@
-<%= render layout: "/shared/layout",
-    locals: {
-        subject: @imageable,
-        title: "Upload Images",
-        tabs: false,
-        subtitle: "for #{@imageable.imageable_name}"} do %>
-  <%= render "/images/form_upload", imageable: @imageable %>
-  <%= render "/images/upload_instructions" %>
+<%= render(PageComponent.new(subject: @imageable)) do |component| %>
+  <%= component.with(:header) { render(Page::HeaderComponent.new(title: "Upload Images", subtitle: "for #{@imageable.imageable_name}")) } %>
+  <% component.with(:body) do %>
+    <%= render "/images/form_upload", imageable: @imageable %>
+    <%= render "/images/upload_instructions" %>
+  <% end %>
 <% end %>

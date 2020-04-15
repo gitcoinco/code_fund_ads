@@ -1,15 +1,20 @@
-<%= render layout: "/shared/layout", locals: {
-  subject: @organization,
-  sidebar: false
-} do %>
-  <%= card do %>
-    <%= card_header do %>
-      <%= card_title @organization_user.user&.name %>
-      <%= card_subtitle "Fill out the fields below" %>
+<%= render(PageComponent.new(subject: @organization, tabs: true)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: "Edit Member", subtitle: "for #{@organization.name}", buttons: [
+      layout_button(link: new_organization_user_path(@organization), icon: "fas fa-plus", title: "Add member", display: authorized_user.can_edit_organization_users?(@organization)),
+      delete_button(link: organization_user_path(@organization, @organization_user), title: "Remove member", layout: true, display: authorized_user.can_edit_organization_users?(@organization))
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= card do %>
+      <%= card_header do %>
+        <%= card_title @organization_user.user&.name %>
+        <%= card_subtitle "Fill out the fields below" %>
+      <% end %>
+      <%= render "/organization_users/forms/existing_user_form",
+            organization: @organization,
+            organization_user: @organization_user,
+            url: organization_user_path(@organization, @organization_user) %>
     <% end %>
-    <%= render "/organization_users/forms/existing_user_form",
-          organization: @organization,
-          organization_user: @organization_user,
-          url: organization_user_path(@organization, @organization_user) %>
   <% end %>
 <% end %>

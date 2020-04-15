@@ -1,14 +1,10 @@
-<% content_for :page_heading do %>
-  <%= page_heading "Referrals", "",
-    subtitle: "Earn by referring friends",
-    icon: "fas fa-browser" %>
+<%= render(PageComponent.new) do |component| %>
+  <%= component.with(:header) { render(Page::HeaderComponent.new(title: "Referrals", subtitle: "Earn by referring friends")) } %>
+  <% component.with(:body) do %>
+    <hr class="my-3" />
+    <div class="row">
+      <div class="col-md-6"><%= render "/referrals/share_card" %></div>
+      <div class="col-md-6"><%= render "/referrals/stats_card" %></div>
+    </div>
+  <% end %>
 <% end %>
-<section class="container mt-4">
-  <header class="page-title-bar border-bottom">
-    <%= yield :page_heading %>
-  </header>
-  <article class="grid grid-tcolumns-400 grid-trows-200">
-    <%= render "/referrals/share_card" %>
-    <%= render "/referrals/stats_card" %>
-  </article>
-</section>

@@ -1,9 +1,8 @@
-<%= render layout: "/shared/layout", locals: {
-  subject: @campaign,
-  sidebar: false,
-  buttons: [
-    layout_button(link: new_campaign_path(clone: @campaign.id), icon: "fad fa-copy", title: "Clone campaign", admin: true)
-  ]
-} do %>
-  <%= render "/campaigns/form", campaign: @campaign %>
+<%= render(PageComponent.new(subject: @campaign, tabs: true)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: @campaign.name, buttons: [
+      layout_button(link: new_campaign_path(clone: @campaign.id), icon: "fad fa-copy", title: "Clone campaign", admin: true)
+    ])) %>
+  <% end %>
+  <%= component.with(:body) { render("/campaigns/form", campaign: @campaign) } %>
 <% end %>

@@ -1,15 +1,15 @@
-<%= render layout: "/shared/layout", locals: {
-  subject: @organization,
-  sidebar: true,
-  tabs: true,
-  buttons: [
-    generate_organization_report_button(@organization.id),
-    layout_button(link: new_organization_user_path(@organization), icon: "fas fa-plus", title: "Add transaction", display: authorized_user.can_edit_organization_users?(@organization)),
-  ]
-} do %>
-  <%= card do %>
-    <%= card_body padding: "p-0" do %>
-      <%= render "/organization_users/table", organization: @organization, organization_users: @organization_users, pagy: @pagy %>
+<%= render(PageComponent.new(subject: @organization, tabs: true, sidebar: true)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: @organization.name, sidebar: true, buttons: [
+      generate_organization_report_button(@organization.id),
+      layout_button(link: new_organization_user_path(@organization), icon: "fas fa-plus", title: "Add member", display: authorized_user.can_edit_organization_users?(@organization)),
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= card do %>
+      <%= card_body padding: "p-0" do %>
+        <%= render "/organization_users/table", organization: @organization, organization_users: @organization_users, pagy: @pagy %>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

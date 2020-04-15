@@ -1,0 +1,9 @@
+<div class="page<%= " has-sidebar has-sidebar-expand-xl" if sidebar %>">
+  <%= tag.div(class: "sidebar-backdrop") if sidebar %>
+  <div class="page-inner" data-controller="auto-height">
+    <%= header %>
+    <%= render("/#{subject_view_directory}/tabs", subject: subject) if subject&.persisted? && tabs %>
+    <div class="page-section"><%= body %></div>
+    <%= render "/#{subject_view_directory}/sidebar", subject: subject if sidebar %>
+  </div>
+</div>

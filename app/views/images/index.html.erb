@@ -1,7 +1,10 @@
-<%= render "/shared/index_layout",
-    title: "Images",
-    buttons: [
+<%= render(PageComponent.new) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: "Images", buttons: [
       link_to("Upload Image", new_image_path, class: "btn btn-primary")
-    ] do %>
-  <%= render "/images/grid", imageable: @imageable, images: @images %>
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= render "/images/grid", imageable: @imageable, images: @images %>
+  <% end %>
 <% end %>

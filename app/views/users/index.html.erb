@@ -1,10 +1,10 @@
-<%= render "/shared/index_layout",
-    title: "Users",
-    buttons: [
+<%= render(PageComponent.new) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: "Users", buttons: [
       link_to("Invite User", new_user_invitation_path, class: "btn btn-primary")
-    ] do %>
-  <%= render "/shared/data_list",
-             resource_name: "users",
-             collection: @users,
-             pagy: @pagy %>
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= render "/shared/data_list", resource_name: "users", collection: @users, pagy: @pagy %>
+  <% end %>
 <% end %>
