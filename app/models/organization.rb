@@ -74,6 +74,7 @@ class Organization < ApplicationRecord
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   attr_accessor :skip_validation
   monetize :balance_cents, numericality: true
+  acts_as_commentable
   has_paper_trail on: %i[update destroy], only: %i[
     name
   ]

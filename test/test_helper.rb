@@ -48,6 +48,13 @@ class ActiveSupport::TestCase
     post user_session_url
   end
 
+  def create_comment(commentable: nil, user: nil, body: "Test comment.")
+    return unless commentable && user
+    comment = Comment.build_from(commentable, user.id, body)
+    comment.save
+    comment
+  end
+
   def attach_all_images!(creative:, organization:)
     creative.add_image! attach_icon_image!(organization)
     creative.add_image! attach_small_image!(organization)

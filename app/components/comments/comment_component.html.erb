@@ -1,0 +1,25 @@
+<li class="conversation-inbound border-bottom mt-2 py-2">
+  <div class="conversation-avatar">
+    <%= render(Users::AvatarComponent.new(user: comment.user)) %>
+  </div>
+  <div class="conversation-message">
+    <div class="conversation-meta">
+      <%= link_to comment.user.name, user_path(comment.user), class: "font-weight-bold" %>
+      <small class="time ml-1"><%= time_ago_in_words comment.created_at %> ago</small>
+    </div>
+    <div class="conversation-message-text shadow-none">
+      <%= simple_format comment.body %>
+    </div>
+  </div>
+  <% if authorized_user.can_destroy_comment? %>
+    <div class="dropdown align-self-start ml-auto">
+      <button class="btn btn-icon btn-light text-muted" data-toggle="dropdown">
+        <i class="fa fa-fw fa-ellipsis-v"></i>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <div class="dropdown-arrow"></div>
+        <%= link_to "Delete", comment_path(comment), method: :delete, class: "dropdown-item" %>
+      </div>
+    </div>
+  <% end %>
+</li>
