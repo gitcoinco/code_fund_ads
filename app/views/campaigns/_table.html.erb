@@ -10,7 +10,7 @@
       <% end %>
     <% end %>
     <%= table_body do %>
-      <%= render partial: "/administrator_dashboards/tr", collection: campaigns, as: :campaign, cached: true %>
+      <%= render partial: "/campaigns/tr", collection: campaigns, as: :campaign, cached: true %>
     <% end %>
   <% end %>
   <%= pagination_wrapper do %>
