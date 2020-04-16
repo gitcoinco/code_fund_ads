@@ -95,6 +95,7 @@ class OrganizationsController < ApplicationController
   def organization_params
     params.require(:organization).permit(
       :name,
+      :account_manager_user_id,
       :creative_approval_needed
     )
   end

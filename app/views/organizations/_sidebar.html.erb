@@ -50,6 +50,10 @@
           <div class="list-group-item justify-content-between align-items-center px-0">
             <span class="text-muted">Creative approval needed</span> <span><%= subject.creative_approval_needed.to_s.humanize %></span>
           </div>
+          <div class="list-group-item justify-content-between align-items-center px-0">
+            <span class="text-muted">Account Manager</span>
+            <span><%= subject.account_manager&.name || "None" %></span>
+          </div>
         </div>
       <% end %>
 

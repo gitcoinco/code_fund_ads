@@ -101,6 +101,7 @@ class User < ApplicationRecord
   has_many :organizations_as_member, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::MEMBER} }, through: :organization_users, source: "organization"
   has_many :organizations, through: :organization_users
   has_many :referred_users, class_name: "User", foreign_key: "referring_user_id"
+  has_many :managed_accounts, class_name: "Organization", foreign_key: "account_manager_user_id"
 
   # validations ...............................................................
   validates :first_name, presence: true
@@ -115,6 +116,7 @@ class User < ApplicationRecord
   scope :administrators, -> { with_all_roles ENUMS::USER_ROLES::ADMINISTRATOR }
   scope :advertisers, -> { with_all_roles ENUMS::USER_ROLES::ADVERTISER }
   scope :publishers, -> { with_all_roles ENUMS::USER_ROLES::PUBLISHER }
+  scope :account_managers, -> { with_all_roles ENUMS::USER_ROLES::ACCOUNT_MANAGER }
   scope :search_company, ->(value) { value.blank? ? all : search_column(:company_name, value) }
   scope :search_organization, ->(value) { value.blank? ? all : where(organization_id: value) }
   scope :search_email, ->(value) { value.blank? ? all : search_column(:email, value) }
