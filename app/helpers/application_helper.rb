@@ -58,6 +58,10 @@ module ApplicationHelper
     Current.organization.users.advertisers.sort_by(&:name).map { |user| [user.name, user.id] }
   end
 
+  def account_managers_for_select
+    User.account_managers.sort_by(&:name).map { |user| [user.name, user.id] }
+  end
+
   def advertisers_for_select
     User.advertisers.includes(:organizations).sort_by(&:scoped_name).map { |user| [user.scoped_name, user.id] }
   end

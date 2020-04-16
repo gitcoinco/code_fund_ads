@@ -9,9 +9,11 @@
 #  name                     :string           not null
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
+#  account_manager_user_id  :bigint
 #
 # Indexes
 #
+#  index_organizations_on_account_manager_user_id   (account_manager_user_id)
 #  index_organizations_on_creative_approval_needed  (creative_approval_needed)
 #
 
@@ -29,6 +31,7 @@ class Organization < ApplicationRecord
   include Imageable
 
   # relationships .............................................................
+  belongs_to :account_manager, class_name: "User", foreign_key: "account_manager_user_id", optional: true
   has_many :campaigns
   has_many :campaign_bundles
   has_many :creatives

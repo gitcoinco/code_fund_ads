@@ -101,6 +101,7 @@ class User < ApplicationRecord
   has_many :organizations_as_member, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::MEMBER} }, through: :organization_users, source: "organization"
   has_many :organizations, through: :organization_users
   has_many :referred_users, class_name: "User", foreign_key: "referring_user_id"
+  has_many :managed_account, class_name: "Organization", foreign_key: "account_manager_user_id"
 
   # validations ...............................................................
   validates :first_name, presence: true

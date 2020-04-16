@@ -7,7 +7,13 @@
     <% end %>
     <%= card_body do %>
       <div class="row">
-        <%= tag.div f.input(:name, as: :string, required: true, input_html: {class: "form-control"}), class: "col-12 mb-3" %>
+        <%= tag.div f.input(:name, as: :string, required: true, input_html: {class: "form-control"}), class: "col-md-6 mb-3" %>
+        <%= tag.div f.input(:account_manager_user_id,
+                            label: "Account Manager",
+                            collection: account_managers_for_select,
+                            input_html: {
+                              class: "form-control", data: {controller: "select"}
+                            }), class: "col-md-6 mb-3" %>
         <div class="col-12">
           <div class="media align-items-center mb-3">
             <%= f.label :creative_approval_needed, class: "switcher-control mb-0 mr-3" do %>

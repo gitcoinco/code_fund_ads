@@ -746,7 +746,8 @@ CREATE TABLE public.organizations (
     balance_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    creative_approval_needed boolean DEFAULT true
+    creative_approval_needed boolean DEFAULT true,
+    account_manager_user_id bigint
 );
 
 
@@ -2422,6 +2423,13 @@ CREATE INDEX index_organization_users_on_user_id ON public.organization_users US
 
 
 --
+-- Name: index_organizations_on_account_manager_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_organizations_on_account_manager_user_id ON public.organizations USING btree (account_manager_user_id);
+
+
+--
 -- Name: index_organizations_on_creative_approval_needed; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2845,4 +2853,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200221220825'),
 ('20200303224134'),
 ('20200325201726'),
-('20200406223804');
+('20200406223804'),
+('20200416182239');

@@ -9,9 +9,11 @@
 #  name                     :string           not null
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
+#  account_manager_user_id  :bigint
 #
 # Indexes
 #
+#  index_organizations_on_account_manager_user_id   (account_manager_user_id)
 #  index_organizations_on_creative_approval_needed  (creative_approval_needed)
 #
 
