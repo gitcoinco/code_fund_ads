@@ -8,8 +8,8 @@
             <%= table add_class: "table-sm table-bordered mt-2" do %>
               <%= table_head add_class: "bg-light" do %>
                 <%= table_row header: true do %>
-                  <%= table_column add_class: "text-right" do %>Total Spend<% end %>
-                  <%= table_column add_class: "text-right" do %>Total Days<% end %>
+                  <%= table_column "Total Spend", add_class: "text-right" %>
+                  <%= table_column "Total Days", add_class: "text-right" %>
                 <% end %>
               <% end %>
               <%= table_body add_class: "bg-success-light" do %>
