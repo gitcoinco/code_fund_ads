@@ -66,6 +66,7 @@ USER_ROLES:
   - advertiser
   - employer
   - publisher
+  - account_manager
 
 USER_STATUSES:
   - active

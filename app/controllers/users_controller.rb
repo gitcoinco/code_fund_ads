@@ -127,7 +127,7 @@ class UsersController < ApplicationController
       :us_resident,
       :website_url,
       skills: [],
-      organization_users_attributes: [:organization_id, :role]
+      organization_users_attributes: [:organization_id, :role, :id]
     ).tap do |whitelisted|
       if authorized_user.can_admin_system?
         whitelisted[:api_access] = params[:user][:api_access]

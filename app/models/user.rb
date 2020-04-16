@@ -115,6 +115,7 @@ class User < ApplicationRecord
   scope :administrators, -> { with_all_roles ENUMS::USER_ROLES::ADMINISTRATOR }
   scope :advertisers, -> { with_all_roles ENUMS::USER_ROLES::ADVERTISER }
   scope :publishers, -> { with_all_roles ENUMS::USER_ROLES::PUBLISHER }
+  scope :account_managers, -> { with_all_roles ENUMS::USER_ROLES::ACCOUNT_MANAGER }
   scope :search_company, ->(value) { value.blank? ? all : search_column(:company_name, value) }
   scope :search_organization, ->(value) { value.blank? ? all : where(organization_id: value) }
   scope :search_email, ->(value) { value.blank? ? all : search_column(:email, value) }
@@ -230,6 +231,10 @@ class User < ApplicationRecord
     organizations.load unless organizations.loaded?
     ou = organization_users.find(&:administrator?) || organization_users.find(&:member?)
     ou&.organization || organization
+  end
+
+  def account_manager?
+    roles.include? ENUMS::USER_ROLES::ACCOUNT_MANAGER
   end
 
   def administrator?
