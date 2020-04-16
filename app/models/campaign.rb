@@ -292,7 +292,7 @@ class Campaign < ApplicationRecord
   end
 
   def pricing_strategy
-    return ENUMS::CAMPAIGN_PRICING_STRATEGIES::REGION_AND_AUDIENCE if campaign_bundle_id
+    return ENUMS::CAMPAIGN_PRICING_STRATEGIES::REGION_AND_AUDIENCE if campaign_bundle
     ENUMS::CAMPAIGN_PRICING_STRATEGIES::CAMPAIGN
   end
 
