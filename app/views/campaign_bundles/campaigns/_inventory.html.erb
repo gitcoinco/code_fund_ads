@@ -36,8 +36,12 @@
           <%= table_column "Region" %>
           <%= table_column "Audience" %>
           <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Average Daily</small>Impressions<% end %>
-          <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Average Daily</small>Percentage<% end %>
           <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Average</small>Click Rate<% end %>
+          <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Applicable</small>Daily Budget<% end %>
+          <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Applicable</small>Total Budget<% end %>
+          <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated</small>Total Impressions<% end %>
+          <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated</small>Total Clicks<% end %>
+          <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated</small>CPC<% end %>
         <% end %>
       <% end %>
       <%= table_body do %>
@@ -46,8 +50,12 @@
             <%= table_data do %><small class="text-nowrap"><%= truncate inventory_detail.region.name, length: 18 %></small><% end %>
             <%= table_data do %><small class="text-nowrap"><%= truncate inventory_detail.audience.name, length: 18 %></small><% end %>
             <%= table_data number_with_delimiter(inventory_detail.average_daily_impressions_count), add_class: "text-right text-monospace" %>
-            <%= table_data number_to_percentage(inventory_detail.percentage * 100, precision: 1), add_class: "text-right text-monospace" %>
             <%= table_data number_to_percentage(inventory_detail.average_click_rate, precision: 2), add_class: "text-right text-monospace" %>
+            <%= table_data inventory_detail.applicable_daily_budget.format, add_class: "text-right text-monospace bg-success-light" %>
+            <%= table_data inventory_detail.applicable_total_budget.format, add_class: "text-right text-monospace bg-success-light" %>
+            <%= table_data number_with_delimiter(inventory_detail.estimated_impressions_count), add_class: "text-right text-monospace bg-success-light" %>
+            <%= table_data number_with_delimiter(inventory_detail.estimated_clicks_count), add_class: "text-right text-monospace bg-success-light" %>
+            <%= table_data inventory_detail.estimated_cpc.format, add_class: "text-right text-monospace bg-success-light" %>
           <% end %>
         <% end %>
       <% end %>
