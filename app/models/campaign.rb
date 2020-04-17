@@ -522,6 +522,14 @@ class Campaign < ApplicationRecord
     end
   end
 
+  def update_campaign_bundle_dates
+    return unless campaign_bundle
+    campaign_bundle.start_date = start_date if start_date < campaign_bundle.start_date
+    campaign_bundle.end_date = end_date if end_date > campaign_bundle.end_date
+    return unless campaign_bundle.persisted?
+    campaign_bundle.save! if campaign_bundle.changed?
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................
@@ -612,12 +620,5 @@ class Campaign < ApplicationRecord
     self.end_date ||= campaign_bundle.end_date
     assign_country_codes
     assign_keywords
-  end
-
-  def update_campaign_bundle_dates
-    return unless campaign_bundle
-    campaign_bundle.start_date = start_date if start_date < campaign_bundle.start_date
-    campaign_bundle.end_date = end_date if end_date > campaign_bundle.end_date
-    campaign_bundle.save! if campaign_bundle.changed?
   end
 end

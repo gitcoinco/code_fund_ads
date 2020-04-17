@@ -42,6 +42,14 @@ class CampaignBundlesReflex < ApplicationReflex
     campaign.name = element[:value]
   end
 
+  def update_campaign_date_range
+    dates = element[:value].split(" - ")
+    campaign.start_date = Date.strptime(dates[0], "%m/%d/%Y")
+    campaign.end_date = Date.strptime(dates[1], "%m/%d/%Y")
+    campaign.update_campaign_bundle_dates
+    campaign_bundle.init_total_budget
+  end
+
   def update_campaign_url
     campaign.url = element[:value]
   end

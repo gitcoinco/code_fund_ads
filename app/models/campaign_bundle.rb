@@ -105,11 +105,15 @@ class CampaignBundle < ApplicationRecord
     end
   end
 
+  # TODO: rename date_range to something more appropriate for ui only concerns like: date_range_string
+  #       we should do this because `range` has programmatic meaning and this implementaiton is not it
   def date_range
     return nil unless start_date && end_date
     "#{start_date.to_s "mm/dd/yyyy"} - #{end_date.to_s "mm/dd/yyyy"}"
   end
 
+  # TODO: rename date_range to something more appropriate for ui only concerns like: date_range_string
+  #       we should do this because `range` has programmatic meaning and this implementaiton is not it
   def date_range=(value)
     dates = value.split(" - ")
     self.start_date = Date.strptime(dates[0], "%m/%d/%Y")
