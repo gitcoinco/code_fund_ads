@@ -57,6 +57,24 @@ class InventorySummary
     end
   end
 
+  def estimated_impressions_count
+    @estimated_impressions_count ||= inventory_details.sum(&:estimated_impressions_count)
+  end
+
+  def estimated_clicks_count
+    @estimated_clicks_count ||= inventory_details.sum(&:estimated_clicks_count)
+  end
+
+  def estimated_cpm
+    return Money.new(0) unless estimated_impressions_count > 0
+    campaign.total_budget / (estimated_impressions_count / 1000.to_f)
+  end
+
+  def estimated_cpc
+    return Money.new(0) unless estimated_clicks_count > 0
+    campaign.total_budget / estimated_clicks_count
+  end
+
   def inventory_details
     @inventory_details ||= campaign.targeting_variants.map { |(region, audience)|
       InventoryDetail.new self, region: region, audience: audience, ecpm_multiplier: campaign.ecpm_multiplier

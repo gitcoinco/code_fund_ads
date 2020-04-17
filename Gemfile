@@ -74,7 +74,7 @@ gem "view_component", "~> 2.2.1"
 # TODO - Re-enable for internal CodeFund analytics tool
 # gem "staccato", "~> 0.5.1"
 
-gem "stimulus_reflex", "~> 3.0.0"
+gem "stimulus_reflex", "~> 3.1.2"
 gem "stopwords-filter", "~> 0.4.1", require: "stopwords"
 gem "stripe", "~> 5.4.1"
 gem "tag_columns", "~> 0.1.8"

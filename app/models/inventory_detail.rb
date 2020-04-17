@@ -28,6 +28,27 @@ class InventoryDetail
     average_daily_impressions_count / inventory_summary.average_daily_impressions_count.to_f
   end
 
+  def applicable_total_budget
+    campaign.total_budget * percentage
+  end
+
+  def applicable_daily_budget
+    applicable_total_budget / campaign.total_operative_days
+  end
+
+  def estimated_impressions_count
+    (applicable_total_budget / individual_impression_adjusted_value).to_f.round
+  end
+
+  def estimated_clicks_count
+    (estimated_impressions_count * (average_click_rate / 100)).round
+  end
+
+  def estimated_cpc
+    return Money.new(0) unless estimated_clicks_count > 0
+    applicable_total_budget / estimated_clicks_count
+  end
+
   def sold_daily_impressions_count
     (sold_daily_impressions_value.to_f / individual_impression_base_value).floor
   end
@@ -42,6 +63,10 @@ class InventoryDetail
 
   def individual_impression_base_value
     base_ecpm.to_f / 1000
+  end
+
+  def individual_impression_adjusted_value
+    adjusted_ecpm.to_f / 1000
   end
 
   def sold_daily_impressions_value

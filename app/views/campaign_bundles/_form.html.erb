@@ -1,10 +1,31 @@
 <%= form_with model: @campaign_bundle, id: "campaign-bundle-form", local: true do |f| %>
   <div class="row">
-    <div class="col-sm-6">
+    <div class="col-sm-4">
       <%= card do %>
         <%= card_header do %>
           <%= card_title "Bundle Details" %>
-          <%= card_subtitle "total spend of #{@campaign_bundle.total_budget.format} over #{number_with_delimiter(@campaign_bundle.total_operative_days)} days" %>
+          <%= card_subtitle do %>
+            <%= table add_class: "table-sm table-bordered mt-2" do %>
+              <%= table_head add_class: "bg-light" do %>
+                <%= table_row header: true do %>
+                  <%= table_column "Spend", add_class: "text-right" %>
+                  <%= table_column "Days", add_class: "text-right" %>
+                  <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated</small>Impressions<% end %>
+                  <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated</small>Clicks<% end %>
+                  <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated</small>Average CPM<% end %>
+                  <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated</small>Average CPC<% end %>
+                <% end %>
+              <% end %>
+              <%= table_body add_class: "bg-success-light" do %>
+                <%= table_column @campaign_bundle.total_budget.format(no_cents: true), add_class: "font-weight-normal text-dark text-right" %>
+                <%= table_column number_with_delimiter(@campaign_bundle.total_operative_days), add_class: "font-weight-normal text-dark text-right" %>
+                <%= table_column number_with_delimiter(estimated_impressions_count(@campaign_bundle)), add_class: "font-weight-normal text-dark text-right" %>
+                <%= table_column number_with_delimiter(estimated_clicks_count(@campaign_bundle)), add_class: "font-weight-normal text-dark text-right" %>
+                <%= table_column estimated_cpm(@campaign_bundle).format, add_class: "font-weight-normal text-dark text-right" %>
+                <%= table_column estimated_cpc(@campaign_bundle).format, add_class: "font-weight-normal text-dark text-right" %>
+              <% end %>
+            <% end %>
+          <% end %>
         <% end %>
         <%= card_body do %>
           <div class="row">
@@ -47,7 +68,7 @@
       <% end %>
     <% end %>
 
-    <div class="col-sm-6">
+    <div class="col-sm-8">
       <%= render "/shared/errors", record: @campaign_bundle %>
       <%= render "/campaign_bundles/inventory" %>
     </div>

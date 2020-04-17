@@ -1,29 +1,57 @@
-<% cache [Digest::MD5.hexdigest(campaign.attributes.to_s), Campaign.sold.premium], expires_in: 1.day do %>
+<% cache [Digest::MD5.hexdigest(campaign.attributes.to_s), campaign.date_range, Campaign.sold.premium], expires_in: 1.day do %>
   <%= f.fields_for "campaigns_attributes[#{campaign.temporary_id}]", campaign do |cf| %>
     <div id="campaign-<%= campaign_iteration.index %>-fields" class="row">
-      <div class="col-6">
+      <div class="col-4">
         <%= card do %>
           <%= card_header do %>
             <%= card_title do %>
               <div class="d-flex justify-content-between align-items-center">
                 <span>
                   Campaign <%= campaign_iteration.index + 1 %>
-                <small><%= " total spend of #{campaign.total_budget.format} over #{number_with_delimiter campaign.total_operative_days} days" %></small>
+                <small><%= " spend of #{campaign.total_budget.format no_cents: true} over #{number_with_delimiter campaign.total_operative_days} days" %></small>
                 </span>
                 <%= link_to "Remove", "#", class: "btn btn-link", data: {reflex: "click->CampaignBundlesReflex#remove_campaign", temporary_id: campaign.temporary_id} %>
               </div>
             <% end %>
             <%= card_subtitle do %>
+              <%= table add_class: "table-sm table-bordered mt-2" do %>
+                <%= table_head add_class: "bg-light" do %>
+                  <%= table_row header: true do %>
+                    <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated</small>Total Impressions<% end %>
+                    <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated</small>Daily Impressions<% end %>
+                    <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated</small>Total Clicks<% end %>
+                    <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated</small>Daily Clicks<% end %>
+                    <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated</small>Average CPM<% end %>
+                    <%= table_column add_class: "text-right" do %><small class="d-block opacity-60">Estimated</small>Average CPC<% end %>
+                  <% end %>
+                <% end %>
+                <%= table_body add_class: "bg-success-light" do %>
+                  <%= table_column number_with_delimiter(campaign.inventory_summary.estimated_impressions_count), add_class: "font-weight-normal text-dark text-right" %>
+                  <%= table_column number_with_delimiter((campaign.inventory_summary.estimated_impressions_count / campaign.total_operative_days.to_f).round), add_class: "font-weight-normal text-dark text-right" %>
+                  <%= table_column number_with_delimiter(campaign.inventory_summary.estimated_clicks_count), add_class: "font-weight-normal text-dark text-right" %>
+                  <%= table_column number_with_delimiter((campaign.inventory_summary.estimated_clicks_count / campaign.total_operative_days.to_f).round), add_class: "font-weight-normal text-dark text-right" %>
+                  <%= table_column campaign.inventory_summary.estimated_cpm.format, add_class: "font-weight-normal text-dark text-right" %>
+                  <%= table_column campaign.inventory_summary.estimated_cpc.format, add_class: "font-weight-normal text-dark text-right" %>
+                <% end %>
+              <% end %>
               You won't pay more than your daily budget times the total number of days that the bundle is configured to run.
               Some days you might spend more or less than your daily budget.
             <% end %>
           <% end %>
           <%= card_body do %>
-            <div class="row mt-2">
+            <div class="row">
               <div class="col form-group">
                 <%= cf.label :name %>
                 <%= cf.text_field :name, class: "form-control", required: true,
                   data: {reflex: "cf:value-committed->CampaignBundlesReflex#update_campaign_name", temporary_id: campaign.temporary_id} %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col form-group">
+                <%= cf.label "Date Range" %>
+                <%= cf.text_field(:date_range, class: "js-range-datepicker form-control bg-white rounded-right",
+                                  data: {reflex: "cf:date-range-selected->CampaignBundlesReflex#update_campaign_date_range", controller: "select-date-range", temporary_id: campaign.temporary_id}) %>
               </div>
             </div>
 
@@ -140,7 +168,7 @@
           </div>
         <% end %>
       <% end %>
-      <div class="col-6">
+      <div class="col-8">
         <%= render "/shared/errors", record: campaign %>
         <%= render "/campaign_bundles/campaigns/inventory", campaign: campaign if campaign.start_date && campaign.region_ids.present? && campaign.audience_ids.present? %>
       </div>
