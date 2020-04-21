@@ -7,9 +7,11 @@ import { isEmpty } from 'lodash'
 export default class extends Controller {
   static targets = [
     'adLength',
+    'ctaLength',
     'copyWarningWrapper',
     'copyWrapper',
     'creativeType',
+    'inputCta',
     'inputBody',
     'inputHeadline',
     'inputLargeBlobId',
@@ -21,7 +23,6 @@ export default class extends Controller {
     'previewHeadline',
     'previewImageUrl',
     'previewSponsorImage',
-    'sponsorForm',
     'standardForm'
   ]
 
@@ -32,19 +33,12 @@ export default class extends Controller {
   initialize () {
     this.setHeadline()
     this.setBody()
-    this.setSmallImage()
+    // this.setIconImage()
+    // this.setSmallImage()
     this.setLargeImage()
-    this.setWideImage()
-    this.setSponsorImage()
+    // this.setWideImage()
     this.setTemplateTheme()
     this.checkLimit()
-    this.standardFormFields = this.standardFormTarget.querySelector(
-      '#standard-form-fields'
-    )
-    this.sponsorFormFields = this.sponsorFormTarget.querySelector(
-      '#sponsor-form-fields'
-    )
-    this.initCreativeType()
   }
 
   checkLimit () {
@@ -53,8 +47,10 @@ export default class extends Controller {
       this.previewBodyTarget.textContent.length +
       1
     this.setAdLengthCount(adLength)
+    const ctaLength = this.inputCtaTarget.value.length
+    this.setCtaLengthCount(ctaLength)
 
-    if (adLength > 85) {
+    if (adLength > 85 || ctaLength > 20) {
       this.copyWrapperTarget.classList.add('over-limit')
       this.copyWarningWrapperTarget.classList.remove('text-secondary')
       this.copyWarningWrapperTarget.classList.add('text-danger')
@@ -67,6 +63,10 @@ export default class extends Controller {
 
   setAdLengthCount (adLength) {
     this.adLengthTarget.textContent = adLength
+  }
+
+  setCtaLengthCount (ctaLength) {
+    this.ctaLengthTarget.textContent = ctaLength
   }
 
   setHeadline () {
@@ -90,6 +90,10 @@ export default class extends Controller {
     this.checkLimit()
   }
 
+  setIconImage () {
+    // Implement when we are able to display compatible templates
+  }
+
   setSmallImage () {
     // Implement when we are able to display compatible templates
   }
@@ -109,35 +113,7 @@ export default class extends Controller {
     // Implement when we are able to display compatible templates
   }
 
-  setSponsorImage () {
-    const target = this.inputSponsorBlobIdTarget
-    const blobId = parseInt(target.value, 10)
-    if (!isNaN(blobId)) {
-      const selectedOption = target.options[target.selectedIndex]
-      this.previewSponsorImageTarget.src = selectedOption.dataset.imageUrl
-    } else {
-      this.previewImageUrlTarget.src = 'about:blank'
-    }
-  }
-
   setTemplateTheme () {
     console.log('setTemplateTheme')
-  }
-
-  setCreativeType (event) {
-    const { creativeType } = event.target.dataset
-    this.creativeTypeTarget.value = creativeType
-    this.initCreativeType()
-  }
-
-  initCreativeType () {
-    const creativeType = this.creativeTypeTarget.value
-    if (creativeType === 'standard') {
-      this.sponsorFormFields.remove()
-      this.standardFormTarget.appendChild(this.standardFormFields)
-    } else if (creativeType === 'sponsor') {
-      this.standardFormFields.remove()
-      this.sponsorFormTarget.appendChild(this.sponsorFormFields)
-    }
   }
 }
