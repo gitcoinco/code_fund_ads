@@ -73,6 +73,7 @@ class AdvertisementClicksControllerTest < ActionDispatch::IntegrationTest
 
   test "advertisement click {{creative_name}} URL variable" do
     @campaign.update url: "https://example.com?custom={{creative_name}}"
+    attach_all_images!(creative: @creative, organization: @creative.organization)
     @creative.update name: "Ad Click: Creative Name > Test"
     get advertisement_clicks_url(@impression_id), params: @params, headers: @headers
     assert_response :redirect

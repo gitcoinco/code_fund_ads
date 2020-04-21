@@ -48,6 +48,13 @@ class ActiveSupport::TestCase
     post user_session_url
   end
 
+  def attach_all_images!(creative:, organization:)
+    creative.add_image! attach_icon_image!(organization)
+    creative.add_image! attach_small_image!(organization)
+    creative.add_image! attach_large_image!(organization)
+    creative.add_image! attach_wide_image!(organization)
+  end
+
   def attach_icon_image!(record)
     name = "seed-20x20.png"
     record.images.attach(
