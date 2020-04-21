@@ -18,7 +18,7 @@ class PausedCampaignNotificationJob < ApplicationJob
   end
 
   def slack_message
-    ":double_vertical_bar: Campaign #{@campaign.name} just registered by #{@user&.name}. [View Campaign](https://app.codefund.io/campaign/#{@campaign.id})"
+    ":double_vertical_bar: Campaign #{@campaign.name} just paused by #{@user&.name}. [View Campaign](https://app.codefund.io/campaign/#{@campaign.id})"
   end
 
   def send_email_notification
