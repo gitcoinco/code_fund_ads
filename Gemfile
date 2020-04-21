@@ -52,6 +52,7 @@ gem "pg", ">= 0.18", "< 2.0"
 gem "premailer-rails", "1.10.3"
 gem "premailer", "1.11.1"
 gem "pretender", "~> 0.3.3"
+gem "progressbar", "~> 1.10.1", require: false
 gem "puma", "~> 4.3"
 gem "rack-attack", "~> 6.2.1"
 gem "rails", "~> 6.0"
