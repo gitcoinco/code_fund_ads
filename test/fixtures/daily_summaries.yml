@@ -11,6 +11,7 @@
 #  displayed_at_date         :date             not null
 #  ecpm_cents                :integer          default(0), not null
 #  ecpm_currency             :string           default("USD"), not null
+#  fallback_clicks_count     :bigint           default(0), not null
 #  fallback_percentage       :decimal(, )      default(0.0), not null
 #  fallbacks_count           :integer          default(0), not null
 #  gross_revenue_cents       :integer          default(0), not null
