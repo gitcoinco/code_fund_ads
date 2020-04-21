@@ -432,7 +432,8 @@ CREATE TABLE public.daily_summaries (
     displayed_at_date date NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
-    unique_ip_addresses_count integer DEFAULT 0 NOT NULL
+    unique_ip_addresses_count integer DEFAULT 0 NOT NULL,
+    fallback_clicks_count bigint DEFAULT 0 NOT NULL
 );
 
 
@@ -2854,4 +2855,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200303224134'),
 ('20200325201726'),
 ('20200406223804'),
-('20200416182239');
+('20200416182239'),
+('20200421152748');
+
+
