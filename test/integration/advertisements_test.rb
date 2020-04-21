@@ -9,6 +9,8 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     @premium_campaign.campaign_bundle.update_columns start_date: start_date, end_date: start_date.advance(months: 3)
     @premium_campaign.save!
     @premium_campaign.organization.update balance: Monetize.parse("$10,000 USD")
+    attach_all_images!(creative: @premium_campaign.creative, organization: @premium_campaign.organization)
+    @images = @premium_campaign.creative.images
     @property = amend(properties: :website, audience_id: @premium_campaign.audience_ids.sample)
     travel_to start_date.to_time.advance(days: 15)
   end
@@ -112,7 +114,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   test "js: fallback campaign with matching keywords and country is displayed before generic fallback campaigns" do
     amend campaigns: :fallback, start_date: @premium_campaign.start_date, end_date: @premium_campaign.end_date
     copy campaigns: :fallback, keywords: @property.keywords.sample(2),
-         creative_ids: [copy(creatives: :fallback, body: "This is a targeted fallback campaign").id]
+         creative_ids: [copy(creatives: :fallback, body: "This is a targeted fallback campaign", images: @images).id]
     @premium_campaign.update_columns keywords: ["No Match"]
     get advertisements_path(@property, format: :js), headers: {"REMOTE_ADDR": ip_address("US")}
     assert Campaign.fallback.count == 2
@@ -167,7 +169,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------------------------------------------------------
 
   test "js: property with assigner campaign will eventually display the assigner campaign" do
-    other_campaign = copy(campaigns: :premium, creative_ids: [copy(creatives: :premium).id])
+    other_campaign = copy(campaigns: :premium, creative_ids: [copy(creatives: :premium, images: @images).id])
     @premium_campaign.update_columns assigned_property_ids: [@property.id]
     @premium_campaign.creative.update body: "This is a premium campaign that has assigned the property"
     assert other_campaign.creative.body != @premium_campaign.creative.body
@@ -180,7 +182,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: property with assigner campaign will eventually display other matching campaigns" do
-    other_campaign = Campaign.create!(@premium_campaign.attributes.except("id").merge(creative_ids: [copy(creatives: :premium, body: "This is a non assigner premium campaign").id]))
+    other_campaign = Campaign.create!(@premium_campaign.attributes.except("id").merge(creative_ids: [copy(creatives: :premium, body: "This is a non assigner premium campaign", images: @images).id]))
     @premium_campaign.update_columns assigned_property_ids: [@property.id]
     @premium_campaign.creative.update_columns body: "This is a premium campaign that has assigned the property"
     assert other_campaign.creative.body != @premium_campaign.creative.body
@@ -193,7 +195,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   end
 
   test "js: property with assigner campaign will never display other matching campaigns when restrict_to_assigner_campaigns is true" do
-    other_campaign = copy(campaigns: :premium, creative_ids: [copy(creatives: :premium).id])
+    other_campaign = copy(campaigns: :premium, creative_ids: [copy(creatives: :premium, images: @images).id])
     @premium_campaign.update_columns assigned_property_ids: [@property.id]
     @premium_campaign.creative.update_columns body: "This is a premium campaign that has assigned the property"
     @property.update_columns restrict_to_assigner_campaigns: true
@@ -224,7 +226,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   test "js: property will show targeted premium campaign over a zero balance campaign with assigned property" do
     organization = copy(organizations: :default, balance: Money.new(0, "USD"))
-
+    attach_all_images!(creative: @premium_campaign.creative, organization: organization)
     user = copy users: :advertiser,
                 email: Faker::Internet.email,
                 password: "password",
@@ -233,7 +235,8 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
     creative = copy creatives: :premium,
                     organization: organization,
                     user: user,
-                    body: "This is an assigned premium campaign"
+                    body: "This is an assigned premium campaign",
+                    images: @images
 
     Campaign.create! @premium_campaign.attributes.except("id", "campaign_bundle_id").merge(
       organization: organization,
@@ -260,10 +263,10 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
           keywords: @property.keywords,
           start_date: @premium_campaign.start_date,
           end_date: @premium_campaign.end_date,
-          creative_ids: [copy(creatives: :fallback, body: "This is a targeted fallback campaign").id]
+          creative_ids: [copy(creatives: :fallback, body: "This is a targeted fallback campaign", images: @images).id]
 
     assigned = copy campaigns: :fallback, keywords: [],
-                    creative_ids: [copy(creatives: :fallback, body: "This is an assigned fallback campaign").id]
+                    creative_ids: [copy(creatives: :fallback, body: "This is an assigned fallback campaign", images: @images).id]
 
     @property.update_columns assigned_fallback_campaign_ids: [assigned.id]
 
@@ -281,14 +284,14 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
           keywords: @property.keywords,
           start_date: @premium_campaign.start_date,
           end_date: @premium_campaign.end_date,
-          creative_ids: [copy(creatives: :fallback, body: "This is a targeted fallback campaign").id]
+          creative_ids: [copy(creatives: :fallback, body: "This is a targeted fallback campaign", images: @images).id]
 
     assigned = copy campaigns: :fallback, keywords: [],
-                    creative_ids: [copy(creatives: :fallback, body: "This is an assigned fallback campaign").id]
+                    creative_ids: [copy(creatives: :fallback, body: "This is an assigned fallback campaign", images: @images).id]
 
     assigned_and_targeted = copy campaigns: :fallback,
                                  keywords: @property.keywords,
-                                 creative_ids: [copy(creatives: :fallback, body: "This is an assigned and targeted fallback campaign").id]
+                                 creative_ids: [copy(creatives: :fallback, body: "This is an assigned and targeted fallback campaign", images: @images).id]
 
     @property.update_columns assigned_fallback_campaign_ids: [assigned.id, assigned_and_targeted.id]
 
@@ -301,12 +304,11 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
 
   test "js: fallback campaign with assigned property will not display on a different property even if the different property assigns the fallback campaign" do
     @premium_campaign.update_columns status: ENUMS::CAMPAIGN_STATUSES::PENDING
-
     fallback_campaign = amend campaigns: :fallback,
                               start_date: @premium_campaign.start_date,
                               end_date: @premium_campaign.end_date,
                               assigned_property_ids: [@property.id],
-                              creative: copy(creatives: :fallback, body: "This is a fallback campaign assigned to a different property")
+                              creative: copy(creatives: :fallback, body: "This is a fallback campaign assigned to a different property", images: @images)
 
     other_property = copy properties: :website, assigned_fallback_campaign_ids: [fallback_campaign.id]
 

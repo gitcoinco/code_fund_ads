@@ -48,6 +48,31 @@ class ActiveSupport::TestCase
     post user_session_url
   end
 
+  def attach_all_images!(creative:, organization:)
+    creative.add_image! attach_icon_image!(organization)
+    creative.add_image! attach_small_image!(organization)
+    creative.add_image! attach_large_image!(organization)
+    creative.add_image! attach_wide_image!(organization)
+  end
+
+  def attach_icon_image!(record)
+    name = "seed-20x20.png"
+    record.images.attach(
+      io: File.open(Rails.root.join("test/assets/images/seeds/seed-20x20.png")),
+      filename: "seed-20x20.png",
+      content_type: "image/png",
+      metadata: {
+        identified: true,
+        width: 20,
+        height: 20,
+        analyzed: true,
+        name: name,
+        format: ENUMS::IMAGE_FORMATS::ICON
+      }
+    )
+    record.images.search_metadata_name(name).metadata_format(ENUMS::IMAGE_FORMATS::ICON).order(created_at: :desc).first
+  end
+
   def attach_small_image!(record)
     name = "seed-200x200.png"
     record.images.attach(
