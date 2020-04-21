@@ -1,4 +1,4 @@
-aclass CreateDailySummaryJob < ApplicationJob
+class CreateDailySummaryJob < ApplicationJob
   queue_as :daily_summary
 
   def perform(impressionable, date_string, scoped_by, scoped_by_type = nil)
