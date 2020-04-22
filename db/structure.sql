@@ -799,8 +799,7 @@ CREATE TABLE public.properties (
     fallback_ad_theme character varying,
     responsive_behavior character varying DEFAULT 'none'::character varying NOT NULL,
     audience_id bigint,
-    deleted_at timestamp without time zone,
-    prohibited_organization_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL
+    deleted_at timestamp without time zone
 );
 
 
@@ -2471,13 +2470,6 @@ CREATE INDEX index_properties_on_name ON public.properties USING btree (lower((n
 --
 
 CREATE INDEX index_properties_on_prohibited_advertiser_ids ON public.properties USING gin (prohibited_advertiser_ids);
-
-
---
--- Name: index_properties_on_prohibited_organization_ids; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_properties_on_prohibited_organization_ids ON public.properties USING gin (prohibited_organization_ids);
 
 
 --
