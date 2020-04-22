@@ -113,15 +113,15 @@ class CreativesController < ApplicationController
     params.require(:creative).permit(:icon_blob_id, :small_blob_id, :large_blob_id, :wide_blob_id, :sponsor_blob_id)
   end
 
+  def creative_image_params_validation
+    @creative_image_params_validation ||= CreativeImageParamsValidator.new(creative_image_params)
+  end
+
   def authorize_new!
     render_forbidden unless authorized_user(true).can_create_creative?
   end
 
   def authorize_edit!
     render_forbidden unless authorized_user(true).can_edit_creative?(@creative)
-  end
-
-  def creative_image_params_validation
-    @creative_image_params_validation ||= CreativeImageParamsValidator.new(creative_image_params)
   end
 end
