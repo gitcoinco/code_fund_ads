@@ -10,7 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_22_185634) do
+ActiveRecord::Schema.define(version: 2020_04_22_190916) do
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
   enable_extension "pg_trgm"
@@ -600,6 +601,7 @@ ActiveRecord::Schema.define(version: 2020_04_22_185634) do
     t.index ["object"], name: "index_versions_on_object", using: :gin
     t.index ["object_changes"], name: "index_versions_on_object_changes", using: :gin
   end
+
 
   create_view "regions", sql_definition: <<-SQL
       SELECT 1 AS id,
