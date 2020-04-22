@@ -1,7 +1,6 @@
 <%= render("/shared/alert", missing_image_formats_alert.merge(alert_type: "danger")) if missing_image_formats? %>
 <%= simple_form_for creative, html: {
   class: "js-validate",
-  id: "standardForm",
   data: {controller: "creative-form"}},
   wrapper: :front_form do |f| %>
   <%= render "/shared/forms/error_messages", object: creative %>
@@ -82,6 +81,7 @@
                     data-action="change->creative-form#setSmallImage"
                     data-toggle="selectpicker"
                     data-size="5"
+                    required="required"
                     aria-required="true"
                     name="creative[small_blob_id]"
                     id="creative_small_image"

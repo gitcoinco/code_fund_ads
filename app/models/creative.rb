@@ -48,10 +48,6 @@ class Creative < ApplicationRecord
   validates :name, length: {maximum: 255, allow_blank: false}
   validates :status, inclusion: {in: ENUMS::CREATIVE_STATUSES.values}
   validates :creative_type, inclusion: {in: ENUMS::CREATIVE_TYPES.values}
-  validates :icon_image, presence: {on: :update, message: "must be selected"}
-  validates :small_image, presence: {on: :update, message: "must be selected"}
-  validates :wide_image, presence: {on: :update, message: "must be selected"}
-  validates :large_image, presence: {on: :update, message: "must be selected"}
   validate :validate_status_change
   validate :validate_ad_copy_length
 

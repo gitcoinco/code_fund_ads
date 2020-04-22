@@ -45,14 +45,17 @@ class CreativesController < ApplicationController
   end
 
   def update
+    images_valid = creative_image_params_validation.valid?
+
     respond_to do |format|
-      if @creative.update(creative_params)
+      if @creative.update(creative_params) && images_valid
         @creative.assign_images creative_image_params
         @creative.update_columns status: ENUMS::CREATIVE_STATUSES::PENDING unless authorized_user(true).can_edit_creative?(@creative)
 
         format.html { redirect_to @creative, notice: "Creative was successfully updated." }
         format.json { render :show, status: :ok, location: @creative }
       else
+        @creative.errors.merge! creative_image_params_validation.errors
         format.html { render :edit }
         format.json { render json: @creative.errors, status: :unprocessable_entity }
       end
