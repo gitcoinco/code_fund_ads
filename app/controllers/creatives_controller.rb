@@ -29,13 +29,15 @@ class CreativesController < ApplicationController
 
   def create
     @creative = current_user.creatives.build(creative_params)
+    images_valid = creative_image_params_validation.valid?
 
     respond_to do |format|
-      if @creative.save
+      if @creative.save && images_valid
         @creative.assign_images(creative_image_params)
         format.html { redirect_to @creative, notice: "Creative was successfully created." }
         format.json { render :show, status: :created, location: @creative }
       else
+        @creative.errors.merge! creative_image_params_validation.errors
         format.html { render :new }
         format.json { render json: @creative.errors, status: :unprocessable_entity }
       end
@@ -114,5 +116,9 @@ class CreativesController < ApplicationController
 
   def authorize_edit!
     render_forbidden unless authorized_user(true).can_edit_creative?(@creative)
+  end
+
+  def creative_image_params_validation
+    @creative_image_params_validation ||= CreativeImageParamsValidator.new(creative_image_params)
   end
 end
