@@ -33,11 +33,12 @@
           <div class="row">
             <div class="copy-wrapper col-12 p-0 py-2 mb-2" data-target="creative-form.copyWrapper">
               <div class="text-center pb-2 text-dark" data-target="creative-form.copyWarningWrapper">
-                Your ad copy is <span class="actual-length text-dark" data-target="creative-form.adLength">0</span> of <strong class="text-dark">85</strong> characters
+                <span class="d-block">Your ad copy is <span class="actual-length text-dark" data-target="creative-form.adLength">0</span> of <strong class="text-dark">85</strong> characters</span>
+                <span class="d-block">Your Call to Action copy is <span class="actual-length text-dark" data-target="creative-form.ctaLength">0</span> of <strong class="text-dark">20</strong> characters</span>
               </div>
-              <%= tag.div f.input(:headline, required: true, input_html: {data: {target: "creative-form.inputHeadline", action: "change->creative-form#setHeadline keyup->creative-form#setHeadline"}}), class: "col-12 mb-3" %>
-              <%= tag.div f.input(:body, required: true, input_html: {rows: 2, data: {target: "creative-form.inputBody", action: "change->creative-form#setBody keyup->creative-form#setBody"}}), class: "col-12 mb-3" %>
-              <%= tag.div f.input(:cta, label: "Call to Action", required: true, placeholder: "e.g. Learn more", hint: "Only used with the `sponsored-text` template"), class: "col-12 mb-3" %>
+              <%= tag.div f.input(:headline, required: true, placeholder: "Headline 🚀", input_html: {data: {target: "creative-form.inputHeadline", action: "change->creative-form#setHeadline keyup->creative-form#setHeadline"}}), class: "col-12 mb-3" %>
+              <%= tag.div f.input(:body, required: true, placeholder: "Your body will go here. You can use an emoji to help catch their eye 🤪", input_html: {rows: 2, data: {target: "creative-form.inputBody", action: "change->creative-form#setBody keyup->creative-form#setBody"}}), class: "col-12 mb-3" %>
+              <%= tag.div f.input(:cta, label: "Call to Action", required: true, placeholder: "e.g. Learn more", hint: "Only used with the `sponsored-text` template", input_html: {data: {target: "creative-form.inputCta", action: "change->creative-form#checkLimit keyup->creative-form#checkLimit"}}), class: "col-12 mb-3" %>
             </div>
             <% if missing_image_formats? %>
               <h4><%= missing_image_formats_alert[:heading] %></h4>

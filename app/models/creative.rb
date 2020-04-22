@@ -23,7 +23,7 @@
 #
 
 class Creative < ApplicationRecord
-  MAX_COPY_LENGTH = 85
+  MAX_AD_COPY_LENGTH = 85
 
   # extends ...................................................................
   # includes ..................................................................
@@ -48,12 +48,8 @@ class Creative < ApplicationRecord
   validates :name, length: {maximum: 255, allow_blank: false}
   validates :status, inclusion: {in: ENUMS::CREATIVE_STATUSES.values}
   validates :creative_type, inclusion: {in: ENUMS::CREATIVE_TYPES.values}
-  validate :validate_icon_image
-  validate :validate_small_image
-  validate :validate_wide_image
-  validate :validate_large_image
   validate :validate_status_change
-  validate :validate_copy_length
+  validate :validate_ad_copy_length
 
   # callbacks .................................................................
   after_commit :touch_campaigns, on: [:update]
@@ -197,29 +193,9 @@ class Creative < ApplicationRecord
     end
   end
 
-  def validate_icon_image
-    return if icon_image
-    errors.add :base, "please select an icon image"
-  end
-
-  def validate_small_image
-    return if small_image
-    errors.add :base, "please select a small image"
-  end
-
-  def validate_wide_image
-    return if wide_image
-    errors.add :base, "please select a wide image"
-  end
-
-  def validate_large_image
-    return if large_image
-    errors.add :base, "please select a large image"
-  end
-
-  def validate_copy_length
-    return unless body.length + cta.length + headline.length > MAX_COPY_LENGTH
-    errors.add :base, "headline, body, and call to action cannot exceed a combined #{MAX_COPY_LENGTH} characters."
+  def validate_ad_copy_length
+    return unless body.length + headline.length + 1 > MAX_AD_COPY_LENGTH
+    errors.add :base, "ad headline, and body cannot exceed a combined #{MAX_AD_COPY_LENGTH} characters."
   end
 
   def validate_destroyable
