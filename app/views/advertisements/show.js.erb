@@ -12,10 +12,11 @@
     new CodeFundAd(<%= advertisement_mustache_template_options.to_json.html_safe %>)
   }
 
+  const codefundThemeName = '<%= theme_name.to_s %>'
   const codefundStylesheetId = 'codefund-style'
   const codefundScriptId = 'codefund-script'
 
-  if (!document.getElementById(codefundStylesheetId)) {
+  if (!document.getElementById(codefundStylesheetId) && codefundThemeName !== 'unstyled') {
     const stylesheet = document.createElement('link')
     stylesheet.setAttribute('id', codefundStylesheetId)
     stylesheet.setAttribute('rel', 'stylesheet')
