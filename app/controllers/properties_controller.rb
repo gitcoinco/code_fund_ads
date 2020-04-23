@@ -159,7 +159,7 @@ class PropertiesController < ApplicationController
           :restrict_to_assigner_campaigns,
           :revenue_percentage,
           :status,
-          prohibited_advertiser_ids: []
+          prohibited_organization_ids: []
         )
       end
     end
