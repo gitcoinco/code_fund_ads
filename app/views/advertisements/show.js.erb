@@ -16,7 +16,7 @@
   const codefundStylesheetId = 'codefund-style'
   const codefundScriptId = 'codefund-script'
 
-  if (!document.getElementById(codefundStylesheetId) && codefundThemeName != 'unstyled') {
+  if (!document.getElementById(codefundStylesheetId) && codefundThemeName !== 'unstyled') {
     const stylesheet = document.createElement('link')
     stylesheet.setAttribute('id', codefundStylesheetId)
     stylesheet.setAttribute('rel', 'stylesheet')
