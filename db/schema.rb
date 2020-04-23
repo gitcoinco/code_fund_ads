@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_22_185634) do
+ActiveRecord::Schema.define(version: 2020_04_22_190916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -407,7 +407,6 @@ ActiveRecord::Schema.define(version: 2020_04_22_185634) do
     t.string "ad_theme"
     t.string "language", null: false
     t.string "keywords", default: [], null: false, array: true
-    t.bigint "prohibited_advertiser_ids", default: [], null: false, array: true
     t.boolean "prohibit_fallback_campaigns", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -425,7 +424,6 @@ ActiveRecord::Schema.define(version: 2020_04_22_185634) do
     t.index ["assigned_fallback_campaign_ids"], name: "index_properties_on_assigned_fallback_campaign_ids", using: :gin
     t.index ["audience_id"], name: "index_properties_on_audience_id"
     t.index ["keywords"], name: "index_properties_on_keywords", using: :gin
-    t.index ["prohibited_advertiser_ids"], name: "index_properties_on_prohibited_advertiser_ids", using: :gin
     t.index ["prohibited_organization_ids"], name: "index_properties_on_prohibited_organization_ids", using: :gin
     t.index ["property_type"], name: "index_properties_on_property_type"
     t.index ["status"], name: "index_properties_on_status"
