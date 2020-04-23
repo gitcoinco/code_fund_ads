@@ -74,6 +74,10 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = {host: "localhost", port: 3000}
 
+  config.action_mailbox.ingress = :sendgrid
+
+  config.web_console.whitelisted_ips = ['192.168.0.0/16', '167.89.117.36']
+
   config.after_initialize do
     Bullet.enable = true
     Bullet.bullet_logger = true

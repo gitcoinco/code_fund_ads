@@ -2,6 +2,9 @@ Rails.application.routes.default_url_options[:protocol] = "https"
 Rails.application.routes.default_url_options[:host] = ENV["DEFAULT_HOST"]
 
 Rails.application.configure do
+  # Prepare the ingress controller used to receive mail
+  # config.action_mailbox.ingress = :relay
+
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
   # Settings specified here will take precedence over those in config/application.rb.
@@ -73,11 +76,10 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "code_fund_ads_#{Rails.env}"
 
-  config.action_mailer.perform_caching = false
-  config.action_mailer.delivery_method = :mailgun
-  config.action_mailer.mailgun_settings = {
-    api_key: ENV["MAILGUN_API_KEY"],
-    domain: ENV["MAILGUN_DOMAIN"]
+  config.action_mailer.delivery_method = :sendgrid_actionmailer
+  config.action_mailer.sendgrid_actionmailer_settings = {
+    api_key: ENV['SENDGRID_API_KEY'],
+    raise_delivery_errors: true
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -108,4 +110,6 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.default_url_options = {host: "app.codefund.io"}
+
+  config.action_mailbox.ingress = :sendgrid
 end

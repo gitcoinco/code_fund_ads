@@ -19,7 +19,7 @@
               <spacer size="16"></spacer>
               <row class="collapse">
                 <columns>
-                  <%= image_tag attachments['logo.png'].url, class: "email-logo", alt: "CodeFund", style: "width: 50%; margin: 0 auto;" %>
+                  <%= image_tag "https://s3-us-west-2.amazonaws.com/codefund.io/assets/codefund-logo.png", class: "email-logo", alt: "CodeFund", style: "width: 50%; margin: 0 auto;" %>
                 </columns>
               </row>
               <spacer size="2"></spacer>
