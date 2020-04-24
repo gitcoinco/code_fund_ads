@@ -1,0 +1,36 @@
+Benchmarks index
+
+<% Benchmark.ips do |x| %>
+  <% x.report("components") do %>
+    <%= render(CardComponent.new) do |component| %>
+      <% component.with(:header) do %>
+          Hello Jane
+        <% end %>
+      <% component.with(:body) do %>
+        <p>Have a great day.</p>
+      <% end %>
+      <% component.with(:footer) do %>
+        <p>Have a great day.</p>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% x.report("helpers") do %>
+    <%= card do %>
+      <%= card_header do %>
+        <%= card_title "card title" %>
+        <%= card_subtitle "card subtitle" %>
+      <% end %>
+      <%= card_body do %>
+        Card body
+      <% end %>
+      <%= card_footer do %>
+        <%= card_footer_content do %>
+          <%= button_panel margin: "my-0" do %>
+            <%= cancel_button(creatives_path) %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= x.compare! %>
+<% end %>

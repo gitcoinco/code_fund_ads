@@ -1,0 +1,17 @@
+Helpers Test
+<%= card do %>
+  <%= card_header do %>
+    <%= card_title "card title" %>
+    <%= card_subtitle "card subtitle" %>
+  <% end %>
+  <%= card_body do %>
+    Card body
+  <% end %>
+  <%= card_footer do %>
+    <%= card_footer_content do %>
+      <%= button_panel margin: "my-0" do %>
+        <%= cancel_button(creatives_path) %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

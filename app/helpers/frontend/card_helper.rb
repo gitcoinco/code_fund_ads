@@ -24,9 +24,9 @@ module Frontend
       content_tag(:h6, value, id: id, class: "card-subtitle text-muted #{add_class}", &block)
     end
 
-    def card_text(id: nil, add_class: "", &block)
-      content_tag(:p, nil, id: id, class: "card-text #{add_class}", &block)
-    end
+    # def card_text(id: nil, add_class: "", &block)
+    #   content_tag(:p, nil, id: id, class: "card-text #{add_class}", &block)
+    # end
 
     def card_footer(id: nil, add_class: "", &block)
       content_tag(:div, nil, id: id, class: "card-footer #{add_class}", &block)
