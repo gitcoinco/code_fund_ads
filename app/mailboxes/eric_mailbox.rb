@@ -1,6 +1,9 @@
 class EricMailbox < ApplicationMailbox
   def process
-    binding.pry
-    puts "PROCESSING! #{mail.inspect}"
+    Rails.logger.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    Rails.logger.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    Rails.logger.debug("~~~~~~~~~~~~~~~~~~~            ERIC           ~~~~~~~~~~~~~~~~~~~~")
+    Rails.logger.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+    Rails.logger.debug("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
   end
 end
