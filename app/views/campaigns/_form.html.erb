@@ -1,9 +1,9 @@
 <%= render("/shared/alert", missing_campaign_resources_alert.merge(alert_type: "danger")) if missing_campaign_resources_alert %>
 <%= simple_form_for campaign, data: {controller: "campaign-form"}, wrapper: :front_form do |f| %>
   <%= render "/shared/forms/error_messages", object: campaign %>
-  <%= card do %>
-    <%= card_header "Details" %>
-    <%= card_body do %>
+  <%= render CardComponent.new do %>
+    <%= render(Card::HeaderComponent.new) { "Details" } %>
+    <%= render Card::BodyComponent.new do %>
       <div class="row">
         <% if authorized_user.can_admin_system? %>
           <%= tag.div f.input(:user_id,
@@ -171,16 +171,17 @@
       <% end %>
     <% end %>
   <% end %>
-  <%= card do %>
-    <%= card_header do %>
-      <%= card_title "Creatives" %>
-      <%= card_subtitle do %>
+
+  <%= render CardComponent.new do %>
+    <%= render Card::HeaderComponent.new do %>
+      <%= render(Card::TitleComponent.new) { "Creatives" } %>
+      <%= render Card::SubtitleComponent.new do %>
         Pick which creatives you would like to use (only approved creatives are available)
         <small class="mt-1 d-block text-primary opacity-70">Multivariate testing is used to determine the most effective creative</small>
       <% end %>
     <% end %>
     <% cache [Current.organization.creatives.active, campaign.creative_ids.join] do %>
-      <%= card_body do %>
+      <%= render Card::BodyComponent.new do %>
         <div class="d-flex flex-column">
           <% Current.organization.creatives.active.each do |creative| %>
             <div class="form-check">
@@ -201,9 +202,9 @@
     <% end %>
   <% end %>
   <% if authorized_user.can_admin_system? %>
-    <%= card do %>
-      <%= card_header "Geo Targeting" %>
-      <%= card_body do %>
+    <%= render CardComponent.new do %>
+      <%= render(Card::HeaderComponent.new) { "Geo Targeting" } %>
+      <%= render Card::BodyComponent.new do %>
         <div class="row" data-controller="select-geo-targets" data-action="cf:select:changed->select-geo-targets#updateProvinceCodeOptions">
           <div class="col-12 mb-3">
             <%= f.label :country_codes, label: "Targeted Countries", class: "form-label", required: true %>
@@ -258,9 +259,9 @@
     <% end %>
   <% end %>
   <% if authorized_user.can_admin_system? %>
-    <%= card do %>
-      <%= card_header "Additional Targeting" %>
-      <%= card_body do %>
+    <%= render CardComponent.new do %>
+      <%= render(Card::HeaderComponent.new) { "Additional Targeting" } %>
+      <%= render Card::BodyComponent.new do %>
         <div class="row">
           <div class="col-12 mb-3" data-controller="select-multiple">
             <%= f.input(:keywords,
@@ -318,14 +319,14 @@
         </div>
       <% end %>
     <% end %>
-    <%= card do %>
-      <%= card_header do %>
-        <%= card_title do %>
+    <%= render CardComponent.new do %>
+      <%= render Card::HeaderComponent.new do %>
+        <%= render Card::TitleComponent.new do %>
           Budget <small>for <%= number_with_delimiter campaign.total_operative_days %> operative days <%= " with a total spend of #{campaign.total_budget.format}" if campaign.region_and_audience_pricing_strategy? %></small>
         <% end %>
-        <%= card_subtitle "This campaign is using the #{campaign.pricing_strategy.humanize.downcase} based pricing strategy" %>
+        <%= render(Card::SubtitleComponent.new) { "This campaign is using the #{campaign.pricing_strategy.humanize.downcase} based pricing strategy" } %>
       <% end %>
-      <%= card_body do %>
+      <%= render Card::BodyComponent.new do %>
         <% if campaign.campaign_pricing_strategy? %>
           <div class="row">
             <div class="col-12 mb-2">
