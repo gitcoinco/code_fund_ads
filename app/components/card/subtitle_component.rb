@@ -1,6 +1,4 @@
 class Card::SubtitleComponent < ApplicationComponent
-  DEFAULT_CLASSES = "card-subtitle text-muted"
-
   def initialize(classes: nil)
     @class_names = classes
   end
@@ -10,7 +8,7 @@ class Card::SubtitleComponent < ApplicationComponent
   attr_reader :class_names
 
   def classes
-    classes = [DEFAULT_CLASSES]
+    classes = ["card-subtitle text-muted"]
     classes.push(class_names) unless class_names.try(:empty?)
     classes
   end

@@ -1,7 +1,6 @@
 <%= render(PageComponent.new) do |component| %>
   <%= component.with(:header) { render(Page::HeaderComponent.new(title: "Referrals", subtitle: "Earn by referring friends")) } %>
   <% component.with(:body) do %>
-    <hr class="my-3" />
     <div class="row">
       <div class="col-md-6"><%= render "/referrals/share_card" %></div>
       <div class="col-md-6"><%= render "/referrals/stats_card" %></div>

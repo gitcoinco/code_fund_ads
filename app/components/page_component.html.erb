@@ -3,6 +3,7 @@
   <div class="page-inner" data-controller="auto-height">
     <%= header %>
     <%= render("/#{subject_view_directory}/tabs", subject: subject) if subject&.persisted? && tabs %>
+    <%= tag.hr(class: "my-3") if !tabs %>
     <div class="page-section"><%= body %></div>
     <%= render "/#{subject_view_directory}/sidebar", subject: subject if sidebar %>
   </div>

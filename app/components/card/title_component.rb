@@ -1,6 +1,4 @@
 class Card::TitleComponent < ApplicationComponent
-  DEFAULT_CLASSES = "card-title"
-
   def initialize(classes: nil)
     @class_names = classes
   end
@@ -10,7 +8,7 @@ class Card::TitleComponent < ApplicationComponent
   attr_reader :class_names
 
   def classes
-    classes = [DEFAULT_CLASSES]
+    classes = ["card-title"]
     classes.push(class_names) unless class_names.try(:empty?)
     classes
   end

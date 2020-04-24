@@ -1,9 +1,0 @@
-<div class="page-inner">
-  <%= render "/shared/page_heading_with_subtitle",
-    title: local_assigns[:title] || creative.name,
-    subtitle: local_assigns[:subtitle],
-    buttons: local_assigns[:buttons] || [] %>
-  <div class="page-section">
-    <%= yield %>
-  </div>
-</div>
