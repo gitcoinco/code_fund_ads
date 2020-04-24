@@ -3,7 +3,7 @@ Rails.application.routes.default_url_options[:host] = ENV["DEFAULT_HOST"]
 
 Rails.application.configure do
   # Prepare the ingress controller used to receive mail
-  # config.action_mailbox.ingress = :relay
+  config.action_mailbox.ingress = :sendgrid
 
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
@@ -110,6 +110,4 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   config.action_mailer.default_url_options = {host: "app.codefund.io"}
-
-  config.action_mailbox.ingress = :sendgrid
 end

@@ -3,6 +3,7 @@
     <li><%= nav_item_link(name: "Overview", path: user_path(subject), active: :exact) %></li>
     <li><%= nav_item_link(name: "Properties", path: user_properties_path(subject)) if subject.properties.exists? %></li>
     <li><%= nav_item_link(name: "Campaigns", path: user_campaigns_path(subject)) if subject.campaigns.exists? %></li>
+    <li><%= nav_item_link(name: "Emails", path: user_emails_path(subject)) if subject.emails.exists? && authorized_user.can_admin_system? %></li>
     <li><%= nav_item_link(name: "Settings", path: edit_user_path(subject)) %></li>
   <% end %>
 </div>

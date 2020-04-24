@@ -86,7 +86,11 @@ CREATE TABLE public.action_mailbox_inbound_emails (
     message_id character varying NOT NULL,
     message_checksum character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    delivered_at timestamp without time zone,
+    sender_id bigint DEFAULT 0 NOT NULL,
+    to_ids text[] DEFAULT '{}'::text[],
+    cc_ids text[] DEFAULT '{}'::text[]
 );
 
 
@@ -11158,6 +11162,27 @@ CREATE INDEX impressions_default_uplift_idx ON public.impressions_default USING 
 
 
 --
+-- Name: index_action_mailbox_inbound_emails_on_cc_ids; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_action_mailbox_inbound_emails_on_cc_ids ON public.action_mailbox_inbound_emails USING gin (cc_ids);
+
+
+--
+-- Name: index_action_mailbox_inbound_emails_on_sender_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_action_mailbox_inbound_emails_on_sender_id ON public.action_mailbox_inbound_emails USING btree (sender_id);
+
+
+--
+-- Name: index_action_mailbox_inbound_emails_on_to_ids; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_action_mailbox_inbound_emails_on_to_ids ON public.action_mailbox_inbound_emails USING gin (to_ids);
+
+
+--
 -- Name: index_action_mailbox_inbound_emails_uniqueness; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -19083,6 +19108,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200421152748'),
 ('20200422185634'),
 ('20200423194453'),
-('20200423214440');
+('20200423214440'),
+('20200424175413');
 
 

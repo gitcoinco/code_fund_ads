@@ -1,0 +1,27 @@
+<% emails.each do |email| %>
+  <div class="feed">
+    <div class="feed-post card">
+      <!-- .card-header -->
+      <div class="card-header card-header-fluid">
+        <a href="#" class="btn-account" role="button">
+          <div class="user-avatar user-avatar-lg">
+            <%= image_tag email.sender&.gravatar_url(d = "identicon", s = 40), alt: "#{email.sender&.name}" %>
+          </div>
+          <div class="account-summary">
+            <p class="account-name"><%= email.sender.name %></p>
+            <p class="account-description">
+              <% if email.sender.default_organization %>
+                <%= email.sender.default_organization&.name %> ·
+              <% end %>
+              <%= email.delivered_at.to_s("bd") %> (<%= time_ago_in_words email.delivered_at %> ago)
+            </p>
+          </div>
+        </a> <!-- .dropdown -->
+      </div><!-- /.card-header -->
+      <!-- .card-body -->
+      <div class="card-body">
+        <p><%= email.mail.subject %></p>
+      </div>
+    </div>
+  </div>
+<% end %>

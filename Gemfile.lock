@@ -590,7 +590,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionmailbox (~> 6.0.2)
   active_link_to (~> 1.0.5)
   active_storage_svg_sanitizer (~> 0.1.0)
   annotate

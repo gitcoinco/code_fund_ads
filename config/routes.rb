@@ -2,6 +2,7 @@ require "sidekiq/web"
 Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
 
 Rails.application.routes.draw do
+  get 'user_emails/index'
   %w[403 404 422 500].each do |code|
     get code, controller: :errors, action: :error, code: code
   end
@@ -125,6 +126,7 @@ Rails.application.routes.draw do
   scope "/users/:user_id" do
     resources :user_campaigns, only: [:index], path: "/campaigns"
     resources :user_properties, only: [:index], path: "/properties"
+    resources :user_emails, only: [:index], path: "/emails"
     resources :creatives, only: [:index], as: :user_creatives
     resources :versions, only: [:index], as: :user_versions, path: "/revisions"
     resources :events, only: [:index], as: :user_events

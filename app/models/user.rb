@@ -102,6 +102,9 @@ class User < ApplicationRecord
   has_many :organizations, through: :organization_users
   has_many :referred_users, class_name: "User", foreign_key: "referring_user_id"
   has_many :managed_accounts, class_name: "Organization", foreign_key: "account_manager_user_id"
+  has_many :sent_emails, class_name: "ActionMailbox::InboundEmail", foreign_key: "sender_id"
+  # has_many :received_emails, class_name: "ActionMailbox::InboundEmail", foreign_key: "sender_id"
+  # has_many :received_as_cc_emails, class_name: "ActionMailbox::InboundEmail", foreign_key: "sender_id"
 
   # validations ...............................................................
   validates :first_name, presence: true
@@ -232,6 +235,10 @@ class User < ApplicationRecord
     organizations.load unless organizations.loaded?
     ou = organization_users.find(&:administrator?) || organization_users.find(&:member?)
     ou&.organization || organization
+  end
+
+  def emails
+    ActionMailbox::InboundEmail.with_user(self)
   end
 
   def administrator?
