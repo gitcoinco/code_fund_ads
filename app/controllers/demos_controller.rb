@@ -6,11 +6,12 @@ class DemosController < ApplicationController
   def show
     @template = demo_params[:template] || "default"
     @theme = demo_params[:theme] || "light"
-    @script_path = "/ad-previews/#{campaign.id}.js?template=#{@template}&theme=#{@theme}"
+    @campaign_id = demo_params[:campaign_id] || ENV["CAMPAIGN_DEMO_ID"]
+    @script_path = "/ad-previews/#{@campaign_id}.js?template=#{@template}&theme=#{@theme}"
   end
 
   def update
-    redirect_to demo_path(template: params[:template], theme: params[:theme])
+    redirect_to demo_path(template: params[:template], theme: params[:theme], campaign_id: params[:campaign_id])
   end
 
   def position
@@ -22,10 +23,10 @@ class DemosController < ApplicationController
   private
 
   def campaign
-    @campaign ||= Campaign.find(ENV["CAMPAIGN_DEMO_ID"])
+    @campaign ||= Campaign.find(@campaign_id)
   end
 
   def demo_params
-    params.permit(:template, :theme)
+    params.permit(:template, :theme, :campaign_id)
   end
 end
