@@ -3,7 +3,7 @@ class UserEmailsController < ApplicationController
   before_action :set_user, only: :index
 
   def index
-    emails = ActionMailbox::InboundEmail.includes([:raw_email_attachment]).with_user(@user).order(delivered_at: :desc)
+    emails = Email.with_email(@user.email).order(delivered_at: :desc)
     @pagy, @emails = pagy(emails)
   end
 

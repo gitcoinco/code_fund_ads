@@ -14,6 +14,19 @@
           <label class="media-body text-muted mb-0">
             <span class="d-block text-dark">Enable API Access?</span>
           </label>
+
+          <div class="input-group" data-controller="copy" style="max-width: 350px;">
+            <%= tag.input class: "form-control", value: @user.api_key, data: { target: "copy.input" } %>
+            <div class="input-group-append">
+              <a class="input-group-text" href="#"
+                data-action="copy#copy"
+                data-class-change-target="#linkIcon"
+                data-default-class="fas fa-clone"
+                data-success-class="fas fa-check">
+                <span id="linkIcon" class="fas fa-clone"></span>
+              </a>
+            </div>
+          </div>
         </div>
         <%= tag.div f.input(:status, collection: user_statuses_for_select,
             input_html: {class: "form-control", data: {controller: "select"}}), class: "mb-2" %>

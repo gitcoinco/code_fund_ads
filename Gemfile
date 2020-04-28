@@ -85,6 +85,14 @@ gem "typhoeus", "~> 1.3.1"
 gem "uglifier", ">= 1.3.0"
 gem "webpacker", "~> 5.0.1"
 
+# API-related gems
+gem "grape", "~> 1.3.2"
+gem "grape-entity", "~> 0.8.0"
+gem 'grape_on_rails_routes', "~> 0.3.2"
+gem 'swagger-ui_rails', "~> 0.1.7"
+gem 'grape-swagger', "~> 1.1.0"
+gem 'grape-swagger-rails', "~> 0.3.1"
+
 group :development, :test do
   gem "awesome_print"
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

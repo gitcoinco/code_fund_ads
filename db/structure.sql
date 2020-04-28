@@ -86,11 +86,7 @@ CREATE TABLE public.action_mailbox_inbound_emails (
     message_id character varying NOT NULL,
     message_checksum character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL,
-    delivered_at timestamp without time zone,
-    sender_id bigint DEFAULT 0 NOT NULL,
-    to_ids text[] DEFAULT '{}'::text[],
-    cc_ids text[] DEFAULT '{}'::text[]
+    updated_at timestamp(6) without time zone NOT NULL
 );
 
 
@@ -507,8 +503,9 @@ ALTER SEQUENCE public.daily_summaries_id_seq OWNED BY public.daily_summaries.id;
 CREATE TABLE public.emails (
     id bigint NOT NULL,
     message_id character varying NOT NULL,
-    "from" character varying NOT NULL,
-    "to" character varying NOT NULL,
+    from_address character varying NOT NULL,
+    to_addresses text[] DEFAULT '{}'::text[],
+    cc_addresses text[] DEFAULT '{}'::text[],
     subject character varying NOT NULL,
     content text NOT NULL,
     delivered_at timestamp without time zone NOT NULL,
@@ -3111,7 +3108,6 @@ CREATE TABLE public.properties (
     ad_theme character varying,
     language character varying NOT NULL,
     keywords character varying[] DEFAULT '{}'::character varying[] NOT NULL,
-    prohibited_advertiser_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
     prohibit_fallback_campaigns boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
@@ -11162,27 +11158,6 @@ CREATE INDEX impressions_default_uplift_idx ON public.impressions_default USING 
 
 
 --
--- Name: index_action_mailbox_inbound_emails_on_cc_ids; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_action_mailbox_inbound_emails_on_cc_ids ON public.action_mailbox_inbound_emails USING gin (cc_ids);
-
-
---
--- Name: index_action_mailbox_inbound_emails_on_sender_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_action_mailbox_inbound_emails_on_sender_id ON public.action_mailbox_inbound_emails USING btree (sender_id);
-
-
---
--- Name: index_action_mailbox_inbound_emails_on_to_ids; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_action_mailbox_inbound_emails_on_to_ids ON public.action_mailbox_inbound_emails USING gin (to_ids);
-
-
---
 -- Name: index_action_mailbox_inbound_emails_uniqueness; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -11484,10 +11459,31 @@ CREATE UNIQUE INDEX index_daily_summaries_unscoped_uniqueness ON public.daily_su
 
 
 --
+-- Name: index_emails_on_cc_addresses; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_emails_on_cc_addresses ON public.emails USING gin (cc_addresses);
+
+
+--
+-- Name: index_emails_on_from_address; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_emails_on_from_address ON public.emails USING btree (from_address);
+
+
+--
 -- Name: index_emails_on_message_id; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX index_emails_on_message_id ON public.emails USING btree (message_id);
+
+
+--
+-- Name: index_emails_on_to_addresses; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_emails_on_to_addresses ON public.emails USING gin (to_addresses);
 
 
 --
@@ -11782,13 +11778,6 @@ CREATE INDEX index_properties_on_keywords ON public.properties USING gin (keywor
 --
 
 CREATE INDEX index_properties_on_name ON public.properties USING btree (lower((name)::text));
-
-
---
--- Name: index_properties_on_prohibited_advertiser_ids; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_properties_on_prohibited_advertiser_ids ON public.properties USING gin (prohibited_advertiser_ids);
 
 
 --
@@ -19107,8 +19096,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200416182239'),
 ('20200421152748'),
 ('20200422185634'),
+('20200422190916'),
 ('20200423194453'),
-('20200423214440'),
-('20200424175413');
+('20200423214440');
 
 

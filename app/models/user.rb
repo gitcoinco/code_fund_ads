@@ -180,6 +180,7 @@ class User < ApplicationRecord
     :recoverable,
     :rememberable,
     :timeoutable,
+    :token_authenticatable,
     :trackable,
     :validatable
   )
@@ -194,6 +195,8 @@ class User < ApplicationRecord
     last_name
     roles
   ]
+  has_secure_token :api_key
+  attr_accessible :authentication_token
 
   # class methods .............................................................
   class << self
@@ -238,7 +241,7 @@ class User < ApplicationRecord
   end
 
   def emails
-    ActionMailbox::InboundEmail.with_user(self)
+    Email.with_user(self)
   end
 
   def administrator?
@@ -275,7 +278,6 @@ class User < ApplicationRecord
   end
 
   # protected instance methods ................................................
-  protected
 
   # private instance methods ..................................................
   private

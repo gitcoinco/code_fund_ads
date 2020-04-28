@@ -1,5 +1,5 @@
 class IncomingMailbox < ApplicationMailbox
   def process
-    bounce!
+    bounced!
   end
 end

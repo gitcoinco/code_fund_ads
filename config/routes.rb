@@ -2,11 +2,12 @@ require "sidekiq/web"
 Sidekiq::Web.set :session_secret, Rails.application.credentials[:secret_key_base]
 
 Rails.application.routes.draw do
-  get 'user_emails/index'
   %w[403 404 422 500].each do |code|
     get code, controller: :errors, action: :error, code: code
   end
 
+  mount API::Base, at: "/"
+  mount GrapeSwaggerRails::Engine, at: "/api/swagger"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   authenticate :user, lambda { |user| AuthorizedUser.new(user || User.new).can_admin_system? } do
