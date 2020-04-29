@@ -1,0 +1,10 @@
+<div role="log" class="conversations">
+  <ul class="conversation-list">
+    <% if comments.any? %>
+      <%= render(Comments::CommentComponent.with_collection(comments)) %>
+    <% else %>
+      <p class="text-center font-italic">There are currently no comments for this resource.</p>
+    <% end %>
+  </ul>
+</div>
+<%= render(Comments::FormComponent.new(commentable: commentable)) %>

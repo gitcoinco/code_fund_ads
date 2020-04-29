@@ -43,12 +43,13 @@ Rails.application.routes.draw do
 
   resources :organizations
   scope "/organization/:organization_id/" do
+    resources :organization_comments, only: [:index], path: "/comments"
+    resources :organization_reports, except: [:edit], as: :organization_reports, path: "/reports"
     resources :organization_transactions, path: "/transactions"
     resources :organization_users, path: "/members", as: :organization_users
     resources :events, only: [:index], as: :organization_events
-    resources :versions, only: [:index], as: :organization_versions, path: "/revisions"
-    resources :organization_reports, except: [:edit], as: :organization_reports, path: "/reports"
     resources :scheduled_organization_reports, only: [:create, :destroy], as: :scheduled_organization_reports, path: "/scheduled_reports"
+    resources :versions, only: [:index], as: :organization_versions, path: "/revisions"
   end
   resource :organization_invites, only: [:create]
 
@@ -62,18 +63,20 @@ Rails.application.routes.draw do
   end
 
   resources :versions, only: [:show, :update]
+  resources :comments, only: [:create, :destroy]
   resources :audiences, only: [:index]
 
   resources :campaign_bundles, only: [:new, :create, :index, :show]
   resources :campaigns
   scope "/campaigns/:campaign_id" do
-    resources :campaign_reports, only: [:create], path: "/reports"
-    resources :campaign_dailies, only: [:index], path: "/dailies"
-    resources :campaign_properties, only: [:index, :update], path: "/properties"
+    resources :campaign_comments, only: [:index], path: "/comments"
     resources :campaign_countries, only: [:index], path: "/countries"
     resources :campaign_creatives, only: [:index], path: "/creatives"
-    resources :versions, only: [:index], as: :campaign_versions, path: "/revisions"
+    resources :campaign_dailies, only: [:index], path: "/dailies"
+    resources :campaign_properties, only: [:index, :update], path: "/properties"
+    resources :campaign_reports, only: [:create], path: "/reports"
     resources :events, only: [:index], as: :campaign_events
+    resources :versions, only: [:index], as: :campaign_versions, path: "/revisions"
   end
 
   resources :creatives

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_22_190916) do
+ActiveRecord::Schema.define(version: 2020_04_22_195410) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -117,6 +117,22 @@ ActiveRecord::Schema.define(version: 2020_04_22_190916) do
     t.index ["status"], name: "index_campaigns_on_status"
     t.index ["user_id"], name: "index_campaigns_on_user_id"
     t.index ["weekdays_only"], name: "index_campaigns_on_weekdays_only"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.bigint "commentable_id"
+    t.string "commentable_type"
+    t.string "title"
+    t.text "body"
+    t.string "subject"
+    t.bigint "user_id", null: false
+    t.bigint "parent_id"
+    t.bigint "lft"
+    t.bigint "rgt"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["commentable_id", "commentable_type"], name: "index_comments_on_commentable_id_and_commentable_type"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "coupons", force: :cascade do |t|

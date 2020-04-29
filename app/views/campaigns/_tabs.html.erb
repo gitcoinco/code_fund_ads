@@ -5,6 +5,7 @@
     <li><%= nav_item_link name: "Creatives", path: campaign_creatives_path(subject) %></li>
     <li><%= nav_item_link name: "Countries", path: campaign_countries_path(subject) %></li>
     <li><%= nav_item_link name: "Properties", path: campaign_properties_path(subject) %></li>
+    <%= tag.li (nav_item_link name: "Comments", path: campaign_comments_path(subject)) if authorized_user.can_view_comments? %>
     <li><%= nav_item_link name: "Settings", path: edit_campaign_path(subject) %></li>
   <% end %>
 </div>

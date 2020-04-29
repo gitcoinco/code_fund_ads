@@ -1,4 +1,4 @@
-class PageComponent < ViewComponent::Base
+class PageComponent < ApplicationComponent
   with_content_areas :header, :body
 
   def initialize(subject: nil, tabs: false, sidebar: false)

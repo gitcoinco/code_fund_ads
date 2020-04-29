@@ -1,0 +1,11 @@
+<%= render(PageComponent.new(subject: @organization, tabs: true, sidebar: true)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: @organization.name, sidebar: true, buttons: [
+      generate_organization_report_button(@organization.id),
+      layout_button(link: new_organization_user_path(@organization), icon: "fas fa-plus", title: "Add member", display: authorized_user.can_edit_organization_users?(@organization)),
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= render(CommentsComponent.new(commentable: @organization, comments: @comments)) %>
+  <% end %>
+<% end %>

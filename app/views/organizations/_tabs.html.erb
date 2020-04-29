@@ -4,6 +4,7 @@
     <li><%= nav_item_link(name: "Members", path: organization_users_path(subject)) %></li>
     <li><%= nav_item_link(name: "Transactions", path: organization_transactions_path(subject)) %></li>
     <li><%= nav_item_link(name: "Reports", path: organization_reports_path(subject)) %></li>
+    <%= tag.li (nav_item_link name: "Comments", path: organization_comments_path(subject)) if authorized_user.can_view_comments? %>
     <li><%= nav_item_link(name: "Settings", path: edit_organization_path(subject)) if authorized_user.can_admin_system? %></li>
   <% end %>
 </div>
