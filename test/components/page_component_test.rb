@@ -3,6 +3,7 @@ require "test_helper"
 class PageComponentTest < ViewComponent::TestCase
   setup do
     @user = users(:publisher)
+    ApplicationComponent.any_instance.stubs(authorized_user: AuthorizedUser.new(@user))
   end
 
   test "basic page component" do
@@ -41,8 +42,3 @@ class PageComponentTest < ViewComponent::TestCase
     assert_selector(".nav-tabs-wrapper")
   end
 end
-
-# assert_equal(
-#   %(<span>Hello, components!</span>),
-#   render_inline(PageComponent.new).css("span").to_html
-# )
