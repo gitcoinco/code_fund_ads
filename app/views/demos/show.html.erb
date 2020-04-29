@@ -16,12 +16,20 @@
             class: "form-control custom-select", id: "ad_demo_template",
             data: {action: "change->ad-demo#update", controller: "select", target: "ad-demo.templateSelect"}}) %>
     </div>
-    <div class="col-md-6 offset-md-3">
+    <div class="col-md-6 offset-md-3 mb-md-2">
       <label class="form-label select" for="ad_demo_theme">Theme:</label>
       <%= form.collection_select(:theme, ENUMS::AD_THEMES.values, :to_s, :to_s, {selected: @theme}, {
             class: "form-control custom-select", id: "ad_demo_theme",
             data: {action: "change->ad-demo#update", controller: "select", target: "ad-demo.themeSelect"}}) %>
     </div>
+    <% if current_user && current_user.campaigns.present? %>
+      <div class="col-md-6 offset-md-3">
+        <label class="form-label select" for="ad_demo_theme">Campaign:</label>
+        <%= form.collection_select(:campaign_id, current_user.campaigns, :id, :to_s, {selected: @campaign_id}, {
+              class: "form-control custom-select", id: "ad_demo_campaign_id",
+              data: {action: "change->ad-demo#update", controller: "select", target: "ad-demo.campaignIdSelect"}}) %>
+      </div>
+    <% end %>
   <% end %>
 </div>
 <div class="<%= @theme.inquiry.dark? ? "bg-dark text-white" : "bg-white" %> vw-100 pt-4">

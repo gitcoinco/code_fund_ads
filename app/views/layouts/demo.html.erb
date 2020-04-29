@@ -18,6 +18,15 @@
         font-size: 20px;
       }
     </style>
+    <script>
+      window.addEventListener("codefund", function(evt) {
+        console.log('CodeFund callback results:')
+        console.log(evt.detail);
+        if (evt.detail.house) {
+          console.log('This is a fallback ad (unpaid)');
+        }
+      });
+    </script>
   </head>
   <body class="pt-0">
     <%= yield %>
