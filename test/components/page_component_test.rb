@@ -3,7 +3,7 @@ require "test_helper"
 class PageComponentTest < ViewComponent::TestCase
   setup do
     @user = users(:publisher)
-    ApplicationComponent.any_instance.stubs(authorized_user: AuthorizedUser.new(@user))
+    stub_warden(request)
   end
 
   test "basic page component" do

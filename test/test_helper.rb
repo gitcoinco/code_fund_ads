@@ -48,6 +48,11 @@ class ActiveSupport::TestCase
     post user_session_url
   end
 
+  # FIXME: This is a hack
+  def stub_warden(request)
+    request.env["warden"] = Warden::Proxy.new("test", Warden::Manager.new(Rails.application))
+  end
+
   def create_comment(commentable: nil, user: nil, body: "Test comment.")
     return unless commentable && user
     comment = Comment.build_from(commentable, user.id, body)
