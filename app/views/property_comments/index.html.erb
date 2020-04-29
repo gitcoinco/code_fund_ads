@@ -1,0 +1,11 @@
+<%= render(PageComponent.new(subject: @property, sidebar: true, tabs: true)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: @property.name, sidebar: true, datepicker: true, buttons: [
+      layout_button(link: new_property_path, icon: "fas fa-plus", title: "New property"),
+      layout_button(link: new_property_path(clone: @property.id), icon: "fad fa-copy", title: "Clone property")
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= render(CommentsComponent.new(commentable: @property, comments: @comments)) %>
+  <% end %>
+<% end %>

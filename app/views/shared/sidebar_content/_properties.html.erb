@@ -33,6 +33,7 @@
               <%= active_link_to "Installation", property_instructions_path(property), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
               <%= active_link_to "Earnings", property_earnings_path(property), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
               <%= active_link_to "Campaigns", property_campaigns_path(property), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+              <%= active_link_to "Comments", property_comments_path(property), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_view_comments? %>
               <%= active_link_to "Settings", edit_property_path(property), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
             </ul>
           <% end %>
