@@ -7,6 +7,10 @@ class ApplicationComponent < ViewComponent::Base
     helpers.authorized_user
   end
 
+  def valid_variant(variant)
+    ENUMS::VARIANTS[variant.to_s].present? ? variant.to_s : ENUMS::VARIANTS::PRIMARY
+  end
+
   def status_color(status)
     case status.to_sym
     when :archived

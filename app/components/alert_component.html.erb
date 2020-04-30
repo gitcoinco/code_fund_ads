@@ -1,0 +1,17 @@
+<div class="row m-0">
+  <div class="col-12 p-0">
+    <%= content_tag("div", class: classes) do %>
+      <span>
+        <%= content_tag("div", class: "alert-icon") do %>
+          <i class="<%= icon %>"></i>
+        <% end if icon %>
+        <%= content_tag("h4", heading, class: "alert-heading") if heading %>
+        <%= content_tag("p", body, class: "mb-0") if body %>
+      </span>
+      <span>
+        <%= button_tag("×", type: "button", class: "close", data: {dismiss: "alert"}) if dismissible %>
+        <%= content_tag("div", cta, class: "ml-auto") if cta %>
+      </span>
+    <% end %>
+  </div>
+</div>
