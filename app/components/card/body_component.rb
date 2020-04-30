@@ -11,6 +11,10 @@ class Card::BodyComponent < ApplicationComponent
   def classes
     classes = ["card-body p-4"]
     classes.push(class_names) unless class_names.try(:empty?)
-    classes
+    classes.compact
+  end
+
+  def render?
+    content.present?
   end
 end

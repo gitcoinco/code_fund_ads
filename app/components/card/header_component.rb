@@ -10,6 +10,10 @@ class Card::HeaderComponent < ApplicationComponent
   def classes
     classes = ["card-header"]
     classes.push(class_names) unless class_names.try(:empty?)
-    classes
+    classes.compact
+  end
+
+  def render?
+    content.present?
   end
 end

@@ -12,6 +12,11 @@ class Card::FooterComponent < ApplicationComponent
   def classes
     classes = ["card-footer"]
     classes.push(class_names) unless class_names.try(:empty?)
-    classes
+    classes.compact
+  end
+
+  def render?
+    return true if actions
+    content.present?
   end
 end
