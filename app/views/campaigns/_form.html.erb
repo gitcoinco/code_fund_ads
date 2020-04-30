@@ -1,10 +1,10 @@
 <%= render AlertComponent.new(
-            variant: ENUMS::VARIANTS::DANGER,
-            cta: missing_campaign_resources_alert[:cta],
-            heading: missing_campaign_resources_alert[:heading],
-            body: missing_campaign_resources_alert[:body],
-            icon: "fas fa-flag-alt",
-            dismissible: false) if missing_campaign_resources_alert %>
+      variant: ENUMS::VARIANTS::DANGER,
+      cta: missing_campaign_resources_alert[:cta],
+      heading: missing_campaign_resources_alert[:heading],
+      body: missing_campaign_resources_alert[:body],
+      icon: "fas fa-flag-alt",
+      dismissible: false) if missing_campaign_resources_alert %>
 
 <%= simple_form_for campaign, data: {controller: "campaign-form"}, wrapper: :front_form do |f| %>
   <%= render "/shared/forms/error_messages", object: campaign %>
