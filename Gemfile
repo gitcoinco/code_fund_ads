@@ -45,7 +45,7 @@ gem "money", "~> 6.13.1"
 gem "mustache", "~> 1.1.0"
 gem "oj", "~> 3.9.0"
 gem "okcomputer", "~> 1.18.0"
-gem "pagy", "~> 3.7.3"
+gem "pagy", "~> 3.8.0"
 gem "paper_trail", "~> 10.3.0"
 gem "perm", "~> 1.0.2"
 gem "pg_lock", "~> 0.2.1"
@@ -55,7 +55,7 @@ gem "premailer", "1.11.1"
 gem "pretender", "~> 0.3.3"
 gem "progressbar", "~> 1.10.1", require: false
 gem "puma", "~> 4.3"
-gem "rack-attack", "~> 6.2.1"
+gem "rack-attack", "~> 6.3.0"
 gem "rails", "~> 6.0"
 gem "redis", "~> 4.0", require: ["redis", "redis/connection/hiredis"]
 gem "render_later", "~> 0.1.1"
@@ -71,7 +71,7 @@ gem "simple_form", "~> 5.0"
 gem "slack-notifier", "~> 2.3.2"
 gem "split", "~> 3.4.1", require: "split/dashboard"
 gem "spreadsheet", "~> 1.2.4"
-gem "view_component", "~> 2.2.1"
+gem "view_component", "~> 2.5.1"
 
 # TODO - Re-enable for internal CodeFund analytics tool
 # gem "staccato", "~> 0.5.1"
@@ -83,7 +83,7 @@ gem "tag_columns", "~> 0.1.8"
 gem "turbolinks", "~> 5"
 gem "typhoeus", "~> 1.3.1"
 gem "uglifier", ">= 1.3.0"
-gem "webpacker", "~> 5.0.1"
+gem "webpacker", "~> 5.1.1"
 
 group :development, :test do
   gem "awesome_print"
@@ -108,10 +108,9 @@ group :development do
   gem "model_probe"
   gem "ngrok-tunnel"
   gem "rack-mini-profiler", require: false
-  gem "solargraph", "~> 0.38"
+  gem "solargraph", "~> 0.39"
   gem "standard"
   gem "teamocil"
-  gem "tocer"
   gem "tty-box"
   gem "web-console", ">= 3.3.0"
 end
