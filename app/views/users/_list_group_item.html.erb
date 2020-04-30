@@ -2,7 +2,7 @@
      data-target="filterable-list.filterable"
      data-filter-key='all <%= user.status %>'>
   <div class="list-group-item-figure">
-    <%= render(Users::AvatarComponent.new(user: user)) %>
+    <%= render(AvatarComponent.new(user: user)) %>
   </div>
   <div class="list-group-item-body">
     <div class="d-flex justify-content-between align-items-center">

@@ -1,6 +1,6 @@
 <%= table_row do %>
   <%= table_data add_style: "width:36px;" do %>
-    <%= render(Users::AvatarComponent.new(user: organization_user.user)) %>
+    <%= render(AvatarComponent.new(user: organization_user.user)) %>
   <% end %>
   <%= table_data do %>
     <div class="media align-items-center">
