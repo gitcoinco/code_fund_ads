@@ -20,15 +20,15 @@ class Tabs::TabComponent < ApplicationComponent
   end
 
   def active
-    tab[:active] || nil
+    tab.fetch(:active, nil)
   end
 
   def validation
-    tab[:validation] || true
+    tab.fetch(:validation, true)
   end
 
   def type
-    tab[:type] || "link"
+    tab.fetch(:type, "link")
   end
 
   def tab_link_data
