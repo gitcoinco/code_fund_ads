@@ -1,4 +1,4 @@
-<%= render(PageComponent.new(subject: @organization, sidebar: true, tabs: true)) do |component| %>
+<%= render(PageComponent.new(subject: @organization, sidebar: true, tabs: TabsComponent.new(tabs: organization_tabs(@organization)))) do |component| %>
   <% component.with(:header) do %>
     <%= render(Page::HeaderComponent.new(title: @organization.name, sidebar: true, datepicker: true, buttons: [
       generate_organization_report_button(@organization.id),
