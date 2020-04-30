@@ -26,7 +26,7 @@
     "bootstrap-select": "^1.13.12",
     "cable_ready": "^4.1.0",
     "codesandbox": "^2.1.12",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "jquery-validation": "^1.19.1",
     "lodash": "^4.17.15",
     "lozad": "^1.14.0",
