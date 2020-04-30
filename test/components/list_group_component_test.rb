@@ -32,4 +32,11 @@ class ListGroupComponentTest < ViewComponent::TestCase
       render_inline(ListGroupComponent.new(flush: true)) { "List Group" }.to_html.squish
     )
   end
+
+  test "reflow list group" do
+    assert_equal(
+      %(<ul class="list-group list-group-reflow"> List Group </ul>),
+      render_inline(ListGroupComponent.new(reflow: true)) { "List Group" }.to_html.squish
+    )
+  end
 end
