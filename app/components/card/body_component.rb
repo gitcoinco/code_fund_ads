@@ -1,11 +1,12 @@
 class Card::BodyComponent < ApplicationComponent
-  def initialize(classes: nil)
+  def initialize(classes: nil, styles: nil)
     @class_names = classes
+    @styles = styles
   end
 
   private
 
-  attr_reader :class_names
+  attr_reader :class_names, :styles
 
   def classes
     classes = ["card-body p-4"]

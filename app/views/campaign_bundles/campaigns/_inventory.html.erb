@@ -1,12 +1,12 @@
-<%= card do %>
-  <%= card_header add_class: "bg-muted" do %>
-    <%= card_title do %>
+<%= render CardComponent.new do %>
+  <%= render Card::HeaderComponent.new(classes: "bg-muted") do %>
+    <%= render(Card::TitleComponent.new) do %>
       <%= number_with_delimiter campaign.inventory_summary.average_daily_impressions_count %> impressions/day
       <small><%= number_to_percentage campaign.inventory_summary.average_click_rate, precision: 2 %> average CTR</small>
     <% end %>
-    <%= card_subtitle "Average inventory based on your targeted locations and audience but not your budget or availability", add_class: "font-weight-bold leading-relaxed" %>
+    <%= render(Card::SubtitleComponent.new(classes: "font-weight-bold leading-relaxed")) { "Average inventory based on your targeted locations and audience but not your budget or availability" } %>
   <% end %>
-  <%= card_body add_style: "max-height:570px; overflow-y:scroll;" do %>
+  <%= render(Card::BodyComponent.new(styles: "max-height:570px; overflow-y:scroll;")) do %>
     <h6 class="text-muted">eCPM by Region & Audience</h6>
     <%= table add_class: "table-sm table-bordered" do %>
       <%= table_head do %>

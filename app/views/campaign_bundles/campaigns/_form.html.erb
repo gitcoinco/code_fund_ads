@@ -2,9 +2,9 @@
   <%= f.fields_for "campaigns_attributes[#{campaign.temporary_id}]", campaign do |cf| %>
     <div id="campaign-<%= campaign_iteration.index %>-fields" class="row">
       <div class="col-4">
-        <%= card do %>
-          <%= card_header do %>
-            <%= card_title do %>
+        <%= render CardComponent.new do %>
+          <%= render Card::HeaderComponent.new do %>
+            <%= render Card::TitleComponent.new do %>
               <div class="d-flex justify-content-between align-items-center">
                 <span>
                   Campaign <%= campaign_iteration.index + 1 %>
@@ -13,7 +13,7 @@
                 <%= link_to "Remove", "#", class: "btn btn-link", data: {reflex: "click->CampaignBundlesReflex#remove_campaign", temporary_id: campaign.temporary_id} %>
               </div>
             <% end %>
-            <%= card_subtitle do %>
+            <%= render Card::SubtitleComponent.new do %>
               <%= table add_class: "table-sm table-bordered mt-2" do %>
                 <%= table_head add_class: "bg-light" do %>
                   <%= table_row header: true do %>
@@ -38,7 +38,7 @@
               Some days you might spend more or less than your daily budget.
             <% end %>
           <% end %>
-          <%= card_body do %>
+          <%= render Card::BodyComponent.new do %>
             <div class="row">
               <div class="col form-group">
                 <%= cf.label :name %>
