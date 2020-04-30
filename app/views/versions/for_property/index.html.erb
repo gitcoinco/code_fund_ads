@@ -3,10 +3,8 @@
     <%= render(Page::HeaderComponent.new(title: "Property Revisions", subtitle: "List of revisions to this property")) %>
   <% end %>
   <% component.with(:body) do %>
-    <%= card do %>
-      <%= card_body padding: "p-0" do %>
-        <%= render "/versions/table", versionable: @versionable %>
-      <% end %>
+    <%= render CardComponent.new do %>
+      <%= render "/versions/table", versionable: @versionable %>
     <% end %>
   <% end %>
 <% end %>

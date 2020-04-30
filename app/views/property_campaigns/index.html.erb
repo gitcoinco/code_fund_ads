@@ -12,10 +12,8 @@
       </div>
       <p class="mb-0">View examples of our ad templates <%= link_to "here", demo_path, class: "alert-link", target: "_blank" %>.</p>
     </div>
-    <%= card do %>
-      <%= card_body padding: "p-0" do %>
-        <%= render "/property_campaigns/table", report: @report, pagy: @pagy %>
-      <% end %>
+    <%= render CardComponent.new do %>
+      <%= render "/property_campaigns/table", report: @report, pagy: @pagy %>
     <% end %>
   <% end %>
 <% end %>

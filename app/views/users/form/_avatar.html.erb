@@ -1,5 +1,5 @@
-<%= card do %>
-  <%= card_body do %>
+<%= render CardComponent.new do %>
+  <%= render Card::BodyComponent.new do %>
     <div class="d-flex align-items-middle">
       <div class="mr-4">
         <%= render(Users::AvatarComponent.new(user: user, size: "lg")) %>

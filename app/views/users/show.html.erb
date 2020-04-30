@@ -6,8 +6,8 @@
     ])) %>
   <% end %>
   <% component.with(:body) do %>
-    <%= card do %>
-      <%= card_body do %>
+    <%= render CardComponent.new do %>
+      <%= render Card::BodyComponent.new do %>
         <h3 class="w-full text-center">Coming Soon</h3>
       <% end %>
     <% end %>
