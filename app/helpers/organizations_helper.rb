@@ -1,4 +1,15 @@
 module OrganizationsHelper
+  def organization_tabs(organization)
+    [
+      {name: "Details", path: organization_path(organization), active: :exact},
+      {name: "Members", path: organization_users_path(organization)},
+      {name: "Transactions", path: organization_transactions_path(organization)},
+      {name: "Reports", path: organization_reports_path(organization)},
+      {name: "Comments", path: organization_comments_path(organization), validation: authorized_user.can_view_comments?},
+      {name: "Settings", path: edit_organization_path(organization), validation: authorized_user.can_admin_system?}
+    ]
+  end
+
   def missing_image_formats
     @missing_image_formats ||= begin
       if Current.organization.images.exists?

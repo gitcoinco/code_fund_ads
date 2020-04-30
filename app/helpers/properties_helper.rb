@@ -1,5 +1,5 @@
 module PropertiesHelper
-  def properties_tabs(property)
+  def property_tabs(property)
     [
       {name: "Overview", path: property_path(property), active: :exact},
       {name: "Instructions", path: property_instructions_path(property)},
