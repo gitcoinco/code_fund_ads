@@ -2,6 +2,8 @@
 # http://localhost:3000/rails/view_components/metabase_component/TEST_NAME
 
 class MetabaseComponentPreview < ViewComponent::Preview
+  layout "component_preview"
+
   def default
     render(MetabaseComponent.new(src: dashboard_src))
   end

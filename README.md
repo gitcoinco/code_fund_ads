@@ -21,11 +21,9 @@
   </p>
 </p>
 
-<!-- ⬇️ Use `bundle exec tocer -g` to regenerate this table of contents ⬇️ -->
+<!-- ⬇️ Use `gem install tocer && tocer -g` to regenerate this table of contents ⬇️ -->
 <!-- markdownlint-disable -->
 <!-- prettier-ignore-start -->
-
-<!-- Tocer[start]: Auto-generated, don't remove. -->
 
 ## Table of Contents
 
@@ -56,8 +54,6 @@
   - [Candidates for GEM extraction](#candidates-for-gem-extraction)
   - [Contributors](#contributors)
   - [License](#license)
-
-<!-- Tocer[finish]: Auto-generated, don't remove. -->
 
 <!-- markdownlint-enable -->
 <!-- prettier-ignore-end -->
