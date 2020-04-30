@@ -4,7 +4,7 @@ class CampaignCommentsController < ApplicationController
   before_action :set_campaign, only: :index
 
   def index
-    @comments = @campaign.comment_threads
+    @comments = @campaign.comment_threads.order(created_at: :desc)
   end
 
   private

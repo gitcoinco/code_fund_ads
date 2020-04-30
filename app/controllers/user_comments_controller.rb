@@ -4,7 +4,7 @@ class UserCommentsController < ApplicationController
   before_action :set_user, only: :index
 
   def index
-    @comments = @user.comment_threads
+    @comments = @user.comment_threads.order(created_at: :desc)
   end
 
   private

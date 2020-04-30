@@ -4,7 +4,7 @@ class PropertyCommentsController < ApplicationController
   before_action :set_property, only: :index
 
   def index
-    @comments = @property.comment_threads
+    @comments = @property.comment_threads.order(created_at: :desc)
   end
 
   private

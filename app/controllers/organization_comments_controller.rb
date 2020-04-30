@@ -4,7 +4,7 @@ class OrganizationCommentsController < ApplicationController
   before_action :set_organization, only: :index
 
   def index
-    @comments = @organization.comment_threads
+    @comments = @organization.comment_threads.order(created_at: :desc)
   end
 
   private
