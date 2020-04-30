@@ -4,12 +4,6 @@ GIT
   specs:
     screenshot_machine (0.0.4)
 
-GIT
-  remote: https://github.com/rails/rails-perftest.git
-  revision: 8f2e43a425460164792222765ea80aec41783bda
-  specs:
-    rails-perftest (0.0.7)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -432,7 +426,6 @@ GEM
     rubocop-performance (1.5.2)
       rubocop (>= 0.71.0)
     ruby-ole (1.2.12.2)
-    ruby-prof (0.15.9)
     ruby-progressbar (1.10.1)
     ruby-vips (2.0.17)
       ffi (~> 1.9)
@@ -605,7 +598,6 @@ DEPENDENCIES
   awesome_print
   aws-sdk-s3 (~> 1.61.1)
   barnes (~> 0.0.7)
-  benchmark-ips (~> 2.7)
   bootsnap (>= 1.4.2)
   bullet
   byebug
@@ -674,12 +666,10 @@ DEPENDENCIES
   rack-attack (~> 6.3.0)
   rack-mini-profiler
   rails (~> 6.0)
-  rails-perftest!
   rb-readline
   redis (~> 4.0)
   render_later (~> 0.1.1)
   rollbar (~> 2.21)
-  ruby-prof (= 0.15.9)
   ruby_identicon (~> 0.0.5)
   sass-rails (~> 6.0)
   scenic (~> 1.5.1)

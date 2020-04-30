@@ -122,8 +122,6 @@ group :test do
   gem "hashdiff"
   gem "minitest-reporters", require: "minitest/reporters"
   gem "mocha"
-  gem "rails-perftest", github: "rails/rails-perftest"
-  gem "ruby-prof", "=0.15.9"
   gem "selenium-webdriver" # We aren't using this but removing it causes a Rails error
   gem "simplecov", require: false
   gem "webmock"
@@ -131,5 +129,3 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-
-gem "benchmark-ips", "~> 2.7"

@@ -147,12 +147,6 @@ Rails.application.routes.draw do
     resource :iframe, only: [:show], to: "advertisement_previews#iframe", as: :advertisement_preview_iframe
   end
 
-  resources :benchmarks do
-    collection { get "components" }
-    collection { get "helpers" }
-    collection { get "traditional" }
-  end
-
   # async content loaders
   resource :async_campaign_total_remaining_budget, only: [:show]
   resource :async_campaign_total_remaining_budget_stat_card, only: [:show]
