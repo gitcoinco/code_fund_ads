@@ -6,10 +6,8 @@
     ])) %>
   <% end %>
   <% component.with(:body) do %>
-    <%= card do %>
-      <%= card_body padding: "p-0" do %>
-        <%= render "/organization_users/table", organization: @organization, organization_users: @organization_users, pagy: @pagy %>
-      <% end %>
+    <%= render CardComponent.new do %>
+      <%= render "/organization_users/table", organization: @organization, organization_users: @organization_users, pagy: @pagy %>
     <% end %>
   <% end %>
 <% end %>
