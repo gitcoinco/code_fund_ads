@@ -4,6 +4,7 @@
     <li><%= active_link_to "Instructions", property_instructions_path(subject), class: "nav-link" %></li>
     <li><%= active_link_to "Earnings", property_earnings_path(subject), class: "nav-link" %></li>
     <li><%= active_link_to "Campaigns", property_campaigns_path(subject), class: "nav-link" %></li>
+    <%= tag.li (nav_item_link name: "Comments", path: property_comments_path(subject)) if authorized_user.can_view_comments? %>
     <li><%= active_link_to "Settings", edit_property_path(subject), class: "nav-link" %></li>
   <% end %>
 </div>

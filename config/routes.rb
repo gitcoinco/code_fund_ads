@@ -105,14 +105,16 @@ Rails.application.routes.draw do
   resources :properties do
     resource :property_screenshots, only: [:update]
   end
+
   scope "/properties/:property_id" do
-    resource :property_instructions, only: [:show], path: "/instructions"
-    resource :property_earnings, only: [:show], path: "/earnings"
-    resources :property_campaigns, only: [:index], path: "/campaigns"
-    resources :versions, only: [:index], as: :property_versions, path: "/revisions"
-    resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { %w[js html json].include? req.format }
     resource :advertisement_tests, only: [:show], constraints: ->(req) { %w[js html json svg].include? req.format } if Rails.env.test?
+    resource :advertisements, only: [:show], path: "/funder", constraints: ->(req) { %w[js html json].include? req.format }
+    resource :property_earnings, only: [:show], path: "/earnings"
+    resource :property_instructions, only: [:show], path: "/instructions"
     resources :events, only: [:index], as: :property_events
+    resources :property_campaigns, only: [:index], path: "/campaigns"
+    resources :property_comments, only: [:index], path: "/comments"
+    resources :versions, only: [:index], as: :property_versions, path: "/revisions"
     get "/sponsor", to: "advertisements#show", constraints: ->(req) { req.format == "svg" }, defaults: {format: :svg}, as: :sponsor
     get "/visit-sponsor", to: "advertisement_clicks#show", as: :sponsor_visit
   end
@@ -126,13 +128,14 @@ Rails.application.routes.draw do
   resource :user_passwords, only: [:edit, :update], path: "/password"
 
   scope "/users/:user_id" do
-    resources :user_campaigns, only: [:index], path: "/campaigns"
-    resources :user_properties, only: [:index], path: "/properties"
-    resources :creatives, only: [:index], as: :user_creatives
-    resources :versions, only: [:index], as: :user_versions, path: "/revisions"
-    resources :events, only: [:index], as: :user_events
     resource :identicon, only: [:show], format: :png, as: :user_identicon, path: "/identicon.png"
     resource :impersonations, only: [:update], as: :user_impersonation, path: "/impersonate"
+    resources :creatives, only: [:index], as: :user_creatives
+    resources :events, only: [:index], as: :user_events
+    resources :user_campaigns, only: [:index], path: "/campaigns"
+    resources :user_comments, only: [:index], path: "/comments"
+    resources :user_properties, only: [:index], path: "/properties"
+    resources :versions, only: [:index], as: :user_versions, path: "/revisions"
   end
   get "/stop_user_impersonation", to: "impersonations#destroy", as: :stop_user_impersonation
 
