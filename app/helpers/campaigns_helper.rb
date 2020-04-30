@@ -1,6 +1,6 @@
 module CampaignsHelper
   # {name: "Daily Stats", path: campaign_dailies_path(campaign), validation: true, active: true, type: nil}
-  def campaign_tabs(campaign)
+  def campaigns_tabs(campaign)
     [
       {name: "Overview", path: campaign_path(campaign), active: :exact},
       {name: "Daily Stats", path: campaign_dailies_path(campaign)},
