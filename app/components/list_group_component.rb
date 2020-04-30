@@ -14,6 +14,10 @@ class ListGroupComponent < ApplicationComponent
     classes << "list-group-bordered" if bordered
     classes << "list-group-flush" if flush
     classes << class_names unless class_names.try(:empty?)
-    classes
+    classes.compact
+  end
+
+  def render?
+    content.present?
   end
 end

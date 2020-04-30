@@ -10,6 +10,10 @@ class ListGroup::ItemComponent < ApplicationComponent
   def classes
     classes = ["list-group-item"]
     classes.push(class_names) unless class_names.try(:empty?)
-    classes
+    classes.compact
+  end
+
+  def render?
+    content.present?
   end
 end
