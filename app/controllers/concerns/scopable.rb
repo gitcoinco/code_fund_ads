@@ -13,7 +13,7 @@ module Scopable
   protected
 
   def set_scoped_by
-    @scoped_by ||= "all"
+    @scoped_by ||= params[:scoped_by] || "all"
   end
 
   # Abstract method that should be overridden in including controllers
