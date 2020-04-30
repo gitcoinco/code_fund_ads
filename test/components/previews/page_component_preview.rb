@@ -2,6 +2,8 @@
 # http://localhost:3000/rails/view_components/page_component/TEST_NAME
 
 class PageComponentPreview < ViewComponent::Preview
+  layout "component_preview"
+
   def default
     render(PageComponent.new) do |component|
       component.with(:header) do
