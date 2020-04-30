@@ -1,13 +1,14 @@
 class Card::FooterComponent < ApplicationComponent
   with_content_areas :actions
 
-  def initialize(classes: nil)
+  def initialize(classes: nil, content: true)
     @class_names = classes
+    @footer_content = content
   end
 
   private
 
-  attr_reader :class_names
+  attr_reader :class_names, :footer_content
 
   def classes
     classes = ["card-footer"]

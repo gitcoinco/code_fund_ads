@@ -1,10 +1,14 @@
 <%= content_tag("div", class: classes) do %>
-  <div class="card-footer-content text-muted">
-    <% if actions %>
-      <div class="col-12 d-flex justify-content-end">
-        <%= actions %>
-      </div>
-    <% end %>
+  <% if footer_content %>
+    <div class="card-footer-content text-muted">
+      <% if actions %>
+        <div class="col-12 d-flex justify-content-end">
+          <%= actions %>
+        </div>
+      <% end %>
+      <%= content %>
+    </div>
+  <% else %>
     <%= content %>
-  </div>
+  <% end %>
 <% end %>
