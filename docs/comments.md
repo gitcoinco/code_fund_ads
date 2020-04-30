@@ -31,7 +31,7 @@ class FooCommentsController < ApplicationController
   before_action :set_foo, only: :index
 
   def index
-    @comments = @foo.comment_threads
+    @comments = @foo.comment_threads.order(created_at: :desc)
   end
 
   private

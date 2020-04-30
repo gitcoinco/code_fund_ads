@@ -1,4 +1,4 @@
-<div role="log" class="conversations">
+<div role="log" class="conversations overflow-auto" data-controller="comments-component" data-target="comments-component.container" style="min-height:200px;">
   <ul class="conversation-list">
     <% if comments.any? %>
       <%= render(Comments::CommentComponent.with_collection(comments)) %>
