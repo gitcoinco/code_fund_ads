@@ -1,7 +1,4 @@
 class CampaignReportsMailer < ApplicationMailer
-  default from: "team@codefund.io"
-  layout "mailer"
-
   def organization_report_email
     @organization_report = OrganizationReport.find(params[:organization_report_id])
     recipients = params[:recipients]

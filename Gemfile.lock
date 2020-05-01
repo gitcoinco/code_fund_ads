@@ -255,8 +255,6 @@ GEM
       systemu (~> 2.6.5)
     mail (2.7.1)
       mini_mime (>= 0.1.1)
-    mailgun-ruby (1.2.0)
-      rest-client (~> 2.0.2)
     marcel (0.3.3)
       mimemagic (~> 0.3.2)
     maruku (0.7.3)
@@ -432,6 +430,7 @@ GEM
     ruby-vips (2.0.17)
       ffi (~> 1.9)
     ruby2_keywords (0.0.2)
+    ruby_http_client (3.5.0)
     ruby_identicon (0.0.5)
       chunky_png (~> 1.3.5)
     rubyzip (2.3.0)
@@ -455,6 +454,11 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (2.3.0)
+    sendgrid-actionmailer (3.0.2)
+      mail (~> 2.7)
+      sendgrid-ruby (~> 6.0)
+    sendgrid-ruby (6.2.0)
+      ruby_http_client (~> 3.4)
     sidekiq (6.0.7)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
@@ -630,7 +634,6 @@ DEPENDENCIES
   letter_opener_web
   liquid (~> 4.0.1)
   listen (~> 3.2)
-  mailgun-ruby (~> 1.2.0)
   maxminddb (~> 0.1.22)
   mechanize
   meta-tags (~> 2.13.0)
@@ -673,6 +676,7 @@ DEPENDENCIES
   scout_apm (~> 2.5)
   screenshot_machine (~> 0.0.4)!
   selenium-webdriver
+  sendgrid-actionmailer (~> 3.0)
   sidekiq (~> 6.0.0)
   sidekiq-failures (~> 1.0.0)
   simple_form (~> 5.0)

@@ -1,6 +1,5 @@
 class PropertiesMailer < ApplicationMailer
   default from: "alerts@codefund.io"
-  layout "mailer"
 
   def new_property_email(property)
     @property = property

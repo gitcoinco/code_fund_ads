@@ -120,8 +120,15 @@ class CampaignBundle < ApplicationRecord
     self.end_date = Date.strptime(dates[1], "%m/%d/%Y")
   end
 
+  # Reset the bundle dates to match the earliest and latest campaign dates
+  def update_dates!
+    return unless persisted?
+    min_date = campaigns.minimum(:start_date)
+    max_date = campaigns.maximum(:end_date)
+    update! start_date: min_date, end_date: max_date
+  end
+
   # protected instance methods ................................................
-  protected
 
   # private instance methods ..................................................
   private

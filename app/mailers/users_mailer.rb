@@ -1,6 +1,5 @@
 class UsersMailer < ApplicationMailer
   default from: "alerts@codefund.io"
-  layout "mailer"
 
   def new_consolidated_screening_list_flag_email(user)
     @user = user

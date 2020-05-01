@@ -1,6 +1,5 @@
 class CampaignsMailer < ApplicationMailer
   default from: "alerts@codefund.io"
-  layout "mailer"
 
   def campaign_paused_email(campaign, user)
     @campaign = campaign
