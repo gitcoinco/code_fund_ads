@@ -3,6 +3,11 @@
 @import '~noty/src/noty';
 @import '~noty/src/themes/mint';
 @import '~bootstrap-daterangepicker/daterangepicker';
+
+html {
+  font-family: 'Fira Sans', Arial, sans-serif !important;
+}
+
 @import 'variables';
 @import 'theme';
 @import 'utilities';
