@@ -2,6 +2,7 @@ require('@rails/ujs').start()
 require('turbolinks').start()
 require('@rails/activestorage').start()
 require('channels')
+require('typeface-fira-sans')
 
 import 'bootstrap'
 import 'select2'
