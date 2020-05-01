@@ -9,9 +9,9 @@
     <!-- CDN Stylesheets -->
     <link href="https://gitcdn.xyz/repo/octoshrimpy/blokkfont/master/blokkfont.css" rel="stylesheet" type="text/css" />
     <!-- Compressed Stylesheets -->
-    <%= stylesheet_pack_tag "code_fund", media: "all", 'data-turbolinks-track': "reload" %>
+    <%= stylesheet_pack_tag "code_fund", media: "all", "data-turbolinks-track": "reload" %>
     <!-- Compressed JavaScripts -->
-    <%= javascript_pack_tag "code_fund", 'data-turbolinks-track': "reload" %>
+    <%= javascript_pack_tag "code_fund", "data-turbolinks-track": "reload", defer: true %>
     <style>
       p {
         font-family: "BLOKK";
@@ -20,10 +20,10 @@
     </style>
     <script>
       window.addEventListener("codefund", function(evt) {
-        console.log('CodeFund callback results:')
+        console.log("CodeFund callback results:")
         console.log(evt.detail);
         if (evt.detail.house) {
-          console.log('This is a fallback ad (unpaid)');
+          console.log("This is a fallback ad (unpaid)");
         }
       });
     </script>

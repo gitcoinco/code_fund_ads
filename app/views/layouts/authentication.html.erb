@@ -8,10 +8,10 @@
     <%= action_cable_meta_tag %>
     <!-- CDN Stylesheets -->
     <!-- Compressed Stylesheets -->
-    <%= stylesheet_pack_tag "code_fund", media: "all", 'data-turbolinks-track': "reload" %>
+    <%= stylesheet_pack_tag "code_fund", media: "all", "data-turbolinks-track": "reload" %>
     <!-- Compressed JavaScripts -->
-    <%= javascript_include_tag "application", 'data-turbolinks-track': "reload" %>
-    <%= javascript_pack_tag "code_fund", 'data-turbolinks-track': "reload" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track": "reload", defer: true %>
+    <%= javascript_pack_tag "code_fund", "data-turbolinks-track": "reload", defer: true %>
   </head>
   <body style="padding-top: 0px !important;" data-referral-code="<%= session[:referral_code] %>">
     <main class="auth">
