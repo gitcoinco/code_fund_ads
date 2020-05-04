@@ -163,10 +163,6 @@ module ApplicationHelper
     flash_messages.join("\n").html_safe
   end
 
-  def details_li(label, &block)
-    render partial: "/shared/details_li", locals: {label: label, block: block}
-  end
-
   def pagy_entries(pagy)
     start = pagy.offset + 1
     finish = start + pagy.items - 1

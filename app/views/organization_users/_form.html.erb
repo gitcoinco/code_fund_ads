@@ -34,11 +34,9 @@
       </details>
     </div>
   <% end %>
-
   <% if session[:organization_users_new_member_type] == "add" %>
     <%= render "/organization_users/forms/existing_user_form", organization: organization, organization_user: organization_user %>
   <% else %>
     <%= render "/organization_users/forms/new_user_form", organization: organization, organization_user: organization_user %>
   <% end %>
-
 <% end %>

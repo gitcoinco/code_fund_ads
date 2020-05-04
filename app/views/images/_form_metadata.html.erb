@@ -29,17 +29,16 @@
           </div>
         <% end %>
         <%= render Card::FooterComponent.new do %>
-          <%= render ListGroupComponent.new(bordered: true, flush: true, classes: "text-body") do %>
-            <%= details_li("Owner: ") { link_to imageable.name, imageable } %>
-            <%= details_li("Filename: ") do %>
+          <%= render ListGroupComponent.new(bordered: true, flush: true) do %>
+            <%= render(ListGroup::ItemComponent.new(label: "Owner: ")) { link_to imageable.name, imageable } %>
+            <%= render(ListGroup::ItemComponent.new(label: "Filename: ")) do %>
               <%= image.filename.to_s %>
               <%= link_to(tag.span("", class: "small fas fa-external-link"), image.image_url, target: "_blank") %>
             <% end %>
-            <%= details_li("Content Type: ") { image.content_type } %>
-            <%= details_li("Width: ") { "#{number_with_precision(image.width, precision: 0)}px" } %>
-            <%= details_li("Height: ") { "#{number_with_precision(image.height, precision: 0)}px" } %>
-            <%= details_li("Size: ") { number_to_human_size(image.byte_size) } %>
-            <%= details_li("Checksum: ") { image.checksum } %>
+            <%= render(ListGroup::ItemComponent.new(label: "Content Type: ")) { image.content_type } %>
+            <%= render(ListGroup::ItemComponent.new(label: "Width: ")) { "#{number_with_precision(image.width, precision: 0)}px" } %>
+            <%= render(ListGroup::ItemComponent.new(label: "Height: ")) { "#{number_with_precision(image.height, precision: 0)}px" } %>
+            <%= render(ListGroup::ItemComponent.new(label: "Checksum: ")) { image.checksum } %>
           <% end %>
         <% end %>
       <% end %>

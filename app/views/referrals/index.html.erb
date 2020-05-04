@@ -33,10 +33,10 @@
         <%= render CardComponent.new do %>
           <%= render(Card::HeaderComponent.new) { "Referral Stats" } %>
           <%= render Card::BodyComponent.new do %>
-            <%= render ListGroupComponent.new(bordered: true, flush: true, classes: "text-body") do %>
-              <%= details_li("Referral Clicks") { current_user.referral_click_count } %>
-              <%= details_li("Referrals") { current_user.referred_users.count } %>
-              <%= details_li("Earned") { current_user.referral_revenue.format } %>
+            <%= render ListGroupComponent.new(bordered: true, flush: true) do %>
+              <%= render(ListGroup::ItemComponent.new(label: "Referral Clicks")) { current_user.referral_click_count } %>
+              <%= render(ListGroup::ItemComponent.new(label: "Referrals")) { current_user.referred_users.count } %>
+              <%= render(ListGroup::ItemComponent.new(label: "Earned")) { current_user.referral_revenue.format } %>
             <% end %>
           <% end %>
         <% end %>

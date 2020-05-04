@@ -7,16 +7,16 @@
         </div>
       <% end %>
       <%= render Card::FooterComponent.new do %>
-        <%= render ListGroupComponent.new(bordered: true, flush: true, classes: "text-body") do %>
-          <%= details_li(image.blob.filename.to_s) do %>
+        <%= render ListGroupComponent.new(bordered: true, flush: true) do %>
+          <%= render(ListGroup::ItemComponent.new(label: "#{image.blob.filename.to_s}: ")) do %>
             <span class="d-flex">
               <%= render "/shared/actions/edit_image", imageable: imageable, image: image %>
               <%= render "/shared/actions/delete_image", imageable: imageable, image: image %>
             </span>
           <% end %>
-          <%= details_li("Filesize") { number_to_human_size(image.byte_size) } %>
-          <%= details_li("Dimensions") { image_dimensions(image) } %>
-          <%= details_li("Conent Type") { image.blob.content_type } %>
+          <%= render(ListGroup::ItemComponent.new(label: "Filesize: ")) { number_to_human_size(image.byte_size) } %>
+          <%= render(ListGroup::ItemComponent.new(label: "Dimensions: ")) { image_dimensions(image) } %>
+          <%= render(ListGroup::ItemComponent.new(label: "Content Type: ")) { image.blob.content_type } %>
         <% end %>
       <% end %>
     <% end %>

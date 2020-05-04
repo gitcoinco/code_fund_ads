@@ -1,3 +1,8 @@
 <%= content_tag("li", class: classes, data: data) do %>
-  <%= content if content %>
+  <% if label %>
+    <span><%= label.html_safe %></span>
+    <span><%= content %></span>
+  <% else %>
+    <%= content %>
+  <% end %>
 <% end %>
