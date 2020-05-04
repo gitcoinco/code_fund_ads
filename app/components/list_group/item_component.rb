@@ -12,7 +12,7 @@ class ListGroup::ItemComponent < ApplicationComponent
 
   def classes
     classes = ["list-group-item text-body"]
-    classes.push(class_names) unless class_names.try(:empty?)
+    classes.push(class_names) if class_names
     classes << "list-group-item-#{status_color(status)}" if status
     classes << "d-flex justify-content-between align-items-center" if label
     classes.compact

@@ -10,7 +10,7 @@ class TabsComponent < ApplicationComponent
 
   def classes
     classes = ["nav-scroller border-bottom my-3"]
-    classes << class_names unless class_names.try(:empty?)
+    classes << class_names if class_names
     classes.compact
   end
 

@@ -15,7 +15,7 @@ class ListGroupComponent < ApplicationComponent
     classes << "list-group-bordered" if bordered
     classes << "list-group-flush" if flush
     classes << "list-group-reflow" if reflow
-    classes << class_names unless class_names.try(:empty?)
+    classes << class_names if class_names
     classes.compact
   end
 

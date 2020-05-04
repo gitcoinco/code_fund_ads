@@ -9,7 +9,7 @@ class CardComponent < ApplicationComponent
 
   def classes
     classes = ["card"]
-    classes.push(class_names) unless class_names.try(:empty?)
+    classes.push(class_names) if class_names
     classes.compact
   end
 

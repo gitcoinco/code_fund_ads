@@ -9,7 +9,7 @@ class Card::SubtitleComponent < ApplicationComponent
 
   def classes
     classes = ["card-subtitle text-muted"]
-    classes.push(class_names) unless class_names.try(:empty?)
+    classes.push(class_names) if class_names
     classes.compact
   end
 
