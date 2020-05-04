@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_22_195410) do
+ActiveRecord::Schema.define(version: 2020_05_04_194917) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -18,6 +18,15 @@ ActiveRecord::Schema.define(version: 2020_04_22_195410) do
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
   enable_extension "tablefunc"
+
+  create_table "action_mailbox_inbound_emails", force: :cascade do |t|
+    t.integer "status", default: 0, null: false
+    t.string "message_id", null: false
+    t.string "message_checksum", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["message_id", "message_checksum"], name: "index_action_mailbox_inbound_emails_uniqueness", unique: true
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
@@ -592,6 +601,7 @@ ActiveRecord::Schema.define(version: 2020_04_22_195410) do
     t.string "utm_term"
     t.string "utm_content"
     t.string "status", default: "active"
+    t.boolean "record_inbound_emails", default: false
     t.index "lower((email)::text)", name: "index_users_on_email", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
