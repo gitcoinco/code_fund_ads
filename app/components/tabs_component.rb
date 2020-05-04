@@ -15,6 +15,6 @@ class TabsComponent < ApplicationComponent
   end
 
   def render?
-    tabs.any?
+    tabs&.any?
   end
 end
