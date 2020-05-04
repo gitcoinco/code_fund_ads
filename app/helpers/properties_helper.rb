@@ -1,4 +1,15 @@
 module PropertiesHelper
+  def property_tabs(property)
+    [
+      {name: "Overview", path: property_path(property), active: :exact},
+      {name: "Instructions", path: property_instructions_path(property)},
+      {name: "Earnings", path: property_earnings_path(property)},
+      {name: "Campaigns", path: property_campaigns_path(property)},
+      {name: "Comments", path: property_comments_path(property), validation: authorized_user.can_view_comments?},
+      {name: "Settings", path: edit_property_path(property)}
+    ]
+  end
+
   def properties_for_select
     @properties_for_select ||= Property.active.or(Property.pending).order(Property.arel_table[:name].lower).map { |p| [p.name, p.id] }
   end

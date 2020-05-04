@@ -1,5 +1,5 @@
 <%= simple_form_for organization_user, wrapper: :front_form do |f| %>
-  <%= card_body do %>
+  <%= render(Card::BodyComponent.new) do %>
     <div class="row" data-controller="organization-users-search" data-reflex-root="#morph">
       <%= f.hidden_field :organization_id, value: organization.id %>
       <% if organization_user.user %>
@@ -33,12 +33,10 @@
       </div>
     </div>
   <% end %>
-  <%= card_footer do %>
-      <%= card_footer_content do %>
-        <%= button_panel margin: "my-0" do %>
-          <%= cancel_button(organization_users_path(organization)) %>
-          <%= f.submit "Save Membership", class: "btn btn-primary" %>
-        <% end %>
-      <% end %>
+  <%= render Card::FooterComponent.new do |component| %>
+    <% component.with(:actions) do %>
+      <%= cancel_button(organization_users_path(organization)) %>
+      <%= f.submit "Save Membership", class: "btn btn-primary" %>
+    <% end %>
   <% end %>
 <% end %>

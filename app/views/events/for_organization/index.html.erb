@@ -1,10 +1,8 @@
 <%= render(PageComponent.new(subject: @eventable)) do |component| %>
   <%= component.with(:header) { render(Page::HeaderComponent.new(title: "Events", subtitle: "List of events related to this organization")) } %>
   <% component.with(:body) do %>
-    <%= card do %>
-      <%= card_body do %>
-        <%= render("/events/table", eventable: @eventable, events: @events) %>
-      <% end %>
+    <%= render CardComponent.new do %>
+      <%= render("/events/table", eventable: @eventable, events: @events) %>
     <% end %>
   <% end %>
 <% end %>

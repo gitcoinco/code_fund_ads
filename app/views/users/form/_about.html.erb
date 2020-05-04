@@ -1,9 +1,9 @@
-<%= card do %>
-  <%= card_header do %>
-    <%= card_title "About" %>
-    <%= card_subtitle "Tell about yourself in two sentences." %>
+<%= render CardComponent.new do %>
+  <%= render Card::HeaderComponent.new do %>
+    <%= render(Card::TitleComponent.new) { "About" } %>
+    <%= render(Card::SubtitleComponent.new) { "Tell us about yourself in two sentences" } %>
   <% end %>
-  <%= card_body do %>
+  <%= render Card::BodyComponent.new do %>
     <div class="row">
       <%= tag.div f.input(:bio, input_html: {class: "js-summernote-editor", rows: 6}), class: "col-12 mb-2" %>
       <div class="col-12 mb-3" data-controller="select-multiple">

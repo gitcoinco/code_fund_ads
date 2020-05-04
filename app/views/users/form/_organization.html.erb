@@ -1,9 +1,9 @@
-<%= card do %>
-  <%= card_header do %>
-    <%= card_title "Organization" %>
-    <%= card_subtitle "Admin-only organization settings for user" %>
+<%= render CardComponent.new do %>
+  <%= render Card::HeaderComponent.new do %>
+    <%= render(Card::TitleComponent.new) { "Organization" } %>
+    <%= render(Card::SubtitleComponent.new) { "Admin-only organization settings for user" } %>
   <% end %>
-  <%= card_body do %>
+  <%= render Card::BodyComponent.new do %>
     <div class="row">
       <%= f.simple_fields_for :organization_users do |ouf| %>
         <div class="col-sm-12">

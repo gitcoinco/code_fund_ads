@@ -1,4 +1,4 @@
-<%= render(PageComponent.new(subject: @user)) do |component| %>
+<%= render(PageComponent.new(subject: @user, tabs: TabsComponent.new(tabs: user_tabs(@user)))) do |component| %>
   <%= component.with(:header) { render(Page::HeaderComponent.new(title: @user&.name, subtitle: @user.email)) } %>
   <%= component.with(:body) { render("/users/form", user: @user) } %>
 <% end %>

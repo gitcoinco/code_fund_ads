@@ -1,9 +1,9 @@
 <%= render("/shared/alert", missing_campaign_resources_alert.merge(alert_type: "danger")) if missing_campaign_resources_alert %>
 <%= simple_form_for campaign, data: {controller: "campaign-form"}, wrapper: :front_form do |f| %>
   <%= render "/shared/forms/error_messages", object: campaign %>
-  <%= card do %>
-    <%= card_header "Details" %>
-    <%= card_body do %>
+  <%= render CardComponent.new do %>
+    <%= render Card::BodyComponent.new do %>
+      <%= render(Card::TitleComponent.new(classes: "mb-4")) { "Details" } %>
       <div class="row">
         <% if authorized_user.can_admin_system? %>
           <%= tag.div f.input(:user_id,
@@ -170,17 +170,14 @@
         </div>
       <% end %>
     <% end %>
-  <% end %>
-  <%= card do %>
-    <%= card_header do %>
-      <%= card_title "Creatives" %>
-      <%= card_subtitle do %>
-        Pick which creatives you would like to use (only approved creatives are available)
-        <small class="mt-1 d-block text-primary opacity-70">Multivariate testing is used to determine the most effective creative</small>
-      <% end %>
-    <% end %>
+
     <% cache [Current.organization.creatives.active, campaign.creative_ids.join] do %>
-      <%= card_body do %>
+      <%= render Card::BodyComponent.new classes: "border-top" do %>
+        <%= render(Card::TitleComponent.new) { "Creatives" } %>
+        <%= render Card::SubtitleComponent.new(classes: "mb-4") do %>
+          Pick which creatives you would like to use (only approved creatives are available)
+          <small class="mt-1 d-block text-primary opacity-70">Multivariate testing is used to determine the most effective creative</small>
+        <% end %>
         <div class="d-flex flex-column">
           <% Current.organization.creatives.active.each do |creative| %>
             <div class="form-check">
@@ -199,11 +196,10 @@
         </div>
       <% end %>
     <% end %>
-  <% end %>
-  <% if authorized_user.can_admin_system? %>
-    <%= card do %>
-      <%= card_header "Geo Targeting" %>
-      <%= card_body do %>
+
+    <% if authorized_user.can_admin_system? %>
+      <%= render Card::BodyComponent.new classes: "border-top" do %>
+        <%= render(Card::TitleComponent.new(classes: "mb-4")) { "Geo Targeting" } %>
         <div class="row" data-controller="select-geo-targets" data-action="cf:select:changed->select-geo-targets#updateProvinceCodeOptions">
           <div class="col-12 mb-3">
             <%= f.label :country_codes, label: "Targeted Countries", class: "form-label", required: true %>
@@ -255,12 +251,8 @@
           </div>
         </div>
       <% end %>
-    <% end %>
-  <% end %>
-  <% if authorized_user.can_admin_system? %>
-    <%= card do %>
-      <%= card_header "Additional Targeting" %>
-      <%= card_body do %>
+      <%= render Card::BodyComponent.new classes: "border-top" do %>
+        <%= render(Card::TitleComponent.new(classes: "mb-4")) { "Additional Targeting" } %>
         <div class="row">
           <div class="col-12 mb-3" data-controller="select-multiple">
             <%= f.input(:keywords,
@@ -317,15 +309,11 @@
           </div>
         </div>
       <% end %>
-    <% end %>
-    <%= card do %>
-      <%= card_header do %>
-        <%= card_title do %>
+      <%= render Card::BodyComponent.new classes: "border-top" do %>
+        <%= render Card::TitleComponent.new do %>
           Budget <small>for <%= number_with_delimiter campaign.total_operative_days %> operative days <%= " with a total spend of #{campaign.total_budget.format}" if campaign.region_and_audience_pricing_strategy? %></small>
         <% end %>
-        <%= card_subtitle "This campaign is using the #{campaign.pricing_strategy.humanize.downcase} based pricing strategy" %>
-      <% end %>
-      <%= card_body do %>
+        <%= render(Card::SubtitleComponent.new(classes: "mb-4")) { "This campaign is using the #{campaign.pricing_strategy.humanize.downcase} based pricing strategy" } %>
         <% if campaign.campaign_pricing_strategy? %>
           <div class="row">
             <div class="col-12 mb-2">
@@ -387,10 +375,11 @@
         <% end %>
       <% end %>
     <% end %>
-  <% end %>
-
-  <%= button_panel margin: "my-0" do %>
-    <%= cancel_button(campaigns_path) %>
-    <%= f.submit "Save Campaign", class: "btn btn-primary" %>
+    <%= render Card::FooterComponent.new do |component| %>
+      <% component.with(:actions) do %>
+        <%= cancel_button(campaigns_path) %>
+        <%= f.submit "Save Campaign", class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
   <% end %>
 <% end %>

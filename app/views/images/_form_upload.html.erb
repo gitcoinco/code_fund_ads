@@ -1,5 +1,5 @@
-<%= card do %>
-  <%= card_body do %>
+<%= render CardComponent.new do %>
+  <%= render Card::BodyComponent.new do %>
     <%= form_tag images_path(imageable.to_gid_param), method: :post, multipart: true,
       data: {
       remote: true,

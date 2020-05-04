@@ -1,10 +1,46 @@
 <%= render(PageComponent.new) do |component| %>
   <%= component.with(:header) { render(Page::HeaderComponent.new(title: "Referrals", subtitle: "Earn by referring friends")) } %>
   <% component.with(:body) do %>
-    <hr class="my-3" />
     <div class="row">
-      <div class="col-md-6"><%= render "/referrals/share_card" %></div>
-      <div class="col-md-6"><%= render "/referrals/stats_card" %></div>
+      <div class="col-md-6">
+        <%= render CardComponent.new do %>
+          <%= render(Card::HeaderComponent.new) { "Share a link and earn a bonus" } %>
+          <%= render Card::BodyComponent.new do %>
+            <p>
+              Get a friend to join CodeFund as a publisher and earn <strong>5%</strong> of the total revenue generated through their properties for 3 months.
+            </p>
+            <form>
+              <div class="js-focus-state mb-2">
+                <div class="input-group" data-controller="copy">
+                  <%= tag.input class: "form-control", value: invite_url(current_user.referral_code), data: {target: "copy.input"} %>
+                  <div class="input-group-append">
+                    <a class="input-group-text" href="#"
+                      data-action="copy#copy"
+                      data-class-change-target="#linkIcon"
+                      data-default-class="fas fa-clone"
+                      data-success-class="fas fa-check">
+                      <span id="linkIcon" class="fas fa-clone"></span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <small class="form-text text-muted">Copy or share your referral link with friends or followers</small>
+            </form>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="col-md-6">
+        <%= render CardComponent.new do %>
+          <%= render(Card::HeaderComponent.new) { "Referral Stats" } %>
+          <%= render Card::BodyComponent.new do %>
+            <%= render ListGroupComponent.new(bordered: true, flush: true) do %>
+              <%= render(ListGroup::ItemComponent.new(label: "Referral Clicks")) { current_user.referral_click_count } %>
+              <%= render(ListGroup::ItemComponent.new(label: "Referrals")) { current_user.referred_users.count } %>
+              <%= render(ListGroup::ItemComponent.new(label: "Earned")) { current_user.referral_revenue.format } %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
   <% end %>
 <% end %>

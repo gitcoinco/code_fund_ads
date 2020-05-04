@@ -6,17 +6,15 @@
     ])) %>
   <% end %>
   <% component.with(:body) do %>
-    <%= card do %>
-      <%= card_header "Transaction Details" %>
-      <%= card_body do %>
-        <ul class="list-group list-group-flush list-group-bordered">
-          <%= details_li("Post Date") { @organization_transaction.posted_at.to_s("mm/dd/yyyy") } %>
-          <%= details_li("Amount") { @organization_transaction.amount.format } %>
-          <%= details_li("Type") { @organization_transaction.transaction_type.capitalize } %>
-          <%= details_li("Gift?") { @organization_transaction.gift? ? "Yes" : "No" } %>
-          <%= details_li("Reference") { @organization_transaction.reference } %>
-          <%= details_li("Description") { @organization_transaction.description } %>
-        </ul>
+    <%= render CardComponent.new do %>
+      <%= render(Card::HeaderComponent.new) { "Transaction Details" } %>
+      <%= render ListGroupComponent.new(bordered: true, flush: true) do %>
+        <%= render(ListGroup::ItemComponent.new(label: "Post Date")) { @organization_transaction.posted_at.to_s("mm/dd/yyyy") } %>
+        <%= render(ListGroup::ItemComponent.new(label: "Amount")) { @organization_transaction.amount.format } %>
+        <%= render(ListGroup::ItemComponent.new(label: "Type")) { @organization_transaction.transaction_type.capitalize } %>
+        <%= render(ListGroup::ItemComponent.new(label: "Gift?")) { @organization_transaction.gift? ? "Yes" : "No" } %>
+        <%= render(ListGroup::ItemComponent.new(label: "Reference")) { @organization_transaction.reference } %>
+        <%= render(ListGroup::ItemComponent.new(label: "Description")) { @organization_transaction.description } %>
       <% end %>
     <% end %>
   <% end %>

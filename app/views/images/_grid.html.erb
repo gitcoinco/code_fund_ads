@@ -1,5 +1,24 @@
 <div class="grid grid-tcolumns-300 grid-trows-200">
   <% images.each do |image| %>
-    <%= render "/images/image", imageable: imageable, image: image %>
+    <%= render CardComponent.new do %>
+      <%= render Card::BodyComponent.new do %>
+        <div class="d-flex justify-content-center align-items-center" style="min-height:200px">
+          <%= image_tag image, class: "img-thumbnail mw-100", alt: image.blob&.metadata["name"] || image.name %>
+        </div>
+      <% end %>
+      <%= render Card::FooterComponent.new do %>
+        <%= render ListGroupComponent.new(bordered: true, flush: true) do %>
+          <%= render(ListGroup::ItemComponent.new(label: "#{image.blob.filename.to_s}: ")) do %>
+            <span class="d-flex">
+              <%= render "/shared/actions/edit_image", imageable: imageable, image: image %>
+              <%= render "/shared/actions/delete_image", imageable: imageable, image: image %>
+            </span>
+          <% end %>
+          <%= render(ListGroup::ItemComponent.new(label: "Filesize: ")) { number_to_human_size(image.byte_size) } %>
+          <%= render(ListGroup::ItemComponent.new(label: "Dimensions: ")) { image_dimensions(image) } %>
+          <%= render(ListGroup::ItemComponent.new(label: "Content Type: ")) { image.blob.content_type } %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% end %>
 </div>

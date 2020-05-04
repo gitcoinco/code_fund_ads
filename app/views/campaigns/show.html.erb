@@ -1,4 +1,4 @@
-<%= render(PageComponent.new(subject: @campaign, sidebar: true, tabs: true)) do |component| %>
+<%= render(PageComponent.new(subject: @campaign, sidebar: true, tabs: TabsComponent.new(tabs: campaign_tabs(@campaign)))) do |component| %>
   <% component.with(:header) do %>
     <%= render(Page::HeaderComponent.new(title: @campaign.name, sidebar: true, datepicker: true, buttons: [
       layout_button(link: new_campaign_path(clone: @campaign.id), icon: "fad fa-copy", title: "Clone campaign"),

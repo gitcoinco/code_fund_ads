@@ -1,4 +1,4 @@
-<%= render(PageComponent.new(subject: @user, sidebar: true, tabs: true)) do |component| %>
+<%= render(PageComponent.new(subject: @user, sidebar: true, tabs: TabsComponent.new(tabs: user_tabs(@user)))) do |component| %>
   <% component.with(:header) do %>
     <%= render(Page::HeaderComponent.new(title: @user&.name, subtitle: @user.email, sidebar: true, buttons: [
       layout_button(link: edit_user_path(@user), icon: "fad fa-pencil", title: "Edit user"),
@@ -6,8 +6,8 @@
     ])) %>
   <% end %>
   <% component.with(:body) do %>
-    <%= card do %>
-      <%= card_body do %>
+    <%= render CardComponent.new do %>
+      <%= render Card::BodyComponent.new do %>
         <h3 class="w-full text-center">Coming Soon</h3>
       <% end %>
     <% end %>

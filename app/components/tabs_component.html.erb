@@ -1,0 +1,5 @@
+<%= content_tag("div", class: classes) do %>
+  <ul class="nav nav-tabs">
+    <%= render(Tabs::TabComponent.with_collection(tabs)) %>
+  </ul>
+<% end %>

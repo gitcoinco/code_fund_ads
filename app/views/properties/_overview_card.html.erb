@@ -1,24 +1,22 @@
-<%= card do %>
-  <%= card_header do %>
-    <%= card_title add_class: "mb-0" do %>
-      <div class="d-flex justify-content-between align-items-center">
-        <h6 class="mb-0">
-          <%= tag.span "", class: "fas fa-circle fa-sm mr-1 text-#{status_color(property.status)}",
+<%= render CardComponent.new do %>
+  <%= render(Card::HeaderComponent.new) do %>
+    <div class="d-flex justify-content-between align-items-center">
+      <h6 class="mb-0">
+        <%= tag.span "", class: "fas fa-circle fa-sm mr-1 text-#{status_color(property.status)}",
             title: property_status_title(property.status), data: tooltip_expando %>
-          <%= link_to property.name, property, class: "link-muted" %>
-        </h6>
-        <div class="position-relative">
-          <%= link_to property_property_screenshots_path(property), method: :put, class: "btn btn-xs btn-icon btn-light transition-3d-hover" do %>
-            <span class="fas fa-camera"></span>
-          <% end if authorized_user.can_admin_system? %>
-          <%= link_to property.url, class: "btn btn-xs btn-icon btn-light", target: "_blank" do %>
-            <span class="fas fa-external-link"></span>
-          <% end %>
-        </div>
+        <%= link_to property.name, property, class: "link-muted" %>
+      </h6>
+      <div class="position-relative">
+        <%= link_to property_property_screenshots_path(property), method: :put, class: "btn btn-xs btn-icon btn-light transition-3d-hover" do %>
+          <span class="fas fa-camera"></span>
+        <% end if authorized_user.can_admin_system? %>
+        <%= link_to property.url, class: "btn btn-xs btn-icon btn-light", target: "_blank" do %>
+          <span class="fas fa-external-link"></span>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   <% end %>
-  <%= card_body padding: "p-0" do %>
+  <%= render(Card::FooterComponent.new(content: false)) do %>
     <%= render_later async_property_card_footer_path(property_id: property.id) do %>
       <i class="fa fa-spinner fa-spin text-center d-block"></i>
     <% end %>

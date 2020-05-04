@@ -1,11 +1,11 @@
 <%= simple_form_for organization, wrapper: :front_form do |f| %>
   <%= render "/shared/forms/error_messages", object: organization %>
-  <%= card do %>
-    <%= card_header do %>
-      <%= card_title "Team Details" %>
-      <%= card_subtitle "Tell us about your team" %>
+  <%= render CardComponent.new do %>
+    <%= render Card::HeaderComponent.new do %>
+      <%= render(Card::TitleComponent.new) { "Team Details" } %>
+      <%= render(Card::SubtitleComponent.new) { "Tell us about your team" } %>
     <% end %>
-    <%= card_body do %>
+    <%= render Card::BodyComponent.new do %>
       <div class="row">
         <%= tag.div f.input(:name, as: :string, required: true, input_html: {class: "form-control"}), class: "col-md-6 mb-3" %>
         <%= tag.div f.input(:account_manager_user_id,
@@ -27,12 +27,10 @@
         </div>
       </div>
     <% end %>
-    <%= card_footer do %>
-      <%= card_footer_content do %>
-        <%= button_panel margin: "my-0" do %>
-          <%= cancel_button(organizations_path) %>
-          <%= f.submit "Save Team", class: "btn btn-primary" %>
-        <% end %>
+    <%= render Card::FooterComponent.new do |component| %>
+      <% component.with(:actions) do %>
+        <%= cancel_button(organizations_path) %>
+        <%= f.submit "Save Team", class: "btn btn-primary" %>
       <% end %>
     <% end %>
   <% end %>

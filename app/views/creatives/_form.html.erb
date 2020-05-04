@@ -5,12 +5,9 @@
   wrapper: :front_form do |f| %>
   <%= render "/shared/forms/error_messages", object: creative %>
   <%= f.hidden_field :creative_type, data: {target: "creative-form.creativeType"} %>
-  <%= card do %>
-    <%= card_header do %>
-      <%= card_title "Creative Details" %>
-      <%= card_subtitle "Tell us about the creative" %>
-    <% end %>
-    <%= card_body do %>
+  <%= render CardComponent.new do %>
+    <%= render Card::BodyComponent.new do %>
+      <%= render(Card::TitleComponent.new(classes: "mb-4")) { "Details" } %>
       <div class="row">
         <%= tag.div f.input(:name, required: true), class: "col-12 col-md-4 mb-3" %>
         <div class="col-12 col-md-4 mb-3">
@@ -206,12 +203,10 @@
         </div>
       </div>
     <% end %>
-    <%= card_footer do %>
-      <%= card_footer_content do %>
-        <%= button_panel margin: "my-0" do %>
-          <%= cancel_button(creatives_path) %>
-          <%= f.submit "Save Creative", class: "btn btn-primary" %>
-        <% end %>
+    <%= render Card::FooterComponent.new do |component| %>
+      <% component.with(:actions) do %>
+        <%= cancel_button(creatives_path) %>
+        <%= f.submit "Save Creative", class: "btn btn-primary" %>
       <% end %>
     <% end %>
   <% end %>

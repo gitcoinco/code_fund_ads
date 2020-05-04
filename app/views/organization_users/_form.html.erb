@@ -1,10 +1,10 @@
 <%= render "/shared/forms/error_messages", object: organization_user %>
-<%= card do %>
-  <%= card_header do %>
-    <%= card_title "#{organization.name} Member" %>
-    <%= card_subtitle "Fill out the fields below" %>
+<%= render CardComponent.new do %>
+  <%= render Card::HeaderComponent.new do %>
+    <%= render(Card::TitleComponent.new) { "#{organization.name} Member" } %>
+    <%= render(Card::SubtitleComponent.new) { "Fill out the fields below" } %>
   <% end %>
-  <%= card_body add_class: "border-bottom" do %>
+  <%= render(Card::BodyComponent.new) do %>
     <div data-controller="organization-users">
       <div class="d-flex flex-column">
         <div class="form-group">

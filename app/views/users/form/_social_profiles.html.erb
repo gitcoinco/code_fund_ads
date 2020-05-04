@@ -1,9 +1,9 @@
-<%= card do %>
-  <%= card_header do %>
-    <%= card_title "Social Profiles" %>
-    <%= card_subtitle "Where can we find you out in the wild?" %>
+<%= render CardComponent.new do %>
+  <%= render Card::HeaderComponent.new do %>
+    <%= render(Card::TitleComponent.new) { "Social Profiles" } %>
+    <%= render(Card::SubtitleComponent.new) { "Where can we find you out in the wild?" } %>
   <% end %>
-  <%= card_body do %>
+  <%= render Card::BodyComponent.new do %>
     <div class="d-flex flex-column">
       <div class="list-group-item px-0">
         <div class="list-group-item-figure">

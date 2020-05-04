@@ -5,11 +5,8 @@
     ])) %>
   <% end %>
   <% component.with(:body) do %>
-    <hr class="my-3" />
-    <%= card do %>
-      <%= card_body padding: "p-0" do %>
-        <%= render "/campaign_bundles/campaigns/table", campaigns: @campaign_bundle.campaigns %>
-      <% end %>
+    <%= render CardComponent.new do %>
+      <%= render "/campaign_bundles/campaigns/table", campaigns: @campaign_bundle.campaigns %>
     <% end %>
   <% end %>
 <% end %>

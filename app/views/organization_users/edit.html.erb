@@ -1,4 +1,4 @@
-<%= render(PageComponent.new(subject: @organization, tabs: true)) do |component| %>
+<%= render(PageComponent.new(subject: @organization, tabs: TabsComponent.new(tabs: organization_tabs(@organization)))) do |component| %>
   <% component.with(:header) do %>
     <%= render(Page::HeaderComponent.new(title: "Edit Member", subtitle: "for #{@organization.name}", buttons: [
       layout_button(link: new_organization_user_path(@organization), icon: "fas fa-plus", title: "Add member", display: authorized_user.can_edit_organization_users?(@organization)),
@@ -6,10 +6,10 @@
     ])) %>
   <% end %>
   <% component.with(:body) do %>
-    <%= card do %>
-      <%= card_header do %>
-        <%= card_title @organization_user.user&.name %>
-        <%= card_subtitle "Fill out the fields below" %>
+    <%= render CardComponent.new do %>
+      <%= render Card::HeaderComponent.new do %>
+        <%= render(Card::TitleComponent.new) { @organization_user.user&.name } %>
+        <%= render(Card::SubtitleComponent.new) { "Fill out the fields below" } %>
       <% end %>
       <%= render "/organization_users/forms/existing_user_form",
             organization: @organization,
