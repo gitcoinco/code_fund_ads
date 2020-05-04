@@ -524,7 +524,7 @@ class Campaign < ApplicationRecord
   end
 
   def update_campaign_bundle_dates
-    campaign_bundle&.update_dates!    
+    campaign_bundle&.update_dates!
   end
 
   # protected instance methods ................................................
