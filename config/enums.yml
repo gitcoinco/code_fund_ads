@@ -50,16 +50,6 @@
 #   pry>ENUMS::USER_ROLES["administrator"]              # administrator
 #
 
-VARIANTS:
-  - primary
-  - secondary
-  - success
-  - info
-  - warning
-  - danger
-  - light
-  - dark
-
 EMAIL_ADDRESSES:
   eric: eric@codefund.io
 
