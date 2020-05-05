@@ -345,6 +345,10 @@
           <div class="row">
             <div class="col-md-4 mb-3">
               <%= tag.div f.input(:ecpm_multiplier, label: "eCPM Multiplier", as: :decimal, input_html: {step: 0.01, data:{"reflex-permanent": true}}), class: "mb-3" %>
+              <div class="mb-3">
+                <%= f.input(:total_budget, label: "Total Budget Cap", as: :currency, currency: "$", input_html: {data:{"reflex-permanent": true}}) %>
+                <small class="ml-2 text-muted"><i class="fas fa-info-circle"></i> Do not change this value unless you know what you're doing.</small>
+              </div>
               <%= tag.div f.input(:hourly_budget, label: "Hourly Budget Cap", as: :currency, currency: "$", input_html: {data:{"reflex-permanent": true}}), class: "mb-3" %>
               <%= tag.div f.input(:daily_budget, label: "Daily Budget Cap", as: :currency, currency: "$", input_html: {data:{"reflex-permanent": true}}), class: "mb-3" %>
             </div>
