@@ -4,7 +4,7 @@ jobs:
     docker:
       - image: circleci/ruby:2.6.6-browsers
         environment:
-          CACHE_VERSION: v1
+          CACHE_VERSION: v6
           CAMPAIGN_DEMO_ID: "395"
           PG_HOST: localhost
           PG_USERNAME: ubuntu
@@ -53,10 +53,14 @@ jobs:
             - assets-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "dependency_checksum" }}-{{ arch }}
             - assets-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "dependency_checksum" }}
       - run:
-          name: Install gem dependencies
+          name: Configure Bundler
           command: |
-            gem install bundler:2.1.4
-            bundle check || bundle install --jobs=6 --retry=3 --path vendor/bundle
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+      - run:
+          name: Install gem dependencies
+          command: bundle check || bundle install --jobs=6 --retry=3 --path vendor/bundle
       - run:
           name: Install yarn dependencies
           command: yarn install --check-files --frozen-lockfile
