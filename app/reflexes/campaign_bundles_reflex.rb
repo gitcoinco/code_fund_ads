@@ -1,6 +1,16 @@
 class CampaignBundlesReflex < ApplicationReflex
   include CampaignBundles::Stashable
 
+  def update_advertiser
+    campaign_bundle = CampaignBundle.find(element.dataset["bundle-id"])
+    return unless campaign_bundle
+    request.flash[:notice] = if campaign_bundle.update(user_id: element[:value])
+      "Campaign bundle updated"
+    else
+      "Campaign bundle could not be updated"
+    end
+  end
+
   def update_name
     campaign_bundle.name = element[:value]
   end
