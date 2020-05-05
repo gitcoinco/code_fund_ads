@@ -73,10 +73,15 @@ Rails.application.configure do
   # config.active_job.queue_adapter     = :resque
   # config.active_job.queue_name_prefix = "code_fund_ads_#{Rails.env}"
 
-  config.action_mailer.delivery_method = :sendgrid_actionmailer
-  config.action_mailer.sendgrid_actionmailer_settings = {
-    api_key: ENV["SENDGRID_API_KEY"],
-    raise_delivery_errors: true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    user_name: "apikey",
+    password: ENV["SENDGRID_API_KEY"],
+    domain: "codefund.io",
+    address: "smtp.sendgrid.net",
+    port: 465,
+    authentication: :plain,
+    enable_starttls_auto: true
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
