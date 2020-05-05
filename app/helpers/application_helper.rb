@@ -54,6 +54,10 @@ module ApplicationHelper
     ENUMS::USER_STATUSES.values.map { |f| [f.humanize, f] }
   end
 
+  def advertisers_for_select(organization = Current.organization)
+    organization.users.advertisers.sort_by(&:name)
+  end
+
   def organization_users_for_select
     Current.organization.users.advertisers.sort_by(&:name).map { |user| [user.name, user.id] }
   end
@@ -157,7 +161,7 @@ module ApplicationHelper
         type: type,
         text: message
       }
-      text = "<script>new Noty(#{body.to_json}).show();</script>"
+      text = "<script id='noty'>new Noty(#{body.to_json}).show();</script>"
       flash_messages << text.html_safe if message
     end
     flash_messages.join("\n").html_safe

@@ -6,6 +6,30 @@
   <% end %>
   <% component.with(:body) do %>
     <%= render CardComponent.new do %>
+      <%= render Card::HeaderComponent.new do %>
+        <%= render(Card::TitleComponent.new(classes: "mb-0")) { "Details" } %>
+      <% end %>
+      <%= render Card::BodyComponent.new do %>
+        <div class="row" data-controller="campaign-bundles">
+          <div class="col-md-6">
+            <%= label_tag(:campaign_bundle_user_id, "Advertiser", class: "form-label select") %>
+            <%= select_tag("campaign_bundle_user_id",
+                options_from_collection_for_select(advertisers_for_select, "id", "name", @campaign_bundle.user&.id),
+                class: "form-control custom-select",
+                data: {
+                  controller: "select",
+                  reflex: "cf:select:changed->CampaignBundlesReflex#update_advertiser",
+                  bundle_id: @campaign_bundle.id
+                }) %>
+          </div>
+          <div class="col-md-6">
+            <%= label_tag(:campaign_bundle_date_range, "Date Range", class: "form-label text") %>
+            <%= text_field_tag("campaign_bundle_date_range", @campaign_bundle.date_range, class: "form-control", disabled: true) %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+    <%= render CardComponent.new do %>
       <%= render "/campaign_bundles/campaigns/table", campaigns: @campaign_bundle.campaigns %>
     <% end %>
   <% end %>
