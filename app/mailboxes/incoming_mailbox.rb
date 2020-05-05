@@ -2,6 +2,7 @@ class IncomingMailbox < ApplicationMailbox
   before_processing :verify_participants
 
   def process
+    CreateInboundEmailFromIncomingMailboxJob.perform_later(inbound_email.id)
   end
 
   private

@@ -103,6 +103,7 @@ class User < ApplicationRecord
   has_many :organizations, through: :organization_users
   has_many :referred_users, class_name: "User", foreign_key: "referring_user_id"
   has_many :managed_accounts, class_name: "Organization", foreign_key: "account_manager_user_id"
+  has_and_belongs_to_many :inbound_emails
 
   # validations ...............................................................
   validates :first_name, presence: true
