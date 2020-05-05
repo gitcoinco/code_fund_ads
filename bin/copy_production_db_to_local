@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 source .env
 export RAILS_ENV=development
 bundle exec rails db:migrate db:drop db:create
