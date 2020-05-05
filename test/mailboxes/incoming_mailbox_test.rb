@@ -48,4 +48,18 @@ class IncomingMailboxTest < ActionMailbox::TestCase
     assert inbound_email.mail.to.include?(users(:administrator).email)
     assert inbound_email.mail.from.include?(users(:publisher).email)
   end
+
+  test "receive mail when sender is a publisher but recipient does not have flag enabled" do
+    user = users(:administrator)
+    user.update(record_inbound_emails: false)
+
+    receive_inbound_email_from_mail \
+      to: user.email,
+      from: users(:publisher).email,
+      subject: "This is the subject",
+      body: "This is the body"
+    
+    inbound_email = ActionMailbox::InboundEmail.last
+    assert_equal "bounced", inbound_email.status
+  end
 end
