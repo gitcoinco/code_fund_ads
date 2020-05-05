@@ -4,6 +4,7 @@ jobs:
     docker:
       - image: circleci/ruby:2.6.6-browsers
         environment:
+          CACHE_VERSION: v1
           CAMPAIGN_DEMO_ID: "395"
           PG_HOST: localhost
           PG_USERNAME: ubuntu
@@ -34,23 +35,23 @@ jobs:
       - restore_cache:
           name: Restore gem cache
           keys:
-            - gem-cache-v6-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gem-cache-v6-{{ arch }}-{{ .Branch }}
-            - gem-cache-v6-{{ arch }}
-            - gem-cache-v6
+            - gem-cache-{{ .Environment.CACHE_VERSION }}-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-{{ .Environment.CACHE_VERSION }}-{{ arch }}-{{ .Branch }}
+            - gem-cache-{{ .Environment.CACHE_VERSION }}-{{ arch }}
+            - gem-cache-{{ .Environment.CACHE_VERSION }}
       - restore_cache:
           name: Restore yarn cache
           keys:
-            - yarn-cache-v6-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-cache-v6-{{ arch }}-{{ .Branch }}
-            - yarn-cache-v6-{{ arch }}
-            - yarn-cache-v6
+            - yarn-cache-{{ .Environment.CACHE_VERSION }}-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache-{{ .Environment.CACHE_VERSION }}-{{ arch }}-{{ .Branch }}
+            - yarn-cache-{{ .Environment.CACHE_VERSION }}-{{ arch }}
+            - yarn-cache-{{ .Environment.CACHE_VERSION }}
       - restore_cache:
           name: Restore assets cache
           keys:
-            - assets-cache-v6-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
-            - assets-cache-v6-{{ checksum "dependency_checksum" }}-{{ arch }}
-            - assets-cache-v6-{{ checksum "dependency_checksum" }}
+            - assets-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
+            - assets-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "dependency_checksum" }}-{{ arch }}
+            - assets-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "dependency_checksum" }}
       - run:
           name: Install gem dependencies
           command: |
@@ -66,12 +67,12 @@ jobs:
           name: Save gem cache
           paths:
             - vendor/bundle
-          key: gem-cache-v6-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: gem-cache-{{ .Environment.CACHE_VERSION }}-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
       - save_cache:
           name: Save yarn cache
           paths:
             - ~/.cache/yarn
-          key: yarn-cache-v6-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: yarn-cache-{{ .Environment.CACHE_VERSION }}-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - save_cache:
           name: Save assets cache
           paths:
@@ -79,7 +80,7 @@ jobs:
             - public/assets
             - tmp/cache/webpacker
             - tmp/cache/assets/sprockets
-          key: assets-cache-v6-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
+          key: assets-cache-{{ .Environment.CACHE_VERSION }}-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
       - run:
           name: Set up DB
           command: bundle exec rails db:drop db:create db:structure:load --trace
