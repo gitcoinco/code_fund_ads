@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node
       uses: actions/setup-node@v1
       with:
-        node-version: '12'
+        node-version: '13'
     - name: Get yarn cache directory path
       id: yarn-cache-dir-path
       run: echo "::set-output name=dir::$(yarn cache dir)"
@@ -29,6 +29,6 @@ jobs:
           ${{ runner.os }}-yarn-
     - name: Install node packages
       if: ${{ steps.yarn-cache.outputs.cache-hit != 'true' }}
-      run: yarn install
+      run: yarn install --ignore-engines
     - name: Run Prettier-Standard check
-      run: yarn run --ignore-engines prettier:check
+      run: yarn run prettier:check
