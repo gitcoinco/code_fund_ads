@@ -1,0 +1,46 @@
+<div class="list-group list-group-messages list-group-flush list-group-bordered">
+  <!-- message item -->
+  <div class="list-group-item unread">
+    <!-- message figure -->
+    <div class="list-group-item-figure">
+      <span class="rating rating-sm mr-3"><input type="checkbox" id="star1" value="1"> <label for="star1"><span class="fa fa-star"></span></label></span> <!-- .avatar -->
+      <div class="avatar has-badge">
+        <a href="page-conversations.html" class="user-avatar"><img src="assets/images/avatars/team2.png" alt=""></a> <span class="tile tile-xs tile-circle bg-red">2</span>
+      </div><!-- /.avatar -->
+    </div><!-- /message figure -->
+    <!-- message body -->
+    <div class="list-group-item-body pl-md-2">
+      <!-- grid row -->
+      <div class="row">
+        <!-- grid column -->
+        <div class="col-12 col-lg-3 d-none d-lg-block">
+          <h4 class="list-group-item-title text-truncate">
+            <a href="page-conversations.html"><%= email.sender %></a>
+          </h4>
+          <p class="list-group-item-text"><%= time_ago_in_words email.delivered_at %></p>
+        </div><!-- /grid column -->
+        <!-- grid column -->
+        <div class="col-12 col-lg-9">
+          <h4 class="list-group-item-title text-truncate">
+            <a href="page-conversations.html"><%= email.subject %></a>
+          </h4>
+          <p class="list-group-item-text text-truncate"><%= email.snippet %></p>
+        </div><!-- /grid column -->
+        <!-- grid column -->
+        <div class="col-12 d-lg-none">
+          <p class="list-group-item-text"> 16 minutes ago </p>
+        </div><!-- /grid column -->
+      </div><!-- /grid row -->
+    </div><!-- /message body -->
+    <!-- message actions -->
+    <div class="list-group-item-figure">
+      <!-- .dropdown -->
+      <div class="dropdown">
+        <button class="btn btn-sm btn-icon btn-secondary" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></button> <!-- .dropdown-menu -->
+        <div class="dropdown-menu dropdown-menu-right">
+          <div class="dropdown-arrow mr-n1"></div><a href="#" class="dropdown-item">Mark as read</a> <a href="#" class="dropdown-item">Mark as unread</a> <a href="#" class="dropdown-item">Toggle star</a> <a href="#" class="dropdown-item">Trash</a>
+        </div><!-- /.dropdown-menu -->
+      </div><!-- /.dropdown -->
+    </div><!-- /message actions -->
+  </div><!-- /message item -->
+</div>
