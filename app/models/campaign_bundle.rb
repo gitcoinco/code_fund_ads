@@ -121,11 +121,16 @@ class CampaignBundle < ApplicationRecord
   end
 
   # Reset the bundle dates to match the earliest and latest campaign dates
-  def update_dates!
-    return unless persisted?
-    min_date = campaigns.minimum(:start_date)
-    max_date = campaigns.maximum(:end_date)
-    update! start_date: min_date, end_date: max_date
+  def update_dates
+    return unless campaigns.present?
+    start_date = campaigns.map(&:start_date).min
+    end_date = campaigns.map(&:end_date).max
+    if persisted?
+      update start_date: start_date, end_date: end_date
+    else
+      self.start_date = start_date if start_date
+      self.end_date = end_date if end_date
+    end
   end
 
   # protected instance methods ................................................

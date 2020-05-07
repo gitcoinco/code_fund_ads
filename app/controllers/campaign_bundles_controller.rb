@@ -75,7 +75,7 @@ class CampaignBundlesController < ApplicationController
       :name,
       :user_id,
       region_ids: [],
-      campaigns_attributes: [:name, :url, :daily_budget, :ecpm_multiplier, audience_ids: []]
+      campaigns_attributes: [:name, :url, :daily_budget, :date_range, :ecpm_multiplier, audience_ids: []]
     )
   end
 end
