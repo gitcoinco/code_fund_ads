@@ -34,23 +34,23 @@ jobs:
       - restore_cache:
           name: Restore gem cache
           keys:
-            - gem-cache-v7-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
-            - gem-cache-v7-{{ arch }}-{{ .Branch }}
-            - gem-cache-v7-{{ arch }}
-            - gem-cache-v7
+            - gem-cache-v8-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+            - gem-cache-v8-{{ arch }}-{{ .Branch }}
+            - gem-cache-v8-{{ arch }}
+            - gem-cache-v8
       - restore_cache:
           name: Restore yarn cache
           keys:
-            - yarn-cache-v7-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
-            - yarn-cache-v7-{{ arch }}-{{ .Branch }}
-            - yarn-cache-v7-{{ arch }}
-            - yarn-cache-v7
+            - yarn-cache-v8-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+            - yarn-cache-v8-{{ arch }}-{{ .Branch }}
+            - yarn-cache-v8-{{ arch }}
+            - yarn-cache-v8
       - restore_cache:
           name: Restore assets cache
           keys:
-            - assets-cache-v7-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
-            - assets-cache-v7-{{ checksum "dependency_checksum" }}-{{ arch }}
-            - assets-cache-v7-{{ checksum "dependency_checksum" }}
+            - assets-cache-v8-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
+            - assets-cache-v8-{{ checksum "dependency_checksum" }}-{{ arch }}
+            - assets-cache-v8-{{ checksum "dependency_checksum" }}
       - run:
           name: Install gem dependencies
           command: |
@@ -66,12 +66,12 @@ jobs:
           name: Save gem cache
           paths:
             - vendor/bundle
-          key: gem-cache-v7-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
+          key: gem-cache-v8-{{ arch }}-{{ .Branch }}-{{ checksum "Gemfile.lock" }}
       - save_cache:
           name: Save yarn cache
           paths:
             - ~/.cache/yarn
-          key: yarn-cache-v7-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
+          key: yarn-cache-v8-{{ arch }}-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - save_cache:
           name: Save assets cache
           paths:
@@ -79,14 +79,13 @@ jobs:
             - public/assets
             - tmp/cache/webpacker
             - tmp/cache/assets/sprockets
-          key: assets-cache-v7-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
+          key: assets-cache-v8-{{ checksum "dependency_checksum" }}-{{ arch }}-{{ .Branch }}
       - run:
           name: Set up DB
           command: bundle exec rails db:drop db:create db:structure:load --trace
-      # This task is broken until Rails 6.0.3 is released. See comment in bin/standardize.
-      # - run:
-      #     name: Run zeitwerk check
-      #     command: bundle exec rails zeitwerk:check
+      - run:
+          name: Run zeitwerk check
+          command: bundle exec rails zeitwerk:check
       - run:
           name: Run tests
           command: bundle exec rails test
