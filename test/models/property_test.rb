@@ -93,7 +93,7 @@ class PropertyTest < ActiveSupport::TestCase
 
   test "url presence validation" do
     assert_not @property.update(url: "")
-    assert_includes @property.errors.messages[:url].to_s, "is invalid"
+    assert_includes @property.errors.messages[:url].to_s, "can't be blank"
   end
 
   test "url format validation" do
