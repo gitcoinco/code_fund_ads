@@ -54,6 +54,10 @@
             <span class="text-muted">Account Manager</span>
             <span><%= subject.account_manager&.name || "None" %></span>
           </div>
+          <div class="list-group-item justify-content-between align-items-center px-0">
+            <span class="text-muted">URL</span>
+            <span><a href="<%= subject.url %>" target="_blank" rel="noopener"><%= pretty_url(subject.url) %></a></span>
+          </div>
         </div>
       <% end %>
 

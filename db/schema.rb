@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_22_195410) do
+ActiveRecord::Schema.define(version: 2020_05_07_164638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -244,6 +244,21 @@ ActiveRecord::Schema.define(version: 2020_04_22_195410) do
     t.bigint "organization_id"
     t.string "province_code"
     t.boolean "uplift", default: false
+    t.index "date_trunc('hour'::text, clicked_at)", name: "index_impressions_on_clicked_at_hour"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_on_displayed_at_hour"
+    t.index ["ad_template"], name: "index_impressions_on_ad_template"
+    t.index ["ad_theme"], name: "index_impressions_on_ad_theme"
+    t.index ["advertiser_id"], name: "index_impressions_on_advertiser_id"
+    t.index ["campaign_id"], name: "index_impressions_on_campaign_id"
+    t.index ["clicked_at_date"], name: "index_impressions_on_clicked_at_date"
+    t.index ["country_code"], name: "index_impressions_on_country_code"
+    t.index ["creative_id"], name: "index_impressions_on_creative_id"
+    t.index ["displayed_at_date"], name: "index_impressions_on_displayed_at_date"
+    t.index ["id", "advertiser_id", "displayed_at_date"], name: "index_impressions_on_id_and_advertiser_id_and_displayed_at_date", unique: true
+    t.index ["organization_id"], name: "index_impressions_on_organization_id"
+    t.index ["property_id"], name: "index_impressions_on_property_id"
+    t.index ["province_code"], name: "index_impressions_on_province_code"
+    t.index ["uplift"], name: "index_impressions_on_uplift"
   end
 
   create_table "impressions_default", id: false, force: :cascade do |t|
@@ -408,6 +423,7 @@ ActiveRecord::Schema.define(version: 2020_04_22_195410) do
     t.datetime "updated_at", null: false
     t.boolean "creative_approval_needed", default: true
     t.bigint "account_manager_user_id"
+    t.text "url"
     t.index ["account_manager_user_id"], name: "index_organizations_on_account_manager_user_id"
     t.index ["creative_approval_needed"], name: "index_organizations_on_creative_approval_needed"
   end

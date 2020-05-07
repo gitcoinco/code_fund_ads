@@ -70,7 +70,7 @@ class Property < ApplicationRecord
   validates :responsive_behavior, inclusion: {in: ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS.values}
   validates :revenue_percentage, numericality: {less_than_or_equal_to: 1.0, greater_than_or_equal_to: 0}
   validates :status, inclusion: {in: ENUMS::PROPERTY_STATUSES.values}
-  validates :url, url: true
+  validates :url, url: true, presence: true
 
   # callbacks .................................................................
   before_validation :assign_audience
@@ -220,10 +220,6 @@ class Property < ApplicationRecord
   def favicon_image_url
     domain = url.gsub(/^https?:\/\//, "")
     "//www.google.com/s2/favicons?domain=#{domain}"
-  end
-
-  def pretty_url
-    url.gsub(/^https?:\/\//, "").gsub("www.", "").split("/").first
   end
 
   def matching_campaigns

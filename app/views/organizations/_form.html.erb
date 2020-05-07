@@ -9,13 +9,22 @@
       <div class="row">
         <%= tag.div f.input(:name, as: :string, required: true, input_html: {class: "form-control"}), class: "col-md-6 mb-3" %>
         <%= tag.div f.input(:account_manager_user_id,
-                            label: "Account Manager",
+                            label: "Account Manager <span class='badge badge-secondary'><em>Optional</em></span>".html_safe,
                             collection: account_managers_for_select,
                             input_html: {
                               class: "form-control", data: {controller: "select"}
                             }), class: "col-md-6 mb-3" %>
-        <div class="col-12">
-          <div class="media align-items-center mb-3">
+      </div>
+      <div class="row d-flex justify-content-between align-items-center">
+        <%= tag.div f.input(:url,
+                            as: :url,
+                            placeholder: "https://",
+                            label: "URL <span class='badge badge-secondary'><em>Optional</em></span>".html_safe,
+                            input_html: {
+                              class: "form-control", data: {msg: "Please enter a valid website URL", rule_url: true}
+                            }), class: "col-md-6 mb-3" %>
+        <div class="col-md-6">
+          <div class="media d-flex justify-content-between align-items-center mb-3 mt-4 w-full">
             <%= f.label :creative_approval_needed, class: "switcher-control mb-0 mr-3" do %>
               <%= f.check_box :creative_approval_needed, class: "switcher-input" %>
               <span class="switcher-indicator"></span>

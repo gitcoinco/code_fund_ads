@@ -7,6 +7,7 @@
 #  balance_currency         :string           default("USD"), not null
 #  creative_approval_needed :boolean          default(TRUE)
 #  name                     :string           not null
+#  url                      :text
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  account_manager_user_id  :bigint

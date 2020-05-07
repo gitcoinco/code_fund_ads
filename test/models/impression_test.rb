@@ -28,6 +28,24 @@
 #  property_id                                 :bigint           not null
 #  publisher_id                                :bigint           not null
 #
+# Indexes
+#
+#  index_impressions_on_ad_template                                 (ad_template)
+#  index_impressions_on_ad_theme                                    (ad_theme)
+#  index_impressions_on_advertiser_id                               (advertiser_id)
+#  index_impressions_on_campaign_id                                 (campaign_id)
+#  index_impressions_on_clicked_at_date                             (clicked_at_date)
+#  index_impressions_on_clicked_at_hour                             (date_trunc('hour'::text, clicked_at))
+#  index_impressions_on_country_code                                (country_code)
+#  index_impressions_on_creative_id                                 (creative_id)
+#  index_impressions_on_displayed_at_date                           (displayed_at_date)
+#  index_impressions_on_displayed_at_hour                           (date_trunc('hour'::text, displayed_at))
+#  index_impressions_on_id_and_advertiser_id_and_displayed_at_date  (id,advertiser_id,displayed_at_date) UNIQUE
+#  index_impressions_on_organization_id                             (organization_id)
+#  index_impressions_on_property_id                                 (property_id)
+#  index_impressions_on_province_code                               (province_code)
+#  index_impressions_on_uplift                                      (uplift)
+#
 
 require "test_helper"
 
