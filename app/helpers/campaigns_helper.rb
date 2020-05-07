@@ -1,4 +1,15 @@
 module CampaignsHelper
+  def campaign_tabs(campaign)
+    [
+      {name: "Overview", path: campaign_path(campaign), active: :exact},
+      {name: "Daily Stats", path: campaign_dailies_path(campaign)},
+      {name: "Creatives", path: campaign_creatives_path(campaign)},
+      {name: "Properties", path: campaign_properties_path(campaign)},
+      {name: "Comments", path: campaign_comments_path(campaign), validation: authorized_user.can_view_comments?},
+      {name: "Settings", path: edit_campaign_path(campaign)}
+    ]
+  end
+
   def campaign_reports_email_error_message(campaign)
     return "Email not sent! Please verify that data exists for the selected dates." unless campaign.summary(@start_date, @end_date)
     "Email not sent! Please verify the email address."

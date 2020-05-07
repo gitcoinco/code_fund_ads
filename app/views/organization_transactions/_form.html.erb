@@ -1,11 +1,8 @@
 <%= simple_form_for organization_transaction, url: url, html: {class: "js-validate"}, wrapper: :front_form do |f| %>
   <%= render "/shared/forms/error_messages", object: organization_transaction %>
-  <%= card do %>
-    <%= card_header do %>
-      <%= card_title "Transaction Details" %>
-      <%= card_subtitle "Fill out the fields below" %>
-    <% end %>
-    <%= card_body do %>
+  <%= render CardComponent.new do %>
+    <%= render Card::BodyComponent.new do %>
+      <%= render(Card::TitleComponent.new(classes: "mb-4")) { "Details" } %>
       <div class="row">
         <div class="col-md-4 mb-3">
           <%= f.input :posted_at, as: :string, label: "Post Date", required: true,
@@ -47,12 +44,10 @@
         Transaction cannot be a gift and temporary credit. Make sure only one of these is selected.
       </div>
     <% end %>
-    <%= card_footer do %>
-      <%= card_footer_content do %>
-        <%= button_panel margin: "my-0" do %>
-          <%= cancel_button(organization_transactions_path(organization)) %>
-          <%= f.submit "Save Transaction", class: "btn btn-primary" %>
-        <% end %>
+    <%= render Card::FooterComponent.new do |component| %>
+      <% component.with(:actions) do %>
+        <%= cancel_button(organization_transactions_path(organization)) %>
+        <%= f.submit "Save Transaction", class: "btn btn-primary" %>
       <% end %>
     <% end %>
   <% end %>

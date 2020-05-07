@@ -18,9 +18,7 @@
             <% end %>
           </ul>
         </div>
-        <%= card_body padding: "p-0" do %>
-          <%= render "/organizations/table", organizations: @organizations, pagy: @pagy %>
-        <% end %>
+        <%= render "/organizations/table", organizations: @organizations, pagy: @pagy %>
       </div>
     </div>
   <% end %>

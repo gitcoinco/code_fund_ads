@@ -1,9 +1,0 @@
-<div class="nav-tabs-wrapper my-3">
-  <%= nav_tabs do %>
-    <li><%= nav_item_link(name: "Overview", path: user_path(subject), active: :exact) %></li>
-    <li><%= nav_item_link(name: "Properties", path: user_properties_path(subject)) if subject.properties.exists? %></li>
-    <li><%= nav_item_link(name: "Campaigns", path: user_campaigns_path(subject)) if subject.campaigns.exists? %></li>
-    <%= tag.li (nav_item_link name: "Comments", path: user_comments_path(subject)) if authorized_user.can_view_comments? %>
-    <li><%= nav_item_link(name: "Settings", path: edit_user_path(subject)) %></li>
-  <% end %>
-</div>

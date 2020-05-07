@@ -1,11 +1,11 @@
 <% if @campaign_bundle.region_ids.present? %>
   <% cache @campaign_bundle.region_ids, expires_in: 1.day do %>
-    <%= card do %>
-      <%= card_header add_class: "bg-muted" do %>
-        <%= card_title "#{number_with_delimiter(@campaign_bundle.average_daily_impressions_count)} impressions/day" %>
-        <%= card_subtitle "Average inventory based on your targeted locations but not audience, your budget, or availability", add_class: "font-weight-bold leading-relaxed" %>
+    <%= render CardComponent.new do %>
+      <%= render Card::HeaderComponent.new(classes: "bg-muted") do %>
+        <%= render(Card::TitleComponent.new) { "#{number_with_delimiter(@campaign_bundle.average_daily_impressions_count)} impressions/day" } %>
+        <%= render(Card::SubtitleComponent.new(classes: "font-weight-bold leading-relaxed")) { "Average inventory based on your targeted locations but not audience, your budget, or availability" } %>
       <% end %>
-      <%= card_body add_style: "max-height:460px; overflow-y:scroll;" do %>
+      <%= render(Card::BodyComponent.new(styles: "max-height:460px; overflow-y:scroll;")) do %>
         <h6 class="text-muted">Daily Impressions by Country</h6>
         <%= table add_class: "table-sm table-bordered" do %>
           <%= table_head do %>

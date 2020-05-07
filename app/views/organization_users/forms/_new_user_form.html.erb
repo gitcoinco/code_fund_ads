@@ -1,5 +1,5 @@
 <%= simple_form_for(:organization_invite, method: :post, url: organization_invites_path) do |f| %>
-  <%= card_body do %>
+  <%= render(Card::BodyComponent.new) do %>
     <div class="row">
       <%= tag.div f.input(:first_name, required: true), class: "col-12 col-md-6" %>
       <%= tag.div f.input(:last_name, required: true), class: "col-12 col-md-6" %>
@@ -10,12 +10,10 @@
       <%= f.hidden_field :organization_id, value: organization.id %>
     </div>
   <% end %>
-  <%= card_footer do %>
-    <%= card_footer_content do %>
-      <%= button_panel margin: "my-0" do %>
-        <%= cancel_button(organization_users_path(organization)) %>
-        <%= f.submit "Send Invitation", class: "btn btn-primary" %>
-      <% end %>
+  <%= render Card::FooterComponent.new do |component| %>
+    <% component.with(:actions) do %>
+      <%= cancel_button(organization_users_path(organization)) %>
+      <%= f.submit "Send Invitation", class: "btn btn-primary" %>
     <% end %>
   <% end %>
 <% end %>

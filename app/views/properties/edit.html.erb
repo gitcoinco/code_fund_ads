@@ -1,4 +1,4 @@
-<%= render(PageComponent.new(subject: @property, tabs: true)) do |component| %>
+<%= render(PageComponent.new(subject: @property, tabs: TabsComponent.new(tabs: property_tabs(@property)))) do |component| %>
   <% component.with(:header) do %>
     <%= render(Page::HeaderComponent.new(title: @property.name, buttons: [
       layout_button(link: new_property_path, icon: "fas fa-plus", title: "New property"),

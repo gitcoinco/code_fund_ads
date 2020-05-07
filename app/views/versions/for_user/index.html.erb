@@ -3,8 +3,8 @@
     <%= render(Page::HeaderComponent.new(title: "User Revisions", subtitle: "List of revisions to this user")) %>
   <% end %>
   <% component.with(:body) do %>
-    <%= card do %>
-      <%= card_body do %>
+    <%= render CardComponent.new do %>
+      <%= render Card::BodyComponent.new do %>
         <div class="section-block">
           <h2 class="section-title"> Timeline </h2>
           <ul class="timeline">

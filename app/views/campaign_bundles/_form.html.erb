@@ -1,10 +1,10 @@
 <%= form_with model: @campaign_bundle, id: "campaign-bundle-form", local: true do |f| %>
   <div class="row">
     <div class="col-sm-4">
-      <%= card do %>
-        <%= card_header do %>
-          <%= card_title "Bundle Details" %>
-          <%= card_subtitle do %>
+      <%= render CardComponent.new do %>
+        <%= render Card::HeaderComponent.new do %>
+          <%= render(Card::TitleComponent.new) { "Bundle Details" } %>
+          <%= render Card::SubtitleComponent.new do %>
             <%= table add_class: "table-sm table-bordered mt-2" do %>
               <%= table_head add_class: "bg-light" do %>
                 <%= table_row header: true do %>
@@ -27,7 +27,7 @@
             <% end %>
           <% end %>
         <% end %>
-        <%= card_body do %>
+        <%= render Card::BodyComponent.new do %>
           <div class="row">
             <div class="col form-group">
               <%= f.label :name %>

@@ -1,9 +1,9 @@
-<%= card do %>
-  <%= card_header do %>
-    <%= card_title "Security" %>
-    <%= card_subtitle "Admin-only settings for user" %>
+<%= render CardComponent.new do %>
+  <%= render Card::HeaderComponent.new do %>
+    <%= render(Card::TitleComponent.new) { "Security" } %>
+    <%= render(Card::SubtitleComponent.new) { "Admin-only settings for user" } %>
   <% end %>
-  <%= card_body do %>
+  <%= render Card::BodyComponent.new do %>
     <div class="row">
       <div class="col-sm-12">
         <div class="media align-items-center mb-3">
