@@ -48,7 +48,7 @@ class Organization < ApplicationRecord
   has_many :members, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::MEMBER} }, through: :organization_users, source: "user"
 
   # validations ...............................................................
-  validates :url, url: true
+  validates :url, url: true, presence: false
   validates :name, presence: true
   validates_each :name, unless: :skip_validation do |record, attr, value|
     if record.name_changed? && ENUMS::RESERVED_ORGANIZATION_NAMES[value.downcase.strip]

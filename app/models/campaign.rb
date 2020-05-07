@@ -92,7 +92,7 @@ class Campaign < ApplicationRecord
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
-  validates :url, url: true
+  validates :url, url: true, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true
   validate :validate_creatives
