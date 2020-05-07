@@ -787,7 +787,8 @@ CREATE TABLE public.organizations (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creative_approval_needed boolean DEFAULT true,
-    account_manager_user_id bigint
+    account_manager_user_id bigint,
+    url text
 );
 
 
@@ -2927,4 +2928,5 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200421152748'),
 ('20200422185634'),
 ('20200422190916'),
-('20200422195410');
+('20200422195410'),
+('20200507164638');

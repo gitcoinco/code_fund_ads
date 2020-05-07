@@ -222,10 +222,6 @@ class Property < ApplicationRecord
     "//www.google.com/s2/favicons?domain=#{domain}"
   end
 
-  def pretty_url
-    url.gsub(/^https?:\/\//, "").gsub("www.", "").split("/").first
-  end
-
   def matching_campaigns
     Campaign.targeted_premium_for_property self
   end
