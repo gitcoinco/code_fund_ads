@@ -1,13 +1,14 @@
 class CampaignsController < ApplicationController
   include Sortable
+  include Campaigns::Dateable
   include Campaigns::Stashable
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!, only: [:destroy]
   before_action :set_campaign, except: [:create, :index]
   before_action :set_current_organization_for_admin, only: [:show, :edit]
-  before_action :set_dates_to_campaign, only: [:show, :edit]
   before_action :authorize_edit!, only: [:edit, :update]
+  before_action :set_dates_to_campaign, only: [:show, :edit]
   after_action -> { stash_campaign @campaign }, except: [:index, :destroy]
 
   set_default_sorted_by :end_date
@@ -96,16 +97,6 @@ class CampaignsController < ApplicationController
       Current.organization = @campaign.organization
       session[:organization_id] = @campaign.organization&.id
     end
-  end
-
-  # Force dates used for reports to match the dates of the current campaign
-  # Overrides the logic in: app/controllers/concerns/dateable.rb
-  def set_dates_to_campaign
-    @start_date = @campaign.start_date
-    session[:start_date] = @start_date.to_s("mm/dd/yyyy")
-
-    @end_date = @campaign.end_date
-    session[:end_date] = @end_date.to_s("mm/dd/yyyy")
   end
 
   def set_sortable_columns
