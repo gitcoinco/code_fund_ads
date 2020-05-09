@@ -39,6 +39,7 @@
                       required: true,
                       input_html: {
                         class: "js-range-datepicker form-control bg-white rounded-right",
+                        disabled: !authorized_user.can_admin_system?,
                         data: {
                           "reflex-permanent": true,
                           controller: "select-date-range",
@@ -50,7 +51,7 @@
                           "<i class='fas fa-info-circle'></i> Bundle Dates: #{campaign.campaign_bundle.start_date.to_s("mm/dd/yyyy")} - #{campaign.campaign_bundle.end_date.to_s("mm/dd/yyyy")}".html_safe,
                           class: "ml-2 text-muted"
                          ) if campaign.campaign_bundle %>
-        <% end if authorized_user.can_admin_system? %>
+        <% end %>
         <%= tag.div f.input(:audience_ids,
                             label: "Audiences",
                             collection: Audience.all.map { |audience| [audience.name, audience.id] },

@@ -60,6 +60,7 @@
                 <%= cf.label :url, "URL" %>
                 <%= cf.text_field :url, class: "form-control", required: true, placeholder: "https://example.com/?utm_source=codefund&utm_campaign={{campaign_id}}",
                   data: {reflex: "cf:value-committed->CampaignBundlesReflex#update_campaign_url", temporary_id: campaign.temporary_id} %>
+                <%# ====== PULL INTO COMPONENT ====== %>
                 <details class="mt-2">
                   <summary>Use any of the following variables in the URL</summary>
                   <%= table do %>
