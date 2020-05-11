@@ -2,7 +2,7 @@
   <%= component.with(:header) { render(Page::HeaderComponent.new(title: "Invite User", subtitle: "Fill out the form below")) } %>
   <% component.with(:body) do %>
     <%= simple_form_for resource, as: resource_name, url: invitation_path(resource_name), html: {method: :post}, wrapper: :front_form do |f| %>
-      <%= render "/shared/forms/error_messages", object: resource %>
+      <%= render(Form::ErrorMessageComponent.new(object: resource)) %>
       <%= render CardComponent.new do %>
         <%= render Card::BodyComponent.new do %>
         <%= render(Card::TitleComponent.new(classes: "mb-4")) { "User Details" } %>

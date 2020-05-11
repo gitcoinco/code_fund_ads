@@ -1,4 +1,4 @@
-<%= render "/shared/forms/error_messages", object: organization_user %>
+<%= render(Form::ErrorMessageComponent.new(object: organization_user)) %>
 <%= render CardComponent.new do %>
   <%= render Card::HeaderComponent.new do %>
     <%= render(Card::TitleComponent.new) { "#{organization.name} Member" } %>

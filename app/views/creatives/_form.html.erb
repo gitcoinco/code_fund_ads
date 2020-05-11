@@ -3,7 +3,7 @@
   class: "js-validate",
   data: {controller: "creative-form"}},
   wrapper: :front_form do |f| %>
-  <%= render "/shared/forms/error_messages", object: creative %>
+  <%= render(Form::ErrorMessageComponent.new(object: creative)) %>
   <%= f.hidden_field :creative_type, data: {target: "creative-form.creativeType"} %>
   <%= render CardComponent.new do %>
     <%= render Card::BodyComponent.new do %>

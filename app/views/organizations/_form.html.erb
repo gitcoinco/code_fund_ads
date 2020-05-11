@@ -1,5 +1,5 @@
 <%= simple_form_for organization, wrapper: :front_form do |f| %>
-  <%= render "/shared/forms/error_messages", object: organization %>
+  <%= render(Form::ErrorMessageComponent.new(object: organization)) %>
   <%= render CardComponent.new do %>
     <%= render Card::HeaderComponent.new do %>
       <%= render(Card::TitleComponent.new) { "Team Details" } %>
