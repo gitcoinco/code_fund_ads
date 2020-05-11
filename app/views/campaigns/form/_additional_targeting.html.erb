@@ -15,7 +15,7 @@
             <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
           </div>
           <div class="col mx-0">
-            <% Audience.all do |a| %>
+            <% Audience.all.each do |a| %>
               <%= link_to a.name, request.path, class: "btn btn-secondary btn-xs py-0", data: {action: "click->select-multiple#selectSubset", values: a.keywords} %>
             <% end %>
           </div>
