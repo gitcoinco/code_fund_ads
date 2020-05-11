@@ -617,13 +617,3 @@ class Campaign < ApplicationRecord
     assign_keywords
   end
 end
-
-# if authorized_user.can_admin_system?
-#   tag.div(f.input(:status,
-#     label: "Status",
-#     collection: ENUMS::CAMPAIGN_STATUSES.values.map { |status| [status.capitalize, status] },
-#     required: true,
-#     input_html: {
-#       class: "form-control", data: {controller: "select", "reflex-permanent": true}
-#     }), class: "col-md-6 mb-3")
-# end
