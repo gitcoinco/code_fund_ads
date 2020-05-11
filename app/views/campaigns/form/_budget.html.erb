@@ -4,7 +4,7 @@
   <% end %>
   <%= render(Card::SubtitleComponent.new(classes: "mb-4")) { "This campaign is using the #{campaign.pricing_strategy.humanize.downcase} based pricing strategy" } %>
   <% if campaign.campaign_pricing_strategy? %>
-    <div class="row">
+    <%= tag.div class: "row" do %>
       <div class="col-12 mb-2">
         <div class="media align-items-center mb-3">
           <%= f.label :fixed_ecpm, class: "switcher-control mb-0 mr-3" do %>
@@ -16,23 +16,43 @@
           </label>
         </div>
       </div>
-    </div>
+    <% end if authorized_user.can_admin_system? %>
     <div class="row">
       <div class="col-md-6 mb-3">
-        <%= f.input(:ecpm, as: :currency, currency: "$", input_html: {data:{"reflex-permanent": true}}) %>
-        <small id="passwordHelpBlock" class="form-text text-muted">
-          Effective cost per thousand impressions
-        </small>
+        <%= f.input(:ecpm,
+                    as: :currency,
+                    currency: "$",
+                    disabled: !authorized_user.can_admin_system?,
+                    input_html: {data:{"reflex-permanent": true}}) %>
+        <small id="passwordHelpBlock" class="form-text text-muted">Effective cost per thousand impressions</small>
       </div>
-      <%= tag.div f.input(:total_budget, label: "Total Budget Cap", as: :currency, currency: "$", input_html: {data:{"reflex-permanent": true}}), class: "col-md-6 mb-3" %>
+      <%= tag.div f.input(:total_budget,
+                          label: "Total Budget Cap",
+                          as: :currency,
+                          currency: "$",
+                          disabled: !authorized_user.can_admin_system?,
+                          input_html: {data:{"reflex-permanent": true}}
+                         ), class: "col-md-6 mb-3" %>
     </div>
     <div class="row">
-      <%= tag.div f.input(:hourly_budget, label: "Hourly Budget Cap", as: :currency, currency: "$", input_html: {data:{"reflex-permanent": true}}), class: "col-md-6 mb-3" %>
-      <%= tag.div f.input(:daily_budget, label: "Daily Budget Cap", as: :currency, currency: "$", input_html: {data:{"reflex-permanent": true}}), class: "col-md-6 mb-3" %>
+      <%= tag.div f.input(:hourly_budget,
+                          label: "Hourly Budget Cap",
+                          as: :currency,
+                          currency: "$",
+                          disabled: !authorized_user.can_admin_system?,
+                          input_html: {data:{"reflex-permanent": true}}
+                         ), class: "col-md-6 mb-3" %>
+      <%= tag.div f.input(:daily_budget,
+                          label: "Daily Budget Cap",
+                          as: :currency,
+                          currency: "$",
+                          disabled: !authorized_user.can_admin_system?,
+                          input_html: {data:{"reflex-permanent": true}}
+                         ), class: "col-md-6 mb-3" %>
     </div>
   <% else %>
     <div class="row">
-      <div class="col-md-4 mb-3">
+      <%= tag.div class: "col-md-4 mb-3" do %>
         <%= tag.div f.input(:ecpm_multiplier, label: "eCPM Multiplier", as: :decimal, input_html: {step: 0.01, data:{"reflex-permanent": true}}), class: "mb-3" %>
         <div class="mb-3">
           <%= f.input(:total_budget, label: "Total Budget Cap", as: :currency, currency: "$", input_html: {data:{"reflex-permanent": true}}) %>
@@ -40,8 +60,8 @@
         </div>
         <%= tag.div f.input(:hourly_budget, label: "Hourly Budget Cap", as: :currency, currency: "$", input_html: {data:{"reflex-permanent": true}}), class: "mb-3" %>
         <%= tag.div f.input(:daily_budget, label: "Daily Budget Cap", as: :currency, currency: "$", input_html: {data:{"reflex-permanent": true}}), class: "mb-3" %>
-      </div>
-      <div class="col-md-8">
+      <% end if authorized_user.can_admin_system? %>
+      <%= tag.div class: classes("col-12": true, "col-md-8": authorized_user.can_admin_system?) do %>
         <p class="mb-2">eCPM by Region & Audience</p>
         <%= table add_class: "table-sm table-hover table-bordered" do %>
           <%= table_head do %>
@@ -63,7 +83,7 @@
             <% end %>
           <% end %>
         <% end %>
-      </div>
+      <% end %>
     </div>
   <% end %>
-<% end if authorized_user.can_admin_system? %>
+<% end %>
