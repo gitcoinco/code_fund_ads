@@ -1,2 +1,30 @@
-<h1>UserEmails#show</h1>
-<p>Find me in app/views/user_emails/show.html.erb</p>
+<%= render(PageComponent.new(subject: @user, sidebar: true, tabs: TabsComponent.new(tabs: user_tabs(@user)))) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: @user&.name, subtitle: @user.email, sidebar: true, buttons: [
+      layout_button(link: edit_user_path(@user), icon: "fad fa-pencil", title: "Edit user"),
+      layout_button(link: user_impersonation_path(@user), method: :put, icon: "fad fa-mask", title: "Masquerade as user", admin: true)
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= render CardComponent.new do %>
+      
+      <div class="list-group list-group-messages list-group-flush list-group-bordered">
+        <div class="list-group-item unread">
+          <div class="list-group-item-body pl-md-2">
+            <h4 class="list-group-item-title text-truncate">
+              <%= @email.sender %>
+            </h4>
+            <p class="list-group-item-text"><%= @email.delivered_at %></p>
+          </div>
+        </div>
+        <div class="list-group-item unread">
+          <div class="list-group-item-body pl-md-2">
+            <%= @email.body %>
+          </div>
+        </div>
+      </div>
+
+
+    <% end %>
+  <% end %>
+<% end %>

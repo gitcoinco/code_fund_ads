@@ -3,6 +3,7 @@
 # Table name: inbound_emails
 #
 #  id                              :bigint           not null, primary key
+#  body                            :text
 #  delivered_at                    :datetime         not null
 #  recipients                      :text             default([]), not null, is an Array
 #  sender                          :string           not null
@@ -27,7 +28,10 @@ class InboundEmail < ApplicationRecord
 
   # callbacks .................................................................
   # scopes ....................................................................
+
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  has_rich_text :body
+  has_many_attached :attachments
 
   # class methods .............................................................
   class << self
@@ -37,6 +41,14 @@ class InboundEmail < ApplicationRecord
 
   def participant_addresses
     [sender, recipients].flatten.compact.sort    
+  end
+
+  def action_mailbox_inbound_email
+    @action_mailbox_inbound_email ||= ActionMailbox::InboundEmail.find(action_mailbox_inbound_email_id)
+  end
+
+  def mail
+    action_mailbox_inbound_email&.mail
   end
 
   # protected instance methods ................................................

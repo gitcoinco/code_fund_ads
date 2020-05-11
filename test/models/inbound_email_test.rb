@@ -3,6 +3,7 @@
 # Table name: inbound_emails
 #
 #  id                              :bigint           not null, primary key
+#  body                            :text
 #  delivered_at                    :datetime         not null
 #  recipients                      :text             default([]), not null, is an Array
 #  sender                          :string           not null

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_04_194917) do
+ActiveRecord::Schema.define(version: 2020_05_05_203735) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -253,6 +253,21 @@ ActiveRecord::Schema.define(version: 2020_05_04_194917) do
     t.bigint "organization_id"
     t.string "province_code"
     t.boolean "uplift", default: false
+    t.index "date_trunc('hour'::text, clicked_at)", name: "index_impressions_on_clicked_at_hour"
+    t.index "date_trunc('hour'::text, displayed_at)", name: "index_impressions_on_displayed_at_hour"
+    t.index ["ad_template"], name: "index_impressions_on_ad_template"
+    t.index ["ad_theme"], name: "index_impressions_on_ad_theme"
+    t.index ["advertiser_id"], name: "index_impressions_on_advertiser_id"
+    t.index ["campaign_id"], name: "index_impressions_on_campaign_id"
+    t.index ["clicked_at_date"], name: "index_impressions_on_clicked_at_date"
+    t.index ["country_code"], name: "index_impressions_on_country_code"
+    t.index ["creative_id"], name: "index_impressions_on_creative_id"
+    t.index ["displayed_at_date"], name: "index_impressions_on_displayed_at_date"
+    t.index ["id", "advertiser_id", "displayed_at_date"], name: "index_impressions_on_id_and_advertiser_id_and_displayed_at_date", unique: true
+    t.index ["organization_id"], name: "index_impressions_on_organization_id"
+    t.index ["property_id"], name: "index_impressions_on_property_id"
+    t.index ["province_code"], name: "index_impressions_on_province_code"
+    t.index ["uplift"], name: "index_impressions_on_uplift"
   end
 
   create_table "impressions_default", id: false, force: :cascade do |t|
@@ -296,6 +311,25 @@ ActiveRecord::Schema.define(version: 2020_05_04_194917) do
     t.index ["property_id"], name: "impressions_default_property_id_idx"
     t.index ["province_code"], name: "impressions_default_province_code_idx"
     t.index ["uplift"], name: "impressions_default_uplift_idx"
+  end
+
+  create_table "inbound_emails", force: :cascade do |t|
+    t.bigint "action_mailbox_inbound_email_id", null: false
+    t.string "sender", null: false
+    t.text "recipients", default: [], null: false, array: true
+    t.text "subject"
+    t.text "snippet"
+    t.text "body"
+    t.datetime "delivered_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "inbound_emails_users", id: false, force: :cascade do |t|
+    t.bigint "inbound_email_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["inbound_email_id"], name: "index_inbound_emails_users_on_inbound_email_id"
+    t.index ["user_id"], name: "index_inbound_emails_users_on_user_id"
   end
 
   create_table "job_postings", force: :cascade do |t|

@@ -1,11 +1,15 @@
 class UserEmailsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_view!, only: :index
-  before_action :set_user, only: :index
+  before_action :authorize_view!
+  before_action :set_user
 
   def index
     inbound_emails = @user.inbound_emails.order(delivered_at: :desc)
     @pagy, @emails = pagy(inbound_emails)
+  end
+
+  def show
+    @email = @user.inbound_emails.find(params[:id])
   end
 
   private

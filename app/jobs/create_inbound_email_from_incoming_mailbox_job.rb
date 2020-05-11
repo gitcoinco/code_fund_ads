@@ -13,6 +13,7 @@ class CreateInboundEmailFromIncomingMailboxJob < ApplicationJob
       recipients: (mail.to.to_a + mail.cc.to_a).uniq.compact.sort,
       subject: mail.subject,
       snippet: truncate(mail.body.decoded, length: 300),
+      # body:
       delivered_at: (DateTime.parse(mail.raw_source.match(%r{Date: (.*)\r\n})[1]) rescue action_mailbox_inbound_email.created_at)
 
     return unless inbound_email.persisted?

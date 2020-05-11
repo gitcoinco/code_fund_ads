@@ -6,6 +6,7 @@ class CreateInboundEmails < ActiveRecord::Migration[6.0]
       t.text :recipients, array: true, default: [], null: false
       t.text :subject
       t.text :snippet
+      t.text :body
       t.datetime :delivered_at, null: false
 
       t.timestamps
