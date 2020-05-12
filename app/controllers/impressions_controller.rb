@@ -39,7 +39,8 @@ class ImpressionsController < ApplicationController
       @virtual_impression[:creative_id],
       @virtual_impression[:ad_template],
       @virtual_impression[:ad_theme],
-      request.remote_ip,
+      @virtual_impression[:ip_address],
+      @virtual_impression[:country_code],
       request.user_agent.force_encoding(Encoding::UTF_8),
       Time.current.iso8601
     )
