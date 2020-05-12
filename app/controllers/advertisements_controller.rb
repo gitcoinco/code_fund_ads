@@ -118,18 +118,11 @@ class AdvertisementsController < ApplicationController
   def ip_address
     @ip_address ||= begin
       if property.can_pass_ip_address? && params[:legacy_property_id].present?
-        params[:ip_address] || remote_ip
+        params[:ip_address] || request.remote_ip
       else
-        remote_ip
+        request.remote_ip
       end
     end
-  end
-
-  def remote_ip
-    return request.headers["Cf-Connecting-Ip"] if request.headers["Cf-Connecting-Ip"].present?
-
-    # Fallback to remote_ip if Cloudflare header is missing
-    request.remote_ip
   end
 
   def ip_info
