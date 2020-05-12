@@ -21,20 +21,20 @@
           </div>
           <div class="col-6">
             <div class="metric">
+              <h6 class="metric-value"><%= subject.balance.format rescue "-" %></h6>
+              <p class="metric-label mt-1">Balance</p>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="metric">
               <h6 class="metric-value"><%= subject.total_credits.format rescue "-" %></h6>
-              <p class="metric-label mt-1">Credits</p>
+              <p class="metric-label mt-1">Total Credits</p>
             </div>
           </div>
           <div class="col-6">
             <div class="metric">
               <h6 class="metric-value"><%= subject.total_debits.format rescue "-" %></h6>
-              <p class="metric-label mt-1">Clicks</p>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="metric">
-              <h6 class="metric-value"><%= subject.balance.format rescue "-" %></h6>
-              <p class="metric-label mt-1">Balance</p>
+              <p class="metric-label mt-1">Total Debits</p>
             </div>
           </div>
         </div>
