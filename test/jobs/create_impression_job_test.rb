@@ -17,6 +17,7 @@ class CreateImpressionJobTest < ActiveJob::TestCase
         "default",
         "light",
         "127.0.0.1",
+        "US",
         "test",
         Time.current.to_s
       )
@@ -33,6 +34,7 @@ class CreateImpressionJobTest < ActiveJob::TestCase
         "default",
         "light",
         "127.0.0.1",
+        "US",
         nil,
         Time.current.to_s
       )
@@ -49,6 +51,7 @@ class CreateImpressionJobTest < ActiveJob::TestCase
         "default",
         "light",
         "127.0.0.1",
+        "US",
         nil,
         Time.current.to_s
       )
@@ -65,6 +68,7 @@ class CreateImpressionJobTest < ActiveJob::TestCase
         "default",
         "light",
         "127.0.0.1",
+        "US",
         nil,
         Time.current.to_s
       )

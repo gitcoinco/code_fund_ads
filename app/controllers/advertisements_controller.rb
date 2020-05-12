@@ -126,9 +126,10 @@ class AdvertisementsController < ApplicationController
   end
 
   def remote_ip
-    request.headers["CF-Connecting-IP"].present? ?
-      request.headers["CF-Connecting-IP"] :
-      request.remote_ip
+    return request.headers["Cf-Connecting-Ip"] if request.headers["Cf-Connecting-Ip"].present?
+
+    # Fallback to remote_ip if Cloudflare header is missing
+    request.remote_ip
   end
 
   def ip_info
@@ -137,6 +138,9 @@ class AdvertisementsController < ApplicationController
 
   def country_code
     return params[:test_country_code] if Rails.env.test? && params.key?(:test_country_code)
+    return request.headers["Cf-Ipcountry"] if request.headers["Cf-Ipcountry"].present?
+
+    # Fallback to Maxmind if Cloudflare header is missing
     iso_code = ip_info&.country&.iso_code
     return nil unless iso_code
     Country.find(iso_code)&.iso_code
@@ -339,7 +343,8 @@ class AdvertisementsController < ApplicationController
       creative_id: @creative.id,
       ad_template: template_name,
       ad_theme: theme_name,
-      ip_address: ip_address
+      ip_address: ip_address,
+      country_code: country_code
     }, expires_in: 30.seconds
 
     track_event :virtual_impression_created
