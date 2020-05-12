@@ -116,9 +116,15 @@ class AdvertisementsController < ApplicationController
   # DEPRECATE: Wrap this IP assignment to only be allowed when API is enabled for
   #       the publisher instead of using the legacy_property_id as a qualifier
   def ip_address
-    @ip_address ||= params[:legacy_property_id].present? ?
-      (params[:ip_address] || request.remote_ip) :
-      request.remote_ip
+    if property.can_pass_ip_address?
+      @ip_address ||= params[:legacy_property_id].present? ?
+        (params[:ip_address] || remote_ip) :
+        remote_ip
+    end
+  end
+
+  def remote_ip
+    request.headers["CF-Connecting-IP"] || request.remote_ip
   end
 
   def ip_info

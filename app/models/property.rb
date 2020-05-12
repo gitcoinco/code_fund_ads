@@ -252,6 +252,10 @@ class Property < ApplicationRecord
     end
   end
 
+  def can_pass_ip_address?
+    ENV.fetch("API_BASED_PROPERTY_IDS", "").split(",").include?(id)
+  end
+
   # protected instance methods ................................................
 
   # private instance methods ..................................................
