@@ -9,5 +9,9 @@
     <%= render CardComponent.new do %>
       <%= render partial: "email_preview", collection: @emails, as: :email %>
     <% end %>
+    <%= pagination_wrapper do %>
+      <span><%== pagy_bootstrap_nav(@pagy) %></span>
+      <%= pagy_entries(@pagy) %>
+    <% end if @pagy.pages > 1 %>
   <% end %>
 <% end %>

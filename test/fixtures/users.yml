@@ -109,14 +109,3 @@ advertiser:
   last_name: Advertiser
   email: advertiser@codefund.io
   encrypted_password: <%= User.new(password: "secret").encrypted_password %>
-
-eric:
-  organization: default
-  roles:
-    - <%= ENUMS::USER_ROLES::ADMINISTRATOR %>
-    - <%= ENUMS::USER_ROLES::ADVERTISER %>
-    - <%= ENUMS::USER_ROLES::PUBLISHER %>
-  first_name: Eric
-  last_name: Berry
-  email: eric@codefund.io
-  encrypted_password: <%= User.new(password: "secret").encrypted_password %>

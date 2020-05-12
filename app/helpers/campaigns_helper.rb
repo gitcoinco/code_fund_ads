@@ -4,7 +4,6 @@ module CampaignsHelper
       {name: "Overview", path: campaign_path(campaign), active: :exact},
       {name: "Daily Stats", path: campaign_dailies_path(campaign)},
       {name: "Creatives", path: campaign_creatives_path(campaign)},
-      {name: "Countries", path: campaign_countries_path(campaign)},
       {name: "Properties", path: campaign_properties_path(campaign)},
       {name: "Countries", path: campaign_countries_path(campaign)},
       {name: "Comments", path: campaign_comments_path(campaign), validation: authorized_user.can_view_comments?},

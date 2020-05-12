@@ -2,9 +2,6 @@ Rails.application.routes.default_url_options[:protocol] = "https"
 Rails.application.routes.default_url_options[:host] = ENV["DEFAULT_HOST"]
 
 Rails.application.configure do
-  # Prepare the ingress controller used to receive mail
-  config.action_mailbox.ingress = :sendgrid
-
   # Verifies that versions and hashed value of the package contents in the project's package.json
   config.webpacker.check_yarn_integrity = false
   # Settings specified here will take precedence over those in config/application.rb.
@@ -82,6 +79,7 @@ Rails.application.configure do
     raise_delivery_errors: true
   }
 
+  # Prepare the ingress controller used to receive mail
   config.action_mailbox.ingress = :sendgrid
 
   # Ignore bad email addresses and do not raise email delivery errors.
