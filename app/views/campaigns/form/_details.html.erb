@@ -1,0 +1,104 @@
+<%= render Card::BodyComponent.new do %>
+  <%= render(Card::TitleComponent.new(classes: "mb-4")) { "Details" } %>
+  <div class="row">
+    <% if authorized_user.can_admin_system? %>
+      <%= tag.div f.input(:user_id,
+                          label: "Advertiser",
+                          collection: organization_users_for_select,
+                          required: true,
+                          input_html: {
+                            class: "form-control", data: {controller: "select", "reflex-permanent": true}
+                          }), class: "col-md-6 mb-3" %>
+    <% else %>
+      <%= f.input :user_id, as: :hidden, input_html: {value: current_user.id} %>
+      <div class="col-md-6 mb-3">
+        <div class="js-form-message js-focus-state string required property_name">
+          <label class="form-label string required" for="property_name">Advertiser <abbr title="required">*</abbr></label>
+          <input type="text" class="form-control" placeholder="<%= current_user.name %>" aria-label="<%= current_user.name %>" readonly />
+        </div>
+      </div>
+    <% end %>
+    <%= tag.div f.input(:status,
+                        label: "Status",
+                        collection: ENUMS::CAMPAIGN_STATUSES.values.map { |status| [status.capitalize, status] },
+                        required: true,
+                        input_html: {
+                          class: "form-control", data: {controller: "select", "reflex-permanent": true}
+                        }), class: "col-md-6 mb-3" if authorized_user.can_admin_system? %>
+    <%= tag.div f.input(:name,
+                        required: true,
+                        input_html: {
+                          class: "form-control", data: {msg: "Please enter a campaign name", "reflex-permanent": true}
+                        }), class: "col-md-6 mb-3" %>
+    <%= tag.div class: "col-md-6 mb-3" do %>
+      <%= f.input(:date_range,
+                  required: true,
+                  input_html: {
+                    class: "js-range-datepicker form-control bg-white rounded-right",
+                    disabled: !authorized_user.can_admin_system?,
+                    data: {
+                      "reflex-permanent": true,
+                      controller: "select-date-range",
+                      start_date: (campaign.start_date || Date.today).strftime("%m/%d/%Y"),
+                      end_date: (campaign.end_date || 29.days.from_now).strftime("%m/%d/%Y")
+                    }
+                  }) %>
+      <%= content_tag(:small,
+                      "<i class='fas fa-info-circle'></i> Bundle Dates: #{campaign.campaign_bundle.start_date.to_s("mm/dd/yyyy")} - #{campaign.campaign_bundle.end_date.to_s("mm/dd/yyyy")}".html_safe,
+                      class: "ml-2 text-muted"
+                      ) if campaign.campaign_bundle %>
+    <% end %>
+    <%= tag.div f.input(:audience_ids,
+                        label: "Audiences",
+                        collection: Audience.all.map { |audience| [audience.name, audience.id] },
+                        input_html: {
+                          class: "form-control", multiple: true, data: {controller: "select", reflex: "cf:select:changed->CampaignFormReflex#update_audience_ids", campaign_id: campaign.id}
+                        }), class: "col-md-12 mb-3" if authorized_user.can_admin_system? %>
+    <%= tag.div f.input(:region_ids,
+                        label: "Regions",
+                        collection: Region.all.map { |region| [region.name, region.id] },
+                        input_html: {
+                          class: "form-control", multiple: true, data: {controller: "select", reflex: "cf:select:changed->CampaignFormReflex#update_region_ids", campaign_id: campaign.id}
+                        }), class: "col-md-12 mb-3" if authorized_user.can_admin_system? %>
+    <div class="col-12 <%= "mb-5" if authorized_user.can_admin_system? %>">
+      <%= f.input(:url,
+                  as: :string,
+                  required: true,
+                  input_html: {
+                    class: "form-control",
+                    placeholder: "https://example.com/?utm_source=codefund&utm_campaign={{campaign_id}}",
+                    data: {msg: "Please enter a valid URL", rule_url: true, "reflex-permanent": true}
+                  }) %>
+      <small class="text-muted mt-4 mb-2 d-block">Use any of the following variables in the URL</small>
+      <%= render(UtmTableComponent.new(campaign: campaign)) %>
+    </div>
+  </div>
+  <% if authorized_user.can_admin_system? %>
+    <div class="row">
+      <div class="col-12 mb-2">
+        <div class="media align-items-center mb-3">
+          <%= f.label :paid_fallback, class: "switcher-control mb-0 mr-3" do %>
+            <%= f.check_box :paid_fallback, class: "switcher-input", "data-reflex-permanent": true %>
+            <span class="switcher-indicator"></span>
+          <% end %>
+          <label class="media-body text-muted mb-0">
+            <span class="d-block text-dark">Is this a paid fallback campaign?</span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 mb-2">
+        <div class="media align-items-center mb-3">
+          <%= f.label :fallback, class: "switcher-control mb-0 mr-3" do %>
+            <%= f.check_box :fallback, class: "switcher-input", "data-reflex-permanent": true %>
+            <span class="switcher-indicator"></span>
+          <% end %>
+          <label class="media-body text-muted mb-0">
+            <span class="d-block text-dark">Is this a fallback campaign?</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

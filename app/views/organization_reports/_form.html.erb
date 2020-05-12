@@ -1,7 +1,7 @@
 <%= simple_form_for organization_report, url: url, wrapper: :front_form, data: {
   controller: "organization-report"
 } do |f| %>
-  <%= render "/shared/forms/error_messages", object: organization_report %>
+  <%= render(Form::ErrorMessageComponent.new(object: organization_report)) %>
   <div class="row">
     <%= tag.div f.input(:title, label: "Subject", required: true), class: "col-12 mb-3" %>
     <div class="col-12 mb-3">
