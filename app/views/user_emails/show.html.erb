@@ -3,7 +3,7 @@
     <%= render(Page::HeaderComponent.new(
           title: @user&.name,
           subtitle: @user.email,
-          back_link: Page::BackLinkComponent.new(title: "Emails", link: user_emails_path(current_user)),
+          back_link: BackLinkComponent.new(title: "Emails", link: user_emails_path(current_user)),
           sidebar: true, buttons: [
             layout_button(link: edit_user_path(@user), icon: "fad fa-pencil", title: "Edit user"),
             layout_button(link: user_impersonation_path(@user), method: :put, icon: "fad fa-mask", title: "Masquerade as user", admin: true)
