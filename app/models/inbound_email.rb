@@ -21,7 +21,6 @@ class InboundEmail < ApplicationRecord
   has_and_belongs_to_many :users
 
   # validations ...............................................................
-  validates :action_mailbox_inbound_email_id, presence: true, uniqueness: true
   validates :delivered_at, presence: true
   validates :recipients, presence: true
   validates :sender, presence: true
@@ -40,15 +39,7 @@ class InboundEmail < ApplicationRecord
   # public instance methods ...................................................
 
   def participant_addresses
-    [sender, recipients].flatten.compact.sort    
-  end
-
-  def action_mailbox_inbound_email
-    @action_mailbox_inbound_email ||= ActionMailbox::InboundEmail.find(action_mailbox_inbound_email_id)
-  end
-
-  def mail
-    action_mailbox_inbound_email&.mail
+    [sender, recipients].flatten.compact.sort
   end
 
   # protected instance methods ................................................

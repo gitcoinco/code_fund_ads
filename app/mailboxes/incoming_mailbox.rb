@@ -1,7 +1,7 @@
 # See https://gorails.com/episodes/save-action-mailbox-html-emails-with-action-text
 class IncomingMailbox < ApplicationMailbox
   include ActionView::Helpers::TextHelper
-  
+
   before_processing :verify_participants
 
   def process
@@ -12,14 +12,16 @@ class IncomingMailbox < ApplicationMailbox
       subject: mail.subject,
       snippet: snippet,
       body: body,
-      delivered_at: (DateTime.parse(mail.raw_source.match(%r{Date: (.*)\r\n})[1]) rescue action_mailbox_inbound_email.created_at),
+      delivered_at: (begin
+                       DateTime.parse(mail.raw_source.match(%r{Date: (.*)\r\n})[1])
+                     rescue
+                       action_mailbox_inbound_email.created_at
+                     end),
       attachments: attachments.map { |a| a[:blob] }
 
     return unless email.persisted?
 
     email.users = User.where(email: email.participant_addresses)
-  rescue => ex
-    binding.pry
   end
 
   private
@@ -34,14 +36,14 @@ class IncomingMailbox < ApplicationMailbox
   end
 
   def attachments
-    @_attachments = mail.attachments.map do |attachment|
+    @_attachments = mail.attachments.map { |attachment|
       blob = ActiveStorage::Blob.create_after_upload!(
         io: StringIO.new(attachment.body.to_s),
         filename: attachment.filename,
-        content_type: attachment.content_type,
+        content_type: attachment.content_type
       )
-      { original: attachment, blob: blob }
-    end
+      {original: attachment, blob: blob}
+    }
   end
 
   def body
@@ -61,7 +63,7 @@ class IncomingMailbox < ApplicationMailbox
         end
       end
 
-      document.at_css("body").inner_html.encode('utf-8')
+      document.at_css("body").inner_html.encode("utf-8")
     elsif mail.multipart? && mail.text_part
       mail.text_part.body.decoded
     else

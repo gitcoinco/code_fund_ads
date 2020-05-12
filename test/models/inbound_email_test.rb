@@ -13,7 +13,7 @@
 #  updated_at                      :datetime         not null
 #  action_mailbox_inbound_email_id :bigint           not null
 #
-require 'test_helper'
+require "test_helper"
 
 class InboundEmailTest < ActiveSupport::TestCase
   # test "the truth" do

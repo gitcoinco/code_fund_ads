@@ -1,4 +1,4 @@
-require 'test_helper'
+require "test_helper"
 
 class UserEmailsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
@@ -10,5 +10,4 @@ class UserEmailsControllerTest < ActionDispatch::IntegrationTest
     get user_emails_show_url
     assert_response :success
   end
-
 end

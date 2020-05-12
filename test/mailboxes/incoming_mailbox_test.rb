@@ -7,7 +7,7 @@ class IncomingMailboxTest < ActionMailbox::TestCase
       from: users(:publisher).email,
       subject: "This is the subject",
       body: "This is the body"
-    
+
     inbound_email = ActionMailbox::InboundEmail.last
     assert_equal "bounced", inbound_email.status
   end
@@ -18,7 +18,7 @@ class IncomingMailboxTest < ActionMailbox::TestCase
       from: "nobody@example.com",
       subject: "This is the subject",
       body: "This is the body"
-    
+
     inbound_email = ActionMailbox::InboundEmail.last
     assert_equal "bounced", inbound_email.status
   end
@@ -29,7 +29,7 @@ class IncomingMailboxTest < ActionMailbox::TestCase
       from: users(:advertiser).email,
       subject: "This is the subject",
       body: "This is the body"
-    
+
     inbound_email = ActionMailbox::InboundEmail.last
     assert_equal "delivered", inbound_email.status
     assert inbound_email.mail.to.include?(users(:administrator).email)
@@ -42,7 +42,7 @@ class IncomingMailboxTest < ActionMailbox::TestCase
       from: users(:publisher).email,
       subject: "This is the subject",
       body: "This is the body"
-    
+
     inbound_email = ActionMailbox::InboundEmail.last
     assert_equal "delivered", inbound_email.status
     assert inbound_email.mail.to.include?(users(:administrator).email)
@@ -58,7 +58,7 @@ class IncomingMailboxTest < ActionMailbox::TestCase
       from: users(:publisher).email,
       subject: "This is the subject",
       body: "This is the body"
-    
+
     inbound_email = ActionMailbox::InboundEmail.last
     assert_equal "bounced", inbound_email.status
   end
