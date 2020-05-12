@@ -1,7 +1,7 @@
 class CreateImpressionJob < ApplicationJob
   queue_as :impression
 
-  def perform(id, campaign_id, property_id, creative_id, ad_template, ad_theme, ip_address, user_agent, displayed_at_string)
+  def perform(id, campaign_id, property_id, creative_id, ad_template, ad_theme, ip_address, country_code, user_agent, displayed_at_string)
     ScoutApm::Transaction.ignore! if rand > (ENV["SCOUT_SAMPLE_RATE"] || 1).to_f
     return unless user_agent
 
@@ -13,7 +13,6 @@ class CreateImpressionJob < ApplicationJob
 
     displayed_at = Time.parse(displayed_at_string)
     ip_info = Mmdb.lookup(ip_address)
-    country_code = Country.find(ip_info&.country&.iso_code)&.iso_code
     subdivision = ip_info&.subdivisions&.first&.iso_code
     province_code = Province.find("#{country_code}-#{subdivision}")&.iso_code
 

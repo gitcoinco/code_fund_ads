@@ -1,0 +1,25 @@
+<% cache [Current.organization.creatives.active, campaign.creative_ids.join] do %>
+  <%= render Card::BodyComponent.new classes: "border-top" do %>
+    <%= render(Card::TitleComponent.new) { "Creatives" } %>
+    <%= render Card::SubtitleComponent.new(classes: "mb-4") do %>
+      Pick which creatives you would like to use (only approved creatives are available)
+      <small class="mt-1 d-block text-primary opacity-70">Multivariate testing is used to determine the most effective creative</small>
+    <% end %>
+    <div class="d-flex flex-column">
+      <% Current.organization.creatives.active.each do |creative| %>
+        <div class="form-check">
+          <%= tag.input type: "checkbox",
+                        class: "form-check-input",
+                        value: creative.id,
+                        name: "campaign[creative_ids][]",
+                        id: "campaign_creative_id_#{creative.id}",
+                        checked: campaign.creatives.include?(creative),
+                        "data-reflex-permanent": true %>
+          <label class="form-check-label" for="campaign_creative_id_<%= creative.id %>">
+            <%= creative.name %> - <strong><%= creative.headline %></strong> <%= creative.body %>
+          </label>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

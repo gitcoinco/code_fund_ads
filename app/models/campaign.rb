@@ -92,7 +92,7 @@ class Campaign < ApplicationRecord
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
-  validates :url, url: true
+  validates :url, url: true, presence: true
   validates :start_date, presence: true
   validates :end_date, presence: true
   validate :validate_creatives
@@ -524,7 +524,7 @@ class Campaign < ApplicationRecord
   end
 
   def update_campaign_bundle_dates
-    campaign_bundle&.update_dates!
+    campaign_bundle&.update_dates
   end
 
   # protected instance methods ................................................
@@ -613,8 +613,6 @@ class Campaign < ApplicationRecord
     return unless campaign_bundle
     self.organization_id = campaign_bundle.organization_id
     self.region_ids = campaign_bundle.region_ids
-    self.start_date ||= campaign_bundle.start_date
-    self.end_date ||= campaign_bundle.end_date
     assign_country_codes
     assign_keywords
   end

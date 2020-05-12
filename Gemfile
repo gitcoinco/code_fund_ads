@@ -15,6 +15,7 @@ gem "cable_ready", "~> 4.1.0"
 gem "camo", "~> 0.1.0"
 gem "chroma", "~> 0.2.0"
 gem "chronic", "~> 0.10.2"
+gem "cloudflare-rails", "~> 0.6.0", group: :production
 gem "consolidated_screening_list", "~> 0.0.2"
 gem "countries", "~> 3.0.0"
 gem "country_select", "~> 4.0.0"

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_05_203735) do
+ActiveRecord::Schema.define(version: 2020_05_07_164638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -451,6 +451,7 @@ ActiveRecord::Schema.define(version: 2020_05_05_203735) do
     t.datetime "updated_at", null: false
     t.boolean "creative_approval_needed", default: true
     t.bigint "account_manager_user_id"
+    t.text "url"
     t.index ["account_manager_user_id"], name: "index_organizations_on_account_manager_user_id"
     t.index ["creative_approval_needed"], name: "index_organizations_on_creative_approval_needed"
   end

@@ -10,6 +10,11 @@ module ApplicationHelper
     }.merge(options)
   end
 
+  def pretty_url(url)
+    return unless url
+    url.gsub(/^https?:\/\//, "").gsub("www.", "").split("/").first
+  end
+
   def active_campaigns_for_current_organization
     Current.organization&.campaigns&.active
   end

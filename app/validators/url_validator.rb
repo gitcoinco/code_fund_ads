@@ -1,6 +1,7 @@
 class UrlValidator < ActiveModel::EachValidator
   def validate_each(record, attribute, value)
     value = record[attribute] = value.to_s.strip
+    return if value.blank?
     return if url_valid?(value)
     record.errors[attribute] << (options[:message] || "is invalid")
   end
