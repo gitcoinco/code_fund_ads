@@ -6,4 +6,8 @@ class UtmTableComponent < ApplicationComponent
   private
 
   attr_reader :campaign
+
+  def render?
+    campaign
+  end
 end

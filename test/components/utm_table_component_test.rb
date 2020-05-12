@@ -1,10 +1,17 @@
 require "test_helper"
 
 class UtmTableComponentTest < ViewComponent::TestCase
-  test "component renders something useful" do
-    # assert_equal(
-    #   %(<span>Hello, components!</span>),
-    #   render_inline(UtmTableComponent.new(message: "Hello, components!")).css("span").to_html
-    # )
+  setup do
+    @campaign = campaigns(:premium_bundled)
+  end
+
+  test "renders nothing if no errors" do
+    assert_equal("", render_inline(UtmTableComponent.new(campaign: nil)).to_html.squish)
+  end
+
+  test "basic form error component with one error" do
+    render_inline(UtmTableComponent.new(campaign: @campaign))
+    assert_selector("table")
+    assert_text(@campaign.id)
   end
 end
