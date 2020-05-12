@@ -1,13 +1,16 @@
-<%= render(PageComponent.new(subject: @user, sidebar: true, tabs: TabsComponent.new(tabs: user_tabs(@user)))) do |component| %>
+<%= render(PageComponent.new(subject: @user, sidebar: false)) do |component| %>
   <% component.with(:header) do %>
-    <%= render(Page::HeaderComponent.new(title: @user&.name, subtitle: @user.email, sidebar: true, buttons: [
-      layout_button(link: edit_user_path(@user), icon: "fad fa-pencil", title: "Edit user"),
-      layout_button(link: user_impersonation_path(@user), method: :put, icon: "fad fa-mask", title: "Masquerade as user", admin: true)
-    ])) %>
+    <%= render(Page::HeaderComponent.new(
+        title: @user&.name,
+        subtitle: @user.email,
+        back_link: Page::BackLinkComponent.new(title: "Emails", link: user_emails_path(current_user)),
+        sidebar: true, buttons: [
+          layout_button(link: edit_user_path(@user), icon: "fad fa-pencil", title: "Edit user"),
+          layout_button(link: user_impersonation_path(@user), method: :put, icon: "fad fa-mask", title: "Masquerade as user", admin: true)
+        ])) %>
   <% end %>
   <% component.with(:body) do %>
-    <%= render CardComponent.new do %>
-      
+    <%= render CardComponent.new(classes: "trix-email-preview") do %>
       <div class="list-group list-group-messages list-group-flush list-group-bordered">
         <div class="list-group-item unread">
           <div class="list-group-item-body pl-md-2">
@@ -23,8 +26,6 @@
           </div>
         </div>
       </div>
-
-
     <% end %>
   <% end %>
 <% end %>
