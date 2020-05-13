@@ -79,6 +79,9 @@ Rails.application.configure do
     raise_delivery_errors: true
   }
 
+  # Prepare the ingress controller used to receive mail
+  config.action_mailbox.ingress = :sendgrid
+
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false

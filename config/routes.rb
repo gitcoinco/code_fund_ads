@@ -133,6 +133,7 @@ Rails.application.routes.draw do
     resources :events, only: [:index], as: :user_events
     resources :user_campaigns, only: [:index], path: "/campaigns"
     resources :user_comments, only: [:index], path: "/comments"
+    resources :user_emails, only: [:index, :show], path: "/emails"
     resources :user_properties, only: [:index], path: "/properties"
     resources :versions, only: [:index], as: :user_versions, path: "/revisions"
   end

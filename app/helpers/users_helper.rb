@@ -4,6 +4,7 @@ module UsersHelper
       {name: "Overview", path: user_path(user), active: :exact},
       {name: "Properties", path: user_properties_path(user), validation: user.properties.exists?},
       {name: "Campaigns", path: user_campaigns_path(user), validation: user.campaigns.exists?},
+      {name: "Emails", path: user_emails_path(user), validation: authorized_user.can_view_emails?},
       {name: "Comments", path: user_comments_path(user), validation: authorized_user.can_view_comments?},
       {name: "Settings", path: edit_user_path(user)}
     ]

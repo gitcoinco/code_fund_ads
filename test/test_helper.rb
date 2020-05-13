@@ -194,8 +194,9 @@ class ActiveSupport::TestCase
     impression
   end
 
-  def active_campaign(country_codes: [])
+  def active_campaign(attrs = {})
     campaign = campaigns(:premium_bundled)
+    campaign.update! attrs if attrs.present?
     campaign.creative.add_image! attach_large_image!(campaign.organization)
     campaign.organization.update! balance: Monetize.parse("$10,000 USD")
     campaign

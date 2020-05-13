@@ -15,6 +15,15 @@
             <span class="d-block text-dark">Enable API Access?</span>
           </label>
         </div>
+        <div class="media align-items-center mb-3">
+          <%= f.label :record_inbound_emails, class: "switcher-control mb-0 mr-3" do %>
+            <%= f.check_box :record_inbound_emails, class: "switcher-input" %>
+            <span class="switcher-indicator"></span>
+          <% end %>
+          <label class="media-body text-muted mb-0">
+            <span class="d-block text-dark">Record inbound emails?</span>
+          </label>
+        </div>
         <%= tag.div f.input(:status, collection: user_statuses_for_select,
             input_html: {class: "form-control", data: {controller: "select"}}), class: "mb-2" %>
         <div class="mb-3" data-controller="select-multiple">

@@ -35,6 +35,7 @@
 #  locked_at              :datetime
 #  paypal_email           :string
 #  postal_code            :string
+#  record_inbound_emails  :boolean          default(FALSE)
 #  referral_click_count   :integer          default(0)
 #  referral_code          :string
 #  region                 :string

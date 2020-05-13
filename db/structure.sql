@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: hdb_views; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA hdb_views;
+
+
+--
 -- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -67,7 +74,72 @@ COMMENT ON EXTENSION tablefunc IS 'functions that manipulate whole tables, inclu
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+--
+-- Name: action_mailbox_inbound_emails; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.action_mailbox_inbound_emails (
+    id bigint NOT NULL,
+    status integer DEFAULT 0 NOT NULL,
+    message_id character varying NOT NULL,
+    message_checksum character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: action_mailbox_inbound_emails_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.action_mailbox_inbound_emails_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: action_mailbox_inbound_emails_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.action_mailbox_inbound_emails_id_seq OWNED BY public.action_mailbox_inbound_emails.id;
+
+
+--
+-- Name: action_text_rich_texts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.action_text_rich_texts (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    body text,
+    record_type character varying NOT NULL,
+    record_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: action_text_rich_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.action_text_rich_texts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: action_text_rich_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.action_text_rich_texts_id_seq OWNED BY public.action_text_rich_texts.id;
+
 
 --
 -- Name: active_storage_attachments; Type: TABLE; Schema: public; Owner: -
@@ -145,8 +217,8 @@ ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -455,9 +527,9 @@ CREATE TABLE public.daily_summaries (
     scoped_by_id character varying,
     impressions_count integer DEFAULT 0 NOT NULL,
     fallbacks_count integer DEFAULT 0 NOT NULL,
-    fallback_percentage numeric DEFAULT 0.0 NOT NULL,
+    fallback_percentage numeric DEFAULT 0 NOT NULL,
     clicks_count integer DEFAULT 0 NOT NULL,
-    click_rate numeric DEFAULT 0.0 NOT NULL,
+    click_rate numeric DEFAULT 0 NOT NULL,
     ecpm_cents integer DEFAULT 0 NOT NULL,
     ecpm_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     cost_per_click_cents integer DEFAULT 0 NOT NULL,
@@ -558,10 +630,44 @@ CREATE TABLE public.impressions (
     ad_template character varying,
     ad_theme character varying,
     organization_id bigint,
-    province_code character varying,
-    uplift boolean DEFAULT false
+    uplift boolean DEFAULT false,
+    province_code character varying
 )
 PARTITION BY RANGE (advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2020_05_advertiser_735; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.impressions_2020_05_advertiser_735 (
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    advertiser_id bigint NOT NULL,
+    publisher_id bigint NOT NULL,
+    campaign_id bigint NOT NULL,
+    creative_id bigint NOT NULL,
+    property_id bigint NOT NULL,
+    ip_address character varying NOT NULL,
+    user_agent text NOT NULL,
+    country_code character varying,
+    postal_code character varying,
+    latitude numeric,
+    longitude numeric,
+    displayed_at timestamp without time zone NOT NULL,
+    displayed_at_date date NOT NULL,
+    clicked_at timestamp without time zone,
+    clicked_at_date date,
+    fallback_campaign boolean DEFAULT false NOT NULL,
+    estimated_gross_revenue_fractional_cents double precision,
+    estimated_property_revenue_fractional_cents double precision,
+    estimated_house_revenue_fractional_cents double precision,
+    ad_template character varying,
+    ad_theme character varying,
+    organization_id bigint,
+    uplift boolean DEFAULT false,
+    province_code character varying
+);
+ALTER TABLE ONLY public.impressions ATTACH PARTITION public.impressions_2020_05_advertiser_735 FOR VALUES FROM ('735', '2020-05-01') TO ('735', '2020-06-01');
 
 
 --
@@ -592,10 +698,57 @@ CREATE TABLE public.impressions_default (
     ad_template character varying,
     ad_theme character varying,
     organization_id bigint,
-    province_code character varying,
-    uplift boolean DEFAULT false
+    uplift boolean DEFAULT false,
+    province_code character varying
 );
 ALTER TABLE ONLY public.impressions ATTACH PARTITION public.impressions_default DEFAULT;
+
+
+--
+-- Name: inbound_emails; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.inbound_emails (
+    id bigint NOT NULL,
+    action_mailbox_inbound_email_id bigint NOT NULL,
+    sender character varying NOT NULL,
+    recipients text[] DEFAULT '{}'::text[] NOT NULL,
+    subject text,
+    snippet text,
+    body text,
+    delivered_at timestamp without time zone NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: inbound_emails_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.inbound_emails_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: inbound_emails_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.inbound_emails_id_seq OWNED BY public.inbound_emails.id;
+
+
+--
+-- Name: inbound_emails_users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.inbound_emails_users (
+    inbound_email_id bigint NOT NULL,
+    user_id bigint NOT NULL
+);
 
 
 --
@@ -970,8 +1123,7 @@ ALTER SEQUENCE public.property_traffic_estimates_id_seq OWNED BY public.property
 CREATE TABLE public.publisher_invoices (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
-    amount_cents integer DEFAULT 0 NOT NULL,
-    amount_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    amount money NOT NULL,
     currency character varying NOT NULL,
     start_date date NOT NULL,
     end_date date NOT NULL,
@@ -1318,7 +1470,8 @@ CREATE TABLE public.users (
     utm_campaign character varying,
     utm_term character varying,
     utm_content character varying,
-    status character varying DEFAULT 'active'::character varying
+    status character varying DEFAULT 'active'::character varying,
+    record_inbound_emails boolean DEFAULT false
 );
 
 
@@ -1374,6 +1527,20 @@ CREATE SEQUENCE public.versions_id_seq
 --
 
 ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
+
+
+--
+-- Name: action_mailbox_inbound_emails id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.action_mailbox_inbound_emails ALTER COLUMN id SET DEFAULT nextval('public.action_mailbox_inbound_emails_id_seq'::regclass);
+
+
+--
+-- Name: action_text_rich_texts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.action_text_rich_texts ALTER COLUMN id SET DEFAULT nextval('public.action_text_rich_texts_id_seq'::regclass);
 
 
 --
@@ -1444,6 +1611,13 @@ ALTER TABLE ONLY public.daily_summaries ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.events_id_seq'::regclass);
+
+
+--
+-- Name: inbound_emails id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.inbound_emails ALTER COLUMN id SET DEFAULT nextval('public.inbound_emails_id_seq'::regclass);
 
 
 --
@@ -1528,6 +1702,22 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
+
+
+--
+-- Name: action_mailbox_inbound_emails action_mailbox_inbound_emails_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.action_mailbox_inbound_emails
+    ADD CONSTRAINT action_mailbox_inbound_emails_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: action_text_rich_texts action_text_rich_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.action_text_rich_texts
+    ADD CONSTRAINT action_text_rich_texts_pkey PRIMARY KEY (id);
 
 
 --
@@ -1616,6 +1806,14 @@ ALTER TABLE ONLY public.daily_summaries
 
 ALTER TABLE ONLY public.events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: inbound_emails inbound_emails_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.inbound_emails
+    ADD CONSTRAINT inbound_emails_pkey PRIMARY KEY (id);
 
 
 --
@@ -1723,6 +1921,20 @@ ALTER TABLE ONLY public.versions
 
 
 --
+-- Name: index_impressions_on_id_and_advertiser_id_and_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_impressions_on_id_and_advertiser_id_and_displayed_at_date ON ONLY public.impressions USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_2020_05_advertise_id_advertiser_id_displayed_at_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_2020_05_advertise_id_advertiser_id_displayed_at_idx ON public.impressions_2020_05_advertiser_735 USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
 -- Name: index_impressions_on_ad_template; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -1730,10 +1942,10 @@ CREATE INDEX index_impressions_on_ad_template ON ONLY public.impressions USING b
 
 
 --
--- Name: impressions_default_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2020_05_advertiser_735_ad_template_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_ad_template_idx ON public.impressions_default USING btree (ad_template);
+CREATE INDEX impressions_2020_05_advertiser_735_ad_template_idx ON public.impressions_2020_05_advertiser_735 USING btree (ad_template);
 
 
 --
@@ -1744,10 +1956,10 @@ CREATE INDEX index_impressions_on_ad_theme ON ONLY public.impressions USING btre
 
 
 --
--- Name: impressions_default_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2020_05_advertiser_735_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_ad_theme_idx ON public.impressions_default USING btree (ad_theme);
+CREATE INDEX impressions_2020_05_advertiser_735_ad_theme_idx ON public.impressions_2020_05_advertiser_735 USING btree (ad_theme);
 
 
 --
@@ -1758,10 +1970,10 @@ CREATE INDEX index_impressions_on_advertiser_id ON ONLY public.impressions USING
 
 
 --
--- Name: impressions_default_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2020_05_advertiser_735_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_advertiser_id_idx ON public.impressions_default USING btree (advertiser_id);
+CREATE INDEX impressions_2020_05_advertiser_735_advertiser_id_idx ON public.impressions_2020_05_advertiser_735 USING btree (advertiser_id);
 
 
 --
@@ -1772,10 +1984,10 @@ CREATE INDEX index_impressions_on_campaign_id ON ONLY public.impressions USING b
 
 
 --
--- Name: impressions_default_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2020_05_advertiser_735_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_campaign_id_idx ON public.impressions_default USING btree (campaign_id);
+CREATE INDEX impressions_2020_05_advertiser_735_campaign_id_idx ON public.impressions_2020_05_advertiser_735 USING btree (campaign_id);
 
 
 --
@@ -1786,10 +1998,10 @@ CREATE INDEX index_impressions_on_clicked_at_date ON ONLY public.impressions USI
 
 
 --
--- Name: impressions_default_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2020_05_advertiser_735_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_clicked_at_date_idx ON public.impressions_default USING btree (clicked_at_date);
+CREATE INDEX impressions_2020_05_advertiser_735_clicked_at_date_idx ON public.impressions_2020_05_advertiser_735 USING btree (clicked_at_date);
 
 
 --
@@ -1800,10 +2012,10 @@ CREATE INDEX index_impressions_on_country_code ON ONLY public.impressions USING 
 
 
 --
--- Name: impressions_default_country_code_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2020_05_advertiser_735_country_code_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_country_code_idx ON public.impressions_default USING btree (country_code);
+CREATE INDEX impressions_2020_05_advertiser_735_country_code_idx ON public.impressions_2020_05_advertiser_735 USING btree (country_code);
 
 
 --
@@ -1814,10 +2026,10 @@ CREATE INDEX index_impressions_on_creative_id ON ONLY public.impressions USING b
 
 
 --
--- Name: impressions_default_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2020_05_advertiser_735_creative_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_creative_id_idx ON public.impressions_default USING btree (creative_id);
+CREATE INDEX impressions_2020_05_advertiser_735_creative_id_idx ON public.impressions_2020_05_advertiser_735 USING btree (creative_id);
 
 
 --
@@ -1828,10 +2040,10 @@ CREATE INDEX index_impressions_on_displayed_at_hour ON ONLY public.impressions U
 
 
 --
--- Name: impressions_default_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2020_05_advertiser_735_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_date_trunc_idx ON public.impressions_default USING btree (date_trunc('hour'::text, displayed_at));
+CREATE INDEX impressions_2020_05_advertiser_735_date_trunc_idx ON public.impressions_2020_05_advertiser_735 USING btree (date_trunc('hour'::text, displayed_at));
 
 
 --
@@ -1842,10 +2054,10 @@ CREATE INDEX index_impressions_on_clicked_at_hour ON ONLY public.impressions USI
 
 
 --
--- Name: impressions_default_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2020_05_advertiser_735_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_date_trunc_idx1 ON public.impressions_default USING btree (date_trunc('hour'::text, clicked_at));
+CREATE INDEX impressions_2020_05_advertiser_735_date_trunc_idx1 ON public.impressions_2020_05_advertiser_735 USING btree (date_trunc('hour'::text, clicked_at));
 
 
 --
@@ -1856,24 +2068,10 @@ CREATE INDEX index_impressions_on_displayed_at_date ON ONLY public.impressions U
 
 
 --
--- Name: impressions_default_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2020_05_advertiser_735_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_displayed_at_date_idx ON public.impressions_default USING btree (displayed_at_date);
-
-
---
--- Name: index_impressions_on_id_and_advertiser_id_and_displayed_at_date; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX index_impressions_on_id_and_advertiser_id_and_displayed_at_date ON ONLY public.impressions USING btree (id, advertiser_id, displayed_at_date);
-
-
---
--- Name: impressions_default_id_advertiser_id_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE UNIQUE INDEX impressions_default_id_advertiser_id_displayed_at_date_idx ON public.impressions_default USING btree (id, advertiser_id, displayed_at_date);
+CREATE INDEX impressions_2020_05_advertiser_735_displayed_at_date_idx ON public.impressions_2020_05_advertiser_735 USING btree (displayed_at_date);
 
 
 --
@@ -1884,10 +2082,10 @@ CREATE INDEX index_impressions_on_organization_id ON ONLY public.impressions USI
 
 
 --
--- Name: impressions_default_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2020_05_advertiser_735_organization_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_organization_id_idx ON public.impressions_default USING btree (organization_id);
+CREATE INDEX impressions_2020_05_advertiser_735_organization_id_idx ON public.impressions_2020_05_advertiser_735 USING btree (organization_id);
 
 
 --
@@ -1898,10 +2096,10 @@ CREATE INDEX index_impressions_on_property_id ON ONLY public.impressions USING b
 
 
 --
--- Name: impressions_default_property_id_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2020_05_advertiser_735_property_id_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_property_id_idx ON public.impressions_default USING btree (property_id);
+CREATE INDEX impressions_2020_05_advertiser_735_property_id_idx ON public.impressions_2020_05_advertiser_735 USING btree (property_id);
 
 
 --
@@ -1912,10 +2110,10 @@ CREATE INDEX index_impressions_on_province_code ON ONLY public.impressions USING
 
 
 --
--- Name: impressions_default_province_code_idx; Type: INDEX; Schema: public; Owner: -
+-- Name: impressions_2020_05_advertiser_735_province_code_idx; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX impressions_default_province_code_idx ON public.impressions_default USING btree (province_code);
+CREATE INDEX impressions_2020_05_advertiser_735_province_code_idx ON public.impressions_2020_05_advertiser_735 USING btree (province_code);
 
 
 --
@@ -1926,10 +2124,129 @@ CREATE INDEX index_impressions_on_uplift ON ONLY public.impressions USING btree 
 
 
 --
+-- Name: impressions_2020_05_advertiser_735_uplift_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_2020_05_advertiser_735_uplift_idx ON public.impressions_2020_05_advertiser_735 USING btree (uplift);
+
+
+--
+-- Name: impressions_default_ad_template_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_ad_template_idx ON public.impressions_default USING btree (ad_template);
+
+
+--
+-- Name: impressions_default_ad_theme_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_ad_theme_idx ON public.impressions_default USING btree (ad_theme);
+
+
+--
+-- Name: impressions_default_advertiser_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_advertiser_id_idx ON public.impressions_default USING btree (advertiser_id);
+
+
+--
+-- Name: impressions_default_campaign_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_campaign_id_idx ON public.impressions_default USING btree (campaign_id);
+
+
+--
+-- Name: impressions_default_clicked_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_clicked_at_date_idx ON public.impressions_default USING btree (clicked_at_date);
+
+
+--
+-- Name: impressions_default_country_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_country_code_idx ON public.impressions_default USING btree (country_code);
+
+
+--
+-- Name: impressions_default_creative_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_creative_id_idx ON public.impressions_default USING btree (creative_id);
+
+
+--
+-- Name: impressions_default_date_trunc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_date_trunc_idx ON public.impressions_default USING btree (date_trunc('hour'::text, displayed_at));
+
+
+--
+-- Name: impressions_default_date_trunc_idx1; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_date_trunc_idx1 ON public.impressions_default USING btree (date_trunc('hour'::text, clicked_at));
+
+
+--
+-- Name: impressions_default_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_displayed_at_date_idx ON public.impressions_default USING btree (displayed_at_date);
+
+
+--
+-- Name: impressions_default_id_advertiser_id_displayed_at_date_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX impressions_default_id_advertiser_id_displayed_at_date_idx ON public.impressions_default USING btree (id, advertiser_id, displayed_at_date);
+
+
+--
+-- Name: impressions_default_organization_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_organization_id_idx ON public.impressions_default USING btree (organization_id);
+
+
+--
+-- Name: impressions_default_property_id_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_property_id_idx ON public.impressions_default USING btree (property_id);
+
+
+--
+-- Name: impressions_default_province_code_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX impressions_default_province_code_idx ON public.impressions_default USING btree (province_code);
+
+
+--
 -- Name: impressions_default_uplift_idx; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX impressions_default_uplift_idx ON public.impressions_default USING btree (uplift);
+
+
+--
+-- Name: index_action_mailbox_inbound_emails_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_action_mailbox_inbound_emails_uniqueness ON public.action_mailbox_inbound_emails USING btree (message_id, message_checksum);
+
+
+--
+-- Name: index_action_text_rich_texts_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_action_text_rich_texts_uniqueness ON public.action_text_rich_texts USING btree (record_type, record_id, name);
 
 
 --
@@ -2252,6 +2569,20 @@ CREATE INDEX index_events_on_eventable_id_and_eventable_type ON public.events US
 --
 
 CREATE INDEX index_events_on_user_id ON public.events USING btree (user_id);
+
+
+--
+-- Name: index_inbound_emails_users_on_inbound_email_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_inbound_emails_users_on_inbound_email_id ON public.inbound_emails_users USING btree (inbound_email_id);
+
+
+--
+-- Name: index_inbound_emails_users_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_inbound_emails_users_on_user_id ON public.inbound_emails_users USING btree (user_id);
 
 
 --
@@ -2598,13 +2929,6 @@ CREATE INDEX index_publisher_invoices_on_end_date ON public.publisher_invoices U
 
 
 --
--- Name: index_publisher_invoices_on_paid_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_publisher_invoices_on_paid_at ON public.publisher_invoices USING btree (paid_at);
-
-
---
 -- Name: index_publisher_invoices_on_start_date; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2721,6 +3045,111 @@ CREATE INDEX index_versions_on_object ON public.versions USING gin (object);
 --
 
 CREATE INDEX index_versions_on_object_changes ON public.versions USING gin (object_changes);
+
+
+--
+-- Name: impressions_2020_05_advertise_id_advertiser_id_displayed_at_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_id_and_advertiser_id_and_displayed_at_date ATTACH PARTITION public.impressions_2020_05_advertise_id_advertiser_id_displayed_at_idx;
+
+
+--
+-- Name: impressions_2020_05_advertiser_735_ad_template_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_template ATTACH PARTITION public.impressions_2020_05_advertiser_735_ad_template_idx;
+
+
+--
+-- Name: impressions_2020_05_advertiser_735_ad_theme_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_ad_theme ATTACH PARTITION public.impressions_2020_05_advertiser_735_ad_theme_idx;
+
+
+--
+-- Name: impressions_2020_05_advertiser_735_advertiser_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_advertiser_id ATTACH PARTITION public.impressions_2020_05_advertiser_735_advertiser_id_idx;
+
+
+--
+-- Name: impressions_2020_05_advertiser_735_campaign_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_campaign_id ATTACH PARTITION public.impressions_2020_05_advertiser_735_campaign_id_idx;
+
+
+--
+-- Name: impressions_2020_05_advertiser_735_clicked_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_date ATTACH PARTITION public.impressions_2020_05_advertiser_735_clicked_at_date_idx;
+
+
+--
+-- Name: impressions_2020_05_advertiser_735_country_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_country_code ATTACH PARTITION public.impressions_2020_05_advertiser_735_country_code_idx;
+
+
+--
+-- Name: impressions_2020_05_advertiser_735_creative_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_creative_id ATTACH PARTITION public.impressions_2020_05_advertiser_735_creative_id_idx;
+
+
+--
+-- Name: impressions_2020_05_advertiser_735_date_trunc_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_hour ATTACH PARTITION public.impressions_2020_05_advertiser_735_date_trunc_idx;
+
+
+--
+-- Name: impressions_2020_05_advertiser_735_date_trunc_idx1; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_clicked_at_hour ATTACH PARTITION public.impressions_2020_05_advertiser_735_date_trunc_idx1;
+
+
+--
+-- Name: impressions_2020_05_advertiser_735_displayed_at_date_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_displayed_at_date ATTACH PARTITION public.impressions_2020_05_advertiser_735_displayed_at_date_idx;
+
+
+--
+-- Name: impressions_2020_05_advertiser_735_organization_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_organization_id ATTACH PARTITION public.impressions_2020_05_advertiser_735_organization_id_idx;
+
+
+--
+-- Name: impressions_2020_05_advertiser_735_property_id_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_property_id ATTACH PARTITION public.impressions_2020_05_advertiser_735_property_id_idx;
+
+
+--
+-- Name: impressions_2020_05_advertiser_735_province_code_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_province_code ATTACH PARTITION public.impressions_2020_05_advertiser_735_province_code_idx;
+
+
+--
+-- Name: impressions_2020_05_advertiser_735_uplift_idx; Type: INDEX ATTACH; Schema: public; Owner: -
+--
+
+ALTER INDEX public.index_impressions_on_uplift ATTACH PARTITION public.impressions_2020_05_advertiser_735_uplift_idx;
 
 
 --
@@ -2929,4 +3358,11 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200422185634'),
 ('20200422190916'),
 ('20200422195410'),
-('20200507164638');
+('20200504175333'),
+('20200504194917'),
+('20200505193112'),
+('20200505203735'),
+('20200507164638'),
+('20200511174710');
+
+

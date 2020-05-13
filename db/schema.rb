@@ -19,6 +19,15 @@ ActiveRecord::Schema.define(version: 2020_05_07_164638) do
   enable_extension "plpgsql"
   enable_extension "tablefunc"
 
+  create_table "action_mailbox_inbound_emails", force: :cascade do |t|
+    t.integer "status", default: 0, null: false
+    t.string "message_id", null: false
+    t.string "message_checksum", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["message_id", "message_checksum"], name: "index_action_mailbox_inbound_emails_uniqueness", unique: true
+  end
+
   create_table "active_storage_attachments", force: :cascade do |t|
     t.bigint "blob_id", null: false
     t.bigint "record_id", null: false
@@ -302,6 +311,25 @@ ActiveRecord::Schema.define(version: 2020_05_07_164638) do
     t.index ["property_id"], name: "impressions_default_property_id_idx"
     t.index ["province_code"], name: "impressions_default_province_code_idx"
     t.index ["uplift"], name: "impressions_default_uplift_idx"
+  end
+
+  create_table "inbound_emails", force: :cascade do |t|
+    t.bigint "action_mailbox_inbound_email_id", null: false
+    t.string "sender", null: false
+    t.text "recipients", default: [], null: false, array: true
+    t.text "subject"
+    t.text "snippet"
+    t.text "body"
+    t.datetime "delivered_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "inbound_emails_users", id: false, force: :cascade do |t|
+    t.bigint "inbound_email_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["inbound_email_id"], name: "index_inbound_emails_users_on_inbound_email_id"
+    t.index ["user_id"], name: "index_inbound_emails_users_on_user_id"
   end
 
   create_table "job_postings", force: :cascade do |t|
@@ -608,6 +636,7 @@ ActiveRecord::Schema.define(version: 2020_05_07_164638) do
     t.string "utm_term"
     t.string "utm_content"
     t.string "status", default: "active"
+    t.boolean "record_inbound_emails", default: false
     t.index "lower((email)::text)", name: "index_users_on_email", unique: true
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true

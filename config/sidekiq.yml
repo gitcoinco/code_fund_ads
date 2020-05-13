@@ -7,5 +7,8 @@
   - click
   - default
   - rollbar
+  - action_mailbox_routing
+  - active_storage_analysis
+  - action_mailbox_incineration
   - low
   - traffic

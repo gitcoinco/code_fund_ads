@@ -13,6 +13,7 @@ class AuthorizedUser < Perm::Authorized
   include Authorizers::Campaign
   include Authorizers::Comment
   include Authorizers::Creative
+  include Authorizers::Email
   include Authorizers::Image
   include Authorizers::Imageable
   include Authorizers::JobPosting
