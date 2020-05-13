@@ -11,15 +11,15 @@
   <% end %>
   <% component.with(:body) do %>
     <%= render CardComponent.new(classes: "trix-email-preview") do %>
-      <%= render ListGroupComponent.new(classes: "list-group-messages list-group-flush list-group-bordered") do %>
-        <div class="list-group-item unread">
+      <%= render ListGroupComponent.new(bordered: true, flush: true, messages: true) do %>
+        <%= render ListGroup::ItemComponent.new(classes: "unread") do %>
           <div class="list-group-item-body pl-md-2">
             <h4 class="list-group-item-title text-truncate">
               <%= @email.sender %>
             </h4>
             <p class="list-group-item-text"><%= @email.delivered_at %></p>
           </div>
-        </div>
+        <% end %>
         <div class="list-group-item unread">
           <div class="list-group-item-body pl-md-2">
             <%= @email.body %>
