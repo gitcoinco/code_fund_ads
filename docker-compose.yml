@@ -42,6 +42,8 @@ services:
       - PG_USERNAME=postgres
       - PG_PASSWORD=postgres
       - SMTP_HOST=mail
+      - REDIS_CACHE_URL=redis://redis:6379
+      - REDIS_QUEUE_URL=redis://redis:6379
     depends_on:
       postgres:
         condition: service_healthy
@@ -50,13 +52,13 @@ services:
 
   rails:
     <<: *backend
-    command: bundle exec rails server -b 0.0.0.0
+    command: ./bin/docker/start_rails
     ports:
       - '3000:3000'
 
   sidekiq:
     <<: *backend
-    command: bundle exec sidekiq -C config/sidekiq.yml
+    command: ./bin/docker/start_sidekiq
 
   postgres:
     image: postgres:11.1
@@ -83,10 +85,13 @@ services:
       interval: 1s
       timeout: 3s
       retries: 30
+    environment:
+      - REDIS_CACHE_URL=redis://redis:6379
+      - REDIS_QUEUE_URL=redis://redis:6379
 
   webpacker:
     <<: *app
-    command: ./bin/webpack-dev-server
+    command: ./bin/docker/start_webpacker
     ports:
       - '3035:3035'
     volumes:
