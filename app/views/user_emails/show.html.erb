@@ -11,7 +11,7 @@
   <% end %>
   <% component.with(:body) do %>
     <%= render CardComponent.new(classes: "trix-email-preview") do %>
-      <div class="list-group list-group-messages list-group-flush list-group-bordered">
+      <%= render ListGroupComponent.new(classes: "list-group-messages list-group-flush list-group-bordered") do %>
         <div class="list-group-item unread">
           <div class="list-group-item-body pl-md-2">
             <h4 class="list-group-item-title text-truncate">
@@ -25,7 +25,7 @@
             <%= @email.body %>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   <% end %>
 <% end %>

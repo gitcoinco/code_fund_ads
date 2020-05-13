@@ -2,14 +2,11 @@ class UserEmailsController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_view!
   before_action :set_user
+  before_action :set_email, only: :show
 
   def index
     inbound_emails = @user.inbound_emails.order(delivered_at: :desc)
     @pagy, @emails = pagy(inbound_emails)
-  end
-
-  def show
-    @email = @user.inbound_emails.find(params[:id])
   end
 
   private
@@ -20,6 +17,10 @@ class UserEmailsController < ApplicationController
     else
       current_user
     end
+  end
+
+  def set_email
+    @email = @user.inbound_emails.find(params[:id])
   end
 
   def authorize_view!

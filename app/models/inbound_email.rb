@@ -33,8 +33,6 @@ class InboundEmail < ApplicationRecord
   has_many_attached :attachments
 
   # class methods .............................................................
-  class << self
-  end
 
   # public instance methods ...................................................
 
