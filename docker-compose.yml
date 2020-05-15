@@ -42,6 +42,7 @@ services:
       - PG_USERNAME=postgres
       - PG_PASSWORD=postgres
       - SMTP_HOST=mail
+      - REDIS_URL=redis://redis:6379/
       - REDIS_CACHE_URL=redis://redis:6379
       - REDIS_QUEUE_URL=redis://redis:6379
     depends_on:
