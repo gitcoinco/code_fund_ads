@@ -17,7 +17,7 @@
               <%= link_to image_tag("", class: "mr-2 lozad", alt: "#{property.name} icon", style: "width: 16px; height: 16px;", data: {src: property.favicon_image_url}) %>
               <%= link_to property.name, property %>
             <% end %>
-            <%= table_data link_to(property.pretty_url, property.url, target: "_blank") %>
+            <%= table_data link_to(pretty_url(property.url), property.url, target: "_blank") %>
             <%= table_data property.property_type.humanize %>
             <%= table_data do %>
               <span class="badge badge-<%= status_color(property.status) %>">

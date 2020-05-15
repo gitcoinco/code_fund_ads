@@ -55,6 +55,26 @@ class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
     assert response.body.include?("click?campaign_id=#{campaign.id}")
   end
 
+  test "get advertisement with active & assigned_properties & geo not matching campaign" do
+    campaign = active_campaign
+    property = matched_property(campaign)
+    campaign.update! country_codes: ["US"], assigned_property_ids: [property.id]
+    self.remote_addr = ip_address("CN")
+    get advertisements_url(property, format: :js)
+    assert_response :success
+    refute response.body.include?("click?campaign_id=#{campaign.id}")
+  end
+
+  test "get advertisement with active & assigned_properties & geo matching campaign" do
+    campaign = active_campaign
+    property = matched_property(campaign)
+    campaign.update! country_codes: ["US"], assigned_property_ids: [property.id]
+    self.remote_addr = ip_address("US")
+    get advertisements_url(property, format: :js)
+    assert_response :success
+    assert response.body.include?("click?campaign_id=#{campaign.id}")
+  end
+
   test "get advertisement with active but no geo matching campaigns" do
     AdvertisementsController.any_instance.stubs(ad_test?: false, country_code: "CN")
     campaign = active_campaign

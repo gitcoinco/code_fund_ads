@@ -70,6 +70,73 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: action_mailbox_inbound_emails; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.action_mailbox_inbound_emails (
+    id bigint NOT NULL,
+    status integer DEFAULT 0 NOT NULL,
+    message_id character varying NOT NULL,
+    message_checksum character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: action_mailbox_inbound_emails_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.action_mailbox_inbound_emails_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: action_mailbox_inbound_emails_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.action_mailbox_inbound_emails_id_seq OWNED BY public.action_mailbox_inbound_emails.id;
+
+
+--
+-- Name: action_text_rich_texts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.action_text_rich_texts (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    body text,
+    record_type character varying NOT NULL,
+    record_id bigint NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: action_text_rich_texts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.action_text_rich_texts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: action_text_rich_texts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.action_text_rich_texts_id_seq OWNED BY public.action_text_rich_texts.id;
+
+
+--
 -- Name: active_storage_attachments; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -599,6 +666,53 @@ ALTER TABLE ONLY public.impressions ATTACH PARTITION public.impressions_default 
 
 
 --
+-- Name: inbound_emails; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.inbound_emails (
+    id bigint NOT NULL,
+    action_mailbox_inbound_email_id bigint NOT NULL,
+    sender character varying NOT NULL,
+    recipients text[] DEFAULT '{}'::text[] NOT NULL,
+    subject text,
+    snippet text,
+    body text,
+    delivered_at timestamp without time zone NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: inbound_emails_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.inbound_emails_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: inbound_emails_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.inbound_emails_id_seq OWNED BY public.inbound_emails.id;
+
+
+--
+-- Name: inbound_emails_users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.inbound_emails_users (
+    inbound_email_id bigint NOT NULL,
+    user_id bigint NOT NULL
+);
+
+
+--
 -- Name: job_postings; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -787,7 +901,8 @@ CREATE TABLE public.organizations (
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL,
     creative_approval_needed boolean DEFAULT true,
-    account_manager_user_id bigint
+    account_manager_user_id bigint,
+    url text
 );
 
 
@@ -1317,7 +1432,8 @@ CREATE TABLE public.users (
     utm_campaign character varying,
     utm_term character varying,
     utm_content character varying,
-    status character varying DEFAULT 'active'::character varying
+    status character varying DEFAULT 'active'::character varying,
+    record_inbound_emails boolean DEFAULT false
 );
 
 
@@ -1373,6 +1489,20 @@ CREATE SEQUENCE public.versions_id_seq
 --
 
 ALTER SEQUENCE public.versions_id_seq OWNED BY public.versions.id;
+
+
+--
+-- Name: action_mailbox_inbound_emails id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.action_mailbox_inbound_emails ALTER COLUMN id SET DEFAULT nextval('public.action_mailbox_inbound_emails_id_seq'::regclass);
+
+
+--
+-- Name: action_text_rich_texts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.action_text_rich_texts ALTER COLUMN id SET DEFAULT nextval('public.action_text_rich_texts_id_seq'::regclass);
 
 
 --
@@ -1443,6 +1573,13 @@ ALTER TABLE ONLY public.daily_summaries ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.events_id_seq'::regclass);
+
+
+--
+-- Name: inbound_emails id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.inbound_emails ALTER COLUMN id SET DEFAULT nextval('public.inbound_emails_id_seq'::regclass);
 
 
 --
@@ -1527,6 +1664,22 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 --
 
 ALTER TABLE ONLY public.versions ALTER COLUMN id SET DEFAULT nextval('public.versions_id_seq'::regclass);
+
+
+--
+-- Name: action_mailbox_inbound_emails action_mailbox_inbound_emails_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.action_mailbox_inbound_emails
+    ADD CONSTRAINT action_mailbox_inbound_emails_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: action_text_rich_texts action_text_rich_texts_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.action_text_rich_texts
+    ADD CONSTRAINT action_text_rich_texts_pkey PRIMARY KEY (id);
 
 
 --
@@ -1615,6 +1768,14 @@ ALTER TABLE ONLY public.daily_summaries
 
 ALTER TABLE ONLY public.events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: inbound_emails inbound_emails_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.inbound_emails
+    ADD CONSTRAINT inbound_emails_pkey PRIMARY KEY (id);
 
 
 --
@@ -1929,6 +2090,20 @@ CREATE INDEX index_impressions_on_uplift ON ONLY public.impressions USING btree 
 --
 
 CREATE INDEX impressions_default_uplift_idx ON public.impressions_default USING btree (uplift);
+
+
+--
+-- Name: index_action_mailbox_inbound_emails_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_action_mailbox_inbound_emails_uniqueness ON public.action_mailbox_inbound_emails USING btree (message_id, message_checksum);
+
+
+--
+-- Name: index_action_text_rich_texts_uniqueness; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_action_text_rich_texts_uniqueness ON public.action_text_rich_texts USING btree (record_type, record_id, name);
 
 
 --
@@ -2251,6 +2426,20 @@ CREATE INDEX index_events_on_eventable_id_and_eventable_type ON public.events US
 --
 
 CREATE INDEX index_events_on_user_id ON public.events USING btree (user_id);
+
+
+--
+-- Name: index_inbound_emails_users_on_inbound_email_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_inbound_emails_users_on_inbound_email_id ON public.inbound_emails_users USING btree (inbound_email_id);
+
+
+--
+-- Name: index_inbound_emails_users_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_inbound_emails_users_on_user_id ON public.inbound_emails_users USING btree (user_id);
 
 
 --
@@ -2927,4 +3116,10 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200421152748'),
 ('20200422185634'),
 ('20200422190916'),
-('20200422195410');
+('20200422195410'),
+('20200504175333'),
+('20200504194917'),
+('20200505193112'),
+('20200505203735'),
+('20200507164638'),
+('20200511174710');

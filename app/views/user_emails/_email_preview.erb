@@ -1,0 +1,20 @@
+<%= render ListGroupComponent.new(bordered: true, flush: true, messages: true) do %>
+  <%= render ListGroup::ItemComponent.new(classes: "unread") do %>
+    <div class="list-group-item-body pl-md-2">
+      <div class="row">
+        <div class="col-12 col-lg-3 d-none d-lg-block">
+          <h4 class="list-group-item-title text-truncate">
+            <%= link_to email.sender, user_email_path(current_user, email) %>
+          </h4>
+          <p class="list-group-item-text"><%= time_ago_in_words email.delivered_at %> ago</p>
+        </div>
+        <div class="col-12 col-lg-9">
+          <h4 class="list-group-item-title text-truncate">
+            <%= link_to email.subject, user_email_path(current_user, email) %>
+          </h4>
+          <p class="list-group-item-text text-truncate"><%= email.snippet %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

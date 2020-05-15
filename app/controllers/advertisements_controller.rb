@@ -116,9 +116,13 @@ class AdvertisementsController < ApplicationController
   # DEPRECATE: Wrap this IP assignment to only be allowed when API is enabled for
   #       the publisher instead of using the legacy_property_id as a qualifier
   def ip_address
-    @ip_address ||= params[:legacy_property_id].present? ?
-      (params[:ip_address] || request.remote_ip) :
-      request.remote_ip
+    @ip_address ||= begin
+      if property.can_pass_ip_address? && params[:legacy_property_id].present?
+        params[:ip_address] || request.remote_ip
+      else
+        request.remote_ip
+      end
+    end
   end
 
   def ip_info
@@ -127,6 +131,9 @@ class AdvertisementsController < ApplicationController
 
   def country_code
     return params[:test_country_code] if Rails.env.test? && params.key?(:test_country_code)
+    return request.headers["Cf-Ipcountry"] if request.headers["Cf-Ipcountry"].present?
+
+    # Fallback to Maxmind if Cloudflare header is missing
     iso_code = ip_info&.country&.iso_code
     return nil unless iso_code
     Country.find(iso_code)&.iso_code
@@ -329,7 +336,8 @@ class AdvertisementsController < ApplicationController
       creative_id: @creative.id,
       ad_template: template_name,
       ad_theme: theme_name,
-      ip_address: ip_address
+      ip_address: ip_address,
+      country_code: country_code
     }, expires_in: 30.seconds
 
     track_event :virtual_impression_created

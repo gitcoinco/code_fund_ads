@@ -1,0 +1,62 @@
+<% if authorized_user.can_admin_system? || campaign.prohibited_properties.active.exists? || campaign.assigned_properties.active.exists? %>
+  <%= render Card::BodyComponent.new classes: "border-top" do %>
+    <%= render(Card::TitleComponent.new(classes: "mb-4")) { "Additional Targeting" } %>
+    <div class="row">
+      <%= tag.div class: "col-12 mb-3", data: { controller: "select-multiple" } do %>
+        <%= f.input(:keywords,
+                    collection: keywords_for_select,
+                    label: "Targeted Keywords",
+                    input_html: {
+                      multiple: true, data: {controller: "select", target: "select-multiple.select campaign-form.targetedKeywordsInput"}
+                    }) %>
+        <div class="row mt-1">
+          <div class="col-2 mr-1">
+            <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#selectAll"} %>
+            <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
+          </div>
+          <div class="col mx-0">
+            <% Audience.all.each do |a| %>
+              <%= link_to a.name, request.path, class: "btn btn-secondary btn-xs py-0", data: {action: "click->select-multiple#selectSubset", values: a.keywords} %>
+            <% end %>
+          </div>
+        </div>
+      <% end if authorized_user.can_admin_system? %>
+      <%= tag.div class: "col-12 mb-3", data: { controller: "select-multiple" } do %>
+        <%= f.input(:negative_keywords,
+                    collection: keywords_for_select,
+                    label: "Negative Keywords",
+                    input_html: {
+                      multiple: true, data: {controller: "select", target: "select-multiple.select", "reflex-permanent": true}
+                    }) %>
+        <div class="d-block mt-1">
+          <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#selectAll", "reflex-permanent": true} %>
+          <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections", "reflex-permanent": true} %>
+        </div>
+      <% end if authorized_user.can_admin_system? %>
+      <%= tag.div class: "col-12 mb-3", data: { controller: "select-multiple" } do %>
+        <%= f.input(:prohibited_property_ids,
+                    collection: properties_for_select,
+                    label: "Prohibited Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> deprioritized after assigned properties</small>".html_safe,
+                    disabled: !authorized_user.can_admin_system?,
+                    input_html: {
+                      multiple: true, data: {controller: "select", target: "select-multiple.select", "reflex-permanent": true}
+                    }) %>
+        <%= tag.div class: "d-block mt-1" do %>
+          <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
+        <% end if authorized_user.can_admin_system? %>
+      <% end if authorized_user.can_admin_system? || campaign.prohibited_properties.exists? %>
+      <%= tag.div class: "col-12 mb-3", data: { controller: "select-multiple" } do %>
+        <%= f.input(:assigned_property_ids,
+                    collection: properties_for_select,
+                    label: "Assigned Properties <small class='ml-2 text-danger'><i class='fas fa-exclamation-triangle'></i> prioritized over keywords</small>".html_safe,
+                    disabled: !authorized_user.can_admin_system?,
+                    input_html: {
+                      multiple: true, data: {controller: "select", target: "select-multiple.select", "reflex-permanent": true}
+                    }) %>
+        <%= tag.div class: "d-block mt-1" do %>
+          <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
+        <% end if authorized_user.can_admin_system? %>
+      <% end if authorized_user.can_admin_system? || campaign.assigned_properties.exists? %>
+    </div>
+  <% end %>
+<% end %>

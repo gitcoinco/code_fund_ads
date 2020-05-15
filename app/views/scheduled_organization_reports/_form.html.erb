@@ -1,5 +1,5 @@
 <%= simple_form_for scheduled_organization_report, wrapper: :front_form do |f| %>
-  <%= render "/shared/forms/error_messages", object: scheduled_organization_report %>
+  <%= render(Form::ErrorMessageComponent.new(object: scheduled_organization_report)) %>
   <div class="row">
     <%= tag.div f.input(:subject, as: :string, label: "Subject", required: true), class: "col-12 mb-3" %>
     <%= tag.div f.input(:dataset, collection: scheduled_organization_report_datasets_for_select, required: true), class: "col-md-6 mb-3" %>

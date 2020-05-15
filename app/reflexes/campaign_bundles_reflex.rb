@@ -58,6 +58,7 @@ class CampaignBundlesReflex < ApplicationReflex
     campaign.end_date = Date.strptime(dates[1], "%m/%d/%Y")
     campaign.update_campaign_bundle_dates
     campaign_bundle.init_total_budget
+    campaign_bundle.update_dates
   end
 
   def update_campaign_url

@@ -1,0 +1,17 @@
+<%= render(PageComponent.new(subject: @user, sidebar: false, tabs: TabsComponent.new(tabs: user_tabs(@user)))) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: @user&.name, subtitle: @user.email, sidebar: true, buttons: [
+      layout_button(link: edit_user_path(@user), icon: "fad fa-pencil", title: "Edit user"),
+      layout_button(link: user_impersonation_path(@user), method: :put, icon: "fad fa-mask", title: "Masquerade as user", admin: true)
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= render CardComponent.new do %>
+      <%= render partial: "email_preview", collection: @emails, as: :email %>
+    <% end %>
+    <%= pagination_wrapper do %>
+      <span><%== pagy_bootstrap_nav(@pagy) %></span>
+      <%= pagy_entries(@pagy) %>
+    <% end if @pagy.pages > 1 %>
+  <% end %>
+<% end %>

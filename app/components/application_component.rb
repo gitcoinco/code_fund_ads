@@ -1,4 +1,6 @@
 class ApplicationComponent < ViewComponent::Base
+  include Frontend::TableHelper
+
   def current_user
     helpers.current_user
   end

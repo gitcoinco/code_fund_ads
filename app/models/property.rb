@@ -70,7 +70,7 @@ class Property < ApplicationRecord
   validates :responsive_behavior, inclusion: {in: ENUMS::PROPERTY_RESPONSIVE_BEHAVIORS.values}
   validates :revenue_percentage, numericality: {less_than_or_equal_to: 1.0, greater_than_or_equal_to: 0}
   validates :status, inclusion: {in: ENUMS::PROPERTY_STATUSES.values}
-  validates :url, url: true
+  validates :url, url: true, presence: true
 
   # callbacks .................................................................
   before_validation :assign_audience
@@ -222,10 +222,6 @@ class Property < ApplicationRecord
     "//www.google.com/s2/favicons?domain=#{domain}"
   end
 
-  def pretty_url
-    url.gsub(/^https?:\/\//, "").gsub("www.", "").split("/").first
-  end
-
   def matching_campaigns
     Campaign.targeted_premium_for_property self
   end
@@ -254,6 +250,10 @@ class Property < ApplicationRecord
     else
       (original_keywords & audience_keywords).uniq.sort
     end
+  end
+
+  def can_pass_ip_address?
+    ENV.fetch("API_BASED_PROPERTY_IDS", "").split(",").include?(id)
   end
 
   # protected instance methods ................................................

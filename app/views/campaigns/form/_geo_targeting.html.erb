@@ -1,0 +1,55 @@
+<% if authorized_user.can_admin_system? %>
+  <%= render Card::BodyComponent.new classes: "border-top" do %>
+    <%= render(Card::TitleComponent.new(classes: "mb-4")) { "Geo Targeting" } %>
+    <div class="row" data-controller="select-geo-targets" data-action="cf:select:changed->select-geo-targets#updateProvinceCodeOptions">
+      <div class="col-12 mb-3">
+        <%= f.label :country_codes, label: "Targeted Countries", class: "form-label", required: true %>
+        <div class="checkbox-tree" data-target="select-geo-targets.countryCodesSelect">
+          <div class="mb-1">
+            <%= link_to "Select All", "javascript:;", class: "btn text-uppercase btn btn-subtle-primary btn-xs py-0", data: {action: "click->select-geo-targets#selectAll"} %>
+            <%= link_to "Clear", "javascript:;", class: "btn text-uppercase btn btn-subtle-primary btn-xs py-0", data: {action: "click->select-geo-targets#selectNone"} %>
+            <%= link_to "Expand All", "javascript:;", class: "btn text-uppercase btn btn-subtle-primary btn-xs py-0", data: {action: "click->select-geo-targets#expandAll"} %>
+            <%= link_to "Collapse All", "javascript:;", class: "btn text-uppercase btn btn-subtle-primary btn-xs py-0", data: {action: "click->select-geo-targets#collapseAll"} %>
+          </div>
+          <% Country.all.map(&:subregion).uniq.sort.each do |subregion| %>
+            <div class="checkbox-tree__branch" data-controller="checkbox-tree-branch">
+              <i class="fa fa-caret-right"
+                  data-target="checkbox-tree-branch.toggle"
+                  data-action="click->checkbox-tree-branch#toggleBranch">
+              </i>
+              <div class="form-check">
+                <%= check_box_tag subregion.downcase,
+                    nil,
+                    false,
+                    class: "form-check-input",
+                    data: {target: "checkbox-tree-branch.selectAll campaign-form.subregionInput", action: "change->checkbox-tree-branch#toggleSelectAll"} %>
+                <%= label_tag subregion.downcase, subregion, class: "form-check-label" %>
+              </div>
+              <div class="checkbox-tree__branch-leaves" data-target="checkbox-tree-branch.leaves">
+                <%= f.input(:country_codes,
+                    as: :check_boxes,
+                    collection: countries_with_codes_for_subregion(subregion),
+                    input_html: {
+                      data: {target: "checkbox-tree-branch.leaf campaign-form.countryCodesInput", action: "change->checkbox-tree-branch#handleLeafChange"}
+                    }) %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-12 mb-3" data-controller="select-multiple">
+        <%= f.input(:province_codes,
+                    required: false,
+                    collection: [],
+                    label: "Targeted States/Provinces",
+                    input_html: {
+                      multiple: true, data: {controller: "select", target: "select-multiple.select select-geo-targets.provinceCodesSelect", provinces: provinces_for_stimulus, selected: campaign.province_codes}
+                    }) %>
+        <div class="d-block mt-1">
+          <%= link_to "All", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#selectAll"} %>
+          <%= link_to "Clear", request.path, class: "btn text-uppercase btn-subtle-dark btn-xs py-0", data: {action: "click->select-multiple#clearSelections"} %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>
