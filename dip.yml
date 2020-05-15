@@ -1,0 +1,79 @@
+version: '4.1'
+
+environment:
+  RAILS_ENV: development
+
+compose:
+  files:
+    - docker-compose.yml
+
+interaction:
+  sh:
+    description: Open a Bash shell within a Rails container (with dependencies up)
+    service: backend
+    command: /bin/bash
+
+  bash:
+    description: Run an arbitrary script within a container (or open a shell without deps)
+    service: backend
+    command: /bin/bash
+    compose_run_options: [no-deps]
+
+  bundle:
+    description: Run Bundler commands
+    service: backend
+    command: bundle
+    compose_run_options: [no-deps]
+
+  rake:
+    description: Run Rake commands
+    service: backend
+    command: bundle exec rake
+
+  rails:
+    description: Run Rails commands
+    service: backend
+    command: bundle exec rails
+    subcommands:
+      s:
+        description: Run Rails server available at http://localhost:3000
+        service: rails
+        compose:
+          run_options: [service-ports, use-aliases]
+
+  integration_tests:
+    description: Run rails test commands within test environment
+    service: backend
+    environment:
+      RAILS_ENV: test
+    command: bundle exec rails test
+
+  system_tests:
+    description: Run rails system test commands within test environment
+    service: backend
+    environment:
+      RAILS_ENV: test
+    command: bundle exec rails test:system
+
+  standard:
+    service: backend
+    command: bundle exec standardrb
+    compose_run_options: [no-deps]
+
+  yarn:
+    service: backend
+    command: yarn
+    compose_run_options: [no-deps]
+
+  psql:
+    service: postgres
+    command: psql -h postgres -U postgres -d code_fund_ads_development
+
+  'redis-cli':
+    service: redis
+    command: redis-cli -h redis
+
+provision:
+  - dip compose down --volumes
+  - dip compose up -d postgres redis
+  - dip bash -c ./bin/setup

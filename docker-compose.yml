@@ -1,0 +1,120 @@
+version: '2.4'
+
+services:
+  app: &app
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+      args:
+        RUBY_VERSION: '2.6.6'
+        PG_MAJOR: '11'
+        NODE_MAJOR: '13'
+        YARN_VERSION: '1.22.4'
+        BUNDLER_VERSION: '2.1.4'
+    image: code_fund_ads-dev:1.0.0
+    tmpfs:
+      - /tmp
+    env_file:
+      - .env
+
+  backend: &backend
+    <<: *app
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app:cached
+      - rails_cache:/app/tmp/cache
+      - bundle:/usr/local/bundle
+      - node_modules:/app/node_modules
+      - packs:/app/public/packs
+      - .docker/.psqlrc:/root/.psqlrc:ro
+      - .docker/.pryrc:/root/.pryrc:ro
+    environment:
+      - NODE_ENV=development
+      - RAILS_ENV=${RAILS_ENV:-development}
+      - BOOTSNAP_CACHE_DIR=/usr/local/bundle/_bootsnap
+      - WEBPACKER_DEV_SERVER_HOST=webpacker
+      - WEB_CONCURRENCY=1
+      - HISTFILE=/app/log/.bash_history
+      - PSQL_HISTFILE=/app/log/.psql_history
+      - EDITOR=vi
+      - PG_HOST=postgres
+      - PG_USERNAME=postgres
+      - PG_PASSWORD=postgres
+      - SMTP_HOST=mail
+      - REDIS_URL=redis://redis:6379/
+      - REDIS_CACHE_URL=redis://redis:6379
+      - REDIS_QUEUE_URL=redis://redis:6379
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  rails:
+    <<: *backend
+    command: ./bin/docker/start_rails
+    ports:
+      - '3000:3000'
+
+  sidekiq:
+    <<: *backend
+    command: ./bin/docker/start_sidekiq
+
+  postgres:
+    image: postgres:11.1
+    volumes:
+      - .psqlrc:/root/.psqlrc:ro
+      - postgres:/var/lib/postgresql/data
+      - ./log:/root/log:cached
+    environment:
+      - PSQL_HISTFILE=/root/log/.psql_history
+    ports:
+      - 5432
+    healthcheck:
+      test: pg_isready -U postgres -h 127.0.0.1
+      interval: 5s
+
+  redis:
+    image: redis:4.0-alpine
+    volumes:
+      - redis:/data
+    ports:
+      - 6379
+    healthcheck:
+      test: redis-cli ping
+      interval: 1s
+      timeout: 3s
+      retries: 30
+    environment:
+      - REDIS_CACHE_URL=redis://redis:6379
+      - REDIS_QUEUE_URL=redis://redis:6379
+
+  webpacker:
+    <<: *app
+    command: ./bin/docker/start_webpacker
+    ports:
+      - '3035:3035'
+    volumes:
+      - .:/app:cached
+      - bundle:/usr/local/bundle
+      - node_modules:/app/node_modules
+      - packs:/app/public/packs
+    environment:
+      - NODE_ENV=${NODE_ENV:-development}
+      - RAILS_ENV=${RAILS_ENV:-development}
+      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
+
+  mail:
+    image: drujensen/mailcatcher:latest
+    ports:
+      - '1025:1025'
+      - '1080:1080'
+
+volumes:
+  postgres:
+  redis:
+  bundle:
+  node_modules:
+  rails_cache:
+  packs:

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+bundle check || bundle install
+yarn check || yarn install
+./bin/webpack-dev-server

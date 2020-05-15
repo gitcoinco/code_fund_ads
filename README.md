@@ -158,6 +158,10 @@ The URLs/routes responsible for ad rendering are:
 
 ## Development
 
+If you'd like to use Docker to run the app, view that documentation [here](docs/docker_development).
+
+The following is for setting the app up on your local machine:
+
 ### Prerequisites
 
 - Ruby version `2.6.6`
