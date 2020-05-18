@@ -6,7 +6,7 @@ jobs:
         environment:
           CAMPAIGN_DEMO_ID: "395"
           PG_HOST: localhost
-          PG_USERNAME: ubuntu
+          PG_USERNAME: postgres
           RAILS_ENV: test
           NODE_ENV: test
           RACK_ENV: test
@@ -15,9 +15,10 @@ jobs:
           REDIS_CACHE_URL: redis://127.0.0.1:6379
           REDIS_QUEUE_URL: redis://127.0.0.1:6379
           WORDPRESS_URL: 'https://codefund.io'
-      - image: circleci/postgres:11.2
+      - image: circleci/postgres:12.2
         environment:
-          POSTGRES_USER: ubuntu
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
           POSTGRES_DB: code_fund_ads_test
       - image: circleci/redis:5.0.4
     working_directory: ~/repo

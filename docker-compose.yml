@@ -7,7 +7,7 @@ services:
       dockerfile: ./.docker/Dockerfile
       args:
         RUBY_VERSION: '2.6.6'
-        PG_MAJOR: '11'
+        PG_MAJOR: '12'
         NODE_MAJOR: '13'
         YARN_VERSION: '1.22.4'
         BUNDLER_VERSION: '2.1.4'
@@ -62,7 +62,7 @@ services:
     command: ./bin/docker/start_sidekiq
 
   postgres:
-    image: postgres:11.1
+    image: postgres:12.2
     volumes:
       - .psqlrc:/root/.psqlrc:ro
       - postgres:/var/lib/postgresql/data

@@ -110,4 +110,15 @@ class PropertyTest < ActiveSupport::TestCase
     assert_not @property.destroy
     assert_includes @property.errors.messages[:base].to_s, "has associated"
   end
+
+  test "can pass IP address if ID is included in ENV var" do
+    ENV["API_BASED_PROPERTY_IDS"] = ""
+    refute @property.can_pass_ip_address?
+
+    ENV["API_BASED_PROPERTY_IDS"] = @property.id.to_s
+    assert @property.can_pass_ip_address?
+
+    ENV["API_BASED_PROPERTY_IDS"] = "0,1,#{@property.id},2"
+    assert @property.can_pass_ip_address?
+  end
 end
