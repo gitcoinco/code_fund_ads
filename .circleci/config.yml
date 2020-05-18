@@ -15,7 +15,7 @@ jobs:
           REDIS_CACHE_URL: redis://127.0.0.1:6379
           REDIS_QUEUE_URL: redis://127.0.0.1:6379
           WORDPRESS_URL: 'https://codefund.io'
-      - image: circleci/postgres:11.2
+      - image: circleci/postgres:12.2
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: code_fund_ads_test
