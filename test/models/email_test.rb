@@ -19,7 +19,7 @@
 #  index_emails_on_recipients  (recipients) USING gin
 #  index_emails_on_sender      (sender)
 #
-require 'test_helper'
+require "test_helper"
 
 class EmailTest < ActiveSupport::TestCase
   # test "the truth" do

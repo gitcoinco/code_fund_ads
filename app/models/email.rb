@@ -34,14 +34,14 @@ class Email < ApplicationRecord
 
   # callbacks .................................................................
   # scopes ....................................................................
-  
+
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  enum direction: { inbound: 0, outbound: 1 }
+  enum direction: {inbound: 0, outbound: 1}
   has_rich_text :body
   has_many_attached :attachments
 
   # class methods .............................................................
- 
+
   # public instance methods ...................................................
   def participant_addresses
     [sender, recipients].flatten.compact.sort
@@ -50,7 +50,7 @@ class Email < ApplicationRecord
   def sending_user
     @sender ||= User.find_by(email: sender)
   end
- 
+
   # protected instance methods ................................................
   # private instance methods ..................................................
 end

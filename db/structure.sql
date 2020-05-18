@@ -67,7 +67,7 @@ COMMENT ON EXTENSION tablefunc IS 'functions that manipulate whole tables, inclu
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: action_mailbox_inbound_emails; Type: TABLE; Schema: public; Owner: -
@@ -683,7 +683,7 @@ PARTITION BY RANGE (advertiser_id, displayed_at_date);
 -- Name: impressions_default; Type: TABLE; Schema: public; Owner: -
 --
 
-CREATE TABLE public.impressions_2020_05_advertiser_239 (
+CREATE TABLE public.impressions_default (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     advertiser_id bigint NOT NULL,
     publisher_id bigint NOT NULL,
@@ -709,74 +709,6 @@ CREATE TABLE public.impressions_2020_05_advertiser_239 (
     organization_id bigint,
     province_code character varying,
     uplift boolean DEFAULT false
-);
-ALTER TABLE ONLY public.impressions ATTACH PARTITION public.impressions_2020_05_advertiser_239 FOR VALUES FROM ('239', '2020-05-01') TO ('239', '2020-06-01');
-
-
---
--- Name: impressions_2020_05_advertiser_735; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.impressions_2020_05_advertiser_735 (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
-    advertiser_id bigint NOT NULL,
-    publisher_id bigint NOT NULL,
-    campaign_id bigint NOT NULL,
-    creative_id bigint NOT NULL,
-    property_id bigint NOT NULL,
-    ip_address character varying NOT NULL,
-    user_agent text NOT NULL,
-    country_code character varying,
-    postal_code character varying,
-    latitude numeric,
-    longitude numeric,
-    displayed_at timestamp without time zone NOT NULL,
-    displayed_at_date date NOT NULL,
-    clicked_at timestamp without time zone,
-    clicked_at_date date,
-    fallback_campaign boolean DEFAULT false NOT NULL,
-    estimated_gross_revenue_fractional_cents double precision,
-    estimated_property_revenue_fractional_cents double precision,
-    estimated_house_revenue_fractional_cents double precision,
-    ad_template character varying,
-    ad_theme character varying,
-    organization_id bigint,
-    uplift boolean DEFAULT false,
-    province_code character varying
-);
-ALTER TABLE ONLY public.impressions ATTACH PARTITION public.impressions_2020_05_advertiser_735 FOR VALUES FROM ('735', '2020-05-01') TO ('735', '2020-06-01');
-
-
---
--- Name: impressions_default; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.impressions_default (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
-    advertiser_id bigint NOT NULL,
-    publisher_id bigint NOT NULL,
-    campaign_id bigint NOT NULL,
-    creative_id bigint NOT NULL,
-    property_id bigint NOT NULL,
-    ip_address character varying NOT NULL,
-    user_agent text NOT NULL,
-    country_code character varying,
-    postal_code character varying,
-    latitude numeric,
-    longitude numeric,
-    displayed_at timestamp without time zone NOT NULL,
-    displayed_at_date date NOT NULL,
-    clicked_at timestamp without time zone,
-    clicked_at_date date,
-    fallback_campaign boolean DEFAULT false NOT NULL,
-    estimated_gross_revenue_fractional_cents double precision,
-    estimated_property_revenue_fractional_cents double precision,
-    estimated_house_revenue_fractional_cents double precision,
-    ad_template character varying,
-    ad_theme character varying,
-    organization_id bigint,
-    uplift boolean DEFAULT false,
-    province_code character varying
 );
 ALTER TABLE ONLY public.impressions ATTACH PARTITION public.impressions_default DEFAULT;
 
@@ -3205,4 +3137,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200505193112'),
 ('20200505203735'),
 ('20200507164638'),
-('20200511174710');
+('20200511174710'),
+('20200513193432'),
+('20200513195822'),
+('20200513210427');
+
+

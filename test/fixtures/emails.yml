@@ -19,23 +19,3 @@
 #  index_emails_on_recipients  (recipients) USING gin
 #  index_emails_on_sender      (sender)
 #
-
-one:
-  body: MyText
-  delivered_at: MyString
-  recipients: MyString
-  sender: MyString
-  snippet: MyText
-  subject: MyText
-  action_mailbox_inbound_email_id: 
-  direction: 
-
-two:
-  body: MyText
-  delivered_at: MyString
-  recipients: MyString
-  sender: MyString
-  snippet: MyText
-  subject: MyText
-  action_mailbox_inbound_email_id: 
-  direction: 

@@ -1,6 +1,6 @@
 class Emails::AttachmentsComponent < ApplicationComponent
-  def initialize(classes: classes, blobs: [])
-    @class_names = classes
+  def initialize(classes: class_names, blobs: [])
+    @class_names = class_names
     @blobs = blobs
   end
 

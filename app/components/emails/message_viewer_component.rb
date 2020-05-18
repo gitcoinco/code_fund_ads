@@ -3,21 +3,20 @@ class Emails::MessageViewerComponent < ApplicationComponent
     @email = email
     @bold = bold
   end
-  
+
   def user
     User.find_by(email: email)
   end
 
-  private
-
-  attr_reader :classes, :email, :bold
-    
   def classes
-    classes = []
-    classes << "font-weight-bold" if bold
-    classes.compact
+    class_names = []
+    class_names << "font-weight-bold" if bold
+    class_names.compact
   end
 
+  private
+
+  attr_reader :email, :bold
 
   def render?
     email.present?

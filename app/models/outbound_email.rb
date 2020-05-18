@@ -1,2 +1,0 @@
-class OutboundEmail < ApplicationRecord
-end

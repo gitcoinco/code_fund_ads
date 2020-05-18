@@ -22,7 +22,7 @@ class IncomingMailbox < ApplicationMailbox
 
     return unless email.persisted?
 
-    email.users = User.where(email: email.participant_addresses)e
+    email.users = User.where(email: email.participant_addresses)
   end
 
   private
@@ -47,7 +47,7 @@ class IncomingMailbox < ApplicationMailbox
         filename: attachment.filename,
         content_type: attachment.content_type
       )
-      { original: attachment, blob: blob }
+      {original: attachment, blob: blob}
     }
   end
 

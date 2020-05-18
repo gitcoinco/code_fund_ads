@@ -10,7 +10,7 @@ class EmailComponent < ApplicationComponent
   def render?
     email.present?
   end
-  
+
   def sender_is_user?
     email.sending_user.present?
   end

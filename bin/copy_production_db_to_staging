@@ -5,7 +5,7 @@
 #   * METABASE_URL
 #   * STAGING_DATABASE_URL
 
-./bin/source_env
+source .env
 
 app='code-fund-ads-staging'
 staging_config="$(heroku pg:credentials:url -a $app)"
