@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_13_210427) do
+ActiveRecord::Schema.define(version: 2020_05_19_191749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -225,26 +225,28 @@ ActiveRecord::Schema.define(version: 2020_05_13_210427) do
     t.index ["scoped_by_type", "scoped_by_id"], name: "index_daily_summaries_on_scoped_by_columns"
   end
 
+  create_table "email_users", force: :cascade do |t|
+    t.bigint "email_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["email_id", "user_id"], name: "index_email_users_on_email_id_and_user_id", unique: true
+  end
+
   create_table "emails", force: :cascade do |t|
     t.text "body"
     t.datetime "delivered_at", null: false
+    t.date "delivered_at_date", null: false
     t.string "recipients", default: [], null: false, array: true
     t.string "sender"
     t.text "snippet"
     t.text "subject"
     t.bigint "action_mailbox_inbound_email_id", null: false
-    t.integer "direction", default: 0
+    t.string "direction", default: "inbound"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index "date_trunc('hour'::text, delivered_at)", name: "index_emails_on_delivered_at_hour"
+    t.index ["delivered_at_date"], name: "index_emails_on_delivered_at_date"
     t.index ["recipients"], name: "index_emails_on_recipients", using: :gin
     t.index ["sender"], name: "index_emails_on_sender"
-  end
-
-  create_table "emails_users", id: false, force: :cascade do |t|
-    t.bigint "email_id", null: false
-    t.bigint "user_id", null: false
-    t.index ["email_id"], name: "index_emails_users_on_email_id"
-    t.index ["user_id"], name: "index_emails_users_on_user_id"
   end
 
   create_table "events", force: :cascade do |t|

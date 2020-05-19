@@ -5,6 +5,12 @@ class IncomingMailbox < ApplicationMailbox
   before_processing :verify_participants
 
   def process
+    delivered_at = begin
+                     DateTime.parse(mail.raw_source.match(%r{Date: (.*)\r\n})[1])
+                   rescue
+                     action_mailbox_inbound_email.created_at
+                   end
+
     email = Email.create! \
       action_mailbox_inbound_email_id: inbound_email.id,
       sender: mail.from.first,
@@ -13,11 +19,8 @@ class IncomingMailbox < ApplicationMailbox
       snippet: snippet,
       body: body,
       direction: direction,
-      delivered_at: (begin
-                       DateTime.parse(mail.raw_source.match(%r{Date: (.*)\r\n})[1])
-                     rescue
-                       action_mailbox_inbound_email.created_at
-                     end),
+      delivered_at: delivered_at,
+      delivered_at_date: delivered_at,
       attachments: attachments.map { |a| a[:blob] }
 
     return unless email.persisted?

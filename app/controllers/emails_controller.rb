@@ -1,4 +1,4 @@
-class InboxController < ApplicationController
+class EmailsController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_view!
   before_action :set_user

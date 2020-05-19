@@ -5,7 +5,8 @@
 #  id                              :bigint           not null, primary key
 #  body                            :text
 #  delivered_at                    :datetime         not null
-#  direction                       :integer          default("inbound")
+#  delivered_at_date               :date             not null
+#  direction                       :string           default("inbound")
 #  recipients                      :string           default([]), not null, is an Array
 #  sender                          :string
 #  snippet                         :text
@@ -16,27 +17,29 @@
 #
 # Indexes
 #
-#  index_emails_on_recipients  (recipients) USING gin
-#  index_emails_on_sender      (sender)
+#  index_emails_on_delivered_at_date  (delivered_at_date)
+#  index_emails_on_delivered_at_hour  (date_trunc('hour'::text, delivered_at))
+#  index_emails_on_recipients         (recipients) USING gin
+#  index_emails_on_sender             (sender)
 #
 class Email < ApplicationRecord
   # extends ...................................................................
   # includes ..................................................................
 
   # relationships .............................................................
-  has_and_belongs_to_many :users
+  has_many :email_users
+  has_many :users, through: :email_users
 
   # validations ...............................................................
   validates :delivered_at, presence: true
   validates :recipients, presence: true
   validates :sender, presence: true
-  validates :direction, presence: true
+  validates :direction, presence: true, inclusion: {in: %w[inbound oubound]}
 
   # callbacks .................................................................
   # scopes ....................................................................
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
-  enum direction: {inbound: 0, outbound: 1}
   has_rich_text :body
   has_many_attached :attachments
 
