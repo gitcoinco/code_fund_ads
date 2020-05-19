@@ -240,7 +240,7 @@ ActiveRecord::Schema.define(version: 2020_05_19_191749) do
     t.text "snippet"
     t.text "subject"
     t.bigint "action_mailbox_inbound_email_id", null: false
-    t.string "direction", default: "inbound"
+    t.string "direction", default: "inbound", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index "date_trunc('hour'::text, delivered_at)", name: "index_emails_on_delivered_at_hour"

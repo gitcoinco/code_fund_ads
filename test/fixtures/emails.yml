@@ -6,7 +6,7 @@
 #  body                            :text
 #  delivered_at                    :datetime         not null
 #  delivered_at_date               :date             not null
-#  direction                       :string           default("inbound")
+#  direction                       :string           default("inbound"), not null
 #  recipients                      :string           default([]), not null, is an Array
 #  sender                          :string
 #  snippet                         :text

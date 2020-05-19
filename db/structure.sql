@@ -606,7 +606,7 @@ CREATE TABLE public.emails (
     snippet text,
     subject text,
     action_mailbox_inbound_email_id bigint NOT NULL,
-    direction character varying DEFAULT 'inbound'::character varying,
+    direction character varying DEFAULT 'inbound'::character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );

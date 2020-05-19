@@ -9,7 +9,7 @@ class CreateEmails < ActiveRecord::Migration[6.0]
       t.text :snippet
       t.text :subject
       t.bigint :action_mailbox_inbound_email_id, null: false
-      t.string :direction, default: "inbound"
+      t.string :direction, null: false, default: "inbound"
 
       t.index :sender
       t.index :recipients, using: :gin
