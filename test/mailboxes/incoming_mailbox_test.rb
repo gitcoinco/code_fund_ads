@@ -40,7 +40,7 @@ class IncomingMailboxTest < ActionMailbox::TestCase
     assert inbound_email.mail.from.include?(users(:advertiser).email)
 
     email = Email.find_by(action_mailbox_inbound_email_id: inbound_email.id)
-    assert_equal "inbound", email.direction
+    assert_equal ENUMS::EMAIL_DIRECTIONS::INBOUND, email.direction
     assert_instance_of ActionText::RichText, email.body
     assert_equal "This is the body", email.snippet
     assert_equal "This is the subject", email.subject
@@ -61,7 +61,7 @@ class IncomingMailboxTest < ActionMailbox::TestCase
     assert inbound_email.mail.from.include?(users(:publisher).email)
 
     email = Email.find_by(action_mailbox_inbound_email_id: inbound_email.id)
-    assert_equal "inbound", email.direction
+    assert_equal ENUMS::EMAIL_DIRECTIONS::INBOUND, email.direction
     assert_instance_of ActionText::RichText, email.body
     assert_equal "This is the body", email.snippet
     assert_equal "This is the subject", email.subject
@@ -98,7 +98,7 @@ class IncomingMailboxTest < ActionMailbox::TestCase
     assert inbound_email.mail.from.include?(users(:administrator).email)
 
     email = Email.find_by(action_mailbox_inbound_email_id: inbound_email.id)
-    assert_equal "outbound", email.direction
+    assert_equal ENUMS::EMAIL_DIRECTIONS::OUTBOUND, email.direction
     assert_instance_of ActionText::RichText, email.body
     assert_equal "This is the body", email.snippet
     assert_equal "This is the subject", email.subject
@@ -107,24 +107,29 @@ class IncomingMailboxTest < ActionMailbox::TestCase
   end
 
   test "send mail when recipient is an advertiser" do
+    advertiser = users(:advertiser)
+    administrator = users(:administrator)
+
     receive_inbound_email_from_mail \
-      to: users(:advertiser).email,
-      from: users(:administrator).email,
+      to: advertiser.email,
+      from: administrator.email,
       subject: "This is the subject",
       body: "This is the body"
 
     inbound_email = ActionMailbox::InboundEmail.last
     assert_equal "delivered", inbound_email.status
-    assert inbound_email.mail.to.include?(users(:advertiser).email)
-    assert inbound_email.mail.from.include?(users(:administrator).email)
+    assert inbound_email.mail.to.include?(advertiser.email)
+    assert inbound_email.mail.from.include?(administrator.email)
 
     email = Email.find_by(action_mailbox_inbound_email_id: inbound_email.id)
-    assert_equal "outbound", email.direction
+    assert_equal "outbound", ENUMS::EMAIL_DIRECTIONS::OUTBOUND
     assert_instance_of ActionText::RichText, email.body
     assert_equal "This is the body", email.snippet
     assert_equal "This is the subject", email.subject
-    assert_equal [users(:advertiser).email], email.recipients
-    assert_equal users(:administrator).email, email.sender
+    assert_equal [advertiser.email], email.recipients
+    assert_equal administrator.email, email.sender
+    assert email.users.include?(advertiser)
+    assert email.users.include?(administrator)
   end
 
   test "receive mail when recipient is a publisher but sender does not have flag enabled" do

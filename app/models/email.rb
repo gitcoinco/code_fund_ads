@@ -34,7 +34,7 @@ class Email < ApplicationRecord
   validates :delivered_at, presence: true
   validates :recipients, presence: true
   validates :sender, presence: true
-  validates :direction, presence: true, inclusion: {in: %w[inbound oubound]}
+  validates :direction, presence: true, inclusion: {in: ENUMS::EMAIL_DIRECTIONS.values}
 
   # callbacks .................................................................
   # scopes ....................................................................
@@ -48,6 +48,10 @@ class Email < ApplicationRecord
   # public instance methods ...................................................
   def participant_addresses
     [sender, recipients].flatten.compact.sort
+  end
+
+  def participant_users
+    User.where(email: participant_addresses)
   end
 
   def sending_user

@@ -25,7 +25,9 @@ class IncomingMailbox < ApplicationMailbox
 
     return unless email.persisted?
 
-    email.users = User.where(email: email.participant_addresses)
+    email.participant_users.each do |user|
+      EmailUser.where(user_id: user.id, email_id: email.id).first_or_create
+    end
   end
 
   private
@@ -40,7 +42,7 @@ class IncomingMailbox < ApplicationMailbox
   end
 
   def direction
-    User.administrators.exists?(email: mail.from) ? :outbound : :inbound
+    User.administrators.exists?(email: mail.from) ? ENUMS::EMAIL_DIRECTIONS::OUTBOUND : ENUMS::EMAIL_DIRECTIONS::INBOUND
   end
 
   def attachments
