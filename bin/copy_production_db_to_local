@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-./bin/source_env
+source .env
 export RAILS_ENV=development
-bundle exec rails db:migrate db:drop db:create
+bundle exec rails db:drop db:create
 ./bin/heroku_pg_dump_production_replica
-pg_restore -U $PG_USERNAME --verbose --clean --no-acl --no-owner -h localhost -d code_fund_ads_development tmp/production-shallow.dump
+pg_restore -U $PG_USERNAME --verbose --clean --no-acl --no-owner -h localhost -d code_fund_ads_development ./tmp/production-shallow.dump
 bundle exec rails db:migrate
 ./bin/generate_db_artifacts
