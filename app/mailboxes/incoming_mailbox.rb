@@ -8,7 +8,7 @@ class IncomingMailbox < ApplicationMailbox
     delivered_at = begin
                      DateTime.parse(mail.raw_source.match(%r{Date: (.*)\r\n})[1])
                    rescue
-                     action_mailbox_inbound_email.created_at
+                     inbound_email.created_at
                    end
 
     email = Email.create! \
