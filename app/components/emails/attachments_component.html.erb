@@ -1,0 +1,7 @@
+<% if render? %>
+  <div class="email-attachments p-1">
+    <% blobs.each do |blob| %>
+      <%= render Emails::AttachmentComponent.new(blob: blob) %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,31 +1,6 @@
-<%= render(PageComponent.new(subject: @user, sidebar: false)) do |component| %>
-  <% component.with(:header) do %>
-    <%= render(Page::HeaderComponent.new(
-          title: @user&.name,
-          subtitle: @user.email,
-          back_link: BackLinkComponent.new(title: "Emails", link: user_emails_path(current_user)),
-          sidebar: true, buttons: [
-            layout_button(link: edit_user_path(@user), icon: "fad fa-pencil", title: "Edit user"),
-            layout_button(link: user_impersonation_path(@user), method: :put, icon: "fad fa-mask", title: "Masquerade as user", admin: true)
-          ])) %>
-  <% end %>
-  <% component.with(:body) do %>
-    <%= render CardComponent.new(classes: "trix-email-preview") do %>
-      <%= render ListGroupComponent.new(bordered: true, flush: true, messages: true) do %>
-        <%= render ListGroup::ItemComponent.new(classes: "unread") do %>
-          <div class="list-group-item-body pl-md-2">
-            <h4 class="list-group-item-title text-truncate">
-              <%= @email.sender %>
-            </h4>
-            <p class="list-group-item-text"><%= @email.delivered_at %></p>
-          </div>
-        <% end %>
-        <div class="list-group-item unread">
-          <div class="list-group-item-body pl-md-2">
-            <%= @email.body %>
-          </div>
-        </div>
-      <% end %>
-    <% end %>
-  <% end %>
-<% end %>
+<div class="page">
+  <div class="page-inner" data-controller="auto-height">
+    <%= render BackLinkComponent.new(title: "Emails", link: user_emails_path(@user)) %>
+    <%= render EmailComponent.new(email: @email) %>
+  </div>
+</div>

@@ -67,7 +67,7 @@ COMMENT ON EXTENSION tablefunc IS 'functions that manipulate whole tables, inclu
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
+SET default_table_access_method = heap;
 
 --
 -- Name: action_mailbox_inbound_emails; Type: TABLE; Schema: public; Owner: -
@@ -563,6 +563,75 @@ ALTER SEQUENCE public.daily_summaries_id_seq OWNED BY public.daily_summaries.id;
 
 
 --
+-- Name: email_users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.email_users (
+    id bigint NOT NULL,
+    email_id bigint NOT NULL,
+    user_id bigint NOT NULL
+);
+
+
+--
+-- Name: email_users_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.email_users_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: email_users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.email_users_id_seq OWNED BY public.email_users.id;
+
+
+--
+-- Name: emails; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.emails (
+    id bigint NOT NULL,
+    body text,
+    delivered_at timestamp without time zone NOT NULL,
+    delivered_at_date date NOT NULL,
+    recipients character varying[] DEFAULT '{}'::character varying[] NOT NULL,
+    sender character varying,
+    snippet text,
+    subject text,
+    action_mailbox_inbound_email_id bigint NOT NULL,
+    direction character varying DEFAULT 'inbound'::character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: emails_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.emails_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: emails_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.emails_id_seq OWNED BY public.emails.id;
+
+
+--
 -- Name: events; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -663,53 +732,6 @@ CREATE TABLE public.impressions_default (
     uplift boolean DEFAULT false
 );
 ALTER TABLE ONLY public.impressions ATTACH PARTITION public.impressions_default DEFAULT;
-
-
---
--- Name: inbound_emails; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.inbound_emails (
-    id bigint NOT NULL,
-    action_mailbox_inbound_email_id bigint NOT NULL,
-    sender character varying NOT NULL,
-    recipients text[] DEFAULT '{}'::text[] NOT NULL,
-    subject text,
-    snippet text,
-    body text,
-    delivered_at timestamp without time zone NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
--- Name: inbound_emails_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE public.inbound_emails_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: inbound_emails_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE public.inbound_emails_id_seq OWNED BY public.inbound_emails.id;
-
-
---
--- Name: inbound_emails_users; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.inbound_emails_users (
-    inbound_email_id bigint NOT NULL,
-    user_id bigint NOT NULL
-);
 
 
 --
@@ -1569,17 +1591,24 @@ ALTER TABLE ONLY public.daily_summaries ALTER COLUMN id SET DEFAULT nextval('pub
 
 
 --
+-- Name: email_users id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.email_users ALTER COLUMN id SET DEFAULT nextval('public.email_users_id_seq'::regclass);
+
+
+--
+-- Name: emails id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.emails ALTER COLUMN id SET DEFAULT nextval('public.emails_id_seq'::regclass);
+
+
+--
 -- Name: events id; Type: DEFAULT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.events ALTER COLUMN id SET DEFAULT nextval('public.events_id_seq'::regclass);
-
-
---
--- Name: inbound_emails id; Type: DEFAULT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.inbound_emails ALTER COLUMN id SET DEFAULT nextval('public.inbound_emails_id_seq'::regclass);
 
 
 --
@@ -1763,19 +1792,27 @@ ALTER TABLE ONLY public.daily_summaries
 
 
 --
+-- Name: email_users email_users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.email_users
+    ADD CONSTRAINT email_users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: emails emails_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.emails
+    ADD CONSTRAINT emails_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: events events_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.events
     ADD CONSTRAINT events_pkey PRIMARY KEY (id);
-
-
---
--- Name: inbound_emails inbound_emails_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.inbound_emails
-    ADD CONSTRAINT inbound_emails_pkey PRIMARY KEY (id);
 
 
 --
@@ -2415,6 +2452,41 @@ CREATE UNIQUE INDEX index_daily_summaries_unscoped_uniqueness ON public.daily_su
 
 
 --
+-- Name: index_email_users_on_email_id_and_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_email_users_on_email_id_and_user_id ON public.email_users USING btree (email_id, user_id);
+
+
+--
+-- Name: index_emails_on_delivered_at_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_emails_on_delivered_at_date ON public.emails USING btree (delivered_at_date);
+
+
+--
+-- Name: index_emails_on_delivered_at_hour; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_emails_on_delivered_at_hour ON public.emails USING btree (date_trunc('hour'::text, delivered_at));
+
+
+--
+-- Name: index_emails_on_recipients; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_emails_on_recipients ON public.emails USING gin (recipients);
+
+
+--
+-- Name: index_emails_on_sender; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_emails_on_sender ON public.emails USING btree (sender);
+
+
+--
 -- Name: index_events_on_eventable_id_and_eventable_type; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2426,20 +2498,6 @@ CREATE INDEX index_events_on_eventable_id_and_eventable_type ON public.events US
 --
 
 CREATE INDEX index_events_on_user_id ON public.events USING btree (user_id);
-
-
---
--- Name: index_inbound_emails_users_on_inbound_email_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_inbound_emails_users_on_inbound_email_id ON public.inbound_emails_users USING btree (inbound_email_id);
-
-
---
--- Name: index_inbound_emails_users_on_user_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_inbound_emails_users_on_user_id ON public.inbound_emails_users USING btree (user_id);
 
 
 --
@@ -3122,4 +3180,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200505193112'),
 ('20200505203735'),
 ('20200507164638'),
-('20200511174710');
+('20200511174710'),
+('20200513193432'),
+('20200513210427'),
+('20200519191749');
+
+

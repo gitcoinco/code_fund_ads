@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_11_174710) do
+ActiveRecord::Schema.define(version: 2020_05_19_191749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -225,6 +225,30 @@ ActiveRecord::Schema.define(version: 2020_05_11_174710) do
     t.index ["scoped_by_type", "scoped_by_id"], name: "index_daily_summaries_on_scoped_by_columns"
   end
 
+  create_table "email_users", force: :cascade do |t|
+    t.bigint "email_id", null: false
+    t.bigint "user_id", null: false
+    t.index ["email_id", "user_id"], name: "index_email_users_on_email_id_and_user_id", unique: true
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.text "body"
+    t.datetime "delivered_at", null: false
+    t.date "delivered_at_date", null: false
+    t.string "recipients", default: [], null: false, array: true
+    t.string "sender"
+    t.text "snippet"
+    t.text "subject"
+    t.bigint "action_mailbox_inbound_email_id", null: false
+    t.string "direction", default: "inbound", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index "date_trunc('hour'::text, delivered_at)", name: "index_emails_on_delivered_at_hour"
+    t.index ["delivered_at_date"], name: "index_emails_on_delivered_at_date"
+    t.index ["recipients"], name: "index_emails_on_recipients", using: :gin
+    t.index ["sender"], name: "index_emails_on_sender"
+  end
+
   create_table "events", force: :cascade do |t|
     t.bigint "eventable_id", null: false
     t.string "eventable_type", null: false
@@ -321,25 +345,6 @@ ActiveRecord::Schema.define(version: 2020_05_11_174710) do
     t.index ["property_id"], name: "impressions_default_property_id_idx"
     t.index ["province_code"], name: "impressions_default_province_code_idx"
     t.index ["uplift"], name: "impressions_default_uplift_idx"
-  end
-
-  create_table "inbound_emails", force: :cascade do |t|
-    t.bigint "action_mailbox_inbound_email_id", null: false
-    t.string "sender", null: false
-    t.text "recipients", default: [], null: false, array: true
-    t.text "subject"
-    t.text "snippet"
-    t.text "body"
-    t.datetime "delivered_at", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "inbound_emails_users", id: false, force: :cascade do |t|
-    t.bigint "inbound_email_id", null: false
-    t.bigint "user_id", null: false
-    t.index ["inbound_email_id"], name: "index_inbound_emails_users_on_inbound_email_id"
-    t.index ["user_id"], name: "index_inbound_emails_users_on_user_id"
   end
 
   create_table "job_postings", force: :cascade do |t|

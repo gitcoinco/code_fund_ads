@@ -1,0 +1,23 @@
+<%= render ListGroup::ItemComponent.new do %>
+  <div class="btn-account">
+    <% if sender %>
+      <div class="list-group-item-figure">
+        <%= render(AvatarComponent.new(user: sender, size: "lg")) %>
+      </div>
+    <% end %>
+    <ul class="list-unstyled">
+      <li><%= render Emails::MessageViewerComponent.new(email: email.sender, bold: true) %></li>
+      <li>
+        <span class="text-muted">To:</span>
+        <%= email.recipients.map { |recipient| render Emails::MessageViewerComponent.new(email: recipient) }.join(", ").html_safe %>
+      </li>
+      <li>
+        <span class="text-muted">Subject:</span>
+        <%= tag.span email.subject, class: "font-weight-bold" %>
+      </li>
+    </ul>
+  </div>
+  <div class="ml-auto">
+    <div class="d-inline-block"><%= tag.span delivered_at.localtime.to_s("mdh"), class: "text-muted" %></div>
+  </div>
+<% end %>

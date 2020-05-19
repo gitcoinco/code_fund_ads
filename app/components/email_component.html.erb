@@ -1,0 +1,7 @@
+<%= render CardComponent.new(classes: "trix-email-preview") do %>
+  <%= render ListGroupComponent.new(bordered: true, flush: true, messages: true) do %>
+    <%= render Emails::HeaderComponent.new(email: email) %>
+    <%= render Emails::AttachmentsComponent.new(blobs: email.attachments.blobs) %>
+    <%= render Emails::BodyComponent.new(body: email.body) %>
+  <% end %>
+<% end %>

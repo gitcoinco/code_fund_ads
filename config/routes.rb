@@ -65,6 +65,8 @@ Rails.application.routes.draw do
   resources :comments, only: [:create, :destroy]
   resources :audiences, only: [:index]
 
+  resources :emails, only: [:index, :show], path: "/inbox"
+
   resources :campaign_bundles, only: [:new, :create, :index, :show]
   resources :campaigns
   scope "/campaigns/:campaign_id" do

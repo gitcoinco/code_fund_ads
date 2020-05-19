@@ -1,0 +1,5 @@
+<%= link_to rails_blob_path(blob, disposition: "attachment"), class: "email-attachment" do %>
+  <i class="fas fa-download text-muted"></i>
+  <%= tag.span blob.filename, class: "text-dark" %>
+  <%= tag.span number_to_human_size(blob.byte_size), class: "text-muted" %>
+<% end %>

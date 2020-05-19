@@ -1,4 +1,4 @@
-class UserEmailsController < ApplicationController
+class EmailsController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_view!
   before_action :set_user
@@ -7,10 +7,6 @@ class UserEmailsController < ApplicationController
   def index
     emails = @user.emails.order(delivered_at: :desc)
     @pagy, @emails = pagy(emails)
-  end
-
-  def show
-    @sender = User.find_by(email: @email.sender)
   end
 
   private

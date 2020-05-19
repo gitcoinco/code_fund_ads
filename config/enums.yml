@@ -110,6 +110,10 @@ CREATIVE_STATUSES:
   - active
   - archived
 
+EMAIL_DIRECTIONS:
+  - inbound
+  - outbound
+
 PROPERTY_TYPES:
   - website
   - repository

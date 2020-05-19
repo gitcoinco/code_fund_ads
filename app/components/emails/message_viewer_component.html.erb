@@ -1,0 +1,8 @@
+<span class="message-viewer">
+  <% if user %>
+    <%= link_to user.name, user, class: classes %>
+    &lt;<%= email %>&gt;
+  <% else %>
+    <%= tag.span email, class: classes %>
+  <% end %>
+</span>

@@ -5,34 +5,44 @@ class IncomingMailbox < ApplicationMailbox
   before_processing :verify_participants
 
   def process
-    email = InboundEmail.create! \
+    delivered_at = begin
+                     DateTime.parse(mail.raw_source.match(%r{Date: (.*)\r\n})[1])
+                   rescue
+                     action_mailbox_inbound_email.created_at
+                   end
+
+    email = Email.create! \
       action_mailbox_inbound_email_id: inbound_email.id,
       sender: mail.from.first,
       recipients: (mail.to.to_a + mail.cc.to_a).uniq.compact.sort,
       subject: mail.subject,
       snippet: snippet,
       body: body,
-      delivered_at: (begin
-                       DateTime.parse(mail.raw_source.match(%r{Date: (.*)\r\n})[1])
-                     rescue
-                       action_mailbox_inbound_email.created_at
-                     end),
+      direction: direction,
+      delivered_at: delivered_at,
+      delivered_at_date: delivered_at,
       attachments: attachments.map { |a| a[:blob] }
 
     return unless email.persisted?
 
-    email.users = User.where(email: email.participant_addresses)
+    email.participant_users.each do |user|
+      EmailUser.where(user_id: user.id, email_id: email.id).first_or_create
+    end
   end
 
   private
 
   # Only allow inbound emails with the following criteria:
-  # 1. Sender must be either a publisher or advertiser
-  # 2. Recipient must be a CodeFund administrator
-  # 3. Recipient must have the 'record_inbound_emails' flag set to true
+  # 1. Sender or recipient must be either a publisher or advertiser
+  # 2. Sender or recipient must include a CodeFund administrator with `record_inbound_emails` enabled
   def verify_participants
-    return bounced! unless User.administrators.find_by(email: mail.to)&.record_inbound_emails?
-    return bounced! if !User.advertisers.exists?(email: mail.from) && !User.publishers.exists?(email: mail.from)
+    recipients = (mail.to.to_a + mail.cc.to_a + [mail.from]).flatten.compact.uniq
+    return bounced! unless User.non_administrators.exists?(email: recipients)
+    return bounced! unless User.administrators.where(record_inbound_emails: true).exists?(email: recipients)
+  end
+
+  def direction
+    User.administrators.exists?(email: mail.from) ? ENUMS::EMAIL_DIRECTIONS::OUTBOUND : ENUMS::EMAIL_DIRECTIONS::INBOUND
   end
 
   def attachments
