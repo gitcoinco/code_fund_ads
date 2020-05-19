@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+source .env
+
 # Requirements
 # - Database environment variables
 #   * METABASE_URL
