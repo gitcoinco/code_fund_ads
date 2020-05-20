@@ -1,4 +1,6 @@
 class DemosController < ApplicationController
+  before_action :load_campaigns
+
   layout "demo"
   helper_method :position
   ABSOLUTE = ["bottom-bar", "top-bar", "smart-bar", "sticky-box"]
@@ -28,5 +30,15 @@ class DemosController < ApplicationController
 
   def demo_params
     params.permit(:template, :theme, :campaign_id)
+  end
+
+  def load_campaigns
+    @campaigns = if authorized_user&.can_admin_system?
+      Campaign.all.order(name: :asc)
+    elsif current_user&.campaigns
+      current_user.campaigns.order(name: :asc)
+    else
+      []
+    end
   end
 end

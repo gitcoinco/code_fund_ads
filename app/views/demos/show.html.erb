@@ -8,28 +8,30 @@
   </script>
 <% end %>
 <%= tag.div(id: "codefund") if position&.inquiry&.absolute? %>
-<div class="row p-4" data-controller="ad-demo">
-  <%= form_with url: demo_path, method: :put, html: {data: {target: "ad-demo.form"}, class: "w-100"} do |form| %>
-    <div class="col-md-6 offset-md-3 mb-md-2">
-      <label class="form-label select" for="ad_demo_template">Template:</label>
-      <%= form.collection_select(:template, ENUMS::AD_TEMPLATES.values, :to_s, :to_s, {selected: @template}, {
-            class: "form-control custom-select", id: "ad_demo_template",
-            data: {action: "change->ad-demo#update", controller: "select", target: "ad-demo.templateSelect"}}) %>
-    </div>
-    <div class="col-md-6 offset-md-3 mb-md-2">
-      <label class="form-label select" for="ad_demo_theme">Theme:</label>
-      <%= form.collection_select(:theme, ENUMS::AD_THEMES.values, :to_s, :to_s, {selected: @theme}, {
-            class: "form-control custom-select", id: "ad_demo_theme",
-            data: {action: "change->ad-demo#update", controller: "select", target: "ad-demo.themeSelect"}}) %>
-    </div>
-    <% if current_user && current_user.campaigns.present? %>
-      <div class="col-md-6 offset-md-3">
-        <label class="form-label select" for="ad_demo_theme">Campaign:</label>
-        <%= form.collection_select(:campaign_id, current_user.campaigns, :id, :to_s, {selected: @campaign_id}, {
-              class: "form-control custom-select", id: "ad_demo_campaign_id",
-              data: {action: "change->ad-demo#update", controller: "select", target: "ad-demo.campaignIdSelect"}}) %>
+<div class="container p-4" data-controller="ad-demo">
+  <%= form_with url: demo_path, method: :put, html: {data: {target: "ad-demo.form"}} do |form| %>
+    <div class="row">
+      <div class="col-sm">
+        <label class="form-label select" for="ad_demo_template">Template:</label>
+        <%= form.collection_select(:template, ENUMS::AD_TEMPLATES.values, :to_s, :to_s, {selected: @template}, {
+              class: "form-control custom-select", id: "ad_demo_template",
+              data: {action: "change->ad-demo#update", controller: "select", target: "ad-demo.templateSelect"}}) %>
       </div>
-    <% end %>
+      <div class="col-sm">
+        <label class="form-label select" for="ad_demo_theme">Theme:</label>
+        <%= form.collection_select(:theme, ENUMS::AD_THEMES.values, :to_s, :to_s, {selected: @theme}, {
+              class: "form-control custom-select", id: "ad_demo_theme",
+              data: {action: "change->ad-demo#update", controller: "select", target: "ad-demo.themeSelect"}}) %>
+      </div>
+      <% if @campaigns.present? %>
+        <div class="col-sm">
+          <label class="form-label select" for="ad_demo_theme">Campaign:</label>
+          <%= form.collection_select(:campaign_id, @campaigns, :id, :to_s, {selected: @campaign_id}, {
+                class: "form-control custom-select", id: "ad_demo_campaign_id",
+                data: {action: "change->ad-demo#update", controller: "select", target: "ad-demo.campaignIdSelect"}}) %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
 </div>
 <div class="<%= @theme.inquiry.dark? ? "bg-dark text-white" : "bg-white" %> vw-100 pt-4">

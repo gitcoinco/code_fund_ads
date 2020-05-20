@@ -50,3 +50,4 @@ lib/tasks/impressions.rake
 .vscode
 stats.json
 *.tmp
+*.log
