@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:sgid, :body)
+    params.require(:comment).permit(:sgid, :body, :content)
   end
 
   def authorize_create!

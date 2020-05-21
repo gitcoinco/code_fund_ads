@@ -50,6 +50,7 @@ class Comment < ActiveRecord::Base
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   acts_as_nested_set scope: [:commentable_id, :commentable_type]
+  has_rich_text :content
 
   # class methods .............................................................
   class << self
