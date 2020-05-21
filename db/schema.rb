@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_19_191749) do
+ActiveRecord::Schema.define(version: 2020_05_21_213149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -243,6 +243,8 @@ ActiveRecord::Schema.define(version: 2020_05_19_191749) do
     t.string "direction", default: "inbound", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "in_reply_to"
+    t.string "message_id"
     t.index "date_trunc('hour'::text, delivered_at)", name: "index_emails_on_delivered_at_hour"
     t.index ["delivered_at_date"], name: "index_emails_on_delivered_at_date"
     t.index ["recipients"], name: "index_emails_on_recipients", using: :gin

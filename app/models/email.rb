@@ -7,6 +7,7 @@
 #  delivered_at                    :datetime         not null
 #  delivered_at_date               :date             not null
 #  direction                       :string           default("inbound"), not null
+#  in_reply_to                     :string
 #  recipients                      :string           default([]), not null, is an Array
 #  sender                          :string
 #  snippet                         :text
@@ -14,11 +15,14 @@
 #  created_at                      :datetime         not null
 #  updated_at                      :datetime         not null
 #  action_mailbox_inbound_email_id :bigint           not null
+#  message_id                      :string
+#  parent_id                       :bigint
 #
 # Indexes
 #
 #  index_emails_on_delivered_at_date  (delivered_at_date)
 #  index_emails_on_delivered_at_hour  (date_trunc('hour'::text, delivered_at))
+#  index_emails_on_parent_id          (parent_id)
 #  index_emails_on_recipients         (recipients) USING gin
 #  index_emails_on_sender             (sender)
 #
@@ -35,11 +39,13 @@ class Email < ApplicationRecord
   validates :recipients, presence: true
   validates :sender, presence: true
   validates :direction, presence: true, inclusion: {in: ENUMS::EMAIL_DIRECTIONS.values}
+  validates :message_id, presence: true, uniqueness: true
 
   # callbacks .................................................................
   # scopes ....................................................................
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
+  has_closure_tree # see https://github.com/ClosureTree/closure_tree#accessing-data
   has_rich_text :body
   has_many_attached :attachments
 
@@ -56,6 +62,10 @@ class Email < ApplicationRecord
 
   def sending_user
     @sender ||= User.find_by(email: sender)
+  end
+
+  def inbound_email
+    ActionMailbox::InboundEmail.find_by(id: action_mailbox_inbound_email_id)
   end
 
   # protected instance methods ................................................

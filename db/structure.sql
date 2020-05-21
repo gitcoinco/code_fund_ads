@@ -10,6 +10,13 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: hdb_views; Type: SCHEMA; Schema: -; Owner: -
+--
+
+CREATE SCHEMA hdb_views;
+
+
+--
 -- Name: pg_stat_statements; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -212,8 +219,8 @@ ALTER SEQUENCE public.active_storage_blobs_id_seq OWNED BY public.active_storage
 CREATE TABLE public.ar_internal_metadata (
     key character varying NOT NULL,
     value character varying,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
 );
 
 
@@ -522,9 +529,9 @@ CREATE TABLE public.daily_summaries (
     scoped_by_id character varying,
     impressions_count integer DEFAULT 0 NOT NULL,
     fallbacks_count integer DEFAULT 0 NOT NULL,
-    fallback_percentage numeric DEFAULT 0.0 NOT NULL,
+    fallback_percentage numeric DEFAULT 0 NOT NULL,
     clicks_count integer DEFAULT 0 NOT NULL,
-    click_rate numeric DEFAULT 0.0 NOT NULL,
+    click_rate numeric DEFAULT 0 NOT NULL,
     ecpm_cents integer DEFAULT 0 NOT NULL,
     ecpm_currency character varying DEFAULT 'USD'::character varying NOT NULL,
     cost_per_click_cents integer DEFAULT 0 NOT NULL,
@@ -560,6 +567,17 @@ CREATE SEQUENCE public.daily_summaries_id_seq
 --
 
 ALTER SEQUENCE public.daily_summaries_id_seq OWNED BY public.daily_summaries.id;
+
+
+--
+-- Name: email_hierarchies; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.email_hierarchies (
+    ancestor_id bigint NOT NULL,
+    descendant_id bigint NOT NULL,
+    generations integer NOT NULL
+);
 
 
 --
@@ -608,7 +626,10 @@ CREATE TABLE public.emails (
     action_mailbox_inbound_email_id bigint NOT NULL,
     direction character varying DEFAULT 'inbound'::character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    in_reply_to character varying,
+    message_id character varying,
+    parent_id bigint
 );
 
 
@@ -694,8 +715,8 @@ CREATE TABLE public.impressions (
     ad_template character varying,
     ad_theme character varying,
     organization_id bigint,
-    province_code character varying,
-    uplift boolean DEFAULT false
+    uplift boolean DEFAULT false,
+    province_code character varying
 )
 PARTITION BY RANGE (advertiser_id, displayed_at_date);
 
@@ -728,8 +749,8 @@ CREATE TABLE public.impressions_default (
     ad_template character varying,
     ad_theme character varying,
     organization_id bigint,
-    province_code character varying,
-    uplift boolean DEFAULT false
+    uplift boolean DEFAULT false,
+    province_code character varying
 );
 ALTER TABLE ONLY public.impressions ATTACH PARTITION public.impressions_default DEFAULT;
 
@@ -1106,8 +1127,7 @@ ALTER SEQUENCE public.property_traffic_estimates_id_seq OWNED BY public.property
 CREATE TABLE public.publisher_invoices (
     id bigint NOT NULL,
     user_id bigint NOT NULL,
-    amount_cents integer DEFAULT 0 NOT NULL,
-    amount_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    amount money NOT NULL,
     currency character varying NOT NULL,
     start_date date NOT NULL,
     end_date date NOT NULL,
@@ -1920,6 +1940,20 @@ ALTER TABLE ONLY public.versions
 
 
 --
+-- Name: email_anc_desc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX email_anc_desc_idx ON public.email_hierarchies USING btree (ancestor_id, descendant_id, generations);
+
+
+--
+-- Name: email_desc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX email_desc_idx ON public.email_hierarchies USING btree (descendant_id);
+
+
+--
 -- Name: index_impressions_on_ad_template; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2473,6 +2507,13 @@ CREATE INDEX index_emails_on_delivered_at_hour ON public.emails USING btree (dat
 
 
 --
+-- Name: index_emails_on_parent_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_emails_on_parent_id ON public.emails USING btree (parent_id);
+
+
+--
 -- Name: index_emails_on_recipients; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2844,13 +2885,6 @@ CREATE INDEX index_publisher_invoices_on_end_date ON public.publisher_invoices U
 
 
 --
--- Name: index_publisher_invoices_on_paid_at; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_publisher_invoices_on_paid_at ON public.publisher_invoices USING btree (paid_at);
-
-
---
 -- Name: index_publisher_invoices_on_start_date; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3183,6 +3217,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200511174710'),
 ('20200513193432'),
 ('20200513210427'),
-('20200519191749');
+('20200519191749'),
+('20200521213149'),
+('20200521230331');
 
 
