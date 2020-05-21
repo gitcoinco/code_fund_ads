@@ -92,6 +92,16 @@ administrator:
   encrypted_password: <%= User.new(password: "secret").encrypted_password %>
   record_inbound_emails: true
 
+administrator_2:
+  organization: default
+  roles:
+    - <%= ENUMS::USER_ROLES::ADMINISTRATOR %>
+  first_name: Test
+  last_name: Administrator
+  email: administrator2@codefund.io
+  encrypted_password: <%= User.new(password: "secret").encrypted_password %>
+  record_inbound_emails: true
+
 publisher:
   organization: default
   roles:

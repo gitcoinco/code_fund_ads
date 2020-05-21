@@ -147,4 +147,20 @@ class IncomingMailboxTest < ActionMailbox::TestCase
 
     refute Email.find_by(action_mailbox_inbound_email_id: inbound_email.id)
   end
+
+  test "receive mail when sender and recipients are the only participants" do
+    admin_1 = users(:administrator)
+    admin_2 = users(:administrator_2)
+
+    receive_inbound_email_from_mail \
+      to: admin_2.email,
+      from: admin_1.email,
+      subject: "This is the subject",
+      body: "This is the body"
+
+    inbound_email = ActionMailbox::InboundEmail.last
+    assert_equal "bounced", inbound_email.status
+
+    refute Email.find_by(action_mailbox_inbound_email_id: inbound_email.id)
+  end
 end
