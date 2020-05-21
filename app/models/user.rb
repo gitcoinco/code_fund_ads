@@ -120,7 +120,7 @@ class User < ApplicationRecord
   scope :advertisers, -> { with_all_roles ENUMS::USER_ROLES::ADVERTISER }
   scope :publishers, -> { with_all_roles ENUMS::USER_ROLES::PUBLISHER }
   scope :account_managers, -> { with_all_roles ENUMS::USER_ROLES::ACCOUNT_MANAGER }
-  scope :non_administrators, -> { with_any_roles(ENUMS::USER_ROLES::ADVERTISER, ENUMS::USER_ROLES::PUBLISHER, ENUMS::USER_ROLES::ACCOUNT_MANAGER) }
+  scope :non_administrators, -> { without_any_roles ENUMS::USER_ROLES::ADMINISTRATOR }
   scope :search_company, ->(value) { value.blank? ? all : search_column(:company_name, value) }
   scope :search_organization, ->(value) { value.blank? ? all : where(organization_id: value) }
   scope :search_email, ->(value) { value.blank? ? all : search_column(:email, value) }
