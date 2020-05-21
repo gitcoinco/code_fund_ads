@@ -58,12 +58,13 @@ class Comment < ActiveRecord::Base
     alias for_commentable find_comments_for_commentable
 
     # Helper class method that allows you to build a comment
-    # by passing a commentable object, a user_id, and comment text
+    # by passing a commentable object, a user_id, and ActionText content
     # example in readme
-    def build_from(obj, user_id, comment)
+    def build_from(obj, user_id, content)
       new \
         commentable: obj,
-        body: comment,
+        body: "#",
+        content: content,
         user_id: user_id
     end
 

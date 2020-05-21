@@ -12,7 +12,6 @@ class Comments::CommentComponentTest < ViewComponent::TestCase
     render_inline(Comments::CommentComponent.new(comment: @comment))
     assert_selector(".conversation-inbound")
     assert_selector(".conversation-message")
-    assert_selector(".user-avatar")
     assert_selector(".dropdown")
     assert_text("Test comment.")
   end
