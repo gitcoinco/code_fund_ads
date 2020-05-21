@@ -32,7 +32,7 @@
       <% end %>
       <!-- /Totals Row -->
       <% if @reports.exists? %>
-        <%= render partial: "/campaign_properties/tr", collection: @reports, as: :report %>
+        <%= render partial: "/campaign_properties/tr", locals: {campaign: @campaign}, collection: @reports, as: :report %>
       <% else %>
         <%= render "/shared/no_data_alert" %>
       <% end %>

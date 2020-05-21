@@ -1,11 +1,14 @@
 <% if report.scoped_by %>
-  <%= table_row do %>
+  <%= table_row add_class: campaign.creative_ids.include?(report.scoped_by.id) ? "" : "bg-light" do %>
     <%= table_data do %>
       <span class="fas fa-circle text-<%= status_color(report.scoped_by.status) %>"></span>
     <% end %>
     <%= table_data do %>
       <%= link_to report.scoped_by.name, report.scoped_by %>
       <%= link_to tag.sup("", class: "fa-xs fad fa-external-link"), creative_previews_path(report.scoped_by, template: "square", theme: "light"), target: "_blank", class: "link-muted" %>
+    <% end %>
+    <%= table_data add_class: "text-center" do %>
+      <%= badge_for_boolean campaign.creative_ids.include?(report.scoped_by.id) %>
     <% end %>
     <% if @campaign.standard? %>
       <%= table_data report.gross_revenue.format %>

@@ -130,6 +130,11 @@ module ApplicationHelper
     tag.span count, class: "badge badge-pill badge-success"
   end
 
+  def badge_for_boolean(bool)
+    return tag.span("Yes", class: "badge badge-pill badge-success") if bool
+    tag.span "No", class: "badge badge-pill badge-light"
+  end
+
   def badge_for_role(role, wrap_class: "")
     case role
     when "administrator"

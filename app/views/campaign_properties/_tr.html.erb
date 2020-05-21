@@ -1,4 +1,4 @@
-<%= table_row do %>
+<%= table_row add_class: campaign.prohibited_property_ids.include?(report.scoped_by.id) ? "bg-light" : "" do %>
   <%= table_data do %>
     <div class="d-block text-dark">
       <%= authorized_user.can_admin_system? ? link_to(report.scoped_by.name, report.scoped_by) : report.scoped_by.name %>
