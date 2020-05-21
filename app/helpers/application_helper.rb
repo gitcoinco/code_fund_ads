@@ -130,7 +130,7 @@ module ApplicationHelper
     tag.span count, class: "badge badge-pill badge-success"
   end
 
-  def yes_no_badge(bool)
+  def badge_for_boolean(bool)
     return tag.span("Yes", class: "badge badge-pill badge-success") if bool
     tag.span "No", class: "badge badge-pill badge-light"
   end
