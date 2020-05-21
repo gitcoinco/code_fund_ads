@@ -104,8 +104,6 @@ class DailySummaryReport < ApplicationRecord
 
   # public instance methods ...................................................
 
-  public
-
   def readonly?
     true
   end

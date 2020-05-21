@@ -9,6 +9,8 @@ class ApplicationComponent < ViewComponent::Base
     helpers.authorized_user
   end
 
+  delegate :rich_text_area, to: :helpers
+
   def status_color(status)
     case status.to_sym
     when :archived

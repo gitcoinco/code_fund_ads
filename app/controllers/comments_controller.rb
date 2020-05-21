@@ -6,7 +6,7 @@ class CommentsController < ApplicationController
   before_action :authorize_destroy!, only: :destroy
 
   def create
-    comment = Comment.build_from(@commentable, current_user.id, comment_params[:body])
+    comment = Comment.build_from(@commentable, current_user.id, comment_params[:content])
     comment.save
     redirect_back fallback_location: root_path
   end
@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:sgid, :body)
+    params.require(:comment).permit(:sgid, :content)
   end
 
   def authorize_create!

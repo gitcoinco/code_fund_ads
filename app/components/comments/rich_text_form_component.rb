@@ -1,4 +1,4 @@
-class Comments::FormComponent < ApplicationComponent
+class Comments::RichTextFormComponent < ApplicationComponent
   def initialize(commentable:)
     @commentable = commentable
   end

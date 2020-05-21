@@ -1,5 +1,12 @@
 <%= table_row do %>
-  <%= table_data report.country_short_name, add_class: "text-nowrap" %>
+  <%= table_data add_class: "text-nowrap" do %>
+    <% if report.scoped_by_id.present? %>
+      <%= image_tag "https://www.countryflags.io/#{report.scoped_by_id.downcase}/shiny/24.png", class: "mr-1" %>
+      <%= report.country_name %>
+    <% else %>
+      Unknown
+    <% end %>
+  <% end %>
   <% if @campaign.standard? %>
     <%= table_data report.gross_revenue.format %>
     <%= table_data number_with_delimiter(report.impressions_count) %>

@@ -1,15 +1,15 @@
 require "test_helper"
 
-class Comments::FormComponentTest < ViewComponent::TestCase
+class Comments::RichTextFormComponentTest < ViewComponent::TestCase
   setup do
     Capybara.ignore_hidden_elements = false
     @commentable = organizations(:default)
   end
 
   test "basic comments form component" do
-    render_inline(Comments::FormComponent.new(commentable: @commentable))
+    render_inline(Comments::RichTextFormComponent.new(commentable: @commentable))
     assert_selector("form")
     assert_selector("[name='comment[sgid]']")
-    assert_selector("[name='comment[body]']")
+    assert_selector("[name='comment[content]']")
   end
 end

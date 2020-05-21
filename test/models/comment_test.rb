@@ -29,10 +29,10 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test "#build_from" do
-    comment = Comment.build_from(@commentable, @user.id, "Test comment.")
+    comment = Comment.build_from(@commentable, @user.id, "<div>Test comment.</div>")
     assert_equal @commentable.id, comment.commentable_id
     assert_equal @commentable.class.name, comment.commentable_type
-    assert_equal "Test comment.", comment.body
+    assert_equal ActionText::RichText, comment.content.class
     assert_equal @user.id, comment.user_id
   end
 
