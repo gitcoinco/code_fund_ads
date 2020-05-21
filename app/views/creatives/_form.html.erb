@@ -63,7 +63,7 @@
                     <% Current.organization.icon_images.each do |image| %>
                       <%= tag.option Image.new(image).display_name, value: image.blob_id,
                               data: {image_url: polymorphic_url(image)},
-                              selected: creative.icon_image == image %>
+                              selected: (creative.icon_image || creative.cloned_images[:icon]) == image %>
                     <% end %>
                   </select>
                 </div>
@@ -87,7 +87,7 @@
                     <% Current.organization.small_images.each do |image| %>
                       <%= tag.option Image.new(image).display_name, value: image.blob_id,
                               data: {image_url: polymorphic_url(image)},
-                              selected: creative.small_image == image %>
+                              selected: (creative.small_image || creative.cloned_images[:small]) == image %>
                     <% end %>
                   </select>
                 </div>
@@ -111,7 +111,7 @@
                     <% Current.organization.large_images.each do |image| %>
                       <%= tag.option Image.new(image).display_name, value: image.blob_id,
                               data: {image_url: polymorphic_url(image)},
-                              selected: creative.large_image == image %>
+                              selected: (creative.large_image || creative.cloned_images[:large]) == image %>
                     <% end %>
                   </select>
                 </div>
@@ -135,7 +135,7 @@
                     <% Current.organization.wide_images.each do |image| %>
                       <%= tag.option Image.new(image).display_name, value: image.blob_id,
                               data: {image_url: polymorphic_url(image)},
-                              selected: creative.wide_image == image %>
+                              selected: (creative.wide_image || creative.cloned_images[:wide]) == image %>
                     <% end %>
                   </select>
                 </div>

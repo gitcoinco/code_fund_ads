@@ -75,6 +75,7 @@ class Creative < ApplicationRecord
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   sanitize :headline, :body, :cta
+  attr_writer :cloned_images
 
   # class methods .............................................................
   class << self
@@ -172,6 +173,10 @@ class Creative < ApplicationRecord
     image = organization.images.where(blob_id: blob_id).first
     creative_image.active_storage_attachment_id = image.id
     creative_image.save!
+  end
+
+  def cloned_images
+    @cloned_images || {}
   end
 
   # protected instance methods ................................................

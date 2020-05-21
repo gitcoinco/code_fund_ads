@@ -23,6 +23,12 @@ class CreativesController < ApplicationController
         @creative.attributes = cloned_creative.attributes
         @creative.user = cloned_creative.user
         @creative.status = "pending"
+        @creative.cloned_images = {
+          icon: cloned_creative.icon_image,
+          small: cloned_creative.small_image,
+          large: cloned_creative.large_image,
+          wide: cloned_creative.wide_image
+        }
       end
     end
   end

@@ -42,7 +42,7 @@ class Image
   end
 
   def display_name
-    "#{name} (#{width}x#{height})"
+    "[#{id}] #{name} (#{width}x#{height})"
   end
 
   def image_path
