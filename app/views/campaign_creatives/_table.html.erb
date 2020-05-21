@@ -4,6 +4,7 @@
       <%= table_row header: true do %>
         <%= table_column "", add_style: "width:12px;" %>
         <%= table_column "Creative" %>
+        <%= table_column "Active?", add_class: "text-center" %>
         <% if @campaign.standard? %>
           <%= table_column "Spend" %>
           <%= table_column "Impressions" %>
@@ -17,30 +18,31 @@
       <% end %>
     <% end %>
     <%= table_body do %>
-      <!-- Totals Row -->
-      <% if @summary %>
-        <%= table_row do %>
-          <%= table_data "" %>
-          <%= table_data do %><strong>Totals</strong><% end %>
-          <% if @campaign.standard? %>
-            <%= table_data @summary.gross_revenue.format %>
-            <%= table_data number_with_delimiter(@summary.impressions_count) %>
-          <% end %>
-          <%= table_data number_with_delimiter(@summary.clicks_count) %>
-          <% if @campaign.standard? %>
-            <%= table_data number_to_percentage(@summary.click_rate, precision: 2) %>
-            <%= table_data number_with_delimiter(@summary.cpm.format) %>
-            <%= table_data number_with_delimiter(@summary.cpc.format) %>
-          <% end %>
-        <% end %>
-      <% end %>
-      <!-- /Totals Row -->
       <% if @reports.exists? %>
-        <%= render partial: "/campaign_creatives/tr", collection: @reports, as: :report %>
+        <%= render partial: "/campaign_creatives/tr", locals: {campaign: @campaign}, collection: @reports, as: :report %>
       <% else %>
         <%= render "/shared/no_data_alert" %>
       <% end %>
     <% end %>
+    <!-- Totals Row -->
+    <% if @summary %>
+      <%= table_footer do %>
+        <%= table_row do %>
+          <%= table_data "Totals", colspan: 3, add_class: "font-weight-bold" %>
+          <% if @campaign.standard? %>
+            <%= table_data @summary.gross_revenue.format, add_class: "font-weight-bold" %>
+            <%= table_data number_with_delimiter(@summary.impressions_count), add_class: "font-weight-bold" %>
+          <% end %>
+          <%= table_data number_with_delimiter(@summary.clicks_count), add_class: "font-weight-bold" %>
+          <% if @campaign.standard? %>
+            <%= table_data number_to_percentage(@summary.click_rate, precision: 2), add_class: "font-weight-bold" %>
+            <%= table_data number_with_delimiter(@summary.cpm.format), add_class: "font-weight-bold" %>
+            <%= table_data number_with_delimiter(@summary.cpc.format), add_class: "font-weight-bold" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <!-- /Totals Row -->
   <% end %>
   <%= pagination_wrapper do %>
     <span><%== pagy_bootstrap_nav(pagy) %></span>

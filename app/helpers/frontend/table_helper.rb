@@ -40,8 +40,8 @@ module Frontend
       content_tag(:td, value, colspan: colspan, data: data, title: title, class: "align-middle #{add_class}", style: add_style, &block)
     end
 
-    def table_column(value = nil, add_class: nil, add_style: nil, &block)
-      content_tag(:th, value, class: "text-left #{add_class}", style: add_style || "width:auto;", scope: "col", &block)
+    def table_column(value = nil, add_class: nil, add_style: nil, colspan: nil, &block)
+      content_tag(:th, value, colspan: colspan, class: "text-left #{add_class}", style: add_style || "width:auto;", scope: "col", &block)
     end
 
     def pagination_wrapper(add_class: nil, &block)
