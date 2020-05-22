@@ -1158,6 +1158,40 @@ ALTER SEQUENCE public.publisher_invoices_id_seq OWNED BY public.publisher_invoic
 
 
 --
+-- Name: read_marks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.read_marks (
+    id integer NOT NULL,
+    readable_type character varying NOT NULL,
+    readable_id integer,
+    reader_type character varying NOT NULL,
+    reader_id integer,
+    "timestamp" timestamp without time zone
+);
+
+
+--
+-- Name: read_marks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.read_marks_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: read_marks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.read_marks_id_seq OWNED BY public.read_marks.id;
+
+
+--
 -- Name: regions; Type: VIEW; Schema: public; Owner: -
 --
 
@@ -1695,6 +1729,13 @@ ALTER TABLE ONLY public.publisher_invoices ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: read_marks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.read_marks ALTER COLUMN id SET DEFAULT nextval('public.read_marks_id_seq'::regclass);
+
+
+--
 -- Name: scheduled_organization_reports id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1905,6 +1946,14 @@ ALTER TABLE ONLY public.property_traffic_estimates
 
 ALTER TABLE ONLY public.publisher_invoices
     ADD CONSTRAINT publisher_invoices_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: read_marks read_marks_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.read_marks
+    ADD CONSTRAINT read_marks_pkey PRIMARY KEY (id);
 
 
 --
@@ -2899,6 +2948,20 @@ CREATE INDEX index_publisher_invoices_on_user_id ON public.publisher_invoices US
 
 
 --
+-- Name: index_read_marks_on_readable_type_and_readable_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_read_marks_on_readable_type_and_readable_id ON public.read_marks USING btree (readable_type, readable_id);
+
+
+--
+-- Name: index_read_marks_on_reader_type_and_reader_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_read_marks_on_reader_type_and_reader_id ON public.read_marks USING btree (reader_type, reader_id);
+
+
+--
 -- Name: index_scheduled_organization_reports_on_organization_id; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3001,6 +3064,13 @@ CREATE INDEX index_versions_on_object ON public.versions USING gin (object);
 --
 
 CREATE INDEX index_versions_on_object_changes ON public.versions USING gin (object_changes);
+
+
+--
+-- Name: read_marks_reader_readable_index; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX read_marks_reader_readable_index ON public.read_marks USING btree (reader_id, reader_type, readable_type, readable_id);
 
 
 --
@@ -3219,6 +3289,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200513210427'),
 ('20200519191749'),
 ('20200521213149'),
-('20200521230331');
+('20200521230331'),
+('20200522191943');
 
 

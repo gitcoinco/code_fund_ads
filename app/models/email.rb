@@ -42,16 +42,29 @@ class Email < ApplicationRecord
   validates :message_id, presence: true, uniqueness: true
 
   # callbacks .................................................................
+
   # scopes ....................................................................
+  scope :inbound, -> { where(direction: ENUMS::EMAIL_DIRECTIONS::INBOUND) }
+  scope :outbound, -> { where(direction: ENUMS::EMAIL_DIRECTIONS::OUTBOUND) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   has_closure_tree # see https://github.com/ClosureTree/closure_tree#accessing-data
   has_rich_text :body
   has_many_attached :attachments
+  acts_as_readable on: :created_at
 
   # class methods .............................................................
 
   # public instance methods ...................................................
+
+  def inbound?
+    direction == ENUMS::EMAIL_DIRECTIONS::INBOUND
+  end
+
+  def outbound?
+    direction == ENUMS::EMAIL_DIRECTIONS::OUTBOUND
+  end
+
   def participant_addresses
     [sender, recipients].flatten.compact.sort
   end
@@ -61,7 +74,7 @@ class Email < ApplicationRecord
   end
 
   def sending_user
-    @sender ||= User.find_by(email: sender)
+    @sending_user ||= User.find_by(email: sender)
   end
 
   def inbound_email

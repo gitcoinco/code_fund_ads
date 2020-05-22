@@ -4,7 +4,7 @@ source .env
 export RAILS_ENV=development
 
 bundle exec rails db:drop db:create
-./bin/heroku_pg_dump_production_replica
+#./bin/heroku_pg_dump_production_replica
 pg_restore -U ${PG_USERNAME:-postgres} --verbose --clean --no-acl --no-owner -h ${PG_HOST:-localhost} -p ${PG_PORT:-5432} -d code_fund_ads_development tmp/production-shallow.dump
 bundle exec rails db:migrate
 ./bin/generate_db_artifacts

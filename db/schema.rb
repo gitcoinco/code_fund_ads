@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_213149) do
+ActiveRecord::Schema.define(version: 2020_05_21_230331) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -225,6 +225,14 @@ ActiveRecord::Schema.define(version: 2020_05_21_213149) do
     t.index ["scoped_by_type", "scoped_by_id"], name: "index_daily_summaries_on_scoped_by_columns"
   end
 
+  create_table "email_hierarchies", id: false, force: :cascade do |t|
+    t.bigint "ancestor_id", null: false
+    t.bigint "descendant_id", null: false
+    t.integer "generations", null: false
+    t.index ["ancestor_id", "descendant_id", "generations"], name: "email_anc_desc_idx", unique: true
+    t.index ["descendant_id"], name: "email_desc_idx"
+  end
+
   create_table "email_users", force: :cascade do |t|
     t.bigint "email_id", null: false
     t.bigint "user_id", null: false
@@ -245,8 +253,10 @@ ActiveRecord::Schema.define(version: 2020_05_21_213149) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "in_reply_to"
     t.string "message_id"
+    t.bigint "parent_id"
     t.index "date_trunc('hour'::text, delivered_at)", name: "index_emails_on_delivered_at_hour"
     t.index ["delivered_at_date"], name: "index_emails_on_delivered_at_date"
+    t.index ["parent_id"], name: "index_emails_on_parent_id"
     t.index ["recipients"], name: "index_emails_on_recipients", using: :gin
     t.index ["sender"], name: "index_emails_on_sender"
   end
