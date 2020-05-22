@@ -322,7 +322,7 @@ class AdvertisementsTest < ActionDispatch::IntegrationTest
   # ----------------------------------------------------------------------------------------------------------
 
   test "js: premium ads render when budgets available" do
-    @premium_campaign.daily_summaries.create!(displayed_at_date: @premium_campaign.start_date, gross_revenue: Monetize.parse("$2,500 USD"))
+    @premium_campaign.daily_summaries.create!(displayed_at_date: @premium_campaign.start_date, gross_revenue: (@premium_campaign.total_budget / 2))
     @premium_campaign.increment_hourly_consumed_budget_fractional_cents(Monetize.parse("$5.00 USD").cents)
     assert @premium_campaign.budget_available?
     assert @premium_campaign.daily_budget_available?
