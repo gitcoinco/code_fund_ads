@@ -16,12 +16,7 @@ module Campaigns
         return true
       end
 
-      if region_and_audience_pricing_strategy?
-        return true unless persisted?
-        return start_date_changed? || end_date_changed? || daily_budget_cents_changed?
-      end
-
-      false
+      region_and_audience_pricing_strategy? && new_record?
     end
 
     def init_total_budget
