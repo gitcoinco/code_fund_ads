@@ -20,6 +20,7 @@ export default class extends Controller {
     'inputTemplateTheme',
     'inputWideBlobId',
     'previewBody',
+    'previewCta',
     'previewHeadline',
     'previewImageUrl',
     'previewSponsorImage',
@@ -33,6 +34,7 @@ export default class extends Controller {
   initialize () {
     this.setHeadline()
     this.setBody()
+    this.setCta()
     // this.setIconImage()
     // this.setSmallImage()
     this.setLargeImage()
@@ -85,6 +87,16 @@ export default class extends Controller {
         '🚀 Your body will go here. You can use an emoji to help catch their eye 🤪'
     } else {
       this.previewBodyTarget.textContent = this.inputBodyTarget.value
+    }
+
+    this.checkLimit()
+  }
+
+  setCta () {
+    if (isEmpty(this.inputCtaTarget.value)) {
+      this.previewCtaTarget.textContent = 'Learn more'
+    } else {
+      this.previewCtaTarget.textContent = this.inputCtaTarget.value
     }
 
     this.checkLimit()
