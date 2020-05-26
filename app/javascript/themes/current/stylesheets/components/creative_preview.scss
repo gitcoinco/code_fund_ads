@@ -1,49 +1,88 @@
 // =========== Creative Preview ===========
-#creative-preview {
-  margin: 0 auto;
-  max-width: 330px;
-}
-
-#creative-preview .cf-wrapper {
-  border-radius: 4px;
-  display: block;
-  padding: 15px;
-  overflow: hidden;
-  font-size: 14px;
-  line-height: 1.4;
-  text-align: left;
-  background-color: rgba(0, 0, 0, 0.05);
-  font-family: Helvetica;
-}
-
-#creative-preview .cf-img-wrapper {
-  float: left;
-  margin-right: 15px;
-}
-
-#creative-preview .cf-img {
-  vertical-align: middle;
-  border-style: none;
-  max-width: 130px;
-}
-
-#creative-preview .cf-text {
-  color: #333;
-  text-decoration: none;
-}
-
-#creative-preview .cf-powered-by {
-  margin-top: 5px;
-  font-size: 12px;
-  display: block;
-  color: #777;
-  text-decoration: none;
-}
 
 .copy-wrapper {
   background-color: #f3f3f3;
 
   &.over-limit {
     background-color: #ffbdbd;
+  }
+}
+
+#creative-preview {
+  div#cf[data-template='square'] {
+    max-width: 255px;
+    margin: 0 auto;
+    background-color: hsl(0, 0%, 98%);
+    border-radius: 4px;
+    box-shadow: 0 0 0 1px hsla(0, 0%, 0%, 0.1);
+    display: block;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    overflow: hidden;
+    text-align: center;
+
+    a {
+      box-shadow: none !important;
+      text-decoration: none;
+    }
+
+    span.cf-wrapper {
+      display: block;
+      padding: 0;
+      font-size: 14px;
+      line-height: 1.4;
+      text-align: left;
+      font-family: Helvetica, Arial, sans-serif;
+      font-weight: 350;
+      margin-left: auto;
+      margin-right: auto;
+
+      span.cf-img-wrapper {
+        display: block;
+        line-height: 1;
+        margin-bottom: 8px;
+        border-bottom: 1px solid hsl(0, 0%, 98%);
+
+        img {
+          vertical-align: middle;
+          border-style: none;
+          width: 100%;
+          position: relative;
+        }
+      }
+
+      span.cf-text {
+        display: block;
+        padding: 0 1em 1em 1em;
+        color: hsla(0, 0%, 0%, 0.8);
+
+        span.cf-cta {
+          color: #2c6ac7;
+          text-decoration: underline;
+        }
+      }
+
+      div.cf-footer {
+        background-color: hsla(0, 0%, 0%, 0.05);
+        text-align: center;
+        display: block;
+        font-size: 9px;
+        font-weight: 400;
+        letter-spacing: 0.5px;
+        line-height: 2.2;
+        padding: 10px auto;
+        text-transform: uppercase;
+        color: hsla(0, 0%, 0%, 0.8);
+
+        a.cf-powered-by {
+          color: hsla(0, 0%, 0%, 0.6);
+          cursor: pointer;
+
+          &:hover {
+            color: #000;
+          }
+        }
+      }
+    }
   }
 }

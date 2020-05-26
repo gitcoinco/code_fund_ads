@@ -35,7 +35,7 @@
               </div>
               <%= tag.div f.input(:headline, required: true, placeholder: "Headline 🚀", input_html: {data: {target: "creative-form.inputHeadline", action: "change->creative-form#setHeadline keyup->creative-form#setHeadline"}}), class: "col-12 mb-3" %>
               <%= tag.div f.input(:body, required: true, placeholder: "Your body will go here. You can use an emoji to help catch their eye 🤪", input_html: {rows: 2, data: {target: "creative-form.inputBody", action: "change->creative-form#setBody keyup->creative-form#setBody"}}), class: "col-12 mb-3" %>
-              <%= tag.div f.input(:cta, label: "Call to Action", required: true, placeholder: "e.g. Learn more", hint: "Only used with the `sponsored-text` template", input_html: {data: {target: "creative-form.inputCta", action: "change->creative-form#checkLimit keyup->creative-form#checkLimit"}}), class: "col-12 mb-3" %>
+              <%= tag.div f.input(:cta, label: "Call to Action", required: true, placeholder: "e.g. Learn more", hint: "Only used with the `sponsored-text` template", input_html: {data: {target: "creative-form.inputCta", action: "change->creative-form#setCta keyup->creative-form#setCta"}}), class: "col-12 mb-3" %>
             </div>
             <% if missing_image_formats? %>
               <div class="col-12 my-2">
@@ -150,24 +150,32 @@
             </div>
             <h6 class="text-center">Preview</h6>
             <div class="p-4">
-              <div id="creative-preview" data-target="preview">
-                <span class="cf-wrapper">
-                  <a href="javascript:;" class="cf-img-wrapper" rel="sponsor">
-                    <%= image_tag creative.large_image&.variant(geometry: "130x100") || asset_pack_path("media/images/placeholders/missing-260x200.png"),
-                        border: 0, height: 100, width: 130, class: "cf-img", alt: "large image preview",
-                        data: {
-                          target: "creative-form.previewImageUrl",
-                          default_image_url: asset_pack_path("media/images/placeholders/missing-260x200.png")
-                        } %>
-                  </a>
-                  <a href="javascript:;" class="cf-text" rel="sponsor">
-                    <strong data-target="creative-form.previewHeadline">Gitcoin</strong>
-                    <span data-target="creative-form.previewBody">💰 Use your Python skills to grow Open Source, while getting paid.</span>
-                  </a>
-                  <p class="text-muted">
-                    <a href="javascript:;" class="cf-powered-by" rel="noopener">ads via codefund.io</a>
-                  </p>
-                </span>
+              <div id="creative-preview" class="shadow-lg" data-target="preview">
+                <!-- Square Preview -->
+                <div id="cf" data-template="square">
+                  <span class="cf-wrapper">
+                    <a href="javascript:;" class="cf-sponsored-by" target="_blank" rel="sponsored noopener">
+                      <span class="cf-img-wrapper">
+                        <%= image_tag creative.large_image || asset_pack_path("media/images/placeholders/missing-260x200.png"),
+                            border: 0, height: 200, width: 260, class: "cf-img", alt: "large image preview",
+                            data: {
+                              target: "creative-form.previewImageUrl",
+                              default_image_url: asset_pack_path("media/images/placeholders/missing-260x200.png")
+                            } %>
+                      </span>
+                      <span class="cf-text">
+                        <strong data-target="creative-form.previewHeadline">Gitcoin</strong>
+                        <span data-target="creative-form.previewBody">💰 Use your Python skills to grow Open Source, while getting paid.</span>
+                        <span data-target="creative-form.previewCta" class="cf-cta">Get started</span>
+                      </span>
+                    </a>
+                    <div class="cf-footer">
+                      <a href="javascript:;" class="cf-powered-by" target="_blank" rel="sponsored noopener">
+                        <em>ethical</em> ad by CodeFund
+                      </a>
+                    </div>
+                  </span>
+                </div>
               </div>
             </div>
           </div>
