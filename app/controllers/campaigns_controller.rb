@@ -1,6 +1,5 @@
 class CampaignsController < ApplicationController
   include Sortable
-  include Campaigns::Dateable
   include Campaigns::Stashable
 
   before_action :authenticate_user!
@@ -8,7 +7,6 @@ class CampaignsController < ApplicationController
   before_action :set_campaign, except: [:create, :index]
   before_action :set_current_organization_for_admin, only: [:show, :edit]
   before_action :authorize_edit!, only: [:edit, :update]
-  before_action :set_dates_to_campaign, only: [:show, :edit]
   after_action -> { stash_campaign @campaign }, except: [:index, :destroy]
 
   set_default_sorted_by :end_date

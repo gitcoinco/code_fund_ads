@@ -1,11 +1,9 @@
 class CampaignPropertiesController < ApplicationController
-  include Campaigns::Dateable
   include Campaigns::Stashable
 
   before_action :authenticate_user!
   before_action :authenticate_administrator!, only: [:update]
   before_action :set_campaign
-  before_action :set_dates_to_campaign
 
   def index
     @summary = @campaign.summary(@start_date, @end_date)
