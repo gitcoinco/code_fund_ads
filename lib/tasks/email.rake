@@ -2,7 +2,6 @@ namespace :email do
   desc "Remove unwanted emails"
   task remove_unwanted_emails: :environment do
     STDOUT.puts "Calculating unwanted emails ..."
-    total = Email.count
     destroyable_ids = []
 
     Email.all.each do |email|
@@ -12,8 +11,8 @@ namespace :email do
 
     STDOUT.puts "Are you sure you want to delete #{destroyable_ids.count} emails (out of #{Email.count})? (y/N)"
     input = STDIN.gets.strip
-    
-    if input == 'y'
+
+    if input == "y"
       STDOUT.print "Deleting..."
       Email.where(id: destroyable_ids).destroy_all
       STDOUT.puts "Done!"
@@ -43,7 +42,7 @@ namespace :email do
   task remove_duplicate_emails: :environment do
     STDOUT.puts "Did you already apply threading? (y|N)"
     input = STDIN.gets.strip
-    if input != 'y'
+    if input != "y"
       abort "You must first run `rails email:apply_email_threading` before running this method"
     end
 
@@ -57,8 +56,8 @@ namespace :email do
 
     STDOUT.puts "Are you sure you want to delete #{duplicate_email_ids.count} emails (out of #{Email.count})? (y/N)"
     input = STDIN.gets.strip
-    
-    if input == 'y'
+
+    if input == "y"
       STDOUT.print "Deleting..."
       Email.where(id: duplicate_email_ids).destroy_all
       STDOUT.puts "Done!"

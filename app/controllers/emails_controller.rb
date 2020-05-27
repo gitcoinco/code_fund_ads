@@ -5,9 +5,15 @@ class EmailsController < ApplicationController
 
   def index
     emails = current_user.emails.with_read_marks_for(current_user)
-    
-    emails = emails.inbound
-    
+    @current_filter = params[:filter] || "All"
+
+    emails =
+      case @current_filter
+      when "Unread" then emails.inbound.unread_by(current_user)
+      when "Sent" then emails.outbound
+      else emails.inbound
+      end
+
     emails = emails.order(delivered_at: :desc)
     @pagy, @emails = pagy(emails)
   end

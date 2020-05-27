@@ -28,7 +28,9 @@
 #
 class Email < ApplicationRecord
   # extends ...................................................................
+
   # includes ..................................................................
+  include Emails::Presentable
 
   # relationships .............................................................
   has_many :email_users
@@ -75,6 +77,14 @@ class Email < ApplicationRecord
 
   def sending_user
     @sending_user ||= User.find_by(email: sender)
+  end
+
+  def non_admin_users
+    participant_users.non_administrators
+  end
+
+  def participating_organizations
+    non_admin_users.map(&:organization).compact.sort
   end
 
   def inbound_email

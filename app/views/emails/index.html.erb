@@ -1,47 +1,65 @@
-<div class="page-inner page-inner-fill bg-white">
+<div class="page-inner page-inner-fill bg-light">
   <div class="page-fixed">
     <div class="nav-scroller">
       <div class="page-fixed-header">
         <div class="nav nav-tabs">
-          <a class="nav-link active show" data-toggle="tab" href="#tab1">All <span class="badge">(7)</span></a>
-          <a class="nav-link" data-toggle="tab" href="#tab2">Unread</a>
-          <a class="nav-link" data-toggle="tab" href="#tab2">Assigned to Me</a>
-          <a class="nav-link" data-toggle="tab" href="#tab2">Shared with Me</a>
-          <a class="nav-link" data-toggle="tab" href="#tab2">Discussions</a>
-          <a class="nav-link" data-toggle="tab" href="#tab2">Sent</a>
-          <a class="nav-link" data-toggle="tab" href="#tab3">Trash</a>
+          <%= link_to "All", emails_path(filter: "All"), class: "nav-link #{'active show' if @current_filter == 'All'}" %>
+          <%= link_to "Unread", emails_path(filter: "Unread"), class: "nav-link #{'active show' if @current_filter == 'Unread'}" %>
+          <%= link_to "Sent", emails_path(filter: "Sent"), class: "nav-link #{'active show' if @current_filter == 'Sent'}" %>
         </div>
       </div><!-- /.nav -->
     </div>
-    <div class="page-fixed-body">
-      <div class="card card-fluid">
+    <div class="page-fixed-body pt-0 pr-4 pl-4 pb-4">
+      <%= pagination_wrapper do %>
+        <span><%== pagy_bootstrap_nav(@pagy) %></span>
+        <%= pagy_entries(@pagy) %>
+      <% end if @pagy.pages > 1 %>
+
+      <div class="card card-fluid mb-1">
         <div clas="card-body">
-          <div class="list-group list-group-flush list-group-divider">
-            <% @emails.each do |email| %>
-              <%= link_to email, class: "list-group-item list-group-item-action #{'active' if email.inbound? && email.unread?(current_user)}" do %>
-                <div class="list-group-item-figure">
-                  <% if email.sending_user %>
-                    <div class="user-avatar">
-                      <%= image_tag email.sending_user.gravatar_url("identicon", "48") %>
-                    </div>
-                  <% end %>
-                </div>
-                <div class="list-group-item-body d-flex justify-content-between">
-                  <div class="text-truncate flex-grow-1">
-                    <h4 class="list-group-item-title"><%= email.subject %></h4>
-                    <p class="list-group-item-text">
-                      <span class="text-dark"><%= email.sender %></span> – <%= email.snippet %>
-                    </p>
-                  </div>
-                  <div style="width: 100px; display: inline-block;" class="text-right">
-                    <%= email.delivered_at.strftime("%b %d") %>
-                  </div>
-                </div>
+          <table class="table table-hover" style="width: 100%; white-space: nowrap; table-layout: fixed;">
+            <tbody>
+              <% @emails.each do |email| %>
+                <tr>
+                  <td style="width: 60px;" class="text-center align-middle">
+                    <% if email.unread?(current_user) && email.inbound? %>
+                      <i class="fa fa-fw fa-circle text-primary"></i>
+                    <% else %>
+                      <i class="fa fa-fw fa-circle text-light"></i>
+                    <% end %>
+                  </td>
+                  <td style="width: 250px;" class="align-middle">
+                    <% if sending_user = email.sending_user %>
+                      <%= link_to sending_user.name, sending_user, class: "text-dark" %>
+                      <% if org = email.participating_organizations.first %>
+                        <br /><%= link_to org.name, org, class: "text-muted font-weight-light" %>
+                      <% end %>
+                    <% else %>
+                      <%= email.sender %>
+                    <% end %>
+                  </td>
+                  <td style="overflow: hidden; text-overflow: ellipsis">
+                    <span class="text-dark d-block font-weight-normal"><%= email.subject %></span>
+                    <span class="text-muted font-weight-light"><%= email.snippet.html_safe %></span>
+                  </td>
+                  <td style="width: 110px;" class="text-center align-middle font-weight-light">
+                    <small class="d-block">
+                      <%= email.delivered_at.to_s("bdy") %>
+                      <br /><%= email.delivered_at.localtime.to_s("time") %>
+                    </small>
+                    <small class="d-none"><%= email.human_delivered_at %></small>
+                  </td>
+                </tr>
               <% end %>
-            <% end %>
-          </div>
+            </tbody>
+          </table>
         </div>
       </div>
+
+      <%= pagination_wrapper do %>
+        <span><%== pagy_bootstrap_nav(@pagy) %></span>
+        <%= pagy_entries(@pagy) %>
+      <% end if @pagy.pages > 1 %>
     </div>
   </div>
 </div>

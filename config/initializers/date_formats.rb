@@ -6,6 +6,7 @@ date_formats = {
   "abdy" => "%a, %b %-d, %Y",
   "bd" => "%b %-d",
   "bdy" => "%b %-d, %Y",
+  "time" => "%-I:%M %p %Z",
   "mdh" => "%b %-d, %Y %-I:%M %p %Z",
   "amdh" => "%a, %b %-d, %Y %-I:%M %p %Z"
 }

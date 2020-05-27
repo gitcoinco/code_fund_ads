@@ -5,12 +5,12 @@
 
   .page-fixed-header {
     position: relative;
-    padding: .5rem .5rem .5rem .25rem;
+    padding: 0.5rem 0.5rem 0.5rem 0.25rem;
     display: flex;
     align-items: center;
     height: 3.5rem;
     background-color: #fff;
-    box-shadow: 0 1px 0 0 rgba(20,20,31,.075);
+    box-shadow: 0 1px 0 0 rgba(20, 20, 31, 0.075);
     z-index: 5;
     border-bottom: 1px solid #ecedf1;
   }
@@ -21,9 +21,9 @@
   }
   .page-fixed-footer {
     position: relative;
-    padding: .5rem;
+    padding: 0.5rem;
     background-color: #fff;
-    box-shadow: 0 -1px 0 0 rgba(20,20,31,.075);
+    box-shadow: 0 -1px 0 0 rgba(20, 20, 31, 0.075);
     z-index: 1;
   }
 }
