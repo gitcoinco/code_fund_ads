@@ -1,2 +1,6 @@
-<h1>Emails#show</h1>
-<p>Find me in app/views/emails/show.html.erb</p>
+<%= render(PageComponent.new) do |component| %>
+  <% component.with(:body) do %>
+    <%= render BackLinkComponent.new(title: "Emails", link: emails_path) %>
+    <%= render EmailComponent.new(email: @email) %>
+  <% end %>
+<% end %>

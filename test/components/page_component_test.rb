@@ -23,6 +23,15 @@ class PageComponentTest < ViewComponent::TestCase
     assert_no_selector(".nav-scroller")
   end
 
+  test "component with classes" do
+    render_inline(PageComponent.new(classes: "mb-4"))
+    assert_selector(".page.mb-4")
+    assert_no_selector(".has-sidebar")
+    assert_no_selector(".sidebar-backdrop")
+    assert_no_selector(".page-sidebar")
+    assert_no_selector(".nav-scroller")
+  end
+
   test "component with tabs" do
     render_inline(PageComponent.new(subject: @user, tabs: TabsComponent.new(tabs: user_tabs(@user))))
     assert_selector(".page")

@@ -84,7 +84,7 @@ class Email < ApplicationRecord
   end
 
   def participating_organizations
-    non_admin_users.map(&:organization).compact.sort
+    non_admin_users.map(&:default_organization).compact.sort
   end
 
   def inbound_email

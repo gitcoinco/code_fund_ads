@@ -6,6 +6,7 @@ class EmailsController < ApplicationController
   def index
     emails = current_user.emails.with_read_marks_for(current_user)
     @current_filter = params[:filter] || "All"
+    session[:email_date_format] ||= "default"
 
     emails =
       case @current_filter

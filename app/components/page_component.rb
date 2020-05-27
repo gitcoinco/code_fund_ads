@@ -1,10 +1,11 @@
 class PageComponent < ApplicationComponent
   with_content_areas :header, :body
 
-  def initialize(subject: nil, tabs: false, sidebar: false)
+  def initialize(subject: nil, tabs: false, sidebar: false, classes: nil)
     @subject = subject
     @tabs = tabs
     @sidebar = sidebar
+    @class_names = classes
   end
 
   def subject_view_directory
@@ -14,5 +15,12 @@ class PageComponent < ApplicationComponent
 
   private
 
-  attr_reader :subject, :sidebar, :tabs
+  attr_reader :subject, :sidebar, :tabs, :class_names
+
+  def classes
+    classes = ["page"]
+    classes << "has-sidebar has-sidebar-expand-xl" if sidebar
+    classes << class_names if class_names
+    classes.compact
+  end
 end
