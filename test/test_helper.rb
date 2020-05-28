@@ -10,6 +10,7 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require_relative "./mmdb_test_helper"
 require "rails/test_help"
+require "action_mailbox/test_helper"
 require "webmock/minitest"
 require "mocha/minitest"
 require "sidekiq/testing"
@@ -27,6 +28,7 @@ end
 
 class ActiveSupport::TestCase
   include Devise::Test::IntegrationHelpers
+  include ActionMailbox::TestHelper
 
   workers = ENV["TEST_CONCURRENCY"].present? ? ENV["TEST_CONCURRENCY"].to_i : (Concurrent.processor_count / 3.to_f).round
   if workers > 1
