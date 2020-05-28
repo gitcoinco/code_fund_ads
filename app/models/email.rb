@@ -53,7 +53,6 @@ class Email < ApplicationRecord
   has_closure_tree # see https://github.com/ClosureTree/closure_tree#accessing-data
   has_rich_text :body
   has_many_attached :attachments
-  acts_as_readable on: :created_at
 
   # class methods .............................................................
 

@@ -21,7 +21,8 @@
               <% @emails.each do |email| %>
                 <tr>
                   <td style="width: 60px;" class="text-center align-middle">
-                    <% if email.unread?(current_user) && email.inbound? %>
+                    <% if email.inbound? %>
+                    <%# if email.unread?(current_user) && email.inbound? %>
                       <i class="fa fa-fw fa-circle text-primary pointer" data-reflex="click->EmailsReflex#mark_read" data-email-id="<%= email.id %>"></i>
                     <% else %>
                       <i class="fa fa-fw fa-circle text-light pointer" data-reflex="click->EmailsReflex#mark_unread" data-email-id="<%= email.id %>"></i>
