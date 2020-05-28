@@ -33,7 +33,7 @@ class EmailTest < ActiveSupport::TestCase
     inbound_email = create_inbound_email_from_fixture("email.eml")
     delivered_at = DateTime.now
     @user = users(:administrator)
-    @email = Email.create!(
+    @email = Email.create(
       action_mailbox_inbound_email_id: inbound_email.id,
       sender: inbound_email.mail.from.first,
       recipients: (inbound_email.mail.to.to_a + inbound_email.mail.cc.to_a).uniq.compact.sort,
@@ -53,14 +53,15 @@ class EmailTest < ActiveSupport::TestCase
   end
 
   test "#mark_read_for_user!" do
-    @email_user.update!(read_at: nil) unless @email_user.read_at.nil?
     @email.mark_read_for_user!(@user)
+    @email_user.reload
     assert_not_nil @email_user.read_at
   end
 
   test "#mark_unread_for_user!" do
-    @email_user.update!(read_at: 1.day.ago) if @email_user.read_at.nil?
+    @email_user.update!(read_at: 1.day.ago)
     @email.mark_unread_for_user!(@user)
+    @email_user.reload
     assert_nil @email_user.read_at
   end
 end
