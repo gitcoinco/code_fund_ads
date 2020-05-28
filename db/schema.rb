@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_21_230331) do
+ActiveRecord::Schema.define(version: 2020_05_28_141603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -236,6 +236,7 @@ ActiveRecord::Schema.define(version: 2020_05_21_230331) do
   create_table "email_users", force: :cascade do |t|
     t.bigint "email_id", null: false
     t.bigint "user_id", null: false
+    t.datetime "read_at"
     t.index ["email_id", "user_id"], name: "index_email_users_on_email_id_and_user_id", unique: true
   end
 

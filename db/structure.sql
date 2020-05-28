@@ -580,7 +580,8 @@ CREATE TABLE public.email_hierarchies (
 CREATE TABLE public.email_users (
     id bigint NOT NULL,
     email_id bigint NOT NULL,
-    user_id bigint NOT NULL
+    user_id bigint NOT NULL,
+    read_at timestamp without time zone
 );
 
 
@@ -3220,6 +3221,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200513210427'),
 ('20200519191749'),
 ('20200521213149'),
-('20200521230331');
+('20200521230331'),
+('20200528141603');
 
 

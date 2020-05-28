@@ -48,6 +48,8 @@ class Email < ApplicationRecord
   # scopes ....................................................................
   scope :inbound, -> { where(direction: ENUMS::EMAIL_DIRECTIONS::INBOUND) }
   scope :outbound, -> { where(direction: ENUMS::EMAIL_DIRECTIONS::OUTBOUND) }
+  scope :unread_by, ->(user) { where(email_users: {user: user, read_at: nil}) }
+  scope :read_by, ->(user) { where(email_users: {user: user}).where.not(email_users: {read_at: nil}) }
 
   # additional config (i.e. accepts_nested_attribute_for etc...) ..............
   has_closure_tree # see https://github.com/ClosureTree/closure_tree#accessing-data
@@ -88,6 +90,20 @@ class Email < ApplicationRecord
 
   def inbound_email
     ActionMailbox::InboundEmail.find_by(id: action_mailbox_inbound_email_id)
+  end
+
+  def mark_read_for_user!(user)
+    return unless user
+    email_users.find_by(user: user).update!(read_at: Time.current)
+  end
+
+  def mark_unread_for_user!(user)
+    return unless user
+    email_users.find_by(user: user).update!(read_at: nil)
+  end
+
+  def read_by?(user)
+    email_users.find_by(user: user).read_at
   end
 
   # protected instance methods ................................................
