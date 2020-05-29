@@ -187,7 +187,6 @@ class User < ApplicationRecord
   has_one_attached :avatar
   accepts_nested_attributes_for :organization_users, reject_if: proc { |attributes| attributes["organization_id"].blank? || attributes["role"].blank? }
   acts_as_commentable
-  acts_as_reader
   has_paper_trail on: %i[update], only: %i[
     api_access
     api_key
@@ -224,11 +223,6 @@ class User < ApplicationRecord
 
     def referral_code(user_id)
       where(id: user_id).limit(1).pluck(:referral_code).first
-    end
-
-    # Only allow admins to be readers
-    def self.reader_scope
-      administrators
     end
   end
 

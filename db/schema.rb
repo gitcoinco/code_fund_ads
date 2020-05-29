@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_22_191943) do
+ActiveRecord::Schema.define(version: 2020_05_28_141603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -236,6 +236,7 @@ ActiveRecord::Schema.define(version: 2020_05_22_191943) do
   create_table "email_users", force: :cascade do |t|
     t.bigint "email_id", null: false
     t.bigint "user_id", null: false
+    t.datetime "read_at"
     t.index ["email_id", "user_id"], name: "index_email_users_on_email_id_and_user_id", unique: true
   end
 
@@ -587,17 +588,6 @@ ActiveRecord::Schema.define(version: 2020_05_22_191943) do
     t.index ["paid_at"], name: "index_publisher_invoices_on_paid_at"
     t.index ["start_date"], name: "index_publisher_invoices_on_start_date"
     t.index ["user_id"], name: "index_publisher_invoices_on_user_id"
-  end
-
-  create_table "read_marks", id: :serial, force: :cascade do |t|
-    t.string "readable_type", null: false
-    t.integer "readable_id"
-    t.string "reader_type", null: false
-    t.integer "reader_id"
-    t.datetime "timestamp"
-    t.index ["readable_type", "readable_id"], name: "index_read_marks_on_readable_type_and_readable_id"
-    t.index ["reader_id", "reader_type", "readable_type", "readable_id"], name: "read_marks_reader_readable_index", unique: true
-    t.index ["reader_type", "reader_id"], name: "index_read_marks_on_reader_type_and_reader_id"
   end
 
   create_table "scheduled_organization_reports", force: :cascade do |t|

@@ -4,7 +4,7 @@ class EmailsController < ApplicationController
   before_action :set_email, only: :show
 
   def index
-    emails = current_user.emails.with_read_marks_for(current_user)
+    emails = current_user.emails
     @current_filter = params[:filter] || "All"
     session[:email_date_format] ||= "default"
 
@@ -20,7 +20,7 @@ class EmailsController < ApplicationController
   end
 
   def show
-    @email.mark_as_read! for: current_user
+    @email.mark_read_for_user!(current_user)
   end
 
   private

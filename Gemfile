@@ -73,7 +73,6 @@ gem "simple_form", "~> 5.0"
 gem "slack-notifier", "~> 2.3.2"
 gem "split", "~> 3.4.1", require: "split/dashboard"
 gem "spreadsheet", "~> 1.2.4"
-gem "unread", "~> 0.11.0"
 gem "view_component", "~> 2.5.1"
 
 # TODO - Re-enable for internal CodeFund analytics tool
