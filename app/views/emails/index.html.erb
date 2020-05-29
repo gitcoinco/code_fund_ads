@@ -1,2 +1,73 @@
-<h1>Emails#index</h1>
-<p>Find me in app/views/emails/index.html.erb</p>
+<div class="page-inner page-inner-fill bg-light">
+  <div class="page-fixed">
+    <div class="nav-scroller">
+      <div class="page-fixed-header">
+        <div class="nav nav-tabs">
+          <%= link_to "All", emails_path(filter: "All"), class: "nav-link #{'active show' if @current_filter == 'All'}" %>
+          <%= link_to "Unread", emails_path(filter: "Unread"), class: "nav-link #{'active show' if @current_filter == 'Unread'}" %>
+          <%= link_to "Sent", emails_path(filter: "Sent"), class: "nav-link #{'active show' if @current_filter == 'Sent'}" %>
+        </div>
+      </div>
+    </div>
+    <div class="page-fixed-body pt-0 pr-4 pl-4 pb-4">
+      <%= pagination_wrapper do %>
+        <span><%== pagy_bootstrap_nav(@pagy) %></span>
+        <%= pagy_entries(@pagy) %>
+      <% end if @pagy.pages > 1 %>
+      <div class="card card-fluid mb-1">
+        <div clas="card-body">
+          <table class="table table-hover" style="width: 100%; white-space: nowrap; table-layout: fixed;">
+            <tbody>
+              <% @emails.each do |email| %>
+                <tr>
+                  <td style="width: 60px;" class="text-center align-middle">
+                    <% if !email.read_by?(current_user) && email.inbound? %>
+                      <i class="fa fa-fw fa-circle text-primary pointer" data-reflex="click->EmailsReflex#mark_read" data-email-id="<%= email.id %>"></i>
+                    <% else %>
+                      <i class="fa fa-fw fa-circle text-light pointer" data-reflex="click->EmailsReflex#mark_unread" data-email-id="<%= email.id %>"></i>
+                    <% end %>
+                  </td>
+                  <td style="width: 250px;" class="align-middle">
+                    <% if sending_user = email.sending_user %>
+                      <%= link_to sending_user.name, sending_user, class: "text-dark" %>
+                      <% if org = email.participating_organizations.first %>
+                        <br />
+                        <%= link_to org.name, org, class: "text-muted font-weight-light" %>
+                      <% end %>
+                    <% else %>
+                      <%= email.sender %>
+                    <% end %>
+                  </td>
+                  <td style="overflow: hidden; text-overflow: ellipsis">
+                    <%= link_to email_path(email), class: "text-decoration-none" do %>
+                      <span class="text-dark d-block font-weight-normal">
+                        <%= tag.i class: "fas fa-download text-muted" if email.attachments.exists? %>
+                        <%= email.subject %>
+                      </span>
+                      <span class="text-muted font-weight-light"><%= email.snippet.html_safe %></span>
+                    <% end %>
+                  </td>
+                  <td style="width: 110px;" class="text-center align-middle font-weight-light">
+                    <small class="d-block pointer" data-reflex="click->EmailsReflex#toggle_date_format" data-date-format="<%= session[:email_date_format] %>">
+                      <% if session[:email_date_format] == "human" %>
+                        <%= email.human_delivered_at %>
+                      <% else %>
+                        <%= email.delivered_at.to_s("bdy") %>
+                        <br />
+                        <%= email.delivered_at.localtime.to_s("time") %>
+                      <% end %>
+                    </small>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <%= pagination_wrapper do %>
+        <span><%== pagy_bootstrap_nav(@pagy) %></span>
+        <%= pagy_entries(@pagy) %>
+      <% end if @pagy.pages > 1 %>
+    </div>
+  </div>
+</div>

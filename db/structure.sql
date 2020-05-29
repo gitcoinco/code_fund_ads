@@ -563,13 +563,25 @@ ALTER SEQUENCE public.daily_summaries_id_seq OWNED BY public.daily_summaries.id;
 
 
 --
+-- Name: email_hierarchies; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.email_hierarchies (
+    ancestor_id bigint NOT NULL,
+    descendant_id bigint NOT NULL,
+    generations integer NOT NULL
+);
+
+
+--
 -- Name: email_users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.email_users (
     id bigint NOT NULL,
     email_id bigint NOT NULL,
-    user_id bigint NOT NULL
+    user_id bigint NOT NULL,
+    read_at timestamp without time zone
 );
 
 
@@ -608,7 +620,10 @@ CREATE TABLE public.emails (
     action_mailbox_inbound_email_id bigint NOT NULL,
     direction character varying DEFAULT 'inbound'::character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    in_reply_to character varying,
+    message_id character varying,
+    parent_id bigint
 );
 
 
@@ -1920,6 +1935,20 @@ ALTER TABLE ONLY public.versions
 
 
 --
+-- Name: email_anc_desc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX email_anc_desc_idx ON public.email_hierarchies USING btree (ancestor_id, descendant_id, generations);
+
+
+--
+-- Name: email_desc_idx; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX email_desc_idx ON public.email_hierarchies USING btree (descendant_id);
+
+
+--
 -- Name: index_impressions_on_ad_template; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2470,6 +2499,13 @@ CREATE INDEX index_emails_on_delivered_at_date ON public.emails USING btree (del
 --
 
 CREATE INDEX index_emails_on_delivered_at_hour ON public.emails USING btree (date_trunc('hour'::text, delivered_at));
+
+
+--
+-- Name: index_emails_on_parent_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_emails_on_parent_id ON public.emails USING btree (parent_id);
 
 
 --
@@ -3183,6 +3219,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200511174710'),
 ('20200513193432'),
 ('20200513210427'),
-('20200519191749');
+('20200519191749'),
+('20200521213149'),
+('20200521230331'),
+('20200528141603');
 
 

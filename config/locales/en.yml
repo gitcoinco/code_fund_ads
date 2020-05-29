@@ -72,6 +72,46 @@ en:
 
   datetime:
     distance_in_words:
+      email:
+        less_than_x_seconds:
+          one: '%{count}S'
+          other: '%{count}S'
+        half_a_minute:
+          one: '30S'
+          other: '30S'
+        x_minutes:
+          one: '%{count}M'
+          other: '%{count}M'
+        less_than_x_minutes:
+          one: '%{count}M'
+          other: '%{count}M'
+        x_hours:
+          one: '1H'
+          other: '%{count}H'
+        about_x_hours:
+          one: '1H'
+          other: '%{count}H'
+        x_days:
+          one: '1D'
+          other: '%{count}D'
+        about_x_days:
+          one: '1D'
+          other: '%{count}D'
+        x_months:
+          one: '1M'
+          other: '%{count}M'
+        about_x_months:
+          one: '1M'
+          other: '%{count}M'
+        x_years:
+          one: '1Y'
+          other: '%{count}Y'
+        about_x_years:
+          one: '1Y'
+          other: '%{count}Y'
+        almost_x_years:
+          one: '1Y'
+          other: '%{count}Y'
       short:
         x_hours:
           one: '1 hour'

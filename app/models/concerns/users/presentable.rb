@@ -20,8 +20,8 @@ module Users
       Digest::MD5.hexdigest(email.downcase)
     end
 
-    def gravatar_url(d = "identicon")
-      "https://www.gravatar.com/avatar/#{hashed_email}?s=300&d=#{d}"
+    def gravatar_url(d = "identicon", s = "300")
+      "https://www.gravatar.com/avatar/#{hashed_email}?s=#{s}&d=#{d}"
     end
 
     def display_region

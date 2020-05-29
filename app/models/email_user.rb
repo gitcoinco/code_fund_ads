@@ -3,6 +3,7 @@
 # Table name: email_users
 #
 #  id       :bigint           not null, primary key
+#  read_at  :datetime
 #  email_id :bigint           not null
 #  user_id  :bigint           not null
 #

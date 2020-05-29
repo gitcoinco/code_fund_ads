@@ -1,0 +1,29 @@
+.page-fixed {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .page-fixed-header {
+    position: relative;
+    padding: 0.5rem 0.5rem 0.5rem 0.25rem;
+    display: flex;
+    align-items: center;
+    height: 3.5rem;
+    background-color: #fff;
+    box-shadow: 0 1px 0 0 rgba(20, 20, 31, 0.075);
+    z-index: 5;
+    border-bottom: 1px solid #ecedf1;
+  }
+  .page-fixed-body {
+    padding: 0rem;
+    flex: 1;
+    overflow-y: auto;
+  }
+  .page-fixed-footer {
+    position: relative;
+    padding: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0 -1px 0 0 rgba(20, 20, 31, 0.075);
+    z-index: 1;
+  }
+}
