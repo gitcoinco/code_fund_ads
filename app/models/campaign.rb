@@ -576,7 +576,7 @@ class Campaign < ApplicationRecord
   end
 
   def validate_active_creatives
-    return if creative_ids.blank?
+    errors.add(:creatives, "must be attached") if creative_ids.blank?
     errors.add(:creatives, "cannot be inactive") if creatives.select(&:active?).blank?
   end
 
