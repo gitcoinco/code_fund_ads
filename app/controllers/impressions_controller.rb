@@ -41,10 +41,8 @@ class ImpressionsController < ApplicationController
       @virtual_impression[:ad_theme],
       @virtual_impression[:ip_address],
       @virtual_impression[:country_code],
-      request.user_agent.force_encoding(Encoding::UTF_8),
+      request.user_agent.encode(Encoding::UTF_8, invalid: :replace),
       Time.current.iso8601
     )
-  rescue Encoding::UndefinedConversionError => e
-    Rollbar.error "#{e} => #{@virtual_impression_id.encoding}, #{@virtual_impression[:campaign_id].encoding}, #{@virtual_impression[:property_id].encoding}, #{@virtual_impression[:creative_id].encoding}, #{@virtual_impression[:ad_template].encoding}, #{@virtual_impression[:ad_theme].encoding}, #{request.remote_ip.encoding}, #{request.user_agent.encoding}, #{Time.current.iso8601}"
   end
 end
