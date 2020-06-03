@@ -13,7 +13,7 @@ class IncomingMailbox < ApplicationMailbox
 
     parent_email_id = Email.find_by(message_id: mail.in_reply_to)&.id
 
-    email = Email.create! \
+    email = Email.create \
       action_mailbox_inbound_email_id: inbound_email.id,
       sender: mail.from.first,
       recipients: (mail.to.to_a + mail.cc.to_a).uniq.compact.sort,
