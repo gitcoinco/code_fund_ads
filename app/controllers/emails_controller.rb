@@ -20,7 +20,7 @@ class EmailsController < ApplicationController
   end
 
   def show
-    @email.mark_read_for_user!(current_user)
+    @email.mark_read_for_user!(current_user) if true_user == current_user
   end
 
   private
