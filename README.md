@@ -42,6 +42,7 @@
   - [Development](#development)
     - [Prerequisites](#prerequisites)
     - [Setup](#setup)
+      - [Development Caching](#development-caching)
     - [Database](#database)
     - [Maxmind](#maxmind)
     - [Workspace Setup](#workspace-setup)
@@ -207,12 +208,16 @@ yarn install
 rails db:create db:migrate
 rails test
 
+# enable development caching
+rails dev:cache
+
 # start app and navigate to http://localhost:3000
 rails s
 ```
 
-It is recommended to develop with Rails cache enabled. This application relies heavily
-on caching and may not work properly without the cache enabled.
+#### Development Caching
+
+This application relies heavily on caching and will not work properly without the development cache enabled.
 
 ```sh
 bundle exec rails dev:cache # => Development mode is now being cached.
