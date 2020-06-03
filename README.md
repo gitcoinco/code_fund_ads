@@ -414,6 +414,7 @@ Thanks goes to these wonderful people ([emoji key](https://github.com/kentcdodds
     <td align="center"><a href="https://ethan.link"><img src="https://avatars1.githubusercontent.com/u/14034891?v=4" width="100px;" alt=""/><br /><sub><b>Ethan</b></sub></a><br /><a href="https://github.com/gitcoinco/code_fund_ads/commits?author=Booligoosh" title="Documentation">📖</a></td>
     <td align="center"><a href="https://xhmikosr.io/"><img src="https://avatars2.githubusercontent.com/u/349621?v=4" width="100px;" alt=""/><br /><sub><b>XhmikosR</b></sub></a><br /><a href="https://github.com/gitcoinco/code_fund_ads/commits?author=XhmikosR" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/JasonBarnabe"><img src="https://avatars3.githubusercontent.com/u/583995?v=4" width="100px;" alt=""/><br /><sub><b>Jason Barnabe</b></sub></a><br /><a href="https://github.com/gitcoinco/code_fund_ads/commits?author=JasonBarnabe" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/woto"><img src="https://avatars0.githubusercontent.com/u/146704?v=4" width="100px;" alt=""/><br /><sub><b>Руслан Корнев</b></sub></a><br /><a href="https://github.com/gitcoinco/code_fund_ads/commits?author=woto" title="Code">💻</a></td>
   </tr>
 </table>
 
