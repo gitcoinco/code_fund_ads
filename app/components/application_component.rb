@@ -1,15 +1,16 @@
 class ApplicationComponent < ViewComponent::Base
   include Frontend::TableHelper
 
-  def current_user
-    helpers.current_user
-  end
+  delegate :rich_text_area, :curent_user, :authorized_user, to: :helpers
 
-  def authorized_user
-    helpers.authorized_user
+  def fetch_or_fallback(allowed_values, given_value, fallback)
+    if allowed_values.include?(given_value)
+      given_value
+    else
+      raise ArgumentError, "invalid value '#{given_value}' supplied to fetch_or_fallback" if Rails.env.development?
+      fallback
+    end
   end
-
-  delegate :rich_text_area, to: :helpers
 
   def status_color(status)
     case status.to_sym
