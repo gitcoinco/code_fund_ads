@@ -1,7 +1,7 @@
 class ApplicationComponent < ViewComponent::Base
   include Frontend::TableHelper
 
-  delegate :rich_text_area, :curent_user, :authorized_user, to: :helpers
+  delegate :rich_text_area, :current_user, :authorized_user, to: :helpers
 
   def fetch_or_fallback(allowed_values, given_value, fallback)
     if allowed_values.include?(given_value)
