@@ -11,9 +11,19 @@ export default class {
   }
 
   // Notifies CodeFund of the pixelId being converted for the saved impression
-  trackConversion (pixelId, test = false) {
+  // TODO: update to use POST exclusively and support metadata
+  trackConversion (pixelId, options = { test: false, metadata: {} }) {
+    const { test, metadata } = options
     const url = `${this.baseUrl}/pixels/${pixelId}/impressions/${this.impressionId}?test=${test}`
-    console.log('tracking conversion', url)
+    var xhr = new XMLHttpRequest()
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status !== 200 && xhr.status !== 202)
+          console.log('CodeFund failed to record the conversion!', xhr.status)
+      }
+    }
+    xhr.open('GET', url)
+    xhr.send()
   }
 
   // Indicates if the passed date (represented as a string from localStorage) has expired based on daysToLive
@@ -27,16 +37,16 @@ export default class {
   }
 
   // Saves the impressionId to localStorage
-  set impressionId (value) {
-    if (!value) return localStorage.removeItem(this.localStorageKey)
+  set impressionId (id) {
+    if (!id) return localStorage.removeItem(this.localStorageKey)
     if (this.impressionId) return
     try {
       const createdAt = new Date()
-      const data = { value, createdAt }
-      return localStorage.setItem(this.key, JSON.stringify(data))
+      const data = { id, createdAt }
+      return localStorage.setItem(this.localStorageKey, JSON.stringify(data))
     } catch (ex) {
       console.log(
-        `CodeFund failed to write the utm_impression value to localStorage! ${ex.message}`
+        `CodeFund failed to write the utm_impression id to localStorage! ${ex.message}`
       )
     }
   }
@@ -44,9 +54,10 @@ export default class {
   // Fetches the impressionId from localStorage
   get impressionId () {
     try {
-      const data = localStorage.getItem(this.key) || {}
-      const { value, createdAt } = data
-      if (!this.expired(createdAt)) return value
+      const rawData = localStorage.getItem(this.localStorageKey)
+      const data = rawData ? JSON.parse(rawData) : {}
+      const { id, createdAt } = data
+      if (!this.expired(createdAt)) return id
       localStorage.removeItem(this.localStorageKey)
     } catch (ex) {
       console.log(
