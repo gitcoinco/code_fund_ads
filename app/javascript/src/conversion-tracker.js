@@ -28,9 +28,10 @@ export default class {
 
   // Indicates if the passed date (represented as a string from localStorage) has expired based on daysToLive
   expired (dateString) {
-    const date = Date.parse(dateString)
-    const expiresAt = new Date(date.getTime())
-    expiresAt.setDate(expiresAt.getDate() + this.daysToLive)
+    const date = new Date(Date.parse(dateString)) // => Tue Jun 09 2020 14:33:59 GMT-0400 (EDT)
+    let expiresAt = new Date()
+    expiresAt.setTime(date.getTime())
+    const setAt = expiresAt.setDate(expiresAt.getDate() + this.daysToLive)
     const diffMilliseconds = Math.abs(expiresAt - setAt)
     const diffDays = Math.ceil(diffMilliseconds / (1000 * 60 * 60 * 24))
     return diffDays > this.daysToLive

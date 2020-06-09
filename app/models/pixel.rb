@@ -49,7 +49,7 @@ class Pixel < ApplicationRecord
   # Records an conversion for the passed impression_id
   # This operation is a noop if no impression is found
   def record_conversion(impression_id, test: false, metadata: {})
-    impression = Impression.find_by(id: impression_id, campaign_id: Campaign.where(organization_id: organization_id).select(:id))
+    impression = Impression.find_by(id: impression_id, organization_id: organization_id)
     return unless impression
     impression_attribute_names = %w[
       advertiser_id
