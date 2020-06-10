@@ -3,4 +3,4 @@ import ConversionTracker from '../src/conversion-tracker'
 window.CodeFund = new ConversionTracker(window.CodeFundConfig || {})
 
 // Example
-//   window.CodeFund.trackConversion('12345')
+//   CodeFund.recordConversion('12345')

@@ -13,7 +13,7 @@ export default class {
 
   // Notifies CodeFund of the pixelId being converted for the saved impression
   // TODO: update to use POST exclusively and support metadata
-  trackConversion (pixelId, options = { test: false, metadata: {} }) {
+  recordConversion (pixelId, options = { test: false, metadata: {} }) {
     const { test, metadata } = options
     const url = `${this.baseUrl}/pixels/${pixelId}/impressions/${this.impressionId}?test=${test}`
     var xhr = new XMLHttpRequest()
