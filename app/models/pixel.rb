@@ -48,9 +48,8 @@ class Pixel < ApplicationRecord
 
   # Records an conversion for the passed impression_id
   # This operation is a noop if no impression is found
-  def record_conversion(impression_id, test: false, metadata: {})
-    impression = Impression.find_by(id: impression_id, organization_id: organization_id)
-    return unless impression
+  def record_conversion(impression_id_param, conversion_referrer: nil, test: false, metadata: {})
+    impression = Impression.find_by(id: impression_id_param, organization_id: organization_id) if UUID.validate(impression_id_param)
     impression_attribute_names = %w[
       advertiser_id
       campaign_id
@@ -69,9 +68,10 @@ class Pixel < ApplicationRecord
       publisher_id
       user_agent
     ]
-    impression_attributes = impression.attributes.slice(*impression_attribute_names)
-    PixelConversion.where(pixel: self, impression: impression).first_or_create!(
+    impression_attributes = impression&.attributes&.slice(*impression_attribute_names) || {}
+    PixelConversion.where(pixel: self, impression_id_param: impression_id_param).first_or_create!(
       impression_attributes.merge(
+        conversion_referrer: conversion_referrer,
         metadata: metadata || {},
         pixel_name: name,
         pixel_value: value,

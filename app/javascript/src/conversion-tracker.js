@@ -3,7 +3,8 @@ export default class {
     const defaultConfig = {
       baseUrl: 'https://codefund.io',
       daysToLive: 30,
-      localStorageKey: 'CodeFund.utm_impression'
+      localStorageKey: 'CodeFund.utm_impression',
+      successStatuses: [200, 202]
     }
     const customConfig = config || {}
     this.config = { ...defaultConfig, ...customConfig }
@@ -18,7 +19,7 @@ export default class {
     var xhr = new XMLHttpRequest()
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
-        if (xhr.status !== 200 && xhr.status !== 202)
+        if (!this.successStatuses.include(xhr.status))
           console.log('CodeFund failed to record the conversion!', xhr.status)
       }
     }
@@ -27,14 +28,14 @@ export default class {
   }
 
   // Indicates if the passed date (represented as a string from localStorage) has expired based on daysToLive
-  expired (dateString) {
-    const date = new Date(Date.parse(dateString)) // => Tue Jun 09 2020 14:33:59 GMT-0400 (EDT)
-    let expiresAt = new Date()
-    expiresAt.setTime(date.getTime())
-    const setAt = expiresAt.setDate(expiresAt.getDate() + this.daysToLive)
-    const diffMilliseconds = Math.abs(expiresAt - setAt)
-    const diffDays = Math.ceil(diffMilliseconds / (1000 * 60 * 60 * 24))
-    return diffDays > this.daysToLive
+  expired (createdAtDateString) {
+    if (!createdAtDateString) return true
+    const createdAt = new Date(Date.parse(createdAtDateString)) // 'Tue Jun 09 2020 14:33:59 GMT-0400 (EDT)'
+    if (createdAt.getTime() !== createdAt.getTime()) return true // invalid date, getTime returned NaN but NaN never equals itself
+    const expiresAt = new Date(createdAt.getTime())
+    expiresAt.setDate(expiresAt.getDate() + this.daysToLive)
+    const today = new Date()
+    return today > expiresAt
   }
 
   // Saves the impressionId to localStorage
@@ -56,7 +57,7 @@ export default class {
   get impressionId () {
     try {
       const rawData = localStorage.getItem(this.localStorageKey)
-      const data = rawData ? JSON.parse(rawData) : {}
+      const data = JSON.parse(rawData) || {}
       const { id, createdAt } = data
       if (!this.expired(createdAt)) return id
       localStorage.removeItem(this.localStorageKey)
@@ -82,5 +83,9 @@ export default class {
 
   get localStorageKey () {
     return this.config.localStorageKey
+  }
+
+  get successStatuses () {
+    return this.config.successStatuses
   }
 }

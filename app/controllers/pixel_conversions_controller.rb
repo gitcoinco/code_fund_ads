@@ -1,5 +1,9 @@
 class PixelConversionsController < ApplicationController
+  include Untrackable
+
   skip_before_action :verify_authenticity_token
+  before_action :set_cors_headers
+  before_action :set_no_caching_headers
 
   def create
     CreatePixelConversionJob.perform_later pixel_conversion_params.to_h
@@ -9,6 +13,8 @@ class PixelConversionsController < ApplicationController
   private
 
   def pixel_conversion_params
-    params.permit(:pixel_id, :impression_id, :test, metadata: {})
+    params.permit(:pixel_id, :impression_id, :test, metadata: {}).tap do |whitelisted|
+      whitelisted[:conversion_referrer] = request.referrer
+    end
   end
 end

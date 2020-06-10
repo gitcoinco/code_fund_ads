@@ -487,6 +487,7 @@ ActiveRecord::Schema.define(version: 2020_05_28_141603) do
   create_table "pixel_conversions", force: :cascade do |t|
     t.uuid "pixel_id", null: false
     t.uuid "impression_id"
+    t.string "impression_id_param", default: "", null: false
     t.boolean "test", default: false, null: false
     t.string "pixel_name", default: "", null: false
     t.integer "pixel_value_cents", default: 0, null: false
@@ -508,6 +509,7 @@ ActiveRecord::Schema.define(version: 2020_05_28_141603) do
     t.date "clicked_at_date"
     t.boolean "fallback_campaign", default: false, null: false
     t.jsonb "metadata", default: "{}", null: false
+    t.text "conversion_referrer"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["advertiser_id"], name: "index_pixel_conversions_on_advertiser_id"
@@ -518,7 +520,7 @@ ActiveRecord::Schema.define(version: 2020_05_28_141603) do
     t.index ["displayed_at_date"], name: "index_pixel_conversions_on_displayed_at_date"
     t.index ["impression_id"], name: "index_pixel_conversions_on_impression_id"
     t.index ["metadata"], name: "index_pixel_conversions_on_metadata", using: :gin
-    t.index ["pixel_id", "impression_id"], name: "index_pixel_conversions_on_pixel_id_and_impression_id", unique: true
+    t.index ["pixel_id", "impression_id_param"], name: "index_pixel_conversions_on_pixel_id_and_impression_id_param", unique: true
     t.index ["pixel_id"], name: "index_pixel_conversions_on_pixel_id"
     t.index ["property_id"], name: "index_pixel_conversions_on_property_id"
   end

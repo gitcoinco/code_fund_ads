@@ -968,6 +968,7 @@ CREATE TABLE public.pixel_conversions (
     id bigint NOT NULL,
     pixel_id uuid NOT NULL,
     impression_id uuid,
+    impression_id_param character varying DEFAULT ''::character varying NOT NULL,
     test boolean DEFAULT false NOT NULL,
     pixel_name character varying DEFAULT ''::character varying NOT NULL,
     pixel_value_cents integer DEFAULT 0 NOT NULL,
@@ -989,6 +990,7 @@ CREATE TABLE public.pixel_conversions (
     clicked_at_date date,
     fallback_campaign boolean DEFAULT false NOT NULL,
     metadata jsonb DEFAULT '"{}"'::jsonb NOT NULL,
+    conversion_referrer text,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -2943,10 +2945,10 @@ CREATE INDEX index_pixel_conversions_on_pixel_id ON public.pixel_conversions USI
 
 
 --
--- Name: index_pixel_conversions_on_pixel_id_and_impression_id; Type: INDEX; Schema: public; Owner: -
+-- Name: index_pixel_conversions_on_pixel_id_and_impression_id_param; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX index_pixel_conversions_on_pixel_id_and_impression_id ON public.pixel_conversions USING btree (pixel_id, impression_id);
+CREATE UNIQUE INDEX index_pixel_conversions_on_pixel_id_and_impression_id_param ON public.pixel_conversions USING btree (pixel_id, impression_id_param);
 
 
 --

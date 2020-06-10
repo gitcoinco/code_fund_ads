@@ -5,10 +5,12 @@
 #  id                   :bigint           not null, primary key
 #  clicked_at           :datetime
 #  clicked_at_date      :date
+#  conversion_referrer  :text
 #  country_code         :string
 #  displayed_at         :datetime
 #  displayed_at_date    :date
 #  fallback_campaign    :boolean          default(FALSE), not null
+#  impression_id_param  :string           default(""), not null
 #  ip_address           :string
 #  latitude             :decimal(, )
 #  longitude            :decimal(, )
@@ -31,17 +33,17 @@
 #
 # Indexes
 #
-#  index_pixel_conversions_on_advertiser_id               (advertiser_id)
-#  index_pixel_conversions_on_campaign_id                 (campaign_id)
-#  index_pixel_conversions_on_clicked_at_date             (clicked_at_date)
-#  index_pixel_conversions_on_country_code                (country_code)
-#  index_pixel_conversions_on_creative_id                 (creative_id)
-#  index_pixel_conversions_on_displayed_at_date           (displayed_at_date)
-#  index_pixel_conversions_on_impression_id               (impression_id)
-#  index_pixel_conversions_on_metadata                    (metadata) USING gin
-#  index_pixel_conversions_on_pixel_id                    (pixel_id)
-#  index_pixel_conversions_on_pixel_id_and_impression_id  (pixel_id,impression_id) UNIQUE
-#  index_pixel_conversions_on_property_id                 (property_id)
+#  index_pixel_conversions_on_advertiser_id                     (advertiser_id)
+#  index_pixel_conversions_on_campaign_id                       (campaign_id)
+#  index_pixel_conversions_on_clicked_at_date                   (clicked_at_date)
+#  index_pixel_conversions_on_country_code                      (country_code)
+#  index_pixel_conversions_on_creative_id                       (creative_id)
+#  index_pixel_conversions_on_displayed_at_date                 (displayed_at_date)
+#  index_pixel_conversions_on_impression_id                     (impression_id)
+#  index_pixel_conversions_on_metadata                          (metadata) USING gin
+#  index_pixel_conversions_on_pixel_id                          (pixel_id)
+#  index_pixel_conversions_on_pixel_id_and_impression_id_param  (pixel_id,impression_id_param) UNIQUE
+#  index_pixel_conversions_on_property_id                       (property_id)
 #
 class PixelConversion < ApplicationRecord
   # extends ...................................................................
@@ -57,7 +59,7 @@ class PixelConversion < ApplicationRecord
   belongs_to :property, optional: true
 
   # validations ...............................................................
-  validates :impression_id, uniqueness: {scope: [:pixel_id], message: "already exists"}
+  validates :impression_id_param, uniqueness: {scope: [:pixel_id], message: "already exists"}
 
   # callbacks .................................................................
   # scopes ....................................................................
