@@ -1,0 +1,11 @@
+<%= render(PageComponent.new(subject: @organization, sidebar: true, sidebar_partial: "/pixels/sidebar")) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: "Edit Conversion Pixel", subtitle: "Fill out the form below")) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= render "/pixels/form",
+      organization: @organization,
+      pixel: @pixel,
+      url: pixel_path(@organization, @pixel) %>
+  <% end %>
+<% end %>

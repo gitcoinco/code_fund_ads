@@ -5,6 +5,6 @@
     <%= render(tabs) if tabs %>
     <%= tag.hr(class: "my-3") if !tabs && header %>
     <div class="page-section"><%= body %></div>
-    <%= render "/#{subject_view_directory}/sidebar", subject: subject if sidebar %>
+    <%= render sidebar_partial ? sidebar_partial : "/#{subject_view_directory}/sidebar", subject: subject if sidebar %>
   </div>
 <% end %>

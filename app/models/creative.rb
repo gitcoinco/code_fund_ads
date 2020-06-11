@@ -39,6 +39,7 @@ class Creative < ApplicationRecord
   has_many :campaigns
   has_many :creative_images
   has_many :images, through: :creative_images
+  has_many :pixel_conversions
   has_many :standard_images, -> { metadata_format CreativeImage::STANDARD_FORMATS }, through: :creative_images, source: :image
 
   # validations ...............................................................

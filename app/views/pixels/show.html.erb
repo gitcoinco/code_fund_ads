@@ -1,0 +1,24 @@
+<%= render(PageComponent.new(subject: @organization)) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: @pixel.name, subtitle: "Conversion pixel for #{@organization.name}", buttons: [
+      layout_button(link: edit_pixel_path(@organization, @pixel), icon: "fas fa-pencil", title: "Edit pixel"),
+      delete_button(link: pixel_path(@organization, @pixel), title: "Delete pixel", layout: true)
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= render CardComponent.new do %>
+      <%= render(Card::HeaderComponent.new) { "Pixel Instructions" } %>
+      <%= render(Card::BodyComponent.new) do %>
+        <h6>Setup</h6>
+        <p>Place the following code snippet on all pages that your campaigns drive traffic to and all pages that track conversions.</p>
+
+        <pre class="border rounded p-3"><code class="code">&lt;script src="https://app.codefund.io/packs/js/conversion.js" async&gt;</code></pre>
+
+        <h6>Pixel</h6>
+        <p>Place the following code snippet on the page that triggers the <strong><%= @pixel.name %></strong> conversion.</p>
+
+        <pre class="border rounded p-3"><code class="code">&lt;script&gt;CodeFund.recordConversion('<%= @pixel.id %>')&lt;/script&gt;</code></pre>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

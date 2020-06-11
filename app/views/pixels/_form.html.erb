@@ -1,0 +1,37 @@
+<%= simple_form_for [organization, pixel], url: url, wrapper: :front_form do |f| %>
+  <%= render(Form::ErrorMessageComponent.new(object: pixel)) %>
+  <%= render CardComponent.new do %>
+
+    <%= render Card::BodyComponent.new do %>
+      <%= tag.div f.input(:user_id,
+                          label: "Advertiser",
+                          collection: organization_users_for_select,
+                          required: true,
+                          input_html: {
+                            class: "form-control",
+                            data: {controller: "select"},
+                            disabled: !authorized_user.can_admin_system?
+                          }), class: "mb-3" %>
+
+      <div class="row">
+        <%= tag.div f.input(:name,
+                            required: true,
+                            input_html: {
+                              class: "form-control", data: {msg: "Please enter a name"}
+                            }), class: "col-md-6 mb-3" %>
+        <div class="col-md-6 mb-3">
+          <%= f.input(:value, as: :currency, currency: "$") %>
+          <small class="form-text text-muted">Value per conversion (not required)</small>
+        </div>
+      </div>
+      <%= tag.div f.input(:description, as: :text, input_html: {class: "form-control"}), class: "mb-3" %>
+    <% end %>
+
+    <%= render Card::FooterComponent.new do |component| %>
+      <% component.with(:actions) do %>
+        <%= cancel_button(pixels_path(organization)) %>
+        <%= f.submit "Save Pixel", class: "btn btn-primary" %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

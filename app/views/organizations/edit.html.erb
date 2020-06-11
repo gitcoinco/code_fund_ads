@@ -1,9 +1,6 @@
 <%= render(PageComponent.new(subject: @organization, tabs: TabsComponent.new(tabs: organization_tabs(@organization)))) do |component| %>
   <% component.with(:header) do %>
-    <%= render(Page::HeaderComponent.new(title: @organization.name, buttons: [
-      generate_organization_report_button(@organization.id),
-      layout_button(link: new_organization_path, icon: "fas fa-plus", title: "Add team", admin: true),
-    ])) %>
+    <%= render(Page::HeaderComponent.new(title: @organization.name)) %>
   <% end %>
   <%= component.with(:body) { render("/organizations/form", organization: @organization) } %>
 <% end %>

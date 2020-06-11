@@ -1,7 +1,7 @@
 class PageComponent < ApplicationComponent
   with_content_areas :header, :body
 
-  def initialize(subject: nil, tabs: false, sidebar: false, classes: nil)
+  def initialize(subject: nil, tabs: false, sidebar: false, sidebar_partial: nil, classes: [])
     @subject = subject
     @tabs = tabs
     @sidebar = sidebar
@@ -15,7 +15,7 @@ class PageComponent < ApplicationComponent
 
   private
 
-  attr_reader :subject, :sidebar, :tabs, :class_names
+  attr_reader :subject, :sidebar, :tabs, :sidebar_partial, :class_names
 
   def classes
     classes = ["page"]

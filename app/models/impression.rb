@@ -59,6 +59,7 @@ class Impression < ApplicationRecord
   belongs_to :campaign, optional: true
   belongs_to :creative, optional: true
   belongs_to :property, optional: true
+  has_many :pixel_conversions
 
   # validations ...............................................................
 

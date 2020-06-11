@@ -1,0 +1,12 @@
+<%= render(PageComponent.new(subject: @organization, tabs: TabsComponent.new(tabs: organization_tabs(@organization)), sidebar: true, sidebar_partial: "/pixels/sidebar")) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: @organization.name, sidebar: true, buttons: [
+      layout_button(link: new_pixel_path(@organization), icon: "fas fa-plus", title: "Add pixel", display: authorized_user.can_edit_organization_users?(@organization)),
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= render CardComponent.new do %>
+      <%= render "/pixels/table", organization: @organization, pixels: @pixels, pagy: @pagy %>
+    <% end %>
+  <% end %>
+<% end %>

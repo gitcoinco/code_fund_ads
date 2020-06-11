@@ -1,0 +1,10 @@
+<%= table_row do %>
+  <%= table_data pixel.name %>
+  <%= table_data number_to_currency pixel.value %>
+  <%= table_data pixel.description %>
+  <%= table_data add_class: "text-right" do %>
+    <%= edit_button(link: edit_pixel_path(organization, pixel), title: "Edit Pixel", admin: true) %>
+    <%= delete_button(link: edit_pixel_path(organization, pixel), title: "Remove Pixel", admin: true) %>
+    <%= goto_button(link: pixel_path(organization, pixel), icon: "fas fa-chevron-right", title: "View Pixel") %>
+  <% end %>
+<% end %>

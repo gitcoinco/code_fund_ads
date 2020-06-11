@@ -1,0 +1,18 @@
+<%= table_wrapper do %>
+  <%= paginated_table do %>
+    <%= table_head do %>
+      <%= table_row header: true do %>
+        <%= table_column "Name" %>
+        <%= table_column "Value" %>
+        <%= table_column "Description" %>
+      <% end %>
+    <% end %>
+    <%= table_body do %>
+      <%= render partial: "/pixels/tr", locals: {organization: @organization}, collection: pixels, as: :pixel %>
+    <% end %>
+  <% end %>
+  <%= pagination_wrapper do %>
+    <span><%== pagy_bootstrap_nav(pagy) %></span>
+    <%= pagy_entries(pagy) %>
+  <% end if pagy.pages > 1 %>
+<% end %>

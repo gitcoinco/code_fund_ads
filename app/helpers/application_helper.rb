@@ -64,7 +64,7 @@ module ApplicationHelper
   end
 
   def organization_users_for_select
-    Current.organization.users.advertisers.sort_by(&:name).map { |user| [user.name, user.id] }
+    Current.organization.users.advertisers.sort_by(&:name).map { |user| ["#{user.name} <#{user.email}>", user.id] }
   end
 
   def account_managers_for_select

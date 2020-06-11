@@ -57,8 +57,9 @@ class Property < ApplicationRecord
   # relationships .............................................................
   belongs_to :user
   belongs_to :audience, optional: true
-  has_many :property_advertisers, dependent: :destroy
   has_many :advertisers, through: :property_advertisers, class_name: "User", foreign_key: "advertiser_id"
+  has_many :pixel_conversions
+  has_many :property_advertisers, dependent: :destroy
   has_many :property_traffic_estimates, dependent: :destroy
 
   # validations ...............................................................

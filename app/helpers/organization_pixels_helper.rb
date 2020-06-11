@@ -1,0 +1,2 @@
+module OrganizationPixelsHelper
+end

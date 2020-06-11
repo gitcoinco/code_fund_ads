@@ -67,8 +67,6 @@ COMMENT ON EXTENSION tablefunc IS 'functions that manipulate whole tables, inclu
 
 SET default_tablespace = '';
 
-SET default_table_access_method = heap;
-
 --
 -- Name: action_mailbox_inbound_emails; Type: TABLE; Schema: public; Owner: -
 --
@@ -963,6 +961,78 @@ ALTER SEQUENCE public.organizations_id_seq OWNED BY public.organizations.id;
 
 
 --
+-- Name: pixel_conversions; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pixel_conversions (
+    id bigint NOT NULL,
+    pixel_id uuid NOT NULL,
+    impression_id uuid,
+    impression_id_param character varying DEFAULT ''::character varying NOT NULL,
+    test boolean DEFAULT false NOT NULL,
+    pixel_name character varying DEFAULT ''::character varying NOT NULL,
+    pixel_value_cents integer DEFAULT 0 NOT NULL,
+    pixel_value_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    advertiser_id bigint,
+    publisher_id bigint,
+    campaign_id bigint,
+    creative_id bigint,
+    property_id bigint,
+    ip_address character varying,
+    user_agent text,
+    country_code character varying,
+    postal_code character varying,
+    latitude numeric,
+    longitude numeric,
+    displayed_at timestamp without time zone,
+    displayed_at_date date,
+    clicked_at timestamp without time zone,
+    clicked_at_date date,
+    fallback_campaign boolean DEFAULT false NOT NULL,
+    metadata jsonb DEFAULT '"{}"'::jsonb NOT NULL,
+    conversion_referrer text,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: pixel_conversions_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.pixel_conversions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pixel_conversions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.pixel_conversions_id_seq OWNED BY public.pixel_conversions.id;
+
+
+--
+-- Name: pixels; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pixels (
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    name character varying NOT NULL,
+    description text,
+    organization_id bigint NOT NULL,
+    user_id bigint NOT NULL,
+    value_cents integer DEFAULT 0 NOT NULL,
+    value_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: properties; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1662,6 +1732,13 @@ ALTER TABLE ONLY public.organizations ALTER COLUMN id SET DEFAULT nextval('publi
 
 
 --
+-- Name: pixel_conversions id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pixel_conversions ALTER COLUMN id SET DEFAULT nextval('public.pixel_conversions_id_seq'::regclass);
+
+
+--
 -- Name: properties id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1868,6 +1945,22 @@ ALTER TABLE ONLY public.organization_users
 
 ALTER TABLE ONLY public.organizations
     ADD CONSTRAINT organizations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pixel_conversions pixel_conversions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pixel_conversions
+    ADD CONSTRAINT pixel_conversions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pixels pixels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pixels
+    ADD CONSTRAINT pixels_pkey PRIMARY KEY (id);
 
 
 --
@@ -2789,6 +2882,97 @@ CREATE INDEX index_organizations_on_creative_approval_needed ON public.organizat
 
 
 --
+-- Name: index_pixel_conversions_on_advertiser_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pixel_conversions_on_advertiser_id ON public.pixel_conversions USING btree (advertiser_id);
+
+
+--
+-- Name: index_pixel_conversions_on_campaign_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pixel_conversions_on_campaign_id ON public.pixel_conversions USING btree (campaign_id);
+
+
+--
+-- Name: index_pixel_conversions_on_clicked_at_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pixel_conversions_on_clicked_at_date ON public.pixel_conversions USING btree (clicked_at_date);
+
+
+--
+-- Name: index_pixel_conversions_on_country_code; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pixel_conversions_on_country_code ON public.pixel_conversions USING btree (country_code);
+
+
+--
+-- Name: index_pixel_conversions_on_creative_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pixel_conversions_on_creative_id ON public.pixel_conversions USING btree (creative_id);
+
+
+--
+-- Name: index_pixel_conversions_on_displayed_at_date; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pixel_conversions_on_displayed_at_date ON public.pixel_conversions USING btree (displayed_at_date);
+
+
+--
+-- Name: index_pixel_conversions_on_impression_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pixel_conversions_on_impression_id ON public.pixel_conversions USING btree (impression_id);
+
+
+--
+-- Name: index_pixel_conversions_on_metadata; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pixel_conversions_on_metadata ON public.pixel_conversions USING gin (metadata);
+
+
+--
+-- Name: index_pixel_conversions_on_pixel_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pixel_conversions_on_pixel_id ON public.pixel_conversions USING btree (pixel_id);
+
+
+--
+-- Name: index_pixel_conversions_on_pixel_id_and_impression_id_param; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pixel_conversions_on_pixel_id_and_impression_id_param ON public.pixel_conversions USING btree (pixel_id, impression_id_param);
+
+
+--
+-- Name: index_pixel_conversions_on_property_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pixel_conversions_on_property_id ON public.pixel_conversions USING btree (property_id);
+
+
+--
+-- Name: index_pixels_on_organization_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pixels_on_organization_id ON public.pixels USING btree (organization_id);
+
+
+--
+-- Name: index_pixels_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_pixels_on_user_id ON public.pixels USING btree (user_id);
+
+
+--
 -- Name: index_properties_on_assigned_fallback_campaign_ids; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3111,6 +3295,22 @@ ALTER INDEX public.index_impressions_on_uplift ATTACH PARTITION public.impressio
 
 
 --
+-- Name: pixels fk_rails_6b2dcde3e7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pixels
+    ADD CONSTRAINT fk_rails_6b2dcde3e7 FOREIGN KEY (organization_id) REFERENCES public.organizations(id);
+
+
+--
+-- Name: pixels fk_rails_d13d92d4dc; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pixels
+    ADD CONSTRAINT fk_rails_d13d92d4dc FOREIGN KEY (user_id) REFERENCES public.users(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -3222,6 +3422,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200519191749'),
 ('20200521213149'),
 ('20200521230331'),
+('20200527164824'),
+('20200527175633'),
 ('20200528141603');
 
 

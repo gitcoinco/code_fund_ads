@@ -42,6 +42,8 @@ class Organization < ApplicationRecord
   has_many :organization_reports
   has_many :organization_transactions
   has_many :organization_users, dependent: :destroy
+  has_many :pixels, dependent: :destroy
+  has_many :pixel_conversions
   has_many :scheduled_organization_reports
   has_many :users, through: :organization_users
   has_many :administrators, -> { where organization_users: {role: ENUMS::ORGANIZATION_ROLES::ADMINISTRATOR} }, through: :organization_users, source: "user"

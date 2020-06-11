@@ -105,6 +105,8 @@ class User < ApplicationRecord
   has_many :managed_accounts, class_name: "Organization", foreign_key: "account_manager_user_id"
   has_many :email_users
   has_many :emails, through: :email_users
+  has_many :pixels
+  has_many :pixel_conversions
 
   # validations ...............................................................
   validates :first_name, presence: true

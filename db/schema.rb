@@ -484,6 +484,60 @@ ActiveRecord::Schema.define(version: 2020_05_28_141603) do
     t.index ["creative_approval_needed"], name: "index_organizations_on_creative_approval_needed"
   end
 
+  create_table "pixel_conversions", force: :cascade do |t|
+    t.uuid "pixel_id", null: false
+    t.uuid "impression_id"
+    t.string "impression_id_param", default: "", null: false
+    t.boolean "test", default: false, null: false
+    t.string "pixel_name", default: "", null: false
+    t.integer "pixel_value_cents", default: 0, null: false
+    t.string "pixel_value_currency", default: "USD", null: false
+    t.bigint "advertiser_id"
+    t.bigint "publisher_id"
+    t.bigint "campaign_id"
+    t.bigint "creative_id"
+    t.bigint "property_id"
+    t.string "ip_address"
+    t.text "user_agent"
+    t.string "country_code"
+    t.string "postal_code"
+    t.decimal "latitude"
+    t.decimal "longitude"
+    t.datetime "displayed_at"
+    t.date "displayed_at_date"
+    t.datetime "clicked_at"
+    t.date "clicked_at_date"
+    t.boolean "fallback_campaign", default: false, null: false
+    t.jsonb "metadata", default: "{}", null: false
+    t.text "conversion_referrer"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["advertiser_id"], name: "index_pixel_conversions_on_advertiser_id"
+    t.index ["campaign_id"], name: "index_pixel_conversions_on_campaign_id"
+    t.index ["clicked_at_date"], name: "index_pixel_conversions_on_clicked_at_date"
+    t.index ["country_code"], name: "index_pixel_conversions_on_country_code"
+    t.index ["creative_id"], name: "index_pixel_conversions_on_creative_id"
+    t.index ["displayed_at_date"], name: "index_pixel_conversions_on_displayed_at_date"
+    t.index ["impression_id"], name: "index_pixel_conversions_on_impression_id"
+    t.index ["metadata"], name: "index_pixel_conversions_on_metadata", using: :gin
+    t.index ["pixel_id", "impression_id_param"], name: "index_pixel_conversions_on_pixel_id_and_impression_id_param", unique: true
+    t.index ["pixel_id"], name: "index_pixel_conversions_on_pixel_id"
+    t.index ["property_id"], name: "index_pixel_conversions_on_property_id"
+  end
+
+  create_table "pixels", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.bigint "organization_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "value_cents", default: 0, null: false
+    t.string "value_currency", default: "USD", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["organization_id"], name: "index_pixels_on_organization_id"
+    t.index ["user_id"], name: "index_pixels_on_user_id"
+  end
+
   create_table "properties", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "property_type", default: "website", null: false
@@ -691,6 +745,8 @@ ActiveRecord::Schema.define(version: 2020_05_28_141603) do
     t.index ["object_changes"], name: "index_versions_on_object_changes", using: :gin
   end
 
+  add_foreign_key "pixels", "organizations"
+  add_foreign_key "pixels", "users"
 
   create_view "regions", sql_definition: <<-SQL
       SELECT 1 AS id,

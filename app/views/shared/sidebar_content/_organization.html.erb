@@ -13,6 +13,7 @@
     <%= active_link_to "Overview", organization_path(Current.organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item", active: :exact %>
     <%= active_link_to "Members", organization_users_path(Current.organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
     <%= active_link_to "Transactions", organization_transactions_path(Current.organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
+    <%= active_link_to "Pixels", pixels_path(Current.organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
     <%= active_link_to "Reports", organization_reports_path(Current.organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" %>
     <%= active_link_to "Comments", organization_comments_path(Current.organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item" if authorized_user.can_view_comments? %>
     <%= active_link_to("Settings", edit_organization_path(Current.organization), class: "menu-link", tabindex: -1, wrap_tag: :li, wrap_class: "menu-item") if authorized_user.can_admin_system? %>

@@ -1,7 +1,6 @@
 <%= render(PageComponent.new(subject: @organization, tabs: TabsComponent.new(tabs: organization_tabs(@organization)), sidebar: true)) do |component| %>
   <% component.with(:header) do %>
     <%= render(Page::HeaderComponent.new(title: @organization.name, sidebar: true, buttons: [
-      generate_organization_report_button(@organization.id),
       layout_button(link: new_organization_transaction_path(@organization), icon: "fas fa-plus", title: "Add transaction", admin: true),
       layout_button(link: organization_transactions_path(@organization, format: :csv), icon: "fas fa-download", title: "Export to CSV"),
     ])) %>

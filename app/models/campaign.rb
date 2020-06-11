@@ -89,6 +89,7 @@ class Campaign < ApplicationRecord
   belongs_to :region, optional: true
   belongs_to :creative, -> { includes :creative_images }, optional: true
   belongs_to :user
+  has_many :pixel_conversions
 
   # validations ...............................................................
   validates :name, length: {maximum: 255, allow_blank: false}
