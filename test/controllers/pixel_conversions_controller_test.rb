@@ -4,6 +4,7 @@ class PixelConversionsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @pixel = pixels(:one)
     @impression = premium_impression
+    @impression.update(organization: @pixel.organization)
   end
 
   test "should create pixel conversion on GET" do
