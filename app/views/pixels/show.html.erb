@@ -9,15 +9,28 @@
     <%= render CardComponent.new do %>
       <%= render(Card::HeaderComponent.new) { "Pixel Instructions" } %>
       <%= render(Card::BodyComponent.new) do %>
-        <h6>Setup</h6>
-        <p>Place the following code snippet on all pages that your campaigns drive traffic to and all pages that track conversions.</p>
+        <h5>Setup</h5>
 
-        <pre class="border rounded p-3"><code class="code">&lt;script src="https://app.codefund.io/packs/js/conversion.js"&gt;&lt;/script&gt;</code></pre>
+        <div>Place the following code snippet on all pages that your campaigns drive traffic to and all pages that track conversions.</div>
+        <pre class="border rounded p-3 mt-2"><code class="code">&lt;script src="https://app.codefund.io/packs/js/conversion.js"&gt;&lt;/script&gt;</code></pre>
 
-        <h6>Pixel</h6>
-        <p>Place the following code snippet on the page that triggers the <strong><%= @pixel.name %></strong> conversion.</p>
+        <h5>Pixel</h5>
 
-        <pre class="border rounded p-3"><code class="code">&lt;script&gt;CodeFund.recordConversion('<%= @pixel.id %>')&lt;/script&gt;</code></pre>
+        <div>Place the following code snippet on the page that triggers the <strong><%= @pixel.name %></strong> conversion.</div>
+        <pre class="border rounded p-3 mt-2"><code class="code">&lt;script&gt;CodeFund.recordConversion('<%= @pixel.id %>')&lt;/script&gt;</code></pre>
+
+        <h6>Options</h6>
+        <ul>
+          <li>
+            <code>test</code> <em>- boolean indicating if this is a test</em>
+            <pre class="border rounded p-3 mt-2"><code class="code">&lt;script&gt;CodeFund.recordConversion('<%= @pixel.id %>', { test: true })&lt;/script&gt;</code></pre>
+          </li>
+
+          <li>
+            <code>metadata</code> <em>- object for custom metadata</em>
+            <pre class="border rounded p-3 mt-2"><code class="code">&lt;script&gt;CodeFund.recordConversion('<%= @pixel.id %>', { metadata: {custom: 'A Custom Value'} })&lt;/script&gt;</code></pre>
+          </li>
+        </ul>
       <% end %>
     <% end %>
   <% end %>

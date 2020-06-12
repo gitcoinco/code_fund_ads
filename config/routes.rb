@@ -23,7 +23,9 @@ Rails.application.routes.draw do
 
   # resource :global_stats, only: [:show], defaults: {format: :json}
 
-  match "/pixels/:pixel_id/impressions/:impression_id", to: "pixel_conversions#create", via: [:get, :post], as: "pixel_conversions"
+  scope "/pixel/:pixel_id/impression/:impression_id" do
+    resource :pixel_conversions, only: [:create], path: "conversions"
+  end
 
   resources :jobs, only: [:index]
   resources :job_posting_prospects, except: [:index, :destroy], path: "/jobs/listings"
