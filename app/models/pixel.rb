@@ -53,6 +53,7 @@ class Pixel < ApplicationRecord
                    Impression.find_by(id: impression_id_param, organization_id: organization_id)
                  rescue => e
                    logger.info "Unable to find an impression for impression_id='#{impression_id_param}' and organization_id='#{organization_id}'! #{e.message}"
+                   nil
                  end
     impression_attribute_names = %w[
       advertiser_id
