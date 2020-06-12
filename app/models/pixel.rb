@@ -71,7 +71,7 @@ class Pixel < ApplicationRecord
     impression_attributes = impression&.attributes&.slice(*impression_attribute_names) || {}
     PixelConversion.where(pixel: self, impression_id_param: impression_id_param).first_or_create!(
       impression_attributes.merge(
-        impression: impression,
+        impression_id: impression&.id,
         conversion_referrer: conversion_referrer,
         metadata: metadata || {},
         pixel_name: name,
