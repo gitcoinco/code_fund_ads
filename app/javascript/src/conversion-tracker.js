@@ -19,7 +19,7 @@ export default class {
     var xhr = new XMLHttpRequest()
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
-        if (!this.successStatuses.include(xhr.status))
+        if (!this.successStatuses.includes(xhr.status))
           console.log('CodeFund failed to record the conversion!', xhr.status)
       }
     }
