@@ -15,7 +15,8 @@ export default class {
   // TODO: update to use POST exclusively and support metadata
   recordConversion (pixelId, options = { test: false, metadata: {} }) {
     const { test, metadata } = options
-    const url = `${this.baseUrl}/pixels/${pixelId}/impressions/${this.impressionId}?test=${test}`
+    const url = `${this.baseUrl}/pixel/${pixelId}/impression/${this.impressionId}/conversions`
+    const params = `test=${!!test}&metadata=${JSON.stringify(metadata)}`
     var xhr = new XMLHttpRequest()
     xhr.onreadystatechange = () => {
       if (xhr.readyState === 4) {
@@ -23,8 +24,8 @@ export default class {
           console.log('CodeFund failed to record the conversion!', xhr.status)
       }
     }
-    xhr.open('GET', url)
-    xhr.send()
+    xhr.open('POST', url)
+    xhr.send(params)
   }
 
   // Indicates if the passed date (represented as a string from localStorage) has expired based on daysToLive

@@ -7,26 +7,11 @@ class PixelConversionsControllerTest < ActionDispatch::IntegrationTest
     @impression.update(organization: @pixel.organization)
   end
 
-  test "should create pixel conversion on GET" do
-    perform_enqueued_jobs do
-      get pixel_conversions_path(@pixel, @impression), params: {
-        test: true,
-        metadata: {"foo" => "bar"}
-      }
-    end
-    assert status == 202
-    assert_performed_jobs 1
-    conversion = @pixel.pixel_conversions.find_by(pixel: @pixel, impression: @impression)
-    assert conversion
-    assert conversion.test?
-    assert conversion.metadata["foo"] = "bar"
-  end
-
   test "should create pixel conversion on POST" do
     perform_enqueued_jobs do
       post pixel_conversions_path(@pixel, @impression), params: {
         test: true,
-        metadata: {"foo" => "bar"}
+        metadata: {"foo" => "bar"}.to_json
       }
     end
     assert status == 202

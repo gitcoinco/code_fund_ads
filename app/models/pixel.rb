@@ -49,14 +49,8 @@ class Pixel < ApplicationRecord
   # Records an conversion for the passed impression_id
   # This operation is a noop if no impression is found
   def record_conversion(impression_id_param, conversion_referrer: nil, test: false, metadata: {})
-    impression = begin
-                   i = Impression.find_by(id: impression_id_param, organization_id: organization_id)
-                   logger.info "Pixel#record_conversion Unable to find an impression for impression_id='#{impression_id_param}' and organization_id='#{organization_id}'." unless i
-                   i
-                 rescue => e
-                   logger.info "Pixel#record_conversion Unable to find an impression for impression_id='#{impression_id_param}' and organization_id='#{organization_id}'. #{e.message}"
-                   nil
-                 end
+    impression = Impression.find_by(id: impression_id_param, organization_id: organization_id) if UUID.validate(impression_id_param)
+    logger.info "Pixel#record_conversion Unable to find an impression for impression_id='#{impression_id_param}' and organization_id='#{organization_id}'." unless impression
     impression_attribute_names = %w[
       advertiser_id
       campaign_id
