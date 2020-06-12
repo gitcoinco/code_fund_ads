@@ -1,7 +1,7 @@
 export default class {
   constructor (config = {}) {
     const defaultConfig = {
-      baseUrl: 'https://codefund.io',
+      baseUrl: 'https://app.codefund.io',
       daysToLive: 30,
       localStorageKey: 'CodeFund.utm_impression',
       successStatuses: [200, 202]
