@@ -1,0 +1,14 @@
+<header class="text-gray-700 body-font">
+  <div class="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+    <a href="/" class="flex items-center mb-4 md:mb-0">
+      <%= image_pack_tag "branding/codefund-logo-w2.svg", style: "height: 30px; width: 139px;" %>
+    </a>
+    <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-lg justify-center">
+      <%= active_link_to "Advertisers", page_path("advertisers"), class: "mr-5 hover:text-gray-900", class_active: "font-semibold text-purple-700" %>
+      <%= active_link_to "Publishers", page_path("publishers"), class: "mr-5 hover:text-gray-900", class_active: "font-semibold text-purple-700" %>
+      <%= active_link_to "Podcasts", page_path("podcasts"), class: "mr-5 hover:text-gray-900", class_active: "font-semibold text-purple-700" %>
+      <%= active_link_to "Blog", "/blog/", class: "mr-5 hover:text-gray-900", class_active: "font-semibold text-purple-700" %>
+    </nav>
+    <a href="https://app.codefund.io/users/sign_in" class="inline-flex text-white bg-indigo-500 hover:bg-indigo-700 border-0 py-2 px-6 focus:outline-none rounded text-base mt-4 md:mt-0">Login</a>
+  </div>
+</header>

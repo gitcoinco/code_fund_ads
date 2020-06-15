@@ -220,6 +220,7 @@ GEM
     hashdiff (1.0.1)
     heroku-deflater (0.6.3)
       rack (>= 1.4.5)
+    high_voltage (3.1.2)
     hiredis (0.6.3)
     html_tokenizer (0.0.7)
     htmlentities (4.3.4)
@@ -492,6 +493,8 @@ GEM
       rack (~> 2.0)
       rack-protection (= 2.0.8.1)
       tilt (~> 2.0)
+    sitemap_generator (6.1.2)
+      builder (~> 3.0)
     sixarm_ruby_unaccent (1.2.0)
     slack-notifier (2.3.2)
     smart_properties (1.15.0)
@@ -639,6 +642,7 @@ DEPENDENCIES
   full-name-splitter (~> 0.1.2)
   hashdiff
   heroku-deflater (~> 0.6.3)
+  high_voltage (~> 3.1)
   hiredis (~> 0.6.3)
   htmlentities (= 4.3.4)
   image_processing (~> 1.10.3)
@@ -696,6 +700,7 @@ DEPENDENCIES
   sidekiq-failures (~> 1.0.0)
   simple_form (~> 5.0)
   simplecov
+  sitemap_generator (~> 6.1)
   slack-notifier (~> 2.3.2)
   solargraph (~> 0.39)
   split (~> 3.4.1)

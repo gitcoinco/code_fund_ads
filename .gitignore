@@ -51,3 +51,4 @@ lib/tasks/impressions.rake
 stats.json
 *.tmp
 *.log
+*:Zone.Identifier

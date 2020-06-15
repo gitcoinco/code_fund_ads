@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta Tags -->
+    <%= display_meta_tags site: "CodeFund" %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <!-- CDN Stylesheets -->
+    <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
+    <!-- Compressed Stylesheets -->
+    <%= stylesheet_pack_tag "home", media: "all", "data-turbolinks-track": "reload" %>
+    <!-- CDN JavaScripts -->
+    <script src="https://kit.fontawesome.com/0ba6fac129.js" crossorigin="anonymous" defer></script>
+    <script src="https://config.metomic.io/config.js?id=prj:b675cf5e-9167-4694-8b45-7dcace0a0739" crossorigin charset="utf-8" defer></script>
+    <script src="https://consent-manager.metomic.io/embed.js" crossorigin charset="utf-8" defer></script>
+    <!-- Compressed JavaScripts -->
+    <%= javascript_pack_tag "home", "data-turbolinks-track": "reload", defer: true %>
+  </head>
+  <body class="leading-normal tracking-normal text-white">
+    <%= render "/layouts/home/blm" %>
+    <%= render "/layouts/home/navbar" %>
+    <%= yield %>
+    <%= render "/layouts/home/footer" %>
+  </body>
+</html>

@@ -1,0 +1,161 @@
+<!-- Hero -->
+<section class="text-gray-700 body-font gradient relative">
+  <div class="container mx-auto flex px-5 py-24 md:flex-row flex-col items-center">
+    <div class="lg:flex-grow md:w-1/2 lg:pr-24 md:pr-16 flex flex-col md:items-start md:text-left mb-16 md:mb-0 items-center text-center">
+      <h1 class="title-font md:text-5xl sm:text-4xl mb-4 font-bold leading-tight text-gray-900">Target potential customers without making them <span class="text-cf-orange-600">feel like a target</span></h1>
+      <p class="mb-8 leading-relaxed text-xl">
+        CodeFund focuses on providing an ethical alternative to digital advertising that drives results and respect from our audience.
+      </p>
+      
+      <div class="flex lg:flex-row md:flex-col">
+        <div data-controller="modal" data-modal-allow-background-close="false">
+          <a href="#"
+            data-action="click->modal#open"
+            class="text-white bg-indigo-500 hover:bg-indigo-700 inline-flex py-3 px-5 rounded-lg items-center focus:shadow-outline shadow">
+            <span class="flex items-start flex-col leading-none">
+              <span class="text-sm mb-1">Are you a marketer?</span>
+              <span class="title-font font-medium">Start an ethical ad campaign</span>
+            </span>
+          </a>
+          <%= render Home::Modals::AdvertiserApplicationComponent.new %>
+        </div>
+
+        <div data-controller="modal" data-modal-allow-background-close="false" class="lg:ml-4 md:ml-0 ml-4">
+          <a href="#"
+            data-action="click->modal#open"
+            class="text-white bg-indigo-500 hover:bg-indigo-700 inline-flex py-3 px-5 rounded-lg items-center focus:shadow-outline shadow">
+            <span class="flex items-start flex-col leading-none">
+              <span class="text-sm mb-1">Are you a developer?</span>
+              <span class="title-font font-medium">Join the CodeFund Network</span>
+            </span>
+          </a>
+          <%= render Home::Modals::PublisherApplicationComponent.new %>
+        </div>
+      </div>
+    </div>
+    <div class="lg:max-w-lg lg:w-full md:w-1/2 w-5/6">
+      <%= image_pack_tag "illustrations/undraw_work_time_lhoj.svg", class: "object-cover object-center rounded" %>
+    </div>
+  </div>
+  <div class="wave-1-container">
+    <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+      <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" class="shape-fill"></path>
+    </svg>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-12 bg-white">
+  <div class="container max-w-xl mx-auto px-4 sm:px-6 lg:max-w-screen-xl lg:px-8">
+    <div class="lg:grid lg:grid-cols-3 lg:gap-8">
+      <div class="text-center">
+        <%= image_pack_tag "logos/logo-segment.svg", class: "h-8 inline-block" %>
+        <div class="mt-5">
+          <p class="mt-2 leading-7 text-xl text-gray-900">
+            CodeFund has quickly become one of our highest converting channels. If you want to reach a technical audiences look no further than CodeFund!
+          </p>
+          <h5 class="text-base font-medium mt-4 text-cf-purple-700">
+            Chipper Nicodemus
+            <span class="block font-thin text-sm text-gray-700">Sr. Mgr of Acquisition, <a href="https://segment.com/">Segment</a></span>
+          </h5>
+        </div>
+      </div>
+      <div class="mt-10 lg:mt-0 text-center">
+        <%= image_pack_tag "logos/logo-daily.svg", class: "h-8 inline-block" %>
+        <div class="mt-5">
+          <p class="mt-2 leading-7 text-xl text-gray-900">
+            CodeFund helps us making a sustainable community while keeping our high standard UX
+          </p>
+          <h5 class="text-base font-medium mt-4 text-cf-purple-700">
+            Ido Shamun
+            <span class="block font-thin text-sm text-gray-700">Creator, <a href="https://www.dailynow.co/">Daily Chrome Extension</a></span>
+          </h5>
+        </div>
+      </div>
+      <div class="mt-10 lg:mt-0 text-center">
+        <%= image_pack_tag "logos/logo-feross.png", class: "h-8 inline-block" %>
+        <div class="mt-5">
+          <p class="mt-2 leading-7 text-xl text-gray-900">
+            CodeFund makes it easy for open source maintainers to get paid
+          </p>
+          <h5 class="text-base font-medium mt-4 text-cf-purple-700">
+            Feross Aboukhadijeh
+            <span class="block font-thin text-sm text-gray-700">Open Source Maintainer, <a href="https://www.npmjs.com/~feross">100+ packages</a></span>
+          </h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats -->
+<section class="text-gray-700 body-font bg-white">
+  <div class="container px-5 py-24 mx-auto flex flex-wrap">
+    <div class="flex flex-wrap -mx-4 mt-auto mb-auto lg:w-1/2 sm:w-2/3 content-start sm:pr-10">
+      <div class="w-full sm:p-4 px-4 mb-6">
+        <h1 class="title-font font-medium text-4xl mb-2 text-gray-900 leading-tight">Think of us as your <strong class="text-cf-orange-600">direct channel to developers</strong></h1>
+        <div class="leading-relaxed text-xl">
+          CodeFund was founded and is run by a small team of open source maintainers and sustainers.
+          We are uniquely qualified to help you reach your target audience of developers.
+        </div>
+        <div class="mt-2" data-controller="modal" data-modal-allow-background-close="false">
+          <a
+            href="#" 
+            data-action="click->modal#open"
+            class="text-white bg-indigo-500 hover:bg-indigo-700 inline-flex mt-5 p-5 rounded-lg items-center focus:shadow-outline shadow">
+            <span class="flex items-start flex-col leading-none">
+              <span class="title-font font-medium text-lg">Start a Campaign</span>
+            </span>
+          </a>
+          <%= render Home::Modals::AdvertiserApplicationComponent.new %>
+        </div>
+      </div>
+    </div>
+    <div class="lg:w-1/2 sm:w-1/3 w-full rounded-lg overflow-hidden mt-6 sm:mt-0">
+      <img class="object-cover object-center w-full h-full" src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80" alt="Support team" />
+    </div>
+  </div>
+</section>
+
+<!-- Change the colour #f8fafc to match the previous section colour -->
+<svg class="wave-top" viewBox="0 0 1439 147" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+		<g transform="translate(-1.000000, -14.000000)" fill-rule="nonzero">
+			<g class="wave" fill="#ffffff">
+				<path d="M1440,84 C1383.555,64.3 1342.555,51.3 1317,45 C1259.5,30.824 1206.707,25.526 1169,22 C1129.711,18.326 1044.426,18.475 980,22 C954.25,23.409 922.25,26.742 884,32 C845.122,37.787 818.455,42.121 804,45 C776.833,50.41 728.136,61.77 713,65 C660.023,76.309 621.544,87.729 584,94 C517.525,105.104 484.525,106.438 429,108 C379.49,106.484 342.823,104.484 319,102 C278.571,97.783 231.737,88.736 205,84 C154.629,75.076 86.296,57.743 0,32 L0,0 L1440,0 L1440,84 Z"></path>
+			</g>
+			<g transform="translate(1.000000, 15.000000)" fill="#FFFFFF">
+				<g transform="translate(719.500000, 68.500000) rotate(-180.000000) translate(-719.500000, -68.500000) ">
+					<path d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496" opacity="0.100000001"></path>
+					<path d="M100,104.708498 C277.413333,72.2345949 426.147877,52.5246657 546.203633,45.5787101 C666.259389,38.6327546 810.524845,41.7979068 979,55.0741668 C931.069965,56.122511 810.303266,74.8455141 616.699903,111.243176 C423.096539,147.640838 250.863238,145.462612 100,104.708498 Z" opacity="0.100000001"></path>
+					<path d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z" opacity="0.200000003"></path>
+				</g>
+			</g>
+		</g>
+	</g>
+</svg>
+
+<!-- Customers -->
+<div class="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+  <h1 class="text-center title-font font-semibold text-4xl mb-2 text-gray-900 leading-tight">We are the tech marketers <strong class="text-cf-orange-600">secret weapon</strong></h1>
+  <div class="max-w-2xl mx-auto text-center text-xl leading-8 text-gray-600 tracking-wider">
+    Most companies that use CodeFund consider us their secret weapon when marketing directly to their target tech audience
+  </div>
+  <div class="mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-8">
+    <% [
+      { name: "Rollbar", slug: "rollbar", h: 8 },
+      { name: "Segment", slug: "segment", h: 10 },
+      { name: "DigitalOcean", slug: "digitalocean", h: 10 },
+      { name: "MongoDB", slug: "mongodb", h: 12 },
+      { name: "CloudBees", slug: "cloudbees", h: 12 },
+      { name: "BuildKite", slug: "buildkite", h: 8 },
+      { name: "JetBrains", slug: "jetbrains", h: 24 },
+      { name: "sourcegraph", slug: "sourcegraph", h: 8 },
+      { name: "CircleCI", slug: "circleci", h: 10 }
+    ].each do |advertiser| -%>
+    <div class="col-span-1 flex justify-center py-8 px-8">
+      <%= image_pack_tag "logos/logo-#{advertiser[:slug]}.svg", class: "h-#{advertiser[:h]}", alt: advertiser[:name] %>
+    </div>
+    <% end -%>
+  </div>
+</div>

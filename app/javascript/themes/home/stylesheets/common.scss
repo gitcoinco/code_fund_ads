@@ -1,0 +1,29 @@
+.gradient {
+  background: linear-gradient(45deg, #DFEAFF 0%, #EDF3FF 50%);
+}
+
+.blm-banner {
+  position: relative;
+  background: #000;
+  color: #ffffff;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  padding: 0 20px 0 20px;
+
+  p {
+    margin: auto;
+    text-align: center;
+  }
+}
+
+.inverted {
+  -webkit-filter: invert(1);
+  filter: invert(1);
+}
+
+.flipped {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}

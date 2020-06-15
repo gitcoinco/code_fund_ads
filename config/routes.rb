@@ -14,8 +14,6 @@ Rails.application.routes.draw do
   end
   resources :split_experiments, only: [:update, :destroy]
 
-  root to: "pages#index"
-
   devise_for :users, controllers: {
     sessions: "sessions",
     invitations: "invitations"
