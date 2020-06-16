@@ -8,28 +8,20 @@
       </p>
       
       <div class="flex lg:flex-row md:flex-col">
-        <div data-controller="modal" data-modal-allow-background-close="false">
-          <a href="#"
-            data-action="click->modal#open"
-            class="text-white bg-indigo-500 hover:bg-indigo-700 inline-flex py-3 px-5 rounded-lg items-center focus:shadow-outline shadow">
-            <span class="flex items-start flex-col leading-none">
-              <span class="text-sm mb-1">Are you a marketer?</span>
-              <span class="title-font font-medium">Start an ethical ad campaign</span>
-            </span>
-          </a>
-          <%= render Home::Modals::AdvertiserApplicationComponent.new %>
-        </div>
+        <%= link_to page_path("advertisers"), class: "text-white bg-indigo-500 hover:bg-indigo-700 inline-flex py-3 px-5 rounded-lg items-center focus:shadow-outline shadow" do %>
+          <span class="flex items-start flex-col leading-none">
+            <span class="text-sm mb-1">Are you a marketer?</span>
+            <span class="title-font font-medium">Start an ethical ad campaign</span>
+          </span>
+        <% end %>
 
         <div data-controller="modal" data-modal-allow-background-close="false" class="lg:ml-4 md:ml-0 ml-4">
-          <a href="#"
-            data-action="click->modal#open"
-            class="text-white bg-indigo-500 hover:bg-indigo-700 inline-flex py-3 px-5 rounded-lg items-center focus:shadow-outline shadow">
+          <%= link_to page_path("publishers"), class: "text-white bg-indigo-500 hover:bg-indigo-700 inline-flex py-3 px-5 rounded-lg items-center focus:shadow-outline shadow" do %>
             <span class="flex items-start flex-col leading-none">
               <span class="text-sm mb-1">Are you a developer?</span>
               <span class="title-font font-medium">Join the CodeFund Network</span>
             </span>
-          </a>
-          <%= render Home::Modals::PublisherApplicationComponent.new %>
+          <% end %>
         </div>
       </div>
     </div>
@@ -98,16 +90,12 @@
           CodeFund was founded and is run by a small team of open source maintainers and sustainers.
           We are uniquely qualified to help you reach your target audience of developers.
         </div>
-        <div class="mt-2" data-controller="modal" data-modal-allow-background-close="false">
-          <a
-            href="#" 
-            data-action="click->modal#open"
-            class="text-white bg-indigo-500 hover:bg-indigo-700 inline-flex mt-5 p-5 rounded-lg items-center focus:shadow-outline shadow">
+        <div class="mt-2">
+          <%= link_to page_path("advertisers"), class: "text-white bg-indigo-500 hover:bg-indigo-700 inline-flex mt-5 p-5 rounded-lg items-center focus:shadow-outline shadow" do %>
             <span class="flex items-start flex-col leading-none">
               <span class="title-font font-medium text-lg">Start a Campaign</span>
             </span>
-          </a>
-          <%= render Home::Modals::AdvertiserApplicationComponent.new %>
+          <% end %>
         </div>
       </div>
     </div>

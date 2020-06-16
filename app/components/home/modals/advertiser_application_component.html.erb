@@ -1,9 +1,9 @@
 <!-- Modal Container -->
-<div data-target="modal.container" data-action="click->modal#closeBackground keyup@window->modal#closeWithKeyboard" class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center" style="z-index: 9999;">
+<div x-show="open" @click.away="open = false" style="z-index: 9999;"
+  class="hidden animated fadeIn fixed inset-0 overflow-y-auto flex items-center justify-center">
   <!-- Modal Inner Container -->
   <div class="max-h-screen w-full max-w-4xl relative">
-    <div 
-      data-action="click->modal#close"
+    <div @click.away="open = false"
       class="modal-close absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-black text-sm z-50">
       <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
         <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
