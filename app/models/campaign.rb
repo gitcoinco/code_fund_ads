@@ -295,6 +295,7 @@ class Campaign < ApplicationRecord
 
   def pricing_strategy
     return ENUMS::CAMPAIGN_PRICING_STRATEGIES::REGION_AND_AUDIENCE if campaign_bundle
+    return ENUMS::CAMPAIGN_PRICING_STRATEGIES::REGION_AND_AUDIENCE if start_date >= Date.parse("2020-06-01")
     ENUMS::CAMPAIGN_PRICING_STRATEGIES::CAMPAIGN
   end
 
