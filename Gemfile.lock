@@ -220,6 +220,7 @@ GEM
     hashdiff (1.0.1)
     heroku-deflater (0.6.3)
       rack (>= 1.4.5)
+    high_voltage (3.1.2)
     hiredis (0.6.3)
     html_tokenizer (0.0.7)
     htmlentities (4.3.4)
@@ -639,6 +640,7 @@ DEPENDENCIES
   full-name-splitter (~> 0.1.2)
   hashdiff
   heroku-deflater (~> 0.6.3)
+  high_voltage (~> 3.1)
   hiredis (~> 0.6.3)
   htmlentities (= 4.3.4)
   image_processing (~> 1.10.3)

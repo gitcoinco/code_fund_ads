@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%= display_meta_tags site: "CodeFund" %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_pack_tag "around", media: "all", "data-turbolinks-track": "reload" %>
+    <%= javascript_pack_tag "around", "data-turbolinks-track": "reload", defer: true %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>
