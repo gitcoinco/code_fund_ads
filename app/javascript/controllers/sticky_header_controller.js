@@ -4,28 +4,21 @@ export default class extends Controller {
   static targets = ['header']
 
   connect() {
-    this.originalDimensions = this.headerTarget.getBoundingClientRect()
-    this.onScrollRunning = true
+    this.stickyAfter = 160;
+    this.header = this.headerTarget;
+    this.clone = this.header.cloneNode(true);
+    this.clone.classList.add("clone");
+    this.clone.classList.add("shadow");
+    this.clone.removeAttribute("data-target");
+    this.header.insertAdjacentElement("beforebegin", this.clone);
+    this.scroll();
   }
 
-  onScroll(event) {
-    console.log("SCROLLING! WHEEEE!!!!!")
-    if (!this.onScrollRunning) {
-      this.onScrollRunning = true;
-      if (window.requestAnimationFrame) {
-        window.requestAnimationFrame(this.scrollHeader.bind(this));
-      } else {
-         setTimeout(this.scrollHeader.bind(this), 66);
-      }
-    }
-  }
-
-  scrollHeader() {
-    if (window.scrollY >= this.originalDimensions.top) {
-      this.headerTarget.classList.add("sticky")
+  scroll(event) {
+    if (window.scrollY > this.stickyAfter) {
+      document.body.classList.add("down");
     } else {
-      this.headerTarget.classList.remove("sticky")
+      document.body.classList.remove("down");
     }
-    this.onScrollRunning = false
   }
 }

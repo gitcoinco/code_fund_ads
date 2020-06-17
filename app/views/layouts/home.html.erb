@@ -19,9 +19,9 @@
   <body
     class="leading-normal tracking-normal text-white"
     data-controller="sticky-header"
-    data-action="scroll@window->sticky-header#onScroll"
+    data-action="scroll@window->sticky-header#scroll"
   >
-    <%= render "/layouts/home/blm" %>
+    <%#= render "/layouts/home/blm" %>
     <%= render "/layouts/home/navbar" %>
     <%= yield %>
     <%= render "/layouts/home/footer" %>
