@@ -16,87 +16,72 @@
   <div class="sidebar-section-fill">
     <div class="card card-reflow">
       <div class="card-body">
-        <button type="button" class="close mt-n1 d-none d-xl-none d-sm-block" onclick="CodeFundTheme.toggleSidebar()" aria-label="Close"><span aria-hidden="true">×</span></button>
-        <h4 class="card-title">Summary</h4>
-        <div class="row text-center">
-          <div class="col-6">
-            <div class="metric">
-              <h6 class="metric-value"><%= subject.earnings(@start_date, @end_date).format %></h6>
-              <p class="metric-label mt-1">Earnings</p>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="metric">
-              <h6 class="metric-value"><%= number_to_percentage paid_summary&.click_rate, precision: 3 %></h6>
-              <p class="metric-label mt-1">Avg. CTR</p>
-            </div>
-          </div>
-
-          <div class="col-6">
-            <div class="metric">
-              <h6 class="metric-value"><%= paid_summary&.property_cpm&.format %></h6>
-              <p class="metric-label mt-1">Avg. CPM</p>
-            </div>
-          </div>
-
-          <div class="col-6">
-            <div class="metric">
-              <h6 class="metric-value"><%= number_to_percentage calc_percentage(paid_summary&.impressions_count, paid_summary&.impressions_count.to_f + unpaid_summary&.impressions_count.to_f) * 100, precision: 3 %></h6>
-              <p class="metric-label mt-1">Paid vs Fallback</p>
-            </div>
-          </div>
-
-          <div class="col-6">
-            <div class="metric">
-              <h6 class="metric-value"><%= number_with_delimiter paid_summary&.impressions_count %></h6>
-              <p class="metric-label mt-1">Total Paid</p>
-            </div>
-          </div>
-
-          <div class="col-6">
-            <div class="metric">
-              <h6 class="metric-value"><%= number_with_delimiter unpaid_summary&.impressions_count %></h6>
-              <p class="metric-label mt-1">Total Fallback</p>
-            </div>
-          </div>
+        <div class="d-flex justify-content-between mt-2">
+          <h4 class="card-title">Details</h4>
+          <%= link_to "Edit", edit_property_path(subject) %>
         </div>
-      </div>
-
-      <div class="d-flex justify-content-between border-top px-3 pt-3 pb-0">
-        <h4 class="card-title"> Details </h4>
-        <%= link_to "Edit", edit_property_path(subject) %>
-      </div>
-      <div class="list-group list-group-bordered list-group-reflow mx-3 mb-3">
-        <div class="list-group-item justify-content-between align-items-center px-0">
-          <span class="text-muted">Name</span> <span><%= subject.name %></span>
-        </div>
-        <div class="list-group-item justify-content-between align-items-center px-0">
-          <span class="text-muted">Website</span> <span><a href="<%= subject.url %>" target="_blank" rel="noopener"><%= pretty_url(subject.url) %></a></span>
-        </div>
-        <% if authorized_user.can_admin_system? %>
+        <div class="list-group list-group-bordered list-group-reflow">
           <div class="list-group-item justify-content-between align-items-center px-0">
-            <span class="text-muted">Owner</span> <span><%= link_to subject.user&.name, subject.user %></span>
+            <span class="text-muted">Name</span> <span><%= subject.name %></span>
           </div>
-        <% end %>
-        <div class="list-group-item justify-content-between align-items-center px-0">
-          <span class="text-muted">Audience</span> <span><%= subject.audience&.name %></span>
-        </div>
-        <div class="list-group-item justify-content-between align-items-center px-0">
-          <span class="text-muted">Status</span> <span><%= subject.status.humanize %></span>
-        </div>
-        <div class="list-group-item justify-content-between align-items-center px-0">
-          <span class="text-muted">Revenue Rate</span> <span><%= number_to_percentage(subject.revenue_percentage * 100, precision: 0) %></span>
+          <div class="list-group-item justify-content-between align-items-center px-0">
+            <span class="text-muted">Website</span> <span><a href="<%= subject.url %>" target="_blank" rel="noopener"><%= pretty_url(subject.url) %></a></span>
+          </div>
+          <% if authorized_user.can_admin_system? %>
+            <div class="list-group-item justify-content-between align-items-center px-0">
+              <span class="text-muted">Owner</span> <span><%= link_to subject.user&.name, subject.user %></span>
+            </div>
+          <% end %>
+          <div class="list-group-item justify-content-between align-items-center px-0">
+            <span class="text-muted">Audience</span> <span><%= subject.audience&.name %></span>
+          </div>
+          <div class="list-group-item justify-content-between align-items-center px-0">
+            <span class="text-muted">Status</span> <span><%= subject.status.humanize %></span>
+          </div>
         </div>
       </div>
 
       <div class="card-body border-top">
-        <div class="d-flex justify-content-between my-3">
-          <h4 class="card-title">Changelog</h4>
+        <div class="d-flex justify-content-between mt-2">
+          <h4 class="card-title">Summary</h4>
         </div>
-        <ul class="timeline timeline-fluid">
-          <%= render "/versions/timeline", versionable: subject %>
-        </ul>
+        <div class="list-group list-group-bordered list-group-reflow">
+          <div class="list-group-item justify-content-between align-items-center px-0">
+            <span class="text-muted">Earnings</span> <span><%= subject.earnings(@start_date, @end_date).format %></span>
+          </div>
+          <div class="list-group-item justify-content-between align-items-center px-0">
+            <span class="text-muted">Average CTR</span> <span><%= number_to_percentage paid_summary&.click_rate, precision: 2 %></span>
+          </div>
+          <div class="list-group-item justify-content-between align-items-center px-0">
+            <span class="text-muted">Average RPM</span> <span><%= subject.average_rpm(@start_date, @end_date).format %></span>
+          </div>
+        </div>
       </div>
+
+      <div class="card-body border-top">
+        <div class="d-flex justify-content-between mt-2">
+          <h4 class="card-title">Regions Countries</h4>
+        </div>
+        <div class="list-group list-group-bordered list-group-reflow">
+          <% subject.region_summaries(@start_date, @end_date).each do |region, summaries| %>
+            <div class="list-group-item justify-content-between align-items-center px-0">
+              <span class="text-muted"><%= truncate region&.name %></span>
+              <span><small class="text-muted">(<%= number_with_delimiter summaries.sum(&:impressions_count) %>)</small> <%= summaries.sum(&:property_revenue).format %></span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <% if authorized_user(true).can_admin_system? %>
+        <div class="card-body border-top">
+          <div class="d-flex justify-content-between mt-2">
+            <h4 class="card-title">Changelog</h4>
+          </div>
+          <ul class="timeline timeline-fluid">
+            <%= render "/versions/timeline", versionable: subject %>
+          </ul>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

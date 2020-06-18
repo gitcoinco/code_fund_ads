@@ -72,14 +72,19 @@
                             required: true,
                             input_html: {
                               class: "form-control", data: {controller: "select", "reflex-permanent": true}
-                            }), class: "col-md-6 mb-3" %>
+                            }), class: "col-md-6" %>
         <%= tag.div f.input(:ad_theme,
                             label: "Theme",
                             collection: ENUMS::AD_THEMES.values,
                             required: true,
                             input_html: {
                               class: "form-control", data: {controller: "select", "reflex-permanent": true}
-                            }), class: "col-md-6 mb-3" %>
+                            }), class: "col-md-6" %>
+        <div class="col-md-12 mb-3">
+          <small class="form-text text-muted">
+            View examples of our ad templates <%= link_to "here", demo_path, class: "alert-link", target: "_blank" %>
+          </small>
+        </div>
         <%= tag.div f.input(:fallback_ad_template,
                             label: "Fallback Template",
                             collection: ENUMS::AD_TEMPLATES.values,
