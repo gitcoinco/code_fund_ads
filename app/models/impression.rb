@@ -197,6 +197,7 @@ class Impression < ApplicationRecord
     return campaign.adjusted_ecpm(country_code) if campaign.campaign_pricing_strategy?
     return region.ecpm(audience) * campaign.ecpm_multiplier if campaign.region_and_audience_pricing_strategy?
 
+    # pricing plan based pricing
     price = campaign.pricing_plan.prices.call(audience: audience, region: region)
     price.cpm * campaign.ecpm_multiplier
   end
@@ -206,7 +207,17 @@ class Impression < ApplicationRecord
   end
 
   def calculate_estimated_property_revenue_fractional_cents
-    calculate_estimated_gross_revenue_fractional_cents * property.revenue_percentage
+    revenue_percentage = property.revenue_percentage
+    value = calculate_estimated_gross_revenue_fractional_cents * revenue_percentage
+    if campaign.pricing_plan_strategy? && campaign.pricing_plan.rpm > 0
+      rpm = Money.new(value * 1000, "USD")
+      while rpm > campaign.pricing_plan.rpm
+        revenue_percentage -= 0.1
+        value = calculate_estimated_gross_revenue_fractional_cents * revenue_percentage
+        rpm = Money.new(value * 1000, "USD")
+      end
+    end
+    value
   end
 
   def calculate_estimated_house_revenue_fractional_cents
@@ -223,10 +234,6 @@ class Impression < ApplicationRecord
   def calculate_estimated_revenue_and_save!(recalculate = false)
     calculate_estimated_revenue recalculate
     save! if changed?
-  end
-
-  def rpm
-    Money.new calculate_estimated_property_revenue_fractional_cents * 1000, "USD"
   end
 
   def obfuscate_ip_address
