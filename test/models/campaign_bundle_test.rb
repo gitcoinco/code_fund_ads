@@ -10,14 +10,16 @@
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  organization_id :bigint           not null
+#  pricing_plan_id :bigint
 #  user_id         :bigint           not null
 #
 # Indexes
 #
-#  index_campaign_bundles_on_end_date    (end_date)
-#  index_campaign_bundles_on_name        (lower((name)::text))
-#  index_campaign_bundles_on_region_ids  (region_ids) USING gin
-#  index_campaign_bundles_on_start_date  (start_date)
+#  index_campaign_bundles_on_end_date         (end_date)
+#  index_campaign_bundles_on_name             (lower((name)::text))
+#  index_campaign_bundles_on_pricing_plan_id  (pricing_plan_id)
+#  index_campaign_bundles_on_region_ids       (region_ids) USING gin
+#  index_campaign_bundles_on_start_date       (start_date)
 #
 
 require "test_helper"
@@ -29,6 +31,7 @@ class CampaignBundleTest < ActiveSupport::TestCase
     actual = bundle.to_stashable_attributes
     expected = {
       "id" => bundle.id,
+      "pricing_plan_id" => nil,
       "organization_id" => bundle.organization_id,
       "user_id" => bundle.user_id,
       "name" => bundle.name,
@@ -40,6 +43,7 @@ class CampaignBundleTest < ActiveSupport::TestCase
       :campaigns_attributes =>
       [{"campaign_bundle_id" => bundle.id,
         "id" => campaign.id,
+        "pricing_plan_id" => nil,
         "keywords" => campaign.keywords,
         "negative_keywords" => campaign.negative_keywords,
         "organization_id" => bundle.organization_id,

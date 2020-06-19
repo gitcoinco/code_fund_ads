@@ -274,7 +274,8 @@ CREATE TABLE public.campaign_bundles (
     end_date date NOT NULL,
     region_ids bigint[] DEFAULT '{}'::bigint[],
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    pricing_plan_id bigint
 );
 
 
@@ -338,7 +339,8 @@ CREATE TABLE public.campaigns (
     campaign_bundle_id bigint,
     audience_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
     region_ids bigint[] DEFAULT '{}'::bigint[] NOT NULL,
-    ecpm_multiplier numeric DEFAULT 1.0 NOT NULL
+    ecpm_multiplier numeric DEFAULT 1.0 NOT NULL,
+    pricing_plan_id bigint
 );
 
 
@@ -1030,6 +1032,74 @@ CREATE TABLE public.pixels (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
+
+
+--
+-- Name: prices; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.prices (
+    id bigint NOT NULL,
+    pricing_plan_id bigint NOT NULL,
+    audience_id bigint NOT NULL,
+    region_id bigint NOT NULL,
+    cpm_cents integer DEFAULT 0 NOT NULL,
+    cpm_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    rpm_cents integer DEFAULT 0 NOT NULL,
+    rpm_currency character varying DEFAULT 'USD'::character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: prices_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.prices_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: prices_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.prices_id_seq OWNED BY public.prices.id;
+
+
+--
+-- Name: pricing_plans; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.pricing_plans (
+    id bigint NOT NULL,
+    name character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
+-- Name: pricing_plans_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.pricing_plans_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: pricing_plans_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.pricing_plans_id_seq OWNED BY public.pricing_plans.id;
 
 
 --
@@ -1739,6 +1809,20 @@ ALTER TABLE ONLY public.pixel_conversions ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
+-- Name: prices id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prices ALTER COLUMN id SET DEFAULT nextval('public.prices_id_seq'::regclass);
+
+
+--
+-- Name: pricing_plans id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pricing_plans ALTER COLUMN id SET DEFAULT nextval('public.pricing_plans_id_seq'::regclass);
+
+
+--
 -- Name: properties id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1961,6 +2045,22 @@ ALTER TABLE ONLY public.pixel_conversions
 
 ALTER TABLE ONLY public.pixels
     ADD CONSTRAINT pixels_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: prices prices_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.prices
+    ADD CONSTRAINT prices_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: pricing_plans pricing_plans_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.pricing_plans
+    ADD CONSTRAINT pricing_plans_pkey PRIMARY KEY (id);
 
 
 --
@@ -2322,6 +2422,13 @@ CREATE INDEX index_campaign_bundles_on_name ON public.campaign_bundles USING btr
 
 
 --
+-- Name: index_campaign_bundles_on_pricing_plan_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaign_bundles_on_pricing_plan_id ON public.campaign_bundles USING btree (pricing_plan_id);
+
+
+--
 -- Name: index_campaign_bundles_on_region_ids; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2431,6 +2538,13 @@ CREATE INDEX index_campaigns_on_organization_id ON public.campaigns USING btree 
 --
 
 CREATE INDEX index_campaigns_on_paid_fallback ON public.campaigns USING btree (paid_fallback);
+
+
+--
+-- Name: index_campaigns_on_pricing_plan_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_campaigns_on_pricing_plan_id ON public.campaigns USING btree (pricing_plan_id);
 
 
 --
@@ -2973,6 +3087,34 @@ CREATE INDEX index_pixels_on_user_id ON public.pixels USING btree (user_id);
 
 
 --
+-- Name: index_prices_on_audience_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_prices_on_audience_id ON public.prices USING btree (audience_id);
+
+
+--
+-- Name: index_prices_on_pricing_plan_id_and_audience_id_and_region_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_prices_on_pricing_plan_id_and_audience_id_and_region_id ON public.prices USING btree (pricing_plan_id, audience_id, region_id);
+
+
+--
+-- Name: index_prices_on_region_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_prices_on_region_id ON public.prices USING btree (region_id);
+
+
+--
+-- Name: index_pricing_plans_on_name; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX index_pricing_plans_on_name ON public.pricing_plans USING btree (name);
+
+
+--
 -- Name: index_properties_on_assigned_fallback_campaign_ids; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -3424,6 +3566,8 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20200521230331'),
 ('20200527164824'),
 ('20200527175633'),
-('20200528141603');
+('20200528141603'),
+('20200619161949'),
+('20200619172708');
 
 

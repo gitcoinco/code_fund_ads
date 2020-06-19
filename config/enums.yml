@@ -1,7 +1,4 @@
-# IMPORTANT: All application enums should be defined in this file
-#
-# They will be made available to the application via: config/initializers/enums.rb
-# ...and will be exposed uner the ENUMS module
+# IMPORTANT: All application enums should be defined in this file They will be made available to the application via: config/initializers/enums.rb ...and will be exposed uner the ENUMS module
 #
 # NOTE: Entries in this file can be either key/value or a simple list
 #
@@ -85,6 +82,7 @@ STATUS_COLORS:
 
 CAMPAIGN_PRICING_STRATEGIES:
   - campaign
+  - pricing_plan
   - region_and_audience
 
 CAMPAIGN_STATUSES:

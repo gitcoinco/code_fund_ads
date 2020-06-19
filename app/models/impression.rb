@@ -195,9 +195,10 @@ class Impression < ApplicationRecord
 
   def applicable_ecpm
     return campaign.adjusted_ecpm(country_code) if campaign.campaign_pricing_strategy?
+    return region.ecpm(audience) * campaign.ecpm_multiplier if campaign.region_and_audience_pricing_strategy?
 
-    # region/audience based ecpm i.e. our new sales strategy
-    region.ecpm(audience) * campaign.ecpm_multiplier
+    price = campaign.pricing_plan.prices.call(audience: audience, region: region)
+    price.cpm * campaign.ecpm_multiplier
   end
 
   def calculate_estimated_gross_revenue_fractional_cents
