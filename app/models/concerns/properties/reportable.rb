@@ -1,5 +1,37 @@
 module Properties
   module Reportable
+    extend ActiveSupport::Concern
+
+    module ClassMethods
+      def average_rpm_by_audience_and_region(start = 91.days.ago, stop = 1.day.ago)
+        data = Property.includes(:audience).active.each_with_object({}) { |property, memo|
+          property.average_rpm_by_region(start, stop).each do |region, rpm|
+            key = "#{property.audience.name} - #{region&.name || "Unknown"}"
+            memo[key] ||= []
+            memo[key] << rpm
+          end
+        }
+        data.each do |key, rpms|
+          list = rpms.select { |rpm| rpm > 0 }
+          data[key] = {
+            min: list.min,
+            max: list.max,
+            avg: list.size > 0 ? (list.sum / list.size.to_f) : nil
+          }
+        end
+
+        # generate a csv report with this data
+        # CSV.open Rails.root.join("tmp/rpms.csv"), "wb" do |csv|
+        # csv << %w[category min max avg]
+        # data.each do |key, entry|
+        # csv << [key, entry[:min]&.format, entry[:max]&.format, entry[:avg]&.format]
+        # end
+        # end
+
+        data
+      end
+    end
+
     def summary(start = nil, stop = nil, paid: true)
       report = DailySummaryReport.scoped_by(self)
         .where(impressionable_type: "Campaign", impressionable_id: campaign_ids_relation(paid))
@@ -41,9 +73,21 @@ module Properties
     # where the list is comprised of DailySummaryReports scoped to country
     def region_summaries(start = nil, stop = nil)
       country_summaries(start, stop).each_with_object({}) do |summary, memo|
-        region = Region.with_all_country_codes(summary.scoped_by_id).first
+        region = Rails.local_ephemeral_cache.fetch("region_for_country/#{summary.scoped_by_id}") {
+          Region.with_all_country_codes(summary.scoped_by_id).first
+        }
         memo[region] ||= []
         memo[region] << summary
+      end
+    end
+
+    # Returns a Hash keyed as: Region => Money
+    # where the value is the average RPM for the region
+    def average_rpm_by_region(start = nil, stop = nil)
+      region_summaries(start, stop).each_with_object({}) do |(region, summaries), memo|
+        mille = summaries.sum(&:paid_impressions_count) / 1000.to_f
+        property_revenue = summaries.sum(&:property_revenue)
+        memo[region] = mille > 0 ? property_revenue / mille : Money.new(0)
       end
     end
 

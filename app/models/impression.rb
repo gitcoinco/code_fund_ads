@@ -224,6 +224,10 @@ class Impression < ApplicationRecord
     save! if changed?
   end
 
+  def rpm
+    Money.new calculate_estimated_property_revenue_fractional_cents * 1000, "USD"
+  end
+
   def obfuscate_ip_address
     self.ip_address = self.class.obfuscate_ip_address(ip_address)
   end
