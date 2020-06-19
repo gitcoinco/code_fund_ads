@@ -1,0 +1,77 @@
+//
+// Sidebar
+// --------------------------------------------------
+
+
+// Sidebar toggle button
+
+.cs-sidebar-toggle {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 0;
+  z-index: $zindex-btn-scroll-top;
+}
+
+
+// Adding extra bottom spacing to accomodate sidebar toggle
+
+.cs-is-sidebar {
+  .cs-footer {
+    padding-bottom: 2.25rem;
+  }
+  .cs-sidebar-toggle {
+    display: block;
+  }
+  @include media-breakpoint-down(md) {
+    .btn-scroll-top {
+      bottom: $spacer + 2.25rem;
+    }
+  }
+}
+
+
+@include media-breakpoint-up(lg) {
+  .cs-sidebar-enabled {
+    position: relative;
+    &::before {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40%;
+      height: 100%;
+      background-color: $sidebar-bg;
+      content: '';
+    }
+    .cs-content {
+      position: relative;
+      padding-left: 2.5rem;
+      background-color: $body-bg;
+      z-index: 2;
+    }
+    &.cs-sidebar-right {
+      .cs-content {
+        padding: {
+          left: $grid-gutter-width / 2;
+          right: 2.5rem;
+        }
+      }
+      &::before {
+        right: 0;
+        left: auto;
+      }
+    }
+  }
+  .cs-sidebar {
+    background-color: $sidebar-bg;
+  }
+
+  .cs-sidebar-toggle { display: none; }
+  .cs-is-sidebar {
+    .cs-footer { padding-bottom: 0; }
+    .cs-sidebar-toggle { display: none; }
+  }
+}

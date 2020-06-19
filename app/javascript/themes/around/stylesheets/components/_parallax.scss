@@ -1,0 +1,93 @@
+//
+// Parallax
+// based on https://github.com/nk-o/jarallax
+// --------------------------------------------------
+
+.jarallax {
+  position: relative;
+  z-index: 0;
+}
+.jarallax .jarallax-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background: {
+    position: center !important;
+    size: cover !important;
+  }
+}
+
+
+// Disable element parallax on different breakpoints
+
+[data-disable-parallax-down='xs'] {
+  @include media-breakpoint-down(xs) {
+    transform: none !important;
+  }
+}
+[data-disable-parallax-down='sm'] {
+  @include media-breakpoint-down(sm) {
+    transform: none !important;
+  }
+}
+[data-disable-parallax-down='md'] {
+  @include media-breakpoint-down(md) {
+    transform: none !important;
+  }
+}
+[data-disable-parallax-down='lg'] {
+  @include media-breakpoint-down(lg) {
+    transform: none !important;
+  }
+}
+[data-disable-parallax-up='sm'] {
+  @include media-breakpoint-up(sm) {
+    transform: none !important;
+  }
+}
+[data-disable-parallax-up='md'] {
+  @include media-breakpoint-up(md) {
+    transform: none !important;
+  }
+}
+[data-disable-parallax-up='lg'] {
+  @include media-breakpoint-up(lg) {
+    transform: none !important;
+  }
+}
+[data-disable-parallax-up='xl'] {
+  @include media-breakpoint-up(xl) {
+    transform: none !important;
+  }
+}
+
+
+// Disbale parallax in MS Edge and IE browsers
+
+_:-ms-lang(x), .jarallax .jarallax-img {
+  margin: 0 !important;
+  position: absolute !important;
+  transform: none !important;
+}
+
+
+// Cursor parallax
+
+.cs-parallax {
+  position: relative;
+}
+.cs-parallax-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  > img {
+    display: block;
+    width: 100%;
+  }
+}

@@ -1,0 +1,455 @@
+//
+// Utilities
+// Extends default Bootstrap utility classes
+// Classes with a purpose to reduce the frequency of 
+// highly repetitive declarations
+// --------------------------------------------------
+
+
+// Disabled background of the element
+.bg-0 {
+  background: none !important;
+}
+.bg-image-0 {
+  background-image: none !important;
+}
+
+// Add .bg-darker
+.bg-darker {
+  background-color: darken($gray-900, 5%) !important;
+}
+
+// Gadient background
+.bg-gradient {
+  @include gradient-background;
+}
+
+// Faded background color
+@each $color, $value in $theme-colors {
+  .bg-faded-#{$color} {
+    background-color: rgba($value, .08) !important;
+  }
+}
+
+// Border color
+@each $color, $value in $theme-colors {
+  .border-#{$color} {
+    border-color: rgba($value, .35) !important;
+  }
+}
+.border-secondary { border-color: $border-color !important; }
+
+
+// Background image specific utilities
+
+.bg-size-cover {
+  background-size: cover !important;
+}
+.bg-position-center {
+  background-position: center !important;
+}
+.bg-position-center-y {
+  background-position-y: center !important;
+}
+.bg-position-center-x {
+  background-position-x: center !important;
+}
+.bg-position-right-top {
+  background-position: right top !important;
+}
+.bg-position-left-top {
+  background-position: left top !important;
+}
+.bg-position-center-top {
+  background-position: center top !important;
+}
+.bg-position-right-bottom {
+  background-position: right bottom !important;
+}
+.bg-position-left-bottom {
+  background-position: left bottom !important;
+}
+.bg-position-center-bottom {
+  background-position: center bottom !important;
+}
+.bg-position-right-center {
+  background-position: right center !important;
+}
+.bg-position-left-center {
+  background-position: left center !important;
+}
+.bg-no-repeat {
+  background-repeat: no-repeat !important;
+}
+.bg-repeat-x {
+  background-repeat: repeat-x !important;
+}
+.bg-repeat-y {
+  background-repeat: repeat-y !important;
+}
+.bg-fixed {
+  background-attachment: fixed !important;
+}
+
+// Background transition for links
+
+a[class^='bg-'],
+a[class*='bg-'] {
+  transition: background-color .25s ease;
+}
+
+
+// Overlay
+
+.bg-overlay {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: $black;
+  opacity: .5;
+  z-index: 1;
+}
+.bg-overlay-content {
+  display: block;
+  position: relative;
+  z-index: 5;
+}
+
+
+// Added extra classes to default set of Bootstrap .font-weight- classes
+
+.font-weight-medium {
+  font-weight: $font-weight-medium !important;
+}
+.font-weight-semibold {
+  font-weight: $font-weight-semibold !important;
+}
+
+// Body font size variants: .font-size-{lg}
+@each $size, $value in $font-sizes {
+  @include font-size-variant(".font-size-#{$size}", $value);
+}
+.lead { font-size: $font-size-base * 1.5; }
+
+// Text shadow
+.text-shadow {
+  text-shadow: $text-shadow !important;
+}
+
+// Headings color
+.text-heading {
+  color: $headings-color !important;
+}
+
+// Text nav color
+.text-nav {
+  color: $nav-link-dark-color !important;
+}
+
+// Border color
+.text-border { color: $border-color !important; }
+
+// Box shadow
+.box-shadow {
+  @include box-shadow($box-shadow !important);
+}
+.box-shadow-sm {
+  @include box-shadow($box-shadow-sm !important);
+}
+.box-shadow-lg {
+  @include box-shadow($box-shadow-lg !important);
+}
+
+// Add additional rounded corner sizes
+.rounded-lg {
+  border-radius: $border-radius-lg;
+}
+.rounded-sm {
+  border-radius: $border-radius-sm;
+}
+
+// Disable border-radius
+.rounded-top-0 {
+  border-top-right-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+}
+.rounded-bottom-0 {
+  border-bottom-right-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+.rounded-right-0 {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+.rounded-left-0 {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+// Disable box-shadow for specific component
+.box-shadow-0 {
+  box-shadow: none !important;
+}
+
+// Disable text decoration
+.text-decoration-0 {
+  text-decoration: none !important;
+}
+
+// Additional spacing that matches the grid gutter
+@each $prop, $abbrev in (margin: m, padding: p) {
+  .#{$abbrev}t-grid-gutter,
+  .#{$abbrev}y-grid-gutter {
+    #{$prop}-top: $grid-gutter-width !important;
+  }
+  .#{$abbrev}r-grid-gutter,
+  .#{$abbrev}x-grid-gutter {
+    #{$prop}-right: $grid-gutter-width !important;
+  }
+  .#{$abbrev}b-grid-gutter,
+  .#{$abbrev}y-grid-gutter {
+    #{$prop}-bottom: $grid-gutter-width !important;
+  }
+  .#{$abbrev}l-grid-gutter,
+  .#{$abbrev}x-grid-gutter {
+    #{$prop}-left: $grid-gutter-width !important;
+  }
+}
+
+// Override border-light color
+.border-light {
+  border-color: $border-light-color !important;
+}
+
+
+// Opacity classes
+
+.opacity-25 {
+  opacity: .25 !important;
+}
+.opacity-50 {
+  opacity: .5 !important;
+}
+.opacity-60 {
+  opacity: .6 !important;
+}
+.opacity-70 {
+  opacity: .70 !important;
+}
+.opacity-75 {
+  opacity: .75 !important;
+}
+.opacity-80 {
+  opacity: .8 !important;
+}
+.opacity-90 {
+  opacity: .9 !important;
+}
+.opacity-100 {
+  opacity: 1 !important;
+}
+
+
+// Full height iframe
+
+.iframe-full-height-wrap {
+  min-height: 18rem;
+  overflow: hidden;
+}
+.iframe-full-height {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+// Responsive text wrapping
+@include media-breakpoint-up(xl) {
+  .text-xl-nowrap { white-space: nowrap !important; }
+  .text-xl-wrap { white-space: wrap !important; }
+}
+@include media-breakpoint-up(lg) {
+  .text-lg-nowrap { white-space: nowrap !important; }
+  .text-lg-wrap { white-space: wrap !important; }
+}
+@include media-breakpoint-up(md) {
+  .text-md-nowrap { white-space: nowrap !important; }
+  .text-md-wrap { white-space: wrap !important; }
+}
+@include media-breakpoint-up(sm) {
+  .text-sm-nowrap { white-space: nowrap !important; }
+  .text-sm-wrap { white-space: wrap !important; }
+}
+
+// Apply base line height
+.line-height-base {
+  line-height: $line-height-base !important;
+}
+
+// Table layout fixed
+.table-fixed { table-layout: fixed !important; }
+
+// Disable animation
+.animation-0 { animation: none !important; }
+
+// IE fix for Media component inside flex container
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {  
+  .media-ie-fix .media-body {
+    flex: 0 1 auto;
+  }
+}
+
+
+// Swap image
+
+.cs-swap-image {
+  display: inline-block;
+  position: relative;
+  user-select: none;
+
+  .cs-swap-from,
+  .cs-swap-to {
+    display: block;
+    transition: opacity .3s ease-in-out;
+  }
+
+  .cs-swap-to {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    z-index: 0;
+  }
+
+  &:hover, &.active {
+    .cs-swap-from { opacity: 0; }
+    .cs-swap-to { opacity: 1; }
+  }
+}
+.card.card-hover:hover .cs-swap-image,
+.card.card-active .cs-swap-image {
+  .cs-swap-from,
+  .cs-swap-to { transition-duration: .25s; }
+  .cs-swap-from { opacity: 0; }
+  .cs-swap-to { opacity: 1; }
+}
+
+
+// Switch visibility of an element
+
+.cs-view {
+  display: none;
+
+  &.show {
+    display: block;
+  }
+}
+
+
+// Section separator shapes
+
+.cs-shape {
+  position: absolute;
+  width: 100%;
+  overflow: hidden;
+  z-index: 2;
+
+  svg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    bottom: 0;
+  }
+  &.bg-light,
+  &.bg-body,
+  &.bg-primary,
+  &.bg-secondary,
+  &.bg-dark,
+  &.bg-darker {
+    background-color: transparent !important;
+  }
+
+  &.bg-light { color: $white !important; }
+  &.bg-body { color: $body-bg !important; }
+  &.bg-primary { color: $primary !important; }
+  &.bg-secondary { color: $gray-100!important; }
+  &.bg-dark { color: $dark !important; }
+  &.bg-darker { color: darken($gray-900, 5%) !important; }
+}
+
+.cs-shape-top,
+.cs-shape-bottom {
+  width: 100%;
+  left: 0;
+}
+
+.cs-shape-right,
+.cs-shape-left {
+  height: 100%;
+  left: 0;
+  top: 0;
+
+  svg {
+    top: -2px;
+    width: auto;
+    height: 102%;
+    height: calc(100% + 5px);
+  }
+}
+
+.cs-shape-top {
+  top: 0;
+  margin-top: -1px;
+}
+
+.cs-shape-bottom {
+  bottom: 0;
+  margin-bottom: -1px;
+}
+
+.cs-shape-right svg {
+  left: auto;
+  right: 0;
+  margin-right: -1px;
+}
+
+.cs-shape-left svg {
+  left: 0;
+  right: auto;
+  margin-left: -1px;
+}
+
+@media all and (-ms-high-contrast: none),
+(-ms-high-contrast: active) {
+  .cs-shape-right,
+  .cs-shape-left { display: none; }
+}
+
+.cs-shape-slant {
+  padding-bottom: 8.7%; //= 260/3000 actual svg shape height/width
+}
+.cs-shape-curve-side {
+  padding-bottom: 8.4%; //= 250/3000 actual svg shape height/width
+}
+.cs-shape-curve {
+  padding-bottom: 6.2%; //= 185.4/3000 actual svg shape height/width
+}
+
+
+// Alternative line height for headings
+
+.line-height-h1 { line-height: $h1-line-height !important; }
+.line-height-h2 { line-height: $h2-line-height !important; }
+.line-height-h3 { line-height: $h3-line-height !important; }
+.line-height-h4 { line-height: $h4-line-height !important; }
+.line-height-h5 { line-height: $h5-line-height !important; }
+.line-height-h6 { line-height: $h6-line-height !important; }

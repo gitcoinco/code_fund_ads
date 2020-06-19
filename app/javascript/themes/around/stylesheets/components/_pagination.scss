@@ -1,0 +1,68 @@
+//
+// Pagination
+// --------------------------------------------------
+
+
+// Pagination
+
+.pagination {
+  margin-bottom: 0;
+  user-select: none;
+}
+.page-link {
+  position: relative;
+  transition: $pagination-transition;
+  font-weight: $pagination-font-weight;
+  &.page-link-static:hover {
+    border-color: transparent;
+    background-color: $pagination-bg;
+    color: $pagination-color;
+  }
+  > i {
+    margin-top: -.125rem;
+    font-size: 1.5em;
+    vertical-align: middle;
+  }
+}
+.page-item {
+  margin: .15rem;
+  &.active { cursor: default; }
+}
+
+
+// Sizing
+
+.pagination .page-link {
+  @include border-radius($btn-border-radius-sm);
+  font-size: $pagination-font-size;
+}
+.pagination-sm .page-link {
+  @include border-radius($btn-border-radius-sm);
+  font-size: $pagination-font-size-sm;
+}
+.pagination-lg .page-link {
+  @include border-radius($btn-border-radius);
+  font-size: $pagination-font-size-lg;
+  > i { margin-top: 0; }
+}
+
+
+// Entry navigation
+
+.cs-entry-nav {
+  display: block;
+  width: 100%;
+  max-width: $entry-nav-max-width;
+  text-decoration: none;
+
+  &:hover { text-decoration: none; }
+
+  .cs-entry-nav-thumb {
+    width: $entry-nav-thumb-width;
+    > img {
+      display: block;
+      width: 100%;
+      @include border-radius($border-radius);
+    }
+  }
+}

@@ -1,0 +1,47 @@
+//
+// Breadcrumb
+// --------------------------------------------------
+
+
+// Dark version
+
+.breadcrumb-item {
+  font-weight: $nav-link-font-weight;
+  &::before {
+    margin-top: -.0625rem;
+    font: {
+      family: 'feather';
+      size: 1.2em;
+      weight: normal;
+    }
+    vertical-align: middle;
+  }
+  > a {
+    transition: $nav-link-transition;
+    color: $breadcrumb-dark-item-link-color;
+    &:hover {
+      color: $breadcrumb-dark-item-link-hover-color;
+      text-decoration: none;
+    }
+    > i {
+      margin-right: .325rem;
+      font-size: 1.05em;
+      vertical-align: middle;
+    }
+  }
+  &.active { cursor: default; }
+}
+
+
+// Light version
+
+.breadcrumb-light .breadcrumb-item  {
+  &::before { color: $breadcrumb-light-divider-color; }
+  > a {
+    color: $breadcrumb-light-item-link-color;
+    &:hover {
+      color: $breadcrumb-light-item-link-hover-color;
+    }
+  }
+  &.active { color: $breadcrumb-light-active-color; }
+}

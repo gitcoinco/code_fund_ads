@@ -1,0 +1,78 @@
+//
+// Input group
+// --------------------------------------------------
+
+
+// Addon overlay (absolute positioned addon)
+
+.input-group-overlay {
+  position: relative;
+  width: 100%;
+  .prepended-form-control:not(.rounded-left-0) {
+    padding-left: 2.5rem;
+    border-top-left-radius: $input-border-radius !important;
+    border-bottom-left-radius: $input-border-radius !important;
+  }
+  .appended-form-control:not(.rounded-right-0) {
+    padding-right: 2.5rem;
+    border-top-right-radius: $input-border-radius !important;
+    border-bottom-right-radius: $input-border-radius !important;
+  }
+}
+.input-group-append-overlay,
+.input-group-prepend-overlay {
+  display: flex;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  .input-group-text {
+    border: 0;
+    background-color: transparent;
+  }
+  z-index: 5;
+}
+.input-group-append-overlay {
+  right: 0;
+  .form-control,
+  .custom-select {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+  }
+}
+.input-group-prepend-overlay {
+  .form-control,
+  .custom-select {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+}
+
+
+// Sizing
+
+.input-group-sm {
+  .appended-form-control {
+    padding-right: 2rem;
+  }
+  .prepended-form-control {
+    padding-left: 2rem;
+  }
+  > .input-group-prepend-overlay > .input-group-text,
+  > .input-group-append-overlay > .input-group-text {
+    padding: $input-padding-y-sm $input-padding-x-sm;
+    @include font-size($input-font-size-sm);
+  }
+}
+.input-group-lg {
+  .appended-form-control {
+    padding-right: 3rem !important;
+  }
+  .prepended-form-control {
+    padding-left: 3rem !important;
+  }
+  > .input-group-prepend-overlay > .input-group-text,
+  > .input-group-append-overlay > .input-group-text {
+    padding: $input-padding-y-lg $input-padding-x-lg;
+    @include font-size($input-font-size-lg);
+  }
+}

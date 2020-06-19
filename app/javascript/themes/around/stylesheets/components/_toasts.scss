@@ -1,0 +1,22 @@
+//
+// Toasts
+// --------------------------------------------------
+
+
+.toast {
+  @include box-shadow($toast-box-shadow);
+  @if $enable-shadows {
+    border-color: transparent;
+  } @else {
+    box-shadow: none;
+  }
+}
+
+.toast-header {
+  color: $headings-color;
+  font-weight: $headings-font-weight;
+  [class*='fe-'] { font-size: 1.25em; }
+  &:not([class*='bg-']) {
+    border-bottom: $border-width solid $border-color;
+  }
+}

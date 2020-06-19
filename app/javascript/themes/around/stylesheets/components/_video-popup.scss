@@ -1,0 +1,64 @@
+//
+// Video popup
+// --------------------------------------------------
+
+
+// Default button
+
+.cs-video-btn {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: $video-btn-size;
+  height: $video-btn-size;
+  padding-left: .125rem;
+  transition: $video-btn-transition;
+  border-radius: 50%;
+  background-color: $video-btn-bg;
+  color: $video-btn-color;
+  font-size: $video-btn-font-size;
+  text: {
+    align: center;
+    decoration: none;
+  }
+  box-shadow: $video-btn-box-shadow;
+  vertical-align: middle;
+
+  &::before {
+    font-family: 'feather';
+    line-height: $video-btn-size;
+    content: '\e9c3';
+  }
+
+  &:hover {
+    color: $video-btn-hover-color;
+    text-decoration: none;
+    box-shadow: $video-btn-hover-box-shadow;
+  }
+}
+
+
+// Primary button
+
+.cs-video-btn-primary {
+  background-color: $video-btn-primary-bg;
+  color: $video-btn-primary-color;
+  box-shadow: none !important;
+
+  &:hover {
+    background-color: $video-btn-hover-primary-bg;
+    color: $video-btn-primary-color;
+  }
+}
+
+
+// Sizing
+
+.cs-video-btn-sm {
+  width: $video-btn-size-sm;
+  height: $video-btn-size-sm;
+  font-size: $video-btn-font-size-sm;
+
+  &::before {
+    line-height: $video-btn-size-sm;
+  }
+}

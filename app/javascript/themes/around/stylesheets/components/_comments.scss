@@ -1,0 +1,38 @@
+//
+// Comments
+// --------------------------------------------------
+
+
+.cs-comment {
+  margin-bottom: $spacer * 2;
+  padding-bottom: $spacer * 1.875;
+  border-bottom: $border-width solid $border-color;
+  font-size: $font-size-md;
+  > .cs-comment {
+    position: relative;
+    margin: {
+      top: $spacer * 1.875;
+      bottom: 0;
+    }
+    padding: {
+      bottom: .5rem;
+      left: 3.25rem;
+    }
+    border-bottom: 0;
+
+    &::before {
+      position: absolute;
+      top: 0;
+      left: 1.125rem;
+      width: .25rem;
+      height: 100%;
+      background-color: $border-color;
+      content: '';
+    }
+
+    @include media-breakpoint-down(xs) {
+      padding-left: 2.125rem;
+      &::before { left: 0; }
+    }
+  }
+}

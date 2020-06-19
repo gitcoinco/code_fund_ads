@@ -1,0 +1,11 @@
+//
+// Close
+// --------------------------------------------------
+
+
+.close {
+  transition: $close-transition;
+  opacity: .7;
+  &:focus { outline: none; }
+  &:not(:disabled):not(.disabled):hover { opacity: 1; }
+}

@@ -1,0 +1,20 @@
+//
+// Custom scrollbar
+// based on https://github.com/Grsmto/simplebar
+// --------------------------------------------------
+
+.simplebar-scrollbar {
+  &::before {
+    background-color: $scrollbar-bg;
+  }
+  &.simplebar-visible::before { opacity: 1; }
+}
+.simplebar-track.simplebar-vertical {
+  width: $scrollbar-width;
+}
+.simplebar-track.simplebar-horizontal {
+  height: $scrollbar-width;
+}
+[data-simplebar-inverse] .simplebar-scrollbar::before {
+  background-color: rgba($white, .3);
+}

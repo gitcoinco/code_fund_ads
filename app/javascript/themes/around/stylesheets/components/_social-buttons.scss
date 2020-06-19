@@ -1,0 +1,200 @@
+//
+// Social buttons
+// --------------------------------------------------
+
+
+// Base styles
+
+.social-btn {
+  display: inline-block;
+  width: $social-btn-size;
+  height: $social-btn-size;
+  padding: 0;
+  border: $social-btn-border-width solid transparent;
+  transition: $social-btn-transition;
+  @include border-radius($social-btn-border-radius);
+  background-color: $social-btn-dark-bg;
+  color: $social-btn-dark-color;
+  font-size: $social-btn-font-size;
+  text: {
+    align: center;
+    decoration: none !important;
+  }
+  > i {
+    line-height: $social-btn-size - .125rem;
+  }
+
+  &:hover { color: $social-btn-dark-hover-color; }
+  &:focus { outline: none; }
+  &:active {
+    transition: none;
+    box-shadow: none !important;
+  }
+
+  &.sb-light {
+    background-color: $social-btn-light-bg;
+    color: $social-btn-light-color;
+    &:hover {
+      background-color: $social-btn-light-hover-bg !important;
+      box-shadow: none !important;
+    }
+  }
+}
+
+
+// Sizing
+
+.sb-lg {
+  width: $social-btn-size-lg;
+  height: $social-btn-size-lg;
+  @include border-radius($social-btn-border-radius-lg);
+  font-size: $social-btn-font-size-lg;
+  > i {
+    line-height: $social-btn-size-lg - .125rem;
+  }
+}
+.sb-sm {
+  width: $social-btn-size-sm;
+  height: $social-btn-size-sm;
+  @include border-radius($social-btn-border-radius-sm);
+  font-size: $social-btn-font-size-sm;
+  > i {
+    line-height: $social-btn-size-sm - .125rem;
+  }
+}
+
+
+// Outline variant
+
+.sb-outline {
+  border-color: $social-btn-dark-border-color;
+  background-color: transparent;
+  &.sb-light {
+    border-color: $social-btn-light-border-color;
+    background-color: transparent;
+  }
+  &:hover { border-color: transparent; }
+}
+
+
+// Round shape
+
+.sb-round {
+  border-radius: 50% !important;
+}
+
+
+// Brand colors
+
+.sb-facebook:hover {
+  background-color: #3b5998;
+  &.sb-light { color: #3b5998; }
+}
+.sb-twitter:hover {
+  background-color: #1da1f2;
+  &.sb-light { color: #1da1f2; }
+}
+.sb-instagram:hover {
+  background-color: #5851db;
+  &.sb-light { color: #5851db; }
+}
+.sb-google:hover {
+  background-color: #ea4335;
+  &.sb-light { color: #ea4335; }
+}
+.sb-linkedin:hover {
+  background-color: #0077b5;
+  &.sb-light { color: #0077b5; }
+}
+.sb-pinterest:hover {
+  background-color: #bd081c;
+  &.sb-light { color: #bd081c; }
+}
+.sb-tumblr:hover {
+  background-color: #35465c;
+  &.sb-light { color: #35465c; }
+}
+.sb-behance:hover {
+  background-color: #1769ff;
+  &.sb-light { color: #1769ff; }
+}
+.sb-dribbble:hover {
+  background-color: #ea4c89;
+  &.sb-light { color: #ea4c89; }
+}
+.sb-vk:hover {
+  background-color: #45668e;
+  &.sb-light { color: #45668e; }
+}
+.sb-odnoklassniki:hover {
+  background-color: #ed812b;
+  &.sb-light { color: #ed812b; }
+}
+.sb-skype:hover {
+  background-color: #00aff0;
+  &.sb-light { color: #00aff0; }
+}
+.sb-hangouts:hover {
+  background-color: #0f9d58;
+  &.sb-light { color: #0f9d58; }
+}
+.sb-messenger:hover {
+  background-color: #0084ff;
+  &.sb-light { color: #0084ff; }
+}
+.sb-viber:hover {
+  background-color: #59267c;
+  &.sb-light { color: #59267c; }
+}
+.sb-telegram:hover {
+  background-color: #0088cc;
+  &.sb-light { color: #0088cc; }
+}
+.sb-youtube:hover {
+  background-color: #ff0000;
+  &.sb-light { color: #ff0000; }
+}
+.sb-figma:hover {
+  background-color: #a259ff;
+  &.sb-light { color: #a259ff; }
+}
+.sb-vimeo:hover {
+  background-color: #1ab7ea;
+  &.sb-light { color: #1ab7ea; }
+}
+.sb-wechat:hover {
+  background-color: #7bb32e;
+  &.sb-light { color: #7bb32e; }
+}
+.sb-github:hover {
+  background-color: #4078c0;
+  &.sb-light { color: #4078c0; }
+}
+.sb-gitlab:hover {
+  background-color: #fc6d26;
+  &.sb-light { color: #fc6d26; }
+}
+.sb-paypal:hover {
+  background-color: #003087;
+  &.sb-light { color: #003087; }
+}
+.sb-slack:hover {
+  background-color: #3eb991;
+  &.sb-light { color: #3eb991; }
+}
+.sb-trello:hover {
+  background-color: #0079bf;
+  &.sb-light { color: #0079bf; }
+}
+.sb-twitch:hover {
+  background-color: #6441a5;
+  &.sb-light { color: #6441a5; }
+}
+.sb-rss:hover {
+  background-color: #f26522;
+  &.sb-light { color: #f26522; }
+}
+.sb-email:hover {
+  background-color: $primary;
+  &.sb-light { color: $primary; }
+}

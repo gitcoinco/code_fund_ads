@@ -1,0 +1,492 @@
+//
+// Forms
+// --------------------------------------------------
+
+
+// Label
+
+label {
+  padding-top: .0625rem;
+  font-size: $label-font-size;
+  &:not(.form-check-label):not(.custom-control-label):not(.custom-file-label):not(.cs-custom-option-label):not(.btn) {
+    color: $headings-color;
+    font-weight: $label-font-weight;
+  }
+}
+.col-form-label { font-size: $label-font-size; }
+.form-label-sm { padding-left: $input-padding-x-sm; }
+.form-label { padding-left: $input-padding-x; }
+.form-label-lg { padding-left: $input-padding-x-lg; }
+
+
+// Password visibility toggle
+
+.cs-password-toggle {
+  position: relative;
+  .form-control {
+    padding-right: $font-size-base + ($spacer * 2);
+  }
+}
+.cs-password-toggle-btn {
+  position: absolute;
+  top: 50%;
+  right: .625rem;
+  margin-bottom: 0;
+  padding: $spacer / 2;
+  transform: translateY(-50%);
+  font-size: $btn-font-size-lg;
+  line-height: 1;
+  cursor: pointer;
+  .cs-password-toggle-indicator {
+    color: $input-color;
+    &::before {
+      font-family: 'feather';
+      content: '\e961';
+    }
+    &:hover { color: $primary; }
+  }
+  .custom-control-input:checked ~ .cs-password-toggle-indicator::before {
+    content: '\e960';
+  }
+}
+.was-validated .cs-password-toggle .form-control:invalid,
+.was-validated .cs-password-toggle .form-control.is-invalid,
+.was-validated .cs-password-toggle .form-control:valid,
+.was-validated .cs-password-toggle .form-control.is-valid {
+  padding-right: 4rem;
+  & + .cs-password-toggle-btn { right: 2.1rem; }
+}
+
+
+// Custom select
+
+.custom-select-sm {
+  border-radius: $input-border-radius-sm;
+}
+
+
+// Custom control label
+
+.custom-control:focus,
+.custom-control-label:focus { outline: none; }
+.custom-control {
+  padding-left: $custom-control-indicator-size + ($spacer / 1.5);
+}
+
+// Custom switch
+
+.custom-switch {
+  padding-left: $custom-switch-width + ($spacer / 1.5);
+  .custom-control-label {
+    &::before {
+      height: $custom-switch-height;
+      border: 0;
+      background-color: $custom-switch-bg;
+    }
+    &::after {
+      top: 0;
+      border: $border-width solid $border-color;
+      border-radius: 50%;
+      background-color: $custom-switch-indicator-bg;
+      box-shadow: $custom-switch-indicator-box-shadow;
+    }
+  }
+  .custom-control-input:checked ~ .custom-control-label {
+    &::after {
+      transform: translateX($custom-switch-width - $custom-switch-indicator-size + .0625rem);
+      background-color: $custom-switch-indicator-bg;
+    }
+  }
+  .custom-control-input:disabled ~ .custom-control-label {
+    &::before {
+      background-color: $custom-switch-disabled-bg;
+    }
+    &::after {
+      box-shadow: none;
+      opacity: .9;
+    }
+  }
+}
+.input-group-text .custom-control {
+  margin-right: -.625rem;
+}
+
+
+// Form validation
+
+.was-validated .form-control:valid,
+.was-validated .form-control.is-valid,
+.form-control.is-valid,
+.was-validated .custom-file-input:valid ~ .custom-file-label {
+  &, &:focus {
+    border-color: $input-border-color;
+  }
+}
+.valid-tooltip,
+.invalid-tooltip {
+  position: static;
+  margin-top: .25rem;
+  padding: .15rem .5rem;
+  font-size: $form-feedback-font-size;
+}
+.valid-tooltip {
+  color: $success;
+}
+.invalid-tooltip {
+  color: $danger;
+}
+.was-validated {
+  .form-control:invalid,
+  .form-control.is-invalid,
+  .custom-control-input:invalid,
+  .custom-control-input.is-invalid {
+    &~.invalid-tooltip { display: table; }
+  }
+  .form-control:valid,
+  .form-control.is-valid,
+  .custom-control-input:valid,
+  .custom-control-input.is-valid {
+    &~.valid-tooltip { display: table; }
+  }
+}
+
+.was-validated .custom-control-input:valid ~ .custom-control-label,
+.was-validated .custom-control-input.is-valid ~ .custom-control-label {
+  color: inherit;
+}  
+.was-validated .custom-control-input:valid:checked ~ .custom-control-label::before, .was-validated .custom-control-input.is-valid:checked ~ .custom-control-label::before {
+  border-color: $custom-control-indicator-checked-bg !important;
+  background-color: $custom-control-indicator-checked-bg;
+}
+.was-validated .custom-control-input:valid ~ .custom-control-label::before,
+.was-validated .custom-control-input.is-valid ~ .custom-control-label::before {
+  border-color: $custom-control-indicator-border-color !important;
+}
+
+
+// Disabled inputs
+
+.form-control:disabled {
+  cursor: not-allowed;
+}
+
+
+// Form text
+
+.form-text {
+  padding-top: .125rem;
+  font-size: $font-size-xs;
+}
+
+
+// Subscription form status
+
+.cs-subscribe-status {
+  display: table;
+  @include border-radius($border-radius-sm);
+  font-size: $font-size-ms;
+  &.cs-status-success,
+  &.cs-status-error {
+    margin-top: .5rem;
+    padding: .5rem .75rem;
+  }
+  &.cs-status-success {
+    background-color: rgba($success, .08);
+    color: darken($success, 5%);
+  }
+  &.cs-status-error {
+    background-color: rgba($danger, .08);
+    color: darken($danger, 5%);
+  }
+}
+
+
+// Custom size / color radios
+
+.cs-custom-size-option,
+.cs-custom-color-option {
+  padding-left: 0;
+  &.custom-control-inline {
+    margin-right: ($spacer / 4);
+  }
+}
+.cs-custom-option-label {
+  position: relative;
+  margin-bottom: 0;
+  transition: $custom-option-transition;
+}
+.cs-custom-size-option {
+  .cs-custom-option-label {
+    width: $custom-size-option-size;
+    height: $custom-size-option-size;
+    border: $border-width solid $custom-size-option-border-color;
+    @include border-radius($border-radius);
+    background-color: transparent;
+    color: $custom-size-option-color;
+    font-size: $custom-size-option-font-size;
+    text-align: center;
+    line-height: ($custom-size-option-size - .25rem);
+    cursor: pointer;
+    &:hover {
+      border-color: $custom-size-option-hover-border-color;
+      color: $custom-size-option-hover-color;
+    }
+  }
+  .custom-control-input:checked ~ .cs-custom-option-label {
+    border-color: $custom-size-option-active-border-color;
+    background-color: $custom-size-option-active-bg;
+    color: $custom-size-option-active-color;
+    box-shadow: $custom-size-option-active-box-shadow;
+    cursor: default;
+  }
+  .custom-control-input:disabled ~ .cs-custom-option-label {
+    border-color: $custom-size-option-disabled-border-color !important;
+    background-color: $custom-size-option-disabled-bg !important;
+    color: $custom-size-option-disabled-color !important;
+    cursor: not-allowed;
+  }
+}
+.cs-custom-color-option {
+  .cs-custom-option-label {
+    position: relative;
+    width: $custom-color-option-outer-size;
+    height: $custom-color-option-outer-size;
+    border: $border-width solid transparent;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  .cs-color-swatch {
+    display: block;
+    position: absolute;
+    top: .25rem;
+    left: .25rem;
+    width: $custom-color-option-inner-size;
+    height: $custom-color-option-inner-size;
+    border-radius: 50%;
+  }
+  .custom-control-input:checked ~ .cs-custom-option-label {
+    border-color: $custom-color-option-active-border-color;
+    cursor: default;
+  }
+}
+
+
+// Custom file input drop area
+
+.cs-file-drop-area {
+  position: relative;
+  padding: ($spacer * 2.5) $spacer;
+  transition: $input-transition;
+  border: ($input-border-width * 2) dashed $input-border-color;
+  @include border-radius($border-radius-lg);
+  background-color: $input-bg;
+  text-align: center;
+  cursor: pointer;
+
+  .cs-file-drop-input {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    opacity: 0;
+    outline: none;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .cs-file-drop-icon {
+    display: block;
+    margin-bottom: $spacer;
+    color: $gray-500;
+    font-size: $h3-font-size;
+  }
+
+  .cs-file-drop-preview {
+    display: block;
+    max-width: $file-drop-area-preview-width;
+    margin: {
+      right: auto;
+      bottom: .75rem;
+      left: auto;
+    }
+  }
+
+  .cs-file-drop-message {
+    display: block;
+    font-size: $font-size-sm;
+    margin-bottom: 1.25rem;
+  }
+
+  .btn {
+    position: relative;
+    z-index: 3;
+  }
+
+  &:hover {
+    border-color: darken($input-border-color, 7%);
+  }
+}
+
+
+// Date / time picker
+
+.cs-date-picker {
+  &[readonly] {
+    background-color: $input-bg;
+  }
+}
+.flatpickr-calendar {
+  padding: 0 1.125rem;
+  @include border-radius($dropdown-border-radius);
+  @include box-shadow($dropdown-box-shadow);
+  @if $enable-shadows {
+    border: 0;
+  }
+}
+.flatpickr-innerContainer {
+  padding-bottom: 1.125rem;
+}
+.flatpickr-months {
+  padding: .75rem 0;
+  svg { vertical-align: top; }
+  .flatpickr-prev-month,
+  .flatpickr-next-month {
+    top: .75rem;
+    &:hover svg { fill: $primary; }
+  }
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  padding: .25rem;
+  appearance: none;
+}
+.numInputWrapper:hover,
+.flatpickr-current-month .flatpickr-monthDropdown-months:hover {
+  background-color: darken($gray-100, 1%);
+}
+.flatpickr-day {
+  border-radius: 0;
+  @include border-radius($border-radius);
+  &:hover:not(.flatpickr-disabled):not(.today):not(.selected) {
+    border-color: darken($gray-100, 1%);
+    background-color: darken($gray-100, 1%);
+  }
+  &.today {
+    border-color: rgba($primary, .5) !important;
+    color: $primary !important;
+    &.selected { color: $white !important; }
+    &:hover { background-color: transparent; }
+  }
+  &.selected {
+    border-color: $primary !important;
+    background-color: $primary !important;
+  }
+  &.flatpickr-disabled {
+    color: darken($gray-400, 6%) !important;
+  }
+  &.nextMonthDay {
+    color: darken($gray-500, 5%);
+  }
+  &.inRange {
+    border-color: darken($gray-100, 1%) !important;
+    background-color: darken($gray-100, 1%) !important;
+    box-shadow: -5px 0 0 darken($gray-100, 1%), 5px 0 0 darken($gray-100, 1%);
+  }
+  &.startRange,
+  &.endRange,
+  &.endRange.seleced,
+  &.endRange:hover {
+    border-color: $primary !important;
+    background-color: $primary !important;
+  }
+}
+.flatpickr-day.selected.endRange,
+.flatpickr-day.startRange.endRange,
+.flatpickr-day.endRange.endRange {
+  border-radius: 0;
+  @include border-radius(0 $border-radius $border-radius 0);
+}
+.flatpickr-day.selected.startRange,
+.flatpickr-day.startRange.startRange,
+.flatpickr-day.endRange.startRange {
+  border-radius: 0;
+  @include border-radius($border-radius 0 0 $border-radius);
+}
+.flatpickr-day.selected.startRange + .endRange:not(:nth-child(7n+1)),
+.flatpickr-day.startRange.startRange + .endRange:not(:nth-child(7n+1)),
+.flatpickr-day.endRange.startRange + .endRange:not(:nth-child(7n+1)) {
+  box-shadow: -10px 0 0 $primary;
+}
+.flatpickr-time {
+  margin-bottom: .5rem;
+  input:hover,
+  .flatpickr-am-pm:hover,
+  input:focus,
+  .flatpickr-am-pm:focus {
+    background-color: darken($gray-100, 1%);
+  }
+  input.flatpickr-hour {
+    font-weight: $font-weight-semibold;
+  }
+}
+
+
+// Sign in form illustartion
+
+.cs-signin-form {
+  position: relative;
+  width: 652px;
+  min-height: 556px !important;
+  padding-bottom: 40px;
+  overflow: hidden;
+
+  &::before,
+  &::after {
+    position: absolute;
+    content: '';
+  }
+
+  &::before {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 556px;
+    background: {
+      image: url(../img/account/signin-illustration.png);
+      repeat: no-repeat;
+      size: cover;
+    }
+  }
+
+  &::after {
+    left: 122px;
+    bottom: 556px;
+    width: 412px;
+    height: 100%;
+    background-color: $white;
+  }
+
+  .cs-signin-form-inner {
+    position: relative;
+    max-width: 390px;
+    margin: 0 auto;
+    padding: 32px 30px 0 30px;
+    background-color: $white;
+    z-index: 5;
+  }
+
+  @include media-breakpoint-down(sm) {
+    padding-bottom: 0;
+    overflow: visible;
+    &::before,
+    &::after { display: none; }
+    .cs-signin-form-inner {
+      padding: 40px 20px;
+      @include border-radius($border-radius-lg);
+      @include box-shadow($box-shadow);
+    }
+  }
+}

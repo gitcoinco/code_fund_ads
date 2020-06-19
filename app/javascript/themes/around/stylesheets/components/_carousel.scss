@@ -1,0 +1,264 @@
+//
+// Carousel
+// Based on https://github.com/ganlanyuan/tiny-slider
+// --------------------------------------------------
+
+
+// Base style
+
+.cs-carousel {
+  position: relative;
+  .cs-carousel-inner {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    touch-action: manipulation;
+    user-select: none;
+    opacity: 0;
+    &:active { cursor: grab; }
+    &.tns-slider {
+      display: block;
+      opacity: 1;
+    }
+    > * { backface-visibility: hidden; }
+    &.tns-horizontal {
+      display: flex;
+    }
+  }
+  .tns-outer {
+    position: relative;
+  }
+}
+
+// Fix carosuel flex display for Microsoft Edge and IE browsers
+@supports (-ms-ime-align: auto) {
+  .cs-carousel .cs-carousel-inner.tns-horizontal {
+    display: block;
+  }
+}
+
+
+// Carousel dots
+
+.cs-carousel {
+
+  .tns-nav {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    padding-top: $carousel-dots-spacing-y;
+    text-align: center;
+    white-space: nowrap;
+
+    & ~ .tns-ovh,
+    & ~ .tns-inner {
+      margin-bottom: $carousel-dot-active-size + $carousel-dots-spacing-y + .5rem;
+    }
+  }
+
+  &.cs-dots-inside .tns-nav {
+    top: auto;
+    bottom: 0;
+    padding: {
+      top: 0;
+      bottom: $carousel-dots-spacing-y;
+    }
+    z-index: 10;
+    & ~ .tns-ovh,
+    & ~ .tns-inner { margin-bottom: 0; }
+  }
+}
+
+[data-nav] {
+  display: inline-block;
+  position: relative;
+  width: $carousel-dot-active-size;
+  height: $carousel-dot-active-size;
+  margin: 0 $carousel-dot-spacing-x;
+  padding: 0;
+  border: 0;
+  background: none;
+
+  &:focus { outline: none; }
+
+  &::before, &::after {
+    position: absolute;
+    transition: $carousel-dot-transition;
+    border-radius: 50%;
+    content: '';
+  }
+
+  &::before {
+    top: 50%;
+    left: 50%;
+    width: $carousel-dot-size;
+    height: $carousel-dot-size;
+    margin: {
+      top: -($carousel-dot-size / 2);
+      left: -($carousel-dot-size / 2);
+    }
+    background-color: $carousel-dot-dark-bg;
+  }
+
+  &::after {
+    top: 0;
+    left: 0;
+    width: $carousel-dot-active-size;
+    height: $carousel-dot-active-size;
+    transform: scale(.5);
+    border: $carousel-dot-active-border-width solid $carousel-dot-dark-active-border-color;
+    opacity: 0;
+  }
+
+  &.tns-nav-active,
+  &.active {
+    &::before { opacity: 0; }
+    &::after {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+}
+
+.cs-dots-light [data-nav] {
+  &::before { background-color: $carousel-dot-light-bg; }
+  &::after { border-color: $carousel-dot-light-active-border-color; }
+}
+
+
+
+// Carousel controls (prev/next buttons)
+
+.cs-carousel {
+
+  .tns-controls {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    padding-top: $carousel-control-spacing-y;
+    text-align: right;
+    white-space: nowrap;
+
+    &:focus { outline: none; }
+
+    & ~ .tns-ovh,
+    & ~ .tns-inner {
+      margin-bottom: $carousel-control-size + $carousel-control-spacing-y !important;
+    }
+  }
+
+  &.cs-controls-center .tns-controls { text-align: center; }
+  &.cs-controls-left .tns-controls { text-align: left; }
+
+  [data-controls] {
+    display: inline-flex;
+    justify-content: center;
+    width: $carousel-control-size;
+    height: $carousel-control-size;
+    transition: $carousel-control-transition;
+    border: $carousel-control-border-width solid $carousel-control-border-color;
+    @include border-radius($carousel-control-border-radius);
+    background-color: $carousel-control-bg;
+    color: $carousel-control-color;
+    font-size: $carousel-control-font-size;
+    text-align: center;
+
+    > i {
+      line-height: $carousel-control-size - .25rem;
+    }
+
+    &:hover {
+      border-color: $carousel-control-hover-border-color;
+      color: $carousel-control-hover-color;
+    }
+
+    &[disabled] {
+      pointer-events: none;
+      opacity: .5;
+      cursor: default;
+    }
+  }
+
+  [data-controls='prev'] { margin-right: .75rem; }
+
+  // Controls inside
+  &.cs-controls-inside {
+    .tns-controls {
+      position: static;
+      width: auto;
+      padding: 0 !important;
+      & ~ .tns-ovh,
+      & ~ .tns-inner { margin: 0 !important; }
+    }
+    &:not(.cs-dots-inside) .tns-nav ~ .tns-ovh,
+    &:not(.cs-dots-inside) .tns-nav ~ .tns-inner {
+      margin-bottom: $carousel-dot-active-size + $carousel-dots-spacing-y + .5rem !important;
+    }
+
+    [data-controls] {
+      position: absolute;
+      top: 50%;
+      margin: {
+        top: -($carousel-control-size / 2);
+        right: 0;
+        left: 0;
+      }
+      z-index: 10;
+      &[disabled] { opacity: 0 !important; }
+    }
+    [data-controls='prev'] { left: $carousel-control-spacing-x; }
+    [data-controls='next'] { right: $carousel-control-spacing-x; }
+
+    &.cs-controls-onhover {
+      [data-controls] { opacity: 0; }
+      [data-controls='prev'] { transform: translateX(1rem); }
+      [data-controls='next'] { transform: translateX(-1rem); }
+      &:hover [data-controls] {
+        transform: none;
+        opacity: 1;
+      }
+    }
+  }
+}
+
+
+// Progress
+
+.cs-carousel-progress {
+  width: 100%;
+  max-width: $carousel-progress-max-width;
+  .progress { height: $carousel-progress-height; }
+}
+
+
+// Custom pager
+
+.cs-carousel-pager {
+  @include media-breakpoint-down(sm) {
+    &.border-left,
+    &.border-right {
+      border: {
+        top: $border-width solid $border-color !important;
+        right: 0 !important;
+        left: 0 !important;
+      }
+    }
+  }
+}
+
+
+// Carousel inside frames
+
+.cs-frame-phone,
+.cs-frame-browser {
+  .cs-carousel:not(.cs-controls-inside) {
+    .tns-controls,
+    .tns-nav {
+      display: none !important;
+      & ~ .tns-ovh,
+      & ~ .tns-inner {
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+}

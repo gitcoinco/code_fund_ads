@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Meta Tags -->
+    <%= display_meta_tags site: "CodeFund" %>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= action_cable_meta_tag %>
+    <!-- CDN Stylesheets -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-zrnmn8R8KkWl12rAZFt4yKjxplaDaT7/EUkKm7AovijfrQItFWR7O/JJn4DAa/gx" crossorigin="anonymous" />
+    <!-- Compressed Stylesheets -->
+    <%= stylesheet_pack_tag "around", media: "all", "data-turbolinks-track": "reload" %>
+    <!-- Compressed JavaScripts -->
+    <%= javascript_include_tag "application", "data-turbolinks-track": "reload", defer: true %>
+    <%= javascript_pack_tag "around", "data-turbolinks-track": "reload", defer: true %>
+  </head>
+  <body>
+    <%= yield %>
+  </body>
+</html>

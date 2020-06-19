@@ -1,0 +1,428 @@
+//
+// Card
+// --------------------------------------------------
+
+
+// Card link
+
+a.card:hover,
+a.card-body:hover { text-decoration: none; }
+
+
+// Card image link
+
+.card-img,
+.card-img-top,
+.card-img-bottom {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  > img {
+    display: block;
+    width: 100%;
+  }
+}
+
+
+// Card image gradient and overlay effects
+
+.card-img-gradient::after,
+.card-img-overlay {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: $card-overlay-transition;
+  content: '';
+  opacity: 0;
+
+  .card:hover >  & {
+    opacity: 1;
+  }
+}
+.card-img-gradient::after {
+  background: rgba($primary, .3);
+  background: $card-overlay-gradient;
+}
+.card-img-overlay {
+  display: flex;
+  flex-direction: column;
+  @include border-radius($card-border-radius);
+  background-color: $card-overlay-bg;
+  z-index: 5;
+}
+
+
+// Card body
+
+.card-body,
+.card-header {
+  position: relative;
+  z-index: 5;
+}
+.card-curved-body {
+  overflow: hidden;
+  .card-body {
+    padding-top: .375rem;
+    z-index: 2;
+    &::before {
+      display: block;
+      position: absolute;
+      top: -20px;
+      left: -15%;
+      width: 130%;
+      height: 90px;
+      border-radius: 50%;
+      background-color: $card-bg;
+      z-index: -1;
+      content: '';
+    }
+  }
+}
+
+
+// Hover / active state
+
+.card-hover { transition: $card-transition; }
+.card.card-hover:hover,
+.card.card-active {
+  border-color: $card-active-border-color !important;
+  @include box-shadow($card-active-box-shadow !important);
+}
+.card-hover.border-0,
+.card-active.border-0 {
+  &::before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity .2s ease-in-out;
+    border: $card-border-width solid $card-active-border-color;
+    @include border-radius($card-border-radius);
+    content: '';
+    z-index: 3;
+    opacity: 0;
+  }
+  &:hover::before { opacity: 1; }
+
+  a.card-img,
+  a.card-img-top,
+  a.card-img-bottom { z-index: 4; }
+}
+.card-active.border-0::before { opacity: 1; }
+
+
+// Horizontal card
+
+.card-horizontal {
+  
+  .card-img-top,
+  .card-img-bottom {
+    min-height: 15rem;
+    background: {
+      position: center;
+      repeat: no-repeat;
+      size: cover;
+    }
+  }
+  
+  @include media-breakpoint-up(sm) {
+    flex-direction: row;
+
+    .card-body {
+      padding: $card-spacer-x * 1.325;
+    }
+
+    .card-img-top,
+    .card-img-bottom {
+      width: $card-horizontal-image-width;
+    }
+    
+    .card-img-top {
+      border-radius: 0;
+      @include border-left-radius($card-inner-border-radius); 
+    }
+
+    .card-img-top.order-sm-2 {
+      border-radius: 0;
+      @include border-right-radius($card-inner-border-radius); 
+    }
+  }
+}
+
+
+// Flip hover
+
+.card-flip {
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  perspective: 1000px;
+
+  .card-img,
+  .card-img-top,
+  .card-img-bottom,
+  .card-body {
+    position: static;
+  }
+}
+.card-flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform .5s ease-in-out;
+  transform-style: preserve-3d;
+}
+.card-flip-front,
+.card-flip-back {
+  @include border-radius($card-border-radius);
+  backface-visibility: hidden;
+}
+.card-flip-back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotateY(180deg);
+  border: $card-border-width solid $card-active-border-color;
+  background-color: $card-bg;
+  color: inherit;
+  text-decoration: none;
+  @include box-shadow($card-active-box-shadow);
+
+  .card-body {
+    display: table;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+
+    .card-body-inner {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+    }
+  }
+
+  &:hover {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+.card-flip:hover .card-flip-inner {
+  transform: rotateY(180deg);
+}
+
+
+// Slide up hover
+
+.card-slide {
+  border: 0;
+  
+  .card-slide-inner {
+    @include border-radius($card-border-radius);
+    overflow: hidden;
+    -webkit-mask-image: -webkit-radial-gradient(white, black);
+  }
+
+  .card-img {
+    transition: transform .3s ease-in-out;
+  }
+  
+  .card-body {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    transform: translateY(125%);
+    transition: transform .3s ease-in-out;
+    background-color: $card-bg;
+  }
+
+  &:hover {
+    .card-body {
+      transform: translateY(0);
+    }
+    .card-img {
+      transform: scale(1.06) translateY(-2rem);
+    }
+  }
+}
+
+
+// Header navs
+
+.card-header-tabs {
+  margin-bottom: 0;
+}
+
+
+// Floating icon
+
+.card-floating-icon {
+  display: block;
+  position: absolute;
+  top: $card-floating-icon-spacing;
+  right: $card-floating-icon-spacing;
+  width: $card-floating-icon-size;
+  height: $card-floating-icon-size;
+  transition: $card-floating-icon-transition;
+  background-color: $card-floating-icon-bg;
+  border: $border-width solid $border-color;
+  border-radius: 50%;
+  @include box-shadow($card-floating-icon-box-shadow);
+  @if $enable-shadows { border: 0; }
+  color: $card-floating-icon-color;
+  font-size: $card-floating-icon-font-size;
+  text: {
+    align: center;
+    decoration: none;
+  }
+  z-index: 5;
+
+  > i {
+    line-height: $card-floating-icon-size - .125rem;
+    @if $enable-shadows {
+      line-height: $card-floating-icon-size;
+    }
+  }
+
+  .card-hover & {
+    transform: scale(.85);
+    opacity: 0;
+  }
+  .card-hover:hover & {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+a.card-floating-icon:hover {
+  color: $card-floating-icon-hover-color;
+}
+
+
+// Floating text
+
+.card-floating-text {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding: 1.5rem;
+  transition: opacity .25s ease-in-out;
+  z-index: 5;
+  opacity: 0;
+  > i { margin-top: -.125rem; }
+}
+.card:hover .card-floating-text {
+  opacity: 1;
+}
+
+
+// Accordion
+
+.accordion {
+  > .card {
+    margin-bottom: $spacer * .75;
+    &:last-child { margin-bottom: 0; }
+    &:not(:first-of-type),
+    &:not(:last-of-type) {
+      border: $card-border-width solid $card-border-color;
+      @include border-radius($card-border-radius);
+    }
+    .card-body { padding-top: 0; }
+  }
+  .card-header {
+    padding: 0;
+    border: 0;
+  }
+  .accordion-heading {
+    margin-bottom: 0;
+    font: {
+      size: $accordion-heading-font-size;
+      weight: $accordion-heading-font-weight;
+    }
+    > a {
+      display: block;
+      position: relative;
+      padding: ($card-spacer-y * 1.25) $card-spacer-x;
+      padding-right: ($card-spacer-x + $accordion-indicator-box-size);
+      color: $accordion-heading-active-color;
+      &.collapsed {
+        color: $accordion-heading-color;
+      }
+      &:hover {
+        color: $accordion-heading-hover-color;
+        text-decoration: none;
+      }
+    }
+  }
+  .accordion-indicator {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: $card-spacer-y;
+    width: $accordion-indicator-box-size;
+    height: $accordion-indicator-box-size;
+    margin-top: -($accordion-indicator-box-size / 2);
+    transition: $accordion-heading-transition;
+    font: {
+      size: $accordion-indicator-icon-size;
+      weight: normal;
+    }
+    line-height: $accordion-indicator-box-size - .125rem;
+    text-align: center;
+    &::before { content: '-'; }
+  }
+  [data-toggle='collapse'] {
+    &:hover i { color: $accordion-heading-active-color; }
+    i {
+      transition: color .25s ease-in-out;
+      color: $accordion-heading-active-color;
+    }
+  }
+  .collapsed {
+    .accordion-indicator::before {
+      content: '+';
+    }
+    i { color: $text-muted; }
+  }
+}
+
+
+// Card columns
+
+.card-columns {
+  @include media-breakpoint-down(sm) {
+    column-count: 2;
+  }
+  @include media-breakpoint-down(xs) {
+    column-count: 1;
+  }
+}
+
+
+// Blockquote inside card
+
+.card-body > .blockquote {
+  margin-bottom: 0;
+  padding: {
+    top: $blockquote-mark-font-size + $spacer !important;
+    right: 0 !important;
+    left: 0 !important;
+  }
+  &::before { top: 0; }
+}
+
+
+// IE 11 Fix
+// Core Bootstrap issue https://github.com/twbs/bootstrap/issues/21885
+.card *,
+.flex-column * { min-height: .01px; }
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .card .card { display: block; }
+}

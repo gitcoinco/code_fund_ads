@@ -1,0 +1,54 @@
+//
+// Mixins
+// --------------------------------------------------
+
+
+// Font smoothing
+
+@mixin font-smoothing {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+// Appearance
+
+@mixin appearance($value) {
+  -webkit-appearance: $value;
+  -moz-appearance: $value;
+  appearance: $value;
+}
+
+
+// Body font size variants
+
+@mixin font-size-variant($class, $size) {
+  #{$class} {
+    font-size: $size !important;
+  }
+}
+
+
+// Override default Bootstrap List Groups mixin
+
+@mixin list-group-item-variant-custom($state, $background, $color) {
+  .list-group-item-#{$state} {
+    color: $color;
+    background-color: $background;
+
+    &.list-group-item-action {
+      @include hover-focus {
+        color: darken($color, 8%);
+        background-color: darken($background, 3%);
+      }
+    }
+  }
+}
+
+
+// Gradient background
+
+@mixin gradient-background($gradient-from: $gradient-from-color, $gradient-to: $gradient-to-color) {
+  background: $gradient-from !important;
+  background: linear-gradient(to right, $gradient-from 0%, $gradient-from 30%, $gradient-to 100%) !important;
+}

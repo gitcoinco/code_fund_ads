@@ -1,0 +1,33 @@
+//
+// Countdown Timer
+// --------------------------------------------------
+
+
+.cs-countdown {
+  display: flex;
+  flex-wrap: wrap;
+  font-weight: normal;
+  text-align: center;
+
+  .cs-countdown-value {
+    font-weight: $countdown-value-font-weight;
+  }
+  .cs-countdown-label {
+    display: block;
+    margin: {
+      top: .125rem;
+      left: .125rem;
+    }
+    font-size: $countdown-label-font-size;
+  }
+  .cs-countdown-days,
+  .cs-countdown-hours,
+  .cs-countdown-minutes,
+  .cs-countdown-seconds {
+    margin: {
+      right: $spacer;
+      bottom: $spacer * .75;
+    }
+  }
+  .cs-countdown-seconds { margin-right: 0; }
+}

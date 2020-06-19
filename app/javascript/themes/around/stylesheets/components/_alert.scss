@@ -1,0 +1,50 @@
+//
+// Alert
+// --------------------------------------------------
+
+
+.alert-secondary {
+  border-color: $border-color;
+  background-color: $secondary;
+}
+.alert-secondary,
+.alert-light {
+  color: $body-color;
+  a:not(.btn) { color: $gray-800 !important; }
+}
+.alert-dark {
+  border-color: theme-color('dark');
+  background-color: theme-color('dark');
+  color: $white;
+  > *,
+  a:not(.btn) { color: $white !important; }
+}
+.alert a:not(.btn) { 
+  text-decoration: underline;
+  &:hover { text-decoration: none; }
+}
+
+
+// Alert close
+
+.alert .close:hover { color: inherit; }
+
+
+// Dismissible alerts
+
+.alert-dismissible {
+  padding-right: $close-font-size + $alert-padding-x;
+}
+
+
+// Alert with background image
+
+.alert-bg-image {
+  border: 0;
+  background: {
+    position: center;
+    repeat: no-repeat;
+    size: cover;
+    clip: padding-box;
+  }
+}

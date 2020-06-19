@@ -1,0 +1,39 @@
+//
+// List group
+// --------------------------------------------------
+
+
+// Disable bottom margin on list group items
+
+.list-group-item { margin-bottom: 0; }
+
+
+// Interactive list items
+
+.list-group-item-action {
+  transition: $list-group-action-transition;
+  font-weight: $nav-link-font-weight;
+  &:active { transition: none; }
+}
+
+
+// Contextual variants
+
+@each $color, $value in $theme-colors {
+  @include list-group-item-variant-custom($color, theme-color-level($color, -11), theme-color-level($color, 2));
+}
+
+.list-group-item-secondary,
+.list-group-item-light {
+  color: $body-color !important;
+  a { color: $body-color !important; }
+}
+.list-group-item-secondary {
+  background-color: $gray-100 !important;
+}
+.list-group-item-dark,
+.list-group-item-dark:hover,
+.list-group-item-dark:focus {
+  background-color: theme-color('dark') !important;
+  color: $white !important;
+}

@@ -1,0 +1,71 @@
+//
+// Badge
+// --------------------------------------------------
+
+.badge-primary, .badge-success,
+.badge-info, .badge-warning,
+.badge-danger, .badge-dark {
+  color: $white;
+  @include hover-focus {
+    color: $white !important;
+  }
+}
+.badge-secondary,
+.badge-light {
+  color: $headings-color;
+}
+
+
+// Floating badge
+
+.badge-floating {
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+  z-index: 5;
+  
+  .card:not(.border-0):not(.card-category) & {
+    left: -$card-border-width;
+  }
+
+  &:not(.badge-floating-right) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  &.badge-floating-right {
+    left: auto !important;
+    right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+
+    .card:not(.border-0):not(.card-category) & {
+      right: -$card-border-width;
+    }
+  }
+}
+
+
+// Large badge
+
+.badge-lg {
+  padding: {
+    top: .625rem;
+    right: .625rem;
+    bottom: .625rem;
+    left: 1rem;
+  }
+  font: {
+    size: $font-size-base;
+    weight: $font-weight-medium;
+  }
+
+  &:not(.badge-floating-right) {
+    border-top-right-radius: $border-radius-sm;
+    border-bottom-right-radius: $border-radius-sm;
+  }
+  &.badge-floating-right {
+    border-top-left-radius: $border-radius-sm;
+    border-bottom-left-radius: $border-radius-sm;
+  }
+}

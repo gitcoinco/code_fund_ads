@@ -1,0 +1,21 @@
+//
+// Tables
+// --------------------------------------------------
+
+
+.table:not(.table-dark) {
+  thead:not(.thead-dark) th {
+    color: $table-head-color;
+  }
+}
+thead th, th {
+  font-weight: $table-head-font-weight;
+}
+.table-dark td {
+  color: rgba($table-dark-color, .75);
+}
+.table-secondary,
+.table-secondary > th,
+.table-secondary > td {
+  background-color: $secondary;
+}

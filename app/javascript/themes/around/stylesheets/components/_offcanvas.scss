@@ -1,0 +1,169 @@
+//
+// Off-canvas
+// --------------------------------------------------
+
+
+.cs-offcanvas-enabled {
+  padding-left: $offcanvas-width + 1.5rem;
+  &.cs-offcanvas-right {
+    padding: {
+      right: $offcanvas-width + 1.5rem;
+      left: 0;
+    }
+  }
+}
+
+.cs-offcanvas-cap { display: none; }
+
+.cs-offcanvas {
+  display: flex;
+  position: fixed;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: $offcanvas-width;
+  height: 100% !important;
+  z-index: $zindex-offcanvas;
+
+  .cs-offcanvas-body {
+    height: 100%;
+    padding: 0 $offcanvas-padding-x;
+    overflow-y: auto;
+
+    .nav-link-style {
+      display: block;
+      margin: {
+        right: -$offcanvas-padding-x;
+        bottom: $spacer * .75;
+        left: -$offcanvas-padding-x;
+      }
+      padding: 0 $offcanvas-padding-x;
+      &.active {
+        position: relative;
+        &::before {
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: .125rem;
+          height: 100%;
+          background-color: $nav-link-dark-active-color;
+          content: '';
+        }
+        &.nav-link-light::before {
+          background-color: $nav-link-light-active-color;
+        }
+      }
+    }
+  }
+
+  .cs-offcanvas-cap {
+    display: flex;
+    justify-content: space-between;
+    flex-shrink: 0;
+    padding: $offcanvas-padding-y $offcanvas-padding-x;
+  }
+
+  &.cs-offcanvas-right {
+    right: 0;
+    left: auto;
+  }
+
+  &.cs-offcanvas-collapse-always {
+    width: 100%;
+    max-width: $offcanvas-width;
+    transform: translateX(-100%);
+    transition: transform .4s cubic-bezier(.165, .84, .44, 1), box-shadow .3s ease;
+    background-color: $offcanvas-bg;
+
+    &.cs-offcanvas-right {
+      transform: translateX(100%);
+    }
+
+    &.show {
+      transform: none;
+      box-shadow: $offcanvas-box-shadow;
+    }
+  }
+}
+
+@include media-breakpoint-down(lg) {
+  .cs-offcanvas-enabled {
+    padding-left: $offcanvas-width + .5rem;
+    &.cs-offcanvas-right { padding-right: $offcanvas-width + .5rem; }
+  }
+}
+
+@include media-breakpoint-down(md) {
+  .cs-offcanvas-enabled {
+    padding-left: 0;
+    &.cs-offcanvas-right { padding-right: 0; }
+  }
+  .cs-offcanvas-collapse {
+    display: flex;
+    position: fixed;
+    flex-direction: column;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-width: $offcanvas-width;
+    height: 100% !important;
+    transform: translateX(-100%);
+    transition: transform .4s cubic-bezier(.165, .84, .44, 1), box-shadow .3s ease;
+    border-radius: 0 !important;
+    background-color: $offcanvas-bg;
+    z-index: $zindex-offcanvas;
+
+    .cs-offcanvas-body {
+      height: 100%;
+      padding: 0 $offcanvas-padding-x;
+      overflow-y: auto;
+      .navbar-nav {
+        padding-top: 0;
+        .nav-item {
+          border: {
+            top: 0;
+            bottom: $border-width solid $border-color !important;
+          }
+        }
+        .nav-link {
+          color: $navbar-light-color;
+          &:hover { color: $navbar-light-hover-color; }
+          &.active { color: $navbar-light-active-color; }
+          &.disabled { color: $navbar-light-disabled-color; }
+        }
+        .show > .nav-link,
+        .active > .nav-link { color: $navbar-light-active-color; }
+        .dropdown-menu .dropdown-item {
+          color: $navbar-light-color;
+          &:hover { color: $navbar-light-hover-color; }
+          &.active { color: $navbar-light-active-color; }
+          &.disabled { color: $navbar-light-disabled-color; }
+        }
+        .dropdown-header {
+          color: $dropdown-header-color;
+          border-color: $border-color;
+        }
+      }
+    }
+
+    .cs-offcanvas-cap {
+      display: flex;
+      justify-content: space-between;
+      flex-shrink: 0;
+      padding: $offcanvas-padding-y $offcanvas-padding-x;
+    }
+
+    &.cs-offcanvas-right {
+      right: 0;
+      left: auto;
+      transform: translateX(100%);
+    }
+
+    &.show {
+      transform: none;
+      box-shadow: $offcanvas-box-shadow;
+    }
+  }
+}

@@ -1,0 +1,90 @@
+//
+// Typography
+// --------------------------------------------------
+
+
+// Headings: customize default Bootstrap h1-h6 headings
+
+h1, .h1,
+.display-1, .display-2,
+.display-3, .display-4 { line-height: $h1-line-height; }
+h2, .h2 { line-height: $h2-line-height; }
+h3, .h3 { line-height: $h3-line-height; }
+h4, .h4 { line-height: $h4-line-height; }
+h5, .h5 { line-height: $h5-line-height; }
+h6, .h6 { line-height: $h6-line-height; }
+
+
+// Lists
+
+ul li, ol li { margin-bottom: $spacer / 3; }
+.list-inline-item:not(:last-child) {
+  margin-right: $spacer * 1.25;
+}
+dt {
+  color: $headings-color;
+  margin-bottom: $spacer / 4;
+  font-weight: $headings-font-weight;
+}
+dd {
+  font-size: $font-size-sm;
+  margin-bottom: $spacer;
+}
+
+
+// Blockquote
+
+.blockquote {
+  position: relative;
+  padding-left: $blockquote-mark-font-size + 1.875rem;
+
+  &::before {
+    display: block;
+    position: absolute;
+    top: -.75rem;
+    left: 0;
+    color: $blockquote-mark-color;
+    font: {
+      family: 'feather';
+      size: $blockquote-mark-font-size;
+      weight: normal;
+    }
+    line-height: 1;
+    content: '\ea27';
+  }
+
+  &.text-center,
+  .text-center & {
+    padding: {
+      top: $blockquote-mark-font-size + $spacer;
+      left: 0;
+    }
+    &::before {
+      top: 0;
+      left: 50%;
+      margin-left: -($blockquote-mark-font-size / 2);
+    }
+  }
+  &.text-right,
+  .text-right & {
+    padding: {
+      right: $blockquote-mark-font-size + 1.875rem;
+      left: 0;
+    }
+    &::before {
+      right: 0;
+      left: auto;
+    }
+  }
+}
+.blockquote-footer {
+  font-weight: $blockquote-small-font-weight;
+}
+
+
+// Callout
+
+.cs-callout {
+  padding-left: 1.5rem;
+  border-left: .25rem solid $primary;
+}

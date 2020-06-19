@@ -29,6 +29,7 @@ gem "docraptor", "~> 1.3.0"
 gem "email_address", "~> 0.1.11"
 gem "full-name-splitter", "~> 0.1.2"
 gem "heroku-deflater", "~> 0.6.3", group: :production
+gem "high_voltage", "~> 3.1"
 gem "hiredis", "~> 0.6.3"
 gem "htmlentities", "4.3.4"
 gem "image_processing", "~> 1.10.3"

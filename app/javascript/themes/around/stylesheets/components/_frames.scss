@@ -1,0 +1,191 @@
+//
+// Frames
+// --------------------------------------------------
+
+
+// Phone frame
+
+.cs-frame-phone {
+  position: relative;
+  width: $phone-frame-width;
+  margin: 0 15px 20px 15px;
+  border: $phone-frame-border-width solid $phone-frame-color;
+  border-radius: $phone-frame-border-radius;
+
+  &::after, &::before {
+    display: block;
+    position: absolute;
+    left: -35px;
+    bottom: -10px;
+    width: $phone-frame-width + 60px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: $black;
+    filter: blur(13px);
+    opacity: .55;
+    z-index: -1;
+    content: '';
+  }
+  &::before {
+    left: 5px;
+    width: $phone-frame-width - 20px;
+    filter: blur(10px);
+    opacity: .18;
+  }
+}
+
+.cs-frame-phone-body {
+  position: relative;
+  background-color: $white;
+  min-height: $phone-frame-min-height;
+  border-radius: subtract($phone-frame-border-radius, $phone-frame-border-width);
+  overflow: hidden;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+
+  &::before, &::after {
+    position: absolute;
+    background-color: $phone-frame-color;
+    content: '';
+    z-index: 5;
+  }
+
+  &::before {
+    top: -24px;
+    left: 50%;
+    width: 150px;
+    height: 48px;
+    margin-left: -75px;
+    border: {
+      bottom-right-radius: 18px;
+      bottom-left-radius: 18px;
+    }
+  }
+
+  &::after {
+    bottom: 10px;
+    left: 50%;
+    width: 90px;
+    height: 4px;
+    margin-left: -45px;
+    border-radius: 2px;
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.cs-frame-phone-status-bar {
+  display: flex;
+  position: absolute;
+  justify-content: space-between;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: .5rem 1.125rem;
+  font: {
+    size: $font-size-xs;
+    weight: $font-weight-medium;
+  }
+  z-index: 5;
+  [class^='fe-'] {
+    margin-top: -.25rem;
+    font-size: $font-size-base * 1.0625;
+  }
+}
+
+@include media-breakpoint-down(xs) {
+  .cs-frame-phone {
+    width: 290px;
+    &::after, &::before { display: none; }
+  }
+  .cs-frame-phone-body::before {
+    width: 120px;
+    margin-left: -60px;
+  }
+}
+
+
+// Browser frame
+
+.cs-frame-browser {
+  position: relative;
+  padding: 3.5rem 1.5rem 1.5rem 1.5rem;
+  border: $browser-border-width solid $browser-border-dark-color;
+  border-radius: $browser-border-radius * .75;
+
+  &.border-light {
+    border-color: $browser-border-light-color !important;
+  }
+}
+
+.cs-frame-browser-toolbar {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 1rem;
+  left: 1.375rem;
+}
+
+.cs-frame-browser-body {
+  position: relative;
+  border-radius: $browser-body-border-radius * .75;
+  background-color: $browser-body-bg;
+  box-shadow: $browser-body-box-shadow;
+  overflow: hidden;
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.cs-frame-browser-button {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  margin-right: .625rem;
+  border-radius: 50%;
+}
+
+.cs-frame-browser-label {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin-top: -((1.5 + $font-size-sm * $line-height-base) / 2);
+  text-align: center;
+  z-index: 10;
+  .cs-carousel-label {
+    display: inline-flex;
+    align-items: center;
+    padding: .75rem 1.125rem;
+    border-radius: $border-radius;
+    background-color: $browser-body-bg;
+    color: $gray-700;
+    font-size: $font-size-sm;
+    box-shadow: $box-shadow-lg;
+    white-space: nowrap;
+    > i {
+      margin-right: .5rem;
+      color: $text-muted;
+      font-size: 1.3em;
+    }
+  }
+}
+
+@include media-breakpoint-up(md) {
+  .cs-frame-browser {
+    padding: 4rem 2.5rem 2.5rem 2.5rem;
+    border-radius: $browser-border-radius;
+  }
+  .cs-frame-browser-toolbar {
+    top: 1.25rem;
+    left: 1.625rem;
+  }
+  .cs-frame-browser-body {
+    border-radius: $browser-body-border-radius;
+  }
+}

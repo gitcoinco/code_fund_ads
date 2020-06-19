@@ -1,0 +1,64 @@
+//
+// Hotspots
+// --------------------------------------------------
+
+
+.cs-hotspots {
+  position: relative;
+
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.cs-hotspot {
+  position: absolute;
+  width: $hotspot-outer-size;
+  height: $hotspot-outer-size;
+  border-radius: 50%;
+  z-index: 5;
+  cursor: pointer;
+
+  &::before, &::after {
+    position: absolute;
+    border-radius: 50%;
+  }
+
+  &::before {
+    top: 50%;
+    left: 50%;
+    width: $hotspot-inner-size;
+    height: $hotspot-inner-size;
+    margin: {
+      top: -($hotspot-inner-size / 2);
+      left: -($hotspot-inner-size / 2);
+    }
+    transition: $hotspot-inner-transition;
+    background-color: $hotspot-inner-bg;
+    color: $hotspot-inner-color;
+    font: {
+      family: 'feather';
+      size: $hotspot-inner-font-size;
+    }
+    text-align: center;
+    line-height: $hotspot-inner-size;
+    box-shadow: $hotspot-inner-box-shadow;
+    content: '\e9c6';
+
+  }
+
+  &::after {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: $hotspot-outer-border;
+    content: '';
+  }
+
+  &:hover::before {
+    background-color: $hotspot-hover-inner-bg;
+    color: $hotspot-hover-inner-color;
+  }
+}

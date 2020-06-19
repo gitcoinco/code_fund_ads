@@ -1,0 +1,89 @@
+//
+// Code
+// --------------------------------------------------
+
+
+:not(pre) > code[class*='language-'],
+pre[class*='language-'],
+pre {
+  margin: 0;
+  padding: {
+    top: $spacer * 1.5;
+    bottom: $spacer * 1.5;
+  }
+  background-color: $pre-bg;
+  font-size: $code-font-size;
+}
+pre {
+  padding: {
+    right: $spacer;
+    left: $spacer;
+  }
+}
+.code-toolbar {
+  :not(pre) > code[class*='language-'],
+  pre[class*='language-'] {
+    padding-top: $spacer * 2;
+  }
+}
+code[class*="language-"],
+pre[class*="language-"],
+pre {
+  color: $pre-color;
+}
+
+// Line numbers
+.line-numbers .line-numbers-rows {
+  border-right: $pre-line-numbers-border-width solid $pre-line-numbers-border-color;
+  > span::before {
+    color: $pre-line-numbers-color;
+  }
+}
+
+// Toolbar (Copy button)
+div.code-toolbar > .toolbar {
+  opacity: 1;
+  button {
+    display: inline-block;
+    margin: .375rem .5rem;
+    padding: .25rem .75rem;
+    transition: $btn-transition;
+    border-radius: $border-radius-sm;
+    border: $border-width solid rgba($primary, .35);
+    background-color: transparent;
+    color: $primary !important;
+    box-shadow: none;
+    &:focus {
+      outline: none;
+      box-shadow: none;
+    }
+    &:hover {
+      background-color: $primary;
+      color: $white !important;
+    }
+  }
+}
+
+// Code highlighting colors overrides (prism.js)
+.token.boolean, .token.constant, .token.deleted, .token.number,
+.token.property, .token.symbol, .token.tag {
+  color: #4e54c8;
+}
+.token.cdata, .token.comment, .token.doctype, .token.prolog {
+  color: darken($gray-500, 3%);
+}
+.token.attr-name, .token.builtin, .token.char,
+.token.inserted, .token.selector {
+  color: #4091e3;
+}
+.token.atrule, .token.attr-value,
+.token.keyword, .token.string {
+  color: #e3116c;
+}
+.language-css .token.string, .style .token.string,
+.token.entity, .token.operator, .token.url {
+  color: #36acaa;
+}
+.token.class-name, .token.function {
+  color: #36acaa;
+}

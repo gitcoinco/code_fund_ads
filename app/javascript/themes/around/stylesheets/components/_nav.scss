@@ -1,0 +1,460 @@
+//
+// Nav (Navigation components)
+// --------------------------------------------------
+
+
+// Base styles
+
+.nav-link {
+  transition: $nav-link-transition;
+  font-weight: $nav-link-font-weight;
+  
+  &.active:not([data-toggle='dropdown']) {
+    pointer-events: none;
+    cursor: default;
+  }
+}
+
+
+// Nav tabs
+
+.nav-tabs {
+  margin-bottom: ($spacer * 1.25);
+  border: 0;
+
+  .nav-link {
+    @include border-radius($nav-tabs-border-radius);
+    color: $nav-tabs-link-color;
+
+    &:hover { color: $nav-tabs-link-hover-color; }
+    > i { margin-top: -.125rem; }
+  }
+  .nav-item {
+    margin-bottom: 0;
+    &.show .nav-link {
+      border-color: $nav-tabs-border-color;
+    }
+  }
+
+  .dropdown-menu {
+    margin-top: 0;
+    @include border-radius($dropdown-border-radius);
+  }
+}
+
+
+// Light tabs
+
+.nav-tabs-light {
+  .nav-link {
+    color: $nav-tabs-light-link-color;
+
+    &:hover {
+      color: $nav-tabs-light-link-hover-color;
+    }
+
+    &.active {
+      border-color: $nav-tabs-light-link-active-border-color;
+      color: $nav-tabs-light-link-active-color;
+    }
+  }
+  .show .nav-link {
+    border-color: $nav-tabs-light-link-active-border-color;
+    color: $nav-tabs-light-link-active-color !important;
+  }
+}
+
+
+// Media tabs
+
+.cs-media-tabs {
+  .nav-link {
+    padding: $media-tab-padding;
+    transition: $media-tab-transition;
+    border: {
+      color: $border-color;
+      radius: $media-tab-border-radius;
+    }
+
+    .media {
+      transition: opacity .25s ease-in-out;
+      opacity: $media-tab-opacity;
+    }
+
+    &:hover, &.active {
+      border-color: $nav-tabs-link-active-border-color;
+      color: $nav-link-dark-color;
+      .media {
+        opacity: $media-tab-active-opacity;
+      }
+    }
+
+    &.active {
+      background-color: $media-tab-active-bg;
+      @include box-shadow($media-tab-active-box-shadow);
+    }
+  }
+
+  &.cs-media-tabs-light {
+    .nav-link {
+      border-color: $media-tab-light-border-color;
+      color: $media-tab-light-color;
+
+      &:hover {
+        border-color: $media-tab-light-hover-border-color;
+      }
+
+      &.active {
+        color: $media-tab-light-active-color;
+      }
+    }
+  }
+}
+
+// Microsoft IE11 fix
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .cs-media-tabs .nav-link .media {
+    width: 16.25rem;
+  }
+  .cs-media-tabs.flex-column .nav-link .media {
+    width: 100%;
+  }
+}
+
+
+// Fancy tabs
+
+.cs-fancy-tabs {
+  justify-content: space-between;
+  .nav-link {
+    display: block;
+    position: relative;
+    width: 152px;
+    height: 152px;
+    border: 0;
+    text-align: center;
+    
+    .cs-fancy-tab-text {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 100%;
+      padding: $nav-link-padding-y $nav-link-padding-x;
+      transform: translateY(-50%);
+      transition: $fancy-tab-transition;
+      color: $fancy-tab-color;
+      line-height: 1.4;
+      z-index: 5;
+    }
+
+    .cs-fancy-tab-shape,
+    &::before,
+    &::after {
+      display: block;
+      position: absolute;
+      transition: $fancy-tab-transition;
+      background: {
+        repeat: no-repeat;
+        position: center;
+      }
+      opacity: 0;
+      content: '';
+    }
+
+    .cs-fancy-tab-shape {
+      top: 8px;
+      left: 9px;
+      width: 141px;
+      height: 136px;
+      background: {
+        image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='141' height='136' viewBox='0 0 141 136'><defs><linearGradient x1='100%' y1='56.7401923%' x2='0%' y2='56.7401923%' id='linearGradient-1'><stop stop-color='#{$gradient-to-color}' offset='0%'></stop><stop stop-color='#{$gradient-from-color}' offset='67%'></stop><stop stop-color='#{$gradient-from-color}' offset='100%'></stop></linearGradient></defs><g stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'><g transform='translate(-900.000000, -3315.000000)' fill='url(#linearGradient-1)'><g transform='translate(2.000000, 3141.000000)'><g transform='translate(506.000000, 167.000000)'><g transform='translate(383.000000, 0.000000)'><path d='M27.2602266,25.9990154 C-9.11920392,72.3295589 12.4827547,135.602003 60.1461146,142.008864 C107.809475,148.415726 150,123.490753 150,75.0878442 C150,26.684936 63.6396571,-20.3315281 27.2602266,25.9990154 Z'></path></g></g></g></g></g></svg>"));
+        size: cover;
+      }
+      z-index: 1;
+    }
+
+    &::before {
+      top: 1px;
+      left: 8px;
+      width: 144px;
+      height: 140px;
+      transform: scale(.9);
+      background: {
+        image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='144' height='140' viewBox='0 0 144 140'><defs><linearGradient x1='88.6756982%' y1='84.347423%' x2='4.80864136%' y2='26.3388134%' id='linearGradient-1'><stop stop-color='#{$gradient-to-color}' offset='0%'></stop><stop stop-color='#{$gradient-from-color}' offset='67%'></stop><stop stop-color='#{$gradient-from-color}' offset='100%'></stop></linearGradient></defs><g stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'><g transform='translate(-899.000000, -3308.000000)' fill='url(#linearGradient-1)'><g transform='translate(2.000000, 3141.000000)'><g transform='translate(506.000000, 167.000000)'><g transform='translate(383.000000, 0.000000)'><path d='M62.9851149,2.34349468 C7.20709168,21.2388791 -8.98702653,86.0361531 27.6378217,117.472619 C64.2626698,148.909085 126.984793,146.726479 147.304071,115.404978 C167.623349,84.083476 118.763138,-16.5518897 62.9851149,2.34349468 Z'></path></g></g></g></g></g></svg>"));
+        size: cover;
+      }
+      z-index: 2;
+    }
+    &::after {
+      top: 12px;
+      left: 0;
+      width: 143px;
+      height: 139px;
+      transform: scale(.8);
+      background: {
+        image: escape-svg(url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' width='143' height='139' viewBox='0 0 143 139'><defs><linearGradient x1='90.1221807%' y1='17.6023579%' x2='18.1882007%' y2='91.5597184%' id='linearGradient-1'><stop stop-color='#{$gradient-to-color}' offset='0%'></stop><stop stop-color='#{$gradient-from-color}' offset='67%'></stop><stop stop-color='#{$gradient-from-color}' offset='100%'></stop></linearGradient></defs><g stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'><g transform='translate(-891.000000, -3319.000000)' fill='url(#linearGradient-1)'><g transform='translate(2.000000, 3141.000000)'><g transform='translate(506.000000, 167.000000)'><g transform='translate(383.000000, 0.000000)'><path d='M0.226545142,78.6428487 C6.07066962,137.350137 65.4934992,167.748638 104.327822,139.07173 C143.162146,110.394823 155.146053,48.6712687 129.232145,21.7826583 C103.318238,-5.10595204 -5.61757933,19.9355606 0.226545142,78.6428487 Z'></path></g></g></g></g></g></svg>"));
+        size: cover;
+      }
+      z-index: 3;
+    }
+
+    &:hover .cs-fancy-tab-text {
+      color: $fancy-tab-hover-color;
+    }
+
+    &.active {
+      .cs-fancy-tab-text {
+        color: $fancy-tab-active-color !important;
+      }
+      .cs-fancy-tab-shape { opacity: 1; }
+      &::before,
+      &::after {
+        transform: scale(1);
+        opacity: .49;
+      }
+    }
+  }
+}
+
+// Microsoft Edge and IE11 fix
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+  .cs-fancy-tabs .nav-link .cs-fancy-tab-shape::before,
+  .cs-fancy-tabs .nav-link .cs-fancy-tab-shape::after { display: none; }
+  .cs-fancy-tabs .nav-link .cs-fancy-tab-shape {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: none;
+    background-color: $primary;
+  }
+}
+@supports (-ms-ime-align: auto) {
+  .cs-fancy-tabs .nav-link .cs-fancy-tab-shape::before,
+  .cs-fancy-tabs .nav-link .cs-fancy-tab-shape::after { display: none; }
+  .cs-fancy-tabs .nav-link .cs-fancy-tab-shape {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background: none;
+    background-color: $primary;
+  }
+}
+
+
+
+// Nav pills
+
+.nav-pills {
+  .nav-item { margin-bottom: 0; }
+  .nav-link {
+    padding: {
+      top: $nav-pills-padding-y;
+      bottom: $nav-pills-padding-y;
+    }
+    background-color: $nav-pills-link-bg;
+    color: $nav-pills-link-color;
+    font-size: $nav-pills-font-size;
+
+    &:hover:not(.active):not([aria-expanded=true]) {
+      color: $nav-pills-link-hover-color;
+      background-color: $nav-pills-link-hover-bg;
+    }
+    &.disabled {
+      background-color: transparent;
+      color: $nav-link-disabled-color;
+      &:hover:not(.active) {
+        background-color: transparent;
+      }
+    }
+    i { margin-top: -.25rem; }
+  }
+}
+
+
+// Spacing
+
+.nav-tabs:not(.nav-fill):not(.nav-justified),
+.nav-pills {
+  .nav-item {
+    margin-right: $spacer / 1.5;
+    &:last-child { margin-right: 0; }
+  }
+  &.justify-content-center .nav-item {
+    margin: {
+      right: $spacer / 3 !important;
+      left: $spacer / 3 !important;
+    }
+  }
+  &.justify-content-end .nav-item {
+    margin: {
+      right: 0;
+      left: $spacer / 1.5;
+    }
+    &:last-child { margin-left: 0; }
+  }
+  &.flex-column {
+    .nav-item {
+      margin: {
+        right: 0 !important;
+        bottom: $spacer / 1.5;
+        left: 0 !important;
+      }
+      &:last-child { margin-bottom: 0; }
+    }
+  }
+}
+
+
+// Nav indicator
+
+.nav-indicator {
+  display: inline-block;
+  width: $nav-indicator-size;
+  height: $nav-indicator-size;
+  margin: {
+    top: -.5rem;
+    left: .375rem;
+  }
+  border-radius: 50%;
+  background-color: $nav-indicator-bg;
+}
+
+
+// Nav link style
+
+.nav-link-style {
+  display: inline-block;
+  transition: $nav-link-transition;
+  color: $nav-link-dark-color;
+  font-weight: $nav-link-font-weight;
+  text-decoration: none;
+
+  > i {
+    transition: opacity .25s ease-in-out;
+  }
+
+  &:hover {
+    color: $nav-link-dark-hover-color;
+    text-decoration: none;
+    > i { opacity: 1 !important; }
+  }
+  &.active {
+    color: $nav-link-dark-active-color;
+    pointer-events: none;
+    cursor: default;
+    > i { opacity: 1 !important; }
+  }
+
+  &.nav-link-light {
+    color: $nav-link-light-color;
+    &:hover { color: $nav-link-light-hover-color; }
+    &.active { color: $nav-link-light-active-color; }
+  }
+}
+
+
+// Nav heading style
+
+.nav-heading,
+.nav-heading a,
+.nav-heading .nav-heading-title {
+  transition: $nav-link-transition;
+  color: $headings-color;
+  font-weight: $headings-font-weight;
+  text-decoration: none;
+
+  &:hover,
+  &:hover .nav-heading-title {
+    color: $nav-link-dark-hover-color;
+    text-decoration: none;
+  }
+  &.active {
+    color: $nav-link-dark-active-color;
+    pointer-events: none;
+    cursor: default;
+  }
+}
+
+
+// Fancy link style
+
+.cs-fancy-link {
+  display: inline-block;
+  position: relative;
+  color: $link-color;
+  font-weight: $nav-link-font-weight;
+  text-decoration: none;
+
+  &::after {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: .0625rem;
+    background-color: $link-color;
+    content: '';
+  }
+
+  &:hover {
+    color: $link-color;
+    text-decoration: none;
+    &::after {
+      animation: linkUnderline .6s ease-in-out;
+    }
+  }
+
+  &.text-light {
+    color: $white;
+    &::after { background-color: $white; }
+    &:hover { color: $white; }
+  }
+}
+@keyframes linkUnderline  {
+  0% { width: 100%; }
+  50% { width: 0; }
+  100% {
+    left: 0;
+    width: 100%;
+  }
+}
+
+
+// Metadata links
+
+.meta-link {
+  transition: $meta-link-transition;
+  color: $meta-link-color;
+  vertical-align: middle;
+  text-decoration: none;
+
+  &:not(.media) {
+    display: inline-block;
+  }
+
+  &:hover {
+    color: $meta-link-hover-color;
+    text-decoration: none;
+  }
+
+  > i {
+    font-size: 1.25em;
+    opacity: .75;
+  }
+}
+
+.meta-divider {
+  display: inline-block;
+  width: $meta-divider-width;
+  height: $meta-divider-height;
+  margin: 0 $meta-divider-spacing-x;
+  background-color: $meta-divider-color;
+  vertical-align: middle;
+}
+
+
+// Radio tabs
+
+.radio-tab-pane {
+  display: none;
+  &.active { display: block; }
+}

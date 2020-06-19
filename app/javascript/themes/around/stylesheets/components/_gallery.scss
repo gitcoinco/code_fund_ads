@@ -1,0 +1,119 @@
+//
+// Gallery
+// based on https://github.com/sachinchoolur/lightgallery.js
+// ----------------------------------------------------------
+
+
+.cs-gallery-item {
+  display: block;
+  position: relative;
+  text-decoration: none !important;
+  overflow: hidden;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+
+  > img {
+    display: block;
+    width: 100%;
+  }
+
+  // overlay
+  &::before {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: opacity .3s ease-in-out;
+    background-color: $gallery-overlay-bg;
+    content: '';
+    opacity: 0;
+    z-index: 1;
+  }
+
+  // indicator
+  &::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: $gallery-indicator-size;
+    height: $gallery-indicator-size;
+    margin: {
+      top: -($gallery-indicator-size / 2);
+      left: -($gallery-indicator-size / 2);
+    }
+    transform: scale(.3);
+    color: $gallery-image-indicator-color;
+    font: {
+      family: 'feather';
+      size: $gallery-image-indicator-font-size;
+    }
+    text-align: center;
+    line-height: $gallery-indicator-size;
+    content: '\ea25';
+    z-index: 5;
+  }
+
+  // item caption
+  .cs-gallery-caption {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: $spacer ($spacer / 2);
+    transform: translateY(.5rem);
+    color: $gallery-caption-color;
+    font-size: $gallery-caption-font-size;
+    text-align: center;
+    z-index: 5;
+  }
+
+  &::after,
+  .cs-gallery-caption {
+    transition: all .3s ease-in-out;
+    opacity: 0;
+  }
+  
+  // hover state
+  &:hover {
+    &::before, &::after,
+    .cs-gallery-caption {
+      transform: none;
+      opacity: 1;
+    }
+  }
+
+  // video item
+  &.cs-gallery-video::after {
+    padding-left: .125rem;
+    transform: none;
+    border-radius: 50%;
+    background-color: $gallery-video-indicator-bg;
+    color: $gallery-video-indicator-color;
+    font: {
+      size: $gallery-video-indicator-font-size;
+      weight: 700;
+    }
+    opacity: 1;
+    box-shadow: $gallery-video-indicator-box-shadow;
+    content: '\e9c3';
+  }
+}
+.cs-map-popup {
+  &::after { display: none; }
+  .cs-gallery-caption {
+    top: 50%;
+    bottom: auto;
+    transform: translateY(-50%);
+    font: {
+      size: $font-size-base;
+      weight: $font-weight-medium;
+    }
+  }
+  &:hover .cs-gallery-caption {
+    transform: translateY(-50%);
+  }
+}
+.lg-on { overflow: hidden; }
