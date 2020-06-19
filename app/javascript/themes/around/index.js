@@ -9,6 +9,7 @@ import 'bootstrap'
 import './stylesheets/theme.scss'
 
 // =========== Theme ===========
+require.context("./fonts", true)
 import Theme from './components/theme'
 
 function initTheme () {

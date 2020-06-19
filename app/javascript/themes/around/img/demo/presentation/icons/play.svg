@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 45 46" style="enable-background:new 0 0 45 46;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;stroke:#FFFFFF;stroke-width:0.5;}
+</style>
+<title>icon/play</title>
+<desc>Created with Sketch.</desc>
+<g>
+	<g id="Web-Template-Presentation" transform="translate(-697.000000, -3352.000000)">
+		<g id="Components" transform="translate(0.000000, 2906.000000)">
+			<g id="icon_box" transform="translate(601.000000, 429.000000)">
+				<g transform="translate(97.000000, 18.000000)">
+					<path id="Shape" class="st0" d="M21.5,0.5C9.6,0.5,0,10.1,0,22s9.6,21.5,21.5,21.5S43,33.9,43,22S33.4,0.5,21.5,0.5z
+						 M21.5,41.7C10.6,41.7,1.8,32.9,1.8,22S10.6,2.3,21.5,2.3S41.2,11.1,41.2,22S32.4,41.7,21.5,41.7z"/>
+					<path class="st0" d="M30,21.2l-12.5-8.1c-0.3-0.2-0.6-0.2-0.9,0c-0.3,0.2-0.5,0.5-0.5,0.8v16.1c0,0.3,0.2,0.6,0.5,0.8
+						c0.1,0.1,0.3,0.1,0.4,0.1c0.2,0,0.3,0,0.5-0.1L30,22.8c0.3-0.2,0.4-0.4,0.4-0.8S30.3,21.4,30,21.2z M17.9,28.4V15.6l10,6.4
+						L17.9,28.4z"/>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

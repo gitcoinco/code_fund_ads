@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="777px" height="676px" viewBox="0 0 777 676" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53 (72520) - https://sketchapp.com -->
+    <title>bg_shape</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Homepages-(Demos)" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Business-Consulting" transform="translate(-771.000000, -1258.000000)" fill="#F7F7FC">
+            <g id="Services" transform="translate(341.000000, 1180.000000)">
+                <g id="cards" transform="translate(344.000000, 0.000000)">
+                    <path d="M515.309848,746 C686.570835,746 939,569.097151 939,397.913288 C939,226.729425 662.616982,168.098814 491.355995,168.098814 C320.095008,168.098814 84,158.457595 84,329.641459 C84,500.825322 344.048861,746 515.309848,746 Z" id="bg_shape" transform="translate(511.500000, 457.000000) scale(-1, 1) rotate(26.000000) translate(-511.500000, -457.000000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

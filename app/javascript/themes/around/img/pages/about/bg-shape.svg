@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="646px" height="543px" viewBox="0 0 646 543" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 53 (72520) - https://sketchapp.com -->
+    <title>bg_shape</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="100%" y1="56.7401923%" x2="0%" y2="56.7401923%" id="linearGradient-1">
+            <stop stop-color="#6A9BF4" offset="0%"></stop>
+            <stop stop-color="#766DF4" offset="67.9272918%"></stop>
+            <stop stop-color="#766DF4" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Inner-Pages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" fill-opacity="0.95">
+        <g id="About" transform="translate(-919.000000, -138.000000)" fill="url(#linearGradient-1)">
+            <g id="Intro" transform="translate(345.000000, 89.000000)">
+                <g id="cards" transform="translate(526.000000, 0.000000)">
+                    <path d="M53.9213118,357.587217 C16.775548,423.70324 53.5756073,527.811645 245.263353,564.702307 C625.067354,637.796292 711.665492,395.747857 712.655796,283.272191 C713.806348,152.596094 576.728109,18.0276302 368.634201,64.316413 C160.540293,110.605196 235.841521,264.908408 177.524408,270.616266 C119.207294,276.324125 91.0670756,291.471193 53.9213118,357.587217 Z" id="bg_shape" transform="translate(376.831492, 316.606704) rotate(170.000000) translate(-376.831492, -316.606704) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
