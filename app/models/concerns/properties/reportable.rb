@@ -3,32 +3,38 @@ module Properties
     extend ActiveSupport::Concern
 
     module ClassMethods
-      def average_rpm_by_audience_and_region(start = 91.days.ago, stop = 1.day.ago)
+      def rpm_by_audience_and_region(start = 91.days.ago, stop = 1.day.ago)
         data = Property.includes(:audience).active.each_with_object({}) { |property, memo|
           property.average_rpm_by_region(start, stop).each do |region, rpm|
-            key = "#{property.audience.name} - #{region&.name || "Unknown"}"
-            memo[key] ||= []
-            memo[key] << rpm
+            memo[[property.audience, region]] ||= []
+            memo[[property.audience, region]] << rpm
           end
         }
-        data.each do |key, rpms|
-          list = rpms.select { |rpm| rpm > 0 }
-          data[key] = {
-            min: list.min,
-            max: list.max,
-            avg: list.size > 0 ? (list.sum / list.size.to_f) : nil
+        list = data.each_with_object([]) { |((audience, region), rpms), memo|
+          rpms = rpms.select { |rpm| rpm > 0 }
+          memo << {
+            audience: audience,
+            region: region,
+            min: rpms.min,
+            max: rpms.max,
+            avg: rpms.size > 0 ? (rpms.sum / rpms.size.to_f) : nil
           }
-        end
+        }
 
         # generate a csv report with this data
-        # CSV.open Rails.root.join("tmp/rpms.csv"), "wb" do |csv|
-        # csv << %w[category min max avg]
-        # data.each do |key, entry|
-        # csv << [key, entry[:min]&.format, entry[:max]&.format, entry[:avg]&.format]
-        # end
-        # end
+        CSV.open Rails.root.join("tmp/rpms.csv"), "wb" do |csv|
+          csv << %w[category min max avg]
+          list.each do |entry|
+            csv << [
+              "#{entry[:audience].name} - #{entry[:region]&.name}",
+              entry[:min]&.format,
+              entry[:max]&.format,
+              entry[:avg]&.format
+            ]
+          end
+        end
 
-        data
+        list
       end
     end
 

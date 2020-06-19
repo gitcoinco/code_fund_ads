@@ -207,13 +207,13 @@ class Impression < ApplicationRecord
   end
 
   def calculate_estimated_property_revenue_fractional_cents
-    revenue_percentage = property.revenue_percentage
-    value = calculate_estimated_gross_revenue_fractional_cents * revenue_percentage
+    percentage = property.revenue_percentage
+    value = calculate_estimated_gross_revenue_fractional_cents * percentage
     if campaign.pricing_plan_strategy? && campaign.pricing_plan.rpm > 0
       rpm = Money.new(value * 1000, "USD")
       while rpm > campaign.pricing_plan.rpm
-        revenue_percentage -= 0.1
-        value = calculate_estimated_gross_revenue_fractional_cents * revenue_percentage
+        percentage -= 0.1
+        value = calculate_estimated_gross_revenue_fractional_cents * percentage
         rpm = Money.new(value * 1000, "USD")
       end
     end
