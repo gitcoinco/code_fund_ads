@@ -1,0 +1,73 @@
+<div class="modal fade" id="modal-signin" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content border-0">
+      <div class="cs-view show" id="modal-signin-view">
+        <div class="modal-header border-0 bg-dark px-4">
+          <h4 class="modal-title text-light">Sign in</h4>
+          <button class="close text-light" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        </div>
+        <div class="modal-body px-4">
+          <p class="font-size-ms text-muted">Sign in to your account using email and password provided during registration.</p>
+          <form class="needs-validation" novalidate="">
+            <div class="input-group-overlay form-group">
+              <div class="input-group-prepend-overlay"><span class="input-group-text"><i class="fe-mail"></i></span></div>
+              <input class="form-control prepended-form-control" type="email" placeholder="Email" required="">
+            </div>
+            <div class="input-group-overlay cs-password-toggle form-group">
+              <div class="input-group-prepend-overlay"><span class="input-group-text"><i class="fe-lock"></i></span></div>
+              <input class="form-control prepended-form-control" type="password" placeholder="Password" required="">
+              <label class="cs-password-toggle-btn">
+                <input class="custom-control-input" type="checkbox"><i class="fe-eye cs-password-toggle-indicator"></i><span class="sr-only">Show password</span>
+              </label>
+            </div>
+            <div class="d-flex justify-content-between align-items-center form-group">
+              <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" id="keep-signed">
+                <label class="custom-control-label" for="keep-signed">Keep me signed in</label>
+              </div>
+              <a class="nav-link-style font-size-ms" href="password-recovery.html">Forgot password?</a>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit">Sign in</button>
+            <p class="font-size-sm pt-3 mb-0">Don't have an account? <a href="#" class="font-weight-medium" data-view="#modal-signup-view">Sign up</a></p>
+          </form>
+        </div>
+      </div>
+      <div class="cs-view" id="modal-signup-view">
+        <div class="modal-header border-0 bg-dark px-4">
+          <h4 class="modal-title text-light">Sign up</h4>
+          <button class="close text-light" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        </div>
+        <div class="modal-body px-4">
+          <p class="font-size-ms text-muted">Registration takes less than a minute but gives you full control over your orders.</p>
+          <form class="needs-validation" novalidate="">
+            <div class="form-group">
+              <input class="form-control" type="text" placeholder="Full name" required="">
+            </div>
+            <div class="form-group">
+              <input class="form-control" type="text" placeholder="Email" required="">
+            </div>
+            <div class="cs-password-toggle form-group">
+              <input class="form-control" type="password" placeholder="Password" required="">
+              <label class="cs-password-toggle-btn">
+                <input class="custom-control-input" type="checkbox"><i class="fe-eye cs-password-toggle-indicator"></i><span class="sr-only">Show password</span>
+              </label>
+            </div>
+            <div class="cs-password-toggle form-group">
+              <input class="form-control" type="password" placeholder="Confirm password" required="">
+              <label class="cs-password-toggle-btn">
+                <input class="custom-control-input" type="checkbox"><i class="fe-eye cs-password-toggle-indicator"></i><span class="sr-only">Show password</span>
+              </label>
+            </div>
+            <button class="btn btn-primary btn-block" type="submit">Sign up</button>
+            <p class="font-size-sm pt-3 mb-0">Already have an account? <a href="#" class="font-weight-medium" data-view="#modal-signin-view">Sign in</a></p>
+          </form>
+        </div>
+      </div>
+      <div class="modal-body text-center px-4 pt-2 pb-4">
+        <hr>
+        <p class="font-size-sm font-weight-medium text-heading pt-4">Or sign in with</p>
+        <a class="social-btn sb-facebook sb-lg mx-1 mb-2" href="#"><i class="fe-facebook"></i></a><a class="social-btn sb-twitter sb-lg mx-1 mb-2" href="#"><i class="fe-twitter"></i></a><a class="social-btn sb-instagram sb-lg mx-1 mb-2" href="#"><i class="fe-instagram"></i></a><a class="social-btn sb-google sb-lg mx-1 mb-2" href="#"><i class="fe-google"></i></a>
+      </div>
+    </div>
+  </div>
+</div>

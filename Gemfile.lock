@@ -495,9 +495,6 @@ GEM
       tilt (~> 2.0)
     sixarm_ruby_unaccent (1.2.0)
     slack-notifier (2.3.2)
-    slim (4.1.0)
-      temple (>= 0.7.6, < 0.9)
-      tilt (>= 2.0.6, < 2.1)
     smart_properties (1.15.0)
     solargraph (0.39.8)
       backport (~> 1.1)
@@ -548,7 +545,6 @@ GEM
     tag_columns (0.1.8)
       activesupport
     teamocil (1.4.2)
-    temple (0.8.2)
     thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
@@ -703,7 +699,6 @@ DEPENDENCIES
   simple_form (~> 5.0)
   simplecov
   slack-notifier (~> 2.3.2)
-  slim (~> 4.1)
   solargraph (~> 0.39)
   split (~> 3.4.1)
   spreadsheet (~> 1.2.4)
