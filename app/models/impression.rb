@@ -198,7 +198,7 @@ class Impression < ApplicationRecord
     return region.ecpm(audience) * campaign.ecpm_multiplier if campaign.region_and_audience_pricing_strategy?
 
     # pricing plan based pricing
-    price = campaign.pricing_plan.prices.call(audience: audience, region: region)
+    price = campaign.pricing_plan.prices.find_by(audience: audience, region: region)
     price.cpm * campaign.ecpm_multiplier
   end
 
