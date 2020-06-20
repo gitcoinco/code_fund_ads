@@ -95,6 +95,12 @@ class Organization < ApplicationRecord
 
   # public instance methods ...................................................
 
+  def to_builder
+    Jbuilder.new do |org|
+      org.(self, :name, :account_manager_user_id, :creative_approval_needed)
+    end
+  end
+
   def total_debits
     Money.new(organization_transactions.debits.sum(&:amount_cents), "USD")
   end

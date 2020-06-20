@@ -598,6 +598,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     yard (0.9.25)
+    zapier_ruby (1.0.1)
     zeitwerk (2.3.0)
 
 PLATFORMS
@@ -715,6 +716,7 @@ DEPENDENCIES
   web-console (>= 3.3.0)
   webmock
   webpacker (~> 5.1.1)
+  zapier_ruby (~> 1.0)
 
 RUBY VERSION
    ruby 2.6.6p146

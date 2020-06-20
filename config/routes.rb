@@ -27,6 +27,15 @@ Rails.application.routes.draw do
     resource :pixel_conversions, only: [:create], path: "conversions"
   end
 
+  # Zapier Webhook endpoints.
+  # TODO: Migrate to Grape when time is available
+  scope "/webhooks/zapier" do
+    get :me, to: "zapier#me"
+    get :account_managers, to: "zapier#account_managers"
+    get :organization, to: "zapier#organization"
+    post :organization, to: "zapier#create_organization"
+  end
+
   resources :jobs, only: [:index]
   resources :job_posting_prospects, except: [:index, :destroy], path: "/jobs/listings"
   scope "/jobs/listings/:job_posting_id" do
