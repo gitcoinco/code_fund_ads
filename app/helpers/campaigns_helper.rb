@@ -7,7 +7,8 @@ module CampaignsHelper
       {name: "Properties", path: campaign_properties_path(campaign)},
       {name: "Countries", path: campaign_countries_path(campaign)},
       {name: "Comments", path: campaign_comments_path(campaign), validation: authorized_user.can_view_comments?},
-      {name: "Settings", path: edit_campaign_path(campaign)}
+      {name: "Settings", path: edit_campaign_path(campaign)},
+      {name: "Estimate", path: campaign_estimate_path(campaign), validation: authorized_user.can_admin_system? && campaign.campaign_bundle}
     ]
   end
 

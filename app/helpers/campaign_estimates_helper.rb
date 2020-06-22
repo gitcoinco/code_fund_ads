@@ -1,0 +1,2 @@
+module CampaignEstimatesHelper
+end
