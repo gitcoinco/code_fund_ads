@@ -4,7 +4,7 @@ module Properties
       report = DailySummaryReport.scoped_by(self)
         .where(impressionable_type: "Campaign", impressionable_id: campaign_ids_relation(paid))
         .where(scoped_by_type: "Property", scoped_by_id: id)
-        .between(start || start_date, stop || end_date)
+        .between(start, stop)
         .load
 
       DailySummaryReport.new(
@@ -17,7 +17,34 @@ module Properties
     end
 
     def earnings(start = nil, stop = nil)
-      Money.new daily_summaries.scoped_by(nil).between(start || start_date, stop || end_date).sum(:property_revenue_cents)
+      Money.new daily_summaries.scoped_by(nil).between(start, stop).sum(:property_revenue_cents)
+    end
+
+    # Returns the average RPM (revenue per mille)
+    def average_rpm(start = nil, stop = nil)
+      s = summary(start, stop)
+      s.property_revenue / (s.impressions_count / 1000.to_f)
+    rescue => e
+      Rollbar.error e
+      Money.new 0
+    end
+
+    # Returns an ActiveRecord relation for DailySummaryReports scoped to country
+    def country_summaries(start = nil, stop = nil)
+      DailySummaryReport
+        .scoped_by_type(:country_code)
+        .where(impressionable_type: "Property", impressionable_id: id)
+        .between(start, stop)
+    end
+
+    # Returns a Hash keyed as: Region => [DailySummaryReport, ...]
+    # where the list is comprised of DailySummaryReports scoped to country
+    def region_summaries(start = nil, stop = nil)
+      country_summaries(start, stop).each_with_object({}) do |summary, memo|
+        region = Region.with_all_country_codes(summary.scoped_by_id).first
+        memo[region] ||= []
+        memo[region] << summary
+      end
     end
 
     # Daily report -------------------------------------------------------------------------------------------
@@ -32,7 +59,7 @@ module Properties
         .select(DailySummary.arel_table[:property_revenue_cents].sum.as("property_revenue_cents"))
         .select(DailySummary.arel_table[:house_revenue_cents].sum.as("house_revenue_cents"))
         .where(impressionable_type: "Campaign", impressionable_id: campaign_ids_relation(paid))
-        .between(start || start_date, stop || end_date)
+        .between(start, stop)
         .group(:displayed_at_date)
         .order(:displayed_at_date)
     end
