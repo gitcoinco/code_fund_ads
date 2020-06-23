@@ -1,0 +1,13 @@
+<%= render(PageComponent.new(subject: @campaign, sidebar: true, tabs: TabsComponent.new(tabs: campaign_tabs(@campaign)))) do |component| %>
+  <% component.with(:header) do %>
+    <%= render(Page::HeaderComponent.new(title: @campaign.name, sidebar: true, datepicker: true, buttons: [
+      layout_button(link: {date_range: @campaign.date_range}, icon: "fad fa-calendar-star", title: "Set date range to campaign dates"),
+      layout_button(link: new_campaign_path(clone: @campaign.id), icon: "fad fa-copy", title: "Clone campaign"),
+      layout_button(link: campaign_path(@campaign.id, params: {campaign: {status: "paused"}}), method: :put, icon: "fad fa-pause", title: "Pause campaign", display: @campaign.active?),
+      layout_button(link: campaign_path(@campaign.id, params: {campaign: {status: "active"}}), method: :put, icon: "fad fa-play", title: "Activate campaign", display: @campaign.paused?)
+    ])) %>
+  <% end %>
+  <% component.with(:body) do %>
+    <%= render "/campaign_bundles/campaigns/inventory", campaign: @campaign if @campaign.start_date && @campaign.region_ids.present? && @campaign.audience_ids.present? %>
+  <% end %>
+<% end %>
