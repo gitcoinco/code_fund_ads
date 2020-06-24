@@ -23,7 +23,7 @@ module Properties
     # Returns the average RPM (revenue per mille)
     def average_rpm(start = nil, stop = nil)
       s = summary(start, stop)
-      s.property_revenue.to_i / (s.impressions_count.to_i / 1000.to_f)
+      Money.new s.property_revenue.to_i / (s.impressions_count.to_i / 1000.to_f)
     rescue => e
       Rollbar.error e
       Money.new 0
