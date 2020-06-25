@@ -2,42 +2,6 @@ module Properties
   module Reportable
     extend ActiveSupport::Concern
 
-    module ClassMethods
-      def rpm_by_audience_and_region(start = 91.days.ago, stop = 1.day.ago)
-        data = Property.includes(:audience).active.each_with_object({}) { |property, memo|
-          property.average_rpm_by_region(start, stop).each do |region, rpm|
-            memo[[property.audience, region]] ||= []
-            memo[[property.audience, region]] << rpm
-          end
-        }
-        list = data.each_with_object([]) { |((audience, region), rpms), memo|
-          rpms = rpms.select { |rpm| rpm > 0 }
-          memo << {
-            audience: audience,
-            region: region,
-            min: rpms.min,
-            max: rpms.max,
-            avg: rpms.size > 0 ? (rpms.sum / rpms.size.to_f) : nil
-          }
-        }
-
-        # generate a csv report with this data
-        CSV.open Rails.root.join("tmp/rpms.csv"), "wb" do |csv|
-          csv << %w[category min max avg]
-          list.each do |entry|
-            csv << [
-              "#{entry[:audience].name} - #{entry[:region]&.name}",
-              entry[:min]&.format,
-              entry[:max]&.format,
-              entry[:avg]&.format
-            ]
-          end
-        end
-
-        list
-      end
-    end
-
     def summary(start = nil, stop = nil, paid: true)
       report = DailySummaryReport.scoped_by(self)
         .where(impressionable_type: "Campaign", impressionable_id: campaign_ids_relation(paid))
@@ -61,14 +25,12 @@ module Properties
     # Returns the average RPM (revenue per mille)
     def average_rpm(start = nil, stop = nil)
       s = summary(start, stop)
-      if s.impressions_count.to_i > 0
-        Money.new s.property_revenue.to_i / (s.impressions_count.to_i / 1000.to_f)
-      else
-        Money.new 0
-      end
+      return Money.new(0, "USD") unless s.impressions_count > 0
+      return Money.new(0, "USD") unless s.property_revenue.is_a?(Money)
+      s.property_revenue / (s.impressions_count / 1000.to_f)
     rescue => e
       Rollbar.error e
-      Money.new 0
+      Money.new 0, "USD"
     end
 
     # Returns an ActiveRecord relation for DailySummaryReports scoped to country
@@ -88,16 +50,6 @@ module Properties
         }
         memo[region] ||= []
         memo[region] << summary
-      end
-    end
-
-    # Returns a Hash keyed as: Region => Money
-    # where the value is the average RPM for the region
-    def average_rpm_by_region(start = nil, stop = nil)
-      region_summaries(start, stop).each_with_object({}) do |(region, summaries), memo|
-        mille = summaries.sum(&:paid_impressions_count) / 1000.to_f
-        property_revenue = summaries.sum(&:property_revenue)
-        memo[region] = mille > 0 ? property_revenue / mille : Money.new(0)
       end
     end
 
