@@ -12,7 +12,7 @@ module CampaignsHelper
     if authorized_user.can_admin_system? && campaign.campaign_bundle
       tabs << {
         name: "Estimate",
-        path: campaign_estimate_path(id: campaign.id)
+        path: campaign_estimate_path(id: campaign.id, campaign_id: campaign.id) # TODO Refactor
       }
     end
     tabs

@@ -41,7 +41,7 @@ class ImpressionsController < ApplicationController
       @virtual_impression[:ad_theme],
       @virtual_impression[:ip_address],
       @virtual_impression[:country_code],
-      request.user_agent.encode(Encoding::UTF_8, invalid: :replace),
+      request.user_agent.encode(Encoding::UTF_8, invalid: :replace, undef: :replace, replace: ""),
       Time.current.iso8601
     )
   end
