@@ -6,9 +6,10 @@ class PropertyInstructionsController < ApplicationController
 
   def set_property
     @property = if authorized_user.can_admin_system?
-      Property.find(params[:property_id])
+      Property.find_by(id: params[:property_id])
     else
-      current_user.properties.find(params[:property_id])
+      current_user.properties.find_by(id: params[:property_id])
     end
+    render_not_found unless @property
   end
 end

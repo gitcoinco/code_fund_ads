@@ -1,6 +1,6 @@
 module CampaignsHelper
   def campaign_tabs(campaign)
-    [
+    tabs = [
       {name: "Overview", path: campaign_path(campaign), active: :exact},
       {name: "Daily Stats", path: campaign_dailies_path(campaign)},
       {name: "Creatives", path: campaign_creatives_path(campaign)},
@@ -9,6 +9,13 @@ module CampaignsHelper
       {name: "Comments", path: campaign_comments_path(campaign), validation: authorized_user.can_view_comments?},
       {name: "Settings", path: edit_campaign_path(campaign)}
     ]
+    if authorized_user.can_admin_system? && campaign.campaign_bundle
+      tabs << {
+        name: "Estimate",
+        path: campaign_estimate_path(id: campaign.id, campaign_id: campaign.id) # TODO Refactor
+      }
+    end
+    tabs
   end
 
   def campaign_reports_email_error_message(campaign)

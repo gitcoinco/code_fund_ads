@@ -71,7 +71,11 @@ class PixelsController < ApplicationController
 
   def pixel_params
     params.require(:pixel).permit(:description, :name, :value, :user_id).tap do |whitelisted|
-      whitelisted[:user_id] = params[:pixel][:user_id] if authorized_user.can_admin_system?
+      whitelisted[:user_id] = if authorized_user.can_admin_system?
+        params[:pixel][:user_id]
+      else
+        current_user.id
+      end
     end
   end
 end
