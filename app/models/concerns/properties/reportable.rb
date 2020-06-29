@@ -33,6 +33,16 @@ module Properties
       Money.new 0, "USD"
     end
 
+    # Returns a Hash keyed as: Region => Money
+    # where the value is the average RPM for the region
+    def average_rpm_by_region(start = nil, stop = nil)
+      region_summaries(start, stop).each_with_object({}) do |(region, summaries), memo|
+        mille = summaries.sum(&:paid_impressions_count) / 1000.to_f
+        property_revenue = summaries.sum(&:property_revenue)
+        memo[region] = mille > 0 ? property_revenue / mille : Money.new(0)
+      end
+    end
+
     # Returns an ActiveRecord relation for DailySummaryReports scoped to country
     def country_summaries(start = nil, stop = nil)
       DailySummaryReport
