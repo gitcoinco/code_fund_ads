@@ -188,22 +188,11 @@ http {
       proxy_redirect off;
       proxy_pass http://unix:///tmp/nginx.socket:;
     }
-
-    location / {
-      proxy_set_header X-Real-IP $remote_addr;
-      proxy_set_header X-Forwarded-Proto https;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Content-Type-Options nosniff;
-      proxy_set_header Host $http_host;
-      proxy_redirect off;
-      proxy_ssl_server_name on;
-      proxy_pass http://codefund.flywheelsites.com;
-    }
   }
 
   server {
     listen <%= ENV["PORT"] %>;
-    server_name <%= ENV["APP_SUBDOMAIN"] || "app" %>.codefund.io api.codefund.io api.codefund.app;
+    server_name codefund.io <%= ENV["APP_SUBDOMAIN"] || "app" %>.codefund.io api.codefund.io api.codefund.app;
     keepalive_timeout 5;
     client_max_body_size <%= ENV['NGINX_CLIENT_MAX_BODY_SIZE'] || 1 %>M;
 
