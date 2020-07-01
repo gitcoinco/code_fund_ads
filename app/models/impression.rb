@@ -195,9 +195,11 @@ class Impression < ApplicationRecord
 
   def applicable_ecpm
     return campaign.adjusted_ecpm(country_code) if campaign.campaign_pricing_strategy?
+    return region.ecpm(audience) * campaign.ecpm_multiplier if campaign.region_and_audience_pricing_strategy?
 
-    # region/audience based ecpm i.e. our new sales strategy
-    region.ecpm(audience) * campaign.ecpm_multiplier
+    # pricing plan based pricing
+    price = campaign.pricing_plan.prices.find_by(audience: audience, region: region)
+    price.cpm * campaign.ecpm_multiplier
   end
 
   def calculate_estimated_gross_revenue_fractional_cents
@@ -205,7 +207,17 @@ class Impression < ApplicationRecord
   end
 
   def calculate_estimated_property_revenue_fractional_cents
-    calculate_estimated_gross_revenue_fractional_cents * property.revenue_percentage
+    percentage = property.revenue_percentage
+    value = calculate_estimated_gross_revenue_fractional_cents * percentage
+    if campaign.pricing_plan_strategy? && campaign.pricing_plan.rpm > 0
+      rpm = Money.new(value * 1000, "USD")
+      while rpm > campaign.pricing_plan.rpm
+        percentage -= 0.1
+        value = calculate_estimated_gross_revenue_fractional_cents * percentage
+        rpm = Money.new(value * 1000, "USD")
+      end
+    end
+    value
   end
 
   def calculate_estimated_house_revenue_fractional_cents

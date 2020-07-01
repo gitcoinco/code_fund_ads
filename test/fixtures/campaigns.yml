@@ -38,6 +38,7 @@
 #  creative_id             :bigint
 #  legacy_id               :uuid
 #  organization_id         :bigint
+#  pricing_plan_id         :bigint
 #  user_id                 :bigint
 #
 # Indexes
@@ -56,6 +57,7 @@
 #  index_campaigns_on_negative_keywords        (negative_keywords) USING gin
 #  index_campaigns_on_organization_id          (organization_id)
 #  index_campaigns_on_paid_fallback            (paid_fallback)
+#  index_campaigns_on_pricing_plan_id          (pricing_plan_id)
 #  index_campaigns_on_prohibited_property_ids  (prohibited_property_ids) USING gin
 #  index_campaigns_on_province_codes           (province_codes) USING gin
 #  index_campaigns_on_region_ids               (region_ids) USING gin

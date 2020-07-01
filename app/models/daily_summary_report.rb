@@ -58,6 +58,8 @@ class DailySummaryReport < ApplicationRecord
       .select(arel_table[:unique_ip_addresses_count].sum.as("unique_ip_addresses_count"))
       .select(arel_table[:impressions_count].sum.as("impressions_count"))
       .select(arel_table[:clicks_count].sum.as("clicks_count"))
+      .select(arel_table[:fallbacks_count].sum.as("fallbacks_count"))
+      .select(arel_table[:fallback_clicks_count].sum.as("fallback_clicks_count"))
       .select(arel_table[:gross_revenue_cents].sum.as("gross_revenue_cents"))
       .select(arel_table[:property_revenue_cents].sum.as("property_revenue_cents"))
       .select(arel_table[:house_revenue_cents].sum.as("house_revenue_cents"))
@@ -99,6 +101,10 @@ class DailySummaryReport < ApplicationRecord
   monetize :gross_revenue_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :property_revenue_cents, numericality: {greater_than_or_equal_to: 0}
   monetize :house_revenue_cents, numericality: {greater_than_or_equal_to: 0}
+
+  def paid_impressions_count
+    impressions_count - fallbacks_count
+  end
 
   # class methods .............................................................
 

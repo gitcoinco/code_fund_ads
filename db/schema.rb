@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_28_141603) do
+ActiveRecord::Schema.define(version: 2020_06_19_172708) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -72,8 +72,10 @@ ActiveRecord::Schema.define(version: 2020_05_28_141603) do
     t.bigint "region_ids", default: [], array: true
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "pricing_plan_id"
     t.index "lower((name)::text)", name: "index_campaign_bundles_on_name"
     t.index ["end_date"], name: "index_campaign_bundles_on_end_date"
+    t.index ["pricing_plan_id"], name: "index_campaign_bundles_on_pricing_plan_id"
     t.index ["region_ids"], name: "index_campaign_bundles_on_region_ids", using: :gin
     t.index ["start_date"], name: "index_campaign_bundles_on_start_date"
   end
@@ -115,6 +117,7 @@ ActiveRecord::Schema.define(version: 2020_05_28_141603) do
     t.bigint "audience_ids", default: [], null: false, array: true
     t.bigint "region_ids", default: [], null: false, array: true
     t.decimal "ecpm_multiplier", default: "1.0", null: false
+    t.bigint "pricing_plan_id"
     t.index "lower((name)::text)", name: "index_campaigns_on_name"
     t.index ["assigned_property_ids"], name: "index_campaigns_on_assigned_property_ids", using: :gin
     t.index ["audience_ids"], name: "index_campaigns_on_audience_ids", using: :gin
@@ -129,6 +132,7 @@ ActiveRecord::Schema.define(version: 2020_05_28_141603) do
     t.index ["negative_keywords"], name: "index_campaigns_on_negative_keywords", using: :gin
     t.index ["organization_id"], name: "index_campaigns_on_organization_id"
     t.index ["paid_fallback"], name: "index_campaigns_on_paid_fallback"
+    t.index ["pricing_plan_id"], name: "index_campaigns_on_pricing_plan_id"
     t.index ["prohibited_property_ids"], name: "index_campaigns_on_prohibited_property_ids", using: :gin
     t.index ["province_codes"], name: "index_campaigns_on_province_codes", using: :gin
     t.index ["region_ids"], name: "index_campaigns_on_region_ids", using: :gin
@@ -536,6 +540,28 @@ ActiveRecord::Schema.define(version: 2020_05_28_141603) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["organization_id"], name: "index_pixels_on_organization_id"
     t.index ["user_id"], name: "index_pixels_on_user_id"
+  end
+
+  create_table "prices", force: :cascade do |t|
+    t.bigint "pricing_plan_id", null: false
+    t.bigint "audience_id", null: false
+    t.bigint "region_id", null: false
+    t.integer "cpm_cents", default: 0, null: false
+    t.string "cpm_currency", default: "USD", null: false
+    t.integer "rpm_cents", default: 0, null: false
+    t.string "rpm_currency", default: "USD", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["audience_id"], name: "index_prices_on_audience_id"
+    t.index ["pricing_plan_id", "audience_id", "region_id"], name: "index_prices_on_pricing_plan_id_and_audience_id_and_region_id", unique: true
+    t.index ["region_id"], name: "index_prices_on_region_id"
+  end
+
+  create_table "pricing_plans", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_pricing_plans_on_name", unique: true
   end
 
   create_table "properties", force: :cascade do |t|

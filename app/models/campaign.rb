@@ -38,6 +38,7 @@
 #  creative_id             :bigint
 #  legacy_id               :uuid
 #  organization_id         :bigint
+#  pricing_plan_id         :bigint
 #  user_id                 :bigint
 #
 # Indexes
@@ -56,6 +57,7 @@
 #  index_campaigns_on_negative_keywords        (negative_keywords) USING gin
 #  index_campaigns_on_organization_id          (organization_id)
 #  index_campaigns_on_paid_fallback            (paid_fallback)
+#  index_campaigns_on_pricing_plan_id          (pricing_plan_id)
 #  index_campaigns_on_prohibited_property_ids  (prohibited_property_ids) USING gin
 #  index_campaigns_on_province_codes           (province_codes) USING gin
 #  index_campaigns_on_region_ids               (region_ids) USING gin
@@ -84,10 +86,11 @@ class Campaign < ApplicationRecord
   include Taggable
 
   # relationships .............................................................
-  belongs_to :campaign_bundle, optional: true
   belongs_to :audience, optional: true
-  belongs_to :region, optional: true
+  belongs_to :campaign_bundle, optional: true
   belongs_to :creative, -> { includes :creative_images }, optional: true
+  belongs_to :pricing_plan, optional: true
+  belongs_to :region, optional: true
   belongs_to :user
   has_many :pixel_conversions
 
@@ -293,7 +296,12 @@ class Campaign < ApplicationRecord
     pricing_strategy == ENUMS::CAMPAIGN_PRICING_STRATEGIES::CAMPAIGN
   end
 
+  def pricing_plan_strategy?
+    pricing_strategy == ENUMS::CAMPAIGN_PRICING_STRATEGIES::PRICING_PLAN
+  end
+
   def pricing_strategy
+    return ENUMS::CAMPAIGN_PRICING_STRATEGIES::PRICING_PLAN if pricing_plan
     return ENUMS::CAMPAIGN_PRICING_STRATEGIES::REGION_AND_AUDIENCE if campaign_bundle
     return ENUMS::CAMPAIGN_PRICING_STRATEGIES::REGION_AND_AUDIENCE if start_date >= Date.parse("2020-06-01")
     ENUMS::CAMPAIGN_PRICING_STRATEGIES::CAMPAIGN
