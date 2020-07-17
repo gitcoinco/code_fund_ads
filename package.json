@@ -29,7 +29,7 @@
     "codesandbox": "^2.1.12",
     "jquery": "=3.5.0",
     "jquery-validation": "^1.19.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "lozad": "^1.14.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.28",
